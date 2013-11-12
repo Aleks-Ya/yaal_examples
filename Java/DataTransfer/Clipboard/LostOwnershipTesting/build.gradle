@@ -1,0 +1,10 @@
+apply plugin: 'java'
+test {
+    useTestNG()
+}
+dependencies {
+    testCompile 'org.testng:testng:6.8.5','org.mockito:mockito-all:1.9.5'
+}
+repositories {
+    mavenCentral()
+}

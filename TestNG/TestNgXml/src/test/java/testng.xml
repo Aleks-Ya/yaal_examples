@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" verbose="1">
+    <test name="ClassOneTests">
+        <groups>
+            <run>
+                <include name="third_group"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="ru.yaal.examples.testng.testngxml"/>
+        </packages>
+        <classes>
+            <class name="ru.yaal.examples.testng.testngxml.pack1.ClassOneSecondTest"/>
+            <class name="ru.yaal.examples.testng.testngxml.pack1.ClassOneThirdTest"/>
+        </classes>
+    </test>
+</suite>

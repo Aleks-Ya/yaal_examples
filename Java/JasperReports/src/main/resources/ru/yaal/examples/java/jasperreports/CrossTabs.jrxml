@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="JasperReportsI18n.jrxml" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dd7649b3-dd47-46ef-9ce4-5f081b77f530">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="DatasetUsers" uuid="247694ba-886a-420f-bb30-defce70dd6f7">
+		<queryString>
+			<![CDATA[SELECT  * FROM  public.us_user;]]>
+		</queryString>
+		<field name="last_name" class="java.lang.String"/>
+		<field name="first_name" class="java.lang.String"/>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[SELECT g.name AS group_name, p.name AS product_name, price.price AS price
+FROM un_cg_group AS g, un_cg_product AS p, un_cg_manufacturer, un_cg_price AS price
+WHERE p.group_code = g.code AND p.manufacturer_code = un_cg_manufacturer.code
+AND price.product_marking = p.markingofthegood
+AND price.product_status = p.status
+ORDER BY price
+LIMIT 100;]]>
+	</queryString>
+	<field name="group_name" class="java.lang.String"/>
+	<field name="product_name" class="java.lang.String"/>
+	<field name="price" class="java.math.BigInteger"/>
+	<group name="PriceMore10000" isStartNewColumn="true">
+		<groupExpression><![CDATA[$F{price}.compareTo(1000) > 0]]></groupExpression>
+		<groupHeader>
+			<band height="22">
+				<staticText>
+					<reportElement uuid="b377301e-5f6f-46e7-a4e7-6f78baad8a23" x="145" y="0" width="100" height="20"/>
+					<textElement/>
+					<text><![CDATA[Дороже 10 00:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="24">
+				<staticText>
+					<reportElement uuid="8cb6f14e-1221-4b97-bdec-d073619b990f" x="145" y="0" width="151" height="20"/>
+					<textElement/>
+					<text><![CDATA[конец дороже 10 00]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="PriceQuealsOrSmaller10000" isStartNewColumn="true">
+		<groupExpression><![CDATA[$F{price}.compareTo(1000) <=0]]></groupExpression>
+		<groupHeader>
+			<band height="22">
+				<staticText>
+					<reportElement uuid="da89d55b-1842-41d5-9065-b4427d033302" x="119" y="0" width="100" height="20"/>
+					<textElement/>
+					<text><![CDATA[Дешевле 1000]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="22">
+				<staticText>
+					<reportElement uuid="566f9cb7-80e4-4338-845a-d98e435fed09" x="100" y="0" width="100" height="20"/>
+					<textElement/>
+					<text><![CDATA[Конец дешевле 1000]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9e6347b3-d7e9-4aba-87e5-b77b9cbabc6f" x="0" y="0" width="802" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Отчет по товарам]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement uuid="44231f7f-39f3-4584-bdcf-fa82325a2830" x="615" y="0" width="187" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Страница № " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="847a52ab-32c4-4f85-a983-b4d9c2417fc9" x="119" y="1" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Наименование]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="8674d476-c9ba-4e6a-8d73-1074bfa666b7" x="0" y="26" width="802" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="8581a1f3-0b89-4a45-9d75-2a6519a099e5" x="268" y="1" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Группа]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="783cfdde-f06b-4391-b73b-724bf8962a8f" x="402" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Цена]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement uuid="b0a33596-b40b-4d86-a951-be148c670334" x="119" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{product_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a8096104-315c-4729-a960-5b78edd352d2" x="268" y="3" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{group_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a3be6d82-c70b-49fb-93d4-e94085e0f864" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="617f4108-73dc-463a-b861-5ad0f7b29a9c" x="402" y="3" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9226f930-385b-4efd-a94f-fef444cb48b0" x="534" y="3" width="279" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{price}.compareTo(1000)]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="21" splitType="Stretch">
+			<line>
+				<reportElement uuid="ada31afe-8aa9-4f2b-a42b-648274414065" x="0" y="0" width="802" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="069ba62a-e291-4cba-ab4a-27a0be81d0e9" x="581" y="1" width="221" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Конец страницы № " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9887100f-f5d8-405f-a79c-d5673a11a610" x="178" y="0" width="155" height="20"/>
+				<textElement>
+					<font size="14" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Листай дальше!]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="111" splitType="Stretch">
+			<crosstab>
+				<reportElement uuid="c99b5a45-c7ec-483f-98ff-837a8b03902f" x="0" y="0" width="802" height="84"/>
+				<crosstabDataset>
+					<dataset>
+						<datasetRun subDataset="DatasetUsers" uuid="0232c6e6-a3a3-4775-a9c6-b9e5f0a426cb">
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+				</crosstabDataset>
+				<rowGroup name="last_name" width="70" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{last_name}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement uuid="1cdf5e0d-25e4-421f-9338-86a3a9b262a1" style="Crosstab Data Text" x="0" y="0" width="70" height="25"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$V{last_name}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement uuid="9d448296-a2f0-4f9c-aa4f-163029db264c" x="0" y="0" width="70" height="25"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total last_name]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="last_name1" height="30" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{last_name}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement uuid="7ba8561a-2d22-467a-b8ac-c6bf27a31a14" style="Crosstab Data Text" x="0" y="0" width="50" height="30"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$V{last_name1}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement uuid="f9803690-ea2c-4511-bad3-bc7c3084b850" x="0" y="0" width="50" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total last_name1]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="last_nameMeasure" class="java.lang.Integer" calculation="Count">
+					<measureExpression><![CDATA[$F{last_name}]]></measureExpression>
+				</measure>
+				<crosstabCell width="50" height="25">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="76046f68-0fef-4560-9d53-05e9d24da469" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{last_nameMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="last_name">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="a7afd626-db01-4dec-ad6b-6abd7668605a" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{last_nameMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="last_name1">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="401a5a58-9a23-4643-a988-0025e5d4efc4" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{last_nameMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="last_name" columnTotalGroup="last_name1">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="cc25fde6-f607-41bd-b6ca-b70a8858abdb" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{last_nameMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>
