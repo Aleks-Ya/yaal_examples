@@ -19,6 +19,8 @@
     <orderEntry type="library" scope="TEST" name="snakeyaml-1.12" level="project" />
     <orderEntry type="library" scope="TEST" name="jcommander-1.27" level="project" />
     <orderEntry type="library" scope="TEST" name="bsh-2.0b4" level="project" />
+    <orderEntry type="library" exported="" name="commons-collections-3.2.1" level="project" />
+    <orderEntry type="library" exported="" name="org.apache.commons.collections-3.2.1" level="project" />
   </component>
 </module>
 
