@@ -1,0 +1,8 @@
+apply plugin: 'java'
+dependencies {
+    compile 'org.hibernate:hibernate-core:4.2.6.Final', 'org.postgresql:postgresql:9.3-1100-jdbc41'
+}
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
