@@ -2,6 +2,7 @@ package ru.yaal.examples.database.hibernate.bidirectassosiation;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 
 import java.util.List;
 
@@ -20,7 +21,9 @@ public class Main {
 
     private static void loadEntities() throws Exception {
         Session session = Factory.getSessionFactory().openSession();
-        List<Slip> allSlips = session.createCriteria (Slip.class).list();
+        List<Payment> allPayments = session.createCriteria(Payment.class).addOrder(Order.desc("id")).list();
+        List<Payment> allTransactions = session.createCriteria(Transaction.class).addOrder(Order.desc("id")).list();
+        List<Slip> allSlips = session.createCriteria(Slip.class).addOrder(Order.desc("id")).list();
         session.close();
     }
 
