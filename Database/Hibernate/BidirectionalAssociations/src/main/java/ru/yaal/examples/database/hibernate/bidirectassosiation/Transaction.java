@@ -1,20 +1,12 @@
 package ru.yaal.examples.database.hibernate.bidirectassosiation;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Embeddable
 public class Transaction {
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue
     private Long id;
     @EmbeddedId
     private Payment payment;
