@@ -1,9 +1,10 @@
 package ru.yaal.examples.database.hibernate.bidirectassosiation;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
-@Embeddable
 public class Payment {
     @Id
     @GeneratedValue

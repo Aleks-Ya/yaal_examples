@@ -1,6 +1,5 @@
 package ru.yaal.examples.database.hibernate.bidirectassosiation;
 
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -16,7 +15,7 @@ public class Main {
             sessionFactory = main.getSessionFactory();
             Session session = sessionFactory.openSession();
 
-            Payment payment = new Payment();
+            Payment payment = new Payment("Bike buy");
 
             Transaction transaction = new Transaction(payment);
 
@@ -28,8 +27,8 @@ public class Main {
             session.save(transaction);
             session.save(slipA);
             session.save(slipB);
-            session.flush();
             session.getTransaction().commit();
+            session.flush();
 
         } finally {
             if (sessionFactory != null) {
@@ -57,7 +56,7 @@ public class Main {
         properties.put("hibernate.cache.use_second_level_cache", "false");
         properties.put("hibernate.cache.use_query_cache", "false");
         properties.put("hibernate.show_sql", "true");
-        properties.put("hibernate.hbm2ddl.auto", "create");
+        properties.put("hibernate.hbm2ddl.auto", "update");
         return properties;
     }
 

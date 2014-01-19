@@ -1,16 +1,13 @@
 package ru.yaal.examples.database.hibernate.bidirectassosiation;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Slip {
     @Id
     @GeneratedValue
     private Long id;
-    @EmbeddedId
+    @OneToOne
     private Transaction transaction;
     private String content;
 
