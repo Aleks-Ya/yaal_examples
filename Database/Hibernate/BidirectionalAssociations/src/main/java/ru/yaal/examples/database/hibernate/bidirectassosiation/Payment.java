@@ -2,10 +2,7 @@ package ru.yaal.examples.database.hibernate.bidirectassosiation;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Embeddable
@@ -14,6 +11,14 @@ public class Payment {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
+    private String description;
+
+    public Payment() {
+    }
+
+    public Payment(String description) {
+        this.description = description;
+    }
 
     public Long getId() {
         return id;
@@ -23,4 +28,11 @@ public class Payment {
         this.id = id;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
