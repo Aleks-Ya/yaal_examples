@@ -1,9 +1,7 @@
 package ru.yaal.examples.database.hibernate.bidirectassosiation;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Transaction {
@@ -12,6 +10,8 @@ public class Transaction {
     private Long id;
     @OneToOne
     private Payment payment;
+    @OneToMany(mappedBy = "transaction")
+    private Set<Slip> slips;
 
     public Transaction() {
     }

@@ -7,7 +7,8 @@ public class Slip {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name="transaction")
     private Transaction transaction;
     private String content;
 
