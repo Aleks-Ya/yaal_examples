@@ -7,8 +7,8 @@ public class Slip {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToOne
-    @JoinColumn(name="transaction")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "transaction")
     private Transaction transaction;
     private String content;
 
@@ -17,6 +17,10 @@ public class Slip {
 
     public Slip(Transaction transaction, String content) {
         this.transaction = transaction;
+        this.content = content;
+    }
+
+    public Slip(String content) {
         this.content = content;
     }
 

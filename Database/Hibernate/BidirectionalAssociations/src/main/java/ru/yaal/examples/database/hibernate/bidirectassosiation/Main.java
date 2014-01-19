@@ -4,7 +4,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -32,16 +34,23 @@ public class Main {
 
         Payment payment = new Payment("Bike buy");
 
-        Transaction transaction = new Transaction(payment);
+        Transaction transaction = new Transaction();
+        payment.setTransaction(transaction);
 
-        Slip slipA = new Slip(transaction, "С Вас 1 000 $$$");
-        Slip slipB = new Slip(transaction, "С Вас $10 000 000");
+        Slip slipA = new Slip("С Вас 1 000 $$$");
+        Slip slipB = new Slip("С Вас $10 000 000");
+
+        Set<Slip> slips = new HashSet<Slip>();
+        slips.add(slipA);
+        slips.add(slipB);
+
+        transaction.setSlips(slips);
 
         session.beginTransaction();
         session.save(payment);
-        session.save(transaction);
-        session.save(slipA);
-        session.save(slipB);
+//        session.save(transaction);
+//        session.save(slipA);
+//        session.save(slipB);
         session.getTransaction().commit();
         session.flush();
     }

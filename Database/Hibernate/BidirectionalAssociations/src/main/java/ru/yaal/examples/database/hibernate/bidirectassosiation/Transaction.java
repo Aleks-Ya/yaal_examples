@@ -8,9 +8,9 @@ public class Transaction {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Payment payment;
-    @OneToMany(mappedBy = "transaction")
+    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
     private Set<Slip> slips;
 
     public Transaction() {
@@ -36,4 +36,11 @@ public class Transaction {
         this.payment = payment;
     }
 
+    public Set<Slip> getSlips() {
+        return slips;
+    }
+
+    public void setSlips(Set<Slip> slips) {
+        this.slips = slips;
+    }
 }

@@ -1,16 +1,13 @@
 package ru.yaal.examples.database.hibernate.bidirectassosiation;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Payment {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne(mappedBy = "payment")
+    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
     private Transaction transaction;
     private String description;
 

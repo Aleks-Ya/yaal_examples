@@ -38,7 +38,7 @@ public class Factory {
         properties.put("hibernate.cache.use_second_level_cache", "false");
         properties.put("hibernate.cache.use_query_cache", "false");
         properties.put("hibernate.show_sql", "true");
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create");
         return properties;
     }
 
