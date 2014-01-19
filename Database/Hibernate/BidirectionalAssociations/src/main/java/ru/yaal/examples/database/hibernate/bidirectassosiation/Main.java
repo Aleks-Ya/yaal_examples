@@ -21,14 +21,6 @@ public class Main {
         }
     }
 
-    private static void loadEntities() throws Exception {
-        Session session = Factory.getSessionFactory().openSession();
-        List<Payment> allPayments = session.createCriteria(Payment.class).addOrder(Order.desc("id")).list();
-        List<Payment> allTransactions = session.createCriteria(Transaction.class).addOrder(Order.desc("id")).list();
-        List<Slip> allSlips = session.createCriteria(Slip.class).addOrder(Order.desc("id")).list();
-        session.close();
-    }
-
     private static void saveEntities() throws Exception {
         Session session = Factory.getSessionFactory().openSession();
 
@@ -53,5 +45,13 @@ public class Main {
 //        session.save(slipB);
         session.getTransaction().commit();
         session.flush();
+    }
+
+    private static void loadEntities() throws Exception {
+        Session session = Factory.getSessionFactory().openSession();
+        List<Payment> allPayments = session.createCriteria(Payment.class).addOrder(Order.desc("id")).list();
+        List<Payment> allTransactions = session.createCriteria(Transaction.class).addOrder(Order.desc("id")).list();
+        List<Slip> allSlips = session.createCriteria(Slip.class).addOrder(Order.desc("id")).list();
+        session.close();
     }
 }

@@ -8,7 +8,10 @@ public class Transaction {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     private Payment payment;
     @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
     private Set<Slip> slips;
