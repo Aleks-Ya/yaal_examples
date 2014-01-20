@@ -1,8 +1,9 @@
-package ru.yaal.examples.database.hibernate.bidirectassosiation;
+package ru.yaal.examples.database.hibernate.bidirectassosiation.payment;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import ru.yaal.examples.database.hibernate.bidirectassosiation.Factory;
 
 import java.util.HashSet;
 import java.util.List;

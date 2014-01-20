@@ -3,6 +3,9 @@ package ru.yaal.examples.database.hibernate.bidirectassosiation;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistryBuilder;
+import ru.yaal.examples.database.hibernate.bidirectassosiation.payment.Payment;
+import ru.yaal.examples.database.hibernate.bidirectassosiation.payment.Slip;
+import ru.yaal.examples.database.hibernate.bidirectassosiation.payment.Transaction;
 
 import java.util.Properties;
 
