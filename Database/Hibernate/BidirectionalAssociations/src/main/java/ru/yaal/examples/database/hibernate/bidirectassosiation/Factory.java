@@ -6,6 +6,8 @@ import org.hibernate.service.ServiceRegistryBuilder;
 import ru.yaal.examples.database.hibernate.bidirectassosiation.payment.Payment;
 import ru.yaal.examples.database.hibernate.bidirectassosiation.payment.Slip;
 import ru.yaal.examples.database.hibernate.bidirectassosiation.payment.Transaction;
+import ru.yaal.examples.database.hibernate.bidirectassosiation.people.Address;
+import ru.yaal.examples.database.hibernate.bidirectassosiation.people.People;
 
 import java.util.Properties;
 
@@ -49,5 +51,7 @@ public class Factory {
         configuration.addAnnotatedClass(Payment.class);
         configuration.addAnnotatedClass(Transaction.class);
         configuration.addAnnotatedClass(Slip.class);
+        configuration.addAnnotatedClass(People.class);
+        configuration.addAnnotatedClass(Address.class);
     }
 }
