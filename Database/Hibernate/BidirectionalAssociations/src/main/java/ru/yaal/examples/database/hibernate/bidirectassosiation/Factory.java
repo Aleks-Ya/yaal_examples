@@ -3,11 +3,11 @@ package ru.yaal.examples.database.hibernate.bidirectassosiation;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistryBuilder;
-import ru.yaal.examples.database.hibernate.bidirectassosiation.payment.Payment;
-import ru.yaal.examples.database.hibernate.bidirectassosiation.payment.Slip;
-import ru.yaal.examples.database.hibernate.bidirectassosiation.payment.Transaction;
-import ru.yaal.examples.database.hibernate.bidirectassosiation.people.Address;
-import ru.yaal.examples.database.hibernate.bidirectassosiation.people.People;
+import ru.yaal.examples.database.hibernate.bidirectassosiation.payment.bi.Payment;
+import ru.yaal.examples.database.hibernate.bidirectassosiation.payment.bi.Slip;
+import ru.yaal.examples.database.hibernate.bidirectassosiation.payment.bi.Transaction;
+import ru.yaal.examples.database.hibernate.bidirectassosiation.people.bi.Address;
+import ru.yaal.examples.database.hibernate.bidirectassosiation.people.bi.People;
 
 import java.util.Properties;
 
