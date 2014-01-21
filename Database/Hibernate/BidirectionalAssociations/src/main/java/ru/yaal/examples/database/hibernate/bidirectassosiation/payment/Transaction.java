@@ -13,7 +13,7 @@ public class Transaction {
             CascadeType.MERGE
     })
     private Payment payment;
-    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Slip> slips;
 
     public Transaction() {
