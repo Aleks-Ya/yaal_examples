@@ -46,4 +46,13 @@ public class Transaction {
     public void setSlips(Set<Slip> slips) {
         this.slips = slips;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (getId() != null && obj instanceof Transaction) {
+            Transaction other = (Transaction) obj;
+            return getId().equals(other.getId());
+        }
+        return false;
+    }
 }

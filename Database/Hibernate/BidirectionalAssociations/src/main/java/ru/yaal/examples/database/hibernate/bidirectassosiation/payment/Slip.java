@@ -47,4 +47,13 @@ public class Slip {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (getId() != null && obj instanceof Slip) {
+            Slip other = (Slip) obj;
+            return getId().equals(other.getId());
+        }
+        return false;
+    }
 }

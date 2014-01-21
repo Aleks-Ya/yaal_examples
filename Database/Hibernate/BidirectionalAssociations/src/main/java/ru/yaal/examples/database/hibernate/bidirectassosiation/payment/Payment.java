@@ -1,6 +1,10 @@
 package ru.yaal.examples.database.hibernate.bidirectassosiation.payment;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Payment {
@@ -40,5 +44,14 @@ public class Payment {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (getId() != null && obj instanceof Payment) {
+            Payment other = (Payment) obj;
+            return getId().equals(other.getId());
+        }
+        return false;
     }
 }
