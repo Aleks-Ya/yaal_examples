@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "transaction_table")
 public class Transaction {
     @Id
     @GeneratedValue

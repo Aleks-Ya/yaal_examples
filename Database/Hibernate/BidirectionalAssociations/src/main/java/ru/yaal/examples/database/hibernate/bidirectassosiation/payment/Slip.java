@@ -3,6 +3,7 @@ package ru.yaal.examples.database.hibernate.bidirectassosiation.payment;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "slip_table")
 public class Slip {
     @Id
     @GeneratedValue
