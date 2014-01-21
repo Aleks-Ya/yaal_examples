@@ -2,19 +2,22 @@ package ru.yaal.examples.database.hibernate.bidirectassosiation.people;
 
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.junit.Test;
 import ru.yaal.examples.database.hibernate.bidirectassosiation.Factory;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class PeopleMain {
-    public static void main(String[] args) throws Exception {
+public class PeopleTest {
+
+    @Test
+    public void test() throws Exception {
         saveEntities();
         readEntities();
     }
 
-    private static void saveEntities() throws Exception {
+    private void saveEntities() throws Exception {
         Session session = null;
         try {
             session = Factory.getSessionFactory().openSession();
@@ -50,7 +53,7 @@ public class PeopleMain {
         }
     }
 
-    private static void readEntities() throws Exception {
+    private void readEntities() throws Exception {
         Session session = Factory.getSessionFactory().openSession();
         List<Address> allAddresses = session.createCriteria(Address.class).addOrder(Order.desc("id")).list();
         List<People> allPeoples = session.createCriteria(People.class).addOrder(Order.desc("id")).list();
