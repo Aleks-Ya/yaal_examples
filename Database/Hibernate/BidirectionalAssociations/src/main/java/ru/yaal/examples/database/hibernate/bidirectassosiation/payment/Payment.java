@@ -1,6 +1,6 @@
 package ru.yaal.examples.database.hibernate.bidirectassosiation.payment;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,9 +12,13 @@ import javax.persistence.Table;
 public class Payment {
     @Id
     @GeneratedValue
+    @Column(name = "payment_id_col")
     private Long id;
-    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
+
+    @OneToOne(mappedBy = "payment")
     private Transaction transaction;
+
+    @Column(name = "payment_description_col")
     private String description;
 
     public Payment() {

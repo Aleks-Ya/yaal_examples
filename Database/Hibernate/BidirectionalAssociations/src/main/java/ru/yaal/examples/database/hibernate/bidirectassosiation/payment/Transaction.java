@@ -1,6 +1,12 @@
 package ru.yaal.examples.database.hibernate.bidirectassosiation.payment;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
@@ -8,13 +14,14 @@ import java.util.Set;
 public class Transaction {
     @Id
     @GeneratedValue
+    @Column(name = "transaction_id_col")
     private Long id;
-    @OneToOne(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
+
+    @OneToOne
     private Payment payment;
-    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @Column(name = "transaction_slips_col")
+    @OneToMany(mappedBy = "transaction")
     private Set<Slip> slips;
 
     public Transaction() {

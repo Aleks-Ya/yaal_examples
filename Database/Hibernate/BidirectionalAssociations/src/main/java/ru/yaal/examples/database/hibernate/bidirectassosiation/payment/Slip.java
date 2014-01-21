@@ -1,16 +1,26 @@
 package ru.yaal.examples.database.hibernate.bidirectassosiation.payment;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "slip_table")
 public class Slip {
     @Id
     @GeneratedValue
+    @Column(name = "slip_id_col")
     private Long id;
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
     @JoinColumn(name = "transaction")
     private Transaction transaction;
+
+    @Column(name = "slip_content_col")
     private String content;
 
     public Slip() {
