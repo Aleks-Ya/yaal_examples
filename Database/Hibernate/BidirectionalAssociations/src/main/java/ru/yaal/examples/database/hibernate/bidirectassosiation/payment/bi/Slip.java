@@ -17,7 +17,7 @@ public class Slip {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "transaction")
+    @JoinColumn(name = "transaction_id")
     private Transaction transaction;
 
     @Column(name = "slip_content_col")
