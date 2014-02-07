@@ -6,6 +6,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistryBuilder;
 import ru.yaal.examples.database.hibernate.inheritance.joined.CarJoined;
 import ru.yaal.examples.database.hibernate.inheritance.joined.TransportJoined;
+import ru.yaal.examples.database.hibernate.inheritance.joined.discriminator.CarJoinedDiscriminator;
+import ru.yaal.examples.database.hibernate.inheritance.joined.discriminator.TransportJoinedDiscriminator;
 import ru.yaal.examples.database.hibernate.inheritance.single.CarSingle;
 import ru.yaal.examples.database.hibernate.inheritance.single.TransportSingle;
 import ru.yaal.examples.database.hibernate.inheritance.tableperclass.CarTablePerClass;
@@ -53,9 +55,11 @@ public class Factory {
         configuration.addAnnotatedClass(TransportSingle.class);
         configuration.addAnnotatedClass(TransportJoined.class);
         configuration.addAnnotatedClass(TransportTablePerClass.class);
+        configuration.addAnnotatedClass(TransportJoinedDiscriminator.class);
         configuration.addAnnotatedClass(CarSingle.class);
         configuration.addAnnotatedClass(CarJoined.class);
         configuration.addAnnotatedClass(CarTablePerClass.class);
+        configuration.addAnnotatedClass(CarJoinedDiscriminator.class);
     }
 
     public static <T> void save(T obj) throws Exception {
