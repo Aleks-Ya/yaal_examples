@@ -5,7 +5,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "car_single")
-public class Car extends Transport {
+public class CarSingle extends TransportSingle {
     private String fuel;
 
     public String getFuel() {

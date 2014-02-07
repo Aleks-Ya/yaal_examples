@@ -1,10 +1,13 @@
 package ru.yaal.examples.database.hibernate.inheritance;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistryBuilder;
-import ru.yaal.examples.database.hibernate.inheritance.single.Car;
-import ru.yaal.examples.database.hibernate.inheritance.single.Transport;
+import ru.yaal.examples.database.hibernate.inheritance.joined.CarJoined;
+import ru.yaal.examples.database.hibernate.inheritance.joined.TransportJoined;
+import ru.yaal.examples.database.hibernate.inheritance.single.CarSingle;
+import ru.yaal.examples.database.hibernate.inheritance.single.TransportSingle;
 
 import java.util.Properties;
 
@@ -45,7 +48,18 @@ public class Factory {
     }
 
     private static void addClasses(Configuration configuration) {
-        configuration.addAnnotatedClass(Transport.class);
-        configuration.addAnnotatedClass(Car.class);
+        configuration.addAnnotatedClass(TransportSingle.class);
+        configuration.addAnnotatedClass(CarSingle.class);
+        configuration.addAnnotatedClass(TransportJoined.class);
+        configuration.addAnnotatedClass(CarJoined.class);
     }
+
+    public static <T> void save(T obj) throws Exception {
+        Session session = getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(obj);
+        session.getTransaction().commit();
+        session.flush();
+    }
+
 }

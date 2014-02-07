@@ -6,8 +6,8 @@ import ru.yaal.examples.database.hibernate.inheritance.Factory;
 
 import static org.junit.Assert.assertEquals;
 
-public class TransportTest {
-    private Transport expTransport;
+public class TransportSingleTest {
+    private TransportSingle expTransport;
 
     @Test
     public void saveTransport() throws Exception {
@@ -16,19 +16,16 @@ public class TransportTest {
     }
 
     private void save() throws Exception {
-        expTransport = new Transport();
+        expTransport = new TransportSingle();
         expTransport.setOwner("me");
 
-        Session session = Factory.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(expTransport);
-        session.getTransaction().commit();
-        session.flush();
+        Factory.save(expTransport);
     }
 
     private void load() throws Exception {
         Session session = Factory.getSessionFactory().openSession();
-        Transport actTransport = (Transport) session.get(Transport.class, expTransport.getId());
+        TransportSingle actTransport = (TransportSingle) session.get(TransportSingle.class, expTransport.getId());
+        assertEquals(expTransport.getId(), actTransport.getId());
         assertEquals(expTransport.getOwner(), actTransport.getOwner());
     }
 }

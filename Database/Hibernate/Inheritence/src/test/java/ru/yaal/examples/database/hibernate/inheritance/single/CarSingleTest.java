@@ -6,8 +6,8 @@ import ru.yaal.examples.database.hibernate.inheritance.Factory;
 
 import static org.junit.Assert.assertEquals;
 
-public class CarTest {
-    private Car expCar;
+public class CarSingleTest {
+    private CarSingle expCar;
 
     @Test
     public void saveCar() throws Exception {
@@ -16,20 +16,17 @@ public class CarTest {
     }
 
     private void save() throws Exception {
-        expCar = new Car();
-        expCar.setOwner("me");
-        expCar.setFuel("benzine");
+        expCar = new CarSingle();
+        expCar.setOwner("owner_single");
+        expCar.setFuel("benzine_single");
 
-        Session session = Factory.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(expCar);
-        session.getTransaction().commit();
-        session.flush();
+        Factory.save(expCar);
     }
 
     private void load() throws Exception {
         Session session = Factory.getSessionFactory().openSession();
-        Car actCar = (Car) session.get(Car.class, expCar.getId());
+        CarSingle actCar = (CarSingle) session.get(CarSingle.class, expCar.getId());
+        assertEquals(expCar.getId(), actCar.getId());
         assertEquals(expCar.getOwner(), actCar.getOwner());
         assertEquals(expCar.getFuel(), actCar.getFuel());
     }

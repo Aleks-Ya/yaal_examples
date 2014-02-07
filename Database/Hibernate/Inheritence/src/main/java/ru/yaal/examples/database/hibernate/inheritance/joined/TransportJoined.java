@@ -1,4 +1,4 @@
-package ru.yaal.examples.database.hibernate.inheritance.single;
+package ru.yaal.examples.database.hibernate.inheritance.joined;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,9 +8,9 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "transport_single")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Transport {
+@Table(name = "transport_joined")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class TransportJoined {
     @Id
     @GeneratedValue
     private Long id;
