@@ -10,6 +10,8 @@ import ru.yaal.examples.database.hibernate.inheritance.joined.discriminator.CarJ
 import ru.yaal.examples.database.hibernate.inheritance.joined.discriminator.TransportJoinedDiscriminator;
 import ru.yaal.examples.database.hibernate.inheritance.single.CarSingle;
 import ru.yaal.examples.database.hibernate.inheritance.single.TransportSingle;
+import ru.yaal.examples.database.hibernate.inheritance.single.discriminator.CarSingleDiscriminator;
+import ru.yaal.examples.database.hibernate.inheritance.single.discriminator.TransportSingleDiscriminator;
 import ru.yaal.examples.database.hibernate.inheritance.tableperclass.CarTablePerClass;
 import ru.yaal.examples.database.hibernate.inheritance.tableperclass.TransportTablePerClass;
 
@@ -56,10 +58,12 @@ public class Factory {
         configuration.addAnnotatedClass(TransportJoined.class);
         configuration.addAnnotatedClass(TransportTablePerClass.class);
         configuration.addAnnotatedClass(TransportJoinedDiscriminator.class);
+        configuration.addAnnotatedClass(TransportSingleDiscriminator.class);
         configuration.addAnnotatedClass(CarSingle.class);
         configuration.addAnnotatedClass(CarJoined.class);
         configuration.addAnnotatedClass(CarTablePerClass.class);
         configuration.addAnnotatedClass(CarJoinedDiscriminator.class);
+        configuration.addAnnotatedClass(CarSingleDiscriminator.class);
     }
 
     public static <T> void save(T obj) throws Exception {
