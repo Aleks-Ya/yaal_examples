@@ -8,6 +8,8 @@ import ru.yaal.examples.database.hibernate.inheritance.joined.CarJoined;
 import ru.yaal.examples.database.hibernate.inheritance.joined.TransportJoined;
 import ru.yaal.examples.database.hibernate.inheritance.single.CarSingle;
 import ru.yaal.examples.database.hibernate.inheritance.single.TransportSingle;
+import ru.yaal.examples.database.hibernate.inheritance.tableperclass.CarTablePerClass;
+import ru.yaal.examples.database.hibernate.inheritance.tableperclass.TransportTablePerClass;
 
 import java.util.Properties;
 
@@ -49,9 +51,11 @@ public class Factory {
 
     private static void addClasses(Configuration configuration) {
         configuration.addAnnotatedClass(TransportSingle.class);
-        configuration.addAnnotatedClass(CarSingle.class);
         configuration.addAnnotatedClass(TransportJoined.class);
+        configuration.addAnnotatedClass(TransportTablePerClass.class);
+        configuration.addAnnotatedClass(CarSingle.class);
         configuration.addAnnotatedClass(CarJoined.class);
+        configuration.addAnnotatedClass(CarTablePerClass.class);
     }
 
     public static <T> void save(T obj) throws Exception {
