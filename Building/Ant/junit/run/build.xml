@@ -3,18 +3,32 @@
 
     <!-- Общие -->
     <property name="lib.dir" value="lib"/>
+    <property name="src.dir" value="src"/>
+    <property name="classes.dir" value="classes"/>
 
     <!-- Продукт -->
-    <property name="src.dir.product" value="src"/>
-    <property name="classes.dir.product" value="classes"/>
+    <property name="src.dir.product" value="${src.dir}/prod"/>
+    <property name="classes.dir.product" value="${classes.dir}/prod"/>
     <property name="lib.dir.product" value="${lib.dir}/prod"/>
-
     <path id="lib.product">
         <fileset dir="${lib.dir.product}"/>
     </path>
     <path id="classpath.product">
         <pathelement path="${classes.dir.product}"/>
         <path refid="lib.product"/>
+    </path>
+
+    <!-- Тесты -->
+    <property name="src.dir.test" value="${src.dir}/test"/>
+    <property name="classes.dir.test" value="${classes.dir}/test"/>
+    <property name="lib.dir.test" value="${lib.dir}/test"/>
+    <path id="lib.test">
+        <fileset dir="${lib.dir.test}"/>
+    </path>
+    <path id="classpath.test">
+        <pathelement path="${classes.dir.test}"/>
+        <path refid="lib.product"/>
+        <path refid="lib.test"/>
     </path>
 
     <!-- Задачи -->
@@ -27,7 +41,18 @@
         <javac srcdir="${src.dir.product}" destdir="${classes.dir.product}" classpathref="classpath.product"/>
     </target>
 
-    <target name="run" depends="compile">
+    <target name="test" depends="compile">
+        <junit printsummary="yes">
+            <classpath>
+                <path refid="classpath.test"/>
+            </classpath>
+            <batchtest>
+                <fileset dir="${src.dir.test}"/>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="run" depends="test">
         <java classname="pack1.BuildMe" classpathref="classpath.product"/>
     </target>
 

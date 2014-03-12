@@ -67,28 +67,17 @@
       <file leaf-file-name="build.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/build.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="39" selection-start="973" selection-end="973" vertical-scroll-proportion="0.7258065" vertical-offset="0" max-vertical-offset="620">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BuildMe.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pack1/BuildMe.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="54" selection-start="184" selection-end="184" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
+            <state line="12" column="0" selection-start="465" selection-end="465" vertical-scroll-proportion="0.29032257" vertical-offset="0" max-vertical-offset="960">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="BuildMeTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/pack1/BuildMeTest.java">
+        <entry file="file://$PROJECT_DIR$/src/test/pack1/BuildMeTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="0" selection-start="266" selection-end="266" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="9" column="16" selection-start="191" selection-end="191" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -107,6 +96,7 @@
         <option value="$PROJECT_DIR$/src/building/BuildMe.java" />
         <option value="$PROJECT_DIR$/test/building/BuildMeTest.java" />
         <option value="$PROJECT_DIR$/src/pack1/BuildMe.java" />
+        <option value="$PROJECT_DIR$/src/test/pack1/BuildMeTest.java" />
         <option value="$PROJECT_DIR$/build.xml" />
       </list>
     </option>
@@ -176,6 +166,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -195,10 +189,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pack1" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -248,7 +238,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/prod" />
     <property name="LayoutCode.rearrangeEntriesXML" value="false" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="LayoutCode.rearrangeEntriesJava" value="false" />
@@ -506,25 +496,16 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/pack1/BuildMeTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/pack1/BuildMeTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="266" selection-end="266" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pack1/BuildMe.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="54" selection-start="184" selection-end="184" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
+        <state line="9" column="16" selection-start="191" selection-end="191" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="39" selection-start="973" selection-end="973" vertical-scroll-proportion="0.7258065" vertical-offset="0" max-vertical-offset="620">
+        <state line="12" column="0" selection-start="465" selection-end="465" vertical-scroll-proportion="0.29032257" vertical-offset="0" max-vertical-offset="960">
           <folding />
         </state>
       </provider>
@@ -586,6 +567,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
