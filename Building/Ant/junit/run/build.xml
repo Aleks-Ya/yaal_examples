@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <project name="Ant Junit Run" basedir=".">
+
+    <!-- Продукт -->
     <property name="src.dir.product" value="src"/>
     <property name="classes.dir.product" value="classes"/>
+    <path id="classpath.product">
+        <pathelement path="${classes.dir.product}"/>
+    </path>
 
     <target name="clean">
         <delete dir="${classes.dir.product}"/>
@@ -10,6 +15,10 @@
     <target name="compile" depends="clean">
         <mkdir dir="${classes.dir.product}"/>
         <javac srcdir="${src.dir.product}" destdir="${classes.dir.product}"/>
+    </target>
+
+    <target name="run" depends="clean, compile">
+        <java classname="pack1.BuildMe" classpathref="classpath.product"/>
     </target>
 
 </project>
