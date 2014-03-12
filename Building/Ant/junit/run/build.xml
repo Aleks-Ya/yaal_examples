@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <project name="Ant Junit Run" basedir=".">
 
+    <!-- Общие -->
+    <property name="lib.dir" value="lib"/>
+
     <!-- Продукт -->
     <property name="src.dir.product" value="src"/>
     <property name="classes.dir.product" value="classes"/>
+    <property name="lib.dir.product" value="${lib.dir}/prod"/>
+
+    <path id="lib.product">
+        <fileset dir="${lib.dir.product}"/>
+    </path>
     <path id="classpath.product">
         <pathelement path="${classes.dir.product}"/>
+        <path refid="lib.product"/>
     </path>
 
+    <!-- Задачи -->
     <target name="clean">
         <delete dir="${classes.dir.product}"/>
     </target>
 
     <target name="compile" depends="clean">
         <mkdir dir="${classes.dir.product}"/>
-        <javac srcdir="${src.dir.product}" destdir="${classes.dir.product}"/>
+        <javac srcdir="${src.dir.product}" destdir="${classes.dir.product}" classpathref="classpath.product"/>
     </target>
 
-    <target name="run" depends="clean, compile">
+    <target name="run" depends="compile">
         <java classname="pack1.BuildMe" classpathref="classpath.product"/>
     </target>
 
