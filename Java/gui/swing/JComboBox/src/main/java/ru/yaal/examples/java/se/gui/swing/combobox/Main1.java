@@ -49,12 +49,7 @@ public class Main1 {
         }
 
         private boolean alreadyAdded(String item) {
-            for (int i = 0; i < comboBoxModel.getSize(); i++) {
-                if (item.equals(comboBoxModel.getElementAt(i))) {
-                    return true;
-                }
-            }
-            return false;
+            return comboBoxModel.getIndexOf(item) >= 0;
         }
     }
 }
