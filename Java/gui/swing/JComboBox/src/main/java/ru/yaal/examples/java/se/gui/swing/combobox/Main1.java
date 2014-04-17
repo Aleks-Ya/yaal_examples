@@ -4,6 +4,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +26,7 @@ public class Main1 {
         frame.setLayout(new BorderLayout());
         frame.setSize(300, 50);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(comboBox, BorderLayout.CENTER);
         frame.add(okButton, BorderLayout.EAST);
     }
@@ -38,7 +40,10 @@ public class Main1 {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            comboBoxModel.addElement((String) comboBoxModel.getSelectedItem());
+            String selectedItem = (String) comboBoxModel.getSelectedItem();
+            if (selectedItem != null && !selectedItem.trim().isEmpty()) {
+                comboBoxModel.addElement(selectedItem);
+            }
         }
     }
 }
