@@ -1,6 +1,5 @@
 package ru.yaal.examples.java.se.gui.swing.combobox;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -10,17 +9,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Добавление элементов в выпадающий список через DefaultComboBoxModel.
+ * Добавление элементов в выпадающий список через JComboBox (без DefaultComboBoxModel).
  */
-public class Main1 {
+public class MainDontUseModel {
     public static void main(String[] args) {
         JComboBox<String> comboBox = new JComboBox<String>();
         comboBox.setEditable(true);
 
-        DefaultComboBoxModel<String> comboBoxModel = (DefaultComboBoxModel<String>) comboBox.getModel();
-
         JButton okButton = new JButton("OK");
-        okButton.addActionListener(new OkButtonActionListener(comboBoxModel));
+        okButton.addActionListener(new OkButtonActionListener(comboBox));
 
         JFrame frame = new JFrame();
         frame.setLayout(new BorderLayout());
@@ -32,24 +29,29 @@ public class Main1 {
     }
 
     static class OkButtonActionListener implements ActionListener {
-        private DefaultComboBoxModel<String> comboBoxModel;
+        private JComboBox<String> comboBox;
 
-        OkButtonActionListener(DefaultComboBoxModel<String> comboBoxModel) {
-            this.comboBoxModel = comboBoxModel;
+        OkButtonActionListener(JComboBox<String> comboBox) {
+            this.comboBox = comboBox;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String selectedItem = (String) comboBoxModel.getSelectedItem();
+            String selectedItem = (String) comboBox.getSelectedItem();
             if (selectedItem != null && !selectedItem.trim().isEmpty()) {
                 if (!alreadyAdded(selectedItem)) {
-                    comboBoxModel.addElement(selectedItem);
+                    comboBox.addItem(selectedItem);
                 }
             }
         }
 
         private boolean alreadyAdded(String item) {
-            return comboBoxModel.getIndexOf(item) >= 0;
+            for (int i = 0; i < comboBox.getItemCount(); i++) {
+                if (item.equals(comboBox.getItemAt(i))) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
