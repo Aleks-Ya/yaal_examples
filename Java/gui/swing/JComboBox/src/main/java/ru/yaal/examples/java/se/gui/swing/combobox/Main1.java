@@ -42,8 +42,19 @@ public class Main1 {
         public void actionPerformed(ActionEvent e) {
             String selectedItem = (String) comboBoxModel.getSelectedItem();
             if (selectedItem != null && !selectedItem.trim().isEmpty()) {
-                comboBoxModel.addElement(selectedItem);
+                if (!alreadyAdded(selectedItem)) {
+                    comboBoxModel.addElement(selectedItem);
+                }
             }
+        }
+
+        private boolean alreadyAdded(String item) {
+            for (int i = 0; i < comboBoxModel.getSize(); i++) {
+                if (item.equals(comboBoxModel.getElementAt(i))) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
