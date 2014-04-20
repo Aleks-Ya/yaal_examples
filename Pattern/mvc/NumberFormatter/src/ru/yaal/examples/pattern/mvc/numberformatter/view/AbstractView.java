@@ -16,4 +16,9 @@ public abstract class AbstractView implements IView {
     }
 
     protected abstract String formatNumber(double number);
+
+    @Override
+    public void actionError(String message) {
+        print(message);
+    }
 }
