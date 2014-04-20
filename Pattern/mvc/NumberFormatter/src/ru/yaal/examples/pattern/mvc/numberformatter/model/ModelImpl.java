@@ -7,23 +7,12 @@ import java.util.List;
  * Реализация модели.
  */
 public class ModelImpl implements IModel {
-    private double number = 0;
     private final List<IModelListener> listeners = new ArrayList<>();
 
     @Override
-    public double getNumber() {
-        return number;
-    }
-
-    @Override
-    public void setNumber(double number) {
-        this.number = number;
-    }
-
-    @Override
-    public void eventChanged() {
+    public void eventNumberChanged(double number) {
         for (IModelListener listener : listeners) {
-            listener.actionChanged(this);
+            listener.actionNumberChanged(number);
         }
     }
 
@@ -32,7 +21,6 @@ public class ModelImpl implements IModel {
         for (IModelListener listener : listeners) {
             listener.actionError(message);
         }
-
     }
 
     @Override

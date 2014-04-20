@@ -39,8 +39,7 @@ public class ControllerImpl implements IController {
 
     private void processLine(String line) {
         try {
-            model.setNumber(Double.parseDouble(line));
-            model.eventChanged();
+            model.eventNumberChanged(Double.parseDouble(line));
         } catch (NumberFormatException e) {
             model.eventError(String.format("Incorrect number: %s", line));
         }
