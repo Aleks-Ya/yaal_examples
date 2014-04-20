@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class ModelImpl implements IModel {
     private double number = 0;
-    private final List<IChangeListener> changeListeners = new ArrayList<>();
+    private final List<IModelListener> changeListeners = new ArrayList<>();
 
     @Override
     public double getNumber() {
@@ -22,13 +22,13 @@ public class ModelImpl implements IModel {
 
     @Override
     public void changed() {
-        for (IChangeListener listener : changeListeners) {
+        for (IModelListener listener : changeListeners) {
             listener.actionChanged(this);
         }
     }
 
     @Override
-    public void addChangedListener(IChangeListener listener) {
+    public void addChangedListener(IModelListener listener) {
         changeListeners.add(listener);
     }
 }

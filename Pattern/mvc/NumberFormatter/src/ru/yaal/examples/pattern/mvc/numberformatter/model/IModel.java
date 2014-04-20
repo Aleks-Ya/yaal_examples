@@ -10,5 +10,5 @@ public interface IModel {
 
     void changed();
 
-    void addChangedListener(IChangeListener listener);
+    void addChangedListener(IModelListener listener);
 }
