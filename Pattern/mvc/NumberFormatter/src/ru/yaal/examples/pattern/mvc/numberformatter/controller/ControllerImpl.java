@@ -16,11 +16,6 @@ public class ControllerImpl implements IController {
     }
 
     @Override
-    public void keyPressed(int key) {
-
-    }
-
-    @Override
     public void start() {
         Console console = System.console();
         if (console != null) {
