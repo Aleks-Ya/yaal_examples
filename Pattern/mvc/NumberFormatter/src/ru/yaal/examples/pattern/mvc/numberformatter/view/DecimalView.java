@@ -5,7 +5,7 @@ package ru.yaal.examples.pattern.mvc.numberformatter.view;
  */
 public class DecimalView extends AbstractView {
     @Override
-    protected void printNumber(double number) {
-        System.out.println(number);
+    protected String formatNumber(double number) {
+        return String.valueOf(number);
     }
 }

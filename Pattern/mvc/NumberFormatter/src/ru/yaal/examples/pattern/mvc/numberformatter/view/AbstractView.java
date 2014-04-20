@@ -8,8 +8,12 @@ import ru.yaal.examples.pattern.mvc.numberformatter.model.IModel;
 public abstract class AbstractView implements IView {
     @Override
     public void actionChanged(IModel model) {
-        printNumber(model.getNumber());
+        print(formatNumber(model.getNumber()));
     }
 
-    protected abstract void printNumber(double number);
+    private void print(String message) {
+        System.out.println(message);
+    }
+
+    protected abstract String formatNumber(double number);
 }

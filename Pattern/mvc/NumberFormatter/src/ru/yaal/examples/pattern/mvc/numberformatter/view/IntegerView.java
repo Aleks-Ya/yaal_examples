@@ -5,7 +5,7 @@ package ru.yaal.examples.pattern.mvc.numberformatter.view;
  */
 public class IntegerView extends AbstractView {
     @Override
-    protected void printNumber(double number) {
-        System.out.println(new Double(number).intValue());
+    protected String formatNumber(double number) {
+        return String.valueOf(new Double(number).intValue());
     }
 }
