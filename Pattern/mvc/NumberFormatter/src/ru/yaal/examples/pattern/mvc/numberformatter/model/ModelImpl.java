@@ -21,14 +21,14 @@ public class ModelImpl implements IModel {
     }
 
     @Override
-    public void changed() {
+    public void eventChanged() {
         for (IModelListener listener : listeners) {
             listener.actionChanged(this);
         }
     }
 
     @Override
-    public void error(String message) {
+    public void eventError(String message) {
         for (IModelListener listener : listeners) {
             listener.actionError(message);
         }

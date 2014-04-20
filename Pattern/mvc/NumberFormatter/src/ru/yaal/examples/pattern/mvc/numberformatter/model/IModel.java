@@ -8,9 +8,9 @@ public interface IModel {
 
     void setNumber(double number);
 
-    void changed();
+    void eventChanged();
 
-    void error(String message);
+    void eventError(String message);
 
     void addChangedListener(IModelListener listener);
 }

@@ -40,9 +40,9 @@ public class ControllerImpl implements IController {
     private void processLine(String line) {
         try {
             model.setNumber(Double.parseDouble(line));
-            model.changed();
+            model.eventChanged();
         } catch (NumberFormatException e) {
-            model.error(String.format("Incorrect number: %s", line));
+            model.eventError(String.format("Incorrect number: %s", line));
         }
     }
 }
