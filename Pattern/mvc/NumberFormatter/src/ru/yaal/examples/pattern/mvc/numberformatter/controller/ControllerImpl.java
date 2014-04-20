@@ -13,7 +13,6 @@ public class ControllerImpl implements IController {
 
     public ControllerImpl(IModel model) {
         this.model = model;
-        this.model.setState(IModel.State.OFF);
     }
 
     @Override
@@ -23,7 +22,6 @@ public class ControllerImpl implements IController {
 
     @Override
     public void start() {
-        model.setState(IModel.State.LISTENING);
         Console console = System.console();
         if (console != null) {
             console.printf("Print %s to exit.\n", EXIT_STRING);

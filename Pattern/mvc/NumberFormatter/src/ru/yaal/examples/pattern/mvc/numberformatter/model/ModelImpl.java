@@ -10,7 +10,6 @@ public class ModelImpl implements IModel {
     private double number = 0;
     private final List<IModelListener> changeListeners = new ArrayList<>();
     private String errorMessage;
-    private State state;
 
     @Override
     public double getNumber() {
@@ -32,11 +31,6 @@ public class ModelImpl implements IModel {
     @Override
     public void addChangedListener(IModelListener listener) {
         changeListeners.add(listener);
-    }
-
-    @Override
-    public void setState(State state) {
-        this.state = state;
     }
 
     @Override
