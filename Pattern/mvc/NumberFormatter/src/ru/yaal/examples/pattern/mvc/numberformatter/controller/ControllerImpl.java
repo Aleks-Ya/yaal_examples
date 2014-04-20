@@ -47,7 +47,7 @@ public class ControllerImpl implements IController {
             model.setNumber(Double.parseDouble(line));
             model.changed();
         } catch (NumberFormatException e) {
-            model.setErrorMessage(String.format("Incorrect number: %s", line));
+            model.error(String.format("Incorrect number: %s", line));
         }
     }
 }

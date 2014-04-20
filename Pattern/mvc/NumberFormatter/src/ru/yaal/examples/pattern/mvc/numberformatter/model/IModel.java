@@ -10,7 +10,7 @@ public interface IModel {
 
     void changed();
 
-    void addChangedListener(IModelListener listener);
+    void error(String message);
 
-    void setErrorMessage(String message);
+    void addChangedListener(IModelListener listener);
 }
