@@ -21,5 +21,6 @@ public class Facade {
         model.addChangedListener(decimalView);
 
         IController controller = new ControllerImpl(model);
+        controller.start();
     }
 }

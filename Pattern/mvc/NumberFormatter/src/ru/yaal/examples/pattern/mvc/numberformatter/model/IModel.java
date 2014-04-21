@@ -4,11 +4,9 @@ package ru.yaal.examples.pattern.mvc.numberformatter.model;
  * Интерфейс моделей.
  */
 public interface IModel {
-    double getNumber();
+    void eventNumberChanged(double number);
 
-    void setNumber(double number);
+    void eventError(String message);
 
-    void changed();
-
-    void addChangedListener(IChangeListener listener);
+    void addChangedListener(IModelListener listener);
 }
