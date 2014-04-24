@@ -1,0 +1,15 @@
+/**
+ * Написать аннотацию Joke, имеющую строковый элемент с шуткой.
+ * Необходимо найти все шутки в classpath и вывести их в командную строку.
+ * Аннтация Joke может быть применена ко всем доступным элементам.
+ */
+apply plugin: 'java'
+sourceSets.main.java.srcDir 'src'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.reflections:reflections:0.9.9-RC1"
+}
