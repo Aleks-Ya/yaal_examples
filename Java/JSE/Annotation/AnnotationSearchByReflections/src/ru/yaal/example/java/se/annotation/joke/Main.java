@@ -6,6 +6,7 @@ import org.reflections.scanners.MethodAnnotationsScanner;
 import org.reflections.scanners.MethodParameterScanner;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Set;
@@ -17,6 +18,7 @@ public class Main {
         searchAnnotatedMethods();
         searchAnnotatedFields();
         searchAnnotatedParameters();
+        searchAnnotatedConstructors();
     }
 
     private static void searchAnnotatedMethods() {
@@ -27,6 +29,7 @@ public class Main {
             Joke joke = method.getAnnotation(Joke.class);
             System.out.println(joke.value());
         }
+        System.out.println();
     }
 
     private static void searchAnnotatedParameters() {
@@ -44,6 +47,7 @@ public class Main {
                 }
             }
         }
+        System.out.println();
     }
 
     private static void searchAnnotatedFields() {
@@ -54,6 +58,18 @@ public class Main {
             Joke joke = field.getAnnotation(Joke.class);
             System.out.println(joke.value());
         }
+        System.out.println();
+    }
+
+    private static void searchAnnotatedConstructors() {
+        System.out.println("Constructor annotations:");
+        Reflections reflections = new Reflections(Main.class.getPackage(), new MethodAnnotationsScanner());
+        Set<Constructor> jokeConstructors = reflections.getConstructorsAnnotatedWith(Joke.class);
+        for (Constructor constructor : jokeConstructors) {
+            Joke joke = (Joke) constructor.getAnnotation(Joke.class);
+            System.out.println(joke.value());
+        }
+        System.out.println();
     }
 
     private static void searchAnnotatedClasses() {
@@ -66,6 +82,7 @@ public class Main {
                 System.out.println(joke.value());
             }
         }
+        System.out.println();
     }
 
     private static void searchAnnotatedPackages() {
@@ -78,6 +95,7 @@ public class Main {
                 System.out.println(joke.value());
             }
         }
+        System.out.println();
     }
 
     private static boolean isPackage(Class clazz) {
