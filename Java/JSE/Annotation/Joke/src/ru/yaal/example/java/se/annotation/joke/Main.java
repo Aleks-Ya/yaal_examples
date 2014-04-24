@@ -13,12 +13,14 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) {
         searchAnnotatedClasses();
+        searchAnnotatedPackages();
         searchAnnotatedMethods();
         searchAnnotatedFields();
         searchAnnotatedParameters();
     }
 
     private static void searchAnnotatedMethods() {
+        System.out.println("Method annotations:");
         Reflections reflections = new Reflections(Main.class.getPackage(), new MethodAnnotationsScanner());
         Set<Method> jokeMethods = reflections.getMethodsAnnotatedWith(Joke.class);
         for (Method method : jokeMethods) {
@@ -28,6 +30,7 @@ public class Main {
     }
 
     private static void searchAnnotatedParameters() {
+        System.out.println("Parameters annotations:");
         Reflections reflections = new Reflections(Main.class.getPackage(), new MethodParameterScanner());
         Set<Method> jokeMethods = reflections.getMethodsWithAnyParamAnnotated(Joke.class);
         for (Method method : jokeMethods) {
@@ -44,6 +47,7 @@ public class Main {
     }
 
     private static void searchAnnotatedFields() {
+        System.out.println("Fields annotations:");
         Reflections reflections = new Reflections(Main.class.getPackage(), new FieldAnnotationsScanner());
         Set<Field> jokeFields = reflections.getFieldsAnnotatedWith(Joke.class);
         for (Field field : jokeFields) {
@@ -53,11 +57,30 @@ public class Main {
     }
 
     private static void searchAnnotatedClasses() {
+        System.out.println("Classes annotations:");
         Reflections reflections = new Reflections(Main.class.getPackage());
         Set<Class<?>> jokeClasses = reflections.getTypesAnnotatedWith(Joke.class);
         for (Class jokeClass : jokeClasses) {
-            Joke joke = (Joke) jokeClass.getAnnotation(Joke.class);
-            System.out.println(joke.value());
+            if (!isPackage(jokeClass)) {
+                Joke joke = (Joke) jokeClass.getAnnotation(Joke.class);
+                System.out.println(joke.value());
+            }
         }
+    }
+
+    private static void searchAnnotatedPackages() {
+        System.out.println("Packages annotations:");
+        Reflections reflections = new Reflections(Main.class.getPackage());
+        Set<Class<?>> jokeClasses = reflections.getTypesAnnotatedWith(Joke.class);
+        for (Class jokeClass : jokeClasses) {
+            if (isPackage(jokeClass)) {
+                Joke joke = (Joke) jokeClass.getAnnotation(Joke.class);
+                System.out.println(joke.value());
+            }
+        }
+    }
+
+    private static boolean isPackage(Class clazz) {
+        return clazz.getSimpleName().equals("package-info");
     }
 }
