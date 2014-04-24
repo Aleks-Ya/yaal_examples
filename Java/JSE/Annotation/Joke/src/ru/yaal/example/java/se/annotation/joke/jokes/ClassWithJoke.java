@@ -9,6 +9,6 @@ public class ClassWithJoke {
     private int table;
 
     @Joke("Норвежские проститутки посетили Короля Испании с ответным визитом")
-    private void cheese(){
+    private void cheese(@Joke("Что-то неспокойно в Датском королевстве") @Deprecated String hey){
     }
 }

@@ -3,7 +3,9 @@ package ru.yaal.example.java.se.annotation.joke;
 import org.reflections.Reflections;
 import org.reflections.scanners.FieldAnnotationsScanner;
 import org.reflections.scanners.MethodAnnotationsScanner;
+import org.reflections.scanners.MethodParameterScanner;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Set;
@@ -13,6 +15,7 @@ public class Main {
         searchAnnotatedClasses();
         searchAnnotatedMethods();
         searchAnnotatedFields();
+        searchAnnotatedParameters();
     }
 
     private static void searchAnnotatedMethods() {
@@ -21,6 +24,22 @@ public class Main {
         for (Method method : jokeMethods) {
             Joke joke = method.getAnnotation(Joke.class);
             System.out.println(joke.value());
+        }
+    }
+
+    private static void searchAnnotatedParameters() {
+        Reflections reflections = new Reflections(Main.class.getPackage(), new MethodParameterScanner());
+        Set<Method> jokeMethods = reflections.getMethodsWithAnyParamAnnotated(Joke.class);
+        for (Method method : jokeMethods) {
+            Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+            for (Annotation[] annotations : parameterAnnotations) {
+                for (Annotation annotation : annotations) {
+                    if (annotation instanceof Joke) {
+                        Joke joke = (Joke) annotation;
+                        System.out.println(joke.value());
+                    }
+                }
+            }
         }
     }
 
