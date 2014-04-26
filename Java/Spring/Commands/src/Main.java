@@ -12,5 +12,7 @@ public class Main {
         for (ICommand command : commands.values()) {
             command.execute();
         }
+        ICommand command = (ICommand) context.getBean("c1");
+        command.execute();
     }
 }

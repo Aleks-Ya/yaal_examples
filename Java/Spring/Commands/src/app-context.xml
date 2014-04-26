@@ -3,7 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean name="c1" class="command.PrintMoneyCommand" scope="singleton"/>
-    <bean name="c2" class="command.PrintRandomNumberCommand" scope="singleton"/>
+    <bean name="c1" class="command.PrintCommand">
+        <constructor-arg value="Big Money"/>
+    </bean>
+    <bean name="c2" class="command.PrintRandomNumberCommand">
+        <constructor-arg name="min" value="50"/>
+        <constructor-arg name="max" value="100" type="int"/>
+    </bean>
 </beans>
 
