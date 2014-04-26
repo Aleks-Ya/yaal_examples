@@ -13,6 +13,13 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="Gradle: spring-context-3.2.4.RELEASE" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: commons-logging-1.1.1" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: spring-core-3.2.4.RELEASE" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: spring-beans-3.2.4.RELEASE" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: aopalliance-1.0" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: spring-aop-3.2.4.RELEASE" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: spring-expression-3.2.4.RELEASE" level="project" />
   </component>
 </module>
 
