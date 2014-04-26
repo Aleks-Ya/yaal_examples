@@ -1,6 +1,5 @@
 package ru.yaal.example.java.spring;
 
-import java.io.FileInputStream;
 import java.util.Properties;
 
 public class MessageSupportFactory {
@@ -12,7 +11,7 @@ public class MessageSupportFactory {
     private MessageSupportFactory() {
         try {
             props = new Properties();
-            props.load(new FileInputStream("src\\main\\resources\\ru\\yaal\\example\\java\\spring\\msf.properties"));
+            props.load(MessageSupportFactory.class.getResourceAsStream("msf.properties"));
             String renderClass = props.getProperty("render.class");
             String providerClass = props.getProperty("provider.class");
             renderer = (MessageRenderer) Class.forName(renderClass).newInstance();
