@@ -6,10 +6,10 @@
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/resources/lookup.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/xmlBeanFactory.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/app-context-annotation.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/app-context-xml.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/parent.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/replacement.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/app-context-annotation.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/autowiring.xml</file>
         </fileset>
       </configuration>
@@ -18,10 +18,9 @@
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
-    <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
