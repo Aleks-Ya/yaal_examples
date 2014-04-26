@@ -1,2 +1,5 @@
+/**
+ * Задача: Проинициализировать команды реализациями (паттерн Command) с помощью Spring.
+ */
 apply plugin : "java"
 sourceSets.main.java.srcDir 'src'
