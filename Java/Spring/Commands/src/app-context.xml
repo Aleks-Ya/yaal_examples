@@ -3,13 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean name="commandManager" class="command.CommandManager">
-        <constructor-arg>
-            <list>
-                <bean class="command.PrintMoneyCommand"/>
-                <bean class="command.PrintRandomNumberCommand"/>
-            </list>
-        </constructor-arg>
-    </bean>
+    <bean name="c1" class="command.PrintMoneyCommand"/>
+    <bean name="c2" class="command.PrintRandomNumberCommand"/>
 </beans>
 
