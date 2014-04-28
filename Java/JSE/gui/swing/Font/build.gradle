@@ -1,0 +1,5 @@
+/**
+ * Инициализация типичных объектов Font (моноширенный и т.п.).
+ */
+apply plugin : "java"
+sourceSets.main.java.srcDir 'src'
