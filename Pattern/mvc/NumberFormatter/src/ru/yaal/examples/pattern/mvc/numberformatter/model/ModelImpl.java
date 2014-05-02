@@ -11,8 +11,9 @@ public class ModelImpl implements IModel {
 
     @Override
     public void eventNumberChanged(double number) {
+        NumberChangedEvent event = new NumberChangedEvent(number);
         for (IModelListener listener : listeners) {
-            listener.actionNumberChanged(number);
+            listener.actionNumberChanged(event);
         }
     }
 

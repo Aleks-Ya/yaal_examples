@@ -10,6 +10,7 @@ import ru.yaal.examples.pattern.mvc.numberformatter.view.IntegerView;
 
 /**
  * Фасад: инициализирует систему MVC.
+ * Запуск: java -cp . ru.yaal.examples.pattern.mvc.numberformatter.facade.Facade
  */
 public class Facade {
     public static void main(String[] args) {

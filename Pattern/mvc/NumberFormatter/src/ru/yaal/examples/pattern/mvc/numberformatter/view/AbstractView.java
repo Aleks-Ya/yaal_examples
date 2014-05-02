@@ -1,12 +1,14 @@
 package ru.yaal.examples.pattern.mvc.numberformatter.view;
 
+import ru.yaal.examples.pattern.mvc.numberformatter.model.NumberChangedEvent;
+
 /**
  * Общие методы представлений.
  */
 public abstract class AbstractView implements IView {
     @Override
-    public void actionNumberChanged(double number) {
-        print(formatNumber(number));
+    public void actionNumberChanged(NumberChangedEvent event) {
+        print(formatNumber(event.getNumber()));
     }
 
     private void print(String message) {
