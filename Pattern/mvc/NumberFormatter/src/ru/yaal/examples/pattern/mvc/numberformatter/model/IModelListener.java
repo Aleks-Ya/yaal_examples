@@ -5,5 +5,5 @@ package ru.yaal.examples.pattern.mvc.numberformatter.model;
  */
 public interface IModelListener {
     void actionNumberChanged(NumberChangedEvent event);
-    void actionError(String message);
+    void actionError(ErrorEvent event);
 }

@@ -19,8 +19,9 @@ public class ModelImpl implements IModel {
 
     @Override
     public void eventError(String message) {
+        ErrorEvent event = new ErrorEvent(message);
         for (IModelListener listener : listeners) {
-            listener.actionError(message);
+            listener.actionError(event);
         }
     }
 

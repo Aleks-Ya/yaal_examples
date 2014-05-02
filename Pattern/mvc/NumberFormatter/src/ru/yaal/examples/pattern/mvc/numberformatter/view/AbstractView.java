@@ -1,5 +1,6 @@
 package ru.yaal.examples.pattern.mvc.numberformatter.view;
 
+import ru.yaal.examples.pattern.mvc.numberformatter.model.ErrorEvent;
 import ru.yaal.examples.pattern.mvc.numberformatter.model.NumberChangedEvent;
 
 /**
@@ -18,7 +19,7 @@ public abstract class AbstractView implements IView {
     protected abstract String formatNumber(double number);
 
     @Override
-    public void actionError(String message) {
-        print(message);
+    public void actionError(ErrorEvent event) {
+        print(event.getMessage());
     }
 }
