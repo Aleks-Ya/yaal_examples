@@ -3,6 +3,17 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="date" class="java.util.Date"/>
-</beans>
+    <bean id="dateFormat" class="java.text.SimpleDateFormat">
+        <constructor-arg value="MM/dd/yyyy" />
+    </bean>
 
+    <bean id="date" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="dateFormat"/>
+        <property name="targetMethod" value="parse"/>
+        <property name="arguments">
+            <list>
+                <value type="java.lang.String">02/25/1990</value>
+            </list>
+        </property>
+    </bean>
+</beans>
