@@ -1,5 +1,5 @@
 /**
- * Задача: с помощью Spring проинициализировать коллекцию List<MyClass> с 2мя объектами.
+ * Задача: с помощью Spring проинициализировать коллекции List<MyClass>, Set<MyClass>, Map<String, MyClass> с 2мя объектами.
  */
 apply plugin : "java"
 sourceSets.main.java.srcDir 'src'
