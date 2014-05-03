@@ -11,15 +11,28 @@
             <constructor-arg value="Bay, List!"/>
         </bean>
     </util:list>
-    
+
     <util:set id="mySet">
         <bean class="MyClass">
             <constructor-arg value="Hello, Set!"/>
         </bean>
         <bean class="MyClass">
-            <constructor-arg value="Bay!, Set"/>
+            <constructor-arg value="Bay, Set!"/>
         </bean>
     </util:set>
+
+    <util:map id="myMap">
+        <entry key="my1">
+            <bean class="MyClass">
+                <constructor-arg value="Hello, Map!"/>
+            </bean>
+        </entry>
+        <entry key="my2">
+            <bean class="MyClass">
+                <constructor-arg value="Bay, Map!"/>
+            </bean>
+        </entry>
+    </util:map>
 
 </beans>
 
