@@ -5,12 +5,21 @@
 
     <util:list id="myList">
         <bean class="MyClass">
-            <constructor-arg value="Hello!"/>
+            <constructor-arg value="Hello, List!"/>
         </bean>
         <bean class="MyClass">
-            <constructor-arg value="Bay!"/>
+            <constructor-arg value="Bay, List!"/>
         </bean>
     </util:list>
+    
+    <util:set id="mySet">
+        <bean class="MyClass">
+            <constructor-arg value="Hello, Set!"/>
+        </bean>
+        <bean class="MyClass">
+            <constructor-arg value="Bay!, Set"/>
+        </bean>
+    </util:set>
 
 </beans>
 
