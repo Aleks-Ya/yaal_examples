@@ -1,6 +1,8 @@
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 @XmlRootElement
 public class Settings {
@@ -14,7 +16,8 @@ public class Settings {
     private Mask mask;
 
     @XmlElement
-    private Lamp lamp;
+    @XmlElementWrapper(name = "lamps")
+    private List<Lamp> lamp;
 
     public String getId() {
         return id;
@@ -28,7 +31,7 @@ public class Settings {
         return mask;
     }
 
-    public Lamp getLamp() {
+    public List<Lamp> getLamp() {
         return lamp;
     }
 
