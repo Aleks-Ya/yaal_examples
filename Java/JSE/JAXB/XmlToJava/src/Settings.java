@@ -26,9 +26,12 @@ public class Settings {
     @XmlElement(type = String.class)
     private List<String> book;
 
+    @XmlElement
+    private Environment environment;
 
     @Override
     public String toString() {
-        return String.format("Settings[id='%s' port='%d' mask='%s' lamp='%s' book='%s']", id, port, mask, lamp, book);
+        return String.format("Settings[id='%s' port='%d' mask='%s' lamp='%s' book='%s' environment='%s']",
+                id, port, mask, lamp, book, environment);
     }
 }

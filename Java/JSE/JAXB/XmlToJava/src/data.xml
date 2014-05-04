@@ -9,4 +9,8 @@
         <book>OS Linux</book>
         <book>OS Windows</book>
     </books>
+    <environment>
+        <root>the root</root>
+        <path>a path</path>
+    </environment>
 </settings>
