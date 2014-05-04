@@ -19,24 +19,16 @@ public class Settings {
     @XmlElementWrapper(name = "lamps")
     private List<Lamp> lamp;
 
-    public String getId() {
-        return id;
-    }
+    /**
+     * Содержимое тега book парсится в виде строки (в отличие от Lamp).
+     */
+    @XmlElementWrapper(name = "books")
+    @XmlElement(type = String.class)
+    private List<String> book;
 
-    public int getPort() {
-        return port;
-    }
-
-    public Mask getMask() {
-        return mask;
-    }
-
-    public List<Lamp> getLamp() {
-        return lamp;
-    }
 
     @Override
     public String toString() {
-        return String.format("Settings[id='%s' port='%d' mask='%s' lamp='%s']", getId(), getPort(), getMask(), getLamp());
+        return String.format("Settings[id='%s' port='%d' mask='%s' lamp='%s' book='%s']", id, port, mask, lamp, book);
     }
 }

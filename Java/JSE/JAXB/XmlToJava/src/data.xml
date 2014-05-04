@@ -5,4 +5,8 @@
         <lamp>little lamp</lamp>
         <lamp>big lamp</lamp>
     </lamps>
+    <books>
+        <book>OS Linux</book>
+        <book>OS Windows</book>
+    </books>
 </settings>
