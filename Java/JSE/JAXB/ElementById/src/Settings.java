@@ -4,39 +4,36 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Settings {
+    @XmlAttribute
     private String id;
+
+    @XmlAttribute
     private int port;
+
+    @XmlElement
     private Mask mask;
+
+    @XmlElement
+    private Lamp lamp;
 
     public String getId() {
         return id;
-    }
-
-    @XmlAttribute
-    public void setId(String id) {
-        this.id = id;
     }
 
     public int getPort() {
         return port;
     }
 
-    @XmlAttribute
-    public void setPort(int port) {
-        this.port = port;
-    }
-
     public Mask getMask() {
         return mask;
     }
 
-    @XmlElement
-    public void setMask(Mask mask) {
-        this.mask = mask;
+    public Lamp getLamp() {
+        return lamp;
     }
 
     @Override
     public String toString() {
-        return String.format("Settings[id='%s' port='%d' mask='%s']", getId(), getPort(), getMask());
+        return String.format("Settings[id='%s' port='%d' mask='%s' lamp='%s']", getId(), getPort(), getMask(), getLamp());
     }
 }
