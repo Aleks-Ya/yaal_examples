@@ -4,7 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="dateFormat" class="java.text.SimpleDateFormat">
-        <constructor-arg value="MM/dd/yyyy" />
+        <constructor-arg value="MM/dd/yyyy"/>
+    </bean>
+
+    <bean id="dateEasy" factory-bean="dateFormat" factory-method="parse">
+        <constructor-arg value="02/25/1990"/>
     </bean>
 
     <bean id="date" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
@@ -16,4 +20,5 @@
             </list>
         </property>
     </bean>
+
 </beans>
