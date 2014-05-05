@@ -1,5 +1,3 @@
-package ru.yaal.example.java.se.i18n;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -13,7 +11,7 @@ public class EasyI18nApplication {
     }
 
     private static void printMessage(Locale locale) throws UnsupportedEncodingException {
-        ResourceBundle myResources = ResourceBundle.getBundle("ru.yaal.example.java.se.i18n.Messages", locale);
+        ResourceBundle myResources = ResourceBundle.getBundle("Messages", locale);
         String message = new String(myResources.getString("hello").getBytes("ISO-8859-1"), "UTF-8");
         System.out.printf("%s: %s\n", locale.toLanguageTag(), message);
     }
