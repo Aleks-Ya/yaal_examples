@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Поддерживает рекурсивный поиск файлов по папке.
+ * Поддерживает рекурсивный поиск файлов в папке (с фильтрацией по имени файла).
  */
 public class RecursiveDirectoryList {
     private static final DirFileFilter dirFileFilter = new DirFileFilter();
@@ -13,6 +13,13 @@ public class RecursiveDirectoryList {
     private RecursiveDirectoryList() {
     }
 
+    /**
+     * Искать файлы в папке (рекурсивно).
+     *
+     * @param rootDir Корневая папка для поиска.
+     * @param pattern Маска имени файла (в формет regexp).
+     * @return Список файлов, соответствующих маске.
+     */
     public static List<File> findFiles(File rootDir, String pattern) {
         RecursiveDirectoryList list = new RecursiveDirectoryList();
         list.regExpFilenameFilter.setPattern(pattern);
