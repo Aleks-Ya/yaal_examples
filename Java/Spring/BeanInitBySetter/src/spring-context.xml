@@ -6,6 +6,7 @@
     <bean id="city" class="City">
         <property name="name" value="SPb"/>
         <property name="population" value="1000000"/>
+        <property name="country" value="RUSSIA"/>
     </bean>
 </beans>
 
