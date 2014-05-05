@@ -1,14 +1,13 @@
 import java.io.File;
-import java.util.Arrays;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        DirFileFilter dirFileFilter = new DirFileFilter();
-        RegExpFilenameFilter regExpFilenameFilter = new RegExpFilenameFilter();
+        File rootDir = new File("resources");
 
-        File rootDir = new File("resources/dirForWalk");
+        List<File> files = RecursiveDirectoryList.findFiles(rootDir, ".*.xml");
+
         System.out.println(rootDir.getAbsolutePath());
-        System.out.println(Arrays.deepToString(rootDir.listFiles(dirFileFilter)));
-        System.out.println(Arrays.deepToString(rootDir.listFiles(regExpFilenameFilter)));
+        System.out.println(files);
     }
 }
