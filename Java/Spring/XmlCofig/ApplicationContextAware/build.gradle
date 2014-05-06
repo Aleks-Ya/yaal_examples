@@ -1,0 +1,11 @@
+/**
+ * Задача: получить в бине ApplicationContext с помощью реализации интерфейса ApplicationContextAware.
+ */
+apply plugin : "java"
+sourceSets.main.java.srcDir 'src'
+dependencies {
+    compile 'org.springframework:spring-context:3.2.4.RELEASE'
+}
+repositories {
+    mavenCentral()
+}
