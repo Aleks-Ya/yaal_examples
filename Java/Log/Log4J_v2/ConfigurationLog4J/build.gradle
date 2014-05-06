@@ -1,0 +1,11 @@
+/**
+ * Задача: сконфигурировать логгер Log4J v2.
+ */
+apply plugin: "java"
+sourceSets.main.java.srcDir 'src'
+dependencies {
+    compile 'org.apache.logging.log4j:log4j-core:2.0-rc1'
+}
+repositories {
+    mavenCentral()
+}
