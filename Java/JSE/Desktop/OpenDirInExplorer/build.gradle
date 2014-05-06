@@ -1,0 +1,5 @@
+/**
+ * Задача: открыть папку в проводнике (Windows и Linux).
+ */
+apply plugin : "java"
+sourceSets.main.java.srcDir 'src'
