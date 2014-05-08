@@ -1,14 +1,16 @@
 package scan;
 
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import scan.person.IPerson;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Service("city")
@@ -25,14 +27,41 @@ public class City {
     @Resource
     private Mayor mayor2;
 
+    /**
+     * Внедрение массива всех реализаций интерфейса.
+     */
     @Autowired
-    private IPerson[] persons;
+    private IPerson[] personArray;
 
+    /**
+     * Внедрение списка всех реализаций интерфейса.
+     */
     @Autowired
-    private List<IPerson> persons2;
+    private List<IPerson> personList;
 
+    /**
+     * Внедрение множества всех реализаций интерфейса.
+     */
     @Autowired
-    private Set<IPerson> persons3;
+    private Set<IPerson> personSet;
+
+    /**
+     * Внедрение мапы всех реализаций интерфейса.
+     */
+    @Autowired
+    private Map<String, IPerson> personMap;
+
+    /**
+     * Внедрение по стандартному интерфейсу ApplicationContext.
+     */
+    @Autowired
+    private ApplicationContext applicationContext;
+
+    /**
+     * Внедрение по стандартному интерфейсу BeanFactory.
+     */
+    @Autowired
+    private BeanFactory beanFactory;
 
     private Airport airport;
 
@@ -50,9 +79,12 @@ public class City {
         builder.append("mayor=").append(mayor);
         builder.append("mayor2=").append(mayor2);
         builder.append("airport=").append(airport).append("\n");
-        builder.append("persons=").append(Arrays.deepToString(persons)).append("\n");
-        builder.append("persons2=").append(persons2).append("\n");
-        builder.append("persons3=").append(persons3).append("\n");
+        builder.append("personArray=").append(Arrays.deepToString(personArray)).append("\n");
+        builder.append("personList=").append(personList).append("\n");
+        builder.append("personSet=").append(personSet).append("\n");
+        builder.append("personMap=").append(personMap).append("\n");
+        builder.append("applicationContext=").append(applicationContext).append("\n");
+        builder.append("beanFactory=").append(beanFactory).append("\n");
         return builder.toString();
     }
 }
