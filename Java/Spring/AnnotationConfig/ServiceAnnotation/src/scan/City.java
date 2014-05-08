@@ -3,8 +3,13 @@ package scan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import scan.person.IPerson;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 @Service("city")
 public class City {
@@ -20,6 +25,15 @@ public class City {
     @Resource
     private Mayor mayor2;
 
+    @Autowired
+    private IPerson[] persons;
+
+    @Autowired
+    private List<IPerson> persons2;
+
+    @Autowired
+    private Set<IPerson> persons3;
+
     private Airport airport;
 
     @Autowired
@@ -30,7 +44,15 @@ public class City {
 
     @Override
     public String toString() {
-        return String.format("scan.City[name='%s' population='%d' mayor='%s' mayor2='%s' airport='%s']",
-                name, population, mayor, mayor2, airport);
+        StringBuilder builder = new StringBuilder();
+        builder.append("name=").append(name);
+        builder.append("population=").append(population);
+        builder.append("mayor=").append(mayor);
+        builder.append("mayor2=").append(mayor2);
+        builder.append("airport=").append(airport).append("\n");
+        builder.append("persons=").append(Arrays.deepToString(persons)).append("\n");
+        builder.append("persons2=").append(persons2).append("\n");
+        builder.append("persons3=").append(persons3).append("\n");
+        return builder.toString();
     }
 }
