@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import scan.mayor.Mayor;
 import scan.person.IPerson;
 
 import javax.annotation.Resource;
@@ -74,10 +75,10 @@ public class City {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("name=").append(name);
-        builder.append("population=").append(population);
-        builder.append("mayor=").append(mayor);
-        builder.append("mayor2=").append(mayor2);
+        builder.append("name=").append(name).append("\n");
+        builder.append("population=").append(population).append("\n");
+        builder.append("mayor=").append(mayor).append("\n");
+        builder.append("mayor2=").append(mayor2).append("\n");
         builder.append("airport=").append(airport).append("\n");
         builder.append("personArray=").append(Arrays.deepToString(personArray)).append("\n");
         builder.append("personList=").append(personList).append("\n");
