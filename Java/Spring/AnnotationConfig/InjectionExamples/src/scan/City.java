@@ -29,6 +29,18 @@ public class City {
     @Resource
     private Mayor mayor2;
 
+    @Autowired
+    @Qualifier("pertosian")
+    private IPerson petrosian;
+
+    @Autowired
+    @Qualifier("zadornov1")
+    private IPerson zadornov1;
+
+    @Autowired
+    @Qualifier("zadornov2")
+    private IPerson zadornov2;
+
     /**
      * Внедрение массива всех реализаций интерфейса.
      */
@@ -86,6 +98,9 @@ public class City {
         builder.append("mayor2=").append(mayor2).append("\n");
         builder.append("airport=").append(airport).append("\n");
         builder.append("currency=").append(currency).append("\n");
+        builder.append("petrosian=").append(petrosian).append("\n");
+        builder.append("zadornov1=").append(zadornov1).append("\n");
+        builder.append("zadornov2=").append(zadornov2).append("\n");
         builder.append("personArray=").append(Arrays.deepToString(personArray)).append("\n");
         builder.append("personList=").append(personList).append("\n");
         builder.append("personSet=").append(personSet).append("\n");

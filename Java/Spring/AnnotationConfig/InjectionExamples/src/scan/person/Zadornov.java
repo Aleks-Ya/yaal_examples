@@ -2,11 +2,11 @@ package scan.person;
 
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("zadornov1")
 public class Zadornov implements IPerson {
     @Override
     public String getFio() {
-        return "Задорнов М.";
+        return "Оригинальный Задорнов М.";
     }
 
     @Override
