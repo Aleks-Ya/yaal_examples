@@ -2,6 +2,7 @@ package scan;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -64,6 +65,10 @@ public class City {
     @Autowired
     private BeanFactory beanFactory;
 
+    @Autowired
+    @Qualifier("rur")
+    private Currency currency;
+
     private Airport airport;
 
     @Autowired
@@ -80,6 +85,7 @@ public class City {
         builder.append("mayor=").append(mayor).append("\n");
         builder.append("mayor2=").append(mayor2).append("\n");
         builder.append("airport=").append(airport).append("\n");
+        builder.append("currency=").append(currency).append("\n");
         builder.append("personArray=").append(Arrays.deepToString(personArray)).append("\n");
         builder.append("personList=").append(personList).append("\n");
         builder.append("personSet=").append(personSet).append("\n");
