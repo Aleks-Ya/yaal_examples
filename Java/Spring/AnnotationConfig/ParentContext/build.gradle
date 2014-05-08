@@ -1,0 +1,11 @@
+/**
+ * Задача: загрузить дополнительный конфигурационный файл в уже поднятый контекст.
+ */
+apply plugin: "java"
+sourceSets.main.java.srcDir 'src'
+dependencies {
+    compile 'org.springframework:spring-context:3.2.4.RELEASE'
+}
+repositories {
+    mavenCentral()
+}
