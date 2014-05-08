@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 @Service("city")
 public class City {
 
-    @Value("Moscow")
     private String name;
 
     @Value("1000000")
@@ -21,8 +20,17 @@ public class City {
     @Resource
     private Mayor mayor2;
 
+    private Airport airport;
+
+    @Autowired
+    public City(Airport airport, @Value("Спб") String name) {
+        this.airport = airport;
+        this.name = name;
+    }
+
     @Override
     public String toString() {
-        return String.format("scan.City[name='%s' population='%d' mayor='%s' mayor2='%s']", name, population, mayor, mayor2);
+        return String.format("scan.City[name='%s' population='%d' mayor='%s' mayor2='%s' airport='%s']",
+                name, population, mayor, mayor2, airport);
     }
 }
