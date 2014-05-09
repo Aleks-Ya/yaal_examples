@@ -1,12 +1,14 @@
 package pack;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import scan.Man;
 
 import java.net.URL;
 
@@ -14,6 +16,7 @@ public class Main {
     public static void main(String[] args) {
         classpath();
         resource();
+        annotation();
         experiment();
     }
 
@@ -23,7 +26,6 @@ public class Main {
         ApplicationContext c3 = new GenericXmlApplicationContext("classpath:pack/inPackageConfig.xml");
         ApplicationContext c4 = new ClassPathXmlApplicationContext("pack/inPackageConfig.xml");
     }
-
 
     private static void resource() {
         {
@@ -57,14 +59,17 @@ public class Main {
         }
     }
 
+    private static void annotation() {
+        ApplicationContext context = new AnnotationConfigApplicationContext("scan");
+        Man man = context.getBean(Man.class);
+        System.out.println(man);
+    }
+
     private static void experiment() {
         //Filesystem
 //        ApplicationContext fs1 = new FileSystemXmlApplicationContext("pack/inPackageConfig.xml");
 
         //Static
 //        ApplicationContext s1 = new StaticApplicationContext();
-
-        //Annotation
-//        ApplicationContext a1 = new AnnotationConfigApplicationContext();
     }
 }
