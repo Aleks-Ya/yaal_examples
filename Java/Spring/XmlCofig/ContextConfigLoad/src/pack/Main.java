@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -17,6 +18,7 @@ public class Main {
         classpath();
         resource();
         annotation();
+        staticContext();
         experiment();
     }
 
@@ -65,11 +67,15 @@ public class Main {
         System.out.println(man);
     }
 
+    private static void staticContext() {
+        StaticApplicationContext context = new StaticApplicationContext();
+        context.registerSingleton("man", Man.class);
+        Man man = context.getBean(Man.class);
+        System.out.println(man);
+    }
+
     private static void experiment() {
         //Filesystem
 //        ApplicationContext fs1 = new FileSystemXmlApplicationContext("pack/inPackageConfig.xml");
-
-        //Static
-//        ApplicationContext s1 = new StaticApplicationContext();
     }
 }
