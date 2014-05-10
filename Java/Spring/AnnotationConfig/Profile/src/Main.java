@@ -12,6 +12,6 @@ public class Main {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         context.getEnvironment().addActiveProfile("rough");
         context.scan("provider");
-        System.out.println(context.getBean(IMessageProvider.class).getMessage());
+        context.refresh();
     }
 }
