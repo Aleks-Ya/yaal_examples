@@ -1,0 +1,2 @@
+Пример Hello World на JAX-WS.
+Взят с http://www.mkyong.com/webservices/jax-ws/jax-ws-hello-world-example-document-style/
