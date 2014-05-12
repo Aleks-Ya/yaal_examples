@@ -1,6 +1,3 @@
-/**
- * Задача: проинициализировать бин с помощью сеттеров (аннотациями).
- */
 apply plugin: "java"
 sourceSets.main.java.srcDir 'src'
 dependencies {
