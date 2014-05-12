@@ -1,14 +1,13 @@
 package ru.yaal.example.java.se.swing.jeditorpane;
 
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
+import javax.swing.JTextPane;
 import javax.swing.WindowConstants;
 
 public class Main {
     public static void main(String[] args) {
-        JEditorPane editor = new JEditorPane();
+        JTextPane editor = new JTextPane();
         editor.setEditable(false);
-        editor.setFocusable(false);
         editor.setText("Происхождение Александра Сергеевича Пушкина идёт от разветвлённого нетитулованного дворянского " +
                 "рода Пушкиных, восходившего по генеалогической легенде к «мужу честну» Ратше, современнику " +
                 "Александра Невского. Пушкин неоднократно писал о своей родословной в стихах и прозе; он видел в своих " +
