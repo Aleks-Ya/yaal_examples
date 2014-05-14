@@ -1,0 +1,2 @@
+Не дописан.
+Использовать разные реализации BeanDefinition (GenericBeanDefinition и ScannedGenericBeanDefinition) для сканирования классов. Сравнить скорость работы реализаций.

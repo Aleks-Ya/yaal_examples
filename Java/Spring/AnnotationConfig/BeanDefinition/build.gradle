@@ -1,3 +1,6 @@
+/**
+ * Задача: добавить новый бин в уже существующий контекст.
+ */
 apply plugin: "java"
 sourceSets.main.java.srcDir 'src'
 dependencies {
