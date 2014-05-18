@@ -1,14 +1,11 @@
-package ru.yaal.examples.database.hibernate.bidirectassosiation.payment.bi;
+package payment.bi;
 
+import factory.Factory;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.junit.Test;
-import ru.yaal.examples.database.hibernate.bidirectassosiation.Factory;
-import ru.yaal.examples.database.hibernate.bidirectassosiation.payment.bi.Payment;
-import ru.yaal.examples.database.hibernate.bidirectassosiation.payment.bi.Slip;
-import ru.yaal.examples.database.hibernate.bidirectassosiation.payment.bi.Transaction;
 
 import java.util.HashSet;
 import java.util.List;

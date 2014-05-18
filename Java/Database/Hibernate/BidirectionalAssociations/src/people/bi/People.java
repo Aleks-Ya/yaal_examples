@@ -1,20 +1,18 @@
-package ru.yaal.examples.database.hibernate.bidirectassosiation.people.bi;
+package people.bi;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import java.util.Set;
 
 @Entity
-public class Address {
+public class People {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToMany
-    @JoinTable
-    private Set<People> peoples;
+    @ManyToMany(mappedBy = "peoples")
+    private Set<Address> addresses;
 
     public Long getId() {
         return id;
@@ -24,11 +22,11 @@ public class Address {
         this.id = id;
     }
 
-    public Set<People> getPeoples() {
-        return peoples;
+    public Set<Address> getAddresses() {
+        return addresses;
     }
 
-    public void setPeoples(Set<People> peoples) {
-        this.peoples = peoples;
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
     }
 }

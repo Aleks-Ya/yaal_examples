@@ -1,11 +1,9 @@
-package ru.yaal.examples.database.hibernate.bidirectassosiation.people.bi;
+package people.bi;
 
+import factory.Factory;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.junit.Test;
-import ru.yaal.examples.database.hibernate.bidirectassosiation.Factory;
-import ru.yaal.examples.database.hibernate.bidirectassosiation.people.bi.Address;
-import ru.yaal.examples.database.hibernate.bidirectassosiation.people.bi.People;
 
 import java.util.HashSet;
 import java.util.List;

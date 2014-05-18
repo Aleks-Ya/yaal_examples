@@ -1,4 +1,4 @@
-package ru.yaal.examples.database.hibernate.bidirectassosiation.payment.bi;
+package payment.bi;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
