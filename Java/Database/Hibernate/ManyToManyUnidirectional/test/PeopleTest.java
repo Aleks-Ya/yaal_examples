@@ -1,10 +1,11 @@
 import org.hibernate.Session;
-import org.hibernate.criterion.Order;
 import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
 
 public class PeopleTest {
 
@@ -28,12 +29,7 @@ public class PeopleTest {
 
             Address spb = new Address();
             Address moscow = new Address();
-            Set<Address> addresses = new HashSet<>();
-            addresses.add(moscow);
-            addresses.add(spb);
 
-            man.setAddresses(addresses);
-            woman.setAddresses(addresses);
             moscow.setPeoples(peoples);
             spb.setPeoples(peoples);
 
@@ -52,8 +48,16 @@ public class PeopleTest {
 
     private void readEntities() throws Exception {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Address> allAddresses = session.createCriteria(Address.class).addOrder(Order.desc("id")).list();
-        List<People> allPeoples = session.createCriteria(People.class).addOrder(Order.desc("id")).list();
+
+        List<People> allPeoples = session.createCriteria(People.class).list();
+        final int expPeopleSize = 2;
+        assertEquals(expPeopleSize, allPeoples.size());
+
+        List<Address> allAddresses = session.createCriteria(Address.class).list();
+        for (Address address : allAddresses) {
+            assertEquals(expPeopleSize, address.getPeoples().size());
+        }
+
         session.close();
     }
 }
