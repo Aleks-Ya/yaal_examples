@@ -1,0 +1,1 @@
+Hello EJB World из http://wiki.jetbrains.net/intellij/Developing_and_running_a_Java_EE_Hello_World_applicationы
