@@ -12,8 +12,8 @@
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">create</property>
         <property name="hibernate.connection.autocommit">false</property>
-        <mapping class="ru.yaal.examples.database.h2.h2hibernate.Cashier"/>
-        <mapping class="ru.yaal.examples.database.h2.h2hibernate.Shift"/>
+        <mapping class="entity.Cashier"/>
+        <mapping class="entity.Shift"/>
     </session-factory>
 </hibernate-configuration>
 

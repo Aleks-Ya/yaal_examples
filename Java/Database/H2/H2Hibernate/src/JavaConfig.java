@@ -1,5 +1,5 @@
-package ru.yaal.examples.database.h2.h2hibernate;
-
+import entity.Cashier;
+import entity.Shift;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,12 +13,13 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class H2Hibernate {
+public class JavaConfig {
     public static void main(String[] args) {
         SessionFactory sessionFactory = null;
         Session session = null;
         try {
-            Configuration configuration = new Configuration().configure();
+            Configuration configuration = getConfiguration();
+
             ServiceRegistryBuilder serviceRegistryBuilder = new ServiceRegistryBuilder().applySettings(configuration.getProperties());
             ServiceRegistry serviceRegistry = serviceRegistryBuilder.buildServiceRegistry();
             sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -51,5 +52,20 @@ public class H2Hibernate {
                 sessionFactory.close();
             }
         }
+    }
+
+    private static Configuration getConfiguration() {
+        Configuration configuration = new Configuration();
+        configuration.setProperty("hibernate.connection.driver_class", "org.h2.Driver");
+        configuration.setProperty("hibernate.connection.url", "jdbc:h2:~/test");
+        configuration.setProperty("hibernate.connection.pool_size", "1");
+        configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        configuration.setProperty("hibernate.cache.provider_class", "org.hibernate.cache.internal.NoCachingRegionFactory");
+        configuration.setProperty("hibernate.show_sql", "true");
+        configuration.setProperty("hibernate.hbm2ddl.auto", "create");
+        configuration.setProperty("hibernate.connection.autocommit", "false");
+        configuration.addAnnotatedClass(Cashier.class);
+        configuration.addAnnotatedClass(Shift.class);
+        return configuration;
     }
 }

@@ -1,4 +1,4 @@
-package ru.yaal.examples.database.h2.h2hibernate;
+package entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -72,7 +72,7 @@ public class Shift {
 
     @Override
     public String toString() {
-        return "Shift{" +
+        return "entity.Shift{" +
                 "id=" + id +
                 ", cashier=" + cashier +
                 ", createDate=" + createDate +

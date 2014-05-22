@@ -1,4 +1,4 @@
-package ru.yaal.examples.database.h2.h2hibernate;
+package entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -18,7 +18,7 @@ public class Cashier {
 
     @Override
     public String toString() {
-        return "Cashier{" +
+        return "entity.Cashier{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
