@@ -20,7 +20,7 @@ public class Main {
             NamingEnumeration<Binding> list = initialContext.listBindings("");
             while (list.hasMoreElements()) {
                 NameClassPair classPair = list.next();
-                System.out.println(classPair.getName());
+                System.out.printf("%20s - %s\n", classPair.getName(), classPair.getClassName());
             }
         }
         {
@@ -29,7 +29,7 @@ public class Main {
             NamingEnumeration list = tmpFolder.listBindings("");
             while (list.hasMoreElements()) {
                 NameClassPair classPair = (NameClassPair) list.next();
-                System.out.println(classPair.getName());
+                System.out.printf("%80s - %s\n", classPair.getName(), classPair.getClassName());
             }
         }
     }
