@@ -1,0 +1,12 @@
+apply plugin: 'java'
+sourceSets.main.java.srcDir 'src'
+
+dependencies {
+    compile 'com.h2database:h2:1.4.178',
+            'org.hibernate:hibernate-core:4.3.5.Final',
+            'org.hibernate:hibernate-entitymanager:4.3.5.Final'
+}
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
