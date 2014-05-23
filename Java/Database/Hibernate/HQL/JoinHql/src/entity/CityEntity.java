@@ -9,23 +9,26 @@ import javax.persistence.ManyToOne;
 public class CityEntity {
     @Id
     @GeneratedValue
-    public Long id;
+    private Long id;
 
-    public String name;
+    private String name;
+
+    private Long population;
 
     @ManyToOne
-    public RegionEntity region;
+    private  RegionEntity region;
 
     public CityEntity() {
     }
 
-    public CityEntity(String name, RegionEntity region) {
+    public CityEntity(String name, Long population,  RegionEntity region) {
         this.name = name;
+        this.population = population;
         this.region = region;
     }
 
     @Override
     public String toString() {
-        return String.format("Город[id=%d, name=%name, region=%region]", id, name, region);
+        return String.format("Город[id=%d, name=%s, region=%s]", id, name, region);
     }
 }

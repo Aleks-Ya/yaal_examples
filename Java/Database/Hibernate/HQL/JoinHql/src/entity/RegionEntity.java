@@ -8,9 +8,9 @@ import javax.persistence.Id;
 public class RegionEntity {
     @Id
     @GeneratedValue
-    public Long id;
+    private Long id;
 
-    public String name;
+    private String name;
 
     public RegionEntity() {
     }
