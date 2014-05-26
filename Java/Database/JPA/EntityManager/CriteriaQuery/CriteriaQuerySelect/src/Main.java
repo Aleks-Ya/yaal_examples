@@ -7,13 +7,35 @@ import org.hibernate.service.ServiceRegistry;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.spi.PersistenceUnitTransactionType;
 import java.util.List;
 
 public class Main {
+
+    private static EntityManager em;
+
     public static void main(String[] args) {
+        saveEntities();
+        {
+            System.out.println("\nSelect from one table:");
+            EntityManager em = getEntityManager();
+            CriteriaBuilder builder = em.getCriteriaBuilder();
+            CriteriaQuery<CityEntity> cq = builder.createQuery(CityEntity.class);
+            cq.from(CityEntity.class);
+            TypedQuery<CityEntity> tq = em.createQuery(cq);
+            List<CityEntity> result = tq.getResultList();
+            for (CityEntity city : result) {
+                System.out.println(city);
+            }
+        }
+        em.close();
+        System.exit(0);//Почему приложение не завершается?
+    }
+
+    private static void saveEntities() {
         RegionEntity region = new RegionEntity("Вологодская область");
         final long vologdaPopulation = 300000L;
         final String vologdaName = "Вологда";
@@ -29,6 +51,7 @@ public class Main {
 
         {
             EntityManager em = getEntityManager();
+            em.getTransaction().begin();
             em.persist(region);
             em.persist(region2);
             em.persist(city1);
@@ -36,12 +59,7 @@ public class Main {
             em.persist(city3);
             em.persist(city4);
             em.flush();
-            em.close();
-        }
-        {
-            EntityManager em = getEntityManager();
-            CriteriaBuilder builder = em.getCriteriaBuilder();
-            CriteriaQuery<CityEntity> query = builder.createQuery(CityEntity.class);
+            em.getTransaction().commit();
         }
     }
 
@@ -52,16 +70,19 @@ public class Main {
     }
 
     private static EntityManager getEntityManager() {
-        Configuration configuration = getConfiguration();
+        if (em == null) {
+            Configuration configuration = getConfiguration();
 
-        StandardServiceRegistryBuilder srBuilder = new StandardServiceRegistryBuilder();
-        srBuilder.applySettings(configuration.getProperties());
-        ServiceRegistry serviceRegistry = srBuilder.build();
+            StandardServiceRegistryBuilder srBuilder = new StandardServiceRegistryBuilder();
+            srBuilder.applySettings(configuration.getProperties());
+            ServiceRegistry serviceRegistry = srBuilder.build();
 
-        EntityManagerFactory emFactory = new EntityManagerFactoryImpl(
-                PersistenceUnitTransactionType.RESOURCE_LOCAL, true, null, configuration, serviceRegistry, null);
+            EntityManagerFactory emFactory = new EntityManagerFactoryImpl(
+                    PersistenceUnitTransactionType.RESOURCE_LOCAL, true, null, configuration, serviceRegistry, null);
 
-        return emFactory.createEntityManager();
+            em = emFactory.createEntityManager();
+        }
+        return em;
     }
 
     private static Configuration getConfiguration() {
