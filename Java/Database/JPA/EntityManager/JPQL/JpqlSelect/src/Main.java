@@ -49,8 +49,8 @@ public class Main {
             pringList(result);
         }
         {
-            System.out.println("\nJoin by join:");
-            Query query = em.createQuery("SELECT c.id FROM CityEntity c JOIN c.region r WHERE r.name = :name");
+            System.out.println("\nJoin by join (указание возвращаемого класса):");
+            Query query = em.createQuery("SELECT r FROM CityEntity c JOIN c.region r WHERE r.name = :name");
             query.setParameter("name", "Вологодская область");
             List result = query.getResultList();
             pringList(result);
