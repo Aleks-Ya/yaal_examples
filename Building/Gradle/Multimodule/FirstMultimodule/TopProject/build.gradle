@@ -1,6 +1,8 @@
-//apply plugin: 'java'
+apply plugin: 'java'
+sourceSets.main.java.srcDir 'src'
+
 Closure cl = { task -> println "I'm $task.project.name" }
 task hello << cl
 project(':SubProject') {
-task hello << cl
+     task hello << cl
 }
