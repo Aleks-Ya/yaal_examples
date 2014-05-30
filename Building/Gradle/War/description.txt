@@ -1,1 +1,1 @@
-Использование Gradle War Plugin.
+Сборка простейшего war с помощью Gradle War Plugin.
