@@ -1,0 +1,14 @@
+apply plugin: 'war'
+//apply plugin: 'jetty'
+//httpPort 8012
+//contextPath "/jetty"
+
+test {
+    useTestNG()
+}
+dependencies {
+    testCompile 'org.testng:testng:6.8.8'
+}
+repositories {
+    mavenCentral()
+}
