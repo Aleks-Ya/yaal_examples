@@ -1,0 +1,15 @@
+apply plugin: 'war'
+apply plugin: 'jetty'
+
+jettyRun {
+    httpPort = 8012
+    contextPath = "/jetty"
+}
+
+dependencies {
+    compile 'org.eclipse.jetty:jetty-server:9.2.0.v20140526'
+}
+
+repositories {
+    mavenCentral()
+}
