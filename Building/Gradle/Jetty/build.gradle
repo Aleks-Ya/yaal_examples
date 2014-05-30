@@ -1,6 +1,9 @@
 apply plugin: 'war'
 apply plugin: 'jetty'
 
+sourceSets.main.java.srcDir 'src'
+project.webAppDirName = 'webapp'
+
 jettyRun {
     httpPort = 8012
     contextPath = "/jetty"
