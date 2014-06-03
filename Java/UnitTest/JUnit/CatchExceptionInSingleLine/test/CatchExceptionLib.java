@@ -3,7 +3,12 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.googlecode.catchexception.CatchException.*;
+import static com.googlecode.catchexception.CatchException.catchException;
+import static com.googlecode.catchexception.CatchException.caughtException;
+import static com.googlecode.catchexception.CatchException.verifyException;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 /**
@@ -12,9 +17,34 @@ import static com.googlecode.catchexception.CatchException.*;
  */
 public class CatchExceptionLib {
     @Test
-    public void test() {
+    public void catchExc() {
         List myList = new ArrayList();
         catchException(myList).get(0);
         assert caughtException() instanceof IndexOutOfBoundsException;
+    }
+
+    @Test
+    public void verifyExc() {
+        List myList = new ArrayList();
+        verifyException(myList, IndexOutOfBoundsException.class).get(0);
+    }
+
+    @Test
+    public void verifyMock() {
+        List myList = mock(List.class);
+        when(myList.get(anyInt())).thenThrow(new IndexOutOfBoundsException());
+        verifyException(myList, IndexOutOfBoundsException.class).get(0);
+    }
+
+    @Test
+    public void verifyPackageMethod() {
+        PackageMethod obj = new PackageMethod();
+        verifyException(obj, IllegalArgumentException.class).testMe();
+    }
+}
+
+class PackageMethod {
+    protected void testMe() {
+        throw new IllegalArgumentException();
     }
 }
