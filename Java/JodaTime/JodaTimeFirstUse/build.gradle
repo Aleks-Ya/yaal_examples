@@ -1,5 +1,0 @@
-apply plugin: 'java'
-
-dependencies {
-	compile 'joda-time:joda-time:jar:2.3'
-}
