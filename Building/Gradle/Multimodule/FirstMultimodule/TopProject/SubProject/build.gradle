@@ -1,2 +1,3 @@
-apply plugin: 'java'
-sourceSets.main.java.srcDir 'src'
+//Наследование:
+//apply plugin: 'java'
+//sourceSets.main.java.srcDir 'src'
