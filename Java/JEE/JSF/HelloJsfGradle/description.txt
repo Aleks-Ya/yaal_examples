@@ -1,0 +1,3 @@
+Пример Hello World на JSF из JavaEE Tutorial.
+Сборка Gradle. War-архив нужно самостоятельно задеплоить в сервер (Glassfish).
+http://docs.oracle.com/javaee/7/tutorial/doc/webapp003.htm
