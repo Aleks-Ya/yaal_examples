@@ -1,0 +1,2 @@
+Пример Hello World на JSF из JavaEE Tutorial
+http://docs.oracle.com/javaee/7/tutorial/doc/webapp003.htm
