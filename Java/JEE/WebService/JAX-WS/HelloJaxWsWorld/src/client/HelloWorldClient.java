@@ -6,6 +6,9 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import java.net.URL;
 
+/**
+ * Реализация клиента без использования стабов.
+ */
 public class HelloWorldClient{
 
     public static void main(String[] args) throws Exception {
