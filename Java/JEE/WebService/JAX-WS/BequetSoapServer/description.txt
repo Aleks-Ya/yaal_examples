@@ -1,0 +1,2 @@
+Пример из главы 5 "Сервер SOAP" книги Бекета "Java SOAP" (Bequet "Professional Java SOAP Programming")
+todo НЕЗАВЕРШЕН
