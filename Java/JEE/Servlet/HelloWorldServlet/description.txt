@@ -1,1 +1,1 @@
-Пример "Hello, World" на Java Servlet.
+Пример "Hello, World" на Java Servlet (запуск в сервере приложений).

@@ -1,7 +1,8 @@
-apply plugin: 'java'
+apply plugin: 'war'
 sourceSets.main.java.srcDir 'src'
+project.webAppDirName = 'webapp'
 dependencies {
-    compile 'org.eclipse.jetty:jetty-servlet:9.2.1.v20140609'
+    compile 'javax.servlet:servlet-api:2.5'
 }
 repositories {
     mavenCentral()
