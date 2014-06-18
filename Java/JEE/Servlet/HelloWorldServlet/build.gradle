@@ -1,0 +1,8 @@
+apply plugin: 'java'
+sourceSets.main.java.srcDir 'src'
+dependencies {
+    compile 'org.eclipse.jetty:jetty-servlet:9.2.1.v20140609'
+}
+repositories {
+    mavenCentral()
+}
