@@ -1,0 +1,8 @@
+apply plugin: 'java'
+sourceSets.main.java.srcDir 'src'
+dependencies {
+    compile 'org.eclipse.jgit:org.eclipse.jgit:3.4.1.201406201815-r'
+}
+repositories {
+    mavenCentral()
+}
