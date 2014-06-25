@@ -15,6 +15,9 @@ public class Settings {
     @XmlElement
     private Mask mask;
 
+    @XmlElement(name = "priorMask")
+    private PriorityMask priorityMask;
+
     @XmlElement
     @XmlElementWrapper(name = "lamps")
     private List<Lamp> lamp;
@@ -31,7 +34,7 @@ public class Settings {
 
     @Override
     public String toString() {
-        return String.format("Settings[id='%s' port='%d' mask='%s' lamp='%s' book='%s' environment='%s']",
-                id, port, mask, lamp, book, environment);
+        return String.format("Settings[%n id='%s'%n port='%d'%n mask='%s'%n priority_mask='%s'%n lamp='%s'%n book='%s'%n environment='%s'%n]",
+                id, port, mask, priorityMask, lamp, book, environment);
     }
 }
