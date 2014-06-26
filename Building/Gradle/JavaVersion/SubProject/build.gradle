@@ -1,0 +1,6 @@
+//Не наследуется:
+apply plugin: 'java'
+sourceSets.main.java.srcDir 'src'
+//Наследуются:
+//sourceCompatibility = JavaVersion.VERSION_1_7
+//targetCompatibility = JavaVersion.VERSION_1_7
