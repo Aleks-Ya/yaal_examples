@@ -1,9 +1,28 @@
 apply plugin: 'java'
 sourceSets.main.java.srcDir 'src'
 
+def log4j = 'log4j:log4j:1.2.17'
+
+dependencies {
+    compile log4j
+}
+
+repositories {
+    mavenCentral()
+}
+
 subprojects {
     apply plugin: 'java'
     sourceSets.main.java.srcDir 'src'
+
+    dependencies {
+        compile log4j
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
 }
 
 Closure cl = { task -> println "I'm $task.project.name" }
