@@ -1,10 +1,11 @@
-package scan;
+package annotation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import scan.mayor.Mayor;
+import annotation.mayor.Mayor;
+import xml.Airport;
 
 import javax.annotation.Resource;
 

@@ -1,4 +1,4 @@
-package scan.mayor;
+package annotation.mayor;
 
 public class MayorAssistant {
     private String fio;
