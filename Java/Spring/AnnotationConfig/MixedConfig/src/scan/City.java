@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 @Service("city")
 public class City {
+    @Value("Спб")
     private String name;
     @Autowired
     private Mayor mayor;
@@ -21,22 +22,16 @@ public class City {
     @Qualifier("rur")
     private Currency currency;
 
-    private Airport airport;
-
     @Autowired
-    public City(Airport airport, @Value("Спб") String name) {
-        this.airport = airport;
-        this.name = name;
-    }
+    @Qualifier("airportXml")
+    private Airport airport;
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("name=").append(name).append("\n");
-        builder.append("mayor=").append(mayor).append("\n");
-        builder.append("mayor2=").append(mayor2).append("\n");
-        builder.append("airport=").append(airport).append("\n");
-        builder.append("currency=").append(currency).append("\n");
-        return builder.toString();
+        return "name=" + name + "\n" +
+                "mayor=" + mayor + "\n" +
+                "mayor2=" + mayor2 + "\n" +
+                "airport=" + airport + "\n" +
+                "currency=" + currency + "\n";
     }
 }
