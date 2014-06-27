@@ -6,7 +6,6 @@ import org.springframework.context.annotation.ImportResource;
 import annotation.mayor.MayorAssistant;
 
 @Configuration
-@ImportResource("classpath:xml-context.xml")
 public class Config {
 
     @Bean(name = "rightHand")

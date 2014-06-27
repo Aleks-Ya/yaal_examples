@@ -6,4 +6,6 @@
     <bean id="airportXml" class="xml.Airport">
         <constructor-arg value="Пулково"/>
     </bean>
+
+    <import resource="annotation-context.xml"/>
 </beans>
