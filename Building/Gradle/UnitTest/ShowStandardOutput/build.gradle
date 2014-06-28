@@ -1,0 +1,13 @@
+apply plugin: 'java'
+sourceSets.test.java.srcDir 'test'
+
+test {
+     testLogging.showStandardStreams = true
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+}
+repositories {
+    mavenCentral()
+}
