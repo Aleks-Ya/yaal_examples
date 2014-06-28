@@ -1,3 +1,14 @@
-apply plugin: 'application'
-sourceSets.main.java.srcDir 'src'
-mainClassName = "Main"
+apply plugin: 'java'
+sourceSets.test.java.srcDir 'test'
+
+test {
+     testLogging.showStandardStreams = true
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11',
+                'com.googlecode.catch-exception:catch-exception:1.2.0'
+}
+repositories {
+    mavenCentral()
+}
