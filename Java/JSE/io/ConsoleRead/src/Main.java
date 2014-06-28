@@ -1,5 +1,3 @@
-package ru.yaal.project.java.jse.io.console.read;
-
 import java.io.Console;
 
 /**
