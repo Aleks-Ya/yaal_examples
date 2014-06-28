@@ -1,0 +1,3 @@
+Сборка исполнимого jar в Gradle с зависимостями.
+Сборка: gradle build
+Запуск: java -jar build/libs/JarExecutable-1.0-SNAPSHOT.jar
