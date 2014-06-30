@@ -1,5 +1,3 @@
-package ru.yaal.example.java.se.swing.jeditorpane;
-
 import javax.swing.JFrame;
 import javax.swing.JTextPane;
 import javax.swing.WindowConstants;
