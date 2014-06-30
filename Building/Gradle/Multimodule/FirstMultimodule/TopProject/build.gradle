@@ -1,5 +1,8 @@
-apply plugin: 'java'
-sourceSets.main.java.srcDir 'src'
+allprojects {
+    apply plugin: 'java'
+    sourceSets.main.java.srcDir 'src'
+}
+
 
 def log4j = 'log4j:log4j:1.2.17'
 
@@ -12,8 +15,6 @@ repositories {
 }
 
 subprojects {
-    apply plugin: 'java'
-    sourceSets.main.java.srcDir 'src'
 
     dependencies {
         compile log4j
@@ -28,5 +29,5 @@ subprojects {
 Closure cl = { task -> println "I'm $task.project.name" }
 task hello << cl
 project(':SubProject') {
-     task hello << cl
+    task hello << cl
 }
