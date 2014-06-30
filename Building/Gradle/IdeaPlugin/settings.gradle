@@ -1,0 +1,2 @@
+include 'SubProject'
+include 'SubProject:Sub2Project'

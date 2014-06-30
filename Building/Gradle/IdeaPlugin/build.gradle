@@ -1,0 +1,14 @@
+allprojects {
+    apply plugin: 'idea'
+    apply plugin: 'java'
+
+    sourceSets.main.java.srcDir 'src'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compile 'log4j:log4j:1.2.17'
+    }
+}
