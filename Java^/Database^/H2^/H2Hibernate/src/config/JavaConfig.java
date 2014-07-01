@@ -13,7 +13,7 @@ public class JavaConfig extends AbstractConfig {
         Configuration configuration = new Configuration();
         configuration.setProperty("hibernate.connection.driver_class", "org.h2.Driver");
         configuration.setProperty("hibernate.connection.url", "jdbc:h2:~/test");
-        configuration.setProperty("hibernate.connection.username", "sa");
+        configuration.setProperty("hibernate.connection.username", "");
         configuration.setProperty("hibernate.connection.password", "");
         configuration.setProperty("hibernate.connection.pool_size", "1");
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");

@@ -6,7 +6,7 @@
     <session-factory>
         <property name="connection.driver_class">org.h2.Driver</property>
         <property name="connection.url">jdbc:h2:~/test</property>
-        <property name="connection.username">sa</property>
+        <property name="connection.username"/>
         <property name="connection.password"/>
         <property name="connection.pool_size">1</property>
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>
