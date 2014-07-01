@@ -1,10 +1,9 @@
 apply plugin: 'java'
 
 sourceSets.main.java.srcDir 'src'
-sourceSets.test.java.srcDir 'src'
 
 dependencies {
-    compile 'com.h2database:h2:1.4.179', 'org.hibernate:hibernate-core:4.2.6.Final', 'joda-time:joda-time:2.3'
+    compile 'com.h2database:h2:1.4.179', 'org.hibernate:hibernate-core:4.3.5.Final', 'joda-time:joda-time:2.3'
 }
 repositories {
     mavenCentral()
