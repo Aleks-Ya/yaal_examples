@@ -1,5 +1,3 @@
-package ru.yaal.examples.logging.log4j.parameterized;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

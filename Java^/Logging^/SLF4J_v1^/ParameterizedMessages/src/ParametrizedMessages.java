@@ -1,5 +1,3 @@
-package ru.yaal.examples.logging.log4j.parameterized;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,9 +9,9 @@ import java.util.Date;
  * User: a.yablokov
  * Date: 23.10.13
  */
-public class ParameterizedMessages {
+public class ParametrizedMessages {
     public static void main(String[] args) {
-        Logger log = LoggerFactory.getLogger(ParameterizedMessages.class);
+        Logger log = LoggerFactory.getLogger(ParametrizedMessages.class);
 
         log.info("Current date: {}", new Date());
         log.info("Current date: {1,date}", new Date());
