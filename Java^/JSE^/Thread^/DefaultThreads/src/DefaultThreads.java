@@ -1,5 +1,3 @@
-package ru.yaal.examples.java.se.core.thread;
-
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
