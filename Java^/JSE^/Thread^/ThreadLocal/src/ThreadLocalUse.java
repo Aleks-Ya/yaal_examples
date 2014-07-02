@@ -1,5 +1,3 @@
-package ru.yaal.practics.java.se.thread;
-
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
