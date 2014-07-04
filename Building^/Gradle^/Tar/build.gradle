@@ -1,0 +1,13 @@
+task tar(type: Tar) {
+    archiveName = "my_tar.tar"
+    destinationDir = getBuildDir()
+    from("content")
+    filesMatching("*.sh") {
+        println file.absolutePath
+        exec({commandLine = ["chmod", "+x", file.absolutePath]})
+    }
+}
+
+task clean {
+     delete(getBuildDir())
+}
