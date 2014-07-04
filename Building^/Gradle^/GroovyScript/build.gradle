@@ -1,0 +1,2 @@
+//Run: gradle
+println "Hello from Gradle"
