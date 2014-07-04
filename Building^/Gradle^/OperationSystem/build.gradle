@@ -1,0 +1,14 @@
+task os {
+    doLast {
+           def os = System.getProperty("os.name").toLowerCase()
+           println os
+
+           if (os.contains("windows")) {
+              print "Windows"
+           } else if (os.contains("mac os")) {
+             print "Mac"
+           } else {
+             print "Linux"
+           }
+    }
+}
