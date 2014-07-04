@@ -1,0 +1,5 @@
+//Run: gradle hello
+task hello(type: Exec) {
+    executable "sh"
+    args "-c", "echo 'hello from your shell'"
+}
