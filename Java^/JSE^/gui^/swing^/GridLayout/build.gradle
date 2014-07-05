@@ -1,2 +1,3 @@
-apply plugin : "java"
+apply plugin : "application"
 sourceSets.main.java.srcDir 'src'
+mainClassName = "Main"
