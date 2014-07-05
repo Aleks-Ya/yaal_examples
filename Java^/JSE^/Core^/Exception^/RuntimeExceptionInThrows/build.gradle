@@ -1,0 +1,5 @@
+apply plugin:'application'
+sourceSets.main.java.srcDir 'src'
+mainClassName = "Main"
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
