@@ -1,0 +1,1 @@
+Случаи бросания ExceptionInInitializerError.
