@@ -7,3 +7,6 @@ out
 *.ipr
 *.iws
 target
+/Java^/JSE^/gui^/swing^/JTextField/.nb-gradle/private/
+/Groovy^/Closure/.nb-gradle/private/
+.nb-gradle
