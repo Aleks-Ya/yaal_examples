@@ -1,5 +1,6 @@
-//Run: gradle hello
-task hello(type: Exec) {
-    executable "sh"
-    args "-c", "echo 'hello from your shell'"
-}
+//Run: gradle
+exec({commandLine = ["echo", "hello"]})
+exec({
+    commandLine = ["ls", "-l"]
+    workingDir = ".."
+})
