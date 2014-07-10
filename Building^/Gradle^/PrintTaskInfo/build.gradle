@@ -1,0 +1,19 @@
+//Run: gradle hello
+task hello() {
+  println "CONFIGURATION PHASE"
+  printInfo(it)
+}
+
+hello << {
+  println "EXECUTION PHASE"
+  printInfo(it)
+}
+
+def printInfo(it) {
+  println "name: $name"
+  println "name: " + name
+  println "name: " + it.name
+  println "project name: $project.name"
+  println "project name: " + project.name
+  println "project name: " + it.project.name
+}
