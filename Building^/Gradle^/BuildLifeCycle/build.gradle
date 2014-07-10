@@ -3,14 +3,22 @@ println 'Project - configuration phase'
 
 task hello() {
      doFirst() {
-          println 'hello - doFirst - task execution phase'
+          println 'hello - doFirst - execution phase'
      }
 
      configure() {
-          println 'hello - Task configuration phase'
+          println 'hello - configuration phase'
      }
 
      doLast() {
-          println 'hello - doLast - task execution phase'
+          println 'hello - doLast - execution phase'
      }
+}
+
+hello << {
+  println "hello - action 1 - execution phase"
+}
+
+hello << {
+  println "hello - action 2 - execution phase"
 }
