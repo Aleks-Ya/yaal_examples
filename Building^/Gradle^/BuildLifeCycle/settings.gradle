@@ -1,0 +1,2 @@
+println 'settings.gradle -  initialization phase'
+include 'SubProject'
