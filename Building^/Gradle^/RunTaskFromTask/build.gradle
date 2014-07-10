@@ -1,0 +1,9 @@
+task my(dependsOn: 'task1') {
+     println "Hi"
+}
+
+4.times { counter ->
+    task "task$counter" << {
+        println "I'm task number $counter"
+    }
+}
