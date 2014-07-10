@@ -1,0 +1,15 @@
+println 'Sub Project - configuration phase'
+
+task subhello() {
+     doFirst() {
+          println 'subhello - doFirst - task execution phase'
+     }
+
+     configure() {
+          println 'subhello - Task configuration phase'
+     }
+
+     doLast() {
+          println 'subhello - doLast - task execution phase'
+     }
+}

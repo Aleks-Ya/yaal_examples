@@ -1,0 +1,16 @@
+//Run: gradle subhello
+println 'Project - configuration phase'
+
+task hello() {
+     doFirst() {
+          println 'hello - doFirst - task execution phase'
+     }
+
+     configure() {
+          println 'hello - Task configuration phase'
+     }
+
+     doLast() {
+          println 'hello - doLast - task execution phase'
+     }
+}
