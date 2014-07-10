@@ -1,0 +1,35 @@
+//Run: gradle howAreYou
+//Run: gradle seeYou
+//Run: gradle goAway
+//Run: gradle useDynamic
+
+//Без зависимостей
+task hello() << {
+  println "hello"
+}
+
+//Зависимость от одной задачи в текущем проекте
+task bay(dependsOn: hello) << {
+  println "bay"
+}
+
+//Зависимость от задачи в дочернем проекте
+task seeYou(dependsOn: ":SubProject:howAreYou") << {
+  println "seeYou"
+}
+
+//Зависимость от нескольких задач
+task goAway(dependsOn: [seeYou, bay]) << {
+  println "Go away!"
+}
+
+//Динамическая задача
+def dynamicTaskName = "dynamicTask"
+task "$dynamicTaskName" << {
+  println "Dynamic task"
+}
+
+//Зависимость от динамичесчкой задачи
+task useDynamic(dependsOn: dynamicTaskName) << {
+  println "Use dynamic task"
+}

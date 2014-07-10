@@ -1,0 +1,4 @@
+// Зависимость от задачи в корневом проекте
+task howAreYou(dependsOn: ":hello") << {
+  println "How are you?"
+}
