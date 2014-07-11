@@ -1,0 +1,19 @@
+//Run: gradle run
+//Run: gradle run -d
+//Run: gradle run -i
+//Run: gradle run -q
+
+logger.error("error PROJECT CONFIGURE")
+
+task run {
+     logger.quiet("quiet TASK CONFIGURE")
+}
+
+run << {
+    logger.warn("warn TASK EXECUTE")
+}
+
+logger.lifecycle("lifecycle PROJECT CONFIGURE")
+logger.info("info PROJECT CONFIGURE")
+logger.debug("debug PROJECT CONFIGURE")
+logger.trace("trace PROJECT CONFIGURE")
