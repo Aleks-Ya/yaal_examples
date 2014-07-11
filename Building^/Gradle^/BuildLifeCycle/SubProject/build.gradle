@@ -22,3 +22,7 @@ subhello << {
 subhello << {
   println "subhello - action 2 - execution phase"
 }
+
+subhello.leftShift {
+  println "subhello - action 3 - execution phase"
+}
