@@ -1,0 +1,8 @@
+//Run: gradle -Parg1=foo
+
+printArg("arg1")
+printArg("arg2")
+
+def printArg(String argName) {
+    println(hasProperty(argName) ? "${argName}=" + getProperty(argName) : "ERROR: задайте аргумент ${argName} в коммандной строке")    
+}
