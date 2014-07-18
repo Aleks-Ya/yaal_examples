@@ -1,0 +1,1 @@
+println("Build dir in INITIALIZATION exists: " + hasProperty("buildDir"))

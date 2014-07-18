@@ -1,0 +1,9 @@
+// Run: gradle -q print
+
+println "Build dir in PROJECT CONFIGURATION: $buildDir"
+task print() {
+    println "Build dir in TASK CONFIGURATION: $buildDir"
+    doLast() {
+        println "Build dir in TASK EXECUTION: $buildDir"
+    }
+}
