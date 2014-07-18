@@ -1,0 +1,13 @@
+//Run: gradle
+
+defaultTasks('copyFiles') 
+
+def fromDir = "$projectDir"
+def toDir = new File("$buildDir", 'copied')
+
+delete(toDir)
+
+task copyFiles(type: Copy) {
+    from "$projectDir"
+    into toDir
+}
