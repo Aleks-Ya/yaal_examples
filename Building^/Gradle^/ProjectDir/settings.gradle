@@ -1,0 +1,1 @@
+println("Project dir in INITIALIZATION exists: " + hasProperty("projectDir"))
