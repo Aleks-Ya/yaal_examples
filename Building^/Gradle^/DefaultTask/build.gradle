@@ -1,0 +1,7 @@
+// Run: gradle
+
+defaultTasks('print') 
+
+task print << {
+    println "I'm the default task!"
+}
