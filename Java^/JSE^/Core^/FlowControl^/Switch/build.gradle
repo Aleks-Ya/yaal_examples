@@ -1,0 +1,5 @@
+// Run: gradle
+defaultTasks('run')
+apply plugin: 'application'
+sourceSets.main.java.srcDir 'src'
+mainClassName = "Main"
