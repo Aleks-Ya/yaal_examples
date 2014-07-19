@@ -1,7 +1,11 @@
 // Run: gradle
 
-defaultTasks('print') 
+defaultTasks('hi', 'bay') 
 
-task print << {
-    println "I'm the default task!"
+task hi << {
+    println "Hi!"
+}
+
+task bay << {
+    println "Bay!"
 }
