@@ -1,0 +1,7 @@
+//Run: gradle
+apply plugin: 'application'
+sourceSets.main.java.srcDir 'src'
+mainClassName = "Sort"
+defaultTasks('run')
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
