@@ -4,6 +4,7 @@ public class Main {
     public static void main(String[] args) {
            eq();
            multi();
+           defaultBeforeCase();
     }
 
     /**
@@ -27,13 +28,23 @@ public class Main {
             case "wed":
             case "thu":
             case "fri": 
-                out.printf("%s is a work day", day);
+                out.printf("%s is a work day%n", day);
                 break;
             case "sat":
             case "sun":
-                out.printf("%s is a holiday", day);
+                out.printf("%s is a holiday%n", day);
                 break;
-            default: out.printf("%s is not a day");
+            default: out.printf("%s is not a day%n");
         }
     }
+    
+    /**
+     * Секцию default можно расположить перед case.
+     */
+    private static void defaultBeforeCase() {
+		switch("autumn") {
+			default: out.println("default section");
+			case "winter": out.println("winter section");
+		}
+	}
 }
