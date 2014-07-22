@@ -1,0 +1,3 @@
+//Задается в родителе в секции subprojects:
+mainClassName = "SubClass"
+sourceSets.main.resources.srcDir 'resources'

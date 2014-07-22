@@ -1,0 +1,6 @@
+allprojects {
+    apply plugin: 'application'
+    sourceSets.main.java.srcDir 'src'
+    defaultTasks('run')
+}
+mainClassName = 'MyClass'
