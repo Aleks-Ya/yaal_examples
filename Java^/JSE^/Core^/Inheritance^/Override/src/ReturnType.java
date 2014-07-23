@@ -1,12 +1,12 @@
-import static java.lang.System.out;
+package type;
 
 /**
  * Переопределяющий метод может декларировать возвращаемый параметр дочернего класса.
  */
-public class Main {
+public class ReturnType {
     public static void main(String[] args) {
         Result r = new Child().makeResult();
-        out.println(r.getClass());
+        System.out.println(r.getClass());
     }
 }
 

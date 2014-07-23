@@ -1,5 +1,7 @@
-//Run: gradle
+//Run: gradle -Pmain=access.AccessModifier
+//Run: gradle -Pmain=type.ReturnType
+
 apply plugin:'application'
 sourceSets.main.java.srcDir 'src'
-mainClassName = "Main"
+mainClassName = "$main"
 defaultTasks('run')
