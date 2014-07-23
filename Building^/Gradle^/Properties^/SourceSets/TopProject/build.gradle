@@ -1,0 +1,18 @@
+//Run: gradle -q
+defaultTasks('printAllProjects')
+
+allprojects {
+    apply plugin: 'application'
+    sourceSets.main.java.srcDir 'src'
+}
+
+task printAllProjects() << {
+	for (p in allprojects) {
+		println(p.name)
+		println("Java Src: $p.sourceSets.main.java.srcDirs")
+		println("Java Resources: $p.sourceSets.main.resources.srcDirs")
+		println("Test Src: $p.sourceSets.test.java.srcDirs")
+		println("Java Resources: $p.sourceSets.test.resources.srcDirs")
+		println()
+	}
+}
