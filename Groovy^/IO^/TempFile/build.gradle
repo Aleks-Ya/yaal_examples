@@ -1,0 +1,11 @@
+//Run: gradle -q
+
+apply plugin: 'groovy'
+apply plugin: 'application'
+sourceSets.main.groovy.srcDir 'src'
+mainClassName = 'TempFile'
+defaultTasks('run')
+
+dependencies {
+    compile localGroovy()
+}
