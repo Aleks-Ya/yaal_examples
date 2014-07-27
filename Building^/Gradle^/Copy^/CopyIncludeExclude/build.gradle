@@ -1,0 +1,19 @@
+//Run: gradle
+
+defaultTasks('copyFiles') 
+
+def fromDir = "$projectDir"
+def toDir = new File("$buildDir", 'copied')
+
+task clean(type: Delete) {
+  delete toDir
+}
+
+task copyFiles(dependsOn: clean, type: Copy) {
+    from ("$projectDir/source") {
+      include '**/*.java'
+      exclude '**/*.class', 'no_copy_dir'
+    }
+    into toDir
+    includeEmptyDirs = false
+}
