@@ -1,0 +1,20 @@
+//Run: gradle
+
+defaultTasks('copyFiles') 
+
+def fromDir = "$projectDir/source"
+def toDir = new File("$buildDir", 'copied')
+
+task clean(type: Delete) {
+  delete toDir
+}
+
+task copyFiles(dependsOn: clean, type: Copy) {
+    from (fromDir) {
+      include '**/*.java', '**/*.sh'
+    }
+    filesMatching('*.sh') {
+        fileMode = 0755
+    }
+    into toDir
+}
