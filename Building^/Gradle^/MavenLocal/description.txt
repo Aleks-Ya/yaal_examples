@@ -1,0 +1,1 @@
+Нужно ли указывать mavenLocal(), если указан mavenCentral()?
