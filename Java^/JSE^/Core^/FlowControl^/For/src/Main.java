@@ -5,7 +5,7 @@ public class Main {
 
     /**
      * Переход на метку перед for означает следующий виток цикла.
-    */
+     */
     private static void breakWithTag() {
         for (int i = 0; i < 5; i++) {
             inner:
