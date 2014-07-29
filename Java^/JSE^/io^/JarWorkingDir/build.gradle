@@ -1,0 +1,12 @@
+//Run: gradle
+
+apply plugin : "application"
+sourceSets.main.java.srcDir 'src'
+mainClassName = 'Main'
+defaultTasks('jar')
+
+group = "ru.yaal.examples"
+version = "1.0-SNAPSHOT"
+jar {
+    manifest.attributes "Main-Class": "Main"
+}
