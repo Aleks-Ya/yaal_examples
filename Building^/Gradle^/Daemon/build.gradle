@@ -1,0 +1,20 @@
+//Run with daemon (default): gradle
+//Run without daemon: gradle --no-daemon
+
+defaultTasks('tempFilesLength')
+
+task tempFilesLength << {
+    //long lengthSum = 0L
+    //for(File f in fileTree(System.getProperty("user.home"))) {
+    //    lengthSum += f.length()
+    //}
+    //println "$lengthSum"
+    
+    
+    //Написать сложную задачу, чтобы увидеть скорость выполнения
+    long c = 0L
+    for (long i = 0; i < 5e1; i++) {
+      c++
+    }
+    println c
+}
