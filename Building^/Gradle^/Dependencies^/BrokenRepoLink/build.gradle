@@ -1,0 +1,13 @@
+//Run: gradle
+apply plugin: 'java'
+
+sourceSets.main.java.srcDir 'src'
+defaultTasks('build')
+
+dependencies {
+    compile 'org.hibernate:hibernate-core:4.3.5.Final'
+}
+repositories {
+  maven {url('http://repo_1.maven.org/maven2/')}
+  mavenCentral()
+}
