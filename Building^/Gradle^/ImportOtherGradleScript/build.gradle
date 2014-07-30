@@ -1,0 +1,4 @@
+// Run: gradle
+
+apply from : 'import.gradle'
+defaultTasks('hi') 

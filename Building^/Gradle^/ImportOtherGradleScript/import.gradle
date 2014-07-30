@@ -1,0 +1,3 @@
+task hi << {
+    println "I'm from import.gradle"
+}
