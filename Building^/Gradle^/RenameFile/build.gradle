@@ -1,0 +1,22 @@
+//Run: gradle
+
+defaultTasks('renameFiles') 
+
+def currentFile = File.createTempFile("RenameFile_",".tmp")
+currentFile.with {
+    //deleteOnExit()
+    write "Rename me"
+    println absolutePath
+}
+
+def newName = "RenameFile_new_name.txt"
+
+task renameFiles(type: Copy) {
+    from currentFile.parent
+    into currentFile.parent
+    include currentFile.name
+    
+    rename { String fileName ->
+        fileName = newName
+    }
+}
