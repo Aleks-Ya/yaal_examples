@@ -1,5 +1,6 @@
 //Run: gradle -Pmain=access.AccessModifier
 //Run: gradle -Pmain=type.ReturnType
+//Run: gradle -Pmain=throwstype.ThrowsType
 
 apply plugin:'application'
 sourceSets.main.java.srcDir 'src'
