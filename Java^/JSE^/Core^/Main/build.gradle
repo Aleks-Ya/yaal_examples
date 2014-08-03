@@ -1,0 +1,7 @@
+//Run: gradle -Pmain=MainArray
+//Run: gradle -Pmain=MainVarArgs
+
+apply plugin:'application'
+sourceSets.main.java.srcDir 'src'
+mainClassName = "$main"
+defaultTasks('run')
