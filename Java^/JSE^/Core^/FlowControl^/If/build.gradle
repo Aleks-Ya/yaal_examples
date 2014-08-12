@@ -3,3 +3,7 @@ apply plugin:'application'
 sourceSets.main.java.srcDir 'src'
 mainClassName = "Main"
 defaultTasks('run')
+
+task help() << {
+    println 'Run: gradle'
+}
