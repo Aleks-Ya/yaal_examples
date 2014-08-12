@@ -1,6 +1,7 @@
 //Run: gradle -Pmain=access.AccessModifier
 //Run: gradle -Pmain=type.ReturnType
 //Run: gradle -Pmain=throwstype.ThrowsType
+//Run: gradle run -Pmain=staticfield.StaticField
 
 apply plugin:'application'
 sourceSets.main.java.srcDir 'src'
