@@ -1,6 +1,8 @@
+package constructor;
+
 import static java.lang.System.out;
 
-public class Main {
+public class CallConstructor {
     public static void main(String[] args) {
 		new Child();
 	}
