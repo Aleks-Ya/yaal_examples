@@ -1,0 +1,4 @@
+//Run: gradle 
+//Run: gradle --configure-on-demand
+
+println("Configure RootProject")
