@@ -1,9 +1,12 @@
-// Run: gradle -q print
+// Run: gradle -q 
+
+defaultTasks('print')
 
 println "Project dir in PROJECT CONFIGURATION: $projectDir"
 task print() {
     println "Project dir in TASK CONFIGURATION: $projectDir"
     doLast() {
         println "Project dir in TASK EXECUTION: $projectDir"
+        println 'projectDir class:' + projectDir.class.getCanonicalName()
     }
 }
