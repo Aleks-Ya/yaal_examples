@@ -1,1 +1,2 @@
-include 'Java^:JSE^:Core^:Inheritance^:CallSuper'
+include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
+		'Java^:JSE^:Core^:FlowControl^:For^:ForExercise'
