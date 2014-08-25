@@ -1,0 +1,25 @@
+apply plugin: 'java'
+sourceSets.main.java.srcDir 'src'
+sourceSets.test.java.srcDir 'test'
+
+configurations.create('myCompile')
+configurations.create('myTestCompile')
+
+configurations {
+	myCompile.transitive = false
+	
+	myTestCompile.extendsFrom(myCompile)
+	myTestCompile.transitive = false
+	
+	compile.extendsFrom(myCompile)
+	testCompile.extendsFrom(myTestCompile)
+}
+
+dependencies {
+    myCompile 'joda-time:joda-time:2.3', 'org.springframework:spring-context:3.2.4.RELEASE'
+    myTestCompile 'org.testng:testng:6.8.7', 'org.mockito:mockito-all:1.9.5'
+}
+
+repositories {
+    mavenCentral()
+}
