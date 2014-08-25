@@ -8,6 +8,7 @@ test {
     useTestNG()
 }
 dependencies {
+	providedCompile 'org.apache.commons:commons-lang3:3.3.2'  
     testCompile 'org.testng:testng:6.8.8'
 }
 repositories {
