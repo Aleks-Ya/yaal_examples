@@ -1,5 +1,3 @@
-package ru.yaal.examples.gradle.configurations;
-
 import org.testng.annotations.Test;
 
 import static org.mockito.Mockito.mock;
