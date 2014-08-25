@@ -1,5 +1,4 @@
 allprojects {
-    apply plugin: 'idea'
     apply plugin: 'java'
 
     sourceSets.main.java.srcDir 'src'
@@ -11,4 +10,13 @@ allprojects {
     dependencies {
         compile 'log4j:log4j:1.2.17'
     }
+    
+    apply plugin: 'idea'
+
+	idea {
+	  module {
+		downloadJavadoc = true
+		downloadSources = true
+	  }
+	}
 }
