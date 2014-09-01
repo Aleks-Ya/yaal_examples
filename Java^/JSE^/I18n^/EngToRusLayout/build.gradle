@@ -1,0 +1,3 @@
+apply plugin: 'java'
+sourceSets.main.java.srcDir 'src'
+sourceSets.main.resources.srcDir 'resources'
