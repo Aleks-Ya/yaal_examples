@@ -15,5 +15,7 @@ public class Main {
 		out.println("[Integer i1 = 1;] == [Byte b1 = 1; ] --> Compile Error \"incomparable types: Integer and Byte\"");
 		out.println("[Integer i1 = 1;] == [int i3 = 1;] -->" + (i1 == i3));
 		out.println("[Integer i1 = 1;] == [Integer i2 = new Integer(1);] -->" + (i1 == i2));
+		out.println("[new Integer(1)] == [new Integer(1)] -->" + (new Integer(1) == new Integer(1)));
+		out.println("[new Integer(1)] == [(int) new Integer(1)] -->" + (new Integer(1) == (int) new Integer(1)));
     }
 }
