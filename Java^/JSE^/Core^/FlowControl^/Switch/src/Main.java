@@ -42,7 +42,7 @@ public class Main {
      * Секцию default можно расположить перед case.
      */
     private static void defaultBeforeCase() {
-		switch("autumn") {
+		switch("winter") {
 			default: out.println("default section");
 			case "winter": out.println("winter section");
 		}
