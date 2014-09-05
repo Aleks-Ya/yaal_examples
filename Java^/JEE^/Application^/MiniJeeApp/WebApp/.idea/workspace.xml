@@ -38,10 +38,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CurDate.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="CurDate.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/servlet/CurDate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="396" max-vertical-offset="504">
+            <state vertical-scroll-proportion="0.43656716" vertical-offset="0" max-vertical-offset="536">
               <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
               <folding />
             </state>
@@ -58,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="application.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../JeeApplication/META-INF/application.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.17802198" vertical-offset="0" max-vertical-offset="910">
-              <caret line="9" column="35" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="342">
+              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -80,6 +80,40 @@
       <map>
         <entry key="$USER_HOME$/cash3/SetRetail10_Utils/testStand/BankEmulator" value="2811373378482" />
         <entry key="$USER_HOME$/catalog_project" value="1401967306101" />
+        <entry key="$PROJECT_DIR$/../../../../../Building/Gradle/JavaVersion" value="1403686730148" />
+        <entry key="$PROJECT_DIR$/../../../../../Building/Gradle/Multimodule/FirstMultimodule/TopProject" value="4205967971246" />
+        <entry key="$PROJECT_DIR$/../../../../../Building^/Gradle^/Chmod" value="1404480410000" />
+        <entry key="$PROJECT_DIR$/../../../../../Building^/Gradle^/Dependencies^/Configurations" value="1406615578951" />
+        <entry key="$PROJECT_DIR$/../../../../../Building^/Gradle^/Dependencies^/CustomConfiguration" value="1408974065426" />
+        <entry key="$PROJECT_DIR$/../../../../../Building^/Gradle^/Exec" value="1404482057393" />
+        <entry key="$PROJECT_DIR$/../../../../../Building^/Gradle^/IdeaPlugin" value="5621033454178" />
+        <entry key="$PROJECT_DIR$/../../../../../Groovy/ClassMembers" value="1402056374504" />
+        <entry key="$PROJECT_DIR$/../../../../../Groovy/WorkflowControl" value="1402058086000" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/Database/H2/H2Jdbc" value="1401963177000" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/Database/JDBC/ExecuteSqlFromFile" value="1403512029442" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/Database/JPA/EntityManager/ObtainEntityManager" value="1401963177383" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/Git/JGit/CloneFetch" value="1403588570161" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/JEE/Jetty/JettyContextHandler" value="1401963177403" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/JEE/Jetty/JettyServletHandler" value="1401963177000" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/JEE/Servlet/HelloWorldServlet" value="1401963177000" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/JEE/WebService/JAX-WS/BequetSoapServer" value="1402299709000" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/JEE/WebService/JAX-WS/HelloJaxWsWorld" value="1401963177403" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/JEE/WebService/JAX-WS/HelloWorldStubs" value="1402299709005" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/JSE/I18n/EasyI18nApplication" value="1401963177435" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/JSE/JAXB/XmlToJava" value="1401963177435" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/JSE/Util/ResourceBundle" value="1404111485000" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/JSE/gui/swing/GridLayout" value="1401963177439" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/JSE/gui/swing/JSpinner" value="1401963177000" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/Spring/AnnotationConfig/BeanLifeCycle" value="1401963177000" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/Spring/AnnotationConfig/CreateBean" value="1401963177475" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/Spring/AnnotationConfig/MixedConfig" value="1401963177479" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/Spring/AnnotationConfig/ParentContext" value="1401963177479" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/Spring/CombinedConfig/AnnotationFromXml" value="1403871835533" />
+        <entry key="$PROJECT_DIR$/../../../../../Java/Spring/CombinedConfig/XmlFromAnnotation" value="1403871835000" />
+        <entry key="$PROJECT_DIR$/../../../../Database^/H2^/H2Hibernate" value="1401963177379" />
+        <entry key="$PROJECT_DIR$/../../../../Database^/Hibernate^/Associations^/BidirectionalAssociations" value="1401963177383" />
+        <entry key="$PROJECT_DIR$/../../../../Database^/Hibernate^/HibernateLog" value="1401963177000" />
+        <entry key="$PROJECT_DIR$/../../../../Database^/Hibernate^/UnknownServiceException" value="1401963177000" />
         <entry key="$PROJECT_DIR$/../GitFetchAllRepos" value="1403602843425" />
         <entry key="$PROJECT_DIR$/../InitServerSql" value="1403512792000" />
         <entry key="$PROJECT_DIR$/../../cash/cash1/repos" value="482918873641188" />
@@ -92,48 +126,14 @@
         <entry key="$PROJECT_DIR$/../../cash/cash8_no_ide" value="490482713280405" />
         <entry key="$PROJECT_DIR$/../../cash/cash8_no_ide/SetRetail10_Utils/testStand/SetRobot/setrobot-core" value="77333992462044" />
         <entry key="$PROJECT_DIR$/../../server/server1/repos/SetRetail10_Server/buildGradle" value="120459454074785" />
-        <entry key="$USER_HOME$/examples/Building/Gradle/JavaVersion" value="1403686730148" />
-        <entry key="$USER_HOME$/examples/Building/Gradle/Multimodule/FirstMultimodule/TopProject" value="4205967971246" />
-        <entry key="$USER_HOME$/examples/Building^/Gradle^/Chmod" value="1404480410000" />
-        <entry key="$USER_HOME$/examples/Building^/Gradle^/Dependencies^/Configurations" value="1406615578951" />
-        <entry key="$USER_HOME$/examples/Building^/Gradle^/Dependencies^/CustomConfiguration" value="1408974065426" />
-        <entry key="$USER_HOME$/examples/Building^/Gradle^/Exec" value="1404482057393" />
-        <entry key="$USER_HOME$/examples/Building^/Gradle^/IdeaPlugin" value="5621033454178" />
-        <entry key="$USER_HOME$/examples/Groovy/ClassMembers" value="1402056374504" />
-        <entry key="$USER_HOME$/examples/Groovy/WorkflowControl" value="1402058086000" />
-        <entry key="$USER_HOME$/examples/Java/Database/H2/H2Jdbc" value="1401963177000" />
-        <entry key="$USER_HOME$/examples/Java/Database/JDBC/ExecuteSqlFromFile" value="1403512029442" />
-        <entry key="$USER_HOME$/examples/Java/Database/JPA/EntityManager/ObtainEntityManager" value="1401963177383" />
-        <entry key="$USER_HOME$/examples/Java/Git/JGit/CloneFetch" value="1403588570161" />
-        <entry key="$USER_HOME$/examples/Java/JEE/Jetty/JettyContextHandler" value="1401963177403" />
-        <entry key="$USER_HOME$/examples/Java/JEE/Jetty/JettyServletHandler" value="1401963177000" />
-        <entry key="$USER_HOME$/examples/Java/JEE/Servlet/HelloWorldServlet" value="1401963177000" />
-        <entry key="$USER_HOME$/examples/Java/JEE/WebService/JAX-WS/BequetSoapServer" value="1402299709000" />
-        <entry key="$USER_HOME$/examples/Java/JEE/WebService/JAX-WS/HelloJaxWsWorld" value="1401963177403" />
-        <entry key="$USER_HOME$/examples/Java/JEE/WebService/JAX-WS/HelloWorldStubs" value="1402299709005" />
-        <entry key="$USER_HOME$/examples/Java/JSE/I18n/EasyI18nApplication" value="1401963177435" />
-        <entry key="$USER_HOME$/examples/Java/JSE/JAXB/XmlToJava" value="1401963177435" />
-        <entry key="$USER_HOME$/examples/Java/JSE/Util/ResourceBundle" value="1404111485000" />
-        <entry key="$USER_HOME$/examples/Java/JSE/gui/swing/GridLayout" value="1401963177439" />
-        <entry key="$USER_HOME$/examples/Java/JSE/gui/swing/JSpinner" value="1401963177000" />
-        <entry key="$USER_HOME$/examples/Java/Spring/AnnotationConfig/BeanLifeCycle" value="1401963177000" />
-        <entry key="$USER_HOME$/examples/Java/Spring/AnnotationConfig/CreateBean" value="1401963177475" />
-        <entry key="$USER_HOME$/examples/Java/Spring/AnnotationConfig/MixedConfig" value="1401963177479" />
-        <entry key="$USER_HOME$/examples/Java/Spring/AnnotationConfig/ParentContext" value="1401963177479" />
-        <entry key="$USER_HOME$/examples/Java/Spring/CombinedConfig/AnnotationFromXml" value="1403871835533" />
-        <entry key="$USER_HOME$/examples/Java/Spring/CombinedConfig/XmlFromAnnotation" value="1403871835000" />
-        <entry key="$USER_HOME$/examples/Java^/Database^/H2^/H2Hibernate" value="1401963177379" />
-        <entry key="$USER_HOME$/examples/Java^/Database^/Hibernate^/Associations^/BidirectionalAssociations" value="1401963177383" />
-        <entry key="$USER_HOME$/examples/Java^/Database^/Hibernate^/HibernateLog" value="1401963177000" />
-        <entry key="$USER_HOME$/examples/Java^/Database^/Hibernate^/UnknownServiceException" value="1401963177000" />
-        <entry key="$USER_HOME$/examples/Java^/JSE^/Core^/Exception^/FinallyBeforeCatch" value="1404313883857" />
-        <entry key="$USER_HOME$/examples/Java^/JSE^/Thread^/ReentrantLock" value="1404297451801" />
-        <entry key="$USER_HOME$/examples/Java^/JSE^/io^/InputStreamToString" value="1404111485000" />
-        <entry key="$USER_HOME$/examples/Java^/JSE^/io^/JarWorkingDir" value="1406638570722" />
-        <entry key="$USER_HOME$/examples/Java^/Logging^/Log4J_v2^/Configuration/AutomaticConfiguration" value="1404222367007" />
-        <entry key="$USER_HOME$/examples/Java^/Logging^/Log4J_v2^/Configuration/AutomaticXml" value="1404222367000" />
-        <entry key="$USER_HOME$/examples/Java^/Logging^/Log4J_v2^/ConfigurationLog4J" value="1401963177475" />
-        <entry key="$USER_HOME$/examples/Java^/Logging^/SLF4J_v1^/ParameterizedMessages" value="1404218687330" />
+        <entry key="$PROJECT_DIR$/../../../../JSE^/Core^/Exception^/FinallyBeforeCatch" value="1404313883857" />
+        <entry key="$PROJECT_DIR$/../../../../JSE^/Thread^/ReentrantLock" value="1404297451801" />
+        <entry key="$PROJECT_DIR$/../../../../JSE^/io^/InputStreamToString" value="1404111485000" />
+        <entry key="$PROJECT_DIR$/../../../../JSE^/io^/JarWorkingDir" value="1406638570722" />
+        <entry key="$PROJECT_DIR$/../../../../Logging^/Log4J_v2^/Configuration/AutomaticConfiguration" value="1404222367007" />
+        <entry key="$PROJECT_DIR$/../../../../Logging^/Log4J_v2^/Configuration/AutomaticXml" value="1404222367000" />
+        <entry key="$PROJECT_DIR$/../../../../Logging^/Log4J_v2^/ConfigurationLog4J" value="1401963177475" />
+        <entry key="$PROJECT_DIR$/../../../../Logging^/SLF4J_v1^/ParameterizedMessages" value="1404218687330" />
         <entry key="$USER_HOME$/exception_quiz" value="1407136273833" />
         <entry key="$USER_HOME$/server" value="420278726653596" />
         <entry key="$USER_HOME$/server/SetRetail10_Server/buildGradle" value="206272540331806" />
@@ -167,7 +167,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="2" />
+    <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -182,8 +182,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -192,8 +190,34 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MiniWebApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JeeApplication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MiniWebApp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JeeApplication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="META-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -205,12 +229,13 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="LayoutCode.rearrangeEntriesJava" value="false" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../JeeApplication" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="restartRequiresConfirmation" value="true" />
   </component>
-  <component name="RunManager" selected="JBoss Server.JBoss 7.1.1.Final">
+  <component name="RunManager" selected="Remote.to local jboss">
     <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
       <module name="" />
       <setting name="vmparams" value="" />
@@ -219,6 +244,17 @@
       <setting name="passParentEnv" value="true" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <setting name="launchBrowser" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JBossConfiguration" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="LOCAL" value="false" />
+      <deployment />
+      <server-settings>
+        <data>
+          <option name="transportHostId" />
+        </data>
+      </server-settings>
+      <predefined_log_file id="JBoss" enabled="true" />
       <method />
     </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
@@ -255,6 +291,19 @@
       <option name="trusted" value="true" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -281,19 +330,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -367,28 +403,37 @@
       <option name="usbDebugPort" value="7936" />
       <method />
     </configuration>
-    <configuration default="false" name="JBoss 7.1.1.Final" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss 7.1.1.Final" ALTERNATIVE_JRE_ENABLED="false">
-      <deployment>
-        <artifact name="JeeApplication:ear exploded">
-          <settings />
-        </artifact>
-      </deployment>
-      <server-settings>
-        <option name="SERVER" value="" />
-        <option name="BINDING_SET_NAME" value="" />
-        <option name="USERNAME" value="" />
-        <option name="PASSWORD" value="" />
-      </server-settings>
-      <predefined_log_file id="JBoss" enabled="true" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <method>
-        <option name="BuildArtifacts" enabled="true">
-          <artifact name="JeeApplication:ear exploded" />
-        </option>
-      </method>
+    <configuration default="false" name="REMOTE JBOSS" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="172.16.1.229" />
+      <option name="PORT" value="8787" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="8787" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="false" />
+      </RunnerSettings>
+      <ConfigurationWrapper RunnerId="Debug" />
+      <method />
     </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="JBoss Server.JBoss 7.1.1.Final" />
+    <configuration default="false" name="to local jboss" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="8787" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="8787" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="false" />
+      </RunnerSettings>
+      <ConfigurationWrapper RunnerId="Debug" />
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Remote.REMOTE JBOSS" />
+      <item index="1" class="java.lang.String" itemvalue="Remote.to local jboss" />
     </list>
     <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
@@ -406,12 +451,12 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JavaEE:App" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3991462" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3991462" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -419,8 +464,8 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -447,13 +492,55 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/servlet/CurDate.java</url>
+          <line>15</line>
+          <properties />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="3" />
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/web/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="252">
+          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/servlet/CurDate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="396" max-vertical-offset="504">
+          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="234" max-vertical-offset="342">
+          <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../JeeApplication/META-INF/application.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="342">
+          <caret line="9" column="35" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="252">
@@ -518,14 +605,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/servlet/CurDate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
-          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="342">
@@ -536,8 +615,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../JeeApplication/META-INF/application.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17802198" vertical-offset="0" max-vertical-offset="910">
-          <caret line="9" column="35" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="342">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/servlet/CurDate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43656716" vertical-offset="0" max-vertical-offset="536">
+          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
           <folding />
         </state>
       </provider>
