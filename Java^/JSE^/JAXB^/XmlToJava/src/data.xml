@@ -3,8 +3,8 @@
     <mask>red mask</mask>
     <priorMask priority="1">blue mask</priorMask>
     <lamps>
-        <lamp>little lamp</lamp>
-        <lamp>big lamp</lamp>
+        <lamp type="dark">little lamp</lamp>
+        <lamp type="bright">big lamp</lamp>
     </lamps>
     <books>
         <book>OS Linux</book>
