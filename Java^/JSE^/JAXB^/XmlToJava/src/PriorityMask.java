@@ -1,6 +1,6 @@
 import javax.xml.bind.annotation.XmlAttribute;
 
-public class PriorityMask extends Mask {
+class PriorityMask extends Mask {
     @XmlAttribute
     private int priority;
 

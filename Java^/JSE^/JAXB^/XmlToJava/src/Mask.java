@@ -1,6 +1,6 @@
 import javax.xml.bind.annotation.XmlValue;
 
-public class Mask {
+class Mask {
     private String value;
 
     public String getValue() {

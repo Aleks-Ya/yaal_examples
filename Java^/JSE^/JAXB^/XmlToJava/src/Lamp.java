@@ -1,7 +1,7 @@
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;
 
-public class Lamp {
+class Lamp {
     @XmlValue
     private String value;
 

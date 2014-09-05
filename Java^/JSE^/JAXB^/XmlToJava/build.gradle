@@ -1,4 +1,12 @@
 apply plugin : "application"
 sourceSets.main.java.srcDir 'src'
+sourceSets.test.java.srcDir 'test'
 defaultTasks('run')
 mainClassName = 'Main'
+
+dependencies {
+    testCompile "junit:junit:4.11"
+}
+repositories {
+    mavenCentral()
+}

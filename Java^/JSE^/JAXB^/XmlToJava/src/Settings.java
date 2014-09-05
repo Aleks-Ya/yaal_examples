@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 @XmlRootElement
-public class Settings {
+class Settings {
     @XmlAttribute
     private String id;
 

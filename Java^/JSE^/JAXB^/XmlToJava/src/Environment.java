@@ -1,6 +1,6 @@
 import javax.xml.bind.annotation.XmlElement;
 
-public class Environment {
+class Environment {
     @XmlElement
     private String root;
     @XmlElement
