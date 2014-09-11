@@ -1,0 +1,15 @@
+//Run: gradle run -Pmain=PrimitiveAll
+//Run: gradle run -Pmain=PrimitiveByte
+//Run: gradle run -Pmain=Reference
+
+apply plugin:'application'
+sourceSets.main.java.srcDir 'src'
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
+defaultTasks('run')
+
+if (hasProperty("main")) {
+    mainClassName = main
+} else {
+    println("Задайте класс main в коммандной строке: gradle run -Pmain=One")
+}
