@@ -4,6 +4,9 @@ import java.util.regex.Pattern;
 
 import static java.lang.System.out;
 
+/**
+ * Поиск нескольких вхождений регулярного выражения в строку.
+ */
 public class MultiSubstring {
     public static void main(String[] args) throws IOException {
         final String source = "concert einaudi ludovico einaudi today ";
