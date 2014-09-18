@@ -1,0 +1,13 @@
+//Run: export GRADLE_OPTS="-Dfile.encoding=UTF-8"; gradle
+
+import java.nio.charset.Charset;
+import java.io.File;
+
+apply plugin:'java'
+println('Default encoding: ' + Charset.defaultCharset() + '\n')
+
+File cp1251 = new File("cp1251.txt")
+File utf8 = new File("utf8.txt")
+
+println(cp1251.text)
+println(utf8.text)
