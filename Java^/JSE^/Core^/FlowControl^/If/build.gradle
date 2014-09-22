@@ -1,7 +1,7 @@
 //Run: gradle
 apply plugin:'application'
 sourceSets.main.java.srcDir 'src'
-mainClassName = "Main"
+mainClassName = "$main"
 defaultTasks('run')
 
 task help() << {
