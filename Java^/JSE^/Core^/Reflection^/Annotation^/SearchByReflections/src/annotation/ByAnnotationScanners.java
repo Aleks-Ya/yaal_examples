@@ -1,4 +1,4 @@
-package joke;
+package annotation;
 
 import org.reflections.Reflections;
 import org.reflections.scanners.FieldAnnotationsScanner;
@@ -11,7 +11,14 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Set;
 
-public class Main {
+/**
+ * Варианты поиска по аннотациям.
+ *
+ * Написать аннотацию Joke, имеющую строковый элемент с шуткой.
+ * Необходимо найти все шутки в classpath и вывести их в командную строку.
+ * Аннтация Joke может быть применена ко всем доступным элементам.
+ */
+public class ByAnnotationScanners {
     public static void main(String[] args) {
         searchAnnotatedClasses();
         searchAnnotatedPackages();
@@ -23,7 +30,7 @@ public class Main {
 
     private static void searchAnnotatedMethods() {
         System.out.println("Method annotations:");
-        Reflections reflections = new Reflections(Main.class.getPackage(), new MethodAnnotationsScanner());
+        Reflections reflections = new Reflections(ByAnnotationScanners.class.getPackage(), new MethodAnnotationsScanner());
         Set<Method> jokeMethods = reflections.getMethodsAnnotatedWith(Joke.class);
         for (Method method : jokeMethods) {
             Joke joke = method.getAnnotation(Joke.class);
@@ -34,7 +41,7 @@ public class Main {
 
     private static void searchAnnotatedParameters() {
         System.out.println("Parameters annotations:");
-        Reflections reflections = new Reflections(Main.class.getPackage(), new MethodParameterScanner());
+        Reflections reflections = new Reflections(ByAnnotationScanners.class.getPackage(), new MethodParameterScanner());
         Set<Method> jokeMethods = reflections.getMethodsWithAnyParamAnnotated(Joke.class);
         for (Method method : jokeMethods) {
             Annotation[][] parameterAnnotations = method.getParameterAnnotations();
@@ -52,7 +59,7 @@ public class Main {
 
     private static void searchAnnotatedFields() {
         System.out.println("Fields annotations:");
-        Reflections reflections = new Reflections(Main.class.getPackage(), new FieldAnnotationsScanner());
+        Reflections reflections = new Reflections(ByAnnotationScanners.class.getPackage(), new FieldAnnotationsScanner());
         Set<Field> jokeFields = reflections.getFieldsAnnotatedWith(Joke.class);
         for (Field field : jokeFields) {
             Joke joke = field.getAnnotation(Joke.class);
@@ -63,7 +70,7 @@ public class Main {
 
     private static void searchAnnotatedConstructors() {
         System.out.println("Constructor annotations:");
-        Reflections reflections = new Reflections(Main.class.getPackage(), new MethodAnnotationsScanner());
+        Reflections reflections = new Reflections(ByAnnotationScanners.class.getPackage(), new MethodAnnotationsScanner());
         Set<Constructor> jokeConstructors = reflections.getConstructorsAnnotatedWith(Joke.class);
         for (Constructor constructor : jokeConstructors) {
             Joke joke = (Joke) constructor.getAnnotation(Joke.class);
@@ -74,7 +81,7 @@ public class Main {
 
     private static void searchAnnotatedClasses() {
         System.out.println("Classes annotations:");
-        Reflections reflections = new Reflections(Main.class.getPackage());
+        Reflections reflections = new Reflections(ByAnnotationScanners.class.getPackage());
         Set<Class<?>> jokeClasses = reflections.getTypesAnnotatedWith(Joke.class);
         for (Class jokeClass : jokeClasses) {
             if (!isPackage(jokeClass)) {
@@ -87,7 +94,7 @@ public class Main {
 
     private static void searchAnnotatedPackages() {
         System.out.println("Packages annotations:");
-        Reflections reflections = new Reflections(Main.class.getPackage());
+        Reflections reflections = new Reflections(ByAnnotationScanners.class.getPackage());
         Set<Class<?>> jokeClasses = reflections.getTypesAnnotatedWith(Joke.class);
         for (Class jokeClass : jokeClasses) {
             if (isPackage(jokeClass)) {
