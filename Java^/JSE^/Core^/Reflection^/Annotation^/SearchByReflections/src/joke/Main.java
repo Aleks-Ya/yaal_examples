@@ -1,4 +1,4 @@
-package ru.yaal.example.java.se.annotation.joke;
+package joke;
 
 import org.reflections.Reflections;
 import org.reflections.scanners.FieldAnnotationsScanner;

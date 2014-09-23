@@ -1,6 +1,6 @@
-package ru.yaal.example.java.se.annotation.joke.jokes;
+package joke.jokes;
 
-import ru.yaal.example.java.se.annotation.joke.Joke;
+import joke.Joke;
 
 @Joke("Врач сказал в морг, значит, в морг")
 @SuppressWarnings("unused")
