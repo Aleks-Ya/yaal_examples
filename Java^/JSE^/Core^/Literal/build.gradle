@@ -1,6 +1,16 @@
 //Run: gradle
 
-apply plugin:'application'
-sourceSets.main.java.srcDir 'src'
-mainClassName = "Main"
-defaultTasks('run')
+apply plugin:'java'
+sourceSets.test.java.srcDir 'test'
+defaultTasks('clean', 'test')
+
+test {
+    testLogging.showStandardStreams = true
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+}
+repositories {
+    mavenCentral()
+}

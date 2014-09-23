@@ -1,12 +1,10 @@
+import org.junit.Test;
 import static java.lang.System.out;
 
-public class Main {
-    public static void main(String[] args) {
-		numbers();
-		chars();
-    }
-    
-    private static void numbers() {
+public class Radix {
+
+	@Test    
+    public void numbers() {
 		out.println("Разные системы счисления:");
 		out.printf("Двоичная: 0b1001 -> %d%n", 0b1001);
 		out.printf("Восмеричная: 07342 -> %d%n", 07342);
@@ -19,8 +17,9 @@ public class Main {
 		out.printf("Десятичная: 30_429 -> %d (нельзя _30429)%n", 30_429);
 		out.printf("Шестнадцатеричная: 0xa_3_f -> %d (нельзя 0x_a3f)%n%n", 0xa_3_f);
 	}
-	
-	private static void chars() {
+
+	@Test	
+	public void chars() {
 		char c1 = 'a';
 		char c2 = '\u0122';
 		char c3 = 122;
