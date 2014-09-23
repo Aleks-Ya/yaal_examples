@@ -1,5 +1,3 @@
-package ru.yaal.example.java.se.annotation.callableexecutor;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

@@ -1,5 +1,3 @@
-package ru.yaal.example.java.se.annotation.callableexecutor;
-
 import java.util.concurrent.Callable;
 
 public class PrintCallable implements Callable<Void>{
