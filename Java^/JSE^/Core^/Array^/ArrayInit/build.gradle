@@ -1,13 +1,1 @@
-//Run: gradle run -Pmain=One
-//Run: gradle run -Pmain=Multi
-
-apply plugin:'application'
-sourceSets.main.java.srcDir 'src'
-sourceCompatibility = JavaVersion.VERSION_1_7
-targetCompatibility = JavaVersion.VERSION_1_7
-
-if (hasProperty("main")) {
-    mainClassName = main
-} else {
-    println("Задайте класс main в коммандной строке: gradle run -Pmain=One")
-}
+//Run: gradle

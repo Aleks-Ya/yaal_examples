@@ -1,2 +1,3 @@
 include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
-	'Java^:JSE^:Core^:FlowControl^:For^:ForExercise'
+	'Java^:JSE^:Core^:FlowControl^:For^:ForExercise',
+	'Java^:JSE^:Core^:Array^:ArrayInit'

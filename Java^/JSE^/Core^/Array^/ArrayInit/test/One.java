@@ -1,11 +1,14 @@
 import java.util.Arrays;
+import org.junit.Test;
+import static org.junit.Assert.*;
 import static java.lang.System.out;
 
 /**
  * Одномерные массивы.
  */
 public class One {
-    public static void main(String[] args) {
+    @Test
+    public void main() {
         {
             String[] arr = {"a"};
             String s = arr[0];

@@ -1,8 +1,11 @@
 import java.util.Arrays;
+import org.junit.Test;
+import static org.junit.Assert.*;
 import static java.lang.System.out;
 
 public class Multi {
-    public static void main(String[] args) {
+    @Test
+    public void main() {
         out.println("Второй размер 0");
         Integer[][] arr = new Integer[3][];
         out.println(arrToString(arr));

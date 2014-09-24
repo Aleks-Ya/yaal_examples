@@ -1,11 +1,14 @@
 import java.util.Arrays;
+import org.junit.Test;
+import static org.junit.Assert.*;
 import static java.lang.System.out;
 
 /**
  * Использование null при инициализации массива.
  */
 public class NullElement {
-    public static void main(String[] args) {
+    @Test
+    public void main() {
         /* Массив ссылок */
         String[] arr = {null, null};
         

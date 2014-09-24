@@ -1,11 +1,14 @@
 import java.util.Arrays;
+import org.junit.Test;
+import static org.junit.Assert.*;
 import static java.lang.System.out;
 
 /**
  * Инициализация массива без new.
  */
 public class MissNew {
-    public static void main(String[] args) {
+    @Test
+    public void main() {
         {
         // В одну строку - ОК
         int intArray[] = {0, 1};
