@@ -1,3 +1,4 @@
 include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
 	'Java^:JSE^:Core^:FlowControl^:For^:ForExercise',
-	'Java^:JSE^:Core^:Array^:ArrayInit'
+	'Java^:JSE^:Core^:Array^:ArrayInit',
+	'Java^:JSE^:Core^:Conversation^:Cast'

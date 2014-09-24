@@ -1,15 +1,11 @@
+import org.junit.Test;
+import static org.junit.Assert.*;
 import static java.lang.System.out;
 
 public class Main {
-	
-    public static void main(String[] args) {
-		charIntByte();
-		integerNums();
-		integerNums2();
-		integerNums3();
-    }
     
-    static void charIntByte() {
+    @Test
+    public void charIntByte() {
 		char c = 'a';
 		int i = c;
 		byte b = (byte) i;
@@ -19,7 +15,8 @@ public class Main {
  	/**
      * Присвоение примитивных типов без приведения.
      */
-    static void integerNums() {
+     @Test
+    public void integerNums() {
     	final byte b = 1;
     	final short s = 10_000;
     	final int i = 1_000_000;
@@ -38,7 +35,8 @@ public class Main {
     /**
      * Приведение примитивных типов без переполнения.
      */
-    static void integerNums2() {
+    @Test
+    public void integerNums2() {
     	final byte b = 1;
     	final short s = 2;
     	final int i = 3;
@@ -65,10 +63,11 @@ public class Main {
     	b2 = (byte) l;
     }
 
-        /**
+    /**
      * Приведение примитивных типов с переполнением.
      */
-    static void integerNums3() {
+     @Test
+    public void integerNums3() {
     	final byte b = 1;
     	final short s = 10_000;
     	final int i = 1_000_000;
