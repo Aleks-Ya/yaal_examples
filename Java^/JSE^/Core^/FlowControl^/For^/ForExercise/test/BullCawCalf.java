@@ -1,4 +1,7 @@
+import org.junit.Test;
+import static org.junit.Assert.*;
 import static java.lang.System.out;
+
 
 /**
  * Сколько можно купить быков, коров и телят, 
@@ -6,7 +9,8 @@ import static java.lang.System.out;
  * если на 100 рублей надо купить 100 голов скота.
  */ 
 public class BullCawCalf {
-    public static void main(String[] args) {
+    @Test
+    public void main() {
 		final float bullPrice = 10f;
 		final float cawPrice = 5f;
 		final float calfPrice = 0.5f;

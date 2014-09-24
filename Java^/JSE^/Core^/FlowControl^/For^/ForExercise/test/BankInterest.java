@@ -1,3 +1,5 @@
+import org.junit.Test;
+import static org.junit.Assert.*;
 import static java.lang.System.out;
 
 /**
@@ -6,7 +8,8 @@ import static java.lang.System.out;
  * Сумма вклада вводится с клавиатуры
  */ 
 public class BankInterest {
-    public static void main(String[] args) {
+    @Test
+    public void main() {
 		final float percent = 0.01f;
 		final double startAmount = 500_000;
 		final int months = 12;

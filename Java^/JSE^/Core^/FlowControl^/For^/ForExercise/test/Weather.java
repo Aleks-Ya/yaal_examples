@@ -1,3 +1,5 @@
+import org.junit.Test;
+import static org.junit.Assert.*;
 import static java.lang.System.out;
 
 /**
@@ -7,7 +9,8 @@ import static java.lang.System.out;
  * (Для определенности предполагается, что при 0 градусов идет дождь). 
  */ 
 public class Weather {
-    public static void main(String[] args) {
+    @Test
+    public void main() {
 		final int[] t = new int[]{-1,   0,  3,  25, -16};
 		final int[] p = new int[]{80, 116, 65, 125, 102};
 		final int rainTemp = 0;

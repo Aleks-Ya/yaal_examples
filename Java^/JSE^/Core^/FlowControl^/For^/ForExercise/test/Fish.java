@@ -1,4 +1,7 @@
+import org.junit.Test;
+import static org.junit.Assert.*;
 import static java.lang.System.out;
+
 
 /**
  * Ежегодный прирост рыбы в пруду составляет 15%. 
@@ -10,7 +13,8 @@ import static java.lang.System.out;
  * сколько лет можно выдержать заданный план.
  */ 
 public class Fish {
-    public static void main(String[] args) {
+    @Test
+    public void main() {
 		final float  yearIncreasePercent = 0.15f;
 		final double startValue = 5_000;
 		final double yearCatchValue = 1_000;

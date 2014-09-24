@@ -1,3 +1,5 @@
+import org.junit.Test;
+import static org.junit.Assert.*;
 import static java.lang.System.out;
 
 /**
@@ -8,9 +10,9 @@ import static java.lang.System.out;
  * порядком сомножителей (слагаемых), считаются одинаковыми.
  */ 
 public class Divisor {
-    public static void main(String[] args) {
+    @Test
+    public void main() {
 		DivisorCalculator c = new DivisorCalculator(76, 3);
-		
     }
 }
 
