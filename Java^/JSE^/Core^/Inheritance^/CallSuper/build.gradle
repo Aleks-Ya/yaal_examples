@@ -1,5 +1,1 @@
-//Run:
-// gradle -Pmain=constructor.CallConstructor
-// gradle -Pmain=method.CallMethod
-
-mainClassName = "$main"
+//Run: gradle
