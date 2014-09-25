@@ -5,4 +5,10 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:JSE^:Core^:String^:Intern',
         'Java^:JSE^:Core^:String^:StringBuilder',
         'Java^:JSE^:Core^:String^:StringFormat',
-        'Java^:JSE^:Core^:String^:StringManipulations'
+        'Java^:JSE^:Core^:String^:StringManipulations',
+        'Java^:JSE^:Core^:Operator^:Assingment',
+        'Java^:JSE^:Core^:Operator^:Equals',
+        'Java^:JSE^:Core^:Operator^:Plus',
+        'Java^:JSE^:Core^:Operator^:Precedence',
+        'Java^:JSE^:Core^:Operator^:Relational',
+        'Java^:JSE^:Core^:Operator^:UnaryIncDec'
