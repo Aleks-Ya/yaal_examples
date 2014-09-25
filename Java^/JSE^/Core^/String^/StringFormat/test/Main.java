@@ -1,7 +1,10 @@
+import org.junit.Test;
+
 import java.io.PrintStream;
 
 public class Main {
-    public static void main(String[] args) {
+    @Test
+    public void main() {
         PrintStream out = System.out;
 
         out.printf("Null: %s,%d,%f%n", null, null, null);
