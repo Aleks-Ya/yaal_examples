@@ -30,9 +30,16 @@ public class Intern {
      */
     @Test
     public void intern() {
-        String s1 = new String("a").intern();
-        String s2 = new String("a").intern();
-        assertTrue(s1 == s2);
+        String s1 = new String("a");
+        String s2 = new String("a");
+
+        String i1 = s1.intern();
+        String i2 = s2.intern();
+
+        assertTrue(i1 == i2);
+        assertTrue(i1.equals(i2));
+
+        assertFalse(s1 == s2);
         assertTrue(s1.equals(s2));
     }
 }
