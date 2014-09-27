@@ -1,15 +1,14 @@
+import org.junit.Test;
+
 import static java.lang.System.out;
 
 public class Main {
-    public static void main(String[] args) {
-        withoutBraces();
-        multiWithoutBraces();
-    }
- 
+
     /**
      * if-else без скобок.
      */
-    private static void withoutBraces() {
+    @Test
+    public void withoutBraces() {
         if (1 < 2) 
           for (int i = 0; i < 3; i++) out.println(i);
         else
@@ -19,7 +18,8 @@ public class Main {
     /**
      * else относится ко 2му if.
      */
-    private static void multiWithoutBraces() {
+    @Test
+    public void multiWithoutBraces() {
         if (false) out.println("if 1");
         if (true) out.println("if 2");
         else out.println("else");

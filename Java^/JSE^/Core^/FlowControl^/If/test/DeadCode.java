@@ -1,7 +1,14 @@
+import org.junit.Test;
+
 import static java.lang.System.out;
 
 public class DeadCode {
-    public static void main(String[] args) {
+
+    /**
+     * Код if(false) {...} мертвым НЕ считается.
+     */
+    @Test
+    public void main() {
         if (false) {
             out.println("false!");
         }
