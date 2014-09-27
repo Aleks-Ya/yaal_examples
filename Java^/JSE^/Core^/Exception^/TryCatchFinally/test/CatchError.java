@@ -1,8 +1,11 @@
+import org.junit.Test;
+
 /**
- * Будет ли перехвачен Error?
+ * Error будет перехвачен.
  */
 public class CatchError {
-    public static void main(String args[]) {
+    @Test
+    public void main() {
         try {
             myMethod();
         } catch (StackOverflowError s) {
@@ -10,7 +13,7 @@ public class CatchError {
         }
     }
 
-    public static void myMethod() {
+    public void myMethod() {
         myMethod();
     }
 }

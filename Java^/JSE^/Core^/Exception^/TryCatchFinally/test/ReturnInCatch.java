@@ -1,8 +1,12 @@
+import org.junit.Test;
+
 /**
  * Will a finally block execute even if the catch block defines a return statement?
  */
 public class ReturnInCatch {
-    public static void main(String[] args) {
+
+    @Test
+    public void main() {
         try {
             throw new Exception();
         } catch (Exception e) {

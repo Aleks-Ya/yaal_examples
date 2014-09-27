@@ -1,7 +1,10 @@
+import org.junit.Test;
+
 import java.io.IOException;
 
-public class Main {
-    public static void main(String[] args) throws IOException {
+public class ThrowNull {
+    @Test
+    public void main() throws IOException {
       try {
 		  throwNull();
 	  } catch (Exception e) {
@@ -15,11 +18,11 @@ public class Main {
 	  }
     }
     
-    static void throwNull() {
+    private void throwNull() {
       throw null;
     }
     
-    static void throwNullVar() throws IOException {
+    private void throwNullVar() throws IOException {
 		IOException e = null;
 		throw e;
 	}

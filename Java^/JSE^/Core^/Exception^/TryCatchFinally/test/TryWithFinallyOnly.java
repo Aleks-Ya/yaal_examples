@@ -1,3 +1,5 @@
+import org.junit.Test;
+
 /**
  * A try block may be followed by either a catch or a finally block or both. But
  * a finally block alone wouldn’t suffice if code in the try block throws a
@@ -5,7 +7,8 @@
  * declare it to be thrown by your method. Otherwise your code won’t compile.
  */
 public class TryWithFinallyOnly {
-    public static void main(String[] args) {
+    @Test
+    public void main() {
         try {
             runtime();
         } catch (RuntimeException e) {
@@ -21,7 +24,7 @@ public class TryWithFinallyOnly {
         }
     }
 
-    private static void runtime() {
+    private void runtime() {
         try {
             throw new RuntimeException();
         } finally {
@@ -29,7 +32,7 @@ public class TryWithFinallyOnly {
         }
     }
 
-    private static void checked() throws Exception {
+    private void checked() throws Exception {
         try {
             throw new Exception();
         } finally {
