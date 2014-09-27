@@ -18,4 +18,9 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:JSE^:Core^:Import',
         'Java^:JSE^:Core^:FlowControl^:If',
         'Java^:JSE^:Core^:Modifier',
-        'Java^:JSE^:Core^:Main'
+        'Java^:JSE^:Core^:Main',
+        'Java^:JSE^:Core^:Exception^:TryCatchFinally',
+        'Java^:JSE^:Core^:Exception^:DeclareButDoNotThrow',
+        'Java^:JSE^:Core^:Exception^:ExceptionInInitializerError',
+        'Java^:JSE^:Core^:Exception^:ThrowNull',
+        'Java^:JSE^:Core^:Exception^:RuntimeExceptionInThrows'
