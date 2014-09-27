@@ -1,12 +1,11 @@
-import java.util.Arrays;
+package init;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static java.lang.System.out;
 
 /**
- * Одномерные массивы.
+ * Инициализация одномерных массивов.
  */
-public class One {
+public class OneDimension {
     @Test
     public void main() {
         {

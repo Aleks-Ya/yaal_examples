@@ -1,9 +1,13 @@
+package copy;
+
 import org.junit.Test;
 
-public class ArrayCopyTest {
+/**
+ * Копирование массивов.
+ */
+public class ArrayCopy {
        private final int[] bigNums = new int[] {12, 23, 34, 78, 89};
        private final int[] littleNums = new int[] {1, 2, 3, 4, 5, 6, 7};
-
 
     @Test
     public void normal() {
