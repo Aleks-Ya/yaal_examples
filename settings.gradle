@@ -16,4 +16,5 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:JSE^:Core^:FlowControl^:Switch',
         'Java^:JSE^:Core^:Literal',
         'Java^:JSE^:Core^:Import',
-        'Java^:JSE^:Core^:FlowControl^:If'
+        'Java^:JSE^:Core^:FlowControl^:If',
+        'Java^:JSE^:Core^:Modifier'
