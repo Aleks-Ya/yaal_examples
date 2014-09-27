@@ -1,16 +1,14 @@
+import org.junit.Test;
+
 import static java.lang.System.out;
 
 public class Main {
-    public static void main(String[] args) {
-           eq();
-           multi();
-           defaultBeforeCase();
-    }
 
     /**
      * switch использует equals(), а не сравнение по ссылке.
      */
-    private static void eq() {
+    @Test
+    public void eq() {
         String value = new String("one"); // Не попадет в буфер строк -> сравнение по ссылке не сработает
         switch(value) {
             case "one":  out.println("switch use equals()");
@@ -20,7 +18,8 @@ public class Main {
     /**
      * Одинаковое действие для нескольких case.
      */
-    private static void multi() {
+    @Test
+    public void multi() {
         String day = new String("mon");
         switch(day) {
             case "mon":
@@ -41,7 +40,8 @@ public class Main {
     /**
      * Секцию default можно расположить перед case.
      */
-    private static void defaultBeforeCase() {
+    @Test
+    public void defaultBeforeCase() {
 		switch("winter") {
 			default: out.println("default section");
 			case "winter": out.println("winter section");

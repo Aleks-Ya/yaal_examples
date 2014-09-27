@@ -12,4 +12,5 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:JSE^:Core^:Operator^:Precedence',
         'Java^:JSE^:Core^:Operator^:Relational',
         'Java^:JSE^:Core^:Operator^:UnaryIncDec',
-        'Java^:JSE^:Core^:Inheritance^:Abstract^:Implement'
+        'Java^:JSE^:Core^:Inheritance^:Abstract^:Implement',
+        'Java^:JSE^:Core^:FlowControl^:Switch'

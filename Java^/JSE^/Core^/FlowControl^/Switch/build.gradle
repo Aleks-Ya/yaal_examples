@@ -1,7 +1,0 @@
-// Run: gradle run -Pmain=Main
-// Run: gradle run -Pmain=EmptySwitch
-
-defaultTasks('run')
-apply plugin: 'application'
-sourceSets.main.java.srcDir 'src'
-mainClassName = "$main"
