@@ -1,4 +1,4 @@
-package ru.yaal.examples.java.se.gui.swing.box;
+package box;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

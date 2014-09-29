@@ -20,5 +20,5 @@ class Parent {
 
 class Child extends Parent {
 	private int field;
-	private void method() {}
+	public void method() {}
 }

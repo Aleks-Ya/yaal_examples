@@ -1,5 +1,3 @@
-package ru.yaal.example.java.jse.swing.keyboard.events;
-
 import javax.swing.JLabel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

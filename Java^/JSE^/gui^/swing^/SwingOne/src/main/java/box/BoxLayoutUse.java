@@ -1,7 +1,6 @@
-package ru.yaal.examples.java.se.gui.swing.box;
+package box;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class BoxLayoutUse {
     public static void main(String[] args) {

@@ -1,5 +1,3 @@
-package ru.yaal.example.java.jse.swing.keyboard.events;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;

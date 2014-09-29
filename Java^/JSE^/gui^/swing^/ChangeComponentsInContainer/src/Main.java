@@ -1,5 +1,3 @@
-package ru.yaal.examples.java.gui.swing;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -8,7 +6,7 @@ import java.awt.Component;
 import java.awt.Container;
 
 /**
- * Created by aleks on 3/28/14.
+ * НЕ ДОПИСАН
  */
 public class Main {
     public static void main(String[] args) {
@@ -24,7 +22,6 @@ public class Main {
         Container labelContainer = new JPanel();
         labelContainer.add(label);
 
-        frameContainer.
 
     }
 

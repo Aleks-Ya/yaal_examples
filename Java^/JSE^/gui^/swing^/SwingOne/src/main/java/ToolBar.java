@@ -1,5 +1,3 @@
-package ru.yaal.examples.java.se.gui.swing;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

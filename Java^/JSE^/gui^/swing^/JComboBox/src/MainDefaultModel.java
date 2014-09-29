@@ -1,5 +1,3 @@
-package ru.yaal.examples.java.se.gui.swing.combobox;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
