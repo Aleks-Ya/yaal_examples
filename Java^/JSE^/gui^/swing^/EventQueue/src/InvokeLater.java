@@ -34,7 +34,6 @@ public class InvokeLater {
 
 class Changer implements Runnable {
     private final JButton button;
-    private final Random random = new Random();
 
     Changer(JButton button) {
         this.button = button;
@@ -42,24 +41,36 @@ class Changer implements Runnable {
 
     @Override
     public void run() {
+        int second = 0;
         while (true) {
-            final int nextInt = longTimeGeneration();
-            EventQueue.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    assert !EventQueue.isDispatchThread();
-                    button.setText(String.valueOf(nextInt));
-                }
-            });
+            EventQueue.invokeLater(new UpdateButtonText(second, button));
+            waitASecond();
+            second++;
         }
     }
 
-    private int longTimeGeneration() {
+    private void waitASecond() {
         try {
-            TimeUnit.MILLISECONDS.sleep(3000);
+            TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return random.nextInt();
+    }
+}
+
+class UpdateButtonText implements Runnable {
+    private final String text;
+    private final JButton button;
+
+    UpdateButtonText(int text, JButton button) {
+        assert EventQueue.isDispatchThread();
+        this.button = button;
+        this.text = String.valueOf(text);
+    }
+
+    @Override
+    public void run() {
+        assert !EventQueue.isDispatchThread();
+        button.setText(text);
     }
 }

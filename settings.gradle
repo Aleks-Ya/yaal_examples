@@ -47,4 +47,5 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:JSE^:gui^:swing^:JTextArea',
         'Java^:JSE^:gui^:swing^:JTextField',
         'Java^:JSE^:gui^:swing^:JTextPane',
-        'Java^:JSE^:gui^:swing^:KeyboardEvents'
+        'Java^:JSE^:gui^:swing^:KeyboardEvents',
+        'Java^:JSE^:gui^:swing^:EventQueue'
