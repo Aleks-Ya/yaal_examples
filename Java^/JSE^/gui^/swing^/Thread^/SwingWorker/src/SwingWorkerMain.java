@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingWorker;
 import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -71,5 +72,19 @@ class ChooseFileAction implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         fileChooser.showOpenDialog(parent);
+    }
+}
+
+class FileReaderWorker extends SwingWorker {
+    private final File file;
+
+    FileReaderWorker(File file) {
+        this.file = file;
+    }
+
+    @Override
+    protected Object doInBackground() throws Exception {
+
+        return null;
     }
 }
