@@ -1,4 +1,6 @@
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -7,27 +9,40 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
-import java.awt.HeadlessException;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  * НЕЗАВЕРШЕН ХОРСТМАНН-1 С.797
  * Использование SwingWorker для загрузки большого файла в отдельном потоке
  * (с возможностью отмены).
  */
-public class SwingWorkerFrame extends JFrame {
+public class SwingWorkerMain {
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new SwingWorkerFrame();
+            }
+        });
+    }
+}
+
+class SwingWorkerFrame extends JFrame {
     private final JButton bOpen = new JButton("Open");
     private final JButton bCancel = new JButton("Cancel");
     private final JTextArea taContent = new JTextArea();
-    private final JLabel lRows = new JLabel();
+    private final JLabel lRows = new JLabel("Rows: 0");
 
-    public static void main(String[] args) {
-        new SwingWorkerFrame();
-    }
 
-    public SwingWorkerFrame() throws HeadlessException {
+    public SwingWorkerFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(300, 600);
         setVisible(true);
+
+        bOpen.addActionListener(new ChooseFileAction(bOpen));
 
         JPanel pButtons = new JPanel();
         pButtons.add(bOpen);
@@ -39,5 +54,20 @@ public class SwingWorkerFrame extends JFrame {
         add(pButtons, BorderLayout.NORTH);
         add(spArea, BorderLayout.CENTER);
         add(lRows, BorderLayout.SOUTH);
+    }
+}
+
+class ChooseFileAction implements ActionListener {
+    private final JComponent parent;
+    private final JFileChooser fileChooser = new JFileChooser();
+
+    ChooseFileAction(JComponent parent) {
+        this.parent = parent;
+        fileChooser.setCurrentDirectory(new File("."));
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        fileChooser.showOpenDialog(parent);
     }
 }
