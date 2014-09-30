@@ -1,3 +1,5 @@
+import org.junit.Test;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -5,17 +7,14 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
-import static java.lang.System.out;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Чтение целого файла в одно строку с помощью Files#readAllLines()
  */
 public class ReadAllLines {
-    public static void main(String[] args) throws IOException {
-        files();
-    }
-
-    private static void files() throws IOException {
+    @Test
+    public void files() throws IOException {
         //write
         Path p = File.createTempFile("prefix-file_", ".suffix").toPath();
         List<String> expLines = Arrays.asList("FirstLine", "SecondLine");
@@ -23,6 +22,6 @@ public class ReadAllLines {
 
         //read
         List<String> actLines = Files.readAllLines(p);
-        out.println(actLines);
+        assertEquals(expLines, actLines);
     }
 }
