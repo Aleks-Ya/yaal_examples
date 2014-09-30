@@ -31,6 +31,8 @@ public class SwingWorkerMain {
 }
 
 class SwingWorkerFrame extends JFrame {
+    private static final int FRAME_WIDTH = 300;
+    private static final int FRAME_HIGHT = 600;
     private final JButton bOpen = new JButton("Open");
     private final JButton bCancel = new JButton("Cancel");
     private final JTextArea taContent = new JTextArea();
@@ -39,7 +41,7 @@ class SwingWorkerFrame extends JFrame {
 
     public SwingWorkerFrame() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(300, 600);
+        setSize(FRAME_WIDTH, FRAME_HIGHT);
         setVisible(true);
 
         bOpen.addActionListener(new ChooseFileAction(bOpen));
