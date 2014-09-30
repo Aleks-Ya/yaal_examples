@@ -1,11 +1,11 @@
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,9 +13,7 @@ import java.io.File;
 import java.util.Arrays;
 
 /**
- * НЕЗАВЕРШЕН ХОРСТМАНН-1 С.797
- * Использование SwingWorker для загрузки большого файла в отдельном потоке
- * (с возможностью отмены).
+ * Выбор файла с помощью JFileChooser.
  */
 public class FileChooserMain {
     public static void main(String[] args) {
@@ -30,13 +28,12 @@ public class FileChooserMain {
 
 class SwingWorkerFrame extends JFrame {
     private static final int FRAME_WIDTH = 800;
-    private static final int FRAME_HIGHT = 200;
-
+    private static final int FRAME_HEIGHT = 200;
 
     public SwingWorkerFrame() {
         setTitle("JFileChooser");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(FRAME_WIDTH, FRAME_HIGHT);
+        setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setVisible(true);
 
         JButton bOpenSingleFile = new JButton("Open single file");
@@ -47,10 +44,10 @@ class SwingWorkerFrame extends JFrame {
 
         JFileChooser fileChooser = new JFileChooser();
 
-        bOpenSingleFile.addActionListener(new ChooseFileAction(fileChooser, bOpenSingleFile, false, JFileChooser.FILES_ONLY, taFiles));
-        bOpenMultiFiles.addActionListener(new ChooseFileAction(fileChooser, bOpenSingleFile, true, JFileChooser.FILES_ONLY, taFiles));
-        bOpenFilesAndDirs.addActionListener(new ChooseFileAction(fileChooser, bOpenSingleFile, true, JFileChooser.FILES_AND_DIRECTORIES, taFiles));
-        bOpenSingleDir.addActionListener(new ChooseFileAction(fileChooser, bOpenSingleFile, false, JFileChooser.DIRECTORIES_ONLY, taFiles));
+        bOpenSingleFile.addActionListener(new ChooseFileAction(fileChooser, this, false, JFileChooser.FILES_ONLY, taFiles));
+        bOpenMultiFiles.addActionListener(new ChooseFileAction(fileChooser, this, true, JFileChooser.FILES_ONLY, taFiles));
+        bOpenFilesAndDirs.addActionListener(new ChooseFileAction(fileChooser, this, true, JFileChooser.FILES_AND_DIRECTORIES, taFiles));
+        bOpenSingleDir.addActionListener(new ChooseFileAction(fileChooser, this, false, JFileChooser.DIRECTORIES_ONLY, taFiles));
 
         JPanel pButtons = new JPanel();
         pButtons.add(bOpenSingleFile);
@@ -64,13 +61,13 @@ class SwingWorkerFrame extends JFrame {
 }
 
 class ChooseFileAction implements ActionListener {
-    private final JComponent parent;
+    private final Component parent;
     private final JFileChooser fileChooser;
     private final boolean multiSelection;
     private final int mode;
     private final JTextArea lSelectedFiles;
 
-    ChooseFileAction(JFileChooser fileChooser, JComponent parent, boolean multiSelection, int mode, JTextArea lSelectedFiles) {
+    ChooseFileAction(JFileChooser fileChooser, Component parent, boolean multiSelection, int mode, JTextArea lSelectedFiles) {
         this.fileChooser = fileChooser;
         this.parent = parent;
         this.multiSelection = multiSelection;
