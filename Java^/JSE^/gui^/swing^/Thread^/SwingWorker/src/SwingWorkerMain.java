@@ -37,7 +37,7 @@ public class SwingWorkerMain {
 
 class SwingWorkerFrame extends JFrame {
     private static final int FRAME_WIDTH = 300;
-    private static final int FRAME_HIGHT = 600;
+    private static final int FRAME_HEIGHT = 600;
 
     public SwingWorkerFrame() {
         init();
@@ -56,11 +56,11 @@ class SwingWorkerFrame extends JFrame {
         bCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                worker.cancel();
+                worker.cancel(true);
             }
         });
 
-        bOpen.addActionListener(new ChooseFileAction(this, worker, bCancel));
+        bOpen.addActionListener(new ChooseFileAction(this, worker));
 
         JPanel pButtons = new JPanel();
         pButtons.add(bOpen);
@@ -74,7 +74,7 @@ class SwingWorkerFrame extends JFrame {
 
     private void init() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(FRAME_WIDTH, FRAME_HIGHT);
+        setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setVisible(true);
     }
 }
@@ -83,12 +83,10 @@ class ChooseFileAction implements ActionListener {
     private final Component parent;
     private final JFileChooser fileChooser = new JFileChooser();
     private final FileReaderWorker worker;
-    private final JButton bCancel;
 
-    ChooseFileAction(Component parent, FileReaderWorker worker, JButton bCancel) {
+    ChooseFileAction(Component parent, FileReaderWorker worker) {
         this.parent = parent;
         this.worker = worker;
-        this.bCancel = bCancel;
         fileChooser.setCurrentDirectory(new File("."));
     }
 
@@ -102,13 +100,22 @@ class ChooseFileAction implements ActionListener {
     }
 }
 
-class FileReaderWorker extends SwingWorker<String, Object> {
+class ProgressData {
+    int counter;
+    String content;
+
+    ProgressData(int counter, String content) {
+        this.counter = counter;
+        this.content = content;
+    }
+}
+
+class FileReaderWorker extends SwingWorker<String, ProgressData> {
     private File file;
     private final JLabel lOut;
     private final JTextArea taContent;
     private final JButton bOpen;
     private final JButton bCancel;
-    private boolean cancelled = false;
 
     FileReaderWorker(JLabel lOut, JTextArea taContent, JButton bOpen, JButton bCancel) {
         this.lOut = lOut;
@@ -130,33 +137,26 @@ class FileReaderWorker extends SwingWorker<String, Object> {
         StringBuilder sb = new StringBuilder();
         String line;
         int lineCounter = 0;
-        while ((line = reader.readLine()) != null && !cancelled) {
+        while ((line = reader.readLine()) != null && !isCancelled()) {
             sb.append(line);
             sb.append('\n');
             lineCounter++;
-            waiting();
-            publish(lineCounter, sb.toString());
+            TimeUnit.MILLISECONDS.sleep(500);
+            publish(new ProgressData(lineCounter, sb.toString()));
         }
         return sb.toString();
     }
 
     @Override
-    protected void process(List<Object> chunks) {
-        lOut.setText("Files: " + chunks.get(0));
-        taContent.setText(chunks.get(1).toString());
+    protected void process(List<ProgressData> chunks) {
+        ProgressData data = chunks.get(0);
+        lOut.setText("Files: " + data.counter);
+        taContent.setText(data.content);
     }
 
     @Override
     protected void done() {
         bOpen.setEnabled(true);
         bCancel.setEnabled(false);
-    }
-
-    private void waiting() throws InterruptedException {
-        TimeUnit.MILLISECONDS.sleep(500);
-    }
-
-    public void cancel() {
-        cancelled = true;
     }
 }
