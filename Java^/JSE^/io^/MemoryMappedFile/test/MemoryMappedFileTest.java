@@ -1,5 +1,3 @@
-package ru.yaal.example.java.se.io.memorymapped;
-
 import org.testng.annotations.Test;
 
 import java.io.FileReader;

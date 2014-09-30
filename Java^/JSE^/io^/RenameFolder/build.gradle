@@ -1,7 +1,0 @@
-//Run: gradle -Pmain=EmptyDir
-//Run: gradle -Pmain=DirWithFiles
-
-apply plugin : "application"
-sourceSets.main.java.srcDir 'src'
-mainClassName = main
-defaultTasks('run')
