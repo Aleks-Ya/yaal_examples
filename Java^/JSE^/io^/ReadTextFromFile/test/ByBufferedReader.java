@@ -9,7 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -31,7 +33,7 @@ public class ByBufferedReader {
      * Чтение файла по одной строке.
      */
     @Test
-    public void files() throws IOException {
+    public void lineByLine() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         StringBuilder sb = new StringBuilder();
         String line;
@@ -41,5 +43,16 @@ public class ByBufferedReader {
         }
         reader.close();
         assertEquals("FirstLine\nSecondLine\n", sb.toString());
+    }
+
+    /**
+     * Чтение файла через Stream.
+     */
+    @Test
+    public void wholeFile() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        Stream stream = reader.lines();
+        assertArrayEquals(expLines.toArray(), stream.toArray());
+        reader.close();
     }
 }
