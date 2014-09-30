@@ -7,7 +7,10 @@ import java.util.List;
 
 import static java.lang.System.out;
 
-public class Main {
+/**
+ * Чтение целого файла в одно строку с помощью Files#readAllLines()
+ */
+public class ReadAllLines {
     public static void main(String[] args) throws IOException {
         files();
     }
