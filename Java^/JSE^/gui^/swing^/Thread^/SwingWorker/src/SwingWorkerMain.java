@@ -9,7 +9,6 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingWorker;
 import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,9 +21,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * НЕЗАВЕРШЕН ХОРСТМАНН-1 С.797
  * Использование SwingWorker для загрузки большого файла в отдельном потоке
  * (с возможностью отмены).
+ * Пример из К. Хорстманн "Java 2", том 1, гл. 14, раздел "Использование класса SwingWorker".
  */
 public class SwingWorkerMain {
     public static void main(String[] args) {
@@ -40,20 +39,29 @@ public class SwingWorkerMain {
 class SwingWorkerFrame extends JFrame {
     private static final int FRAME_WIDTH = 300;
     private static final int FRAME_HEIGHT = 600;
+    private final JFileChooser fileChooser = new JFileChooser();
+    private FileReaderWorker worker;
 
     public SwingWorkerFrame() {
         init();
 
-        JLabel lRows = new JLabel("Rows: 0");
-        JTextArea taContent = new JTextArea();
+        final JLabel lRows = new JLabel("Rows: 0");
+        final JTextArea taContent = new JTextArea();
         JScrollPane spArea = new JScrollPane(taContent,
                 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         final JButton bOpen = new JButton("Open");
         final JButton bCancel = new JButton("Cancel");
 
-        final FileReaderWorker worker = new FileReaderWorker(lRows, taContent, bOpen, bCancel);
+        JPanel pButtons = new JPanel();
+        pButtons.add(bOpen);
+        pButtons.add(bCancel);
 
+        add(pButtons, BorderLayout.NORTH);
+        add(spArea, BorderLayout.CENTER);
+        add(lRows, BorderLayout.SOUTH);
+
+        fileChooser.setCurrentDirectory(new File("."));
         bCancel.setEnabled(false);
         bCancel.addActionListener(new ActionListener() {
             @Override
@@ -62,43 +70,24 @@ class SwingWorkerFrame extends JFrame {
             }
         });
 
-        bOpen.addActionListener(new ChooseFileAction(this, worker));
+        bOpen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int result = fileChooser.showOpenDialog(SwingWorkerFrame.this);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    worker = new FileReaderWorker(lRows, taContent, bOpen, bCancel);
+                    worker.setFile(fileChooser.getSelectedFile());
+                    worker.execute();
+                }
+            }
+        });
 
-        JPanel pButtons = new JPanel();
-        pButtons.add(bOpen);
-        pButtons.add(bCancel);
-
-
-        add(pButtons, BorderLayout.NORTH);
-        add(spArea, BorderLayout.CENTER);
-        add(lRows, BorderLayout.SOUTH);
     }
 
     private void init() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setVisible(true);
-    }
-}
-
-class ChooseFileAction implements ActionListener {
-    private final Component parent;
-    private final JFileChooser fileChooser = new JFileChooser();
-    private final FileReaderWorker worker;
-
-    ChooseFileAction(Component parent, FileReaderWorker worker) {
-        this.parent = parent;
-        this.worker = worker;
-        fileChooser.setCurrentDirectory(new File("."));
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        int result = fileChooser.showOpenDialog(parent);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            worker.setFile(fileChooser.getSelectedFile());
-            worker.execute();
-        }
     }
 }
 
