@@ -17,6 +17,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.List;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -156,6 +158,14 @@ class FileReaderWorker extends SwingWorker<String, ProgressData> {
 
     @Override
     protected void done() {
+        try {
+            get();
+            lOut.setText("Done");
+        } catch (InterruptedException | CancellationException e) {
+            lOut.setText("Cancelled");
+        } catch (ExecutionException e) {
+            lOut.setText(e.getMessage());
+        }
         bOpen.setEnabled(true);
         bCancel.setEnabled(false);
     }
