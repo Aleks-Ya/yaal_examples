@@ -1,7 +1,9 @@
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -32,8 +34,19 @@ class BorderFrame extends JFrame {
         pButtons.add(bOk);
         pButtons.add(bCancel);
 
-        JTextArea taCenter = new JTextArea();
+        JTextArea taCenter = new JTextArea("Given a compile-time reference type S (source) " +
+                "and a compile-time reference type T (target), a casting conversion exists " +
+                "from S to T if no compile-time errors occur due to the following rules. ");
 
+        JLabel lNorth = new JLabel("Компоненты пользовательского интерфейса Swing");
+
+        JTextField tfName = new JTextField("Имя");
+
+        JButton bWest = new JButton("Запад");
+
+        add(lNorth, BorderLayout.NORTH);
+        add(tfName, BorderLayout.EAST);
+        add(bWest, BorderLayout.WEST);
         add(pButtons, BorderLayout.SOUTH);
         add(taCenter, BorderLayout.CENTER);
     }
