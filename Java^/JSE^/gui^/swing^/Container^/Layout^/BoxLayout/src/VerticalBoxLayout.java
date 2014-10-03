@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Вертикальное расположение компонентов с помощью BoxLayout.
+ */
 public class VerticalBoxLayout {
 
     public static void main(String[] args) {
