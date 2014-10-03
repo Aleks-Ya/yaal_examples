@@ -12,10 +12,10 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 
 /**
- * Использование Horizontal Glue с BoxLayout.
- * Horizontal Glue расталкивает соседние компоненты на максимальное расстояние по горизонтали.
+ * Использование Rigid Area с BoxLayout.
+ * Rigid Area расталкивает соседние компоненты на фиксированное расстояние.
  */
-public class HorizontalGlue {
+public class RigidArea {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -39,12 +39,12 @@ public class HorizontalGlue {
                 //make JButton
                 JButton button = new JButton("The Button");
 
-                //make Horizontal Glue
-                Component horizontalGlue = Box.createHorizontalGlue();
+                // make Rigid Area
+                Component rigidArea = Box.createRigidArea(new Dimension(50, 0));
 
                 //add components
                 frame.add(text);
-                frame.add(horizontalGlue);
+                frame.add(rigidArea);
                 frame.add(button);
             }
         });
