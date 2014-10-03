@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
+import java.awt.ComponentOrientation;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -29,36 +30,38 @@ public class Alignment extends JFrame {
 
         final FlowLayout layout = new FlowLayout(FlowLayout.LEADING);
         final JPanel p = new JPanel(layout);
-        final JLabel l = new JLabel("LEADING");
+        p.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        final JLabel lAlignment = new JLabel("Alignment: LEADING");
+        final JLabel lOrientation = new JLabel("ComponentOrientation: RIGHT_TO_LEFT");
 
-        JButton b = new JButton("Press to change alignment");
-        b.addActionListener(new ActionListener() {
+        JButton bAlignment = new JButton("Press to change alignment");
+        bAlignment.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 switch (layout.getAlignment()) {
                     case FlowLayout.LEADING: {
                         layout.setAlignment(FlowLayout.LEFT);
-                        l.setText("LEFT");
+                        lAlignment.setText("Alignment: LEFT");
                         break;
                     }
                     case FlowLayout.LEFT: {
                         layout.setAlignment(FlowLayout.CENTER);
-                        l.setText("CENTER");
+                        lAlignment.setText("Alignment: CENTER");
                         break;
                     }
                     case FlowLayout.CENTER: {
                         layout.setAlignment(FlowLayout.RIGHT);
-                        l.setText("RIGHT");
+                        lAlignment.setText("Alignment: RIGHT");
                         break;
                     }
                     case FlowLayout.RIGHT: {
                         layout.setAlignment(FlowLayout.TRAILING);
-                        l.setText("TRAILING");
+                        lAlignment.setText("Alignment: TRAILING");
                         break;
                     }
                     case FlowLayout.TRAILING: {
                         layout.setAlignment(FlowLayout.LEADING);
-                        l.setText("LEADING");
+                        lAlignment.setText("Alignment: LEADING");
                         break;
                     }
                     default:
@@ -68,10 +71,25 @@ public class Alignment extends JFrame {
             }
         });
 
+        JButton bOrientation = new JButton("Change orientation");
+        bOrientation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (p.getComponentOrientation() == ComponentOrientation.RIGHT_TO_LEFT) {
+                    p.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+                    lOrientation.setText("ComponentOrientation: LEFT_TO_RIGHT");
+                } else {
+                    p.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+                    lOrientation.setText("ComponentOrientation: RIGHT_TO_LEFT");
+                }
+            }
+        });
+
         p.add(new JButton("Do nothing"));
-        p.add(b);
-        p.add(new JButton("Do nothing too"));
+        p.add(bAlignment);
+        p.add(bOrientation);
+        add(lOrientation, BorderLayout.NORTH);
         add(p);
-        add(l, BorderLayout.SOUTH);
+        add(lAlignment, BorderLayout.SOUTH);
     }
 }
