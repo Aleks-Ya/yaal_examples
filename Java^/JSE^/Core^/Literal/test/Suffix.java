@@ -2,8 +2,21 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class Suffix {
-	
-	/**
+
+    /**
+     * Все существующие суффиксы числовых литералов.
+     */
+    @Test
+    public void allSuffixed() {
+        long l1 = 2l;
+        long l2 = 2L;
+        float f1 = 3f;
+        float f2 = 3F;
+        double d1 = 4d;
+        double d2 = 4D;
+    }
+
+    /**
 	 * Литералы в двоичной системе (0b) не могут содержать суффиксы f,F,d,D. 
 	 * Они автоматически приводятся к типу переменной, даже если не помещаются в ее диапазон.
 	 */
