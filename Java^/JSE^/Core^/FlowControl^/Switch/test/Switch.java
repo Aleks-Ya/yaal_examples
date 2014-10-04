@@ -2,7 +2,7 @@ import org.junit.Test;
 
 import static java.lang.System.out;
 
-public class Main {
+public class Switch {
 
     /**
      * switch использует equals(), а не сравнение по ссылке.
@@ -14,7 +14,7 @@ public class Main {
             case "one":  out.println("switch use equals()");
         }
     }
-    
+
     /**
      * Одинаковое действие для нескольких case.
      */
@@ -26,7 +26,7 @@ public class Main {
             case "tue":
             case "wed":
             case "thu":
-            case "fri": 
+            case "fri":
                 out.printf("%s is a work day%n", day);
                 break;
             case "sat":
@@ -36,7 +36,7 @@ public class Main {
             default: out.printf("%s is not a day%n");
         }
     }
-    
+
     /**
      * Секцию default можно расположить перед case.
      */
@@ -47,4 +47,17 @@ public class Main {
 			case "winter": out.println("winter section");
 		}
 	}
+
+    /**
+     * Константа в switch expression.
+     */
+    @Test
+    public void constant() {
+        switch(5) {
+            case 1:
+            case 2:
+            default:
+        }
+
+    }
 }
