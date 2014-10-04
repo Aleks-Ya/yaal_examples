@@ -2,7 +2,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static java.lang.System.out;
 
-public class Main {
+public class Precedence {
 
 	@Test
     public void main() {
@@ -24,7 +24,7 @@ public class Main {
 
 	@Test
 	public void newAndDot() {
-		assertTrue(new String().isEmpty());
+		assertEquals(16, new StringBuilder().capacity());
 	}
 
 	@Test
