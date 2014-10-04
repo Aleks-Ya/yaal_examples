@@ -1,6 +1,9 @@
 import org.junit.Test;
 import static java.lang.System.out;
 
+/**
+ * Демонстрация раннего и позднего связывания методов.
+ */
 public class LinkageTest {
 
 	@Test
