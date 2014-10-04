@@ -23,6 +23,19 @@ public class Add {
     }
 
     /**
+     * Добавление элементов в указанную позицию.
+     */
+    @Test
+    public void toPosition() {
+        List<String> list = new ArrayList<>();
+        list.add("a");
+        list.add("c");
+        assertEquals("[a, c]", list.toString());
+        list.add(1, "b");
+        assertEquals("[a, b, c]", list.toString());
+    }
+
+    /**
      * В ArrayList можно добавлять дублирующие элементы (в т.ч. несколько null).
      */
     @Test
