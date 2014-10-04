@@ -45,7 +45,8 @@ public class AddToPosition {
         list.add("a");
         assertEquals("[a]", list.toString());
         list.ensureCapacity(100); //не помогает
-        list.add(5, "b");
+        int position = list.size() + 1;
+        list.add(position, "b");
         assertEquals("[a, b, c]", list.toString());
     }
 }
