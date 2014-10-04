@@ -1,6 +1,10 @@
+package fromchild;
 import static java.lang.System.out;
 
-public class Main {
+/**
+ * Сокрытие поля суперкласса и доступ к нему из дочернего класса.
+ */
+public class AccessFromChild {
     public static void main(String[] args) {
         new Child().printNames();
     }

@@ -1,7 +1,6 @@
 include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:JSE^:Core^:Inheritance^:Abstract^:Implement',
         'Java^:JSE^:Core^:Inheritance^:InitializationSequence',
-        'Java^:JSE^:Core^:Inheritance^:HideField',
         'Java^:JSE^:Core^:Inheritance^:Hide',
         'Java^:JSE^:Core^:Inheritance^:DerivedFieldAvailable',
         'Java^:JSE^:Core^:Inheritance^:DerivedConstructorInSuperClass',
