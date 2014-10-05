@@ -33,4 +33,35 @@ public class SubstringCounter {
 		}
 		return counter;
 	}
+	
+	/**
+     * Алгоритм на основе String#startsWith.
+     * todo Переписать на основе параметризованных тестов.
+     */
+	@Test
+	public void count2() {
+		assertEquals(3, counter2("doremefadosolliasido", "do"));
+		assertEquals(0, counter2("Semper Fidelis", "not"));
+		assertEquals(0, counter2("Semper Fidelis", ""));
+		assertEquals(0, counter2(null, "no"));
+		assertEquals(0, counter2("", "a"));
+		assertEquals(0, counter2("Semper Fidelis", null));
+	}
+	
+	private int counter2(String src, String substring) {
+		if (src == null || substring == null || substring.isEmpty()) {
+			return 0;
+		}
+		int counter = 0;
+		int index = 0;
+		while(index < src.length()) {
+			if (src.startsWith(substring, index)) {
+				counter++;
+				index += substring.length();
+			} else {
+				index++;
+			}
+		}
+		return counter;
+	}
 }
