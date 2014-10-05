@@ -1,8 +1,13 @@
+package format;
+
 import org.junit.Test;
 
 import java.io.PrintStream;
 
-public class Main {
+/**
+ * Примеры работы с методом String#format.
+ */
+public class Format {
     @Test
     public void main() {
         PrintStream out = System.out;

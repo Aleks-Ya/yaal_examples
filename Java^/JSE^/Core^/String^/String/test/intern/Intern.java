@@ -1,6 +1,13 @@
-import org.junit.Test;
-import static org.junit.Assert.*;
+package intern;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+/**
+ * Интернирование строк.
+ */
 public class Intern {
 
     /**

@@ -1,3 +1,5 @@
+package substring;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -5,7 +7,7 @@ import static org.junit.Assert.*;
  * String#substring(int fromInclusive, int toExclusive)
  * String#substring(int fromInclusive)
  */
-public class StringSubstring {
+public class Substring {
 
     @Test
     public void substring() {
