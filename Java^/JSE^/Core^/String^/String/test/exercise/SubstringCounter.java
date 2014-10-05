@@ -7,7 +7,10 @@ import static org.junit.Assert.*;
  * Подсчитать количество подстроки в строку (разными способами).
  */
 public class SubstringCounter {
-	
+
+    /**
+     * Алгоритм на основе String#indexOf.
+     */
 	@Test
 	public void count1() {
 		assertEquals(3, counter1("doremefadosolliasido", "do"));
