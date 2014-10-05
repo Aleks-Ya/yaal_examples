@@ -14,4 +14,15 @@ public class DoWhile {
         //do i++; i++; while (i < 5); //compile error: "while expected"
         assertEquals(5, i);
     }
+
+    /**
+     * Блок do без {} возможен для одного оператора.
+     */
+    @Test
+    public void emptyStatement() {
+        int i = 0;
+        do ; while (i++ < 5);
+        //do  while (i < 5); //compile error: "while expected"
+        assertEquals(6, i);
+    }
 }
