@@ -1,8 +1,11 @@
+import org.junit.Test;
+
 /**
  * Переопределяющий метод может декларировать возвращаемый параметр дочернего класса.
  */
 public class ReturnType {
-    public static void main(String[] args) {
+    @Test
+    public void main() {
         Child child = new Child();
         Result r = child.makeResult();
         System.out.println(r.getClass());

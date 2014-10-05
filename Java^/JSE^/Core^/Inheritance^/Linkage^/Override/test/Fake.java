@@ -1,8 +1,11 @@
+import org.junit.Test;
+
 /**
  * Модификатор доступа переопределяющего метода может быть менее строгим.
  */
 public class Fake {
-    public static void main(String[] args) {
+    @Test
+    public void main() {
         //System.out.println(new Child().makeData());
     }
 
