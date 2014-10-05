@@ -47,5 +47,10 @@ public class IndexOfString {
     @Test
     public void empty() {
         assertEquals(0, "abc".indexOf(""));
+        assertEquals(1, "abc".indexOf("", 1));
+        assertEquals(2, "abc".indexOf("", 2));
+        assertEquals(3, "abc".indexOf("", 3));
+        assertEquals(3, "abc".indexOf("", 4));
+        assertEquals(3, "abc".indexOf("", 40));
     }
 }
