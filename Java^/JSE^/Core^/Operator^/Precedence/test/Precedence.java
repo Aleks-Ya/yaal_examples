@@ -6,7 +6,7 @@ public class Precedence {
 
 	@Test
     public void main() {
-		out.println(2 + 2 * 2);
+        assertEquals(6, 2 + 2 * 2);
     }
     
     @Test
@@ -26,6 +26,12 @@ public class Precedence {
 	public void newAndDot() {
 		assertEquals(16, new StringBuilder().capacity());
 	}
+
+    @Test
+    public void castAndDot() {
+        Object o = new String();
+        assertTrue(((String) o).isEmpty());
+    }
 
 	@Test
 	public void constructor() {
