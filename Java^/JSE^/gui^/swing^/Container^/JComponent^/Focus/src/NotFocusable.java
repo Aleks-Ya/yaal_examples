@@ -1,15 +1,13 @@
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 /**
- * Возврат фокуса на компонент каждый раз, когда окно получает фокус.
+ * Компонент, на который не может быть переведен фокус.
  */
-class FocusForever {
+class NotFocusable {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -26,15 +24,14 @@ class FocusForever {
         Frame() {
             init();
 
-            final JTextField text = new JTextField("Focus will returns here.");
-            addWindowFocusListener(new WindowAdapter() {
-                public void windowGainedFocus(WindowEvent e) {
-                    text.requestFocusInWindow();
-                }
-            });
+            JButton b1 = new JButton("Hello");
+            JButton b2 = new JButton("Not focusable");
+            b2.setFocusable(false);
+            JButton b3 = new JButton("Bye");
 
-            add(text);
-            add(new JTextField("Other field"));
+            add(b1);
+            add(b2);
+            add(b3);
         }
 
         private void init() {
