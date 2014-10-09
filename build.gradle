@@ -8,7 +8,8 @@ subprojects {
 		 testLogging.showStandardStreams = true
 	}
 	dependencies {
-		testCompile 'junit:junit:4.11', 'org.mockito:mockito-all:1.9.5', 'org.testng:testng:6.8.8'
+		testCompile 'junit:junit:4.11', 'org.mockito:mockito-all:1.9.5',
+                'org.testng:testng:6.8.8', 'org.hamcrest:hamcrest-all:1.3'
 	}
 	repositories {
 		mavenCentral()

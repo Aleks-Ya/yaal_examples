@@ -81,4 +81,12 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:JSE^:io^:DeleteOnExit',
         'Java^:Database^:H2^:H2Hibernate',
         'Java^:Database^:H2^:H2Jdbc',
-        'Java^:Database^:JDBC^:ExecuteSqlFromFile'
+        'Java^:Database^:JDBC^:ExecuteSqlFromFile',
+        'Java^:Database^:Hibernate^:Criteria^:CriteriaAssociations',
+        'Java^:Database^:Hibernate^:Criteria^:CriteriaResult',
+        'Java^:Database^:Hibernate^:Criteria^:CriteriaSelect',
+        'Java^:Database^:Hibernate^:HibernateLog',
+        'Java^:Database^:Hibernate^:UnknownServiceException',
+        'Java^:Database^:Hibernate^:HQL^:HqlSelect',
+        'Java^:Database^:Hibernate^:Associations^:BidirectionalAssociations',
+        'Java^:Database^:Hibernate^:Associations^:ManyToManyUnidirectional'
