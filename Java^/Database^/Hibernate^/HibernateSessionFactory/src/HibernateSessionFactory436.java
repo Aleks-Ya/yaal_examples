@@ -4,8 +4,13 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-public class HibernateSessionFactory436 {
+import java.io.Closeable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class HibernateSessionFactory436 implements Closeable {
     private SessionFactory sessionFactory;
+    private List<Session> sessions = new ArrayList<>();
 
     private HibernateSessionFactory436(Class... classes) {
         Configuration configuration = getConfiguration(classes);
@@ -23,7 +28,9 @@ public class HibernateSessionFactory436 {
     }
 
     public Session openSession() {
-        return sessionFactory.openSession();
+        final Session session = sessionFactory.openSession();
+        sessions.add(session);
+        return session;
     }
 
     private Configuration getConfiguration(Class... classes) {
@@ -42,5 +49,13 @@ public class HibernateSessionFactory436 {
             configuration.addAnnotatedClass(clazz);
         }
         return configuration;
+    }
+
+    @Override
+    public void close() {
+        for (Session session : sessions) {
+            session.close();
+        }
+        sessionFactory.close();
     }
 }
