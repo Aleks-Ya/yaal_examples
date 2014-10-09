@@ -8,11 +8,11 @@ public class Main {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //connect
         Class.forName("org.h2.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+        Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "", "");
 
         //insert
         Statement update = conn.createStatement();
-        update.executeUpdate("DROP TABLE numbers");
+        update.executeUpdate("DROP TABLE IF EXISTS numbers");
         update.executeUpdate("CREATE TABLE numbers (numb INTEGER)");
         update.executeUpdate("INSERT INTO numbers VALUES (3)");
 
