@@ -8,6 +8,9 @@ import java.io.Closeable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Инициализирует SessionFactory для Hibernate 4.3.6
+ */
 public class HibernateSessionFactory436 implements Closeable {
     private SessionFactory sessionFactory;
     private List<Session> sessions = new ArrayList<>();
