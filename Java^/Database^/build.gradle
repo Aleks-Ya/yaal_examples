@@ -1,5 +1,5 @@
-//subprojects {
-//    dependencies {
-//        testCompile 'junit:junit:4.11', 'org.mockito:mockito-all:1.9.5', 'org.testng:testng:6.8.8'
-//    }
-//}
+subprojects {
+    dependencies {
+        compile 'com.h2database:h2:1.4.181', 'org.hibernate:hibernate-core:4.3.5.Final'
+    }
+}

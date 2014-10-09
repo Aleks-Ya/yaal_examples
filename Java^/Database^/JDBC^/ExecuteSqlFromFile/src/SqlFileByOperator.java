@@ -23,7 +23,7 @@ public class SqlFileByOperator {
         String queryStr = query.toString().replace("\uFEFF", "");//Удаляем Byte Order Mark
 
         Class.forName("org.h2.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+        Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "", "");
 
         Statement statement = conn.createStatement();
 

@@ -80,4 +80,5 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:JSE^:io^:DirRecursiveWalk',
         'Java^:JSE^:io^:DeleteOnExit',
         'Java^:Database^:H2^:H2Hibernate',
-        'Java^:Database^:H2^:H2Jdbc'
+        'Java^:Database^:H2^:H2Jdbc',
+        'Java^:Database^:JDBC^:ExecuteSqlFromFile'

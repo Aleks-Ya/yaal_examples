@@ -3,7 +3,7 @@ apply plugin: 'java'
 sourceSets.main.java.srcDir 'src'
 
 dependencies {
-    compile 'org.hibernate:hibernate-core:4.3.5.Final', 'joda-time:joda-time:2.3'
+    compile 'joda-time:joda-time:2.3'
 }
 repositories {
     mavenCentral()
