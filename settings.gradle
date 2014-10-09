@@ -87,6 +87,7 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:Database^:Hibernate^:Criteria^:CriteriaSelect',
         'Java^:Database^:Hibernate^:HibernateLog',
         'Java^:Database^:Hibernate^:UnknownServiceException',
+        'Java^:Database^:Hibernate^:HibernateSessionFactory',
         'Java^:Database^:Hibernate^:HQL^:HqlSelect',
         'Java^:Database^:Hibernate^:Associations^:BidirectionalAssociations',
         'Java^:Database^:Hibernate^:Associations^:ManyToManyUnidirectional'
