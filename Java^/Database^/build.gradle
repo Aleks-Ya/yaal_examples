@@ -1,5 +1,6 @@
 subprojects {
     dependencies {
-        compile 'com.h2database:h2:1.4.181', 'org.hibernate:hibernate-core:4.3.6.Final', 'joda-time:joda-time:2.3'
+        compile 'com.h2database:h2:1.4.181', 'org.hibernate:hibernate-core:4.3.6.Final', 'joda-time:joda-time:2.3',
+                project(':Java^:Database^:Hibernate^:HibernateSessionFactory')
     }
 }

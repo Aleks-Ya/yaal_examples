@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-public class Main {
+public class HqlSelect {
     public static void main(String[] args) {
         RegionEntity region = new RegionEntity("Вологодская область");
         final long vologdaPopulation = 300000L;
@@ -21,7 +21,9 @@ public class Main {
         long moscowPopulation = 12000000L;
         CityEntity city3 = new CityEntity("Москва", moscowPopulation, region2);
 
-        Session session = getSession();
+        HibernateSessionFactory436 factory436 = HibernateSessionFactory436
+                .makeFactory(RegionEntity.class, CityEntity.class);
+        Session session = factory436.openSession();
         session.save(region);
         session.save(region2);
         session.save(city1);
@@ -54,31 +56,7 @@ public class Main {
                 System.out.println(obj);
             }
         }
-    }
 
-    private static Session getSession() {
-        Configuration configuration = getConfiguration();
-
-        ServiceRegistryBuilder serviceRegistryBuilder = new ServiceRegistryBuilder();
-        serviceRegistryBuilder.applySettings(configuration.getProperties());
-        ServiceRegistry serviceRegistry = serviceRegistryBuilder.buildServiceRegistry();
-
-        SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-        return sessionFactory.openSession();
-    }
-
-    private static Configuration getConfiguration() {
-        Configuration configuration = new Configuration();
-        configuration.setProperty("hibernate.connection.driver_class", "org.h2.Driver");
-        configuration.setProperty("hibernate.connection.url", "jdbc:h2:~/test");
-        configuration.setProperty("hibernate.connection.pool_size", "1");
-        configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        configuration.setProperty("hibernate.cache.provider_class", "org.hibernate.cache.internal.NoCachingRegionFactory");
-        configuration.setProperty("hibernate.show_sql", "true");
-        configuration.setProperty("hibernate.hbm2ddl.auto", "create");
-        configuration.setProperty("hibernate.connection.autocommit", "false");
-        configuration.addAnnotatedClass(RegionEntity.class);
-        configuration.addAnnotatedClass(CityEntity.class);
-        return configuration;
+        factory436.close();
     }
 }
