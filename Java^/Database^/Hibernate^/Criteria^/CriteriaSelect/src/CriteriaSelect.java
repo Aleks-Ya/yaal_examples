@@ -14,7 +14,7 @@ import org.hibernate.service.ServiceRegistryBuilder;
 
 import java.util.List;
 
-public class Main {
+public class CriteriaSelect {
     public static void main(String[] args) {
         RegionEntity region = new RegionEntity("Вологодская область");
         final long vologdaPopulation = 300000L;

@@ -6,13 +6,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import java.util.List;
 
-public class Main {
+public class CriteriaResult {
     public static void main(String[] args) {
         RegionEntity region = new RegionEntity("Вологодская область");
         final long vologdaPopulation = 300000L;
@@ -38,12 +37,37 @@ public class Main {
         session.flush();
 
         {
-            System.out.println("\n ASSOCIATION:");
+            System.out.println("\n PAGING:");
             Criteria criteria = session.createCriteria(CityEntity.class);
-            Criteria regionCriteria = criteria.createCriteria("region");
-            regionCriteria.add(Restrictions.ilike("name", "Вологод%"));
+            criteria.setFirstResult(1);//нумерация начинается с 0
+            criteria.setMaxResults(2);
+            List result = criteria.list();
+
+            printList(result);
+        }
+        {
+            System.out.println("\n UNIQUE RESULT:");
+            Criteria criteria = session.createCriteria(CityEntity.class);
+            criteria.setMaxResults(1);
+            System.out.println(criteria.uniqueResult());
+        }
+        {
+            System.out.println("\n NonUniqueResultException:");
+            try {
+                Criteria criteria = session.createCriteria(CityEntity.class);
+                criteria.uniqueResult();
+            } catch (NonUniqueResultException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        {
+            System.out.println("\n ORDER:");
+            Criteria criteria = session.createCriteria(CityEntity.class);
             criteria.addOrder(Order.desc("population"));
-            printList(criteria.list());
+            criteria.addOrder(Order.asc("name"));
+            List result = criteria.list();
+
+            printList(result);
         }
 
     }
