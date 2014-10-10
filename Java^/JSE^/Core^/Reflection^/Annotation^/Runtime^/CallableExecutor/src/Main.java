@@ -2,7 +2,9 @@ import java.util.concurrent.Callable;
 
 public class Main {
     public static void main(String[] args) {
-        CallableExecutor[] callableAnnotations = OneClass.class.getAnnotationsByType(CallableExecutor.class);
+        // since Java 8
+        // CallableExecutor[] callableAnnotations = OneClass.class.getAnnotationsByType(CallableExecutor.class);
+        CallableExecutor[] callableAnnotations = null;
         Class<? extends Callable> callableClass = callableAnnotations[0].callable();
         try {
             Callable callable = callableClass.newInstance();
