@@ -1,3 +1,4 @@
+import factory.HibernateSessionFactory436;
 import org.hibernate.Session;
 import org.junit.Test;
 
@@ -8,6 +9,8 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 
 public class PeopleTest {
+    private static final HibernateSessionFactory436 factory = HibernateSessionFactory436.makeFactory(
+            People.class, Address.class);
 
     @Test
     public void test() throws Exception {
@@ -18,7 +21,7 @@ public class PeopleTest {
     private void saveEntities() throws Exception {
         Session session = null;
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
+            session = factory.openSession();
             session.beginTransaction();
 
             People man = new People();
@@ -47,7 +50,7 @@ public class PeopleTest {
     }
 
     private void readEntities() throws Exception {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        Session session = factory.openSession();
 
         List<People> allPeoples = session.createCriteria(People.class).list();
         final int expPeopleSize = 2;
