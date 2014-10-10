@@ -1,7 +1,10 @@
+package write;
+
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -17,6 +20,6 @@ public class WriteTextToFile {
         out.println(p);
 
         List<String> lines = Arrays.asList("FirstLine", "SecondLine");
-        Files.write(p, lines);
+        Files.write(p, lines, Charset.defaultCharset());
     }
 }

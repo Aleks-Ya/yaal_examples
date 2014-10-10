@@ -1,7 +1,10 @@
+package read;
+
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -18,10 +21,10 @@ public class ReadAllLines {
         //write
         Path p = File.createTempFile("prefix-file_", ".suffix").toPath();
         List<String> expLines = Arrays.asList("FirstLine", "SecondLine");
-        Files.write(p, expLines);
+        Files.write(p, expLines, Charset.defaultCharset());
 
         //read
-        List<String> actLines = Files.readAllLines(p);
+        List<String> actLines = Files.readAllLines(p, Charset.defaultCharset());
         assertEquals(expLines, actLines);
     }
 }
