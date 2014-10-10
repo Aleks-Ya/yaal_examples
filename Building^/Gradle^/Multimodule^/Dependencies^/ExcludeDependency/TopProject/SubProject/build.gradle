@@ -1,0 +1,16 @@
+// НЕ РАБОТАЕТ, Т.К. ИСКЛЮЧАЕТ ТРАНЗИТИРВНУЮ ЗАВИСИМОСТЬ ИЗ ТЕКУЩЕЙ ПОДКЛЮЧАЕМОЙ ЗАВИСИМОСТИ
+//dependencies {
+//    compile('joda-time:joda-time:2.3') {
+//        exclude module: 'joda-time'
+//    }
+//}
+
+// РАБОТАЕТ
+//configurations {
+//    testRuntime.exclude module: 'joda-time'
+//}
+
+// РАБОТАЕТ
+configurations {
+    testRuntime.exclude group: 'joda-time'
+}
