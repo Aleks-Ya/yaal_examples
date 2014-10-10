@@ -1,3 +1,5 @@
+import org.junit.Test;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,12 +9,10 @@ import java.util.List;
 
 import static java.lang.System.out;
 
-public class Main {
-    public static void main(String[] args) throws IOException {
-        files();
-    }
+public class WriteTextToFile {
 
-    private static void files() throws IOException {
+    @Test
+    public void files() throws IOException {
         Path p = File.createTempFile("prefix-file_", ".suffix").toPath();
         out.println(p);
 
