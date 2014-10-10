@@ -1,3 +1,6 @@
+/**
+ * Java^
+ */
 include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:JSE^:Core^:Inheritance^:Abstract^:Implement',
         'Java^:JSE^:Core^:Inheritance^:InitializationSequence',
@@ -92,12 +95,15 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:Database^:Hibernate^:Associations^:BidirectionalAssociations',
         'Java^:Database^:Hibernate^:Associations^:ManyToManyUnidirectional'
 
-//Building^
+/**
+ * Building^
+ */
 include 'Building^:Gradle^:Multimodule^:FirstMultimodule',
         'Building^:Gradle^:Multimodule^:Dependencies^:ResourceDependency',
         'Building^:Gradle^:Multimodule^:Dependencies^:BrokenRepoLink',
         'Building^:Gradle^:Multimodule^:Dependencies^:MavenLocal',
         'Building^:Gradle^:Multimodule^:Dependencies^:TaskDependencies',
+        'Building^:Gradle^:Multimodule^:Dependencies^:ExcludeDependency',
         'Building^:Gradle^:Multimodule^:Dependencies^:Configuration^:ExtLibsConfiguration',
         'Building^:Gradle^:Multimodule^:Dependencies^:Configuration^:CustomConfiguration',
         'Building^:Gradle^:Multimodule^:Dependencies^:Configuration^:ConfigurationOnDemand^:EmptyProjects'
