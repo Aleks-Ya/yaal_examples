@@ -1,3 +1,4 @@
+import factory.HibernateSessionFactory436;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Test;

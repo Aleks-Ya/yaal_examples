@@ -1,11 +1,13 @@
 package payment.bi;
 
-import factory.Factory;
+import factory.HibernateSessionFactory436;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.junit.Test;
+import people.bi.Address;
+import people.bi.People;
 
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +18,9 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertThat;
 
 public class PaymentTest {
+    private static final HibernateSessionFactory436 factory = HibernateSessionFactory436.makeFactory(
+            Payment.class, Transaction.class, Slip.class, People.class, Address.class);
+
     private Payment expPayment;
     private Transaction expTransaction;
     private Slip expSlipA;
@@ -27,7 +32,7 @@ public class PaymentTest {
             saveEntities();
             loadEntities();
         } finally {
-            SessionFactory sessionFactory = Factory.getSessionFactory();
+            SessionFactory sessionFactory = factory.getSessionFactory();
             if (sessionFactory != null) {
                 sessionFactory.close();
             }
@@ -35,7 +40,7 @@ public class PaymentTest {
     }
 
     private void saveEntities() throws Exception {
-        Session session = Factory.getSessionFactory().openSession();
+        Session session = factory.openSession();
 
         Payment payment = new Payment("Bike buy");
 
@@ -67,7 +72,7 @@ public class PaymentTest {
     }
 
     private void loadEntities() throws Exception {
-        Session session = Factory.getSessionFactory().openSession();
+        Session session = factory.openSession();
         List<Payment> allPayments = session.createCriteria(Payment.class).addOrder(Order.desc("id")).list();
         List<Transaction> allTransactions = session.createCriteria(Transaction.class).addOrder(Order.desc("id")).list();
         List<Slip> allSlips = session.createCriteria(Slip.class).addOrder(Order.desc("id")).list();

@@ -1,3 +1,4 @@
+import factory.HibernateSessionFactory436;
 import org.hibernate.Session;
 
 import java.util.concurrent.TimeUnit;

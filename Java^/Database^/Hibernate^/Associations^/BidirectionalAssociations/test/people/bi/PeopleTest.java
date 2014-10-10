@@ -1,15 +1,20 @@
 package people.bi;
 
-import factory.Factory;
+import factory.HibernateSessionFactory436;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.junit.Test;
+import payment.bi.Payment;
+import payment.bi.Slip;
+import payment.bi.Transaction;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class PeopleTest {
+    private static final HibernateSessionFactory436 factory = HibernateSessionFactory436.makeFactory(
+            Payment.class, Transaction.class, Slip.class, People.class, Address.class);
 
     @Test
     public void test() throws Exception {
@@ -20,7 +25,8 @@ public class PeopleTest {
     private void saveEntities() throws Exception {
         Session session = null;
         try {
-            session = Factory.getSessionFactory().openSession();
+
+            session = factory.openSession();
             session.beginTransaction();
 
             People man = new People();
@@ -54,7 +60,7 @@ public class PeopleTest {
     }
 
     private void readEntities() throws Exception {
-        Session session = Factory.getSessionFactory().openSession();
+        Session session = factory.openSession();
         List<Address> allAddresses = session.createCriteria(Address.class).addOrder(Order.desc("id")).list();
         List<People> allPeoples = session.createCriteria(People.class).addOrder(Order.desc("id")).list();
         session.close();
