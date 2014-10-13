@@ -1,0 +1,3 @@
+@Marked
+public class YesMarked {
+}
