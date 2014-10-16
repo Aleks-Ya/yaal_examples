@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
  */
 public class MainOwnModel {
     public static void main(String[] args) {
-        JComboBox<String> comboBox = new JComboBox<String>(new UniqueStringComboBoxModel());
+        JComboBox<String> comboBox = new JComboBox<>(new UniqueStringComboBoxModel());
         comboBox.setEditable(true);
 
         JButton okButton = new JButton("OK");

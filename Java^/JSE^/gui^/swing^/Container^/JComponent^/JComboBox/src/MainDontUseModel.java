@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
  */
 public class MainDontUseModel {
     public static void main(String[] args) {
-        JComboBox<String> comboBox = new JComboBox<String>();
+        JComboBox<String> comboBox = new JComboBox<>();
         comboBox.setEditable(true);
 
         JButton okButton = new JButton("OK");
