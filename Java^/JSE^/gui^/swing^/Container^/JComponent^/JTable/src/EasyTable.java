@@ -1,8 +1,14 @@
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.WindowConstants;
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
 
 /**
  * Простая таблица.
@@ -24,11 +30,8 @@ class EasyTableFrame extends JFrame {
 
     EasyTableFrame() {
         initFrame();
-        JScrollPane pane = initTable();
-        add(pane);
-    }
 
-    private JScrollPane initTable() {
+        //Данные
         Object[][] cells = {
                 {"Меркурий", 2440.0, 0, false},
                 {"Венера", 6052.0, 0, false},
@@ -40,10 +43,40 @@ class EasyTableFrame extends JFrame {
                 {"Нептун", 24766.0, 0, true}
         };
 
+        //Заголовки столбцов
         Object[] headers = {"Планета", "Радиус", "Спутники", "Газовая?"};
 
-        JTable table = new JTable(cells, headers);
-        return new JScrollPane(table);
+        final JTable table = new JTable(cells, headers);
+
+        //Включить сортировку по щелчку на заголовке столбцов
+        table.setAutoCreateRowSorter(true);
+
+        JScrollPane pane = new JScrollPane(table);
+
+        JPanel pButton = initPrintButton(table);
+
+        add(pane, BorderLayout.CENTER);
+        add(pButton, BorderLayout.SOUTH);
+    }
+
+    private JPanel initPrintButton(final JTable table) {
+        JButton print = new JButton("Распечатать");
+        print.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                try {
+                    //Печать таблицы на принтере
+                    table.print();
+                } catch (PrinterException e) {
+                    throw new RuntimeException(e.getMessage(), e);
+                }
+            }
+        });
+
+
+        JPanel pButton = new JPanel();
+        pButton.add(print);
+        return pButton;
     }
 
     private void initFrame() {
