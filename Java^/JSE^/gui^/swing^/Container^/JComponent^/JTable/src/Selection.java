@@ -108,17 +108,20 @@ class SelectionFrame extends JFrame {
                 case ROW_SELECTION: {
                     table.setColumnSelectionAllowed(false);
                     table.setCellSelectionEnabled(false);
-                    table.setRowSelectionAllowed(true);
+                    table.setRowSelectionAllowed(true);//Обязательно последним
                     break;
                 }
                 case COLUMN_SELECTION: {
                     table.setRowSelectionAllowed(false);
                     table.setCellSelectionEnabled(false);
-                    table.setColumnSelectionAllowed(true);
+                    table.setColumnSelectionAllowed(true);//Обязательно последним
                     break;
                 }
                 case CELL_SELECTION: {
                     table.setCellSelectionEnabled(true);
+                    //Эквавалентно
+                    //table.setRowSelectionAllowed(true);
+                    //table.setColumnSelectionAllowed(true);
                     break;
                 }
                 default: {
