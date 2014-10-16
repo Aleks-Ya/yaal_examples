@@ -37,7 +37,19 @@ class SelectionFrame extends JFrame {
 
     SelectionFrame() {
         initFrame();
+        JTable table = initTable();
 
+        JScrollPane pane = new JScrollPane(table);
+
+        JPanel cbPanel = new JPanel();
+        cbPanel.add(initSelectionAllowBox(table));
+        cbPanel.add(initSelectionModelBox(table));
+
+        add(pane, BorderLayout.CENTER);
+        add(cbPanel, BorderLayout.NORTH);
+    }
+
+    private JTable initTable() {
         //Данные
         Object[][] cells = {
                 {"Меркурий", 2440.0, 0, false},
@@ -53,16 +65,7 @@ class SelectionFrame extends JFrame {
         //Заголовки столбцов
         Object[] headers = {"Планета", "Радиус", "Спутники", "Газовая?"};
 
-        JTable table = new JTable(cells, headers);
-
-        JScrollPane pane = new JScrollPane(table);
-
-        JPanel cbPanel = new JPanel();
-        cbPanel.add(initSelectionAllowBox(table));
-        cbPanel.add(initSelectionModelBox(table));
-
-        add(pane, BorderLayout.CENTER);
-        add(cbPanel, BorderLayout.NORTH);
+        return new JTable(cells, headers);
     }
 
     private JComboBox<String> initSelectionAllowBox(JTable table) {
