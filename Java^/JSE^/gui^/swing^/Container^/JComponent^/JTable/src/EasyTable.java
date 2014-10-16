@@ -51,6 +51,9 @@ class EasyTableFrame extends JFrame {
         //Включить сортировку по щелчку на заголовке столбцов
         table.setAutoCreateRowSorter(true);
 
+        //Заполнить свободное место под таблицей
+        table.setFillsViewportHeight(true);
+
         JScrollPane pane = new JScrollPane(table);
 
         JPanel pButton = initPrintButton(table);
