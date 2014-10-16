@@ -27,9 +27,9 @@ public class Selection {
 class SelectionFrame extends JFrame {
     private static final int FRAME_WIDTH = 600;
     private static final int FRAME_HEIGHT = 400;
-    private static final String ROW_SELECTION = "Строки";
-    private static final String COLUMN_SELECTION = "Столбцы";
-    private static final String CELL_SELECTION = "Ячейки";
+    private static final String ROW_SELECTION = "Выделение строк";
+    private static final String COLUMN_SELECTION = "Выделение столбцов";
+    private static final String CELL_SELECTION = "Выделение ячеек";
     private static final String SINGLE_SELECTION = "Выбор одного элемента";
     private static final String SINGLE_INTERVAL_SELECTION = "Выбор одного интервала";
     private static final String MULTIPLE_INTERVAL_SELECTION = "Выбор нескольких интервалов";
@@ -79,9 +79,9 @@ class SelectionFrame extends JFrame {
 
     private JComboBox<String> initSelectionModelBox(JTable table) {
         JComboBox<String> cbSelection = new JComboBox<>();
-        cbSelection.addItem(SINGLE_SELECTION);
-        cbSelection.addItem(SINGLE_INTERVAL_SELECTION);
         cbSelection.addItem(MULTIPLE_INTERVAL_SELECTION);
+        cbSelection.addItem(SINGLE_INTERVAL_SELECTION);
+        cbSelection.addItem(SINGLE_SELECTION);
 
         ListSelectionModel selectionModel = table.getSelectionModel();
         cbSelection.addActionListener(new SelectionModeListener(selectionModel));
