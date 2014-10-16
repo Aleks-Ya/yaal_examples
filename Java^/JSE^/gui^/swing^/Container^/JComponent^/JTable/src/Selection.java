@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -29,6 +30,10 @@ class SelectionFrame extends JFrame {
     private static final String ROW_SELECTION = "Строки";
     private static final String COLUMN_SELECTION = "Столбцы";
     private static final String CELL_SELECTION = "Ячейки";
+    private static final String SINGLE_SELECTION = "Выбор одного элемента";
+    private static final String SINGLE_INTERVAL_SELECTION = "Выбор одного интервала";
+    private static final String MULTIPLE_INTERVAL_SELECTION = "Выбор нескольких интервалов";
+
 
     SelectionFrame() {
         initFrame();
@@ -52,22 +57,33 @@ class SelectionFrame extends JFrame {
 
         JScrollPane pane = new JScrollPane(table);
 
-        JPanel cbPanel = initComboBox(table);
+        JPanel cbPanel = new JPanel();
+        cbPanel.add(initSelectionAllowBox(table));
+        cbPanel.add(initSelectionModelBox(table));
 
         add(pane, BorderLayout.CENTER);
         add(cbPanel, BorderLayout.NORTH);
     }
 
-    private JPanel initComboBox(JTable table) {
+    private JComboBox<String> initSelectionAllowBox(JTable table) {
         JComboBox<String> cbSelection = new JComboBox<>();
         cbSelection.addItem(ROW_SELECTION);
         cbSelection.addItem(COLUMN_SELECTION);
         cbSelection.addItem(CELL_SELECTION);
-        cbSelection.addActionListener(new SelectionActionListener(table));
+        cbSelection.addActionListener(new SelectionAllowListener(table));
+        return cbSelection;
+    }
 
-        JPanel selectionPanel = new JPanel();
-        selectionPanel.add(cbSelection);
-        return selectionPanel;
+    private JComboBox<String> initSelectionModelBox(JTable table) {
+        JComboBox<String> cbSelection = new JComboBox<>();
+        cbSelection.addItem(SINGLE_SELECTION);
+        cbSelection.addItem(SINGLE_INTERVAL_SELECTION);
+        cbSelection.addItem(MULTIPLE_INTERVAL_SELECTION);
+
+        ListSelectionModel selectionModel = table.getSelectionModel();
+        cbSelection.addActionListener(new SelectionModeListener(selectionModel));
+
+        return cbSelection;
     }
 
     private void initFrame() {
@@ -77,10 +93,10 @@ class SelectionFrame extends JFrame {
         setVisible(true);
     }
 
-    class SelectionActionListener implements ActionListener {
+    class SelectionAllowListener implements ActionListener {
         private JTable table;
 
-        SelectionActionListener(JTable table) {
+        SelectionAllowListener(JTable table) {
             this.table = table;
         }
 
@@ -103,6 +119,38 @@ class SelectionFrame extends JFrame {
                 }
                 case CELL_SELECTION: {
                     table.setCellSelectionEnabled(true);
+                    break;
+                }
+                default: {
+                    throw new RuntimeException();
+                }
+            }
+
+        }
+    }
+
+    class SelectionModeListener implements ActionListener {
+        private ListSelectionModel selectionModel;
+
+        SelectionModeListener(ListSelectionModel selectionModel) {
+            this.selectionModel = selectionModel;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JComboBox<String> source = (JComboBox<String>) e.getSource();
+            String selectedItem = (String) source.getSelectedItem();
+            switch (selectedItem) {
+                case SINGLE_SELECTION: {
+                    selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                    break;
+                }
+                case SINGLE_INTERVAL_SELECTION: {
+                    selectionModel.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+                    break;
+                }
+                case MULTIPLE_INTERVAL_SELECTION: {
+                    selectionModel.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
                     break;
                 }
                 default: {
