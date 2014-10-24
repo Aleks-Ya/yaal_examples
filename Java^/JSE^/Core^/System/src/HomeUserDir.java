@@ -1,5 +1,8 @@
 import static java.lang.System.out;
 
+/**
+ * Получение домашней папки текущего пользователя.
+ */
 public class HomeUserDir {
     public static void main(String[] args) {
         out.println();
