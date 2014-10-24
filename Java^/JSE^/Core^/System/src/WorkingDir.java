@@ -1,4 +1,7 @@
-public class Main {
+/**
+ * Получение рабочей папки, в которой запущено данное приложение.
+ */
+public class WorkingDir {
 	
 	//TODO Работает ли в Windows??
     public static void main(String[] args) {
