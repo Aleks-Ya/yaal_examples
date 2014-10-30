@@ -11,6 +11,9 @@ class Modify {
     def plan = new XmlParser().parse(ReadXmlFile.class.getResourceAsStream('plan.xml'))
     def xmlPrinter = new XmlNodePrinter()
 
+    /**
+     * Изменение содержимого узла (value).
+     */
     @Test
     public void changeValue() {
         def found = plan.week[0].task[1]
@@ -21,6 +24,9 @@ class Modify {
         assertEquals(s, found.value())
     }
 
+    /**
+     * Изменение значения атрибута узла.
+     */
     @Test
     public void changeAttribute() {
         def found = plan.week[0].task[1]
@@ -34,4 +40,16 @@ class Modify {
         xmlPrinter.print(found)
         xmlPrinter.print(plan)
     }
+
+    /**
+     * Добавление узла в XML.
+     */
+    @Test
+    public void addNode() {
+        assertEquals(2, plan.week.size())
+        plan.appendNode('week', [first: 'today', second: 'tomorrow'])
+        xmlPrinter.print(plan)
+        assertEquals(3, plan.week.size())
+    }
+
 }
