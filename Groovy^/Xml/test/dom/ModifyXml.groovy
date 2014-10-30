@@ -1,3 +1,5 @@
+package dom
+
 import groovy.xml.DOMBuilder
 import groovy.xml.dom.DOMCategory
 import org.junit.Test

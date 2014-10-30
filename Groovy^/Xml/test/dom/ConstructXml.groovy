@@ -1,3 +1,5 @@
+package dom
+
 import groovy.xml.MarkupBuilder
 import org.junit.Test
 
