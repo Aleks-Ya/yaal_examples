@@ -7,7 +7,7 @@ import org.junit.Test
 import static org.junit.Assert.assertEquals
 
 /**
- * Чтение и парсинг XML из файла.
+ * Чтение и парсинг XML из файла  с помощью DOMBuilder.
  */
 class ReadXmlFile {
 
