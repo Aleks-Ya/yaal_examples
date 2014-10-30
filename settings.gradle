@@ -107,3 +107,17 @@ include 'Building^:Gradle^:Multimodule^:FirstMultimodule',
         'Building^:Gradle^:Multimodule^:Dependencies^:Configuration^:ExtLibsConfiguration',
         'Building^:Gradle^:Multimodule^:Dependencies^:Configuration^:CustomConfiguration',
         'Building^:Gradle^:Multimodule^:Dependencies^:Configuration^:ConfigurationOnDemand^:EmptyProjects'
+
+/**
+ * Groovy^
+ */
+include 'Groovy^:ClassMembers',
+        'Groovy^:Closure',
+        'Groovy^:Map',
+        'Groovy^:RegEx',
+        'Groovy^:UnitTest',
+        'Groovy^:WorkflowControl',
+        'Groovy^:IO^:AppendFile',
+        'Groovy^:IO^:WriteToFile',
+        'Groovy^:IO^:TempFile',
+        'Groovy^:IO^:Resources'
