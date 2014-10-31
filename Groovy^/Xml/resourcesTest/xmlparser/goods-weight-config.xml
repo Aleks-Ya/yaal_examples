@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<moduleConfig xmlns="http://crystals.ru/cash/settings">
+    <!--Имя класса сущности товара-->
+    <property value="ru.crystals.pos.catalog.ProductWeightEntity" key="productTypeClass"/>
+    <!--Наименование типа товара-->
+    <property value="Весовой товар" key="productTypeName"/>
+    <!--Сворачивание товара в чеке-->
+    <property value="false" key="autoDetection"/>
+    <!--Имя класса процессинга штрих-кода-->
+    <property value="false" key="collapsible"/>
+    <!--Имя класса конфигурации маски штрих-кода-->
+    <property value="ru.crystals.pos.barcodeprocessing.processors.WeightProductProcessor" key="barcodeProcessor"/>
+    <!--Описание маски штрих-кода-->
+    <property value="ru.crystals.pos.barcodeprocessing.processors.WeightMaskConfig" key="maskConfig"/>
+    <!--Описание маски штрих-кода-->
+    <property value="ru.crystals.pos.visualization.products.weight.WeightProductContainer" key="visualContainer"/>
+    <!--Имя класса контейнера визуализации-->
+    <property value="false" key="changeQnty"/>
+    <!--Изменение количества в чеке-->
+    <property value="true" key="returnPossible"/>
+    <!--Разрешен возврат данного типа товара-->
+    <property value="false" key="onlyMeInCheck"/>
+    <!--Воазврат частями-->
+    <property value="true" key="isDiscountApplicable"/>
+    <!--Свойство товара (для продажи отдельными чеками)-->
+    <property value="ERP" key="PLUGeneration"/>
+    <!--Применять расчет скидок к типу товара-->
+    <property value="2" key="pricePrecision"/>
+    <!--Максимальное количество в чеке-->
+    <property value="10000" key="maxQnty"/>
+    <!--Минимальный вес товара (в граммах)-->
+    <property value="false" key="manualWeightReject"/>
+    <!--Имя класса десериализатора AMF-->
+    <property value="false" key="returnPartly"/>
+    <property value="ru.crystals.pos.catalog.service.transport.ProductWeightEntityDeserializer" key="amfDeserializer"/>
+    <property key="groups"/>
+    <property value="28" key="markdownPrefix">
+        <property value="0" key="itemStartIndex"/>
+        <property value="7" key="itemLength"/>
+        <property value="7" key="weightStartIndex"/>
+        <property value="5" key="weightLength"/>
+        <property value="1" key="multiplier"/>
+    </property>
+</moduleConfig>
