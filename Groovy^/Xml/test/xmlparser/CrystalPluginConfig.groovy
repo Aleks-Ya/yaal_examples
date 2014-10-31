@@ -16,7 +16,7 @@ class CrystalPluginConfig {
         File file  = Files.createTempFile('CrystalPluginConfig', '.tmp').toFile()
         file.deleteOnExit()
 
-        File configFile = new File(CrystalPluginConfig.class.getResource('goods-weight-config.xml').file.replace('%5e', '^'))
+        File configFile = new File(CrystalPluginConfig.class.getResource('goods-weight-config.xml').file.replace('%5e', '^').replace('%5E', '^'))
         file.write(configFile.text)
         String key = 'minWeight'
         String value = 10
