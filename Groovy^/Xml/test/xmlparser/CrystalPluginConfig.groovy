@@ -14,7 +14,6 @@ class CrystalPluginConfig {
     @Test
     void parse() {
         File file  = Files.createTempFile('CrystalPluginConfig', '.tmp').toFile()
-        println file.absolutePath
         file.deleteOnExit()
 
         File configFile = new File(CrystalPluginConfig.class.getResource('goods-weight-config.xml').file.replace('%5e', '^'))
