@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue
  * Вывод отформатированного XML на консоль и в файл.
  */
 class XmlPrinter {
-    private def plan = new XmlParser().parse(xmlparser.ReadXmlFile.class.getResourceAsStream('plan.xml'))
+    private def plan = new XmlParser().parse(ReadXmlFile.class.getResourceAsStream('plan.xml'))
 
     /**
      * На консоль.
