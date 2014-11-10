@@ -5,7 +5,7 @@ package withdrawal;
  */
 class Focus<T> {
     private final T[][] matrix;
-    private static final int X_MIN = 0;
+    private static final int X_LEFT_LIMIT = 0;
     private static final int Y_TOP = 0;
     private final int xMax;
     private final int yBottom;
@@ -25,7 +25,7 @@ class Focus<T> {
     }
 
     void left() {
-        if (X_MIN > xFocus) {
+        if (X_LEFT_LIMIT > xFocus) {
             if (nearLeft() != null) {
                 xFocus--;
             }
@@ -37,7 +37,7 @@ class Focus<T> {
      */
     private T nearLeft() {
         T[] row = matrix[yFocus];
-        for (int i = xFocus; i >= X_MIN; i--) {
+        for (int i = xFocus; i >= X_LEFT_LIMIT; i--) {
             if (row[i] != null) {
                 return row[i];
             }
@@ -46,7 +46,15 @@ class Focus<T> {
     }
 
     void right() {
-
+        if (xFocus < xMax) {
+            T[] row = matrix[yFocus];
+            for (int i = xFocus + 1; i < row.length; i++) {
+                if (row[i] != null) {
+                    xFocus = i;
+                    break;
+                }
+            }
+        }
     }
 
     void down() {
@@ -55,6 +63,7 @@ class Focus<T> {
                 T[] row = matrix[rowIndex];
                 if (row.length > xFocus && row[xFocus] != null) {
                     yFocus = rowIndex;
+                    break;
                 }
             }
         }
