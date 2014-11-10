@@ -100,6 +100,42 @@ public class FocusTest {
     }
 
     @Test
+    public void up() {
+        Object[][] matrix = {
+                {0, 12, 13},
+                {1, 15, null},
+                {null, 16, 17},
+                {3},
+                {4},
+                {null, 18},
+                {6, 19}
+
+        };
+        Focus<Object> focus = new Focus<>(matrix);
+        focus.down();
+        focus.down();
+        focus.down();
+        focus.down();
+        assertEquals(4, focus.prevSelected());
+        assertEquals(6, focus.selected());
+        focus.up();
+        assertEquals(6, focus.prevSelected());
+        assertEquals(4, focus.selected());
+        focus.up();
+        assertEquals(4, focus.prevSelected());
+        assertEquals(3, focus.selected());
+        focus.up();
+        assertEquals(3, focus.prevSelected());
+        assertEquals(1, focus.selected());
+        focus.up();
+        assertEquals(1, focus.prevSelected());
+        assertEquals(0, focus.selected());
+        focus.up();
+        assertEquals(1, focus.prevSelected());
+        assertEquals(0, focus.selected());
+    }
+
+    @Test
     public void rightDown() {
         Object[][] matrix = {
                 {1, 2, null},
