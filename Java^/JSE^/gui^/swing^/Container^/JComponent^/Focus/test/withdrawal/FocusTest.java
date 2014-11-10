@@ -70,6 +70,30 @@ public class FocusTest {
     }
 
     @Test
+    public void rightDown() {
+        Object[][] matrix = {
+                {1, 2, null},
+                {3, 4, null},
+                {5, 6, null},
+        };
+        Focus<Object> focus = new Focus<>(matrix);
+        assertEquals(1, focus.prevSelected());
+        assertEquals(1, focus.selected());
+        focus.right();
+        assertEquals(1, focus.prevSelected());
+        assertEquals(2, focus.selected());
+        focus.down();
+        assertEquals(2, focus.prevSelected());
+        assertEquals(4, focus.selected());
+        focus.down();
+        assertEquals(4, focus.prevSelected());
+        assertEquals(6, focus.selected());
+        focus.down();
+        assertEquals(4, focus.prevSelected());
+        assertEquals(6, focus.selected());
+    }
+
+    @Test
     public void testUp() throws Exception {
 
     }
