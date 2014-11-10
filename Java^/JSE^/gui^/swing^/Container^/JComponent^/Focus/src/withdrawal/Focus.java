@@ -11,6 +11,8 @@ class Focus<T> {
     private final int yBottom;
     private int xFocus;
     private int yFocus;
+    private int prevXFocus;
+    private int prevYFocus;
 
     Focus(T[][] matrix) {
         this.matrix = matrix;
@@ -25,31 +27,27 @@ class Focus<T> {
     }
 
     void left() {
-        if (X_LEFT_LIMIT > xFocus) {
-            if (nearLeft() != null) {
-                xFocus--;
-            }
-        }
     }
 
-    /**
-     * Ближайшая непустая ячейка слева.
-     */
-    private T nearLeft() {
-        T[] row = matrix[yFocus];
-        for (int i = xFocus; i >= X_LEFT_LIMIT; i--) {
-            if (row[i] != null) {
-                return row[i];
-            }
-        }
-        return null;
-    }
+//    /**
+//     * Ближайшая непустая ячейка слева.
+//     */
+//    private T nearLeft() {
+//        T[] row = matrix[yFocus];
+//        for (int i = xFocus; i >= X_LEFT_LIMIT; i--) {
+//            if (row[i] != null) {
+//                return row[i];
+//            }
+//        }
+//        return null;
+//    }
 
     void right() {
         if (xFocus < xMax) {
             T[] row = matrix[yFocus];
             for (int i = xFocus + 1; i < row.length; i++) {
                 if (row[i] != null) {
+                    prevXFocus = xFocus;
                     xFocus = i;
                     break;
                 }
@@ -62,6 +60,7 @@ class Focus<T> {
             for (int rowIndex = yFocus + 1; rowIndex <= yBottom; rowIndex++) {
                 T[] row = matrix[rowIndex];
                 if (row.length > xFocus && row[xFocus] != null) {
+                    prevYFocus = yFocus;
                     yFocus = rowIndex;
                     break;
                 }
@@ -70,10 +69,13 @@ class Focus<T> {
     }
 
     void up() {
-
     }
 
     T selected() {
         return matrix[yFocus][xFocus];
+    }
+
+    T prevSelected() {
+        return matrix[prevYFocus][prevXFocus];
     }
 }
