@@ -19,6 +19,15 @@ class Focus<T> {
     }
 
     void left() {
+        T[] row = matrix[yFocus];
+        for (int x = xFocus - 1; x >=0; x--) {
+            if (row[x] != null) {
+                prevXFocus = xFocus;
+                prevYFocus = yFocus;
+                xFocus = x;
+                break;
+            }
+        }
     }
 
     void right() {
