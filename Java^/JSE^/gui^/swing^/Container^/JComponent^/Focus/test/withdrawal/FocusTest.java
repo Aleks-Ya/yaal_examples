@@ -7,11 +7,6 @@ import static org.junit.Assert.assertEquals;
 public class FocusTest {
 
     @Test
-    public void testLeft() throws Exception {
-
-    }
-
-    @Test
     public void right() {
         Object[][] matrix = {
                 {1, 2, null, 3, 4, null, 5},
@@ -157,10 +152,5 @@ public class FocusTest {
         focus.down();
         assertEquals(4, focus.prevSelected());
         assertEquals(6, focus.selected());
-    }
-
-    @Test
-    public void testUp() throws Exception {
-
     }
 }
