@@ -1,14 +1,22 @@
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 
-public class Main {
+/**
+ * Добавление компонентов по порядку.
+ */
+public class GridLayoutSequence {
     public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new GridLayoutSequenceFrame();
+            }
+        });
+    }
+}
+
+class GridLayoutSequenceFrame extends JFrame {
+    GridLayoutSequenceFrame() throws HeadlessException {
         JTextField text = new JTextField("Введите что-нибудь :)");
 
         JPanel gridPanel = new JPanel();
@@ -37,12 +45,11 @@ public class Main {
         gridPanel.add(new JButton("ЗАКРЫТЬ"));
         gridPanel.add(new JButton("ПЕЧАТЬ"));
 
-        JFrame frame = new JFrame();
-        frame.setLayout(new BorderLayout());
-        frame.setSize(500, 400);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        frame.add(text, BorderLayout.NORTH);
-        frame.add(gridPanel, BorderLayout.CENTER);
+        setLayout(new BorderLayout());
+        setSize(500, 400);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
+        add(text, BorderLayout.NORTH);
+        add(gridPanel, BorderLayout.CENTER);
     }
 }
