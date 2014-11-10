@@ -2,7 +2,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 
-public class Main {
+public class Keyboard {
     public static void main(String[] args) {
         JLabel label = new JLabel();
 
