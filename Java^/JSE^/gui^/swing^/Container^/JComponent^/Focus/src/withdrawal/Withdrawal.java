@@ -63,3 +63,4 @@ class WithdrawalFrame extends JFrame {
         setVisible(true);
     }
 }
+
