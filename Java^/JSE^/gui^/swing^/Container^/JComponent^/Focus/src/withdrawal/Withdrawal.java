@@ -10,8 +10,13 @@ import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Withdrawal {
     public static void main(String[] args) {
@@ -48,12 +53,23 @@ class WithdrawalFrame extends JFrame {
         textFieldsPanel.add(c21);
         textFieldsPanel.add(c22);
 
-        Border border = BorderFactory.createLineBorder(Color.RED, 5);
-        c00.setBorder(border);
+        Border selectedBorder = BorderFactory.createLineBorder(Color.RED, 5);
+        Border unSelectedBorder = c00.getBorder();
+        c00.setBorder(selectedBorder);
+
+        final JButton bOk = new JButton("OK");
+        final JButton bCancel = new JButton("Cancel");
+
+        Focus<JComponent> focus = new Focus<>(new JComponent[][]{
+                {c00, c01, c02},
+                {c10, c11, null},
+                {c20, c21, c22},
+                {bOk, bOk, bCancel}
+        });
 
         JPanel buttonsPanel = new JPanel();
-        buttonsPanel.add(new JButton("OK"));
-        buttonsPanel.add(new JButton("Cancel"));
+        buttonsPanel.add(bOk);
+        buttonsPanel.add(bCancel);
 
         add(textFieldsPanel);
         add(buttonsPanel, BorderLayout.SOUTH);
@@ -61,6 +77,64 @@ class WithdrawalFrame extends JFrame {
         setSize(500, 200);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+
+        addWindowFocusListener(new FocusReturn(this));
+
+        addKeyListener(new NarrowKeyListener(focus, selectedBorder, unSelectedBorder));
     }
 }
 
+class FocusReturn extends WindowAdapter {
+    private Container focusHolder;
+
+    FocusReturn(Container focusHolder) {
+        this.focusHolder = focusHolder;
+    }
+
+    public void windowGainedFocus(WindowEvent e) {
+        focusHolder.requestFocusInWindow();
+    }
+}
+
+class NarrowKeyListener extends KeyAdapter {
+    private Focus<JComponent> focus;
+    private final Border selectedBorder;
+    private final Border unSelectedBorder;
+
+    NarrowKeyListener(Focus<JComponent> focus, Border selectedBorder, Border unSelectedBorder) {
+        this.focus = focus;
+        this.selectedBorder = selectedBorder;
+        this.unSelectedBorder = unSelectedBorder;
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_DOWN: {
+                focus.down();
+                focus();
+                break;
+            }
+            case KeyEvent.VK_UP: {
+                focus.up();
+                focus();
+                break;
+            }
+            case KeyEvent.VK_RIGHT: {
+                focus.right();
+                focus();
+                break;
+            }
+            case KeyEvent.VK_LEFT: {
+                focus.left();
+                focus();
+                break;
+            }
+        }
+    }
+
+    private void focus() {
+        focus.prevSelected().setBorder(unSelectedBorder);
+        focus.selected().setBorder(selectedBorder);
+    }
+}
