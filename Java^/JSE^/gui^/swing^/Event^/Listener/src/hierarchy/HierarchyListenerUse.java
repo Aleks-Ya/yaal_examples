@@ -26,29 +26,18 @@ public class HierarchyListenerUse {
 }
 
 class HierarchyListenerFrame extends JFrame {
-    HierarchyListenerFrame() throws HeadlessException {
-        final JTextArea text = new JTextArea();
+    private final JTextArea text = new JTextArea();
 
+    HierarchyListenerFrame() throws HeadlessException {
         JLabel label = new JLabel("Label");
 
         JPanel middlePanel = new JPanel();
         middlePanel.add(label);
 
-        final JPanel bottomPanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
         bottomPanel.setName("Bottom Panel");
         bottomPanel.add(middlePanel);
-        bottomPanel.addHierarchyListener(new HierarchyListener() {
-            @Override
-            public void hierarchyChanged(HierarchyEvent e) {
-                text.append("Source: " + e.getSource() + "\n");
-                text.append("Changed: " + e.getChanged() + "\n");
-                text.append("Changed parent: " + e.getChangedParent() + "\n");
-                text.append("Change flags: " + e.getChangeFlags() + "\n");
-                text.append("Param string: " + e.paramString() + "\n");
-                text.append("ID: " + e.getID() + "\n");
-                text.append("\n\n");
-            }
-        });
+        bottomPanel.addHierarchyListener(new MyHierarchyListener());
 
         add(bottomPanel, BorderLayout.NORTH);
         add(text, BorderLayout.CENTER);
@@ -56,5 +45,18 @@ class HierarchyListenerFrame extends JFrame {
         setSize(1000, 500);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    private class MyHierarchyListener implements HierarchyListener {
+        @Override
+        public void hierarchyChanged(HierarchyEvent e) {
+            text.append("Source: " + e.getSource() + "\n");
+            text.append("Changed: " + e.getChanged() + "\n");
+            text.append("Changed parent: " + e.getChangedParent() + "\n");
+            text.append("Change flags: " + e.getChangeFlags() + "\n");
+            text.append("Param string: " + e.paramString() + "\n");
+            text.append("ID: " + e.getID() + "\n");
+            text.append("\n\n");
+        }
     }
 }
