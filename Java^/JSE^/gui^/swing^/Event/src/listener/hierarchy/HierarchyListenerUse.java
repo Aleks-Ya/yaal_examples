@@ -1,4 +1,4 @@
-package hierarchy;
+package listener.hierarchy;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;

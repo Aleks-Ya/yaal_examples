@@ -1,3 +1,5 @@
+package eventhandler;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -8,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.beans.EventHandler;
 
 /**
- * Использование EventQueue#invokeLater() для исполнения кода в потоке диспетчера событий.
+ * Использование EventHandler для генерации слушателей событий, состоящих из вызова одного метода.
  */
 public class EventHandlerMain {
     public static void main(String[] args) throws InterruptedException {

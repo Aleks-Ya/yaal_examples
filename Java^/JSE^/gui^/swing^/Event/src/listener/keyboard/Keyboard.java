@@ -1,4 +1,4 @@
-package keyboard;
+package listener.keyboard;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
