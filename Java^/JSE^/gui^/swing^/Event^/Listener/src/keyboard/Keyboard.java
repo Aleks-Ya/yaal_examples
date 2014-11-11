@@ -1,7 +1,12 @@
+package keyboard;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 
+/**
+ * Выводит на экран нажатые клавиши.
+ */
 public class Keyboard {
     public static void main(String[] args) {
         JLabel label = new JLabel();
@@ -16,4 +21,3 @@ public class Keyboard {
         frame.addKeyListener(keyboardEventsListener);
     }
 }
-
