@@ -7,7 +7,6 @@ import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.HeadlessException;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.HierarchyListener;
 
@@ -16,19 +15,15 @@ import java.awt.event.HierarchyListener;
  */
 public class HierarchyListenerUse {
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new HierarchyListenerFrame();
-            }
-        });
+        EventQueue.invokeLater(new HierarchyListenerFrame());
     }
 }
 
-class HierarchyListenerFrame extends JFrame {
+class HierarchyListenerFrame extends JFrame implements Runnable {
     private final JTextArea text = new JTextArea();
 
-    HierarchyListenerFrame() throws HeadlessException {
+    @Override
+    public void run() {
         JLabel label = new JLabel("Label");
 
         JPanel middlePanel = new JPanel();
