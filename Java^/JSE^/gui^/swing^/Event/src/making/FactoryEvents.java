@@ -10,6 +10,7 @@ import java.awt.event.WindowListener;
 
 /**
  * Создание слушателей с помощью фабрики.
+ * Пример из книги И. Портянкина "Swing. Эффектные пользовательские интерфейсы".
  */
 public class FactoryEvents extends JFrame {
     // ссылка на нашу фабрику
