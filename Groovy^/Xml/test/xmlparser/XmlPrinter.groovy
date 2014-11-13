@@ -31,9 +31,11 @@ class XmlPrinter {
         file.deleteOnExit()
         println "'${file.text}'"
         assertTrue(file.text.isEmpty())
+
         PrintWriter writer = new PrintWriter(file)
         def xmlPrinter = new XmlNodePrinter(writer)
         xmlPrinter.print(plan)
+
         println "'${file.text}'"
         assertFalse(file.text.isEmpty())
     }
