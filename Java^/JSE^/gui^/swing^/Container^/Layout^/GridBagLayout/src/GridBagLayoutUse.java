@@ -7,24 +7,20 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.HeadlessException;
 
 /**
  * Растягивание компонентов на несколько ячеек по горизонтали и вертикали.
  */
 public class GridBagLayoutUse {
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new GridBagLayoutUseFrame();
-            }
-        });
+        EventQueue.invokeLater(new GridBagLayoutUseFrame());
     }
 }
 
-class GridBagLayoutUseFrame extends JFrame {
-    GridBagLayoutUseFrame() throws HeadlessException {
+class GridBagLayoutUseFrame extends JFrame implements Runnable {
+
+    @Override
+    public void run() {
         setLayout(new GridBagLayout());
         setSize(500, 150);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
