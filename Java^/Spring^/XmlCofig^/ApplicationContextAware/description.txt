@@ -1,0 +1,1 @@
+Задача: получить в бине ApplicationContext с помощью реализации интерфейса ApplicationContextAware.

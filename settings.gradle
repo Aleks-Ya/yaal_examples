@@ -127,3 +127,28 @@ include 'Groovy^:ClassMembers',
         'Groovy^:IO^:WriteToFile',
         'Groovy^:IO^:TempFile',
         'Groovy^:IO^:Resources'
+
+/**
+ * Spring^
+ */
+include 'Java^:Spring^:AnnotationConfig^:BeanDefinition',
+        'Java^:Spring^:AnnotationConfig^:Configuration',
+        'Java^:Spring^:AnnotationConfig^:CreateBean',
+        'Java^:Spring^:AnnotationConfig^:InjectionExamples',
+        'Java^:Spring^:AnnotationConfig^:LazyInit',
+        'Java^:Spring^:AnnotationConfig^:ParentContext',
+        'Java^:Spring^:AnnotationConfig^:Profile',
+        'Java^:Spring^:AnnotationConfig^:Value',
+        'Java^:Spring^:CombinedConfig^:AnnotationFromXml',
+        'Java^:Spring^:CombinedConfig^:BeanLifeCycle',
+        'Java^:Spring^:CombinedConfig^:XmlFromAnnotation',
+        'Java^:Spring^:SpringForProfessionals^:HelloSpring',
+        'Java^:Spring^:XmlCofig^:ApplicationContextAware',
+        'Java^:Spring^:XmlCofig^:BeanInitBySetter',
+        'Java^:Spring^:XmlCofig^:CollectionBean',
+        'Java^:Spring^:XmlCofig^:Commands',
+        'Java^:Spring^:XmlCofig^:ContextConfigLoad',
+        'Java^:Spring^:XmlCofig^:ContextInjectionIntoContext',
+        'Java^:Spring^:XmlCofig^:DateBean',
+        'Java^:Spring^:XmlCofig^:OtherBeanProperties',
+        'Java^:Spring^:XmlCofig^:PartialBean:'

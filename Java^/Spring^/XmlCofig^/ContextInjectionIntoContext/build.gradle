@@ -1,7 +1,0 @@
-apply plugin: 'java'
-dependencies {
-    compile 'org.springframework:spring-context:3.2.4.RELEASE'
-}
-repositories {
-    mavenLocal()
-}
