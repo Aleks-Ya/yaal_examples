@@ -2,7 +2,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextPane;
 import javax.swing.WindowConstants;
 
-public class Main {
+public class EasyExample {
     public static void main(String[] args) {
         JTextPane editor = new JTextPane();
         editor.setEditable(false);
