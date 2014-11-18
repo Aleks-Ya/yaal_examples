@@ -1,8 +1,13 @@
+package ruseng;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class EasyI18nApplication {
+/**
+ * Вывод сообщения на русском или английском языке с помощью ResourceBundle.
+ */
+public class RusEng {
     public static void main(String[] args) throws UnsupportedEncodingException {
         Locale english = Locale.ENGLISH;
         Locale russian = new Locale("ru", "RU");
@@ -11,7 +16,7 @@ public class EasyI18nApplication {
     }
 
     private static void printMessage(Locale locale) throws UnsupportedEncodingException {
-        ResourceBundle myResources = ResourceBundle.getBundle("Messages", locale);
+        ResourceBundle myResources = ResourceBundle.getBundle("ruseng/Messages", locale);
         String message = new String(myResources.getString("hello").getBytes("ISO-8859-1"), "UTF-8");
         System.out.printf("%s: %s\n", locale.toLanguageTag(), message);
     }

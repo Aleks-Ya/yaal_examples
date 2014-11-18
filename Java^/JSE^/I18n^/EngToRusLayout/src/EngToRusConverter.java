@@ -1,4 +1,8 @@
-public class Main {
+/**
+ * Конвертация символов из английской раскладки клавиатуры в русскую.
+ * (вроде не дописана)
+ */
+public class EngToRusConverter {
     public static void main(String[] args) {
         final String eng = "qwerty";
         final String expRus = "йцукен";
