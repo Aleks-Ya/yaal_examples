@@ -1,11 +1,15 @@
 package property;
 
+import org.junit.Test;
+
 /**
  * Конвертация символов из английской раскладки клавиатуры в русскую.
  * (вроде не дописана)
  */
 public class EngToRusConverter {
-    public static void main(String[] args) {
+
+    @Test
+    public void main() {
         final String eng = "qwerty";
         final String expRus = "йцукен";
         Character c = 'a';

@@ -1,5 +1,7 @@
 package property.ruseng;
 
+import org.junit.Test;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -8,7 +10,9 @@ import java.util.ResourceBundle;
  * Вывод сообщения на русском или английском языке с помощью ResourceBundle.
  */
 public class RusEng {
-    public static void main(String[] args) throws UnsupportedEncodingException {
+
+    @Test
+    public void main() throws UnsupportedEncodingException {
         Locale english = Locale.ENGLISH;
         Locale russian = new Locale("ru", "RU");
         printMessage(russian);
