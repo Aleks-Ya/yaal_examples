@@ -1,4 +1,4 @@
-package ruseng;
+package property.ruseng;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
@@ -16,7 +16,7 @@ public class RusEng {
     }
 
     private static void printMessage(Locale locale) throws UnsupportedEncodingException {
-        ResourceBundle myResources = ResourceBundle.getBundle("ruseng/Messages", locale);
+        ResourceBundle myResources = ResourceBundle.getBundle("property/ruseng/Messages", locale);
         String message = new String(myResources.getString("hello").getBytes("ISO-8859-1"), "UTF-8");
         System.out.printf("%s: %s\n", locale.toLanguageTag(), message);
     }
