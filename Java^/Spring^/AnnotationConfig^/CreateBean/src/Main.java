@@ -18,7 +18,7 @@ public class Main {
             ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
 
             Object houseObj = beanFactory.createBean(House.class, AutowireCapableBeanFactory.AUTOWIRE_NO, true);
-            context.getAutowireCapableBeanFactory().;
+//            context.getAutowireCapableBeanFactory();
 
             House house = context.getBean(House.class);
             System.out.println(house);
