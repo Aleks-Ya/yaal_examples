@@ -1,4 +1,4 @@
-package property.clazz.listresourcebundle;
+package clazz.listresourcebundle;
 
 import org.junit.Test;
 
@@ -18,14 +18,14 @@ public class HelloWorldListResourceBundle {
 
     @Test
     public void ru() {
-        ResourceBundle rb = ResourceBundle.getBundle("property.clazz.listresourcebundle.Colors", new Locale("ru", "RU"));
+        ResourceBundle rb = ResourceBundle.getBundle("clazz.listresourcebundle.Colors", new Locale("ru", "RU"));
         assertEquals(Color.WHITE, rb.getObject(LIGHT_KEY));
         assertEquals(Color.BLACK, rb.getObject(DARK_KEY));
     }
 
     @Test
     public void en() {
-        ResourceBundle rb = ResourceBundle.getBundle("property.clazz.listresourcebundle.Colors", new Locale("en", "EN"));
+        ResourceBundle rb = ResourceBundle.getBundle("clazz.listresourcebundle.Colors", new Locale("en", "EN"));
         assertEquals(Color.YELLOW, rb.getObject(LIGHT_KEY));
         assertEquals(Color.GRAY, rb.getObject(DARK_KEY));
     }
