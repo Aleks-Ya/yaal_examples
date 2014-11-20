@@ -1,0 +1,7 @@
+//Run: gradle
+
+defaultTasks('home')
+
+task home << {
+    println "GRADLE HOME DIR IS '${gradle.gradleHomeDir}'"
+}
