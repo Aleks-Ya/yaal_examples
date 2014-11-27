@@ -1,7 +1,5 @@
-// Исключаем циклическую зависимость проекта  :Java^:Database^:Hibernate^:HibernateSessionFactory от самого себя
-configure(subprojects - project(':Java^:Database^:Hibernate^:HibernateSessionFactory')) {
+subprojects {
     dependencies {
-        compile 'com.h2database:h2:1.4.181', 'org.hibernate:hibernate-core:4.3.6.Final', 'joda-time:joda-time:2.3',
-                project(':Java^:Database^:Hibernate^:HibernateSessionFactory')
+        compile 'joda-time:joda-time:2.3'
     }
 }

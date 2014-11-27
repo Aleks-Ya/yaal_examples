@@ -14,7 +14,7 @@ import javax.persistence.criteria.Root;
 import javax.persistence.spi.PersistenceUnitTransactionType;
 import java.util.List;
 
-public class Main {
+public class CriteriaQuerySelect {
 
     private static EntityManager em;
     private static EntityManagerFactory emFactory;
