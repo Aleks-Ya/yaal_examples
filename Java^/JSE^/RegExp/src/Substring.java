@@ -4,6 +4,9 @@ import java.util.regex.Pattern;
 
 import static java.lang.System.out;
 
+/**
+ * Выбрать из строки подстроку, соответствующую регулярному выражению, и распечатать ее.
+ */
 public class Substring {
     private static final String SOURCE = "GET /abba HTTP/1.1";
 
