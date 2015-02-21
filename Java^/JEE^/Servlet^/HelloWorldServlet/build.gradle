@@ -1,9 +1,0 @@
-apply plugin: 'war'
-sourceSets.main.java.srcDir 'src'
-project.webAppDirName = 'webapp'
-dependencies {
-    compile 'javax.servlet:servlet-api:2.5'
-}
-repositories {
-    mavenCentral()
-}

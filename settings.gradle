@@ -113,6 +113,11 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:Logging^:SLF4J^:ParametrizedMessages'
 
 /**
+ * JavaEE^
+ */
+include 'Java^:JEE^:Servlet^:HelloWorldServlet'
+
+/**
  * Building^
  */
 include 'Building^:Gradle^:Multimodule^:FirstMultimodule',
