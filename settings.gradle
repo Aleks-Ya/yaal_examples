@@ -110,7 +110,8 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:Database^:Hibernate^:Associations^:ManyToManyUnidirectional',
         'Java^:Logging^:Log4J_v2^:Configuration^:AutomaticXml',
         'Java^:Logging^:Log4J_v2^:Configuration^:AutomaticJava',
-        'Java^:Logging^:SLF4J^:ParametrizedMessages'
+        'Java^:Logging^:SLF4J^:ParametrizedMessages',
+        'Java^:Logging^:LogBack^:EasyLogBack'
 
 /**
  * JavaEE^
