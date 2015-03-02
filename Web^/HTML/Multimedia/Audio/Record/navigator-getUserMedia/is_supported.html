@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Проверка поддержки navigator.getUserMedia браузером</title>
+    <script>
+        function hasGetUserMedia() {
+            // Note: Opera builds are unprefixed.
+            return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia || navigator.msGetUserMedia);
+        }
+
+        window.onload = function () {
+            if (hasGetUserMedia()) {
+                alert('getUserMedia() is SUPPORTED in your browser');
+            } else {
+                alert('getUserMedia() is NOT supported in your browser');
+            }
+        }
+    </script>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+</body>
+</html>
