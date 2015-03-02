@@ -1,26 +1,7 @@
-/*License (MIT)
-
-Copyright © 2013 Matt Diamond
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
-to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
-the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
-THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
-CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
-DEALINGS IN THE SOFTWARE.
-*/
-
 var recLength = 0,
-  recBuffersL = [],
-  recBuffersR = [],
-  sampleRate;
+  recBuffers = [],
+  sampleRate,
+  numChannels;
 
 this.onmessage = function(e){
   switch(e.data.command){
@@ -33,11 +14,8 @@ this.onmessage = function(e){
     case 'exportWAV':
       exportWAV(e.data.type);
       break;
-    case 'exportMonoWAV':
-      exportMonoWAV(e.data.type);
-      break;
-    case 'getBuffers':
-      getBuffers();
+    case 'getBuffer':
+      getBuffer();
       break;
     case 'clear':
       clear();
@@ -47,43 +25,51 @@ this.onmessage = function(e){
 
 function init(config){
   sampleRate = config.sampleRate;
+  numChannels = config.numChannels;
+  initBuffers();
 }
 
 function record(inputBuffer){
-  recBuffersL.push(inputBuffer[0]);
-  recBuffersR.push(inputBuffer[1]);
+  for (var channel = 0; channel < numChannels; channel++){
+    recBuffers[channel].push(inputBuffer[channel]);
+  }
   recLength += inputBuffer[0].length;
 }
 
 function exportWAV(type){
-  var bufferL = mergeBuffers(recBuffersL, recLength);
-  var bufferR = mergeBuffers(recBuffersR, recLength);
-  var interleaved = interleave(bufferL, bufferR);
+  var buffers = [];
+  for (var channel = 0; channel < numChannels; channel++){
+    buffers.push(mergeBuffers(recBuffers[channel], recLength));
+  }
+  if (numChannels === 2){
+      var interleaved = interleave(buffers[0], buffers[1]);
+  } else {
+      var interleaved = buffers[0];
+  }
   var dataview = encodeWAV(interleaved);
   var audioBlob = new Blob([dataview], { type: type });
 
   this.postMessage(audioBlob);
 }
 
-function exportMonoWAV(type){
-  var bufferL = mergeBuffers(recBuffersL, recLength);
-  var dataview = encodeWAV(bufferL, true);
-  var audioBlob = new Blob([dataview], { type: type });
-
-  this.postMessage(audioBlob);
-}
-
-function getBuffers() {
+function getBuffer(){
   var buffers = [];
-  buffers.push( mergeBuffers(recBuffersL, recLength) );
-  buffers.push( mergeBuffers(recBuffersR, recLength) );
+  for (var channel = 0; channel < numChannels; channel++){
+    buffers.push(mergeBuffers(recBuffers[channel], recLength));
+  }
   this.postMessage(buffers);
 }
 
 function clear(){
   recLength = 0;
-  recBuffersL = [];
-  recBuffersR = [];
+  recBuffers = [];
+  initBuffers();
+}
+
+function initBuffers(){
+  for (var channel = 0; channel < numChannels; channel++){
+    recBuffers[channel] = [];
+  }
 }
 
 function mergeBuffers(recBuffers, recLength){
@@ -124,14 +110,14 @@ function writeString(view, offset, string){
   }
 }
 
-function encodeWAV(samples, mono){
+function encodeWAV(samples){
   var buffer = new ArrayBuffer(44 + samples.length * 2);
   var view = new DataView(buffer);
 
   /* RIFF identifier */
   writeString(view, 0, 'RIFF');
-  /* file length */
-  view.setUint32(4, 32 + samples.length * 2, true);
+  /* RIFF chunk length */
+  view.setUint32(4, 36 + samples.length * 2, true);
   /* RIFF type */
   writeString(view, 8, 'WAVE');
   /* format chunk identifier */
@@ -141,13 +127,13 @@ function encodeWAV(samples, mono){
   /* sample format (raw) */
   view.setUint16(20, 1, true);
   /* channel count */
-  view.setUint16(22, mono?1:2, true);
+  view.setUint16(22, numChannels, true);
   /* sample rate */
   view.setUint32(24, sampleRate, true);
   /* byte rate (sample rate * block align) */
   view.setUint32(28, sampleRate * 4, true);
   /* block align (channel count * bytes per sample) */
-  view.setUint16(32, 4, true);
+  view.setUint16(32, numChannels * 2, true);
   /* bits per sample */
   view.setUint16(34, 16, true);
   /* data chunk identifier */
