@@ -1,0 +1,5 @@
+subprojects {
+    dependencies {
+        compile 'org.eclipse.jetty:jetty-server:9.2.9.v20150224'
+    }
+}

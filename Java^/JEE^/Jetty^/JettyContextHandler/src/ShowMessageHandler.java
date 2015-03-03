@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ShowMessageHandler extends AbstractHandler {
+class ShowMessageHandler extends AbstractHandler {
     private String message;
 
     public ShowMessageHandler(String message) {

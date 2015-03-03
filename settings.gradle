@@ -118,7 +118,9 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
 /**
  * JavaEE^
  */
-//include 'Java^:JEE^:Servlet^:HelloWorldServlet'
+include 'Java^:JEE^:Jetty^:JettyHelloWorld',
+        'Java^:JEE^:Jetty^:JettyContextHandler',
+        'Java^:JEE^:Jetty^:JettyServletHandler'
 
 /**
  * Building^
