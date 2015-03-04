@@ -116,7 +116,8 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:Logging^:SLF4J^:ParametrizedMessages',
         'Java^:Logging^:LogBack^:EasyLogBack',
         'Java^:Logging^:LogBack^:Configuration^:LogbackXml',
-        'Java^:Logging^:LogBack^:Configuration^:JMX'
+        'Java^:Logging^:LogBack^:Configuration^:JMX',
+        'Java^:Logging^:LogBack^:Appender^:RollingFileAppender'
 
 /**
  * JavaEE^
