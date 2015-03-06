@@ -4,6 +4,7 @@ import ch.qos.logback.core.rolling.RollingFileAppender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
@@ -15,8 +16,12 @@ public class RollingFileAppenderMain {
 
     public static void main(String[] args) throws InterruptedException {
         log.info("Hi!");
-//        rollover();
+        rollover();
         log.info("Buy!");
+        while (true) {
+            log.debug(new Date().toString());
+            TimeUnit.MICROSECONDS.sleep(100);
+        }
     }
 
     /**

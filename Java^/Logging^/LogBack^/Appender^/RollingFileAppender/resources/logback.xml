@@ -1,7 +1,32 @@
 <configuration>
 
-    <appender name="file" class="ch.qos.logback.core.FileAppender">
-        <file>rolling_file_appender.log</file>
+    <!--
+    Архивирование лога раз в сутки.
+    Максимальное количество файлов в архиве - 30.
+    -->
+    <appender name="fileDaily" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>rolling_file_appender_daily.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>rolling_file_appender_daily.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>RollingFile: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--
+    Архивирование лога по достижению размера файла 1Кб.
+    -->
+    <appender name="fileSize" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>rolling_file_appender_maxsize.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>rolling_file_appender_maxsize.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100KB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
         <encoder>
             <pattern>RollingFile: %msg%n</pattern>
         </encoder>
@@ -9,12 +34,13 @@
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>JMX: %msg%n</pattern>
+            <pattern>Console: %msg%n</pattern>
         </encoder>
     </appender>
 
     <root level="debug">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="file"/>
+        <appender-ref ref="fileDaily"/>
+        <appender-ref ref="fileSize"/>
     </root>
 </configuration>
