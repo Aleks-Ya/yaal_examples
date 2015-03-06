@@ -2,7 +2,7 @@
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>Configured in logback.xml: %msg%n</pattern>
+            <pattern>logback.xml: %d %-5level [%thread] %logger{0}: %msg%n</pattern>
         </encoder>
     </appender>
 
