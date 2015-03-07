@@ -117,7 +117,8 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:Logging^:LogBack^:EasyLogBack',
         'Java^:Logging^:LogBack^:Configuration^:LogbackXml',
         'Java^:Logging^:LogBack^:Configuration^:JMX',
-        'Java^:Logging^:LogBack^:Appender^:RollingFileAppender'
+        'Java^:Logging^:LogBack^:Appender^:RollingFileAppender',
+        'Java^:Guava'
 
 /**
  * JavaEE^
