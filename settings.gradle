@@ -118,7 +118,10 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:Logging^:LogBack^:Configuration^:LogbackXml',
         'Java^:Logging^:LogBack^:Configuration^:JMX',
         'Java^:Logging^:LogBack^:Appender^:RollingFileAppender',
-        'Java^:Guava'
+        'Java^:Guava',
+        'Java^:UnitTest^:JUnit^:CatchExceptionInSingleLine',
+        'Java^:UnitTest^:JUnit^:TemporaryFolderRule',
+        'Java^:UnitTest^:TestNG^:TestNgXml'
 
 /**
  * JavaEE^
