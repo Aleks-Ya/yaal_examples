@@ -121,7 +121,9 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:Guava',
         'Java^:UnitTest^:JUnit^:CatchExceptionInSingleLine',
         'Java^:UnitTest^:JUnit^:TemporaryFolderRule',
-        'Java^:UnitTest^:TestNG^:TestNgXml'
+        'Java^:UnitTest^:TestNG^:TestNgXml',
+        'Java^:ApacheCommons^:CommonsCollections',
+        'Java^:ApacheCommons^:CommonsLang'
 
 /**
  * JavaEE^
