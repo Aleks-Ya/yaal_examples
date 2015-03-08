@@ -1,12 +1,22 @@
-<configuration  scan="true" scanPeriod="30 seconds">
+<configuration scan="true" scanPeriod="30 seconds">
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="stdout_long" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>logback.xml: %d %-5level [%thread] %logger{0}: %msg%n</pattern>
         </encoder>
     </appender>
 
+    <appender name="stdout_short" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>logback.xml: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="my.logger" level="DEBUG" additivity="false">
+        <appender-ref ref="stdout_short"/>
+    </logger>
+
     <root level="debug">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="stdout_long"/>
     </root>
 </configuration>

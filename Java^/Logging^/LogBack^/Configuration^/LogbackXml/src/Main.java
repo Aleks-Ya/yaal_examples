@@ -6,7 +6,10 @@ import org.slf4j.LoggerFactory;
  */
 public class Main {
     public static void main(String[] args) {
-        Logger logger = LoggerFactory.getLogger("my.logger");
-        logger.debug("Hello world.");
+        Logger myLogger = LoggerFactory.getLogger("my.logger");
+        myLogger.debug("Hello my world.");
+
+        Logger rootLogger = LoggerFactory.getLogger("~");
+        rootLogger.info("Hello root world.");
     }
 }
