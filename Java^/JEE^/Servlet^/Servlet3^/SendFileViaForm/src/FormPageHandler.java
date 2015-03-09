@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Страница с формой для отправки файла в сервлет {@linkplain HelloWorldServlet}.
+ * Страница с формой для отправки файла в сервлет {@linkplain UploadServlet}.
  */
 class FormPageHandler extends AbstractHandler {
 
