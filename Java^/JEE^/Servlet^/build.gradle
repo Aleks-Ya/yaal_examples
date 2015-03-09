@@ -1,7 +1,5 @@
 subprojects {
-    apply plugin: 'war'
-    project.webAppDirName = 'webapp'
     dependencies {
-        compile 'javax.servlet:servlet-api:2.5'
+        compile 'org.eclipse.jetty:jetty-servlet:9.2.9.v20150224'
     }
 }
