@@ -17,10 +17,10 @@ class FormPageHandler extends AbstractHandler {
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);
         response.getWriter().printf("<html><body>");
-        response.getWriter().printf("<form action='/upload' method='POST'>");
-        response.getWriter().printf("<input type='file' name='f'/>");
+        response.getWriter().printf("<form action='/upload' method='POST' enctype='multipart/form-data'>");
+        response.getWriter().printf("<input type='file' name='fileName'/>");
         response.getWriter().printf("<br/>");
-        response.getWriter().printf("<input type='submit' value='submit'/>");
+        response.getWriter().printf("<input type='submit' value='Upload'/>");
         response.getWriter().printf("</form>");
         response.getWriter().printf("</body></html>");
     }
