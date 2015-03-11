@@ -10,11 +10,10 @@
     <script src="js/record_rtc/record_rtc.js"></script>
     <script>
         var recordRTC;
-        var recordedAudioUrl;
 
         function start_rec() {
             navigator.getUserMedia({audio: true}, function (mediaStream) {
-                        recordRTC = RecordRTC(mediaStream);
+                        recordRTC = new RecordRTC(mediaStream);
                         recordRTC.startRecording();
                     },
                     function () {
@@ -25,8 +24,6 @@
         function stop_rec() {
             recordRTC.stopRecording(function (audioURL) {
                 console.log(audioURL);
-//                    audio.src = audioURL;
-                recordedAudioUrl = audioURL;
 
                 var recordedBlob = recordRTC.getBlob();
                 console.log(recordedBlob);
@@ -67,7 +64,7 @@
 <br/><br/>
 <button onclick="$('#jquery_jplayer_1').jPlayer('setMedia', {
     title: '',
-    oga: recordedAudioUrl
+    oga: recordRTC.toURL()
 }).jPlayer('play')">Player Start</button>
 <button onclick="$('#jquery_jplayer_1').jPlayer('stop')">Player stop</button>
 
