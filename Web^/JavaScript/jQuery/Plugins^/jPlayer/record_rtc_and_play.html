@@ -22,16 +22,6 @@
                     });
         }
 
-//        function retry_rec() {
-//            navigator.getUserMedia({audio: true}, function (mediaStream) {
-//                        recordRTC = RecordRTC(mediaStream);
-//                        recordRTC.startRecording();
-//                    },
-//                    function () {
-//                        alert("failure");
-//                    });
-//        }
-
         function stop_rec() {
             recordRTC.stopRecording(function (audioURL) {
                 console.log(audioURL);
