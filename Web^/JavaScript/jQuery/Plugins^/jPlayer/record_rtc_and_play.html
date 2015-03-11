@@ -22,6 +22,16 @@
                     });
         }
 
+//        function retry_rec() {
+//            navigator.getUserMedia({audio: true}, function (mediaStream) {
+//                        recordRTC = RecordRTC(mediaStream);
+//                        recordRTC.startRecording();
+//                    },
+//                    function () {
+//                        alert("failure");
+//                    });
+//        }
+
         function stop_rec() {
             recordRTC.stopRecording(function (audioURL) {
                 console.log(audioURL);
@@ -61,8 +71,10 @@
 <!-- RecordRTC -->
 <button id="start" onclick="start_rec();">Record start</button>
 <button id="stop" onclick="stop_rec();">Record stop</button>
+<button id="retry" onclick="start_rec();">Retry record</button>
 
 <!-- JPlayer -->
+<br/><br/>
 <button onclick="$('#jquery_jplayer_1').jPlayer('setMedia', {
     title: '',
     oga: recordedAudioUrl
