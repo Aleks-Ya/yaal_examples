@@ -1,13 +1,15 @@
 package annotation;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 /**
  * Бин для инициализации Spring'ом через аннотации.
+ * Версия для боевого сервера.
  */
 @Component
-public class Teapot {
+public class TeapotImpl implements ITeapot {
 
     @Value("Spot")
     private String model;
