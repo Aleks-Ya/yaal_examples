@@ -1,0 +1,7 @@
+/**
+ * Автоматическая инициализация контекста Spring в JUnit-тестах.
+ * Конфигурация: xml или аннотации.
+ */
+dependencies {
+    compile 'org.springframework:spring-test:4.1.5.RELEASE'
+}
