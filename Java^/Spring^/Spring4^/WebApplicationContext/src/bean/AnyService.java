@@ -3,11 +3,11 @@ package bean;
 import org.springframework.stereotype.Service;
 
 /**
- * Вывод из конструктора этого бина означает, что Spring инициализировался.
+ * Проверяем инициализацию бинов, отмеченный @Service.
  */
 @Service
 public class AnyService {
     public AnyService() {
-        System.out.println("I'M INSTANTIATED!!!");
+        System.out.println("============= SERVICE INSTANTIATED =============");
     }
 }
