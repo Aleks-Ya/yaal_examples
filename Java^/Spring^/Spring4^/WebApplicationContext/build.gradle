@@ -1,0 +1,16 @@
+/**
+ * Инициализация Spring из web.xml (с помощью WebApplicationContext).
+ */
+apply plugin: 'war'
+
+sourceSets.main.java.srcDir 'src'
+sourceSets.test.java.srcDirs 'test'
+sourceSets.main.resources.srcDir 'resources'
+project.webAppDirName = 'webapp'
+
+dependencies {
+    compile 'org.springframework:spring-web:4.1.5.RELEASE'
+}
+repositories {
+    mavenCentral()
+}
