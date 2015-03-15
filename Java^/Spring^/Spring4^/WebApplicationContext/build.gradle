@@ -1,5 +1,8 @@
 /**
- * Инициализация Spring из web.xml (с помощью WebApplicationContext).
+ * 1.Инициализация Spring из web.xml (с помощью WebApplicationContext).
+ * Конфигурация на основе xml (XmlWebApplicationContext).
+ *
+ * 2. Доступ к бинам Spring из сервлета.
  */
 apply plugin: 'war'
 
@@ -9,7 +12,8 @@ sourceSets.main.resources.srcDir 'resources'
 project.webAppDirName = 'webapp'
 
 dependencies {
-    compile 'org.springframework:spring-web:4.1.5.RELEASE'
+    compile 'org.springframework:spring-web:4.1.5.RELEASE',
+            'javax.servlet:javax.servlet-api:3.1.0'
 }
 repositories {
     mavenCentral()
