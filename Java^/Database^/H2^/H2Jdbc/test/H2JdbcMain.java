@@ -1,14 +1,20 @@
+import org.junit.Test;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Main {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+import static org.junit.Assert.assertEquals;
+
+public class H2JdbcMain {
+
+    @Test
+    public void main() throws SQLException, ClassNotFoundException {
         //connect
         Class.forName("org.h2.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "", "");
+        Connection conn = DriverManager.getConnection("jdbc:h2:mem:", "", "");
 
         //insert
         Statement update = conn.createStatement();
@@ -20,7 +26,7 @@ public class Main {
         Statement select = conn.createStatement();
         ResultSet resultSet = select.executeQuery("SELECT * FROM numbers");
         if (resultSet.next()) {
-            System.out.println(resultSet.getInt(1));
+            assertEquals(3, resultSet.getInt(1));
         }
 
         //disconnect
