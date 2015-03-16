@@ -15,8 +15,16 @@ public class City {
         this.country = country;
     }
 
-    @Override
-    public String toString() {
-        return String.format("City[name='%s' population='%d' country='%s']", name, population, country);
+    public String getName() {
+        return name;
     }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public CountryEnum getCountry() {
+        return country;
+    }
+
 }
