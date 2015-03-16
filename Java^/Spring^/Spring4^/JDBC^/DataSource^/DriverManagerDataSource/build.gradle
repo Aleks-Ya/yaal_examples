@@ -2,6 +2,5 @@
  * Инициализация стандартной реализации DataSource - DriverManagerDataSource.
  */
 dependencies {
-    compile 'org.springframework:spring-jdbc:4.1.5.RELEASE',
-            'com.h2database:h2:1.4.186'
+    compile 'com.h2database:h2:1.4.186'
 }
