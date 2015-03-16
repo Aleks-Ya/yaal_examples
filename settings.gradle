@@ -122,6 +122,7 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:UnitTest^:JUnit^:CatchExceptionInSingleLine',
         'Java^:UnitTest^:JUnit^:TemporaryFolderRule',
         'Java^:UnitTest^:TestNG^:TestNgXml',
+        'Java^:UnitTest^:Hamcrest',
         'Java^:ApacheCommons^:CommonsCollections',
         'Java^:ApacheCommons^:CommonsLang',
         'Java^:ApacheCommons^:CommonsIO'
