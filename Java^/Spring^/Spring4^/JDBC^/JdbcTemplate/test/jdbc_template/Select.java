@@ -4,13 +4,12 @@ import bean.Name;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -21,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 @ContextConfiguration("classpath:context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class Select {
+    private static final RowMapper<Name> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Name.class);
 
     @Autowired
     private JdbcTemplate template;
@@ -43,14 +43,14 @@ public class Select {
 
     @Test
     public void rowMapperForSingleObject() {
-        Name name = template.queryForObject("SELECT * FROM names WHERE id=1", new NameRowMapper());
+        Name name = template.queryForObject("SELECT * FROM names WHERE id=1", ROW_MAPPER);
         assertEquals(1, (int) name.getId());
         assertEquals("John", name.getTitle());
     }
 
     @Test
     public void rowMapperForObjectList() {
-        List<Name> names = template.query("SELECT * FROM names", new NameRowMapper());
+        List<Name> names = template.query("SELECT * FROM names", ROW_MAPPER);
 
         Name name1 = names.get(0);
         assertEquals(1, (int) name1.getId());
@@ -59,14 +59,5 @@ public class Select {
         Name name2 = names.get(1);
         assertEquals(2, (int) name2.getId());
         assertEquals("Mary", name2.getTitle());
-    }
-
-    static class NameRowMapper implements RowMapper<Name> {
-        @Override
-        public Name mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Integer id = rs.getInt("id");
-            String title = rs.getString("title");
-            return new Name(id, title);
-        }
     }
 }
