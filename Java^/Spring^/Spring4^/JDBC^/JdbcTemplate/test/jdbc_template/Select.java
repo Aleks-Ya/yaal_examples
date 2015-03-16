@@ -1,5 +1,6 @@
 package jdbc_template;
 
+import bean.Name;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,24 +67,6 @@ public class Select {
             Integer id = rs.getInt("id");
             String title = rs.getString("title");
             return new Name(id, title);
-        }
-    }
-
-    static class Name {
-        private Integer id;
-        private String title;
-
-        public Name(Integer id, String title) {
-            this.id = id;
-            this.title = title;
-        }
-
-        public Integer getId() {
-            return id;
-        }
-
-        public String getTitle() {
-            return title;
         }
     }
 }
