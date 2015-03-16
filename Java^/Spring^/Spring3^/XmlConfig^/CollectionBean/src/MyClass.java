@@ -8,7 +8,12 @@ public class MyClass {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof MyClass) || value == null) {
+            return false;
+        } else {
+            return value.equals(((MyClass) obj).value);
+        }
     }
 }
