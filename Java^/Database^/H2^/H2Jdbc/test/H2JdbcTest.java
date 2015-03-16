@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import static org.junit.Assert.assertEquals;
 
-public class H2JdbcMain {
+public class H2JdbcTest {
 
     @Test
     public void main() throws SQLException, ClassNotFoundException {
