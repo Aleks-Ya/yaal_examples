@@ -185,4 +185,5 @@ include 'Java^:Spring^:Spring3^:AnnotationConfig^:BeanDefinition',
         'Java^:Spring^:Spring3^:XmlConfig^:DateBean',
         'Java^:Spring^:Spring3^:XmlConfig^:OtherBeanProperties',
         'Java^:Spring^:Spring3^:XmlConfig^:PartialBean:',
-        'Java^:Spring^:Spring4^:SpringTest'
+        'Java^:Spring^:Spring4^:SpringTest',
+        'Java^:Spring^:Spring4^:DataSource^:DriverManagerDataSource'
