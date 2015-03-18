@@ -10,9 +10,13 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.isIn;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 /**
  * Выборка данных из БД с помощью JdbcTemplate.
@@ -59,5 +63,13 @@ public class Select {
         Name name2 = names.get(1);
         assertEquals(2, (int) name2.getId());
         assertEquals("Mary", name2.getTitle());
+    }
+
+    @Test
+    public void queryForList() {
+        List<String> list = template.queryForList("SELECT title FROM names WHERE id=?",
+                String.class, 1);
+        assertThat(list, hasSize(1));
+        assertEquals("John", list.get(0));
     }
 }
