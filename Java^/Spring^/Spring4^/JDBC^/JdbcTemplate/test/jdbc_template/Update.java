@@ -21,7 +21,8 @@ public class Update {
 
     @Test
     public void insert() {
-        assertEquals(1, template.update("INSERT INTO names values(3, 'Vera')"));
+        String name = "Vera";
+        assertEquals(1, template.update("INSERT INTO names values(3, ?)", name));
     }
 
     @Test

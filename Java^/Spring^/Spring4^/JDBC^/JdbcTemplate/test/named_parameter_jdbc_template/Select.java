@@ -27,6 +27,7 @@ public class Select {
         parameters.addValue("id_param", 4);
         assertEquals("" +
                 "Ben", template.queryForObject(
-                "SELECT title FROM names WHERE id=:id_param AND title=:title_param", parameters, String.class));
+                "SELECT title FROM names WHERE id=:id_param AND title=:title_param",
+                parameters, String.class));
     }
 }
