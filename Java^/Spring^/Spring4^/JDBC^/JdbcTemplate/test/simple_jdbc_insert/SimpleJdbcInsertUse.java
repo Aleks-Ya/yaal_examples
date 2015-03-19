@@ -4,13 +4,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Вставка строк в БД с помощью SimpleJdbcInsert.
@@ -32,8 +35,22 @@ public class SimpleJdbcInsertUse {
     }
 
     @Test
-    public void insert() {
+    public void map() {
+        Map<String, Object> args = new HashMap<>();
+        args.put("id", null);
+        args.put("title", "Vera");
 
-        assertEquals(1, template.update("INSERT INTO names values(3, 'Vera')"));
+        Number n = insert.executeAndReturnKey(args);
+        assertNotNull(n.intValue());
+    }
+
+    @Test
+    public void mapSqlParameterSource() {
+        MapSqlParameterSource map = new MapSqlParameterSource()
+                .addValue("id", null)
+                .addValue("title", "Vera");
+
+        Number n = insert.executeAndReturnKey(map);
+        assertNotNull(n.intValue());
     }
 }
