@@ -167,7 +167,6 @@ include 'Groovy^:ClassMembers',
  */
 include 'Java^:Spring^:Spring3^:AnnotationConfig^:BeanDefinition',
         'Java^:Spring^:Spring3^:AnnotationConfig^:Configuration',
-        'Java^:Spring^:Spring3^:AnnotationConfig^:CreateBean',
         'Java^:Spring^:Spring3^:AnnotationConfig^:InjectionExamples',
         'Java^:Spring^:Spring3^:AnnotationConfig^:LazyInit',
         'Java^:Spring^:Spring3^:AnnotationConfig^:ParentContext',
