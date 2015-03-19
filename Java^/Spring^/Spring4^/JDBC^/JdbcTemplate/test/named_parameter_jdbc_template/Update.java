@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
  */
 @ContextConfiguration("classpath:context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-public class Select {
+public class Update {
 
     @Autowired
     private NamedParameterJdbcTemplate template;
@@ -26,9 +26,8 @@ public class Select {
         parameters.addValue("title_param", "Ben");
         parameters.addValue("id_param", 4);
 
-        assertEquals("" +
-                "Ben", template.queryForObject(
-                "SELECT title FROM names WHERE id=:id_param AND title=:title_param",
-                parameters, String.class));
+        assertEquals(1, template.update(
+                "UPDATE names SET title=:title_param WHERE id=:id_param",
+                parameters));
     }
 }
