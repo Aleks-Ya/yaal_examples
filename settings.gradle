@@ -190,4 +190,5 @@ include 'Java^:Spring^:Spring3^:AnnotationConfig^:BeanDefinition',
         'Java^:Spring^:Spring4^:JDBC^:DataSource^:EmbeddedDatabase',
         'Java^:Spring^:Spring4^:JDBC^:DataSource^:DatabasePopulator',
         'Java^:Spring^:Spring4^:JDBC^:JdbcTemplate',
-        'Java^:Spring^:Spring4^:BeanLifeCycleCallback'
+        'Java^:Spring^:Spring4^:BeanLifeCycleCallback',
+        'Java^:Spring^:Spring4^:BeanName'
