@@ -10,12 +10,6 @@
         <jdbc:script location="classpath:test-data.sql"/>
     </jdbc:embedded-database>
 
-    <!--
-        <tx:annotation-driven />
-
-        <context:component-scan base-package="domain"/>
-    -->
-
     <context:property-placeholder location="classpath:database.properties"/>
 
     <bean id="sessionFactory"

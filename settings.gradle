@@ -191,5 +191,6 @@ include 'Java^:Spring^:Spring3^:AnnotationConfig^:BeanDefinition',
         'Java^:Spring^:Spring4^:JDBC^:DataSource^:DatabasePopulator',
         'Java^:Spring^:Spring4^:JDBC^:JdbcTemplate',
         'Java^:Spring^:Spring4^:BeanLifeCycleCallback',
-        'Java^:Spring^:Spring4^:HibernateSessionFactory',
+        'Java^:Spring^:Spring4^:Hibernate^:HibernateSessionFactory',
+        'Java^:Spring^:Spring4^:Hibernate^:EntityManagerFactory',
         'Java^:Spring^:Spring4^:BeanName'
