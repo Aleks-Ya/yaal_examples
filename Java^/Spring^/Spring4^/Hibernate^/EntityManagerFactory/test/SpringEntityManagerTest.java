@@ -1,6 +1,4 @@
 import domain.NameEntity;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +22,13 @@ public class SpringEntityManagerTest {
     private EntityManagerFactory factory;
 
     @Test
+    @Transactional
     public void save() {
         NameEntity name = new NameEntity();
         name.setTitle("Boris");
         EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
         em.persist(name);
         em.flush();
-        em.getTransaction().commit();
         assertEquals(1, (int) name.getId());
     }
 }
