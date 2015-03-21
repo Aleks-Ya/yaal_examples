@@ -7,6 +7,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import static org.junit.Assert.assertEquals;
@@ -18,15 +19,14 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SpringEntityManagerTest {
 
-    @Autowired
-    private EntityManagerFactory factory;
+    @PersistenceContext
+    private EntityManager em;
 
     @Test
     @Transactional
     public void save() {
         NameEntity name = new NameEntity();
         name.setTitle("Boris");
-        EntityManager em = factory.createEntityManager();
         em.persist(name);
         em.flush();
         assertEquals(1, (int) name.getId());
