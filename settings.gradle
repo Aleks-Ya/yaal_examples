@@ -126,7 +126,8 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:UnitTest^:Hamcrest',
         'Java^:ApacheCommons^:CommonsCollections',
         'Java^:ApacheCommons^:CommonsLang',
-        'Java^:ApacheCommons^:CommonsIO'
+        'Java^:ApacheCommons^:CommonsIO',
+        'Java^:ApachePOI'
 
 /**
  * JavaEE^
