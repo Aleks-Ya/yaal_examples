@@ -127,7 +127,8 @@ include 'Java^:JSE^:Core^:Inheritance^:CallSuper',
         'Java^:ApacheCommons^:CommonsCollections',
         'Java^:ApacheCommons^:CommonsLang',
         'Java^:ApacheCommons^:CommonsIO',
-        'Java^:ApachePOI'
+        'Java^:ApachePOI',
+        'Java^:Libs^:JodaTime'
 
 /**
  * JavaEE^
