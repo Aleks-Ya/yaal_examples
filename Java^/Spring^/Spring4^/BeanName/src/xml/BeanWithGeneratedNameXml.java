@@ -1,7 +1,7 @@
 package xml;
 
 /**
- * Имя бина будет сгенерировано.
+ * Для бина будет сгенерировано имя "xml.BeanWithGeneratedNameXml#0".
  */
 public class BeanWithGeneratedNameXml {
 }
