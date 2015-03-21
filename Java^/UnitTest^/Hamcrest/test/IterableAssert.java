@@ -28,6 +28,6 @@ public class IterableAssert {
         assertThat(iter, contains("Piter_", "SPB_", "Leningrad_", "Saint-Petersburg_"));//все элементы
         assertThat(iter, containsInAnyOrder("Saint-Petersburg_", "Piter_", "SPB_", "Leningrad_"));//все элементы
         assertThat(new ArrayList<>(), emptyIterable());
-        assertThat(new ArrayList<>(), emptyIterableOf(Random.class));
+        assertThat(new ArrayList<Random>(), emptyIterableOf(Random.class));
     }
 }

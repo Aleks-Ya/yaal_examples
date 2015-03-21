@@ -6,8 +6,10 @@ import java.util.Random;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.emptyCollectionOf;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.isIn;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -28,6 +30,13 @@ public class CollectionAssert {
 
     @Test
     public void emptyCollection() {
-        assertThat(new ArrayList<>(), emptyCollectionOf(Random.class));
+        assertThat(new ArrayList<Random>(), emptyCollectionOf(Random.class));
+    }
+
+    @Test
+    public void wholeCollection() {
+        Collection<Integer> expected = asList(1, 2, 3);
+        assertThat(coll, equalTo(expected));
+        assertEquals(expected, coll);
     }
 }
