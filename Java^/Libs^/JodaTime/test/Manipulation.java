@@ -1,11 +1,10 @@
 import org.joda.time.DateTime;
+import org.junit.Test;
 
 public class Manipulation {
-    public static void main(String[] args) {
-        decrement();
-    }
 
-    private static void decrement() {
-        DateTime fiscalizeDate = new DateTime().minusMinutes(1);
+    @Test
+    public void decrement() {
+        DateTime date = new DateTime().minusMinutes(1);
     }
 }
