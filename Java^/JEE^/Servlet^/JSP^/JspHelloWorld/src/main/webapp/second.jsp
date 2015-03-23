@@ -5,5 +5,8 @@
 </head>
 <body>
 <h1>Hello, fucked JSP world!</h1>
+<%
+    out.println("I'm a scriptlet");
+%>
 </body>
 </html>
