@@ -1,0 +1,37 @@
+//Run: gradle
+apply plugin: 'war'
+sourceSets.main.java.srcDir 'src'
+defaultTasks('build')
+
+//configurations {
+//    provided {
+//        dependencies.all { dep ->
+//            configurations.default.exclude group: dep.group, module: dep.name
+//        }
+//    }
+//    provided
+//    compile.extendsFrom provided
+//}
+
+configurations {
+    provided
+}
+
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+        runtimeClasspath += configurations.provided
+    }
+    test {
+        compileClasspath += configurations.provided
+        runtimeClasspath += configurations.provided
+    }
+}
+
+
+dependencies {
+    provided 'joda-time:joda-time:2.7'
+}
+repositories {
+    mavenCentral()
+}
