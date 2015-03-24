@@ -12,7 +12,7 @@
         <jdbc:script location="classpath:test-data.sql"/>
     </jdbc:embedded-database>
 
-    <bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan" value="domain"/>
         <property name="jpaVendorAdapter">
@@ -28,7 +28,7 @@
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="myEmf"/>
+        <property name="entityManagerFactory" ref="emf"/>
     </bean>
 
     <tx:annotation-driven/>
