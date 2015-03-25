@@ -1,3 +1,5 @@
+package xml;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Все три встроенные БД: h2, HSQL, Derby.
  */
-@ContextConfiguration("classpath:context-three-db.xml")
+@ContextConfiguration("classpath:xml/context-three-db.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ThreeDbXml {
 

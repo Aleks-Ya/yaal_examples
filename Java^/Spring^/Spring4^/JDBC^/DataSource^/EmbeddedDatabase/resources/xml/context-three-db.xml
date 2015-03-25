@@ -5,17 +5,17 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
     <jdbc:embedded-database id="h2dataSource" type="H2">
-        <jdbc:script location="classpath:schema.sql"/>
-        <jdbc:script location="classpath:test-data-h2.sql"/>
+        <jdbc:script location="classpath:xml/schema.sql"/>
+        <jdbc:script location="classpath:xml/test-data-h2.sql"/>
     </jdbc:embedded-database>
 
     <jdbc:embedded-database id="derbyDataSource" type="DERBY">
-        <jdbc:script location="classpath:schema.sql"/>
-        <jdbc:script location="classpath:test-data-derby.sql"/>
+        <jdbc:script location="classpath:xml/schema.sql"/>
+        <jdbc:script location="classpath:xml/test-data-derby.sql"/>
     </jdbc:embedded-database>
 
     <jdbc:embedded-database id="hsqlDataSource" type="HSQL">
-        <jdbc:script location="classpath:schema.sql"/>
-        <jdbc:script location="classpath:test-data-hsql.sql"/>
+        <jdbc:script location="classpath:xml/schema.sql"/>
+        <jdbc:script location="classpath:xml/test-data-hsql.sql"/>
     </jdbc:embedded-database>
 </beans>
