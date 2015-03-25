@@ -1,5 +1,6 @@
 /**
- * Использование встроенных БД: H2, HSQL и Dervy.
+ * Инициализация DataSource с помощью
+ * встроенных БД: H2, HSQL и Dervy.
  */
 dependencies {
     testCompile 'com.h2database:h2:1.4.186',

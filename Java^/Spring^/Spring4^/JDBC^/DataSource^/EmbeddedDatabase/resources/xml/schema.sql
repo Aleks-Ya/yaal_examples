@@ -1,1 +1,0 @@
-CREATE TABLE names (id INT PRIMARY KEY, title VARCHAR(100));

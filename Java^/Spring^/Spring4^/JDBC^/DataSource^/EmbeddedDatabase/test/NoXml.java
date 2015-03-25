@@ -1,5 +1,3 @@
-package annotation;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -20,15 +18,15 @@ import static org.junit.Assert.assertTrue;
 /**
  * Запуск встроенной БД без xml.
  */
-public class EmbeddedDbTest {
+public class NoXml {
     private static EmbeddedDatabase db;
 
     @BeforeClass
     public static void beforeClass() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         db = builder.setType(EmbeddedDatabaseType.H2)
-                .addScript("annotation/schema.sql")
-                .addScript("annotation/test-data-h2.sql")
+                .addScript("db/schema.sql")
+                .addScript("db/test-data-h2.sql")
                 .build();
     }
 
