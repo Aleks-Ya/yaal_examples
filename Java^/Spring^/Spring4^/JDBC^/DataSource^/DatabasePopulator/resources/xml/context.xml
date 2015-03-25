@@ -7,7 +7,7 @@
     <jdbc:embedded-database id="dataSource" type="H2"/>
 
         <jdbc:initialize-database data-source="dataSource" enabled="true">
-            <jdbc:script location="classpath:schema.sql"/>
-            <jdbc:script location="classpath:test-data.sql"/>
+            <jdbc:script location="classpath:xml/schema.sql"/>
+            <jdbc:script location="classpath:xml/test-data.sql"/>
         </jdbc:initialize-database>
 </beans>

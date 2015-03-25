@@ -1,3 +1,5 @@
+package xml;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Одна встроенная БД.
  */
-@ContextConfiguration("classpath:context.xml")
+@ContextConfiguration("classpath:xml/context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class InitializeDataSource {
 
