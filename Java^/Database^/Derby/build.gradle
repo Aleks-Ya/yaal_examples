@@ -1,0 +1,6 @@
+/**
+ * Запуск базы данных Derby (in-memory) из java и подключение к ней по JDBC.
+ */
+dependencies {
+    compile 'org.apache.derby:derby:10.11.1.1'
+}
