@@ -38,14 +38,14 @@ public class JpqlSelect {
 
     @Test
     public void fromWhere() {
-        TypedQuery<MealEntity> query = em.createQuery("FROM MealEntity m WHERE m.name LIKE 'Sandwich'", MealEntity.class);
+        TypedQuery<MealEntity> query = em.createQuery("FROM MealEntity WHERE name LIKE 'Sandwich'", MealEntity.class);
         MealEntity meal = query.getSingleResult();
         assertEquals("Sandwich", meal.getName());
     }
 
     @Test
     public void joinByPath() {
-        TypedQuery<MealEntity> query = em.createQuery("FROM MealEntity m WHERE m.user.name LIKE 'Smith'", MealEntity.class);
+        TypedQuery<MealEntity> query = em.createQuery("FROM MealEntity WHERE user.name LIKE 'Smith'", MealEntity.class);
         List<MealEntity> meals = query.getResultList();
         assertEquals(3, meals.size());
         assertEquals("Smith", meals.get(0).getUser().getName());
