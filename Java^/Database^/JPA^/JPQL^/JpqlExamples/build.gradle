@@ -4,5 +4,5 @@
 dependencies {
     compile 'org.springframework:spring-context:4.1.5.RELEASE',
             'org.springframework:spring-orm:4.1.5.RELEASE'
-    testCompile 'org.springframew0ork:spring-test:4.1.5.RELEASE'
+    testCompile 'org.springframework:spring-test:4.1.5.RELEASE'
 }
