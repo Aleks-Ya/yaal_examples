@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <description>Использование профилей Maven</description>
+
+    <groupId>ru.yaal.examples.maven</groupId>
+    <artifactId>profiles</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <profiles>
+
+        <profile>
+            <id>hsql</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.hsqldb</groupId>
+                    <artifactId>hsqldb</artifactId>
+                    <version>2.3.2</version>
+                </dependency>
+            </dependencies>
+            <modules/>
+            <repositories/>
+            <pluginRepositories/>
+            <reporting/>
+            <dependencyManagement/>
+            <distributionManagement/>
+        </profile>
+
+        <profile>
+            <id>postgres</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>9.4-1201-jdbc41</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-jdbc</artifactId>
+                    <version>7.0.57</version>
+                </dependency>
+            </dependencies>
+            <activation>
+                <!-- If any is true then profile is active -->
+                <activeByDefault>true</activeByDefault>
+                <jdk>1.5</jdk>
+                <os>
+                    <name>Windows XP</name>
+                    <family>Windows</family>
+                    <arch>x86</arch>
+                    <version>5.1.2600</version>
+                </os>
+                <property>
+                    <name>sparrow-type</name>
+                    <value>African</value>
+                </property>
+                <file>
+                    <exists>${basedir}/file2.properties</exists>
+                    <missing>${basedir}/file1.properties</missing>
+                </file>
+            </activation>
+        </profile>
+
+    </profiles>
+
+</project>
