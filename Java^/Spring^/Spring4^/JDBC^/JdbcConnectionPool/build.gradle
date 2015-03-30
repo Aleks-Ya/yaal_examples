@@ -1,0 +1,11 @@
+/**
+ * Использование плула JDBC-соединений.
+ */
+dependencies {
+
+    compile 'com.jolbox:bonecp:0.8.0.RELEASE',
+            'org.apache.tomcat:tomcat-jdbc:7.0.57',
+            'com.zaxxer:HikariCP:2.3.5',
+            'org.apache.commons:commons-dbcp2:2.1',
+            'com.h2database:h2:1.4.186'
+}
