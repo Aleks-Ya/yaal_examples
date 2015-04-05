@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="exploded-ear" name="JeeApplication:ear exploded">
-    <output-path>$PROJECT_DIR$/../out/artifacts/JeeApplication_ear_exploded.ear</output-path>
-    <root id="root">
-      <element id="javaee-facet-resources" facet="JeeApplication/javaeeApplication/javaEEApplication" />
-      <element id="artifact" artifact-name="WebApp" />
-    </root>
-  </artifact>
-</component>
