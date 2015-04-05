@@ -19,7 +19,11 @@ public class ExcelXls {
 
     @Test
     public void readCellValue() throws IOException, InvalidFormatException {
-        InputStream is = new FileInputStream(ExcelXls.class.getResource("Excel-97-2000-XP-2003.xls").getFile().replace("%5e", "^"));
+        String file = ExcelXls.class.getResource("Excel-97-2000-XP-2003.xls").getFile()
+                .replaceAll("%5e", "^")
+                .replaceAll("%5E", "^");
+        System.out.println("FIle:" + file);
+        InputStream is = new FileInputStream(file);
         Workbook workbook = new HSSFWorkbook(is);
         Sheet sheet1 = workbook.getSheetAt(0);
         Row row1 = sheet1.getRow(0);

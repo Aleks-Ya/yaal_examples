@@ -17,7 +17,9 @@ public class ExcelXlsx {
 
     @Test
     public void readCellValueXlsx() throws IOException, InvalidFormatException {
-        String f = ExcelXlsx.class.getResource("Excel-2007-2010-2013.xlsx").getFile().replace("%5e", "^");
+        String f = ExcelXlsx.class.getResource("Excel-2007-2010-2013.xlsx").getFile()
+                .replace("%5e", "^")
+                .replaceAll("%5E", "^");
         Workbook workbook = new XSSFWorkbook(f);
         Sheet sheet1 = workbook.getSheetAt(0);
         Row row1 = sheet1.getRow(0);
