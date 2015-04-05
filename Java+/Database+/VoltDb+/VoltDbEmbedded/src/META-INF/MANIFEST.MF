@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Class-Path: joda-time-2.3.jar voltdbclient-5.1.jar jna.jar avro-1.7.7.
+ jar jline-2.10.jar voltdb-5.1.jar zmq-2.1.11.jar jsch-0.1.51.jar tomc
+ at-jdbc.jar tomcat-juli.jar log4j-1.2.16.jar scala-library.jar httpco
+ re-4.3.2.jar commons-cli-1.2.jar servlet-api-2.5.jar slf4j-api-1.6.2.
+ jar slf4j-nop-1.6.2.jar super-csv-2.1.0.jar httpclient-4.3.2.jar volt
+ dbclient-5.1.jar commons-codec-1.6.jar commons-lang3-3.0.jar kafka_2.
+ 8.0-0.8.1.jar httpcore-nio-4.3.2.jar metrics-core-2.2.0.jar protobuf-
+ java-2.4.1.jar snappy-java-1.1.0.1.jar commons-logging-1.1.3.jar groo
+ vy-all-2.1.7-indy.jar httpasyncclient-4.0.1.jar jackson-core-asl-1.9.
+ 13.jar jetty-io-7.6.1.v20120215.jar jackson-mapper-asl-1.9.13.jar jet
+ ty-http-7.6.1.v20120215.jar jetty-util-7.6.1.v20120215.jar jetty-serv
+ er-7.6.1.v20120215.jar jetty-continuation-7.6.1.v20120215.jar
+Main-Class: 
+

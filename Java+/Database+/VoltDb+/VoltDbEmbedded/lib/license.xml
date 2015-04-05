@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<license>
+    <permit version="1">
+        <issuer>
+            <company>VoltDB</company>
+            <email>support@voltdb.com</email>
+            <url>http://voltdb.com/</url>
+        </issuer>
+        <expiration>2015-05-06</expiration>
+        <hostcount max="12"/>
+        <features trial="true">
+            <commandlogging>true</commandlogging>
+            <wanreplication>true</wanreplication>
+        </features>
+    </permit>
+    <signature>
+        302C0214171E0ECF9439C06B4687308A823838F564DFFA
+        9702142516BBAB56DE04AFFE0A3DEB8C29D9A01D323C3C
+    </signature>
+</license>
