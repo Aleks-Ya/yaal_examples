@@ -1,3 +1,4 @@
 include 'TestNgXml',
         'TestTree',
-        'TestDependencies'
+        'TestDependencies',
+        'AnnotationTransformers'
