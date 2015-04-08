@@ -1,1 +1,3 @@
-include 'TestNgXml', 'TestTree'
+include 'TestNgXml',
+        'TestTree',
+        'TestDependencies'
