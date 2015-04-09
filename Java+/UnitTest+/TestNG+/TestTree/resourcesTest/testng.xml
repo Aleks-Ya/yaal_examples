@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="PilotSuite" verbose="1">
+    <test name="PilotTest">
+        <classes>
+            <class name="test.TestClassA"/>
+            <class name="test.TestClassB"/>
+            <class name="test.TestClassC"/>
+            <class name="test.TestClassA1"/>
+            <class name="test.TestClassB1"/>
+        </classes>
+    </test>
+    <listeners>
+        <listener class-name="base.AnnotationListener"/>
+    </listeners>
+</suite>
