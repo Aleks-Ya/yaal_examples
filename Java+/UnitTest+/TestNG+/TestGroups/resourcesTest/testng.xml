@@ -1,0 +1,28 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite" verbose="1">
+    <test name="Tests-A">
+        <groups>
+            <run>
+                <include name="a_to_run"/>
+                <exclude name="a_not_run"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="a.ClassA1"/>
+            <class name="a.ClassA2"/>
+        </classes>
+    </test>
+    <test name="Tests-B">
+        <groups>
+            <run>
+                <include name="b_to_run"/>
+                <exclude name="b_not_run"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="b.ClassB1"/>
+            <class name="b.ClassB2"/>
+        </classes>
+    </test>
+</suite>
