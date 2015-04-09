@@ -1,6 +1,5 @@
 include 'TestNgXml',
         'TestTree',
         'TestDependencies',
-        'AnnotationTransformers',
         'Listeners',
         'TestGroups'
