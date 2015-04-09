@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" verbose="1">
+    <listeners>
+        <listener class-name="listeners.IAnnotationTransformerImpl"/>
+        <listener class-name="listeners.IAnnotationTransformer2Impl"/>
+        <listener class-name="listeners.IHookableImpl"/>
+        <listener class-name="listeners.IInvokedMethodListenerImpl"/>
+        <listener class-name="listeners.IMethodInterceptorImpl"/>
+        <listener class-name="listeners.IReporterImpl"/>
+        <listener class-name="listeners.ISuiteListenerImpl"/>
+        <listener class-name="listeners.ITestListenerImpl"/>
+    </listeners>
+    <test name="ClassOneTests">
+        <classes>
+            <class name="xml.XmlTest"/>
+        </classes>
+    </test>
+</suite>
