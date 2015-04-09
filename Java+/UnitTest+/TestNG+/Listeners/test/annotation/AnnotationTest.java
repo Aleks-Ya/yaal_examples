@@ -21,6 +21,8 @@ import org.testng.annotations.Test;
         IReporterImpl.class,
         IHookableImpl.class,
         IMethodInterceptorImpl.class,
+
+// AnnotationTransformer не срабатывают
         IAnnotationTransformerImpl.class,
         IAnnotationTransformer2Impl.class
 })

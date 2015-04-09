@@ -2,14 +2,16 @@
 
 <suite name="Suite1" verbose="1">
     <listeners>
-        <listener class-name="listeners.IAnnotationTransformerImpl"/>
-        <listener class-name="listeners.IAnnotationTransformer2Impl"/>
         <listener class-name="listeners.IHookableImpl"/>
         <listener class-name="listeners.IInvokedMethodListenerImpl"/>
         <listener class-name="listeners.IMethodInterceptorImpl"/>
         <listener class-name="listeners.IReporterImpl"/>
         <listener class-name="listeners.ISuiteListenerImpl"/>
         <listener class-name="listeners.ITestListenerImpl"/>
+
+        <listener class-name="listeners.IAnnotationTransformerImpl"/>
+        <!-- Только один IAnnotationTransformer может быть активным -->
+        <!--<listener class-name="listeners.IAnnotationTransformer2Impl"/>-->
     </listeners>
     <test name="ClassOneTests">
         <classes>
