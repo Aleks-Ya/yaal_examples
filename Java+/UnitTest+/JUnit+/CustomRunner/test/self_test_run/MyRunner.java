@@ -37,15 +37,15 @@ public class MyRunner extends Runner {
             Class dependOnClass = null;
             while (!dependOn.empty()) {
                 Class klass = dependOn.pop();
-                Description classDescription = Description.createSuiteDescription(testClass);
+                Description classDescription = Description.createSuiteDescription(klass);
                 notifier.fireTestStarted(classDescription);
                 for (Method method : getTestMethods(klass)) {
-                    Description methodDescription = Description.createTestDescription(testClass, method.getName());
+                    Description methodDescription = Description.createTestDescription(klass, method.getName());
                     try {
                         notifier.fireTestStarted(methodDescription);
                         Object instance = makeInstance(klass, dependOnClass);
+                        method.invoke(instance);
                         if (MAIN_METHOD_NAME.equals(method.getName())) {
-                            method.invoke(instance);
                             stateHolder.putState(klass, getState(instance));
                         }
                         notifier.fireTestFinished(methodDescription);

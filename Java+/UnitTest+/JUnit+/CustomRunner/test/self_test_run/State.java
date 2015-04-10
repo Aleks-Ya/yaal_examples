@@ -6,4 +6,9 @@ public class State {
     public State(String message) {
         this.message = message;
     }
+
+    @Override
+    protected Object clone() {
+        return new State(message);
+    }
 }
