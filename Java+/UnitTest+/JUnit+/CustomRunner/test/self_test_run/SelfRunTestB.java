@@ -14,11 +14,19 @@ public class SelfRunTestB {
     private State state;
 
     @Test
+    public void main() {
+        System.out.println("SelfRunTestB speaks");
+        assertEquals("Right state after A", state.message);
+        state.message = "Right state after B";
+//        fail();
+    }
+
+
+    @Test
     public void testInTestB() {
         System.out.println("SelfRunTestB speaks");
-        assertNotNull(state);
         assertEquals("Right state after A", state.message);
-        state.message = "State after B";
+        state.message = "Wront state after B";
 //        fail();
     }
 }

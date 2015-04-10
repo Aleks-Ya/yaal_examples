@@ -16,7 +16,7 @@ public class SelfRunTestC {
     public void testInTestC() {
         System.out.println("SelfRunTestC speaks");
         assertNotNull(state);
-        assertEquals("State after B", state.message);
+        assertEquals("Right state after B", state.message);
         state.message = "State after C";
     }
 }

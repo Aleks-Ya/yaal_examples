@@ -10,13 +10,15 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
 
 public class MyRunner extends Runner {
     private final Class testClass;
     private final Description topTestClassDescription;
     private final StateHolder stateHolder = StateHolder.getInstance();
+    private static final String MAIN_METHOD_NAME = "main";
 
     public MyRunner(Class testClass) {
         this.testClass = testClass;
@@ -30,26 +32,29 @@ public class MyRunner extends Runner {
 
     @Override
     public void run(RunNotifier notifier) {
-        Class[] dependOn = getDependsOn(testClass);
+        Stack<Class> dependOn = getDependsOn(testClass);
         try {
-            for (Class klass : dependOn) {
-                Method[] methods = klass.getDeclaredMethods();
-                for (Method method : methods) {
-                    if (method.isAnnotationPresent(Test.class)) {
-                        Description description = Description.createTestDescription(testClass, method.getName());
-                        try {
-                            notifier.fireTestStarted(description);
-                            Object instance = makeInstance(klass);
+            Class dependOnClass = null;
+            while (!dependOn.empty()) {
+                Class klass = dependOn.pop();
+                Description classDescription = Description.createSuiteDescription(testClass);
+                notifier.fireTestStarted(classDescription);
+                for (Method method : getTestMethods(klass)) {
+                    Description methodDescription = Description.createTestDescription(testClass, method.getName());
+                    try {
+                        notifier.fireTestStarted(methodDescription);
+                        Object instance = makeInstance(klass, dependOnClass);
+                        if (MAIN_METHOD_NAME.equals(method.getName())) {
                             method.invoke(instance);
-                            if ("main".equals(method.getName())) {
-                                stateHolder.putState(klass, getState(instance));
-                            }
-                            notifier.fireTestFinished(description);
-                        } catch (InvocationTargetException e) {
-                            notifier.fireTestFailure(new Failure(description, e.getCause()));
+                            stateHolder.putState(klass, getState(instance));
                         }
+                        notifier.fireTestFinished(methodDescription);
+                    } catch (InvocationTargetException e) {
+                        notifier.fireTestFailure(new Failure(methodDescription, e.getCause()));
                     }
                 }
+                dependOnClass = klass;
+                notifier.fireTestFinished(classDescription);
             }
         } catch (Throwable error) {
             notifier.fireTestFailure(new Failure(topTestClassDescription, error));
@@ -57,15 +62,33 @@ public class MyRunner extends Runner {
     }
 
     /**
+     * Возвращает методы класса, помеченные @Test.
+     * Метод main (если есть) идет первым.
+     */
+    private List<Method> getTestMethods(Class klass) {
+        LinkedList<Method> result = new LinkedList<>();
+        for (Method method : klass.getDeclaredMethods()) {
+            if (method.isAnnotationPresent(Test.class)) {
+                if (MAIN_METHOD_NAME.equals(method.getName())) {
+                    result.addFirst(method);
+                } else {
+                    result.addLast(method);
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
      * Создает инстанс класса и инъецирует состояние.
      */
-    private Object makeInstance(Class klass) throws IllegalAccessException, InstantiationException {
+    private Object makeInstance(Class klass, Class dependsOnClass) throws IllegalAccessException, InstantiationException {
         Object instance = klass.newInstance();
         Field[] fields = klass.getDeclaredFields();
         for (Field field : fields) {
             if (field.getType() == State.class) {
                 field.setAccessible(true);
-                field.set(instance, stateHolder.getState(klass));
+                field.set(instance, stateHolder.getState(dependsOnClass));
             }
         }
         return instance;
@@ -82,17 +105,17 @@ public class MyRunner extends Runner {
         return null;
     }
 
-    private Class[] getDependsOn(Class testClass) {
-        Deque<Class> result = new ArrayDeque<>();
-        result.addFirst(testClass);
+    private Stack<Class> getDependsOn(Class testClass) {
+        Stack<Class> result = new Stack<>();
+        result.push(testClass);
         Class curTestClass = testClass;
         Class dependsOn = getDependsOnValue(curTestClass);
         while (dependsOn != null) {
-            result.addFirst(dependsOn);
+            result.push(dependsOn);
             curTestClass = dependsOn;
             dependsOn = getDependsOnValue(curTestClass);
         }
-        return result.toArray(new Class[0]);
+        return result;
     }
 
     private Class getDependsOnValue(Class klass) {
