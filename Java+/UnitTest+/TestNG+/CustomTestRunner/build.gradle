@@ -1,0 +1,4 @@
+/**
+ * ФАБРИКА MyTestRunnerFactory НЕ ПОДЦЕПЛЯЕТСЯ!
+ * Расширение функционала TestNG с помощью ITestRunnerFactory.
+ */
