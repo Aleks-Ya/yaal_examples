@@ -46,7 +46,7 @@ public class MyRunner extends Runner {
                             }
                             notifier.fireTestFinished(description);
                         } catch (InvocationTargetException e) {
-                            notifier.fireTestFailure(new Failure(description, e));
+                            notifier.fireTestFailure(new Failure(description, e.getCause()));
                         }
                     }
                 }
@@ -75,6 +75,7 @@ public class MyRunner extends Runner {
         Field[] fields = instance.getClass().getDeclaredFields();
         for (Field field : fields) {
             if (field.getType() == State.class) {
+                field.setAccessible(true);
                 return (State) field.get(instance);
             }
         }

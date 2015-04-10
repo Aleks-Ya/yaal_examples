@@ -12,11 +12,18 @@ public class SelfRunTestA {
     private State state;
 
     @Test
-    public void testInTestA() {
-        System.out.println("SelfRunTestA speaks");
-        assertNotNull(state);
+    public void main() {
+        System.out.println("SelfRunTestA#main");
         assertEquals("Init state", state.message);
-        state.message = "State after A";
+        state.message = "Right state after A";
+//        fail();
+    }
+
+    @Test
+    public void testOther() {
+        System.out.println("SelfRunTestA#testOther");
+        assertEquals("Init state", state.message);
+        state.message = "Wrong state after A";
 //        fail();
     }
 }
