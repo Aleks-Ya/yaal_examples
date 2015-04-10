@@ -11,8 +11,14 @@ public class StateHolder {
     }
 
     public State getState(Class klass) {
+        if (klass == null) {
+            return new State("Init state");
+        }
         State state = states.get(klass);
-        return state != null ? (State) state.clone() : new State("Init state");
+        if (state == null) {
+            throw new AssertionError("State not found: " + klass);
+        }
+        return (State) state.clone();
     }
 
     public void putState(Class klass, State state) {

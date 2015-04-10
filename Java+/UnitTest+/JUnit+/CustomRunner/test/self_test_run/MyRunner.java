@@ -51,6 +51,8 @@ public class MyRunner extends Runner {
                         notifier.fireTestFinished(methodDescription);
                     } catch (InvocationTargetException e) {
                         notifier.fireTestFailure(new Failure(methodDescription, e.getCause()));
+                    } catch (AssertionError e) {
+                        notifier.fireTestFailure(new Failure(methodDescription, e));
                     }
                 }
                 dependOnClass = klass;
@@ -94,6 +96,9 @@ public class MyRunner extends Runner {
         return instance;
     }
 
+    /**
+     * Читает значение поля State данного объекта.
+     */
     private State getState(Object instance) throws IllegalAccessException, InstantiationException {
         Field[] fields = instance.getClass().getDeclaredFields();
         for (Field field : fields) {
@@ -105,6 +110,9 @@ public class MyRunner extends Runner {
         return null;
     }
 
+    /**
+     * Строит цепочку зависимостей между тестами по @DependsOn.
+     */
     private Stack<Class> getDependsOn(Class testClass) {
         Stack<Class> result = new Stack<>();
         result.push(testClass);
@@ -118,6 +126,9 @@ public class MyRunner extends Runner {
         return result;
     }
 
+    /**
+     * Возвращает класс, указанный в @DependsOn.
+     */
     private Class getDependsOnValue(Class klass) {
         Annotation dependsOnAnnotation = klass.getAnnotation(DependsOn.class);
         if (dependsOnAnnotation != null) {
