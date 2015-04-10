@@ -1,7 +1,9 @@
-package self_test_run;
+package self_test_run.tests;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import self_test_run.MyRunner;
+import self_test_run.State;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
