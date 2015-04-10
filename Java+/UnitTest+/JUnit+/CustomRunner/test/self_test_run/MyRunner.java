@@ -7,6 +7,7 @@ import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayDeque;
@@ -15,6 +16,7 @@ import java.util.Deque;
 public class MyRunner extends Runner {
     private final Class testClass;
     private final Description topTestClassDescription;
+    private final StateHolder stateHolder = StateHolder.getInstance();
 
     public MyRunner(Class testClass) {
         this.testClass = testClass;
@@ -37,8 +39,11 @@ public class MyRunner extends Runner {
                         Description description = Description.createTestDescription(testClass, method.getName());
                         try {
                             notifier.fireTestStarted(description);
-                            Object instance = klass.newInstance();
+                            Object instance = makeInstance(klass);
                             method.invoke(instance);
+                            if ("main".equals(method.getName())) {
+                                stateHolder.putState(klass, getState(instance));
+                            }
                             notifier.fireTestFinished(description);
                         } catch (InvocationTargetException e) {
                             notifier.fireTestFailure(new Failure(description, e));
@@ -49,6 +54,31 @@ public class MyRunner extends Runner {
         } catch (Throwable error) {
             notifier.fireTestFailure(new Failure(topTestClassDescription, error));
         }
+    }
+
+    /**
+     * Создает инстанс класса и инъецирует состояние.
+     */
+    private Object makeInstance(Class klass) throws IllegalAccessException, InstantiationException {
+        Object instance = klass.newInstance();
+        Field[] fields = klass.getDeclaredFields();
+        for (Field field : fields) {
+            if (field.getType() == State.class) {
+                field.setAccessible(true);
+                field.set(instance, stateHolder.getState(klass));
+            }
+        }
+        return instance;
+    }
+
+    private State getState(Object instance) throws IllegalAccessException, InstantiationException {
+        Field[] fields = instance.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            if (field.getType() == State.class) {
+                return (State) field.get(instance);
+            }
+        }
+        return null;
     }
 
     private Class[] getDependsOn(Class testClass) {
