@@ -1,18 +1,26 @@
+import org.junit.Test;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.lang.System.out;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Поиск нескольких вхождений регулярного выражения в строку.
  */
 public class SubstringSearch {
-    public static void main(String[] args) {
+
+    @Test
+    public void main() {
         final String source = "concert Einaudi ludovico einaudi today ";
         Pattern p = Pattern.compile("[Ee]inaudi");
         Matcher m = p.matcher(source);
-        while (m.find()) {
-            out.println(m.group());
-        }
+        assertTrue(m.find());
+        assertEquals("Einaudi", m.group());
+        assertTrue(m.find());
+        assertEquals("einaudi", m.group());
+        assertFalse(m.find());
     }
 }
