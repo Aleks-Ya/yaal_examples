@@ -1,5 +1,6 @@
 package catch_exception_in_single_line;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import static org.mockito.Mockito.when;
  * Библиотека CatchException.
  * https://code.google.com/p/catch-exception/
  */
+@Ignore("Класс mockito CGLIBHacker стал пакетным, " +
+        "поэтому весь функционал CatchException накрылся...")
 public class CatchExceptionLib {
     @Test
     public void catchExc() {
