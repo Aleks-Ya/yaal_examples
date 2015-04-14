@@ -1,3 +1,5 @@
+package rule;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -10,7 +12,9 @@ import java.io.LineNumberReader;
 
 import static org.junit.Assert.assertEquals;
 
-
+/**
+ * Использование правила (Rule) @TemporaryFolder.
+ */
 public class TemporaryFolderTest {
 
     @Rule

@@ -1,10 +1,10 @@
-package self_test_run.tests;
+package custom_runner.self_test_run.tests;
 
+import custom_runner.self_test_run.State;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import self_test_run.DependsOn;
-import self_test_run.MyRunner;
-import self_test_run.State;
+import custom_runner.self_test_run.DependsOn;
+import custom_runner.self_test_run.MyRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

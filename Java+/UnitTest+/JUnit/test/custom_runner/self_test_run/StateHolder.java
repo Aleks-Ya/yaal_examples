@@ -1,4 +1,4 @@
-package self_test_run;
+package custom_runner.self_test_run;
 
 import java.util.HashMap;
 import java.util.Map;

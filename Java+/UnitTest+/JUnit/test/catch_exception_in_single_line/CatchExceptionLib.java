@@ -1,3 +1,5 @@
+package catch_exception_in_single_line;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import static org.mockito.Mockito.when;
 
 
 /**
+ * Проверка выбрасывания исключения в одну строку.
  * Библиотека CatchException.
  * https://code.google.com/p/catch-exception/
  */
