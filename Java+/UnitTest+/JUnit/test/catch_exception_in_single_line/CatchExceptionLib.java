@@ -1,6 +1,5 @@
 package catch_exception_in_single_line;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -9,9 +8,6 @@ import java.util.List;
 import static com.googlecode.catchexception.CatchException.catchException;
 import static com.googlecode.catchexception.CatchException.caughtException;
 import static com.googlecode.catchexception.CatchException.verifyException;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 
 /**
@@ -19,8 +15,6 @@ import static org.mockito.Mockito.when;
  * Библиотека CatchException.
  * https://code.google.com/p/catch-exception/
  */
-@Ignore("Класс mockito CGLIBHacker стал пакетным, " +
-        "поэтому весь функционал CatchException накрылся...")
 public class CatchExceptionLib {
     @Test
     public void catchExc() {
@@ -32,13 +26,6 @@ public class CatchExceptionLib {
     @Test
     public void verifyExc() {
         List myList = new ArrayList();
-        verifyException(myList, IndexOutOfBoundsException.class).get(0);
-    }
-
-    @Test
-    public void verifyMock() {
-        List myList = mock(List.class);
-        when(myList.get(anyInt())).thenThrow(new IndexOutOfBoundsException());
         verifyException(myList, IndexOutOfBoundsException.class).get(0);
     }
 
