@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  * Проверка того, что исключение выбрасывается с помощью
  * правила (Rule) org.junit.rules.ExpectedException.
  */
-public class ExpectedExceptionTest {
+public class ExpectedExceptionRule {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 

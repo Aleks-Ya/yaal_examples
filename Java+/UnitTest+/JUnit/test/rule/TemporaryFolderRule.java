@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Использование правила (Rule) @TemporaryFolder.
  */
-public class TemporaryFolderTest {
+public class TemporaryFolderRule {
 
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
