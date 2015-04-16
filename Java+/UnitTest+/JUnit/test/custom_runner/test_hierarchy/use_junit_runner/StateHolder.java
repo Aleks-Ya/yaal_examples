@@ -25,6 +25,10 @@ public class StateHolder {
         states.put(klass, state);
     }
 
+    public boolean hasState(Class klass) {
+        return states.containsKey(klass);
+    }
+
     public static StateHolder getInstance() {
         return INSTANCE;
     }

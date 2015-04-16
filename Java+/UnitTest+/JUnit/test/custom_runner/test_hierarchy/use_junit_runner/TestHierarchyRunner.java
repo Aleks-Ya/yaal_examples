@@ -11,6 +11,7 @@ import java.util.Stack;
 public class TestHierarchyRunner extends Runner {
     private final Class testClass;
     private final Description topTestClassDescription;
+    private final StateHolder stateHolder = StateHolder.getInstance();
 
     public TestHierarchyRunner(Class testClass) {
         this.testClass = testClass;
@@ -28,8 +29,13 @@ public class TestHierarchyRunner extends Runner {
         try {
             while (!dependOn.empty()) {
                 Class klass = dependOn.pop();
-                Class dependsOn = getDependsOnValue(klass);
-                new StateRunner(klass, dependsOn).run(notifier);
+                if (!alreadyExecuted(klass)) {
+                    Class dependsOn = getDependsOnValue(klass);
+                    new StateRunner(klass, dependsOn).run(notifier);
+                } else {
+                    Description description = Description.createSuiteDescription(klass);
+                    notifier.fireTestIgnored(description);
+                }
             }
         } catch (Throwable error) {
             notifier.fireTestFailure(new Failure(topTestClassDescription, error));
@@ -65,5 +71,9 @@ public class TestHierarchyRunner extends Runner {
             }
         }
         return null;
+    }
+
+    private boolean alreadyExecuted(Class testClass) {
+        return stateHolder.hasState(testClass);
     }
 }
