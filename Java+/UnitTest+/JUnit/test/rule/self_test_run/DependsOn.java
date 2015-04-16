@@ -1,4 +1,4 @@
-package custom_runner.self_test_run;
+package rule.self_test_run;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

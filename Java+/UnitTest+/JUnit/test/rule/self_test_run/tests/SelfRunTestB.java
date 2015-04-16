@@ -1,18 +1,20 @@
-package custom_runner.self_test_run.tests;
+package rule.self_test_run.tests;
 
-import custom_runner.self_test_run.State;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import custom_runner.self_test_run.DependsOn;
-import custom_runner.self_test_run.MyRunner;
+import rule.self_test_run.DependsOn;
+import rule.self_test_run.DependsOnRule;
+import rule.self_test_run.MyRunner;
+import rule.self_test_run.State;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
-@RunWith(MyRunner.class)
 @DependsOn(SelfRunTestA.class)
 public class SelfRunTestB {
+
+    @Rule
+    public DependsOnRule dependsOnRule = new DependsOnRule();
 
     private State state;
 

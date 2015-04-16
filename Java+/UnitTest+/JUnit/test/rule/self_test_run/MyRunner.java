@@ -1,4 +1,4 @@
-package custom_runner.self_test_run;
+package rule.self_test_run;
 
 import org.junit.Test;
 import org.junit.runner.Description;

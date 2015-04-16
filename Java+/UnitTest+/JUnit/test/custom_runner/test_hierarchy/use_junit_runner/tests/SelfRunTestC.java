@@ -1,15 +1,15 @@
-package custom_runner.self_test_run.tests;
+package custom_runner.test_hierarchy.use_junit_runner.tests;
 
-import custom_runner.self_test_run.State;
+import custom_runner.test_hierarchy.use_junit_runner.DependsOn;
+import custom_runner.test_hierarchy.use_junit_runner.State;
+import custom_runner.test_hierarchy.use_junit_runner.TestHierarchyRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import custom_runner.self_test_run.DependsOn;
-import custom_runner.self_test_run.MyRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-@RunWith(MyRunner.class)
+@RunWith(TestHierarchyRunner.class)
 @DependsOn(SelfRunTestB.class)
 public class SelfRunTestC {
 

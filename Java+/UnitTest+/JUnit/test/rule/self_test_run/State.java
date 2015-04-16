@@ -1,4 +1,4 @@
-package custom_runner.self_test_run;
+package rule.self_test_run;
 
 public class State {
     public String message;
