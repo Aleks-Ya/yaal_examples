@@ -1,4 +1,4 @@
-package rule.self_test_run;
+package custom_runner.test_hierarchy.rule;
 
 public class State {
     public String message;

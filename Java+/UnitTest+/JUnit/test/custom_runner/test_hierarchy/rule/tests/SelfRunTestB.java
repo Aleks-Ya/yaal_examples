@@ -1,12 +1,10 @@
-package rule.self_test_run.tests;
+package custom_runner.test_hierarchy.rule.tests;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import rule.self_test_run.DependsOn;
-import rule.self_test_run.DependsOnRule;
-import rule.self_test_run.MyRunner;
-import rule.self_test_run.State;
+import custom_runner.test_hierarchy.rule.DependsOn;
+import custom_runner.test_hierarchy.rule.DependsOnRule;
+import custom_runner.test_hierarchy.rule.State;
 
 import static org.junit.Assert.assertEquals;
 

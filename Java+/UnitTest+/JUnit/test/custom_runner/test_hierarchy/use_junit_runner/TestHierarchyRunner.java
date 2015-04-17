@@ -1,21 +1,46 @@
 package custom_runner.test_hierarchy.use_junit_runner;
 
+import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
 
 import java.lang.annotation.Annotation;
-import java.util.Stack;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestHierarchyRunner extends Runner {
     private final Class testClass;
     private final Description topTestClassDescription;
     private final StateHolder stateHolder = StateHolder.getInstance();
+    private final List<Class> dependOn;
 
     public TestHierarchyRunner(Class testClass) {
         this.testClass = testClass;
         topTestClassDescription = Description.createSuiteDescription(testClass);
+//        for (Method method : testClass.getDeclaredMethods()) {
+//            if (method.getAnnotation(Test.class) != null) {
+//                topTestClassDescription.addChild(
+//                        Description.createTestDescription(testClass, method.getName()));
+//            }
+//        }
+        dependOn = getDependsOn(testClass);
+//        for (Class klass : dependOn) {
+//            topTestClassDescription.addChild(makeClassDescription(klass));
+//        }
+    }
+
+    private Description makeClassDescription(Class klass) {
+        Description klassDescription = Description.createSuiteDescription(klass);
+        for (Method method : klass.getDeclaredMethods()) {
+            if (method.getAnnotation(Test.class) != null) {
+                klassDescription.addChild(
+                        Description.createTestDescription(klass, method.getName()));
+            }
+        }
+        return klassDescription;
     }
 
     @Override
@@ -25,10 +50,8 @@ public class TestHierarchyRunner extends Runner {
 
     @Override
     public void run(RunNotifier notifier) {
-        Stack<Class> dependOn = getDependsOn(testClass);
         try {
-            while (!dependOn.empty()) {
-                Class klass = dependOn.pop();
+            for (Class klass : dependOn) {
                 if (!alreadyExecuted(klass)) {
                     Class dependsOn = getDependsOnValue(klass);
                     new StateRunner(klass, dependsOn).run(notifier);
@@ -45,13 +68,13 @@ public class TestHierarchyRunner extends Runner {
     /**
      * Строит цепочку зависимостей между тестами по @DependsOn.
      */
-    private Stack<Class> getDependsOn(Class testClass) {
-        Stack<Class> result = new Stack<>();
-        result.push(testClass);
+    private List<Class> getDependsOn(Class testClass) {
+        List<Class> result = new ArrayList<>();
+        result.add(testClass);
         Class curTestClass = testClass;
         Class dependsOn = getDependsOnValue(curTestClass);
         while (dependsOn != null) {
-            result.push(dependsOn);
+            result.add(0, dependsOn);
             curTestClass = dependsOn;
             dependsOn = getDependsOnValue(curTestClass);
         }
@@ -65,7 +88,8 @@ public class TestHierarchyRunner extends Runner {
         Annotation dependsOnAnnotation = klass.getAnnotation(DependsOn.class);
         if (dependsOnAnnotation != null) {
             try {
-                return (Class) dependsOnAnnotation.getClass().getMethod("value").invoke(dependsOnAnnotation);
+                return (Class) dependsOnAnnotation.getClass()
+                        .getMethod("value").invoke(dependsOnAnnotation);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
