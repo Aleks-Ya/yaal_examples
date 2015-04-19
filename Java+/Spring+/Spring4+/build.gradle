@@ -1,6 +1,6 @@
 subprojects {
     dependencies {
-        compile 'org.springframework:spring-context:4.1.5.RELEASE'
-        testCompile 'org.springframework:spring-test:4.1.5.RELEASE'
+        compile 'org.springframework:spring-context:4.1.6.RELEASE'
+        testCompile 'org.springframework:spring-test:4.1.6.RELEASE'
     }
 }

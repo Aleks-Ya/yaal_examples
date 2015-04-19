@@ -1,8 +1,6 @@
 /**
- * 1.Инициализация Spring из web.xml (с помощью WebApplicationContext).
- * Конфигурация на основе xml (XmlWebApplicationContext).
- *
- * 2. Доступ к бинам Spring из сервлета.
+ * Spring MVC.
+ * 1. Подключение DispatcherServlet в web.xml.
  */
 apply plugin: 'war'
 
