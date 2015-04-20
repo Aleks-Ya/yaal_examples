@@ -1,4 +1,4 @@
-package testclient;
+package singlenode;
 
 import org.voltdb.client.Client;
 import org.voltdb.client.ClientFactory;

@@ -1,4 +1,4 @@
-package testclient;
+package singlenode;
 
 import org.junit.Test;
 

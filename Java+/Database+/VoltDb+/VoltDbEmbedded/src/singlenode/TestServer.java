@@ -1,14 +1,10 @@
-package testclient;
+package singlenode;
 
 import org.voltcore.utils.PortGenerator;
 import org.voltdb.ServerThread;
 import org.voltdb.VoltDB.Configuration;
-import org.voltdb.client.Client;
-import org.voltdb.client.ClientFactory;
 import org.voltdb.compiler.VoltProjectBuilder;
 import org.voltdb.utils.MiscUtils;
-
-import java.io.IOException;
 
 public class TestServer {
     private static ServerThread server;
@@ -16,8 +12,8 @@ public class TestServer {
     public static int runServer() throws Exception {
         // Create a VoltDB configuration.
         Configuration config = new Configuration(new PortGenerator());
-        config.m_pathToCatalog = Configuration.getPathToCatalogForTest("testclient.jar");
-        config.m_pathToDeployment = Configuration.getPathToCatalogForTest("testclient.xml");
+        config.m_pathToCatalog = Configuration.getPathToCatalogForTest("singlenode.jar");
+        config.m_pathToDeployment = Configuration.getPathToCatalogForTest("singlenode.xml");
 
         // Specify the DDL and partitioning.
         VoltProjectBuilder builder = new VoltProjectBuilder();
