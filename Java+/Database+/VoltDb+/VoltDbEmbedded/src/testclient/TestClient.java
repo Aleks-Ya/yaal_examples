@@ -23,21 +23,21 @@ public class TestClient {
             // Specify the DDL and partitioning.
             VoltProjectBuilder builder = new VoltProjectBuilder();
             builder.addLiteralSchema("CREATE TABLE t1 (" +
-                    "  id INTEGER DEFAULT '0' NOT NULL," +
-                    "  number INTEGER NOT NULL," +
-                    "  text VARCHAR(255) NOT NULL," +
+                            "  id INTEGER DEFAULT '0' NOT NULL," +
+                            "  number INTEGER NOT NULL," +
+                            "  text VARCHAR(255) NOT NULL," +
 //                    "  PRIMARY KEY (id)" +
-                    "); "
+                            "); "
 //                    +
 //                    "CREATE UNIQUE INDEX i1 ON t1 (id);"
             );
             builder.addPartitionInfo("t1", "number");
 
             // Register stored procedures.
-            builder.addProcedures(new Class<?>[] {
+            builder.addProcedures(new Class<?>[]{
                     TestProcedure.class
                     // Add more procedures here.
-            } );
+            });
 
             // Compile the catalog using the configuration object catalog path.
             // Copy the deployment file from where the builder puts it to where
@@ -58,11 +58,9 @@ public class TestClient {
             // Perform the client actions.
             client.callProcedure("TestProcedure", 1, 111, "some text");
             // More actions go here.
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
                 if (client != null) {
                     client.close();
@@ -72,8 +70,7 @@ public class TestClient {
                     server.shutdown();
                     server.join();
                 }
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
