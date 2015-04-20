@@ -10,13 +10,30 @@ import org.voltdb.compiler.VoltProjectBuilder;
 import org.voltdb.utils.MiscUtils;
 
 public class TestClient {
+    private static int port;
+    private static ServerThread server = null;
 
     public static void main(String[] args) {
-        ServerThread server = null;
-        Client client = null;
+        try {
+            server();
+            client();
+        } finally {
+            try {
+                if (server != null) {
+                    server.shutdown();
+                    server.join();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void server() {
         try {
             // Create a VoltDB configuration.
             VoltDB.Configuration config = new VoltDB.Configuration(new PortGenerator());
+            port = config.m_port;
             config.m_pathToCatalog = Configuration.getPathToCatalogForTest("testclient.jar");
             config.m_pathToDeployment = Configuration.getPathToCatalogForTest("testclient.xml");
 
@@ -34,10 +51,10 @@ public class TestClient {
             builder.addPartitionInfo("t1", "number");
 
             // Register stored procedures.
-            builder.addProcedures(new Class<?>[]{
+            builder.addProcedures(
                     TestProcedure.class
                     // Add more procedures here.
-            });
+            );
 
             // Compile the catalog using the configuration object catalog path.
             // Copy the deployment file from where the builder puts it to where
@@ -50,10 +67,16 @@ public class TestClient {
             server = new ServerThread(config);
             server.start();
             server.waitForInitialization();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-            // Create a client and connect.
+    public static void client() {
+        Client client = null;
+        try {
             client = ClientFactory.createClient();
-            client.createConnection("localhost", config.m_port);
+            client.createConnection("localhost", port);
 
             // Perform the client actions.
             client.callProcedure("TestProcedure", 1, 111, "some text");
@@ -64,11 +87,6 @@ public class TestClient {
             try {
                 if (client != null) {
                     client.close();
-                }
-
-                if (server != null) {
-                    server.shutdown();
-                    server.join();
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
