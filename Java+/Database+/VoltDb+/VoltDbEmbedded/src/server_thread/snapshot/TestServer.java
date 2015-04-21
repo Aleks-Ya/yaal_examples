@@ -1,4 +1,4 @@
-package singlenode;
+package server_thread.snapshot;
 
 import org.voltcore.utils.PortGenerator;
 import org.voltdb.ServerThread;
@@ -27,12 +27,6 @@ public class TestServer {
 //                    "CREATE UNIQUE INDEX i1 ON t1 (id);"
         );
         builder.addPartitionInfo("t1", "number");
-
-        // Register stored procedures.
-        builder.addProcedures(
-                TestProcedure.class
-                // Add more procedures here.
-        );
 
         // Compile the catalog using the configuration object catalog path.
         // Copy the deployment file from where the builder puts it to where

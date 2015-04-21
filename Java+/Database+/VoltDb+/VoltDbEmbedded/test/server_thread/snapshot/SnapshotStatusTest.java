@@ -1,16 +1,17 @@
-package singlenode;
+package server_thread.snapshot;
 
 import org.junit.Test;
 
 /**
+ * Вызов системной процедуры @SnapshotStatus.
  * JVM parameter: -Djava.library.path=libs
  */
-public class VoltDbEmbeddedTest {
+public class SnapshotStatusTest {
 
     @Test
     public void testServer() throws Exception {
         int port = TestServer.runServer();
-        TestClient.runClient(port);
+        SnapshotStatusClient.runClient(port);
         TestServer.stopServer();
     }
 }
