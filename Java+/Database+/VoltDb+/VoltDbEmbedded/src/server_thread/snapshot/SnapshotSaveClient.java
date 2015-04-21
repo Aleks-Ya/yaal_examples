@@ -5,7 +5,9 @@ import org.voltdb.client.Client;
 import org.voltdb.client.ClientFactory;
 import org.voltdb.client.ClientResponse;
 import org.voltdb.client.ProcCallException;
+import system_procedure_wrapper.SnapshotScanWrapper;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Date;
@@ -19,21 +21,20 @@ public class SnapshotSaveClient {
         try {
             client = ClientFactory.createClient();
             client.createConnection("localhost", port);
-            String snapshotDir = Files.createTempDirectory("SnapshotSaveClient_").toString();
+            File snapshotDir = Files.createTempDirectory("SnapshotSaveClient_").toFile();
             System.out.println("Snapshot save dir: " + snapshotDir);
             String uniqueId = String.valueOf(new Date().getTime());
             int blockOtherTransaction = 1;
-            ClientResponse response = client.callProcedure("@SnapshotSave", snapshotDir, uniqueId, blockOtherTransaction);
+            ClientResponse response = client.callProcedure("@SnapshotSave", snapshotDir.getAbsolutePath(), uniqueId, blockOtherTransaction);
             VoltTable[] table = response.getResults();
             for (VoltTable t : table) {
                 System.out.println(t.toString());
             }
 
             System.out.println("Scan results:");
-            ClientResponse scanResponse = client.callProcedure("@SnapshotScan", snapshotDir);
-            VoltTable[] scanResults = scanResponse.getResults();
-            for (VoltTable t : scanResults) {
-                System.out.println(t.toString());
+            SnapshotScanWrapper scan = new SnapshotScanWrapper(client, snapshotDir);
+            for (SnapshotScanWrapper.SnapshotInfo snapshot : scan.getSnapshots()) {
+                System.out.println(snapshot);
             }
         } finally {
             try {
