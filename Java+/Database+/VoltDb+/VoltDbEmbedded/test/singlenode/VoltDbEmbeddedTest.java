@@ -2,6 +2,9 @@ package singlenode;
 
 import org.junit.Test;
 
+/**
+ * JVM parameter: -Djava.library.path=libs
+ */
 public class VoltDbEmbeddedTest {
 
     @Test
