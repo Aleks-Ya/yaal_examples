@@ -16,36 +16,38 @@ import java.util.List;
  */
 public class SnapshotScanWrapper {
     private List<SnapshotInfo> snapshots = new ArrayList<>();
-    private List<SnapshotInfo> hosts = new ArrayList<>();
-    private List<SnapshotInfo> files = new ArrayList<>();
+    private List<HostInfo> hosts = new ArrayList<>();
+    private List<FileInfo> files = new ArrayList<>();
 
     public SnapshotScanWrapper(Client client, File snapshotDir) throws IOException, ProcCallException {
         ClientResponse scanResponse = client.callProcedure("@SnapshotScan", snapshotDir.getAbsolutePath());
         VoltTable[] scanResults = scanResponse.getResults();
         VoltTable snapshotsTable = scanResults[0];
         snapshotsTable.advanceRow();
-        snapshots.add(new SnapshotInfo(
-                snapshotsTable.getString(0),
-                snapshotsTable.getString(1),
-                snapshotsTable.getLong(2),
-                snapshotsTable.getLong(3),
-                snapshotsTable.getLong(4),
-                snapshotsTable.getString(5),
-                snapshotsTable.getString(6),
-                snapshotsTable.getString(7),
-                snapshotsTable.getString(8)
-        ));
+        for (int r = 0; r < snapshotsTable.getRowCount(); r++) {
+            snapshots.add(new SnapshotInfo(
+                    snapshotsTable.getString(0),
+                    snapshotsTable.getString(1),
+                    snapshotsTable.getLong(2),
+                    snapshotsTable.getLong(3),
+                    snapshotsTable.getLong(4),
+                    snapshotsTable.getString(5),
+                    snapshotsTable.getString(6),
+                    snapshotsTable.getString(7),
+                    snapshotsTable.getString(8)
+            ));
+        }
     }
 
     public List<SnapshotInfo> getSnapshots() {
         return snapshots;
     }
 
-    public List<SnapshotInfo> getHosts() {
+    public List<HostInfo> getHosts() {
         return hosts;
     }
 
-    public List<SnapshotInfo> getFiles() {
+    public List<FileInfo> getFiles() {
         return files;
     }
 
