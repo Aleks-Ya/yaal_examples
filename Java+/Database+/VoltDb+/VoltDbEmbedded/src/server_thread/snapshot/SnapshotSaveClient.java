@@ -10,7 +10,6 @@ import system_procedure_wrapper.SnapshotScanWrapper;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Date;
 
 /**
  * Сохранение снимка БД с помощью системной процедуры @SnapshotSave.
@@ -23,7 +22,7 @@ public class SnapshotSaveClient {
             client.createConnection("localhost", port);
             File snapshotDir = Files.createTempDirectory("SnapshotSaveClient_").toFile();
             System.out.println("Snapshot save dir: " + snapshotDir);
-            String uniqueId = String.valueOf(new Date().getTime());
+            String uniqueId = "my_snapshot_id";
             int blockOtherTransaction = 1;
             ClientResponse response = client.callProcedure("@SnapshotSave", snapshotDir.getAbsolutePath(), uniqueId, blockOtherTransaction);
             VoltTable[] table = response.getResults();
