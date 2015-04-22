@@ -21,10 +21,7 @@ public class TestServer {
                         "  id INTEGER DEFAULT '0' NOT NULL," +
                         "  number INTEGER NOT NULL," +
                         "  text VARCHAR(255) NOT NULL," +
-//                    "  PRIMARY KEY (id)" +
                         "); "
-//                    +
-//                    "CREATE UNIQUE INDEX i1 ON t1 (id);"
         );
         builder.addPartitionInfo("t1", "number");
 
