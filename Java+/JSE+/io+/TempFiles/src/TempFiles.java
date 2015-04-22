@@ -4,11 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import static java.lang.System.out;
 
-public class Main {
+public class TempFiles {
     public static void main(String[] args) throws IOException {
 		tempFile();
 		tempFiles();
 		tempFolders();
+        systemTempDir();
     }
 	
 	/**
@@ -44,4 +45,10 @@ public class Main {
 		tmpDir.toFile().deleteOnExit();
         out.println(tmpDir);
 	}
+
+    public static void systemTempDir() {
+        String tmpDirStr = System.getProperty("java.io.tmpdir");
+        File tmpDir = new File(tmpDirStr);
+        System.out.println("Temp dir: " + tmpDir.getAbsolutePath());
+    }
 }
