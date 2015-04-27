@@ -1,10 +1,19 @@
 package server_thread.run_only;
 
+import org.junit.Test;
 import org.voltdb.client.Client;
 import org.voltdb.client.ClientFactory;
+import server_thread.ServerThreadHelper;
 
-public class TestClient {
-    public static void runClient(int port) {
+/**
+ * JVM parameter: -Djava.library.path=libs
+ */
+public class CallProcedureTest {
+
+    @Test
+    public void testServer() throws Exception {
+        int port = ServerThreadHelper.runServer();
+
         Client client = null;
         try {
             client = ClientFactory.createClient();
@@ -24,5 +33,7 @@ public class TestClient {
                 e.printStackTrace();
             }
         }
+
+        ServerThreadHelper.stopServer();
     }
 }

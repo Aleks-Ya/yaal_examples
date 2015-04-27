@@ -11,3 +11,4 @@ target
 /Groovy^/Closure/.nb-gradle/private/
 .nb-gradle
 *.log
+testobjects

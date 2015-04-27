@@ -1,4 +1,4 @@
-package server_thread.run_only;
+package server_thread;
 
 import org.voltdb.SQLStmt;
 import org.voltdb.VoltProcedure;
