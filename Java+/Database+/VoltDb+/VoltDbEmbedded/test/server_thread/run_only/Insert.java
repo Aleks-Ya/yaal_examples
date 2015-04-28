@@ -23,7 +23,7 @@ public class Insert {
 
     @BeforeClass
     public static void beforeClass() throws Exception {
-        int port = ServerThreadHelper.runServer();
+        int port = ServerThreadHelper.runServer(MyTableInsertProcedure.class);
         client = ClientFactory.createClient();
         client.createConnection("localhost", port);
     }
@@ -43,6 +43,15 @@ public class Insert {
     @Test
     public void defaultProcedure() throws IOException, ProcCallException {
         ClientResponse response = client.callProcedure("MY_TABLE.insert", 2, 44, "insert message");
+        assertEquals(ClientResponse.SUCCESS, response.getStatus());
+    }
+
+    /**
+     * С помощью самописной хранимой процедуры.
+     */
+    @Test
+    public void customProcedure() throws IOException, ProcCallException {
+        ClientResponse response = client.callProcedure("MyTableInsertProcedure", 3, 55, "insert message");
         assertEquals(ClientResponse.SUCCESS, response.getStatus());
     }
 

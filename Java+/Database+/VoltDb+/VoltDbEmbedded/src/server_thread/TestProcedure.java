@@ -15,7 +15,7 @@ public class TestProcedure extends VoltProcedure {
     public VoltTable[] run(int id, int number, String text)
             throws VoltAbortException {
         System.out.println("TestProcedure runned");
-        voltQueueSQL(sqlAdd, id, number, text);
+        voltQueueSQL(sqlAdd, EXPECT_ONE_ROW, id, number, text);
         voltExecuteSQL();
         System.out.println("TestProcedure finished");
         return null;

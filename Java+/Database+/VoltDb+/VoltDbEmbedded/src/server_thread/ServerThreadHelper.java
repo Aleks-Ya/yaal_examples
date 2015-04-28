@@ -19,21 +19,28 @@ public class ServerThreadHelper {
     /**
      * SQL schema in resource file.
      */
-    public static int runServer(URL resource) throws Exception {
-        return runServer(FileUtils.readFileToString(new File(resource.getFile())));
+    public static int runServer(URL resource, Class... storedProcedures) throws Exception {
+        return runServer(FileUtils.readFileToString(new File(resource.getFile())), storedProcedures);
     }
 
     /**
      * Use "default_schema.sql"
      */
     public static int runServer() throws Exception {
-        return runServer(ServerThreadHelper.class.getResource("default_schema.sql"));
+        return runServer(ServerThreadHelper.class.getResource("default_schema.sql"), TestProcedure.class);
+    }
+
+    /**
+     * Use "default_schema.sql"
+     */
+    public static int runServer(Class... storedProcedures) throws Exception {
+        return runServer(ServerThreadHelper.class.getResource("default_schema.sql"), storedProcedures);
     }
 
     /**
      * SQL schema as string.
      */
-    public static int runServer(String sqlSchema) throws Exception {
+    public static int runServer(String sqlSchema, Class... storedProcedures) throws Exception {
         // Create a VoltDB configuration.
         Configuration config = new Configuration(new PortGenerator());
         config.m_pathToCatalog = Configuration.getPathToCatalogForTest("server_thread_helper.jar");
@@ -45,10 +52,7 @@ public class ServerThreadHelper {
         builder.addPartitionInfo("my_table", "number");
 
         // Register stored procedures.
-        builder.addProcedures(
-                TestProcedure.class
-                // Add more procedures here.
-        );
+        builder.addProcedures(storedProcedures);
 
         // Compile the catalog using the configuration object catalog path.
         // Copy the deployment file from where the builder puts it to where
