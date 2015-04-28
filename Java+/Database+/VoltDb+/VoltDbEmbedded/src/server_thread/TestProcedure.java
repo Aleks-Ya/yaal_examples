@@ -5,12 +5,12 @@ import org.voltdb.VoltProcedure;
 import org.voltdb.VoltTable;
 
 //@ProcInfo (
-//        partitionInfo = "t1.number: 0",
+//        partitionInfo = "my_table.number: 0",
 //        singlePartition = true
 //)
 public class TestProcedure extends VoltProcedure {
     public final SQLStmt
-            sqlAdd = new SQLStmt("insert into t1 (id, number, text) values (?, ?, ?);");
+            sqlAdd = new SQLStmt("insert into my_table (id, number, text) values (?, ?, ?);");
 
     public VoltTable[] run(int id, int number, String text)
             throws VoltAbortException {

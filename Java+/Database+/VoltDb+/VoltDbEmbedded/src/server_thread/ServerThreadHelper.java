@@ -42,7 +42,7 @@ public class ServerThreadHelper {
         // Specify the DDL and partitioning.
         VoltProjectBuilder builder = new VoltProjectBuilder();
         builder.addLiteralSchema(sqlSchema);
-        builder.addPartitionInfo("t1", "number");
+        builder.addPartitionInfo("my_table", "number");
 
         // Register stored procedures.
         builder.addProcedures(
