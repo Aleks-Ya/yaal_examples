@@ -1,7 +1,7 @@
 package basic_utilites.using_avoiding_null;
 
 import com.google.common.base.MoreObjects;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
