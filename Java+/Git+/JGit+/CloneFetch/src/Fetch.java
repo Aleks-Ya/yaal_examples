@@ -17,7 +17,7 @@ import java.nio.file.Files;
 /**
  * Собственно попытка сделать fetch.
  */
-public class Main {
+public class Fetch {
     private static final String remoteRepoName = "remoteRepo";
 
     public static void main(String[] args) throws IOException, GitAPIException, URISyntaxException {
