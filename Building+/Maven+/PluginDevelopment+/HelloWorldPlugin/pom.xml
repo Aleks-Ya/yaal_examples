@@ -13,13 +13,14 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <mavenVersion>3.3.3</mavenVersion>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
-            <version>3.3.3</version>
+            <version>${mavenVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
@@ -40,6 +41,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+            <version>${mavenVersion}</version>
+        </dependency>
+<!--        <dependency>
             <groupId>org.apache.maven.reporting</groupId>
             <artifactId>maven-reporting-exec</artifactId>
             <version>1.2</version>
@@ -48,7 +54,7 @@
             <groupId>org.eclipse.aether</groupId>
             <artifactId>aether</artifactId>
             <version>1.0.2.v20150114</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
     <build>

@@ -7,7 +7,7 @@ import org.apache.maven.plugins.annotations.Mojo;
  * Maven-плагин Hello World.
  */
 @Mojo(name = "hello")
-public class ShowTestHierachyMavenPlugin extends AbstractMojo {
+public class HelloWorldMavenPlugin extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         getLog().info("Hello, world.");
     }
