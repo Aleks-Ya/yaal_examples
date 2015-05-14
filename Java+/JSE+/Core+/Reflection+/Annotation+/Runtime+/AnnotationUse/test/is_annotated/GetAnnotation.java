@@ -1,3 +1,6 @@
+package is_annotated;
+
+import is_annotated.Marked;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

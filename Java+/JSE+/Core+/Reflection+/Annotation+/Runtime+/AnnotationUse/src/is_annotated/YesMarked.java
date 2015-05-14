@@ -1,3 +1,5 @@
+package is_annotated;
+
 @Marked
 public class YesMarked {
     @Marked
