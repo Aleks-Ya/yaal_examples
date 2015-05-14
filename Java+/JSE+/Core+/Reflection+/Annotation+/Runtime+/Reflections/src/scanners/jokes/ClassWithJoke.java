@@ -1,6 +1,6 @@
-package annotation.jokes;
+package scanners.jokes;
 
-import annotation.Joke;
+import scanners.Joke;
 
 @Joke("Врач сказал в морг, значит, в морг")
 @SuppressWarnings("unused")
