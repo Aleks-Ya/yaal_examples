@@ -1,4 +1,4 @@
-import annotation.City;
+import scanners.City;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import xml.Airport;

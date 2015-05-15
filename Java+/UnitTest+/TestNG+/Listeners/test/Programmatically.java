@@ -1,4 +1,4 @@
-import annotation.AnnotationTest;
+import scanners.AnnotationTest;
 import listeners.IAnnotationTransformerImpl;
 import listeners.IHookableImpl;
 import listeners.IInvokedMethodListenerImpl;

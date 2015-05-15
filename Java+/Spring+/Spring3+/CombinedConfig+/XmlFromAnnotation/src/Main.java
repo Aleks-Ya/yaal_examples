@@ -1,4 +1,4 @@
-import annotation.City;
+import scanners.City;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -14,7 +14,7 @@ public class Main {
     }
 
     private static void withoutAnnotationContextXml() {
-        ApplicationContext context = new AnnotationConfigApplicationContext("annotation");
+        ApplicationContext context = new AnnotationConfigApplicationContext("scanners");
 
         Airport airport = context.getBean("airportXml", Airport.class);
         System.out.printf("АЭРОПОРТ из xml: %s%n%n", airport);

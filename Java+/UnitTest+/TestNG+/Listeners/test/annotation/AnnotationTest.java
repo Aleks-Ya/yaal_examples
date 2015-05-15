@@ -1,4 +1,4 @@
-package annotation;
+package scanners;
 
 import listeners.IAnnotationTransformer2Impl;
 import listeners.IAnnotationTransformerImpl;

@@ -31,5 +31,5 @@
     <tx:annotation-driven/>
 
     <bean id="persistenceExceptionTranslationPostProcessor"
-          class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+          class="org.springframework.dao.scanners.PersistenceExceptionTranslationPostProcessor"/>
 </beans>

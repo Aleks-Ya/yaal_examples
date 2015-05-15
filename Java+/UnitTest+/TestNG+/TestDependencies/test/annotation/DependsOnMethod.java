@@ -1,4 +1,4 @@
-package annotation;
+package scanners;
 
 import org.testng.annotations.Test;
 
