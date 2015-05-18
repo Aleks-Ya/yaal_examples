@@ -1,2 +1,0 @@
-Случаи бросания ExceptionInInitializerError.
-Запуск: gradle test
