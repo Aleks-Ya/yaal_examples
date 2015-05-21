@@ -1,4 +1,4 @@
-package is_annotated;
+package reflection.usage.is_annotated;
 
 @Marked
 public class YesMarked {

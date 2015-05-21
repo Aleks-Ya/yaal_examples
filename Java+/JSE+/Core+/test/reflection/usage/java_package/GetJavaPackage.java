@@ -1,4 +1,4 @@
-package java_package;
+package reflection.usage.java_package;
 
 import org.junit.Test;
 

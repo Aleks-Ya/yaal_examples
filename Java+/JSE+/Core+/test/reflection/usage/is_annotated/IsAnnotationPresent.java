@@ -1,6 +1,5 @@
-package is_annotated;
+package reflection.usage.is_annotated;
 
-import is_annotated.Marked;
 import org.junit.Test;
 
 import java.lang.reflect.Field;

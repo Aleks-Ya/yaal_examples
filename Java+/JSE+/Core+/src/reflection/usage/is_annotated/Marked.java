@@ -1,4 +1,4 @@
-package is_annotated;
+package reflection.usage.is_annotated;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

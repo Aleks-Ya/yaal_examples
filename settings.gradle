@@ -25,9 +25,6 @@ include 'Java+:JSE+:Core+:Inheritance+:CallSuper',
         'Java+:JSE+:Core+:Conversation+:MethodInvocation',
         'Java+:JSE+:Core+:Conversation+:NumericPromositons',
         'Java+:JSE+:Core+:Conversation+:Boxing',
-        'Java+:JSE+:Core+:Reflection+:Annotation+:Runtime+:CallableExecutor',
-        'Java+:JSE+:Core+:Reflection+:Annotation+:Runtime+:Reflections',
-        'Java+:JSE+:Core+:Reflection+:Annotation+:Runtime+:AnnotationUse',
         'Java+:JSE+:RegExp',
         'Java+:JSE+:gui+:swing+:SwingOne',
         'Java+:JSE+:gui+:swing+:Font',
@@ -106,7 +103,8 @@ include 'Java+:JSE+:Core+:Inheritance+:CallSuper',
         'Java+:Libs+:ApacheCommons+:CommonsIO',
         'Java+:Libs+:Guava',
         'Java+:Libs+:ApachePOI',
-        'Java+:Libs+:JodaTime'
+        'Java+:Libs+:JodaTime',
+        'Java+:Libs+:Reflections'
 
 /**
  * JavaEE+
