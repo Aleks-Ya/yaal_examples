@@ -12,3 +12,4 @@ target
 .nb-gradle
 *.log
 testobjects
+*.class
