@@ -1,0 +1,2 @@
+Annotation Processor вынесен в отдельную зависимоть (AnnotationProcessor).
+Задача: продебажить код Annotation Processor.
