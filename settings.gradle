@@ -104,7 +104,8 @@ include 'Java+:JSE+:Core+:Inheritance+:CallSuper',
         'Java+:Libs+:Guava',
         'Java+:Libs+:ApachePOI',
         'Java+:Libs+:JodaTime',
-        'Java+:Libs+:Reflections'
+        'Java+:Libs+:Reflections',
+        'Java+:Libs+:FreeMarker'
 
 /**
  * JavaEE+
