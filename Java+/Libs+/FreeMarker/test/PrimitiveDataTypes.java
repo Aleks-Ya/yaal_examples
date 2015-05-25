@@ -5,7 +5,6 @@ import freemarker.template.TemplateExceptionHandler;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -20,8 +19,7 @@ public class PrimitiveDataTypes {
     @BeforeClass
     public static void setUp() throws Exception {
         cfg = new Configuration(Configuration.VERSION_2_3_22);
-        File templatesDir = new File(PrimitiveDataTypes.class.getResource("test.ftl").getFile()).getParentFile();
-        cfg.setDirectoryForTemplateLoading(templatesDir);
+        cfg.setClassForTemplateLoading(PrimitiveDataTypes.class, "templates");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }

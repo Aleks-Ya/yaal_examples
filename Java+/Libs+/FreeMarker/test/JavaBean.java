@@ -22,8 +22,7 @@ public class JavaBean {
     @BeforeClass
     public static void setUp() throws Exception {
         cfg = new Configuration(Configuration.VERSION_2_3_22);
-        File templatesDir = new File(PrimitiveDataTypes.class.getResource("test.ftl").getFile()).getParentFile();
-        cfg.setDirectoryForTemplateLoading(templatesDir);
+        cfg.setClassForTemplateLoading(JavaBean.class, "templates");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }
