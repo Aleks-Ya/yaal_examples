@@ -1,0 +1,6 @@
+Логирование во время выполнения Annotation Processor с
+помощью javax.annotation.processing.Messager.
+
+!!!!! Работает только при запуске javac.
+Maven выводит сообщения из Messager только со включенным <showWarnings>
+в compiler plugin.
