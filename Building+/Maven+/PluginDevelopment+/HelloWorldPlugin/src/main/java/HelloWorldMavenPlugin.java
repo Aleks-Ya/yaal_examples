@@ -8,6 +8,8 @@ import org.apache.maven.plugins.annotations.Mojo;
  */
 @Mojo(name = "hello")
 public class HelloWorldMavenPlugin extends AbstractMojo {
+
+    @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         getLog().info("Hello, world.");
     }
