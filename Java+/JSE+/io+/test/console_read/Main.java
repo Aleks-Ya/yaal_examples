@@ -1,3 +1,5 @@
+package console_read;
+
 import java.io.Console;
 
 /**

@@ -1,9 +1,15 @@
-import java.nio.file.Files;
-import java.nio.file.Path;
+package temp_files;
+
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import static java.lang.System.out;
 
+/**
+ * Создание временных папок и файлов в Java.
+ */
 public class TempFiles {
     public static void main(String[] args) throws IOException {
 		tempFile();

@@ -1,7 +1,12 @@
+package delete_on_exit;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
+/**
+ * Использование метода File#deleteOnExit() для удаления временных тестовых папок.
+ */
 public class Main {
 
     public static void main(String[] args) throws IOException {

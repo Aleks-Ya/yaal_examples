@@ -1,7 +1,10 @@
-import java.nio.file.Path;
+package rename_folder;
+
 import java.io.File;
-import java.nio.file.Files;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import static java.lang.System.out;
 
 public class EmptyDir {

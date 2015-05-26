@@ -1,7 +1,12 @@
+package jar_working_dir;
+
 import java.util.Map;
 
 import static java.lang.System.out;
 
+/**
+ * Определение папки, в которой расположен исполняемый в данный момент файл.
+ */
 public class Main {
 
     public static void main(String[] args) {
