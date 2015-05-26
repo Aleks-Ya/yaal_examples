@@ -5,7 +5,6 @@ import freemarker.template.TemplateExceptionHandler;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -14,15 +13,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Использование JavaBean в модели и шаблоне.
+ * Использование JavaBean в модели и шаблоне (через замещение в Map).
  */
-public class JavaBean {
+public class JavaBeanInMap {
     private static Configuration cfg;
 
     @BeforeClass
     public static void setUp() throws Exception {
         cfg = new Configuration(Configuration.VERSION_2_3_22);
-        cfg.setClassForTemplateLoading(JavaBean.class, "templates");
+        cfg.setClassForTemplateLoading(JavaBeanInMap.class, "templates");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }
@@ -32,7 +31,7 @@ public class JavaBean {
         Map<String, Object> root = new HashMap<>();
         root.put("data", new Data());
 
-        Template template = cfg.getTemplate("java_bean.ftl");
+        Template template = cfg.getTemplate("java_bean_in_map.ftl");
 
         Writer out = new OutputStreamWriter(System.out);
         template.process(root, out);
