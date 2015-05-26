@@ -1,3 +1,5 @@
+package dir_walk;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,7 +8,7 @@ import java.util.List;
 /**
  * Поддерживает рекурсивный поиск файлов в папке (с фильтрацией по имени файла).
  */
-public class RecursiveDirectoryList {
+class RecursiveDirectoryList {
     private static final DirFileFilter dirFileFilter = new DirFileFilter();
     private final RegExpFilenameFilter regExpFilenameFilter = new RegExpFilenameFilter();
 

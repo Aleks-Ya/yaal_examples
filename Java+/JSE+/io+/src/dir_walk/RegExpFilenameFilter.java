@@ -1,3 +1,5 @@
+package dir_walk;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.util.regex.Pattern;
@@ -5,7 +7,7 @@ import java.util.regex.Pattern;
 /**
  * Файловый фильтр пропускает файлы (не папки), имена которых удовлетворяют регулярному выражению.
  */
-public class RegExpFilenameFilter implements FileFilter {
+class RegExpFilenameFilter implements FileFilter {
     private Pattern pattern = Pattern.compile(".*");
 
     public void setPattern(String filenamePattern) {

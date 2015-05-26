@@ -1,3 +1,5 @@
+package dir_walk;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -5,7 +7,7 @@ import java.util.List;
 /**
  * Возвращает папки, в которых содержится файл, удовлетворяющий регулярному выражению.
  */
-public class ContentDirectoryList {
+class ContentDirectoryList {
     private static final DirFileFilter dirFileFilter = new DirFileFilter();
     private final RegExpFilenameFilter regExpFilenameFilter = new RegExpFilenameFilter();
     private final File rootDir;

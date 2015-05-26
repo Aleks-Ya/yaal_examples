@@ -1,7 +1,0 @@
-/**
- * Задача: Обойти заданную папку рекурсивно и вернуть коллекцию файлов,
- * имена которых удовлетворяет регулярному выражению.
- */
-apply plugin : "java"
-sourceSets.main.java.srcDir 'src'
-sourceSets.main.resources.srcDir 'resources'
