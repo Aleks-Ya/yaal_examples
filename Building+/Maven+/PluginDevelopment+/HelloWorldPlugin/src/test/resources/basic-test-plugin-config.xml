@@ -12,7 +12,7 @@
             <plugin>
                 <artifactId>HelloWorldPlugin</artifactId>
                 <configuration>
-                    <!-- Required for maven-plugin-testing-harness-->
+                    <greeting>Hi, man!</greeting>
                 </configuration>
             </plugin>
         </plugins>
