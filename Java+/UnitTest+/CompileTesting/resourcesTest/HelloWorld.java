@@ -1,0 +1,3 @@
+@MyAnnotation
+final class HelloWorld {
+}
