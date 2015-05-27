@@ -1,4 +1,5 @@
 import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.Filer;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
@@ -15,16 +16,15 @@ public class GenerateProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         try {
-            Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(MyAnnotation.class);
-            for (Element element : elements) {
-                String name = "Generated_" + element.getSimpleName();
-                JavaFileObject jfo = processingEnv.getFiler().createSourceFile(name);
-                System.out.println("Generate file: " + jfo.getName());
-                Writer out = jfo.openWriter();
-                out.append("class " + name + " {}");
-                out.flush();
-                out.close();
-            }
+            Filer filer = processingEnv.getFiler();
+            Set<? extends Element> rootsSet = roundEnv.getRootElements();
+            Element[] rootsArr = rootsSet.toArray(new Element[rootsSet.size()]);
+            JavaFileObject jfo = filer.createSourceFile("GeneratedSource.java", rootsArr[0]);
+            System.out.println("Generate file: " + jfo.getName());
+            Writer out = jfo.openWriter();
+            out.append("class GeneratedSource {}");
+            out.flush();
+            out.close();
             return true;
         } catch (IOException e) {
             throw new RuntimeException(e);
