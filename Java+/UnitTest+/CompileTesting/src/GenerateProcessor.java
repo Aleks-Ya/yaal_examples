@@ -1,9 +1,10 @@
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.RoundEnvironment;
-import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.tools.JavaFileObject;
+import javax.tools.FileObject;
+import javax.tools.JavaFileManager;
+import javax.tools.StandardLocation;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Collections;
@@ -13,18 +14,26 @@ import java.util.Set;
  * @author yablokov a.
  */
 public class GenerateProcessor extends AbstractProcessor {
+    private static boolean generated = false;
+
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         try {
-            Filer filer = processingEnv.getFiler();
-            Set<? extends Element> rootsSet = roundEnv.getRootElements();
-            Element[] rootsArr = rootsSet.toArray(new Element[rootsSet.size()]);
-            JavaFileObject jfo = filer.createSourceFile("GeneratedSource.java", rootsArr[0]);
-            System.out.println("Generate file: " + jfo.getName());
-            Writer out = jfo.openWriter();
-            out.append("class GeneratedSource {}");
-            out.flush();
-            out.close();
+            if (!generated) {
+                final JavaFileManager.Location location = StandardLocation.CLASS_OUTPUT;
+                final String pkg = "";
+                final String relativeName = "GeneratedResource.txt";
+                final String content = "My Resource File\nSecond Line\n\n";
+
+                final Filer filer = processingEnv.getFiler();
+                final FileObject jfo = filer.createResource(location, pkg, relativeName);
+                final Writer out = jfo.openWriter();
+                out.append(content);
+                out.flush();
+                out.close();
+
+                generated = true;
+            }
             return true;
         } catch (IOException e) {
             throw new RuntimeException(e);

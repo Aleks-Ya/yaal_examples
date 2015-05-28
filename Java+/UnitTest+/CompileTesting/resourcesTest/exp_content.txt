@@ -1,0 +1,3 @@
+My Resource File
+Second Line
+

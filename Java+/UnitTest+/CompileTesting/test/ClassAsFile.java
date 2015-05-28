@@ -1,6 +1,9 @@
+import com.google.common.io.ByteSource;
+import com.google.common.io.Resources;
 import com.google.testing.compile.JavaFileObjects;
-import org.junit.Ignore;
 import org.junit.Test;
+
+import javax.tools.StandardLocation;
 
 import static com.google.common.truth.Truth.assert_;
 import static com.google.testing.compile.JavaSourceSubjectFactory.javaSource;
@@ -27,12 +30,14 @@ public class ClassAsFile {
      * Проверка генерации файлов.
      */
     @Test
-    @Ignore("как создать файл в GenerateProcessor?")
-    public void generatedSources() {
+    public void generateResources() {
+        ByteSource expContent = Resources.asByteSource(ClassAsFile.class.getResource("exp_content.txt"));
+
         assert_().about(javaSource())
                 .that(JavaFileObjects.forResource("HelloWorld.java"))
                 .processedWith(new GenerateProcessor())
                 .compilesWithoutError()
-                .and().generatesSources(JavaFileObjects.forResource("GeneratedHelloWorld.java"));
+                .and().generatesFileNamed(StandardLocation.CLASS_OUTPUT, "", "GeneratedResource.txt")
+                .withContents(expContent);
     }
 }
