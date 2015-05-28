@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <groupId>ru.yaal.maven.ascii2native</groupId>
+    <artifactId>Test</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>ru.yaal.examples.maven.plugin</groupId>
+                <artifactId>plugin-configuration-maven-plugin</artifactId>
+                <version>1.0</version>
+                <configuration>
+                    <file>target/classes</file>
+                    <strings>
+                        <string>*.html</string>
+                        <string>*.properties</string>
+                    </strings>
+                    <bool>true</bool>
+                    <integer>77</integer>
+                    <doub>33.3</doub>
+                    <url>http://robcostlow.com</url>
+                    <lists>
+                        <list>Moscow</list>
+                        <list>London</list>
+                    </lists>
+                    <map>
+                        <first>100</first>
+                        <second>200</second>
+                    </map>
+                    <myProperties>
+                        <property>
+                            <name>color</name>
+                            <value>red</value>
+                        </property>
+                    </myProperties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <modelVersion>4.0.0</modelVersion>
+</project>
