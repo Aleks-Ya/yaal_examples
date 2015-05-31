@@ -1,0 +1,5 @@
+Пример из артефакта Maven com.vaadin:vaadin-archetype-application:7.4.7 
+(Book of Vaadin).
+Запуск:
+1. mvn clean package jetty:run
+2. http://localhost:8080/project-name
