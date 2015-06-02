@@ -99,7 +99,8 @@ include 'Java+:JSE+:Core+:Inheritance+:CallSuper',
         'Java+:Libs+:ApachePOI',
         'Java+:Libs+:JodaTime',
         'Java+:Libs+:Reflections',
-        'Java+:Libs+:FreeMarker'
+        'Java+:Libs+:FreeMarker',
+        'Java+:Libs+:Protostuff'
 
 /**
  * JavaEE+
