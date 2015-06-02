@@ -46,10 +46,12 @@ class ForSerialization implements Externalizable {
     public ForSerialization() {
     }
 
+    @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(num);
     }
 
+    @Override
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         num = in.readInt();
         transientLong = 33;
