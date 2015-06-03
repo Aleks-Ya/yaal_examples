@@ -21,33 +21,41 @@ public class ArrayListAlone {
     public void arrayList() {
         List<String> expList = Arrays.asList("a", "b");
 
-        CollectionWrapper<List<String>> expWrapper = new CollectionWrapper<>(expList);
-
-        Schema<CollectionWrapper> schema = RuntimeSchema.getSchema(CollectionWrapper.class);
-        byte[] bytes = GraphIOUtil.toByteArray(expWrapper, schema, LinkedBuffer.allocate());
-
-        CollectionWrapper<List<String>> actWrapper = new CollectionWrapper<>();
-        GraphIOUtil.mergeFrom(bytes, actWrapper, schema);
-        List<String> actList = actWrapper.read();
+        byte[] bytes = serialize(expList);
+        List<String> actList = deserialize(bytes);
 
         assertNotSame(expList, actList);
         assertEquals(expList.size(), actList.size());
         assertEquals(expList, actList);
     }
-}
 
-class CollectionWrapper<T> {
-    private T collection;
-
-    public CollectionWrapper() {
+    private byte[] serialize(Object object) {
+        Wrapper<?> wrapper = new Wrapper<>(object);
+        Schema<Wrapper> schema = RuntimeSchema.getSchema(Wrapper.class);
+        return GraphIOUtil.toByteArray(wrapper, schema, LinkedBuffer.allocate());
     }
 
-    public CollectionWrapper(T collection) {
-        this.collection = collection;
+    private <T> T deserialize(byte[] bytes) {
+        Wrapper<T> wrapper = new Wrapper<>();
+        Schema<Wrapper> schema = RuntimeSchema.getSchema(Wrapper.class);
+        GraphIOUtil.mergeFrom(bytes, wrapper, schema);
+        return wrapper.read();
+    }
+
+}
+
+class Wrapper<T> {
+    private T object;
+
+    public Wrapper() {
+    }
+
+    public Wrapper(T object) {
+        this.object = object;
     }
 
     public T read() {
-        return collection;
+        return object;
     }
 
 }
