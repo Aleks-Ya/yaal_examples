@@ -106,7 +106,8 @@ include 'Java+:JSE+:Core+:Inheritance+:CallSuper',
 include 'Java+:JEE+:Jetty+:JettyHelloWorld',
         'Java+:JEE+:Jetty+:JettyContextHandler',
         'Java+:JEE+:Jetty+:JettyServletHandler',
-        'Java+:JEE+:Servlet+:Servlet3+:SendFileViaForm'
+        'Java+:JEE+:Servlet+:Servlet3+:SendFileViaForm',
+        'Java+:JEE+:Validation'
 
 /**
  * Building+
