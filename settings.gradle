@@ -168,4 +168,5 @@ include 'Java+:Spring+:Spring3+:AnnotationConfig+:BeanDefinition',
         'Java+:Spring+:Spring4+:Hibernate+:HibernateSessionFactory',
         'Java+:Spring+:Spring4+:Hibernate+:EntityManagerFactory',
         'Java+:Spring+:Spring4+:BeanName',
+        'Java+:Spring+:Spring4+:AOP',
         'Java+:Git+:JGit+:CloneFetch'
