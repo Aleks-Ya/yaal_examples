@@ -1,4 +1,4 @@
-package annotation_pointcut;
+package pointcut.annotation;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 public class HelloAspect {
-    @Pointcut("@annotation(annotation_pointcut.Hello)")
+    @Pointcut("@annotation(pointcut.annotation.Hello)")
     public void helloAnnotation() {
     }
 

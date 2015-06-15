@@ -1,4 +1,4 @@
-package annotation_pointcut;
+package pointcut.execution;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         Config.class
 })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class AnnotationPointcutTest {
+public class ExecutionPointcutTest {
 
     @Autowired
     MessageWriter writer;

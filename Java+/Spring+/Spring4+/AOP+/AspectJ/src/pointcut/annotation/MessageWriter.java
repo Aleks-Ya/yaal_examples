@@ -1,4 +1,4 @@
-package annotation_pointcut;
+package pointcut.annotation;
 
 
 public class MessageWriter {

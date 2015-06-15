@@ -1,4 +1,4 @@
-package spring_context;
+package pointcut.annotation;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
