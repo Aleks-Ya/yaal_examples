@@ -1,4 +1,4 @@
-package pointcut.execution;
+package pointcut.annotation.clazz;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -8,12 +8,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-public class HelloAspect {
-    @Pointcut("execution(* pointcut.execution.MessageWriter.*(..))")
-    public void allMessageWriterMethods() {
+public class HelloClassAspect {
+
+    @Pointcut("within(@pointcut.annotation.clazz.HelloClass *)")
+    public void helloClassAnnotation() {
     }
 
-    @Around("allMessageWriterMethods()")
+    @Around("helloClassAnnotation()")
     public Object addHello(ProceedingJoinPoint pjp) throws Throwable {
         System.out.print("Hello, ");
         Object retVal = pjp.proceed();

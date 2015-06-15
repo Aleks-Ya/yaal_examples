@@ -1,4 +1,4 @@
-package pointcut.annotation;
+package pointcut.annotation.method;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,15 +7,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @ContextConfiguration(classes = {
-        HelloAspect.class,
-        MessageWriter.class,
+        HelloMethodAspect.class,
+        Messenger.class,
         Config.class
 })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class AnnotationPointcutTest {
+public class MethodAnnotationPointcutTest {
 
     @Autowired
-    MessageWriter writer;
+    Messenger writer;
 
     @Test
     public void test() {

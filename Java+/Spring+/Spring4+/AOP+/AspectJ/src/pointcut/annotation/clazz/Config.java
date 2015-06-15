@@ -1,4 +1,4 @@
-package pointcut.annotation;
+package pointcut.annotation.clazz;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
