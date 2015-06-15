@@ -1,4 +1,4 @@
-package spring_context;
+package annotation_pointcut;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 public class HelloAspect {
-    @Pointcut("execution(* spring_context.MessageWriter.*(..))")
-    public void allMessageWriterMethods() {
+    @Pointcut("@annotation(annotation_pointcut.Hello)")
+    public void helloAnnotation() {
     }
 
     @Around("helloAnnotation()")
