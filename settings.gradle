@@ -98,7 +98,8 @@ include 'Java+:JSE+:Core+:Inheritance+:CallSuper',
         'Java+:Libs+:JodaTime',
         'Java+:Libs+:Reflections',
         'Java+:Libs+:FreeMarker',
-        'Java+:Libs+:Protostuff'
+        'Java+:Libs+:Protostuff',
+        'Java+:Algorithm'
 
 /**
  * JavaEE+
