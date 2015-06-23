@@ -1,3 +1,5 @@
+package conversation.cast;
+
 import org.junit.Test;
 
 import static java.lang.System.out;

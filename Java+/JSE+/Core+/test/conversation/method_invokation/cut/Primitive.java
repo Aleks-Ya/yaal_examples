@@ -1,4 +1,4 @@
-package cut;
+package conversation.method_invokation.cut;
 
 import org.junit.Test;
 

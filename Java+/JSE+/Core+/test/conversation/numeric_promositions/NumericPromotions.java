@@ -1,3 +1,5 @@
+package conversation.numeric_promositions;
+
 import org.junit.Test;
 
 public class NumericPromotions {

@@ -1,3 +1,5 @@
+package conversation.boxing;
+
 import org.junit.Test;
 
 public class Boxing {
