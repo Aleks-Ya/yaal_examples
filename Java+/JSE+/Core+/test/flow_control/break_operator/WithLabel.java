@@ -1,3 +1,5 @@
+package flow_control.break_operator;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

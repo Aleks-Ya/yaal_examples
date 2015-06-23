@@ -1,3 +1,5 @@
+package flow_control.do_while;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

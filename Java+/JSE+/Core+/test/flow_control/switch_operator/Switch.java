@@ -1,3 +1,5 @@
+package flow_control.switch_operator;
+
 import org.junit.Test;
 
 import static java.lang.System.out;

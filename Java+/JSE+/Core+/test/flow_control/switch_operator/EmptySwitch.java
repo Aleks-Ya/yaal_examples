@@ -1,3 +1,5 @@
+package flow_control.switch_operator;
+
 import org.junit.Test;
 
 public class EmptySwitch {

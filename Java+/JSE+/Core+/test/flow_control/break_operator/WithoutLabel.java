@@ -1,6 +1,7 @@
+package flow_control.break_operator;
+
 import org.junit.Test;
 
-import static java.lang.System.out;
 import static org.junit.Assert.assertEquals;
 
 /**
