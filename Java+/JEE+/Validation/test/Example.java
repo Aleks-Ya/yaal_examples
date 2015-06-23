@@ -13,7 +13,7 @@ public class Example {
         ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
         Validator validator = vf.getValidator();
 
-        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object);
+        Set<ConstraintViolation<UderValidation>> constraintViolations = validator.validate(object);
 
         System.out.println(constraintViolations);
 
