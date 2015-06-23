@@ -1,18 +1,7 @@
 /**
  * Java+
  */
-include 'Java+:JSE+:Core+:Inheritance+:CallSuper',
-        'Java+:JSE+:Core+:Inheritance+:Abstract+:Implement',
-        'Java+:JSE+:Core+:Inheritance+:InitializationSequence',
-        'Java+:JSE+:Core+:Inheritance+:Hide',
-        'Java+:JSE+:Core+:Inheritance+:DerivedFieldAvailable',
-        'Java+:JSE+:Core+:Inheritance+:DerivedConstructorInSuperClass',
-        'Java+:JSE+:Core+:Inheritance+:StaticMembersInherit',
-        'Java+:JSE+:Core+:Inheritance+:Linkage+:DerivedMethodFromSuperConstructor',
-        'Java+:JSE+:Core+:Inheritance+:Linkage+:VariablesLinkage',
-        'Java+:JSE+:Core+:Inheritance+:Linkage+:Override',
-        'Java+:JSE+:Core+:Inheritance+:Linkage+:Overload',
-        'Java+:JSE+:Core+:Inheritance+:Linkage+:EarlyAndLateLinkage',
+include 'Java+:JSE+:Core',
         'Java+:JSE+:I18n+:ResourceBundle',
         'Java+:JSE+:I18n+:Locale',
         'Java+:JSE+:RegExp',
