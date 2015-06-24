@@ -8,10 +8,10 @@ import org.junit.Test;
 public class Identifiers {
     @Test
     public void testName() {
-        Entity apple = new AppleEntity();
-        Id appleId = apple.id;
+        Entity<AppleId> apple = new AppleEntity();
+        Id<AppleEntity> appleId = apple.id;
 
-        Entity grape = new GrapeEntity();
-        Id grapeId = grape.id;
+        Entity<GrapeId> grape = new GrapeEntity();
+        Id<GrapeEntity> grapeId = grape.id;
     }
 }
