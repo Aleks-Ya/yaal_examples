@@ -1,4 +1,4 @@
-package generics;
+package generics.methods;
 
 import org.junit.Test;
 
