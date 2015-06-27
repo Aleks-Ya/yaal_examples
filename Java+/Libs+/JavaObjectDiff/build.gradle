@@ -1,0 +1,3 @@
+dependencies{
+    compile 'de.danielbechler:java-object-diff:0.92.1'
+}

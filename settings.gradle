@@ -78,6 +78,7 @@ include 'Java+:JSE+:Core',
         'Java+:Libs+:Reflections',
         'Java+:Libs+:FreeMarker',
         'Java+:Libs+:Protostuff',
+        'Java+:Libs+:JavaObjectDiff',
         'Java+:Algorithm'
 
 /**
