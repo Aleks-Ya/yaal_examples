@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class OptionalUse {
+public class OptionalTest {
     @Test
     public void use() throws Exception {
         Optional<Integer> possible = Optional.of(5);
