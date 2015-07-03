@@ -1,0 +1,3 @@
+dependencies{
+    compile 'io.grpc:grpc-all:0.7.1'
+}
