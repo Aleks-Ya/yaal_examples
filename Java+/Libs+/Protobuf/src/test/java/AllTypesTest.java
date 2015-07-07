@@ -27,6 +27,8 @@ public class AllTypesTest {
         builder.setIntegerVar(8);
         builder.addPhone(number1);
         builder.addPhone(number2);
+        builder.addIntRepeated(1);
+        builder.addIntRepeated(2);
 
         AllTypes.Person expPerson = builder.build();
 
