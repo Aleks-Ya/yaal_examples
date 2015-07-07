@@ -13,10 +13,20 @@ import static org.junit.Assert.assertEquals;
 public class AllTypesTest {
     @Test
     public void testName() throws Exception {
+        AllTypes.Person.PhoneNumber.Builder phoneNumberBuilder = AllTypes.Person.PhoneNumber.newBuilder();
+
+        phoneNumberBuilder.setNumber("777-99-33");
+        AllTypes.Person.PhoneNumber number1 = phoneNumberBuilder.build();
+
+        phoneNumberBuilder.setNumber("+7-921-789-09-66");
+        AllTypes.Person.PhoneNumber number2 = phoneNumberBuilder.build();
+
         AllTypes.Person.Builder builder = AllTypes.Person.newBuilder();
         builder.setBooleanVar(true);
         builder.setDoubleVar(1D);
         builder.setIntegerVar(8);
+        builder.addPhone(number1);
+        builder.addPhone(number2);
 
         AllTypes.Person expPerson = builder.build();
 
