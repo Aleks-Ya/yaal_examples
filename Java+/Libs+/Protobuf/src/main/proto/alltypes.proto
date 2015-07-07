@@ -1,19 +1,20 @@
 //Compile: protoc --java_out=src/main/java src/main/proto/alltypes.proto
+syntax = "proto3";
 
 option java_package = "ru.yaal.protobuf";
 
 option java_outer_classname = "AllTypes";
 
 message Person {
-    optional string name = 1;
-    optional int32 integerVar = 2;
-    optional double doubleVar = 3;
-    optional float floatVar = 4;
-    optional bytes bytesVar = 5;
-    optional bool booleanVar = 6;
-    optional string email = 7;
-    optional PhoneType enumVar = 8;
-    optional PhoneNumber objectVar = 9;
+    string name = 1;
+    int32 integerVar = 2;
+    double doubleVar = 3;
+    float floatVar = 4;
+    bytes bytesVar = 5;
+    bool booleanVar = 6;
+    string email = 7;
+    PhoneType enumVar = 8;
+    PhoneNumber objectVar = 9;
 
     enum PhoneType {
         MOBILE = 0;
@@ -22,8 +23,8 @@ message Person {
     }
 
     message PhoneNumber {
-        required string number = 1;
-        optional PhoneType type = 2 [default = HOME];
+        string number = 1;
+        PhoneType type = 2;
     }
 
     repeated PhoneNumber phone = 10;

@@ -23,15 +23,11 @@
             <plugin>
                 <groupId>com.google.protobuf.tools</groupId>
                 <artifactId>maven-protoc-plugin</artifactId>
+                <version>0.4.2</version>
                 <configuration>
                     <protocExecutable>protoc</protocExecutable>
                     <protoSourceRoot>${project.basedir}/src/main/proto/</protoSourceRoot>
-                    <languageSpecifications>
-                        <languageSpecification>
-                            <language>JAVA</language>
-                            <outputDirectory>${project.basedir}/target/generated-sources/java</outputDirectory>
-                        </languageSpecification>
-                    </languageSpecifications>
+                    <outputDirectory>${project.basedir}/target/generated-sources/java</outputDirectory>
                 </configuration>
                 <executions>
                     <execution>
@@ -55,7 +51,7 @@
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-            <version>2.6.1</version>
+            <version>3.0.0-alpha-3.1</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
