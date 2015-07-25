@@ -1,3 +1,5 @@
+package serialization;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.Test;
@@ -21,8 +23,7 @@ public class ToJson {
         Object obj = new MyObject();
 
         String jsonStr = gson.toJson(obj);
-        assertEquals(
-                "{\"number\":4,\"text\":\"abc\",\"inner\":{\"now\":\"Jul 8, 2015 6:37:19 AM\",\"sum\":18}}",
+        assertEquals("{\"number\":4,\"text\":\"abc\",\"inner\":{\"now\":\"Jul 8, 2015 6:37:19 AM\",\"sum\":18}}",
                 jsonStr);
         System.out.println(jsonStr);
     }
@@ -49,6 +50,7 @@ public class ToJson {
     class MyObject {
         int number = 4;
         String text = "abc";
+        transient boolean excluded = true;
         Inner inner = new Inner();
     }
 
