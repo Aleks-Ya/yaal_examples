@@ -2,9 +2,11 @@ package time_api;
 
 import org.junit.Test;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneOffset;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -24,5 +26,16 @@ public class Convert {
         LocalDateTime dateTime = LocalDateTime.of(date, time);
 
         assertThat(dateTime.toString(), equalTo("2015-03-25T00:00"));
+    }
+
+    @Test
+    public void localDateToInstant() {
+        LocalDate date = LocalDate.parse("2015-03-25");
+        LocalTime time = LocalTime.MIDNIGHT;
+
+        LocalDateTime dateTime = LocalDateTime.of(date, time);
+        Instant instant = dateTime.toInstant(ZoneOffset.UTC);
+
+        assertThat(instant.toString(), equalTo("2015-03-25T00:00:00Z"));
     }
 }
