@@ -12,7 +12,6 @@ public class Comparision {
     public void inInterval() {
         LocalDate since = LocalDate.of(2012, 4, 25);
         LocalDate till = LocalDate.of(2020, 1, 18);
-        LocaDateIn
 
         LocalDate localDate = LocalDate.now();
         LocalTime localTime = LocalTime.now();

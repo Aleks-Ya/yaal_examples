@@ -2,12 +2,12 @@ package time_api;
 
 import org.junit.Test;
 
-import java.time.DateTimeException;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 /**
  * Преобразование одних классов даты/времени в другие.
@@ -16,13 +16,13 @@ import static org.junit.Assert.assertEquals;
  */
 public class Convert {
 
-    /**
-     * Конвертировать из LocalDate в LocalDateTime невозможно,
-     * т.к. в LocalDate нет информации о времени.
-     */
-    @Test(expected = DateTimeException.class)
+    @Test
     public void localDateToLocalDateTime() {
         LocalDate date = LocalDate.parse("2015-03-25");
-        LocalDateTime dateTime = LocalDateTime.from(date);
+        LocalTime time = LocalTime.MIDNIGHT;
+
+        LocalDateTime dateTime = LocalDateTime.of(date, time);
+
+        assertThat(dateTime.toString(), equalTo("2015-03-25T00:00"));
     }
 }
