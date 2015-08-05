@@ -1,0 +1,6 @@
+/**
+ * Заполнение POJO сгенерированными данными.
+ */
+dependencies {
+    testCompile 'uk.co.jemos.podam:podam:6.0.1.RELEASE'
+}
