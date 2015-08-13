@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertFalse;
 
-public class CollectionUtilsUse {
+public class CollectionUtilsTest {
 
     @Test
     public void isNotEmpty() {
