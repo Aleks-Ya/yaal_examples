@@ -80,8 +80,8 @@ include 'Java+:JSE+:Core',
         'Java+:Libs+:FreeMarker',
         'Java+:Libs+:Protostuff',
         'Java+:Libs+:JavaObjectDiff',
-        'Java+:Libs+:GSON+:Gson',
-        'Java+:Libs+:GSON+:Jackson',
+        'Java+:Libs+:JSON+:Gson',
+        'Java+:Libs+:JSON+:Jackson',
         'Java+:Libs+:cglib',
         'Java+:Algorithm'
 
