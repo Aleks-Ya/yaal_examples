@@ -36,12 +36,14 @@ public class FindLighterCoinTest {
 
     @Test
     public void evenCoinsLong() {
-        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 2, 2, 2, 2, 1, 2, 2}), equalTo(5));
-    }
-
-    @Test
-    public void evenCoinsLong2() {
+        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{1, 2, 2, 2, 2, 2, 2, 2}), equalTo(0));
         assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 1, 2, 2, 2, 2, 2, 2}), equalTo(1));
+        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 2, 1, 2, 2, 2, 2, 2}), equalTo(2));
+        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 2, 2, 1, 2, 2, 2, 2}), equalTo(3));
+        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 2, 2, 2, 1, 2, 2, 2}), equalTo(4));
+        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 2, 2, 2, 2, 1, 2, 2}), equalTo(5));
+        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 2, 2, 2, 2, 2, 1, 2}), equalTo(6));
+        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 2, 2, 2, 2, 2, 2, 1}), equalTo(7));
     }
 
     @Test
@@ -51,7 +53,13 @@ public class FindLighterCoinTest {
 
     @Test
     public void oddCoinsLong() {
-        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{10, 10, 10, 10, 5, 10, 10}), equalTo(4));
+        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{1, 2, 2, 2, 2, 2, 2}), equalTo(0));
+        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 1, 2, 2, 2, 2, 2}), equalTo(1));
+        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 2, 1, 2, 2, 2, 2}), equalTo(2));
+        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 2, 2, 1, 2, 2, 2}), equalTo(3));
+        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 2, 2, 2, 1, 2, 2}), equalTo(4));
+        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 2, 2, 2, 2, 1, 2}), equalTo(5));
+        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 2, 2, 2, 2, 2, 1}), equalTo(6));
     }
 
 }

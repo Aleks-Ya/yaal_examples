@@ -30,8 +30,8 @@ public class FindLighterCoin {
         rightDisplacement = iStart + length / 2;
         cLeft = Arrays.copyOfRange(coins, leftDisplacement, leftDisplacement + length / 2);
         cRight = Arrays.copyOfRange(coins, rightDisplacement, iLastCoin + 1);
+        assert cLeft.length == cRight.length;
         if (cLeft.length > 1) {
-            assert cLeft.length == cRight.length;
             int leftWeight = 0;
             int rightWeight = 0;
             for (int i = 0; i < cLeft.length; i++) {
@@ -51,9 +51,17 @@ public class FindLighterCoin {
                         "Остальные монеты дожны быть одинакового веса.");
             }
         } else {
+            int left = cLeft[0];
+            int right = cRight[0];
             if (isEven) {
-                return cLeft[0] < cRight[0] ? leftDisplacement : rightDisplacement;
+                return left < right ? leftDisplacement : rightDisplacement;
             } else {
+                if (left < right) {
+                    return leftDisplacement;
+                }
+                if (left > right) {
+                    return rightDisplacement;
+                }
                 return iExcessCoin;
             }
         }
