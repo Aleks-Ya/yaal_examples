@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * Алгоритм поиска легкой монеты.
  */
-public class FindLighterCoin {
+class FindLighterCoin {
     static int findLighterCoinIndex(int[] coins) {
         if (coins.length < 2) {
             throw new IllegalArgumentException("Количество элементов должно быть больше 1");
