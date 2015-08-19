@@ -7,16 +7,13 @@ class PriorityQueueImpl<E> implements PriorityQueue<E> {
     public void put(E element, int priority) {
         if (first != null) {
             PriorityNode<E> node = first;
-            PriorityNode<E> prev = node;
+            PriorityNode<E> prev = null;
             while (node != null) {
                 if (node.priority < priority) {
-                    if (node.prev != null) {
-                        PriorityNode<E> newNode = new PriorityNode<>(element, priority, node.prev, node);
-                        node.prev.next = newNode;
-                        node.prev = newNode;
+                    PriorityNode<E> newNode = new PriorityNode<>(element, priority, node);
+                    if (prev != null) {
+                        prev.next = newNode;
                     } else {
-                        PriorityNode<E> newNode = new PriorityNode<>(element, priority, null, node);
-                        node.prev = newNode;
                         first = newNode;
                     }
                     return;
@@ -24,9 +21,9 @@ class PriorityQueueImpl<E> implements PriorityQueue<E> {
                 prev = node;
                 node = node.next;
             }
-            prev.next = new PriorityNode<>(element, priority, prev, null);
+            prev.next = new PriorityNode<>(element, priority, null);
         } else {
-            first = new PriorityNode<>(element, priority, null, null);
+            first = new PriorityNode<>(element, priority, null);
         }
     }
 
@@ -43,13 +40,11 @@ class PriorityQueueImpl<E> implements PriorityQueue<E> {
 
     static class PriorityNode<E> {
         int priority;
-        PriorityNode<E> prev;
         PriorityNode<E> next;
         E value;
 
-        public PriorityNode(E value, int priority, PriorityNode<E> prev, PriorityNode<E> next) {
+        public PriorityNode(E value, int priority, PriorityNode<E> next) {
             this.priority = priority;
-            this.prev = prev;
             this.value = value;
             this.next = next;
         }
