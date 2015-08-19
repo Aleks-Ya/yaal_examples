@@ -14,10 +14,10 @@ public class NodeTest {
         //init list
         final Node<Integer> first;
         {
-            Node<Integer> node = new Node<Integer>(0, null, null);
+            Node<Integer> node = new Node<>(0, null, null);
             first = node;
             for (int i = 1; i < 10; i++) {
-                Node<Integer> newNode = new Node<Integer>(i, node, null);
+                Node<Integer> newNode = new Node<>(i, node, null);
                 node.next = newNode;
                 node = newNode;
             }
@@ -29,8 +29,7 @@ public class NodeTest {
             Node<Integer> node = first;
             while (node != null) {
                 if (node.value % 3 == 0) {
-                    Node<Integer> newNode = new Node<Integer>(2005, node, node.next);
-                    node.next = newNode;
+                    node.next = new Node<>(2005, node, node.next);
                 }
                 node = node.next;
             }
