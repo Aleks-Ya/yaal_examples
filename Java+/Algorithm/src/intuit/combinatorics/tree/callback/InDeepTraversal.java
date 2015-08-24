@@ -1,4 +1,6 @@
-package intuit.combinatorics.tree;
+package intuit.combinatorics.tree.callback;
+
+import intuit.combinatorics.tree.BiNode;
 
 class InDeepTraversal {
     public static void inDeep(BiNode root, Callback callback) {

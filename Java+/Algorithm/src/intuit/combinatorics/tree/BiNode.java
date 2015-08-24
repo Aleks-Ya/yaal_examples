@@ -3,18 +3,23 @@ package intuit.combinatorics.tree;
 /**
  * Узел бинарного дерева.
  */
-class BiNode {
-    public BiNode(Object value) {
-        this.value = value;
+public class BiNode<E> {
+    public BiNode(E value) {
+        this(value, null, null);
     }
 
-    public BiNode(Object value, BiNode left, BiNode right) {
+    public BiNode(E value, BiNode<E> left, BiNode<E> right) {
         this.value = value;
         this.left = left;
         this.right = right;
     }
 
-    Object value;
-    BiNode left;
-    BiNode right;
+    public final E value;
+    public final BiNode<E> left;
+    public final BiNode<E> right;
+
+    @Override
+    public String toString() {
+        return value.toString();
+    }
 }
