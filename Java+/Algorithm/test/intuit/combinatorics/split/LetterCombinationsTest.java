@@ -2,7 +2,7 @@ package intuit.combinatorics.split;
 
 import org.junit.Test;
 
-import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
@@ -21,7 +21,7 @@ public class LetterCombinationsTest {
     @Test
     public void time() {
         long start = System.currentTimeMillis();
-        List<String> list = LetterCombinations.combine("абвгдеё");
+        Set<String> list = LetterCombinations.combine("абвгдеё");
         long finish = System.currentTimeMillis();
         System.out.printf("Time=%d ms, combinations=%d", finish - start, list.size());
     }
