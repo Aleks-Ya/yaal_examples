@@ -18,14 +18,6 @@ public class LetterCombinationsTest {
         assertThat(LetterCombinations.combine("миссисипи"), hasSize(2520));
     }
 
-    /**
-     * Изменить алгоритм так, чтобы он не переполнял стек.
-     */
-    @Test(expected = StackOverflowError.class)
-    public void stackOverflow() {
-        assertThat(LetterCombinations.combine("абвгдеёж"), hasSize(2 * 3 * 4 * 5 * 6 * 7 * 8 * 9));
-    }
-
     @Test
     public void time() {
         long start = System.currentTimeMillis();
