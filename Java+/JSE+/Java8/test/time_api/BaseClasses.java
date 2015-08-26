@@ -14,7 +14,7 @@ public class BaseClasses {
         LocalTime localTime = LocalTime.now();
         LocalDateTime localDateTime = LocalDateTime.now();
         MonthDay monthDay = MonthDay.now();
-        Instant instant = Instant.now();
+        Instant instant = Instant.from(localDate);
     }
 
     @Test
