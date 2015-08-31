@@ -28,7 +28,7 @@
     </build>
 
     <modules>
-        <module>SomeDescriptors</module>
+        <module>MultiDescriptors</module>
         <module>JarWithDependencies</module>
         <module>CustomDescriptor</module>
     </modules>
