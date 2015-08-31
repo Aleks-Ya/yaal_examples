@@ -31,6 +31,7 @@
         <module>MultiDescriptors</module>
         <module>JarWithDependencies</module>
         <module>CustomDescriptor</module>
+        <module>DependencySets</module>
     </modules>
 
     <modelVersion>4.0.0</modelVersion>
