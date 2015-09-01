@@ -1,11 +1,14 @@
 package logging;
 
+import org.junit.Test;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 
-public class LoggingMain {
-    public static void main(String[] args) {
+public class LoggingTest {
+
+    @Test
+    public void test() {
         IWork work1 = new Work1();
 
         Advisor advisor = new DefaultPointcutAdvisor(new DynamicPointcut(), new LogAdvice());

@@ -1,9 +1,12 @@
 package hello_world;
 
+import org.junit.Test;
 import org.springframework.aop.framework.ProxyFactory;
 
-public class HelloWorldExample {
-    public static void main(String[] args) {
+public class HelloWorldTest {
+
+    @Test
+    public void test() {
         MessageWriter target = new MessageWriter();
 
         ProxyFactory pf = new ProxyFactory();
