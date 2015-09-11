@@ -5,7 +5,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 
-public class EqualsMatcher extends BaseMatcher<Object> {
+class EqualsMatcher extends BaseMatcher<Object> {
     private final Object other;
 
     public EqualsMatcher(Object other) {

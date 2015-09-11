@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Самописный матечер для Hamcrest.
  */
-public class Usage {
+public class EqualsMatcherTest {
     @Test
     public void pass() {
         int a = 1;
