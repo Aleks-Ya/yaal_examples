@@ -156,4 +156,5 @@ include 'Java+:Spring+:Spring3+:AnnotationConfig+:BeanDefinition',
         'Java+:Spring+:Spring4+:Profile',
         'Java+:Spring+:Spring4+:AOP+:SpringAOP',
         'Java+:Spring+:Spring4+:AOP+:AspectJ',
+        'Java+:Spring+:Spring4+:PropertySource',
         'Java+:Git+:JGit+:CloneFetch'
