@@ -2,7 +2,19 @@ package time_api;
 
 import org.junit.Test;
 
-import java.time.*;
+import java.time.Clock;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.MonthDay;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 
 /**
  * @author yablokov a.
@@ -14,7 +26,7 @@ public class BaseClasses {
         LocalTime localTime = LocalTime.now();
         LocalDateTime localDateTime = LocalDateTime.now();
         MonthDay monthDay = MonthDay.now();
-        Instant instant = Instant.from(localDate);
+        Instant instant = Instant.now();
     }
 
     @Test

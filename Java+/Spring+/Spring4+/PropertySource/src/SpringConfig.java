@@ -11,7 +11,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
          * Можно задать путь к файлу свойств через свойства JVM: -Dconf=file:${user.dir}/resources/city2.properties
          * Если свойство "conf" не задано, будет использовано значение по-умолчанию.
          */
-        @PropertySource("${conf:file:${user.dir}/resources/city.properties}")
+        @PropertySource("${conf:file:${user.dir}/resources/city1.properties}")
 })
 public class SpringConfig {
 
