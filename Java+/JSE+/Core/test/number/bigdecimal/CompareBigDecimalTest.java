@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 import static org.junit.Assert.*;
 
-public class BigDecimalTest {
+public class CompareBigDecimalTest {
     @Test
     public void compare() {
         BigDecimal d1 = new BigDecimal(100.2);
