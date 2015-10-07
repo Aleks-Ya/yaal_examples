@@ -30,4 +30,12 @@ public class Format {
         String str = formatter.format(instant);
         assertEquals("25.03.2007 14:15:30", str);
     }
+
+    @Test
+    public void instantWithTimezone() {
+        Instant instant = Instant.parse("2007-03-25T10:15:30.00Z");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss O z VV").withZone(ZoneId.systemDefault());
+        String str = formatter.format(instant);
+        assertEquals("25.03.2007 14:15:30 GMT+4 MSD Europe/Moscow", str);
+    }
 }
