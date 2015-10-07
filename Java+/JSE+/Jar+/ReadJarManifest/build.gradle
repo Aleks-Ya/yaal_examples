@@ -1,8 +1,0 @@
-//Build: gradle
-//Run:   java -jar build/libs/ReadJarManifest-1.0.jar
-
-apply plugin:'java'
-sourceSets.main.java.srcDir 'src'
-defaultTasks('build')
-version = 1.0
-jar.manifest.attributes('title': 'ReadJarManifest', 'version': version, 'Main-Class': 'Main')

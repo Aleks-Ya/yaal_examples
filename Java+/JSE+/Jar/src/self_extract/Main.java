@@ -1,11 +1,13 @@
+package self_extract;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
+ * Чтение файла из самораспаковывающегося (SFX) архива.
  * Не работает.
  */
 public class Main {

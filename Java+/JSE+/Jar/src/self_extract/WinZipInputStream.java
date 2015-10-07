@@ -1,6 +1,8 @@
+package self_extract;
+
 import java.io.FilterInputStream;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Из http://stackoverflow.com/questions/7924895/how-can-i-read-from-a-winzip-self-extracting-exe-zip-file-in-java
