@@ -35,8 +35,6 @@ include 'Java+:JSE+:Core',
         'Java+:JSE+:gui+:swing+:Thread+:EventQueue',
         'Java+:JSE+:gui+:swing+:Thread+:SwingWorker',
         'Java+:JSE+:io+:TextFile',
-        'Java+:JSE+:Xml+:XmlUnit',
-        'Java+:JSE+:Xml+:XQuery+:BaseX',
         'Java+:JSE+:JMX+:HelloMBean',
         'Java+:JSE+:JMX+:CustomJmxClient',
         'Java+:JSE+:JMX+:Notifications',
@@ -86,6 +84,8 @@ include 'Java+:JSE+:Core',
         'Java+:Libs+:JSON+:Gson',
         'Java+:Libs+:JSON+:Jackson',
         'Java+:Libs+:cglib',
+        'Java+:Libs+:Xml+:XmlUnit',
+        'Java+:Libs+:Xml+:XQuery+:BaseX',
         'Java+:Algorithm'
 
 /**
