@@ -1,0 +1,33 @@
+import org.hamcrest.Matchers;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import org.junit.Test;
+
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertThat;
+
+public class ParseTest {
+    @Test
+    public void findDiv() {
+        String html = "<html>" +
+                "<head>" +
+                "<title>First parse</title>" +
+                "</head>"
+                + "<body>" +
+                "<p>Parsed HTML into a doc.</p>" +
+                "<div>Part 1</div>" +
+                "<div>Part 2</div>" +
+                "</body>" +
+                "</html>";
+        Document doc = Jsoup.parse(html);
+
+        assertThat(doc.title(), equalTo("First parse"));
+
+        Elements divs = doc.body().getElementsByTag("div");
+        assertThat(divs, hasSize(2));
+        assertThat(divs.get(0).text(), Matchers.equalTo("Part 1"));
+        assertThat(divs.get(1).text(), Matchers.equalTo("Part 2"));
+    }
+}

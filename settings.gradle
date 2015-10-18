@@ -86,6 +86,8 @@ include 'Java+:JSE+:Core',
         'Java+:Libs+:cglib',
         'Java+:Libs+:Xml+:XmlUnit',
         'Java+:Libs+:Xml+:XQuery+:BaseX',
+        'Java+:Libs+:HTML+:ParsingWithRegexp',
+        'Java+:Libs+:HTML+:jsoup',
         'Java+:Algorithm'
 
 /**
