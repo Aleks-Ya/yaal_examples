@@ -1,4 +1,3 @@
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.regex.Pattern;
@@ -12,16 +11,14 @@ import static org.junit.Assert.assertTrue;
 public class LookAround {
 
     /**
-     * Строка не должна начинаться со слова "fail".
+     * Строка не должна заканчиваться словом "fail".
      */
     @Test
-    @Ignore("Не работает, сука")
     public void notEndWith() {
-        Pattern p = Pattern.compile("^.*(?!fail)$");
-        assertTrue(p.matcher("/app/check/success").matches());
-        assertTrue(p.matcher("/fail/check").matches());
-        assertTrue(p.matcher("fail/app/success/check").matches());
-        assertFalse(p.matcher("/app/success/fail").matches());
+        Pattern p = Pattern.compile("^.*(?<!hede)$");
+        assertTrue(p.matcher("hede obsolete").matches());
+        assertTrue(p.matcher("obsolete hede obsolete").matches());
+        assertFalse(p.matcher("obsolete hede").matches());
     }
 
     /**
