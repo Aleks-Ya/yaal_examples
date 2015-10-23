@@ -9,6 +9,7 @@ import static org.hamcrest.Matchers.equalToIgnoringWhiteSpace;
 import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.isEmptyString;
+import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.Matchers.startsWith;
 import static org.hamcrest.Matchers.stringContainsInOrder;
 import static org.junit.Assert.assertThat;
@@ -32,4 +33,8 @@ public class StringAssert {
         assertThat("Gangalee Step", equalToIgnoringWhiteSpace("GaNgAlEe\nStep\t"));
     }
 
+    @Test
+    public void regExp() {
+        assertThat("obsolete hede", matchesPattern("^.*ete.*$"));
+    }
 }
