@@ -1,15 +1,13 @@
 import org.junit.Test;
 
-import java.util.regex.Pattern;
-
 import static org.junit.Assert.assertTrue;
 
 /**
- * @author Aleksey Yablokov
+ * Предопределенные символьные классы: \d
  */
 public class PredefinedSymbolClasses {
     @Test
-    public void digits() throws Exception {
-        assertTrue(Pattern.matches("a\\d+b", "a567b"));
+    public void digits() {
+        assertTrue("a567b".matches("a\\d+b"));
     }
 }

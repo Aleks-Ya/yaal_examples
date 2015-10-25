@@ -15,9 +15,9 @@ public class CaseInsensitive {
      */
     @Test
     public void flag() {
-        assertTrue(Pattern.matches("(?i)a", "A"));
-        assertTrue(Pattern.matches("(?i)\u0064", "\u0044"));
-        assertFalse(Pattern.matches("(?-i)a", "A"));
+        assertTrue("A".matches("(?i)a"));
+        assertTrue("\u0044".matches("(?i)\u0064"));
+        assertFalse("A".matches("(?-i)a"));
     }
 
     /**
@@ -26,5 +26,6 @@ public class CaseInsensitive {
     @Test
     public void magicConstant() {
         assertTrue(Pattern.compile("a", Pattern.CASE_INSENSITIVE).matcher("A").matches());
+        assertFalse(Pattern.compile("a").matcher("A").matches());
     }
 }
