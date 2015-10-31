@@ -1,4 +1,4 @@
-package npe;
+package optional;
 
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Использование класса-обертки Optional для замены null-значений.
  */
-public class OptionalUse {
+public class OptionalTest {
 
     /**
      * Использование Optional#of.
@@ -53,6 +53,16 @@ public class OptionalUse {
     public void ofNullable() {
         Optional<Book> bookOptional = Optional.ofNullable(null);
         assertFalse(bookOptional.isPresent());
+    }
+
+    /**
+     * Избегание проверки на NPE с помощью маппинга Optional#map.
+     */
+    @Test
+    public void map() {
+        String s = null;
+        Optional<Integer> opt = Optional.ofNullable(s).map(String::length);
+        assertFalse(opt.isPresent());
     }
 
     /**
