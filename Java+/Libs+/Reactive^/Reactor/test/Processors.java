@@ -11,4 +11,11 @@ public class Processors {
                 .filter(s -> s != null)
                 .consume(System.out::println);
     }
+
+    @Test
+    public void observe() {
+        Streams.just("a", "b")
+                .observe(System.out::println)
+                .consume();
+    }
 }
