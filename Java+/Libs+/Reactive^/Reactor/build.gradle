@@ -1,0 +1,4 @@
+dependencies {
+    compile "io.projectreactor:reactor-core:2.0.6.RELEASE"
+    compile "io.projectreactor:reactor-stream:2.0.6.RELEASE"
+}
