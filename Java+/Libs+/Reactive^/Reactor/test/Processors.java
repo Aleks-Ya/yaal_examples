@@ -18,4 +18,12 @@ public class Processors {
                 .observe(System.out::println)
                 .consume();
     }
+
+    @Test
+    public void groupBy() {
+        Streams.just("a", "b", "cc", "dd")
+                .groupBy(String::length)
+                .observe(stream -> stream.consume(s -> System.out.println(stream.key() + " - " + s)))
+                .consume();
+    }
 }
