@@ -29,9 +29,9 @@ public class CollectorTest {
      */
     @Test
     public void sum() {
-        Stream<String> stream = Stream.of("a", "b");
-        Collector<String, ?, StringBuilder> collector = Collector.of(
-        );
-        stream.collect(collector);
+//        Stream<String> stream = Stream.of("a", "b");
+//        Collector<String, ?, StringBuilder> collector = Collector.of(
+//        );
+//        stream.collect(collector);
     }
 }
