@@ -1,3 +1,5 @@
+package broadcaster;
+
 import org.junit.Test;
 import reactor.rx.Stream;
 import reactor.rx.broadcast.Broadcaster;
