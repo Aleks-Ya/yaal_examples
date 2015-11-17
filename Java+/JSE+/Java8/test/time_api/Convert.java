@@ -43,6 +43,13 @@ public class Convert {
     }
 
     @Test
+    public void localDateToInstant() {
+        LocalDate date = LocalDate.parse("2015-03-25");
+        Instant instant = date.atStartOfDay().toInstant(ZoneOffset.UTC);
+        assertThat(instant.toString(), equalTo("2015-03-25T00:00:00Z"));
+    }
+
+    @Test
     public void instantToLocalDateTime() {
         Instant instant = Instant.parse("2007-03-25T10:15:30.00Z");
         LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
