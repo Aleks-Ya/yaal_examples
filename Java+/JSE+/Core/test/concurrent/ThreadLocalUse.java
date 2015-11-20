@@ -1,10 +1,14 @@
+package concurrent;
+
+import org.junit.Test;
+
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-class ThreadLocalUse {
+public class ThreadLocalUse {
     private static Runnable work = new Runnable() {
         private ThreadLocal<Date> date = new ThreadLocal<Date>() {
             @Override
@@ -20,7 +24,8 @@ class ThreadLocalUse {
         }
     };
 
-    public static void main(String[] args) throws InterruptedException {
+    @Test
+    public void test() throws InterruptedException {
         ExecutorService se = Executors.newFixedThreadPool(2);
         se.submit(work);
         TimeUnit.SECONDS.sleep(2);

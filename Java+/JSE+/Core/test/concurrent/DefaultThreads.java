@@ -1,3 +1,7 @@
+package concurrent;
+
+import org.junit.Test;
+
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
@@ -9,8 +13,10 @@ import java.util.List;
  * Компиляция: {@code javac DefautlThreads.java}
  * Запуск: {@code java DefaultThreads}
  */
-class DefaultThreads {
-    public static void main(String[] args) throws InterruptedException {
+public class DefaultThreads {
+
+    @Test
+    public void main() throws InterruptedException {
         while (true) {
             printThreads("by Thread.getAllStackTraces()", threadsByStackTraces());
             printThreads("by thread groups", threadsByThreadGroups());
