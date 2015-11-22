@@ -6,9 +6,11 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -62,5 +64,12 @@ public class Convert {
         LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
         LocalDate date = LocalDate.ofEpochDay(dateTime.getLong(ChronoField.EPOCH_DAY));
         assertThat(date.toString(), equalTo("2007-03-25"));
+    }
+
+    @Test
+    public void yearMonthToInstant() {
+        YearMonth yearMonth = YearMonth.parse("2007-03");
+        Instant instant = yearMonth.atEndOfMonth().atStartOfDay().toInstant(ZoneOffset.UTC);
+        assertThat(instant.toString(), equalTo("2007-03-31T00:00:00Z"));
     }
 }
