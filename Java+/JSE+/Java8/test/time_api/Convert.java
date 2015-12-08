@@ -11,6 +11,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -33,8 +34,8 @@ public class Convert {
     @Test
     public void localDateTimeToLocalDate() {
         LocalDateTime dateTime = LocalDateTime.parse("2015-03-25T10:15:30");
-        LocalDate date = LocalDate.ofEpochDay(dateTime.getLong(ChronoField.EPOCH_DAY));
-        assertThat(date.toString(), equalTo("2015-03-25"));
+        LocalDate localDate = LocalDate.ofEpochDay(dateTime.getLong(ChronoField.EPOCH_DAY));
+        assertThat(localDate.toString(), equalTo("2015-03-25"));
     }
 
     @Test
@@ -71,5 +72,12 @@ public class Convert {
         YearMonth yearMonth = YearMonth.parse("2007-03");
         Instant instant = yearMonth.atEndOfMonth().atStartOfDay().toInstant(ZoneOffset.UTC);
         assertThat(instant.toString(), equalTo("2007-03-31T00:00:00Z"));
+    }
+
+    @Test
+    public void dateToLocalDate() {
+        Date date = Date.from(Instant.parse("2007-03-25T10:15:30.00Z"));
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        assertThat(localDate.toString(), equalTo("2007-03-25"));
     }
 }
