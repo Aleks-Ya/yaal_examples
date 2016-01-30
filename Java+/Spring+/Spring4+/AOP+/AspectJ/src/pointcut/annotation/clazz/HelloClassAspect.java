@@ -12,11 +12,7 @@ import org.springframework.stereotype.Component;
 @EnableAspectJAutoProxy
 public class HelloClassAspect {
 
-    @Pointcut("within(@pointcut.annotation.clazz.HelloClass *)")
-    public void helloClassAnnotation() {
-    }
-
-    @Around("helloClassAnnotation()")
+    @Around("within(@pointcut.annotation.clazz.HelloClass *)")
     public Object addHello(ProceedingJoinPoint pjp) throws Throwable {
         System.out.print("Hello, ");
         Object retVal = pjp.proceed();

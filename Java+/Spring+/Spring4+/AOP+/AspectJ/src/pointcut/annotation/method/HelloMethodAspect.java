@@ -11,11 +11,8 @@ import org.springframework.stereotype.Component;
 @Aspect
 @EnableAspectJAutoProxy
 public class HelloMethodAspect {
-    @Pointcut("@annotation(pointcut.annotation.method.HelloMethod)")
-    public void methodsHelloAnnotated() {
-    }
 
-    @Around("methodsHelloAnnotated()")
+    @Around("@annotation(pointcut.annotation.method.HelloMethod)")
     public Object addHello(ProceedingJoinPoint pjp) throws Throwable {
         System.out.print("Hello, ");
         Object retVal = pjp.proceed();
