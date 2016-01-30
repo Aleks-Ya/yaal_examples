@@ -8,8 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @ContextConfiguration(classes = {
         HelloClassAspect.class,
-        Messenger.class,
-        Config.class
+        Messenger.class
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ClassAnnotationPointcutTest {
