@@ -10,16 +10,15 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 @EnableAspectJAutoProxy
-public class HelloAspect {
-    @Pointcut("execution(* pointcut.execution.MessageWriter.*(..))")
+public class ConverterAspect {
+    static final String PREFIX = "ASPECT: ";
+
+    @Pointcut("execution(public String pointcut.execution.Converter.toUpperCase(String))")
     public void allMessageWriterMethods() {
     }
 
     @Around("allMessageWriterMethods()")
     public Object addHello(ProceedingJoinPoint pjp) throws Throwable {
-        System.out.print("Hello, ");
-        Object retVal = pjp.proceed();
-        System.out.println("!");
-        return retVal;
+        return PREFIX + pjp.proceed();
     }
 }

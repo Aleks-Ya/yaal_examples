@@ -6,18 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
+
 @ContextConfiguration(classes = {
-        HelloAspect.class,
-        MessageWriter.class
+        ConverterAspect.class,
+        Converter.class
 })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ExecutionPointcutTest {
+public class ConverterTest {
 
     @Autowired
-    MessageWriter writer;
+    Converter writer;
 
     @Test
     public void test() {
-        writer.writeMessage();
+        assertThat(writer.toUpperCase("a"), equalTo(ConverterAspect.PREFIX + "A"));
     }
 }
