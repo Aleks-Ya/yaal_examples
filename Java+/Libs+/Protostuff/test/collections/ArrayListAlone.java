@@ -42,20 +42,18 @@ public class ArrayListAlone {
         return wrapper.read();
     }
 
-}
+    private static class Wrapper<T> {
+        private T object;
 
-class Wrapper<T> {
-    private T object;
+        Wrapper() {
+        }
 
-    public Wrapper() {
+        Wrapper(T object) {
+            this.object = object;
+        }
+
+        T read() {
+            return object;
+        }
     }
-
-    public Wrapper(T object) {
-        this.object = object;
-    }
-
-    public T read() {
-        return object;
-    }
-
 }

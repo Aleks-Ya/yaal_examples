@@ -9,9 +9,6 @@ import org.junit.Test;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotSame;
 
-/**
- * @author yablokov a.
- */
 public class ToByteArray {
     @Test
     public void oneClass() {
@@ -27,8 +24,9 @@ public class ToByteArray {
         assertNotSame(exp, act);
         assertEquals(exp.a, act.a);
     }
+
+    private static class ForSerialization {
+        int a = 1;
+    }
 }
 
-class ForSerialization {
-    int a = 1;
-}

@@ -32,29 +32,28 @@ public class ArrayListAsField {
         assertEquals(exp, act);
         assertEquals(exp.list, act.list);
     }
-}
 
-class WithArrayList {
-    List<String> list;
+    private static class WithArrayList {
+        List<String> list;
 
-    public WithArrayList(String... items) {
-        list = new ArrayList<>();
-        Collections.addAll(list, items);
-    }
+        WithArrayList(String... items) {
+            list = new ArrayList<>();
+            Collections.addAll(list, items);
+        }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
 
-        WithArrayList that = (WithArrayList) o;
+            WithArrayList that = (WithArrayList) o;
 
-        return !(list != null ? !list.equals(that.list) : that.list != null);
+            return !(list != null ? !list.equals(that.list) : that.list != null);
+        }
 
-    }
-
-    @Override
-    public int hashCode() {
-        return list != null ? list.hashCode() : 0;
+        @Override
+        public int hashCode() {
+            return list != null ? list.hashCode() : 0;
+        }
     }
 }
