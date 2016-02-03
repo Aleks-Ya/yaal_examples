@@ -1,8 +1,5 @@
 package reflection.annotation_processor.print_method_name;
 
-/**
- * @author yablokov a.
- */
 public class ClassForProcessing {
 
     @PrintMethodNameAnnotation

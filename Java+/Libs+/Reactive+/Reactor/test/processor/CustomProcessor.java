@@ -8,7 +8,6 @@ import reactor.rx.Stream;
 import reactor.rx.Streams;
 
 /**
- * @author Yablokov Aleksey
  * Не доделал.
  */
 public class CustomProcessor {

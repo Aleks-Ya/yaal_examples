@@ -2,8 +2,6 @@ package knuth.first;
 
 /**
  * Алгоритм Эвклида (стр. 28).
- *
- * @author yablokov a.
  */
 public class GreatestCommonDivisor {
     public static int calculate(int m, int n) {

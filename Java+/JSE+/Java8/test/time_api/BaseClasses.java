@@ -16,9 +16,6 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
-/**
- * @author yablokov a.
- */
 public class BaseClasses {
     @Test
     public void local() {

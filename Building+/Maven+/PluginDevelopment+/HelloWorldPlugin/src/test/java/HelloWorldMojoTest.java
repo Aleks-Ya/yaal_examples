@@ -11,8 +11,6 @@ import static org.junit.Assert.assertTrue;
 /**
  * Перед запуском теста необходимо поместить тестируемый плагин в локальный репозитарий:
  * mvn -DskipTests clean install
- *
- * @author yablokov a.
  */
 public class HelloWorldMojoTest {
     @Rule

@@ -13,8 +13,6 @@ import java.util.Set;
 /**
  * Запуск: javac -cp ./build/classes/main -processor reflection.annotation_processor.print_method_name.PrintMethodNameAnnotationProcessor /home/aleks/examples/Java+/JSE+/Core+/src/reflection/annotation_processor/print_method_name/ClassForProcessing.java
  * Отладка: javac -J-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8000 -cp ./build/classes/main -processor reflection.annotation_processor.print_method_name.PrintMethodNameAnnotationProcessor /home/aleks/examples/Java+/JSE+/Core+/src/reflection/annotation_processor/print_method_name/ClassForProcessing.java
- *
- * @author yablokov a.
  */
 @SupportedAnnotationTypes("reflection.annotation_processor.print_method_name.PrintMethodNameAnnotation")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)

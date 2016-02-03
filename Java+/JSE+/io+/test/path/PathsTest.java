@@ -11,9 +11,6 @@ import java.nio.file.Paths;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
-/**
- * @author Yablokov Aleksey
- */
 public class PathsTest {
     @Test
     public void get() {

@@ -6,8 +6,6 @@ import static com.google.testing.compile.JavaSourceSubjectFactory.javaSource;
 
 /**
  * Компилируемый файл представлен строкой.
- *
- * @author yablokov a.
  */
 public class ClassAsString {
 

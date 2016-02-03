@@ -10,9 +10,6 @@ import java.io.Writer;
 import java.util.Collections;
 import java.util.Set;
 
-/**
- * @author yablokov a.
- */
 public class GenerateProcessor extends AbstractProcessor {
     private static boolean generated = false;
 

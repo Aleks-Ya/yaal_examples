@@ -3,9 +3,6 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
 
-/**
- * @author Yablokov Aleksey
- */
 public class RxJavaHelloWorld {
     @Test
     public void superCompact() {

@@ -8,8 +8,6 @@ import java.lang.annotation.Target;
 /**
  * Annotation Processor должен вывести в консоль имя метода,
  * отмеченного данной аннотацией.
- *
- * @author yablokov a.
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.SOURCE)

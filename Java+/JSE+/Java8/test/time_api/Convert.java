@@ -18,8 +18,6 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Преобразование одних классов даты/времени в другие.
- *
- * @author yablokov a.
  */
 public class Convert {
 

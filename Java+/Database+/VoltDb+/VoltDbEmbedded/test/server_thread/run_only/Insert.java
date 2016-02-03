@@ -15,8 +15,6 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * JVM parameter: -Djava.library.path=libs
- *
- * @author yablokov a.
  */
 public class Insert {
     private static Client client;

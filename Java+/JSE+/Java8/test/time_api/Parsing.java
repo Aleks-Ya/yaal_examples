@@ -12,8 +12,6 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  * Парсинг строк с датами и временем.
- *
- * @author yablokov a.
  */
 public class Parsing {
     @Test

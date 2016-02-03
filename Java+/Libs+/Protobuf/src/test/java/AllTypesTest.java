@@ -7,9 +7,6 @@ import java.io.InputStream;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * @author Yablokov Aleksey
- */
 public class AllTypesTest {
     @Test
     public void testName() throws Exception {

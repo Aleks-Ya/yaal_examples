@@ -11,8 +11,6 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Форматирование дат.
- *
- * @author yablokov a.
  */
 public class Format {
     @Test

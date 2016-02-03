@@ -10,8 +10,6 @@ import static com.google.testing.compile.JavaSourceSubjectFactory.javaSource;
 
 /**
  * Компилируемый класс хранится в файле.
- *
- * @author yablokov a.
  */
 public class ClassAsFile {
 
