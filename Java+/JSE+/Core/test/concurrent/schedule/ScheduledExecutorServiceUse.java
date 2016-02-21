@@ -1,4 +1,4 @@
-package concurrent;
+package concurrent.schedule;
 
 import org.junit.Test;
 
