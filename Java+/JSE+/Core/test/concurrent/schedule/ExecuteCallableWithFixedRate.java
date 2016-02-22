@@ -30,9 +30,9 @@ public class ExecuteCallableWithFixedRate {
         assertThat(future.get(), equalTo(text));
 
 
-//        int period = 2;
-//        int initialDelay = 0;
-//        executor.scheduleAtFixedRate((Runnable) () -> System.out.println("period"), initialDelay, period, TimeUnit.SECONDS);
-//        Thread.sleep(10_000);
+        int period = 2;
+        int initialDelay = 0;
+//        executor.scheduleAtFixedRate(callable, initialDelay, period, TimeUnit.SECONDS);
+        Thread.sleep(10_000);
     }
 }

@@ -1,4 +1,5 @@
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-@ContextConfiguration(classes = SpringConfig.class)
+@ContextConfiguration(classes = {SpringConfig.class, PropertiesPojo.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class PropertiesSourceTest {
 
@@ -19,6 +20,9 @@ public class PropertiesSourceTest {
 
     @Value("${best.city}")
     private String bestCity;
+
+    @Autowired
+    private PropertiesPojo pojo;
 
     @Autowired
     private Environment env;
@@ -33,5 +37,12 @@ public class PropertiesSourceTest {
     public void environmentFromClasspath() {
         assertThat(env.getProperty("my.name"), equalTo("aleks"));
         assertThat(env.getProperty("best.city"), equalTo("SPB"));
+    }
+
+    @Test
+    @Ignore("что-то не работает")
+    public void pojo() {
+        assertThat(pojo.getMyNameFromProperty(), equalTo("aleks"));
+        assertThat(pojo.getBestCity(), equalTo("SPB"));
     }
 }
