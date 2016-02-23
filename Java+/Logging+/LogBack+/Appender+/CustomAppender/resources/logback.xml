@@ -1,0 +1,5 @@
+<configuration>
+    <root level="debug">
+        <appender name="my" class="appender.MyConsoleAppender"/>
+    </root>
+</configuration>
