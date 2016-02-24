@@ -1,5 +1,11 @@
 <configuration>
+    <appender name="my" class="appender.MyConsoleAppender">
+        <encoder>
+            <pattern>logback.xml: %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <root level="debug">
-        <appender name="my" class="appender.MyConsoleAppender"/>
+        <appender-ref ref="my"/>
     </root>
 </configuration>
