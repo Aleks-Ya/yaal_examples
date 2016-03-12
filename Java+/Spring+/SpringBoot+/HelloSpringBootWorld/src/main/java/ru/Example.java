@@ -17,6 +17,9 @@ public class Example {
     @Autowired
     private Settings settings;
 
+    /**
+     * http://localhost:8080/
+     */
     @RequestMapping("/")
     String home() {
         return settings.getMessage();
