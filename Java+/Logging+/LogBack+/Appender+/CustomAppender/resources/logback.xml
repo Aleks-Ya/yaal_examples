@@ -1,5 +1,6 @@
 <configuration>
     <appender name="my" class="appender.MyConsoleAppender">
+        <prefix>PREFIX_</prefix>
         <encoder>
             <pattern>logback.xml: %msg%n</pattern>
         </encoder>

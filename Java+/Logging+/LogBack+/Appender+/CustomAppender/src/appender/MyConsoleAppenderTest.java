@@ -8,5 +8,4 @@ public class MyConsoleAppenderTest {
 
     public static void main(String[] args) throws InterruptedException {
         log.info("Hi");
-    }
-}
+    }}
