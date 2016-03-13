@@ -4,7 +4,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.AppenderBase;
 
 /**
- * @author Yablokov Aleksey
+ * Custom appender with parameter.
  */
 public class MyConsoleAppender extends AppenderBase<ILoggingEvent> {
     private String prefix;
