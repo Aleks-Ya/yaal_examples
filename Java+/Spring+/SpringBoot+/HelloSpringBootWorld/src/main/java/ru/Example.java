@@ -22,7 +22,7 @@ public class Example {
      */
     @RequestMapping("/")
     String home() {
-        return settings.getMessage();
+        return settings.getMessage() + ", " + settings.getSystem().getStatus();
     }
 
     public static void main(String[] args) throws Exception {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 public class Settings {
     @NotEmpty
     private String message;
+    private System system;
 
     public String getMessage() {
         return message;
@@ -17,5 +18,25 @@ public class Settings {
     @SuppressWarnings("unused")
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public System getSystem() {
+        return system;
+    }
+
+    public void setSystem(System system) {
+        this.system = system;
+    }
+
+    public static class System {
+        private String status;
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
     }
 }
