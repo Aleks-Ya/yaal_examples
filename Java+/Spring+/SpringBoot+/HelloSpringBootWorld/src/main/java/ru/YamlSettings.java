@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Configuration
 @ConfigurationProperties
-public class YamlSettings {
+class YamlSettings {
     @NotEmpty
     private String suffix;
 
