@@ -11,18 +11,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @EnableAutoConfiguration
 @EnableConfigurationProperties
-@Import(PropertiesSettings.class)
+@Import({PropertiesSettings.class, YamlSettings.class})
 public class Example {
 
     @Autowired
     private PropertiesSettings propertiesSettings;
+    @Autowired
+    private YamlSettings yamlSettings;
 
     /**
      * http://localhost:8080/
      */
     @RequestMapping("/")
     String home() {
-        return propertiesSettings.getMessage() + ", " + propertiesSettings.getSystem().getStatus();
+        return propertiesSettings.getMessage() + " " + propertiesSettings.getSystem().getStatus() + " " + yamlSettings.getSuffix();
     }
 
     public static void main(String[] args) throws Exception {
