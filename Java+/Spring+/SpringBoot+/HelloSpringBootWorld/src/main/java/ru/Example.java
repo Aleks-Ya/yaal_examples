@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @EnableAutoConfiguration
 @EnableConfigurationProperties
-@Import(Settings.class)
+@Import(PropertiesSettings.class)
 public class Example {
 
     @Autowired
-    private Settings settings;
+    private PropertiesSettings propertiesSettings;
 
     /**
      * http://localhost:8080/
      */
     @RequestMapping("/")
     String home() {
-        return settings.getMessage() + ", " + settings.getSystem().getStatus();
+        return propertiesSettings.getMessage() + ", " + propertiesSettings.getSystem().getStatus();
     }
 
     public static void main(String[] args) throws Exception {

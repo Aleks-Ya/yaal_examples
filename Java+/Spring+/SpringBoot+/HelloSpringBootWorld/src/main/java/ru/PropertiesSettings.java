@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix = "configuration")
-public class Settings {
+public class PropertiesSettings {
     @NotEmpty
     private String message;
     private System system;
