@@ -8,8 +8,8 @@
         <version>1</version>
     </parent>
 
-    <artifactId>ExecutableJar</artifactId>
-    <description>Сборка jar с зависимостями</description>
+    <artifactId>ManifestClasspath</artifactId>
+    <description>Формирование classpath в манифесте jar</description>
 
     <build>
         <plugins>
@@ -19,8 +19,12 @@
                     <archive>
                         <manifest>
                             <mainClass>myjar.Main</mainClass>
-                            <!-- <addClasspath>true</addClasspath>-->
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
+                        <manifestEntries>
+                            <Class-Path>lib/sapjco3.jar lib/libsapjco3.so</Class-Path>
+                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>
