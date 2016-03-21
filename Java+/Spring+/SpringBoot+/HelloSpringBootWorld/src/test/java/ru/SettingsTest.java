@@ -26,6 +26,10 @@ public class SettingsTest {
 
     @Test
     public void yaml() {
-        assertThat(yaml.getSuffix(), equalTo("Good bye!"));
+        assertThat(yaml.isEnabled(), equalTo(true));
+        assertThat(yaml.getMessage().getPrefix(), equalTo("Hi, everybody!"));
+        assertThat(yaml.getMessage().getSuffix(), equalTo("Good bye!"));
+        assertThat(yaml.getMessage().getUnderwrite(), equalTo(""));
     }
+
 }

@@ -24,7 +24,12 @@ public class Example {
      */
     @RequestMapping("/")
     String home() {
-        return propertiesSettings.getMessage() + " " + propertiesSettings.getSystem().getStatus() + " " + yamlSettings.getSuffix();
+        return String.format("%s %s %s %s",
+                yamlSettings.getMessage().getPrefix(),
+                propertiesSettings.getMessage(),
+                propertiesSettings.getSystem().getStatus(),
+                yamlSettings.getMessage().getSuffix()
+        );
     }
 
     public static void main(String[] args) throws Exception {
