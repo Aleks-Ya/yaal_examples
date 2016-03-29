@@ -1,4 +1,4 @@
-package newbean;
+package beans;
 
 import org.springframework.stereotype.Component;
 
