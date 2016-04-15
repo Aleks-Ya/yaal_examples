@@ -1,6 +1,10 @@
 #!/bin/bash
 
-text="Commit >>>master lalala"
-#text="Commit >>>master"
-echo "$(echo ${text} | egrep -o ">>>.* ?")_"
-echo "$(echo ${text} | grep -Po ">>>.*[\s$]" | xargs)_"
+function branch {
+    echo "$(echo $1 | grep -oP '(?<=>>>)\S*')"
+}
+
+echo "a=$(branch "Commit >>>master aa")"
+echo "b=$(branch "Commit >>>master")"
+echo "c=$(branch ">>>master abc")"
+echo "d=$(branch ">>>master")"
