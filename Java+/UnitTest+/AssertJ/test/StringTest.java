@@ -21,9 +21,6 @@ public class StringTest {
     public void stringIterableMatchesPattern() {
         Iterable<String> strings = Arrays.asList("a", "b");
         Pattern pattern = Pattern.compile("[ab]");
-//        assertThat(strings).matches(pattern);
-//        assertThat(strings).asString().matches(pattern);
-//        assertThat(strings).allMatch(string -> pattern.matcher(string).matches());
-        assertThat(strings).as("Pattern: %s", pattern).allMatch(string -> pattern.matcher(string).matches());
+        strings.forEach(string -> assertThat(string).matches(pattern));
     }
 }
