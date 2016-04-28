@@ -7,3 +7,12 @@ if [[ "$name" == release/* ]] || [[ "$name" == feature/* ]]
 else
     echo "no"
 fi
+
+name="feature/gvc-3"
+isMaster=$()
+if [[ "$name" == release/* ]] || [[ "$name" == feature/* ]]
+ then
+    echo "yes"
+else
+    echo "no"
+fi

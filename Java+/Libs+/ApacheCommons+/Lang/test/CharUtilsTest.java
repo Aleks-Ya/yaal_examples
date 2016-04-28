@@ -1,7 +1,7 @@
 import org.apache.commons.lang3.CharUtils;
 import org.junit.Test;
 
-public class CharUtilsUse {
+public class CharUtilsTest {
     @Test
     public void testName() {
         //удилить
