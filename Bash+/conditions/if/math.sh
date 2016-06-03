@@ -13,7 +13,7 @@
 @test "more or equals" {
     a=2
     b=2
-    if (( "${b}" >= "${a}" )); then
+    if (( "${b}" >= 2 )); then
         return 0
     else
         return 1
