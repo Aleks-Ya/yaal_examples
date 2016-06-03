@@ -1,4 +1,4 @@
-package arrays;
+package array.arrays;
 
 import org.junit.Test;
 
