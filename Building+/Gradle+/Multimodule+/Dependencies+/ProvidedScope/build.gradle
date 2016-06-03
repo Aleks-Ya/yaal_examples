@@ -30,7 +30,7 @@ sourceSets {
 
 
 dependencies {
-    provided 'joda-time:joda-time:2.7'
+    provided 'joda-time:joda-time:2.9.4'
 }
 repositories {
     mavenCentral()

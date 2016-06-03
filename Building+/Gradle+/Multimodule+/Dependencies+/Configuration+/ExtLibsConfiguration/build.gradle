@@ -4,7 +4,7 @@ sourceSets.test.java.srcDir 'test'
 
 ext.libs = [
         joda: [
-                "joda-time:joda-time:2.3"
+                "joda-time:joda-time:2.9.4"
         ],
         spring: [
                 'org.springframework:spring-context:3.2.4.RELEASE'

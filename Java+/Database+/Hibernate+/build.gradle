@@ -8,7 +8,7 @@ configure(subprojects - project(':Java+:Database+:Hibernate+:HibernateSessionFac
     dependencies {
         compile h2Version,
                 hibernateCoreVersion,
-                'joda-time:joda-time:2.7',
+                'joda-time:joda-time:2.9.4',
                 project(':Java+:Database+:Hibernate+:HibernateSessionFactory')
     }
 }
