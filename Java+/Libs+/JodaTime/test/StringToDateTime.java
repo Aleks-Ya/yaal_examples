@@ -4,7 +4,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 
-public class ParsingString {
+public class StringToDateTime {
 
     @Test
     public void useMethodParse() {
