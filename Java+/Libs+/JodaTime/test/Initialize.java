@@ -7,7 +7,7 @@ import org.junit.Test;
 public class Initialize {
 
     @Test
-    public void decrement() {
+    public void init() {
         new DateTime(2015, 3, 25, 15, 45, 20);
     }
 }
