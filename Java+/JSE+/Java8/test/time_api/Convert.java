@@ -9,8 +9,8 @@ import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -77,5 +77,12 @@ public class Convert {
         Date date = Date.from(Instant.parse("2007-03-25T10:15:30.00Z"));
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         assertThat(localDate.toString(), equalTo("2007-03-25"));
+    }
+
+    @Test
+    public void zonedDateTimeToInstant() {
+        ZonedDateTime date = ZonedDateTime.of(2007, 3, 25, 10, 15, 30, 5, ZoneId.of("+01:00"));
+        Instant instant = date.toInstant();
+        assertThat(instant.toString(), equalTo("2007-03-25T09:15:30.000000005Z"));
     }
 }
