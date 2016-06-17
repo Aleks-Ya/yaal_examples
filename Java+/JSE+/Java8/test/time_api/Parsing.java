@@ -6,9 +6,13 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 /**
  * Парсинг строк с датами и временем.
@@ -37,5 +41,16 @@ public class Parsing {
     @Test
     public void yearMonth() {
         assertNotNull(YearMonth.parse("2007-03"));
+    }
+
+    @Test
+    public void zonedDateTime() {
+        ZonedDateTime exp1 = ZonedDateTime.of(2007, 12, 3, 10, 15, 30, 0, ZoneId.of("Europe/Paris"));
+        assertThat(ZonedDateTime.parse("2007-12-03T10:15:30+01:00[Europe/Paris]"), equalTo(exp1));
+
+        ZonedDateTime exp2 = ZonedDateTime.of(2007, 12, 3, 10, 15, 30, 0, ZoneId.of("+01:00"));
+        assertThat(ZonedDateTime.parse("2007-12-03T10:15:30+01:00"), equalTo(exp2));
+
+        ZonedDateTime.parse("2016-01-01T14:01:00Z");
     }
 }
