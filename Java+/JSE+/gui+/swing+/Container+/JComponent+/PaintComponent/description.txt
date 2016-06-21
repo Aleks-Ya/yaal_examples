@@ -1,1 +1,0 @@
-Вывод графики с помощью метода JComponent#paintComponent().
