@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.assertEquals;
@@ -16,6 +17,14 @@ public class Format {
     @Test
     public void dateTime() {
         LocalDateTime dateTime = LocalDateTime.parse("2015-03-25T10:15:30");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        String str = dateTime.format(formatter);
+        assertEquals("25.03.2015", str);
+    }
+
+    @Test
+    public void zonedDateTime() {
+        ZonedDateTime dateTime = ZonedDateTime.of(2015, 3, 25, 10, 15, 30, 0, ZoneId.of("Europe/Paris"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String str = dateTime.format(formatter);
         assertEquals("25.03.2015", str);
