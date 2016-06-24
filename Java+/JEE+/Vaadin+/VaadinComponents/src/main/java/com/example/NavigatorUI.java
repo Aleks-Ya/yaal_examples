@@ -7,12 +7,13 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.UI;
 
 @SpringUI
-@Title("Navigator")
+@Title("Vaadin Components")
 class NavigatorUI extends UI {
     static Navigator navigator;
     static final String COMBO_BOX = "ComboBox";
     static final String GRID = "Grid";
     static final String TABLE = "Table";
+    static final String TABLE_EDITABLE = "TableEditable";
 
     @Override
     protected void init(VaadinRequest request) {
@@ -22,5 +23,6 @@ class NavigatorUI extends UI {
         navigator.addView(COMBO_BOX, new ComboBoxView());
         navigator.addView(GRID, new GridView());
         navigator.addView(TABLE, new TableView());
+        navigator.addView(TABLE_EDITABLE, new TableEditableView());
     }
 }
