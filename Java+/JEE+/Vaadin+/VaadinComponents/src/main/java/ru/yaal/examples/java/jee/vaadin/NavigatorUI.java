@@ -8,6 +8,7 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.UI;
 import org.reflections.Reflections;
 
+import java.lang.reflect.Modifier;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,7 @@ class NavigatorUI extends UI {
 
         views = new Reflections(getClass().getPackage().getName()).getSubTypesOf(View.class).stream()
                 .filter(clazz -> clazz != NavigatorUIView.class)
+                .filter(clazz -> !Modifier.isAbstract(clazz.getModifiers()))
                 .peek(clazz -> navigator.addProvider(new Navigator.ClassBasedViewProvider(clazz.getName(), clazz)))
                 .sorted((o1, o2) -> o1.getName().compareTo(o2.getName()))
                 .collect(Collectors.toSet());

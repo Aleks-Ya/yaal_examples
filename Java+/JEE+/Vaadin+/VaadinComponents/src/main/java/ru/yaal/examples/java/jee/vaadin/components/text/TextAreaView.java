@@ -1,10 +1,10 @@
 package ru.yaal.examples.java.jee.vaadin.components.text;
 
 import com.vaadin.ui.TextArea;
-import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
+import ru.yaal.examples.java.jee.vaadin.BackAbstractVerticalView;
 
 @SuppressWarnings("unused")
-public class TextAreaView extends AbstractVerticalView {
+public class TextAreaView extends BackAbstractVerticalView {
     public TextAreaView() {
         setSizeFull();
 
