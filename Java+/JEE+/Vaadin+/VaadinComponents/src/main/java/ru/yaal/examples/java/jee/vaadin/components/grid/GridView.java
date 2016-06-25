@@ -1,12 +1,12 @@
-package com.example;
+package ru.yaal.examples.java.jee.vaadin.components.grid;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
-class GridView extends VerticalLayout implements View {
-    GridView() {
+public class GridView extends VerticalLayout implements View {
+    public GridView() {
         setSizeFull();
 
         Label label = new Label("I'm a grid");

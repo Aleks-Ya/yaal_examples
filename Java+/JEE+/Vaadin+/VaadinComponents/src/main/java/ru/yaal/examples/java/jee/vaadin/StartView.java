@@ -1,4 +1,4 @@
-package com.example;
+package ru.yaal.examples.java.jee.vaadin;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -6,19 +6,14 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.VerticalLayout;
 
-import static com.example.NavigatorUI.COMBO_BOX;
-import static com.example.NavigatorUI.GRID;
-import static com.example.NavigatorUI.TABLE;
-import static com.example.NavigatorUI.TABLE_EDITABLE;
-
 class StartView extends VerticalLayout implements View {
     StartView() {
         setSizeFull();
 
-        Button bComboBox = new Button("ComboBox", (Button.ClickListener) event -> NavigatorUI.navigator.navigateTo(COMBO_BOX));
-        Button bGrid = new Button("Grid", (Button.ClickListener) event -> NavigatorUI.navigator.navigateTo(GRID));
-        Button bTable = new Button("Table", (Button.ClickListener) event -> NavigatorUI.navigator.navigateTo(TABLE));
-        Button bTableEditable = new Button("TableEditable", (Button.ClickListener) event -> NavigatorUI.navigator.navigateTo(TABLE_EDITABLE));
+        Button bComboBox = new Button("ComboBox", (Button.ClickListener) event -> NavigatorUI.navigator.navigateTo(NavigatorUI.COMBO_BOX));
+        Button bGrid = new Button("Grid", (Button.ClickListener) event -> NavigatorUI.navigator.navigateTo(NavigatorUI.GRID));
+        Button bTable = new Button("Table", (Button.ClickListener) event -> NavigatorUI.navigator.navigateTo(NavigatorUI.TABLE));
+        Button bTableEditable = new Button("TableEditable", (Button.ClickListener) event -> NavigatorUI.navigator.navigateTo(NavigatorUI.TABLE_EDITABLE));
 
         addComponent(bComboBox);
         addComponent(bGrid);

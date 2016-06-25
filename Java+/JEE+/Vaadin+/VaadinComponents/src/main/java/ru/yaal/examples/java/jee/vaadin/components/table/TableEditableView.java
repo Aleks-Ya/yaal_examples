@@ -1,12 +1,12 @@
-package com.example;
+package ru.yaal.examples.java.jee.vaadin.components.table;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
-class TableEditableView extends VerticalLayout implements View {
-    TableEditableView() {
+public class TableEditableView extends VerticalLayout implements View {
+    public TableEditableView() {
         setSizeFull();
 
         Table table = new Table();

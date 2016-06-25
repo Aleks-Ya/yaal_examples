@@ -1,10 +1,14 @@
-package com.example;
+package ru.yaal.examples.java.jee.vaadin;
 
 import com.vaadin.annotations.Title;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.UI;
+import ru.yaal.examples.java.jee.vaadin.components.combobox.ComboBoxView;
+import ru.yaal.examples.java.jee.vaadin.components.grid.GridView;
+import ru.yaal.examples.java.jee.vaadin.components.table.TableEditableView;
+import ru.yaal.examples.java.jee.vaadin.components.table.TableView;
 
 @SpringUI
 @Title("Vaadin Components")

@@ -1,12 +1,12 @@
-package com.example;
+package ru.yaal.examples.java.jee.vaadin.components.combobox;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.VerticalLayout;
 
-class ComboBoxView extends VerticalLayout implements View {
-    ComboBoxView() {
+public class ComboBoxView extends VerticalLayout implements View {
+    public ComboBoxView() {
         setSizeFull();
 
         ComboBox comboBox = new ComboBox();
