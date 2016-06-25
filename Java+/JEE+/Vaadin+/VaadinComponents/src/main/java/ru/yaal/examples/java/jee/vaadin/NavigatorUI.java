@@ -22,11 +22,11 @@ class NavigatorUI extends UI {
         navigator = new Navigator(this, this);
 
         views = new Reflections(getClass().getPackage().getName()).getSubTypesOf(View.class).stream()
-                .filter(clazz -> clazz != StartView.class)
+                .filter(clazz -> clazz != NavigatorUIView.class)
                 .peek(clazz -> navigator.addProvider(new Navigator.ClassBasedViewProvider(clazz.getName(), clazz)))
                 .sorted((o1, o2) -> o1.getName().compareTo(o2.getName()))
                 .collect(Collectors.toSet());
 
-        navigator.addView("", new StartView());
+        navigator.addView("", new NavigatorUIView());
     }
 }

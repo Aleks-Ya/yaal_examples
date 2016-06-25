@@ -4,8 +4,8 @@ import com.vaadin.navigator.View;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 
-class StartView extends AbstractVerticalView {
-    StartView() {
+class NavigatorUIView extends AbstractVerticalView {
+    NavigatorUIView() {
         for (Class<? extends View> view : NavigatorUI.views) {
             Button button = new Button(view.getSimpleName(), (Button.ClickListener) event -> NavigatorUI.navigator.navigateTo(view.getName()));
             addComponent(button);
