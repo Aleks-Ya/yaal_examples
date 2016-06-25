@@ -9,21 +9,11 @@ import com.vaadin.ui.VerticalLayout;
 class StartView extends VerticalLayout implements View {
     StartView() {
         setSizeFull();
-
-        Button bComboBox = new Button("ComboBox", (Button.ClickListener) event -> NavigatorUI.navigator.navigateTo(NavigatorUI.COMBO_BOX));
-        Button bGrid = new Button("Grid", (Button.ClickListener) event -> NavigatorUI.navigator.navigateTo(NavigatorUI.GRID));
-        Button bTable = new Button("Table", (Button.ClickListener) event -> NavigatorUI.navigator.navigateTo(NavigatorUI.TABLE));
-        Button bTableEditable = new Button("TableEditable", (Button.ClickListener) event -> NavigatorUI.navigator.navigateTo(NavigatorUI.TABLE_EDITABLE));
-
-        addComponent(bComboBox);
-        addComponent(bGrid);
-        addComponent(bTable);
-        addComponent(bTableEditable);
-
-        setComponentAlignment(bComboBox, Alignment.MIDDLE_CENTER);
-        setComponentAlignment(bGrid, Alignment.MIDDLE_CENTER);
-        setComponentAlignment(bTable, Alignment.MIDDLE_CENTER);
-        setComponentAlignment(bTableEditable, Alignment.MIDDLE_CENTER);
+        for (Class<? extends View> view : NavigatorUI.views) {
+            Button button = new Button(view.getSimpleName(), (Button.ClickListener) event -> NavigatorUI.navigator.navigateTo(view.getName()));
+            addComponent(button);
+            setComponentAlignment(button, Alignment.MIDDLE_CENTER);
+        }
     }
 
     @Override

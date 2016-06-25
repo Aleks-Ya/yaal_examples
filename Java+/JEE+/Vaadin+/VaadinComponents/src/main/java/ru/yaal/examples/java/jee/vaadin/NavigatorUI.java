@@ -2,31 +2,31 @@ package ru.yaal.examples.java.jee.vaadin;
 
 import com.vaadin.annotations.Title;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.navigator.View;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.UI;
-import ru.yaal.examples.java.jee.vaadin.components.combobox.ComboBoxView;
-import ru.yaal.examples.java.jee.vaadin.components.grid.GridView;
-import ru.yaal.examples.java.jee.vaadin.components.table.TableEditableView;
-import ru.yaal.examples.java.jee.vaadin.components.table.TableView;
+import org.reflections.Reflections;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @SpringUI
 @Title("Vaadin Components")
 class NavigatorUI extends UI {
     static Navigator navigator;
-    static final String COMBO_BOX = "ComboBox";
-    static final String GRID = "Grid";
-    static final String TABLE = "Table";
-    static final String TABLE_EDITABLE = "TableEditable";
+    static Set<Class<? extends View>> views;
 
     @Override
     protected void init(VaadinRequest request) {
         navigator = new Navigator(this, this);
 
+        views = new Reflections(getClass().getPackage().getName()).getSubTypesOf(View.class).stream()
+                .filter(clazz -> clazz != StartView.class)
+                .peek(clazz -> navigator.addProvider(new Navigator.ClassBasedViewProvider(clazz.getName(), clazz)))
+                .sorted((o1, o2) -> o1.getName().compareTo(o2.getName()))
+                .collect(Collectors.toSet());
+
         navigator.addView("", new StartView());
-        navigator.addView(COMBO_BOX, new ComboBoxView());
-        navigator.addView(GRID, new GridView());
-        navigator.addView(TABLE, new TableView());
-        navigator.addView(TABLE_EDITABLE, new TableEditableView());
     }
 }
