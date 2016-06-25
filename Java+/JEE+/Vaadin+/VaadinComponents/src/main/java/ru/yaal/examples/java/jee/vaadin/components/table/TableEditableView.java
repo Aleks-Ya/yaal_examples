@@ -1,14 +1,11 @@
 package ru.yaal.examples.java.jee.vaadin.components.table;
 
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Table;
-import com.vaadin.ui.VerticalLayout;
+import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
 
-public class TableEditableView extends VerticalLayout implements View {
+@SuppressWarnings("unused")
+public class TableEditableView extends AbstractVerticalView {
     public TableEditableView() {
-        setSizeFull();
-
         Table table = new Table();
 
         String containerPropertyName = "Country";
@@ -23,9 +20,5 @@ public class TableEditableView extends VerticalLayout implements View {
         table.setPageLength(table.size());
 
         addComponent(table);
-    }
-
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
     }
 }

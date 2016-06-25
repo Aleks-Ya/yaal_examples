@@ -1,11 +1,10 @@
 package ru.yaal.examples.java.jee.vaadin.components.text;
 
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.TextArea;
-import com.vaadin.ui.VerticalLayout;
+import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
 
-public class TextAreaView extends VerticalLayout implements View {
+@SuppressWarnings("unused")
+public class TextAreaView extends AbstractVerticalView {
     public TextAreaView() {
         setSizeFull();
 
@@ -18,9 +17,5 @@ public class TextAreaView extends VerticalLayout implements View {
 
         addComponent(editable);
         addComponent(readOnly);
-    }
-
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
     }
 }
