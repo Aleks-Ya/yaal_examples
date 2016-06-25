@@ -1,4 +1,4 @@
-package ru.yaal.examples.java.jee.vaadin.components.table;
+package ru.yaal.examples.java.jee.vaadin.components.grid.table;
 
 import com.vaadin.ui.Table;
 import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
