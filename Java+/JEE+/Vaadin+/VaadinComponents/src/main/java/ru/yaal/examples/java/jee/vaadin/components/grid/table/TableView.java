@@ -1,10 +1,10 @@
 package ru.yaal.examples.java.jee.vaadin.components.grid.table;
 
 import com.vaadin.ui.Table;
-import ru.yaal.examples.java.jee.vaadin.BackAbstractVerticalView;
+import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
 
 @SuppressWarnings("unused")
-public class TableView extends BackAbstractVerticalView {
+public class TableView extends AbstractVerticalView {
     public TableView() {
         Table table = new Table();
 

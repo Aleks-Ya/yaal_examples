@@ -3,10 +3,10 @@ package ru.yaal.examples.java.jee.vaadin.components.properties;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
-import ru.yaal.examples.java.jee.vaadin.BackAbstractVerticalView;
+import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
 
 @SuppressWarnings("unused")
-public class PropertiesView extends BackAbstractVerticalView {
+public class PropertiesView extends AbstractVerticalView {
     public PropertiesView() {
         ObjectProperty<String> property = new ObjectProperty<>("A row another row yet another row");
 

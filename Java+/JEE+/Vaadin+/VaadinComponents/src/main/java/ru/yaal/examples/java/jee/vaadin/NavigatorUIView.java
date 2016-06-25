@@ -2,13 +2,15 @@ package ru.yaal.examples.java.jee.vaadin;
 
 import com.vaadin.data.Item;
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Tree;
+import com.vaadin.ui.VerticalLayout;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-class NavigatorUIView extends AbstractVerticalView {
+class NavigatorUIView extends VerticalLayout implements View {
     NavigatorUIView() {
         addComponent(toTree(NavigatorUI.views));
     }
@@ -61,5 +63,9 @@ class NavigatorUIView extends AbstractVerticalView {
 
         tree.expandItemsRecursively(rootItem);
         return tree;
+    }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent event) {
     }
 }

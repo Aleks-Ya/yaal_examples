@@ -1,10 +1,10 @@
 package ru.yaal.examples.java.jee.vaadin.components.text;
 
 import com.vaadin.ui.TextArea;
-import ru.yaal.examples.java.jee.vaadin.BackAbstractVerticalView;
+import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
 
 @SuppressWarnings("unused")
-public class TextAreaView extends BackAbstractVerticalView {
+public class TextAreaView extends AbstractVerticalView {
     public TextAreaView() {
         TextArea editable = new TextArea("An editable area");
         editable.setValue("A row\nAnother row\nYet another row");

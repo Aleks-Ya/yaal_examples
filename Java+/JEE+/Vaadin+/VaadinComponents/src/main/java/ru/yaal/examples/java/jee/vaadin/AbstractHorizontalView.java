@@ -2,10 +2,10 @@ package ru.yaal.examples.java.jee.vaadin;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.HorizontalLayout;
 
-public abstract class AbstractVerticalView extends VerticalLayout implements View {
-    protected AbstractVerticalView() {
+public abstract class AbstractHorizontalView extends HorizontalLayout implements View {
+    protected AbstractHorizontalView() {
         addComponent(NavigatorUI.backButton);
     }
 
