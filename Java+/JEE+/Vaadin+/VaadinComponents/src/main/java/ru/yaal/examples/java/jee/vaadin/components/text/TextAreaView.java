@@ -6,8 +6,6 @@ import ru.yaal.examples.java.jee.vaadin.BackAbstractVerticalView;
 @SuppressWarnings("unused")
 public class TextAreaView extends BackAbstractVerticalView {
     public TextAreaView() {
-        setSizeFull();
-
         TextArea editable = new TextArea("An editable area");
         editable.setValue("A row\nAnother row\nYet another row");
 
