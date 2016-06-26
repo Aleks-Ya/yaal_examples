@@ -1,12 +1,13 @@
 package ru.yaal.examples.java.jee.vaadin.layout.vetical;
 
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.VerticalLayout;
-import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
 
 @SuppressWarnings("unused")
-public class ColumnInCenterView extends AbstractVerticalView {
+public class ColumnInCenterView extends VerticalLayout implements View {
     public ColumnInCenterView() {
         VerticalLayout center = new VerticalLayout();
         center.setSpacing(true);
@@ -23,5 +24,9 @@ public class ColumnInCenterView extends AbstractVerticalView {
 
         addComponent(center);
         setComponentAlignment(center, Alignment.TOP_CENTER);
+    }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent event) {
     }
 }
