@@ -1,4 +1,4 @@
-package cracking.code.interview;
+package cracking.code.interview.tree;
 
 /**
  * Given a sorted (increasing order) array with unique integer elements, write an

@@ -1,6 +1,6 @@
-package cracking.code.interview;
+package cracking.code.interview.tree;
 
-import cracking.code.interview.BinaryTreeDepth.Node;
+import cracking.code.interview.tree.BinaryTreeDepth.Node;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

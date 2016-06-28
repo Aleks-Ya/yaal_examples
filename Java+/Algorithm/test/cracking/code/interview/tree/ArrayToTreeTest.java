@@ -1,4 +1,4 @@
-package cracking.code.interview;
+package cracking.code.interview.tree;
 
 import org.junit.Test;
 

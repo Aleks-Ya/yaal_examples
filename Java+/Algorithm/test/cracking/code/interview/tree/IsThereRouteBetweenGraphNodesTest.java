@@ -1,6 +1,6 @@
-package cracking.code.interview;
+package cracking.code.interview.tree;
 
-import cracking.code.interview.IsThereRouteBetweenGraphNodes.Node;
+import cracking.code.interview.tree.IsThereRouteBetweenGraphNodes.Node;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

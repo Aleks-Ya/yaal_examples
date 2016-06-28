@@ -1,4 +1,4 @@
-package cracking.code.interview;
+package cracking.code.interview.tree;
 
 import java.util.LinkedList;
 import java.util.List;
