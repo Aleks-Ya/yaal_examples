@@ -1,18 +1,13 @@
 package ru.yaal.examples.java.jee.vaadin.layout.panel;
 
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Panel;
+import ru.yaal.examples.java.jee.vaadin.EmptyEnterView;
 
 @SuppressWarnings("unused")
-public class PanelView extends Panel implements View {
+public class PanelView extends Panel implements EmptyEnterView {
 
     public PanelView() {
         setContent(new Button("Button"));
-    }
-
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
     }
 }

@@ -3,10 +3,11 @@ package ru.yaal.examples.java.jee.vaadin.components.properties;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
-import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
+import com.vaadin.ui.VerticalLayout;
+import ru.yaal.examples.java.jee.vaadin.EmptyEnterView;
 
 @SuppressWarnings("unused")
-public class PropertiesView extends AbstractVerticalView {
+public class PropertiesView extends VerticalLayout implements EmptyEnterView {
     public PropertiesView() {
         ObjectProperty<String> property = new ObjectProperty<>("A row another row yet another row");
 

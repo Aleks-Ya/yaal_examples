@@ -1,10 +1,11 @@
 package ru.yaal.examples.java.jee.vaadin.components.grid.grid;
 
 import com.vaadin.ui.Label;
-import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
+import com.vaadin.ui.VerticalLayout;
+import ru.yaal.examples.java.jee.vaadin.EmptyEnterView;
 
 @SuppressWarnings("unused")
-public class GridView extends AbstractVerticalView {
+public class GridView extends VerticalLayout implements EmptyEnterView {
     public GridView() {
         Label label = new Label("I'm a grid");
         addComponent(label);

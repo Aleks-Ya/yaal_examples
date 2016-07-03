@@ -3,10 +3,11 @@ package ru.yaal.examples.java.jee.vaadin.components.grid.table;
 import com.vaadin.data.util.BeanContainer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Table;
-import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
+import com.vaadin.ui.VerticalLayout;
+import ru.yaal.examples.java.jee.vaadin.EmptyEnterView;
 
 @SuppressWarnings("unused")
-public class TableBindingView extends AbstractVerticalView {
+public class TableBindingView extends VerticalLayout implements EmptyEnterView {
     public TableBindingView() {
         BeanContainer<Integer, Person> container = new BeanContainer<>(Person.class);
         container.setBeanIdProperty("id");

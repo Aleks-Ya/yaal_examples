@@ -4,10 +4,11 @@ import com.vaadin.data.util.MethodProperty;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
-import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
+import com.vaadin.ui.VerticalLayout;
+import ru.yaal.examples.java.jee.vaadin.EmptyEnterView;
 
 @SuppressWarnings("unused")
-public class MethodInvocationView extends AbstractVerticalView {
+public class MethodInvocationView extends VerticalLayout implements EmptyEnterView {
     public MethodInvocationView() {
         Data data = new Data("A row another row yet another row");
 

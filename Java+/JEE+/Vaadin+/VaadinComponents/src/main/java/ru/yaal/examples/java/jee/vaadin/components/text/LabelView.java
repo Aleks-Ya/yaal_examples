@@ -1,10 +1,11 @@
 package ru.yaal.examples.java.jee.vaadin.components.text;
 
 import com.vaadin.ui.Label;
-import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
+import com.vaadin.ui.VerticalLayout;
+import ru.yaal.examples.java.jee.vaadin.EmptyEnterView;
 
 @SuppressWarnings("unused")
-public class LabelView extends AbstractVerticalView {
+public class LabelView extends VerticalLayout implements EmptyEnterView {
     public LabelView() {
         Label shortLabel = new Label("A short label");
 

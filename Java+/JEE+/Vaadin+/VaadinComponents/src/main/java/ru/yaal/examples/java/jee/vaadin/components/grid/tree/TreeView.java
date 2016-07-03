@@ -1,10 +1,11 @@
 package ru.yaal.examples.java.jee.vaadin.components.grid.tree;
 
 import com.vaadin.ui.Tree;
-import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
+import com.vaadin.ui.VerticalLayout;
+import ru.yaal.examples.java.jee.vaadin.EmptyEnterView;
 
 @SuppressWarnings("unused")
-public class TreeView extends AbstractVerticalView {
+public class TreeView extends VerticalLayout implements EmptyEnterView {
     public TreeView() {
         Tree tree = new Tree();
         String countries = "Countries";

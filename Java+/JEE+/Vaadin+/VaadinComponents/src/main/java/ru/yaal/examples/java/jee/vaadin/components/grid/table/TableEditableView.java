@@ -1,10 +1,11 @@
 package ru.yaal.examples.java.jee.vaadin.components.grid.table;
 
 import com.vaadin.ui.Table;
-import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
+import com.vaadin.ui.VerticalLayout;
+import ru.yaal.examples.java.jee.vaadin.EmptyEnterView;
 
 @SuppressWarnings("unused")
-public class TableEditableView extends AbstractVerticalView {
+public class TableEditableView extends VerticalLayout implements EmptyEnterView {
     public TableEditableView() {
         Table table = new Table();
 

@@ -1,10 +1,11 @@
 package ru.yaal.examples.java.jee.vaadin.components.combobox;
 
 import com.vaadin.ui.ComboBox;
-import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
+import com.vaadin.ui.VerticalLayout;
+import ru.yaal.examples.java.jee.vaadin.EmptyEnterView;
 
 @SuppressWarnings("unused")
-public class ComboBoxView extends AbstractVerticalView {
+public class ComboBoxView extends VerticalLayout implements EmptyEnterView {
     public ComboBoxView() {
         ComboBox comboBox = new ComboBox();
         comboBox.addItem("Hello");

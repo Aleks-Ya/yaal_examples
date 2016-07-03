@@ -1,10 +1,11 @@
 package ru.yaal.examples.java.jee.vaadin.components.text;
 
 import com.vaadin.ui.TextArea;
-import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
+import com.vaadin.ui.VerticalLayout;
+import ru.yaal.examples.java.jee.vaadin.EmptyEnterView;
 
 @SuppressWarnings("unused")
-public class TextAreaView extends AbstractVerticalView {
+public class TextAreaView extends VerticalLayout implements EmptyEnterView {
     public TextAreaView() {
         TextArea editable = new TextArea("An editable area");
         editable.setValue("A row\nAnother row\nYet another row");

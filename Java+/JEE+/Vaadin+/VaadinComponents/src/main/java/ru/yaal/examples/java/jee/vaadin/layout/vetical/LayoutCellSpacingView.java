@@ -1,10 +1,11 @@
 package ru.yaal.examples.java.jee.vaadin.layout.vetical;
 
 import com.vaadin.ui.Button;
-import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
+import com.vaadin.ui.VerticalLayout;
+import ru.yaal.examples.java.jee.vaadin.EmptyEnterView;
 
 @SuppressWarnings("unused")
-public class LayoutCellSpacingView extends AbstractVerticalView {
+public class LayoutCellSpacingView extends VerticalLayout implements EmptyEnterView {
     public LayoutCellSpacingView() {
         setSpacing(true);
         addComponent(new Button("Component 1"));

@@ -2,10 +2,11 @@ package ru.yaal.examples.java.jee.vaadin.components.grid.tree;
 
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Tree;
-import ru.yaal.examples.java.jee.vaadin.AbstractVerticalView;
+import com.vaadin.ui.VerticalLayout;
+import ru.yaal.examples.java.jee.vaadin.EmptyEnterView;
 
 @SuppressWarnings("unused")
-public class TreeListenerView extends AbstractVerticalView {
+public class TreeListenerView extends VerticalLayout implements EmptyEnterView {
     public TreeListenerView() {
         Tree tree = new Tree();
 
