@@ -1,4 +1,4 @@
-package ru.yaal.examples.java.jee.vaadin.components.properties;
+package ru.yaal.examples.java.jee.vaadin.data_model.property;
 
 import com.vaadin.data.util.MethodProperty;
 import com.vaadin.ui.Button;
