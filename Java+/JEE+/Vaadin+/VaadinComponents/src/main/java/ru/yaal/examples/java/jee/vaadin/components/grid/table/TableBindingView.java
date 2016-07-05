@@ -11,24 +11,27 @@ public class TableBindingView extends VerticalLayout implements EmptyEnterView {
     public TableBindingView() {
         BeanContainer<Integer, Person> container = new BeanContainer<>(Person.class);
         container.setBeanIdProperty("id");
-        container.addBean(new Person(1, "Aleks"));
-        container.addBean(new Person(2, "John"));
+        container.addBean(new Person(1, "Aleks", 31));
+        container.addBean(new Person(2, "John", 27));
 
         Table table = new Table("My table", container);
+        table.removeContainerProperty("id");
 
         addComponent(table);
 
-        addComponent(new Button("Add Felix", event -> container.addBean(new Person(3, "Felix"))));
+        addComponent(new Button("Add Felix", event -> container.addBean(new Person(3, "Felix", 44))));
     }
 
     @SuppressWarnings("WeakerAccess")
     public static class Person {
         int id;
         String name;
+        int age;
 
-        public Person(int id, String name) {
+        public Person(int id, String name, int age) {
             this.id = id;
             this.name = name;
+            this.age = age;
         }
 
         public int getId() {
@@ -37,6 +40,10 @@ public class TableBindingView extends VerticalLayout implements EmptyEnterView {
 
         public String getName() {
             return name;
+        }
+
+        public int getAge() {
+            return age;
         }
     }
 }
