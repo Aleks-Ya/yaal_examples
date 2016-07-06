@@ -19,24 +19,22 @@ class ToTree {
             while (true) {
                 int dotIndex = packName.indexOf(".", oldDotIndex + 1);//todo default package?
                 if (dotIndex != -1) {
-                    String id = packName.substring(0, dotIndex);
+                    String key = packName.substring(0, dotIndex);
                     String name = packName.substring(oldDotIndex + 1, dotIndex);
-                    Node node = new Node(id, name, parent, null);
+                    Node node = new Node(name, parent, null);
+                    map.put(key, node);
                     parent = node;
-                    map.put(id, node);
                     oldDotIndex = dotIndex;
                 } else {
-                    String id = clazz.getName();
-                    map.put(id, new Node(id, clazz.getSimpleName(), parent, clazz));
+                    String key = clazz.getName();
+                    map.put(key, new Node(clazz.getSimpleName(), parent, clazz));
                     break;
                 }
             }
         }
 
         BeanItemContainer<Node> container = new BeanItemContainer<>(Node.class);
-        map.forEach((id, node) -> {
-            container.addBean(node);
-        });
+        map.forEach((id, node) -> container.addBean(node));
 
         Tree res = new Tree();
         res.setContainerDataSource(container);
@@ -62,20 +60,14 @@ class ToTree {
     }
 
     private static class Node {
-        private final String id;
         private final Node parent;
         private final Class<?> clazz;
         private final String title;
 
-        Node(String id, String title, Node parent, Class<?> clazz) {
-            this.id = id;
+        Node(String title, Node parent, Class<?> clazz) {
             this.title = title;
             this.parent = parent;
             this.clazz = clazz;
-        }
-
-        String getId() {
-            return id;
         }
 
         Node getParent() {
@@ -91,18 +83,12 @@ class ToTree {
         }
 
         @Override
-        public String toString() {
-            return getTitle();
-        }
-
-        @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
             Node node = (Node) o;
 
-            if (!id.equals(node.id)) return false;
             if (parent != null ? !parent.equals(node.parent) : node.parent != null) return false;
             if (clazz != null ? !clazz.equals(node.clazz) : node.clazz != null) return false;
             return title.equals(node.title);
@@ -111,7 +97,12 @@ class ToTree {
 
         @Override
         public int hashCode() {
-            return id.hashCode();
+            return clazz != null ? clazz.hashCode() : 0;
+        }
+
+        @Override
+        public String toString() {
+            return getTitle();
         }
     }
 }
