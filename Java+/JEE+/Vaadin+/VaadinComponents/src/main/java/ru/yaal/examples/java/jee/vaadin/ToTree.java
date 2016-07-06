@@ -14,23 +14,23 @@ class ToTree {
         for (Class clazz : list) {
 
             Node parent = null;
-            String packName = clazz.getPackage().getName();
-            int dotIndex = 0;
+            String packName = clazz.getName();
+            int oldDotIndex = -1;
             while (true) {
-                dotIndex = packName.indexOf(".", dotIndex + 1);//todo default package?
+                int dotIndex = packName.indexOf(".", oldDotIndex + 1);//todo default package?
                 if (dotIndex != -1) {
                     String id = packName.substring(0, dotIndex);
-                    String name = parent != null ? id.replace(parent.getId() + ".", "") : id;
+                    String name = packName.substring(oldDotIndex + 1, dotIndex);
                     Node node = new Node(id, name, parent, null);
                     parent = node;
                     map.put(id, node);
+                    oldDotIndex = dotIndex;
                 } else {
+                    String id = clazz.getName();
+                    map.put(id, new Node(id, clazz.getSimpleName(), parent, clazz));
                     break;
                 }
             }
-
-            String id = clazz.getName();
-            map.put(id, new Node(id, clazz.getSimpleName(), parent, clazz));
         }
 
         BeanItemContainer<Node> container = new BeanItemContainer<>(Node.class);
