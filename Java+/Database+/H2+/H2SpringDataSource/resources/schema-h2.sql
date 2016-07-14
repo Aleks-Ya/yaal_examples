@@ -1,0 +1,1 @@
+CREATE TABLE cars (id int);
