@@ -14,7 +14,7 @@ public class H2JdbcTest {
     public void main() throws SQLException, ClassNotFoundException {
         //connect
         Class.forName("org.h2.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:h2:mem:", "", "");
+        Connection conn = DriverManager.getConnection("jdbc:h2:mem:");
 
         //insert
         Statement update = conn.createStatement();
