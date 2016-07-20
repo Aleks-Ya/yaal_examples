@@ -13,7 +13,6 @@ public class ConnectToInMemoryH2Test {
      */
     @Test
     public void runServer() throws SQLException, ClassNotFoundException {
-        Class.forName("org.h2.Driver");
         String dbname = "dbname";
         Connection conn = DriverManager.getConnection("jdbc:h2:mem:" + dbname);
 

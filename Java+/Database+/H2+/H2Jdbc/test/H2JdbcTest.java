@@ -1,10 +1,6 @@
 import org.junit.Test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,7 +9,6 @@ public class H2JdbcTest {
     @Test
     public void main() throws SQLException, ClassNotFoundException {
         //connect
-        Class.forName("org.h2.Driver");
         Connection conn = DriverManager.getConnection("jdbc:h2:mem:");
 
         //insert
