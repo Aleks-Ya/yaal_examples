@@ -1,4 +1,4 @@
-package ru.yaal.examples.java.jee.vaadin.components.grid.table;
+package ru.yaal.examples.java.jee.vaadin.components.grid.table.select;
 
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
