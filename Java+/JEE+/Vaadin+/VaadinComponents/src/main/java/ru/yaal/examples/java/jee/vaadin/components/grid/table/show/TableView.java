@@ -9,8 +9,8 @@ public class TableView extends VerticalLayout implements EmptyEnterView {
     public TableView() {
         Table table = new Table();
 
-        String containerPropertyName = "Country";
-        table.addContainerProperty(containerPropertyName, String.class, null);
+        String countryPropertyId = "Country property id";
+        table.addContainerProperty(countryPropertyId, String.class, "default_value");
 
         table.addItem(new Object[]{"Australia"}, 0);
         table.addItem(new Object[]{"Russia"}, 1);
