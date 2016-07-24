@@ -1,4 +1,4 @@
-package ru.yaal.examples.java.jee.vaadin.components.text;
+package ru.yaal.examples.java.jee.vaadin.components.text.text_area;
 
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;

@@ -1,4 +1,4 @@
-package ru.yaal.examples.java.jee.vaadin.components.text;
+package ru.yaal.examples.java.jee.vaadin.components.text.label;
 
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
