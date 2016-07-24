@@ -21,9 +21,15 @@ class NavigatorUIView extends VerticalLayout implements View {
                         "}");
 
         Tree tree = ToTree.listToTree(NavigatorUI.views);
+        tree.setItemStyleGenerator((source, itemId) -> {
+            Item item = source.getItem(itemId);
+            Property foundProperty = item.getItemProperty(foundPID);
+            boolean found = (boolean) (foundProperty != null ? foundProperty.getValue() : false);
+            return found ? "found" : null;
+        });
 
         TextField tfSearch = new TextField("Search");
-
+        tfSearch.focus();
         tfSearch.addTextChangeListener(event -> {
             String substring = event.getText().toUpperCase();
             for (Object itemId : tree.getItemIds()) {
@@ -38,17 +44,8 @@ class NavigatorUIView extends VerticalLayout implements View {
             tree.markAsDirty();
         });
 
-        tree.setItemStyleGenerator((source, itemId) -> {
-            Item item = source.getItem(itemId);
-            Property foundProperty = item.getItemProperty(foundPID);
-            boolean found = (boolean) (foundProperty != null ? foundProperty.getValue() : false);
-            return found ? "found" : null;
-        });
-
         addComponent(tfSearch);
         addComponent(tree);
-
-        tfSearch.focus();
     }
 
     @Override
