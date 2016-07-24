@@ -59,7 +59,7 @@ class ToTree {
         return res;
     }
 
-    private static class Node {
+    static class Node {
         private final Node parent;
         private final Class<?> clazz;
         private final String title;
