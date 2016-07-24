@@ -9,6 +9,12 @@ import ru.yaal.examples.java.jee.vaadin.EmptyEnterView;
 @SuppressWarnings("unused")
 public class ItemStyleGeneratorView extends VerticalLayout implements EmptyEnterView {
     public ItemStyleGeneratorView() {
+        Page.getCurrent().getStyles().add(
+                ".v-tree-node-caption-disabled {\n" +
+                        "    color: red;\n" +
+                        "    font-style: italic;\n" +
+                        "}");
+
         Tree tree = new Tree();
 
         String countries = "Countries";
@@ -27,11 +33,6 @@ public class ItemStyleGeneratorView extends VerticalLayout implements EmptyEnter
 
         tree.expandItemsRecursively(countries);
 
-        Page.getCurrent().getStyles().add(
-                ".v-tree-node-caption-disabled {\n" +
-                        "    color: red;\n" +
-                        "    font-style: italic;\n" +
-                        "}");
 
         tree.setItemStyleGenerator((Tree.ItemStyleGenerator) (source, itemId) -> {
             Item item = source.getItem(itemId);
