@@ -10,6 +10,41 @@ import java.util.Set;
 
 class ToTree {
     static Tree listToTree(Set<Class<? extends View>> list) {
+        Map<String, Node> map = makeMap(list);
+        BeanItemContainer<Node> container = makeContainer(map);
+        return makeTree(map, container);
+    }
+
+    private static Tree makeTree(Map<String, Node> map, BeanItemContainer<Node> container) {
+        Tree res = new Tree();
+        res.setContainerDataSource(container);
+
+        map.forEach((id, node) -> {
+            Node parent = node.getParent();
+            if (parent != null) {
+                res.setParent(node, parent);
+            }
+            res.setChildrenAllowed(node, node.getClazz() == null);
+            res.expandItem(node);
+        });
+
+        res.addItemClickListener(event -> {
+            Node node = (Node) event.getItemId();
+            Class<?> viewClass = node.getClazz();
+            if (viewClass != null) {
+                NavigatorUI.navigator.navigateTo(viewClass.getName());
+            }
+        });
+        return res;
+    }
+
+    private static BeanItemContainer<Node> makeContainer(Map<String, Node> map) {
+        BeanItemContainer<Node> container = new BeanItemContainer<>(Node.class);
+        map.forEach((id, node) -> container.addBean(node));
+        return container;
+    }
+
+    private static Map<String, Node> makeMap(Set<Class<? extends View>> list) {
         Map<String, Node> map = new HashMap<>(list.size());
         for (Class clazz : list) {
 
@@ -32,31 +67,7 @@ class ToTree {
                 }
             }
         }
-
-        BeanItemContainer<Node> container = new BeanItemContainer<>(Node.class);
-        map.forEach((id, node) -> container.addBean(node));
-
-        Tree res = new Tree();
-        res.setContainerDataSource(container);
-
-        map.forEach((id, node) -> {
-            Node parent = node.getParent();
-            if (parent != null) {
-                res.setParent(node, parent);
-            }
-            res.setChildrenAllowed(node, node.getClazz() == null);
-            res.expandItem(node);
-        });
-
-        res.addItemClickListener(event -> {
-            Node node = (Node) event.getItemId();
-            Class<?> viewClass = node.getClazz();
-            if (viewClass != null) {
-                NavigatorUI.navigator.navigateTo(viewClass.getName());
-            }
-        });
-
-        return res;
+        return map;
     }
 
     static class Node {
