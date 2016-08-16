@@ -1,3 +1,5 @@
+package send_file_via_form;
+
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
@@ -25,7 +27,7 @@ public class SendFileViaFormMain {
         ContextHandlerCollection contextHandlers = new ContextHandlerCollection();
         contextHandlers.setHandlers(new Handler[]{formPageHandler, uploadContext});
 
-        Server server = new Server(6666);
+        Server server = new Server(8089);
         server.setHandler(contextHandlers);
         server.start();
         server.join();
