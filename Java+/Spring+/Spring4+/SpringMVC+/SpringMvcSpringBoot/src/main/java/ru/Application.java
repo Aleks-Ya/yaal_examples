@@ -8,10 +8,12 @@ import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import mvc.HelloController;
+
 @RestController
 @EnableAutoConfiguration
 @EnableConfigurationProperties
-@Import({PropertiesSettings.class, YamlSettings.class})
+@Import({PropertiesSettings.class, YamlSettings.class, HelloController.class, ApplicationConfiguration.class})
 public class Application {
 
     @Autowired
