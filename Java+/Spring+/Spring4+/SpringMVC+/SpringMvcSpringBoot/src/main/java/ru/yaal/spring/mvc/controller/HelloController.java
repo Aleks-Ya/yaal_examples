@@ -1,4 +1,4 @@
-package mvc;
+package ru.yaal.spring.mvc.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
