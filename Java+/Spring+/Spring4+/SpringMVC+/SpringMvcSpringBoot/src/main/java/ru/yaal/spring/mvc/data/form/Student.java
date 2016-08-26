@@ -1,4 +1,4 @@
-package ru.yaal.spring.data.form;
+package ru.yaal.spring.mvc.data.form;
 
 public class Student {
 	private Integer age;

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import ru.yaal.spring.data.form.Student;
+import ru.yaal.spring.mvc.data.form.Student;
 
 import org.springframework.ui.ModelMap;
 
