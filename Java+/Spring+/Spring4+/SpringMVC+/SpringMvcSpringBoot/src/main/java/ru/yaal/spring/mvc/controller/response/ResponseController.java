@@ -1,4 +1,4 @@
-package ru.yaal.spring.mvc.controller.responseentity;
+package ru.yaal.spring.mvc.controller.response;
 
 import java.util.Arrays;
 
