@@ -22,7 +22,7 @@ public class FormController {
    }
    
    @RequestMapping(value = "/form/addStudent", method = RequestMethod.POST)
-   public String addStudent(@ModelAttribute("SpringWeb")Student student, ModelMap model) {
+   public String addStudent(@ModelAttribute Student student, ModelMap model) {
       model.addAttribute("name", student.getName());
       model.addAttribute("age", student.getAge());
       model.addAttribute("id", student.getId());
