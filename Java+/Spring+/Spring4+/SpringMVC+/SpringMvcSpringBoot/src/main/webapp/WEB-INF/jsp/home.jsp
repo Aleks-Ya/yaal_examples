@@ -23,7 +23,8 @@
 		<li>Arguments
 			<ul>
 				<li><a href="/http">Http request, response and session</a></li>
-				<li><a href="/request_param?code=abc">@RequestParam</a></li>
+				<li><a href="/request_param?code=abc">@RequestParam (by specified name)</a></li>
+				<li><a href="/all_request_params?name=John&surname=Bush">@RequestParam (all params)</a></li>
 				<li><a href="/path_variable/find/1234">@PathVariable</a></li>
 			</ul>
 		</li>
