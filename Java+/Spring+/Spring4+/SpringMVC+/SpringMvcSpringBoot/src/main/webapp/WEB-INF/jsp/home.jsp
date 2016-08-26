@@ -9,6 +9,7 @@
 		<li><a href="/redirect">Redirect</a></li>
 		<li><a href="/throw_io_exception">Throw an IOException</a></li>
 		<li><a href="/throw_enexpected_exception">Throw an unexpected exception</a></li>
+		<li><a href="/respose_entity">ResponseEntity</a></li>
 	</ul>
 </body>
 </html>
