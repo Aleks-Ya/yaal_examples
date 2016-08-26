@@ -10,6 +10,9 @@ import ru.yaal.spring.mvc.data.form.Student;
 
 import org.springframework.ui.ModelMap;
 
+/**
+ * HTML forms processing.
+ */
 @Controller
 public class FormController {
 

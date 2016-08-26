@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * Autowire parameters of controller's methods.
+ */
 @Controller
 public class ArgumentController {
 	@RequestMapping(value = "/http")

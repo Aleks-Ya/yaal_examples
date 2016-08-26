@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * Return a http-response instead of redirection to JSP.
+ */
 @Controller
 public class ResponseEntityController {
 	@RequestMapping(value = "/respose_entity", method = RequestMethod.GET)
