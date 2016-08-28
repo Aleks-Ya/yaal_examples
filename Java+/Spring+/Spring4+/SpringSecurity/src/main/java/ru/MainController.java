@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class HelloController {
+public class MainController {
 
 	@RequestMapping("/")
 	@ResponseBody
-	public String hello() {
-		return "Hello!";
+	public String root() {
+		return "root page";
 	}
-	
+
 }
