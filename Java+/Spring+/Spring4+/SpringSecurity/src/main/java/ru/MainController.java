@@ -12,5 +12,16 @@ public class MainController {
 	public String root() {
 		return "root page";
 	}
+	
+	@RequestMapping("/login")
+	@ResponseBody
+	public String login() {
+		return "login";
+	}
 
+	@RequestMapping("/info")
+	public String info() {
+		return "info";
+	}
+	
 }
