@@ -1,15 +1,15 @@
-/* Исключаем циклическую зависимость проекта  :Java+:Database+:Hibernate+:HibernateSessionFactory
+/* Исключаем циклическую зависимость проекта  :Database+:Hibernate+:HibernateSessionFactory
 от самого себя */
 String h2Version = 'com.h2database:h2:1.4.192'
 String hibernateEntityManagerVersion = 'org.hibernate:hibernate-entitymanager:4.3.8.Final'
 String hibernateCoreVersion = 'org.hibernate:hibernate-core:4.3.8.Final'
 
-configure(subprojects - project(':Java+:Database+:Hibernate+:HibernateSessionFactory')) {
+configure(subprojects - project(':Database+:Hibernate+:HibernateSessionFactory')) {
     dependencies {
         compile h2Version,
                 hibernateCoreVersion,
                 'joda-time:joda-time:2.9.4',
-                project(':Java+:Database+:Hibernate+:HibernateSessionFactory')
+                project(':Database+:Hibernate+:HibernateSessionFactory')
     }
 }
 

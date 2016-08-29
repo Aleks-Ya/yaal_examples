@@ -1,0 +1,11 @@
+/**
+ * Building+
+ */
+include 'FirstMultimodule',
+        'Dependencies+:ResourceDependency',
+        'Dependencies+:BrokenRepoLink',
+        'Dependencies+:TaskDependencies',
+        'Dependencies+:ExcludeDependency',
+        'Dependencies+:Configuration+:ExtLibsConfiguration',
+        'Dependencies+:Configuration+:CustomConfiguration',
+        'Dependencies+:Configuration+:ConfigurationOnDemand+:EmptyProjects'
