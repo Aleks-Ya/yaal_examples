@@ -121,4 +121,4 @@ include 'Spring+:Spring3+:AnnotationConfig+:Configuration',
         'Spring+:Spring4+:PropertySource',
         'Spring+:Spring4+:Task&Scheduling',
         'Spring+:Spring4+:SpringData+:SpringDataMongoDB',
-        'Git+:JGit+:CloneFetch'
+        'Git+:JGit'
