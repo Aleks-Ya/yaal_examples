@@ -1,4 +1,4 @@
-package ru;
+package ru.yaal.spring.security.application.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -7,24 +7,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter 
-{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("user").password("p").roles("USER");
+		auth.inMemoryAuthentication().withUser("u").password("p").roles("USER");
 	}
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-		.authorizeRequests()
-			.anyRequest().authenticated()
-			.and()
-		.formLogin()
-//		.and()
-//		.httpBasic();
-			.loginPage("/login")
-			.permitAll();   
+		http.authorizeRequests().anyRequest().authenticated().and().formLogin()
+				// .and()
+				// .httpBasic();
+				.loginPage("/login").permitAll();
 	}
 }

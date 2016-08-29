@@ -1,4 +1,4 @@
-package ru;
+package ru.yaal.spring.security.application.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +22,4 @@ public class MainController {
 	public String info() {
 		return "info";
 	}
-	
-	@RequestMapping("/image")
-	public String image() {
-		return "image";
-	}
-	
 }
