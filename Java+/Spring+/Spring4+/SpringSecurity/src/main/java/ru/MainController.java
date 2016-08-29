@@ -23,4 +23,9 @@ public class MainController {
 		return "info";
 	}
 	
+	@RequestMapping("/image")
+	public String image() {
+		return "image";
+	}
+	
 }
