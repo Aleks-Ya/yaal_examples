@@ -2,8 +2,8 @@ package ru.yaal.spring.mvc.config;
 
 import java.io.IOException;
 import java.util.Properties;
-
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
-@EnableAutoConfiguration
+@EnableConfigurationProperties
 @Import({PropertiesSettings.class, YamlSettings.class})
 class ApplicationConfiguration {
 	@Bean
