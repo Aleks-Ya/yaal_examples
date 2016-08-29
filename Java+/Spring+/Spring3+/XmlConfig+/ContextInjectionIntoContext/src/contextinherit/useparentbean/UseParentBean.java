@@ -1,11 +1,11 @@
-package ru.yaal.examples.java.se.spring.contextinherit.useparentbean;
+package contextinherit.useparentbean;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class UseParentBean {
     public static void main(String args[]) {
-        ApplicationContext parent = new GenericXmlApplicationContext("classpath:ru/yaal/examples/java/se/spring/contextinherit/useparentbean/parent.xml");
+        ApplicationContext parent = new GenericXmlApplicationContext("classpath:contextinherit/useparentbean/parent.xml");
 
         GenericXmlApplicationContext child = new GenericXmlApplicationContext();
         child.load(UseParentBean.class, "child.xml");

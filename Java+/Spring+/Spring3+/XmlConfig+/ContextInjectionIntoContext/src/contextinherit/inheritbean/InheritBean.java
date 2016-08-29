@@ -1,4 +1,4 @@
-package ru.yaal.examples.java.se.spring.contextinherit.inheritbean;
+package contextinherit.inheritbean;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
