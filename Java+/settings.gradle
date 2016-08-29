@@ -72,7 +72,8 @@ include 'JSE+:Core',
         'Libs+:Xml+:XQuery+:BaseX',
         'Libs+:HTML+:ParsingWithRegexp',
         'Libs+:HTML+:jsoup',
-        'Algorithm'
+        'Algorithm',
+        'Git+:JGit'
 
 /**
  * JavaEE+
@@ -120,5 +121,4 @@ include 'Spring+:Spring3+:AnnotationConfig+:Configuration',
         'Spring+:Spring4+:AOP+:AspectJ',
         'Spring+:Spring4+:PropertySource',
         'Spring+:Spring4+:Task&Scheduling',
-        'Spring+:Spring4+:SpringData+:SpringDataMongoDB',
-        'Git+:JGit'
+        'Spring+:Spring4+:SpringData+:SpringDataMongoDB'
