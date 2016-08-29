@@ -1,3 +1,4 @@
+<h1>My custom login page</h1>
 <c:url value="/login" var="loginUrl" />
 <form action="${loginUrl}" method="post">
 	<c:if test="${param.error != null}">

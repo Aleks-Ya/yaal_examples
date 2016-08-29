@@ -14,7 +14,6 @@ public class MainController {
 	}
 	
 	@RequestMapping("/login")
-	@ResponseBody
 	public String login() {
 		return "login";
 	}
