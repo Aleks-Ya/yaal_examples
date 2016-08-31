@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.Test;
 
-import java.util.Date;
+import static org.junit.Assert.assertEquals;
 
-import static junit.framework.Assert.assertEquals;
+import java.util.Date;
 
 /**
  * Представление Java-объекта в виде JSON.
