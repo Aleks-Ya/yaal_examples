@@ -10,7 +10,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
-@SpringBootTest(classes = ApplicationConfiguration.class)
+@SpringBootTest(classes = MvcConfiguration.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SettingsTest {
 

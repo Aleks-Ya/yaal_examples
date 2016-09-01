@@ -2,7 +2,7 @@ package ru.yaal.spring.mvc.config;
 
 import java.io.IOException;
 import java.util.Properties;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableConfigurationProperties
 @Import({PropertiesSettings.class, YamlSettings.class})
-class ApplicationConfiguration {
+class MvcConfiguration {
 	@Bean
 	public InternalResourceViewResolver internalResourceViewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
