@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 
-public class CustomAuthenticationProvider implements AuthenticationProvider {
+class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	private static final String LOGIN = "l";
 	private static final String PASSWORD = "pas";

@@ -9,7 +9,7 @@ import ru.yaal.spring.security.application.Profiles;
 
 @Configuration
 @Profile(Profiles.AUTHENTICATION_PROVIDER)
-public class AuthenticationProviderSecurityConfig {
+class AuthenticationProviderSecurityConfig {
 	@Bean
 	public AuthenticationProvider authenticationProvider() {
 		return new CustomAuthenticationProvider();

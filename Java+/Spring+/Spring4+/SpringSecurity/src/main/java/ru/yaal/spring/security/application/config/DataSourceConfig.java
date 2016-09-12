@@ -10,7 +10,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 @Configuration
-public class DataSourceConfig {
+class DataSourceConfig {
 
 	/**
 	 * This method can be removed because Spring Boot auto configuration create

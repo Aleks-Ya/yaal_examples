@@ -11,7 +11,7 @@ import ru.yaal.spring.security.application.Profiles;
 
 @Configuration
 @Profile(Profiles.AUTHENTICATION_MANAGER_BUILDER)
-public class AuthenticationManagerBuilderSecurityConfig {
+class AuthenticationManagerBuilderSecurityConfig {
 
 	private static final String LOGIN = "u";
 	private static final String PASSWORD = "p";

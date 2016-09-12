@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
-public class MvcConfig {
+class MvcConfig {
 	@Bean
 	public InternalResourceViewResolver jspResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
