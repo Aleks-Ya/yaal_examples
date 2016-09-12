@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SecurityApplication {
 	public static void main(String[] args) throws Exception {
-		System.setProperty("spring.profiles.active", Profiles.AUTHENTICATION_MANAGER_BUILDER);
+		System.setProperty("spring.profiles.active", Profiles.USER_DETAIL_SERVICE);
 		SpringApplication.run(SecurityApplication.class, args);
 	}
 }
