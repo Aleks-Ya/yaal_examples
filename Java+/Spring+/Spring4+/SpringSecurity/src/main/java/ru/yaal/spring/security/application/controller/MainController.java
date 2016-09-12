@@ -22,4 +22,19 @@ public class MainController {
 	public String info() {
 		return "info";
 	}
+
+	@RequestMapping("/user")
+	public String userAccessible() {
+		return "user_accessible";
+	}
+
+	@RequestMapping("/admin")
+	public String adminAccessible() {
+		return "admin_accessible";
+	}
+	
+	@RequestMapping("/anonymus")
+	public String anonymus() {
+		return "anonymus";
+	}
 }
