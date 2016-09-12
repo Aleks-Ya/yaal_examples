@@ -1,4 +1,4 @@
-package ru.yaal.spring.security.application.config;
+package ru.yaal.spring.security.application.config.mvc;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

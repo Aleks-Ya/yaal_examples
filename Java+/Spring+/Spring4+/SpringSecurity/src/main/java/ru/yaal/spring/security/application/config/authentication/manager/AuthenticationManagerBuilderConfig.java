@@ -1,4 +1,4 @@
-package ru.yaal.spring.security.application.config;
+package ru.yaal.spring.security.application.config.authentication.manager;
 
 import javax.sql.DataSource;
 
@@ -7,11 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 
-import ru.yaal.spring.security.application.Profiles;
+import ru.yaal.spring.security.application.config.authentication.AuthenticationProfiles;
 
 @Configuration
-@Profile(Profiles.AUTHENTICATION_MANAGER_BUILDER)
-class AuthenticationManagerBuilderSecurityConfig {
+@Profile(AuthenticationProfiles.AUTHENTICATION_MANAGER_BUILDER)
+class AuthenticationManagerBuilderConfig {
 
 	private static final String LOGIN = "u";
 	private static final String PASSWORD = "p";

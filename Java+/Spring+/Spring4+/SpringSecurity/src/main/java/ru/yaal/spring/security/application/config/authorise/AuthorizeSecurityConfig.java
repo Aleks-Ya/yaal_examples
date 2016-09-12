@@ -1,4 +1,4 @@
-package ru.yaal.spring.security.application.config;
+package ru.yaal.spring.security.application.config.authorise;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;

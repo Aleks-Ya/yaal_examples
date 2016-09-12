@@ -1,4 +1,4 @@
-package ru.yaal.spring.security.application.config;
+package ru.yaal.spring.security.application.config.authentication.provider;
 
 import java.util.Arrays;
 import java.util.Collection;

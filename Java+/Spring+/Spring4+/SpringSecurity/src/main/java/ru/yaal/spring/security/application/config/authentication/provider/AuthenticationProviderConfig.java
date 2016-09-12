@@ -1,15 +1,15 @@
-package ru.yaal.spring.security.application.config;
+package ru.yaal.spring.security.application.config.authentication.provider;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationProvider;
 
-import ru.yaal.spring.security.application.Profiles;
+import ru.yaal.spring.security.application.config.authentication.AuthenticationProfiles;
 
 @Configuration
-@Profile(Profiles.AUTHENTICATION_PROVIDER)
-class AuthenticationProviderSecurityConfig {
+@Profile(AuthenticationProfiles.AUTHENTICATION_PROVIDER)
+class AuthenticationProviderConfig {
 	@Bean
 	public AuthenticationProvider authenticationProvider() {
 		return new CustomAuthenticationProvider();
