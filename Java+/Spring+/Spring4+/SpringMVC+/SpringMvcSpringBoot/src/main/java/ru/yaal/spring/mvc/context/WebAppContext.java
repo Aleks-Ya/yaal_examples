@@ -1,4 +1,4 @@
-package ru.yaal.spring.mvc.config;
+package ru.yaal.spring.mvc.context;
 
 import java.io.IOException;
 import java.util.List;
