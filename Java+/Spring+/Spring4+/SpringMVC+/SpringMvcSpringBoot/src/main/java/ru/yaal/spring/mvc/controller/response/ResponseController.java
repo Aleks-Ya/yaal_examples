@@ -28,9 +28,9 @@ public class ResponseController {
 	/**
 	 * Using ResponseBody.
 	 */
-	@RequestMapping(value = "/respose_body")
+	@RequestMapping(value = "/respose_body", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String responseBody() {
-		return "Response body";
+		return "{message: Response body message}";
 	}
 }
