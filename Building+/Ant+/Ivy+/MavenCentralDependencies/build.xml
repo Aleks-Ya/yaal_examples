@@ -1,30 +1,40 @@
-<project name="MavenCentralDependencies" default="dist" basedir=".">
+<project name="MavenCentralDependencies" default="dist" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
   
   <description>
     Resolve third party dependencies from The Maven Central.
   </description>
   
   <property name="src" location="src"/>
+  <property name="lib" location="lib"/>
   <property name="build" location="build"/>
   <property name="dist" location="dist"/>
 
-  <target name="init">
+  <target name="clean" description="clean up">
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+	<delete dir="${lib}"/>
+  </target>
+  
+  <target name="init" depends="clean">
 	<tstamp/>
     <mkdir dir="${build}"/>
   </target>
+  
+   <target name="resolve" depends="init" description="retrieve dependencies with ivy">
+        <ivy:retrieve />
+    </target>
 
-  <target name="compile" depends="init" description="compile the source">
-    <javac srcdir="${src}" destdir="${build}"/>
+  <target name="compile" depends="resolve" description="compile the source">
+    <javac srcdir="${src}" destdir="${build}">
+		<classpath>
+			<pathelement location="${lib}\commons-lang3-3.4.jar"/>
+		</classpath>
+	</javac>
   </target>
 
   <target name="dist" depends="compile" description="generate the distribution">
     <mkdir dir="${dist}/lib"/>
     <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}"/>
-  </target>
-
-  <target name="clean" description="clean up">
-    <delete dir="${build}"/>
-    <delete dir="${dist}"/>
   </target>
   
 </project>

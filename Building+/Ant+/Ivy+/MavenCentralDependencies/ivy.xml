@@ -1,0 +1,6 @@
+<ivy-module version="2.0">
+    <info organisation="ru.yaal" module="maven-central-dependencies"/>
+    <dependencies>
+		<dependency org="org.apache.commons" name="commons-lang3" rev="3.4"/>
+    </dependencies>
+</ivy-module>
