@@ -1,0 +1,6 @@
+<ivy-module version="2.0">
+    <info organisation="ru.yaal.ant" module="PublishToLocalRepo"/>
+	<publications>
+		<artifact name="PublishToLocalRepo" type="jar" ext="jar" />
+	</publications>
+</ivy-module>
