@@ -1,0 +1,14 @@
+{
+	"expiry": {
+		"type": "temporal",
+		"duration": "2011-04-11T12:00:00-05:00"
+	},
+	"orchestrationData": {
+		"titles": [
+			"/aranz/periodical/revistamex/v1",
+			"/aranz/codigos/130292456/v25",
+			"/trp/ereader/test"
+		],
+		"query": "some query text"
+	}
+}
