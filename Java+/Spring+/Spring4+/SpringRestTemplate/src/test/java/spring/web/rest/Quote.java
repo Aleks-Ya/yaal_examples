@@ -1,4 +1,4 @@
-package ru.yaal.spring.web.rest;
+package spring.web.rest;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
