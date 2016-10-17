@@ -1,0 +1,6 @@
+INDEX VERSION 1.3+D:\yaal\examples\IDE+\Eclipse+\dynamic-web-project-workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2148724901.index
+2193613170.index
+2007477901.index
+1196899235.index
+1624699049.index

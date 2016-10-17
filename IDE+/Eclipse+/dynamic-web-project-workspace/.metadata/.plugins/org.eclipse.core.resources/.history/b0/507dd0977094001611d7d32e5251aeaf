@@ -1,0 +1,28 @@
+package servlet;
+
+import java.io.IOException;
+import java.time.LocalDate;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.common.base.Strings;
+import com.google.common.escape.Escaper;
+import com.google.common.html.HtmlEscapers;
+
+@WebServlet("/CurrentDateServlet")
+public final class CurrentDateServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		response.getOutputStream().print(LocalDate.now().toString());
+		response.getOutputStream().print("<br/>");
+		response.getOutputStream().print(LocalDate.now().toString());
+		
+	}
+}
