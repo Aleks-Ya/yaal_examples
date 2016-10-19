@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import coderetreat.lifegame.api.Square;
+import coderetreat.lifegame.impl.square.FixedSizeBitSetSquareImpl;
 
 public class FixedSizeBitSetSquareImplTest {
 

@@ -1,4 +1,4 @@
-package coderetreat.lifegame.impl;
+package coderetreat.lifegame.impl.square;
 
 import java.util.BitSet;
 
