@@ -1,8 +1,5 @@
 package coderetreat.lifegame.api;
 
-public interface Editor {
-
+public interface ModelSource {
 	Model getModel();
-
-	void update(Model model);
 }
