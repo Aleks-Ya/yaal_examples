@@ -7,4 +7,6 @@ public interface Model {
 	boolean isAlive(int x, int y);
 
 	void setAlive(int x, int y, boolean alive);
+	
+	int aliveNeiboursCount(int x, int y);
 }

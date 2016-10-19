@@ -1,14 +1,14 @@
-package coderetreat.lifegame.impl.square;
+package coderetreat.lifegame.impl.model;
 
 import java.util.BitSet;
 
-import coderetreat.lifegame.api.Square;
+import coderetreat.lifegame.api.Model;
 
-public class FixedSizeBitSetSquareImpl implements Square {
+public class FixedSizeBitSetModel implements Model {
 	private final BitSet data;
 	private final int size;
 
-	public FixedSizeBitSetSquareImpl(int size) {
+	public FixedSizeBitSetModel(int size) {
 		if (size < 3) {
 			throw new IllegalArgumentException("Incorrect size: " + size);
 		}
@@ -17,7 +17,7 @@ public class FixedSizeBitSetSquareImpl implements Square {
 	}
 
 	@Override
-	public int size() {
+	public int getSize() {
 		return size;
 	}
 
@@ -46,7 +46,7 @@ public class FixedSizeBitSetSquareImpl implements Square {
 	}
 
 	private int coordinatesToIndex(int x, int y) {
-		int e = x * size() + y;
+		int e = x * getSize() + y;
 		return e;
 	}
 

@@ -1,39 +1,41 @@
 package coderetreat.lifegame.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import coderetreat.lifegame.api.Square;
-import coderetreat.lifegame.impl.square.FixedSizeBitSetSquareImpl;
+import coderetreat.lifegame.api.Model;
+import coderetreat.lifegame.impl.model.FixedSizeBitSetModel;
 
 public class FixedSizeBitSetSquareImplTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void incorrectSize() {
 		int size = 2;
-		new FixedSizeBitSetSquareImpl(size);
+		new FixedSizeBitSetModel(size);
 	}
 
 	@Test
 	public void testSize() {
 		int size = 5;
-		Square s = new FixedSizeBitSetSquareImpl(size);
-		assertEquals(size, s.size());
+		Model m = new FixedSizeBitSetModel(size);
+		assertEquals(size, m.getSize());
 	}
 
 	@Test
 	public void testIsAlive() {
-		Square s = new FixedSizeBitSetSquareImpl(5);
-		assertFalse(s.isAlive(1, 1));
+		Model m = new FixedSizeBitSetModel(5);
+		assertFalse(m.isAlive(1, 1));
 	}
 
 	@Test
 	public void testAliveNeiboursCount() {
-		Square s = new FixedSizeBitSetSquareImpl(5);
-		assertEquals(0, s.aliveNeiboursCount(1, 1));
-		s.setAlive(1, 2, true);
-		assertEquals(1, s.aliveNeiboursCount(1, 1));
+		Model m = new FixedSizeBitSetModel(5);
+		assertEquals(0, m.aliveNeiboursCount(1, 1));
+		m.setAlive(1, 2, true);
+		assertEquals(1, m.aliveNeiboursCount(1, 1));
 	}
 
 	/**
@@ -41,12 +43,12 @@ public class FixedSizeBitSetSquareImplTest {
 	 */
 	@Test
 	public void testSetAlive() {
-		Square s = new FixedSizeBitSetSquareImpl(5);
+		Model m = new FixedSizeBitSetModel(5);
 		int x = 1;
 		int y = 2;
-		assertFalse(s.isAlive(x, y));
-		s.setAlive(x, y, true);
-		assertTrue(s.isAlive(x, y));
+		assertFalse(m.isAlive(x, y));
+		m.setAlive(x, y, true);
+		assertTrue(m.isAlive(x, y));
 	}
 
 	/**
@@ -54,12 +56,12 @@ public class FixedSizeBitSetSquareImplTest {
 	 */
 	@Test
 	public void testSetAliveBorderCell() {
-		Square s = new FixedSizeBitSetSquareImpl(5);
+		Model m = new FixedSizeBitSetModel(5);
 		int x = 0;
 		int y = 1;
-		assertFalse(s.isAlive(x, y));
-		s.setAlive(x, y, true);
-		assertFalse(s.isAlive(x, y));
+		assertFalse(m.isAlive(x, y));
+		m.setAlive(x, y, true);
+		assertFalse(m.isAlive(x, y));
 	}
 
 }

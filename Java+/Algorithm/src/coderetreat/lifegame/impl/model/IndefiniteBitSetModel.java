@@ -1,15 +1,15 @@
-package coderetreat.lifegame.impl.square;
+package coderetreat.lifegame.impl.model;
 
 import java.util.BitSet;
 
-import coderetreat.lifegame.api.Square;
+import coderetreat.lifegame.api.Model;
 
-public class IndefiniteBitSetSquareImpl implements Square {
+public class IndefiniteBitSetModel implements Model {
 	private final int size = 3;
 	private final BitSet data = new BitSet(size * size);
 
 	@Override
-	public int size() {
+	public int getSize() {
 		return size;
 	}
 
@@ -34,13 +34,13 @@ public class IndefiniteBitSetSquareImpl implements Square {
 		if (y <= 1 || y >= data.length()) {
 			return 0;
 		}
-		int index = x * size() + y;
+		int index = x * getSize() + y;
 		return data.get(index) ? (byte) 1 : (byte) 0;
 	}
 
 	@Override
 	public void setAlive(int x, int y, boolean alive) {
-		int e = x * size() + y;
+		int e = x * getSize() + y;
 		data.set(e, alive);
 	}
 
