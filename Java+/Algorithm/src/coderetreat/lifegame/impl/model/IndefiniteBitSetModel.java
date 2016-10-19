@@ -49,5 +49,10 @@ public class IndefiniteBitSetModel implements Model {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	@Override
+	public IndefiniteBitSetModel clone() {
+		return this;
+	}
 
 }

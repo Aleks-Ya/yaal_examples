@@ -15,6 +15,11 @@ public class FixedSizeBitSetModel implements Model {
 		this.size = size;
 		data = new BitSet(size * size);
 	}
+	
+	private FixedSizeBitSetModel(FixedSizeBitSetModel model) {
+		this.size = model.size;
+		this.data = (BitSet) model.data.clone();
+	}
 
 	@Override
 	public int getSize() {
@@ -59,4 +64,8 @@ public class FixedSizeBitSetModel implements Model {
 		return x == 0 || x == size - 1 || y == 0 || y == size;
 	}
 
+	public FixedSizeBitSetModel clone(){
+		return new FixedSizeBitSetModel(this);
+	}
+	
 }

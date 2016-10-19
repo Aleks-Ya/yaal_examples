@@ -9,4 +9,6 @@ public interface Model {
 	void setAlive(int x, int y, boolean alive);
 	
 	int aliveNeiboursCount(int x, int y);
+	
+	Model clone();
 }
