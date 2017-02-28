@@ -1,4 +1,4 @@
-package ru.yaal.bigdata.mapreduce;
+package ru.yaal.bigdata.mapreduce.v1;
 
 import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
@@ -16,8 +16,11 @@ import java.util.concurrent.Future;
 import org.junit.Test;
 
 import ru.yaal.bigdata.mapreduce.cyclic.CyclicReader;
+import ru.yaal.bigdata.mapreduce.v1.Master;
+import ru.yaal.bigdata.mapreduce.v1.MasterImpl;
+import ru.yaal.bigdata.mapreduce.v1.Result;
 
-public class MapReduceTest {
+public class MapReduce1Test {
 
 	@Test
 	public void test() throws IOException, InterruptedException {
