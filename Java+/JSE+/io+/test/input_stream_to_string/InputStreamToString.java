@@ -19,25 +19,50 @@ public class InputStreamToString {
 	private static final String CONTENT = "Привет!\nПока!";
 	private final InputStream input = new ByteArrayInputStream(CONTENT.getBytes());
 
+	/**
+	 * Все строки сразу загружаются в память.
+	 */
 	@Test
-	public void byBufferedReader() throws IOException {
-		BufferedReader buffer = new BufferedReader(new InputStreamReader(input));
-		String str = buffer.lines().collect(Collectors.joining("\n"));
-
+	public void byBufferedReader1() throws IOException {
+		String str;
+		try (InputStreamReader isr = new InputStreamReader(input); BufferedReader buffer = new BufferedReader(isr)) {
+			str = buffer.lines().collect(Collectors.joining("\n"));
+		}
 		assertThat(str, equalTo(CONTENT));
 	}
 
 	@Test
 	public void byInputStreamReader() throws IOException {
-		Charset charset = Charset.forName("UTF-8");
-
-		InputStreamReader isr = new InputStreamReader(input, charset);
 		StringBuilder result = new StringBuilder();
-		char[] c = new char[1];
-		while (isr.read(c) != -1) {
-			result.append(c);
+
+		Charset charset = Charset.forName("UTF-8");
+		try (InputStreamReader isr = new InputStreamReader(input, charset)) {
+			char[] c = new char[1];
+			while (isr.read(c) != -1) {
+				result.append(c);
+			}
 		}
 
 		assertThat(result.toString(), equalTo(CONTENT));
+	}
+
+	/**
+	 * Обработка файлов, не помещающихся в память.
+	 */
+	@Test
+	public void byBufferedReader2() throws IOException {
+		Charset charset = Charset.forName("UTF-8");
+
+		StringBuilder result = new StringBuilder();
+		try (InputStreamReader isr = new InputStreamReader(input, charset);
+				BufferedReader br = new BufferedReader(isr)) {
+			String s;
+			while ((s = br.readLine()) != null) {
+				result.append(s);
+			}
+		}
+
+		String expected = CONTENT.replace("\n", "");
+		assertThat(result.toString(), equalTo(expected));
 	}
 }
