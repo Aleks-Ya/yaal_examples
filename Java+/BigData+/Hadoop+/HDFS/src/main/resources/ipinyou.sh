@@ -1,1 +1,0 @@
-java -cp iPinyou-1-jar-with-dependencies.jar -agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=y ru.yaal.bigdata.epam.course.lesson2.IPinYouMain
