@@ -43,6 +43,12 @@ class VisualizeDataFrameTest extends FlatSpec with BeforeAndAfterAll {
       "root\n" +
       " |-- name: string (nullable = true)\n" +
       " |-- age: string (nullable = true)\n"
+
+    println("Explain:\n")
+    df.explain()
+
+    println("\nExtended explain:\n")
+    df.explain(extended = true)
   }
 
   override def afterAll() {
