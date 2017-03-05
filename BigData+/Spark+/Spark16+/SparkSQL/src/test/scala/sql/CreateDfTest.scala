@@ -15,7 +15,7 @@ import scala.collection.immutable._
 /**
  * Ways to instantiate DataFrame object.
  */
-class CreateDataFrameTest extends FlatSpec with BeforeAndAfterAll {
+class DataFrame extends FlatSpec with BeforeAndAfterAll {
 
   var sc: SparkContext = null
   var sql: SQLContext = null

@@ -9,11 +9,11 @@ import org.apache.spark.sql._
 import org.apache.spark.sql.types._
 import org.apache.spark.rdd._
 
-class VisualizeDataFrameTest extends FlatSpec with BeforeAndAfterAll {
+class VisualizeDfTest extends FlatSpec with BeforeAndAfterAll {
 
   var sc: SparkContext = null
   var sql: SQLContext = null
-  var df: DataFrame = null
+  var df:  org.apache.spark.sql.DataFrame = null
 
   override def beforeAll() {
     val conf = new SparkConf().setAppName("SqlContextTest").setMaster("local")
