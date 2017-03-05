@@ -8,8 +8,14 @@ import org.scalatest.BeforeAndAfterAll
 import org.apache.spark.sql._
 import org.apache.spark.sql.types._
 import org.apache.spark.rdd._
+import java.nio.file.Files
+import java.io.File
+import scala.collection.immutable._
 
-class ApplySchemaToExistsRddTest extends FlatSpec with BeforeAndAfterAll {
+/**
+ * Ways to instantiate DataFrame object.
+ */
+class CreateDataFrameTest extends FlatSpec with BeforeAndAfterAll {
 
   var sc: SparkContext = null
   var sql: SQLContext = null
@@ -27,13 +33,13 @@ class ApplySchemaToExistsRddTest extends FlatSpec with BeforeAndAfterAll {
     val rowRdd = people.map(_.split(",")).map(p => Row(p(0), p(1).trim))
     val peopleSchemaRdd = sql.applySchema(rowRdd, schema)
     peopleSchemaRdd.registerTempTable("people")
-    sql.tableNames.toList should contain ("people")
-    
+    sql.tableNames.toList should contain("people")
+
     println("Tables: " + sql.tableNames.toList)
 
     val result = sql.sql("SELECT name, age FROM people WHERE age > 30")
-    result.map(r => r.toString()).collect should contain ("[Peter,35]")
-    
+    result.map(r => r.toString()).collect should contain("[Peter,35]")
+
     peopleSchemaRdd.printSchema //-> peopleSchemaRdd.schema.treeString
     peopleSchemaRdd.show
 
@@ -44,6 +50,20 @@ class ApplySchemaToExistsRddTest extends FlatSpec with BeforeAndAfterAll {
       "root\n" +
       " |-- name: string (nullable = true)\n" +
       " |-- age: string (nullable = true)\n"
+  }
+
+  class People(val name: String, val age: Int) {
+    override def toString: String = name + "-" + age
+  }
+
+  "From Class" should "create DF from Object and Class" in {
+    val john = new People("John", 25)
+    val peter = new People("Peter", 35)
+    val data = java.util.Arrays.asList(john, peter)
+    val df = sql.createDataFrame(data, classOf[People])
+    df.show()
+    //don't work
+    //df.collect should contain inOrderOnly (john, peter)
   }
 
   override def afterAll() {
