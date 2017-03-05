@@ -27,24 +27,24 @@ class CreateDataFrameTest extends FlatSpec with BeforeAndAfterAll {
   }
 
   "Apply schema to RDD" should "print table" in {
-    val people = sc.parallelize(Seq("Jhon,25", "Peter,35"))
+    val peopleRdd = sc.parallelize(Seq("Jhon,25", "Peter,35"))
     val schemaStr = "name age"
     val schema = StructType(schemaStr.split(" ").map(fieldName => StructField(fieldName, StringType, true)))
-    val rowRdd = people.map(_.split(",")).map(p => Row(p(0), p(1).trim))
-    val peopleSchemaRdd = sql.applySchema(rowRdd, schema)
-    peopleSchemaRdd.registerTempTable("people")
+    val rowRdd = peopleRdd.map(_.split(",")).map(p => Row(p(0), p(1).trim))
+    val peopleDf = sql.createDataFrame(rowRdd, schema)
+    peopleDf.registerTempTable("people")
     sql.tableNames.toList should contain("people")
 
     println("Tables: " + sql.tableNames.toList)
 
-    val result = sql.sql("SELECT name, age FROM people WHERE age > 30")
-    result.map(r => r.toString()).collect should contain("[Peter,35]")
+    val selectDf = sql.sql("SELECT name, age FROM people WHERE age > 30")
+    selectDf.map(r => r.toString()).collect should contain("[Peter,35]")
 
-    peopleSchemaRdd.printSchema //-> peopleSchemaRdd.schema.treeString
-    peopleSchemaRdd.show
+    peopleDf.printSchema //-> peopleSchemaRdd.schema.treeString
+    peopleDf.show
 
-    println("JSON: " + peopleSchemaRdd.schema.prettyJson)
-    val tree = peopleSchemaRdd.schema.treeString
+    println("JSON: " + peopleDf.schema.prettyJson)
+    val tree = peopleDf.schema.treeString
 
     tree shouldEqual
       "root\n" +
