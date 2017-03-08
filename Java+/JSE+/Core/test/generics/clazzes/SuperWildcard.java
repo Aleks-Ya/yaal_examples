@@ -1,4 +1,4 @@
-package generics.classes;
+package generics.clazzes;
 
 import org.junit.Test;
 
