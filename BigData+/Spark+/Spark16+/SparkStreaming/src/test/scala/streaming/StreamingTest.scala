@@ -6,18 +6,16 @@ import org.scalatest.{BeforeAndAfterAll, FlatSpec}
 
 class StreamingTest extends FlatSpec with BeforeAndAfterAll {
 
-  var stream: StreamingContext = _
-
-  override def beforeAll() {
-    val conf = new SparkConf().setAppName("SqlContextTest").setMaster("local")
-    stream = new StreamingContext(conf, Seconds(1))
-  }
-
   "Visualize DF" should "print some info" in {
-    println("hello")
-  }
-
-  override def afterAll() {
-    stream.stop()
+    val conf = new SparkConf().setAppName(classOf[StreamingTest].getSimpleName).setMaster("local[2]")
+    val batchDuration = Seconds(5)
+    val ssc = new StreamingContext(conf, batchDuration)
+    val lines = ssc.socketTextStream("localhost", 9999)
+    val words = lines.flatMap(_.split(" "))
+    val pairs = words.map(w => (w, 1))
+    val wordCounts = pairs.reduceByKey(_ + _)
+    wordCounts.print()
+    ssc.start()
+    ssc.awaitTermination()
   }
 }
