@@ -75,6 +75,7 @@ include 'JSE+:Core',
         'Libs+:Xml+:XQuery+:BaseX',
         'Libs+:HTML+:ParsingWithRegexp',
         'Libs+:HTML+:jsoup',
+		'Libs+:pcap4j',
         'Algorithm',
         'Git+:JGit'
 

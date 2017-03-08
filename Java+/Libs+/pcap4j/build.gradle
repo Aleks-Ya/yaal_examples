@@ -1,0 +1,4 @@
+dependencies {
+    compile 'org.pcap4j:pcap4j-core:1.7.0', 'org.slf4j:slf4j-simple:1.7.24',
+            'org.pcap4j:pcap4j-packetfactory-static:1.7.0'
+}
