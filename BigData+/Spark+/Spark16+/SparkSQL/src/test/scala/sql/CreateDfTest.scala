@@ -1,24 +1,20 @@
 package sql
 
-import org.apache.spark.SparkConf
-import org.apache.spark.SparkContext
-import org.scalatest.FlatSpec
-import org.scalatest.Matchers._
-import org.scalatest.BeforeAndAfterAll
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql._
 import org.apache.spark.sql.types._
-import org.apache.spark.rdd._
-import java.nio.file.Files
-import java.io.File
+import org.scalatest.{BeforeAndAfterAll, FlatSpec}
+import org.scalatest.Matchers._
+
 import scala.collection.immutable._
 
 /**
- * Ways to instantiate DataFrame object.
- */
-class DataFrame extends FlatSpec with BeforeAndAfterAll {
+  * Ways to instantiate DataFrame object.
+  */
+class CreateDfTest extends FlatSpec with BeforeAndAfterAll {
 
-  var sc: SparkContext = null
-  var sql: SQLContext = null
+  var sc: SparkContext = _
+  var sql: SQLContext = _
 
   override def beforeAll() {
     val conf = new SparkConf().setAppName("SqlContextTest").setMaster("local")
@@ -29,7 +25,7 @@ class DataFrame extends FlatSpec with BeforeAndAfterAll {
   "Apply schema to RDD" should "print table" in {
     val peopleRdd = sc.parallelize(Seq("Jhon,25", "Peter,35"))
     val schemaStr = "name age"
-    val schema = StructType(schemaStr.split(" ").map(fieldName => StructField(fieldName, StringType, true)))
+    val schema = StructType(schemaStr.split(" ").map(fieldName => StructField(fieldName, StringType, nullable = true)))
     val rowRdd = peopleRdd.map(_.split(",")).map(p => Row(p(0), p(1).trim))
     val peopleDf = sql.createDataFrame(rowRdd, schema)
     peopleDf.registerTempTable("people")
@@ -48,8 +44,8 @@ class DataFrame extends FlatSpec with BeforeAndAfterAll {
 
     tree shouldEqual
       "root\n" +
-      " |-- name: string (nullable = true)\n" +
-      " |-- age: string (nullable = true)\n"
+        " |-- name: string (nullable = true)\n" +
+        " |-- age: string (nullable = true)\n"
   }
 
   class People(val name: String, val age: Int) {

@@ -1,21 +1,14 @@
 package sql
 
-import org.apache.spark.SparkConf
-import org.apache.spark.SparkContext
-import org.scalatest.FlatSpec
-import org.scalatest.Matchers._
-import org.scalatest.BeforeAndAfterAll
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql._
-import org.apache.spark.sql.types._
-import org.apache.spark.rdd._
-import java.nio.file.Files
-import java.io.File
-import scala.collection.immutable._
+import org.scalatest.{BeforeAndAfterAll, FlatSpec}
+import org.scalatest.Matchers._
 
 class CsvToDfTest extends FlatSpec with BeforeAndAfterAll {
 
-  var sc: SparkContext = null
-  var sql: SQLContext = null
+  var sc: SparkContext = _
+  var sql: SQLContext = _
 
   override def beforeAll() {
     val conf = new SparkConf().setAppName("CsvToDfTest").setMaster("local")
@@ -31,7 +24,7 @@ class CsvToDfTest extends FlatSpec with BeforeAndAfterAll {
       .format("com.databricks.spark.csv")
       .option("header", "true")
       .option("inferSchema", "true")
-      .load(airports.getPath.toString)
+      .load(airports.getPath)
 
     df.printSchema()
     df.show()

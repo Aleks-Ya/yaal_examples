@@ -1,16 +1,9 @@
 package sql.hive
 
-import org.apache.spark.SparkConf
-import org.apache.spark.SparkContext
-import org.scalatest.FlatSpec
-import org.scalatest.Matchers._
-import org.scalatest.BeforeAndAfterAll
-import org.apache.spark.sql._
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.hive._
-import org.apache.spark.sql.hive.test._
-import org.apache.spark.sql.types._
-import org.apache.spark.rdd._
-import java.nio.file._
+import org.scalatest.{BeforeAndAfterAll, FlatSpec}
+import org.scalatest.Matchers._
 
 class InitHiveContextTest extends FlatSpec with BeforeAndAfterAll {
 

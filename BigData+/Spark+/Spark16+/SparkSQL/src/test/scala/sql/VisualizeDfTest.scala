@@ -1,19 +1,16 @@
 package sql
 
-import org.apache.spark.SparkConf
-import org.apache.spark.SparkContext
-import org.scalatest.FlatSpec
-import org.scalatest.Matchers._
-import org.scalatest.BeforeAndAfterAll
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql._
 import org.apache.spark.sql.types._
-import org.apache.spark.rdd._
+import org.scalatest.{BeforeAndAfterAll, FlatSpec}
+import org.scalatest.Matchers._
 
 class VisualizeDfTest extends FlatSpec with BeforeAndAfterAll {
 
-  var sc: SparkContext = null
-  var sql: SQLContext = null
-  var df:  org.apache.spark.sql.DataFrame = null
+  var sc: SparkContext = _
+  var sql: SQLContext = _
+  var df: org.apache.spark.sql.DataFrame = _
 
   override def beforeAll() {
     val conf = new SparkConf().setAppName("SqlContextTest").setMaster("local")
@@ -22,7 +19,7 @@ class VisualizeDfTest extends FlatSpec with BeforeAndAfterAll {
 
     val peopleRdd = sc.parallelize(Seq("Jhon,25", "Peter,35"))
     val schemaStr = "name age"
-    val schema = StructType(schemaStr.split(" ").map(fieldName => StructField(fieldName, StringType, true)))
+    val schema = StructType(schemaStr.split(" ").map(fieldName => StructField(fieldName, StringType, nullable = true)))
     val rowRdd = peopleRdd.map(_.split(",")).map(p => Row(p(0), p(1).trim))
     df = sql.createDataFrame(rowRdd, schema)
     df.registerTempTable("people")
@@ -41,8 +38,8 @@ class VisualizeDfTest extends FlatSpec with BeforeAndAfterAll {
 
     tree shouldEqual
       "root\n" +
-      " |-- name: string (nullable = true)\n" +
-      " |-- age: string (nullable = true)\n"
+        " |-- name: string (nullable = true)\n" +
+        " |-- age: string (nullable = true)\n"
 
     println("Explain:\n")
     df.explain()
