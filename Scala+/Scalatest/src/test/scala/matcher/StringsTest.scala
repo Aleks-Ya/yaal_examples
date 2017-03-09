@@ -1,9 +1,8 @@
 package matcher
 
-import org.scalatest.FlatSpec
-import org.scalatest.Matchers.convertToStringShouldWrapper
+import org.scalatest.{FlatSpec, Matchers}
 
-class StringsTest extends FlatSpec {
+class StringsTest extends FlatSpec with Matchers {
 
   "shouldEqual matcher" should "work" in {
     "abc" shouldEqual "abc"
