@@ -4,7 +4,8 @@ import java.io.NotSerializableException
 
 import org.apache.spark.{SparkConf, SparkException}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
-import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
+import org.scalactic.source.Position
+import org.scalatest.{BeforeAndAfter, BeforeAndAfterAll, FlatSpec, Matchers}
 
 import scala.collection.mutable
 
@@ -16,26 +17,54 @@ import scala.collection.mutable
   * this DStream to avoid this.  This has been enforced to avoid bloating of Spark tasks
   * with unnecessary objects.
   */
-class PluggableInputDStreamTest extends FlatSpec with BeforeAndAfterAll with Matchers {
+class PluggableInputDStreamTest extends FlatSpec with BeforeAndAfter with Matchers {
 
-  val suffix = "old"
-  var ssc: StreamingContext = _
+  private val suffixInDriverClass = "old"
+  private var ssc: StreamingContext = _
 
-  override protected def beforeAll(): Unit = {
+  before {
     val conf = new SparkConf()
       .setAppName(classOf[PluggableInputDStreamTest].getSimpleName)
       .setMaster("local[2]")
     ssc = new StreamingContext(conf, Seconds(1))
   }
 
-  it should "works without exceptions" in {
+  it should "throw exceptions" in {
     assertThrows[SparkException] {
       val queue = mutable.Queue(ssc.sparkContext.parallelize(Seq("a", "b")))
       ssc.queueStream(queue)
-        .map(word => word + suffix)
+        .map(word => word + suffixInDriverClass)
         .print()
       ssc.start
     }
   }
 
+  it should "works without exceptions" in {
+    val queue = mutable.Queue(ssc.sparkContext.parallelize(Seq("a", "b")))
+    ssc.queueStream(queue)
+      .map(word => word + NotDriverObject.suffix)
+      .print()
+    ssc.start
+  }
+
+  it should "works without exceptions too" in {
+    val queue = mutable.Queue(ssc.sparkContext.parallelize(Seq("a", "b")))
+    val ndc = new NotDriverClass
+    ssc.queueStream(queue)
+      .map(word => word + ndc.suffix)
+      .print()
+    ssc.start
+  }
+
+  after {
+    if (ssc != null) ssc.stop()
+  }
+}
+
+object NotDriverObject extends Serializable {
+  val suffix = "old"
+}
+
+class NotDriverClass extends Serializable {
+  val suffix = "old"
 }
