@@ -1,7 +1,7 @@
 package sql
 
 import org.apache.spark.SparkContext
-import org.apache.spark.sql.types.{StringType, StructField, StructType}
+import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 import org.apache.spark.sql.{Row, SQLContext, SparkSession}
 import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
 
@@ -22,9 +22,10 @@ class CreateDfTest extends FlatSpec with BeforeAndAfterAll with Matchers {
 
   "Apply schema to RDD" should "print table" in {
     val peopleRdd = sc.parallelize(Seq("Jhon,25", "Peter,35"))
-    val schemaStr = "name age"
-    val schema = StructType(schemaStr.split(" ").map(fieldName => StructField(fieldName, StringType, nullable = true)))
-    val rowRdd = peopleRdd.map(_.split(",")).map(p => Row(p(0), p(1).trim))
+    val nameField = StructField("name", StringType, nullable = true)
+    val ageField = StructField("age", IntegerType, nullable = true)
+    val schema = StructType(nameField :: ageField :: Nil)
+    val rowRdd = peopleRdd.map(_.split(",")).map(p => Row(p(0), p(1).toInt))
     val peopleDf = sql.createDataFrame(rowRdd, schema)
     peopleDf.createOrReplaceTempView("people")
     sql.tableNames.toList should contain("people")
@@ -43,7 +44,7 @@ class CreateDfTest extends FlatSpec with BeforeAndAfterAll with Matchers {
     tree shouldEqual
       "root\n" +
         " |-- name: string (nullable = true)\n" +
-        " |-- age: string (nullable = true)\n"
+        " |-- age: integer (nullable = true)\n"
   }
 
   class People(val name: String, val age: Int) {
