@@ -24,9 +24,10 @@ class CreateDfTest extends FlatSpec with BeforeAndAfterAll {
 
   "Apply schema to RDD" should "print table" in {
     val peopleRdd = sc.parallelize(Seq("Jhon,25", "Peter,35"))
-    val schemaStr = "name age"
-    val schema = StructType(schemaStr.split(" ").map(fieldName => StructField(fieldName, StringType, nullable = true)))
-    val rowRdd = peopleRdd.map(_.split(",")).map(p => Row(p(0), p(1).trim))
+    val nameField = StructField("name", StringType, nullable = true)
+    val ageField = StructField("age", IntegerType, nullable = true)
+    val schema = StructType(nameField :: ageField :: Nil)
+    val rowRdd = peopleRdd.map(_.split(",")).map(p => Row(p(0), p(1).toInt))
     val peopleDf = sql.createDataFrame(rowRdd, schema)
     peopleDf.registerTempTable("people")
     sql.tableNames.toList should contain("people")
