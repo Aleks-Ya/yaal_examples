@@ -37,11 +37,15 @@ class UpdateStateByKeyTest extends FlatSpec with BeforeAndAfterAll with Eventual
         Some(oldCount + newCount)
       })
       .map(pair => pair._1 + "-" + pair._2)
-      .toString
-    println(str)
+      .print()
 
     ssc.start
+
     ClockWrapperFull.advance(batchDuration.milliseconds)
+    queue += sc.parallelize(Seq("b a c", "a c c", "d"))
+    ClockWrapperFull.advance(batchDuration.milliseconds)
+
+    Thread.sleep(1000)
     ssc.stop()
   }
 }
