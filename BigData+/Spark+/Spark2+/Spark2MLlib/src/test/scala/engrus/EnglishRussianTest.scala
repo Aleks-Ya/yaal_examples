@@ -45,8 +45,10 @@ class EnglishRussianTest extends FlatSpec with Matchers {
     val rusTest = ss.createDataset(data)
       .map(line => line.split(" ")).toDF("words")
     val featurizedData2 = hashingTF.transform(rusTest)
-
-    idfModel.transform(featurizedData2).show
+    featurizedData2.show
+    val testTransformed = idfModel.transform(featurizedData2)
+//    testTransformed.select("label", "features").show()
+    testTransformed.show
 
     ss.stop()
   }
