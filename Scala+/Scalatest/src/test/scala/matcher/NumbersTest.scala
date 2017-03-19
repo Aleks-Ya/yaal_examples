@@ -13,4 +13,9 @@ class NumbersTest extends FlatSpec with Matchers {
     result shouldBe 3 // cannot customize equality, so fastest to compile, no parentheses required
   }
 
+  "NaN matcher" should "work" in {
+    val d = Double.NaN
+    d.isNaN shouldBe true
+  }
+
 }
