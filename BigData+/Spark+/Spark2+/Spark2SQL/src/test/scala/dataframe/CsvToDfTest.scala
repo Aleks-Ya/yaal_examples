@@ -1,4 +1,4 @@
-package sql
+package dataframe
 
 import org.apache.spark.sql._
 import org.scalatest.Matchers._
