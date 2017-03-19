@@ -1,4 +1,4 @@
-package datatype
+package datatype.vector
 
 import org.apache.spark.ml.linalg.Vectors
 import org.scalatest.{FlatSpec, Matchers}
