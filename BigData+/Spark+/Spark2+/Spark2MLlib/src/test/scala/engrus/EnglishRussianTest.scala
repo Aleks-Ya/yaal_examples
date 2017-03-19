@@ -1,6 +1,6 @@
 package engrus
 
-import org.apache.spark.ml.feature.{HashingTF, IDF, IDFModel, Tokenizer}
+import org.apache.spark.ml.feature._
 import org.apache.spark.ml.regression.LinearRegression
 import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}
 import org.scalatest.{FlatSpec, Matchers}
@@ -26,36 +26,29 @@ class EnglishRussianTest extends FlatSpec with Matchers {
     val engLabel = 0d
 
     val rusLabelledWords = parseWords(ss, readResource(ss, "rus_book.txt"), rusLabel)
+    rusLabelledWords.show
     val engLabelledWords = parseWords(ss, readResource(ss, "eng_book.txt"), engLabel)
+    engLabelledWords.show
     val allLabelledWords = rusLabelledWords.union(engLabelledWords)
     allLabelledWords.show
 
-    val hashingTF = new HashingTF().setInputCol(wordsColumn).setOutputCol(featuresColumn).setNumFeatures(20)
+    val hashingTF = new HashingTF().setInputCol(wordsColumn).setOutputCol(featuresColumn).setNumFeatures(1000)
     val featurizedData = hashingTF.transform(allLabelledWords)
     featurizedData.show
 
     val estimator = new LinearRegression().setMaxIter(10)
     val model = estimator.fit(featurizedData)
 
-    //    val rescaledData = idfModel.transform(featurizedData)
-    //    rescaledData.show()
-
     val sqlContext = ss.sqlContext
     import sqlContext.implicits._
-    val lines = "Мороз и солнце день чудесный" :: "Еще ты дремлешь друг прелестный" :: Nil
-    val rusLabelledWordsTest = parseWords(ss, ss.createDataset(lines), rusLabel)
-    //    val rusLines = ss.createDataset(lines).map(line => line.split(" ")).toDF(wordsColumn)
+    //    val lines = "Мороз и солнце день чудесный" :: "Еще ты дремлешь друг прелестный" :: Nil
+    val lines = "Мне как обычно и" :: "the gun roared a second time" :: Nil
+    val rusLabelledWordsTest = parseWords(ss, ss.createDataset(lines), -1)
     rusLabelledWordsTest.createOrReplaceTempView("test")
     val featurizedData2 = hashingTF.transform(rusLabelledWordsTest)
     featurizedData2.show
     val prediction = model.transform(featurizedData2)
     prediction.show
-
-    //      prediction.select(featuresColumn, "label", "myProbability", "prediction")
-    //      .collect()
-    //      .foreach { case Row(features: Vector[Double], label: Double, prob: Vector[Double], prediction: Double) =>
-    //        println(s"($features, $label) -> prob=$prob, prediction=$prediction")
-    //      }
 
     ss.stop()
   }
@@ -68,10 +61,16 @@ class EnglishRussianTest extends FlatSpec with Matchers {
     val sqlContext = ss.sqlContext
     import sqlContext.implicits._
 
-    val labelledSentences = text.map(line => (label, line)).toDF(labelColumn, sentenceColumn)
+    val labelledSentences = text.filter(_.nonEmpty).map(line => (label, line)).toDF(labelColumn, sentenceColumn)
 
-    val tokenizer = new Tokenizer().setInputCol(sentenceColumn).setOutputCol(wordsColumn)
-    tokenizer.transform(labelledSentences)
+    val tokenizer = new Tokenizer().setInputCol(sentenceColumn).setOutputCol("with_stop_words")
+    val df = tokenizer.transform(labelledSentences)
+
+    val remover = new StopWordsRemover()
+      .setInputCol("with_stop_words")
+      .setOutputCol(wordsColumn)
+      .setStopWords(Array("", " ", "—", "-"))
+    remover.transform(df)
   }
 
 }
