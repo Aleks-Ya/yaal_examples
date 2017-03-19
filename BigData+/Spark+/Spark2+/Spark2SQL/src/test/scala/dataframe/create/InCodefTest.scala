@@ -1,4 +1,4 @@
-package dataframe
+package dataframe.create
 
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
@@ -8,7 +8,7 @@ import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
 /**
   * Ways to instantiate DataFrame object.
   */
-class CreateDfTest extends FlatSpec with BeforeAndAfterAll with Matchers {
+class InCodefTest extends FlatSpec with BeforeAndAfterAll with Matchers {
 
   var ss: SparkSession = _
   var sc: SparkContext = _

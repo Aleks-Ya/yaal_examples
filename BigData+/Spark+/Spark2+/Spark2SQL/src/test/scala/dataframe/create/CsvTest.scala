@@ -1,10 +1,10 @@
-package dataframe
+package dataframe.create
 
 import org.apache.spark.sql._
 import org.scalatest.Matchers._
 import org.scalatest.{BeforeAndAfterAll, FlatSpec}
 
-class CsvToDfTest extends FlatSpec with BeforeAndAfterAll {
+class CsvTest extends FlatSpec with BeforeAndAfterAll {
 
   var ss: SparkSession = _
   var sql: SQLContext = _
