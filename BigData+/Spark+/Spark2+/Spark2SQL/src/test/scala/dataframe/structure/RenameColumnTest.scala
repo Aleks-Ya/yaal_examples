@@ -1,7 +1,6 @@
 package dataframe.structure
 
 import dataframe.DfFactory
-import org.apache.spark.sql.functions._
 import org.scalatest.{FlatSpec, Matchers}
 
 class RenameColumnTest extends FlatSpec with Matchers {
