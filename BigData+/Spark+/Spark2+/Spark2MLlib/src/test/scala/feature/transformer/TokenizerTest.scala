@@ -1,7 +1,7 @@
 package feature.transformer
 
+import factory.Factory
 import org.apache.spark.ml.feature.{RegexTokenizer, Tokenizer}
-import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 import org.scalatest.{FlatSpec, Matchers}
 
@@ -10,12 +10,7 @@ import org.scalatest.{FlatSpec, Matchers}
   */
 class TokenizerTest extends FlatSpec with Matchers {
   it should "tokenize text" in {
-    val ss = SparkSession.builder
-      .appName(classOf[TokenizerTest].getSimpleName)
-      .master("local[2]")
-      .getOrCreate
-
-    val sentenceDataFrame = ss.createDataFrame(Seq(
+    val sentenceDataFrame = Factory.ss.createDataFrame(Seq(
       (0, "Hi I heard about Spark"),
       (1, "I wish Java could use case classes"),
       (2, "Logistic,regression,models,are,neat")

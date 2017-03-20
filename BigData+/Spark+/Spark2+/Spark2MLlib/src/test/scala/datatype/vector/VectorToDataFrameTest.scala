@@ -1,7 +1,8 @@
 package datatype.vector
 
-import org.apache.spark.ml.linalg.{VectorUDTPublic, Vectors, Vector}
-import org.apache.spark.sql.{Row, SparkSession}
+import factory.Factory
+import org.apache.spark.ml.linalg.{Vector, VectorUDTPublic, Vectors}
+import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{StructField, StructType}
 import org.scalatest.{FlatSpec, Matchers}
 
@@ -11,11 +12,7 @@ import org.scalatest.{FlatSpec, Matchers}
 class VectorToDataFrameTest extends FlatSpec with Matchers {
 
   it should "init a dense vector" in {
-    val ss = SparkSession.builder
-      .appName(classOf[VectorToDataFrameTest].getSimpleName)
-      .master("local[2]")
-      .getOrCreate
-
+    val ss = Factory.ss
     val dv = Vectors.dense(1.0, 0.0, 3.0)
     val rdd = ss.sparkContext.makeRDD(Seq(dv)).map(vector => Row(vector))
 
@@ -28,7 +25,7 @@ class VectorToDataFrameTest extends FlatSpec with Matchers {
     df.printSchema
 
     val vectors = df.collect().map(row => row.getAs[Vector](0))
-    vectors should contain (dv)
+    vectors should contain(dv)
   }
 
 }

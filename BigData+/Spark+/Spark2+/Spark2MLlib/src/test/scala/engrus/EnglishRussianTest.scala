@@ -1,8 +1,9 @@
 package engrus
 
+import factory.Factory
 import org.apache.spark.ml.feature._
 import org.apache.spark.ml.regression.LinearRegression
-import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}
+import org.apache.spark.sql.{Dataset, SparkSession}
 import org.scalatest.{FlatSpec, Matchers}
 
 /**
@@ -17,10 +18,7 @@ class EnglishRussianTest extends FlatSpec with Matchers {
   private val labelColumn = "label"
 
   it should "a" in {
-    val ss = SparkSession.builder
-      .appName(classOf[EnglishRussianTest].getSimpleName)
-      .master("local[2]")
-      .getOrCreate
+    val ss = Factory.ss
 
     val rusLabel = 1d
     val engLabel = 0d
