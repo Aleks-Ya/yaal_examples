@@ -4,6 +4,9 @@ import factory.Factory
 import org.apache.spark.ml.feature.{OneHotEncoder, StringIndexer}
 import org.scalatest.{FlatSpec, Matchers}
 
+/**
+  * Source: http://spark.apache.org/docs/latest/ml-features.html#onehotencoder
+  */
 class OneHotEncoderTest extends FlatSpec with Matchers {
 
   it should "works" in {
