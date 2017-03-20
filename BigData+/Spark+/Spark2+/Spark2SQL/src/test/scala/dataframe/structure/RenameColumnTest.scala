@@ -1,12 +1,12 @@
 package dataframe.structure
 
-import dataframe.DfFactory
+import factory.Factory
 import org.scalatest.{FlatSpec, Matchers}
 
 class RenameColumnTest extends FlatSpec with Matchers {
 
   "Rename columns" should "works" in {
-    val df = DfFactory.peopleDf
+    val df = Factory.peopleDf
     df.printSchema
     df.schema.treeString shouldEqual "root\n" +
       " |-- name: string (nullable = true)\n" +

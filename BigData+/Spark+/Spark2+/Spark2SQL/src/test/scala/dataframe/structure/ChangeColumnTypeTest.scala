@@ -1,6 +1,6 @@
 package dataframe.structure
 
-import dataframe.DfFactory
+import factory.Factory
 import org.scalatest.{FlatSpec, Matchers}
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types.ByteType
@@ -8,7 +8,7 @@ import org.apache.spark.sql.types.ByteType
 class ChangeColumnTypeTest extends FlatSpec with Matchers {
 
   "Cast to related type" should "works" in {
-    val df = DfFactory.peopleDf
+    val df = Factory.peopleDf
     df.printSchema
     df.schema.treeString shouldEqual "root\n" +
       " |-- name: string (nullable = true)\n" +
@@ -23,7 +23,7 @@ class ChangeColumnTypeTest extends FlatSpec with Matchers {
   }
 
   "Cast with conversion" should "works" in {
-    val df = DfFactory.peopleDf
+    val df = Factory.peopleDf
     df.printSchema
     df.schema.treeString shouldEqual "root\n" +
       " |-- name: string (nullable = true)\n" +

@@ -1,14 +1,14 @@
 package dataframe.show
 
-import dataframe.DfFactory
+import factory.Factory
 import org.scalatest.FlatSpec
 import org.scalatest.Matchers._
 
 class VisualizeDfTest extends FlatSpec {
 
   "Visualize DF" should "print some info" in {
-    val df = DfFactory.peopleDf
-    println("Table names:\n" + DfFactory.ss.sqlContext.tableNames.toList)
+    val df = Factory.peopleDf
+    println("Table names:\n" + Factory.ss.sqlContext.tableNames.toList)
 
     println("Print Schema:")
     df.printSchema //-> peopleSchemaRdd.schema.treeString
