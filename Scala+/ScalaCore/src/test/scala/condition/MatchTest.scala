@@ -14,4 +14,15 @@ class MatchTest extends FlatSpec with Matchers {
     gender shouldEqual "man"
   }
 
+  it should "throw exception from match" in {
+    assertThrows[RuntimeException] {
+      val code = "M"
+      code match {
+        case "M" => throw new RuntimeException("man " + code)
+        case "W" => throw new IllegalArgumentException("women " + code)
+        case _ => throw new NullPointerException("null " + code)
+      }
+    }
+  }
+
 }
