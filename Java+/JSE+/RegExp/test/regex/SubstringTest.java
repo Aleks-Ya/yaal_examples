@@ -1,3 +1,5 @@
+package regex;
+
 import org.junit.Test;
 
 import java.util.regex.Matcher;
@@ -9,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Выбрать из строки подстроку, соответствующую регулярному выражению, и распечатать ее.
  */
-public class Substring {
+public class SubstringTest {
     private static final String SOURCE = "GET /abba HTTP/1.1";
     private static final String EXPECTED = "/abba";
 

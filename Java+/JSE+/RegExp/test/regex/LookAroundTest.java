@@ -1,3 +1,5 @@
+package regex;
+
 import org.junit.Test;
 
 import java.util.regex.Pattern;
@@ -8,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Примеры позиционной проверки.
  */
-public class LookAround {
+public class LookAroundTest {
     private static final String NO = "obsolete obsolete";
     private static final String BEGIN = "hede obsolete";
     private static final String MIDDLE = "obsolete hede obsolete";

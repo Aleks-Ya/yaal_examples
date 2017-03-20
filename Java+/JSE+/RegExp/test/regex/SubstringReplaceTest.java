@@ -1,3 +1,5 @@
+package regex;
+
 import org.junit.Test;
 
 import java.util.regex.Matcher;
@@ -10,7 +12,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Замена вхождения регулярного выражения в строку подстрокой.
  */
-public class SubstringReplace {
+public class SubstringReplaceTest {
     private static final String SOURCE = "concert Einaudi ludovico einaudi today ";
     private static final String REGEX = "[Ee]inaudi";
     private static final String REPLACER = "Tankian";

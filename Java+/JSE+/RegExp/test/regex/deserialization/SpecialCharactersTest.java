@@ -1,4 +1,4 @@
-package deserialization;
+package regex.deserialization;
 
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 /**
  * Поиск специальных символов.
  */
-public class SpecialCharacters {
+public class SpecialCharactersTest {
 
     @Test
     public void ampersand() {

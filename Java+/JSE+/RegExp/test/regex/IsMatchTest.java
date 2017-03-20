@@ -1,3 +1,5 @@
+package regex;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -8,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  * Соответствует ли целая строка регулярному выражению.
  */
-public class IsMatch {
+public class IsMatchTest {
     private static final String REGEX = "^\\w+\\s*:\\s*\\d+$";
     private static final String SOURCE_MATCH = "width  : 600";
     private static final String SOURCE_NOT_MATCH = "alwaysTooltips: false";

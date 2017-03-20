@@ -1,3 +1,5 @@
+package regex;
+
 import org.junit.Test;
 
 import java.util.regex.Pattern;
@@ -8,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Флаг DOTALL: метасимвол . совпадает с line terminators.
  */
-public class DotAll {
+public class DotAllTest {
     /**
      * Конструкция "(?s)".
      */

@@ -1,4 +1,4 @@
-package deserialization;
+package regex.deserialization;
 
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.equalTo;
 /**
  * Замена подстроки с помощью Matcher.
  */
-public class MatcherReplace {
+public class MatcherReplaceTest {
     @Test
     public void replaceGroup() {
         String source = "GET /abba HTTP/1.1/abba";

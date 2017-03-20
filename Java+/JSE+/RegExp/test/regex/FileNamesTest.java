@@ -1,3 +1,5 @@
+package regex;
+
 import org.junit.Test;
 
 import java.io.File;
@@ -8,7 +10,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Регулярные выражения над именами файлов.
  */
-public class FileNames {
+public class FileNamesTest {
 
     /**
      * Удалить расширение от имени файла.

@@ -1,3 +1,5 @@
+package regex;
+
 import org.junit.Test;
 
 import java.util.regex.Matcher;
@@ -10,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Поиск нескольких вхождений регулярного выражения в строку.
  */
-public class SubstringSearch {
+public class SubstringSearchTest {
 
     @Test
     public void main() {
