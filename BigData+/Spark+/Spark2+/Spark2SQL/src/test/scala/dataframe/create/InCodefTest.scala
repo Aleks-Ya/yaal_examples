@@ -1,8 +1,8 @@
 package dataframe.create
 
-import org.apache.spark.SparkContext
+import factory.Factory
+import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
-import org.apache.spark.sql.{Row, SQLContext, SparkSession}
 import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
 
 /**
@@ -10,22 +10,13 @@ import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
   */
 class InCodefTest extends FlatSpec with BeforeAndAfterAll with Matchers {
 
-  var ss: SparkSession = _
-  var sc: SparkContext = _
-  var sql: SQLContext = _
-
-  override def beforeAll() {
-    ss = SparkSession.builder().master("local").getOrCreate()
-    sc = ss.sparkContext
-    sql = ss.sqlContext
-  }
-
   "Apply schema to RDD" should "print table" in {
-    val peopleRdd = sc.parallelize(Seq("Jhon,25", "Peter,35"))
+    val peopleRdd = Factory.ss.sparkContext.parallelize(Seq("Jhon,25", "Peter,35"))
     val nameField = StructField("name", StringType, nullable = true)
     val ageField = StructField("age", IntegerType, nullable = true)
     val schema = StructType(nameField :: ageField :: Nil)
     val rowRdd = peopleRdd.map(_.split(",")).map(p => Row(p(0), p(1).toInt))
+    val sql = Factory.ss.sqlContext
     val peopleDf = sql.createDataFrame(rowRdd, schema)
     peopleDf.createOrReplaceTempView("people")
     sql.tableNames.toList should contain("people")
@@ -55,13 +46,9 @@ class InCodefTest extends FlatSpec with BeforeAndAfterAll with Matchers {
     val john = new People("John", 25)
     val peter = new People("Peter", 35)
     val data = java.util.Arrays.asList(john, peter)
-    val df = sql.createDataFrame(data, classOf[People])
+    val df = Factory.ss.sqlContext.createDataFrame(data, classOf[People])
     df.show()
     //don't work
     //df.collect should contain inOrderOnly (john, peter)
-  }
-
-  override def afterAll() {
-    ss.stop()
   }
 }
