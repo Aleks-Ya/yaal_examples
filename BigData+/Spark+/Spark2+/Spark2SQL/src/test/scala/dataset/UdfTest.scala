@@ -28,4 +28,14 @@ class UdfTest extends FlatSpec with BeforeAndAfterAll with Matchers {
     newDs.show
     newDs.select(col("sum").as[Int]).collectAsList should contain inOrderOnly(6, 15)
   }
+
+  it should "pass additional params to UDF" in {
+    val sqlContext = Factory.ss.sqlContext
+    import sqlContext.implicits._
+    val ds = Factory.ss.createDataset(Seq("a", "b"))
+    ds.show
+    val upperSuffix: String => String => String = suffix => string => (string + suffix).toUpperCase
+    val upperUDF = udf(upperSuffix("_suf"))
+    ds.withColumn("upper", upperUDF('value)).show
+  }
 }
