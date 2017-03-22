@@ -1,4 +1,4 @@
-package matcher
+package matcher.collections
 
 import org.scalatest.{FlatSpec, Matchers}
 
@@ -21,6 +21,8 @@ class ArrayTest extends FlatSpec with Matchers {
     arr should contain inOrderOnly (1, 2, 3)
     arr should contain atLeastOneOf(1, 4)
     arr should contain atMostOneOf (1, 4)
+    arr should contain allElementsOf Seq(1, 3)
+    arr should contain inOrderElementsOf Seq(1, 3)
   }
 
   "array sort" should "work" in {
