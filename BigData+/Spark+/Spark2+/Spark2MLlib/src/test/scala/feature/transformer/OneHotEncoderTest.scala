@@ -4,12 +4,12 @@ import factory.Factory
 import org.apache.spark.ml.feature.{OneHotEncoder, StringIndexer}
 import org.scalatest.{FlatSpec, Matchers}
 
-/**
-  * Source: http://spark.apache.org/docs/latest/ml-features.html#onehotencoder
-  */
 class OneHotEncoderTest extends FlatSpec with Matchers {
 
-  it should "works" in {
+  /**
+    * Source: http://spark.apache.org/docs/latest/ml-features.html#onehotencoder
+    */
+  it should "works with DataFrame" in {
     val df = Factory.ss.sqlContext.createDataFrame(Seq(
       (0, "a"),
       (1, "b"),
@@ -33,4 +33,25 @@ class OneHotEncoderTest extends FlatSpec with Matchers {
     encoded.show()
   }
 
+  it should "works with Dataset" in {
+//    implicit val mapEncoder = org.apache.spark.sql.Encoders.kryo[CategoryIndex]
+//    val indexed = Factory.ss.createDataset(Seq(
+//      new CategoryIndex(1, null),
+//      new CategoryIndex(2, null)
+//    )).map(obj => (obj.categoryIndex, obj.categoryVector)).toDF()
+//
+//    indexed.show
+//    indexed.toDF.show
+//
+//    val encoder = new OneHotEncoder()
+//      .setInputCol("categoryIndex")
+//      .setOutputCol("categoryVec")
+//
+//
+//    val encoded = encoder.transform(indexed)
+//    encoded.show()
+  }
+
 }
+
+class CategoryIndex(var categoryIndex: Int, var categoryVector: org.apache.spark.ml.linalg.Vector) {}
