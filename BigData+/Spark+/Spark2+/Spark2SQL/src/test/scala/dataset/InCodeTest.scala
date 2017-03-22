@@ -19,4 +19,13 @@ class InCodeTest extends FlatSpec with Matchers {
     ds.show
   }
 
+  it should "init DataSet with POJO" in {
+    implicit val mapEncoder = org.apache.spark.sql.Encoders.kryo[PeoplePojo]
+    val list = List(PeoplePojo("John", 25), PeoplePojo("Petr", 30))
+    val people = Factory.ss.createDataset(list).collect()
+    people should contain allElementsOf list
+  }
+
 }
+
+case class PeoplePojo(name: String, age: Int) {}
