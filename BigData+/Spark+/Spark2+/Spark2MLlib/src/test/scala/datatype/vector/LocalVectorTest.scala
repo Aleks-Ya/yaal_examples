@@ -23,4 +23,23 @@ class LocalVectorTest extends FlatSpec with Matchers {
     sv1 shouldEqual sv2
   }
 
+  "dense vector" should "converts to sparse and back" in {
+    val dense = Vectors.dense(1.0, 0.0, 3.0)
+    val sparse = dense.toSparse
+    sparse.toDense shouldEqual dense
+  }
+
+  "dense vector" should "be convertible to array and back" in {
+    val vector = Vectors.dense(1.0, 0.0, 3.0)
+    val arr = vector.toArray
+    val vectorBack = Vectors.dense(arr)
+    vectorBack shouldEqual vector
+  }
+
+  "sparse vector" should "be convertible to array and back" in {
+    val vector = Vectors.sparse(3, Seq((0, 1.0), (2, 3.0)))
+    val arr = vector.toArray
+    val vectorBack = Vectors.dense(arr)
+    vectorBack shouldEqual vector
+  }
 }
