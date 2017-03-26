@@ -9,4 +9,11 @@ class MapGetTest extends FlatSpec with Matchers {
     map1("x") shouldEqual 24
   }
 
+  it should "not found not exist element" in {
+    assertThrows[NoSuchElementException] {
+      val map = Map("x" -> 24)
+      map("z")
+    }
+  }
+
 }
