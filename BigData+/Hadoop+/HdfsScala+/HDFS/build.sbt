@@ -1,12 +1,14 @@
-import Dependencies._
+import Dependencies.{providedDeps, _}
 
 lazy val root = (project in file(".")).
   settings(
+    name := "HDFS",
     inThisBuild(List(
-      organization := "com.example",
-      scalaVersion := "2.12.1",
-      version      := "0.1.0-SNAPSHOT"
+      organization := "ru.yaal.examples.hadoop.hdfs",
+      scalaVersion := "2.11.8",
+      version := "1"
     )),
-    name := "Hello",
-    libraryDependencies += scalaTest % Test
+    libraryDependencies ++= compileDeps union providedDeps.map(_ % "provided") union testDeps,
+    javaOptions ++= Seq("-Xms512M", "-Xmx2048M", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled"),
+    parallelExecution in Test := false
   )
