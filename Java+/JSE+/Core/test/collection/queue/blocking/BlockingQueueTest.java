@@ -1,4 +1,4 @@
-package collection.queue;
+package collection.queue.blocking;
 
 import org.junit.Test;
 
