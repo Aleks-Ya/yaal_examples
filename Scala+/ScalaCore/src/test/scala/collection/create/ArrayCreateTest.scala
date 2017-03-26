@@ -2,7 +2,7 @@ package collection.create
 
 import org.scalatest.{FlatSpec, Matchers}
 
-class ArrayCreationTest extends FlatSpec with Matchers {
+class ArrayCreateTest extends FlatSpec with Matchers {
 
   it should "create an array with specified elements" in {
     val arr = Array(1, 2, 3)

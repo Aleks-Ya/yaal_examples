@@ -1,10 +1,10 @@
-package collection
+package collection.add
 
 import org.scalatest.{FlatSpec, Matchers}
 
 import scala.collection.mutable.ListBuffer
 
-class AddElementTest extends FlatSpec with Matchers {
+class ListAddTest extends FlatSpec with Matchers {
 
   it should "add element to List" in {
     var list = new ListBuffer[Int]()
