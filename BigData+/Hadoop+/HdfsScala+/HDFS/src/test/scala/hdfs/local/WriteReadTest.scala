@@ -1,7 +1,7 @@
 package hdfs.local
 
 import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.fs.{FSDataOutputStream, FileSystem, Path}
+import org.apache.hadoop.fs.{FSDataInputStream, FSDataOutputStream, FileSystem, Path}
 import org.scalatest._
 
 class WriteReadTest extends FlatSpec with Matchers {
@@ -20,7 +20,7 @@ class WriteReadTest extends FlatSpec with Matchers {
     os.writeUTF(text)
     os.close()
 
-    val is = fs.open(file)
+    val is: FSDataInputStream = fs.open(file)
     val line = is.readUTF()
     is.close()
 
