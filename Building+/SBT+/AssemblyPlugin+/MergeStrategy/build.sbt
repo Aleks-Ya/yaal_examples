@@ -13,6 +13,6 @@ lazy val root = (project in file(".")).
       case x if x.startsWith("META-INF") => MergeStrategy.discard
       case x if x.equals("""org\pcap4j\packet\factory\StaticUnknownPacketFactory.class""") => MergeStrategy.first
       case """org\pcap4j\packet\factory\StaticUnknownPacketFactory.class""" => MergeStrategy.first
-      case x => MergeStrategy.deduplicate
+      case _ => MergeStrategy.deduplicate
     }
   )
