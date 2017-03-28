@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 public class ReducerTest {
     @Test
-    public void processesValidRecord() throws IOException, InterruptedException {
+    public void processesValidRecord() throws IOException {
         new ReduceDriver<Text, LongWritable, Text, LongWritable>()
                 .withReducer(new MyReducer())
                 .withInput(new Text("a"), Arrays.asList(new LongWritable(1), new LongWritable(2)))
