@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class MapReduceTest {
     @Test
-    public void processesValidRecord() throws IOException {
+    public void singleInput() throws IOException {
         new MapReduceDriver<Text, LongWritable, Text, LongWritable, Text, LongWritable>()
                 .withReducer(new MyReducer())
                 .withMapper(new MyMapper())

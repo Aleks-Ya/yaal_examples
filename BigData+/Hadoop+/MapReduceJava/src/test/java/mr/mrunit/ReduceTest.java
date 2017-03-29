@@ -8,9 +8,9 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class ReducerTest {
+public class ReduceTest {
     @Test
-    public void processesValidRecord() throws IOException {
+    public void singleInput() throws IOException {
         new ReduceDriver<Text, LongWritable, Text, LongWritable>()
                 .withReducer(new MyReducer())
                 .withInput(new Text("a"), Arrays.asList(new LongWritable(1), new LongWritable(2)))

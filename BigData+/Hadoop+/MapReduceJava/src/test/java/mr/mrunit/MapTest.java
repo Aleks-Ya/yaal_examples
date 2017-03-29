@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class MapTest {
     @Test
-    public void processesValidRecord() throws IOException {
+    public void singleInput() throws IOException {
         new MapDriver<Text, LongWritable, Text, LongWritable>()
                 .withMapper(new MyMapper())
                 .withInput(new Text("a"), new LongWritable(1))
