@@ -2,5 +2,5 @@
  * Инициализация стандартной реализации DataSource - DriverManagerDataSource.
  */
 dependencies {
-    compile 'com.h2database:h2:1.4.186'
+    compile 'com.h2database:h2:1.4.194'
 }

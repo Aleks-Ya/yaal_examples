@@ -3,5 +3,5 @@
  * для работы с БД.
  */
 dependencies {
-    testCompile 'com.h2database:h2:1.4.186'
+    testCompile 'com.h2database:h2:1.4.194'
 }
