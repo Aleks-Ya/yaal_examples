@@ -13,7 +13,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
@@ -72,9 +73,14 @@ public class Select {
 
     @Test
     public void queryForList() {
-        List<String> list = template.queryForList("SELECT title FROM names WHERE id=?",
-                String.class, 1);
+        List<String> list = template.queryForList("SELECT title FROM names WHERE id=?", String.class, 1);
         assertThat(list, hasSize(1));
         assertEquals("John", list.get(0));
+    }
+
+    @Test
+    public void whereIn() {
+        List<String> list = template.queryForList("SELECT title FROM names WHERE id IN(1,4)", String.class);
+        assertThat(list, containsInAnyOrder("John", "Ben"));
     }
 }

@@ -9,7 +9,12 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 /**
  * Выборка данных из БД с помощью NamedParameterJdbcTemplate.
@@ -31,5 +36,13 @@ public class Select {
                 "Ben", template.queryForObject(
                 "SELECT title FROM names WHERE id=:id_param AND title=:title_param",
                 parameters, String.class));
+    }
+
+    @Test
+    public void whereInParameter() {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("ids", Arrays.asList(1, 4));
+        List<String> list = template.queryForList("SELECT title FROM names WHERE id IN(:ids)", parameters, String.class);
+        assertThat(list, containsInAnyOrder("John", "Ben"));
     }
 }
