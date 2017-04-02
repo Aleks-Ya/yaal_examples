@@ -1,4 +1,4 @@
-package jdbc_template;
+package jdbc_template.select;
 
 import bean.Name;
 import conf.Config;

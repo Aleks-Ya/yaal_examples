@@ -1,4 +1,4 @@
-package jdbc_template;
+package jdbc_template.ddl;
 
 import conf.Config;
 import org.junit.Test;
