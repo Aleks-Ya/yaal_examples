@@ -1,5 +1,6 @@
 package jdbc_template;
 
+import conf.Config;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /**
  * Изменение структуры БД с помощью JdbcTemplate.
  */
-@ContextConfiguration("classpath:context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = Config.class)
 public class DDL {
 
     @Autowired

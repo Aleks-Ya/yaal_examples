@@ -1,6 +1,7 @@
 package simple_jdbc_insert;
 
 import bean.Name;
+import conf.Config;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +18,13 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 
 /**
  * Вставка строк в БД с помощью SimpleJdbcInsert.
  */
-@ContextConfiguration("classpath:context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = Config.class)
 public class SimpleJdbcInsertUse {
 
     @Autowired

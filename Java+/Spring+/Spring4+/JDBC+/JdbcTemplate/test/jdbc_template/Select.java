@@ -1,6 +1,7 @@
 package jdbc_template;
 
 import bean.Name;
+import conf.Config;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -21,8 +21,8 @@ import static org.junit.Assert.assertThat;
 /**
  * Выборка данных из БД с помощью JdbcTemplate.
  */
-@ContextConfiguration("classpath:context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = Config.class)
 public class Select {
     private static final RowMapper<Name> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Name.class);
 

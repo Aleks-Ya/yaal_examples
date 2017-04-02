@@ -1,5 +1,6 @@
 package named_parameter_jdbc_template;
 
+import conf.Config;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,8 @@ import static org.junit.Assert.assertEquals;
 /**
  * Выборка данных из БД с помощью NamedParameterJdbcTemplate.
  */
-@ContextConfiguration("classpath:context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = Config.class)
 public class Update {
 
     @Autowired
