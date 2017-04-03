@@ -6,6 +6,6 @@
        default-destroy-method="defaultDestroy"
         >
 
-    <bean class="bean.MyBean"/>
-    <bean class="xml.XmlBean"/>
+    <bean class="bean.lifecycle.MyBean"/>
+    <bean class="bean.lifecycle.xml.XmlBean"/>
 </beans>

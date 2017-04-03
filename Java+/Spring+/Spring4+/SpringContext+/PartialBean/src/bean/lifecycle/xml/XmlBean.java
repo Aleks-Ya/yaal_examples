@@ -1,6 +1,6 @@
-package scanners;
+package bean.lifecycle.xml;
 
-import bean.MyBean;
+import bean.lifecycle.MyBean;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-public class AnnotationBean implements InitializingBean, DisposableBean {
+public class XmlBean implements InitializingBean, DisposableBean {
 
     @Autowired
-    public AnnotationBean(MyBean bean) {
+    public XmlBean(MyBean bean) {
         System.out.println("#1 constructor bean=" + bean);
     }
 
@@ -25,19 +25,24 @@ public class AnnotationBean implements InitializingBean, DisposableBean {
         System.out.println("#3 @PostConstruct");
     }
 
-    @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("#4 Initializing#afterPropertiesSet()");
     }
 
+    public void defaultInit() {
+        System.out.println("#5 defaultInit");
+    }
 
     @PreDestroy
     public void preDestroy() throws Exception {
-        System.out.println("#5 @PreDestroy");
+        System.out.println("#6 @PreDestroy");
     }
 
-    @Override
     public void destroy() throws Exception {
-        System.out.println("#6 DisposableBean#destroy()");
+        System.out.println("#7 DisposableBean#destroy()");
+    }
+
+    public void defaultDestroy() {
+        System.out.println("#8 defaultDestroy");
     }
 }

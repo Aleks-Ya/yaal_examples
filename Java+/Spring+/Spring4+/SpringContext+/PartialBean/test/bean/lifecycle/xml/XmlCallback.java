@@ -1,11 +1,11 @@
-package xml;
+package bean.lifecycle.xml;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@ContextConfiguration("classpath:xml/context.xml")
+@ContextConfiguration("classpath:bean/lifecycle/xml/context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class XmlCallback {
 
