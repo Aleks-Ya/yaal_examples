@@ -1,4 +1,4 @@
-package xml;
+package bean.name.xml;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +10,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
 
-@ContextConfiguration("classpath:xml/spring-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:bean/name/xml/spring-context.xml")
 public class Xml implements ApplicationContextAware {
 
     private ApplicationContext ctx;
@@ -22,7 +22,7 @@ public class Xml implements ApplicationContextAware {
     @Test
     public void generateName() {
         assertEquals(BeanWithGeneratedNameXml.class,
-                ctx.getBean("xml.BeanWithGeneratedNameXml#0").getClass());
+                ctx.getBean("bean.name.xml.BeanWithGeneratedNameXml#0").getClass());
     }
 
     /**

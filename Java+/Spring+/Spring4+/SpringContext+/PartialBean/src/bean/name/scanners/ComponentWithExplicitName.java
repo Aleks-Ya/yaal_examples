@@ -1,4 +1,4 @@
-package scanners;
+package bean.name.scanners;
 
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package configuration;
+package bean.name.xml;
 
 /**
  * Имя бина задано явно в конфигурационном файле.

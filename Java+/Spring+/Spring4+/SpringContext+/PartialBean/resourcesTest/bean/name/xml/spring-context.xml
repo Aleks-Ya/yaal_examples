@@ -2,7 +2,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean class="xml.BeanWithExplicitName" name="explicitName"/>
-    <bean class="xml.BeanWithGeneratedNameXml"/>
+    <bean class="bean.name.xml.BeanWithExplicitName" name="explicitName"/>
+    <bean class="bean.name.xml.BeanWithGeneratedNameXml"/>
 
 </beans>

@@ -1,4 +1,4 @@
-package scanners;
+package bean.name.scanners;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

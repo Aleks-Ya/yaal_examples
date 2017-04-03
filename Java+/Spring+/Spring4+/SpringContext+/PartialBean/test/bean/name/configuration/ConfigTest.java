@@ -1,4 +1,4 @@
-package configuration;
+package bean.name.configuration;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
