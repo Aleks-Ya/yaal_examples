@@ -1,4 +1,4 @@
-package input_stream_to_string;
+package input_stream;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
