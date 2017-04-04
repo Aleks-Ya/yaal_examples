@@ -1,5 +1,6 @@
 package linux;
 
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -11,27 +12,28 @@ import java.nio.file.attribute.UserPrincipalLookupService;
 
 import static java.lang.System.out;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 /**
  * Изменение владельца файла.
  */
-public class Owner {
+public class OwnerTest {
 
     @Test
     public void main() throws IOException {
         Path target = Files.createTempFile("target_", ".sh");
         target.toFile().deleteOnExit();
 
-        String user = System.getenv("USERNAME");
+        String exp = System.getenv("USERNAME");
         UserPrincipal owner = Files.getOwner(target);
-        assertEquals(user, owner.getName());
+        assertThat(owner.getName(), Matchers.containsString(exp));
         out.printf("target = %s%n", target);
         out.printf("%s%n", owner);
 
 
-        UserPrincipalLookupService lookupService = FileSystems.getDefault().getUserPrincipalLookupService();
-        String rootUser = "root";
-        UserPrincipal newOwner = lookupService.lookupPrincipalByName(rootUser);
+//        UserPrincipalLookupService lookupService = FileSystems.getDefault().getUserPrincipalLookupService();
+//        String rootUser = "root";
+//        UserPrincipal newOwner = lookupService.lookupPrincipalByName(rootUser);
 
         //java.nio.file.FileSystemException: /tmp/target_989023771236240807.sh: Operation not permitted
         //Files.setOwner(target, newOwner);
