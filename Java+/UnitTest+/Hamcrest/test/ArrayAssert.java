@@ -1,17 +1,21 @@
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.arrayContaining;
-import static org.hamcrest.Matchers.arrayContainingInAnyOrder;
-import static org.hamcrest.Matchers.arrayWithSize;
-import static org.hamcrest.Matchers.emptyArray;
-import static org.hamcrest.Matchers.hasItemInArray;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 /**
  * Проверка массивов.
  */
 public class ArrayAssert {
+
+    @Test
+    public void equal() {
+        final Integer[] arr1 = {1, 2, 3};
+        final Integer[] arr2 = {1, 2, 3};
+        assertThat(arr1, equalTo(arr2));
+    }
+
     @Test
     public void objectArray() {
         final Integer[] arr = {45, 34, 89};
