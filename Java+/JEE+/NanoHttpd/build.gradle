@@ -1,0 +1,3 @@
+dependencies {
+	compile 'org.nanohttpd:nanohttpd:2.3.1'
+}
