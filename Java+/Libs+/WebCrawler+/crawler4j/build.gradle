@@ -1,5 +1,6 @@
 dependencies {
     compile 'edu.uci.ics:crawler4j:4.3', 'com.sleepycat:je:5.0.84'
+    testCompile 'org.nanohttpd:nanohttpd:2.3.1'
 }
 
 repositories {

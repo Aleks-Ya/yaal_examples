@@ -9,7 +9,6 @@ public class SinglePageCrawler extends WebCrawler {
     public void visit(Page page) {
         TextParseData data = (TextParseData) page.getParseData();
         String content = data.getTextContent();
-        System.out.println("Content begins with: " + content.substring(0, 30));
+        System.out.println("Content: " + content);
     }
-
 }
