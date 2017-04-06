@@ -5,7 +5,7 @@ import fi.iki.elonen.NanoHTTPD;
 import java.util.Map;
 
 public class HelloServer extends NanoHTTPD {
-    public HelloServer() {
+    HelloServer() {
         super(8080);
     }
 
@@ -24,6 +24,6 @@ public class HelloServer extends NanoHTTPD {
         }
 
         msg += "</body></html>\n";
-        return NanoHTTPD.newFixedLengthResponse(msg);
+        return newFixedLengthResponse(msg);
     }
 }
