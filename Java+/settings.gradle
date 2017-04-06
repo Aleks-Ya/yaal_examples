@@ -78,6 +78,7 @@ include 'JSE+:Core',
         'Libs+:HTML+:ParsingWithRegexp',
         'Libs+:HTML+:jsoup',
         'Libs+:pcap4j',
+		'Libs+:WebCrawler+:crawler4j',
         'Algorithm',
         'Git+:JGit'
 
