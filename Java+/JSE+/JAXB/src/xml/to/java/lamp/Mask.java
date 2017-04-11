@@ -1,3 +1,5 @@
+package xml.to.java.lamp;
+
 import javax.xml.bind.annotation.XmlValue;
 
 class Mask {

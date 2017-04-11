@@ -1,9 +1,0 @@
-apply plugin : "application"
-sourceSets.main.java.srcDir 'src'
-sourceSets.test.java.srcDir 'test'
-defaultTasks('run')
-mainClassName = 'Main'
-
-repositories {
-    mavenCentral()
-}

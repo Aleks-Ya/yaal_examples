@@ -1,3 +1,6 @@
+package xsd.validation;
+
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -10,17 +13,13 @@ import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.IOException;
 
-public class Main {
-    public static void main(String[] args) throws JAXBException, IOException, SAXException {
-        File xml = new File(Main.class.getResource("data.xml").getFile());
-        File xsd = new File(Main.class.getResource("schema.xsd").getFile());
-        try {
-            validate(xml, xsd);
-            System.out.println("XML is valid");
-        } catch (org.xml.sax.SAXParseException e) {
-            System.out.println("XML INVALID!!!!!!!!!!!!!!!!!");
-            System.out.println(e.getMessage());
-        }
+public class XsdValidationTest {
+
+    @Test
+    public void validate() throws JAXBException, IOException, SAXException {
+        File xml = new File(getClass().getResource("data.xml").getFile());
+        File xsd = new File(getClass().getResource("schema.xsd").getFile());
+        validate(xml, xsd);//No exception - ok
     }
 
     private static void validate(File xmlFile, File xsd) throws SAXException, IOException {

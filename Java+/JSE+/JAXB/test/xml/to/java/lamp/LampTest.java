@@ -1,15 +1,37 @@
+package xml.to.java.lamp;
+
 import org.junit.Test;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
 import java.io.ByteArrayInputStream;
 
-import static org.junit.Assert.*;
+public class LampTest {
 
-public class SettingsTest {
+    /**
+     * Unmarshall root class has no @XmlRootElement.
+     */
+    @Test
+    public void unmarshallWithoutXmlRootElement() throws JAXBException {
+        ByteArrayInputStream is = new ByteArrayInputStream(
+                "<lamp type=\"dark\">little lamp</lamp>".getBytes());
+        JAXBContext jaxbContext = JAXBContext.newInstance(Lamp.class);
+
+        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        JAXBElement<Lamp> element = jaxbUnmarshaller.unmarshal(new StreamSource(is), Lamp.class);
+        Lamp line = element.getValue();
+        System.out.println(line);
+    }
+
+    /**
+     * Unmarshall root class has @XmlRootElement.
+     */
 
     @Test
-    public void testToString() throws Exception {
+    public void unmarshallWithXmlRootElement() throws JAXBException {
         ByteArrayInputStream is = new ByteArrayInputStream(("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
                 "<settings id=\"sets\" port=\"2512\">\n" +
                 "    <mask>red mask</mask>\n" +

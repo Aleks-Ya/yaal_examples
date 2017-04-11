@@ -1,4 +1,7 @@
+package xml.to.java.lamp;
+
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
 class Lamp {
