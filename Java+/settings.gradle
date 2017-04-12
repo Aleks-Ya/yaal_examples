@@ -79,6 +79,7 @@ include 'JSE+:Core',
         'Libs+:HTML+:jsoup',
         'Libs+:pcap4j',
 		'Libs+:WebCrawler+:crawler4j',
+		'Libs+:Guice',
         'Algorithm',
         'Git+:JGit'
 
