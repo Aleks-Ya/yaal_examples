@@ -1,17 +1,7 @@
 import org.junit.Test;
 
 import static java.util.Arrays.asList;
-import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.endsWith;
-import static org.hamcrest.Matchers.equalToIgnoringCase;
-import static org.hamcrest.Matchers.equalToIgnoringWhiteSpace;
-import static org.hamcrest.Matchers.hasToString;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
-import static org.hamcrest.Matchers.isEmptyString;
-import static org.hamcrest.Matchers.matchesPattern;
-import static org.hamcrest.Matchers.startsWith;
-import static org.hamcrest.Matchers.stringContainsInOrder;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -25,12 +15,13 @@ public class StringAssert {
         assertThat(str, startsWith("Люд"));
         assertThat(str, endsWith("Tu Sei"));
         assertThat(23.4, hasToString("23.4"));
-        assertThat(null, isEmptyOrNullString());
+        assertThat(null, emptyOrNullString());
         assertThat("Gangalee Step", anyOf(containsString("Ganga"), containsString("No")));
-        assertThat("", isEmptyString());
+        assertThat("", emptyString());
         assertThat("Jamaica Kingston Portion", stringContainsInOrder(asList("Jam", "King", "Port")));
         assertThat("Gangalee", equalToIgnoringCase("GaNgAlEe"));
         assertThat("Gangalee Step", equalToIgnoringWhiteSpace("GaNgAlEe\nStep\t"));
+        assertThat(new Object(), hasToString(startsWith("java.lang.Object@")));
     }
 
     @Test
