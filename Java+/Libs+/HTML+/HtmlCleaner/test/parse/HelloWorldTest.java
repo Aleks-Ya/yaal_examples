@@ -1,4 +1,4 @@
-package cleaner;
+package parse;
 
 import org.hamcrest.Matchers;
 import org.htmlcleaner.HtmlCleaner;
