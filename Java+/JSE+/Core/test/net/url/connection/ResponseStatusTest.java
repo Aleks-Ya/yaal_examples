@@ -1,4 +1,4 @@
-package url.connection;
+package net.url.connection;
 
 import org.junit.Test;
 
