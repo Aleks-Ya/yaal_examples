@@ -1,10 +1,12 @@
 package awt.clipboard;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
+
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.Transferable;
+
 import static org.mockito.Mockito.*;
 
 public class OwnerTest {
