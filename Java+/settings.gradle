@@ -4,7 +4,6 @@
 include 'JSE+:Core',
         'JSE+:I18n+:ResourceBundle',
         'JSE+:I18n+:Locale',
-        'JSE+:RegExp',
         'JSE+:gui+:swing',
         'JSE+:io+:TextFile',
         'JSE+:JMX+:HelloMBean',
@@ -78,8 +77,8 @@ include 'JSE+:Core',
         'Libs+:HTML+:jsoup',
         'Libs+:HTML+:HtmlCleaner',
         'Libs+:pcap4j',
-		'Libs+:WebCrawler+:crawler4j',
-		'Libs+:Guice',
+        'Libs+:WebCrawler+:crawler4j',
+        'Libs+:Guice',
         'Algorithm',
         'Git+:JGit'
 
@@ -89,7 +88,7 @@ include 'JSE+:Core',
 include 'JEE+:Jetty+:JettyHelloWorld',
         'JEE+:Jetty+:JettyContextHandler',
         'JEE+:Jetty+:JettyServletHandler',
-		'JEE+:NanoHttpd',
+        'JEE+:NanoHttpd',
         'JEE+:Servlet+:Servlet3',
         'JEE+:Validation'
 

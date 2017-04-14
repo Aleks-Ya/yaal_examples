@@ -1,4 +1,4 @@
-package regex.deserialization;
+package util.regex.deserialization;
 
 import org.junit.Test;
 
