@@ -1,3 +1,5 @@
+package util.i18n.locale;
+
 import org.junit.Test;
 
 import java.util.Locale;

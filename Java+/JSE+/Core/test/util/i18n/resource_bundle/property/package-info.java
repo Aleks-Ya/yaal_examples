@@ -1,4 +1,4 @@
 /**
  * Пакеты ресурсов в виде файла свойств.
  */
-package property;
+package util.i18n.resource_bundle.property;

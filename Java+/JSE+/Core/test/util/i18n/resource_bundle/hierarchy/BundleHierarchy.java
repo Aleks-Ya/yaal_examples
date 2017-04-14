@@ -1,4 +1,4 @@
-package hierarchy;
+package util.i18n.resource_bundle.hierarchy;
 
 import org.junit.Test;
 
@@ -18,7 +18,8 @@ public class BundleHierarchy {
      */
     @Test
     public void fromChild() {
-        ResourceBundle parent = ResourceBundle.getBundle("hierarchy.Names", new Locale("ru", "RU", "vologda"));
+        ResourceBundle parent = ResourceBundle.getBundle(
+                "util.i18n.resource_bundle.hierarchy.Names", new Locale("ru", "RU", "vologda"));
         assertEquals("ru RU vologda", parent.getString("ruRUvologdaKey"));
         assertEquals("ru RU", parent.getString("ruRUKey"));
         assertEquals("ru", parent.getString("ruKey"));
@@ -30,7 +31,8 @@ public class BundleHierarchy {
      */
     @Test(expected = MissingResourceException.class)
     public void notFound() {
-        ResourceBundle parent = ResourceBundle.getBundle("hierarchy.Names", new Locale("ru", "RU"));
+        ResourceBundle parent = ResourceBundle.getBundle(
+                "util.i18n.resource_bundle.hierarchy.Names", new Locale("ru", "RU"));
         assertEquals("ru RU", parent.getString("ruRUvologdaKey"));
     }
 }

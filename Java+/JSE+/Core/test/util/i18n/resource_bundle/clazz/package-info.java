@@ -1,4 +1,4 @@
 /**
  * Пакеты ресурсов в виде Java-класса.
  */
-package clazz;
+package util.i18n.resource_bundle.clazz;

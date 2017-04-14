@@ -1,4 +1,4 @@
-package clazz.listresourcebundle;
+package util.i18n.resource_bundle.clazz.listresourcebundle;
 
 import java.awt.Color;
 import java.util.ListResourceBundle;

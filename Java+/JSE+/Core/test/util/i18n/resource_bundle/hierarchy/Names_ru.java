@@ -1,4 +1,4 @@
-package hierarchy;
+package util.i18n.resource_bundle.hierarchy;
 
 import java.util.ListResourceBundle;
 

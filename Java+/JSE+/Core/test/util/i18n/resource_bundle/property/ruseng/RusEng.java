@@ -1,4 +1,4 @@
-package property.ruseng;
+package util.i18n.resource_bundle.property.ruseng;
 
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class RusEng {
     }
 
     private static void printMessage(Locale locale) throws UnsupportedEncodingException {
-        ResourceBundle myResources = ResourceBundle.getBundle("property/ruseng/Messages", locale);
+        ResourceBundle myResources = ResourceBundle.getBundle("util/i18n/resource_bundle/property/ruseng/Messages", locale);
         String message = new String(myResources.getString("hello").getBytes("ISO-8859-1"), "UTF-8");
         System.out.printf("%s: %s\n", locale.toLanguageTag(), message);
     }

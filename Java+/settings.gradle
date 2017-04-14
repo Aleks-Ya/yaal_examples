@@ -2,8 +2,6 @@
  * Java
  */
 include 'JSE+:Core',
-        'JSE+:I18n+:ResourceBundle',
-        'JSE+:I18n+:Locale',
         'JSE+:io+:TextFile',
         'JSE+:JMX+:HelloMBean',
         'JSE+:JMX+:CustomJmxClient',

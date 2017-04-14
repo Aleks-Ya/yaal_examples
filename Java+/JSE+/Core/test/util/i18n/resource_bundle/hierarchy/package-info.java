@@ -1,4 +1,4 @@
 /**
  * Иерархия пакетов ресурсов.
  */
-package hierarchy;
+package util.i18n.resource_bundle.hierarchy;
