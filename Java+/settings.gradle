@@ -4,7 +4,6 @@
 include 'JSE+:Core',
         'JSE+:I18n+:ResourceBundle',
         'JSE+:I18n+:Locale',
-        'JSE+:gui+:swing',
         'JSE+:io+:TextFile',
         'JSE+:JMX+:HelloMBean',
         'JSE+:JMX+:CustomJmxClient',
