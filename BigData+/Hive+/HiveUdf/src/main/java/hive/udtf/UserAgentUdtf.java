@@ -7,6 +7,7 @@ import org.apache.hadoop.hive.ql.udf.generic.GenericUDTF;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspectorFactory;
 import org.apache.hadoop.hive.serde2.objectinspector.StandardStructObjectInspector;
+import org.apache.hadoop.hive.serde2.objectinspector.StructObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.primitive.PrimitiveObjectInspectorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ public class UserAgentUdtf extends GenericUDTF {
     static final String osFieldName = "os";
 
     @Override
-    public StandardStructObjectInspector initialize(ObjectInspector[] objectInspectors) throws UDFArgumentException {
+    public StructObjectInspector initialize(StructObjectInspector objectInspectors) throws UDFArgumentException {
         LOG.error("Initialize: " + getClass());
         return createObjectInspector();
     }
