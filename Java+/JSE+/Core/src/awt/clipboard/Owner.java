@@ -1,4 +1,4 @@
-package ru.yaal.practics.java.se.core.clipboard;
+package awt.clipboard;
 
 import java.awt.*;
 import java.awt.datatransfer.*;
