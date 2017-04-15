@@ -1,14 +1,13 @@
-package io.file.text.randomacces;
+package io.file.text.read;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.RandomAccessFile;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,22 +22,23 @@ public class ByRandomAccessFile {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        Path p = File.createTempFile("prefix-file_", ".suffix").toPath();
-        Files.write(p, expLines, Charset.defaultCharset());
-        file = p.toFile();
+        file = File.createTempFile(ByRandomAccessFile.class.getSimpleName(), ".tmp");
         file.deleteOnExit();
+        try (PrintStream out = new PrintStream(new FileOutputStream(file))) {
+            expLines.forEach(out::print);
+        }
     }
 
     @Test
     public void lineByLine() throws IOException {
-        String lines = "";
+        StringBuilder lines = new StringBuilder();
         try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
             String line;
             while ((line = raf.readLine()) != null) {
-                lines += line;
+                lines.append(line);
             }
         }
 
-        assertEquals("FirstLineSecondLine", lines);
+        assertEquals("FirstLineSecondLine", lines.toString());
     }
 }

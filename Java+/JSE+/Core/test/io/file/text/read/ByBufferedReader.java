@@ -1,15 +1,16 @@
 package io.file.text.read;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,13 +22,16 @@ import static org.junit.Assert.assertEquals;
 public class ByBufferedReader {
     private static File file;
     private static final List<String> expLines = Arrays.asList("FirstLine", "SecondLine");
+    @Rule
+    public TemporaryFolder temp = new TemporaryFolder();
 
-    @BeforeClass
-    public static void setUp() throws Exception {
-        Path p = File.createTempFile("prefix-file_", ".suffix").toPath();
-        Files.write(p, expLines, Charset.defaultCharset());
-        file = p.toFile();
+    @Before
+    public void setUp() throws Exception {
+        file = File.createTempFile(ByRandomAccessFile.class.getSimpleName(), ".tmp");
         file.deleteOnExit();
+        try (PrintStream out = new PrintStream(new FileOutputStream(file))) {
+            expLines.forEach(out::print);
+        }
     }
 
     /**
@@ -35,6 +39,7 @@ public class ByBufferedReader {
      */
     @Test
     public void lineByLine() throws IOException {
+
         BufferedReader reader = new BufferedReader(new FileReader(file));
         StringBuilder sb = new StringBuilder();
         String line;
@@ -44,17 +49,5 @@ public class ByBufferedReader {
         }
         reader.close();
         assertEquals("FirstLine\nSecondLine\n", sb.toString());
-    }
-
-    /**
-     * Чтение файла через Stream.
-     * since Java 8
-     */
-    @Test
-    public void wholeFile() throws IOException {
-//        BufferedReader reader = new BufferedReader(new FileReader(file));
-//        Stream stream = reader.lines();
-//        assertArrayEquals(expLines.toArray(), stream.toArray());
-//        reader.close();
     }
 }

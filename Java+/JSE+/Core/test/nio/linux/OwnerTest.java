@@ -1,14 +1,12 @@
-package io.file.linux;
+package nio.linux;
 
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.UserPrincipal;
-import java.nio.file.attribute.UserPrincipalLookupService;
 
 import static java.lang.System.out;
 import static org.junit.Assert.assertEquals;

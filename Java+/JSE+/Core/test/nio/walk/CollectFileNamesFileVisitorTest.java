@@ -1,5 +1,6 @@
-package io.file.dir_walk.file_visitor;
+package nio.walk;
 
+import io.file.dir_walk.file_visitor.CollectFileNamesFileVisitor;
 import org.junit.Test;
 
 import java.io.IOException;

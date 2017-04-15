@@ -1,8 +1,7 @@
-package io.file.text.write;
+package nio.file.rext.write;
 
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -16,7 +15,7 @@ public class WriteTextToFile {
 
     @Test
     public void files() throws IOException {
-        Path p = File.createTempFile("prefix-file_", ".suffix").toPath();
+        Path p = Files.createTempFile("prefix-file_", ".suffix");
         out.println(p);
 
         List<String> lines = Arrays.asList("FirstLine", "SecondLine");

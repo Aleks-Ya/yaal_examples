@@ -1,8 +1,7 @@
-package io.file.watch;
+package nio.watch;
 
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;

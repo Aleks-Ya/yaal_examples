@@ -1,8 +1,7 @@
-package io.file.text.read;
+package nio.file.rext.read;
 
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -19,7 +18,7 @@ public class ReadAllLines {
     @Test
     public void files() throws IOException {
         //write
-        Path p = File.createTempFile("prefix-file_", ".suffix").toPath();
+        Path p = Files.createTempFile("prefix-file_", ".suffix");
         List<String> expLines = Arrays.asList("FirstLine", "SecondLine");
         Files.write(p, expLines, Charset.defaultCharset());
 
