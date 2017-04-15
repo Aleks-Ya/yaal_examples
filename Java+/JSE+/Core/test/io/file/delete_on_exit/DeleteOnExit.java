@@ -1,5 +1,7 @@
 package io.file.delete_on_exit;
 
+import org.junit.Test;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,19 +9,13 @@ import java.nio.file.Files;
 /**
  * Использование метода File#deleteOnExit() для удаления временных тестовых папок.
  */
-public class Main {
-
-    public static void main(String[] args) throws IOException {
-        file1();
-        file2();
-        emptyDir();
-        dirWithFile();
-    }
+public class DeleteOnExit {
 
     /**
      * Файл, созданный File#createTempFile().
      */
-    private static void file1() throws IOException {
+    @Test
+    public void file1() throws IOException {
         File file = File.createTempFile("DeleteOnExit_FILE_1_", ".tmp");
         file.deleteOnExit();
         System.out.printf("%s exists=%s %n", file.getAbsolutePath(), file.exists());
@@ -28,7 +24,8 @@ public class Main {
     /**
      * Файл, созданный Files#createTempFile().
      */
-    private static void file2() throws IOException {
+    @Test
+    public void file2() throws IOException {
         File file = Files.createTempFile("DeleteOnExit_FILE_2_", ".tmp").toFile();
         file.deleteOnExit();
         System.out.printf("%s exists=%s %n", file.getAbsolutePath(), file.exists());
@@ -37,7 +34,8 @@ public class Main {
     /**
      * Пустая папка удаляется без проблем.
      */
-    private static void emptyDir() throws IOException {
+    @Test
+    public void emptyDir() throws IOException {
         File dir = Files.createTempDirectory("DeleteOnExit_EMPTY_DIR_").toFile();
         dir.deleteOnExit();
         System.out.printf("%s exists=%s %n", dir.getAbsolutePath(), dir.exists());
@@ -46,7 +44,8 @@ public class Main {
     /**
      * Чтобы удалилась папка, все вложенные файлы должны быть помечены к удалению.
      */
-    private static void dirWithFile() throws IOException {
+    @Test
+    public void dirWithFile() throws IOException {
         File dir = Files.createTempDirectory("DeleteOnExit_NOT_EMPTY_DIR_").toFile();
         dir.deleteOnExit();
         File nestedFile = new File(dir, "nested_file.txt");
