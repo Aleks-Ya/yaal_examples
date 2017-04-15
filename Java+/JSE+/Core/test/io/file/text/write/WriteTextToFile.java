@@ -1,4 +1,4 @@
-package write;
+package io.file.text.write;
 
 import org.junit.Test;
 

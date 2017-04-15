@@ -1,4 +1,4 @@
-package randomacces;
+package io.file.text.randomacces;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

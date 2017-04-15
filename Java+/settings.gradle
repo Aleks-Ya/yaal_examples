@@ -2,7 +2,6 @@
  * Java
  */
 include 'JSE+:Core',
-        'JSE+:io+:TextFile',
         'JSE+:JMX+:HelloMBean',
         'JSE+:JMX+:CustomJmxClient',
         'JSE+:JMX+:Notifications',

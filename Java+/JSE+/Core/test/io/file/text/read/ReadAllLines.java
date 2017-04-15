@@ -1,4 +1,4 @@
-package read;
+package io.file.text.read;
 
 import org.junit.Test;
 
