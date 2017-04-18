@@ -11,8 +11,21 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
+import java.util.function.BiConsumer;
 
 public class FibonacciConsumer {
+    private final int printEachRecords;
+    private final String brokerHost;
+    private final int brokerPort;
+    private volatile boolean stopped;
+    private final String topic;
+
+    public FibonacciConsumer(String topic, int printEachRecords, String brokerHost, int brokerPort) {
+        this.printEachRecords = printEachRecords;
+        this.brokerHost = brokerHost;
+        this.brokerPort = brokerPort;
+        this.topic = topic;
+    }
 
     public static void main(String[] args) {
         int printEachRecords = 1;
@@ -28,37 +41,35 @@ public class FibonacciConsumer {
             }
         }
         System.out.printf("Parameters: printEachRecords=%d, host=%s, port=%d%n", printEachRecords, host, port);
+        new FibonacciConsumer("fibonacci", printEachRecords, host, port).work((index, fibonacci) -> System.out.println(index + "-" + fibonacci));
+    }
 
+    void work(BiConsumer<Integer, Long> callback) {
         Properties props = new Properties();
-        props.put("bootstrap.servers", host + ":" + port);
-        props.put("acks", "all");
-        props.put("retries", "0");
-        props.put("batch.size", "16384");
-        props.put("group.id", "test-consumer-group");
-        props.put("linger.ms", "1");
-        props.put("buffer.memory", "33554432");
+        props.put("bootstrap.servers", brokerHost + ":" + brokerPort);
+        props.put("group.id", "group0");
+        props.put("client.id", "consumer0");
+        props.put("auto.offset.reset", "earliest");
         props.put("key.deserializer", IntegerDeserializer.class.getName());
         props.put("value.deserializer", LongDeserializer.class.getName());
 
         Consumer<Integer, Long> consumer = new KafkaConsumer<>(props);
-        List<String> topics = Collections.singletonList("fibonacci");
+        List<String> topics = Collections.singletonList(topic);
         consumer.subscribe(topics);
         //noinspection InfiniteLoopStatement
-        while (true) {
+        while (!stopped) {
             ConsumerRecords<Integer, Long> records = consumer.poll(100);
-            long sum = 0;
             for (ConsumerRecord<Integer, Long> record : records) {
                 Integer index = record.key();
                 Long fibonacci = record.value();
-                System.out.println("Received: " + index + "=" + fibonacci);
                 if (index % printEachRecords == 0) {
-                    System.out.println("Sum: " + sum);
-                    sum = 0;
-                } else {
-                    sum += fibonacci;
+                    callback.accept(index, fibonacci);
                 }
             }
         }
     }
 
+    public void stop() {
+        this.stopped = true;
+    }
 }
