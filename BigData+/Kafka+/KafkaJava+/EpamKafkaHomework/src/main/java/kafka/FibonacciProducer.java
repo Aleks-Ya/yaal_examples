@@ -6,6 +6,8 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.IntegerSerializer;
 import org.apache.kafka.common.serialization.LongSerializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Properties;
@@ -13,6 +15,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class FibonacciProducer {
+    private static final Logger log = LoggerFactory.getLogger(FibonacciProducer.class);
     private final int numberCount;
     private final String kafkaServerHost;
     private final int kafkaServerPort;
@@ -35,10 +38,10 @@ public class FibonacciProducer {
                 host = args[1];
                 port = Integer.parseInt(args[2]);
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                System.err.println("Can't parse arguments: " + Arrays.deepToString(args));
+                log.error("Can't parse arguments: " + Arrays.deepToString(args));
             }
         }
-        System.out.printf("Parameters: numberCount=%d, host=%s, port=%d%n", numberCount, host, port);
+        log.info("Parameters: numberCount={}, host={}, port={}", numberCount, host, port);
         new FibonacciProducer("fibonacci", numberCount, host, port).work();
     }
 
@@ -55,7 +58,7 @@ public class FibonacciProducer {
             ProducerRecord<Integer, Long> record = new ProducerRecord<>(topic, i, f);
             Future<RecordMetadata> future = producer.send(record);
             RecordMetadata recordMetadata = future.get();
-            System.out.printf("Sent: index=%d, number=%d, metadata=%s%n", i, f, recordMetadata);
+            log.info("Sent: index={}, number={}, metadata={}", i, f, recordMetadata);
             long oldF = f;
             f = prev + f;
             prev = oldF;

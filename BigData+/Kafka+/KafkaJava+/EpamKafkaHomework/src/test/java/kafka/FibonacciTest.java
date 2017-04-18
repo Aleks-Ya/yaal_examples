@@ -19,11 +19,12 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-import static org.hamcrest.Matchers.arrayContaining;
+import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -55,26 +56,26 @@ public class FibonacciTest {
         Time mock = new MockTime();
         kafkaServer = TestUtils.createServer(config, mock);
         AdminUtils.createTopic(zkUtils, topic, 1, 1, new Properties(), RackAwareMode.Disabled$.MODULE$);
-
     }
 
-    @Test
+    @Test(timeout = 30_000)
     public void fibonacci() throws ExecutionException, InterruptedException {
-        int numberCount = 6;
-        FibonacciProducer producer = new FibonacciProducer(topic, numberCount, brokerHost, brokerPort);
+        int sendNumberCount = 8;
+        FibonacciProducer producer = new FibonacciProducer(topic, sendNumberCount, brokerHost, brokerPort);
         producer.work();
 
-        FibonacciConsumer consumer = new FibonacciConsumer(topic, 1, brokerHost, brokerPort);
-        Long[] fibonacciNumbers = new Long[numberCount];
-        consumer.work((index, fibonacci) -> {
-            fibonacciNumbers[index] = fibonacci;
-            if (index == numberCount - 1) {
+        FibonacciConsumer consumer = new FibonacciConsumer(topic, 2, brokerHost, brokerPort);
+        int receiveNumberCount = 4;
+        List<Long> fibonacciSums = new ArrayList<>();
+        consumer.work(sum -> {
+            fibonacciSums.add(sum);
+            if (fibonacciSums.size() == receiveNumberCount) {
                 consumer.stop();
             }
         });
-        log.info("Received numbers: " + Arrays.deepToString(fibonacciNumbers));
+        log.info("Received numbers: " + fibonacciSums);
 
-        assertThat(fibonacciNumbers, arrayContaining(1L, 1L, 2L, 3L, 5L, 8L));
+        assertThat(fibonacciSums, contains(1L, 4L, 12L, 33L));
     }
 
     @After
