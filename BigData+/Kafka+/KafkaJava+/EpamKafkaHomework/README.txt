@@ -3,7 +3,14 @@ Output: target/Fibonacci-jar-with-dependencies.jar
 
 
 Run producer:
-Default parameters (numberCount=30, host=localhost, port=4242):
-java -jar Fibonacci-jar-with-dependencies.jar kafka.FibonacciProducer
+Default parameters (numberCount=30, host=localhost, port=9092):
+java -cp target/Fibonacci-jar-with-dependencies.jar kafka.FibonacciProducer
 Custom parameters (numberCount, host, port):
-java -jar Fibonacci-jar-with-dependencies.jar kafka.FibonacciProducer 50 myhost 7777
+java -cp target/Fibonacci-jar-with-dependencies.jar kafka.FibonacciProducer 40 localhost 9092
+
+
+Run consumer:
+Default parameters (printEachRecords=1, host=localhost, port=9092):
+java -cp target/Fibonacci-jar-with-dependencies.jar kafka.FibonacciConsumer
+Custom parameters (printEachRecords, host, port):
+java -cp target/Fibonacci-jar-with-dependencies.jar kafka.FibonacciConsumer 5 localhost 9092
