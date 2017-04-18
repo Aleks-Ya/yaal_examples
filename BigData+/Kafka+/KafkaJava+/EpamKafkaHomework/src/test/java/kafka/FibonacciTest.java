@@ -28,6 +28,8 @@ import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 
 /**
+ * Integration test for {@link FibonacciProducer} and {@link FibonacciConsumer}.
+ *
  * @author Aleksey Yablokov
  */
 public class FibonacciTest {

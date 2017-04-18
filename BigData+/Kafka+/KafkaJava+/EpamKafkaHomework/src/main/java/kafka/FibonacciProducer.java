@@ -14,6 +14,11 @@ import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+/**
+ * Producer sends Fibonacci numbers to the topic in form of pair: sequence number - Fibonacci number.
+ *
+ * @author Aleksey Yablokov
+ */
 public class FibonacciProducer {
     private static final Logger log = LoggerFactory.getLogger(FibonacciProducer.class);
     private final int numberCount;
@@ -21,13 +26,26 @@ public class FibonacciProducer {
     private final int kafkaServerPort;
     private final String topic;
 
-    public FibonacciProducer(String topic, int numberCount, String kafkaServerHost, int kafkaServerPort) {
+    /**
+     * Instantiate {@link FibonacciProducer}.
+     *
+     * @param topic       Kafka topic name.
+     * @param numberCount How much Fibonacci numbers the producer will send.
+     * @param brokerHost  Kafka broker's host.
+     * @param brokerPort  Kafka broker's port.
+     */
+    public FibonacciProducer(String topic, int numberCount, String brokerHost, int brokerPort) {
         this.numberCount = numberCount;
-        this.kafkaServerHost = kafkaServerHost;
-        this.kafkaServerPort = kafkaServerPort;
+        this.kafkaServerHost = brokerHost;
+        this.kafkaServerPort = brokerPort;
         this.topic = topic;
     }
 
+    /**
+     * Run FibonacciProducer with default or custom parameters.
+     *
+     * @param args FibonacciProducer's parameters. See README.txt
+     */
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         int numberCount = 30;
         String host = "localhost";
@@ -66,5 +84,4 @@ public class FibonacciProducer {
         System.out.println("Close producer");
         producer.close();
     }
-
 }

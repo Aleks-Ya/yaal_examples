@@ -10,7 +10,7 @@ java -cp target/Fibonacci-jar-with-dependencies.jar kafka.FibonacciProducer 40 l
 
 
 Run consumer:
-Default parameters (printEachRecords=1, host=localhost, port=9092):
+Default parameters (invokeCallbackEachNRecords=1, host=localhost, port=9092):
 java -cp target/Fibonacci-jar-with-dependencies.jar kafka.FibonacciConsumer
-Custom parameters (printEachRecords, host, port):
+Custom parameters (invokeCallbackEachNRecords, host, port):
 java -cp target/Fibonacci-jar-with-dependencies.jar kafka.FibonacciConsumer 5 localhost 9092

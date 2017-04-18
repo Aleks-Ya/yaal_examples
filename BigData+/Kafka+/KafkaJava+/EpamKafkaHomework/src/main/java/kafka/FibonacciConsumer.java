@@ -14,21 +14,41 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * Consumer receives Fibonacci numbers from the Kafka topic and invokes the callback each invokeCallbackEachNRecords.
+ *
+ * @author Aleksey Yablokov
+ */
+@SuppressWarnings("WeakerAccess")
 public class FibonacciConsumer {
     private static final Logger log = LoggerFactory.getLogger(FibonacciConsumer.class);
-    private final int printEachRecords;
+    private final int invokeCallbackEachNRecords;
     private final String brokerHost;
     private final int brokerPort;
     private volatile boolean stopped;
     private final String topic;
 
-    public FibonacciConsumer(String topic, int printEachRecords, String brokerHost, int brokerPort) {
-        this.printEachRecords = printEachRecords;
+    /**
+     * Instantiate the Consumer.
+     *
+     * @param topic                      The Kafka's topic.
+     * @param invokeCallbackEachNRecords For each invokeCallbackEachNRecords numbers the Consumer will print sum to console.
+     * @param brokerHost                 Kafka's broker host.
+     * @param brokerPort                 Kafka's broker port.
+     */
+    public FibonacciConsumer(String topic, int invokeCallbackEachNRecords, String brokerHost, int brokerPort) {
+        this.invokeCallbackEachNRecords = invokeCallbackEachNRecords;
         this.brokerHost = brokerHost;
         this.brokerPort = brokerPort;
         this.topic = topic;
     }
 
+    /**
+     * Run FibonacciConsumer with default or custom parameters and prints to console sum of Fibonacci numbers
+     * each invokeCallbackEachNRecords.
+     *
+     * @param args Parameters. See README.txt
+     */
     public static void main(String[] args) {
         int printEachRecords = 1;
         String host = "localhost";
@@ -42,13 +62,18 @@ public class FibonacciConsumer {
                 log.error("Can't parse arguments: " + Arrays.deepToString(args));
             }
         }
-        log.info("Parameters: printEachRecords={}, host={}, port={}", printEachRecords, host, port);
+        log.info("Parameters: invokeCallbackEachNRecords={}, host={}, port={}", printEachRecords, host, port);
 
         new FibonacciConsumer("fibonacci", printEachRecords, host, port)
                 .work(System.out::println);
     }
 
-    void work(java.util.function.Consumer<Long> callback) {
+    /**
+     * Start receiving.
+     *
+     * @param callback Each invokeCallbackEachNRecords the callback will be invoked. Value is sum of fibonacci numbers.
+     */
+    public void work(java.util.function.Consumer<Long> callback) {
         Properties props = new Properties();
         props.put("bootstrap.servers", brokerHost + ":" + brokerPort);
         props.put("group.id", "group0");
@@ -70,13 +95,16 @@ public class FibonacciConsumer {
                 log.info("Received: {}-{}", index, fibonacci);
                 sum += fibonacci;
                 log.info("Fibonacci sum: " + sum);
-                if (index % printEachRecords == 0) {
+                if (index % invokeCallbackEachNRecords == 0) {
                     callback.accept(sum);
                 }
             }
         }
     }
 
+    /**
+     * Stop receiving.
+     */
     public void stop() {
         this.stopped = true;
     }
