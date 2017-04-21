@@ -34,4 +34,10 @@ public class RelativeUrlToAbsoluteTest {
         assertThat(context.resolve("tail"), hasToString("https://ya.ru/tail"));
         assertThat(context.relativize(new URI("tail")), hasToString("tail"));
     }
+
+    @Test
+    public void fragment() throws MalformedURLException {
+        URL baseUrl = new URL("https://ya.ru/search");//finished without "/"
+        assertThat(new URL(baseUrl, "#contacts"), hasToString("https://ya.ru/search#contacts"));
+    }
 }
