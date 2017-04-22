@@ -1,7 +1,12 @@
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.arrayContaining;
+import static org.hamcrest.Matchers.arrayContainingInAnyOrder;
+import static org.hamcrest.Matchers.arrayWithSize;
+import static org.hamcrest.Matchers.emptyArray;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItemInArray;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -21,6 +26,7 @@ public class ArrayAssert {
         final Integer[] arr = {45, 34, 89};
         assertThat(arr, hasItemInArray(34));
         assertThat(arr, arrayContaining(45, 34, 89));//в такой же последовательности
+        assertThat(new Character[]{'a', 'b'}, arrayContaining('a', 'b'));//в такой же последовательности
         assertThat(arr, arrayContainingInAnyOrder(89, 34, 45));
         assertThat(arr, arrayWithSize(3));
         assertThat(new Integer[]{}, emptyArray());
