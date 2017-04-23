@@ -1,8 +1,10 @@
 <configuration scan="true" scanPeriod="30 seconds">
 
+    <property name="LONG_PATTERN" value="logback.xml: %d %-5level [%thread] %logger{0}: %msg%n"/>
+
     <appender name="stdout_long" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>logback.xml: %d %-5level [%thread] %logger{0}: %msg%n</pattern>
+            <pattern>${LONG_PATTERN}</pattern>
         </encoder>
     </appender>
 
