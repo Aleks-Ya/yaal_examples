@@ -1,4 +1,4 @@
-package lucene;
+package lucene.example;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.MockAnalyzer;
