@@ -1,3 +1,5 @@
+package usual;
+
 import org.springframework.stereotype.Component;
 
 @Component
