@@ -4,10 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.yaal.spring.boot</groupId>
-    <artifactId>spring-boot-hello-world</artifactId>
+    <artifactId>spring-boot-examples</artifactId>
     <version>1</version>
 
     <description>
+		Examples of the base Spring Boot's functionality.
         Build: mvn package
         Run: java -jar target/spring-boot-hello-world-1.jar
     </description>
