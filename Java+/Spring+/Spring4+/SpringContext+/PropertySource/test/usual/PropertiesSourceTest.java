@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -25,19 +24,10 @@ public class PropertiesSourceTest {
     @Autowired
     private PropertiesPojo pojo;
 
-    @Autowired
-    private Environment env;
-
     @Test
     public void value() {
         assertThat(myNameFromProperty, equalTo("aleks"));
         assertThat(bestCity, equalTo("SPB"));
-    }
-
-    @Test
-    public void environmentFromClasspath() {
-        assertThat(env.getProperty("my.name"), equalTo("aleks"));
-        assertThat(env.getProperty("best.city"), equalTo("SPB"));
     }
 
     @Test
