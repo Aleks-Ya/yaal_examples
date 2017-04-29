@@ -1,9 +1,9 @@
-package environment;
+package value;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:environment/environment.properties")
-class EnvironmentConfig {
+@PropertySource("classpath:value/value.properties")
+class ValueConfig {
 }
