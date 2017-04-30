@@ -10,7 +10,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = YamlSettings.class)
+@SpringBootTest(classes = YamlConfig.class)
 public class YamlTest {
 
     @Autowired

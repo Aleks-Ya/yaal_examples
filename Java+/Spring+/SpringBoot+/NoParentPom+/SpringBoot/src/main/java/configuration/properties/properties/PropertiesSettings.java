@@ -1,15 +1,10 @@
 package configuration.properties.properties;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
-@EnableConfigurationProperties
+@SuppressWarnings({"WeakerAccess", "unused"})
 @ConfigurationProperties(prefix = "configuration")
 class PropertiesSettings {
-    @NotEmpty
     private String message;
     private System system;
 

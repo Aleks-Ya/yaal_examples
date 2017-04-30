@@ -10,7 +10,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = PropertiesSettings.class)
+@SpringBootTest(classes = PropertiesConfig.class)
 public class PropertiesTest {
 
     @Autowired

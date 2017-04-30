@@ -1,6 +1,0 @@
-values:
-  enabled: true
-  message:
-    prefix: Hi, everybody!
-    suffix: Good bye!
-    underwrite:
