@@ -6,16 +6,18 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import security.application.config.authentication.AuthenticationProfiles;
 import security.application.config.authentication.Roles;
-import security.application.config.authentication.UserCredentials;
+import security.application.config.authentication.UserCredentials.Admin;
+import security.application.config.authentication.UserCredentials.User;
 
 @Configuration
+@SuppressWarnings("unused")
 @Profile(AuthenticationProfiles.IN_MEMORY)
 public class InMemoryConfig {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser(UserCredentials.User.LOGIN).password(UserCredentials.User.PASSWORD).roles(Roles.USER)
+                .withUser(User.LOGIN).password(User.PASSWORD).roles(Roles.USER)
                 .and()
-                .withUser(UserCredentials.Admin.LOGIN).password(UserCredentials.Admin.PASSWORD).roles(Roles.USER, Roles.ADMIN);
+                .withUser(Admin.LOGIN).password(Admin.PASSWORD).roles(Roles.USER, Roles.ADMIN);
     }
 }
