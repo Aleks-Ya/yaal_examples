@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.yaal.spring.security</groupId>
-    <artifactId>spring-security-oauth</artifactId>
+    <artifactId>spring-security-oauth-client</artifactId>
     <version>1</version>
-    <description>Run and test OAuth 2 authentication with spring-security-oauth</description>
+    <description>OAuth 2 Client using spring-security-oauth</description>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
