@@ -13,8 +13,8 @@ import java.io.IOException;
  * Добавляет атрибут к запросу.
  */
 @WebFilter(urlPatterns = "/el/read_request_attribute.jsp")
-public class PutAttributeToRequestFilter implements Filter {
-    public static final String ATTR_NAME = "puttedAttr";
+public class PutPrimitiveAttrToRequestFilter implements Filter {
+    public static final String ATTR_NAME = "primitiveAttr";
     public static final Object ATTR_VALUE = 666;
 
     @Override

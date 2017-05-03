@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Добавляет атрибут (коллекцию) к запросу.
  */
 @WebFilter(urlPatterns = "/jstl/for_each.jsp")
-public class PutCollectionAttributeToRequestFilter implements Filter {
+public class PutCollectionAttrToRequestFilter implements Filter {
     public static final String ATTR_NAME = "collectionAttr";
     public static final ArrayList<String> ATTR_VALUE = new ArrayList<>();
 
