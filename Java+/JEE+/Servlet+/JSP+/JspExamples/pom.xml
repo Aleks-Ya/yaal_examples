@@ -3,33 +3,18 @@
  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.yaal.jsp</groupId>
-    <artifactId>JspHelloWorld</artifactId>
+    <groupId>ru.yaal.examples.jee.servlet.jsp</groupId>
+    <artifactId>JspExamples</artifactId>
+    <version>1</version>
     <packaging>war</packaging>
-    <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <java.version>1.7</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
-
-    <build>
-        <defaultGoal>package</defaultGoal>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>
@@ -65,4 +50,6 @@
             </exclusions>
         </dependency>
     </dependencies>
+
+    <modelVersion>4.0.0</modelVersion>
 </project>
