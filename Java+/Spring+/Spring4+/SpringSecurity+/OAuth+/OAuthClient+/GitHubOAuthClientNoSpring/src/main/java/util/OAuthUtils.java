@@ -21,8 +21,8 @@ public class OAuthUtils {
     private static final String accessTokenRedirectUrl = "http://46.151.9.25:8080/hi/callback/access_token";
 
     public static String authorizationEndpointUrl(String path) {
-        return format("%s?client_id=%s&client_secret=%s&redirect_uri=%s",
-                authorizationEndpoint, clientId, clientSecret, authenticationCodeRedirectUrl + path);
+        return format("%s?client_id=%s&redirect_uri=%s",
+                authorizationEndpoint, clientId, authenticationCodeRedirectUrl + path);
     }
 
     private static String tokenEndpointUrl(String authenticationCode, String state) {
