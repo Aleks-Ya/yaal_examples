@@ -1,0 +1,20 @@
+FROM alpine:latest
+
+ENV PATH /ansible/bin:/bin:/usr/bin:/sbin:/usr/sbin
+ENV PYTHONPATH /ansible/lib
+ENV ANSIBLE_LIBRARY /ansible/library
+
+RUN apk --update add bash whois openssh-client python py-yaml py-jinja2 py-simplejson py-httplib2 py-paramiko \
+    && mkdir -p /etc/ansible && echo -e '[local]\nlocalhost\n' > /etc/ansible/hosts \
+    && apk add --virtual build-dependencies git py-setuptools py2-pip python-dev build-base \
+    && pip install six nose passlib pycrypto \
+    && git clone https://github.com/ansible/ansible.git --recursive \
+    && cd /ansible \
+    && apk del build-dependencies \
+    && bin/ansible --version
+
+WORKDIR /root
+
+CMD ["ansible", "--version"]
+
+

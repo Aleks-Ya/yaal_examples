@@ -1,0 +1,5 @@
+FROM alpine:latest
+
+RUN apk --update add bash whois openssh-client python py-yaml py-jinja2 py-simplejson py-httplib2 py-paramiko
+
+WORKDIR /root
