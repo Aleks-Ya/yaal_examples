@@ -1,4 +1,4 @@
-package io.file.delete_on_exit;
+package io.file.delete.delete_on_exit;
 
 import org.junit.Test;
 
