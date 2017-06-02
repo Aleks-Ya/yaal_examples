@@ -1,0 +1,12 @@
+FROM jenkins:1.651.3
+
+USER root
+
+# Add Git PPA
+RUN echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu xenial main" >> /etc/apt/sources.list && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E1DF1F24 && \
+    apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y vim maven git && \
+    git config --global user.email "ya_al@bk.ru" && \
+    git config --global user.name "Jenkins Docker Container"
