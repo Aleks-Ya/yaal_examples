@@ -1,0 +1,29 @@
+git:latest
+job-dsl:latest
+ant:latest
+script-security:latest
+windows-slaves:latest
+cvs:latest
+git-client:latest
+junit:latest
+maven-plugin:latest
+structs:latest
+mapdb-api:latest
+subversion:latest
+antisamy-markup-formatter:latest
+icon-shim:latest
+matrix-auth:latest
+ssh-credentials	:latest
+workflow-scm-step:latest
+display-url-api	:latest
+ldap:latest
+pam-auth:latest
+javadoc:latest
+workflow-step-api:latest
+external-monitor-job:latest
+translation:latest
+credentials:latest
+matrix-project:latest
+mailer:latest
+scm-api:latest
+ssh-slaves:latest
