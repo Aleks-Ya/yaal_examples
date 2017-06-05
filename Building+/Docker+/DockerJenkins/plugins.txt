@@ -27,3 +27,4 @@ matrix-project:latest
 mailer:latest
 scm-api:latest
 ssh-slaves:latest
+publish-over-ssh:latest
