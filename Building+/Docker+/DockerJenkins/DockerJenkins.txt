@@ -9,3 +9,7 @@ Attach with bash: docker exec -it jenkins16 bash
 
 Open Jenkins in browser:
 http://localhost:8080
+
+
+Run dev server for A app:
+docker run -p 52022:22 -tid --name a-dev docker-ssh-connection:1
