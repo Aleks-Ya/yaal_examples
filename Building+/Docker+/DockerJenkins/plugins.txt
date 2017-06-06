@@ -28,3 +28,4 @@ mailer:latest
 scm-api:latest
 ssh-slaves:latest
 publish-over-ssh:latest
+ssh-agent:latest
