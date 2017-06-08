@@ -1,3 +1,5 @@
+package clazz.members.field
+
 class Customer {
     //Private fields with public getter and setter:
     Integer id
