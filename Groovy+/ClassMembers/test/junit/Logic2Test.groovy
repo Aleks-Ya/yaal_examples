@@ -1,13 +1,14 @@
-import org.junit.Test
+package junit
 
-import static junit.framework.Assert.assertEquals;
+import org.junit.Assert
+import org.junit.Test
 
 class Logic2Test {
     Logic cut = new Logic()
 
     @Test
     void testGetString() {
-        assertEquals('a string', cut.string)
+        Assert.assertEquals('a string', cut.string)
     }
 
     @Test(expected = RuntimeException.class)

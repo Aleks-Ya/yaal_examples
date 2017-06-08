@@ -1,3 +1,5 @@
+package closure
+
 class Class1 {
   def closure = {
     println this.class.name

@@ -1,3 +1,5 @@
+package collection.map
+
 class Maps {
     static void main(args) {
         def map = [name:"Gromit", likes:"cheese", id:1234]

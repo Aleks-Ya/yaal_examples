@@ -1,3 +1,5 @@
+package closure
+
 def list = ['a','b','c','d']
 def newList = []
 

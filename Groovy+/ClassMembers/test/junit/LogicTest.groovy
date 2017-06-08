@@ -1,3 +1,5 @@
+package junit
+
 class LogicTest extends GroovyTestCase {
     Logic cut = new Logic()
 
@@ -10,7 +12,7 @@ class LogicTest extends GroovyTestCase {
     }
 
     void testGetString() {
-        assertEquals('a string', cut.string)
+        GroovyTestCase.assertEquals('a string', cut.string)
     }
 
     //не работает

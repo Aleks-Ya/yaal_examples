@@ -1,3 +1,4 @@
+package closure
 //1
 def myConst = 5
 def incByConst = { num -> num + myConst }
