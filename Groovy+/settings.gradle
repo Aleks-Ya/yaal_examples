@@ -1,6 +1,2 @@
-include 'ClassMembers',
-        'Xml',
-        'IO+:AppendFile',
-        'IO+:WriteToFile',
-        'IO+:TempFile',
-        'IO+:Resources'
+include 'Core',
+        'Xml'

@@ -1,3 +1,5 @@
+package io.resource
+
 println(getClass().getResource('resource.txt'))
 
 String content = getClass().getResource('resource.txt').text

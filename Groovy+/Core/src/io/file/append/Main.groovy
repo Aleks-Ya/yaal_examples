@@ -1,3 +1,5 @@
+package io.file.append
+
 File file;
 L1:{
 	//Готовим базовый файл
