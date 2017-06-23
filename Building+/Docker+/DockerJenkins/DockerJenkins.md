@@ -13,3 +13,8 @@ http://localhost:8080
 
 Run dev server for A app:
 docker run -p 52022:22 -tid --name a-dev docker-ssh-connection:1
+
+Connect via Jenkins CLI:
+export JENKINS_URL="http://localhost:8080"
+wget "$JENKINS_URL/jnlpJars/jenkins-cli.jar"
+java -jar jenkins-cli.jar -s $JENKINS_URL help
