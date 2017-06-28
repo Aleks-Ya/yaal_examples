@@ -1,0 +1,20 @@
+# Examples for creating user keywords.
+# Run: robot Keyword.txt
+
+*** Test Cases ***
+User keyword contains arguments and return value
+	${greeting} =	Greeting message	Hi	John
+	Should Be Equal As Strings		${greeting}	Hi, John
+
+User keyword without arguments and return value
+	Print hello world
+
+*** Keywords ***
+Print hello world
+    Log To Console    Hello, Console World!
+
+Greeting message
+	 [Arguments]    ${greeting}    ${name}
+	 #Log To Console	Catenate	${greeting}, ${name}
+	 ${result} =	Catenate	${greeting},	${name}
+	 [Return]	${result}
