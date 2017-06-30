@@ -1,0 +1,17 @@
+# Examples for external library "RequestsLibrary".
+# Documentation: https://github.com/bulkan/robotframework-requests
+
+# Preparing:
+# pip install -U requests
+# pip install -U robotframework-requests
+
+# Run: robot RequestsLibrary.txt
+
+*** Settings ***
+Library		RequestsLibrary
+
+*** Test Cases ***
+Should Be
+	Create Session 	google 	http://www.google.com
+	${resp}= 	Get Request 	google 	/
+	Should Be Equal As Strings 	${resp.status_code} 	200
