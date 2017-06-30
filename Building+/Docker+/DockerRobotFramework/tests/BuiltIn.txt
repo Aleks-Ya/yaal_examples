@@ -1,0 +1,28 @@
+# Examples for standard library "BuiltIn".
+# Documentation: http://robotframework.org/robotframework/latest/libraries/BuiltIn.html
+# Run: robot BuiltIn.txt
+
+*** Test Cases ***
+Should Be
+	Should Be Equal				1	1
+	Should Be Equal As Integers	2	2
+	Should Be Equal As Strings	abc	abc
+	Should Be True				True
+	Should Not Be True			False
+
+Logging
+	Log				Message to log
+	Log To Console	Message to console log
+	Log Variables	level=INFO
+
+Catenate with default separator
+	${text} =	Catenate	A	B
+	Should Be Equal As Strings	${text}	A B
+
+Catenate without separator
+	${text} =	Catenate	SEPARATOR=	A	B
+	Should Be Equal As Strings	${text}	AB
+
+Catenate with dash separator
+	${text} =	Catenate	SEPARATOR=-	A	B
+	Should Be Equal As Strings	${text}	A-B
