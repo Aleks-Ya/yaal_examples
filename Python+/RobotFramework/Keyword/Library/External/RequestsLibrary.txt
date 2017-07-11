@@ -1,9 +1,13 @@
 # Examples for external library "RequestsLibrary".
 # Documentation: https://github.com/bulkan/robotframework-requests
 
-# Preparing:
-# pip install -U requests
-# pip install -U robotframework-requests
+# Preparing (without proxy):
+# pip install -vvv -U requests
+# pip install -vvv -U robotframework-requests
+
+# Preparing (with proxy):
+# pip install --proxy webproxy.merck.com:8080 -vvv -U requests
+# pip install --proxy webproxy.merck.com:8080 -vvv -U robotframework-requests
 
 # Run: robot RequestsLibrary.txt
 
