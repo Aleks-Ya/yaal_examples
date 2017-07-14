@@ -1,3 +1,5 @@
+#Run: ./parameters.sh aa bb 7
+
 echo "Param 0 (the script filename): $0"
 echo "Param 1: $1"
 echo "Param 2: $2"
