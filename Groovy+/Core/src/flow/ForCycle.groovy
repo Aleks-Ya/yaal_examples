@@ -47,5 +47,9 @@ class ForCycle {
         for (i in 0..5) {
             println i
         }
+        list.each{ el ->
+            println ("el+$el")
+            println ("el+$el")
+        }
     }
 }

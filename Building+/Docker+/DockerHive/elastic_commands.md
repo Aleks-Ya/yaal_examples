@@ -29,28 +29,8 @@ curl -XPOST "$ES_URL/${INDEX_NAME}/${TYPE_NAME}?pretty" -d '{
 }'
 ```
 
-## 3. Enable _size
-```
-curl -XPUT "$ES_URL/${INDEX_NAME}/_mapping/${TYPE_NAME}" -d '{
-      "properties": {
-        "_size": {
-          "enabled": true,
-          "store" : true
-        }
-      }
-}'
-```
-
 ## 3. Search documents
 ```
-curl -XGET "$ES_URL/${INDEX_NAME}/${TYPE_NAME}/_search?pretty" -d '{
-  "query": {
-      "match" : {
-          "name" : "John Simon"
-      }
-  }
-}'
-
 curl -XGET "$ES_URL/${INDEX_NAME}/${TYPE_NAME}/_search?pretty" -d '{
   "query": {
       "match" : {

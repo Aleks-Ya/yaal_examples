@@ -1,10 +1,8 @@
 # ElasticSearch Docker Image
 
-## Source:
+1. Source: https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
 
-https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
-
-## Run
+2. Run
 
 ```
 export ELASTIC_VERSION=5.4.3
@@ -15,8 +13,6 @@ docker run -p 9200:9200 \
   docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
 ```
 
-## Test
-
+3. Test
 URL: http://localhost:9200
-
 Pass: elastic/changeme
