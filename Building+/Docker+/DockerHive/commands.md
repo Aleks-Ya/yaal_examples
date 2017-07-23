@@ -1,11 +1,18 @@
-# ElasticSearch Docker Image
+# Hive Docker Image
 
-1. Source: https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
+#### Source
+https://hub.docker.com/r/mcapitanio/hive
 
-2. Run
+#### Versions
+
+Available versions: 1.2.1, 1.2.2, 2.1.0, 2.1.1
+
+All versions: https://hub.docker.com/r/mcapitanio/hive/tags/
+
+#### Run
 
 ```
-export ELASTIC_VERSION=5.4.3
+export HIVE_VERSION=1.2.1
 
 docker run -p 9200:9200 \
   -e "http.host=0.0.0.0"  \
