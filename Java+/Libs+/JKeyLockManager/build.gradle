@@ -1,0 +1,3 @@
+dependencies {
+    compile 'de.jkeylockmanager:jkeylockmanager:2.1.0'
+}

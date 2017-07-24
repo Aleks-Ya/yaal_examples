@@ -75,6 +75,7 @@ include 'JSE+:Core',
         'Libs+:pcap4j',
         'Libs+:WebCrawler+:crawler4j',
         'Libs+:Guice',
+        'Libs+:JKeyLockManager',
         'Algorithm',
         'Git+:JGit'
 
