@@ -8,5 +8,6 @@ export ES_PORT=9200
 export ES_URL=http://${ES_LOGIN}:${ES_PASS}@${ES_HOST}:${ES_PORT}
 
 export INDEX_NAME=people
+export ALIAS_NAME=persons
 export TYPE_NAME=ages
 ```
