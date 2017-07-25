@@ -2,16 +2,20 @@ package auth;
 
 import de.jkeylockmanager.manager.KeyLockManager;
 import de.jkeylockmanager.manager.KeyLockManagers;
+import de.jkeylockmanager.manager.LockCallback;
+import de.jkeylockmanager.manager.ReturnValueLockCallback;
 import org.junit.Test;
 
 public class HelloWorld {
-        private final KeyLockManager lockManager = KeyLockManagers.newLock();
-//        public void updateWeatherData(String cityName, float temperature) {
-//            lockManager.executeLocked(cityName, () -> delegate.updateWeatherData(cityName, temperature));
-//        }
 
     @Test
-    public void name() throws Exception {
-
+    public void test() {
+        KeyLockManager lockManager = KeyLockManagers.newLock();
+        LockCallback callback = () -> System.out.println("aaa");
+        String key = "abc";
+        lockManager.executeLocked(key, callback);
+        ReturnValueLockCallback<Integer> returnValueCallback = () -> 1;
+        Integer value = lockManager.executeLocked(key, returnValueCallback);
+        System.out.println(value);
     }
 }
