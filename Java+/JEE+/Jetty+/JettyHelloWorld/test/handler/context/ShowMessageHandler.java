@@ -1,3 +1,5 @@
+package handler.context;
+
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
@@ -9,7 +11,7 @@ import java.io.IOException;
 class ShowMessageHandler extends AbstractHandler {
     private String message;
 
-    public ShowMessageHandler(String message) {
+    ShowMessageHandler(String message) {
         this.message = message;
     }
 

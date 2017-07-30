@@ -1,2 +1,0 @@
-Работа с Context в сервере Jetty.
-Взят из документации http://www.eclipse.org/jetty/documentation/current/embedding-jetty.html#d0e18550

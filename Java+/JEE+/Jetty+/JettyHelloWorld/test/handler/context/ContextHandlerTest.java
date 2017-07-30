@@ -1,10 +1,20 @@
+package handler.context;
+
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
+import org.junit.Test;
+import util.Utils;
 
-public class Main {
-    public static void main(String[] args) throws Exception {
+/**
+ * Работа с Context в сервере Jetty.
+ * Взят из документации http://www.eclipse.org/jetty/documentation/current/embedding-jetty.html#d0e18550
+ */
+public class ContextHandlerTest {
+
+    @Test
+    public void main() throws Exception {
 
         ContextHandler rootContext = new ContextHandler();// корневой контекст по-умолчанию (/)
         rootContext.setHandler(new ShowMessageHandler("Root context handler: /"));
@@ -19,9 +29,14 @@ public class Main {
         ContextHandlerCollection contexts = new ContextHandlerCollection();
         contexts.setHandlers(new Handler[]{rootContext, enContext, ruContext});
 
-        Server server = new Server(8080);
+        int port = 8080;
+        Server server = new Server(port);
         server.setHandler(contexts);
         server.start();
-        server.join();
+
+        Utils.assertUrlContent("http://localhost:" + port + "/en", "<h1>English context handler: /en</h1>");
+        Utils.assertUrlContent("http://localhost:" + port + "/ru", "<h1>Обработчик русского контекста: /ru</h1>");
+
+        server.stop();
     }
 }
