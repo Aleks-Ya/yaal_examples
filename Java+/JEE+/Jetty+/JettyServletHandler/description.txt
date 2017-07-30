@@ -1,2 +1,0 @@
-Использование сервлетов в Jetty Embedded.
-Взят из документации http://www.eclipse.org/jetty/documentation/current/embedding-jetty.html
