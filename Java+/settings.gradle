@@ -84,7 +84,7 @@ include 'JSE+:Core',
 /**
  * JavaEE+
  */
-include 'JEE+:Jetty+:JettyHelloWorld',
+include 'JEE+:Jetty+:JettyServer',
         'JEE+:Jetty+:JettyServletHandler',
         'JEE+:NanoHttpd',
         'JEE+:Servlet+:Servlet3',

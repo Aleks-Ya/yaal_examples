@@ -1,0 +1,7 @@
+/**
+ * Запуск сервера Jetty из Java.
+ * Взят из документации http://www.eclipse.org/jetty/documentation/current/advanced-embedding.html
+ */
+dependencies {
+    compile 'org.eclipse.jetty:jetty-server:9.2.9.v20150224'
+}

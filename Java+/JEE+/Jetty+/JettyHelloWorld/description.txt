@@ -1,2 +1,0 @@
-Запуск сервера Jetty из Java.
-Взят из документации http://www.eclipse.org/jetty/documentation/current/advanced-embedding.html
