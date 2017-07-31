@@ -3,5 +3,5 @@
  * Взят из документации http://www.eclipse.org/jetty/documentation/current/advanced-embedding.html
  */
 dependencies {
-    compile 'org.eclipse.jetty:jetty-server:9.2.9.v20150224'
+    compile 'org.eclipse.jetty:jetty-server:9.4.6.v20170531'
 }
