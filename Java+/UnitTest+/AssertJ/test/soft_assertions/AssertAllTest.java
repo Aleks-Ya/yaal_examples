@@ -8,12 +8,11 @@ import org.junit.Test;
  */
 public class AssertAllTest {
 
-    @Test
+    @Test(expected = org.assertj.core.api.SoftAssertionError.class)
     public void assertAll() {
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat("a").isEqualTo("b");
         softly.assertThat("a").containsSequence("b");
         softly.assertAll();
-        //it must fail
     }
 }
