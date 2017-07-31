@@ -6,7 +6,10 @@
 	<artifactId>spring-mvc-on-spring-boot</artifactId>
 	<version>1</version>
 
-	<description>Main class: MvcApplication</description>
+	<description>
+		Main class: MvcApplication
+		See static resources: http://localhost:8080/cities.html
+	</description>
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
