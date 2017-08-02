@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bats
 
 @test "Error in function" {
   skip "Finish me"

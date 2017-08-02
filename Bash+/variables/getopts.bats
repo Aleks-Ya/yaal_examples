@@ -1,3 +1,5 @@
+#!/usr/bin/env bats
+
 @test "Check specified option" {
   getopts "x:" opt "-x abc"
   [ "$opt" = "x" ]
