@@ -1,5 +1,7 @@
 package security.application.controller;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,5 +38,26 @@ public class MainController {
 	@RequestMapping("/anonymus")
 	public String anonymus() {
 		return "anonymus";
+	}
+
+	@ResponseBody
+	@RequestMapping("/username")
+	public String username() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		String username;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		return "username=" + username;
+	}
+
+	@ResponseBody
+	@RequestMapping("/principal")
+	public String principal() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return "principal=" + principal;
 	}
 }
