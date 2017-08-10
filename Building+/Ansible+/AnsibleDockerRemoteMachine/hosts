@@ -1,0 +1,1 @@
+ansible_env.CONTAINER_IP ansible_connection=local
