@@ -3,16 +3,21 @@
 ## Build Docker image
 `docker build -t ansible-remote-machine-in-docker:1 .`
 
-
 ## Run Docker image
 ```
-docker run -p 52022:22 -tid --name ansible-remote-machine-in-docker ansible-remote-machine-in-docker:1
+docker run -p 52023:22 -tid --name ansible-remote-machine-in-docker ansible-remote-machine-in-docker:1
 docker exec -it ansible-remote-machine-in-docker bash
 docker stop ansible-remote-machine-in-docker
 docker rm ansible-remote-machine-in-docker
 ```
 
 ## Connect via SSH
-`sshpass -p 'screencast' ssh -o StrictHostKeyChecking=no -p 22 root@localhost`
-Command `sshpass -p 'screencast'` sets the root's password.
-Command `-o StrictHostKeyChecking=no` adds the container to known_hosts.
+### Prepare
+```
+export CONTAINER_IP=$(docker exec ansible-remote-machine-in-docker hostname -I)
+sshpass -p 'screencast' ssh-copy-id root@$CONTAINER_IP
+```
+### Connect
+```
+ssh root@$CONTAINER_IP
+```
