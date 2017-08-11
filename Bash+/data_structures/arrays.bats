@@ -9,6 +9,14 @@
   cities=('Moscow' 'Spb');
 }
 
+@test "Iterate an array" {
+  cities=('Moscow' 'Spb');
+  for city in "${cities[@]}"
+  do
+    [[ "$city" == 'Moscow' ]] || [[ "$city" == 'Spb' ]]
+  done
+}
+
 @test "Get array's element by number" {
   cities=('Moscow' 'Spb');
   [ ${cities[0]} == 'Moscow' ]
