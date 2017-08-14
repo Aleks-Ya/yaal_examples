@@ -39,3 +39,15 @@ docker exec -it docker_hive_1 hive
 docker exec -it docker_hive_1 bash
 $hive
 ```
+
+## Stop
+`docker-compose -p docker down --remove-orphans`
+
+## Logs
+HCAT: /opt/hive/logs/
+Hadoop (YARN, NameNode, DataNode): /opt/hadoop/logs
+HiveServer2:
+  /tmp/root/hive.log
+  /tmp/hiveserver2-stderr---supervisor-dzHd_o.log
+  /tmp/hiveserver2-stdout---supervisor-Xv6xD9.log
+Supervisor: /tmp/supervisord.log
