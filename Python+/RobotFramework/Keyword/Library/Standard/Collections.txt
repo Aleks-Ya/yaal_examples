@@ -1,0 +1,12 @@
+# Examples for standard library "Collections".
+# Documentation: http://robotframework.org/robotframework/latest/libraries/Collections.html
+# Run: robot Collections.txt
+
+*** Settings ***
+Library		Collections
+
+*** Test Cases ***
+Dictionaries Should Be Equal
+	&{dict1}=	Create Dictionary		key=value		foo=bar
+	&{dict2}=	Create Dictionary		key=value		foo=bar
+	Dictionaries Should Be Equal		${dict1}		${dict2}

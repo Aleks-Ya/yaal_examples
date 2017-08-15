@@ -26,3 +26,7 @@ Catenate without separator
 Catenate with dash separator
 	${text} =	Catenate	SEPARATOR=-	A	B
 	Should Be Equal As Strings	${text}	A-B
+
+Create a dictionary
+	&{dict}=	Create Dictionary		key=value		foo=bar
+	Should Be True		${dict} == {'key': 'value', 'foo': 'bar'}
