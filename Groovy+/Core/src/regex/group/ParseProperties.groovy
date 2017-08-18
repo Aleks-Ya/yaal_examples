@@ -1,13 +1,13 @@
 package regex.group
 
-String s = '''
+String string = '''
     abc=100
     xyz=300
 '''
 def key = 'abc'
-def p = ~"${key}=(\\d+)"
-def m = p.matcher(s)
-//def m = s =~ "${key}=(\\d+)"
-while (m.find()) {
-    println(m.group(1))
+def pattern = ~"${key}=(\\d+)"
+def matcher = pattern.matcher(string)
+//def matcher = string =~ "${key}=(\\d+)"
+while (matcher.find()) {
+    assert matcher.group(1) == '100'
 }
