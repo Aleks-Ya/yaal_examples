@@ -5,8 +5,8 @@ import org.junit.Test;
 import java.io.File;
 import java.sql.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Properties;
+import java.util.TimeZone;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,19 +22,19 @@ public class ParseDateTest {
 
         Properties props = new Properties();
         props.put("columnTypes", "Int,Date,Time,Timestamp");
+        props.put("timeZoneName", TimeZone.getDefault().getID());
 
         String database = new File(ParseDateTest.class.getResource("standard_formats.csv").getFile()).getParent();
         Connection conn = DriverManager.getConnection("jdbc:relique:csv:" + database, props);
         Statement stmt = conn.createStatement();
 
         ResultSet results = stmt.executeQuery("SELECT * FROM standard_formats");
+        results.next();
 
-        while (results.next()) {
-            assertThat(results.getInt(1), equalTo(1));
-            assertThat(results.getDate(2), equalTo(new SimpleDateFormat("yyyy-MM-dd").parse("2017-01-30")));
-            assertThat(results.getTime(3), equalTo(new SimpleDateFormat("HH:mm:ss").parse("20:50:45")));
-            assertThat(results.getTimestamp(4), equalTo(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2016-12-25 23:40:30")));
-        }
+        assertThat(results.getInt(1), equalTo(1));
+        assertThat(results.getDate(2), equalTo(Date.valueOf("2017-01-30")));
+        assertThat(results.getTime(3), equalTo(Time.valueOf("20:50:45")));
+        assertThat(results.getTimestamp(4), equalTo(Timestamp.valueOf("2016-12-25 23:40:30")));
 
         conn.close();
     }
@@ -48,6 +48,7 @@ public class ParseDateTest {
 
         Properties props = new Properties();
         props.put("columnTypes", "Int,Date,Time,Timestamp");
+        props.put("timeZoneName", TimeZone.getDefault().getID());
         props.put("timestampFormat", "yyyy_MM_dd HH+mm+ss");
         props.put("timeFormat", "HH+mm+ss");
         props.put("dateFormat", "yyyy_MM_dd");
@@ -57,13 +58,12 @@ public class ParseDateTest {
         Statement stmt = conn.createStatement();
 
         ResultSet results = stmt.executeQuery("SELECT * FROM custom_formats");
+        results.next();
 
-        while (results.next()) {
-            System.out.println(results.getInt(1));
-            System.out.println(results.getDate(2));
-            System.out.println(results.getTime(3));
-            System.out.println(results.getTimestamp(4));
-        }
+        assertThat(results.getInt(1), equalTo(1));
+        assertThat(results.getDate(2), equalTo(Date.valueOf("2017-01-30")));
+        assertThat(results.getTime(3), equalTo(Time.valueOf("20:50:45")));
+        assertThat(results.getTimestamp(4), equalTo(Timestamp.valueOf("2016-12-25 23:40:30")));
 
         conn.close();
     }
