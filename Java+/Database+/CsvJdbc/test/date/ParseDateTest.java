@@ -21,7 +21,7 @@ public class ParseDateTest {
         Class.forName("org.relique.jdbc.csv.CsvDriver");
 
         Properties props = new Properties();
-        props.put("columnTypes", "Int,Date,Time,Timestamp");
+        props.put("columnTypes", "Date,Time,Timestamp");
         props.put("timeZoneName", TimeZone.getDefault().getID());
 
         String database = new File(ParseDateTest.class.getResource("standard_formats.csv").getFile()).getParent();
@@ -31,10 +31,9 @@ public class ParseDateTest {
         ResultSet results = stmt.executeQuery("SELECT * FROM standard_formats");
         results.next();
 
-        assertThat(results.getInt(1), equalTo(1));
-        assertThat(results.getDate(2), equalTo(Date.valueOf("2017-01-30")));
-        assertThat(results.getTime(3), equalTo(Time.valueOf("20:50:45")));
-        assertThat(results.getTimestamp(4), equalTo(Timestamp.valueOf("2016-12-25 23:40:30")));
+        assertThat(results.getDate("date"), equalTo(Date.valueOf("2017-01-30")));
+        assertThat(results.getTime("time"), equalTo(Time.valueOf("20:50:45")));
+        assertThat(results.getTimestamp("timestamp"), equalTo(Timestamp.valueOf("2016-12-25 23:40:30")));
 
         conn.close();
     }
@@ -47,7 +46,7 @@ public class ParseDateTest {
         Class.forName("org.relique.jdbc.csv.CsvDriver");
 
         Properties props = new Properties();
-        props.put("columnTypes", "Int,Date,Time,Timestamp");
+        props.put("columnTypes", "Date,Time,Timestamp");
         props.put("timeZoneName", TimeZone.getDefault().getID());
         props.put("timestampFormat", "yyyy_MM_dd HH+mm+ss");
         props.put("timeFormat", "HH+mm+ss");
@@ -60,10 +59,9 @@ public class ParseDateTest {
         ResultSet results = stmt.executeQuery("SELECT * FROM custom_formats");
         results.next();
 
-        assertThat(results.getInt(1), equalTo(1));
-        assertThat(results.getDate(2), equalTo(Date.valueOf("2017-01-30")));
-        assertThat(results.getTime(3), equalTo(Time.valueOf("20:50:45")));
-        assertThat(results.getTimestamp(4), equalTo(Timestamp.valueOf("2016-12-25 23:40:30")));
+        assertThat(results.getDate("date"), equalTo(Date.valueOf("2017-01-30")));
+        assertThat(results.getTime("time"), equalTo(Time.valueOf("20:50:45")));
+        assertThat(results.getTimestamp("timestamp"), equalTo(Timestamp.valueOf("2016-12-25 23:40:30")));
 
         conn.close();
     }
