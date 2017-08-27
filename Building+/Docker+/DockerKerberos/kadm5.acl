@@ -1,0 +1,6 @@
+*/admin@ATHENA.MIT.EDU    *                               # line 1
+joeadmin@ATHENA.MIT.EDU   ADMCIL                          # line 2
+joeadmin/*@ATHENA.MIT.EDU i   */root@ATHENA.MIT.EDU       # line 3
+*/root@ATHENA.MIT.EDU     ci  *1@ATHENA.MIT.EDU           # line 4
+*/root@ATHENA.MIT.EDU     l   *                           # line 5
+sms@ATHENA.MIT.EDU        x   * -maxlife 9h -postdateable # line 6
