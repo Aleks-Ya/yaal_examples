@@ -5,6 +5,8 @@ import org.apache.hadoop.security.UserGroupInformation;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -36,8 +38,11 @@ public class HiveConnectionChecker {
         String keytabFileAbsolute = new File(args[2]).getAbsolutePath();
         System.out.println("keytabFileAbsolute=" + keytabFileAbsolute);
 
+        URL coreSiteURI = Paths.get("/etc/hadoop/2.4.3.0-227/0/core-site.xml").toUri().toURL();
+
         Configuration conf = new Configuration();
         conf.set("hadoop.security.authentication", "Kerberos");
+        conf.addResource(coreSiteURI);
         UserGroupInformation.setConfiguration(conf);
         UserGroupInformation.loginUserFromKeytab(login, keytabFileAbsolute);
 
