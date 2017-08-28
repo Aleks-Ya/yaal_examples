@@ -1,0 +1,21 @@
+version: '3'
+services:
+  server:
+    container_name: ssh-server
+    build:
+      context: .
+      dockerfile: ServerDockerfile
+    ports:
+      - "52022:22"
+    hostname: server
+  client:
+    container_name: ssh-client
+    build:
+      context: .
+      dockerfile: ClientDockerfile
+    links:
+      - server
+    depends_on:
+      - server
+    tty: true
+    hostname: client
