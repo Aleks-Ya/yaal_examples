@@ -3,5 +3,5 @@
 ## Build from Dockerfile
 `docker build --tag dockerfile-command-add .`
 
-## Run bash
-`docker run -it dockerfile-command-add /bin/bash`
+## Print copied file's content
+`docker run -it --rm dockerfile-command-add cat /tmp/data.txt`
