@@ -49,7 +49,7 @@ public class HiveConnectionChecker {
         try (Connection connection = DriverManager.getConnection(url)) {
             Statement statement = connection.createStatement();
             System.out.println("Drop database");
-            statement.executeUpdate("DROP DATABASE IF EXISTS HiveConnectionCheckerTmp");
+            statement.executeUpdate("DROP DATABASE IF EXISTS HiveConnectionCheckerTmp CASCADE");
             System.out.println("Create database");
             statement.executeUpdate("CREATE DATABASE IF NOT EXISTS HiveConnectionCheckerTmp");
             System.out.println("Create table");
