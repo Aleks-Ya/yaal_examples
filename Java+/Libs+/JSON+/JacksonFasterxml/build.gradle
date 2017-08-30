@@ -3,5 +3,5 @@
  * Old is Codehaus.
  */
 dependencies{
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.0'
 }

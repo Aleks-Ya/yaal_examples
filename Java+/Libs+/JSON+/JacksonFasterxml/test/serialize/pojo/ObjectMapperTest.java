@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasToString;
 import static org.junit.Assert.assertThat;
 
-public class SerializationTest {
+public class ObjectMapperTest {
 
     @Test
     public void test() throws IOException, ParseException {
