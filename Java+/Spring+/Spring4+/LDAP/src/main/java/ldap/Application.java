@@ -1,9 +1,9 @@
-package ru.yaal.merch.bookshelf;
+package ldap;
 
+import ldap.repository.PersonRepo;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
-import ru.yaal.merch.bookshelf.repository.PersonRepo;
 
 import java.util.List;
 

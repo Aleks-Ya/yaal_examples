@@ -1,4 +1,4 @@
-package ru.yaal.merch.bookshelf.repository;
+package ldap.repository;
 
 import java.util.List;
 

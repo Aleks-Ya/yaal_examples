@@ -1,4 +1,4 @@
-package ru.yaal.merch.bookshelf.config;
+package ldap.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
