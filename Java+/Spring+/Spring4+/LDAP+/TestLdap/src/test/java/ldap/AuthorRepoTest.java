@@ -20,6 +20,7 @@ public class AuthorRepoTest {
     @Test
     public void test() {
         List<String> allPersonNames = repo.getAllPersonNames();
+        System.out.println("Persons: " + allPersonNames);
     }
 
 }
