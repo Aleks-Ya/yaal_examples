@@ -22,7 +22,8 @@ public class PersonRepoImpl implements PersonRepo {
     public List<String> getAllPersonNames() {
         return ldapTemplate.search(
                 query()
+                        .base("dc=example,dc=com")
                         .where("cn")
-                        .is("Nikola Tesla"), (AttributesMapper<String>) attrs -> (String) attrs.get("cn").get());
+                        .like("Nikola Tesla"), (AttributesMapper<String>) attrs -> (String) attrs.get("cn").get());
     }
 }
