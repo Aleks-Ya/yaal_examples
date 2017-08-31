@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <groupId>ru.yaal.examples.java.spring.ldap</groupId>
-    <artifactId>SpringLDAP</artifactId>
+    <artifactId>TestLdap</artifactId>
     <version>1</version>
 
     <description>A Spring LDAP project with unit testing</description>
