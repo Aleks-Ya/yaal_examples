@@ -1,5 +1,5 @@
 /**
- * New version of Jackson.
+ * The new version of Jackson is FasterXML.
  * Old is Codehaus.
  */
 dependencies{

@@ -25,4 +25,26 @@ public class JsonPointerTest {
         assertThat(user.getId(), equalTo(123));
         assertThat(user.getName(), equalTo("aleks"));
     }
+
+    @SuppressWarnings("unused")
+    private static class User {
+        private Integer id;
+        private String name;
+
+        Integer getId() {
+            return id;
+        }
+
+        private void setId(Integer id) {
+            this.id = id;
+        }
+
+        String getName() {
+            return name;
+        }
+
+        private void setName(String name) {
+            this.name = name;
+        }
+    }
 }

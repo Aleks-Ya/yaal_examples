@@ -13,8 +13,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasToString;
@@ -83,5 +82,63 @@ public class ObjectMapperTest {
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
         artist.birthDate = format.parse("26-05-1926");
         return artist;
+    }
+
+    @SuppressWarnings({"unused", "WeakerAccess"})
+    private static class Album {
+        private String title;
+        private String[] links;
+        private List<String> songs = new ArrayList<String>();
+        private Artist artist;
+        private Map<String, String> musicians = new HashMap<String, String>();
+
+        public Album(String title) {
+            this.title = title;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setLinks(String[] links) {
+            this.links = links;
+        }
+
+        public String[] getLinks() {
+            return links;
+        }
+
+        public void setSongs(List<String> songs) {
+            this.songs = songs;
+        }
+
+        public List<String> getSongs() {
+            return songs;
+        }
+
+        public void setArtist(Artist artist) {
+            this.artist = artist;
+        }
+
+        public Artist getArtist() {
+            return artist;
+        }
+
+        public Map<String, String> getMusicians() {
+            return Collections.unmodifiableMap(musicians);
+        }
+
+        public void addMusician(String key, String value) {
+            musicians.put(key, value);
+        }
+    }
+
+    @SuppressWarnings({"unused", "WeakerAccess"})
+    private static class Artist {
+        public String name;
+        public Date birthDate;
+        public int age;
+        public String homeTown;
+        public List<String> awardsWon = new ArrayList<>();
     }
 }
