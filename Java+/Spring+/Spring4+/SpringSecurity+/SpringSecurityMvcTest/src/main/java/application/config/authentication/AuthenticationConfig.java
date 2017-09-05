@@ -8,9 +8,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 public class AuthenticationConfig {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser(UserCredentials.User.LOGIN).password(UserCredentials.User.PASSWORD).roles(Roles.USER)
-//                .and()
-//                .withUser(UserCredentials.Admin.LOGIN).password(UserCredentials.Admin.PASSWORD).roles(Roles.USER, Roles.ADMIN);
+        auth.inMemoryAuthentication()
+                .withUser(UserCredentials.User.LOGIN)
+                .password(UserCredentials.User.PASSWORD)
+                .roles(Roles.USER)
+
+                .and()
+                .withUser(UserCredentials.Admin.LOGIN)
+                .password(UserCredentials.Admin.PASSWORD)
+                .roles(Roles.USER, Roles.ADMIN);
     }
 }
