@@ -7,57 +7,50 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@ResponseBody
 public class MainController {
 
-	@RequestMapping("/")
-	@ResponseBody
-	public String root() {
-		return "root page";
-	}
-	
-	@RequestMapping("/login")
-	public String login() {
-		return "login";
-	}
+    @RequestMapping("/")
+    public String root() {
+        return "root page";
+    }
 
-	@RequestMapping("/info")
-	public String info() {
-		return "info";
-	}
+    @RequestMapping("/info")
+    public String info() {
+        return "info page";
+    }
 
-	@RequestMapping("/user")
-	public String userAccessible() {
-		return "user_accessible";
-	}
+    @RequestMapping("/user")
+    public String userAccessible() {
+        return "This page is available to User";
+    }
 
-	@RequestMapping("/admin")
-	public String adminAccessible() {
-		return "admin_accessible";
-	}
-	
-	@RequestMapping("/anonymus")
-	public String anonymus() {
-		return "anonymus";
-	}
+    @RequestMapping("/admin")
+    public String adminAccessible() {
+        return "This page is available to Admin";
+    }
 
-	@ResponseBody
-	@RequestMapping("/username")
-	public String username() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    @RequestMapping("/anonymus")
+    public String anonymus() {
+        return "This page is available to anyone";
+    }
 
-		String username;
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails)principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		return "username=" + username;
-	}
+    @RequestMapping("/username")
+    public String username() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-	@ResponseBody
-	@RequestMapping("/principal")
-	public String principal() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return "principal=" + principal;
-	}
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        return "username=" + username;
+    }
+
+    @RequestMapping("/principal")
+    public String principal() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return "principal=" + principal;
+    }
 }
