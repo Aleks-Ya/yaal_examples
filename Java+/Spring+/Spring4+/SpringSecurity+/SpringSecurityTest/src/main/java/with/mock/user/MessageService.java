@@ -1,4 +1,4 @@
-package security.test;
+package with.mock.user;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 

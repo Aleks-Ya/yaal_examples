@@ -1,7 +1,4 @@
-package security.test;
-
-import static org.hamcrest.Matchers.startsWith;
-import static org.junit.Assert.assertThat;
+package with.mock.user;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static org.hamcrest.Matchers.startsWith;
+import static org.junit.Assert.assertThat;
 
 /**
  * WithMockUser on class
@@ -18,11 +18,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @WithMockUser
 public class WithMockUserOnClassTest {
 
-	@Autowired
-	private MessageService messageService;
-	
-	@Test
-	public void getMessageWithMockUser() {
-		assertThat(messageService.getMessage(), startsWith("Hello"));
-	}
+    @Autowired
+    private MessageService messageService;
+
+    @Test
+    public void getMessageWithMockUser() {
+        assertThat(messageService.getMessage(), startsWith("Hello"));
+    }
 }

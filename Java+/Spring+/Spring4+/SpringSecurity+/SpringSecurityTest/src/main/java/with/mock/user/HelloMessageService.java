@@ -1,4 +1,4 @@
-package security.test;
+package with.mock.user;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
