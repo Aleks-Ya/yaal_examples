@@ -1,7 +1,10 @@
 package get;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.springframework.http.*;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 import data.Quote;
@@ -30,6 +33,13 @@ public class GetForObjectTest {
     @Test
     public void withHeaders() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
+
+        ObjectMapper mapper = new ObjectMapper();
+        User user = mapper.readValue(json, User.class);
+
+
+        HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        restTemplate.setMessageConverters();
 
         String headerName = "myheader";
         String headerValue = "abc";
