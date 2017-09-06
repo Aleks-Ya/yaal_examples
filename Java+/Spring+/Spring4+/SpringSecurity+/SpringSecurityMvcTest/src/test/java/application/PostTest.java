@@ -1,5 +1,7 @@
 package application;
 
+import application.config.authentication.Roles;
+import application.config.authentication.UserCredentials;
 import application.controller.MainController;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,11 +15,11 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
@@ -37,19 +39,22 @@ public class PostTest {
                 .build();
     }
 
-//    @Test
-//    public void unauthorized() throws Exception {
-//        mvc.perform(post("/admin")).andExpect(MockMvcResultMatchers.status().isUnauthorized());
-//    }
-//
-//    @Test
-//    public void success() throws Exception {
-//        mvc.perform(
-//                post("/admin")
-//                        .with(user(UserCredentials.Admin.LOGIN).password(UserCredentials.Admin.PASSWORD))
-//        )
-//                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
-//    }
+    @Test
+    public void unauthorized() throws Exception {
+        mvc.perform(post("/admin").with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("http://localhost/login"));
+    }
+
+    @Test
+    public void success() throws Exception {
+        mvc.perform(
+                post("/admin")
+                        .with(user(UserCredentials.Admin.LOGIN).roles(Roles.ADMIN))
+                        .with(csrf())
+        )
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+    }
 
 
     @Test
