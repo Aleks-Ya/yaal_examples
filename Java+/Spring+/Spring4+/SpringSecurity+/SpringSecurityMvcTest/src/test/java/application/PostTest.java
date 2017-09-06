@@ -1,7 +1,9 @@
 package application;
 
+import application.config.authentication.AuthenticationConfig;
 import application.config.authentication.Roles;
 import application.config.authentication.UserCredentials;
+import application.config.authorize.AuthorizationConfig;
 import application.controller.MainController;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +24,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestConfig.class)
+@ContextConfiguration(classes = {
+        AuthenticationConfig.class,
+        AuthorizationConfig.class,
+        MainController.class})
 @WebAppConfiguration
 public class PostTest {
 

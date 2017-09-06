@@ -1,6 +1,8 @@
 package application;
 
+import application.config.authentication.AuthenticationConfig;
 import application.config.authentication.Roles;
+import application.config.authorize.AuthorizationConfig;
 import application.controller.MainController;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,12 +20,13 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestConfig.class)
+@ContextConfiguration(classes = {
+        AuthenticationConfig.class,
+        AuthorizationConfig.class,
+        MainController.class})
 @WebAppConfiguration
 public class GetTest {
 
