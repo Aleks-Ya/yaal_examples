@@ -1,12 +1,12 @@
-package application.exception.handler;
+package application.exception.handler.defaultt;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
@@ -16,6 +16,9 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Override DefaultHandlerExceptionResolver for custom processing Standard Spring MVC exceptions.
+ */
 @Controller
 class AllExceptionController {
 
@@ -37,16 +40,9 @@ class AllExceptionController {
 
     @RequestMapping(MISSING_SERVLET_PARAM_EXCEPTION)
     public void missingServletRequestParameterException(
-            @RequestParam("abc") String param
+            @SuppressWarnings("unused") @RequestParam("abc") String param
     ) {
     }
-
-//    @ExceptionHandler(MissingServletRequestParameterException.class)
-//    @ResponseStatus(value = HttpStatus.CONFLICT, reason = "blah")
-//    @ResponseBody
-//    public String handler3(ArrayIndexOutOfBoundsException e) {
-//        return e.toString();
-//    }
 
     @Bean
     public DefaultHandlerExceptionResolver defaultHandlerExceptionResolver() {
@@ -54,16 +50,6 @@ class AllExceptionController {
     }
 
     public static class MyDefaultHandlerExceptionResolver extends DefaultHandlerExceptionResolver {
-//        @Override
-//        public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-//            ModelAndView mav = new ModelAndView();
-//            mav.setStatus(HttpStatus.CONFLICT);
-//            View view = new MappingJackson2JsonView();
-//            mav.setView(view);
-//            return mav;
-//
-//        }
-
         @Override
         protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
             MappingJackson2JsonView view = new MappingJackson2JsonView();

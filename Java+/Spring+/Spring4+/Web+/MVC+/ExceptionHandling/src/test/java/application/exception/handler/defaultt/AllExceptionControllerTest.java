@@ -1,7 +1,6 @@
-package application.exception.handler;
+package application.exception.handler.defaultt;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static application.exception.handler.AllExceptionController.*;
+import static application.exception.handler.defaultt.AllExceptionController.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -56,11 +55,13 @@ public class AllExceptionControllerTest {
                 .andExpect(content().string("{\"exception\":\"org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'abc' is not present\"}"));
     }
 
+    /**
+     * We can't process NoHandlerFoundException with DefaultHandlerExceptionResolver.
+     */
     @Test
-    @Ignore("doesn't work")
     public void noHandlerFoundException() throws Exception {
         mvc.perform(get("/not_exists"))
-                .andExpect(status().is(HTTP_STATUS))
+                .andExpect(status().is(404))
                 .andExpect(content().string(""));
     }
 
