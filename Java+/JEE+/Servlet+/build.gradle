@@ -1,5 +1,5 @@
 subprojects {
     dependencies {
-        compile 'org.eclipse.jetty:jetty-servlet:9.2.9.v20150224'
+        compile 'org.eclipse.jetty:jetty-servlet:9.2.22.v20170606'
     }
 }
