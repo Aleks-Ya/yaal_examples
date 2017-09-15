@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bats
 
 @test "If true" {
   v=true

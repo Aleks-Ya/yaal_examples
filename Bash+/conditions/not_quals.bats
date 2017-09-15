@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bats
 
 name="gvc"
 if [[ "${name}" != "gvc" ]]

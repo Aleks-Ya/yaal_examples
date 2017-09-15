@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bats
 
 @test "Substring is a literal" {
   string='My long string'
