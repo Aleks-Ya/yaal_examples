@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bats
 
 setup() {
   str="Feature/Test-8"
@@ -18,4 +18,21 @@ setup() {
 
 @test "To uppercase" {
   [ "${str^^}" = "FEATURE/TEST-8" ]
+}
+
+@test "Split by lines (using 'readarray')" {
+  x=$'Some\nOne'
+  readarray -t arr <<< "$x"
+  [ "${arr[0]}" = "Some" ]
+  [ "${arr[1]}" = "One" ]
+}
+
+@test "Split text by lines (using 'read')" {
+  string=$'Some\nthing'
+  arr=()
+  while read -r line; do
+     arr+=("$line")
+  done <<< "$string"
+  [ "${arr[0]}" = "Some" ]
+  [ "${arr[1]}" = "thing" ]
 }
