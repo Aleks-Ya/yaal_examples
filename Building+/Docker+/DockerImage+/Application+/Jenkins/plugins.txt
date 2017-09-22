@@ -29,3 +29,5 @@ scm-api:latest
 ssh-slaves:latest
 publish-over-ssh:latest
 ssh-agent:latest
+workflow-aggregator:latest
+ws-cleanup:latest
