@@ -1,0 +1,5 @@
+subprojects {
+    dependencies {
+        testCompile 'org.skyscreamer:jsonassert:1.5.0'
+    }
+}

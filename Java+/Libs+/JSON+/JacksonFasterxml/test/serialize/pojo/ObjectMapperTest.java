@@ -7,7 +7,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.cfg.MapperConfig;
 import com.fasterxml.jackson.databind.introspect.AnnotatedField;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
+import org.json.JSONException;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -22,7 +25,7 @@ import static org.junit.Assert.assertThat;
 public class ObjectMapperTest {
 
     @Test
-    public void test() throws IOException, ParseException {
+    public void test() throws IOException, ParseException, JSONException {
         Artist artist = makeArtist();
         Album album = makeAlbum(artist);
         ObjectMapper mapper = initMapper();
@@ -30,8 +33,14 @@ public class ObjectMapperTest {
         StringWriter writer = new StringWriter();
         mapper.writeValue(writer, album);
 
-        String exp = "{\n  \"Album-Title\" : \"Kind Of Blue\",\n  \"links\" : [ \"link1\", \"link2\" ],\n  \"songs\" : [ \"So What\", \"Flamenco Sketches\", \"Freddie Freeloader\" ],\n  \"artist\" : {\n    \"name\" : \"Miles Davis\",\n    \"birthDate\" : \"26 May 1926\",\n    \"age\" : 0\n  },\n  \"musicians\" : {\n    \"Julian Adderley\" : \"Alto Saxophone\",\n    \"Miles Davis\" : \"Trumpet, Band leader\",\n    \"Paul Chambers\" : \"double bass\"\n  }\n}";
-        assertThat(writer, hasToString(equalTo(exp)));
+        String exp = "{ " +
+                "'Album-Title': 'Kind Of Blue', " +
+                "'links': [ 'link1', 'link2' ], " +
+                "'songs': [ 'So What', 'Flamenco Sketches', 'Freddie Freeloader' ], " +
+                "'artist': {  'name': 'Miles Davis',  'birthDate': '26 May 1926',  'age': 0 }, " +
+                "'musicians': {  'Julian Adderley': 'Alto Saxophone',  'Miles Davis': 'Trumpet, Band leader',  'Paul Chambers': 'double bass' }" +
+                "}";
+        JSONAssert.assertEquals(writer.toString(), exp, JSONCompareMode.STRICT);
     }
 
     private static ObjectMapper initMapper() {
