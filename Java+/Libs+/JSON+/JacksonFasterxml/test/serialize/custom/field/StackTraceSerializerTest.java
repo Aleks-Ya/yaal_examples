@@ -1,14 +1,12 @@
 package serialize.custom.field;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdScalarSerializer;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import org.json.JSONException;
+import org.junit.Before;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
@@ -18,13 +16,25 @@ import java.io.StringWriter;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
+
 /**
  * Custom serialization a StackTraceElement[] to JSON.
  */
 public class StackTraceSerializerTest {
+    private final StringWriter writer = new StringWriter();
+    private final ObjectMapper mapper = new ObjectMapper();
+
+    @Before
+    public void setUp() {
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(StackTraceElement[].class, new StackTraceSerializer());
+        mapper.registerModule(module);
+    }
 
     @Test
-    public void test() throws IOException, JSONException {
+    public void stackIsFieldInPojo() throws IOException, JSONException {
         RuntimeException cause = new RuntimeException("cause message");
         cause.setStackTrace(new StackTraceElement[0]);
 
@@ -36,14 +46,10 @@ public class StackTraceSerializerTest {
         Throwable throwable = new Throwable("my message", cause);
         throwable.setStackTrace(stackTrace);
 
-        SimpleModule module = new SimpleModule();
-        module.addSerializer(StackTraceElement[].class, new StackTraceSerializer());
-
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(module);
-
-        StringWriter writer = new StringWriter();
         mapper.writeValue(writer, throwable);
+
+        String actJson = writer.toString();
+        System.out.println(actJson);
 
         String exp = "{" +
                 "message: 'my message', " +
@@ -52,9 +58,36 @@ public class StackTraceSerializerTest {
                 "stackTrace: 'my.Class.getName(file:1); my.Class2.getAge(file2:3)'," +
                 "suppressed: []}";
 
+        JSONAssert.assertEquals(exp, actJson, JSONCompareMode.STRICT);
+    }
+
+    @Test
+    public void stackIsObject() throws IOException, JSONException {
+        StackTraceElement[] stackTrace = {
+                new StackTraceElement("my.Class", "getName", "file", 1),
+                new StackTraceElement("my.Class2", "getAge", "file2", 3)
+        };
+
+        mapper.writeValue(writer, stackTrace);
+
         String actJson = writer.toString();
         System.out.println(actJson);
-        JSONAssert.assertEquals(exp, actJson, JSONCompareMode.STRICT);
+
+        String exp = "\"my.Class.getName(file:1); my.Class2.getAge(file2:3)\"";
+
+        assertThat(actJson, equalTo(exp));
+    }
+
+    @Test
+    public void stackIsEmptyArray() throws IOException, JSONException {
+        mapper.writeValue(writer, new StackTraceElement[0]);
+        assertThat(writer.toString(), equalTo("\"\""));
+    }
+
+    @Test
+    public void stackIsNull() throws IOException, JSONException {
+        mapper.writeValue(writer, null);
+        assertThat(writer.toString(), equalTo("null"));
     }
 
     private static class StackTraceSerializer extends StdScalarSerializer<StackTraceElement[]> {
