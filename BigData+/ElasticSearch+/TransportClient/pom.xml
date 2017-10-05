@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <groupId>ru.yaal.elasticsearch</groupId>
-    <artifactId>elasticsearch_hello_world</artifactId>
+    <groupId>ru.yaal.bigdata.elasticsearch</groupId>
+    <artifactId>elasticsearch_transport_client</artifactId>
     <version>1</version>
 
     <properties>
