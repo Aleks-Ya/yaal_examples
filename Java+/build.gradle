@@ -4,8 +4,8 @@ subprojects {
     sourceSets.main.resources.srcDir 'resources'
     sourceSets.main.resources.srcDir 'resourcesTest'
     sourceSets.test.java.srcDir 'test'
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_1_9
+    targetCompatibility = JavaVersion.VERSION_1_9
     defaultTasks('test')
     test {
         testLogging.showStandardStreams = true
