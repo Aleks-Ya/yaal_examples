@@ -1,0 +1,4 @@
+// it should work, but it doesn't ((
+//configurations {
+//    testRuntime.exclude group: 'joda-time'
+//}

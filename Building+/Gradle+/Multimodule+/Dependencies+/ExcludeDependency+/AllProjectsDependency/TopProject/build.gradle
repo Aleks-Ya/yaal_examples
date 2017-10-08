@@ -1,0 +1,18 @@
+//Execute: gradle build
+
+allprojects {
+    apply plugin: 'java'
+    sourceSets.test.java.srcDir 'test'
+    dependencies {
+        testCompile 'junit:junit:4.12'
+    }
+    repositories {
+        mavenCentral()
+    }
+}
+
+configure(allprojects - project('SubProject')) {
+    dependencies {
+        compile 'joda-time:joda-time:2.9.4'
+    }
+}
