@@ -16,3 +16,6 @@ configure(allprojects - project('SubProject')) {
         compile 'joda-time:joda-time:2.9.4'
     }
 }
+
+//you can use "subprojects" instead of "allprojects"
+//you can use "project('SubProject').subprojects" to apply changes to the subprojects
