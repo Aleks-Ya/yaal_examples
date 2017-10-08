@@ -1,9 +1,3 @@
 dependencies {
-    testCompile('org.junit:junit5-api:5.0.0-ALPHA')
-}
-
-configurations {
-    compile.exclude group: 'junit', module: 'junit'
-    compile.exclude group: 'org.hamcrest', module: 'java-hamcrest'
-    compile.exclude group: 'com.googlecode.catch-exception', module: 'catch-exception'
+    testCompile('org.junit.jupiter:junit-jupiter-api:5.0.1')
 }
