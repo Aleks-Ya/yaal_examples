@@ -1,0 +1,1 @@
+Exclude transitive dependency from a dependency declared in this project.

@@ -1,0 +1,13 @@
+apply plugin: 'java'
+sourceSets.test.java.srcDir 'test'
+dependencies {
+    compile ('com.fasterxml.jackson.core:jackson-databind:2.9.1') {
+        exclude group: 'com.fasterxml.jackson.core' //by groupId
+        exclude module: 'jackson-core' //by artifactId
+        exclude group: 'com.fasterxml.jackson.core', module: 'jackson-core' //by groupId and artifactId
+    }
+    testCompile 'junit:junit:4.12'
+}
+repositories {
+    mavenCentral()
+}
