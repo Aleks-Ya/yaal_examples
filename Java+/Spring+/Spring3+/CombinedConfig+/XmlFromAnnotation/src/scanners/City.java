@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import scanners.mayor.Mayor;
 import xml.Airport;
 
-import javax.annotation.Resource;
-
 @Service("city")
 public class City {
     @Value("Спб")
@@ -16,7 +14,7 @@ public class City {
     @Autowired
     private Mayor mayor;
 
-    @Resource
+    @Autowired
     private Mayor mayor2;
 
     @Autowired

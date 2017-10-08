@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import scan.mayor.Mayor;
 import scan.person.IPerson;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,7 @@ public class City {
     @Autowired
     private Mayor mayor;
 
-    @Resource
+    @Autowired
     private Mayor mayor2;
 
     @Autowired

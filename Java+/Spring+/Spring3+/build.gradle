@@ -1,6 +1,7 @@
 subprojects {
     dependencies {
-        compile 'org.springframework:spring-context:3.2.4.RELEASE'
-        testCompile 'org.springframework:spring-test:3.2.4.RELEASE'
+        def version = '3.2.18.RELEASE'
+        compile "org.springframework:spring-context:$version"
+        testCompile "org.springframework:spring-test:$version"
     }
 }
