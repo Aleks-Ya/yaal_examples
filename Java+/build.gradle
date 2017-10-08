@@ -10,11 +10,14 @@ subprojects {
     test {
         testLogging.showStandardStreams = true
     }
+    repositories {
+        mavenCentral()
+    }
+}
+
+configure(subprojects - project('UnitTest+:JUnit+:JUnit5+').subprojects) {
     dependencies {
         testCompile 'junit:junit:4.12', 'org.hamcrest:java-hamcrest:2.0.0.0',
                 'com.googlecode.catch-exception:catch-exception:1.2.0'
-    }
-    repositories {
-        mavenCentral()
     }
 }
