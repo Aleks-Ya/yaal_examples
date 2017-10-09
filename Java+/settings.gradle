@@ -96,6 +96,7 @@ include 'JEE+:Jetty+:JettyServer',
         'JEE+:NanoHttpd',
         'JEE+:Servlet+:Servlet3',
         'JEE+:Servlet+:Servlet4+:FileUpload',
+        'JEE+:Servlet+:Servlet4+:SendError',
         'JEE+:Validation'
 
 /**
