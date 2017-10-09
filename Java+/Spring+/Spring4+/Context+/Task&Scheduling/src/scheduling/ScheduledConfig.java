@@ -19,12 +19,12 @@ public class ScheduledConfig {
 
     @Scheduled(fixedDelayString = "${my-prop}")
     public void fixedDelayString() {
-        System.out.println("String: " + LocalDateTime.now());
+        System.out.println("fixedDelayString: " + LocalDateTime.now());
     }
 
     @Scheduled(fixedDelayString = "${not-exists-prop:1000}")
     public void fixedDelayStringDefault() {
-        System.out.println("String: " + LocalDateTime.now());
+        System.out.println("fixedDelayStringDefault: " + LocalDateTime.now());
     }
 
     @Scheduled(fixedDelayString = "${not-exists-prop:#{T(scheduling.ScheduledConfig).DELAY_MILLISEC}}")
