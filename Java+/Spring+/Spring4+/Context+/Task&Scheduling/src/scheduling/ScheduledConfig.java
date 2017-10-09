@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 @Configuration
 @EnableScheduling
 public class ScheduledConfig {
+    public static final Integer DELAY_MILLISEC = 1000;// must be public
+    public static final Integer DELAY_SEC = 10;// must be public
 
     @Scheduled(fixedDelay = 1000)
     public void fixedDelay() {
@@ -18,6 +20,21 @@ public class ScheduledConfig {
     @Scheduled(fixedDelayString = "${my-prop}")
     public void fixedDelayString() {
         System.out.println("String: " + LocalDateTime.now());
+    }
+
+    @Scheduled(fixedDelayString = "${not-exists-prop:1000}")
+    public void fixedDelayStringDefault() {
+        System.out.println("String: " + LocalDateTime.now());
+    }
+
+    @Scheduled(fixedDelayString = "${not-exists-prop:#{T(scheduling.ScheduledConfig).DELAY_MILLISEC}}")
+    public void fixedDelayStringDefaultConstant() {
+        System.out.println("fixedDelayStringDefaultConstant: " + LocalDateTime.now());
+    }
+
+    @Scheduled(fixedDelayString = "#{ (systemProperties['not-exists-prop']?:T(scheduling.ScheduledConfig).DELAY_SEC) * 1000}")
+    public void fixedDelayStringDefaultConstantMultiplied() {
+        System.out.println("fixedDelayStringDefaultConstant: " + LocalDateTime.now());
     }
 
     @Scheduled(fixedRate = 1000)
