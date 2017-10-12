@@ -1,4 +1,4 @@
-package mockito;
+package mockito.mock.create;
 
 import org.junit.Test;
 
