@@ -13,7 +13,9 @@ public class IntStreamTest {
 
     @Test
     public void toList() {
-        List<Integer> list = IntStream.of(1, 2, 3).boxed().collect(Collectors.toList());
+        List<Integer> list = IntStream.of(1, 2, 3)
+                .boxed()
+                .collect(Collectors.toList());
         assertThat(list, contains(1, 2, 3));
     }
 

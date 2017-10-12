@@ -16,18 +16,26 @@ public class SingleResultTest {
 
     @Test
     public void singleElement() {
-        String s = Stream.of("a", "b", "c").filter("b"::equals).collect(new SingleElementCollector<>());
-        String single = stream.filter("b"::equals).collect(new SingleElementCollector<>());
+        String s = Stream.of("a", "b", "c")
+                .filter("b"::equals)
+                .collect(new SingleElementCollector<>());
+        String single = stream
+                .filter("b"::equals)
+                .collect(new SingleElementCollector<>());
         assertThat(single, equalTo("b"));
     }
 
     @Test(expected = NoSuchElementException.class)
     public void noElements() {
-        stream.filter("d"::equals).collect(new SingleElementCollector<>());
+        stream
+                .filter("d"::equals)
+                .collect(new SingleElementCollector<>());
     }
 
     @Test(expected = IllegalStateException.class)
     public void moreThanOneElement() {
-        stream.filter(element -> element.equals("b") || element.equals("c")).collect(new SingleElementCollector<>());
+        stream
+                .filter(element -> element.equals("b") || element.equals("c"))
+                .collect(new SingleElementCollector<>());
     }
 }

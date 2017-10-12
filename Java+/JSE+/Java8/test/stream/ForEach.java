@@ -27,16 +27,15 @@ public class ForEach {
     }
 
     static class Storage {
-        public static final Storage MINUS_ONE = new Storage(-1);
-        public static final Storage ZERO = new Storage(0);
-        public static final Storage ONE = new Storage(0);
-        public static final Storage TWO = new Storage(0);
+        static final Storage MINUS_ONE = new Storage(-1);
+        static final Storage ZERO = new Storage(0);
+        static final Storage ONE = new Storage(0);
+        static final Storage TWO = new Storage(0);
+        int num;
 
-        public Storage(int num) {
+        Storage(int num) {
             this.num = num;
         }
-
-        public int num;
 
         @Override
         public boolean equals(Object o) {

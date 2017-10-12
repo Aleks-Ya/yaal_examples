@@ -13,9 +13,10 @@ public class Peeks {
 
     @Test
     public void peek() {
-        Stream<String> stream = Stream.of("a", "b", "c");
         StringBuilder sb = new StringBuilder();
-        stream.peek(sb::append).count();//без терминальной операции peek не работает
+        Stream.of("a", "b", "c")
+                .peek(sb::append)
+                .count();//без терминальной операции peek не работает
         assertEquals(sb.toString(), "abc");
     }
 }

@@ -16,9 +16,9 @@ import static org.junit.Assert.assertThat;
 public class DistinctTest {
     @Test
     public void test() {
-        Stream<String> stream = Stream.of("a", "b", "a");
-
-        List<String> act = stream.distinct().collect(Collectors.toList());
+        List<String> act = Stream.of("a", "b", "a")
+                .distinct()
+                .collect(Collectors.toList());
 
         assertThat(act, hasSize(2));
         assertThat(act, contains("a", "b"));

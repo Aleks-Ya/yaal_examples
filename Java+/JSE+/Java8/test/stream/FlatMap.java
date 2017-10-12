@@ -19,8 +19,7 @@ public class FlatMap {
     public void listOfListsToList() {
         List<String> list1 = Arrays.asList("a", "b");
         List<String> list2 = Arrays.asList("c", "d");
-        Stream<List<String>> stream = Stream.of(list1, list2);
-        long count = stream
+        long count = Stream.of(list1, list2)
                 .flatMap(Collection::stream)
                 .peek(System.out::println)
                 .count();
