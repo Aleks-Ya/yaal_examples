@@ -37,4 +37,9 @@ public class SubstringReplaceTest {
         assertThat("$$".replaceAll("\\${2}", "A"), equalTo("A"));
         assertThat("$$".replaceAll("\\${2}", "\\$"), equalTo("$"));
     }
+
+    @Test
+    public void replaceMultipleSpacesWithOne() {
+        assertThat("   a   bc    d e ".replaceAll("\\s{2,}", " "), equalTo(" a bc d e "));
+    }
 }
