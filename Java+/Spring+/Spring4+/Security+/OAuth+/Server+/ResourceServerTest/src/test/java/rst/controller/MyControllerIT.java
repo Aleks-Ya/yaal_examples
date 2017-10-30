@@ -22,23 +22,21 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class MyControllerIT implements RestTemplateHolder {
+    @Rule
+    public OAuth2ContextSetup context = OAuth2ContextSetup.standard(this);
     @Value("http://localhost:${local.server.port}")
     protected String host;
-
     private RestOperations restTemplate = new RestTemplate();
 
     @Override
-    public void setRestTemplate(RestOperations restTemplate) {
-
+    public RestOperations getRestTemplate() {
+        return restTemplate;
     }
 
     @Override
-    public RestOperations getRestTemplate() {
-        return null;
+    public void setRestTemplate(RestOperations restTemplate) {
+        this.restTemplate = restTemplate;
     }
-
-    @Rule
-    public OAuth2ContextSetup context = OAuth2ContextSetup.standard(this);
 
     @Test
     @OAuth2ContextConfiguration(UserDetails.class)
