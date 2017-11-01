@@ -1,0 +1,5 @@
+#Using the "shell" module
+---
+- hosts: all
+  tasks:
+    - shell: echo "hello world from playbook"

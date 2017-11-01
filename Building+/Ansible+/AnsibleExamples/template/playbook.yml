@@ -1,0 +1,16 @@
+#Using the "template" module
+---
+- hosts: all
+  vars:
+    server: go.com
+  tasks:
+    - file:
+        path: ./tmp/config.ini
+        state: absent
+    - file:
+        path: ./tmp
+        state: directory
+    - template:
+         src: config.ini.j2
+         dest: ./tmp/config.ini
+         newline_sequence: '\n'
