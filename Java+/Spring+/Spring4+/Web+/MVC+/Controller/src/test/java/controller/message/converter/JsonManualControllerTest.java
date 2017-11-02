@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -11,18 +12,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Treat the body as String using @RequestBody.
+ * Treat the body as JSON using @RequestBody and manual converting to JSON.
  */
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = StringController.class)
-public class StringControllerTest {
+@ContextConfiguration(classes = JsonManualController.class)
+public class JsonManualControllerTest {
     @Autowired
     private WebApplicationContext context;
 
@@ -36,11 +36,11 @@ public class StringControllerTest {
     @Test
     public void requestParam() throws Exception {
         mvc.perform(
-                post(StringController.ENDPOINT)
-                        .contentType("text/plain")
-                        .content("the_body")
+                post(JsonManualController.ENDPOINT)
+                        .contentType(MediaType.TEXT_PLAIN)
+                        .content("{ \"name\": \"abc\"}")
         )
                 .andExpect(status().isOk())
-                .andExpect(content().string("body=the_body"));
+                .andExpect(content().string("response=abc"));
     }
 }
