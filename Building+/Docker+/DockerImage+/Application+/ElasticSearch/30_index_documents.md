@@ -13,4 +13,12 @@ curl -XPOST "$ES_URL/${INDEX_NAME}/${TYPE_NAME}?pretty" -d '{
   "name":"Simon",
   "age":"40"
 }'
+curl -XPOST "$ES_URL/${INDEX_NAME}/${TYPE_NAME}?pretty" -d '{
+  "name":"Max",
+  "age":"20"
+}'
+curl -XPOST "$ES_URL/${INDEX_NAME}/${TYPE_NAME}?pretty" -d '{
+  "name":"Anna",
+  "age":"35"
+}'
 ```

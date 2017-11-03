@@ -6,7 +6,7 @@ curl -XPOST "$ES_URL/${INDEX_NAME}/${TYPE_NAME}/_search?scroll=5m&pretty" -d '{
   "size": 2,
   "query": {
       "match" : {
-          "name" : "John Simon"
+          "name" : "John Simon Max Anna"
       }
   }
 }'
