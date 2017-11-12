@@ -14,13 +14,13 @@ import java.io.Writer;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-public class IncludeTest {
+public class Include {
     private static Configuration cfg;
 
     @BeforeClass
     public static void setUp() {
         cfg = new Configuration(Configuration.VERSION_2_3_22);
-        cfg.setClassForTemplateLoading(IncludeTest.class, "");
+        cfg.setClassForTemplateLoading(Include.class, "/templates/include");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }

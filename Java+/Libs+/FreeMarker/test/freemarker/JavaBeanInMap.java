@@ -1,3 +1,5 @@
+package freemarker;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -19,9 +21,9 @@ public class JavaBeanInMap {
     private static Configuration cfg;
 
     @BeforeClass
-    public static void setUp() throws Exception {
+    public static void setUp() {
         cfg = new Configuration(Configuration.VERSION_2_3_22);
-        cfg.setClassForTemplateLoading(JavaBeanInMap.class, "templates");
+        cfg.setClassForTemplateLoading(JavaBeanInMap.class, "/templates");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }

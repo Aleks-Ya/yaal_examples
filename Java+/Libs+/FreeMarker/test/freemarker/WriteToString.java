@@ -1,3 +1,5 @@
+package freemarker;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -13,15 +15,15 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Условные операторы в шаблонах.
+ * Результат работы - строка (а не файл).
  */
-public class If {
+public class WriteToString {
     private static Configuration cfg;
 
     @BeforeClass
-    public static void setUp() throws Exception {
+    public static void setUp() {
         cfg = new Configuration(Configuration.VERSION_2_3_22);
-        cfg.setClassForTemplateLoading(If.class, "templates");
+        cfg.setClassForTemplateLoading(WriteToString.class, "/templates");
         cfg.setDefaultEncoding("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     }
@@ -30,13 +32,12 @@ public class If {
     public void test() throws IOException, TemplateException {
         Map<String, Object> data = new HashMap<>();
         data.put("name", "Aleksey");
-        data.put("sex", "M");
 
-        Template template = cfg.getTemplate("if.ftl");
+        Template template = cfg.getTemplate("write_to_string.ftl");
 
         StringWriter out = new StringWriter();
         template.process(data, out);
 
-        assertEquals("Hello, Mr. Aleksey!", out.toString());
+        assertEquals("My name is Aleksey.", out.toString());
     }
 }
