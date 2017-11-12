@@ -1,1 +1,1 @@
-inner
+${name} ${age}

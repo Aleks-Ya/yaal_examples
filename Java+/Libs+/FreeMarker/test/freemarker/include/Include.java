@@ -30,7 +30,7 @@ public class Include {
         Template template = cfg.getTemplate("outer.ftl");
         Writer out = new StringWriter();
         template.process(null, out);
-        assertThat(out.toString(), equalTo("outer-inner"));
+        assertThat(out.toString(), equalTo("Man John 25"));
     }
 
 }
