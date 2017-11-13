@@ -18,7 +18,7 @@ class JsonManualController {
     @ResponseBody
     @RequestMapping(value = ENDPOINT, method = RequestMethod.POST)
     public String post(@RequestBody String bodyJson) throws IOException {
-        BodyJson bodyJsonObj = mapper.readValue(bodyJson, BodyJson.class);
+        BodyJson bodyJsonObj = mapper.readValue(bodyJson.getBytes(), BodyJson.class);
         return "response=" + bodyJsonObj.getName();
     }
 
