@@ -1,6 +1,5 @@
 package controller.message.converter;
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +11,7 @@ class JsonAutoController {
     static final String ENDPOINT = "/json";
 
     @ResponseBody
-    @RequestMapping(value = ENDPOINT, method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = ENDPOINT, method = RequestMethod.POST)
     public String post(@RequestBody BodyJson bodyJson) {
         return "response=" +bodyJson.getName();
     }
