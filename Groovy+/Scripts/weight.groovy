@@ -56,7 +56,7 @@ weightPerWeek = weightPerDay * 7
 //Text
 ruRu = new Locale("ru", "RU")
 
-formatter = DateTimeFormatter.ofPattern("dd.MM.yy")
+formatter = DateTimeFormatter.ofPattern("dd.MM.yy E").withLocale(new Locale("ru"))
 currentDateText = currentDate.format(formatter)
 
 percentFormat = NumberFormat.getPercentInstance(ruRu)
@@ -77,7 +77,7 @@ weightPerWeekTxt = decimalFormat2.format(weightPerWeek)
 
 //Output
 println """
-${currentDateText} 
+Отчет за ${currentDateText} 
 прошло ${daysPast} из ${daysTotal} дней (${daysPastPercetTxt}) 
 сброшено ${weightChangeTxt} из ${weightTotalTxt} кг (${wightPersentTxt})
 Вес: ${previousWeightTxt} -> ${currentWeightTxt} кг / ${weightChangeDailyTxt} кг
