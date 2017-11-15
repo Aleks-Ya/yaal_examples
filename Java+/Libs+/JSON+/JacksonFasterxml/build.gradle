@@ -1,7 +1,9 @@
 /**
  * The new version of Jackson is FasterXML.
- * Old is Codehaus.
+ * Teh old one is Codehaus.
  */
-dependencies{
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.0'
+dependencies {
+    def version = '2.9.2'
+    compile "com.fasterxml.jackson.core:jackson-databind:$version",
+            "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$version" //for parsing dates of Java8
 }
