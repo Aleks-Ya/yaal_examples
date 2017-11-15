@@ -23,8 +23,8 @@ public class DeserializeDateTest {
 
     @Test
     public void dates() throws IOException {
-        String json = json("{'" +
-                "localDate': '2017-01-15'," +
+        String json = json("{" +
+                "'localDate': '2017-01-15'," +
                 "'localDateTime': '2007-12-03T10:15:30'" +
                 "}");
 
