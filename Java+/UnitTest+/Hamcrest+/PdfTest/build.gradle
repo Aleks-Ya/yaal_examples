@@ -1,0 +1,3 @@
+dependencies {
+    compile 'com.codeborne:pdf-test:1.4'
+}
