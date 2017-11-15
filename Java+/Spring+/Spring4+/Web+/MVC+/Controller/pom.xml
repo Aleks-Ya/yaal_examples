@@ -72,6 +72,12 @@
                 <version>1.2</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>com.codeborne</groupId>
+                <artifactId>pdf-test</artifactId>
+                <version>1.4</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -113,6 +119,10 @@
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>pdf-test</artifactId>
         </dependency>
 
     </dependencies>

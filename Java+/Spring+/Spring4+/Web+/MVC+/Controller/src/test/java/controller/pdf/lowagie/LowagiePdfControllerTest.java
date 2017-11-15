@@ -1,5 +1,8 @@
-package controller.pdf;
+package controller.pdf.lowagie;
 
+import com.codeborne.pdftest.PDF;
+import controller.pdf.lowagie.LowagiePdfController;
+import controller.pdf.lowagie.UserPDFView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,9 +12,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static com.codeborne.pdftest.PDF.containsText;
+import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -35,12 +41,16 @@ public class LowagiePdfControllerTest {
 
     @Test
     public void requestParam() throws Exception {
-        mvc.perform(
+        MvcResult mvcResult = mvc.perform(
                 get(LowagiePdfController.ENDPOINT)
                         .accept(MediaType.APPLICATION_PDF)
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_PDF_VALUE))
-                .andExpect(content().string("body=the_body"));
+                .andReturn();
+
+        byte[] body = mvcResult.getResponse().getContentAsByteArray();
+        PDF bodyPdf = new PDF(body);
+        assertThat(bodyPdf, containsText(LowagiePdfController.MESSAGE));
     }
 }
