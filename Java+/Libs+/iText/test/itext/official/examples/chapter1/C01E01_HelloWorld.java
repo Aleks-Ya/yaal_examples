@@ -1,4 +1,4 @@
-package itext.examples.chapter1;
+package itext.official.examples.chapter1;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;

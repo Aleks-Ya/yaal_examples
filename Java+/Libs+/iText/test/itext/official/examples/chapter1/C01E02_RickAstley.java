@@ -1,4 +1,4 @@
-package itext.examples.chapter1;
+package itext.official.examples.chapter1;
 
 import com.itextpdf.io.font.FontConstants;
 import com.itextpdf.kernel.font.PdfFont;
