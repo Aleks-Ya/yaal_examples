@@ -48,6 +48,13 @@
                 <version>5.5.12</version>
             </dependency>
 
+            <!-- Needed for CommonsMultipartController -->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.3.3</version>
+            </dependency>
+
             <!-- Provided -->
             <dependency>
                 <groupId>javax.servlet</groupId>
@@ -109,6 +116,11 @@
             <groupId>com.itextpdf</groupId>
             <artifactId>itextpdf</artifactId>
         </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+
 
         <!-- Provided -->
         <dependency>
