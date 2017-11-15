@@ -2,6 +2,7 @@ import org.hamcrest.beans.HasPropertyWithValue;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import static java.util.Arrays.asList;
@@ -30,6 +31,14 @@ public class IterableAssert {
     public void hasPropertyWithValue() {
         Iterable<Data> iterable = asList(new Data("a"), new Data("b"));
         assertThat(iterable, everyItem(HasPropertyWithValue.hasProperty("value", not(emptyOrNullString()))));
+    }
+
+    @Test
+    public void iterator() {
+        Iterator<String> iterator = asList("Piter_", "SPB_", "Leningrad_", "Saint-Petersburg_").iterator();
+
+        Iterable<String> iterable = () -> iterator;
+        assertThat(iterable, hasItem("SPB_"));
     }
 
     public class Data {
