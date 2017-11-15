@@ -1,0 +1,11 @@
+dependencies {
+    def version = '7.0.4'
+
+    compile "com.itextpdf:kernel:$version",
+            "com.itextpdf:io:$version",
+            "com.itextpdf:layout:$version",
+            "com.itextpdf:forms:$version",
+            "com.itextpdf:pdfa:$version"
+
+    testCompile "com.itextpdf:pdftest:$version"
+}
