@@ -1,4 +1,4 @@
-package serialize.custom.field;
+package databind.serialize.custom.field;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;

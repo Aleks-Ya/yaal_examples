@@ -1,4 +1,4 @@
-package deserialize.custom;
+package databind.deserialize.custom;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;

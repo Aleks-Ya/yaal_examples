@@ -1,4 +1,4 @@
-package json_node_factory;
+package databind.json_node_factory;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;

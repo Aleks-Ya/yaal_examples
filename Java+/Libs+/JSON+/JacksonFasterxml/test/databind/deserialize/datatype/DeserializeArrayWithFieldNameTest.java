@@ -1,4 +1,4 @@
-package deserialize.datatype;
+package databind.deserialize.datatype;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package deserialize.datatype;
+package databind.deserialize.datatype;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

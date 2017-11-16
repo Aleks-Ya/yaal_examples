@@ -1,4 +1,4 @@
-package serialize.pojo;
+package databind.serialize.pojo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;

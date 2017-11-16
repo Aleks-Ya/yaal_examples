@@ -1,4 +1,4 @@
-package deserialize.pointer;
+package databind.deserialize.pointer;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package deserialize.subtype_resolver;
+package databind.deserialize.subtype_resolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
@@ -42,7 +42,7 @@ public class SubtypeResolverTest {
         expChild.setName("my name");
         expChild.setNumber(1);
         String childJson = mapper.writeValueAsString(expChild);
-        assertEquals("[\"deserialize.subtype_resolver.SubtypeResolverTest$Child\",{\"name\":\"my name\",\"number\":1}]", childJson);
+        assertEquals("[\"databind.deserialize.subtype_resolver.SubtypeResolverTest$Child\",{\"name\":\"my name\",\"number\":1}]", childJson);
         Parent actChild = mapper.readValue(childJson, Parent.class);
         assertEquals(expChild, actChild);
     }
