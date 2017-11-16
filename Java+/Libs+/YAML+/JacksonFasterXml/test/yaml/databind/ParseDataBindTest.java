@@ -1,4 +1,4 @@
-package yaml;
+package yaml.databind;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-public class ParseTest {
+public class ParseDataBindTest {
 
     @Test
     public void name() throws Exception {
