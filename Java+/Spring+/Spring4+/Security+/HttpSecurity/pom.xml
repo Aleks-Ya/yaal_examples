@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.yaal.examples.java.spring.security</groupId>
-    <artifactId>spring-security-test-mvc</artifactId>
+    <artifactId>http-security</artifactId>
     <version>1</version>
 
-    <description>Using spring-security-test for MVC testing</description>
+    <description>Secure HTTP requests with Spring Security (with unit tests coverage)</description>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -18,6 +18,8 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- Compile -->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-framework-bom</artifactId>
@@ -58,6 +60,7 @@
                 <version>1.2</version>
                 <scope>test</scope>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
