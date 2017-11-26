@@ -1,4 +1,4 @@
-package application.config.authentication;
+package security.application.config.authentication;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

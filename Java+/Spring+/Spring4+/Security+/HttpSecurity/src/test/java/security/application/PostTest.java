@@ -1,16 +1,15 @@
-package application;
+package security.application;
 
-import application.config.authentication.AuthenticationConfig;
-import application.config.authentication.Roles;
-import application.config.authentication.UserCredentials;
-import application.config.authorize.AuthorizationConfig;
-import application.controller.MainController;
+import security.application.config.authentication.AuthenticationConfig;
+import security.application.config.authentication.Roles;
+import security.application.config.authentication.UserCredentials;
+import security.application.config.authorize.AuthorizationConfig;
+import security.application.controller.MainController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,10 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {
-        AuthenticationConfig.class,
-        AuthorizationConfig.class,
-        MainController.class})
+@ContextConfiguration(classes = {AuthenticationConfig.class, AuthorizationConfig.class, MainController.class})
 @WebAppConfiguration
 public class PostTest {
 

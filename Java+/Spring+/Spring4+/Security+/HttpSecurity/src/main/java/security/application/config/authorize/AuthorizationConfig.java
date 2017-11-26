@@ -1,6 +1,6 @@
-package application.config.authorize;
+package security.application.config.authorize;
 
-import application.config.authentication.Roles;
+import security.application.config.authentication.Roles;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;

@@ -1,33 +1,31 @@
-package application;
+package security.application;
 
-import application.config.authentication.AuthenticationConfig;
-import application.config.authentication.Roles;
-import application.config.authorize.AuthorizationConfig;
-import application.controller.MainController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import security.application.config.authentication.AuthenticationConfig;
+import security.application.config.authentication.Roles;
+import security.application.config.authorize.AuthorizationConfig;
+import security.application.controller.MainController;
 
-import static application.config.authentication.UserCredentials.Admin;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static security.application.config.authentication.UserCredentials.Admin;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {
-        AuthenticationConfig.class,
-        AuthorizationConfig.class,
-        MainController.class})
+@ContextConfiguration(classes = {AuthenticationConfig.class, AuthorizationConfig.class, MainController.class})
 @WebAppConfiguration
 public class GetTest {
 
