@@ -12,9 +12,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import security.authorization.roles.config.authentication.AuthenticationConfig;
-import security.authorization.roles.config.authentication.Roles;
 import security.authorization.roles.config.authentication.UserCredentials;
-import security.authorization.roles.config.authorize.AuthorizationConfig;
+import security.authorization.roles.config.authorization.AuthorizationConfig;
+import security.authorization.roles.config.authorization.Roles;
 import security.authorization.roles.controller.MainController;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;

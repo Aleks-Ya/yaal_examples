@@ -1,4 +1,4 @@
-package security.authorization.roles.config.authentication;
+package security.authorization.roles.config.authorization;
 
 public interface Roles {
 	String ADMIN = "admin";

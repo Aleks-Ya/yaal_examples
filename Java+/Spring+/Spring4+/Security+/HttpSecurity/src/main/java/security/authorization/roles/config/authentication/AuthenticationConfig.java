@@ -1,21 +1,21 @@
 package security.authorization.roles.config.authentication;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import security.authorization.roles.config.authorization.Roles;
 
-@Configuration
-public class AuthenticationConfig {
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser(UserCredentials.User.LOGIN)
-                .password(UserCredentials.User.PASSWORD)
-                .roles(Roles.USER)
+@EnableWebMvc
+@EnableWebSecurity
+public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
 
-                .and()
-                .withUser(UserCredentials.Admin.LOGIN)
-                .password(UserCredentials.Admin.PASSWORD)
-                .roles(Roles.USER, Roles.ADMIN);
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests()
+                .mvcMatchers("/anonymous").anonymous()
+                .mvcMatchers("/admin").hasRole(Roles.ADMIN)
+				.mvcMatchers("/user").hasAnyRole(Roles.USER, Roles.ADMIN)
+                .anyRequest().authenticated().and().formLogin();
+	}
 }
