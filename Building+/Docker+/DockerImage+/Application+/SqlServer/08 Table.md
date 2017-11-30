@@ -6,3 +6,9 @@ In current database:
 
 In database `db1`:
 `SELECT TABLE_NAME FROM db1.INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'`
+
+## Show columns
+`SELECT TABLE_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'yourTableName'`
+
+## Show table size
+`sp_spaceused 'TableName'`
