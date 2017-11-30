@@ -11,7 +11,7 @@ curl -XPOST "$ES_URL/${INDEX_NAME}/${TYPE_NAME}/_search?scroll=5m&pretty" -d '{
   }
 }'
 
-# Take the second page
+# Take the second page (and keep context open for 5 minutes)
 curl -XPOST "$ES_URL/_search/scroll?pretty" -d '{
   "scroll" : "5m",
   "scroll_id" : "DXF1ZXJ5QW5kRmV0Y2gBAAAAA"
