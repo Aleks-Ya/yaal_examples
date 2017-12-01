@@ -5,6 +5,7 @@ import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
+import static org.hamcrest.Matchers.arrayContaining;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -19,6 +20,13 @@ public class ExpressionParserTest {
         Expression exp = parser.parseExpression("'Hello World'.concat('!')");
         String value = (String) exp.getValue();
         assertThat(value, equalTo("Hello World!"));
+    }
+
+    @Test
+    public void splitByComma() {
+        Expression exp = parser.parseExpression("'Hello,World'.split(',')");
+        String[] value = (String[]) exp.getValue();
+        assertThat(value, arrayContaining("Hello", "World"));
     }
 
     @Test
