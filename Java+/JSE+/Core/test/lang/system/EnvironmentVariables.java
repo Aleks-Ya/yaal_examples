@@ -1,13 +1,13 @@
 package lang.system;
 
+import org.junit.Test;
+
 import java.util.Map;
 
-/**
- * Выводит в консоль все переменные окружения.
- */
-public class PrintAllEnvironment {
+public class EnvironmentVariables {
 
-    public static void main(String[] args) {
+    @Test
+    public void printAllEnvironmentVariables() {
         System.out.println("ALL FROM System.getenv() \n");
         Map<String, String> envs = System.getenv();
         for (Map.Entry<String, String> entry : envs.entrySet()) {
