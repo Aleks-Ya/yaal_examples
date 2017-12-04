@@ -90,8 +90,8 @@ include 'JSE+:Core',
         'Libs+:Guice',
         'Libs+:JKeyLockManager',
         'Algorithm',
-        'Git+:JGit'
-
+        'Git+:JGit',
+        'Util'
 /**
  * JavaEE+
  */
