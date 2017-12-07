@@ -1,4 +1,4 @@
-package databind.serialize.mixin;
+package databind.deserialize.mixin;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -26,7 +26,7 @@ public class JacksonMixInTest {
     }
 
     @Test
-    public void serialize() throws IOException {
+    public void deserialize() throws IOException {
         Address address = new Address("Hyderabad", "Telangana");
         ObjectMapper mapper = buildMapper();
         final String json = mapper.writeValueAsString(address);

@@ -1,4 +1,4 @@
-package databind.serialize.mixin;
+package databind.deserialize.mixin.ignore;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,12 +11,12 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
- * Source: https://dzone.com/articles/jackson-mixin-to-the-rescue
+ * Mix-In class is an interface.
  */
-public class IgnoreFieldTest {
+public class InterfaceMixInTest {
 
     @Test
-    public void serialize() throws IOException {
+    public void deserialize() throws IOException {
         Address address = new Address();
         address.city = "SPb";
         address.state = "Leningrad";
@@ -34,17 +34,34 @@ public class IgnoreFieldTest {
         assertThat(deserializedUser.state, nullValue());
     }
 
-    @SuppressWarnings("WeakerAccess")
-    private static final class Address {
-        public String city;
-        public String state;
+    @SuppressWarnings("unused")
+    private interface AddressMixin {
+        String getCity();
+
+        @JsonIgnore
+        String getState();
+
     }
 
     @SuppressWarnings("unused")
-    private static abstract class AddressMixin {
-        public String city;
-        @JsonIgnore
-        public String state;
+    private static final class Address {
+        private String city;
+        private String state;
 
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public String getState() {
+            return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
+        }
     }
 }
