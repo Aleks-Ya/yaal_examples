@@ -3,12 +3,11 @@ package databind.deserialize.mixin.ignore;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import util.JsonUtil;
 
 import java.io.IOException;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -18,13 +17,9 @@ public class HierarchyMixInTest {
 
     @Test
     public void deserialize() throws IOException {
-        Address address = new Address();
-        address.setId("1");
-        address.setCity("SPb");
-        address.setState("Leningrad");
+        String fullJson = JsonUtil.singleQuoteToDouble("{'id': '1', 'city': 'SPb', 'state': 'Leningrad'}");
 
         ObjectMapper mapper = new ObjectMapper();
-        String fullJson = mapper.writeValueAsString(address);
         assertThat(fullJson, containsString("id"));
         assertThat(fullJson, containsString("city"));
         assertThat(fullJson, containsString("state"));
@@ -65,6 +60,7 @@ public class HierarchyMixInTest {
         String getState();
     }
 
+    @SuppressWarnings("unused")
     private static final class Address implements City {
         private String id;
         private String city;
@@ -88,7 +84,7 @@ public class HierarchyMixInTest {
             this.city = city;
         }
 
-        public String getState() {
+        String getState() {
             return state;
         }
 

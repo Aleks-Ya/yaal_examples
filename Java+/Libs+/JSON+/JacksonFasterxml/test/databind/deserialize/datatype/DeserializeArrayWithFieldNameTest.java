@@ -2,6 +2,7 @@ package databind.deserialize.datatype;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import util.JsonUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,11 +19,11 @@ public class DeserializeArrayWithFieldNameTest {
 
     @Test
     public void deserialize() throws IOException {
-        String json = "{" +
-                "\"list\": [\"aleks\", \"john\"], " +
-                "\"set\": [\"spb\", \"ny\"]," +
-                "\"array\": [\"russia\", \"usa\"]" +
-                "}";
+        String json = JsonUtil.singleQuoteToDouble("{" +
+                "'list': ['aleks', 'john'], " +
+                "'set': ['spb', 'ny']," +
+                "'array': ['russia', 'usa']" +
+                "}");
         ObjectMapper mapper = new ObjectMapper();
         Names names = mapper.readValue(json, Names.class);
         assertThat(names.list, containsInAnyOrder("aleks", "john"));

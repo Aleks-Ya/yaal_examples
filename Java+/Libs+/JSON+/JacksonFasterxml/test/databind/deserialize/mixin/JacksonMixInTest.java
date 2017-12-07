@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import util.JsonUtil;
 
 import java.io.IOException;
 
@@ -27,10 +28,9 @@ public class JacksonMixInTest {
 
     @Test
     public void deserialize() throws IOException {
-        Address address = new Address("Hyderabad", "Telangana");
-        ObjectMapper mapper = buildMapper();
-        final String json = mapper.writeValueAsString(address);
+        String json = JsonUtil.singleQuoteToDouble("{'city': 'SPb', 'state': 'Leningrad'}");
         System.out.println(json);
+        ObjectMapper mapper = buildMapper();
         mapper.addMixIn(Address.class, AddressMixin.class);
         final Address deserializedUser = mapper.readValue(json, Address.class);
         System.out.println(deserializedUser);

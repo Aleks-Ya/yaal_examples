@@ -3,6 +3,7 @@ package databind.deserialize;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import util.JsonUtil;
 
 import java.io.IOException;
 
@@ -16,7 +17,7 @@ public class ValueByPathTest {
 
     @Test
     public void at() throws IOException {
-        String json = "{\"a\": 1, \"b\": \"abc\", \"c\": {\"d\": true}}";
+        String json = JsonUtil.singleQuoteToDouble("{'a': 1, 'b': 'abc', 'c': {'d': true}}");
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(json);
         assertThat(root.at("/a").asInt(), equalTo(1));

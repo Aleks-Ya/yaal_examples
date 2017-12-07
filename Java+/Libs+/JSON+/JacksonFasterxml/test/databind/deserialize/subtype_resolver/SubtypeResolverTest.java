@@ -1,7 +1,10 @@
 package databind.deserialize.subtype_resolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONException;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.io.IOException;
 
@@ -35,14 +38,15 @@ public class SubtypeResolverTest {
     }
 
     @Test
-    public void defaultTyping() throws IOException {
+    public void defaultTyping() throws IOException, JSONException {
         mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
 
         Child expChild = new Child();
         expChild.setName("my name");
         expChild.setNumber(1);
         String childJson = mapper.writeValueAsString(expChild);
-        assertEquals("[\"databind.deserialize.subtype_resolver.SubtypeResolverTest$Child\",{\"name\":\"my name\",\"number\":1}]", childJson);
+        String expJson = "[databind.deserialize.subtype_resolver.SubtypeResolverTest$Child,{name:'my name',number:1}]";
+        JSONAssert.assertEquals(expJson, childJson, JSONCompareMode.STRICT);
         Parent actChild = mapper.readValue(childJson, Parent.class);
         assertEquals(expChild, actChild);
     }

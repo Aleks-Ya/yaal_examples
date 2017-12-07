@@ -3,6 +3,7 @@ package databind.deserialize.pointer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import util.JsonUtil;
 
 import java.io.IOException;
 
@@ -16,7 +17,7 @@ public class JsonPointerTest {
 
     @Test
     public void pointer() throws IOException {
-        String json = "{ \"person\": {\"id\": 123, \"name\": \"aleks\"}}";
+        String json = JsonUtil.singleQuoteToDouble("{ 'person': {'id': 123, 'name': 'aleks'}}");
         ObjectMapper mapper = new ObjectMapper();
         JsonNode rootNode = mapper.readTree(json);
         JsonNode person = rootNode.at("/person");

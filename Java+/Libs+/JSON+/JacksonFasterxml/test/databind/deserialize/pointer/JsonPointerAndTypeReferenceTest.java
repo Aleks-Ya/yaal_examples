@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import util.JsonUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +20,7 @@ public class JsonPointerAndTypeReferenceTest {
 
     @Test
     public void pointer() throws IOException {
-        String json = "{ \"users\": [{\"name\": \"aleks\"}, {\"name\": \"john\"} ]}";
+        String json = JsonUtil.singleQuoteToDouble("{ 'users': [{'name': 'aleks'}, {'name': 'john'} ]}");
         ObjectMapper mapper = new ObjectMapper();
         JsonNode rootNode = mapper.readTree(json);
         JsonNode userNode = rootNode.at("/users");

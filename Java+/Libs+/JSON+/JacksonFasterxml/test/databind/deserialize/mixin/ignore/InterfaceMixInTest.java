@@ -3,6 +3,7 @@ package databind.deserialize.mixin.ignore;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import util.JsonUtil;
 
 import java.io.IOException;
 
@@ -17,13 +18,9 @@ public class InterfaceMixInTest {
 
     @Test
     public void deserialize() throws IOException {
-        Address address = new Address();
-        address.city = "SPb";
-        address.state = "Leningrad";
+        String json = JsonUtil.singleQuoteToDouble("{'city': 'SPb', 'state': 'Leningrad'}");
 
         ObjectMapper mapper = new ObjectMapper();
-
-        String json = mapper.writeValueAsString(address);
 
         assertThat(json, containsString("state"));
 

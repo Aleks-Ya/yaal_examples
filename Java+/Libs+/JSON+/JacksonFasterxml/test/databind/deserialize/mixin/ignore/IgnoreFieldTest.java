@@ -3,6 +3,7 @@ package databind.deserialize.mixin.ignore;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import util.JsonUtil;
 
 import java.io.IOException;
 
@@ -17,13 +18,10 @@ public class IgnoreFieldTest {
 
     @Test
     public void deserialize() throws IOException {
-        Address address = new Address();
-        address.city = "SPb";
-        address.state = "Leningrad";
+        String fullJson = JsonUtil.singleQuoteToDouble("{'city': 'SPb', 'state': 'Leningrad'}");
 
         ObjectMapper mapper = new ObjectMapper();
 
-        String fullJson = mapper.writeValueAsString(address);
         assertThat(fullJson, containsString("state"));
 
         mapper.addMixIn(Address.class, AddressMixin.class);

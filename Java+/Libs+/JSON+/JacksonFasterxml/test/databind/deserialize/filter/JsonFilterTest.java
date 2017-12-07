@@ -7,12 +7,12 @@ import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.PropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import org.json.JSONException;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.io.IOException;
-
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 /**
  * Use @JsonFilter to skip field from serialization.
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertThat;
 public class JsonFilterTest {
 
     @Test
-    public void filter() throws IOException {
+    public void filter() throws IOException, JSONException {
         City city = new City();
         city.name = "SPb";
         city.population = 100;
@@ -44,8 +44,7 @@ public class JsonFilterTest {
         ObjectWriter writer = mapper.writer(provider);
 
         String dtoAsString = writer.writeValueAsString(dtoObject);
-
-        assertThat(dtoAsString, equalTo("{\"name\":\"John\",\"city\":{\"population\":100}}"));
+        JSONAssert.assertEquals("{name: 'John', city:{ population:100}}", dtoAsString, JSONCompareMode.STRICT);
     }
 
     @JsonFilter("personFilter")

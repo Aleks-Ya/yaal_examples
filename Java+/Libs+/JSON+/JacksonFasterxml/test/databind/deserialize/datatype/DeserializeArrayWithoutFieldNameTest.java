@@ -3,6 +3,7 @@ package databind.deserialize.datatype;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import util.JsonUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +18,7 @@ public class DeserializeArrayWithoutFieldNameTest {
 
     @Test
     public void stringArrayToList() throws IOException {
-        String json = "[\"aleks\", \"john\"]";
+        String json = JsonUtil.singleQuoteToDouble("['aleks', 'john']");
         ObjectMapper mapper = new ObjectMapper();
         List<String> users = mapper.readValue(json, new TypeReference<List<String>>() {
         });
@@ -27,7 +28,7 @@ public class DeserializeArrayWithoutFieldNameTest {
 
     @Test
     public void objectArrayToList() throws IOException {
-        String json = "[ {\"name\": \"aleks\"}, { \"name\": \"john\"}]";
+        String json = JsonUtil.singleQuoteToDouble("[ {'name': 'aleks'}, { 'name': 'john'}]");
         ObjectMapper mapper = new ObjectMapper();
         List<User> users = mapper.readValue(json, new TypeReference<List<User>>() {
         });

@@ -3,6 +3,7 @@ package databind.deserialize.custom;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import util.JsonUtil;
 
 import java.io.IOException;
 
@@ -16,7 +17,7 @@ public class CustomPropertyNameTest {
 
     @Test
     public void test() throws IOException {
-        String json = "{\"_id\": 123}";
+        String json = JsonUtil.singleQuoteToDouble("{'_id': 123}");
         ObjectMapper mapper = new ObjectMapper();
 
         User user = mapper.readValue(json, User.class);

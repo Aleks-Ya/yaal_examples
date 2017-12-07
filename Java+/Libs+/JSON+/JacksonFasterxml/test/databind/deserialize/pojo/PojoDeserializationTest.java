@@ -3,6 +3,7 @@ package databind.deserialize.pojo;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import util.JsonUtil;
 
 import java.io.IOException;
 
@@ -16,7 +17,7 @@ public class PojoDeserializationTest {
 
     @Test
     public void readValue() throws IOException {
-        String json = "{\"id\": 123, \"name\": \"aleks\"}";
+        String json = JsonUtil.singleQuoteToDouble("{'id': 123, 'name': 'aleks'}");
         ObjectMapper mapper = new ObjectMapper();
 
         User user = mapper.readValue(json, User.class);
@@ -30,7 +31,7 @@ public class PojoDeserializationTest {
      */
     @Test
     public void failOnUnknownProperties() throws IOException {
-        String json = "{\"id\": 123, \"name\": \"aleks\", \"age\": 30}";
+        String json = JsonUtil.singleQuoteToDouble("{'id': 123, 'name': 'aleks', 'age': 30}");
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
