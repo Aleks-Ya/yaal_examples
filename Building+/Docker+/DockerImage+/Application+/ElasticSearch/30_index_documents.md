@@ -1,23 +1,23 @@
 
 #  Index documents
 ```
-curl -XPOST "$ES_URL/${INDEX_NAME}/${TYPE_NAME}?pretty" -d '{
+curl -XPOST $ES_URL/$INDEX_NAME/$TYPE_NAME?pretty -d '{
   "name":"John",
   "age":"30"
 }'
-curl -XPOST "$ES_URL/${INDEX_NAME}/${TYPE_NAME}?pretty" -d '{
+curl -XPOST $ES_URL/$INDEX_NAME/$TYPE_NAME?pretty -d '{
   "name":"Mary",
   "age":"25"
 }'
-curl -XPOST "$ES_URL/${INDEX_NAME}/${TYPE_NAME}?pretty" -d '{
+curl -XPOST $ES_URL/$INDEX_NAME/$TYPE_NAME?pretty -d '{
   "name":"Simon",
   "age":"40"
 }'
-curl -XPOST "$ES_URL/${INDEX_NAME}/${TYPE_NAME}?pretty" -d '{
+curl -XPOST $ES_URL/$INDEX_NAME/$TYPE_NAME?pretty -d '{
   "name":"Max",
   "age":"20"
 }'
-curl -XPOST "$ES_URL/${INDEX_NAME}/${TYPE_NAME}?pretty" -d '{
+curl -XPOST $ES_URL/$INDEX_NAME/$TYPE_NAME?pretty -d '{
   "name":"Anna",
   "age":"35"
 }'

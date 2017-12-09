@@ -1,14 +1,12 @@
 #  Create index
 
 ## Empty index
-```
-curl -XPUT "$ES_URL/${INDEX_NAME}"
-```
+`curl -XPUT $ES_URL/$INDEX_NAME`
 
 ## With document size field
 ### Index doesn't exists
 ```
-curl -XPUT "$ES_URL/${INDEX_NAME}?pretty" -d '{
+curl -XPUT $ES_URL/$INDEX_NAME?pretty -d '{
   "mappings": {  
     "ages": {
       "_size": {
@@ -20,7 +18,7 @@ curl -XPUT "$ES_URL/${INDEX_NAME}?pretty" -d '{
 ```
 ### Index already exists
 ```
-curl -XPUT "$ES_URL/${INDEX_NAME}/_mapping/${TYPE_NAME}?pretty" -d '{
+curl -XPUT $ES_URL/$INDEX_NAME/_mapping/$TYPE_NAME?pretty -d '{
       "_size": {
         "enabled": true
       }
