@@ -2,27 +2,27 @@
 
 ##  Index single document
 ```
-curl -XPOST $ES_URL/$INDEX_NAME/$TYPE_NAME?pretty -d '{
+curl -XPOST $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME?pretty -d '{
   "name": "John",
   "age": 30,
   "email": "john@mail.ru"
 }'
-curl -XPOST $ES_URL/$INDEX_NAME/$TYPE_NAME?pretty -d '{
+curl -XPOST $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME?pretty -d '{
   "name": "Mary",
   "age": 25,
   "email": "mary@mail.ru"
 }'
-curl -XPOST $ES_URL/$INDEX_NAME/$TYPE_NAME?pretty -d '{
+curl -XPOST $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME?pretty -d '{
   "name":"Simon",
   "age": 40,
   "email": "simon@mail.ru"
 }'
-curl -XPOST $ES_URL/$INDEX_NAME/$TYPE_NAME?pretty -d '{
+curl -XPOST $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME?pretty -d '{
   "name": "Max",
   "age": 20,
   "email": "max@mail.ru"
 }'
-curl -XPOST $ES_URL/$INDEX_NAME/$TYPE_NAME?pretty -d '{
+curl -XPOST $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME?pretty -d '{
   "name": "Anna",
   "age": 35,
   "email": "anna@mail.ru"

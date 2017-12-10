@@ -2,7 +2,7 @@
 
 ```
 # Create a search with scroll
-curl -XPOST $ES_URL/$INDEX_NAME/$TYPE_NAME/_search?scroll=5m&pretty -d '{
+curl -XPOST $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?scroll=5m&pretty -d '{
   "size": 2,
   "query": {
       "match" : {
