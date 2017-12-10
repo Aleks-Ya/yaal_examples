@@ -1,4 +1,3 @@
-
 # Setup environment
 ```
 export ES_LOGIN=elastic
