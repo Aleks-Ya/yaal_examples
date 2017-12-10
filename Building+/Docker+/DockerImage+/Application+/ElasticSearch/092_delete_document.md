@@ -6,6 +6,15 @@ export DOCUMENT_ID=1
 curl -XDELETE $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/$DOCUMENT_ID?pretty
 ```
 
+## Delete all documents in type
+```
+curl -XPOST $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_delete_by_query -d '{
+    "query" : {
+        "match_all" : {}
+    }
+}'
+```
+
 ## Bulk delete
 ```
 # (!) the body should ends with \n

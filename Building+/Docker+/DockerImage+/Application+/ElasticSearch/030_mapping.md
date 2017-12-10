@@ -20,19 +20,28 @@ curl -XPUT $ES_URL/$INDEX_NAME/_mapping/my_new_mapping?pretty -d '
 }'
 
 # Several mappings (index should not exist)
-curl -XPUT $ES_URL/index_several_mappings?pretty -d '
+curl -XPUT $ES_URL/$INDEX_NAME?pretty -d '
 {
   "mappings": {
-    "first_mapping": {
+    "'"$PERSONS_TYPE_NAME"'": {
       "properties": {
-        "message1": {
+        "name": {
           "type": "text"
+        },
+        "email": {
+          "type": "keyword"
+        },
+        "age": {
+          "type": "integer"
+        },
+        "companyId": {
+          "type": "keyword"
         }
       }
     },
-    "second_mapping": {
+    "'"$COMPANIES_TYPE_NAME"'": {
       "properties": {
-        "message2": {
+        "title": {
           "type": "text"
         }
       }

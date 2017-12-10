@@ -34,4 +34,15 @@ curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
 }'
 ```
 
-## Single index and Multi-type search
+## Join search (single index, two types)
+```
+curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
+  "query": {
+      "term": {
+          "email": "john@mail.ru"
+      }
+  }
+}'
+
+curl -XGET $ES_URL/$INDEX_NAME/$COMPANIES_TYPE_NAME/1?pretty
+```

@@ -1,7 +1,13 @@
 # Search documents by URI Search
 
 ## Single index and type search
-`curl -XGET "$ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?q=name:Max&pretty"`
+```
+# Get all documents from the type
+curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty
+
+# Search documents by parameter
+curl -XGET "$ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?q=name:Max&pretty"
+```
 
 ## Multi-type search
 ```

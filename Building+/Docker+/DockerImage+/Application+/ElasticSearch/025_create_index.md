@@ -1,7 +1,7 @@
 #  Create index
 
 ## Empty index
-`curl -XPUT $ES_URL/$INDEX_NAME`
+`curl -XPUT $ES_URL/$INDEX_NAME?pretty`
 
 ## With document size field
 ### Index doesn't exists
