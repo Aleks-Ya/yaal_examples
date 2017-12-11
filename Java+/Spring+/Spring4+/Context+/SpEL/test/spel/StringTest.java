@@ -20,7 +20,7 @@ public class StringTest {
 
     @Test
     public void stringConstructor() {
-        Expression exp = parser.parseExpression("new String('Hello World')");
+        Expression exp = parser.parseExpression("${java.home}");
         String value = exp.getValue(String.class);
         assertThat(value, equalTo("Hello World"));
     }
