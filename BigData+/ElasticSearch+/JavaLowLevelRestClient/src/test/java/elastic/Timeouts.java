@@ -1,21 +1,18 @@
-package elastic.client;
+package elastic;
 
-import org.apache.http.HttpHost;
 import org.elasticsearch.client.Response;
 import org.elasticsearch.client.RestClient;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static elastic.client.SecurityHelper.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class Timeouts {
     @Test
     public void timeouts() throws IOException {
-        RestClient client = RestClient.builder(new HttpHost(HOST, PORT, SCHEMA))
-                .setHttpClientConfigCallback(SecurityHelper.httpClientConfigCallback)
+        RestClient client = SecurityHelper.newRestClientBuilder()
                 .setRequestConfigCallback(
                         requestConfigBuilder -> requestConfigBuilder.setConnectTimeout(5000).setSocketTimeout(60000)
                 )
