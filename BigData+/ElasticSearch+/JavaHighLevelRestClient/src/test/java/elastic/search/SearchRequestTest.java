@@ -28,7 +28,8 @@ public class SearchRequestTest {
 
         String index = "people";
         String type = "persons";
-        SearchRequest request = new SearchRequest(index);
+        SearchRequest request = new SearchRequest();
+        request.indices(index);
         request.types(type);
         request.source(searchSourceBuilder);
 
