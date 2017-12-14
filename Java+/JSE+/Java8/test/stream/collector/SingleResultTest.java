@@ -1,4 +1,4 @@
-package stream;
+package stream.collector;
 
 import org.junit.Test;
 
