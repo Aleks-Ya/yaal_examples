@@ -10,7 +10,7 @@ import org.elasticsearch.client.RestClient;
 /**
  * Connect to local ElasticSearch that run by Building+/Docker+/DockerImage+/Application+/ElasticSearch.
  */
-final class ConnectionHelper {
+public final class ConnectionHelper {
     private static final String HOST = "localhost";
     private static final int PORT = 9200;
     private static final String SCHEMA = "http";
@@ -30,7 +30,7 @@ final class ConnectionHelper {
     private ConnectionHelper() {
     }
 
-    static RestClient getLowLevelRestClient() {
+    public static RestClient getLowLevelRestClient() {
         return lowLevelRestClient;
     }
 }
