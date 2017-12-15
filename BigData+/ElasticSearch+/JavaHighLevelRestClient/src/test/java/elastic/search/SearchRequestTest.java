@@ -3,7 +3,6 @@ package elastic.search;
 import elastic.ConnectionHelper;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
@@ -20,25 +19,27 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 public class SearchRequestTest {
+    private static final String PEOPLE_INDEX = "people";
+    private static final String PERSONS_TYPE = "persons";
+    private static final String EMAIL_FILED = "email";
+    private static final String JOHN_EMAIL = "john@mail.ru";
+    private static final String MARY_MAIL = "mary@mail.ru";
+    private static final RestHighLevelClient client = ConnectionHelper.getHighLevelRestClient();
+
     @Test
     public void matchAllQuery() throws IOException {
-        RestClient lowLevelRestClient = ConnectionHelper.getLowLevelRestClient();
-        RestHighLevelClient client = new RestHighLevelClient(lowLevelRestClient);
-
         MatchAllQueryBuilder query = QueryBuilders.matchAllQuery();
 
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(query);
 
-        String index = "people";
-        String type = "persons";
         SearchRequest request = new SearchRequest();
-        request.indices(index);
-        request.types(type);
+        request.indices(PEOPLE_INDEX);
+        request.types(PERSONS_TYPE);
         request.source(searchSourceBuilder);
 
         String[] includeFields = new String[]{"name", "age", "companyId"};
-        String[] excludeFields = new String[]{"email"};
+        String[] excludeFields = new String[]{EMAIL_FILED};
         searchSourceBuilder.fetchSource(includeFields, excludeFields);
 
         SearchResponse response = client.search(request);
@@ -56,21 +57,14 @@ public class SearchRequestTest {
 
     @Test
     public void termQuery() throws IOException {
-        RestClient lowLevelRestClient = ConnectionHelper.getLowLevelRestClient();
-        RestHighLevelClient client = new RestHighLevelClient(lowLevelRestClient);
-
-        String email = "john@mail.ru";
-        String field = "email";
-        TermQueryBuilder query = QueryBuilders.termQuery(field, email);
+        TermQueryBuilder query = QueryBuilders.termQuery(EMAIL_FILED, JOHN_EMAIL);
 
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(query);
 
-        String index = "people";
-        String type = "persons";
         SearchRequest request = new SearchRequest();
-        request.indices(index);
-        request.types(type);
+        request.indices(PEOPLE_INDEX);
+        request.types(PERSONS_TYPE);
         request.source(searchSourceBuilder);
 
         SearchResponse response = client.search(request);
@@ -83,21 +77,14 @@ public class SearchRequestTest {
         SearchHits searchHits = response.getHits();
         SearchHit hit0 = searchHits.getAt(0);
 
-        assertThat(hit0.getSource().get(field), equalTo(email));
+        assertThat(hit0.getSource().get(EMAIL_FILED), equalTo(JOHN_EMAIL));
     }
 
     @Test
     public void boolQueryShould() throws IOException {
-        RestClient lowLevelRestClient = ConnectionHelper.getLowLevelRestClient();
-        RestHighLevelClient client = new RestHighLevelClient(lowLevelRestClient);
+        TermQueryBuilder query1 = QueryBuilders.termQuery(EMAIL_FILED, JOHN_EMAIL);
 
-
-        String email1 = "john@mail.ru";
-        String field = "email";
-        TermQueryBuilder query1 = QueryBuilders.termQuery(field, email1);
-
-        String email2 = "mary@mail.ru";
-        TermQueryBuilder query2 = QueryBuilders.termQuery(field, email2);
+        TermQueryBuilder query2 = QueryBuilders.termQuery(EMAIL_FILED, MARY_MAIL);
 
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
         boolQuery.should().add(query1);
@@ -106,11 +93,9 @@ public class SearchRequestTest {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(boolQuery);
 
-        String index = "people";
-        String type = "persons";
         SearchRequest request = new SearchRequest();
-        request.indices(index);
-        request.types(type);
+        request.indices(PEOPLE_INDEX);
+        request.types(PERSONS_TYPE);
         request.source(searchSourceBuilder);
 
         SearchResponse response = client.search(request);
@@ -124,8 +109,28 @@ public class SearchRequestTest {
         SearchHit hit0 = searchHits.getAt(0);
         SearchHit hit1 = searchHits.getAt(1);
 
-        assertThat(hit0.getSource().get(field), anyOf(equalTo(email1), equalTo(email2)));
-        assertThat(hit1.getSource().get(field), anyOf(equalTo(email1), equalTo(email2)));
+        assertThat(hit0.getSource().get(EMAIL_FILED), anyOf(equalTo(JOHN_EMAIL), equalTo(MARY_MAIL)));
+        assertThat(hit1.getSource().get(EMAIL_FILED), anyOf(equalTo(JOHN_EMAIL), equalTo(MARY_MAIL)));
     }
 
+    @Test
+    public void count() throws IOException {
+        TermQueryBuilder query = QueryBuilders.termQuery(EMAIL_FILED, JOHN_EMAIL);
+
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(query);
+        searchSourceBuilder.fetchSource(false);//exclude source
+
+        SearchRequest request = new SearchRequest();
+        request.indices(PEOPLE_INDEX);
+        request.types(PERSONS_TYPE);
+        request.source(searchSourceBuilder);
+
+        SearchResponse response = client.search(request);
+
+        System.out.println(response);
+
+        assertThat(response.status().getStatus(), equalTo(200));
+        assertThat(response.getHits().getTotalHits(), equalTo(1L));
+    }
 }
