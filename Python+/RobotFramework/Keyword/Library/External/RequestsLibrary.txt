@@ -15,7 +15,12 @@
 Library		RequestsLibrary
 
 *** Test Cases ***
-Should Be
+Create Session Test
 	Create Session 	google 	http://www.google.com
 	${resp}= 	Get Request 	google 	/
+	Should Be Equal As Strings 	${resp.status_code} 	200
+
+Get Request Test 
+	Create Session 	postman 	https://postman-echo.com
+	${resp}=	Get Request	postman	/get
 	Should Be Equal As Strings 	${resp.status_code} 	200
