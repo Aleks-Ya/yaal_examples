@@ -20,7 +20,13 @@ Create Session Test
 	${resp}= 	Get Request 	google 	/
 	Should Be Equal As Strings 	${resp.status_code} 	200
 
-Get Request Test 
+Get Request Test
 	Create Session 	postman 	https://postman-echo.com
 	${resp}=	Get Request	postman	/get
 	Should Be Equal As Strings 	${resp.status_code} 	200
+
+Post Request Empty Body Test
+	Create Session 	postman 	http://postman-echo.com/
+	${resp}=	Post Request	postman	/post
+	Should Be Equal As Strings 	${resp.status_code} 	200
+	#Should Be Equal As Strings 	${resp.text} 	'The request body'
