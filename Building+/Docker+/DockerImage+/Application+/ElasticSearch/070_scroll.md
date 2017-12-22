@@ -1,8 +1,9 @@
 # Scroll request
 
+## Scroll request
 ```
-# Create a search with scroll
-curl -XPOST $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?scroll=5m&pretty -d '{
+# Initial request (get 1st batch and keep context alive for 5 minutes)
+curl -XPOST "$ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?scroll=5m&pretty" -d '{
   "size": 2,
   "query": {
       "match" : {
@@ -11,12 +12,15 @@ curl -XPOST $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?scroll=5m&pretty -d '
   }
 }'
 
-# Take the second page (and keep context open for 5 minutes)
+# Subsequent query (take 2nd batch and keep context alive for 3 minutes)
 curl -XPOST $ES_URL/_search/scroll?pretty -d '{
-  "scroll" : "5m",
+  "scroll" : "3m",
   "scroll_id" : "DXF1ZXJ5QW5kRmV0Y2gBAAAAA"
 }'
+```
 
+## Search context
+```
 # See how much search contexts are open
 curl -XGET $ES_URL/_nodes/stats/indices/search?pretty
 

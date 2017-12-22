@@ -12,6 +12,19 @@ curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
   }
 }'
 
+# A DON'T match query
+curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
+   "query":{
+      "bool":{
+         "must_not":{
+            "match":{
+               "name":"John Simon"
+            }
+         }
+      }
+   }
+}'
+
 # A match query with document size
 curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
   "query": {
