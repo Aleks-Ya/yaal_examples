@@ -1,8 +1,11 @@
 import abc
 
 
-class TranscriptionService:
-    """Base class for Transcription Services"""
+class Service:
+    """Base class for Services"""
+
+    def __init__(self, settings):
+        self.settings = settings
 
     @abc.abstractmethod
     def find_transcription(self, text):
