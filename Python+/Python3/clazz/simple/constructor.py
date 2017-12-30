@@ -1,12 +1,20 @@
 # Class has constructor
 
 
-# Minimal class
-class MyClass:
-    """my class"""
+# Minimal class 1
+class MinimalClass1:
+    """minimal class 1"""
 
 
-m = MyClass()
+m1 = MinimalClass1()
+
+
+# Minimal class 2
+class MinimalClass2:
+    pass
+
+
+m2 = MinimalClass2()
 
 
 # No arguments constructor
