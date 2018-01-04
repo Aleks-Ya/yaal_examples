@@ -1,7 +1,10 @@
 class Controller:
+    def __init__(self, anki_service):
+        self.anki_service = anki_service
 
     def get_fields(self):
-        return ['Text', 'Transcription', 'Audio']
+        # return ['Text', 'Transcription', 'Audio']
+        return self.anki_service.get_fields()
 
     def get_languages(self):
         return ['Russian', 'English', 'French']
