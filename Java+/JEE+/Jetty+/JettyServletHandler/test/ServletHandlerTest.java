@@ -1,7 +1,7 @@
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
 import org.junit.Test;
-import util.Utils;
+import util.NetAsserts;
 
 /**
  * Использование сервлетов в Jetty Embedded.
@@ -23,8 +23,8 @@ public class ServletHandlerTest {
         server.setHandler(handler);
         server.start();
 
-        Utils.assertUrlContent("http://localhost:" + port + "/*", "Star servlet");
-        Utils.assertUrlContent("http://localhost:" + port + "/welcome", "<h2>Welcome!</h2>");
+        NetAsserts.assertUrlContent("http://localhost:" + port + "/*", "Star servlet");
+        NetAsserts.assertUrlContent("http://localhost:" + port + "/welcome", "<h2>Welcome!</h2>");
 
         server.stop();
     }

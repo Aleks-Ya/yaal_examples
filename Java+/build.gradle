@@ -31,5 +31,6 @@ configure(subprojects - project('UnitTest+:JUnit+:JUnit5+').subprojects) {
 configure(subprojects) {
     dependencies {
         compile project(':Util')
+        testCompile project(path: ':Util', configuration: 'tests')
     }
 }

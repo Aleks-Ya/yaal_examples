@@ -5,7 +5,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.junit.Test;
-import util.Utils;
+import util.NetAsserts;
 
 /**
  * Работа с Context в сервере Jetty.
@@ -34,8 +34,8 @@ public class ContextHandlerTest {
         server.setHandler(contexts);
         server.start();
 
-        Utils.assertUrlContent("http://localhost:" + port + "/en", "<h1>English context handler: /en</h1>");
-        Utils.assertUrlContent("http://localhost:" + port + "/ru", "<h1>Обработчик русского контекста: /ru</h1>");
+        NetAsserts.assertUrlContent("http://localhost:" + port + "/en", "<h1>English context handler: /en</h1>");
+        NetAsserts.assertUrlContent("http://localhost:" + port + "/ru", "<h1>Обработчик русского контекста: /ru</h1>");
 
         server.stop();
     }

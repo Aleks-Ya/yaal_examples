@@ -1,7 +1,7 @@
 package handler.abstract_;
 
 import org.eclipse.jetty.server.Server;
-import util.Utils;
+import util.NetAsserts;
 
 /**
  * See HelloWorld on http://localhost:8080/
@@ -13,7 +13,7 @@ public class AbstractHandlerTest {
         server.setHandler(new HelloWorldHandler());
         server.start();
 
-        Utils.assertUrlContent("http://localhost:" + port, "<h1>Hello Jetty World!</h1>");
+        NetAsserts.assertUrlContent("http://localhost:" + port, "<h1>Hello Jetty World!</h1>");
 
         server.stop();
     }
