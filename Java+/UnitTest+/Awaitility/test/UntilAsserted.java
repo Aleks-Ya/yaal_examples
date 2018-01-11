@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class UntilAsserted {
 
     @Test
-    public void untilAsserted() throws Exception {
+    public void untilAsserted() {
         final AtomicInteger n = new AtomicInteger(0);
 
         new Thread(() -> {
@@ -24,8 +24,6 @@ public class UntilAsserted {
         await()
                 .atMost(500, MILLISECONDS)
                 .pollInterval(10, MILLISECONDS)
-                .untilAsserted(() -> {
-                    assertEquals(n.get(), 1);
-                });
+                .untilAsserted(() -> assertEquals(n.get(), 1));
     }
 }
