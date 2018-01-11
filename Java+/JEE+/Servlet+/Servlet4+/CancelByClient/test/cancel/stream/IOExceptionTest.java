@@ -1,9 +1,11 @@
-package cancel;
+package cancel.stream;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -16,15 +18,14 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Servlet understands when client close connection.
- * (Servlet is instantly writing to response's PrintWriter.
  */
-public class WithWritingTest {
+public class IOExceptionTest {
 
     @Test
     public void test() throws Exception {
         ServletHandler handler = new ServletHandler();
         String servletPath = "/servlet";
-        handler.addServletWithMapping(WithWritingServlet.class, servletPath);
+        handler.addServletWithMapping(IOExceptionServlet.class, servletPath);
 
         int port = 8089;
         Server server = new Server(port);
@@ -38,12 +39,12 @@ public class WithWritingTest {
         conn.disconnect();
 
         await()
-                .atMost(5, SECONDS)
+                .atMost(3, SECONDS)
                 .pollInterval(100, MILLISECONDS)
-                .untilAsserted(() -> assertTrue(WithWritingServlet.checkError));
+                .untilAsserted(() -> assertTrue(IOExceptionServlet.error != null));
 
-        assertThat(WithWritingServlet.writeCount, equalTo(2L));
-        assertThat(WithWritingServlet.wroteText.toString(), equalTo("0 1 "));
+        assertThat(IOExceptionServlet.error, Matchers.instanceOf(IOException.class));
+        assertThat(IOExceptionServlet.wroteText.toString(), equalTo("0 1 "));
 
         server.stop();
     }
