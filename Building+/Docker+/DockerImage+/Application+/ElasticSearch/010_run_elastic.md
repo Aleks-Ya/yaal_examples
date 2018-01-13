@@ -16,7 +16,7 @@ docker run -p 9200:9200 \
   docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
 ```
 
-## Run customzed build
+## Run customized build
 ```
 docker build --tag=elasticsearch-custom .
 
@@ -36,4 +36,9 @@ Pass: elastic/changeme
 ## Connect to Docker container with Bash
 ```
 docker exec -it elastic bash
+```
+
+## See logs
+```
+docker logs --follow elastic
 ```
