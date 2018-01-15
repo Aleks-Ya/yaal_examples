@@ -105,6 +105,7 @@ include 'JEE+:Jetty+:JettyServer',
         'JEE+:Servlet+:Servlet4+:FileUpload',
         'JEE+:Servlet+:Servlet4+:SendError',
         'JEE+:Servlet+:Servlet4+:CancelByClient',
+        'JEE+:Servlet+:Servlet4+:KeepAlive',
         'JEE+:Validation'
 
 /**
