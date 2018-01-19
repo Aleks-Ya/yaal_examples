@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <groupId>maven</groupId>
+    <artifactId>ReplacerPlugin</artifactId>
+    <version>1</version>
+
+    <description>
+        Using maven-replacer-plugin for find-and-replace in files.
+        Run: mvn clean package
+        Result: target/classes/replaced.txt
+    </description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <version>1.5.3</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <file>${project.build.outputDirectory}/origin.txt</file>
+                    <outputFile>${project.build.outputDirectory}/replaced.txt</outputFile>
+                    <regex>false</regex>
+                    <replacements>
+                        <replacement>
+                            <token>$firstname$</token>
+                            <value>John</value>
+                        </replacement>
+                        <replacement>
+                            <token>$lastname$</token>
+                            <value>White</value>
+                        </replacement>
+                    </replacements>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+    <modelVersion>4.0.0</modelVersion>
+</project>
