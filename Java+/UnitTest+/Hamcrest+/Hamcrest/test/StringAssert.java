@@ -1,13 +1,12 @@
+import org.hamcrest.Matcher;
 import org.junit.Test;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
-/**
- * Проверка массивов.
- */
 public class StringAssert {
+
     @Test
     public void strings() {
         final String str = "Людовико Эйнауди - Tu Sei";
@@ -27,5 +26,16 @@ public class StringAssert {
     @Test
     public void regExp() {
         assertThat("obsolete hede", matchesPattern("^.*ete.*$"));
+    }
+
+    /**
+     * Assert strings that contain variable substring.
+     * E.g.: "Id:{any-id}"
+     */
+    @Test
+    public void anySubstring() {
+        Matcher<String> matcher = matchesPattern("^Hello, \\w+!$");
+        assertThat("Hello, John!", matcher);
+        assertThat("Hello, Mary!", matcher);
     }
 }
