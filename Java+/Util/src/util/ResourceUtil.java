@@ -20,4 +20,14 @@ public class ResourceUtil {
             throw new RuntimeException(e.getMessage(), e);
         }
     }
+
+    public static File resourceToFile(Class<?> clazz, String resourceName) {
+        URL resourceUrl = clazz.getResource(resourceName);
+        return new File(resourceUrl.getFile());
+    }
+
+    public static String resourceToPath(Class<?> clazz, String resourceName) {
+        URL resourceUrl = clazz.getResource(resourceName);
+        return resourceUrl.getFile();
+    }
 }
