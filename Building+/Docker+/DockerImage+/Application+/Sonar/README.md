@@ -13,7 +13,7 @@ Credentials: admin/admin
 From Maven:
 
 ```
-mvn sonar:sonar \
+mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar \
   -Dsonar.host.url=http://localhost:9000 \
   -Dsonar.login=a35a8a127c0a07840febffff213b8703ff55fa86
 ```
