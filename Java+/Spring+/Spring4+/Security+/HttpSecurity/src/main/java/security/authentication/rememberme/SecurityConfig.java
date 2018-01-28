@@ -32,7 +32,9 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     TokenBasedRememberMeServices tokenBasedRememberMeServices() {
-        return new TokenBasedRememberMeServices(KEY, userDetailsService());
+        TokenBasedRememberMeServices services = new TokenBasedRememberMeServices(KEY, userDetailsService());
+//        services.setCookieName();
+        return services;
     }
 
     @Bean

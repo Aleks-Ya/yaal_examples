@@ -1,4 +1,4 @@
-package freemarker.directive;
+package freemarker.directive.if_;
 
 import freemarker.BaseFreemarkerTest;
 import freemarker.template.Template;
@@ -12,22 +12,19 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Условные операторы в шаблонах.
- */
-public class If extends BaseFreemarkerTest {
+public class IfBoolean extends BaseFreemarkerTest {
 
     @Test
     public void test() throws IOException, TemplateException {
         Map<String, Object> data = new HashMap<>();
-        data.put("name", "Aleksey");
-        data.put("sex", "M");
+        data.put("large", true);
+        data.put("fat", false);
 
-        Template template = cfg.getTemplate("directive/if.ftl");
+        Template template = cfg.getTemplate("directive/if_/if_boolean.ftl");
 
         StringWriter out = new StringWriter();
         template.process(data, out);
 
-        assertEquals("Hello, Mr. Aleksey!", out.toString());
+        assertEquals("Large\nThin", out.toString());
     }
 }

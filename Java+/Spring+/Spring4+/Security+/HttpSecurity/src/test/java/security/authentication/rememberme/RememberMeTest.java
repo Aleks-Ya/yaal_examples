@@ -14,11 +14,13 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.servlet.http.Cookie;
 import java.util.Collections;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static security.authentication.rememberme.RememberMeController.ENDPOINT;
@@ -66,8 +68,10 @@ public class RememberMeTest {
 
     @Test
     public void rememberMe() throws Exception {
+        String body = "";
         MockHttpSession session1 = new MockHttpSession();
-        MvcResult mvcResult = mvc.perform(get(ENDPOINT)
+        MvcResult mvcResult = mvc.perform(post(ENDPOINT)
+                .content(body)
                 .session(session1)
                 .with(user(USER))
                 .param("remember-me", "on")
@@ -75,7 +79,7 @@ public class RememberMeTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(session1.getId()))
                 .andReturn();
-//        Cookie[] cookies = mvcResult.getResponse().getCookies();
+        Cookie[] cookies = mvcResult.getResponse().getCookies();
 //
 //        assertThat(cookies, not(emptyArray()));
 
