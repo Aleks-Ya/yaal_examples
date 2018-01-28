@@ -1,35 +1,34 @@
 package security.authentication.password.encoder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
+import javax.sql.DataSource;
 import java.util.Collections;
 import java.util.List;
 
 @EnableWebSecurity
 class SecurityConfig extends WebSecurityConfigurerAdapter {
-    static final String USERNAME = "the_user";
-    static final String PASSWORD = "the_password";
-    private static final String ENCODED_PASSWORD = "7ca95240d57b1a3477bf0673cbaa69a8edcb1a36173e7a1b04351652104c56504d1c939f7604a61d";
+    private final DataSource dataSource;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest().authenticated();
+    @Autowired
+    public SecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Override
     protected UserDetailsService userDetailsService() {
-        return inMemoryUserDetailsService();
+        return jdbcUserDetailsManager();
     }
 
     /**
@@ -42,18 +41,23 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    DaoAuthenticationProvider daoAuthenticationProvider() {
+    AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
         provider.setUserDetailsService(userDetailsService());
         return provider;
     }
 
-    @Bean
-    UserDetailsService inMemoryUserDetailsService() {
-        User user = new User(USERNAME, ENCODED_PASSWORD, Collections.emptyList());
-        List<UserDetails> users = Collections.singletonList(user);
-        return new InMemoryUserDetailsManager(users);
+    @Override
+    public AuthenticationManager authenticationManagerBean() {
+        List<AuthenticationProvider> providers = Collections.singletonList(authenticationProvider());
+        return new ProviderManager(providers);
+    }
 
+    @Bean
+    JdbcUserDetailsManager jdbcUserDetailsManager() {
+        JdbcUserDetailsManager manager = new JdbcUserDetailsManager();
+        manager.setDataSource(dataSource);
+        return manager;
     }
 }

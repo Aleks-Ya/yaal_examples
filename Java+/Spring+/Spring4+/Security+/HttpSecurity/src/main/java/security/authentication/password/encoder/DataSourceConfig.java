@@ -1,4 +1,4 @@
-package security.authentication.userdetails.jdbc;
+package security.authentication.password.encoder;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,6 @@ class DataSourceConfig {
     private void populateDb(DataSource ds) throws SQLException, IOException {
         Statement statement = ds.getConnection().createStatement();
         statement.addBatch(resourceToString("schema.sql", getClass()));
-        statement.addBatch(resourceToString("users.sql", getClass()));
         statement.executeBatch();
         statement.close();
     }
