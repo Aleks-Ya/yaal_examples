@@ -1,42 +1,28 @@
-package freemarker;
+package freemarker.bean;
 
-import freemarker.template.Configuration;
+import freemarker.BaseFreemarkerTest;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * Использование JavaBean в модели и шаблоне (через замещение в Map).
+ * Использование JavaBean в модели и шаблоне (без Map).
  */
-public class JavaBeanInMap {
-    private static Configuration cfg;
-
-    @BeforeClass
-    public static void setUp() {
-        cfg = new Configuration(Configuration.VERSION_2_3_22);
-        cfg.setClassForTemplateLoading(JavaBeanInMap.class, "/templates");
-        cfg.setDefaultEncoding("UTF-8");
-        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-    }
+public class JavaBeanWithoutMap extends BaseFreemarkerTest {
 
     @Test
     public void test() throws IOException, TemplateException {
-        Map<String, Object> root = new HashMap<>();
-        root.put("data", new Data());
+        Data data = new Data();
 
-        Template template = cfg.getTemplate("java_bean_in_map.ftl");
+        Template template = cfg.getTemplate("bean/java_bean_without_map.ftl");
 
         Writer out = new OutputStreamWriter(System.out);
-        template.process(root, out);
+        template.process(data, out);
     }
 
     /**
