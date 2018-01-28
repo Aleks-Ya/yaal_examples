@@ -1,4 +1,4 @@
-package freemarker.include;
+package freemarker.directive.include;
 
 import freemarker.BaseFreemarkerTest;
 import freemarker.template.Template;
@@ -16,7 +16,7 @@ public class Include extends BaseFreemarkerTest {
 
     @Test
     public void include() throws TemplateException, IOException {
-        Template template = cfg.getTemplate("include/outer.ftl");
+        Template template = cfg.getTemplate("directive/include/outer.ftl");
         Writer out = new StringWriter();
         template.process(null, out);
         assertThat(out.toString(), equalTo("Man John 25"));
