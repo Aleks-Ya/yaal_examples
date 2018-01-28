@@ -1,7 +1,6 @@
 package security.authentication.rememberme;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +14,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.servlet.http.Cookie;
 import java.util.Collections;
 
-import static org.hamcrest.Matchers.emptyArray;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -42,17 +37,14 @@ public class RememberMeTest {
     public void setup() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
-//                .apply(springSecurity())
+                .apply(springSecurity())
                 .build();
     }
 
     @Test
     public void notAuthorizedRequestIsForbidden() throws Exception {
-        mvc.perform(get(ENDPOINT)
-//                .with(user(USER))
-        )
-                .andExpect(status().isOk());
-//        mvc.perform(get(ENDPOINT)).andExpect(status().isForbidden());
+        mvc.perform(get(ENDPOINT).with(user(USER))).andExpect(status().isOk());
+        mvc.perform(get(ENDPOINT)).andExpect(status().isForbidden());
     }
 
     @Test
@@ -89,7 +81,7 @@ public class RememberMeTest {
 
         MockHttpSession session2 = new MockHttpSession();
         mvc.perform(get(ENDPOINT)
-                .session(session2)
+                        .session(session2)
 //                .cookie(cookies)
         )
                 .andExpect(status().isOk())
