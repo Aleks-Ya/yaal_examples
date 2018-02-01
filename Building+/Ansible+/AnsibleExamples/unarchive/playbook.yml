@@ -1,0 +1,8 @@
+#Unpack a ZIP archive
+---
+- hosts: all
+  tasks:
+    - unarchive:
+        src: ./data.zip
+        dest: .
+        mode: 0440
