@@ -1,0 +1,8 @@
+#Download a file from URL
+---
+- hosts: all
+  tasks:
+    - get_url:
+        url: https://www.google.ru/search?q=abc
+        dest: ./google.tmp
+        mode: 0440
