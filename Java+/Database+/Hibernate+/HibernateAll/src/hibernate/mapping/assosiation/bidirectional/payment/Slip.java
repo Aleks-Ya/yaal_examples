@@ -1,4 +1,4 @@
-package payment.bi;
+package hibernate.mapping.assosiation.bidirectional.payment;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
