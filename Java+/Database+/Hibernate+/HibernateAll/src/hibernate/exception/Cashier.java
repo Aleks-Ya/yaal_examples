@@ -1,3 +1,5 @@
+package hibernate.exception;
+
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;

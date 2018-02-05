@@ -1,4 +1,4 @@
-package entity;
+package hibernate.hql.select;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

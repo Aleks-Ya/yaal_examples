@@ -1,3 +1,5 @@
+package hibernate.exception;
+
 import factory.HibernateSessionFactory436;
 import org.hibernate.Session;
 

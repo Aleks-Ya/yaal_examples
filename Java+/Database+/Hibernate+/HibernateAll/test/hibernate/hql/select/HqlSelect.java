@@ -1,11 +1,14 @@
-import entity.CityEntity;
-import entity.RegionEntity;
+package hibernate.hql.select;
+
 import factory.HibernateSessionFactory436;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.junit.Test;
 
 public class HqlSelect {
-    public static void main(String[] args) {
+
+    @Test
+    public void main() {
         RegionEntity region = new RegionEntity("Вологодская область");
         final long vologdaPopulation = 300000L;
         final String vologdaName = "Вологда";
