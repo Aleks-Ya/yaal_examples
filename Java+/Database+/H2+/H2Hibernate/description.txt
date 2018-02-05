@@ -1,1 +1,1 @@
-Работа с in-memory базой данных H2 с помощью Hibernate.s
+Working with H2 database using Hibernate.

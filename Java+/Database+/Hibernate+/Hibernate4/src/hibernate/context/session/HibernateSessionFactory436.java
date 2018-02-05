@@ -1,4 +1,4 @@
-package factory;
+package hibernate.context.session;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

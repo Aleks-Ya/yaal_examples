@@ -1,6 +1,6 @@
 package hibernate.mapping.assosiation.unidirectional;
 
-import factory.HibernateSessionFactory436;
+import hibernate.context.session.HibernateSessionFactory436;
 import org.hibernate.Session;
 import org.junit.Test;
 

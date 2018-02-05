@@ -1,6 +1,6 @@
 package hibernate.mapping.assosiation.bidirectional.people;
 
-import factory.HibernateSessionFactory436;
+import hibernate.context.session.HibernateSessionFactory436;
 import hibernate.mapping.assosiation.bidirectional.payment.Payment;
 import hibernate.mapping.assosiation.bidirectional.payment.Slip;
 import hibernate.mapping.assosiation.bidirectional.payment.Transaction;

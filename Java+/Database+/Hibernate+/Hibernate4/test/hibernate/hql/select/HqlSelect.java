@@ -1,6 +1,6 @@
 package hibernate.hql.select;
 
-import factory.HibernateSessionFactory436;
+import hibernate.context.session.HibernateSessionFactory436;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.junit.Test;

@@ -1,3 +1,5 @@
+package hibernate.log;
+
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;

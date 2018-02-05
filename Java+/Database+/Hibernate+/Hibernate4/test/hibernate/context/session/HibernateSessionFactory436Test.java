@@ -1,4 +1,5 @@
-import factory.HibernateSessionFactory436;
+package hibernate.context.session;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Test;

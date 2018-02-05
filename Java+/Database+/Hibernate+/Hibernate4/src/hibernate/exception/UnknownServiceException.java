@@ -1,6 +1,6 @@
 package hibernate.exception;
 
-import factory.HibernateSessionFactory436;
+import hibernate.context.session.HibernateSessionFactory436;
 import org.hibernate.Session;
 
 import java.util.concurrent.TimeUnit;

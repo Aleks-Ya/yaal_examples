@@ -1,6 +1,6 @@
 package hibernate.mapping.assosiation.bidirectional.payment;
 
-import factory.HibernateSessionFactory436;
+import hibernate.context.session.HibernateSessionFactory436;
 import hibernate.mapping.assosiation.bidirectional.people.Address;
 import hibernate.mapping.assosiation.bidirectional.people.People;
 import org.hamcrest.Matchers;

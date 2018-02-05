@@ -1,13 +1,17 @@
+package hibernate.log;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.junit.Test;
 
-public class Main {
+public class LogTest {
 
-    public static void main(String[] args) throws InterruptedException {
+    @Test
+    public void main() {
         Configuration configuration = getConfiguration();
 
         StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
