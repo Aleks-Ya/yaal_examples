@@ -5,12 +5,12 @@ String hibernateVersion='4.3.8.Final'
 String hibernateEntityManagerVersion = "org.hibernate:hibernate-entitymanager:$hibernateVersion"
 String hibernateCoreVersion = "org.hibernate:hibernate-core:$hibernateVersion"
 
-configure(subprojects - project(':Database+:Hibernate+:HibernateSessionFactory')) {
+configure(subprojects - project(':Database+:Hibernate+:Hibernate4SessionFactory')) {
     dependencies {
         compile h2Version,
                 hibernateCoreVersion,
                 'joda-time:joda-time:2.9.9',
-                project(':Database+:Hibernate+:HibernateSessionFactory')
+                project(':Database+:Hibernate+:Hibernate4SessionFactory')
     }
 }
 
