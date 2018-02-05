@@ -1,14 +1,15 @@
 /* Исключаем циклическую зависимость проекта  :Database+:Hibernate+:HibernateSessionFactory
 от самого себя */
-String h2Version = 'com.h2database:h2:1.4.181'
-String hibernateEntityManagerVersion = 'org.hibernate:hibernate-entitymanager:4.3.8.Final'
-String hibernateCoreVersion = 'org.hibernate:hibernate-core:4.3.8.Final'
+String h2Version = 'com.h2database:h2:1.4.196'
+String hibernateVersion='5.1.12.Final'
+String hibernateEntityManagerVersion = "org.hibernate:hibernate-entitymanager:$hibernateVersion"
+String hibernateCoreVersion = "org.hibernate:hibernate-core:$hibernateVersion"
 
 configure(subprojects - project(':Database+:Hibernate+:HibernateSessionFactory')) {
     dependencies {
         compile h2Version,
                 hibernateCoreVersion,
-                'joda-time:joda-time:2.9.4',
+                'joda-time:joda-time:2.9.9',
                 project(':Database+:Hibernate+:HibernateSessionFactory')
     }
 }
