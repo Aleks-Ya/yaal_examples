@@ -1,6 +1,6 @@
 package hibernate.mapping.assosiation.unidirectional;
 
-import hibernate.context.session.HibernateSessionFactory436;
+import hibernate.context.session.HibernateSessionFactory5;
 import org.hibernate.Session;
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 
 public class PeopleTest {
-    private static final HibernateSessionFactory436 factory = HibernateSessionFactory436.makeFactory(
+    private static final HibernateSessionFactory5 factory = HibernateSessionFactory5.makeFactory(
             People.class, Address.class);
 
     @Test
@@ -20,7 +20,7 @@ public class PeopleTest {
         readEntities();
     }
 
-    private void saveEntities() {
+    private void saveEntities() throws Exception {
         Session session = null;
         try {
             session = factory.openSession();

@@ -1,6 +1,6 @@
 package hibernate.criteria.association;
 
-import hibernate.context.session.HibernateSessionFactory436;
+import hibernate.context.session.HibernateSessionFactory5;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
@@ -27,7 +27,7 @@ public class CriteriaAssociations {
         long moscowPopulation = 12000000L;
         CityEntity city4 = new CityEntity("Москва", moscowPopulation, region2);
 
-        Session session = HibernateSessionFactory436.makeFactory(RegionEntity.class, CityEntity.class).openSession();
+        Session session = HibernateSessionFactory5.makeFactory(RegionEntity.class, CityEntity.class).openSession();
         session.save(region);
         session.save(region2);
         session.save(city1);
@@ -52,4 +52,5 @@ public class CriteriaAssociations {
             System.out.println(obj);
         }
     }
+
 }

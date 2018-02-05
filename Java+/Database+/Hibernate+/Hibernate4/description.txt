@@ -1,1 +1,0 @@
-Gather all Hibernate projects to one.

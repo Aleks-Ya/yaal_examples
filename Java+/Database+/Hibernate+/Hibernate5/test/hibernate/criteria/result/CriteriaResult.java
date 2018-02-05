@@ -1,6 +1,6 @@
 package hibernate.criteria.result;
 
-import hibernate.context.session.HibernateSessionFactory436;
+import hibernate.context.session.HibernateSessionFactory5;
 import org.hibernate.Criteria;
 import org.hibernate.NonUniqueResultException;
 import org.hibernate.Session;
@@ -12,7 +12,7 @@ import java.util.List;
 public class CriteriaResult {
 
     @Test
-    public void test() {
+    public void main() {
         RegionEntity region = new RegionEntity("Вологодская область");
         final long vologdaPopulation = 300000L;
         final String vologdaName = "Вологда";
@@ -27,7 +27,7 @@ public class CriteriaResult {
         long moscowPopulation = 12000000L;
         CityEntity city4 = new CityEntity("Москва", moscowPopulation, region2);
 
-        Session session = HibernateSessionFactory436.makeFactory(RegionEntity.class, CityEntity.class).openSession();
+        Session session = HibernateSessionFactory5.makeFactory(RegionEntity.class, CityEntity.class).openSession();
         session.save(region);
         session.save(region2);
         session.save(city1);
@@ -77,4 +77,5 @@ public class CriteriaResult {
             System.out.println(obj);
         }
     }
+
 }

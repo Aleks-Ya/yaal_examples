@@ -1,18 +1,20 @@
-package hibernate.mapping.assosiation.unidirectional;
+package hibernate.mapping.assosiation.bidirectional.people;
 
-import hibernate.context.session.HibernateSessionFactory436;
+import hibernate.context.session.HibernateSessionFactory5;
+import hibernate.mapping.assosiation.bidirectional.payment.Payment;
+import hibernate.mapping.assosiation.bidirectional.payment.Slip;
+import hibernate.mapping.assosiation.bidirectional.payment.Transaction;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-
 public class PeopleTest {
-    private static final HibernateSessionFactory436 factory = HibernateSessionFactory436.makeFactory(
-            People.class, Address.class);
+    private static final HibernateSessionFactory5 factory = HibernateSessionFactory5.makeFactory(
+            Payment.class, Transaction.class, Slip.class, People.class, Address.class);
 
     @Test
     public void test() throws Exception {
@@ -20,9 +22,10 @@ public class PeopleTest {
         readEntities();
     }
 
-    private void saveEntities() {
+    private void saveEntities() throws Exception {
         Session session = null;
         try {
+
             session = factory.openSession();
             session.beginTransaction();
 
@@ -34,7 +37,12 @@ public class PeopleTest {
 
             Address spb = new Address();
             Address moscow = new Address();
+            Set<Address> addresses = new HashSet<>();
+            addresses.add(moscow);
+            addresses.add(spb);
 
+            man.setAddresses(addresses);
+            woman.setAddresses(addresses);
             moscow.setPeoples(peoples);
             spb.setPeoples(peoples);
 
@@ -53,16 +61,8 @@ public class PeopleTest {
 
     private void readEntities() throws Exception {
         Session session = factory.openSession();
-
-        List<People> allPeoples = session.createCriteria(People.class).list();
-        final int expPeopleSize = 2;
-        assertEquals(expPeopleSize, allPeoples.size());
-
-        List<Address> allAddresses = session.createCriteria(Address.class).list();
-        for (Address address : allAddresses) {
-            assertEquals(expPeopleSize, address.getPeoples().size());
-        }
-
+        List<Address> allAddresses = session.createCriteria(Address.class).addOrder(Order.desc("id")).list();
+        List<People> allPeoples = session.createCriteria(People.class).addOrder(Order.desc("id")).list();
         session.close();
     }
 }

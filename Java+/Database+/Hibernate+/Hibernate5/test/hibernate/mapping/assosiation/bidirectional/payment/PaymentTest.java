@@ -1,6 +1,6 @@
 package hibernate.mapping.assosiation.bidirectional.payment;
 
-import hibernate.context.session.HibernateSessionFactory436;
+import hibernate.context.session.HibernateSessionFactory5;
 import hibernate.mapping.assosiation.bidirectional.people.Address;
 import hibernate.mapping.assosiation.bidirectional.people.People;
 import org.hamcrest.Matchers;
@@ -18,7 +18,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class PaymentTest {
-    private static final HibernateSessionFactory436 factory = HibernateSessionFactory436.makeFactory(
+    private static final HibernateSessionFactory5 factory = HibernateSessionFactory5.makeFactory(
             Payment.class, Transaction.class, Slip.class, People.class, Address.class);
 
     private Payment expPayment;
@@ -39,7 +39,7 @@ public class PaymentTest {
         }
     }
 
-    private void saveEntities() {
+    private void saveEntities() throws Exception {
         Session session = factory.openSession();
 
         Payment payment = new Payment("Bike buy");

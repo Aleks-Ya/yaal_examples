@@ -22,7 +22,7 @@ public class PeopleTest {
         readEntities();
     }
 
-    private void saveEntities() throws Exception {
+    private void saveEntities() {
         Session session = null;
         try {
 
