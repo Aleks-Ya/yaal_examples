@@ -1,0 +1,9 @@
+/**
+ * Инициализация DataSource с помощью
+ * встроенных БД: H2, HSQL и Dervy.
+ */
+dependencies {
+    testCompile 'com.h2database:h2:1.4.194',
+            'org.hsqldb:hsqldb:2.3.4',
+            'org.apache.derby:derby:10.13.1.1'
+}

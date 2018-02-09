@@ -1,0 +1,6 @@
+/**
+ * Инициализация БЮ путем исполнения SQL-файлов.
+ */
+dependencies {
+    testCompile 'com.h2database:h2:1.4.194'
+}

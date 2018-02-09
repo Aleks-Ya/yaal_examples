@@ -1,0 +1,18 @@
+/**
+ * Spring initialization without web.xml (using WebApplicationInitializer).
+ * Run:
+ * 1) Deploy to Tomcat by any IDE
+ * 2) Open http://localhost:8080/
+ */
+apply plugin: 'war'
+
+sourceSets.main.java.srcDir 'src'
+project.webAppDirName = 'webapp'
+
+dependencies {
+    compile 'org.springframework:spring-webmvc:5.0.3.RELEASE'
+    compile 'javax.servlet:javax.servlet-api:4.0.0'
+}
+repositories {
+    mavenCentral()
+}

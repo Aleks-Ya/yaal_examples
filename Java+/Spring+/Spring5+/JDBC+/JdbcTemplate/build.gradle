@@ -1,0 +1,7 @@
+/**
+ * Использование класса JdbcTemplate и его производных
+ * для работы с БД.
+ */
+dependencies {
+    testCompile 'com.h2database:h2:1.4.194'
+}

@@ -1,0 +1,5 @@
+subprojects {
+    dependencies {
+        compile 'org.springframework:spring-jdbc:4.3.7.RELEASE'
+    }
+}
