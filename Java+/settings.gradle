@@ -159,4 +159,5 @@ include 'Spring+:Spring3+:AnnotationConfig+:Configuration',
         'Spring+:Spring5+:Hibernate+:EntityManagerFactory',
         'Spring+:Spring5+:AOP+:SpringAOP',
         'Spring+:Spring5+:AOP+:AspectJ',
+        'Spring+:Spring5+:Web+:MVC+:Controller',
         'Spring+:Spring5+:Data+:SpringDataMongoDB'
