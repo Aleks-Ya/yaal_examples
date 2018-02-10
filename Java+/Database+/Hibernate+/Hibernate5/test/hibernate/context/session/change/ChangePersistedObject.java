@@ -21,32 +21,27 @@ public class ChangePersistedObject {
     private final Session session = factory.getSessionFactory().openSession();
 
     @Test
-    public void saveDetached() {
+    public void changePersisted() {
         assertThat(session.getStatistics().getEntityCount(), equalTo(0));
+
         House transientObject = new House(null, "Spb");
-        Serializable id = session.save(transientObject);
+
+        Serializable oldId = session.save(transientObject);
         assertThat(session.getStatistics().getEntityCount(), equalTo(1));
 
-//        transientObject.setAddress("Msk");
-        House house2 = new House(transientObject.getId(), "Msk");
+        House persistedObject = session.get(House.class, oldId);
 
-        session.save(house2);
+        String newAddress = "Msk";
+        persistedObject.setAddress(newAddress);
+
+        Serializable newId = session.save(persistedObject);
+        assertThat(newId, equalTo(oldId));
+        assertThat(persistedObject.getId(), equalTo(oldId));
         assertThat(session.getStatistics().getEntityCount(), equalTo(1));
 
+        House newPersistedObject = session.get(House.class, oldId);
+        assertThat(newPersistedObject.getAddress(), equalTo(newAddress));
     }
-
-    private House makeDetached() {
-        assertThat(session.getStatistics().getEntityCount(), equalTo(0));
-        House transientObject = new House(null, "Spb");
-        Serializable id = session.save(transientObject);
-        assertThat(session.getStatistics().getEntityCount(), equalTo(1));
-        House persistedObject = session.get(House.class, id);
-        assertThat(persistedObject, sameInstance(transientObject));
-        session.evict(persistedObject);
-        assertThat(session.getStatistics().getEntityCount(), equalTo(0));
-        return persistedObject;
-    }
-
 
     @Entity
     @Immutable
@@ -63,11 +58,15 @@ public class ChangePersistedObject {
             this.address = address;
         }
 
-        public void setAddress(String address) {
+        String getAddress() {
+            return address;
+        }
+
+        void setAddress(String address) {
             this.address = address;
         }
 
-        public Integer getId() {
+        Integer getId() {
             return id;
         }
     }
