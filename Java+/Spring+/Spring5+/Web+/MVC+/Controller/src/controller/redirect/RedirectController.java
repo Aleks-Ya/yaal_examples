@@ -15,8 +15,7 @@ class RedirectController {
 
     @RequestMapping(value = ENDPOINT_1, method = GET)
     public String firstEndpoint(@RequestParam String message) {
-        String redirectUrl = format("redirect:%s?message=%s", ENDPOINT_2, message);
-        return redirectUrl;
+        return format("redirect:%s?message=%s", ENDPOINT_2, message);
     }
 
     @ResponseBody
