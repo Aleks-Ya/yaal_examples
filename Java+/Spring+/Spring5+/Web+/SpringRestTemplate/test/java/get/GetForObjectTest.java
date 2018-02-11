@@ -20,7 +20,7 @@ public class GetForObjectTest {
     public void getForObjectTest() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
 
-        final String url = "localhost";
+        final String url = "/localhost";
         final MockRestServiceServer server = MockRestServiceServer.bindTo(restTemplate).build();
         server.expect(once(), requestTo(url))
                 .andExpect(method(HttpMethod.GET))
@@ -35,15 +35,13 @@ public class GetForObjectTest {
         RestTemplate restTemplate = new RestTemplate();
 
         ObjectMapper mapper = new ObjectMapper();
-        User user = mapper.readValue(json, User.class);
 
 
         HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        restTemplate.setMessageConverters();
 
         String headerName = "myheader";
         String headerValue = "abc";
-        final String url = "localhost";
+        final String url = "/localhost";
         final MockRestServiceServer server = MockRestServiceServer.bindTo(restTemplate).build();
         server.expect(once(), requestTo(url))
                 .andExpect(method(HttpMethod.GET))

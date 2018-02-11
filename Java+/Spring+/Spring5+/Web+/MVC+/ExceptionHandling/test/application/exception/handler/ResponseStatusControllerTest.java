@@ -37,7 +37,6 @@ public class ResponseStatusControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-
     @Test
     public void responseStatusWithBody() throws Exception {
         mvc.perform(get(RESPONSE_STATUS_WITH_BODY_MAPPING))
@@ -49,7 +48,9 @@ public class ResponseStatusControllerTest {
     public void responseStatusWithBodyWithException() throws Exception {
         mvc.perform(get(RESPONSE_STATUS_WITH_BODY_WITH_EXCEPTION_MAPPING))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string("java.lang.ArrayIndexOutOfBoundsException: Response Status With Body With Exception"));
+                .andExpect(content().string(
+                        "java.lang.ArrayIndexOutOfBoundsException: " +
+                                "Response Status With Body With Exception"));
     }
 
 }

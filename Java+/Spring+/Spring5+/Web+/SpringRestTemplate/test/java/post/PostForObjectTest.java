@@ -22,7 +22,7 @@ public class PostForObjectTest {
 
         String headerName = "myheader";
         String headerValue = "abc";
-        final String url = "localhost/path2";
+        final String url = "/localhost/path2";
         final MockRestServiceServer server = MockRestServiceServer.bindTo(restTemplate).build();
         server.expect(once(), requestTo(url))
                 .andExpect(method(HttpMethod.POST))
@@ -48,7 +48,7 @@ public class PostForObjectTest {
         String body = "{key: value}";
         HttpEntity<String> entity = new HttpEntity<>(body, headers);
 
-        final String URL = "localhost/path";
+        final String URL = "/localhost/path";
         final MockRestServiceServer server = MockRestServiceServer.bindTo(restTemplate).build();
         server.expect(once(), requestTo(URL)).andExpect(method(HttpMethod.POST))
                 .andExpect(jsonPath("key", equalTo("value")))

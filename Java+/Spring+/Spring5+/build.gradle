@@ -1,7 +1,9 @@
 subprojects {
+    ext {
+        springVersion = '5.0.3.RELEASE'
+    }
     dependencies {
-        def version = '5.0.3.RELEASE'
-        compile "org.springframework:spring-context:$version"
-        testCompile "org.springframework:spring-test:$version"
+        compile "org.springframework:spring-context:$springVersion"
+        testCompile "org.springframework:spring-test:$springVersion"
     }
 }

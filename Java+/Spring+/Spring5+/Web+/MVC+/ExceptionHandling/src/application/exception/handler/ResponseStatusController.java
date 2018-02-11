@@ -45,14 +45,14 @@ class ResponseStatusController {
 
     @ExceptionHandler(NumberFormatException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "blah")
-    @ResponseBody
+    @ResponseBody //TODO @ExceptionHandler doesn't support @ResponseBody
     public String handler2() {
         return RESPONSE_STATUS_WITH_BODY_CONTENT;
     }
 
     @ExceptionHandler(ArrayIndexOutOfBoundsException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "blah")
-    @ResponseBody
+    @ResponseBody //TODO @ExceptionHandler doesn't support @ResponseBody
     public String handler3(ArrayIndexOutOfBoundsException e) {
         return e.toString();
     }

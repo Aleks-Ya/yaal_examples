@@ -29,7 +29,7 @@ configure(subprojects - project('UnitTest+:JUnit+:JUnit5+').subprojects) {
 /**
  * Add Util project to all projects.
  */
-configure(subprojects) {
+configure(subprojects - project(':Util')) {
     dependencies {
         compile project(':Util')
         testCompile project(path: ':Util', configuration: 'tests')
