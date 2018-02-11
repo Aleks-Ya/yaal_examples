@@ -1,19 +1,12 @@
 package controller.pdf.itext;
 
 import com.codeborne.pdftest.PDF;
+import controller.BaseTest;
 import controller.pdf.lowagie.UserPDFView;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import static com.codeborne.pdftest.PDF.containsText;
 import static org.junit.Assert.assertThat;
@@ -24,19 +17,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Treat the body as String using @RequestBody.
  */
-@RunWith(SpringRunner.class)
-@WebAppConfiguration
 @ContextConfiguration(classes = {ITextPdfController.class, UserPDFView.class})
-public class ITextPdfControllerTest {
-    @Autowired
-    private WebApplicationContext context;
-
-    private MockMvc mvc;
-
-    @Before
-    public void setup() {
-        mvc = MockMvcBuilders.webAppContextSetup(context).build();
-    }
+public class ITextPdfControllerTest extends BaseTest {
 
     @Test
     public void requestParam() throws Exception {
