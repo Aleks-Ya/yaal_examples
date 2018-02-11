@@ -1,24 +1,17 @@
-package controller.pdf.lowagie;
+package controller.message.converter;
 
-import com.codeborne.pdftest.PDF;
-import controller.pdf.lowagie.LowagiePdfController;
-import controller.pdf.lowagie.UserPDFView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static com.codeborne.pdftest.PDF.containsText;
-import static org.junit.Assert.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -27,8 +20,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = {LowagiePdfController.class, UserPDFView.class})
-public class LowagiePdfControllerTest {
+@ContextConfiguration(classes = StringController.class)
+public class StringControllerTest {
     @Autowired
     private WebApplicationContext context;
 
@@ -41,16 +34,12 @@ public class LowagiePdfControllerTest {
 
     @Test
     public void requestParam() throws Exception {
-        MvcResult mvcResult = mvc.perform(
-                get(LowagiePdfController.ENDPOINT)
-                        .accept(MediaType.APPLICATION_PDF)
+        mvc.perform(
+                post(StringController.ENDPOINT)
+                        .contentType("text/plain")
+                        .content("the_body")
         )
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_PDF_VALUE))
-                .andReturn();
-
-        byte[] body = mvcResult.getResponse().getContentAsByteArray();
-        PDF bodyPdf = new PDF(body);
-        assertThat(bodyPdf, containsText(LowagiePdfController.MESSAGE));
+                .andExpect(content().string("body=the_body"));
     }
 }
