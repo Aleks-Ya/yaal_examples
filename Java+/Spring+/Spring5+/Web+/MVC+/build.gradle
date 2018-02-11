@@ -1,0 +1,7 @@
+subprojects {
+    dependencies {
+        compile "org.springframework:spring-webmvc:$springVersion"
+
+        compileOnly 'javax.servlet:javax.servlet-api:4.0.0'
+    }
+}

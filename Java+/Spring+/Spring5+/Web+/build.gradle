@@ -1,10 +1,8 @@
 subprojects {
     dependencies {
-        compile "org.springframework:spring-webmvc:$springVersion",
+        compile "org.springframework:spring-web:$springVersion",
                 'com.fasterxml.jackson.core:jackson-databind:2.9.4',
                 'org.slf4j:slf4j-simple:1.7.25'
-
-        compileOnly 'javax.servlet:javax.servlet-api:4.0.0'
 
         testCompile 'com.jayway.jsonpath:json-path-assert:2.4.0'
     }
