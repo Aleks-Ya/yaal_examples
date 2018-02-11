@@ -1,0 +1,3 @@
+dependencies {
+    compile 'org.springframework.ws:spring-ws:3.0.0.RELEASE'
+}
