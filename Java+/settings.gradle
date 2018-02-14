@@ -163,4 +163,5 @@ include 'Spring+:Spring3+:AnnotationConfig+:Configuration',
         'Spring+:Spring5+:Web+:MVC+:ExceptionHandling',
         'Spring+:Spring5+:Web+:SpringRestTemplate',
         'Spring+:Spring5+:Web+:SpringWebServices',
-        'Spring+:Spring5+:Data+:SpringDataMongoDB'
+        'Spring+:Spring5+:Data+:SpringDataMongoDB',
+        'Spring+:Spring5+:Security+:MethodSecurity'

@@ -1,0 +1,10 @@
+subprojects {
+    ext {
+        springSecurityVersion = '5.0.1.RELEASE'
+    }
+    dependencies {
+        compile "org.springframework.security:spring-security-config:$springSecurityVersion"
+
+        testCompile "org.springframework.security:spring-security-test:$springSecurityVersion"
+    }
+}
