@@ -1,6 +1,6 @@
 package controller.multipart.commons;
 
-import controller.BaseTest;
+import common.BaseTest;
 import org.junit.Test;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

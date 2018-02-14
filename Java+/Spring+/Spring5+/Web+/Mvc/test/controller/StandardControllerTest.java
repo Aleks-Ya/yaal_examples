@@ -1,5 +1,6 @@
 package controller;
 
+import common.BaseTest;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 

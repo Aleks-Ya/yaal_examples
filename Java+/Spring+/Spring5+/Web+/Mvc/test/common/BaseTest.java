@@ -1,4 +1,4 @@
-package controller;
+package common;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;

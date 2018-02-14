@@ -1,7 +1,7 @@
 package controller.pdf.lowagie;
 
 import com.codeborne.pdftest.PDF;
-import controller.BaseTest;
+import common.BaseTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;

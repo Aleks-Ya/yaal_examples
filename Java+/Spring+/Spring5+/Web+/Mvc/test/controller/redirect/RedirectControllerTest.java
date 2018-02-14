@@ -1,6 +1,6 @@
 package controller.redirect;
 
-import controller.BaseTest;
+import common.BaseTest;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MvcResult;
