@@ -1,4 +1,4 @@
-package application.exception.handler;
+package exception.standard;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,16 +11,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static application.exception.handler.ResponseStatusController.*;
+import static exception.standard.StandardController.MISSING_SERVLET_PARAM_EXCEPTION;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Handle exception by annotation {@link org.springframework.web.bind.annotation.ExceptionHandler}
+ */
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = ResponseStatusController.class)
-public class ResponseStatusControllerTest {
-
+@ContextConfiguration(classes = StandardController.class)
+public class StandardControllerTest {
     @Autowired
     private WebApplicationContext context;
 
@@ -32,25 +34,16 @@ public class ResponseStatusControllerTest {
     }
 
     @Test
-    public void responseStatus() throws Exception {
-        mvc.perform(get(RESPONSE_STATUS_MAPPING))
-                .andExpect(status().isBadRequest());
+    public void missingServletRequestParameterException() throws Exception {
+        mvc.perform(get(MISSING_SERVLET_PARAM_EXCEPTION))
+                .andExpect(status().isBadRequest())
+        .andExpect(content().string(""));
     }
 
     @Test
-    public void responseStatusWithBody() throws Exception {
-        mvc.perform(get(RESPONSE_STATUS_WITH_BODY_MAPPING))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string(RESPONSE_STATUS_WITH_BODY_CONTENT));
+    public void noHandlerFoundException() throws Exception {
+        mvc.perform(get("/not_exists"))
+                .andExpect(status().is(404))
+        .andExpect(content().string(""));
     }
-
-    @Test
-    public void responseStatusWithBodyWithException() throws Exception {
-        mvc.perform(get(RESPONSE_STATUS_WITH_BODY_WITH_EXCEPTION_MAPPING))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string(
-                        "java.lang.ArrayIndexOutOfBoundsException: " +
-                                "Response Status With Body With Exception"));
-    }
-
 }

@@ -1,4 +1,4 @@
-package application.exception.controller_advice;
+package exception.controller_advice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 
-@ControllerAdvice("application.exception.controller_advice")
+@ControllerAdvice("exception.controller_advice")
 class ControllerAdviceComponent {
 
 

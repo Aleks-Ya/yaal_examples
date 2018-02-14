@@ -1,4 +1,4 @@
-package application.exception.handler.defaultt;
+package exception.handler.defaultt;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +11,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static application.exception.handler.defaultt.AllExceptionController.*;
+import static exception.handler.defaultt.AllExceptionController.FILE_NOT_FOUND_EXCEPTION;
+import static exception.handler.defaultt.AllExceptionController.MISSING_SERVLET_PARAM_EXCEPTION;
+import static exception.handler.defaultt.AllExceptionController.NUMBER_FORMAT_EXCEPTION;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

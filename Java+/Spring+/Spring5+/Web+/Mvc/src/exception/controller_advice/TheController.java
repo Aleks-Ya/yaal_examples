@@ -1,10 +1,7 @@
-package application.exception.controller_advice;
+package exception.controller_advice;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.io.FileNotFoundException;
 
 @Controller
 class TheController {

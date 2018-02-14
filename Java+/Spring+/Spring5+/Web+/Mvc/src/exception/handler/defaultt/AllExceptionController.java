@@ -1,4 +1,4 @@
-package application.exception.handler.defaultt;
+package exception.handler.defaultt;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;

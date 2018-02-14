@@ -1,4 +1,4 @@
-package application.exception.controller_advice;
+package exception.controller_advice;
 
 import org.junit.Before;
 import org.junit.Test;
