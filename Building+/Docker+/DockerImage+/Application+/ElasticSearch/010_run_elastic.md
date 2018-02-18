@@ -4,7 +4,9 @@
 
 [Link](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
 
-## Run the original build
+## Run single node
+
+### Run the original build
 
 ```
 export ELASTIC_VERSION=5.5.0
@@ -16,7 +18,7 @@ docker run -p 9200:9200 \
   docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
 ```
 
-## Run customized build
+### Run customized build
 ```
 docker build --tag=elasticsearch-custom .
 
@@ -27,6 +29,19 @@ docker run -p 9200:9200 \
   elasticsearch-custom
 ```
 
+## Run cluster
+Error `max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]`.
+Fix: `sudo sysctl -w vm.max_map_count=262144`
+```
+#Run
+docker-compose -f docker-compose-6.2.1.yml up
+
+#Stop containers, but keep volumes (can up again with the same data)
+docker-compose -f docker-compose-6.2.1.yml down
+
+#Stop containers, delete volumes (loose all data)
+docker-compose -f docker-compose-6.2.1.yml down -v
+```
 ## Test
 
 URL: http://localhost:9200
