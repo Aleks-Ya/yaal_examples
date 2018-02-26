@@ -1,0 +1,19 @@
+# Examples for setup and teardown feature
+# Documentation: http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#test-setup-and-teardown
+# Run: robot SetupTeardown.txt
+
+*** Keywords ***
+Big Setup
+    Log To Console    \nsetup-1!
+    Log To Console    setup-2!
+Big Teardown
+    Log To Console    teardown-1!
+    Log To Console    teardown-2!
+
+*** Settings ***
+Test Setup       Big Setup
+Test Teardown    Big Teardown
+
+*** Test Cases ***
+My test
+    Log To Console	testing!
