@@ -1,8 +1,17 @@
 # Index documents
 
 ##  Index single document
+### Without ID
 ```
 curl -XPOST $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME?pretty -d '{
+  "name": "John",
+  "age": 30,
+  "email": "john@mail.ru"
+}'
+```
+### With ID
+```
+curl -XPOST $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/1?pretty -d '{
   "name": "John",
   "age": 30,
   "email": "john@mail.ru"
