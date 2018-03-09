@@ -4,7 +4,7 @@
 ### Match query
 ```
 # A match query
-curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
+curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
   "query": {
       "match" : {
           "name" : "John Simon"
@@ -13,7 +13,7 @@ curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
 }'
 
 # A DON'T match query
-curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
+curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
    "query":{
       "bool":{
          "must_not":{
@@ -26,7 +26,7 @@ curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
 }'
 
 # A match query with document size
-curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
+curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
   "query": {
       "match" : {
           "name" : "John Simon"
@@ -39,7 +39,7 @@ curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
 ### Term query
 ```
 # Single condition
-curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
+curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
   "query": {
       "term": {
           "email": "john@mail.ru"
@@ -48,7 +48,7 @@ curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
 }'
 
 ## Two condition (OR)
-curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
+curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
   "query": {
     "bool": {
       "should": [
@@ -68,7 +68,7 @@ curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
 }'
 
 ## Two condition (AND)
-curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
+curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
   "query": {
     "bool": {
       "must": [
@@ -90,7 +90,7 @@ curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
 
 ## Join search (single index, two types)
 ```
-curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
+curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
   "query": {
       "term": {
           "email": "john@mail.ru"
@@ -98,5 +98,5 @@ curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
   }
 }'
 
-curl -XGET $ES_URL/$INDEX_NAME/$COMPANIES_TYPE_NAME/1?pretty
+curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$COMPANIES_TYPE_NAME/1?pretty
 ```

@@ -2,7 +2,7 @@
 
 # Match query
 ```
-curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_count?pretty -d '{
+curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_count?pretty -d '{
   "query": {
       "match" : {
           "name" : "John Simon"
@@ -14,7 +14,7 @@ curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_count?pretty -d '{
 # Term query
 ```
 # Single condition
-curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_count?pretty -d '{
+curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_count?pretty -d '{
   "query": {
       "term": {
           "email": "john@mail.ru"
@@ -23,7 +23,7 @@ curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_count?pretty -d '{
 }'
 
 ## Two condition (OR)
-curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_count?pretty -d '{
+curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_count?pretty -d '{
   "query": {
     "bool": {
       "should": [
@@ -43,7 +43,7 @@ curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_count?pretty -d '{
 }'
 
 ## Two condition (AND)
-curl -XGET $ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_count?pretty -d '{
+curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_count?pretty -d '{
   "query": {
     "bool": {
       "must": [
