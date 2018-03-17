@@ -1,0 +1,12 @@
+# Examples for standard library "Process".
+# Documentation: http://robotframework.org/robotframework/latest/libraries/Process.html
+# Run: robot Process.txt
+
+*** Settings ***
+Library		Process
+
+*** Test Cases ***
+Run JRE
+	${result}=	Run Process 	java	-version
+	Should Be Equal As Integers		${result.rc}	0
+	Should Contain		${result.stderr}	java version

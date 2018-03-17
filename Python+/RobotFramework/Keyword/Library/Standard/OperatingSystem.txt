@@ -1,0 +1,21 @@
+# Examples for standard library "OperatingSystem".
+# Documentation: http://robotframework.org/robotframework/latest/libraries/OperatingSystem.html
+# Run: robot OperatingSystem.txt
+
+*** Settings ***
+Library		OperatingSystem
+
+*** Test Cases ***
+Should
+	Should Exist						OperatingSystem.txt
+	Should Not Exist				abc.txt
+	File Should Exist				OperatingSystem.txt
+	File Should Not Exist		abc.txt
+
+Create, Read And Delete File
+	${file}=										Set Variable		example.txt
+	${expContent}=							Set Variable		Hello, world!
+	Create File 								${file} 				${expContent}
+	${actContent}=							Get File				${file}
+	Should Be Equal As Strings	${actContent}		${expContent}
+	Remove File									${file}

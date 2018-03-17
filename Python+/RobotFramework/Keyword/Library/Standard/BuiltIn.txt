@@ -11,10 +11,15 @@ Should Be
 	Should Not Be True					False
 	Should Be Empty							${EMPTY}
 
+Should Contain
+	Should Contain							abc	b
+
 Logging
 	Log				Message to log
 	Log To Console	Message to console log
 	Log Variables	level=INFO
+	&{dict}=	Create Dictionary		key=value		foo=bar
+	Log Many				${dict}
 
 Catenate with default separator
 	${text} =	Catenate	A	B
