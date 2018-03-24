@@ -14,6 +14,9 @@ docker run -p 8080:8080 -p 50000:50000 --net bridge --dns 8.8.8.8 --dns 10.66.0.
 ## Attach with bash
 `docker exec -it jenkins16 bash`
 
+## List installed plugins in container
+`docker exec jenkins16 ls -l /usr/share/jenkins/ref/plugins`
+
 ## Open Jenkins in browser:
 http://localhost:8080
 
