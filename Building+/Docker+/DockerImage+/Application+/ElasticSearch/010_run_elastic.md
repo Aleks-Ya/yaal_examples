@@ -9,12 +9,13 @@
 ### Run the original build
 
 ```
-export ELASTIC_VERSION=5.5.0
+export ELASTIC_VERSION=5.6.8
+export CONTAINER_NAME=elastic-${ELASTIC_VERSION}
 
 docker run -p 9200:9200 \
   -e "http.host=0.0.0.0"  \
   -e "transport.host=127.0.0.1" \
-  --name elastic \
+  --name ${CONTAINER_NAME} \
   docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
 ```
 

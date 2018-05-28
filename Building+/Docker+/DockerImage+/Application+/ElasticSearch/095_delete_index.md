@@ -1,3 +1,3 @@
 #  Delete index
 
-`curl -XDELETE $ES_URL/$INDEX_NAME?pretty`
+`curl -XDELETE $ES_URL/$PEOPLE_INDEX_NAME?pretty`

@@ -3,7 +3,7 @@
 ## Scroll request
 ```
 # Initial request (get 1st batch and keep context alive for 5 minutes)
-curl -XPOST "$ES_URL/$INDEX_NAME/$PERSONS_TYPE_NAME/_search?scroll=5m&pretty" -d '{
+curl -XPOST "$ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_search?scroll=5m&pretty" -d '{
   "size": 2,
   "query": {
       "match" : {

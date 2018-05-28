@@ -1,0 +1,17 @@
+# Examples for external library "DatabaseLibrary".
+# Documentation: https://github.com/Hi-Fi/robotframework-dblibrary
+
+# Preparing (without proxy):
+# pip install -vvv -U robotframework-databaselibrary
+
+# Preparing (with proxy):
+# pip install --proxy webproxy.merck.com:8080 -vvv -U robotframework-databaselibrary
+
+# Run: robot DatabaseLibrary.txt
+
+*** Settings ***
+Library		DatabaseLibrary
+
+*** Test Cases ***
+A Test
+	Should Be Equal As Strings 	200 	200

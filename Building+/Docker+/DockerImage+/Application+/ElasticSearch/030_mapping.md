@@ -1,10 +1,25 @@
 
 #  Mapping (types)
 
+## Get mapping
+```
+# For index
+curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/_mapping?pretty
+
+# For type
+curl -XGET $ES_URL/_mapping/$PERSONS_TYPE_NAME?pretty
+
+# For index and type
+curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/_mapping/$PERSONS_TYPE_NAME?pretty
+
+# For all indexes and types
+curl -XGET $ES_URL/_mapping?pretty
+```
+
 ## Add mapping (type) to exists index
 ```
 # Single mapping
-curl -XPUT $ES_URL/$INDEX_NAME/_mapping/my_new_mapping?pretty -d '
+curl -XPUT $ES_URL/$PEOPLE_INDEX_NAME/_mapping/my_new_mapping?pretty -d '
 {
   "properties": {
     "name": {
@@ -20,7 +35,7 @@ curl -XPUT $ES_URL/$INDEX_NAME/_mapping/my_new_mapping?pretty -d '
 }'
 
 # Several mappings (index should not exist)
-curl -XPUT $ES_URL/$INDEX_NAME?pretty -d '
+curl -XPUT $ES_URL/$PEOPLE_INDEX_NAME?pretty -d '
 {
   "mappings": {
     "'"$PERSONS_TYPE_NAME"'": {
@@ -48,21 +63,6 @@ curl -XPUT $ES_URL/$INDEX_NAME?pretty -d '
     }
   }
 }'
-```
-
-## Get mapping
-```
-# For index
-curl -XGET $ES_URL/$INDEX_NAME/_mapping?pretty
-
-# For type
-curl -XGET $ES_URL/_mapping/$PERSONS_TYPE_NAME?pretty
-
-# For index and type
-curl -XGET $ES_URL/$INDEX_NAME/_mapping/$PERSONS_TYPE_NAME?pretty
-
-# For all indexes and types
-curl -XGET $ES_URL/_mapping?pretty
 ```
 
 ## Delete mapping

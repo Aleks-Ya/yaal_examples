@@ -1,6 +1,6 @@
 #  Enable size
 
 ```
-curl -XPOST $ES_URL/$INDEX_NAME/_close?pretty
-curl -XPOST $ES_URL/$INDEX_NAME/_open?pretty
+curl -XPOST $ES_URL/$PEOPLE_INDEX_NAME/_close?pretty
+curl -XPOST $ES_URL/$PEOPLE_INDEX_NAME/_open?pretty
 ```

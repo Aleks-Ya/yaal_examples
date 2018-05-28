@@ -1,0 +1,22 @@
+# Examples for external library "ArchiveLibrary".
+# Documentation: https://github.com/bulkan/robotframework-archivelibrary
+
+# Preparing (without proxy):
+# pip install -vvv -U robotframework-archivelibrary
+
+# Preparing (with proxy):
+# pip install --proxy webproxy.merck.com:8080 -vvv -U robotframework-archivelibrary
+
+# Run: robot ArchiveLibrary.txt
+
+*** Settings ***
+Library		OperatingSystem
+Library		ArchiveLibrary
+
+*** Test Cases ***
+Unpack ZIP
+	${packedFile}=			Set Variable		data.txt
+	Remove File					${packedFile}
+	Extract Zip File		archive.zip
+	File Should Exist		${packedFile}
+	Remove File					${packedFile}

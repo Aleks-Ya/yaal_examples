@@ -1,0 +1,8 @@
+# Examples for variables
+# Documentation: http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#variables
+# Run: robot Variable.txt.txt
+
+*** Test Cases ***
+Declare variable in Test Case
+    ${name}=                    Set Variable  John
+    Should Be Equal As Strings  ${name}   John

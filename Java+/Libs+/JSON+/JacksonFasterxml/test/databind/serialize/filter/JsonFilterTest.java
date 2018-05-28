@@ -1,4 +1,4 @@
-package databind.deserialize.filter;
+package databind.serialize.filter;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
