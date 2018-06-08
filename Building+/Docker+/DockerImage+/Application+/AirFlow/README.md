@@ -29,14 +29,18 @@ With DNS:
 ### DAG folder is outside a container
 No DNS:
 ```
+# Run WebServer
 docker run -d \
-  --env AIRFLOW__CORE__EXECUTOR=SequentialExecutor \
+  --env AIRFLOW__CORE__FERNET_KEY="HSOUU4w4_BcmkSMIE1a8VCrO3WCb3EbJw3OfH8IV1tM=" \
   --net bridge \
   --name airflow \
   --mount type=bind,source="$(pwd)"/dags,target=/usr/local/airflow/dags \
   -p 8080:8080 \
   puckel/docker-airflow \
   webserver
+
+# Run scheduler
+docker exec -t airflow airflow scheduler --daemon
 ```
 
 ## Attach with bash
