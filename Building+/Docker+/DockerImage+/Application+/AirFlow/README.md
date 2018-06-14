@@ -4,8 +4,9 @@
 https://github.com/puckel/docker-airflow
 
 ## Run
+UI: http://localhost:8080
+
 ### DAG folder is inside a container
-No DNS:
 ```
 docker run -d \
     --net bridge \
@@ -15,19 +16,7 @@ docker run -d \
     webserver
 ```
 
-With DNS:
-```docker run -d \
-  --net bridge \
-  --name airflow \
-  -p 8080:8080 \
-  --dns 8.8.8.8 \
-  --dns 10.66.0.6 \
-  puckel/docker-airflow \
-  webserver
-```
-
 ### DAG folder is outside a container
-No DNS:
 ```
 # Run WebServer
 docker run -d \
@@ -50,8 +39,14 @@ docker exec -t airflow airflow scheduler --daemon
 `docker exec -it --user root airflow bash`
 
 ## Stop and remove the container
-`docker stop airflow`
-`docker rm airflow`
+```
+docker stop airflow
+docker rm airflow
+```
 
-## Test a DAG file
+## Test a DAG file for errors
 `docker exec -it airflow python /usr/local/airflow/dags/Varialbes.py`
+
+## Build
+`docker build --network default -t iablokov/airflow:1.0 .`
+docker run --network bridge --name airflow2 -p 8080:8080 iablokov/airflow:1.0
