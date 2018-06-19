@@ -7,6 +7,10 @@ from datetime import datetime
 name = 'John'
 assert f"Hi {name}!" == 'Hi John!'
 
+# integer
+age = 33
+assert f"I am {age} years old" == 'I am 33 years old'
+
 # decimal
 width = 10
 precision = 4
