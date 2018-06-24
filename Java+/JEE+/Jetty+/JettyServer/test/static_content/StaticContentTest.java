@@ -6,14 +6,18 @@ import org.junit.Test;
 import util.NetAsserts;
 
 import java.io.File;
+import java.net.URL;
 
 /**
  * Jetty provides static content from disk.
  */
 public class StaticContentTest {
 
+    /**
+     * Resources are stored out of classpath.
+     */
     @Test
-    public void main() throws Exception {
+    public void specialResourceDirectory() throws Exception {
         ResourceHandler handler = new ResourceHandler();
         String staticContentPath = new File("static_content").getAbsolutePath();
         handler.setResourceBase(staticContentPath);
@@ -26,6 +30,48 @@ public class StaticContentTest {
 
         NetAsserts.assertUrlContent("http://localhost:" + port, "Hi, HTML!");
         NetAsserts.assertUrlContent("http://localhost:" + port + "/nested/info.json", "{\"a\": 1}");
+
+        server.stop();
+    }
+
+    /**
+     * Resources are stored in classpath.
+     */
+    @Test
+    public void resourcesInClasspath() throws Exception {
+        ResourceHandler handler = new ResourceHandler();
+        URL res = StaticContentTest.class.getResource("index.html");
+        File staticContentDir = new File(res.getFile()).getParentFile();
+        handler.setResourceBase(staticContentDir.getAbsolutePath());
+
+        int port = 8080;
+        Server server = new Server(port);
+        server.setHandler(handler);
+        server.start();
+
+        NetAsserts.assertUrlContent("http://localhost:" + port, "Hi, Static content from resources!");
+        NetAsserts.assertUrlContent("http://localhost:" + port + "/nested/data.json", "{\"name\": \"John\"}");
+
+        server.stop();
+    }
+
+    /**
+     * Custom welcome file.
+     */
+    @Test
+    public void customWelcomeFile() throws Exception {
+        ResourceHandler handler = new ResourceHandler();
+        URL res = StaticContentTest.class.getResource("index.html");
+        File staticContentDir = new File(res.getFile()).getParentFile();
+        handler.setResourceBase(staticContentDir.getAbsolutePath());
+        handler.setWelcomeFiles(new String[]{"index2.html"});
+
+        int port = 8080;
+        Server server = new Server(port);
+        server.setHandler(handler);
+        server.start();
+
+        NetAsserts.assertUrlContent("http://localhost:" + port, "Hi, custom welcome file!");
 
         server.stop();
     }
