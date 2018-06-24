@@ -1,6 +1,9 @@
 package static_content;
 
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.ContextHandler;
+import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.junit.Test;
 import util.NetAsserts;
@@ -51,6 +54,32 @@ public class StaticContentTest {
 
         NetAsserts.assertUrlContent("http://localhost:" + port, "Hi, Static content from resources!");
         NetAsserts.assertUrlContent("http://localhost:" + port + "/nested/data.json", "{\"name\": \"John\"}");
+
+        server.stop();
+    }
+
+    /**
+     * Resources are stored in classpath.
+     */
+    @Test
+    public void customResourceRoot() throws Exception {
+        ResourceHandler handler = new ResourceHandler();
+        URL res = StaticContentTest.class.getResource("index.html");
+        File staticContentDir = new File(res.getFile()).getParentFile();
+        handler.setResourceBase(staticContentDir.getAbsolutePath());
+
+        ContextHandler staticContext = new ContextHandler("/static");
+        staticContext.setHandler(handler);
+
+        ContextHandlerCollection contexts = new ContextHandlerCollection();
+        contexts.setHandlers(new Handler[]{staticContext});
+
+        int port = 8080;
+        Server server = new Server(port);
+        server.setHandler(contexts);
+        server.start();
+
+        NetAsserts.assertUrlContent("http://localhost:" + port + "/static/nested/data.json", "{\"name\": \"John\"}");
 
         server.stop();
     }
