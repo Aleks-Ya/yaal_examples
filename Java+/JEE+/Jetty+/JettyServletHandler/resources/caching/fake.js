@@ -1,1 +1,1 @@
-console.log('hi');
+console.log('hi from static JS');

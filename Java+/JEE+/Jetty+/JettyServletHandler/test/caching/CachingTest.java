@@ -1,5 +1,6 @@
 package caching;
 
+import org.eclipse.jetty.http.MimeTypes;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
@@ -27,6 +28,9 @@ public class CachingTest {
         resourceHandler.setResourceBase(staticContentDir.getAbsolutePath());
         resourceHandler.setCacheControl("public, max-age=3600");
         resourceHandler.setEtags(true);
+        MimeTypes mimeTypes = new MimeTypes();
+        mimeTypes.addMimeMapping("js", "application/javascript");
+        resourceHandler.setMimeTypes(mimeTypes);
 
         ServletContextHandler rootContext = new ServletContextHandler();
         rootContext.setServletHandler(servletHandler);
@@ -42,8 +46,9 @@ public class CachingTest {
         server.setHandler(contexts);
         server.start();
 
-        NetAsserts.assertUrlContent("http://localhost:" + port + "/static/fake.js", "console.log('hi');");
-        NetAsserts.assertUrlContent("http://localhost:" + port + "/cache/root", "RootPageServlet");
+        NetAsserts.assertUrlContent("http://localhost:" + port + "/static/fake.js", "console.log('hi from static JS');");
+        NetAsserts.assertUrlContent("http://localhost:" + port + "/cache/root", RootPageServlet.CONTENT);
+        NetAsserts.assertUrlContent("http://localhost:" + port + "/cache/data", CachedPageServlet.CONTENT);
 
 //        while(true);
         server.stop();
