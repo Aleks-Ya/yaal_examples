@@ -8,7 +8,7 @@ from airflow.operators.bash_operator import BashOperator
 from datetime import datetime
 
 default_args = {
-    'start_date': datetime(2015, 6, 1)
+    'start_date': datetime.now()
 }
 
 dag = DAG(
