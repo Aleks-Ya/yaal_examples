@@ -13,25 +13,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <phoenix.version>4.14.0-HBase-1.1</phoenix.version>
-        <hbase.version>1.1.12</hbase.version>
+        <phoenix.version>4.14.0-HBase-1.4</phoenix.version>
+        <hbase.version>1.4.5</hbase.version>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-auth</artifactId>
-                <version>2.7.1</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -42,6 +26,8 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.curator</groupId>
@@ -58,18 +44,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-<!--        <dependency>
-            <groupId>org.apache.hbase</groupId>
-            <artifactId>hbase-shaded-client</artifactId>
-            <version>${hbase.version}</version>
-        </dependency>-->
-
-        <!--
-                <dependency>
-                    <groupId>org.apache.hadoop</groupId>
-                    <artifactId>hadoop-minicluster</artifactId>
-                </dependency>
-        -->
 
         <dependency>
             <groupId>org.apache.phoenix</groupId>
@@ -107,15 +81,7 @@
             <artifactId>hbase-testing-util</artifactId>
             <version>${hbase.version}</version>
             <scope>test</scope>
-            <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jruby</groupId>
-                    <artifactId>jruby-complete</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
-
     </dependencies>
 
     <modelVersion>4.0.0</modelVersion>
