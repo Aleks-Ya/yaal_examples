@@ -22,12 +22,13 @@ public abstract class PhoenixBaseTest extends BaseTest {
     public static void setUpBeforeClass() throws Exception {
         Configuration conf = HBaseConfiguration.create();
         setUpConfigForMiniCluster(conf);
+        int zooKeeperClientPort = 2181;
+        conf.setInt(QueryServices.ZOOKEEPER_PORT_ATTRIB, zooKeeperClientPort);
         System.setProperty("zookeeper.4lw.commands.whitelist", "stat");
         hbaseTestUtil = new HBaseTestingUtility(conf);
-        hbaseTestUtil.startMiniZKCluster(1, 2181);
+        hbaseTestUtil.startMiniZKCluster(1, zooKeeperClientPort);
         hbaseTestUtil.startMiniCluster();
-        String clientPort = hbaseTestUtil.getConfiguration().get(QueryServices.ZOOKEEPER_PORT_ATTRIB);
-        String url = JDBC_PROTOCOL + JDBC_PROTOCOL_SEPARATOR + LOCALHOST + JDBC_PROTOCOL_SEPARATOR + clientPort
+        String url = JDBC_PROTOCOL + JDBC_PROTOCOL_SEPARATOR + LOCALHOST + JDBC_PROTOCOL_SEPARATOR + zooKeeperClientPort
                 + JDBC_PROTOCOL_TERMINATOR + PHOENIX_TEST_DRIVER_URL_PARAM;
         driver = initAndRegisterTestDriver(url, ReadOnlyProps.EMPTY_PROPS);
     }

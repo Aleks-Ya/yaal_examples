@@ -1,4 +1,4 @@
-package phoenix.helper;
+package phoenix.factory;
 
 import org.apache.phoenix.util.PropertiesUtil;
 import org.junit.Test;
@@ -17,10 +17,8 @@ public class PhoenixTest {
 
     @Test
     public void test() throws Exception {
-        PhoenixCluster phoenixCluster = new PhoenixCluster();
-        phoenixCluster.init();
-        String jdbcUrl = phoenixCluster.getUrl();
-
+        PhoenixFactory phoenixFactory = new PhoenixFactory();
+        String jdbcUrl = phoenixFactory.getUrl();
 
         Properties jdbcProps = PropertiesUtil.deepCopy(TEST_PROPERTIES);
         Connection conn = DriverManager.getConnection(jdbcUrl, jdbcProps);
