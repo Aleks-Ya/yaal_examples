@@ -1,4 +1,4 @@
-package file;
+package io;
 
 import com.google.common.io.Files;
 import org.junit.Test;
