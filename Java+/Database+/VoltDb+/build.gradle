@@ -1,5 +1,5 @@
 subprojects {
     dependencies {
-        compile 'org.voltdb:voltdbclient:5.1', 'commons-io:commons-io:2.4'
+        compile 'org.voltdb:voltdbclient:5.1', 'commons-io:commons-io:2.6'
     }
 }
