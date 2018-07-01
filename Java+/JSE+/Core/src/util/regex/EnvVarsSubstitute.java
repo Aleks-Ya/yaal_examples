@@ -11,20 +11,21 @@ import java.util.regex.Pattern;
 class EnvVarsSubstitute {
     private static final Pattern P = Pattern.compile("\\$\\{(.*)}");
 
-    static String substitute(String origin, Map<String, String> envs) {
+    static String substitute(final String origin, final Map<String, String> envs) {
         if (origin == null) {
             return null;
         }
         String result = origin;
-        Matcher m = P.matcher(origin);
+        final Matcher m = P.matcher(origin);
         while (m.find()) {
-            String matchedGroup = m.group();
-            String matchedSubstring = m.group(1);
-            String[] parts = matchedSubstring.split(":");
-            String envVarName;
-            String defaultValue = null;
+            final String matchedGroup = m.group();
+            final String matchedSubstring = m.group(1);
+            final String[] parts = matchedSubstring.split(":", 2);
+            final String envVarName;
+            final String defaultValue;
             if (parts.length == 1) {
                 envVarName = matchedSubstring;
+                defaultValue = null;
             } else {
                 envVarName = parts[0];
                 defaultValue = parts[1];
@@ -32,8 +33,8 @@ class EnvVarsSubstitute {
             if (envVarName.isEmpty()) {
                 throw new IllegalArgumentException("Empty environment variable name: " + matchedGroup);
             }
-            String envValue = envs.get(envVarName);
-            String replacer = envValue != null ? envValue : defaultValue;
+            final String envValue = envs.get(envVarName);
+            final String replacer = envValue != null ? envValue : defaultValue;
             if (replacer == null) {
                 throw new IllegalArgumentException("Environment variable " + matchedSubstring + " is not found.");
             }

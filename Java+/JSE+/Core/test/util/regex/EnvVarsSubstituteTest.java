@@ -31,19 +31,22 @@ public class EnvVarsSubstituteTest {
     public void shouldReplaceVariableIfNoDefaultValueSpecified() {
         String content = "text: ${MY_VAR}_abc";
         vars.put("MY_VAR", "MY VALUE");
-
         String act = EnvVarsSubstitute.substitute(content, vars);
-
         assertThat(act, equalTo("text: MY VALUE_abc"));
     }
 
     @Test
     public void shouldUseDefaultValueIfVariableIsNotPresentInMap() {
         String content = "text: ${MY_VAR:100}_abc";
-
         String act = EnvVarsSubstitute.substitute(content, vars);
-
         assertThat(act, equalTo("text: 100_abc"));
+    }
+
+    @Test
+    public void shouldUseFirstSemicolonAsDefaultValueDelimiter() {
+        String content = "text: ${MY_VAR:jdbc:phoenix}_abc";
+        String act = EnvVarsSubstitute.substitute(content, vars);
+        assertThat(act, equalTo("text: jdbc:phoenix_abc"));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -51,8 +54,8 @@ public class EnvVarsSubstituteTest {
         EnvVarsSubstitute.substitute("text: ${}", vars);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void emptyDefaultValue() {
+    @Test
+    public void shouldReternEnvVariableIfEmptyDefaultValue() {
         vars.put("abc", "123");
         EnvVarsSubstitute.substitute("text: ${abc:}", vars);
     }
