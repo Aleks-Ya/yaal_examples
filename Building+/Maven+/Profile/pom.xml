@@ -15,6 +15,7 @@
 
         <profile>
             <id>hsql</id>
+            <properties/>
             <dependencies>
                 <dependency>
                     <groupId>org.hsqldb</groupId>
@@ -32,6 +33,7 @@
 
         <profile>
             <id>postgres</id>
+            <properties/>
             <dependencies>
                 <dependency>
                     <groupId>org.postgresql</groupId>
