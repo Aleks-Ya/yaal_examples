@@ -1,5 +1,7 @@
 package io.input_stream;
 
+import org.junit.Test;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -8,12 +10,11 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
-import org.junit.Test;
 
 /**
- * Самый простой способ преобразовать InputStream в String.
+ * Covert InputStream to String.
  */
 public class InputStreamToString {
 	private static final String CONTENT = "Привет!\nПока!";

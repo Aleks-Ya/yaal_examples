@@ -47,6 +47,18 @@ docker rm airflow
 ## Test a DAG file for errors
 `docker exec -it airflow python /usr/local/airflow/dags/Varialbes.py`
 
-## Build
-`docker build --network default -t iablokov/airflow:1.0 .`
-docker run --network bridge --name airflow2 -p 8080:8080 iablokov/airflow:1.0
+## Build and run
+`docker build --network default -t iablokov/airflow:1 .`
+```
+docker run -d \
+  --env AIRFLOW__CORE__FERNET_KEY="HSOUU4w4_BcmkSMIE1a8VCrO3WCb3EbJw3OfH8IV1tM=" \
+  --net bridge \
+  --name airflow \
+  --mount type=bind,source="$(pwd)"/dags,target=/usr/local/airflow/dags \
+  -p 8080:8080 \
+  iablokov/airflow:1 \
+  webserver
+
+  # Run scheduler
+  docker exec -t airflow airflow scheduler --daemon
+  ```
