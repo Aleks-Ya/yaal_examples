@@ -12,3 +12,6 @@ print("Datetime: ", date_time)
 
 date_time_millis = datetime.datetime(2018, 12, 25, 8, 25, 30, 500)
 print("Datetime with milliseconds: ", date_time_millis)
+
+time_delta = datetime.timedelta(seconds=3)
+print("Time delta: ", time_delta)
