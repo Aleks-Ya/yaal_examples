@@ -8,7 +8,7 @@ memory_usage_limit_megabytes = 1000
 
 
 def memory_usage_megabytes():
-    process = psutil.Process(os.getpid())
+    process = psutil.Process(pid)
     mem = process.memory_info().rss / 1000000
     return mem
 
@@ -17,6 +17,8 @@ print("Start eating memory...")
 print("Memory limit (MB): ", memory_usage_limit_megabytes)
 big_list = []
 last_memory_usage = 0
+pid = os.getpid()
+print("PID: ", pid)
 while last_memory_usage < memory_usage_limit_megabytes:
     big_list.append(datetime.now())
     if len(big_list) % 1000000 == 0:

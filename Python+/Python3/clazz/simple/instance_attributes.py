@@ -1,5 +1,6 @@
 # Instance attributes
 
+
 # Public attributes
 class MyClass:
     def __init__(self):
