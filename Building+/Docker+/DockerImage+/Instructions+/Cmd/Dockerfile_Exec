@@ -1,0 +1,3 @@
+FROM alpine:latest
+
+CMD ["echo", "Hi! I can't substitute environment variables like ${HOME}"]

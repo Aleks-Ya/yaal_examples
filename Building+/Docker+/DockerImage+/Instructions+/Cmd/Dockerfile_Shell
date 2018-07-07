@@ -1,0 +1,3 @@
+FROM alpine:latest
+
+CMD echo "Your home dir is ${HOME}"

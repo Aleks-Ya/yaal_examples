@@ -1,6 +1,7 @@
 """
-Exceed a task timeout.
-API: https://airflow.apache.org/code.html#airflow.models.BaseOperator
+NOT WORK
+Exceed a DAG timeout.
+API: https://airflow.apache.org/code.html#airflow.models.DAG
 """
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
@@ -12,15 +13,15 @@ default_args = {
 }
 
 dag = DAG(
-    'task_timeout',
-    default_args=default_args)
+    'dag_timeout',
+    default_args=default_args,
+    dagrun_timeout=timedelta(seconds=3))
 
 def sleep():
     print("Sleeping 5 seconds...")
     time.sleep(5)
 
-timeout_exceed_task = PythonOperator(
-    task_id='timeout_exceed_task',
+long_task = PythonOperator(
+    task_id='long_task',
     python_callable=sleep,
-    dag=dag,
-    execution_timeout=timedelta(seconds=3))
+    dag=dag)
