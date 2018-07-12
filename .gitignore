@@ -18,4 +18,9 @@ classes
 .classpath
 .settings
 bin
-venv
+
+#Python
+venv*
+dist
+*.egg-info
+build
