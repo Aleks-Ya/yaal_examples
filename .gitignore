@@ -24,3 +24,4 @@ venv*
 dist
 *.egg-info
 build
+Pipfile.lock
