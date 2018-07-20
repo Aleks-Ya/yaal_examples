@@ -19,6 +19,13 @@ n = dict(one=1, two=2)
 n['three'] = 3
 assert n == dict(one=1, two=2, three=3)
 
+# Join dictionaries
+a = dict(one=1, two=2)
+b = dict(one=11, three=3)
+join = a.copy()
+join.update(b)
+assert join == dict(one=11, two=2, three=3)
+
 # Size
 n = dict(one=1, two=2)
 assert len(n) == 2
