@@ -1,10 +1,10 @@
-# Consume all memory
+# Release memory after removing a fat variable
 import os
 from datetime import datetime
 
 import psutil
 
-memory_usage_limit_megabytes = 1000
+memory_usage_limit_megabytes = 500
 
 
 def memory_usage_megabytes():
@@ -24,4 +24,5 @@ while last_memory_usage < memory_usage_limit_megabytes:
     if len(big_list) % 1000000 == 0:
         last_memory_usage = memory_usage_megabytes()
         print("Element count: ", len(big_list), ". Memory usage (MB): ", last_memory_usage)
-print("The limit is exceeded")
+big_list = None
+print("Memory usage after removing big_list: ", memory_usage_megabytes())
