@@ -1,6 +1,10 @@
 # List
 
-# create
+# Create a single element list
+single_element_list = [25]
+assert single_element_list[0] == 25
+
+# Create a multi element list
 squares = [1, 4, 9, 16, 25]
 
 # length
