@@ -6,6 +6,7 @@ services:
     command: start-spark master
     hostname: master
     ports:
+      - "7077:7077"
       - "6066:6066"
       - "7070:7070"
       - "8080:8080"
