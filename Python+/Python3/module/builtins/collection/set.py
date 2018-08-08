@@ -14,3 +14,8 @@ s = {1, 2, 1}
 assert len(s) == 2
 
 # Not supported: get element by index
+
+# Sort a set
+s = {3, 2, 1}
+sorted(s)
+assert s == {1, 2, 3}
