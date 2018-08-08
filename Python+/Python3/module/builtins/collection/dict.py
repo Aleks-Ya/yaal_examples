@@ -38,4 +38,4 @@ assert n.get('one') == 1
 # Contains key?
 n = dict(one=1, two=2)
 assert 'one' in n
-assert not 'three' in n
+assert 'three' not in n
