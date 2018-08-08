@@ -10,3 +10,7 @@ assert os.path.isfile(full_name)
 os.remove(full_name)
 
 assert not os.path.isfile(full_name)
+
+
+# Delete not exist file
+os.remove('/tmp/not-exists')
