@@ -15,3 +15,6 @@ print("Datetime with milliseconds: ", date_time_millis)
 
 time_delta = datetime.timedelta(seconds=3)
 print("Time delta: ", time_delta)
+
+empty_time_delta = datetime.timedelta()
+print("Empty time delta: ", empty_time_delta)
