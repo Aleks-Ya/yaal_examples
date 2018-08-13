@@ -18,3 +18,7 @@ td = datetime.timedelta(days=1)
 td += datetime.timedelta(days=2)
 td += datetime.timedelta(days=3)
 assert td == datetime.timedelta(days=6)
+
+# Zero timedelta
+td = datetime.timedelta()
+assert td == datetime.timedelta(days=0)
