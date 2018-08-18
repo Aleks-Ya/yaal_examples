@@ -70,3 +70,7 @@ result = ''
 for i, char in enumerate(lst):
     result = result + str(i) + char
 assert result == '0a1b2c'
+
+# find element index by object
+lst = ['a', 'b', 'c']
+assert lst.index('b') == 1
