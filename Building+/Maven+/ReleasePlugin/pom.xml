@@ -12,7 +12,7 @@
 
         Run:
         mvn release:prepare
-        mvn release:perform
+        mvn release:perform -DskipTests
     </description>
 
     <scm>
