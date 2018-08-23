@@ -1,3 +1,10 @@
 requests
 psutil
 PyQt5
+phoenixdb
+lockfile
+cachecontrol
+mem_top
+lxml
+cryptography
+pympler

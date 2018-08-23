@@ -27,15 +27,33 @@ join.update(b)
 assert join == dict(one=11, two=2, three=3)
 
 # Size
-n = dict(one=1, two=2)
-assert len(n) == 2
+d = dict(one=1, two=2)
+assert len(d) == 2
 
 # Get element by key
-n = dict(one=1, two=2)
-assert n['one'] == 1
-assert n.get('one') == 1
+d = dict(one=1, two=2)
+assert d['one'] == 1
+assert d.get('one') == 1
 
 # Contains key?
-n = dict(one=1, two=2)
-assert 'one' in n
-assert 'three' not in n
+d = dict(one=1, two=2)
+assert 'one' in d
+assert 'three' not in d
+
+# Iterate keys
+d = {'a': 1, 'b': 2, 'c': 3}
+res = ''
+for key in d:
+    value = d[key]
+    res += key
+    res += str(value)
+assert res == 'a1b2c3'
+
+# Iterate keys and values
+d = {'a': 1, 'b': 2, 'c': 3}
+res = ''
+for key, value in d.items():
+    res += key
+    res += str(value)
+assert res == 'a1b2c3'
+
