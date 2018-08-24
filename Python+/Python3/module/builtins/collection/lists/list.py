@@ -25,20 +25,10 @@ assert squares[:-2] == [1, 4, 9]
 copy = squares[:]
 assert copy == squares
 
-# concatenation
-c = [1, 2] + [3, 4]
-assert c == [1, 2, 3, 4]
-
 # replace
 lst = [1, 3, 3]
 lst[1] = 2
 assert lst == [1, 2, 3]
-
-# append
-# noinspection PyListCreation
-app = [1, 2]
-app.append(3)
-assert app == [1, 2, 3]
 
 # nested lists
 lst = [[1, 2], ['a', 'b']]
