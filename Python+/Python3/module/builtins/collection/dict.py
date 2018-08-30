@@ -57,3 +57,7 @@ for key, value in d.items():
     res += str(value)
 assert res == 'a1b2c3'
 
+# Dict to a key list
+d = {'a': 1, 'b': 2, 'c': 3}
+key_list = list(d.keys())
+assert key_list == ['a', 'b', 'c']
