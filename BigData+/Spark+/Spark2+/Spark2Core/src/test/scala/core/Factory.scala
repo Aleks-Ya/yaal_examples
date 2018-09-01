@@ -12,7 +12,7 @@ object Factory {
     new SparkContext(conf)
   }
 
-  private def setEventLogDir(conf: SparkConf) = {
+  private def setEventLogDir(conf: SparkConf): Unit = {
     val logDir = sys.env.get("SPARK_HISTORY_FS_LOG_DIRECTORY")
     if (logDir.isDefined) {
       conf
