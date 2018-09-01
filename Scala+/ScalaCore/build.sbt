@@ -5,6 +5,6 @@ lazy val root = (project in file(".")).
     name := "ScalaCore",
     organization := "ru.yaal.scala",
     version := "1",
-    scalaVersion := "2.11.8",
+    scalaVersion := "2.12.6",
     libraryDependencies ++= allDeps
   )
