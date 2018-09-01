@@ -4,7 +4,7 @@ lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
       organization := "ru.yaal.examples.bigdata.spark2",
-      scalaVersion := "2.11.8",
+      scalaVersion := "2.11.12",
       version := "1"
     )),
     name := "Spark2MLlib",
