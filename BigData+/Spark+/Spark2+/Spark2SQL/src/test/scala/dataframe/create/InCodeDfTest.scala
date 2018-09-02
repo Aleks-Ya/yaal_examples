@@ -8,7 +8,7 @@ import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
 /**
   * Ways to instantiate DataFrame object.
   */
-class InCodefTest extends FlatSpec with BeforeAndAfterAll with Matchers {
+class InCodeDfTest extends FlatSpec with BeforeAndAfterAll with Matchers {
 
   "Apply schema to RDD" should "print table" in {
     val peopleRdd = Factory.ss.sparkContext.parallelize(Seq("Jhon,25", "Peter,35"))
