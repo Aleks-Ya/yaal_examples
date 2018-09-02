@@ -5,10 +5,10 @@ lazy val root = (project in file(".")).
     inThisBuild(List(
       organization := "ru.yaal.examples.bigdata.spark2",
       scalaVersion := "2.11.12",
-      version      := "1"
+      version := "1"
     )),
     name := "Spark2Core",
     libraryDependencies ++= allDeps,
-	javaOptions ++= Seq("-Xms512M", "-Xmx2048M", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled"),
-	parallelExecution in Test := false
+    javaOptions ++= Seq("-Xms512M", "-Xmx2048M", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled"),
+    parallelExecution in Test := false
   )
