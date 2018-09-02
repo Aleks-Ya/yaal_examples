@@ -14,8 +14,7 @@ lazy val root = (project in file(".")).
     assemblyJarName in assembly := "fat.jar",
     assemblyMergeStrategy in assembly := {
       case x if x.startsWith("META-INF") => MergeStrategy.discard
-      case x if x.equals("""org\pcap4j\packet\factory\StaticUnknownPacketFactory.class""") => MergeStrategy.first
-      case """org\pcap4j\packet\factory\StaticUnknownPacketFactory.class""" => MergeStrategy.first
+      case "org/pcap4j/packet/factory/StaticUnknownPacketFactory.class" => MergeStrategy.first
       case _ => MergeStrategy.deduplicate
     }
   )

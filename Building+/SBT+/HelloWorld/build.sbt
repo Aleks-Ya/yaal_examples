@@ -1,5 +1,5 @@
 /*
- * Build: sbt test
+ * Build: sbt package
  */
 import Dependencies._
 
