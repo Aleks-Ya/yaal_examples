@@ -1,3 +1,5 @@
+package connection.mode.embedded;
+
 import org.h2.tools.Server;
 import org.junit.Test;
 
