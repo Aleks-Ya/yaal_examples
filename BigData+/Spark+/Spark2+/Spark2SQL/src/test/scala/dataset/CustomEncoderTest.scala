@@ -1,6 +1,7 @@
 package dataset
 
 import factory.Factory
+import org.apache.spark.sql.Encoder
 import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
 
 class CustomEncoderTest extends FlatSpec with BeforeAndAfterAll with Matchers {
@@ -10,7 +11,7 @@ class CustomEncoderTest extends FlatSpec with BeforeAndAfterAll with Matchers {
     import sqlContext.implicits._
     val ds = Factory.ss.createDataset(Seq("John", "Mary"))
     ds.show
-    implicit val mapEncoder = org.apache.spark.sql.Encoders.kryo[People]
+    implicit val mapEncoder: Encoder[People] = org.apache.spark.sql.Encoders.kryo[People]
     val peopleDs = ds.map(name => new People(name))
     peopleDs.show
     peopleDs.foreach(println(_))

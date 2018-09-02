@@ -1,6 +1,7 @@
 package dataset
 
 import factory.Factory
+import org.apache.spark.sql.Encoder
 import org.scalatest.{FlatSpec, Matchers}
 
 class InCodeTest extends FlatSpec with Matchers {
@@ -20,7 +21,7 @@ class InCodeTest extends FlatSpec with Matchers {
   }
 
   it should "init DataSet with POJO" in {
-    implicit val mapEncoder = org.apache.spark.sql.Encoders.kryo[PeoplePojo]
+    implicit val mapEncoder: Encoder[PeoplePojo] = org.apache.spark.sql.Encoders.kryo[PeoplePojo]
     val list = List(PeoplePojo("John", 25), PeoplePojo("Petr", 30))
     val people = Factory.ss.createDataset(list).collect()
     people should contain allElementsOf list

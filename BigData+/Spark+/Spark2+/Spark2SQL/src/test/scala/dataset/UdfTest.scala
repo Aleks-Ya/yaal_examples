@@ -1,10 +1,15 @@
 package dataset
 
 import factory.Factory
+import org.apache.spark.sql.Dataset
 import org.apache.spark.sql.functions._
-import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
+import org.scalatest.{FlatSpec, Matchers}
 
-class UdfTest extends FlatSpec with BeforeAndAfterAll with Matchers {
+import scala.collection.JavaConverters._
+import scala.collection.mutable
+
+
+class UdfTest extends FlatSpec with Matchers {
 
   it should "init dataset" in {
     val sqlContext = Factory.ss.sqlContext
@@ -26,7 +31,9 @@ class UdfTest extends FlatSpec with BeforeAndAfterAll with Matchers {
     val sumUdf = udf(sum)
     val newDs = ds.withColumn("sum", sumUdf('value))
     newDs.show
-    newDs.select(col("sum").as[Int]).collectAsList should contain inOrderOnly(6, 15)
+    val dsSum: Dataset[Int] = newDs.select(col("sum").as[Int])
+    val list:mutable.Buffer[Int] = dsSum.collectAsList().asScala
+    list should contain inOrderOnly(6, 15)
   }
 
   it should "pass additional params to UDF" in {

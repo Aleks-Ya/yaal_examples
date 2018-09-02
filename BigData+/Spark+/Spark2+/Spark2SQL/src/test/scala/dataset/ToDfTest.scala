@@ -1,6 +1,7 @@
 package dataset
 
 import factory.Factory
+import org.apache.spark.sql.Encoder
 import org.scalatest.{FlatSpec, Matchers}
 
 class InCodeDfTest extends FlatSpec with Matchers {
@@ -20,10 +21,10 @@ class InCodeDfTest extends FlatSpec with Matchers {
   }
 
   it should "init DataSet with POJO" in {
-    implicit val mapEncoder = org.apache.spark.sql.Encoders.kryo[PeopleInCode]
+    implicit val mapEncoder: Encoder[PeopleInCode] = org.apache.spark.sql.Encoders.kryo[PeopleInCode]
     val list = List(PeopleInCode("John", 25), PeopleInCode("Petr", 30))
     val ds = Factory.ss.createDataset(list)
-
+    ds.show
   }
 
 }

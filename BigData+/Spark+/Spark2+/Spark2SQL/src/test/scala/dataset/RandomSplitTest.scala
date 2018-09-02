@@ -10,11 +10,11 @@ class RandomSplitTest extends FlatSpec with Matchers {
     import sqlContext.implicits._
     val ds = Factory.ss.createDataset("abcdefghij".toCharArray.map(char => char.toString))
     ds.show
-    val splitted = ds.randomSplit(Array(0.5, 0.5), 1L)
-    splitted should have size 2
-    val ds1 = splitted(0)
+    val split = ds.randomSplit(Array(0.5, 0.5), 1L)
+    split should have size 2
+    val ds1 = split(0)
     ds1.show
-    val ds2 = splitted(1)
+    val ds2 = split(1)
     ds2.show
     (ds1.count + ds2.count) shouldEqual ds.count
     ds1.count shouldEqual ds.count / 2
@@ -29,11 +29,11 @@ class RandomSplitTest extends FlatSpec with Matchers {
     val ds = Factory.ss.createDataset(arr)
     ds.show
     ds.count shouldEqual size
-    val splitted = ds.randomSplit(Array(0.5, 0.5), 1L)
-    splitted should have size 2
-    val ds1 = splitted(0)
+    val split = ds.randomSplit(Array(0.5, 0.5), 1L)
+    split should have size 2
+    val ds1 = split(0)
     ds1.show
-    val ds2 = splitted(1)
+    val ds2 = split(1)
     ds2.show
     (ds1.count + ds2.count) shouldEqual size
   }
