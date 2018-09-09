@@ -7,10 +7,15 @@ subprojects {
 
     dependencies {
         compile localGroovy()
-        testCompile 'org.junit.jupiter:junit-jupiter-api:5.3.0'
     }
 
     repositories {
         mavenCentral()
+    }
+}
+
+configure(subprojects - project('Spock')) {
+    dependencies {
+        testCompile 'org.junit.jupiter:junit-jupiter-api:5.3.0'
     }
 }
