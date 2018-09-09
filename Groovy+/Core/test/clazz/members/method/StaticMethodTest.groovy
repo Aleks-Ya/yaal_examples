@@ -1,11 +1,12 @@
 package clazz.members.method
 
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Test
+
+import static org.junit.jupiter.api.Assertions.assertEquals
 
 class StaticMethodTest {
     @Test
     void main() {
-        Assert.assertEquals(StaticMethod.getOne(), 1)
+        assertEquals(StaticMethod.getOne(), 1)
     }
 }

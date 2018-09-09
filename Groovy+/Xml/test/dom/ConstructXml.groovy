@@ -1,7 +1,7 @@
 package dom
 
 import groovy.xml.MarkupBuilder
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 /**
  * Конструирование нового XML-документа.

@@ -1,8 +1,7 @@
 package xmlparser
 
-import org.junit.Test
-
-import static org.junit.Assert.assertEquals
+import org.junit.jupiter.api.Test
+import static org.junit.jupiter.api.Assertions.assertEquals
 
 /**
  * Изменение узлов XML-документа.
@@ -15,7 +14,7 @@ class Modify {
      * Изменение содержимого узла (value).
      */
     @Test
-    public void changeValue() {
+    void changeValue() {
         def found = plan.week[0].task[1]
         println "Old: ${found.value()}"
         def s = 'New value'
@@ -28,7 +27,7 @@ class Modify {
      * Изменение значения атрибута узла.
      */
     @Test
-    public void changeAttribute() {
+    void changeAttribute() {
         def found = plan.week[0].task[1]
         println "Old: ${found.@done}"
         assertEquals('3', found.@done)
@@ -45,7 +44,7 @@ class Modify {
      * Добавление узла в XML.
      */
     @Test
-    public void addNode() {
+    void addNode() {
         assertEquals(2, plan.week.size())
         plan.appendNode('week', [first: 'today', second: 'tomorrow'])
         xmlPrinter.print(plan)

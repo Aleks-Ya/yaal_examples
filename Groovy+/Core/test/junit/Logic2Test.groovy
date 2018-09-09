@@ -1,18 +1,23 @@
 package junit
 
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.function.Executable
+
+import static org.junit.jupiter.api.Assertions.assertEquals
+import static org.junit.jupiter.api.Assertions.assertThrows
 
 class Logic2Test {
     Logic cut = new Logic()
 
     @Test
     void testGetString() {
-        Assert.assertEquals('a string', cut.string)
+        assertEquals('a string', cut.string)
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     void testThrowException() {
-        cut.throwException()
+        assertThrows(RuntimeException.class, { ->
+            cut.throwException()
+        } as Executable)
     }
 }

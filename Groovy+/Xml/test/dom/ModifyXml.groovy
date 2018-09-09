@@ -5,9 +5,8 @@ import groovy.xml.dom.DOMCategory
 import org.custommonkey.xmlunit.DetailedDiff
 import org.custommonkey.xmlunit.Diff
 import org.custommonkey.xmlunit.XMLUnit
-import org.junit.Test
-
-import static org.junit.Assert.assertTrue
+import org.junit.jupiter.api.Test
+import static org.junit.jupiter.api.Assertions.assertTrue
 
 /**
  * Изменение XML документа в памяти.
@@ -42,7 +41,7 @@ class ModifyXml {
         XMLUnit.setIgnoreWhitespace(true)
 
         DetailedDiff diff = new DetailedDiff(new Diff(expectedDoc, actualDoc))
-        assertTrue(diff.toString(), diff.similar())
+        assertTrue(diff.similar(), diff.toString())
         println plan
     }
 }

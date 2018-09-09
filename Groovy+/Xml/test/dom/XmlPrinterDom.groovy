@@ -1,8 +1,8 @@
 package dom
 
 import groovy.xml.DOMBuilder
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.w3c.dom.Element
 
 import java.nio.file.Files
@@ -14,8 +14,8 @@ class XmlPrinterDom {
     private Element plan
     private def doc
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         def reader = new InputStreamReader(xmlparser.ReadXmlFile.class.getResourceAsStream('plan.xml'))
         doc = DOMBuilder.parse(reader)
         plan = doc.documentElement
@@ -25,17 +25,17 @@ class XmlPrinterDom {
      * На консоль.
      */
     @Test
-    public void console() {
+    void console() {
         def xmlPrinter = new XmlNodePrinter()
         xmlPrinter.print(plan)
     }
 
     /**
      * В файл.
-     * НЕ ПИШЕТ В ФАЙЛ - СУКА! ВМЕСТО ФАЙЛА ПЕЧАТАЕТ В КОНСОЛЬ
+     * НЕ ПИШЕТ В ФАЙЛ - ВМЕСТО ФАЙЛА ПЕЧАТАЕТ В КОНСОЛЬ
      */
     @Test
-    public void file() {
+    void file() {
         File file = Files.createTempFile("XmlPrinterDom", ".tmp").toFile()
 //        file.deleteOnExit()
 //        println "Old: '${file.text}'"

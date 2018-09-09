@@ -1,11 +1,10 @@
 package xmlparser
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 import java.nio.file.Files
-
-import static org.junit.Assert.assertFalse
-import static org.junit.Assert.assertTrue
+import static org.junit.jupiter.api.Assertions.assertTrue
+import static org.junit.jupiter.api.Assertions.assertFalse
 
 /**
  * Вывод отформатированного XML на консоль и в файл.
@@ -17,7 +16,7 @@ class XmlPrinter {
      * На консоль.
      */
     @Test
-    public void console() {
+    void console() {
         def xmlPrinter = new XmlNodePrinter()
         xmlPrinter.print(plan)
     }
@@ -26,7 +25,7 @@ class XmlPrinter {
      * В файл.
      */
     @Test
-    public void file() {
+    void file() {
         File file = Files.createTempFile("XmlPrinter", ".tmp").toFile()
         file.deleteOnExit()
         println "'${file.text}'"
