@@ -7,3 +7,7 @@ assert len('abc') == 3
 s = ''
 is_empty = not s
 assert is_empty
+
+# is not empty
+s = 'a'
+assert s
