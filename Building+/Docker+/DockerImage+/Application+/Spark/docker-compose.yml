@@ -2,7 +2,7 @@ version: "2"
 
 services:
   master:
-    image: singularities/spark
+    image: singularities/spark:2.2
     command: start-spark master
     hostname: master
     ports:
@@ -12,7 +12,7 @@ services:
       - "8080:8080"
       - "50070:50070"
   worker:
-    image: singularities/spark
+    image: singularities/spark:2.2
     command: start-spark worker master
     environment:
       SPARK_WORKER_CORES: 1
