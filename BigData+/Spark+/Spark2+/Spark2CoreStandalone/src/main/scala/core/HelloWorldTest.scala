@@ -7,20 +7,22 @@ package core
 
 import org.apache.spark.{SparkConf, SparkContext}
 
-import scala.util.Random
-
 object HelloWorldTest {
 
   def main(args: Array[String]): Unit = {
     println("Start")
+    val jars = Seq("target/scala-2.11/fat.jar")
     val conf = new SparkConf()
       .setAppName(getClass.getSimpleName)
+      .setMaster("spark://172.22.0.2:7077")
+      .setJars(jars)
     val sc = new SparkContext(conf)
     val words = Seq("Hello, ", "World", "!")
     val greeting = sc.parallelize(words).reduce(_ + _)
     assert("Hello, World!".equals(greeting))
     println("Greeting: " + greeting)
     println("Finish")
+    sc.stop()
   }
 
 }

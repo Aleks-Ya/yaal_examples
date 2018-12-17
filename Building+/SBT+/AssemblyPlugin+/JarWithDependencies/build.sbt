@@ -1,5 +1,6 @@
 /*
  * Run: sbt assembly
+ * Result: JarWithDependencies/target/scala-2.11/fat.jar
  */
 import Dependencies._
 
