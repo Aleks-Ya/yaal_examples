@@ -18,3 +18,7 @@ print("Time delta: ", time_delta)
 
 empty_time_delta = datetime.timedelta()
 print("Empty time delta: ", empty_time_delta)
+
+# Today
+today = datetime.date.today()
+print("Today: ", today)
