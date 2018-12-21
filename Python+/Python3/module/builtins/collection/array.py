@@ -1,5 +1,9 @@
 # Using arrays
 
+# One-dimensional array
+a = ['a', 'b', 'c']
+assert a[0] == 'a'
+
 # Multidimensional array
 x = {(0, 0, 0): 11,
      (1, 0, 0): 21,
