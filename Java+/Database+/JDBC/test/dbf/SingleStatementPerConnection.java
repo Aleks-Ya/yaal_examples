@@ -1,4 +1,4 @@
-package connection;
+package dbf;
 
 import org.junit.Test;
 
