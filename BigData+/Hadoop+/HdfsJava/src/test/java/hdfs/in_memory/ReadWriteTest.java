@@ -1,4 +1,4 @@
-package hdfs;
+package hdfs.in_memory;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
@@ -28,18 +28,22 @@ public class ReadWriteTest {
 
         String hdfsURI = "hdfs://localhost:" + hdfsCluster.getNameNodePort() + "/";
         System.out.println("HDFS URI: " + hdfsURI);
-        DistributedFileSystem fileSystem = hdfsCluster.getFileSystem();
+        DistributedFileSystem fs = hdfsCluster.getFileSystem();
 
-        Path p = new Path(hdfsURI, "tmp/my.txt");
+        Path path = new Path(hdfsURI, "tmp/my.txt");
 
-        FSDataOutputStream myOS = fileSystem.create(p);
+        if (fs.exists(path)) {
+            fs.delete(path, false);
+        }
+
+        FSDataOutputStream os = fs.create(path);
         String expContent = "hi!";
-        myOS.writeUTF(expContent);
-        myOS.close();
+        os.writeUTF(expContent);
+        os.close();
 
-        FSDataInputStream myIS = fileSystem.open(p);
-        String actContent = myIS.readUTF();
-        myIS.close();
+        FSDataInputStream is = fs.open(path);
+        String actContent = is.readUTF();
+        is.close();
 
         assertEquals(expContent, actContent);
 
