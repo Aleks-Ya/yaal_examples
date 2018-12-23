@@ -1,7 +1,11 @@
 package hbase;
 
-import org.apache.hadoop.hbase.HBaseTestingUtility;
+import org.apache.hadoop.hbase.HColumnDescriptor;
+import org.apache.hadoop.hbase.HTableDescriptor;
+import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.Get;
+import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.Table;
@@ -16,34 +20,44 @@ public class PutTest {
 
     @Test
     public void put() throws IOException {
-        byte[] cf = "CF".getBytes();
+        HBaseAdmin admin = HBaseHelper.admin;
+        Connection connection = HBaseHelper.connection;
+
+        String columnFamilyName = "CF2";
+        byte[] cf = columnFamilyName.getBytes();
         byte[] cq1 = "CQ-1".getBytes();
         byte[] cq2 = "CQ-2".getBytes();
 
-        HBaseTestingUtility utility = HBaseHelper.utility;
-        String tableName = getClass().getName();
-        Table table = utility.createTable(Bytes.toBytes(tableName), cf);
-        HBaseTestObj obj = new HBaseTestObj();
-        obj.setRowKey("ROWKEY-1");
-        obj.setData1("DATA-1");
-        obj.setData2("DATA-2");
+        String tableNameStr = getClass().getName();
+        TableName tableName = TableName.valueOf(tableNameStr);
+        HTableDescriptor tableDescriptor = new HTableDescriptor(tableName);
+        tableDescriptor.addFamily(new HColumnDescriptor(columnFamilyName));
+        admin.createTable(tableDescriptor);
+        Table table = connection.getTable(tableName);
 
-        Put put = new Put(Bytes.toBytes(obj.getRowKey()));
-        put.addColumn(Bytes.toBytes("CF"), Bytes.toBytes("CQ-1"), Bytes.toBytes(obj.getData1()));
-        put.addColumn(Bytes.toBytes("CF"), Bytes.toBytes("CQ-2"), Bytes.toBytes(obj.getData2()));
+        String rowKeyStr = "ROWKEY-1";
+        String rowData1Str = "DATA-1";
+        String rowData2Str = "DATA-2";
+
+        byte[] rowKeyBytes = Bytes.toBytes(rowKeyStr);
+        byte[] rowData1Bytes = Bytes.toBytes(rowData1Str);
+        byte[] rowData2Bytes = Bytes.toBytes(rowData2Str);
+
+        Put put = new Put(rowKeyBytes);
+        put.addColumn(cf, cq1, rowData1Bytes);
+        put.addColumn(cf, cq2, rowData2Bytes);
         table.put(put);
 
-
-        Get get1 = new Get(Bytes.toBytes(obj.getRowKey()));
+        Get get1 = new Get(rowKeyBytes);
         get1.addColumn(cf, cq1);
         Result result1 = table.get(get1);
-        assertEquals(Bytes.toString(result1.getRow()), obj.getRowKey());
-        assertEquals(Bytes.toString(result1.value()), obj.getData1());
+        assertEquals(Bytes.toString(result1.getRow()), rowKeyStr);
+        assertEquals(Bytes.toString(result1.value()), rowData1Str);
 
-        Get get2 = new Get(Bytes.toBytes(obj.getRowKey()));
+        Get get2 = new Get(rowKeyBytes);
         get2.addColumn(cf, cq2);
         Result result2 = table.get(get2);
-        assertEquals(Bytes.toString(result2.getRow()), obj.getRowKey());
-        assertEquals(Bytes.toString(result2.value()), obj.getData2());
+        assertEquals(Bytes.toString(result2.getRow()), rowKeyStr);
+        assertEquals(Bytes.toString(result2.value()), rowData2Str);
     }
 }
