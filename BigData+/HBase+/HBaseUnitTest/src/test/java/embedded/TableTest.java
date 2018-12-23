@@ -1,4 +1,4 @@
-package hbase;
+package embedded;
 
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
@@ -37,7 +37,7 @@ public class TableTest {
         assertFalse(admin.tableExists("not_exist_namespace:my_table"));
         assertFalse(admin.tableExists("not_exist_namespace:my_table".getBytes()));
 
-        TableName existTableName = TableName.valueOf("hbase", "meta");
+        TableName existTableName = TableName.valueOf("embedded", "meta");
         assertTrue(admin.tableExists(existTableName));
         assertTrue(admin.tableExists("hbase:meta"));
         assertTrue(admin.tableExists("hbase:meta".getBytes()));

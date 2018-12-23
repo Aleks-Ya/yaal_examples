@@ -1,4 +1,4 @@
-package hbase;
+package embedded;
 
 import org.apache.hadoop.hbase.HBaseTestingUtility;
 import org.apache.hadoop.hbase.client.Connection;

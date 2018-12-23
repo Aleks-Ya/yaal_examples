@@ -40,7 +40,7 @@ public class ClusterPutTest {
         config.setBoolean(HConstants.ZOOKEEPER_USEMULTI, true);
         config.set(HConstants.ZOOKEEPER_ZNODE_PARENT, "/hbase-unsecure-3");
 
-        UserGroupInformation ugi = UserGroupInformation.createRemoteUser("hbase");
+        UserGroupInformation ugi = UserGroupInformation.createRemoteUser("embedded");
         UserGroupInformation.setLoginUser(ugi);
 
         return config;
