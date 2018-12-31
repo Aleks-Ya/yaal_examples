@@ -1,23 +1,17 @@
-FROM centos:7
+ARG HADOOP_VERSION=2.9.2
+FROM hadoop-base-image-${HADOOP_VERSION}:1.0
+ARG HADOOP_VERSION
 
-LABEL description="Setup a Hadoop Single Node Cluster in Local Mode and \
-run a standard example application."
-
-RUN yum install -y java rsync wget tar which \
-  openssh-clients openssh-server net-tools nano
+RUN yum install -y rsync which openssh-clients openssh-server net-tools nano
 
 ENV JAVA_HOME=/etc/alternatives/jre
 ENV HADOOP_DIR=/opt/hadoop
-ENV HADOOP_VERSION=2.9.2
-
-RUN wget -O /tmp/hadoop.tar.gz http://mirror.linux-ia64.org/apache/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz \
-  && tar -zxvf /tmp/hadoop.tar.gz -C /opt/ \
-  && mv /opt/hadoop-${HADOOP_VERSION} /opt/hadoop \
-  && rm -f /tmp/hadoop.tar.gz
 
 RUN mkdir ${HADOOP_DIR}/input \
   && cp ${HADOOP_DIR}/etc/hadoop/*.xml ${HADOOP_DIR}/input \
-  && sed -i "s@\${JAVA_HOME}@${JAVA_HOME}@g" ${HADOOP_DIR}/etc/hadoop/hadoop-env.sh
+  && sed -i "s@\${JAVA_HOME}@${JAVA_HOME}@g" ${HADOOP_DIR}/etc/hadoop/hadoop-env.sh \
+  && mv ${HADOOP_DIR}/share/hadoop/mapreduce/hadoop-mapreduce-examples-${HADOOP_VERSION}.jar \
+        ${HADOOP_DIR}/share/hadoop/mapreduce/hadoop-mapreduce-examples.jar
 
 ADD core-site.xml ${HADOOP_DIR}/etc/hadoop/
 ADD hdfs-site.xml ${HADOOP_DIR}/etc/hadoop/
@@ -41,6 +35,6 @@ CMD /usr/sbin/sshd \
   && bin/hdfs dfs -mkdir -p /user/$USER \
   && bin/hdfs dfs -mkdir -p input \
   && bin/hdfs dfs -put ./etc/hadoop/* input/ \
-  && ./bin/hadoop jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-${HADOOP_VERSION}.jar grep ./input ./output 'dfs[a-z.]+' \
+  && ./bin/hadoop jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples.jar grep ./input ./output 'dfs[a-z.]+' \
   && bin/hdfs dfs -get output ./output \
   && cat output/*
