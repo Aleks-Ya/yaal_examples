@@ -4,17 +4,17 @@
 https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-common/SingleCluster.html
 
 ## Build image
-`docker build -t hadoop-single-node-cluster .`
+`./build.sh`
 
 ## Run image
 Run standard MapReduce example:
 
-`docker run --rm --name hadoop-single-node hadoop-single-node-cluster`
+`./run.sh`
 
 Execute HDFS commands:
 
-`docker run --rm --name hadoop-single-node hadoop-single-node-cluster ./bin/hdfs dfs -ls /`
+`./run.sh ./bin/hdfs dfs -ls /`
 
 Run custom command in container:
 
-`docker run --rm --name hadoop-single-node hadoop-single-node-cluster java --version`
+`./run.sh java -version`
