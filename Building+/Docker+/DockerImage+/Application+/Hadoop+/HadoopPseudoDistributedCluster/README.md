@@ -4,19 +4,19 @@
 https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-common/SingleCluster.html#Pseudo-Distributed_Operation
 
 ## Build image
-`docker build -t hadoop-pseudo-distributed-cluster .`
+`./build.sh`
 
 ## Run image
 Run standard MapReduce example:
 
-`docker run --rm --name hadoop-pseudo-distributed hadoop-pseudo-distributed-cluster`
+`./run.sh`
 
 Do HDFS command:
 
-`docker run --rm --name hadoop-single-node hadoop-pseudo-distributed-cluster ./bin/hdfs dfs -ls /`
+`docker run --rm hadoop-pseudo-distributed-cluster ./bin/hdfs dfs -ls /`
 
 ## Run command in container
-`docker run --rm --name hadoop-single-node hadoop-pseudo-distributed-cluster java --version`
+`./run.sh java -version`
 
 ## Run Bash
-`docker run --rm -it --name hadoop-single-node hadoop-pseudo-distributed-cluster bash`
+`docker run --rm -it hadoop-pseudo-distributed-cluster bash`
