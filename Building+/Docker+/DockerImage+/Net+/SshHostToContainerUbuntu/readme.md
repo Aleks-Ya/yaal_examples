@@ -1,10 +1,10 @@
-# A Docker container ready to SSH connection.
+# A Docker container ready to SSH connection (based on Ubuntu).
 
 ## Build Docker image:
-`docker build -t docker-ssh-connection:1 .`
+`docker build -t ssh-host-to-container-ubuntu .`
 
 ## Run Docker image
-`docker run -p 52022:22 -tid --name ssh docker-ssh-connection:1`
+`docker run -p 52022:22 -tid --name ssh ssh-host-to-container-ubuntu`
 
 ## Show container's IP
 `docker exec ssh hostname -I`
