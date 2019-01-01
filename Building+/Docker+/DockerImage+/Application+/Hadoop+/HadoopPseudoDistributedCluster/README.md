@@ -11,12 +11,10 @@ Run standard MapReduce example:
 
 `./run.sh`
 
-Do HDFS command:
+Run command in container
 
-`docker run --rm hadoop-pseudo-distributed-cluster ./bin/hdfs dfs -ls /`
-
-## Run command in container
 `./run.sh java -version`
 
-## Run Bash
-`docker run --rm -it hadoop-pseudo-distributed-cluster bash`
+Run Bash
+
+`/run.sh bash`

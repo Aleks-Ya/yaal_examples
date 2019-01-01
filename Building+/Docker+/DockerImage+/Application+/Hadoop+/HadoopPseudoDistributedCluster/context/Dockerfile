@@ -19,19 +19,17 @@ ADD hdfs-site.xml ${HADOOP_DIR}/etc/hadoop/
 RUN ssh-keygen -A \
   && echo 'root:screencast' | chpasswd \
   && sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
-  && sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+  && sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config \
+  && mkdir ~/.ssh/ \
+  && ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa \
+  && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys \
+  && chmod 0600 ~/.ssh/authorized_keys
 
 WORKDIR ${HADOOP_DIR}
-
-RUN yum install -y  systemd-sysv
 
 CMD /usr/sbin/sshd \
   && ssh -o StrictHostKeyChecking=no localhost cat /dev/null \
   && ssh -o StrictHostKeyChecking=no 0.0.0.0 cat /dev/null \
-  && mkdir ~/.ssh/ \
-  && ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa \
-  && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys \
-  && chmod 0600 ~/.ssh/authorized_keys \
   && bin/hdfs namenode -format \
   && ./sbin/start-dfs.sh \
   && bin/hdfs dfs -mkdir -p /user/$USER \
