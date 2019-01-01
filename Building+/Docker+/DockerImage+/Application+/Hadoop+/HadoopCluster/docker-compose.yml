@@ -1,0 +1,29 @@
+version: '3'
+services:
+  master-service:
+    container_name: hadoop-cluster-master
+    build:
+      context: context
+    ports:
+      - "8088:8088"
+      - "50070:50070"
+      - "9000:9000"
+      - "51075:50075"
+    hostname: master-service
+    entrypoint: ./entrypoint_master.sh
+    volumes:
+      - /tmp/logs-hadoop:/tmp/logs
+  slave-service:
+    container_name: hadoop-cluster-slave
+    build:
+      context: context
+    ports:
+      - "50075:50075"
+      - "50010:50010"
+    links:
+      - master-service
+    depends_on:
+      - master-service
+    tty: true
+    hostname: slave-service
+    entrypoint: ./entrypoint_slave.sh
