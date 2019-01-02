@@ -8,6 +8,7 @@ ENV JAVA_HOME=/etc/alternatives/jre
 ENV HADOOP_PREFIX=/opt/hadoop
 ENV HADOOP_CONF_DIR=${HADOOP_PREFIX}/etc/hadoop
 ENV HADOOP_LOG_DIR=/tmp/logs
+ENV PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin
 RUN mkdir -p ${HADOOP_LOG_DIR}
 
 RUN mkdir ${HADOOP_PREFIX}/input \
