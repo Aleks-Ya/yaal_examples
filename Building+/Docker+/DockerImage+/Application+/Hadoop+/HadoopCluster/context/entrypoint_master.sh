@@ -24,6 +24,8 @@ $HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs sta
 echo "Starting DataNode..."
 $HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start datanode
 
+$HADOOP_PREFIX/bin/hdfs haadmin -transitionToActive --forceactive nn1
+
 SIGINT=2
 SIGTERM=15
 stop()

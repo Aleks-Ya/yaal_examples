@@ -12,8 +12,8 @@ echo "Starting JournalNode..."
 $HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR start journalnode
 
 echo "Starting Standby NameNode..."
-#$HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode -bootstrapStandby
-#$HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode -initializeSharedEdits
+$HADOOP_PREFIX/bin/hdfs namenode -bootstrapStandby
+$HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode
 
 echo "Starting DataNode..."
 $HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start datanode

@@ -12,9 +12,7 @@ RUN mkdir -p ${HADOOP_LOG_DIR}
 
 RUN mkdir ${HADOOP_PREFIX}/input \
   && cp ${HADOOP_PREFIX}/etc/hadoop/*.xml ${HADOOP_PREFIX}/input \
-  && sed -i "s@\${JAVA_HOME}@${JAVA_HOME}@g" ${HADOOP_PREFIX}/etc/hadoop/hadoop-env.sh \
-  && mv ${HADOOP_PREFIX}/share/hadoop/mapreduce/hadoop-mapreduce-examples-${HADOOP_VERSION}.jar \
-        ${HADOOP_PREFIX}/share/hadoop/mapreduce/hadoop-mapreduce-examples.jar
+  && sed -i "s@\${JAVA_HOME}@${JAVA_HOME}@g" ${HADOOP_PREFIX}/etc/hadoop/hadoop-env.sh
 
 ADD core-site.xml ${HADOOP_CONF_DIR}
 ADD hdfs-site.xml ${HADOOP_CONF_DIR}
@@ -36,8 +34,3 @@ ADD entrypoint_slave_2.sh ${HADOOP_PREFIX}
 ADD run_application.sh ${HADOOP_PREFIX}
 
 WORKDIR ${HADOOP_PREFIX}
-
-EXPOSE 8088
-EXPOSE 22
-EXPOSE 8485
-EXPOSE 8020

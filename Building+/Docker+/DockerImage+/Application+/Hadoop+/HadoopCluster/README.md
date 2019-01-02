@@ -26,6 +26,8 @@ Run HDFS command:
 `docker stop hadoop-yarn-single`
 
 ## UI
-- Yarn Web UI: http://localhost:8088
-- HDFS Name node UI: http://localhost:50070
-- HDFS Data node UI: http://localhost:50075
+- Active Name Node UI: http://localhost:50070
+- Standby Name Node UI: http://localhost:51070
+- Data Node 1 UI: http://localhost:50075
+- Data Node 2 UI: http://localhost:51075
+- Data Node 3 UI: http://localhost:52075
