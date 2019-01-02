@@ -1,5 +1,9 @@
 <configuration>
     <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://mycluster</value>
+    </property>
+    <property>
         <name>dfs.replication</name>
         <value>1</value>
     </property>
@@ -9,7 +13,7 @@
     </property>
     <property>
         <name>dfs.ha.namenodes.mycluster</name>
-        <value>nn1,nn2</value>
+        <value>nn1,nn2,nn3</value>
     </property>
     <property>
         <name>dfs.namenode.rpc-address.mycluster.nn1</name>
@@ -17,7 +21,11 @@
     </property>
     <property>
         <name>dfs.namenode.rpc-address.mycluster.nn2</name>
-        <value>slave-service:8020</value>
+        <value>slave-service-1:8020</value>
+    </property>
+    <property>
+        <name>dfs.namenode.rpc-address.mycluster.nn3</name>
+        <value>slave-service-2:8020</value>
     </property>
     <property>
         <name>dfs.namenode.http-address.mycluster.nn1</name>
@@ -25,11 +33,15 @@
     </property>
     <property>
         <name>dfs.namenode.http-address.mycluster.nn2</name>
-        <value>slave-service:50070</value>
+        <value>slave-service-1:50070</value>
+    </property>
+    <property>
+        <name>dfs.namenode.http-address.mycluster.nn3</name>
+        <value>slave-service-2:50070</value>
     </property>
     <property>
         <name>dfs.namenode.shared.edits.dir</name>
-        <value>qjournal://master-service:8485;slave-service:8485/mycluster</value>
+        <value>qjournal://master-service:8485;slave-service-1;slave-service-2:8485/mycluster</value>
     </property>
     <property>
         <name>dfs.client.failover.proxy.provider.mycluster</name>
@@ -45,7 +57,7 @@
     </property>
     <property>
         <name>dfs.ha.fencing.methods</name>
-        <value>shell(/path/to/my/script.sh arg1 arg2 ...)</value>
+        <value>shell(/bin/true)</value>
     </property>
     <property>
         <name>dfs.journalnode.edits.dir</name>

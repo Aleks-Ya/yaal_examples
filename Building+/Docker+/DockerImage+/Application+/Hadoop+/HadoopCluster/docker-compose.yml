@@ -12,9 +12,9 @@ services:
     hostname: master-service
     entrypoint: ./entrypoint_master.sh
     volumes:
-      - /tmp/logs-hadoop:/tmp/logs
-  slave-service:
-    container_name: hadoop-cluster-slave
+      - /tmp/logs-hadoop/master:/tmp/logs
+  slave-service-1:
+    container_name: hadoop-cluster-slave-1
     build:
       context: context
     ports:
@@ -25,8 +25,28 @@ services:
     depends_on:
       - master-service
     tty: true
-    hostname: slave-service
-    entrypoint: ./entrypoint_slave.sh
+    hostname: slave-service-1
+    entrypoint: ./entrypoint_slave_1.sh
+    volumes:
+      - /tmp/logs-hadoop/slave-1:/tmp/logs
+  slave-service-2:
+    container_name: hadoop-cluster-slave-2
+    build:
+      context: context
+    ports:
+      - "52075:50075"
+      - "52070:50070"
+    links:
+      - master-service
+      - slave-service-1
+    depends_on:
+      - master-service
+      - slave-service-1
+    tty: true
+    hostname: slave-service-2
+    entrypoint: ./entrypoint_slave_2.sh
+    volumes:
+      - /tmp/logs-hadoop/slave-2:/tmp/logs
 networks:
   default:
     name: hadoop-cluster-network

@@ -1,5 +1,8 @@
 # Hadoop YARN on single node
 
+## TODO
+1. Rename "Hadoop Cluster" to "HDFS HA Cluster"
+
 ## Documentation
 https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-common/SingleCluster.html#YARN_on_a_Single_Node
 
@@ -23,6 +26,6 @@ Run HDFS command:
 `docker stop hadoop-yarn-single`
 
 ## UI
-- Hadoop UI: http://localhost:8088
+- Yarn Web UI: http://localhost:8088
 - HDFS Name node UI: http://localhost:50070
 - HDFS Data node UI: http://localhost:50075

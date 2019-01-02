@@ -2,7 +2,7 @@ ARG HADOOP_VERSION=2.9.2
 FROM hadoop-base-image-${HADOOP_VERSION}:1.0
 ARG HADOOP_VERSION
 
-RUN yum install -y rsync which openssh-clients openssh-server net-tools nano
+RUN yum install -y rsync which openssh-clients openssh-server net-tools nano telnet less
 
 ENV JAVA_HOME=/etc/alternatives/jre
 ENV HADOOP_PREFIX=/opt/hadoop
@@ -31,7 +31,8 @@ RUN ssh-keygen -A \
   && chmod 0600 ~/.ssh/authorized_keys
 
 ADD entrypoint_master.sh ${HADOOP_PREFIX}
-ADD entrypoint_slave.sh ${HADOOP_PREFIX}
+ADD entrypoint_slave_1.sh ${HADOOP_PREFIX}
+ADD entrypoint_slave_2.sh ${HADOOP_PREFIX}
 ADD run_application.sh ${HADOOP_PREFIX}
 
 WORKDIR ${HADOOP_PREFIX}
@@ -40,5 +41,3 @@ EXPOSE 8088
 EXPOSE 22
 EXPOSE 8485
 EXPOSE 8020
-
-ENTRYPOINT ["./entrypoint.sh"]

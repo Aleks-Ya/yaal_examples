@@ -5,12 +5,16 @@ set -e
 ssh -o StrictHostKeyChecking=no localhost cat /dev/null
 ssh -o StrictHostKeyChecking=no 0.0.0.0 cat /dev/null
 ssh -o StrictHostKeyChecking=no master-service cat /dev/null
-ssh -o StrictHostKeyChecking=no slave-service cat /dev/null
+ssh -o StrictHostKeyChecking=no slave-service-1 cat /dev/null
+ssh -o StrictHostKeyChecking=no slave-service-2 cat /dev/null
 
 echo "Starting JournalNode..."
 $HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR start journalnode
+
 echo "Starting Standby NameNode..."
 $HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode -bootstrapStandby
+#$HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode -initializeSharedEdits
+
 echo "Starting DataNode..."
 $HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start datanode
 
