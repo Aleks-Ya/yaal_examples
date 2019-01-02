@@ -4,10 +4,10 @@
 Source: https://docs.docker.com/engine/examples/running_ssh_service/
 
 ## Build Docker image:
-`docker build -t ssh-host-to-container-centos .`
+`./build.sh`
 
 ## Run Docker image
-`docker run --rm --name ssh-centos ssh-host-to-container-centos`
+`./run.sh`
 
 ## Show container's IP
 `docker exec ssh-centos hostname -I`
@@ -15,11 +15,8 @@ Source: https://docs.docker.com/engine/examples/running_ssh_service/
 ## Connect via bash
 `docker exec -it ssh-centos bash`
 
-## Remove container
-```
-docker stop ssh-centos
-docker rm ssh-centos
-```
+## Stop container
+`docker stop ssh-centos`
 
 ## Connect via SSH
 ### By password
