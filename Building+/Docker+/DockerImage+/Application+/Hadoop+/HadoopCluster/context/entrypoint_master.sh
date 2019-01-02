@@ -20,7 +20,7 @@ $HADOOP_PREFIX/bin/hdfs namenode -format
 
 echo "Starting Active NameNode..."
 $HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode
-#${HADOOP_PREFIX}/sbin/start-dfs.sh
+
 echo "Starting DataNode..."
 $HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start datanode
 

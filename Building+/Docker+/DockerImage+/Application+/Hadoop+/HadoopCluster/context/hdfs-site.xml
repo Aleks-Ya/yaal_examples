@@ -13,7 +13,7 @@
     </property>
     <property>
         <name>dfs.ha.namenodes.mycluster</name>
-        <value>nn1,nn2,nn3</value>
+        <value>nn1,nn2</value>
     </property>
     <property>
         <name>dfs.namenode.rpc-address.mycluster.nn1</name>
@@ -41,7 +41,7 @@
     </property>
     <property>
         <name>dfs.namenode.shared.edits.dir</name>
-        <value>qjournal://master-service:8485;slave-service-1;slave-service-2:8485/mycluster</value>
+        <value>qjournal://master-service:8485;slave-service-1:8485;slave-service-2:8485/mycluster</value>
     </property>
     <property>
         <name>dfs.client.failover.proxy.provider.mycluster</name>
