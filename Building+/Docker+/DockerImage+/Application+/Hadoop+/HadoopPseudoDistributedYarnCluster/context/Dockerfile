@@ -5,18 +5,18 @@ ARG HADOOP_VERSION
 RUN yum install -y rsync which openssh-clients openssh-server net-tools nano
 
 ENV JAVA_HOME=/etc/alternatives/jre
-ENV HADOOP_DIR=/opt/hadoop
+ENV HADOOP_PREFIX=/opt/hadoop
 
-RUN mkdir ${HADOOP_DIR}/input \
-  && cp ${HADOOP_DIR}/etc/hadoop/*.xml ${HADOOP_DIR}/input \
-  && sed -i "s@\${JAVA_HOME}@${JAVA_HOME}@g" ${HADOOP_DIR}/etc/hadoop/hadoop-env.sh \
-  && mv ${HADOOP_DIR}/share/hadoop/mapreduce/hadoop-mapreduce-examples-${HADOOP_VERSION}.jar \
-        ${HADOOP_DIR}/share/hadoop/mapreduce/hadoop-mapreduce-examples.jar
+RUN mkdir ${HADOOP_PREFIX}/input \
+  && cp ${HADOOP_PREFIX}/etc/hadoop/*.xml ${HADOOP_PREFIX}/input \
+  && sed -i "s@\${JAVA_HOME}@${JAVA_HOME}@g" ${HADOOP_PREFIX}/etc/hadoop/hadoop-env.sh \
+  && mv ${HADOOP_PREFIX}/share/hadoop/mapreduce/hadoop-mapreduce-examples-${HADOOP_VERSION}.jar \
+        ${HADOOP_PREFIX}/share/hadoop/mapreduce/hadoop-mapreduce-examples.jar
 
-ADD core-site.xml ${HADOOP_DIR}/etc/hadoop/
-ADD hdfs-site.xml ${HADOOP_DIR}/etc/hadoop/
-ADD mapred-site.xml ${HADOOP_DIR}/etc/hadoop/
-ADD yarn-site.xml ${HADOOP_DIR}/etc/hadoop/
+ADD core-site.xml ${HADOOP_PREFIX}/etc/hadoop/
+ADD hdfs-site.xml ${HADOOP_PREFIX}/etc/hadoop/
+ADD mapred-site.xml ${HADOOP_PREFIX}/etc/hadoop/
+ADD yarn-site.xml ${HADOOP_PREFIX}/etc/hadoop/
 
 RUN ssh-keygen -A \
   && echo 'root:screencast' | chpasswd \
@@ -27,10 +27,10 @@ RUN ssh-keygen -A \
   && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys \
   && chmod 0600 ~/.ssh/authorized_keys
 
-ADD entrypoint.sh ${HADOOP_DIR}
-ADD run_application.sh ${HADOOP_DIR}
+ADD entrypoint.sh ${HADOOP_PREFIX}
+ADD run_application.sh ${HADOOP_PREFIX}
 
-WORKDIR ${HADOOP_DIR}
+WORKDIR ${HADOOP_PREFIX}
 
 EXPOSE 8088
 

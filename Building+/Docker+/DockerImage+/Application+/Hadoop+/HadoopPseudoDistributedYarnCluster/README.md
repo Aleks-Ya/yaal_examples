@@ -13,7 +13,7 @@ Run YARN cluster:
 
 Run standard MapReduce example (after the cluster has started):
 
-`./run_application.sh`
+`./run_client_application.sh`
 
 Run HDFS command:
 

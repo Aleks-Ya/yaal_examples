@@ -4,17 +4,18 @@ set -e
 /usr/sbin/sshd
 ssh -o StrictHostKeyChecking=no localhost cat /dev/null
 ssh -o StrictHostKeyChecking=no 0.0.0.0 cat /dev/null
-bin/hdfs namenode -format
-./sbin/start-dfs.sh
-bin/hdfs dfs -mkdir -p /user/$USER
-bin/hdfs dfs -mkdir -p input
-./sbin/start-yarn.sh
+${HADOOP_PREFIX}/bin/hdfs namenode -format
+${HADOOP_PREFIX}/sbin/start-dfs.sh
+${HADOOP_PREFIX}/bin/hdfs dfs -mkdir -p /user/$USER
+${HADOOP_PREFIX}/bin/hdfs dfs -mkdir -p input
+${HADOOP_PREFIX}/sbin/start-yarn.sh
 
 SIGINT=2
 SIGTERM=15
 stop()
 {
-  ./sbin/stop-yarn.sh
+  ${HADOOP_PREFIX}/sbin/stop-yarn.sh
+  ${HADOOP_PREFIX}/sbin/stop-dfs.sh
   exit 0
 }
 trap stop $SIGINT $SIGTERM
