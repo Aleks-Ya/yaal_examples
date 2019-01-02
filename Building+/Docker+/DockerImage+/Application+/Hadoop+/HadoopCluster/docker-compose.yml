@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 services:
   master-service:
     container_name: hadoop-cluster-master
@@ -27,3 +27,6 @@ services:
     tty: true
     hostname: slave-service
     entrypoint: ./entrypoint_slave.sh
+networks:
+  default:
+    name: hadoop-cluster-network
