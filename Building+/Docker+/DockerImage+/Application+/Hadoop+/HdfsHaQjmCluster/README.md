@@ -13,8 +13,8 @@ https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-common/SingleCl
 ## Run cluster
 `./run_cluster.sh`
 
-## Execute HDFS commands
-Run Bash with "hdfs" available: `./hdfs.sh`
+## Hadoop CLI
+Run Bash with Hadoop CLI available: `./run_cli.sh`
 
 Example of a command: `hdfs dfsadmin -report`
 
