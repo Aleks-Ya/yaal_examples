@@ -1,31 +1,25 @@
-# Hadoop YARN High Available (by QJM) cluster
+# Hadoop HDFS High Available (with QJM) cluster
 
 ## TODO
-1. Setup active failover
+1. Setup active failover (https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html)
 1. Publish to Docker Hub
-1. Actualize README.md
 
 ## Documentation
 https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-common/SingleCluster.html#YARN_on_a_Single_Node
 
-## Build image
+## Build images
 `./build.sh`
 
-## Run image
-Run cluster:
-
+## Run cluster
 `./run_cluster.sh`
 
-Run standard MapReduce example (after the cluster has started):
+## Execute HDFS commands
+Run Bash with "hdfs" available: `./hdfs.sh`
 
-`./run_application.sh`
-
-Run HDFS command:
-
-`docker exec -it hadoop-yarn-single ./bin/hdfs dfs -ls /`
+Example of a command: `hdfs dfsadmin -report`
 
 ## Stop cluster
-`docker stop hadoop-yarn-single`
+`docker-compose stop`
 
 ## UI
 - Active Name Node UI: http://localhost:50070
