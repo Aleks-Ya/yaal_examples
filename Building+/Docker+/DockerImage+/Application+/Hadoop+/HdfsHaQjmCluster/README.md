@@ -5,7 +5,6 @@
 1. Setup active failover
 1. Publish to Docker Hub
 1. Give different names for services and hostnames in docker-compose.yml
-1. Set default replication factor to 2
 1. Actualize README.md
 
 ## Documentation
