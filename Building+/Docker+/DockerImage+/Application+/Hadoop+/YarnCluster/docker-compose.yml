@@ -1,0 +1,47 @@
+version: '3.5'
+services:
+  master-service:
+    container_name: yarn-cluster-master
+    image: yarn-cluster-master
+    build:
+      context: context
+    ports:
+      - "8088:8088"
+    entrypoint: ./entrypoint_master.sh
+    volumes:
+      - /tmp/yarn-cluster-logs/master:/tmp/logs
+  slave-service-1:
+    container_name: yarn-cluster-slave-1
+    image: yarn-cluster-slave-1
+    build:
+      context: context
+    ports:
+      - "8142:8042"
+    links:
+      - master-service
+    depends_on:
+      - master-service
+    tty: true
+    entrypoint: ./entrypoint_slave_1.sh
+    volumes:
+      - /tmp/yarn-cluster-logs/slave-1:/tmp/logs
+  slave-service-2:
+    container_name: yarn-cluster-slave-2
+    image: yarn-cluster-slave-2
+    build:
+      context: context
+    ports:
+      - "8242:8042"
+    links:
+      - master-service
+      - slave-service-1
+    depends_on:
+      - master-service
+      - slave-service-1
+    tty: true
+    entrypoint: ./entrypoint_slave_2.sh
+    volumes:
+      - /tmp/yarn-cluster-logs/slave-2:/tmp/logs
+networks:
+  default:
+    name: yarn-cluster-network
