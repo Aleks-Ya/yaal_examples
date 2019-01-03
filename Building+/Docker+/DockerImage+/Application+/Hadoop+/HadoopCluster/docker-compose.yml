@@ -1,0 +1,53 @@
+version: '3.5'
+services:
+  master-service:
+    container_name: hadoop-cluster-master
+    image: hadoop-cluster-master
+    build:
+      context: context
+    ports:
+      - "8088:8088"
+      - "50070:50070"
+      - "50075:50075"
+    entrypoint: ./entrypoint_master.sh
+    volumes:
+      - /tmp/hadoop-cluster-logs/master:/tmp/logs
+  slave-service-1:
+    container_name: hadoop-cluster-slave-1
+    image: hadoop-cluster-slave-1
+    build:
+      context: context
+    ports:
+      - "8142:8042"
+      - "51070:50070"
+      - "51075:50075"
+    links:
+      - master-service
+    depends_on:
+      - master-service
+    tty: true
+    entrypoint: ./entrypoint_slave_1.sh
+    volumes:
+      - /tmp/hadoop-cluster-logs/slave-1:/tmp/logs
+  slave-service-2:
+    container_name: hadoop-cluster-slave-2
+    image: hadoop-cluster-slave-2
+    build:
+      context: context
+    ports:
+      - "8242:8042"
+      - "52070:50070"
+      - "52075:50075"
+    links:
+      - master-service
+      - slave-service-1
+    depends_on:
+      - master-service
+      - slave-service-1
+    tty: true
+    entrypoint: ./entrypoint_slave_2.sh
+    volumes:
+      - /tmp/hadoop-cluster-logs/slave-2:/tmp/logs
+networks:
+  default:
+    name: hadoop-cluster-network
