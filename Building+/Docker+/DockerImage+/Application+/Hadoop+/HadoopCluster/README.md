@@ -2,6 +2,12 @@
 
 ## TODO
 1. Rename "Hadoop Cluster" to "HDFS HA Cluster"
+1. Remove YARN and MapReduce (including two run_application.sh)
+1. Setup active failover
+1. Publish to Docker Hub
+1. Give different names for services and hostnames in docker-compose.yml
+1. Set default replication factor to 2
+1. Remove SSH to localhost and 0.0.0.0
 
 ## Documentation
 https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-common/SingleCluster.html#YARN_on_a_Single_Node
