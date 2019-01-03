@@ -1,10 +1,10 @@
 # Hadoop YARN High Available (by QJM) cluster
 
 ## TODO
-1. Remove YARN and MapReduce (including two run_application.sh)
 1. Setup active failover
 1. Publish to Docker Hub
 1. Actualize README.md
+1. Remove TTY from docker-compose.yml
 
 ## Documentation
 https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-common/SingleCluster.html#YARN_on_a_Single_Node

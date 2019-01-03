@@ -9,17 +9,11 @@ ENV HADOOP_PREFIX=/opt/hadoop
 ENV HADOOP_CONF_DIR=${HADOOP_PREFIX}/etc/hadoop
 ENV HADOOP_LOG_DIR=/tmp/logs
 ENV PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin
-RUN mkdir -p ${HADOOP_LOG_DIR}
-
-RUN mkdir ${HADOOP_PREFIX}/input \
-  && cp ${HADOOP_PREFIX}/etc/hadoop/*.xml ${HADOOP_PREFIX}/input \
-  && sed -i "s@\${JAVA_HOME}@${JAVA_HOME}@g" ${HADOOP_PREFIX}/etc/hadoop/hadoop-env.sh
 
 ADD core-site.xml ${HADOOP_CONF_DIR}
 ADD hdfs-site.xml ${HADOOP_CONF_DIR}
-ADD mapred-site.xml ${HADOOP_CONF_DIR}
-ADD yarn-site.xml ${HADOOP_CONF_DIR}
 
+RUN mkdir -p ${HADOOP_LOG_DIR}
 RUN ssh-keygen -A \
   && echo 'root:screencast' | chpasswd \
   && sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
@@ -32,6 +26,5 @@ RUN ssh-keygen -A \
 ADD entrypoint_master.sh ${HADOOP_PREFIX}
 ADD entrypoint_slave_1.sh ${HADOOP_PREFIX}
 ADD entrypoint_slave_2.sh ${HADOOP_PREFIX}
-ADD run_application.sh ${HADOOP_PREFIX}
 
 WORKDIR ${HADOOP_PREFIX}
