@@ -10,7 +10,6 @@ services:
       - "50070:50070"
       - "9000:9000"
       - "50075:50075"
-    hostname: master-service
     entrypoint: ./entrypoint_master.sh
     volumes:
       - /tmp/hdfs-ha-qjm-cluster-logs/master:/tmp/logs
@@ -27,7 +26,6 @@ services:
     depends_on:
       - master-service
     tty: true
-    hostname: slave-service-1
     entrypoint: ./entrypoint_slave_1.sh
     volumes:
       - /tmp/hdfs-ha-qjm-cluster-logs/slave-1:/tmp/logs
@@ -46,7 +44,6 @@ services:
       - master-service
       - slave-service-1
     tty: true
-    hostname: slave-service-2
     entrypoint: ./entrypoint_slave_2.sh
     volumes:
       - /tmp/hdfs-ha-qjm-cluster-logs/slave-2:/tmp/logs
