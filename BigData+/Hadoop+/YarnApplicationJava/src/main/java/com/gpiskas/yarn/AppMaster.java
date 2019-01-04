@@ -9,6 +9,7 @@ import org.apache.hadoop.yarn.api.records.LocalResource;
 import org.apache.hadoop.yarn.api.records.NodeReport;
 import org.apache.hadoop.yarn.api.records.Priority;
 import org.apache.hadoop.yarn.api.records.Resource;
+import org.apache.hadoop.yarn.api.records.UpdatedContainer;
 import org.apache.hadoop.yarn.client.api.AMRMClient.ContainerRequest;
 import org.apache.hadoop.yarn.client.api.NMClient;
 import org.apache.hadoop.yarn.client.api.async.AMRMClientAsync;
@@ -20,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AppMaster implements AMRMClientAsync.CallbackHandler {
+public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
 
     private YarnConfiguration conf = new YarnConfiguration();
     private NMClient nmClient;
@@ -87,6 +88,17 @@ public class AppMaster implements AMRMClientAsync.CallbackHandler {
                 System.err.println("AppMaster: Container launched " + container.getId());
             } catch (Exception ex) {
                 System.err.println("AppMaster: Container not launched " + container.getId());
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onContainersUpdated(List<UpdatedContainer> containers) {
+        for (UpdatedContainer container : containers) {
+            try {
+                System.err.println("AppMaster: Container updated " + container.getContainer().getId());
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }

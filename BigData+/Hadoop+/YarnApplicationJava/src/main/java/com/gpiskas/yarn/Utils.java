@@ -9,8 +9,8 @@ import org.apache.hadoop.yarn.api.ApplicationConstants.Environment;
 import org.apache.hadoop.yarn.api.records.LocalResource;
 import org.apache.hadoop.yarn.api.records.LocalResourceType;
 import org.apache.hadoop.yarn.api.records.LocalResourceVisibility;
+import org.apache.hadoop.yarn.api.records.URL;
 import org.apache.hadoop.yarn.conf.YarnConfiguration;
-import org.apache.hadoop.yarn.util.ConverterUtils;
 
 import java.io.IOException;
 import java.util.Map;
@@ -40,7 +40,7 @@ class Utils {
         Path qPath = FileContext.getFileContext().makeQualified(resPath);
 
         FileStatus status = FileSystem.get(conf).getFileStatus(qPath);
-        res.setResource(ConverterUtils.getYarnUrlFromPath(qPath));
+        res.setResource(URL.fromPath(qPath));
         res.setSize(status.getLen());
         res.setTimestamp(status.getModificationTime());
         res.setType(LocalResourceType.FILE);
