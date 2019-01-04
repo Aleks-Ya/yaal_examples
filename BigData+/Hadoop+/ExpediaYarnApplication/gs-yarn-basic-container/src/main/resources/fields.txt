@@ -1,0 +1,26 @@
+# Tmp file
+
+0 date_time
+1 site_name
+2 posa_continent
+3 user_location_country
+4 user_location_region
+5 user_location_city
+6 orig_destination_distance
+7 user_id
+8 is_mobile
+9 is_package
+10 channel
+11 srch_ci
+12 srch_co
+13 srch_adults_cnt
+14 srch_children_cnt
+15 srch_rm_cnt
+16 srch_destination_id
+17 srch_destination_type_id
+18 is_booking
+19 cnt
+20 hotel_continent
+21 hotel_country
+22 hotel_market
+23 hotel_cluster
