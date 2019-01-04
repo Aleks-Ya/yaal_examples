@@ -7,4 +7,9 @@
         <name>yarn.resourcemanager.hostname</name>
         <value>master-service</value>
     </property>
+    <property>
+        <name>yarn.nodemanager.vmem-pmem-ratio</name>
+        <value>20</value>
+        <description>Ratio between virtual memory to physical memory when setting memory limits for containers</description>
+      </property>
 </configuration>

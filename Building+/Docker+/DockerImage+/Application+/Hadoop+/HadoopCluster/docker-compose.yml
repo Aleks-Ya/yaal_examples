@@ -7,8 +7,12 @@ services:
       context: context
     ports:
       - "8088:8088"
+      - "8020:8020"
       - "50070:50070"
       - "50075:50075"
+      - "8032:8032"
+      - "8030:8030"
+      - "8031:8031"
     entrypoint: ./entrypoint_master.sh
     volumes:
       - /tmp/hadoop-cluster-logs/master:/tmp/logs
