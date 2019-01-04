@@ -1,4 +1,4 @@
-package com.gpiskas.yarn;
+package yarn;
 
 import org.apache.hadoop.fs.FileContext;
 import org.apache.hadoop.fs.FileStatus;

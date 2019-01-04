@@ -1,4 +1,4 @@
-package com.gpiskas.yarn;
+package yarn;
 
 
 public class Container {
