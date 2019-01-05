@@ -25,8 +25,7 @@ public class HelloPojo {
 
     @OnContainerStart
     public void publicVoidNoArgsMethod() throws Exception {
-        log.info("Hello from HelloPojo");
-        log.info("About to list from hdfs root content");
+        configuration.setBoolean("fs.hdfs.impl.disable.cache", true);
 
         FileSystem fs = FileSystem.get(configuration);
         Path sampleCsv = new Path("/expedia/train.csv");
@@ -39,9 +38,10 @@ public class HelloPojo {
             long skippedNotBooking = 0;
             while ((line = br.readLine()) != null) {
                 lineNum += 1;
-                log.info(format("Line #%d: %s", lineNum, line));
+                log.info(format("Process line #%d", lineNum));
+                log.debug(format("Line #%d: %s", lineNum, line));
                 if (lineNum == 1) {
-                    log.debug("Skip header: " + line);
+                    log.debug("Skip header");
                     continue;
                 }
                 Visit visit;
