@@ -1,5 +1,5 @@
 ARG HADOOP_VERSION=2.9.2
-FROM hadoop-base-image-${HADOOP_VERSION}:1.0
+FROM spark-2.4.0-hadoop-${HADOOP_VERSION}-base-image:1.0
 ARG HADOOP_VERSION
 
 RUN yum install -y rsync which openssh-clients openssh-server net-tools nano telnet less
@@ -7,16 +7,14 @@ RUN yum install -y rsync which openssh-clients openssh-server net-tools nano tel
 ENV JAVA_HOME=/etc/alternatives/jre
 ENV HADOOP_PREFIX=/opt/hadoop
 ENV HADOOP_HOME=${HADOOP_PREFIX}
+ENV SPARK_HOME=/opt/spark
 ENV HADOOP_CONF_DIR=${HADOOP_PREFIX}/etc/hadoop
 ENV HADOOP_LOG_DIR=/tmp/logs
 ENV HADOOP_VERSION=${HADOOP_VERSION}
-ENV PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin
+ENV PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin:$SPARK_HOME/bin::$SPARK_HOME/sbin
 ENV YARN_LOG_DIR=${HADOOP_LOG_DIR}/yarn
 
-ADD core-site.xml ${HADOOP_CONF_DIR}
-ADD hdfs-site.xml ${HADOOP_CONF_DIR}
-ADD yarn-site.xml ${HADOOP_CONF_DIR}
-ADD mapred-site.xml ${HADOOP_CONF_DIR}
+ADD *.xml ${HADOOP_CONF_DIR}/
 
 RUN mkdir -p ${HADOOP_LOG_DIR} \
   && mkdir -p ${YARN_LOG_DIR} \
@@ -31,9 +29,6 @@ RUN ssh-keygen -A \
   && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys \
   && chmod 0600 ~/.ssh/authorized_keys
 
-ADD entrypoint_master.sh ${HADOOP_PREFIX}
-ADD entrypoint_slave_1.sh ${HADOOP_PREFIX}
-ADD entrypoint_slave_2.sh ${HADOOP_PREFIX}
-ADD run_yarn_application.sh ${HADOOP_PREFIX}
+ADD *.sh ${HADOOP_PREFIX}/
 
 WORKDIR ${HADOOP_PREFIX}

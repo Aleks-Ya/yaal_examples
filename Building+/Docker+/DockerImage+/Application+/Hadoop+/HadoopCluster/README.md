@@ -1,13 +1,10 @@
-# Hadoop cluster
+# Hadoop cluster (HDFS, YARN, Spark)
 
 ## TODO
 1. Setup active failover (https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html)
 1. Add Docker HEALTHCHECK
 1. Use IP addressed instead of hostnames (so links in Web UI will work)
 1. Publish to Docker Hub
-
-## Documentation
-?
 
 ## Build images
 `./build.sh`
@@ -22,10 +19,11 @@ Examples of commands:
 - See HDFS Data Node statuses: `hdfs dfsadmin -report`
 - See HDFS Name Node statuses: `hdfs haadmin -getAllServiceState`
 - See YARN nodes: `yarn node -list -all`
-- Run example YARN application: `./run_yarn_application.sh`
+- Run example YARN application: `${HADOOP_PREFIX}/run_yarn_example.sh`
+- Run example Spark application: `${HADOOP_PREFIX}/run_spark_example.sh`
 
-## Stop cluster
-`docker-compose stop`
+## Remove cluster
+`docker-compose down`
 
 ## Web UI
 - HDFS
