@@ -6,6 +6,6 @@ https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-common/SingleCl
 ## Build image
 Hadoop verson: 2.9.2
 
-Image version: 1.0
+Image version: 1.1
 
-`./build.sh 2.9.2 1.0`
+`./build.sh 2.9.2 1.1`
