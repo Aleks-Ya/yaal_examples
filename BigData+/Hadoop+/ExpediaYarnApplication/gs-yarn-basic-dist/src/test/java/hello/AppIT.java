@@ -41,7 +41,7 @@ public class AppIT extends AbstractBootYarnClusterTests {
 			if (file.getName().endsWith("stdout")) {
 				assertThat(file.length(), greaterThan(0l));
 				if (file.getName().equals("Container.stdout")) {
-					assertThat(content, containsString("Hello from HelloPojo"));
+					assertThat(content, containsString("Hello from DataProcessor"));
 				}
 			} else if (file.getName().endsWith("stderr")) {
 				assertThat("stderr with content: " + content, file.length(), is(0l));

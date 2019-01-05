@@ -15,8 +15,8 @@ public class ContainerApplication {
 	}
 
 	@Bean
-	public HelloPojo helloPojo() {
-		return new HelloPojo();
+	public DataProcessor dataProcessor() {
+		return new DataProcessor();
 	}
 
 }
