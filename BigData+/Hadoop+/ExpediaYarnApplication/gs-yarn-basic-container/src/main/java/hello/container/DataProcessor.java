@@ -40,6 +40,7 @@ public class DataProcessor {
         int beginHotelMarket = 126;
         int endHotelMarket = 680;
 
+        //TODO not close FSDataInputStream
         try (FSDataInputStream sampleIs = fs.open(sampleCsv);
              InputStreamReader isr = new InputStreamReader(sampleIs);
              BufferedReader br = new BufferedReader(isr)) {
