@@ -38,7 +38,7 @@ class CsvParser {
         Integer hotelMarket = parseInt(fields[22]);
         Integer hotelCluster = parseInt(fields[23]);
 
-        Visit visit = new Visit(
+        return new Visit(
                 dateTime,
                 siteName,
                 posaContinent,
@@ -64,8 +64,6 @@ class CsvParser {
                 hotelMarket,
                 hotelCluster
         );
-
-        return visit;
     }
 
     private static Integer parseInt(String s) {

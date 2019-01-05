@@ -13,6 +13,7 @@ import org.springframework.yarn.annotation.YarnComponent;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class DataProcessor {
         configuration.setBoolean("fs.hdfs.impl.disable.cache", true);
 
         FileSystem fs = FileSystem.get(configuration);
-        Path sampleCsv = new Path("/expedia/train.csv");
+        Path sampleCsv = new Path("/expedia/sample_100_000.csv");
 
         int beginHotelCountry = 32;
         int endHotelCountry = 70;
@@ -117,7 +118,7 @@ public class DataProcessor {
                 countVisits.put(key, group.size());
             }
             countVisits.entrySet().stream()
-                    .sorted(Map.Entry.comparingByValue())
+                    .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                     .limit(3)
                     .forEach(tuple -> log.info(format("Top: %s - %d", tuple.getKey(), tuple.getValue())));
             log.info("Processing finished");
