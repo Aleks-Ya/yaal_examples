@@ -13,6 +13,7 @@ services:
       - "8032:8032"
       - "8030:8030"
       - "8031:8031"
+      - "8042:8042"
     entrypoint: ./entrypoint_master.sh
     volumes:
       - /tmp/hadoop-cluster-logs/master:/tmp/logs

@@ -1,7 +1,7 @@
 <configuration>
     <property>
         <name>fs.defaultFS</name>
-        <value>hdfs://mycluster</value>
+        <value>hdfs://master-service:8020</value>
     </property>
     <property>
         <name>dfs.replication</name>

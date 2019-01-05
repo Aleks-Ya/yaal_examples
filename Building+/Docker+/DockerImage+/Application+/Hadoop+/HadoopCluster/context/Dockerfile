@@ -6,6 +6,7 @@ RUN yum install -y rsync which openssh-clients openssh-server net-tools nano tel
 
 ENV JAVA_HOME=/etc/alternatives/jre
 ENV HADOOP_PREFIX=/opt/hadoop
+ENV HADOOP_HOME=${HADOOP_PREFIX}
 ENV HADOOP_CONF_DIR=${HADOOP_PREFIX}/etc/hadoop
 ENV HADOOP_LOG_DIR=/tmp/logs
 ENV HADOOP_VERSION=${HADOOP_VERSION}

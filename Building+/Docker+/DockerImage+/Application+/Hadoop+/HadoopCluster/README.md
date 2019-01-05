@@ -2,7 +2,8 @@
 
 ## TODO
 1. Setup active failover (https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html)
-1. Add HEALTHCHECK
+1. Add Docker HEALTHCHECK
+1. Use IP addressed instead of hostnames (so links in Web UI will work)
 1. Publish to Docker Hub
 
 ## Documentation
@@ -35,5 +36,6 @@ Examples of commands:
   - Data Node 3 UI: http://localhost:52075
 - YARN
   - Resource Manager Web UI: http://localhost:8088
-  - Node Manager 1 Web UI: http://localhost:8142
-  - Node Manager 2 Web UI: http://localhost:8242
+  - Node Manager 1 Web UI: http://localhost:8042
+  - Node Manager 2 Web UI: http://localhost:8142
+  - Node Manager 3 Web UI: http://localhost:8242
