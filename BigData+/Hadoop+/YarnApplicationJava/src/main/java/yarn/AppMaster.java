@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static yarn.Client.PARAM_FROM_CLIENT_TO_CONTAINER_NAME;
+
 public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
 
     private YarnConfiguration conf = new YarnConfiguration();
@@ -29,6 +31,8 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
 
     public static void main(String[] args) {
         System.out.println("AppMaster: Initializing");
+        System.out.println("AppMaster: Environment variables: \n" + System.getenv());
+        System.out.println("AppMaster: Java properties: \n" + System.getProperties());
         try {
             new AppMaster().run();
         } catch (Exception ex) {
@@ -122,6 +126,8 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
             // Set Container CLASSPATH
             Map<String, String> env = new HashMap<>();
             Utils.setUpEnv(env, conf);
+            String paramFromClient = System.getenv(PARAM_FROM_CLIENT_TO_CONTAINER_NAME);
+            env.put(PARAM_FROM_CLIENT_TO_CONTAINER_NAME, paramFromClient);
             cCLC.setEnvironment(env);
 
             return cCLC;

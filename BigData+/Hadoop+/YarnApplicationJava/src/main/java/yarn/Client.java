@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Client {
+    static final String PARAM_FROM_CLIENT_TO_CONTAINER_NAME = "param_from_client";
 
     public static void main(String[] args) {
         System.out.println("Client: Initializing");
@@ -55,6 +56,7 @@ public class Client {
         // Set AM CLASSPATH
         Map<String, String> env = new HashMap<>();
         Utils.setUpEnv(env, conf);
+        env.put(PARAM_FROM_CLIENT_TO_CONTAINER_NAME, "123");
         amCLC.setEnvironment(env);
 
         // Set AM resources
