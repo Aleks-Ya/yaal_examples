@@ -1,4 +1,4 @@
-package scala.traits
+package scala.clazz.traits
 
 import org.scalatest.{FlatSpec, Inspectors, Matchers}
 
