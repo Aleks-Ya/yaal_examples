@@ -1,4 +1,4 @@
-package collection.reduce
+package collection.map
 
 import org.scalatest.{FlatSpec, Matchers}
 

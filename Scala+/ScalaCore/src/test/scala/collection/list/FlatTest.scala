@@ -1,8 +1,6 @@
-package collection
+package collection.list
 
 import org.scalatest.{FlatSpec, Matchers}
-
-import scala.collection.mutable.ListBuffer
 
 class FlatTest extends FlatSpec with Matchers {
 

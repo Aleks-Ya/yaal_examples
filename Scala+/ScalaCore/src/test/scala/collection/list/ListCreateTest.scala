@@ -1,4 +1,4 @@
-package collection.create
+package collection.list
 
 import org.scalatest.{FlatSpec, Matchers}
 

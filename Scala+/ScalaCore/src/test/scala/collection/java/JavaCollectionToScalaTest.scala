@@ -1,4 +1,4 @@
-package collection.convert
+package collection.java
 
 import org.scalatest.{FlatSpec, Matchers}
 
