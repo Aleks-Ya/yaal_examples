@@ -11,11 +11,8 @@ object HelloWorldTest {
 
   def main(args: Array[String]): Unit = {
     println("Start")
-    val jars = Seq("target/scala-2.11/fat.jar")
     val conf = new SparkConf()
       .setAppName(getClass.getSimpleName)
-      .setMaster("spark://172.22.0.2:7077")
-      .setJars(jars)
     val sc = new SparkContext(conf)
     val words = Seq("Hello, ", "World", "!")
     val greeting = sc.parallelize(words).reduce(_ + _)

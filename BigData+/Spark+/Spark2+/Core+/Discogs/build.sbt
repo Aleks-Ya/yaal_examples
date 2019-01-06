@@ -11,7 +11,7 @@ lazy val root = (project in file(".")).
     libraryDependencies ++= allDeps,
     javaOptions ++= Seq("-Xms512M", "-Xmx2048M", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled"),
     parallelExecution in Test := false,
-    assemblyJarName in assembly := "fat.jar",
+    assemblyJarName in assembly := "discogs.jar",
     assemblyMergeStrategy in assembly := {
       case x if x.startsWith("META-INF") => MergeStrategy.discard
       case _ => MergeStrategy.deduplicate
