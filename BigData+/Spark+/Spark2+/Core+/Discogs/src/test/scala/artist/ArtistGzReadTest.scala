@@ -6,9 +6,12 @@ import util.Factory
 class ArtistGzReadTest extends FlatSpec with Matchers {
 
   it should "init RDD from text file packaged with GZ" in {
-    val uri = getClass.getResource("artists_sample.xml.gz").toString
+    val uri = getClass.getResource("artists_sample_10.xml.gz").toString
     val rdd = Factory.sc.textFile(uri)
-    val list = rdd.collect()
-    list.foreach((s: String) => println("String: " + s))
+      .filter(s => !s.contains("<artists>") && !s.contains("</artists>"))
+      .map(s => ReadArtistsFromGz.xmlToArtist(s))
+    val artists = rdd.collect()
+    artists.foreach((artist: Artist) => println(artist))
   }
+
 }
