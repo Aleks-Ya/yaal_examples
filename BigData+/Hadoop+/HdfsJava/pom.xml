@@ -4,7 +4,7 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <groupId>ru.yaal.examples.hadoop.hdfs</groupId>
-    <artifactId>hdfs-unit-test</artifactId>
+    <artifactId>hdfs-java</artifactId>
     <version>1</version>
 
     <description>Testing a HDFS application with "hadoop-minicluster" library.</description>
