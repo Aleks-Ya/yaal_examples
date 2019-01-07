@@ -1,4 +1,4 @@
-package scala.condition
+package scala.flow
 
 import org.scalatest.{FlatSpec, Matchers}
 
