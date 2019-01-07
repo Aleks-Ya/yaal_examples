@@ -1,4 +1,4 @@
-package hdfs.docker;
+package hdfs.cluster;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
@@ -16,15 +16,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Connect to a HDFS cluster.
- * Run HDFS: docker run -it sequenceiq/hadoop-docker:2.7.1 /etc/bootstrap.sh -bash
+ * Connect to a real HDFS cluster.
  */
-public class ConnectToDockerHdfsTest {
+public class ConnectToRealHdfs {
     @Test
     public void test() throws IOException, URISyntaxException, InterruptedException {
 
         Configuration conf = new Configuration();
-        String hdfsURI = "hdfs://172.17.0.2:9000";
+        String hdfsURI = "hdfs://ECSE00100BDE.epam.com:8020";
         conf.set("fs.defaultFS", hdfsURI);
         conf.set("dfs.permissions.enabled", "false");
         String user = "root";
@@ -32,7 +31,7 @@ public class ConnectToDockerHdfsTest {
 
         assertTrue(fs instanceof DistributedFileSystem);
 
-        Path path = new Path(hdfsURI, "/tmp/my.txt");
+        Path path = new Path(hdfsURI, "/tmp/iablokov/my.txt");
 
         if (fs.exists(path)) {
             fs.delete(path, false);

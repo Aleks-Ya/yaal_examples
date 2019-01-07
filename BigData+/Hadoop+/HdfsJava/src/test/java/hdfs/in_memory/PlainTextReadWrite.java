@@ -15,7 +15,7 @@ import java.nio.file.Files;
 
 import static org.junit.Assert.assertEquals;
 
-public class ReadWriteTest {
+public class PlainTextReadWrite {
     @Test
     public void test() throws IOException {
 
