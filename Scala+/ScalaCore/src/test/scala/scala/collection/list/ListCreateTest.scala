@@ -20,4 +20,9 @@ class ListCreateTest extends FlatSpec with Matchers {
     list shouldBe a[List[_]]
   }
 
+  it should "create an empty list of specified type" in {
+    val list: List[Double] = List()
+    list shouldBe a[List[Double]]
+  }
+
 }
