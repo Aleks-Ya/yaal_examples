@@ -2,7 +2,7 @@ import Dependencies.{providedDeps, _}
 
 lazy val root = (project in file(".")).
   settings(
-    name := "HDFS",
+    name := "HdfsScala",
     inThisBuild(List(
       organization := "ru.yaal.examples.hadoop.hdfs",
       scalaVersion := "2.11.8",
