@@ -3,14 +3,16 @@
 ## TODO
 1. Setup active failover (https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html)
 1. Add Docker HEALTHCHECK
-1. Use IP addressed instead of hostnames (so links in Web UI will work)
 1. Publish to Docker Hub
 
 ## Build images
 `./build.sh`
 
 ## Run cluster
-`./run_cluster.sh`
+```
+./run_cluster.sh
+sudo ./update_hosts.sh
+```
 
 ## Hadoop CLI
 Run Bash with Hadoop CLI available: `./run_cli.sh`
