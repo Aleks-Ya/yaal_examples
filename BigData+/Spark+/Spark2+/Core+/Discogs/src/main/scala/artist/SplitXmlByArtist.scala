@@ -27,7 +27,7 @@ object SplitXmlByArtist {
       var line: String = ""
       var nextLine: String = ""
       var lineCounter: Long = 0
-      val printLineCounterEvery: Int = 1000
+      val printLineCounterEvery: Int = 10000
       while ( {
         nextLine = is.readLine
         nextLine != null
