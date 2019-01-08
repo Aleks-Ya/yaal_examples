@@ -5,6 +5,7 @@ services:
     image: hadoop-cluster-master
     build:
       context: context
+    hostname: master-service
     ports:
       - "8088:8088"
       - "8020:8020"
@@ -22,6 +23,7 @@ services:
     image: hadoop-cluster-slave-1
     build:
       context: context
+    hostname: slave-service-1
     ports:
       - "8142:8042"
       - "51070:50070"
@@ -39,6 +41,7 @@ services:
     image: hadoop-cluster-slave-2
     build:
       context: context
+    hostname: slave-service-2
     ports:
       - "8242:8042"
       - "52070:50070"
