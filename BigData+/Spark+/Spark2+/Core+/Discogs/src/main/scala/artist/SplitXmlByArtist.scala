@@ -15,12 +15,17 @@ import org.apache.spark.SparkContext
 
 object SplitXmlByArtist {
 
-  def writeSequenceFile(gzFile: String, sequenceFileUri: URI, sc: SparkContext, conf: Configuration): Unit = {
+  def convertXmlGzToSequenceFile(gzFile: String, sequenceFileUri: URI, sc: SparkContext, conf: Configuration, fs: FileSystem): Unit = {
+    println("Write to sequence file: " + gzFile)
     val is: BufferedReader = null
     var writer: Writer = null
     try {
-      val is = new BufferedReader(new InputStreamReader(
-        new GZIPInputStream(new BufferedInputStream(new FileInputStream(gzFile)))))
+      val gzHadoopPath = new Path(gzFile)
+      val is = new BufferedReader(
+        new InputStreamReader(
+          new GZIPInputStream(
+            fs.open(gzHadoopPath)
+          )))
 
       writer = prepareOutputWriter(sequenceFileUri, sc, conf)
 

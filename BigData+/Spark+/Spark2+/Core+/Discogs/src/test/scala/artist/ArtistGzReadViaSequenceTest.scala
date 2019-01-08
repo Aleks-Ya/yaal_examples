@@ -1,7 +1,6 @@
 package artist
 
-import java.io.File
-
+import org.apache.hadoop.fs.FileSystem
 import org.scalatest.{FlatSpec, Matchers}
 import util.Factory
 
@@ -9,19 +8,17 @@ class ArtistGzReadViaSequenceTest extends FlatSpec with Matchers {
 
   it should "init RDD from text file packaged with GZ" in {
     val gzFile = getClass.getResource("artists_sample_10.xml.gz").getFile
-    val sequenceFileUri = File.createTempFile(getClass.getSimpleName, ".seq").toURI
-    println("Temp sequence file: " + sequenceFileUri)
+    val sequenceFileStr = "file:///tmp/discogs/artists.seq"
     val sc = Factory.sc
-    val conf = Factory.sc.hadoopConfiguration
-    SplitXmlByArtist.writeSequenceFile(gzFile, sequenceFileUri, sc, conf)
-    val rdd = Main.openRddFromSequenceFile(sc, sequenceFileUri.toString)
+    val hadoopConf = Factory.sc.hadoopConfiguration
+    val fs = FileSystem.get(hadoopConf)
 
-    val aliasDuplicatesRdd = Main.findDuplicates(rdd)
-    val duplicateCount = aliasDuplicatesRdd.count()
+    val duplicateCount = Main.countDuplicates(fs, gzFile, sequenceFileStr, sc, hadoopConf)
+
     println("Duplicate count: " + duplicateCount)
     println("Error number: " + ArtistXmlToPojoParser.errorCounter)
-    //    aliasDuplicatesRdd.foreach(duplicate => println(duplicate))
-    //    println("Finished.")
+    duplicateCount shouldEqual 2
+    ArtistXmlToPojoParser.errorCounter shouldEqual 0
   }
 
 }
