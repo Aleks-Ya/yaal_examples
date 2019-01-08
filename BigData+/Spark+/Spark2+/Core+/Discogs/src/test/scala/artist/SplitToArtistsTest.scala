@@ -19,10 +19,11 @@ class SplitToArtistsTest extends FlatSpec with Matchers {
   it should "init RDD from text file packaged with GZ" in {
     val gzFile = getClass.getResource("artists_sample_10.xml.gz").getFile
     val sequenceFileUri = File.createTempFile(getClass.getSimpleName, ".seq").toURI
+    println("Temp sequence file: " + sequenceFileUri)
     writeSequenceFile(gzFile, sequenceFileUri)
 
     val actMap = readToMap(sequenceFileUri)
-    println("Act map: " + actMap)
+    println("Map size:" + actMap.size())
     actMap should have size 10
   }
 
@@ -37,15 +38,19 @@ class SplitToArtistsTest extends FlatSpec with Matchers {
 
       var line: String = ""
       var nextLine: String = ""
+      var lineCounter: Long = 0
+      val printLineCounterEvery: Int = 1000
       while ( {
         nextLine = is.readLine
         nextLine != null
       }) {
+        lineCounter += 1
+        if (lineCounter % printLineCounterEvery == 0) println(s"Processed lines: $lineCounter. Artist counter: $artistCounter")
         line = line + nextLine
         val beginIndex = line.indexOf("<artist>")
         val endIndex = line.indexOf("</artist>")
         val endIndexFull = endIndex + "</artist>".length
-        if (beginIndex > 0 && endIndex > 0) {
+        if (beginIndex >= 0 && endIndex > 0) {
           val artist = line.substring(beginIndex, endIndexFull)
           saveArtist(writer, artist)
           line = line.substring(endIndexFull)
@@ -93,6 +98,7 @@ class SplitToArtistsTest extends FlatSpec with Matchers {
   }
 
   def readToMap(sequenceFileUri: URI): util.Map[Integer, String] = {
+    println("Reading sequence file to map....")
     val conf: Configuration = new Configuration
     val path: Path = new Path(sequenceFileUri)
     var reader: SequenceFile.Reader = null
