@@ -2,7 +2,6 @@ package artist
 
 import java.net.URI
 
-import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.{FileSystem, Path}
 import org.apache.hadoop.io.{IntWritable, Text}
 import org.apache.spark.rdd.RDD
@@ -20,32 +19,37 @@ object Main {
     val hadoopConf = sc.hadoopConfiguration
     println("Hadoop config: " + hadoopConf)
     val fs = FileSystem.get(new URI("hdfs://master-service:8020/"), hadoopConf, "root")
-    val gzFileStr = "hdfs://master-service:8020/discogs/artists_sample_100000.xml.gz"
-    val sequenceFileStr = "hdfs://master-service:8020/discogs/artists.seq"
-    val duplicateCount = countDuplicates(fs, gzFileStr, sequenceFileStr, sc, hadoopConf)
+    val gzFile = "hdfs://master-service:8020/discogs/artists_sample_100000.xml.gz"
+    val seqFile = "hdfs://master-service:8020/discogs/artists.seq"
+
+    val discogsConf = new DiscogsConf(sc, fs, hadoopConf, gzFile, seqFile)
+
+    val duplicateCount = countDuplicates(discogsConf)
     println("Duplicate count: " + duplicateCount)
     println("Error number: " + errorCounter)
+
     sc.stop()
   }
 
-  def countDuplicates(fs: FileSystem, gzFileStr: String, sequenceFileStr: String, sc: SparkContext, hadoopConf: Configuration): Long = {
-    val sequenceFileUri = new URI(sequenceFileStr)
+  def countDuplicates(conf: DiscogsConf): Long = {
+    val fs = conf.fs
+    val sequenceFileUri = new URI(conf.seqFile)
     val sequenceFilePath = new Path(sequenceFileUri)
     if (fs.exists(sequenceFilePath)) {
       fs.delete(sequenceFilePath, false)
     }
     println("Writing the sequence file...")
-    SplitXmlByArtist.convertXmlGzToSequenceFile(gzFileStr, sequenceFileUri, sc, hadoopConf, fs)
+    SplitXmlByArtist.convertXmlGzToSequenceFile(conf)
     println("Creating RDD from the sequence file...")
-    val rdd = openRddFromSequenceFile(sc, sequenceFileStr)
+    val rdd = openRddFromSequenceFile(conf)
     println("Finding duplicates...")
     val aliasDuplicatesRdd = findDuplicates(rdd)
     //    aliasDuplicatesRdd.foreach(duplicate => println(duplicate))
     aliasDuplicatesRdd.count()
   }
 
-  def openRddFromSequenceFile(sc: SparkContext, sequenceFilePath: String): RDD[(Int, String)] = {
-    sc.sequenceFile(sequenceFilePath,
+  def openRddFromSequenceFile(conf: DiscogsConf): RDD[(Int, String)] = {
+    conf.sc.sequenceFile(conf.seqFile,
       classOf[IntWritable], classOf[Text])
       .map { case (x, y) => (x.get(), y.toString) }
   }

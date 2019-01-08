@@ -1,21 +1,19 @@
 package artist
 
 import java.io._
-import java.net.URI
 import java.util
 import java.util.zip.GZIPInputStream
 
-import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.fs.{FileSystem, Path}
+import org.apache.hadoop.fs.Path
 import org.apache.hadoop.io.SequenceFile.Writer
 import org.apache.hadoop.io._
 import org.apache.hadoop.io.compress.DefaultCodec
 import org.apache.hadoop.util.ReflectionUtils
-import org.apache.spark.SparkContext
 
 object SplitXmlByArtist {
 
-  def convertXmlGzToSequenceFile(gzFile: String, sequenceFileUri: URI, sc: SparkContext, conf: Configuration, fs: FileSystem): Unit = {
+  def convertXmlGzToSequenceFile(conf: DiscogsConf): Unit = {
+    val gzFile = conf.gzFile
     println("Write to sequence file: " + gzFile)
     val is: BufferedReader = null
     var writer: Writer = null
@@ -24,10 +22,10 @@ object SplitXmlByArtist {
       val is = new BufferedReader(
         new InputStreamReader(
           new GZIPInputStream(
-            fs.open(gzHadoopPath)
+            conf.fs.open(gzHadoopPath)
           )))
 
-      writer = prepareOutputWriter(sequenceFileUri, sc, conf)
+      writer = prepareOutputWriter(conf)
 
       var line: String = ""
       var nextLine: String = ""
@@ -62,12 +60,12 @@ object SplitXmlByArtist {
   val seqKey = new IntWritable
   val seqValue = new Text
 
-  def prepareOutputWriter(sequenceFileUri: URI, sc: SparkContext, conf: Configuration): Writer = {
-    val fs = FileSystem.get(conf)
-    val path = new Path(sequenceFileUri)
+  def prepareOutputWriter(conf: DiscogsConf): Writer = {
+    val fs = conf.fs
+    val path = new Path(conf.seqFile)
     var writer: Writer = null
     writer = SequenceFile.createWriter(
-      conf,
+      conf.hadoopConf,
       Writer.file(path),
       Writer.keyClass(seqKey.getClass),
       Writer.valueClass(seqValue.getClass),
@@ -82,26 +80,26 @@ object SplitXmlByArtist {
 
   var artistCounter = 0
 
-  def saveArtist(writer: Writer, artist: String): Unit = {
+  private def saveArtist(writer: Writer, artist: String): Unit = {
     seqKey.set(artistCounter)
     seqValue.set(artist)
     writer.append(seqKey, seqValue)
     artistCounter += 1
   }
 
-  def readToMap(sequenceFileUri: URI): util.Map[Integer, String] = {
+  def readToMap(conf: DiscogsConf): util.Map[Integer, String] = {
     println("Reading sequence file to map....")
-    val conf: Configuration = new Configuration
-    val path: Path = new Path(sequenceFileUri)
+    val hadoopConf = conf.hadoopConf
+    val path: Path = new Path(conf.seqFile)
     var reader: SequenceFile.Reader = null
     val content: util.Map[Integer, String] = new util.HashMap[Integer, String]
     try {
-      reader = new SequenceFile.Reader(conf,
+      reader = new SequenceFile.Reader(hadoopConf,
         SequenceFile.Reader.file(path),
         SequenceFile.Reader.bufferSize(4096),
         SequenceFile.Reader.start(0))
-      val key: IntWritable = ReflectionUtils.newInstance(reader.getKeyClass, conf).asInstanceOf[IntWritable]
-      val value: Text = ReflectionUtils.newInstance(reader.getValueClass, conf).asInstanceOf[Text]
+      val key: IntWritable = ReflectionUtils.newInstance(reader.getKeyClass, hadoopConf).asInstanceOf[IntWritable]
+      val value: Text = ReflectionUtils.newInstance(reader.getValueClass, hadoopConf).asInstanceOf[Text]
       while ( {
         reader.next(key, value)
       }) {
