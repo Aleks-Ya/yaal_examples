@@ -13,13 +13,18 @@ object Main {
 
   def main(args: Array[String]): Unit = {
     println("Starting Main#main...")
-    val sparkConf = new SparkConf()
-      .setAppName(getClass.getSimpleName)
+
+    var gzFile = "hdfs://master-service:8020/discogs/artists_sample_100000.xml.gz"
+    if (args.length > 0) {
+      gzFile = args(0)
+    }
+    println("gzFile: " + gzFile)
+
+    val sparkConf = new SparkConf().setAppName(getClass.getSimpleName)
     val sc = new SparkContext(sparkConf)
     val hadoopConf = sc.hadoopConfiguration
     println("Hadoop config: " + hadoopConf)
     val fs = FileSystem.get(new URI("hdfs://master-service:8020/"), hadoopConf, "root")
-    val gzFile = "hdfs://master-service:8020/discogs/artists_sample_100000.xml.gz"
     val seqFile = "hdfs://master-service:8020/discogs/artists.seq"
 
     val discogsConf = new DiscogsConf(sc, fs, hadoopConf, gzFile, seqFile)

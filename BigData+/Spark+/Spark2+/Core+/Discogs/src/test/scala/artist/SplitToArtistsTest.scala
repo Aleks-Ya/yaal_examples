@@ -13,7 +13,6 @@ class SplitToArtistsTest extends FlatSpec with Matchers {
     val seqFile = File.createTempFile(getClass.getSimpleName, ".seq").getAbsolutePath
     println("Temp sequence file: " + seqFile)
     val sc = Factory.sc
-    val conf = Factory.sc.hadoopConfiguration
     val hadoopConf = sc.hadoopConfiguration
     val fs = FileSystem.get(hadoopConf)
 
