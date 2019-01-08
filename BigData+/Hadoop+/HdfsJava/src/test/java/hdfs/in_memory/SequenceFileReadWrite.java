@@ -9,7 +9,6 @@ import org.apache.hadoop.io.SequenceFile;
 import org.apache.hadoop.io.SequenceFile.Metadata;
 import org.apache.hadoop.io.SequenceFile.Writer;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.io.compress.DefaultCodec;
 import org.apache.hadoop.util.ReflectionUtils;
 import org.junit.Test;
@@ -19,7 +18,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static org.hamcrest.Matchers.hasEntry;
+import static org.junit.Assert.assertThat;
 
 public class SequenceFileReadWrite {
     @Test
@@ -70,16 +74,46 @@ public class SequenceFileReadWrite {
                     SequenceFile.Reader.bufferSize(4096),
                     SequenceFile.Reader.start(0)
             );
-            Writable key = (Writable) ReflectionUtils.newInstance(reader.getKeyClass(), conf);
-            Writable value = (Writable) ReflectionUtils.newInstance(reader.getValueClass(), conf);
+            IntWritable key = (IntWritable) ReflectionUtils.newInstance(reader.getKeyClass(), conf);
+            Text value = (Text) ReflectionUtils.newInstance(reader.getValueClass(), conf);
             //long position = reader.getPosition();
             //reader.seek(position);
             while (reader.next(key, value)) {
                 String syncSeen = reader.syncSeen() ? "*" : "";
-                System.out.printf("[%s]\t%s\t%s\n", syncSeen, key, value);
+                Integer keyData = key.get();
+                String valueData = value.toString();
+                System.out.printf("[%s]\t%s\t%s\n", syncSeen, keyData, valueData);
             }
         } finally {
             IOUtils.closeStream(reader);
         }
+    }
+
+    @Test
+    public void readToMap() throws IOException, URISyntaxException {
+        URL inFile = getClass().getResource("read_sequence_file.seq");
+        Configuration conf = new Configuration();
+        Path path = new Path(inFile.toURI());
+        SequenceFile.Reader reader = null;
+        Map<Integer, String> content = new HashMap<>();
+        try {
+            reader = new SequenceFile.Reader(
+                    conf,
+                    SequenceFile.Reader.file(path),
+                    SequenceFile.Reader.bufferSize(4096),
+                    SequenceFile.Reader.start(0)
+            );
+            IntWritable key = (IntWritable) ReflectionUtils.newInstance(reader.getKeyClass(), conf);
+            Text value = (Text) ReflectionUtils.newInstance(reader.getValueClass(), conf);
+            while (reader.next(key, value)) {
+                Integer keyData = key.get();
+                String valueData = value.toString();
+                content.put(keyData, valueData);
+            }
+        } finally {
+            IOUtils.closeStream(reader);
+        }
+        assertThat(content, hasEntry(100, "abc"));
+        assertThat(content, hasEntry(101, "123"));
     }
 }
