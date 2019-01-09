@@ -19,6 +19,10 @@ hadoop-daemon.sh --script hdfs start datanode
 hdfs haadmin -transitionToActive --forceactive nn1
 start-yarn.sh
 
+# Start Spark History Server
+hdfs dfs -mkdir -p /shared/spark-logs
+start-history-server.sh
+
 SIGINT=2
 SIGTERM=15
 stop()
@@ -27,6 +31,7 @@ stop()
   hadoop-daemon.sh --script hdfs stop namenode
   hadoop-daemon.sh --script hdfs stop datanode
   hadoop-daemon.sh --script stop journalnode
+  stop-history-server.sh
   exit 0
 }
 trap stop $SIGINT $SIGTERM

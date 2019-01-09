@@ -6,15 +6,6 @@ services:
     build:
       context: context
     hostname: master-service
-    ports:
-      - "8088:8088"
-      - "8020:8020"
-      - "50070:50070"
-      - "50075:50075"
-      - "8032:8032"
-      - "8030:8030"
-      - "8031:8031"
-      - "8042:8042"
     entrypoint: ./entrypoint_master.sh
     volumes:
       - /tmp/hadoop-cluster-logs/master:/tmp/logs
@@ -24,10 +15,6 @@ services:
     build:
       context: context
     hostname: slave-service-1
-    ports:
-      - "8142:8042"
-      - "51070:50070"
-      - "51075:50075"
     links:
       - master-service
     depends_on:
@@ -42,10 +29,6 @@ services:
     build:
       context: context
     hostname: slave-service-2
-    ports:
-      - "8242:8042"
-      - "52070:50070"
-      - "52075:50075"
     links:
       - master-service
       - slave-service-1

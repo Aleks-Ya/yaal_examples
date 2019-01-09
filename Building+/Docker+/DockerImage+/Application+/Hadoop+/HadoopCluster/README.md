@@ -29,13 +29,15 @@ Examples of commands:
 
 ## Web UI
 - HDFS
-  - Active Name Node UI: http://localhost:50070
-  - Standby Name Node UI: http://localhost:51070
-  - Data Node 1 UI: http://localhost:50075
-  - Data Node 2 UI: http://localhost:51075
-  - Data Node 3 UI: http://localhost:52075
+  - Active Name Node UI: http://master-service:50070
+  - Standby Name Node UI: http://slave-service-1:50070
+  - Data Node 1 UI: http://master-service:50075
+  - Data Node 2 UI: http://slave-service-1:50075
+  - Data Node 3 UI: http://slave-service-2:50075
 - YARN
-  - Resource Manager Web UI: http://localhost:8088
-  - Node Manager 1 Web UI: http://localhost:8042
-  - Node Manager 2 Web UI: http://localhost:8142
-  - Node Manager 3 Web UI: http://localhost:8242
+  - Resource Manager Web UI: http://master-service:8088
+  - Node Manager 1 Web UI: http://master-service:8042
+  - Node Manager 2 Web UI: http://slave-service-1:8042
+  - Node Manager 3 Web UI: http://slave-service-2:8042
+- Spark
+  - History Server Web UI: http://master-service:18080
