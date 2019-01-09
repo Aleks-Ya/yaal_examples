@@ -5,7 +5,11 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Весь файл с SQL-скриптом выполняется за один запрос к БД.
@@ -13,7 +17,7 @@ import java.sql.*;
 public class WholeSqlFile {
 
     @Test
-    public void test() throws SQLException, ClassNotFoundException, IOException {
+    public void test() throws SQLException, IOException {
         StringBuilder query = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(WholeSqlFile.class.getResourceAsStream("big.sql")))) {
             String line;
@@ -24,15 +28,14 @@ public class WholeSqlFile {
         }
         String queryStr = query.toString().replace("\uFEFF", "");//Удаляем Byte Order Mark
 
-        Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "", "");
-        Statement statement = conn.createStatement();
-        statement.executeUpdate(queryStr);
+        try (Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "", "")) {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(queryStr);
 
-        ResultSet rs = statement.executeQuery("SELECT * FROM execute_sql");
-        while (rs.next()) {
-            System.out.printf("%d - %s\n", rs.getInt(1), rs.getString(2));
+            ResultSet rs = statement.executeQuery("SELECT * FROM execute_sql");
+            while (rs.next()) {
+                System.out.printf("%d - %s\n", rs.getInt(1), rs.getString(2));
+            }
         }
-
-        conn.close();
     }
 }
