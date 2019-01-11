@@ -1,23 +1,27 @@
 package dataset
 
 import factory.Factory
-import org.apache.spark.sql.Encoder
+import org.apache.spark.sql.{Encoder, SparkSession}
 import org.scalatest.{FlatSpec, Matchers}
 
 class InCodeTest extends FlatSpec with Matchers {
 
-  it should "init DataSet" in {
-    val sqlContext = Factory.ss.sqlContext
-    import sqlContext.implicits._
-    val ds = Factory.ss.createDataset(Seq("a", "b"))
-    ds.show
+  private val ss: SparkSession = Factory.ss
+
+  it should "create Dataset from Seq v1" in {
+    val exp = Seq("a", "b")
+    import ss.sqlContext.implicits._
+    val ds = ss.createDataset(exp)
+    val act = ds.collect()
+    act should contain allElementsOf exp
   }
 
-  it should "init DataSet with Seq" in {
-    val sqlContext = Factory.ss.sqlContext
-    import sqlContext.implicits._
-    val ds = Seq("c", "d").toDS()
-    ds.show
+  it should "init Dataset from Seq v2" in {
+    import ss.sqlContext.implicits._
+    val exp = Seq("c", "d")
+    val ds = exp.toDS()
+    val act = ds.collect()
+    act should contain allElementsOf exp
   }
 
   it should "init DataSet with POJO" in {
@@ -29,4 +33,4 @@ class InCodeTest extends FlatSpec with Matchers {
 
 }
 
-case class PeoplePojo(name: String, age: Int) {}
+private case class PeoplePojo(name: String, age: Int) {}
