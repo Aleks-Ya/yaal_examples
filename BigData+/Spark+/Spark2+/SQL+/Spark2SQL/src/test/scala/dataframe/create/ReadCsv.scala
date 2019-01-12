@@ -4,7 +4,7 @@ import factory.Factory
 import org.scalatest.Matchers._
 import org.scalatest.{BeforeAndAfterAll, FlatSpec}
 
-class CsvTest extends FlatSpec with BeforeAndAfterAll {
+class ReadCsv extends FlatSpec with BeforeAndAfterAll {
 
   "Read Df from CSV" should "print schema and data table" in {
     val airports = getClass.getResource("airports.csv")

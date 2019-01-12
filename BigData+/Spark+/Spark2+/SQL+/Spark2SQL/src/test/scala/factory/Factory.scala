@@ -21,15 +21,19 @@ object Factory {
   }
 
   lazy val peopleDf: DataFrame = {
+    val df = createPeopleDf()
+    df.show
+    df.printSchema
+    df
+  }
+
+  def createPeopleDf(): DataFrame = {
     val schema = StructType(
       StructField("name", StringType, nullable = true) ::
         StructField("age", IntegerType, nullable = true) :: Nil)
     val peopleRdd = ss.sparkContext.parallelize(Seq("Jhon,25", "Peter,35"))
     val rowRdd = peopleRdd.map(_.split(",")).map(p => Row(p(0), p(1).toInt))
-    val df = ss.sqlContext.createDataFrame(rowRdd, schema)
-    df.show
-    df.printSchema
-    df
+    ss.sqlContext.createDataFrame(rowRdd, schema)
   }
 
   lazy val citiesDf: DataFrame = {

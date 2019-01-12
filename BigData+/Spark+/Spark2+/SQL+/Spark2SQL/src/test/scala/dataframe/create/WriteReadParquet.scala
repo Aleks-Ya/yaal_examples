@@ -7,7 +7,7 @@ import factory.Factory
 import org.scalatest.Matchers._
 import org.scalatest.{BeforeAndAfterAll, FlatSpec}
 
-class ParquetTest extends FlatSpec with BeforeAndAfterAll {
+class WriteReadParquet extends FlatSpec with BeforeAndAfterAll {
 
   "Parquet test" should "write to parker file" in {
     val peopleDf = Factory.peopleDf
