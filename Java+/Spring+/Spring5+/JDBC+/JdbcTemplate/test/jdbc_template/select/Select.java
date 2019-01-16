@@ -1,9 +1,6 @@
 package jdbc_template.select;
 
-import bean.Name;
 import org.junit.Test;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
 import util.TestBase;
 
 import java.util.List;
@@ -17,7 +14,6 @@ import static org.junit.Assert.assertThat;
  * Выборка данных из БД с помощью JdbcTemplate.
  */
 public class Select extends TestBase {
-    private static final RowMapper<Name> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Name.class);
 
     @Test
     public void queryForObject() {
@@ -39,26 +35,6 @@ public class Select extends TestBase {
     @Test
     public void rowsCount() {
         assertEquals(3, (int) template.queryForObject("SELECT count(*) FROM names", Integer.class));
-    }
-
-    @Test
-    public void rowMapperForSingleObject() {
-        Name name = template.queryForObject("SELECT * FROM names WHERE id=1", ROW_MAPPER);
-        assertEquals(1, (int) name.getId());
-        assertEquals("John", name.getTitle());
-    }
-
-    @Test
-    public void rowMapperForObjectList() {
-        List<Name> names = template.query("SELECT * FROM names", ROW_MAPPER);
-
-        Name name1 = names.get(0);
-        assertEquals(1, (int) name1.getId());
-        assertEquals("John", name1.getTitle());
-
-        Name name2 = names.get(1);
-        assertEquals(2, (int) name2.getId());
-        assertEquals("Mary", name2.getTitle());
     }
 
     @Test
