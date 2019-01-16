@@ -10,7 +10,7 @@ sourceSets.main.java.srcDir 'src'
 project.webAppDirName = 'webapp'
 
 dependencies {
-    compile 'org.springframework:spring-webmvc:5.0.3.RELEASE'
+    compile "org.springframework:spring-webmvc:$springVersion"
     compile 'javax.servlet:javax.servlet-api:4.0.0'
 }
 repositories {

@@ -1,6 +1,6 @@
 subprojects {
     ext {
-        springVersion = '5.0.3.RELEASE'
+        springVersion = '5.1.4.RELEASE'
     }
     dependencies {
         compile "org.springframework:spring-context:$springVersion"
