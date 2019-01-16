@@ -1,18 +1,14 @@
 package simple_jdbc_insert;
 
 import bean.Name;
-import conf.Config;
+import jdbc_template.TestBase;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -23,12 +19,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Вставка строк в БД с помощью SimpleJdbcInsert.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Config.class)
-public class SimpleJdbcInsertUse {
-
-    @Autowired
-    private JdbcTemplate template;
+public class SimpleJdbcInsertUse extends TestBase {
 
     private SimpleJdbcInsert insert;
 

@@ -1,15 +1,10 @@
 package jdbc_template.select;
 
 import bean.Name;
-import conf.Config;
+import jdbc_template.TestBase;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
@@ -21,13 +16,8 @@ import static org.junit.Assert.assertThat;
 /**
  * Выборка данных из БД с помощью JdbcTemplate.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Config.class)
-public class Select {
+public class Select extends TestBase {
     private static final RowMapper<Name> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Name.class);
-
-    @Autowired
-    private JdbcTemplate template;
 
     @Test
     public void queryForObject() {
