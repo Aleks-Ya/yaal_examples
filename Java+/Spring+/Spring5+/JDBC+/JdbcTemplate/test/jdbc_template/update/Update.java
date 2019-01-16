@@ -1,7 +1,7 @@
 package jdbc_template.update;
 
-import jdbc_template.TestBase;
 import org.junit.Test;
+import util.TestBase;
 
 import static org.junit.Assert.assertEquals;
 

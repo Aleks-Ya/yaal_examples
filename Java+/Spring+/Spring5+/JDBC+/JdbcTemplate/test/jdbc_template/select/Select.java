@@ -1,10 +1,10 @@
 package jdbc_template.select;
 
 import bean.Name;
-import jdbc_template.TestBase;
 import org.junit.Test;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+import util.TestBase;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package simple_jdbc_insert;
 
 import bean.Name;
-import jdbc_template.TestBase;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -9,6 +8,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.KeyHolder;
+import util.TestBase;
 
 import javax.sql.DataSource;
 import java.util.HashMap;

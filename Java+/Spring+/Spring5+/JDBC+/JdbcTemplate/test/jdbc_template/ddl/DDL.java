@@ -1,7 +1,7 @@
 package jdbc_template.ddl;
 
-import jdbc_template.TestBase;
 import org.junit.Test;
+import util.TestBase;
 
 /**
  * Изменение структуры БД с помощью JdbcTemplate.

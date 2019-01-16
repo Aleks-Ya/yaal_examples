@@ -1,8 +1,8 @@
 package named_parameter_jdbc_template;
 
-import jdbc_template.TestBase;
 import org.junit.Test;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import util.TestBase;
 
 import java.util.Arrays;
 import java.util.List;
