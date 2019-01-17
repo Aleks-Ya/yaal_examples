@@ -2,6 +2,7 @@ package jython;
 
 import org.junit.Test;
 import org.python.core.PyBoolean;
+import org.python.core.PyInteger;
 import org.python.core.PyString;
 import org.python.util.PythonInterpreter;
 
@@ -23,6 +24,12 @@ public class Eval {
     public void pyBoolean() {
         PyBoolean result = (PyBoolean) interp.eval("1 < 2");
         assertTrue(result.getBooleanValue());
+    }
+
+    @Test
+    public void pyInteger() {
+        PyInteger result = (PyInteger) interp.eval("1+2");
+        assertThat(result.getValue(), equalTo(3));
     }
 
 }
