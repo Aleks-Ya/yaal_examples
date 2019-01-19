@@ -6,4 +6,5 @@ class MyClass:
 
 
 a = MyClass()
-assert type(a).__name__ == 'MyClass'
+assert eval('MyClass') == type(a)
+assert globals()['MyClass'] == type(a)
