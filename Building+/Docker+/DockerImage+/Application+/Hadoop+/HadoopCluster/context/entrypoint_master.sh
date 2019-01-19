@@ -13,7 +13,7 @@ ssh -o StrictHostKeyChecking=no slave-service-1 cat /dev/null
 ssh -o StrictHostKeyChecking=no slave-service-2 cat /dev/null
 
 hadoop-daemon.sh start journalnode
-hdfs namenode -format
+hdfs namenode -format -nonInteractive
 hadoop-daemon.sh --script hdfs start namenode
 hadoop-daemon.sh --script hdfs start datanode
 hdfs haadmin -transitionToActive --forceactive nn1
