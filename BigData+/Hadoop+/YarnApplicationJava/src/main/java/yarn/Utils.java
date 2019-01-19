@@ -13,21 +13,27 @@ import org.apache.hadoop.yarn.api.records.URL;
 import org.apache.hadoop.yarn.conf.YarnConfiguration;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 class Utils {
     static final String YARNAPP_JAR_NAME = "YarnApplication.jar";
     static final Path YARNAPP_JAR_PATH = new Path("/apps/" + YARNAPP_JAR_NAME);
 
-    static void setUpEnv(Map<String, String> env, YarnConfiguration conf) {
-        StringBuilder classPathEnv = new StringBuilder(Environment.CLASSPATH.$$()).append(
-                ApplicationConstants.CLASS_PATH_SEPARATOR).append("./*");
+    static void setUpEnv(Map<String, String> env, YarnConfiguration conf, List<String> additionalClasspath) {
+        StringBuilder classPathEnv = new StringBuilder(Environment.CLASSPATH.$$())
+                .append(ApplicationConstants.CLASS_PATH_SEPARATOR)
+                .append("./*");
         for (String c : conf.getStrings(YarnConfiguration.YARN_APPLICATION_CLASSPATH,
                 YarnConfiguration.DEFAULT_YARN_CROSS_PLATFORM_APPLICATION_CLASSPATH)) {
             classPathEnv.append(ApplicationConstants.CLASS_PATH_SEPARATOR);
             classPathEnv.append(c.trim());
         }
-        classPathEnv.append(ApplicationConstants.CLASS_PATH_SEPARATOR).append("./log4j.properties");
+        for (String path : additionalClasspath) {
+            classPathEnv
+                    .append(ApplicationConstants.CLASS_PATH_SEPARATOR)
+                    .append(path);
+        }
 
         if (conf.getBoolean(YarnConfiguration.IS_MINI_YARN_CLUSTER, false)) {
             classPathEnv.append(':');

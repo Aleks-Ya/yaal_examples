@@ -15,11 +15,17 @@ import org.apache.hadoop.yarn.client.api.NMClient;
 import org.apache.hadoop.yarn.client.api.async.AMRMClientAsync;
 import org.apache.hadoop.yarn.conf.YarnConfiguration;
 import org.apache.hadoop.yarn.util.Records;
+import org.joda.time.DateTime;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static yarn.Client.PARAM_FROM_CLIENT_TO_CONTAINER_NAME;
 
@@ -29,10 +35,30 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
     private NMClient nmClient;
     private int containerCount = 3;
 
-    public static void main(String[] args) {
-        System.out.println("AppMaster: Initializing");
+    public static void main(String[] args) throws IOException {
         System.out.println("AppMaster: Environment variables: \n" + System.getenv());
         System.out.println("AppMaster: Java properties: \n" + System.getProperties());
+
+        String pwdDirs = System.getenv("PWD");
+        System.out.println("pwdDirs: " + pwdDirs);
+        System.out.println("Files in pwdDirs: " + Files.list(Paths.get(pwdDirs)).map(Path::toAbsolutePath).collect(Collectors.toList()));
+
+        String localDirs = System.getenv("LOCAL_DIRS");
+        System.out.println("localDirs: " + localDirs);
+        System.out.println("Files in LOCAL_DIRS: " + Files.list(Paths.get(localDirs)).map(Path::toAbsolutePath).collect(Collectors.toList()));
+
+        String defaultContainerExecutor = pwdDirs + "/default_container_executor.sh";
+        System.out.println("defaultContainerExecutor: " + defaultContainerExecutor);
+        System.out.println("default_container_executor.sh content:\n" + Files.readAllLines(Paths.get(defaultContainerExecutor)));
+
+        String defaultContainerExecutorSession = pwdDirs + "/default_container_executor_session.sh";
+        System.out.println("defaultContainerExecutorSession: " + defaultContainerExecutorSession);
+        System.out.println("defaultContainerExecutorSession content:\n" + Files.readAllLines(Paths.get(defaultContainerExecutorSession)));
+
+        String launchContainer = pwdDirs + "/launch_container.sh";
+        System.out.println("launchContainer: " + launchContainer);
+        System.out.println("launchContainer content:\n" + Files.readAllLines(Paths.get(launchContainer)));
+
         try {
             new AppMaster().run();
         } catch (Exception ex) {
@@ -41,6 +67,11 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
     }
 
     private void run() throws Exception {
+        // Use classes from dependency
+        DateTime dateTime = new DateTime(2015, 3, 25, 15, 45, 20);
+        System.out.println("dateTime: " + dateTime);
+
+
         conf = new YarnConfiguration();
 
         // Create NM Client
@@ -124,8 +155,9 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
             cCLC.setLocalResources(Collections.singletonMap(Utils.YARNAPP_JAR_NAME, jar));
 
             // Set Container CLASSPATH
+            List<String> additionalClasspath = Collections.singletonList("./log4j.properties");
             Map<String, String> env = new HashMap<>();
-            Utils.setUpEnv(env, conf);
+            Utils.setUpEnv(env, conf, additionalClasspath);
             String paramFromClient = System.getenv(PARAM_FROM_CLIENT_TO_CONTAINER_NAME);
             env.put(PARAM_FROM_CLIENT_TO_CONTAINER_NAME, paramFromClient);
             cCLC.setEnvironment(env);
