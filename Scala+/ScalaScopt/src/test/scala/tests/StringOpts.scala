@@ -21,7 +21,7 @@ class StringOpts extends FlatSpec with Matchers {
     val nameValueExp = "John"
     val titleValueExp = "Sir"
 
-    val args = List("--name", nameValueExp, "--title", titleValueExp)
+    val args = Array("--name", nameValueExp, "--title", titleValueExp)
 
     val configOpt = parser.parse(args, Config())
     configOpt shouldBe defined

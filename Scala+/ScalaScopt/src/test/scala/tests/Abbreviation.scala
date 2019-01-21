@@ -16,11 +16,11 @@ class Abbreviation extends FlatSpec with Matchers {
     }
     val nameValueExp = "John"
 
-    val argsFull = List("--name", nameValueExp)
+    val argsFull = Array("--name", nameValueExp)
     val configOptFull = parser.parse(argsFull, Config())
     configOptFull.get.personName shouldEqual nameValueExp
 
-    val argsAbbr = List("-n", nameValueExp)
+    val argsAbbr = Array("-n", nameValueExp)
     val configOptAbbr = parser.parse(argsAbbr, Config())
     configOptAbbr.get.personName shouldEqual nameValueExp
   }

@@ -13,13 +13,13 @@ class EqualAndSpace extends FlatSpec with Matchers {
   private val nameValueExp = "John"
 
   it should "parse with = and space" in {
-    check(List(s"--name=$nameValueExp"))
-    check(List("--name", nameValueExp))
-    check(List(s"-n=$nameValueExp"))
-    check(List("-n", nameValueExp))
+    check(Array(s"--name=$nameValueExp"))
+    check(Array("--name", nameValueExp))
+    check(Array(s"-n=$nameValueExp"))
+    check(Array("-n", nameValueExp))
   }
 
-  def check(args: List[String]): Unit = {
+  def check(args: Array[String]): Unit = {
     val programName = getClass.getSimpleName
     val parser = new OptionParser[Config](programName) {
       opt[String]("name").abbr("n").action({
