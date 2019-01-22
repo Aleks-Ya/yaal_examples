@@ -1,7 +1,8 @@
 package factory
 
+import org.apache.spark.SparkContext
+import org.apache.spark.sql._
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
-import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}
 
 object Factory {
 
@@ -19,6 +20,8 @@ object Factory {
 
     builder.getOrCreate()
   }
+
+  lazy val sc: SparkContext = ss.sparkContext
 
   lazy val peopleDf: DataFrame = {
     val df = createPeopleDf()
@@ -47,11 +50,14 @@ object Factory {
     df
   }
 
-  lazy val citiesDs: Dataset[String] = {
-    val sqlContext = ss.sqlContext
-    import sqlContext.implicits._
-    val ds = ss.createDataset(Seq("Moscow", "SPb"))
-    ds.show
-    ds
+  def createCityDs(cities: Seq[City]): Dataset[City] = {
+    implicit val mapEncoder: Encoder[City] = Encoders.product[City]
+    ss.createDataset(cities)
+  }
+
+  lazy val cityDs: Dataset[City] = {
+    createCityDs(Seq(City("Moscow", 1147), City("SPb", 1703)))
   }
 }
+
+case class City(name: String, establishYear: Int)
