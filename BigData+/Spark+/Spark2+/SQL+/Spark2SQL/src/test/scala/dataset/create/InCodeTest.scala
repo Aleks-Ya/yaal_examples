@@ -1,4 +1,4 @@
-package dataset
+package dataset.create
 
 import factory.Factory
 import org.apache.spark.sql.{Encoder, Encoders, SparkSession}
@@ -41,8 +41,6 @@ class InCodeTest extends FlatSpec with Matchers {
     ds.columns should contain allOf("name", "age")
     actList should contain allElementsOf expList
   }
-
-
 }
 
 private case class PeoplePojo(name: String, age: Int) {}

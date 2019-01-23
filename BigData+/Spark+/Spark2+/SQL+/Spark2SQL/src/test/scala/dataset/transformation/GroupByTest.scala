@@ -1,4 +1,4 @@
-package dataset
+package dataset.transformation
 
 import factory.{City, Factory}
 import org.apache.spark.sql.catalyst.expressions.GenericRowWithSchema

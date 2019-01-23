@@ -1,5 +1,8 @@
 package dataset.encoder
 
+import java.time.LocalDateTime
+import java.util.Date
+
 import factory.Factory
 import org.apache.spark.sql.{Encoder, Encoders}
 import org.scalatest.{FlatSpec, Matchers}
@@ -17,6 +20,24 @@ class CustomEncoderTest extends FlatSpec with Matchers {
     val peopleDs = ds.map(name => new People(name))
     peopleDs.show
     peopleDs.foreach(println(_))
+  }
+
+  it should "encoder for java.util.Date" in {
+    val ss = Factory.ss
+    implicit val mapEncoder: Class[Date] => Encoder[Date] = Encoders.bean[Date]
+    val dates = Seq(new Date())
+    // not work
+    //    val ds = ss.createDataset(dates)
+    //    ds.show
+  }
+
+  it should "encoder for java.util.Date" in {
+    val ss = Factory.ss
+    implicit val mapEncoder: Class[LocalDateTime] => Encoder[LocalDateTime] = Encoders.bean[LocalDateTime]
+    val dates = Seq(LocalDateTime.now)
+    // not work
+    //    val ds = ss.createDataset(dates)
+    //    ds.show
   }
 
   //  TODO add

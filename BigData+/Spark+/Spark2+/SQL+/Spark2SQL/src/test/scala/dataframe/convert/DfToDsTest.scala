@@ -1,9 +1,9 @@
-package convert
+package dataframe.convert
 
 import factory.Factory
-import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
+import org.scalatest.{FlatSpec, Matchers}
 
-class DfToDsTest extends FlatSpec with BeforeAndAfterAll with Matchers {
+class DfToDsTest extends FlatSpec with Matchers {
 
   it should "init dataset" in {
     val sqlContext = Factory.ss.sqlContext

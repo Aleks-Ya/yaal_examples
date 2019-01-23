@@ -4,6 +4,8 @@ import org.apache.spark.SparkContext
 import org.apache.spark.sql._
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 
+import scala.collection.JavaConverters._
+
 object Factory {
 
   lazy val ss: SparkSession = {
@@ -39,7 +41,7 @@ object Factory {
     ss.sqlContext.createDataFrame(rowRdd, schema)
   }
 
-  lazy val citiesDf: DataFrame = {
+  lazy val cityListDf: DataFrame = {
     val schema = StructType(
       StructField("city", StringType, nullable = true) :: Nil)
     val cities = ss.sparkContext.parallelize(Seq("Moscow", "SPb"))
@@ -47,6 +49,13 @@ object Factory {
     val df = ss.sqlContext.createDataFrame(rowRdd, schema)
     df.show
     df.printSchema
+    df
+  }
+
+  lazy val cityObjectDf: DataFrame = {
+    val list = Seq(City("Moscow", 1147), City("SPb", 1703)).asJava
+    val df = ss.createDataFrame(list, classOf[City])
+    df.show()
     df
   }
 

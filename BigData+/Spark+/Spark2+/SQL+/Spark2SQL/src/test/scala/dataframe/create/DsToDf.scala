@@ -5,7 +5,7 @@ import org.scalatest.{FlatSpec, Matchers}
 
 class DsToDf extends FlatSpec with Matchers {
 
-  it should "convert Dataset to DataFrame" in {
+  it should "dataframe.convert Dataset to DataFrame" in {
     val df = Factory.cityDs.toDF()
     df.show
     df.columns should contain allOf("name", "establishYear")

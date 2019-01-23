@@ -1,4 +1,4 @@
-package dataset
+package dataset.transformation
 
 import factory.Factory
 import org.scalatest.{FlatSpec, Matchers}
