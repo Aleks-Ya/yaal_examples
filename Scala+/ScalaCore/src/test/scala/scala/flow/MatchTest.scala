@@ -25,4 +25,17 @@ class MatchTest extends FlatSpec with Matchers {
     }
   }
 
+  it should "compare with variables" in {
+    val manCode = "M"
+    val womenCode = "W"
+    val code = "M"
+    val gender = code match {
+      case `manCode` => "man"
+      case `womenCode` => "women"
+      case _ => "shit"
+    }
+    gender shouldEqual "man"
+  }
+
+
 }

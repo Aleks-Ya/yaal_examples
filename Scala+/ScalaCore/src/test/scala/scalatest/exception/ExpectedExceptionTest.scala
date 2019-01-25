@@ -17,7 +17,7 @@ class ExpectedExceptionTest extends FlatSpec with Matchers {
     assert(caught.getMessage.indexOf("-1") != -1)
   }
 
-  it should "with clue" in {
+  it should "with clue (a hint)" in {
     withClue("this is a clue") {
       assertThrows[IndexOutOfBoundsException] {
         "hi".charAt(-1)
