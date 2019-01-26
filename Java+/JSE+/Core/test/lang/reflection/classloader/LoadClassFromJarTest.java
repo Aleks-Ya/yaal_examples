@@ -1,4 +1,4 @@
-package lang.reflection.class_loader;
+package lang.reflection.classloader;
 
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
 /**
- * Динамическая загрузка класса из jar.
+ * Динамическая загрузка класса из jar с помощью URLClassLoader.
  */
 public class LoadClassFromJarTest {
     @Test
@@ -20,7 +20,7 @@ public class LoadClassFromJarTest {
 
         URL plugin = getClass().getResource("StringPlugin.jar");
         URLClassLoader loader = new URLClassLoader(new URL[]{plugin}, getClass().getClassLoader());
-        Class<?> clazz = Class.forName("lang.reflection.class_loader.StringInversion", true, loader);
+        Class<?> clazz = Class.forName("lang.reflection.classloader.StringInversion", true, loader);
         Method method = clazz.getDeclaredMethod("invertString", String.class);
         String actual = (String) method.invoke(null, "abc");
         assertThat(actual, equalTo("cba"));

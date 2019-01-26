@@ -1,4 +1,4 @@
-package lang.reflection.class_loader;
+package lang.reflection.classloader;
 
 /**
  * Класс, который будет динамически загружен из jar.
