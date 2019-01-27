@@ -45,6 +45,8 @@ class CustomEncoderTest extends FlatSpec with Matchers {
   //  implicit val mapEncoder: Encoder[People] = org.apache.spark.sql.Encoders.kryo[People]
   //  implicit val mapEncoder: Encoder[City] = org.apache.spark.sql.Encoders.product[City]
   //  implicit val mapEncoder: Encoder[City] = org.apache.spark.sql.Encoders.bean[City]
+  //  implicit val decimalEncoder: Encoder[java.math.BigDecimal] = Encoders.DECIMAL
+  //  implicit val bigDecimalEncoder: Encoder[BigDecimal] = Encoders.product[BigDecimal]
 
 }
 
