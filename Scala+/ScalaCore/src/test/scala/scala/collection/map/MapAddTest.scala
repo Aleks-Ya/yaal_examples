@@ -1,10 +1,10 @@
 package scala.collection.map
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.{Entry, FlatSpec, Matchers}
 
 class MapAddTest extends FlatSpec with Matchers {
 
-  it should "add single entry to map" in {
+  it should "add entry to mutable map" in {
     val map = scala.collection.mutable.Map[String, Int]()
 
     map += "a" -> 1
@@ -14,6 +14,12 @@ class MapAddTest extends FlatSpec with Matchers {
     map should contain key "b"
     map should contain value 1
     map should contain value 2
+  }
+
+  it should "add entry to immutable map" in {
+    val map = Map("a" -> 1)
+    val newMap = map + ("b" -> 2)
+    newMap should contain only("a" -> 1, "b" -> 2)
   }
 
 }

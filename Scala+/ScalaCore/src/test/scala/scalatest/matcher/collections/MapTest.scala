@@ -6,14 +6,17 @@ import org.scalatest.{Entry, FlatSpec, Matchers}
 
 class MapTest extends FlatSpec with Matchers {
 
-  "scala map" should "work" in {
+  it should "assert Scala Map" in {
     val scalaMap = Map("x" -> 24, "y" -> 25)
     scalaMap should have size 2
     scalaMap should contain key "x"
     scalaMap should contain value 24
+    scalaMap should contain("x" -> 24)
+    scalaMap should contain allOf("x" -> 24, "y" -> 25)
+    scalaMap should contain only("x" -> 24, "y" -> 25)
   }
 
-  "java map" should "work" in {
+  it should "assert java.util.Map" in {
     val javaMap = new util.HashMap[String, Integer]()
     javaMap.put("x", 24)
     javaMap.put("y", 25)
