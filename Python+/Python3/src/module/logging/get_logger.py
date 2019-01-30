@@ -1,7 +1,17 @@
 import logging
 
-root_logger = logging.getLogger()
-root_logger.error("I'm the root logger")
+# Get root logger
+root_logger: logging.RootLogger = logging.getLogger()
 
-ab_logger = logging.getLogger("a.b")
-ab_logger.error("I'm the a.b logger")
+# Get logger
+a_logger: logging.Logger = logging.getLogger('a')
+ab_logger: logging.Logger = logging.getLogger('a.b')
+
+# Get child logger
+child_logger = a_logger.getChild("b")
+assert child_logger == ab_logger
+
+# Get all loggers
+manager: logging.Manager = logging.Logger.manager
+all_loggers = manager.loggerDict
+print(all_loggers)
