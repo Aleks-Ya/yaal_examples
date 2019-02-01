@@ -49,6 +49,18 @@ for key in d:
     res += str(value)
 assert res == 'a1b2c3'
 
+# Iterate values
+d = {'a': 1, 'b': 2, 'c': 3}
+res = ''
+for value in d.values():
+    res += str(value)
+assert res == '123'
+
+# Iterate values (one line)
+d = {'a': 1, 'b': 2, 'c': 3}
+res = {value: 'a' for value in d.values()}
+assert res == {1: 'a', 2: 'a', 3: 'a'}
+
 # Iterate keys and values
 d = {'a': 1, 'b': 2, 'c': 3}
 res = ''
@@ -61,3 +73,8 @@ assert res == 'a1b2c3'
 d = {'a': 1, 'b': 2, 'c': 3}
 key_list = list(d.keys())
 assert key_list == ['a', 'b', 'c']
+
+# Dict to a value list
+d = {'a': 1, 'b': 2, 'c': 3}
+key_list = list(d.values())
+assert key_list == [1, 2, 3]
