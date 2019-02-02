@@ -49,4 +49,10 @@ public class InstantiateDatesTest {
         Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse("2016-12-25T23:40:30"));
         System.out.println("Timestamp: " + timestamp);
     }
+
+    @Test
+    public void fromPythonUtcNow() {
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse("2016-12-25T23:40:30.234778"));
+        System.out.println("Timestamp: " + timestamp);
+    }
 }

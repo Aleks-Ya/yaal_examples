@@ -9,6 +9,8 @@ import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertNotNull;
@@ -52,5 +54,30 @@ public class Parsing {
         assertThat(ZonedDateTime.parse("2007-12-03T10:15:30+01:00"), equalTo(exp2));
 
         ZonedDateTime.parse("2016-01-01T14:01:00Z");
+    }
+
+    /**
+     * Parse date of "2019-01-30 15:31:05.234778" format created by "datetime.datetime.utcnow()" in Python.
+     * ".234778" means microseconds.
+     */
+    @Test
+    public void pythonUtcNow() {
+        String date = "2019-01-30 15:31:05.234778";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+        LocalDateTime localDateTime = LocalDateTime.parse(date, formatter);
+        assertThat(localDateTime.get(ChronoField.MICRO_OF_SECOND), equalTo(234778));
+        assertThat(localDateTime.toString(), equalTo("2019-01-30T15:31:05.234778"));
+    }
+
+    @Test
+    public void pythonUtcNowWithBuilder() {
+        String date = "2019-01-30 15:31:05.234778";
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd HH:mm:ss")
+                .appendFraction(ChronoField.MICRO_OF_SECOND, 6, 6, true)
+                .toFormatter();
+        LocalDateTime localDateTime = LocalDateTime.parse(date, formatter);
+        assertThat(localDateTime.get(ChronoField.MICRO_OF_SECOND), equalTo(234778));
+        assertThat(localDateTime.toString(), equalTo("2019-01-30T15:31:05.234778"));
     }
 }
