@@ -5,13 +5,6 @@ set -e
 echo "HADOOP_PREFIX=$HADOOP_PREFIX"
 echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
 
-/usr/sbin/sshd
-ssh -o StrictHostKeyChecking=no localhost cat /dev/null
-ssh -o StrictHostKeyChecking=no 0.0.0.0 cat /dev/null
-ssh -o StrictHostKeyChecking=no master-service cat /dev/null
-ssh -o StrictHostKeyChecking=no slave-service-1 cat /dev/null
-ssh -o StrictHostKeyChecking=no slave-service-2 cat /dev/null
-
 hadoop-daemon.sh start journalnode
 hdfs namenode -bootstrapStandby
 hadoop-daemon.sh --script hdfs start namenode
