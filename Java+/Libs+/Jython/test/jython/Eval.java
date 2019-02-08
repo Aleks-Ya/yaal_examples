@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 
 
 public class Eval {
-    private final PythonInterpreter interp = new PythonInterpreter();
+    private static final PythonInterpreter interp = new PythonInterpreter();
 
     @Test
     public void pyString() {
