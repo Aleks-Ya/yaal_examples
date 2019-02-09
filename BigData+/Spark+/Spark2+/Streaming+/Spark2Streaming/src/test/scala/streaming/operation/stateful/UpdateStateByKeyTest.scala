@@ -10,7 +10,7 @@ import scala.collection.mutable
 
 class UpdateStateByKeyTest extends FlatSpec with BeforeAndAfterAll with Eventually with Matchers {
 
-  implicit override val patienceConfig = PatienceConfig(
+  implicit override val patienceConfig: PatienceConfig = PatienceConfig(
     timeout = scaled(Span(5000, Millis))
   )
 
@@ -27,7 +27,7 @@ class UpdateStateByKeyTest extends FlatSpec with BeforeAndAfterAll with Eventual
     val queue = mutable.Queue(sc.parallelize(Seq("a b c", "b b b", "c")))
     val lines = ssc.queueStream(queue)
 
-    val str = lines
+    lines
       .map(line => line.split(" "))
       .flatMap(words => words.map(word => (word, 1)))
       .reduceByKey(_ + _)

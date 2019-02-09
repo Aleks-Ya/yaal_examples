@@ -6,7 +6,7 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming._
 import org.apache.spark.{SparkConf, SparkContext}
 import org.scalatest.concurrent.Eventually
-import org.scalatest.time.{Millis, Second, Span}
+import org.scalatest.time.{Millis, Span}
 import org.scalatest.{BeforeAndAfterAll, FlatSpec, GivenWhenThen, Matchers}
 
 import scala.collection.mutable

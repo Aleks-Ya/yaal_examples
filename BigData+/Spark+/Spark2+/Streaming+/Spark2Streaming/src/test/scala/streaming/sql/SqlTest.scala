@@ -1,7 +1,5 @@
 package streaming.sql
 
-import java.util
-
 //import org.apache.spark.sql.types.{StringType, StructField, StructType}
 //import org.apache.spark.sql.{Row, SQLContext}
 //import org.apache.spark.streaming.{Seconds, StreamingContext}

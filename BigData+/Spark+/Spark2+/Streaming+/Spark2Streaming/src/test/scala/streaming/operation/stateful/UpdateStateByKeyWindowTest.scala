@@ -5,13 +5,12 @@ import org.apache.spark.streaming.{ClockWrapperFull, Seconds, StreamingContext}
 import org.scalatest.concurrent.Eventually
 import org.scalatest.time.{Millis, Span}
 import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
-import org.slf4j.LoggerFactory
 
 import scala.collection.mutable
 
 class UpdateStateByKeyWindowTest extends FlatSpec with BeforeAndAfterAll with Eventually with Matchers {
-  //  private val log = LoggerFactory.getLogger(classOf[UpdateStateByKeyWindowTest])
-  implicit override val patienceConfig = PatienceConfig(
+
+  implicit override val patienceConfig: PatienceConfig = PatienceConfig(
     timeout = scaled(Span(5000, Millis))
   )
 

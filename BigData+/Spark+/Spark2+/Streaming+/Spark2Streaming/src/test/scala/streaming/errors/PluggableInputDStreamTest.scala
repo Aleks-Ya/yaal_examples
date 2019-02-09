@@ -1,11 +1,8 @@
 package streaming.errors
 
-import java.io.NotSerializableException
-
-import org.apache.spark.{SparkConf, SparkException}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
-import org.scalactic.source.Position
-import org.scalatest.{BeforeAndAfter, BeforeAndAfterAll, FlatSpec, Matchers}
+import org.apache.spark.{SparkConf, SparkException}
+import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
 import scala.collection.mutable
 

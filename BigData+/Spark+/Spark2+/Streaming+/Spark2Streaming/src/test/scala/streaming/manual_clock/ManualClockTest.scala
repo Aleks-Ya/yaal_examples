@@ -21,7 +21,7 @@ class ManualClockTest extends FlatSpec
   private var sc: SparkContext = _
 
   // default timeout for eventually trait
-  implicit override val patienceConfig = PatienceConfig(
+  implicit override val patienceConfig: PatienceConfig = PatienceConfig(
     timeout = scaled(Span(5000, Millis))
   )
 

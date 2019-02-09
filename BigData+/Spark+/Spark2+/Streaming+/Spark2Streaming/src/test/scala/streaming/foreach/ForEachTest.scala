@@ -3,14 +3,14 @@ package streaming.foreach
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{ClockWrapperFull, Seconds, StreamingContext}
 import org.scalatest.concurrent.Eventually
-import org.scalatest.time.{Millis, Second, Span}
+import org.scalatest.time.{Millis, Span}
 import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
 
 import scala.collection.mutable
 
 class ForEachTest extends FlatSpec with BeforeAndAfterAll with Eventually with Matchers {
 
-  implicit override val patienceConfig = PatienceConfig(
+  implicit override val patienceConfig: PatienceConfig = PatienceConfig(
     timeout = scaled(Span(5000, Millis))
   )
 
