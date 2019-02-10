@@ -1,7 +1,8 @@
 /**
+  * Run Spark cluster from yaal_examples/Building+/Docker+/DockerImage+/Application+/Spark
+  * Find master IP address: docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' spark_master_1
   * Build: sbt package
-  * Copy JAR: docker cp /home/aleks/pr/home/yaal_examples/BigData+/Spark+/Spark2+/Spark2Core/target/scala-2.11/spark2core_2.11-1.jar spark_master_1:/tmp/
-  * Run: docker exec -it spark_master_1 spark-submit --class core.HelloWorldTest --master spark://master:7077 /tmp/spark2core_2.11-1.jar
+  * Run core.HelloWorldTest#main()
   */
 package core
 
@@ -11,10 +12,14 @@ object HelloWorldTest {
 
   def main(args: Array[String]): Unit = {
     println("Start")
-    val jars = Seq("target/scala-2.11/fat.jar")
+    val jars = Seq("target/scala-2.11/spark2corestandalone_2.11-1.jar")
+    val masterIp = "172.19.0.2"
     val conf = new SparkConf()
       .setAppName(getClass.getSimpleName)
-      .setMaster("spark://172.22.0.2:7077")
+      .setMaster(s"spark://$masterIp:7077")
+      .set("spark.executor.cores", "1")
+      .set("spark.executor.memory", "512M")
+      .set("spark.deploy.defaultCores", "1")
       .setJars(jars)
     val sc = new SparkContext(conf)
     val words = Seq("Hello, ", "World", "!")
@@ -22,7 +27,7 @@ object HelloWorldTest {
     assert("Hello, World!".equals(greeting))
     println("Greeting: " + greeting)
     println("Finish")
-    sc.stop()
+        sc.stop()
   }
 
 }
