@@ -1,6 +1,6 @@
 package scala.collection.map
 
-import org.scalatest.{Entry, FlatSpec, Matchers}
+import org.scalatest.{FlatSpec, Matchers}
 
 class MapAddTest extends FlatSpec with Matchers {
 
