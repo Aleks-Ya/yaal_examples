@@ -2,6 +2,10 @@ package sql.hello
 
 import org.apache.spark.{SparkConf, SparkContext}
 
+/**
+  * Submit with build:    ./submit_to_epc.sh sql.hello.HelloWorldMain
+  * Submit without build: ./submit_to_epc.sh sql.hello.HelloWorldMain --no-build
+  */
 object HelloWorldMain {
 
   def main(args: Array[String]): Unit = {

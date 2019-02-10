@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+export SPARK_CONF_DIR=/usr/local/airflow/hadoop-conf/
+
 spark-submit \
     --name "spark-2-sql-hello-world" \
-    --class sql.hello.HelloWorldMain \
+    --class $MAIN_CLASS \
     --master yarn \
     --deploy-mode cluster \
     --driver-memory 512m \
