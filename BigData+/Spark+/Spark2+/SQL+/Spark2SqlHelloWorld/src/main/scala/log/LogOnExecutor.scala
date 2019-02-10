@@ -15,17 +15,18 @@ object LogOnExecutor {
       .setAppName(getClass.getSimpleName)
     val sc = new SparkContext(conf)
 
-    class Mapper {
-      private lazy val log = LogManager.getLogger(this.getClass)
+    class Mapper extends Serializable {
+      @transient private lazy val log = LogManager.getLogger(this.getClass)
 
       def process(rdd: RDD[String]): RDD[String] = {
-        log.error(s"Log from Mapper !!!!!!!!!!!!!!!!!!!!!!")
-        rdd.map(_.toUpperCase())
+        rdd.map(word => {
+          log.error(s"Log from Mapper !!!!!!!!!!!!!!!!!!!!!!")
+          word.toUpperCase()
+        })
       }
     }
 
-    val words = Seq("Hello, ", "World", "!")
-    val rdd1 = sc.parallelize(words)
+    val rdd1 = sc.parallelize(Seq("Hello, ", "World", "!"))
     val mapper = new Mapper
     val rdd2 = mapper.process(rdd1)
     val greeting = rdd2.reduce(_ + _)
