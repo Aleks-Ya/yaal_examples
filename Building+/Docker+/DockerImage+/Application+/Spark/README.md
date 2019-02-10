@@ -8,6 +8,8 @@ REST API: http://localhost:6066/
 HDFS UI: http://localhost:50070
 Spark Master: spark://master:7077
 
+Master IP address: docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' spark_master_1
+
 ## Run
 `docker-compose up`
 
