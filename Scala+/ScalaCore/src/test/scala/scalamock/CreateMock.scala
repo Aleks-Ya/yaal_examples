@@ -11,7 +11,7 @@ class CreateMock extends FlatSpec with Matchers with MockFactory {
     case class Country(id: CountryId, name: String)
     case class Player(id: PlayerId, nickname: String, country: Country)
 
-    val countryMock = mock[CountryId]
+    val countryMock = mock[Country]
   }
 
   it should "create stub" in {
