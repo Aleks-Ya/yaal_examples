@@ -14,7 +14,7 @@ subprojects {
         mavenCentral()
     }
     ext {
-        h2Dependency = 'com.h2database:h2:1.4.196'
+        h2Dependency = 'com.h2database:h2:1.4.197'
     }
 }
 
