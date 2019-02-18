@@ -3,6 +3,11 @@
 # length
 assert len('abc') == 3
 
+# Is a string contains a substring
+s = 'abc'
+assert 'b' in s
+assert 'z' not in s
+
 # is empty
 s = ''
 is_empty = not s
