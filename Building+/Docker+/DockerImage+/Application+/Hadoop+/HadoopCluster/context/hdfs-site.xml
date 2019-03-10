@@ -1,4 +1,17 @@
 <configuration>
+
+    <!-- Custom properties -->
+    <!-- Not work: Property "my.property.from.hadoop.env.sh" is available from hadoop-env.sh -->
+    <property>
+        <name>my.property</name>
+        <value>my_custom_value</value>
+    </property>
+    <property>
+        <name>my.property.with.another.property</name>
+        <value>File system: ${fs.defaultFS}, Custom: ${my.property}</value>
+    </property>
+
+
     <property>
         <name>fs.defaultFS</name>
         <value>hdfs://master-service:8020</value>
