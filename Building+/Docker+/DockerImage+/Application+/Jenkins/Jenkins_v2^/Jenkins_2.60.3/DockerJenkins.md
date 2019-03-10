@@ -1,15 +1,9 @@
 # Jenkins v2
-`docker run -p 8080:8080 -p 50000:50000 --net bridge --dns 8.8.8.8  jenkins`
-***
-
-# Jenkins v1
 ## Run Docker container
 ```
-docker build -t aleks3490/jenkins:1.651.3 -f Jenkins_v1_Dockerfile .
-
-docker rm jenkins16
-
-docker run -p 8080:8080 -p 50000:50000 --net bridge --dns 8.8.8.8 --dns 10.66.0.6 --name jenkins16 aleks3490/jenkins:1.651.3
+docker build -t aleks3490/jenkins:2.60.3 .
+docker rm jenkins_2.60.3
+docker run -p 8080:8080 -p 50000:50000 --net bridge --name jenkins_2.60.3 aleks3490/jenkins:2.60.3
 ```
 ## Attach with bash
 `docker exec -it jenkins16 bash`
