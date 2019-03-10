@@ -21,6 +21,26 @@ class SerializeToString extends FlatSpec with Matchers {
     val json = write(City.moscowCity)
     json shouldEqual City.moscowJson
   }
+
+  it should "serialize java.math.BigDecimal to json" in {
+    implicit val formats: AnyRef with Formats = Serialization.formats(NoTypeHints)
+    val decimal = java.math.BigDecimal.valueOf(11.22)
+    val json = write(decimal)
+    json shouldEqual "11.22"
+  }
+
+  it should "serialize Map contains java.math.BigDecimal" in {
+    implicit val formats: AnyRef with Formats = Serialization.formats(NoTypeHints)
+    val valueMap: Map[String, Any] = Map("value" -> java.math.BigDecimal.valueOf(11.22))
+    val json = write(valueMap)
+    json shouldEqual """{"value":11.22}"""
+  }
+
+  it should "serialize null to json" in {
+    val json = compact(render(null))
+    json shouldEqual "null"
+  }
+
 }
 
 
