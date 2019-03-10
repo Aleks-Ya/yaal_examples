@@ -9,3 +9,9 @@ assert dir_name == '/tmp/abc'
 absolute_path = '/tmp/abc/data.txt'
 dir_name = os.path.basename(absolute_path)
 assert dir_name == 'data.txt'
+
+# Join directory path and filename
+dir_name = '/tmp/abc'
+file_name = 'data.txt'
+full_name = os.path.join(dir_name, file_name)
+assert full_name == '/tmp/abc/data.txt'
