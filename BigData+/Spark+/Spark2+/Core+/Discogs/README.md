@@ -28,3 +28,8 @@ Pack: ` sbt assembly && cp target/scala-2.11/discogs.jar /tmp/hadoop-cluster-cli
 - Alias duplicates - ?
 
 Command: grep -o '<artist>' discogs_20190101_artists.xml | wc -l
+
+
+# TODO
+1. Display progress
+1. Remove `<artist>` tag from the sequence file (-200Mb)
