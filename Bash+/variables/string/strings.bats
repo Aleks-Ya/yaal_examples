@@ -4,8 +4,17 @@ setup() {
   str="Feature/Test-8"
 }
 
-@test "Replace 8 with 9" {
+@test "Replace first 8 with 9" {
   [ "${str/8/9}" = "Feature/Test-9" ]
+}
+
+@test "Replace all e with E" {
+  [ "${str//e/E}" = "FEaturE/TEst-8" ]
+}
+
+@test "Replace all . with /" {
+  str="com.java.io"
+  [ "${str//.//}" = "com/java/io" ]
 }
 
 @test "Replace '/' with '-'" {
