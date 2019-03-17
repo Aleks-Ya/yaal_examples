@@ -10,7 +10,7 @@
     </parent>
     <groupId>ru.yaal.examples.kubernates.springboot</groupId>
     <artifactId>kubernates-spring-boot</artifactId>
-    <version>2</version>
+    <version>7</version>
 
     <properties>
         <java.version>1.8</java.version>
@@ -40,6 +40,29 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>ru.yaal.examples.kubernates.springboot.KubernatesSpringBootApplication</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>1.4.10</version>
@@ -53,8 +76,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!-- Run Local Registry: "docker run -d -p 5000:5000 registry:2" -->
-                    <repository>localhost:5000/${project.name}</repository>
+                    <repository>${project.name}</repository>
                     <tag>${project.version}</tag>
                     <username/>
                     <password/>
