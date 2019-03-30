@@ -9,3 +9,5 @@ Describe deployment: `kubectl describe deployment nginx-deployment`
 List pods: `kubectl get pods -l app=nginx`
 
 Delete deployment: `kubectl delete deployment nginx-deployment`
+
+Open port for debugging: `kubectl port-forward deployment/nginx-deployment 8011:80`
