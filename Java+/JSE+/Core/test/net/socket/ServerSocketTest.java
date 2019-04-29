@@ -1,16 +1,13 @@
 package net.socket;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.URL;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -22,7 +19,6 @@ public class ServerSocketTest {
     private boolean ready = false;
 
     @Test
-    @Ignore("not finished")
     public void main() throws IOException, InterruptedException {
         new Thread(() -> {
             try {
@@ -31,22 +27,23 @@ public class ServerSocketTest {
                 Socket socket = serverSocket.accept();
                 PrintWriter pw = new PrintWriter(socket.getOutputStream());
                 pw.write(BODY);
+                pw.flush();
                 socket.close();
+                serverSocket.close();
             } catch (IOException e) {
                 throw new RuntimeException(e.getMessage(), e);
             }
         }).start();
 
         while (!ready) {
-            Thread.sleep(100);
+            Thread.sleep(500);
         }
 
-        URL url = new URL("http", "localhost", PORT, "");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.connect();
-        BufferedReader bis = new BufferedReader(new InputStreamReader((connection.getInputStream())));
+
+        Socket socket = new Socket("127.0.0.1", PORT);
+        BufferedReader bis = new BufferedReader(new InputStreamReader((socket.getInputStream())));
         String act = bis.lines().collect(Collectors.joining("\n"));
-        connection.disconnect();
+        socket.close();
 
         assertThat(act, equalTo(BODY));
     }

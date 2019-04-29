@@ -3,7 +3,7 @@ package lang.reflection.stack;
 import org.hamcrest.Matchers;
 import org.junit.Ignore;
 import org.junit.Test;
-import sun.reflect.Reflection;
+//import sun.reflect.Reflection;
 
 import static org.junit.Assert.assertThat;
 
@@ -12,9 +12,9 @@ import static org.junit.Assert.assertThat;
  */
 public class GetClassThatInvokedCurrentMethodTest {
 
-    private static Class<?> getCallerClass() {
-        return Reflection.getCallerClass(2);
-    }
+//    private static Class<?> getCallerClass() {
+//        return Reflection.getCallerClass(2);
+//    }
 
     @Test
     @Ignore("Require Java 9")
@@ -29,13 +29,13 @@ public class GetClassThatInvokedCurrentMethodTest {
     @Test
     @Ignore("doesn't work")
     public void sunReflectReflection() {
-        Class<?> callerClass = TheCaller.call();
-        assertThat(callerClass, Matchers.is(TheCaller.class));
+//        Class<?> callerClass = TheCaller.call();
+//        assertThat(callerClass, Matchers.is(TheCaller.class));
     }
 
     private static class TheCaller {
-        static Class<?> call() {
-            return getCallerClass();
-        }
+//        static Class<?> call() {
+//            return getCallerClass();
+//        }
     }
 }
