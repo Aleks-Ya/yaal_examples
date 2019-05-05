@@ -1,3 +1,6 @@
+package handler.servlet;
+
+import org.eclipse.jetty.server.NetworkConnector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
 import org.junit.Test;
@@ -18,10 +21,10 @@ public class ServletHandlerTest {
         handler.addServletWithMapping(StarServlet.class, "/*");
         handler.addServletWithMapping(WelcomeServlet.class, "/welcome");
 
-        int port = 8080;
-        Server server = new Server(port);
+        Server server = new Server(0);
         server.setHandler(handler);
         server.start();
+        int port = ((NetworkConnector) server.getConnectors()[0]).getLocalPort();
 
         NetAsserts.assertUrlContent("http://localhost:" + port + "/*", "Star servlet");
         NetAsserts.assertUrlContent("http://localhost:" + port + "/welcome", "<h2>Welcome!</h2>");

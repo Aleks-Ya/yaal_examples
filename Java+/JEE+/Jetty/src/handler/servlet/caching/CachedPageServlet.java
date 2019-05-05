@@ -1,4 +1,4 @@
-package caching;
+package handler.servlet.caching;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

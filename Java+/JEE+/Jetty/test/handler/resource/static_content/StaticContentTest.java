@@ -1,6 +1,7 @@
-package static_content;
+package handler.resource.static_content;
 
 import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.NetworkConnector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
@@ -26,10 +27,10 @@ public class StaticContentTest {
         handler.setResourceBase(staticContentPath);
         handler.setDirectoriesListed(true);
 
-        int port = 8080;
-        Server server = new Server(port);
+        Server server = new Server(0);
         server.setHandler(handler);
         server.start();
+        int port = ((NetworkConnector) server.getConnectors()[0]).getLocalPort();
 
         NetAsserts.assertUrlContent("http://localhost:" + port, "Hi, HTML!");
         NetAsserts.assertUrlContent("http://localhost:" + port + "/nested/info.json", "{\"a\": 1}");
@@ -47,10 +48,10 @@ public class StaticContentTest {
         File staticContentDir = new File(res.getFile()).getParentFile();
         handler.setResourceBase(staticContentDir.getAbsolutePath());
 
-        int port = 8080;
-        Server server = new Server(port);
+        Server server = new Server(0);
         server.setHandler(handler);
         server.start();
+        int port = ((NetworkConnector) server.getConnectors()[0]).getLocalPort();
 
         NetAsserts.assertUrlContent("http://localhost:" + port, "Hi, Static content from resources!");
         NetAsserts.assertUrlContent("http://localhost:" + port + "/nested/data.json", "{\"name\": \"John\"}");
@@ -74,10 +75,10 @@ public class StaticContentTest {
         ContextHandlerCollection contexts = new ContextHandlerCollection();
         contexts.setHandlers(new Handler[]{staticContext});
 
-        int port = 8080;
-        Server server = new Server(port);
+        Server server = new Server(0);
         server.setHandler(contexts);
         server.start();
+        int port = ((NetworkConnector) server.getConnectors()[0]).getLocalPort();
 
         NetAsserts.assertUrlContent("http://localhost:" + port + "/static/nested/data.json", "{\"name\": \"John\"}");
 
@@ -95,10 +96,10 @@ public class StaticContentTest {
         handler.setResourceBase(staticContentDir.getAbsolutePath());
         handler.setWelcomeFiles(new String[]{"index2.html"});
 
-        int port = 8080;
-        Server server = new Server(port);
+        Server server = new Server(0);
         server.setHandler(handler);
         server.start();
+        int port = ((NetworkConnector) server.getConnectors()[0]).getLocalPort();
 
         NetAsserts.assertUrlContent("http://localhost:" + port, "Hi, custom welcome file!");
 

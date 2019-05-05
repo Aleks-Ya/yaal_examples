@@ -1,5 +1,6 @@
 package handler.abstract_;
 
+import org.eclipse.jetty.server.NetworkConnector;
 import org.eclipse.jetty.server.Server;
 import util.NetAsserts;
 
@@ -8,10 +9,10 @@ import util.NetAsserts;
  */
 public class AbstractHandlerTest {
     public static void main(String[] args) throws Exception {
-        int port = 8080;
-        Server server = new Server(port);
+        Server server = new Server(0);
         server.setHandler(new HelloWorldHandler());
         server.start();
+        int port = ((NetworkConnector) server.getConnectors()[0]).getLocalPort();
 
         NetAsserts.assertUrlContent("http://localhost:" + port, "<h1>Hello Jetty World!</h1>");
 

@@ -1,7 +1,8 @@
-package caching;
+package handler.servlet.caching;
 
 import org.eclipse.jetty.http.MimeTypes;
 import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.NetworkConnector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
@@ -41,16 +42,15 @@ public class CachingTest {
         ContextHandlerCollection contexts = new ContextHandlerCollection();
         contexts.setHandlers(new Handler[]{rootContext, staticContext});
 
-        int port = 8081;
-        Server server = new Server(port);
+        Server server = new Server(0);
         server.setHandler(contexts);
         server.start();
+        int port = ((NetworkConnector) server.getConnectors()[0]).getLocalPort();
 
         NetAsserts.assertUrlContent("http://localhost:" + port + "/static/fake.js", "console.log('hi from static JS');");
         NetAsserts.assertUrlContent("http://localhost:" + port + "/cache/root", RootPageServlet.CONTENT);
         NetAsserts.assertUrlContent("http://localhost:" + port + "/cache/data", CachedPageServlet.CONTENT);
 
-//        while(true);
         server.stop();
     }
 }
