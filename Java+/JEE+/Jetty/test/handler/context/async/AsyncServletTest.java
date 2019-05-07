@@ -15,7 +15,6 @@ public class AsyncServletTest {
     @Test
     public void test() throws Exception {
         ServletContextHandler context = new ServletContextHandler();
-        context.setContextPath("/");
         String path = "/async";
         ServletHolder asyncHolder = context.addServlet(AsyncServlet.class, path);
         asyncHolder.setAsyncSupported(true);
