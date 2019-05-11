@@ -94,6 +94,7 @@ include 'JSE+:Core',
         'Libs+:WebCrawler+:crawler4j',
         'Libs+:JKeyLockManager',
         'Libs+:jimfs',
+        'Libs+:Thymeleaf',
         'Algorithm',
         'Git+:JGit',
         'Util'
