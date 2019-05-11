@@ -20,10 +20,10 @@ public class IncludeInsertReplaceTest {
 
         Context context = new Context();
 
-        String template = "thymeleaf/template/layout/include/include_insert_replace.html";
+        String template = "thymeleaf/template/layout/include/include_insert_replace_template.html";
         String result = engine.process(template, context);
 
-        String expContent = resourceToString(IncludeInsertReplaceTest.class, "include_insert_replace.txt");
+        String expContent = resourceToString(IncludeInsertReplaceTest.class, "include_insert_replace_expected.html");
         assertEquals(expContent, result);
     }
 

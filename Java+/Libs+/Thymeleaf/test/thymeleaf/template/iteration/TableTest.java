@@ -54,10 +54,10 @@ public class TableTest {
         Context context = new Context();
         context.setVariable("prods", prods);
 
-        String template = "thymeleaf/template/iteration/table.html";
+        String template = "thymeleaf/template/iteration/table_template.html";
         String result = engine.process(template, context);
 
-        String expContent = ResourceUtil.resourceToString(TableTest.class, "table.txt");
+        String expContent = ResourceUtil.resourceToString(TableTest.class, "table_expected.html");
         assertEquals(expContent, result);
     }
 

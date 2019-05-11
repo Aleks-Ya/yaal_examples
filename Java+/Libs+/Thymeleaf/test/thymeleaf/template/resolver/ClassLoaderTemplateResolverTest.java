@@ -19,7 +19,7 @@ public class ClassLoaderTemplateResolverTest {
         Context context = new Context();
         context.setVariable("welcome", "Hello");
 
-        String template = "thymeleaf/template/resolver/ClassLoaderTemplateResolverTest.txt";
+        String template = "thymeleaf/template/resolver/ClassLoaderTemplateResolver_template.txt";
         String result = engine.process(template, context);
         assertEquals("Say Hello, ClassLoaderTemplateResolver!", result);
     }

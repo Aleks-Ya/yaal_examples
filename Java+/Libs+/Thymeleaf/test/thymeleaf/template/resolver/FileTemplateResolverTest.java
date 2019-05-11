@@ -19,7 +19,7 @@ public class FileTemplateResolverTest {
         Context context = new Context();
         context.setVariable("welcome", "Hello");
 
-        String template = StringTemplateResolverTest.class.getResource("FileTemplateResolverTest.txt").getFile();
+        String template = StringTemplateResolverTest.class.getResource("FileTemplateResolver_template.txt").getFile();
         String result = engine.process(template, context);
         assertEquals("Say Hello, FileTemplateResolver!", result);
     }

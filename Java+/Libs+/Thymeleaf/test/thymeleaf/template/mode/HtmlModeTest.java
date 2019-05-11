@@ -21,10 +21,10 @@ public class HtmlModeTest {
         Context context = new Context();
         context.setVariable("welcome", "Hello!");
 
-        String template = "thymeleaf/template/mode/html_mode.html";
+        String template = "thymeleaf/template/mode/html_mode_template.html";
         String result = engine.process(template, context);
 
-        String expContent = ResourceUtil.resourceToString(HtmlModeTest.class, "html_mode.txt");
+        String expContent = ResourceUtil.resourceToString(HtmlModeTest.class, "html_mode_expected.html");
         assertEquals(expContent, result);
     }
 
