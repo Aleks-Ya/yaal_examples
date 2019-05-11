@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>PRICE</th>
+        <th>IN STOCK</th>
+    </tr>
+    <tr class="odd">
+        <td>Bread</td>
+        <td>35.4</td>
+        <td>Yes</td>
+    </tr>
+    <tr>
+        <td>Milk</td>
+        <td>70.9</td>
+        <td>Yes</td>
+    </tr>
+    <tr class="odd">
+        <td>Gun</td>
+        <td>10370.5</td>
+        <td>No</td>
+    </tr>
+</table>
+
+</body>
+</html>

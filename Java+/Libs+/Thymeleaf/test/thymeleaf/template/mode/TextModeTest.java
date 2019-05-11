@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TextModeTest {
     @Test
-    public void noMode() {
+    public void test() {
         StringTemplateResolver resolver = new StringTemplateResolver();
 
         TemplateEngine engine = new TemplateEngine();
