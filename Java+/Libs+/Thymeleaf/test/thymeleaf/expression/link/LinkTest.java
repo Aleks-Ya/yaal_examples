@@ -18,6 +18,7 @@ public class LinkTest {
         engine.setTemplateResolver(resolver);
 
         Context context = new Context();
+        context.setVariable("city", "Moscow");
 
         String template = "thymeleaf/expression/link/link_template.html";
         String result = engine.process(template, context);
