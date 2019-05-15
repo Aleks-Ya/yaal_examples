@@ -95,6 +95,7 @@ include 'JSE+:Core',
         'Libs+:JKeyLockManager',
         'Libs+:jimfs',
         'Libs+:Thymeleaf',
+        'Libs+:Hystrix',
         'Algorithm',
         'Git+:JGit',
         'Util'
