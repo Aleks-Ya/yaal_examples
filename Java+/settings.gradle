@@ -96,6 +96,7 @@ include 'JSE+:Core',
         'Libs+:jimfs',
         'Libs+:Thymeleaf',
         'Libs+:Hystrix',
+        'Libs+:MicrosoftExchangeWebServices',
         'Algorithm',
         'Git+:JGit',
         'Util'
