@@ -1,5 +1,6 @@
-package hystrix.helloworld;
+package hystrix.command;
 
+import hystrix.helloworld.HelloWorldCommand;
 import org.junit.Test;
 import rx.Observable;
 
@@ -9,7 +10,7 @@ import java.util.concurrent.Future;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-public class HelloWorldTest {
+public class HystrinxCommandTest {
 
     @Test
     public void execute() {
