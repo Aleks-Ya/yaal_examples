@@ -1,0 +1,3 @@
+dependencies {
+    compile 'com.netflix.ribbon:ribbon:2.7.9'
+}
