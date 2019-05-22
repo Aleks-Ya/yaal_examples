@@ -1,4 +1,4 @@
-package time_api;
+package time_api.interval;
 
 import org.junit.Test;
 
