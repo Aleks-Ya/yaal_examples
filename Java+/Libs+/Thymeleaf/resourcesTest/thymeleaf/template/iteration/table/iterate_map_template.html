@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>PRICE</th>
+        <th>IN STOCK</th>
+    </tr>
+    <tr th:each="prodEntry,iterStat : ${nameToProductMap}" th:class="${iterStat.odd}? 'odd'">
+        <td th:text="${prodEntry.key}">Onions</td>
+        <td th:text="${prodEntry.value.price}">2.41</td>
+        <td th:text="${prodEntry.value.inStock}? Yes : No">yes</td>
+    </tr>
+</table>
+
+</body>
+</html>

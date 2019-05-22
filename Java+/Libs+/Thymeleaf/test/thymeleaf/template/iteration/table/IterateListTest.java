@@ -1,4 +1,4 @@
-package thymeleaf.template.iteration;
+package thymeleaf.template.iteration.table;
 
 import org.junit.Test;
 import org.thymeleaf.TemplateEngine;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class TableTest {
+public class IterateListTest {
 
     @SuppressWarnings("unused")
     private static class Product {
@@ -54,10 +54,10 @@ public class TableTest {
         Context context = new Context();
         context.setVariable("prods", prods);
 
-        String template = "thymeleaf/template/iteration/table_template.html";
+        String template = "thymeleaf/template/iteration/table/iterate_list_template.html";
         String result = engine.process(template, context);
 
-        String expContent = ResourceUtil.resourceToString(TableTest.class, "table_expected.html");
+        String expContent = ResourceUtil.resourceToString(IterateListTest.class, "iterate_list_expected.html");
         assertEquals(expContent, result);
     }
 
