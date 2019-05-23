@@ -2,6 +2,8 @@ package lang.string.string.format;
 
 import org.junit.Test;
 
+import java.text.NumberFormat;
+
 import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -49,6 +51,15 @@ public class Format {
         assertThat(format("Вещественное число: %f%n", 3.14), equalTo("Вещественное число: 3.140000\n"));
         assertThat(format("Десятичные разряды: %.2f%n", 3.14), equalTo("Десятичные разряды: 3.14\n"));
         assertThat(format("Разделители групп разрядов: %,d%n", 1000000), equalTo("Разделители групп разрядов: 1,000,000\n"));
+
+        // Two or less decimal digits
+        NumberFormat nf= NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(2);
+        nf.setMinimumFractionDigits(0);
+
+        assertThat(nf.format(2.3456), equalTo("2.35"));
+        assertThat(nf.format(2.3), equalTo("2.3"));
+        assertThat(nf.format(2), equalTo("2"));
 
     }
 }
