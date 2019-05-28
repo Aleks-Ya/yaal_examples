@@ -2,7 +2,17 @@ import org.hamcrest.Matcher;
 import org.junit.Test;
 
 import static java.util.Arrays.asList;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.emptyOrNullString;
+import static org.hamcrest.Matchers.emptyString;
+import static org.hamcrest.Matchers.endsWith;
+import static org.hamcrest.Matchers.equalToCompressingWhiteSpace;
+import static org.hamcrest.Matchers.equalToIgnoringCase;
+import static org.hamcrest.Matchers.hasToString;
+import static org.hamcrest.Matchers.matchesPattern;
+import static org.hamcrest.Matchers.startsWith;
+import static org.hamcrest.Matchers.stringContainsInOrder;
 import static org.junit.Assert.assertThat;
 
 public class StringAssert {
@@ -19,7 +29,8 @@ public class StringAssert {
         assertThat("", emptyString());
         assertThat("Jamaica Kingston Portion", stringContainsInOrder(asList("Jam", "King", "Port")));
         assertThat("Gangalee", equalToIgnoringCase("GaNgAlEe"));
-        assertThat("Gangalee Step", equalToIgnoringWhiteSpace("GaNgAlEe\nStep\t"));
+        assertThat("   my\tfoo  bar ", equalToCompressingWhiteSpace(" my  foo bar"));
+        assertThat("   my\tfoo\ntwo  bar ", equalToCompressingWhiteSpace(" my  foo two bar"));
         assertThat(new Object(), hasToString(startsWith("java.lang.Object@")));
     }
 
