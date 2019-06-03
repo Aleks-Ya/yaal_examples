@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<table border="1">
+    <tr>
+        <th>CITY</th>
+        <th>NAME</th>
+    </tr>
+    <tr th:each="row : ${rows}">
+        <td th:text="${row.city}" th:if="${row.city != null}" th:rowspan="${row.cityRowSpan}">Moscow</td>
+        <td th:text="${row.name}">Simon</td>
+    </tr>
+</table>
+
+</body>
+</html>
