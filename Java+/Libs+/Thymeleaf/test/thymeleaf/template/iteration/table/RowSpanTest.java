@@ -9,6 +9,7 @@ import util.ResourceUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,21 +30,22 @@ public class RowSpanTest {
             this.name = name;
         }
 
-        public String getCity() {
+        String getCity() {
             return city;
         }
 
-        public String getName() {
+        String getName() {
             return name;
         }
     }
 
+    @SuppressWarnings("unused")
     private static class Row {
         String city;
         Integer cityRowSpan;
         String name;
 
-        public Row(String city, Integer cityRowSpan, String name) {
+        Row(String city, Integer cityRowSpan, String name) {
             this.city = city;
             this.cityRowSpan = cityRowSpan;
             this.name = name;
@@ -81,7 +83,7 @@ public class RowSpanTest {
         List<Row> rows = new ArrayList<>();
 
         personList.stream()
-                .collect(Collectors.groupingBy(Person::getCity))
+                .collect(Collectors.groupingBy(Person::getCity, LinkedHashMap::new, Collectors.toList()))
                 .forEach((city, persons) -> {
                     if (persons.size() > 0) {
                         rows.add(new Row(city, persons.size(), persons.get(0).getName()));
