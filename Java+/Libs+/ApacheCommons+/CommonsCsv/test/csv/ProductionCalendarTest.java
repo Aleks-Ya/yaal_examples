@@ -30,15 +30,15 @@ public class ProductionCalendarTest {
         Map<Integer, Year> years = parseCalendar();
         assertThat(years, aMapWithSize(27));
         int year = 2020;
-        Year year2019 = years.get(year);
-        assertThat(year2019.getWorkingDays(Month.FEBRUARY), contains(1, 2, 8, 9, 15, 16, 22, 23, 24, 29));
-        assertThat(year2019.getWorkingDays(Month.APRIL), contains(4, 5, 11, 12, 18, 19, 25, 26, 30));
-        assertThat(year2019.getYear(), equalTo(year));
-        assertThat(year2019.getTotalWorkingDays(), equalTo(250));
-        assertThat(year2019.getTotalHolidays(), equalTo(116));
-        assertThat(year2019.getWorkingHours40(), equalTo(BigDecimal.valueOf(1995)));
-        assertThat(year2019.getWorkingHours36(), equalTo(BigDecimal.valueOf(1795)));
-        assertThat(year2019.getWorkingHours24(), equalTo(BigDecimal.valueOf(1195)));
+        Year year2020 = years.get(year);
+        assertThat(year2020.getHolidays(Month.FEBRUARY), contains(1, 2, 8, 9, 15, 16, 22, 23, 24, 29));
+        assertThat(year2020.getHolidays(Month.APRIL), contains(4, 5, 11, 12, 18, 19, 25, 26, 30));
+        assertThat(year2020.getYear(), equalTo(year));
+        assertThat(year2020.getTotalWorkingDays(), equalTo(250));
+        assertThat(year2020.getTotalHolidays(), equalTo(116));
+        assertThat(year2020.getWorkingHours40(), equalTo(BigDecimal.valueOf(1995)));
+        assertThat(year2020.getWorkingHours36(), equalTo(BigDecimal.valueOf(1795)));
+        assertThat(year2020.getWorkingHours24(), equalTo(BigDecimal.valueOf(1195)));
     }
 
     private static Map<Integer, Year> parseCalendar() throws IOException {
@@ -49,19 +49,19 @@ public class ProductionCalendarTest {
         for (CSVRecord record : records) {
             int year = Integer.parseInt(record.get("Год/Месяц"));
 
-            Map<Month, List<Integer>> workingDaysInMonth = new HashMap<>();
-            workingDaysInMonth.put(Month.JANUARY, parseWorkingDays(record.get("Январь")));
-            workingDaysInMonth.put(Month.FEBRUARY, parseWorkingDays(record.get("Февраль")));
-            workingDaysInMonth.put(Month.MARCH, parseWorkingDays(record.get("Март")));
-            workingDaysInMonth.put(Month.APRIL, parseWorkingDays(record.get("Апрель")));
-            workingDaysInMonth.put(Month.MAY, parseWorkingDays(record.get("Май")));
-            workingDaysInMonth.put(Month.JUNE, parseWorkingDays(record.get("Июнь")));
-            workingDaysInMonth.put(Month.JULY, parseWorkingDays(record.get("Июль")));
-            workingDaysInMonth.put(Month.AUGUST, parseWorkingDays(record.get("Август")));
-            workingDaysInMonth.put(Month.SEPTEMBER, parseWorkingDays(record.get("Сентябрь")));
-            workingDaysInMonth.put(Month.OCTOBER, parseWorkingDays(record.get("Октябрь")));
-            workingDaysInMonth.put(Month.NOVEMBER, parseWorkingDays(record.get("Ноябрь")));
-            workingDaysInMonth.put(Month.DECEMBER, parseWorkingDays(record.get("Декабрь")));
+            Map<Month, List<Integer>> holidaysInMonth = new HashMap<>();
+            holidaysInMonth.put(Month.JANUARY, parseHolidays(record.get("Январь")));
+            holidaysInMonth.put(Month.FEBRUARY, parseHolidays(record.get("Февраль")));
+            holidaysInMonth.put(Month.MARCH, parseHolidays(record.get("Март")));
+            holidaysInMonth.put(Month.APRIL, parseHolidays(record.get("Апрель")));
+            holidaysInMonth.put(Month.MAY, parseHolidays(record.get("Май")));
+            holidaysInMonth.put(Month.JUNE, parseHolidays(record.get("Июнь")));
+            holidaysInMonth.put(Month.JULY, parseHolidays(record.get("Июль")));
+            holidaysInMonth.put(Month.AUGUST, parseHolidays(record.get("Август")));
+            holidaysInMonth.put(Month.SEPTEMBER, parseHolidays(record.get("Сентябрь")));
+            holidaysInMonth.put(Month.OCTOBER, parseHolidays(record.get("Октябрь")));
+            holidaysInMonth.put(Month.NOVEMBER, parseHolidays(record.get("Ноябрь")));
+            holidaysInMonth.put(Month.DECEMBER, parseHolidays(record.get("Декабрь")));
 
             int totalWorkingDays = Integer.parseInt(record.get("Всего рабочих дней"));
             int totalHolidays = Integer.parseInt(record.get("Всего праздничных и выходных дней"));
@@ -69,7 +69,7 @@ public class ProductionCalendarTest {
             BigDecimal workingHours36 = new BigDecimal(record.get("Количество рабочих часов при 36-часовой рабочей неделе"));
             BigDecimal workingHours24 = new BigDecimal(record.get("Количество рабочих часов при 24-часовой рабочей неделе"));
 
-            Year yearPojo = new Year(year, workingDaysInMonth, totalWorkingDays, totalHolidays, workingHours40,
+            Year yearPojo = new Year(year, holidaysInMonth, totalWorkingDays, totalHolidays, workingHours40,
                     workingHours36, workingHours24);
             years.put(year, yearPojo);
         }
@@ -78,7 +78,7 @@ public class ProductionCalendarTest {
 
     private static class Year {
         private final int year;
-        private final Map<Month, List<Integer>> workingDaysInMonth;
+        private final Map<Month, List<Integer>> holidaysInMonth;
         private final int totalWorkingDays;
         private final int totalHolidays;
         private final BigDecimal workingHours40;
@@ -86,14 +86,14 @@ public class ProductionCalendarTest {
         private final BigDecimal workingHours24;
 
         Year(int year,
-             Map<Month, List<Integer>> workingDaysInMonth,
+             Map<Month, List<Integer>> holidaysInMonth,
              int totalWorkingDays,
              int totalHolidays,
              BigDecimal workingHours40,
              BigDecimal workingHours36,
              BigDecimal workingHours24) {
             this.year = year;
-            this.workingDaysInMonth = workingDaysInMonth;
+            this.holidaysInMonth = holidaysInMonth;
             this.totalWorkingDays = totalWorkingDays;
             this.totalHolidays = totalHolidays;
             this.workingHours40 = workingHours40;
@@ -106,8 +106,8 @@ public class ProductionCalendarTest {
             return year;
         }
 
-        List<Integer> getWorkingDays(Month month) {
-            return workingDaysInMonth.get(month);
+        List<Integer> getHolidays(Month month) {
+            return holidaysInMonth.get(month);
         }
 
         int getTotalWorkingDays() {
@@ -131,7 +131,7 @@ public class ProductionCalendarTest {
         }
     }
 
-    private static List<Integer> parseWorkingDays(String daysStr) {
+    private static List<Integer> parseHolidays(String daysStr) {
         if (daysStr == null) {
             return Collections.emptyList();
         }
