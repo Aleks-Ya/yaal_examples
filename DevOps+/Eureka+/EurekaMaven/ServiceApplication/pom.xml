@@ -4,7 +4,7 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <groupId>ru.yaal.examples.devops.eureka</groupId>
-    <artifactId>eureka-client-application</artifactId>
+    <artifactId>eureka-service-application</artifactId>
     <version>1</version>
 
     <properties>
