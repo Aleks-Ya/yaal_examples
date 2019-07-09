@@ -14,17 +14,19 @@ docker run \
 ## Connect via PSQL
 ```
 docker run -it --rm \
-  --link postgres11:postgres postgres:11 psql \
-  -h postgres \
-  -U pguser
+  --link postgres11:postgres \
+  --env PGPASSWORD="pgpass" \
+  postgres:11 \
+  psql -h postgres -U pguser
 ```
 
 ## Run pg_dump
 ```
 docker run -it --rm \
-  --link postgres11:postgres postgres:11 pg_dump \
-  -h postgres \
-  -U pguser
+  --link postgres11:postgres \
+  --env PGPASSWORD="pgpass" \
+  postgres:11 \
+  pg_dump -h postgres -U pguser
 ```
 
 ## Connect via JDBC
