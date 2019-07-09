@@ -32,3 +32,12 @@
   replaced=$(echo $text | sed 's/ schema\./ schema2./g')
   [ "${replaced}" = "insert into schema2.table_schema_1; insert into schema2.table_schema_2;" ]
 }
+
+@test "Replace schema in SQL with Environment variables (all matches)" {
+  export OLD_SCHEMA="schema"
+  export NEW_SCHEMA="schema2"
+  text="insert into schema.table_schema_1; insert into schema.table_schema_2;"
+  replaced=$(echo $text | sed "s/ ${OLD_SCHEMA}\./ ${NEW_SCHEMA}./g")
+  echo $replaced
+  [ "${replaced}" = "insert into schema2.table_schema_1; insert into schema2.table_schema_2;" ]
+}
