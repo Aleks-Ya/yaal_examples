@@ -4,7 +4,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import lombok.EqualsAndHashCode;
+
 @Entity
+@EqualsAndHashCode
 public class User {
     @PrimaryKey
     public int uid;

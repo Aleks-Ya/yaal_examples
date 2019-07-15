@@ -7,9 +7,11 @@ import androidx.room.TypeConverters;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Objects;
+
+import lombok.EqualsAndHashCode;
 
 @Entity
+@EqualsAndHashCode
 public class DataTypesUser {
     @PrimaryKey
     public int id;
@@ -27,22 +29,5 @@ public class DataTypesUser {
     @ColumnInfo
     @TypeConverters(LocalDateTimeConverters.class)
     public LocalDateTime localDateTimeField;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DataTypesUser that = (DataTypesUser) o;
-        return id == that.id &&
-                intField == that.intField &&
-                Objects.equals(stringField, that.stringField) &&
-                Objects.equals(dateField, that.dateField) &&
-                Objects.equals(localDateTimeField, that.localDateTimeField);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, stringField, intField, dateField, localDateTimeField);
-    }
 }
 

@@ -43,9 +43,7 @@ public class OneToManyTest {
         userDao.insertAll(expUser);
 
         OneToManyUser actUser = userDao.findByName(expUser.firstName, expUser.lastName);
-        assertThat(actUser.uid, equalTo(expUser.uid));
-        assertThat(actUser.firstName, equalTo(expUser.firstName));
-        assertThat(actUser.lastName, equalTo(expUser.lastName));
+        assertThat(actUser, equalTo(expUser));
     }
 
     @Test
@@ -57,10 +55,7 @@ public class OneToManyTest {
         userDao.insertAll(expUser);
 
         OneToManyUser actUser = userDao.findByName(expUser.firstName, expUser.lastName);
-        assertThat(actUser.uid, equalTo(expUser.uid));
-        assertThat(actUser.firstName, equalTo(expUser.firstName));
-        assertThat(actUser.lastName, equalTo(expUser.lastName));
-
+        assertThat(actUser, equalTo(expUser));
 
         OneToManyBook expBook = new OneToManyBook();
         expBook.bookId = 1;
@@ -70,9 +65,6 @@ public class OneToManyTest {
         bookDao.insertAll(expBook);
 
         OneToManyBook actBook = bookDao.findByTitle(expBook.title);
-        assertThat(actBook.bookId, equalTo(expBook.bookId));
-        assertThat(actBook.title, equalTo(expBook.title));
-        assertThat(actBook.userId, equalTo(expBook.userId));
-
+        assertThat(actBook, equalTo(expBook));
     }
 }

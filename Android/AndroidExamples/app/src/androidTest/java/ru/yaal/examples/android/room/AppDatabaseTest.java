@@ -41,8 +41,6 @@ public class AppDatabaseTest {
         userDao.insertAll(expUser);
 
         User actUser = userDao.findByName(expUser.firstName, expUser.lastName);
-        assertThat(actUser.uid, equalTo(expUser.uid));
-        assertThat(actUser.firstName, equalTo(expUser.firstName));
-        assertThat(actUser.lastName, equalTo(expUser.lastName));
+        assertThat(actUser, equalTo(expUser));
     }
 }

@@ -5,6 +5,9 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 @Entity(foreignKeys = @ForeignKey(entity = OneToManyUser.class,
         parentColumns = "uid",
         childColumns = "user_id"))
