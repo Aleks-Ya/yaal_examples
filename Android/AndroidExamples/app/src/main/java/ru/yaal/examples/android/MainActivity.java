@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import ru.yaal.examples.android.activity.fragment.FragmentActivity;
+import ru.yaal.examples.android.activity.fragment.plain.FragmentActivity;
 import ru.yaal.examples.android.activity.fragment.viewmodel.ViewModelFragmentActivity;
 import ru.yaal.examples.android.activity.recyclerview.RecyclerViewActivity;
 

@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.fragment.FragmentActivity">
+    tools:context=".activity.fragment.plain.FragmentActivity">
 
     <fragment
         android:id="@+id/fragment"
-        android:name="ru.yaal.examples.android.activity.fragment.UserFragment"
+        android:name="ru.yaal.examples.android.activity.fragment.plain.UserFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="141dp"
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/fragment2"
-        android:name="ru.yaal.examples.android.activity.fragment.UserFragment"
+        android:name="ru.yaal.examples.android.activity.fragment.plain.UserFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"

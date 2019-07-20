@@ -1,4 +1,4 @@
-package ru.yaal.examples.android.activity.fragment;
+package ru.yaal.examples.android.activity.fragment.plain;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +14,6 @@ public class UserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_user, container, false);
+        return inflater.inflate(R.layout.plain_fragment, container, false);
     }
 }

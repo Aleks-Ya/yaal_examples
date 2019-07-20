@@ -1,4 +1,4 @@
-package ru.yaal.examples.android.activity.fragment;
+package ru.yaal.examples.android.activity.fragment.plain;
 
 import android.os.Bundle;
 
@@ -11,6 +11,6 @@ public class FragmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragment);
+        setContentView(R.layout.activity_plain_fragment);
     }
 }
