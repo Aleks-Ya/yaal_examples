@@ -34,13 +34,24 @@
         app:layout_constraintStart_toEndOf="@+id/editText" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/recyclerViewActivityButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:onClick="toRecyclerView"
+        android:onClick="toRecyclerViewActivity"
         android:text="@string/to_recycler_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+    <Button
+        android:id="@+id/fragmentActivityButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="24dp"
+        android:onClick="toFragmentActivity"
+        android:text="@string/to_fragment_activity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewActivityButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

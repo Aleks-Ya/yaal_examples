@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import ru.yaal.examples.android.activity.fragment.FragmentActivity;
 import ru.yaal.examples.android.activity.recyclerview.RecyclerViewActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,8 +31,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void toRecyclerView(View view) {
+    public void toRecyclerViewActivity(View view) {
         Intent intent = new Intent(this, RecyclerViewActivity.class);
+        startActivity(intent);
+    }
+
+    public void toFragmentActivity(View view) {
+        Intent intent = new Intent(this, FragmentActivity.class);
         startActivity(intent);
     }
 
