@@ -5,6 +5,7 @@
     <string name="to_recycler_view">Recycler View</string>
     <string name="to_plain_fragment_activity">Plain Fragment</string>
     <string name="to_view_model_fragment_activity">View Model Fragment</string>
+    <string name="to_recycler_view_fragment_activity">Recycler View Fragment</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
