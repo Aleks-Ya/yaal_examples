@@ -1,0 +1,28 @@
+version: '3'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka1:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: ${KAFKA_ADVERTISED_HOST_NAME} 
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181/kafka1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./mirror_producer.properties:/root/mirror_producer.properties
+      - ./mirror_consumer.properties:/root/mirror_consumer.properties
+  kafka2:
+    image: wurstmeister/kafka
+    ports:
+      - "9093:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: ${KAFKA_ADVERTISED_HOST_NAME} 
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181/kafka2
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./mirror_producer.properties:/root/mirror_producer.properties
+      - ./mirror_consumer.properties:/root/mirror_consumer.properties
