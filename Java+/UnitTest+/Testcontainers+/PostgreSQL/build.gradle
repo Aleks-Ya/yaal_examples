@@ -1,0 +1,5 @@
+dependencies {
+    testCompile 'org.testcontainers:postgresql:1.11.4',
+            'org.postgresql:postgresql:42.2.6',
+            'org.slf4j:slf4j-simple:1.7.26'
+}
