@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import ru.yaal.examples.android.R;
 
+//TODO add ViewModel
 public class RecyclerViewActivity extends AppCompatActivity {
 
     @Override

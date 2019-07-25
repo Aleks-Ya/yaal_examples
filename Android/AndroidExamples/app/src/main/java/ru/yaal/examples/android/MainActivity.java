@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import ru.yaal.examples.android.activity.fragment.plain.FragmentActivity;
 import ru.yaal.examples.android.activity.fragment.viewmodel.ViewModelFragmentActivity;
 import ru.yaal.examples.android.activity.recyclerview.RecyclerViewActivity;
-import ru.yaal.examples.android.activity.recyclerview.fragment.RecyclerViewFragmentActivity;
+import ru.yaal.examples.android.activity.recyclerview.customview.CustomViewRecyclerViewActivity;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void toRecyclerViewFragmentActivity(View view) {
-        Intent intent = new Intent(this, RecyclerViewFragmentActivity.class);
+        Intent intent = new Intent(this, CustomViewRecyclerViewActivity.class);
         startActivity(intent);
     }
 

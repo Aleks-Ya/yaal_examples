@@ -1,4 +1,4 @@
-package ru.yaal.examples.android.activity.recyclerview.fragment;
+package ru.yaal.examples.android.activity.recyclerview.customview;
 
 import android.os.Bundle;
 
@@ -8,20 +8,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import ru.yaal.examples.android.R;
 
-public class RecyclerViewFragmentActivity extends AppCompatActivity {
+public class CustomViewRecyclerViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycler_view_fragment);
+        setContentView(R.layout.activity_recycler_view_custom_view);
 
-
-        RecyclerView recyclerView = findViewById(R.id.my_recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view_custom_view);
+        recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        String[] myDataset = {"abc", "123", "efg"};
-        RecyclerView.Adapter mAdapter = new FragmentAdapter(myDataset);
+        String[] dataSet = {"John", "Petr", "Mary"};
+        RecyclerView.Adapter mAdapter = new CustomViewAdapter(dataSet);
         recyclerView.setAdapter(mAdapter);
     }
 }
