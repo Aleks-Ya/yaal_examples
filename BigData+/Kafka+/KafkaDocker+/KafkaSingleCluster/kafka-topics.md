@@ -6,7 +6,7 @@ Location: `$KAFKA_HOME/bin/kafka-topics.sh`
 `kafka-topics.sh --zookeeper $ZK --list`
 
 ## Create topic
-`kafka-topics.sh --zookeeper $ZK --create --topic my-topic --partitions 4 --replication-factor 1`
+`kafka-topics.sh --zookeeper $ZK --create --topic my-topic --partitions 3 --replication-factor 2`
 
 ## Delete topic
 `kafka-topics.sh --zookeeper $ZK --delete --topic my-topic`
