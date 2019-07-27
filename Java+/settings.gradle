@@ -101,6 +101,7 @@ include 'JSE+:Core',
         'Libs+:Hystrix',
         'Libs+:Ribbon',
         'Libs+:MicrosoftExchangeWebServices',
+        'Libs+:CronUtils',
         'Algorithm',
         'Git+:JGit',
         'Util'
