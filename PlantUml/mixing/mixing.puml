@@ -1,0 +1,8 @@
+@startuml
+
+allowmixing
+
+object HabitsActivity
+file abc
+
+@enduml
