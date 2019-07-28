@@ -1,0 +1,3 @@
+dependencies {
+    testCompileOnly 'it.sauronsoftware.cron4j:cron4j:2.2.5'
+}
