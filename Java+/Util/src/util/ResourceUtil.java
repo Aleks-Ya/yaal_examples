@@ -2,6 +2,7 @@ package util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -45,5 +46,9 @@ public class ResourceUtil {
     public static String resourceToPath(Class<?> clazz, String resourceName) {
         URL resourceUrl = clazz.getResource(resourceName);
         return resourceUrl.getFile();
+    }
+
+    public static InputStream resourceToInputStream(Class<?> clazz, String resourceName) {
+        return clazz.getResourceAsStream(resourceName);
     }
 }

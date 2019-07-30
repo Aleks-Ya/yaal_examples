@@ -1,4 +1,4 @@
-package security;
+package security.hash;
 
 import org.junit.Test;
 
@@ -17,16 +17,17 @@ public class MessageDigestTest {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
         String s = "abc";
-        byte[] encodedhash = digest.digest(s.getBytes(StandardCharsets.UTF_8));
-        System.out.println(Arrays.toString(encodedhash));
-        System.out.println(bytesToHex(encodedhash));
+        byte[] bytes = s.getBytes(StandardCharsets.UTF_8);
+        byte[] encodedHash = digest.digest(bytes);
+        System.out.println(Arrays.toString(encodedHash));
+        System.out.println(bytesToHex(encodedHash));
     }
 
     private static String bytesToHex(byte[] hash) {
-        StringBuffer hexString = new StringBuffer();
-        for (int i = 0; i < hash.length; i++) {
-            String hex = Integer.toHexString(0xff & hash[i]);
-            if(hex.length() == 1) hexString.append('0');
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) hexString.append('0');
             hexString.append(hex);
         }
         return hexString.toString();
