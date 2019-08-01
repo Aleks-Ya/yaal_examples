@@ -105,6 +105,7 @@ include 'JSE+:Core',
         'Libs+:Cron+:cron-utils',
         'Libs+:Cron+:cron4j',
         'Libs+:Cron+:quartz',
+        'Libs+:Dagger',
         'Algorithm',
         'Git+:JGit',
         'Util'

@@ -1,0 +1,7 @@
+sourceSets.main.java.srcDirs = ['src', 'out/production/classes/generated']
+
+dependencies {
+    def daggerVersion = '2.24'
+    compile "com.google.dagger:dagger:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+}
