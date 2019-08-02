@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.recyclerview.customview.CustomViewRecyclerViewActivity"></activity>
+        <activity android:name=".activity.progress.progressbar.ProgressBarActivity"></activity>
+        <activity android:name=".activity.recyclerview.customview.CustomViewRecyclerViewActivity" />
         <activity android:name=".activity.fragment.viewmodel.ViewModelFragmentActivity" />
         <activity android:name=".activity.fragment.plain.FragmentActivity" />
         <activity android:name=".activity.recyclerview.RecyclerViewActivity" />

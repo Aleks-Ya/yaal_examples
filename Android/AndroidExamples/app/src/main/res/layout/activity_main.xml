@@ -6,43 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/edit_message"
-        app:layout_constraintEnd_toStartOf="@+id/button"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:onClick="sendMessage"
-        android:text="@string/button_send"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editText" />
-
     <Button
         android:id="@+id/recyclerViewActivityButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:onClick="toRecyclerViewActivity"
         android:text="@string/to_recycler_view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/viewModelFragmentActivityButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:onClick="toViewModelFragmentActivity"
+        android:text="@string/to_view_model_fragment_activity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentActivityButton2" />
+
+    <Button
+        android:id="@+id/fragmentActivityButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="8dp"
+        android:onClick="toFragmentActivity"
+        android:text="@string/to_plain_fragment_activity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewActivityButton" />
 
     <Button
         android:id="@+id/recyclerViewFragmentActivityButton"
@@ -56,24 +51,13 @@
         app:layout_constraintTop_toBottomOf="@+id/viewModelFragmentActivityButton2" />
 
     <Button
-        android:id="@+id/viewModelFragmentActivityButton2"
+        android:id="@+id/progressBarActivityButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="24dp"
-        android:onClick="toViewModelFragmentActivity"
-        android:text="@string/to_view_model_fragment_activity"
+        android:layout_marginTop="8dp"
+        android:onClick="toProgressBarActivity"
+        android:text="@string/to_progress_bar_activity"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentActivityButton2" />
-
-    <Button
-        android:id="@+id/fragmentActivityButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="24dp"
-        android:onClick="toFragmentActivity"
-        android:text="@string/to_plain_fragment_activity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewActivityButton" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewFragmentActivityButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

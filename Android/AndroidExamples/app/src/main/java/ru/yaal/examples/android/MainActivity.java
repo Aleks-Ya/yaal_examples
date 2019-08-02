@@ -3,12 +3,12 @@ package ru.yaal.examples.android;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import ru.yaal.examples.android.activity.fragment.plain.FragmentActivity;
 import ru.yaal.examples.android.activity.fragment.viewmodel.ViewModelFragmentActivity;
+import ru.yaal.examples.android.activity.progress.progressbar.ProgressBarActivity;
 import ru.yaal.examples.android.activity.recyclerview.RecyclerViewActivity;
 import ru.yaal.examples.android.activity.recyclerview.customview.CustomViewRecyclerViewActivity;
 
@@ -20,17 +20,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-
-    /**
-     * Called when the user taps the Send button
-     */
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText editText = findViewById(R.id.editText);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
     }
 
     public void toRecyclerViewActivity(View view) {
@@ -50,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void toRecyclerViewFragmentActivity(View view) {
         Intent intent = new Intent(this, CustomViewRecyclerViewActivity.class);
+        startActivity(intent);
+    }
+
+    public void toProgressBarActivity(View view) {
+        Intent intent = new Intent(this, ProgressBarActivity.class);
         startActivity(intent);
     }
 
