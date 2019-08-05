@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bats
 
 @test "Find file by regex" {
     file=$(find . -name 'find_file_by_name_regex-*.txt')

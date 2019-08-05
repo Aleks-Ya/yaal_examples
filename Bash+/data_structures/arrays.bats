@@ -62,3 +62,12 @@
   girls=("${girls[@]}" 'Laura' 'Gil');
   [ ${#girls[@]} -eq 4 ]
 }
+
+@test "Does array contains the element?" {
+  girls=('Mary' 'Nina');
+  exist_name='Nina'
+  not_exist_name='Ann'
+  [[ " ${girsl[@]} " =~ " ${exist_name} " ]]
+  [[ ! " ${girls[@]} " =~ " ${not_exist_name} " ]]
+}
+
