@@ -1,0 +1,17 @@
+@startuml
+
+class ArrayList {
+    Object[] elementData
+    int position
+    int size()
+    void clear()
+}
+
+
+class ArrayList2
+ArrayList2 : Object[] elementData
+ArrayList2 : int position
+ArrayList2 : int size()
+ArrayList2 : void clear()
+
+@enduml
