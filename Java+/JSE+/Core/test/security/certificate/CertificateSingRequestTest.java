@@ -1,49 +1,40 @@
 package security.certificate;
 
-import org.junit.Ignore;
 import org.junit.Test;
+import security.SecurityHelper;
+import sun.security.pkcs10.PKCS10;
+import sun.security.x509.X500Name;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
+import java.security.Signature;
 
-/**
- * Working with a CertificateSpi.
- */
+import static org.junit.Assert.assertNotNull;
+
 public class CertificateSingRequestTest {
-    @Test
-    @Ignore("Need Bouncy Castle")
-    public void generateKeyPair() throws NoSuchAlgorithmException, CertificateException {
-        KeyPairGenerator keyGenerator = KeyPairGenerator.getInstance("RSA");
-        keyGenerator.initialize(1024);
-        KeyPair pair = keyGenerator.generateKeyPair();
 
-        CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
-        
-        
-//        PKCS10CertificationRequestBuilder p10Builder = new JcaPKCS10CertificationRequestBuilder(
-//                new X500Principal("C=US, L=Vienna, O=Your Company Inc, CN=yourdomain.com/emailAddress=your@email.com"),
-//                pair.getPublic()
-//        );
-//        JcaContentSignerBuilder csBuilder = new JcaContentSignerBuilder("SHA256withRSA");
-//        ContentSigner signer = null;
-//        try {
-//            signer = csBuilder.build(pair.getPrivate());
-//        } catch (OperatorCreationException e) {
-//            throw new RuntimeException(e);
-//        }
-//        PKCS10CertificationRequest csr = p10Builder.build(signer);
-     
-     
-     
-     
-     
-//        PublicKey publicKey = keyPair.getPublic();
-//        PrivateKey privateKey = keyPair.getPrivate();
-//        assertNotNull(publicKey);
-//        assertNotNull(privateKey);
+    @Test
+    public void generateKeyPair() {
+        KeyPair pair = SecurityHelper.generateKeyPair();
+        byte[] csrData = generateCSR("SHA256WithRSA", pair);
+        assertNotNull(csrData);
+    }
+
+    private static byte[] generateCSR(String sigAlg, KeyPair keyPair) {
+        try {
+            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+            PrintStream printStream = new PrintStream(outStream);
+            X500Name x500Name = new X500Name("CN=EXAMPLE.COM");
+            Signature sig = Signature.getInstance(sigAlg);
+            sig.initSign(keyPair.getPrivate());
+            PKCS10 pkcs10 = new PKCS10(keyPair.getPublic());
+            pkcs10.encodeAndSign(x500Name, sig);
+            pkcs10.print(printStream);
+            return outStream.toByteArray();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

@@ -25,9 +25,9 @@ public class ArrayAssert {
     public void objectArray() {
         final Integer[] arr = {45, 34, 89};
         assertThat(arr, hasItemInArray(34));
-        assertThat(arr, arrayContaining(45, 34, 89));//в такой же последовательности
+        assertThat(arr, arrayContaining(45, 34, 89));//все элементы в такой же последовательности
         assertThat(new Character[]{'a', 'b'}, arrayContaining('a', 'b'));//в такой же последовательности
-        assertThat(arr, arrayContainingInAnyOrder(89, 34, 45));
+        assertThat(arr, arrayContainingInAnyOrder(89, 34, 45));//все элементы в любой последовательности
         assertThat(arr, arrayWithSize(3));
         assertThat(new Integer[]{}, emptyArray());
     }
