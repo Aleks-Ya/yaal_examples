@@ -14,7 +14,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @Aspect
 @Configuration
 @EnableAspectJAutoProxy
-class AopConfiguration {
+class ProfilerConfig {
 
     @Bean
     public Advisor performanceMonitorAdvisor(@Value("${pointcut}") String pointcutExpression) {

@@ -11,6 +11,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Using ExpressionPointcut for declaring pointcuts.
+ */
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {AopConfiguration.class, StringService.class})
 public class ExpressionPointcutTest {

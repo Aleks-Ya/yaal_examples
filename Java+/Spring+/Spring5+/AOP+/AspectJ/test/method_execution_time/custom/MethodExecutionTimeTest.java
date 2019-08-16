@@ -1,4 +1,4 @@
-package method_execution_time.builtin;
+package method_execution_time.custom;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,21 +11,18 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 /**
- * Using standard Spring class PerformanceMonitorInterceptor for measuring method execution time.
- *
- * Source: https://www.baeldung.com/spring-performance-logging
+ * Using custom Advisor for measuring method execution time.
  */
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {ProfilerConfig.class, PersonService.class})
-@TestPropertySource(properties = "pointcut=execution(* method_execution_time.builtin.PersonService.*(..))")
-public class PerformanceMonitorInterceptorTest {
+@TestPropertySource(properties = "pointcut=execution(* method_execution_time.custom.PersonService.*(..))")
+public class MethodExecutionTimeTest {
 
     @Autowired
     private PersonService personService;
 
     @Test
     public void test() throws InterruptedException {
-        System.setProperty("org.slf4j.simpleLogger.log.method_execution_time.builtin.PersonService", "TRACE");
         Person person = new Person("John", "Mark");
         String fullName = personService.getFullName(person);
         assertThat(fullName, equalTo("John Mark"));
