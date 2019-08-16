@@ -1,7 +1,7 @@
 # Certificate encodings
 
 ## Run OpenSSL CLI
-`docker run -it --name OpenSslCertEncodings openssl:1` (use image from OpenSSL example).
+`docker run -it --rm --name OpenSslCertEncodings openssl:1` (use image from OpenSSL example).
 
 ## Create certificates in PEM and DER encodings
 1. Set env vars

@@ -1,7 +1,7 @@
 # Commands
 
 ## Run OpenSSL CLI
-`docker run -it --name OpenSslCertChain openssl:1` (use image from OpenSSL example).
+`docker run -it --rm --name OpenSslCertChain openssl:1` (use image from OpenSSL example).
 
 ## Generate a key pair
 ### Root CA key pair

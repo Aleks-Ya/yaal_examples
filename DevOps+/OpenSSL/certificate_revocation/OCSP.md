@@ -2,7 +2,7 @@
 
 ## Commands
 ### Run OpenSSL CLI
-`docker run -it --name OpenSslOcsp openssl:1` (use image from OpenSSL example).
+`docker run -it --rm --name OpenSslOcsp openssl:1` (use image from OpenSSL example).
 
 ### Check certificate against OCSP
 Source: https://raymii.org/s/articles/OpenSSL_Manually_Verify_a_certificate_against_an_OCSP.html

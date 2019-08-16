@@ -13,7 +13,7 @@ Download CRT file:
 
 ## Commands
 ### Run OpenSSL CLI
-`docker run -it --name OpenSslCrl openssl:1` (use image from OpenSSL example).
+`docker run -it --rm --name OpenSslCrl openssl:1` (use image from OpenSSL example).
 
 ### Show current config file
 `cat /etc/ssl/openssl.cnf`
