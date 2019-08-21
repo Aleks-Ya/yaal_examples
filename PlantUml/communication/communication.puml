@@ -1,0 +1,9 @@
+@startuml
+allowmixing
+agent ":firstObject" as o1
+agent ":secondObject" as o2
+actor client
+
+client -> o1
+o1 -> o2
+@enduml
