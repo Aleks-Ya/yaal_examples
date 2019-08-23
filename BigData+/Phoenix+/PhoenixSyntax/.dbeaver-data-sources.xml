@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data-sources>
-	<data-source id="26E3D77F-D4B5-FF6B-5550-277253F01F16-16cbaac4f3b-3ccd160c53100464" provider="generic" driver="26E3D77F-D4B5-FF6B-5550-277253F01F16" name="Phoenix 4.14 - New Connection" save-password="true" read-only="false">
+	<data-source id="CBF4A0F3-971E-4F02-770B-D0322EF4CE86-16cbcea7656-2cb539c83619f140" provider="generic" driver="CBF4A0F3-971E-4F02-770B-D0322EF4CE86" name="Phoenix 4.14 - New Connection" save-password="true" read-only="false">
 		<connection server="" database="" url="jdbc:phoenix:thin:url=http://localhost:8765;serialization=PROTOBUF;autocommit=true" type="dev"/>
 	</data-source>
 	<filters/>

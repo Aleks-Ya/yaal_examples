@@ -1,0 +1,57 @@
+{
+	"folders": {},
+	"connections": {
+		"CBF4A0F3-971E-4F02-770B-D0322EF4CE86-16cbcea7656-2cb539c83619f140": {
+			"provider": "generic",
+			"driver": "CBF4A0F3-971E-4F02-770B-D0322EF4CE86",
+			"name": "Phoenix 4.14 - LOCAL",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"url": "jdbc:phoenix:thin:url=http://localhost:8765;serialization=PROTOBUF;autocommit=true",
+				"type": "dev",
+				"handlers": {}
+			}
+		}
+	},
+	"drivers": {
+		"generic": {
+			"CBF4A0F3-971E-4F02-770B-D0322EF4CE86": {
+				"provider": "generic",
+				"id": "CBF4A0F3-971E-4F02-770B-D0322EF4CE86",
+				"name": "Phoenix 4.14",
+				"class": "org.apache.phoenix.queryserver.client.Driver",
+				"custom": true,
+				"embedded": false,
+				"anonymous": false,
+				"allowsEmptyPassword": false,
+				"libraries": {},
+				"driver-parameters": {
+					"supports-indexes": "true",
+					"omit-single-catalog": "false",
+					"all-objects-pattern": "%",
+					"quote-reserved-words": "true",
+					"omit-single-schema": "false",
+					"supports-scroll": "false",
+					"omit-catalog": "false",
+					"script-delimiter-redefiner": ";",
+					"supports-struct-cache": "true",
+					"supports-truncate": "true",
+					"script-delimiter": ";",
+					"legacy-sql-dialect": "false",
+					"script-delimiter-after-query": "false",
+					"use-search-string-escape": "false",
+					"omit-type-cache": "false",
+					"split-procedures-and-functions": "false",
+					"supports-multiple-results": "false",
+					"supports-stored-code": "true",
+					"script-delimiter-after-block": "false",
+					"supports-references": "true",
+					"ddl-drop-column-short": "false",
+					"supports-limits": "true",
+					"supports-select-count": "true"
+				}
+			}
+		}
+	}
+}
