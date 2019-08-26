@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
@@ -45,4 +47,15 @@ public class Format {
         String str = formatter.format(instant);
         assertEquals("25.03.2007 14:15:30 GMT+4 MSD Europe/Moscow", str);
     }
+
+    @Test
+    public void instantWithTimezoneRu() {
+        Instant instant = Instant.parse("2007-03-25T10:15:30.00Z");
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG)
+                .withLocale(new Locale("ru"))
+                .withZone(ZoneId.systemDefault());
+        String str = formatter.format(instant);
+        assertEquals("25 марта 2007 г. 14:15:30 MSD", str);
+    }
+
 }
