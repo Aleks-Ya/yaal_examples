@@ -1,4 +1,4 @@
-package auth;
+package request.auth;
 
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
@@ -32,10 +32,9 @@ public class ClientPreemptiveDigestAuthentication {
         credsProvider.setCredentials(
                 new AuthScope(target.getHostName(), target.getPort()),
                 new UsernamePasswordCredentials("user", "passwd"));
-        CloseableHttpClient httpclient = HttpClients.custom()
+        try (CloseableHttpClient httpclient = HttpClients.custom()
                 .setDefaultCredentialsProvider(credsProvider)
-                .build();
-        try {
+                .build()) {
 
             // Create AuthCache instance
             AuthCache authCache = new BasicAuthCache();
@@ -56,17 +55,12 @@ public class ClientPreemptiveDigestAuthentication {
 
             System.out.println("Executing request " + httpget.getRequestLine() + " to target " + target);
             for (int i = 0; i < 3; i++) {
-                CloseableHttpResponse response = httpclient.execute(target, httpget, localContext);
-                try {
+                try (CloseableHttpResponse response = httpclient.execute(target, httpget, localContext)) {
                     System.out.println("----------------------------------------");
                     System.out.println(response.getStatusLine());
                     System.out.println(EntityUtils.toString(response.getEntity()));
-                } finally {
-                    response.close();
                 }
             }
-        } finally {
-            httpclient.close();
         }
     }
 
