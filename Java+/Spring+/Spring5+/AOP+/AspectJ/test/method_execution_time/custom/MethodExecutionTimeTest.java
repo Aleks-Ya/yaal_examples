@@ -14,17 +14,33 @@ import static org.junit.Assert.assertThat;
  * Using custom Advisor for measuring method execution time.
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {ProfilerConfig.class, PersonService.class})
-@TestPropertySource(properties = "pointcut=execution(* method_execution_time.custom.PersonService.*(..))")
+@ContextConfiguration(classes = {ProfilerConfig.class, PersonService.class, PersonServiceSelfMethod.class})
+@TestPropertySource(properties = "pointcut=execution(* method_execution_time.custom..*.*(..))")
 public class MethodExecutionTimeTest {
 
     @Autowired
     private PersonService personService;
 
+    @Autowired
+    private PersonServiceSelfMethod personServiceSelfMethod;
+
+    /**
+     * Log only public methods of a bean.
+     */
     @Test
-    public void test() throws InterruptedException {
+    public void publicMethod() throws InterruptedException {
         Person person = new Person("John", "Mark");
         String fullName = personService.getFullName(person);
+        assertThat(fullName, equalTo("John Mark"));
+    }
+
+    /**
+     * Log public and other methods of a bean.
+     */
+    @Test
+    public void selfMethod() throws InterruptedException {
+        Person person = new Person("John", "Mark");
+        String fullName = personServiceSelfMethod.getFullName(person);
         assertThat(fullName, equalTo("John Mark"));
     }
 }
