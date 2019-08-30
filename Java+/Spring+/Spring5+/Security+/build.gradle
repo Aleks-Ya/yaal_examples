@@ -4,7 +4,6 @@ subprojects {
     }
     dependencies {
         compile "org.springframework.security:spring-security-config:$springSecurityVersion"
-
         testCompile "org.springframework.security:spring-security-test:$springSecurityVersion"
     }
 }

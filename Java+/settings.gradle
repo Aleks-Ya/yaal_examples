@@ -181,5 +181,5 @@ include 'Spring+:Spring3+:AnnotationConfig+:Configuration',
         'Spring+:Spring5+:Security+:MethodSecurity',
         'Spring+:Spring5+:Security+:HttpSecurity',
         'Spring+:Spring5+:Utils',
-        'Spring+:Spring5+:Actuator+:HealthCheck',
-        'Spring+:Spring5+:Actuator+:Loggers'
+        'Spring+:SpringBoot+:SpringBoot2+:Actuator+:HealthCheck',
+        'Spring+:SpringBoot+:SpringBoot2+:Actuator+:Loggers'
