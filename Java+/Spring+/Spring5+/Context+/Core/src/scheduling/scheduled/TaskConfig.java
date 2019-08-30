@@ -1,4 +1,4 @@
-package scheduling;
+package scheduling.scheduled;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +8,7 @@ import org.springframework.scheduling.config.Task;
 
 @Configuration
 @EnableScheduling
-public class TaskConfig {
+class TaskConfig {
 
     @Bean
     public Task task() {
@@ -18,8 +18,7 @@ public class TaskConfig {
 
     @Bean
     public Task task2() {
-        IntervalTask task = new IntervalTask(() -> System.out.println("TASK"), 1000);
-        return task;
+        return new IntervalTask(() -> System.out.println("TASK"), 1000);
     }
 
 }

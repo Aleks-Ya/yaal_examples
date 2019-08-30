@@ -1,4 +1,4 @@
-package scheduling;
+package scheduling.scheduled;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Configuration
 @EnableScheduling
-public class ScheduledConfig {
+class ScheduledConfig {
     public static final Integer DELAY_MILLISEC = 1000;// must be public
     public static final Integer DELAY_SEC = 10;// must be public
 
@@ -27,12 +27,12 @@ public class ScheduledConfig {
         System.out.println("fixedDelayStringDefault: " + LocalDateTime.now());
     }
 
-    @Scheduled(fixedDelayString = "${not-exists-prop:#{T(scheduling.ScheduledConfig).DELAY_MILLISEC}}")
+    @Scheduled(fixedDelayString = "${not-exists-prop:#{T(scheduling.scheduled.ScheduledConfig).DELAY_MILLISEC}}")
     public void fixedDelayStringDefaultConstant() {
         System.out.println("fixedDelayStringDefaultConstant: " + LocalDateTime.now());
     }
 
-    @Scheduled(fixedDelayString = "#{ (systemProperties['not-exists-prop']?:T(scheduling.ScheduledConfig).DELAY_SEC) * 1000}")
+    @Scheduled(fixedDelayString = "#{ (systemProperties['not-exists-prop']?:T(scheduling.scheduled.ScheduledConfig).DELAY_SEC) * 1000}")
     public void fixedDelayStringDefaultConstantMultiplied() {
         System.out.println("fixedDelayStringDefaultConstant: " + LocalDateTime.now());
     }

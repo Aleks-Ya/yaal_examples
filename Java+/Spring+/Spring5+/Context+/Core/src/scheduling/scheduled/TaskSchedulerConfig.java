@@ -1,11 +1,11 @@
-package scheduling;
+package scheduling.scheduled;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 
 @Configuration
-public class TaskSchedulerConfig {
+class TaskSchedulerConfig {
 
     {
         TaskScheduler scheduler = new ConcurrentTaskScheduler();

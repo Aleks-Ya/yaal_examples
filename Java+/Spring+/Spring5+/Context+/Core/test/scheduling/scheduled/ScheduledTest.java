@@ -1,4 +1,4 @@
-package scheduling;
+package scheduling.scheduled;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
