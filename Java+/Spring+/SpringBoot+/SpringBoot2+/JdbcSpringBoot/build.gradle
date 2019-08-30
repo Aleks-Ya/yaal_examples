@@ -1,0 +1,4 @@
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion",
+            "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+}
