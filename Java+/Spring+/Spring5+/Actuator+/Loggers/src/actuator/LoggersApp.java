@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-class HealthStatusApp {
+class LoggersApp {
     public static void main(String[] args) {
-        SpringApplication.run(HealthStatusApp.class, args);
+        SpringApplication.run(LoggersApp.class, args);
     }
 }
