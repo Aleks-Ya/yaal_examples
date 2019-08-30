@@ -4,7 +4,7 @@ dependencies {
             "org.springframework:spring-jdbc:$springVersion",
             "$h2Dependency"
 
-    compileOnly 'javax.servlet:javax.servlet-api:4.0.0'
+    compileOnly "javax.servlet:javax.servlet-api:$javaxServletApiVersion"
 
     testCompile "org.springframework.security:spring-security-test:$springSecurityVersion"
 }
