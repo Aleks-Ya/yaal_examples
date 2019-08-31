@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.yaal.examples.java.spring.actuator</groupId>
-    <artifactId>actuator-health-check</artifactId>
+    <artifactId>actuator-health-check-kubernetes</artifactId>
     <version>1</version>
 
     <parent>
