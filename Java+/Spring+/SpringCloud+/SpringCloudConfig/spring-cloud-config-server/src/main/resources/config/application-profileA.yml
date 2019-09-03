@@ -1,0 +1,10 @@
+logging:
+  level:
+    ROOT: INFO
+    org.springframework: DEBUG
+my:
+  myProp: from application.yaml
+  propFromApplicationProfileAYaml: yes
+spring:
+  profiles:
+    active: native

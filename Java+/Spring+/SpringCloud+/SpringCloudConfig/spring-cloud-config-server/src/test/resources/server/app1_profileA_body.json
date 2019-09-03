@@ -1,0 +1,33 @@
+{
+  "name": "app1",
+  "profiles": [
+    "profileA"
+  ],
+  "label": null,
+  "version": null,
+  "state": null,
+  "propertySources": [
+    {
+      "name": "classpath:/config/app1-profileA.yml",
+      "source": {
+        "my.myProp": "from app1-profileA.yaml",
+        "my.propFromApp1ProfileAYaml": true
+      }
+    },
+    {
+      "name": "classpath:/config/application-profileA.yml",
+      "source": {
+        "my.myProp": "from application.yaml",
+        "my.propFromApplicationProfileAYaml": true,
+        "spring.profiles.active": "native"
+      }
+    },
+    {
+      "name": "classpath:/config/app1.yml",
+      "source": {
+        "my.myProp": "from app1.yaml",
+        "my.propFromApp1Yaml": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+my:
+  myProp: from app1-profileA.yaml
+  propFromApp1ProfileAYaml: yes

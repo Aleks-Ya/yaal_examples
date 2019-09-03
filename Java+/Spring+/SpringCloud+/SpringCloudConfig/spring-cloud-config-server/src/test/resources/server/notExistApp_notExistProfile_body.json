@@ -1,0 +1,10 @@
+{
+  "name": "notExistApp",
+  "profiles": [
+    "notExistProfile"
+  ],
+  "label": null,
+  "version": null,
+  "state": null,
+  "propertySources": []
+}
