@@ -55,11 +55,10 @@ Improvements:
 docker build --network default -t iablokov/airflow:1 -f docker/Dockerfile docker
 
 # Run
-docker run -d \
-  --net bridge \
+docker run -it --rm \
+  --net host \
   --name airflow \
   --mount type=bind,source="$(pwd)"/dags,target=/usr/local/airflow/dags \
-  -p 8080:8080 \
   iablokov/airflow:1
 
 # Stop and start
