@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: persistent-volume-java
+  labels:
+    app: persistent-volume-java
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: persistent-volume-java
+  template:
+    metadata:
+      labels:
+        app: persistent-volume-java
+    spec:
+      containers:
+        - name: persistent-volume-java
+          image: persistent-volume-java:1
+          volumeMounts:
+            - mountPath: /tmp/data
+              name: vol
+      volumes:
+        - name: vol
+          emptyDir: {}

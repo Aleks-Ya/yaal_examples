@@ -1,0 +1,7 @@
+@startuml
+ClassA -> ClassB
+break
+ClassB -> ClassB: throwException() 
+end
+ClassB --> ClassA
+@enduml
