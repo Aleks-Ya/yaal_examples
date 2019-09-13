@@ -11,6 +11,7 @@ dag = DAG(
     'bash_operator_lazy_env',
     default_args=default_args)
 
+
 class LazyDict(dict):
     def __init__(self, lambda_dict: dict):
         super().__init__(lambda_dict)
@@ -24,9 +25,8 @@ def get_title():
     return 'Mr'
 
 
-origin_lambda_dict={'TITLE': lambda: get_title()}
+origin_lambda_dict = {'TITLE': lambda: get_title()}
 env_lazy_dict = LazyDict(origin_lambda_dict)
-
 
 the_task = BashOperator(
     task_id='the_task',

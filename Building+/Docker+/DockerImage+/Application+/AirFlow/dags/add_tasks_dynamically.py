@@ -14,17 +14,21 @@ dag = DAG(
     'add_tasks_dynamically',
     default_args=default_args)
 
+
 def task_2_callable():
     print("TASK #2")
+
 
 def add_task_callable():
     print("Add task")
     add_task()
 
+
 task_1 = PythonOperator(
     task_id='task_1',
     python_callable=add_task_callable,
     dag=dag)
+
 
 def add_task():
     print("Try to add new operator to the DAG")

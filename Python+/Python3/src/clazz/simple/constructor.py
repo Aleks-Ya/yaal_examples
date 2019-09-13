@@ -33,8 +33,8 @@ class ArgsConstructorClass:
         return super(ArgsConstructorClass, cls).__new__(cls)
 
     def __init__(self, text):
-        self.data = text
+        self.text = text
 
 
 x = ArgsConstructorClass('hi!')
-assert x.data == 'hi!'
+assert x.text == 'hi!'

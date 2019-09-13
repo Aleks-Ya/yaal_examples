@@ -16,18 +16,22 @@ dag = DAG(
     default_args=default_args,
     schedule_interval='@once')
 
+
 def push_xcom():
     return 'abc'
+
 
 push_xcom_task = PythonOperator(
     task_id='push_xcom_task_by_return',
     python_callable=push_xcom,
     dag=dag)
 
+
 def pull_xcom(**context):
     value = context['task_instance'].xcom_pull(task_ids='push_xcom_task_by_return')
     print("Value: ", value)
     assert value == 'abc'
+
 
 pull_xcom_task = PythonOperator(
     task_id='pull_xcom_task',

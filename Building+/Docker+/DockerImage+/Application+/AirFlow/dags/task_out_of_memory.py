@@ -16,12 +16,15 @@ dag = DAG(
     'out_of_memory',
     default_args=default_args)
 
+
 def memory_usage_megabytes(pid):
     process = psutil.Process(pid)
     mem = process.memory_info().rss / 1000000
     return mem
 
+
 memory_usage_limit_megabytes = 4000
+
 
 def oom():
     print("Start eating memory...")
@@ -36,6 +39,7 @@ def oom():
             last_memory_usage = memory_usage_megabytes(pid)
             print("Element count: ", len(big_list), ". Memory usage (MB): ", last_memory_usage)
     print("The limit is exceeded")
+
 
 out_of_memory_task = PythonOperator(
     task_id='out_of_memory_task',

@@ -15,9 +15,11 @@ dag = DAG(
     'task_timeout',
     default_args=default_args)
 
+
 def sleep():
     print("Sleeping 5 seconds...")
     time.sleep(5)
+
 
 timeout_exceed_task = PythonOperator(
     task_id='timeout_exceed_task',

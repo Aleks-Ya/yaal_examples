@@ -15,11 +15,14 @@ dag = DAG(
     'short_circuit_operator',
     default_args=default_args)
 
+
 def is_need_continue_true():
     return True
 
+
 def is_need_continue_false():
     return False
+
 
 short_circuit_continue_task = ShortCircuitOperator(
     task_id='short_circuit_continue_task',

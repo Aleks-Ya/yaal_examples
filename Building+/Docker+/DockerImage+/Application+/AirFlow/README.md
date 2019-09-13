@@ -48,6 +48,7 @@ Improvements:
 1. Set a fernet key
 1. Add "user" variable
 1. (not work) Stop and start container
+1. Install PyCharm (and IntelliJ Idea) debug library.
 
 ### Build and run
 ```

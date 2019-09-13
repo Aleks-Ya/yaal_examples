@@ -20,8 +20,10 @@ dag = DAG(
     default_args=default_args,
     schedule_interval='@once')
 
+
 def push_xcom(**context):
     context['task_instance'].xcom_push(key='my_key', value='my_value')
+
 
 push_xcom_task = PythonOperator(
     task_id='push_xcom_task_by_method',
@@ -29,10 +31,12 @@ push_xcom_task = PythonOperator(
     provide_context=True,
     dag=dag)
 
+
 def pull_xcom(**context):
     value = context['task_instance'].xcom_pull(task_ids='push_xcom_task_by_method', key='my_key')
     print("Value: ", value)
     assert value == 'my_value'
+
 
 pull_xcom_task = PythonOperator(
     task_id='pull_xcom_task',

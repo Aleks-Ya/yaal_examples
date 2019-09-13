@@ -48,14 +48,16 @@ def hard_coded_sub_dag(parent_dag_name, child_dag_name, start_date, schedule_int
     dummy_task_1 >> dummy_task_2
     return dag
 
+
 HARD_CODED_DAG_NAME = 'hard_coded_sub_dag_task'
 
 hard_coded_sub_dag_task = SubDagOperator(
     subdag=hard_coded_sub_dag(MAIN_DAG_NAME, HARD_CODED_DAG_NAME,
-                    main_dag.start_date, main_dag.schedule_interval),
+                              main_dag.start_date, main_dag.schedule_interval),
     task_id=HARD_CODED_DAG_NAME,
     dag=main_dag,
 )
+
 
 def generated_sub_dag(parent_dag_name, child_dag_name, start_date, schedule_interval):
     dag = DAG(
@@ -75,14 +77,15 @@ def generated_sub_dag(parent_dag_name, child_dag_name, start_date, schedule_inte
         previous_task = task
     return dag
 
+
 GENERATED_CODED_DAG_NAME = 'generated_sub_dag_task'
 
 generated_sub_dag_task = SubDagOperator(
     subdag=generated_sub_dag(MAIN_DAG_NAME, GENERATED_CODED_DAG_NAME,
-                    main_dag.start_date, main_dag.schedule_interval),
+                             main_dag.start_date, main_dag.schedule_interval),
     task_id=GENERATED_CODED_DAG_NAME,
     dag=main_dag,
 )
 
-before_sub_dag_task >> hard_coded_sub_dag_task  \
+before_sub_dag_task >> hard_coded_sub_dag_task \
 >> generated_sub_dag_task >> after_sub_dag_task

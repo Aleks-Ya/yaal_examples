@@ -25,8 +25,10 @@ first_task = BashOperator(
     bash_command='echo TASK_FIRST',
     dag=dag)
 
+
 def decide_which_path():
     return "dummy_task"
+
 
 branching_task = BranchPythonOperator(
     task_id='branching_task',

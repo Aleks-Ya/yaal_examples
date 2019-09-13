@@ -14,8 +14,10 @@ dag = DAG(
     'python_operator',
     default_args=default_args)
 
+
 def print_date():
     print("Current date: ", datetime.now())
+
 
 python_operator_task = PythonOperator(
     task_id='python_operator_task',
