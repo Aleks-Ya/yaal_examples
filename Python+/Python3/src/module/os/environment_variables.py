@@ -1,4 +1,4 @@
-# Dealing with environment vairables
+# Dealing with environment variables
 import os
 
 # Get
