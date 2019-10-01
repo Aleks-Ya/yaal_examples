@@ -1,7 +1,6 @@
 # Run subprocesses concurrently
-import subprocess
 import time
-from subprocess import PIPE
+from subprocess import PIPE, Popen
 
 cmd = """
   cities=('Moscow' 'Spb');
@@ -13,17 +12,17 @@ cmd = """
 """
 
 # Using "poll()"
-popen = subprocess.Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True, executable="/bin/bash")
-print(f"returncode: {popen.returncode}")
-print(f"PID: {popen.pid}")
-print(f"Stdin: {popen.stdin}")
-assert popen.args == cmd
+process = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True, executable="/bin/bash")
+print(f"returncode: {process.returncode}")
+print(f"PID: {process.pid}")
+print(f"Stdin: {process.stdin}")
+assert process.args == cmd
 while True:
-    exit_code = popen.poll()
+    exit_code = process.poll()
     print(f"Exit code: {exit_code}")
     if exit_code is not None:
         break
     time.sleep(1)
 
-print(f"Stdout: {popen.stdout.read()}")
-print(f"Stderr: {popen.stderr.read()}")
+print(f"Stdout: {process.stdout.read()}")
+print(f"Stderr: {process.stderr.read()}")

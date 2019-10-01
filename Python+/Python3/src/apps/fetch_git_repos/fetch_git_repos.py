@@ -1,9 +1,8 @@
 # Execute "git fetch" for all Git repos starting from "root_dir" (1st argument) recursively
 # Run example: "python fetch_git_repos.py /home/aleks/pr/home"
-# TODO stuck on wait() if many repos (about 100)
 import os
 import sys
-from subprocess import Popen, PIPE
+from subprocess import Popen, PIPE, TimeoutExpired
 from typing import Any, List, Dict
 
 root_dir: str = sys.argv[1]
@@ -21,23 +20,37 @@ repo_number = len(git_repos)
 print(f'Git repositories ({repo_number}): {git_repos}')
 
 cmd: str = 'git fetch'
-timeout_millis = 1 * 60 * 1000
-processes: Dict[str, Popen] = dict(
-    [(repo, Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True, executable="/bin/bash", cwd=repo))
-     for repo in git_repos])
+timeout_sec = 2 * 60
+cmd_with_timeout: str = f'timeout -s 9 {timeout_sec}s {cmd}'
+print(f'Command: "{cmd_with_timeout}"')
+print()
+
+batch_size = 5
+slices = [git_repos[i:i + batch_size] for i in range(0, len(git_repos), batch_size)]
+
 success_count = 0
 fail_count = 0
-for repo, process in processes.items():
-    print(f'{repo}... ', end='', flush=True)
-    exit_code = process.wait(timeout=timeout_millis)
-    if exit_code == 0:
-        success_count += 1
-        print(f'SUCCESS')
-    else:
-        fail_count += 1
-        print(f'FAIL')
-        print(f'Exit code: {exit_code}')
-        print(f"Stdout: {process.stdout.read()}")
-        print(f"Stderr: {process.stderr.read()}")
+for repo_slice in slices:
+    processes: Dict[str, Popen] = dict(
+        [(repo, Popen(cmd_with_timeout, stdout=PIPE, stderr=PIPE, shell=True, executable="/bin/bash", cwd=repo,
+                      bufsize=1024000)) for repo in repo_slice])
+    for repo, process in processes.items():
+        print(f'{repo}... ', end='', flush=True)
+        outs: bytearray = bytearray()
+        errs: bytearray = bytearray()
+        try:
+            outs, errs = process.communicate(timeout=timeout_sec)
+        except TimeoutExpired:
+            process.kill()
+            outs, errs = process.communicate()
+        if process.returncode == 0:
+            success_count += 1
+            print(f'SUCCESS')
+        else:
+            fail_count += 1
+            print(f'FAIL')
+            print(f'Exit code: {process.returncode}')
+            print(f"Stdout: {outs.decode()}")
+            print(f"Stderr: {errs.decode()}")
 print()
 print(f'Total: repos={repo_number}, processed={success_count + fail_count}, success={success_count}, fail={fail_count}')

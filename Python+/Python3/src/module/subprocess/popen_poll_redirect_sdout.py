@@ -1,7 +1,7 @@
 #  Redirect stdout and stderr of subprocess to current stdout.
-import subprocess
 import sys
 import time
+from subprocess import Popen
 
 cmd = """
   cities=('Moscow' 'Spb');
@@ -12,13 +12,13 @@ cmd = """
   done
 """
 
-popen = subprocess.Popen(cmd, stdout=sys.stdout, stderr=sys.stderr, shell=True, executable="/bin/bash")
+process = Popen(cmd, stdout=sys.stdout, stderr=sys.stderr, shell=True, executable="/bin/bash")
 
-assert popen.stdout is None
-assert popen.stderr is None
+assert process.stdout is None
+assert process.stderr is None
 
 while True:
-    exit_code = popen.poll()
+    exit_code = process.poll()
     print(f"Exit code: {exit_code}")
     if exit_code is not None:
         break
