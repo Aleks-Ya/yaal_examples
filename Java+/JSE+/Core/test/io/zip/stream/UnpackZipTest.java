@@ -1,4 +1,4 @@
-package io.zip;
+package io.zip.stream;
 
 import org.junit.Test;
 import util.ResourceUtil;
@@ -28,7 +28,6 @@ public class UnpackZipTest {
                 int readBytes = zis.read(entryContent, 0, size);
                 assertThat(readBytes, equalTo(size));
                 dataList.put(entry.getName(), new EntryData(entry, entryContent));
-                zis.closeEntry();
             }
 
             assertThat(dataList, aMapWithSize(2));
