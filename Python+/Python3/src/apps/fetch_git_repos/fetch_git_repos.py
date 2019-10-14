@@ -21,21 +21,28 @@ print(f'Git repositories ({repo_number}): {git_repos}')
 
 cmd: str = 'git fetch'
 timeout_sec = 2 * 60
-cmd_with_timeout: str = f'timeout -s 9 {timeout_sec}s {cmd}'
-print(f'Command: "{cmd_with_timeout}"')
-print()
+print(f'Command: "{cmd}"')
+print(f'Timeout (seconds): {timeout_sec}')
 
 batch_size = 5
 slices = [git_repos[i:i + batch_size] for i in range(0, len(git_repos), batch_size)]
+print(f'Batch size: {batch_size}')
+print(f'Slice number: {len(slices)}')
+print()
 
 success_count = 0
+success_no_changes_count = 0
+success_has_changes_count = 0
 fail_count = 0
+counter = 0
 for repo_slice in slices:
     processes: Dict[str, Popen] = dict(
-        [(repo, Popen(cmd_with_timeout, stdout=PIPE, stderr=PIPE, shell=True, executable="/bin/bash", cwd=repo,
+        [(repo, Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True, executable="/bin/bash", cwd=repo,
                       bufsize=1024000)) for repo in repo_slice])
     for repo, process in processes.items():
-        print(f'{repo}... ', end='', flush=True)
+        counter = counter + 1
+        print(f'[{counter} of {repo_number}] {repo}... ', end='', flush=True)
+        time_spent_sec = 0
         outs: bytearray = bytearray()
         errs: bytearray = bytearray()
         try:
@@ -45,7 +52,12 @@ for repo_slice in slices:
             outs, errs = process.communicate()
         if process.returncode == 0:
             success_count += 1
-            print(f'SUCCESS')
+            repo_has_changes = len(errs) > 0
+            if repo_has_changes:
+                success_has_changes_count = success_has_changes_count + 1
+            else:
+                success_no_changes_count = success_no_changes_count + 1
+            print("HAS CHANGES" if repo_has_changes else "NO CHANGES")
         else:
             fail_count += 1
             print(f'FAIL')
@@ -53,4 +65,6 @@ for repo_slice in slices:
             print(f"Stdout: {outs.decode()}")
             print(f"Stderr: {errs.decode()}")
 print()
-print(f'Total: repos={repo_number}, processed={success_count + fail_count}, success={success_count}, fail={fail_count}')
+print(f'Total: repos={repo_number}, processed={success_count + fail_count}, success total={success_count}, '
+      f'success has changes={success_has_changes_count}, success no changes={success_no_changes_count}, '
+      f'fail={fail_count}')
