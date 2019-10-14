@@ -1,0 +1,9 @@
+@startuml
+
+legend
+    class A
+    class B
+    A -> B
+end legend
+
+@enduml

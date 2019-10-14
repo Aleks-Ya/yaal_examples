@@ -1,0 +1,7 @@
+@startuml
+
+title Diagram title \n second line
+
+class Data
+
+@enduml

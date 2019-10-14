@@ -1,0 +1,14 @@
+@startuml
+
+title Declare 2 components that have different interfaces with the same name
+
+interface "REST API" as REST1
+interface "REST API" as REST2
+
+component "Component A" as compA
+component "Component B" as compB
+
+REST1 - compA
+REST2 - compB
+
+@enduml

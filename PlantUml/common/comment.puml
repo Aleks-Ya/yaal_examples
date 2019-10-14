@@ -1,0 +1,7 @@
+@startuml
+
+'it is a comment
+
+class Data
+
+@enduml
