@@ -1,7 +1,7 @@
 import json
 
-from apps.transcription_service.service.http import Http
-from apps.transcription_service.service.service import Service
+from ..http import Http
+from ..service import Service
 
 
 class YandexService(Service):
