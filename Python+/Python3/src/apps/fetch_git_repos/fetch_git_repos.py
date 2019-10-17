@@ -20,7 +20,7 @@ git_repos: List[str] = [tup[0] for tup in os.walk(root_dir, onerror=on_error) if
 repo_number = len(git_repos)
 print(f'Git repositories ({repo_number}): {git_repos}')
 
-cmd: str = 'git fetch --tags'
+cmd: str = 'timeout -s 9 60s git fetch --tags'
 timeout_sec = 1 * 60
 print(f'Command: "{cmd}"')
 print(f'Timeout (seconds): {timeout_sec}')
