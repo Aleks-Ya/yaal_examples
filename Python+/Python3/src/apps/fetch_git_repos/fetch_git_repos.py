@@ -8,7 +8,8 @@ from typing import Any, List, Dict
 
 
 class FetchResult:
-    def __init__(self, return_code: int, outs: str, errs: str, has_changes: bool, is_success: bool):
+    def __init__(self, repo, return_code: int, outs: str, errs: str, has_changes: bool, is_success: bool):
+        self.repo = repo
         self.return_code = return_code
         self.outs = outs
         self.errs = errs
@@ -37,7 +38,8 @@ class FetchProcess:
             outs, errs = self.__process.communicate()
         has_changes = len(errs) > 0
         is_success = self.__process.returncode == 0
-        return FetchResult(self.__process.returncode, outs.decode(), errs.decode(), has_changes, is_success)
+        return FetchResult(self.get_repo(), self.__process.returncode, outs.decode(), errs.decode(), has_changes,
+                           is_success)
 
 
 class FetchStatistics:
@@ -48,6 +50,8 @@ class FetchStatistics:
         self.success_has_changes_count = 0
         self.fail_count = 0
         self.total_count = 0
+        self.retry_count = 0
+        self.failed_repos: List[str] = []
 
     def add_result(self, result: FetchResult) -> None:
         self.total_count += 1
@@ -59,6 +63,18 @@ class FetchStatistics:
                 self.success_no_changes_count += 1
         else:
             self.fail_count += 1
+            self.failed_repos.append(result.repo)
+
+    def add_retry_result(self, result: FetchResult) -> None:
+        self.retry_count += 1
+        if result.is_success:
+            self.success_count += 1
+            self.fail_count -= 1
+            self.failed_repos.remove(result.repo)
+            if result.has_changes:
+                self.success_has_changes_count += 1
+            else:
+                self.success_no_changes_count += 1
 
 
 class Printer:
@@ -66,6 +82,12 @@ class Printer:
     def print_fetch_process(fetch_process: FetchProcess, repo_number: int) -> None:
         counter = statistics.total_count + 1
         print(f'[{counter} of {repo_number}] [PID {fetch_process.get_pid()}] {fetch_process.get_repo()}... ',
+              end='', flush=True)
+
+    @staticmethod
+    def print_retry_process(fetch_process: FetchProcess, failed_repo_number: int) -> None:
+        counter = statistics.retry_count + 1
+        print(f'[{counter} of {failed_repo_number}] [PID {fetch_process.get_pid()}] {fetch_process.get_repo()}... ',
               end='', flush=True)
 
     @staticmethod
@@ -85,18 +107,23 @@ class Printer:
               f'success total={fetch_statistics.success_count}, '
               f'success has changes={fetch_statistics.success_has_changes_count}, '
               f'success no changes={fetch_statistics.success_no_changes_count}, '
-              f'fail={fetch_statistics.fail_count}')
+              f'fail={fetch_statistics.fail_count}',
+              f'retry count={fetch_statistics.retry_count}')
 
     @staticmethod
     def print_parameters(root_dir: str, git_repos: List[str], cmd: str, timeout_sec: int, batch_size: int, slices):
         print(f'Root dir: {root_dir}')
-        repo_number = len(git_repos)
-        print(f'Git repositories ({repo_number}): {git_repos}')
+        print(f'Git repositories ({len(git_repos)}): {git_repos}')
         print(f'Command: "{cmd}"')
         print(f'Timeout (seconds): {timeout_sec}')
         print(f'Batch size: {batch_size}')
         print(f'Slice number: {len(slices)}')
         print()
+
+    @staticmethod
+    def print_failed_repos(failed_repos: List[str]):
+        print()
+        print(f'Retry failed repositories ({len(failed_repos)}): {failed_repos}')
 
 
 def on_error(error: Any):
@@ -108,12 +135,13 @@ git_dir: str = ".git"
 git_repos: List[str] = [tup[0] for tup in os.walk(root_dir, onerror=on_error) if git_dir in tup[1]]
 timeout_sec = 1 * 60
 cmd: str = f'timeout -s 9 {timeout_sec}s git fetch --tags'
-batch_size = 3
+batch_size = 10
 slices = [git_repos[i:i + batch_size] for i in range(0, len(git_repos), batch_size)]
 
 Printer.print_parameters(root_dir, git_repos, cmd, timeout_sec, batch_size, slices)
 
 statistics = FetchStatistics()
+failed_repos: List[str] = []
 
 for repo_slice in slices:
     processes: Dict[str, FetchProcess] = dict([(repo, FetchProcess(cmd, repo)) for repo in repo_slice])
@@ -122,5 +150,14 @@ for repo_slice in slices:
         result = process.fetch_repo()
         statistics.add_result(result)
         Printer.print_fetch_result(result)
+
+Printer.print_failed_repos(statistics.failed_repos)
+failed_repo_number = len(statistics.failed_repos)
+for failed_repo in statistics.failed_repos.copy():
+    process = FetchProcess(cmd, failed_repo)
+    Printer.print_retry_process(process, failed_repo_number)
+    result = process.fetch_repo()
+    statistics.add_retry_result(result)
+    Printer.print_fetch_result(result)
 
 Printer.print_statistics(statistics)
