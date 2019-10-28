@@ -4,7 +4,7 @@ from typing import List
 
 json_dir = '/home/aleks/pr/ahml/gerrit/devops/devops-component-versions/mks-settings'
 
-skip_repos = ['fake-project', 'unified-template-dag', 'submit-container-base']
+skip_repos = ['fake-project', 'unified-template-dag', 'submit-container-base', '1c-test-soap-service']
 
 
 def make_url(repo_name: str):
@@ -57,7 +57,7 @@ for repo in repos:
         closed = hotfix_value['closed'].lower() == 'true'
         version = hotfix_value['value']
         if not closed:
-            repo_obj.open_hotfixes.append(version)
+            repo_obj.open_hotfixes.append(hotfix_key)
 
     releases = versions.get('release')
     for release_key in releases:
@@ -65,7 +65,7 @@ for repo in repos:
         closed: bool = release_value['closed'].lower() == 'true'
         version = release_value['value']
         if not closed:
-            repo_obj.open_releases.append(version)
+            repo_obj.open_releases.append(release_key)
 
     repo_objects.append(repo_obj)
 
@@ -74,10 +74,16 @@ repo_objects_with_open_versions = [repo_obj for repo_obj in repo_objects
                                    if repo_obj.name not in skip_repos and repo_obj.has_open_versions()]
 print(f'Repo with open versions: {len(repo_objects_with_open_versions)}\n')
 
+gerrit_url = 'http://gerrit.ahml-infr.projects.epam.com'
 for repo in repo_objects_with_open_versions:
     print(f'{repo.name} {make_url(repo.name)}')
+    counter = 1
     if repo.has_open_releases():
-        print(f'Open releases: {", ".join(repo.open_releases)}')
+        for release_key in repo.open_releases:
+            print(f'{counter}) {gerrit_url}/gitweb?p={repo.name}.git;a=log;h=refs/heads/release/{release_key}')
+            counter += 1
     if repo.has_open_hotfixes():
-        print(f'Open hotfixes: {", ".join(repo.open_hotfixes)}')
+        for hotfix_key in repo.open_hotfixes:
+            print(f'{counter}) {gerrit_url}/gitweb?p={repo.name}.git;a=log;h=refs/heads/hotfix/{hotfix_key}')
+            counter += 1
     print()
