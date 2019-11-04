@@ -1,10 +1,16 @@
 <resources>
     <string name="app_name">AndroidExamples</string>
-    <string name="to_recycler_view">Recycler View</string>
-    <string name="to_plain_fragment_activity">Plain Fragment</string>
-    <string name="to_view_model_fragment_activity">View Model Fragment</string>
-    <string name="to_recycler_view_custom_view_activity">Recycler View Custom View</string>
-    <string name="to_progress_bar_activity">Progress bar activity</string>
+    <string name="to_recycler_view_button">Recycler View</string>
+    <string name="to_plain_fragment_button">Plain Fragment</string>
+    <string name="to_view_model_fragment_button">View Model Fragment</string>
+    <string name="to_recycler_view_custom_view_button">Recycler View Custom View</string>
+    <string name="to_progress_bar_button">Progress Bar</string>
+    <string name="to_options_menu_button">Options Menu</string>
     <string name="custom_view_recycler_view_hi">Hi, %s</string>
     <string name="custom_view_recycler_view_bye">Bye, %s</string>
+    <string name="options_menu_hi_item_text">Hi</string>
+    <string name="options_menu_bye_item_text">Bye</string>
+    <string name="options_menu_text_view_init_text">Tap action in Options Menu</string>
+    <string name="options_menu_text_view_hi_text">Hi from Options Menu</string>
+    <string name="options_menu_text_view_bye_text">Bye from Options Menu</string>
 </resources>

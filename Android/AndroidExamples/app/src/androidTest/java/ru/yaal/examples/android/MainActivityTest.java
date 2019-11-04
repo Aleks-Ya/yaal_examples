@@ -33,7 +33,7 @@ public class MainActivityTest {
     public void containsRecyclerViewActivityButton() {
         onView(withId(R.id.recyclerViewActivityButton))
                 .check(matches(isDisplayed()))
-                .check(matches(withSubstring("Recycler View")))
+                .check(matches(withText(R.string.to_recycler_view_button)))
                 .perform(click())
                 .check(doesNotExist());
         onView(withId(R.id.my_recycler_view))
@@ -53,31 +53,42 @@ public class MainActivityTest {
     public void containsViewModelFragmentActivityButton() {
         onView(withId(R.id.viewModelFragmentActivityButton2))
                 .check(matches(isDisplayed()))
-                .check(matches(withSubstring("View Model Fragment")));
+                .check(matches(withText(R.string.to_view_model_fragment_button)));
     }
 
     @Test
     public void containsFragmentActivityButton() {
         onView(withId(R.id.fragmentActivityButton2))
                 .check(matches(isDisplayed()))
-                .check(matches(withSubstring("Plain Fragment")));
+                .check(matches(withText(R.string.to_plain_fragment_button)));
     }
 
     @Test
     public void containsRecyclerViewFragmentActivityButton() {
         onView(withId(R.id.recyclerViewFragmentActivityButton))
                 .check(matches(isDisplayed()))
-                .check(matches(withSubstring("Recycler View Custom View")));
+                .check(matches(withText(R.string.to_recycler_view_custom_view_button)));
     }
 
     @Test
     public void containsProgressBarButton() {
         onView(withId(R.id.progressBarActivityButton))
                 .check(matches(isDisplayed()))
-                .check(matches(withSubstring("Progress bar activity")))
+                .check(matches(withText(R.string.to_progress_bar_button)))
                 .perform(click());
 
         onView(withId(R.id.progressBar))
+                .check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void containsOptionsMenuButton() {
+        onView(withId(R.id.optionsMenuActivityButton))
+                .check(matches(isDisplayed()))
+                .check(matches(withText(R.string.to_options_menu_button)))
+                .perform(click());
+
+        onView(withId(R.id.optionsMenuTextView))
                 .check(matches(isDisplayed()));
     }
 

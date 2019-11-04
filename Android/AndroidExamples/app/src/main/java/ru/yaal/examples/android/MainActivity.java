@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import ru.yaal.examples.android.activity.fragment.plain.FragmentActivity;
 import ru.yaal.examples.android.activity.fragment.viewmodel.ViewModelFragmentActivity;
+import ru.yaal.examples.android.activity.menu.options_menu.OptionsMenuActivity;
 import ru.yaal.examples.android.activity.progress.progressbar.ProgressBarActivity;
 import ru.yaal.examples.android.activity.recyclerview.RecyclerViewActivity;
 import ru.yaal.examples.android.activity.recyclerview.customview.CustomViewRecyclerViewActivity;
@@ -44,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void toProgressBarActivity(View view) {
         Intent intent = new Intent(this, ProgressBarActivity.class);
+        startActivity(intent);
+    }
+
+    public void toOptionsMenuActivity(View view) {
+        Intent intent = new Intent(this, OptionsMenuActivity.class);
         startActivity(intent);
     }
 
