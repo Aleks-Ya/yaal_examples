@@ -1,4 +1,4 @@
-package ru.yaal.examples.kotlin.spring.kotlinspringexample
+package app
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
