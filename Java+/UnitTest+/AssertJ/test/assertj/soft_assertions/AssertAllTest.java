@@ -1,4 +1,4 @@
-package soft_assertions;
+package assertj.soft_assertions;
 
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
