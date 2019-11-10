@@ -1,4 +1,4 @@
-package app.data.jpa
+package app.data.jpa.repository.crud
 
 import app.BaseJpaTest
 import org.assertj.core.api.Assertions.assertThat
@@ -13,6 +13,7 @@ internal class PersonRepositoryTest : BaseJpaTest() {
     fun findAll() {
         val person1 = personRepository.save(Person())
         val person2 = personRepository.save(Person())
+        entityManager.flush()
         val allPersons = personRepository.findAll()
         assertThat(allPersons).containsOnly(person1, person2)
     }
@@ -22,6 +23,7 @@ internal class PersonRepositoryTest : BaseJpaTest() {
         val name = "John"
         val origin = Person(name = name)
         val exp = personRepository.save(origin)
+        entityManager.flush()
         assertThat(exp.id).isNotNull()
         assertThat(exp.name).isEqualTo(name)
         assertThat(personRepository.findById(exp.id!!)).hasValue(exp)

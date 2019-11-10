@@ -1,4 +1,4 @@
-package app.data.jpa
+package app.data.jpa.repository.crud
 
 import org.springframework.data.repository.CrudRepository
 
