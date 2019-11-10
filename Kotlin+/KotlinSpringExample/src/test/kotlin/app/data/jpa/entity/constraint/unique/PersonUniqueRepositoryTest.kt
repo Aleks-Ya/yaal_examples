@@ -1,8 +1,6 @@
-package app.data.jpa.constraint.unique
+package app.data.jpa.entity.constraint.unique
 
 import app.BaseJpaTest
-import app.data.jpa.entity.constraint.unique.PersonUnique
-import app.data.jpa.entity.constraint.unique.PersonUniqueRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.hibernate.exception.ConstraintViolationException
 import org.junit.jupiter.api.Test
