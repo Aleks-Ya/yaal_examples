@@ -5,6 +5,17 @@ from typing import List
 json_dir = '/home/aleks/pr/ahml/gerrit/devops/devops-component-versions/mks-settings'
 
 skip_repos = ['fake-project', 'unified-template-dag', 'submit-container-base', '1c-test-soap-service']
+comments = {'1c-download-dag':
+                {'1.1': 'AHMLDWH-23076 in testing'},
+            'abm-accreditation-service':
+                {'0.4': 'AHMLDWH-21903 lost ticket, ask Dima',
+                 '0.5': 'AHMLDWH-21903 lost ticket, ask Dima'},
+            'abm-misuse-funds':
+                {'0.2': 'AHMLDWH-23193 closed, to Dima',
+                 '0.6': 'AHMLDWH-23127 wait deploy to PROD'},
+            'golden-report-db':
+                {'2.45': 'EMISS region migration'}
+            }
 
 
 def make_url(repo_name: str):
@@ -74,16 +85,29 @@ repo_objects_with_open_versions = [repo_obj for repo_obj in repo_objects
                                    if repo_obj.name not in skip_repos and repo_obj.has_open_versions()]
 print(f'Repo with open versions: {len(repo_objects_with_open_versions)}\n')
 
+
+def get_comment(repo_name: str, version_key: str) -> str:
+    comment_str = ''
+    if repo_name in comments:
+        version_comments = comments[repo_name]
+        if version_key in version_comments:
+            comment_str = f' [{version_comments[version_key]}]'
+    return comment_str
+
+
 gerrit_url = 'http://gerrit.ahml-infr.projects.epam.com'
 for repo in repo_objects_with_open_versions:
     print(f'{repo.name} {make_url(repo.name)}')
     counter = 1
     if repo.has_open_releases():
         for release_key in repo.open_releases:
-            print(f'{counter}) {gerrit_url}/gitweb?p={repo.name}.git;a=log;h=refs/heads/release/{release_key}')
+            comment = get_comment(repo.name, release_key)
+            print(
+                f'{counter}){comment} {gerrit_url}/gitweb?p={repo.name}.git;a=log;h=refs/heads/release/{release_key}')
             counter += 1
     if repo.has_open_hotfixes():
         for hotfix_key in repo.open_hotfixes:
-            print(f'{counter}) {gerrit_url}/gitweb?p={repo.name}.git;a=log;h=refs/heads/hotfix/{hotfix_key}')
+            comment = get_comment(repo.name, hotfix_key)
+            print(f'{counter}){comment} {gerrit_url}/gitweb?p={repo.name}.git;a=log;h=refs/heads/hotfix/{hotfix_key}')
             counter += 1
     print()
