@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ru.yaal.examples.kotlin.spring</groupId>
-    <artifactId>kotlin-spring-example</artifactId>
+    <artifactId>spring-kotlin-java12-maven-example</artifactId>
     <version>1</version>
-    <name>kotlin-spring-example</name>
-    <description>Spring Boot on Kotlin example</description>
+    <name>spring-kotlin-java12-maven-example</name>
+    <description>Spring on Kotlin example</description>
 
     <properties>
         <java.version>12</java.version>
