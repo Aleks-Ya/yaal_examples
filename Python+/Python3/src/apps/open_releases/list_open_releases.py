@@ -10,7 +10,8 @@ gerrit_password = sys.argv[2]
 
 json_dir = '/home/aleks/pr/ahml/gerrit/devops/devops-component-versions/mks-settings'
 
-skip_repos = ['fake-project', 'unified-template-dag', 'submit-container-base', '1c-test-soap-service']
+skip_repos = ['fake-project', 'unified-template-dag', 'submit-container-base', '1c-test-soap-service',
+              'container-airflow']
 comments = {'1c-download-dag':
                 {'1.1': 'in testing'},
             'abm-accreditation-service':
@@ -23,19 +24,18 @@ comments = {'1c-download-dag':
                 {'2.45': 'EMISS region migration'},
             'po-front':
                 {'0.8': 'wait deploy to PROD'},
-            'lkz-dag':
-                {'1.10.1': 'release is absent in Jenkins'},
-            'abm-schema':
-                {'1.7': 'release is absent in Jenkins'},
-            'gateway-service':
-                {'0.1': 'release is absent in Jenkins',
-                 '0.2': 'release is absent in Jenkins'},
-            'kafka-bridge-microservice':
-                {'1.2': 'release is absent in Jenkins'},
-            'simple-table-loader':
-                {'1.4': 'release is absent in Jenkins'},
-            'config-service':
-                {'1.22.1': 'release is absent in Jenkins'}
+            'emiss-etl-dag':
+                {'2.1': 'EMISS region migration'},
+            'emiss-etl-spark':
+                {'2.1': 'EMISS region migration'},
+            'pg-query-executor-dag':
+                {'1.4': 'EMISS region migration'},
+            'harmonization-engine':
+                {'1.5': 'EMISS region migration'},
+            'data-processing-module-etl':
+                {'1.7': 'In testing'},
+            'data-processing-module-airflow':
+                {'1.1': 'In testing'}
             }
 
 
