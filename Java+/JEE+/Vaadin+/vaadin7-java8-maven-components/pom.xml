@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <groupId>ru.yaal.java.jee.vaadin</groupId>
-    <artifactId>VaadinComponents</artifactId>
+    <artifactId>vaadin7-java8-maven-components</artifactId>
     <version>1</version>
 
-    <description>Usage Vaadin components</description>
+    <description>Usage Vaadin 7 components</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
