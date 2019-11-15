@@ -22,6 +22,6 @@ public class ToTreeTest {
         set.add(HorizontalView.class);
 
         Tree tree = ToTree.listToTree(set);
-        assertThat(tree.getItemIds(), hasSize(12));
+        assertThat(tree.getItemIds(), hasSize(15));
     }
 }
