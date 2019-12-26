@@ -1,10 +1,7 @@
 package eureka.service;
 
 import com.netflix.appinfo.ApplicationInfoManager;
-import com.netflix.appinfo.DataCenterInfo;
-import com.netflix.appinfo.EurekaInstanceConfig;
 import com.netflix.appinfo.InstanceInfo;
-import com.netflix.appinfo.MyDataCenterInfo;
 import com.netflix.appinfo.MyDataCenterInstanceConfig;
 import com.netflix.appinfo.providers.EurekaConfigBasedInstanceInfoProvider;
 import com.netflix.discovery.DefaultEurekaClientConfig;
@@ -12,11 +9,9 @@ import com.netflix.discovery.DiscoveryClient;
 import com.netflix.discovery.EurekaClient;
 import com.netflix.discovery.EurekaClientConfig;
 
-import javax.inject.Provider;
+abstract class ApplicationServiceBase {
 
-public class Main {
-    public static void main(String[] args) {
-//        DataCenterInfo dataCenterInfo = new MyDataCenterInfo(DataCenterInfo.Name.MyOwn);
+    protected static void runService() {
         MyDataCenterInstanceConfig instanceConfig = new MyDataCenterInstanceConfig();
         InstanceInfo instanceInfo = new EurekaConfigBasedInstanceInfoProvider(instanceConfig).get();
         ApplicationInfoManager manager = new ApplicationInfoManager(instanceConfig, instanceInfo);
@@ -25,5 +20,10 @@ public class Main {
 
         RequestProcessor requestProcessor = new RequestProcessor(manager, client, instanceInfo.getVIPAddress());
         requestProcessor.start();
+    }
+
+    protected static void runService(String propertyFileName) {
+        System.setProperty("eureka.client.props", propertyFileName);
+        runService();
     }
 }

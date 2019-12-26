@@ -23,6 +23,9 @@ public class Main {
         EurekaClientConfig clientConfig = new DefaultEurekaClientConfig();
         EurekaClient client = new DiscoveryClient(manager, clientConfig);
         Applications applications = client.getApplications("");
+        if (applications.size() == 0) {
+            throw new IllegalStateException("No registered applications");
+        }
         Application serviceApp = applications.getRegisteredApplications().get(0);
         List<InstanceInfo> instances = serviceApp.getInstances();
         InstanceInfo serviceInstanceInfo = instances.get(0);
