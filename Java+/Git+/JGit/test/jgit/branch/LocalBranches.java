@@ -1,4 +1,4 @@
-package jgit.clone_fetch;
+package jgit.branch;
 
 import jgit.Helper;
 import org.eclipse.jgit.api.CommitCommand;
@@ -15,9 +15,13 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -26,7 +30,7 @@ import static org.junit.Assert.assertThat;
 public class LocalBranches {
 
     @Test
-    public void main() throws IOException, GitAPIException {
+    public void createBranch() throws IOException, GitAPIException {
         Repository repo = Helper.makeLocalRepo();
 
         Git git = new Git(repo);
@@ -49,4 +53,37 @@ public class LocalBranches {
         System.out.println(head);
     }
 
+    @Test
+    public void isCommitInBranch() throws IOException, GitAPIException {
+        Repository repo = Helper.makeLocalRepo();
+
+        Git git = new Git(repo);
+
+        RevCommit initCommit = git.commit().setMessage("initial commit").call();
+        RevCommit devCommit = git.commit().setMessage("commit in dev").call();
+        RevCommit featCommit = git.commit().setMessage("commit in feat branch").call();
+
+        String devBranchName = "dev";
+        git.branchCreate()
+                .setName(devBranchName)
+                .setStartPoint(devCommit)
+                .call();
+
+        String featBranchName = "feat";
+        git.branchCreate()
+                .setName(featBranchName)
+                .setStartPoint(featCommit)
+                .call();
+
+        ObjectId devBranchId = repo.resolve(devBranchName);
+        Iterable<RevCommit> devBranchLog = git.log().add(devBranchId).call();
+        List<ObjectId> devBranchCommits = StreamSupport.stream(devBranchLog.spliterator(), false)
+                .map(ObjectId::toObjectId)
+                .collect(Collectors.toList());
+
+        assertThat(devBranchCommits, hasItems(initCommit.toObjectId(), devCommit.toObjectId()));
+        assertThat(devBranchCommits, not(hasItem(featCommit.toObjectId())));
+    }
+
 }
+
