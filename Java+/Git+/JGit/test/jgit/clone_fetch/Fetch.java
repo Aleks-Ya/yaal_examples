@@ -1,30 +1,27 @@
-package clone_fetch;
+package jgit.clone_fetch;
 
+import jgit.Helper;
 import org.eclipse.jgit.api.CommitCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.internal.storage.dfs.DfsRepositoryDescription;
-import org.eclipse.jgit.internal.storage.dfs.InMemoryRepository;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.transport.PushResult;
+import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
 
 /**
- * Собственно попытка сделать fetch.
+ * Executing fetch.
  */
 public class Fetch {
     private static final String remoteRepoName = "remoteRepo";
 
-    public static void main(String[] args) throws IOException, GitAPIException, URISyntaxException {
-        Repository localRepo = makeLocalRepo();
-        Repository remoteRepo = makeRemoteRepo();
+    @Test
+    public void main() throws IOException, GitAPIException {
+        Repository localRepo = Helper.makeLocalRepo();
+        Repository remoteRepo = Helper.makeRemoteBareRepo();
 
 //        StoredConfig config = localRepo.getConfig();
 //        RemoteConfig remoteConfig = new RemoteConfig(config, remoteRepo.getDirectory().getAbsolutePath());
@@ -56,19 +53,4 @@ public class Fetch {
 //        System.out.println(fetchResult);
     }
 
-    private static Repository makeLocalRepo() throws IOException {
-        File repoDir = Files.createTempDirectory("JGit").toFile();
-        FileRepositoryBuilder builder = new FileRepositoryBuilder();
-        builder.setWorkTree(repoDir);
-        Repository repo = builder.build();
-        repo.create();
-        return repo;
-    }
-
-    private static Repository makeRemoteRepo() throws IOException {
-        DfsRepositoryDescription description = new DfsRepositoryDescription(remoteRepoName);
-        Repository repo = new InMemoryRepository(description);
-        repo.create(false);
-        return repo;
-    }
 }

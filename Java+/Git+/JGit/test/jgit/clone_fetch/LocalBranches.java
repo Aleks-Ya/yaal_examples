@@ -1,5 +1,6 @@
-package clone_fetch;
+package jgit.clone_fetch;
 
+import jgit.Helper;
 import org.eclipse.jgit.api.CommitCommand;
 import org.eclipse.jgit.api.CreateBranchCommand;
 import org.eclipse.jgit.api.Git;
@@ -9,21 +10,24 @@ import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 /**
- * Работа с локальными ветками: список, создание, удаление, переименование.
+ * Working with local branches.
  */
 public class LocalBranches {
 
-    public static void main(String[] args) throws IOException, GitAPIException, URISyntaxException {
-        Repository repo = makeRepo();
+    @Test
+    public void main() throws IOException, GitAPIException {
+        Repository repo = Helper.makeLocalRepo();
 
         Git git = new Git(repo);
 
@@ -34,25 +38,15 @@ public class LocalBranches {
         createBranchCommand.setName("dev");
         createBranchCommand.setStartPoint(initCommit);
         Ref devBranch = createBranchCommand.call();
-        System.out.printf("Branch created: %s\n", devBranch.getName());
+        assertThat(devBranch.getName(), equalTo("refs/heads/dev"));
 
-        System.out.println("ALL BRANCHES: ");
         ListBranchCommand listBranchCommand = git.branchList();
         List<Ref> refs = listBranchCommand.call();
-        for (Ref ref : refs) {
-            System.out.println(ref.getName());
-        }
+        List<String> refNames = refs.stream().map(Ref::getName).collect(Collectors.toList());
+        assertThat(refNames, contains("refs/heads/dev", "refs/heads/master"));
 
         ObjectId head = repo.resolve("HEAD");
         System.out.println(head);
     }
 
-    private static Repository makeRepo() throws IOException {
-        File repoDir = Files.createTempDirectory("JGit").toFile();
-        FileRepositoryBuilder builder = new FileRepositoryBuilder();
-        builder.setWorkTree(repoDir);
-        Repository repo = builder.build();
-        repo.create();
-        return repo;
-    }
 }
