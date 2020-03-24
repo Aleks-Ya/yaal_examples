@@ -1,0 +1,7 @@
+def hadoopVersion = '2.7.3'
+dependencies {
+    compile 'org.apache.orc:orc-core:1.6.2', "org.apache.hadoop:hadoop-hdfs:$hadoopVersion", "$slf4jSimpleVersion"
+    compile ("org.apache.hadoop:hadoop-common:$hadoopVersion") {
+        exclude module: 'slf4j-log4j12'
+    }
+}
