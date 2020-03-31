@@ -10,4 +10,12 @@ class HardCodedTest extends FlatSpec with Matchers {
     val list = Factory.sc.parallelize(data).collect
     list should contain inOrderOnly(1, 2, 3)
   }
+
+  it should "init key-value RDD from Seq" in {
+    val data = Seq((1, "a"), (2, "b"), (3, "c"))
+    val list = Factory.sc.parallelize(data)
+      .map(pair => s"${pair._1}-${pair._2}")
+      .collect
+    list should contain inOrderOnly("1-a", "2-b", "3-c")
+  }
 }
