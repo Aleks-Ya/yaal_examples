@@ -9,6 +9,7 @@ import org.apache.kafka.common.serialization.LongDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -16,15 +17,12 @@ import java.util.Properties;
 
 /**
  * Consumer receives Fibonacci numbers from the Kafka topic and invokes the callback each invokeCallbackEachNRecords.
- *
- * @author Aleksey Yablokov
  */
 @SuppressWarnings("WeakerAccess")
 public class FibonacciConsumer {
     private static final Logger log = LoggerFactory.getLogger(FibonacciConsumer.class);
     private final int invokeCallbackEachNRecords;
-    private final String brokerHost;
-    private final int brokerPort;
+    private final Properties consumerConfig;
     private volatile boolean stopped;
     private final String topic;
 
@@ -33,13 +31,11 @@ public class FibonacciConsumer {
      *
      * @param topic                      The Kafka's topic.
      * @param invokeCallbackEachNRecords For each invokeCallbackEachNRecords numbers the Consumer will print sum to console.
-     * @param brokerHost                 Kafka's broker host.
-     * @param brokerPort                 Kafka's broker port.
+     * @param consumerConfig             Kafka consumer configuration.
      */
-    public FibonacciConsumer(String topic, int invokeCallbackEachNRecords, String brokerHost, int brokerPort) {
+    public FibonacciConsumer(String topic, int invokeCallbackEachNRecords, Properties consumerConfig) {
         this.invokeCallbackEachNRecords = invokeCallbackEachNRecords;
-        this.brokerHost = brokerHost;
-        this.brokerPort = brokerPort;
+        this.consumerConfig = consumerConfig;
         this.topic = topic;
     }
 
@@ -51,20 +47,20 @@ public class FibonacciConsumer {
      */
     public static void main(String[] args) {
         int printEachRecords = 1;
-        String host = "localhost";
+        String zkConnect = "localhost";
         int port = 9092;
         if (args.length > 0) {
             try {
                 printEachRecords = Integer.parseInt(args[0]);
-                host = args[1];
+                zkConnect = args[1];
                 port = Integer.parseInt(args[2]);
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 log.error("Can't parse arguments: " + Arrays.deepToString(args));
             }
         }
-        log.info("Parameters: invokeCallbackEachNRecords={}, host={}, port={}", printEachRecords, host, port);
+        log.info("Parameters: invokeCallbackEachNRecords={}, zkConnect={}, port={}", printEachRecords, zkConnect, port);
 
-        new FibonacciConsumer("fibonacci", printEachRecords, host, port)
+        new FibonacciConsumer("fibonacci", printEachRecords, new Properties())
                 .work(System.out::println);
     }
 
@@ -75,10 +71,7 @@ public class FibonacciConsumer {
      */
     public void work(java.util.function.Consumer<Long> callback) {
         Properties props = new Properties();
-        props.put("bootstrap.servers", brokerHost + ":" + brokerPort);
-        props.put("group.id", "group0");
-        props.put("client.id", "consumer0");
-        props.put("auto.offset.reset", "earliest");
+        consumerConfig.forEach(props::put);
         props.put("key.deserializer", IntegerDeserializer.class.getName());
         props.put("value.deserializer", LongDeserializer.class.getName());
 
@@ -88,7 +81,7 @@ public class FibonacciConsumer {
         //noinspection InfiniteLoopStatement
         long sum = 0;
         while (!stopped) {
-            ConsumerRecords<Integer, Long> records = consumer.poll(100);
+            ConsumerRecords<Integer, Long> records = consumer.poll(Duration.ofMillis(100));
             for (ConsumerRecord<Integer, Long> record : records) {
                 Integer index = record.key();
                 Long fibonacci = record.value();
@@ -100,6 +93,8 @@ public class FibonacciConsumer {
                 }
             }
         }
+        consumer.close();
+        log.info("FibonacciConsumer stopped");
     }
 
     /**

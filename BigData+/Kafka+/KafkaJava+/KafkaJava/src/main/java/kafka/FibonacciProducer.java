@@ -16,28 +16,23 @@ import java.util.concurrent.Future;
 
 /**
  * Producer sends Fibonacci numbers to the topic in form of pair: sequence number - Fibonacci number.
- *
- * @author Aleksey Yablokov
  */
 public class FibonacciProducer {
     private static final Logger log = LoggerFactory.getLogger(FibonacciProducer.class);
     private final int numberCount;
-    private final String kafkaServerHost;
-    private final int kafkaServerPort;
+    private final Properties producerConfig;
     private final String topic;
 
     /**
      * Instantiate {@link FibonacciProducer}.
      *
-     * @param topic       Kafka topic name.
-     * @param numberCount How much Fibonacci numbers the producer will send.
-     * @param brokerHost  Kafka broker's host.
-     * @param brokerPort  Kafka broker's port.
+     * @param topic          Kafka topic name.
+     * @param numberCount    How much Fibonacci numbers the producer will send.
+     * @param producerConfig Kafka producer configuration.
      */
-    public FibonacciProducer(String topic, int numberCount, String brokerHost, int brokerPort) {
+    public FibonacciProducer(String topic, int numberCount, Properties producerConfig) {
         this.numberCount = numberCount;
-        this.kafkaServerHost = brokerHost;
-        this.kafkaServerPort = brokerPort;
+        this.producerConfig = producerConfig;
         this.topic = topic;
     }
 
@@ -60,12 +55,14 @@ public class FibonacciProducer {
             }
         }
         log.info("Parameters: numberCount={}, host={}, port={}", numberCount, host, port);
-        new FibonacciProducer("fibonacci", numberCount, host, port).work();
+        Properties props = new Properties();
+        props.put("bootstrap.servers", host + ":" + port);
+        new FibonacciProducer("fibonacci", numberCount, props).work();
     }
 
     void work() throws ExecutionException, InterruptedException {
         Properties props = new Properties();
-        props.put("bootstrap.servers", kafkaServerHost + ":" + kafkaServerPort);
+        producerConfig.forEach(props::put);
         props.put("key.serializer", IntegerSerializer.class.getName());
         props.put("value.serializer", LongSerializer.class.getName());
 
