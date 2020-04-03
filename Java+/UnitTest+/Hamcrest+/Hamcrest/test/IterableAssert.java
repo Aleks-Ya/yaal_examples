@@ -16,16 +16,17 @@ import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.iterableWithSize;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
 /**
- * Проверка объектов, реализующих Iterable.
+ * Asserting {@link Iterable}.
  */
 public class IterableAssert {
 
     @Test
-    public void test() {
+    public void matchers() {
         final Iterable<String> iter = asList("Piter_", "SPB_", "Leningrad_", "Saint-Petersburg_");
         assertThat(iter, hasItem("SPB_"));
         assertThat(iter, hasItems("SPB_", "Leningrad_"));
@@ -33,6 +34,7 @@ public class IterableAssert {
         assertThat(iter, contains("Piter_", "SPB_", "Leningrad_", "Saint-Petersburg_"));//все элементы
         assertThat(iter, containsInAnyOrder("Saint-Petersburg_", "Piter_", "SPB_", "Leningrad_"));//все элементы
         assertThat(iter, everyItem(not(emptyString())));
+        assertThat(iter, iterableWithSize(4));
         assertThat(new ArrayList<>(), emptyIterable());
         assertThat(new ArrayList<>(), emptyIterableOf(Random.class));
     }
@@ -51,8 +53,8 @@ public class IterableAssert {
         assertThat(iterable, hasItem("SPB_"));
     }
 
-    public class Data {
-        private String value;
+    public static class Data {
+        private final String value;
 
         Data(String value) {
             this.value = value;
