@@ -1,19 +1,19 @@
 # Save JSON to a file
 import json
 import tempfile
+from typing import Dict
 
-data = '{"a": {"b": 7}}'
-json_obj = json.loads(data)
+data: str = '{"a": {"b": 7}}'
+json_obj: Dict[str, object] = json.loads(data)
 
-f = tempfile.mkstemp()[1]
+f: str = tempfile.mkstemp()[1]
 
 with open(f, 'w') as fp:
     json.dump(json_obj, fp, indent=2)
 
 with open(f) as fp:
-    act_content = fp.read()
+    act_content: str = fp.read()
 
-print(act_content)
 assert act_content == '''{
   "a": {
     "b": 7

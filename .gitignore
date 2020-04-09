@@ -26,3 +26,4 @@ dist
 *.egg-info
 build
 Pipfile.lock
+__pycache__

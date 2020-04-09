@@ -18,24 +18,45 @@ comments = {'1c-download-dag':
                 {'0.4': 'lost ticket, ask Dima',
                  '0.5': 'lost ticket, ask Dima'},
             'abm-misuse-funds':
-                {'0.2': 'closed, to Dima',
-                 '0.6': 'wait deploy to PROD'},
+                {'0.2': 'Тонкие коннекшены УБ AHMLDWH-21385',
+                 '0.6': 'Fix /health endpoint AHMLDWH-23127, wait deploy to PROD'},
             'golden-report-db':
-                {'2.45': 'EMISS region migration'},
+                {'2.17': 'объединение банков обновление credit_authority_merger +  Актуализация git AHMLDWH-19727',
+                '2.45': 'EMISS region migration'},
             'po-front':
-                {'0.8': 'wait deploy to PROD'},
+                {'0.8': 'wait deploy to PROD AHMLDWH-22974',
+                '0.10': 'Кол-во домов, in progress, AHMLDWH-23217'},
             'emiss-etl-dag':
                 {'2.1': 'EMISS region migration'},
             'emiss-etl-spark':
-                {'2.1': 'EMISS region migration'},
+                {'2.1': 'EMISS region migration',
+                '2.3': 'DPM UI signle check, in testing, AHMLDWH-23170'},
             'pg-query-executor-dag':
                 {'1.4': 'EMISS region migration'},
             'harmonization-engine':
                 {'1.5': 'EMISS region migration'},
             'data-processing-module-etl':
-                {'1.7': 'In testing'},
+                {'1.7': 'DPM UI, in testing'},
             'data-processing-module-airflow':
-                {'1.1': 'In testing'}
+                {'1.1': 'DPM UI, in testing'},
+            'abm-package-service':
+                {'4.4': 'Тонкие коннекшены УБ AHMLDWH-21386'},
+            'abm-subscription-service':
+                {'1.1': 'Тонкие коннекшены УБ AHMLDWH-21387'},
+            'ahml-abm':
+                {'0.2': 'Тонкие коннекшены УБ AHMLDWH-19690'},
+            'liquibase-phoenix-ext':
+                {'0.1': 'Джоба закрытия падает AHMLDWH-23252'},
+            'golden-report-microservice':
+                {'2.8': 'Кол-во домов, in progress, AHMLDWH-23245'},
+            'health-checker-microservice':
+                {'2.8': 'Grafana, in development, AHMLDWH-21731'},
+            'config-service':
+                {'1.37': 'Дашборд Grafana AHMLDWH-21731',
+                 '1.8': 'Тонкие коннекшены УБ AHMLDWH-21335'},
+            'lkz-dag':
+                {'1.25': 'syntax error at or near ")"',
+                 '1.24.1': 'Логирование lkz_notify_update_dag'}
             }
 
 

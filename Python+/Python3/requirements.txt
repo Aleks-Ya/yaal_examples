@@ -8,3 +8,5 @@ mem_top
 lxml
 cryptography
 pympler
+kafka
+confluent_kafka
