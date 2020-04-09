@@ -1,0 +1,29 @@
+{
+  "namespace": "example.avro",
+  "type": "record",
+  "name": "ActiveAppEvent",
+  "fields": [
+    {
+      "name": "process_name",
+      "type": "string"
+    },
+    {
+      "name": "begin_time",
+      "type": [
+        "int",
+        "null"
+      ]
+    },
+    {
+      "name": "end_time",
+      "type": [
+        "int",
+        "null"
+      ]
+    },
+    {
+      "name": "error",
+      "type": "string"
+    }
+  ]
+}
