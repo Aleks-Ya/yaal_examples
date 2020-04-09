@@ -24,7 +24,7 @@ subprojects {
  */
 configure(subprojects - project('UnitTest+:JUnit+:JUnit5+').subprojects) {
     dependencies {
-        testCompile 'junit:junit:4.12', 'org.hamcrest:java-hamcrest:2.0.0.0',
+        testCompile 'junit:junit:4.13', 'org.hamcrest:java-hamcrest:2.0.0.0',
                 'com.googlecode.catch-exception:catch-exception:1.2.0',
                 'org.awaitility:awaitility:3.0.0', 'commons-io:commons-io:2.6'
     }
