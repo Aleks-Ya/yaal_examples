@@ -6,7 +6,7 @@ from confluent_kafka import Consumer
 
 c = Consumer({
     'bootstrap.servers': 'localhost:32769,localhost:32770',
-    'group.id': 'show-statistics-5',
+    'group.id': 'show-statistics-6',
     'auto.offset.reset': 'earliest'
 })
 
@@ -16,9 +16,9 @@ data: Dict[str, float] = {}
 
 message_counter = 0
 error_counter = 0
-interval_sec = 5.0
+interval_sec = 10.0
 while True:
-    messages = c.consume(num_messages=1000, timeout=interval_sec)
+    messages = c.consume(num_messages=5000, timeout=interval_sec)
 
     for msg in messages:
         if msg is None:
