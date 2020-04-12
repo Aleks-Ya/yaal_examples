@@ -9,7 +9,8 @@ Source: https://github.com/wurstmeister/kafka-docker
 `docker-compose up -d`
 
 ## Scale cluster (optional)
-`docker-compose scale kafka=2`
+`docker-compose up --scale kafka=2 -d`
+Old: `docker-compose scale kafka=2`
 
 ## Check cluster state (optional)
 `docker-compose ps`
@@ -25,6 +26,11 @@ export ZK_PORT=2181
 
 ## Run Kafka Shell
 `docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -e HOST_IP=${KAFKA_ADVERTISED_HOST_NAME} -e ZK=${ZK_HOST}:${ZK_PORT} -it wurstmeister/kafka /bin/bash`
+
+## Pause cluster (not loose data)
+1. Stop: `docker-compose stop`
+1. Start: `docker-compose start`
+1. Ports are changed!
 
 ## Stop cluster
 `docker-compose down`

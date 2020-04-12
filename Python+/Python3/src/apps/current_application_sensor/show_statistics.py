@@ -5,8 +5,8 @@ from typing import Dict
 from confluent_kafka import Consumer
 
 c = Consumer({
-    'bootstrap.servers': 'localhost:32769,localhost:32770',
-    'group.id': 'show-statistics-6',
+    'bootstrap.servers': 'localhost:32777,localhost:32776,localhost:32775',
+    'group.id': 'show-statistics-7',
     'auto.offset.reset': 'earliest'
 })
 
