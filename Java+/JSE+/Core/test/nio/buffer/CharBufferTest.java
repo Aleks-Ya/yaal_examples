@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import java.nio.CharBuffer;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 public class CharBufferTest {
     @Test

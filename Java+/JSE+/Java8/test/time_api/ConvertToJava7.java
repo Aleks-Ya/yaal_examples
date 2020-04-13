@@ -5,8 +5,8 @@ import org.junit.Test;
 import java.time.ZoneId;
 import java.util.TimeZone;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 /**
  * Преобразование классов времени Java8 в Java7 и наоборот.

@@ -4,9 +4,9 @@ import org.junit.Test;
 
 import java.nio.file.Paths;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasToString;
-import static org.junit.Assert.assertThat;
 
 public class PathsNullTest {
     @Test

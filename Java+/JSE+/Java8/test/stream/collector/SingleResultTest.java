@@ -5,8 +5,8 @@ import org.junit.Test;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 /**
  * Из стрима должен остаться один элемент.

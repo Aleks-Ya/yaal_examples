@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 import static util.ResourceUtil.resourceToPath;
 
 public class ExecuteProcess {
@@ -36,8 +36,8 @@ public class ExecuteProcess {
 
     @Test
     public void exitValue() throws IOException, InterruptedException {
-        Integer expExitValue = 3;
-        ProcessBuilder pb = new ProcessBuilder(customExitValueSh, expExitValue.toString());
+        int expExitValue = 3;
+        ProcessBuilder pb = new ProcessBuilder(customExitValueSh, Integer.toString(expExitValue));
         Process process = pb.start();
         int actExitValue = process.waitFor();
         assertThat(actExitValue, equalTo(actExitValue));

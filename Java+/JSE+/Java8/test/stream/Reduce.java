@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import java.util.stream.Stream;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 /**
  * Аггрегирующая операция Stream#reduce.

@@ -5,9 +5,9 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 
 public class EnvVarsSubstituteTest {
     private final Map<String, String> vars = new HashMap<>();

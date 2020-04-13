@@ -7,8 +7,8 @@ import java.io.File;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.Assert.assertThat;
 
 public class DirWalkTest {
     private static File rootDir;

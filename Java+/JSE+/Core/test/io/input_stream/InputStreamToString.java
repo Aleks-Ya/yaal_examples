@@ -10,8 +10,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.stream.Collectors;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 /**
  * Covert InputStream to String.

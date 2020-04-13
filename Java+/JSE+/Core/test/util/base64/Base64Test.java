@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import java.util.Base64;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 
 public class Base64Test {

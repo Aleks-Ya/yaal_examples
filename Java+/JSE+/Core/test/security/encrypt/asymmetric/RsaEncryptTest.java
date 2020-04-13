@@ -16,8 +16,8 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Arrays;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 /**
  * Asymmetric encryption by RSA.

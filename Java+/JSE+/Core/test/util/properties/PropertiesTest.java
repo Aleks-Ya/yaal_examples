@@ -5,8 +5,8 @@ import org.junit.Test;
 
 import java.util.Properties;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 /**
  * Using {@link java.util.Properties}.

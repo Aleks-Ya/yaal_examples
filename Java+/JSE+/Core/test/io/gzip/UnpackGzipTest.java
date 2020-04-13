@@ -9,8 +9,8 @@ import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 public class UnpackGzipTest {
 

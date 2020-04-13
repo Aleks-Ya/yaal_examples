@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import java.util.regex.Pattern;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayContaining;
-import static org.junit.Assert.assertThat;
 
 public class PatternSplitTest {
 

@@ -9,8 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.attribute.UserPrincipal;
 
 import static java.lang.System.out;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Изменение владельца файла.
