@@ -19,9 +19,9 @@ def get_process_name():
 
 def init_kafka_producer():
     from confluent_kafka import Producer
-    bootstrap_servers = 'localhost:32777,localhost:32776,localhost:32775'
     return Producer({
-        'bootstrap.servers': bootstrap_servers,
+        'bootstrap.servers': 'localhost:32092,localhost:32093,localhost:32094',
+        'client.id': 'log_current_app',
         'delivery.timeout.ms': 5000
     })
 

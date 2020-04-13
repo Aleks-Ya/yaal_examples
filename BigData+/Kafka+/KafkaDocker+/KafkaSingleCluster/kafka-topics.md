@@ -2,6 +2,9 @@
 
 Location: `$KAFKA_HOME/bin/kafka-topics.sh`
 
+## Help
+`kafka-topics.sh --help`
+
 ## Show version
 `kafka-topics.sh --version`
 
@@ -24,6 +27,9 @@ kafka-topics.sh \
 ## Describe topic
 Show: 1) partition number, 2) replication factor, 3) partition leader locations, 4) partition replica locations
 `kafka-topics.sh --bootstrap-server $(broker-list.sh) --describe --topic my-topic`
+
+## Change partition number
+`kafka-topics.sh --bootstrap-server $(broker-list.sh) --topic active_process --alter --partitions 3`
 
 ## Old versions (via ZooKeeper)
 List topics: `kafka-topics.sh --zookeeper $ZK --list`
