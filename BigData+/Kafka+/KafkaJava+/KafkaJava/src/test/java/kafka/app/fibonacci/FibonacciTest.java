@@ -1,4 +1,4 @@
-package kafka;
+package kafka.app.fibonacci;
 
 import kafka.api.IntegrationTestHarness;
 import org.junit.Test;

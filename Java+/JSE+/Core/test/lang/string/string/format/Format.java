@@ -53,13 +53,17 @@ public class Format {
         assertThat(format("Разделители групп разрядов: %,d%n", 1000000), equalTo("Разделители групп разрядов: 1,000,000\n"));
 
         // Two or less decimal digits
-        NumberFormat nf= NumberFormat.getInstance();
+        NumberFormat nf = NumberFormat.getInstance();
         nf.setMaximumFractionDigits(2);
         nf.setMinimumFractionDigits(0);
 
         assertThat(nf.format(2.3456), equalTo("2.35"));
         assertThat(nf.format(2.3), equalTo("2.3"));
         assertThat(nf.format(2), equalTo("2"));
+    }
 
+    @Test
+    public void escapeCharacter() {
+        assertThat(format("Percentage: %.2f%%%n", 1.5), equalTo("Percentage: 1.50%\n"));
     }
 }

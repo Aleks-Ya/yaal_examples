@@ -1,9 +1,11 @@
 package kafka.replication;
 
 import kafka.api.IntegrationTestHarness;
+import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
@@ -40,54 +42,57 @@ public class ReplicatedTopicTest extends IntegrationTestHarness {
 
         createTopic(topic, 1, REPLICATION_FACTOR, new Properties());
 
-        Serializer<String> keySerializer = new StringSerializer();
-        Serializer<Integer> valueSerializer = new IntegerSerializer();
-        KafkaProducer<String, Integer> producer = createProducer(keySerializer, valueSerializer, new Properties());
+        Serializer<String> keySer = new StringSerializer();
+        Serializer<Integer> valueSer = new IntegerSerializer();
 
-        Deserializer<String> keyDeserializer = new StringDeserializer();
-        Deserializer<Integer> valueDeserializer = new IntegerDeserializer();
+        Deserializer<String> keyDes = new StringDeserializer();
+        Deserializer<Integer> valueDe = new IntegerDeserializer();
         List<String> configsToRemove = CollectionConverters.asScala(Collections.<String>emptyList()).toList();
         Properties configOverrides = new Properties();
-        KafkaConsumer<String, Integer> consumer = createConsumer(keyDeserializer, valueDeserializer, configOverrides, configsToRemove);
-        consumer.subscribe(Collections.singleton(topic));
 
-        producer.send(new ProducerRecord<>(topic, value1)).get();
-        ConsumerRecords<String, Integer> records1 = consumer.poll(Duration.ofSeconds(1));
-        assertThat(records1.count(), equalTo(1));
-        assertThat(records1.iterator().next().value(), equalTo(value1));
+        try (Producer<String, Integer> producer = createProducer(keySer, valueSer, new Properties());
+             Consumer<String, Integer> consumer = createConsumer(keyDes, valueDe, configOverrides, configsToRemove)) {
+
+            consumer.subscribe(Collections.singleton(topic));
+
+            producer.send(new ProducerRecord<>(topic, value1)).get();
+            ConsumerRecords<String, Integer> records1 = consumer.poll(Duration.ofSeconds(1));
+            assertThat(records1.count(), equalTo(1));
+            assertThat(records1.iterator().next().value(), equalTo(value1));
 //        killRandomBroker();
-        killBroker(0);
+            killBroker(0);
 
 
-        producer.send(new ProducerRecord<>(topic, value2)).get();
-        ConsumerRecords<String, Integer> records2 = consumer.poll(Duration.ofSeconds(1));
-        assertThat(records2.count(), equalTo(1));
-        assertThat(records2.iterator().next().value(), equalTo(value2));
+            producer.send(new ProducerRecord<>(topic, value2)).get();
+            ConsumerRecords<String, Integer> records2 = consumer.poll(Duration.ofSeconds(1));
+            assertThat(records2.count(), equalTo(1));
+            assertThat(records2.iterator().next().value(), equalTo(value2));
 //        killRandomBroker();
-        killBroker(1);
+            killBroker(1);
 
-        producer.send(new ProducerRecord<>(topic, value3)).get();
-        ConsumerRecords<String, Integer> records3 = consumer.poll(Duration.ofSeconds(1));
+            producer.send(new ProducerRecord<>(topic, value3)).get();
+            ConsumerRecords<String, Integer> records3 = consumer.poll(Duration.ofSeconds(1));
 
-        // Consume the record from any of 2 brokers
+            // Consume the record from any of 2 brokers
 //        ConsumerRecords<String, Integer> records1 = consumeByNewConsumerFromAnotherGroup(topic);
 //        assertThat(records1.count(), equalTo(1));
 //        assertThat(records1.iterator().next().value(), equalTo(value));
 
-        // Kill one broker
+            // Kill one broker
 //        killRandomBroker();
 
-        // Consume the record from the last broker
+            // Consume the record from the last broker
 //        ConsumerRecords<String, Integer> records2 = consumeByNewConsumerFromAnotherGroup(topic);
 //        assertThat(records2.count(), equalTo(1));
 //        assertThat(records2.iterator().next().value(), equalTo(value1));
 
-        // Kill the last broker
+            // Kill the last broker
 //        killRandomBroker();
 
-        // Cannot consume record, because no brokers are available
+            // Cannot consume record, because no brokers are available
 //        ConsumerRecords<String, Integer> records3 = consumeByNewConsumerFromAnotherGroup(topic);
 //        assertThat(records3.isEmpty(), is(true));
+        }
     }
 
     private void produce(String topic, Integer value) throws InterruptedException, ExecutionException {

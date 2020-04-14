@@ -1,8 +1,8 @@
 package kafka.partitioner;
 
 import kafka.api.IntegrationTestHarness;
-import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Partitioner;
+import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.Cluster;
@@ -72,18 +72,18 @@ public class PartitionerTest extends IntegrationTestHarness {
 
         Serializer<String> keySerializer = new StringSerializer();
         Serializer<String> valueSerializer = new StringSerializer();
-        KafkaProducer<String, String> producer = createProducer(keySerializer, valueSerializer, producerConfig);
+        try (Producer<String, String> producer = createProducer(keySerializer, valueSerializer, producerConfig)) {
 
-        int partition1 = producer.send(new ProducerRecord<>(topic, value1)).get().partition();
-        assertThat(partition1, equalTo(1));
+            int partition1 = producer.send(new ProducerRecord<>(topic, value1)).get().partition();
+            assertThat(partition1, equalTo(1));
 
-        int partition2 = producer.send(new ProducerRecord<>(topic, value2)).get().partition();
-        assertThat(partition2, equalTo(2));
+            int partition2 = producer.send(new ProducerRecord<>(topic, value2)).get().partition();
+            assertThat(partition2, equalTo(2));
 
-        int partition0 = producer.send(new ProducerRecord<>(topic, value0)).get().partition();
-        assertThat(partition0, equalTo(0));
+            int partition0 = producer.send(new ProducerRecord<>(topic, value0)).get().partition();
+            assertThat(partition0, equalTo(0));
 
-        producer.close();
+        }
     }
 
     @Override

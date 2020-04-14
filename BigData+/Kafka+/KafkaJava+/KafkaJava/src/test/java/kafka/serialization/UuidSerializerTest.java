@@ -1,9 +1,9 @@
 package kafka.serialization;
 
 import kafka.api.IntegrationTestHarness;
+import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
@@ -38,21 +38,22 @@ public class UuidSerializerTest extends IntegrationTestHarness {
 
         Serializer<String> keySerializer = new StringSerializer();
         Serializer<UUID> valueSerializer = new UUIDSerializer();
-        KafkaProducer<String, UUID> producer = createProducer(keySerializer, valueSerializer, new Properties());
-        ProducerRecord<String, UUID> record = new ProducerRecord<>(topic, value);
-        producer.send(record).get();
-        producer.close();
+        try (Producer<String, UUID> producer = createProducer(keySerializer, valueSerializer, new Properties())) {
+            ProducerRecord<String, UUID> record = new ProducerRecord<>(topic, value);
+            producer.send(record).get();
+        }
 
         Deserializer<String> keyDeserializer = new StringDeserializer();
         Deserializer<UUID> valueDeserializer = new UUIDDeserializer();
         List<String> configsToRemove = CollectionConverters.asScala(Collections.<String>emptyList()).toList();
-        KafkaConsumer<String, UUID> consumer = createConsumer(keyDeserializer, valueDeserializer, new Properties(), configsToRemove);
-        consumer.subscribe(Collections.singleton(topic));
-        ConsumerRecords<String, UUID> consumerRecords = consumer.poll(Duration.ofSeconds(1));
-        consumer.close();
+        try (Consumer<String, UUID> consumer = createConsumer(keyDeserializer, valueDeserializer,
+                new Properties(), configsToRemove)) {
+            consumer.subscribe(Collections.singleton(topic));
+            ConsumerRecords<String, UUID> consumerRecords = consumer.poll(Duration.ofSeconds(1));
+            assertThat(consumerRecords.count(), equalTo(1));
+            assertThat(consumerRecords.iterator().next().value(), equalTo(value));
+        }
 
-        assertThat(consumerRecords.count(), equalTo(1));
-        assertThat(consumerRecords.iterator().next().value(), equalTo(value));
     }
 
     @Override

@@ -1,10 +1,10 @@
 package kafka.offset;
 
 import kafka.api.IntegrationTestHarness;
+import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
@@ -57,10 +57,10 @@ public class ManualCommitOffsetTest extends IntegrationTestHarness {
     private void produce(String topic, Integer value) throws InterruptedException, ExecutionException {
         Serializer<String> keySerializer = new StringSerializer();
         Serializer<Integer> valueSerializer = new IntegerSerializer();
-        KafkaProducer<String, Integer> producer = createProducer(keySerializer, valueSerializer, new Properties());
-        ProducerRecord<String, Integer> record = new ProducerRecord<>(topic, value);
-        producer.send(record).get();
-        producer.close();
+        try (Producer<String, Integer> producer = createProducer(keySerializer, valueSerializer, new Properties())) {
+            ProducerRecord<String, Integer> record = new ProducerRecord<>(topic, value);
+            producer.send(record).get();
+        }
     }
 
     private ConsumerRecords<String, Integer> consumeByNewConsumer(String topic, boolean commit) {
@@ -69,14 +69,14 @@ public class ManualCommitOffsetTest extends IntegrationTestHarness {
         List<String> configsToRemove = CollectionConverters.asScala(Collections.<String>emptyList()).toList();
         Properties configOverrides = new Properties();
         configOverrides.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
-        KafkaConsumer<String, Integer> consumer = createConsumer(keyDeserializer, valueDeserializer, configOverrides, configsToRemove);
-        consumer.subscribe(Collections.singleton(topic));
-        ConsumerRecords<String, Integer> records = consumer.poll(Duration.ofSeconds(1));
-        if (commit) {
-            consumer.commitSync();
+        try (Consumer<String, Integer> consumer = createConsumer(keyDeserializer, valueDeserializer, configOverrides, configsToRemove)) {
+            consumer.subscribe(Collections.singleton(topic));
+            ConsumerRecords<String, Integer> records = consumer.poll(Duration.ofSeconds(1));
+            if (commit) {
+                consumer.commitSync();
+            }
+            return records;
         }
-        consumer.close();
-        return records;
     }
 
     @Override

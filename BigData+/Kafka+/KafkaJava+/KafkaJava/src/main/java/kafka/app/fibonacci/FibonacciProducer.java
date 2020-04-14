@@ -1,7 +1,9 @@
-package kafka;
+package kafka.app.fibonacci;
 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.IntegerSerializer;
@@ -17,7 +19,7 @@ import java.util.concurrent.Future;
 /**
  * Producer sends Fibonacci numbers to the topic in form of pair: sequence number - Fibonacci number.
  */
-public class FibonacciProducer {
+class FibonacciProducer {
     private static final Logger log = LoggerFactory.getLogger(FibonacciProducer.class);
     private final int numberCount;
     private final Properties producerConfig;
@@ -56,15 +58,15 @@ public class FibonacciProducer {
         }
         log.info("Parameters: numberCount={}, host={}, port={}", numberCount, host, port);
         Properties props = new Properties();
-        props.put("bootstrap.servers", host + ":" + port);
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, host + ":" + port);
         new FibonacciProducer("fibonacci", numberCount, props).work();
     }
 
     void work() throws ExecutionException, InterruptedException {
         Properties props = new Properties();
         producerConfig.forEach(props::put);
-        props.put("key.serializer", IntegerSerializer.class.getName());
-        props.put("value.serializer", LongSerializer.class.getName());
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
 
         Producer<Integer, Long> producer = new KafkaProducer<>(props);
         long f = 1;

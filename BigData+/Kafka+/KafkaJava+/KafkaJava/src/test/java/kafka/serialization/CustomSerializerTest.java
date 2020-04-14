@@ -1,10 +1,10 @@
 package kafka.serialization;
 
 import kafka.api.IntegrationTestHarness;
+import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.Deserializer;
@@ -134,11 +134,11 @@ public class CustomSerializerTest extends IntegrationTestHarness {
         consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, PersonSerDe.class.getName());
         consumerConfig.put(PersonSerDe.ALLOW_EMPTY_AGE_PROPERTY, false);
-        KafkaConsumer<String, Person> consumer = createConsumer(null, null, consumerConfig, configsToRemove);
-        consumer.subscribe(Collections.singleton(topic));
-        ConsumerRecords<String, Person> consumerRecords = consumer.poll(Duration.ofSeconds(1));
-        consumer.close();
-        return consumerRecords;
+        try (Consumer<String, Person> consumer = createConsumer(null, null,
+                consumerConfig, configsToRemove)) {
+            consumer.subscribe(Collections.singleton(topic));
+            return consumer.poll(Duration.ofSeconds(1));
+        }
     }
 
     private void producePerson(Person value) throws InterruptedException, ExecutionException {
@@ -146,10 +146,10 @@ public class CustomSerializerTest extends IntegrationTestHarness {
         producerConfig.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         producerConfig.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, PersonSerDe.class.getName());
         producerConfig.put(PersonSerDe.ALLOW_EMPTY_AGE_PROPERTY, false);
-        KafkaProducer<String, Person> producer = createProducer(null, null, producerConfig);
-        ProducerRecord<String, Person> record = new ProducerRecord<>(topic, value);
-        producer.send(record).get();
-        producer.close();
+        try (Producer<String, Person> producer = createProducer(null, null, producerConfig)) {
+            ProducerRecord<String, Person> record = new ProducerRecord<>(topic, value);
+            producer.send(record).get();
+        }
     }
 
     @Override

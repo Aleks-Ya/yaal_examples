@@ -1,9 +1,9 @@
 package kafka.compression;
 
 import kafka.api.IntegrationTestHarness;
+import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.Deserializer;
@@ -38,20 +38,20 @@ public class CompressionTest extends IntegrationTestHarness {
 
         StringSerializer keySer = new StringSerializer();
         StringSerializer valueSer = new StringSerializer();
-        KafkaProducer<String, String> producer = createProducer(keySer, valueSer, producerConfigOverrides);
-        producer.send(new ProducerRecord<>(CompressionTest.topic, value)).get();
-        producer.close();
+        try (Producer<String, String> producer = createProducer(keySer, valueSer, producerConfigOverrides)) {
+            producer.send(new ProducerRecord<>(CompressionTest.topic, value)).get();
+        }
 
         Deserializer<String> keyDes = new StringDeserializer();
         Deserializer<String> valueDes = new StringDeserializer();
         List<String> configsToRemove = CollectionConverters.asScala(Collections.<String>emptyList()).toList();
-        KafkaConsumer<String, String> consumer = createConsumer(keyDes, valueDes, new Properties(), configsToRemove);
-        consumer.subscribe(Collections.singleton(CompressionTest.topic));
-        ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));
-        consumer.close();
+        try (Consumer<String, String> consumer = createConsumer(keyDes, valueDes, new Properties(), configsToRemove)) {
+            consumer.subscribe(Collections.singleton(CompressionTest.topic));
+            ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));
+            assertThat(consumerRecords.count(), equalTo(1));
+            assertThat(consumerRecords.iterator().next().value(), equalTo(value));
+        }
 
-        assertThat(consumerRecords.count(), equalTo(1));
-        assertThat(consumerRecords.iterator().next().value(), equalTo(value));
     }
 
     @Override

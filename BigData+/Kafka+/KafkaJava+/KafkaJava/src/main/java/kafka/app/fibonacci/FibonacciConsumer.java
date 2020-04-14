@@ -1,6 +1,7 @@
-package kafka;
+package kafka.app.fibonacci;
 
 import org.apache.kafka.clients.consumer.Consumer;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -19,7 +20,7 @@ import java.util.Properties;
  * Consumer receives Fibonacci numbers from the Kafka topic and invokes the callback each invokeCallbackEachNRecords.
  */
 @SuppressWarnings("WeakerAccess")
-public class FibonacciConsumer {
+class FibonacciConsumer {
     private static final Logger log = LoggerFactory.getLogger(FibonacciConsumer.class);
     private final int invokeCallbackEachNRecords;
     private final Properties consumerConfig;
@@ -72,8 +73,8 @@ public class FibonacciConsumer {
     public void work(java.util.function.Consumer<Long> callback) {
         Properties props = new Properties();
         consumerConfig.forEach(props::put);
-        props.put("key.deserializer", IntegerDeserializer.class.getName());
-        props.put("value.deserializer", LongDeserializer.class.getName());
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class.getName());
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class.getName());
 
         Consumer<Integer, Long> consumer = new KafkaConsumer<>(props);
         List<String> topics = Collections.singletonList(topic);
