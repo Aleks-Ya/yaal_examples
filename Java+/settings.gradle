@@ -110,6 +110,7 @@ include 'JSE+:Core',
         'Libs+:TypesafeConfig',
         'Libs+:zip4j',
         'Libs+:Orc',
+        'Libs+:AWS+:s3',
         'Algorithm',
         'Git+:JGit',
         'Util'
