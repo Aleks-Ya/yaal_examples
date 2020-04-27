@@ -111,6 +111,7 @@ include 'JSE+:Core',
         'Libs+:zip4j',
         'Libs+:Orc',
         'Libs+:AWS+:s3',
+        'Libs+:AWS+:s3mock',
         'Algorithm',
         'Git+:JGit',
         'Util'

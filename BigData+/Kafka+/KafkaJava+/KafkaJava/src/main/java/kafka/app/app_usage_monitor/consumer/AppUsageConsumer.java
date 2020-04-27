@@ -17,6 +17,7 @@ import java.util.UUID;
 class AppUsageConsumer implements AutoCloseable {
     private final Consumer<String, String> consumer;
     private final int timeout;
+    private long recordCounter = 0;
 
     public AppUsageConsumer(String bootstrapServers, String topic, int timeout) {
         this.timeout = timeout;
@@ -34,13 +35,14 @@ class AppUsageConsumer implements AutoCloseable {
 
     public List<String> consume() {
         ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(timeout));
+        recordCounter += records.count();
         List<String> values = new ArrayList<>();
         long valueSize = 0;
         for (ConsumerRecord<String, String> record : records) {
             values.add(record.value());
             valueSize += record.serializedValueSize();
         }
-        System.out.printf("Consumed records: %d, size %d\n", records.count(), valueSize);
+        System.out.printf("Consumed records: %d, size %d, total records %d\n", records.count(), valueSize, recordCounter);
         return values;
     }
 
