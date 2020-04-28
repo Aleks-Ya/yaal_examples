@@ -2,7 +2,7 @@ package postgres;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.OracleContainer;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,19 +14,17 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.testcontainers.containers.PostgreSQLContainer.IMAGE;
 
-public class PostgreSqlTest {
-    private static final String postgresImage = IMAGE + ":11";
+public class OracleTest {
 
     @Rule
-    public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(postgresImage);
+    public OracleContainer oracle = new OracleContainer("wnameless/oracle-xe-11g-r2");
 
     @Test
     public void test() throws SQLException {
-        String url = postgres.getJdbcUrl();
-        String username = postgres.getUsername();
-        String password = postgres.getPassword();
+        String url = oracle.getJdbcUrl();
+        String username = oracle.getUsername();
+        String password = oracle.getPassword();
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             Statement update = conn.createStatement();
             update.executeUpdate("CREATE TABLE numbers (numb INTEGER)");

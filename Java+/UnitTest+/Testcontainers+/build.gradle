@@ -1,0 +1,5 @@
+subprojects {
+    ext {
+        testContainersVersion = '1.14.1'
+    }
+}
