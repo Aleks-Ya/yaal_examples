@@ -2,8 +2,8 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
-import static org.junit.Assert.assertThat;
 
 /**
  * Проверка файлов.

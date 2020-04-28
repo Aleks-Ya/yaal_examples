@@ -1,4 +1,3 @@
-import org.hamcrest.beans.HasPropertyWithValue;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -6,6 +5,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import static java.util.Arrays.asList;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.emptyIterable;
@@ -16,9 +16,9 @@ import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.iterableWithSize;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
 
 /**
  * Asserting {@link Iterable}.
@@ -42,7 +42,7 @@ public class IterableAssert {
     @Test
     public void hasPropertyWithValue() {
         Iterable<Data> iterable = asList(new Data("a"), new Data("b"));
-        assertThat(iterable, everyItem(HasPropertyWithValue.hasProperty("value", not(emptyOrNullString()))));
+        assertThat(iterable, everyItem(hasProperty("value", not(emptyOrNullString()))));
     }
 
     @Test

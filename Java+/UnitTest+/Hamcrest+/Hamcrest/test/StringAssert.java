@@ -2,6 +2,7 @@ import org.hamcrest.Matcher;
 import org.junit.Test;
 
 import static java.util.Arrays.asList;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.emptyOrNullString;
@@ -13,7 +14,6 @@ import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.Matchers.startsWith;
 import static org.hamcrest.Matchers.stringContainsInOrder;
-import static org.junit.Assert.assertThat;
 
 public class StringAssert {
 
