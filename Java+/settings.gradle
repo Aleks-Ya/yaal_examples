@@ -113,6 +113,7 @@ include 'JSE+:Core',
         'Libs+:Orc',
         'Libs+:AWS+:s3',
         'Libs+:AWS+:s3mock',
+        'Libs+:AWS+:AdobeS3Mock',
         'Algorithm',
         'Git+:JGit',
         'Util'
