@@ -1,4 +1,4 @@
-package guice;
+package guice.binding.provides;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
@@ -9,10 +9,11 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class GuiceTest {
+public class ProvidesBindingTest {
     private static final String expected = "hello world";
 
-    public static class DemoModule extends AbstractModule {
+    private static class DemoModule extends AbstractModule {
+        @Override
         protected void configure() {
             bind(String.class).toInstance(expected);
         }

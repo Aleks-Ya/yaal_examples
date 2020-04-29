@@ -31,7 +31,8 @@ public class GuiceDemo {
      * Guice module that provides bindings for message and count used in
      * {@link Greeter}.
      */
-    static class DemoModule extends AbstractModule {
+    private static class DemoModule extends AbstractModule {
+        @Override
         protected void configure() {
             bind(Key.get(String.class, Message.class)).toInstance("hello world");
         }

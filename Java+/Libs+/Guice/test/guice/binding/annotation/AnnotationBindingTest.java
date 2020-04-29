@@ -1,4 +1,4 @@
-package guice;
+package guice.binding.annotation;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class KeyTest {
+public class AnnotationBindingTest {
 
     @Qualifier
     @Retention(RUNTIME)
@@ -26,7 +26,8 @@ public class KeyTest {
     @interface Leaving {
     }
 
-    public static class DemoModule extends AbstractModule {
+    private static class DemoModule extends AbstractModule {
+        @Override
         protected void configure() {
             bind(Key.get(String.class, Greeting.class)).toInstance("hello");
             bind(Key.get(String.class, Leaving.class)).toInstance("bye");
