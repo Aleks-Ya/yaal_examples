@@ -16,9 +16,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class OracleTest {
+    private static final String ORACLE_IMAGE = "wnameless/oracle-xe-11g-r2";
 
     @Rule
-    public OracleContainer oracle = new OracleContainer("wnameless/oracle-xe-11g-r2");
+    public OracleContainer oracle = new OracleContainer(ORACLE_IMAGE);
 
     @Test
     public void test() throws SQLException {

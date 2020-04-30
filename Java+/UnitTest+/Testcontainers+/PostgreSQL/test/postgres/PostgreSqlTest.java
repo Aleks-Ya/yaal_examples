@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 import static org.testcontainers.containers.PostgreSQLContainer.IMAGE;
 
 public class PostgreSqlTest {
-    private static final String postgresImage = IMAGE + ":11";
+    private static final String postgresImage = IMAGE + ":12";
 
     @Rule
     public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(postgresImage);
