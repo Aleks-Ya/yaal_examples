@@ -2,6 +2,8 @@ site_name: My Docs
 
 nav:
   - Home: index.md
+  - Syntax:
+      - Links: "syntax/link/links.md"
   - "Our contacts":
       - "In Russia": "contacts/russia.md"
       - "In USA": "contacts/usa.md"
@@ -9,3 +11,7 @@ nav:
 
 #theme: readthedocs
 #theme: material
+
+markdown_extensions:
+  - toc:
+      permalink: true
