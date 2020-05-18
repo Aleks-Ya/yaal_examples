@@ -14,7 +14,7 @@ public class ConstructorWithParameters {
     }
 
     private static class Data {
-        private String title;
+        private final String title;
 
         private Data(String title) {
             this.title = title;
