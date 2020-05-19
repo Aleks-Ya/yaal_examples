@@ -13,14 +13,9 @@ public class ProvidesBindingTest {
     private static final String expected = "hello world";
 
     private static class DemoModule extends AbstractModule {
-        @Override
-        protected void configure() {
-            bind(String.class).toInstance(expected);
-        }
-
         @Provides
-        static Integer provideCount() {
-            return 3;
+        static String provideString() {
+            return expected;
         }
     }
 
