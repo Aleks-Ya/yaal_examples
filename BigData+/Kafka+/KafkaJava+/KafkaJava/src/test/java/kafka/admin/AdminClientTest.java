@@ -3,12 +3,16 @@ package kafka.admin;
 import kafka.api.IntegrationTestHarness;
 import org.apache.kafka.clients.admin.Admin;
 import org.apache.kafka.clients.admin.CreateTopicsResult;
+import org.apache.kafka.clients.admin.DescribeClusterResult;
 import org.apache.kafka.clients.admin.DescribeTopicsResult;
 import org.apache.kafka.clients.admin.ListTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.admin.TopicDescription;
+import org.apache.kafka.common.KafkaFuture;
+import org.apache.kafka.common.Node;
 import org.junit.Test;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -27,6 +31,7 @@ import static org.junit.Assert.assertThrows;
  * Use AdminClient API.
  */
 public class AdminClientTest extends IntegrationTestHarness {
+    private static final int BROKER_COUNT = 1;
     private static final String topic = AdminClientTest.class.getSimpleName().toLowerCase();
 
     @Test(timeout = 10_000)
@@ -84,8 +89,18 @@ public class AdminClientTest extends IntegrationTestHarness {
         });
     }
 
+    @Test
+    public void getNodes() throws ExecutionException, InterruptedException {
+        try (Admin adminClient = createAdminClient(new Properties())) {
+            DescribeClusterResult describeClusterResult = adminClient.describeCluster();
+            KafkaFuture<Collection<Node>> nodesFuture = describeClusterResult.nodes();
+            Collection<Node> nodes = nodesFuture.get();
+            assertThat(nodes, hasSize(BROKER_COUNT));
+        }
+    }
+
     @Override
     public int brokerCount() {
-        return 1;
+        return BROKER_COUNT;
     }
 }
