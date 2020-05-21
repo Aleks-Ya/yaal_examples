@@ -1,0 +1,10 @@
+{
+   "type": "record",
+   "name": "HandshakeRequest", "namespace":"org.apache.avro.ipc",
+   "fields": [
+     {"name": "clientHash", "type": {"type": "fixed", "name": "MD5", "size": 16}},
+     {"name": "clientProtocol", "type": ["string", "null"]},
+     {"name": "serverHash", "type": "MD5"},
+     {"name": "meta", "type": [{"type": "map", "values": "bytes"}, "null"]}
+   ]
+ }
