@@ -1,13 +1,20 @@
 package junit4;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
 public class JUnit4Test {
+    private boolean value;
+
+    @Before
+    public void before() {
+        value = true;
+    }
 
     @Test
     public void success() {
-        assertTrue(true);
+        assertTrue(value);
     }
 }
