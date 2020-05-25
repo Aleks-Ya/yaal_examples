@@ -27,7 +27,22 @@ public class SchemaBuilderTest {
                 .name("serverHash").type("MD5").noDefault()
                 .name("meta").type().nullable().map().values().bytesType().noDefault()
                 .endRecord();
-        InputStream is = SchemaBuilderTest.class.getResourceAsStream("SchemaBuilderTest.avsc");
+        InputStream is = SchemaBuilderTest.class.getResourceAsStream("SchemaBuilderTest_buildSchema.avsc");
+        Schema exp = new Schema.Parser().parse(is);
+        assertThat(act, equalTo(exp));
+    }
+
+    /**
+     * Build {@link Schema} which contains a {@link javax.lang.model.type.UnionType} field.
+     */
+    @Test
+    public void buildSchemaUnion() throws IOException {
+        Schema act = SchemaBuilder.record("City").namespace("org.apache.avro.ipc")
+                .fields()
+                .name("title").type().stringType().noDefault()
+                .name("population").type().unionOf().stringType().and().intType().endUnion().noDefault()
+                .endRecord();
+        InputStream is = SchemaBuilderTest.class.getResourceAsStream("SchemaBuilderTest_buildSchemaUnion.avsc");
         Schema exp = new Schema.Parser().parse(is);
         assertThat(act, equalTo(exp));
     }
