@@ -1,24 +1,28 @@
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+package excel;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Работа с Excel-файлом формата XLSX (Excel-2007-2010-2013).
+ * Работа с Excel-файлом формата XLS (Excel-97-2000-XP-2003).
  */
-public class ExcelXlsx {
+public class ExcelXls {
 
     @Test
-    public void readCellValueXlsx() throws IOException, InvalidFormatException {
-        String f = ExcelXlsx.class.getResource("Excel-2007-2010-2013.xlsx").getFile();
-        Workbook workbook = new XSSFWorkbook(f);
+    public void readCellValue() throws IOException {
+        String file = ExcelXls.class.getResource("Excel-97-2000-XP-2003.xls").getFile();
+        InputStream is = new FileInputStream(file);
+        Workbook workbook = new HSSFWorkbook(is);
         Sheet sheet1 = workbook.getSheetAt(0);
         Row row1 = sheet1.getRow(0);
         Cell cellA1 = row1.getCell(0);
