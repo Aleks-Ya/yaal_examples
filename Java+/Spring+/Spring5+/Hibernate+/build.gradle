@@ -1,7 +1,7 @@
 subprojects {
     dependencies {
-        compile 'org.hibernate:hibernate-entitymanager:4.3.8.Final',
+        implementation 'org.hibernate:hibernate-entitymanager:4.3.8.Final',
                 "org.springframework:spring-orm:$springVersion"
-        testCompile "$h2Dependency"
+        testImplementation "$h2Dependency"
     }
 }

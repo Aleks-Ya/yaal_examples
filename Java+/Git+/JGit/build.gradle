@@ -1,8 +1,8 @@
 apply plugin: 'java'
 sourceSets.main.java.srcDir 'src'
 dependencies {
-    compile 'org.eclipse.jgit:org.eclipse.jgit:5.6.0.201912101111-r', "$slf4jSimpleVersion"
-    testCompile 'org.hamcrest:hamcrest:2.2'
+    implementation 'org.eclipse.jgit:org.eclipse.jgit:5.6.0.201912101111-r', "$slf4jSimpleVersion"
+    testImplementation 'org.hamcrest:hamcrest:2.2'
 }
 repositories {
     mavenCentral()

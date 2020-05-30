@@ -2,5 +2,5 @@
  * Заполнение POJO сгенерированными данными.
  */
 dependencies {
-    testCompile 'uk.co.jemos.podam:podam:7.1.0.RELEASE'
+    testImplementation 'uk.co.jemos.podam:podam:7.1.0.RELEASE'
 }

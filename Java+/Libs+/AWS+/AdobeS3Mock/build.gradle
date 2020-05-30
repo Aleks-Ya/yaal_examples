@@ -1,4 +1,4 @@
 dependencies {
-    compile 'com.amazonaws:aws-java-sdk-s3:1.11.768'
-    testCompile 'com.adobe.testing:s3mock-junit4:2.1.19'
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.11.768'
+    testImplementation 'com.adobe.testing:s3mock-junit4:2.1.19'
 }

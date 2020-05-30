@@ -1,5 +1,5 @@
 subprojects {
     dependencies {
-        compile 'javax.servlet:servlet-api:2.5'
+        implementation 'javax.servlet:servlet-api:2.5'
     }
 }

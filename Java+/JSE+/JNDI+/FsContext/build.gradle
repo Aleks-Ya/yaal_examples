@@ -2,5 +2,5 @@ apply plugin: "java"
 sourceSets.main.java.srcDir 'src'
 
 dependencies {
-    compile files('lib/fscontext.jar')
+    implementation files('lib/fscontext.jar')
 }

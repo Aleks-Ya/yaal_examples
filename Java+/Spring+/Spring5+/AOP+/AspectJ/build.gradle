@@ -3,7 +3,7 @@
  */
 def aspectVersion = '1.8.8'
 dependencies {
-    compile "org.aspectj:aspectjrt:${aspectVersion}",
+    implementation "org.aspectj:aspectjrt:${aspectVersion}",
             "org.aspectj:aspectjtools:${aspectVersion}",
             "$slf4jSimpleVersion"
 }

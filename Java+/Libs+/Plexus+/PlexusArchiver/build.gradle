@@ -1,4 +1,4 @@
 dependencies {
-    compile 'org.codehaus.plexus:plexus-archiver:3.4',
+    implementation 'org.codehaus.plexus:plexus-archiver:3.4',
             'org.codehaus.plexus:plexus-container-default:1.7.1'
 }

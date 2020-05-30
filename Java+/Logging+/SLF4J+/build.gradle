@@ -1,5 +1,5 @@
 subprojects {
     dependencies {
-        compile "$slf4jSimpleVersion"
+        implementation "$slf4jSimpleVersion"
     }
 }

@@ -1,10 +1,10 @@
 dependencies {
-    compile "org.springframework:spring-webmvc:$springVersion",
+    implementation "org.springframework:spring-webmvc:$springVersion",
             "org.springframework.security:spring-security-web:$springSecurityVersion",
             "org.springframework:spring-jdbc:$springVersion",
             "$h2Dependency"
 
     compileOnly "javax.servlet:javax.servlet-api:$javaxServletApiVersion"
 
-    testCompile "org.springframework.security:spring-security-test:$springSecurityVersion"
+    testImplementation "org.springframework.security:spring-security-test:$springSecurityVersion"
 }

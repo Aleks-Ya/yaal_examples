@@ -2,5 +2,5 @@
  * Инициализация БЮ путем исполнения SQL-файлов.
  */
 dependencies {
-    testCompile "$h2Dependency"
+    testImplementation "$h2Dependency"
 }

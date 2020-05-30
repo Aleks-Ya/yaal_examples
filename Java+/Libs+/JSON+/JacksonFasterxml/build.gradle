@@ -4,6 +4,6 @@
  */
 dependencies {
     def version = '2.9.2'
-    compile "com.fasterxml.jackson.core:jackson-databind:$version",
+    implementation "com.fasterxml.jackson.core:jackson-databind:$version",
             "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$version" //for parsing dates of Java8
 }

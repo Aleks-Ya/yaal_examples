@@ -3,5 +3,5 @@
  * поддерживающего BDD (Behavior Driver Development).
  */
 dependencies {
-    testCompile 'org.jbehave:jbehave-core:3.9.5'
+    testImplementation 'org.jbehave:jbehave-core:3.9.5'
 }

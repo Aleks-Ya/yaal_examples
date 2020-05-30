@@ -3,7 +3,7 @@ subprojects {
         springSecurityVersion = '5.0.1.RELEASE'
     }
     dependencies {
-        compile "org.springframework.security:spring-security-config:$springSecurityVersion"
-        testCompile "org.springframework.security:spring-security-test:$springSecurityVersion"
+        implementation "org.springframework.security:spring-security-config:$springSecurityVersion"
+        testImplementation "org.springframework.security:spring-security-test:$springSecurityVersion"
     }
 }

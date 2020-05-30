@@ -2,5 +2,5 @@
  * Инициализация стандартной реализации DataSource - DriverManagerDataSource.
  */
 dependencies {
-    compile "$h2Dependency"
+    implementation "$h2Dependency"
 }

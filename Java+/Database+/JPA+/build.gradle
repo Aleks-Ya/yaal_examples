@@ -1,5 +1,5 @@
 subprojects {
     dependencies {
-        compile project(':Database+:Hibernate+:Hibernate4')
+        implementation project(':Database+:Hibernate+:Hibernate4')
     }
 }

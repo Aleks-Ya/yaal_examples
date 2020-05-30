@@ -1,4 +1,4 @@
 dependencies {
-    compile 'org.mongodb:mongodb-driver:3.2.2'
-    compile 'org.springframework.data:spring-data-mongodb:1.9.2.RELEASE', project(':Database+:MongoDB')
+    implementation 'org.mongodb:mongodb-driver:3.2.2'
+    implementation 'org.springframework.data:spring-data-mongodb:1.9.2.RELEASE', project(':Database+:MongoDB')
 }

@@ -9,7 +9,7 @@ subprojects {
         useTestNG()
     }
     dependencies {
-        testCompile 'org.testng:testng:6.8.21'
+        testImplementation 'org.testng:testng:6.8.21'
     }
     repositories {
         mavenCentral()

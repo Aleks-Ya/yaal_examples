@@ -1,5 +1,5 @@
 dependencies {
     def version = '2.9.2'
-    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$version",
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$version",
             "com.fasterxml.jackson.core:jackson-databind:$version"
 }

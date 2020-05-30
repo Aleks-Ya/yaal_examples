@@ -1,4 +1,4 @@
 dependencies {
-    compile 'org.camunda.bpm:camunda-engine:7.5.0', 'org.activiti:activiti-engine:5.21.0'//,'org.activiti:activiti-root:5.16.6'
-    testCompile 'org.camunda.bpm.extension:camunda-bpm-assert:1.2', "$h2Dependency"
+    implementation 'org.camunda.bpm:camunda-engine:7.5.0', 'org.activiti:activiti-engine:5.21.0'//,'org.activiti:activiti-root:5.16.6'
+    testImplementation 'org.camunda.bpm.extension:camunda-bpm-assert:1.2', "$h2Dependency"
 }
