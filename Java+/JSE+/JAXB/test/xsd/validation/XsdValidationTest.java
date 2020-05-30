@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBException;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
@@ -16,7 +15,7 @@ import java.io.IOException;
 public class XsdValidationTest {
 
     @Test
-    public void validate() throws JAXBException, IOException, SAXException {
+    public void validate() throws IOException, SAXException {
         File xml = new File(getClass().getResource("data.xml").getFile());
         File xsd = new File(getClass().getResource("schema.xsd").getFile());
         validate(xml, xsd);//No exception - ok

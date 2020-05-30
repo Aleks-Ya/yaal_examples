@@ -4,12 +4,12 @@ import org.junit.Test;
 
 public class H2HibernateTest {
     @Test
-    public void javaConfig() throws Exception {
+    public void javaConfig() {
         new JavaConfig().workWithDb();
     }
 
     @Test
-    public void xmlConfig() throws Exception {
+    public void xmlConfig() {
         new XmlConfig().workWithDb();
     }
 }
