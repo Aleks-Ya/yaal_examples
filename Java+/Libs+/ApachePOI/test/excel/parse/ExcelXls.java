@@ -1,4 +1,4 @@
-package excel;
+package excel.parse;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -21,12 +21,12 @@ public class ExcelXls {
     @Test
     public void readCellValue() throws IOException {
         String file = ExcelXls.class.getResource("Excel-97-2000-XP-2003.xls").getFile();
-        InputStream is = new FileInputStream(file);
-        Workbook workbook = new HSSFWorkbook(is);
-        Sheet sheet1 = workbook.getSheetAt(0);
-        Row row1 = sheet1.getRow(0);
-        Cell cellA1 = row1.getCell(0);
-        assertEquals("Header 1", cellA1.getStringCellValue());
-        workbook.close();
+        try (InputStream is = new FileInputStream(file);
+             Workbook workbook = new HSSFWorkbook(is)) {
+            Sheet sheet1 = workbook.getSheetAt(0);
+            Row row1 = sheet1.getRow(0);
+            Cell cellA1 = row1.getCell(0);
+            assertEquals("Header 1", cellA1.getStringCellValue());
+        }
     }
 }

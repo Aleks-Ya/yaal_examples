@@ -1,6 +1,12 @@
-package excel;
+package excel.create;
 
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.BuiltinFormats;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
 
@@ -13,20 +19,20 @@ public class CurrencyFormat {
 
     @Test
     public void currency() throws IOException {
-        Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet();
+        try (Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet();
 
-        addUsd(sheet);
-        addRur(sheet);
-        addEur(sheet);
+            addUsd(sheet);
+            addRur(sheet);
+            addEur(sheet);
 
-        sheet.autoSizeColumn(0);
-        sheet.autoSizeColumn(1);
+            sheet.autoSizeColumn(0);
+            sheet.autoSizeColumn(1);
 
-        File file = Files.createTempFile(CurrencyFormat.class.getSimpleName(), ".xls").toFile();
-        System.out.println("Workbook file: " + file.getAbsolutePath());
-        workbook.write(new FileOutputStream(file));
-        workbook.close();
+            File file = Files.createTempFile(CurrencyFormat.class.getSimpleName(), ".xls").toFile();
+            System.out.println("Workbook file: " + file.getAbsolutePath());
+            workbook.write(new FileOutputStream(file));
+        }
     }
 
     private static void addUsd(Sheet sheet) {
