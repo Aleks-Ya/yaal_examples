@@ -8,20 +8,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 /**
- * Load config from "application.conf" and system properties.
- * System property "magic.number" overrides the same property in "application.conf".
+ * Read config from "application.conf" in the classpath.
  */
-public class LoadFromSystemProperties {
+public class LoadFromApplicationConf {
 
     @Test
     public void load() {
-        String key = "magic.number";
-        System.setProperty(key, "7");
-
         ConfigFactory.invalidateCaches();
         Config conf = ConfigFactory.load();
-        assertThat(conf.getInt(key), equalTo(7));
-
         String act = conf.getString("property.from.app.conf");
         assertThat(act, equalTo("hello"));
     }

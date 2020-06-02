@@ -10,7 +10,9 @@ import static org.hamcrest.Matchers.equalTo;
 public class LoadFromPropertiesFile {
     @Test
     public void loadFromResource() {
+        ConfigFactory.invalidateCaches();
         Config conf = ConfigFactory.load("config/LoadFromPropertiesFile.properties");
+
         int act = conf.getInt("aaa.bbb");
         assertThat(act, equalTo(77));
     }
