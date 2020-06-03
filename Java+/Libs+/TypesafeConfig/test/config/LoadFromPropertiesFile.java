@@ -7,10 +7,9 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class LoadFromPropertiesFile {
+public class LoadFromPropertiesFile extends BaseTest {
     @Test
     public void loadFromResource() {
-        ConfigFactory.invalidateCaches();
         Config conf = ConfigFactory.load("config/LoadFromPropertiesFile.properties");
 
         int act = conf.getInt("aaa.bbb");

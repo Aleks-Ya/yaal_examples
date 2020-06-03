@@ -9,11 +9,10 @@ import java.util.Properties;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class LoadFromPropertiesObject {
+public class LoadFromPropertiesObject extends BaseTest {
 
     @Test
     public void load() {
-        ConfigFactory.invalidateCaches();
         String key = "magic.number";
         Properties properties = new Properties();
         properties.put(key, "7");
