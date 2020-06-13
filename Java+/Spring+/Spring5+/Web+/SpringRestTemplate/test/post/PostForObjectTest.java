@@ -38,7 +38,7 @@ public class PostForObjectTest {
         HttpEntity<String> entity = new HttpEntity<>("body", headers);
 
         Quote quote = restTemplate.postForObject(url, entity, Quote.class);
-        System.out.println(quote.toString());
+        System.out.println(quote);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class PostForObjectTest {
         final RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
         String body = "{key: value}";
         HttpEntity<String> entity = new HttpEntity<>(body, headers);
@@ -55,11 +55,11 @@ public class PostForObjectTest {
         final MockRestServiceServer server = MockRestServiceServer.bindTo(restTemplate).build();
         server.expect(once(), requestTo(URL)).andExpect(method(HttpMethod.POST))
                 .andExpect(jsonPath("key", equalTo("value")))
-                .andExpect(header("content-type", equalTo(MediaType.APPLICATION_JSON_UTF8_VALUE)))
+                .andExpect(header("content-type", equalTo(MediaType.APPLICATION_JSON_VALUE)))
                 .andRespond(withSuccess("{}", MediaType.APPLICATION_JSON));
 
         Quote quote = restTemplate.postForObject(URL, entity, Quote.class);
-        System.out.println(quote.toString());
+        System.out.println(quote);
 
         server.verify();
     }

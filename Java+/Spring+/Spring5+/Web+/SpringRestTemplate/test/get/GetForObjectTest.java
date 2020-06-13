@@ -1,6 +1,5 @@
 package get;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import data.Quote;
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
@@ -8,8 +7,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,7 +20,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 public class GetForObjectTest {
 
     @Test
-    public void getForObjectTest() throws Exception {
+    public void getForObjectTest() {
         RestTemplate restTemplate = new RestTemplate();
 
         final String url = "/localhost";
@@ -33,18 +30,12 @@ public class GetForObjectTest {
                 .andRespond(withSuccess("{}", MediaType.APPLICATION_JSON));
 
         Quote response = restTemplate.getForObject(url, Quote.class);
-        System.out.println(response.toString());
+        System.out.println(response);
     }
 
     @Test
-    public void withHeaders() throws Exception {
+    public void withHeaders() {
         RestTemplate restTemplate = new RestTemplate();
-
-        ObjectMapper mapper = new ObjectMapper();
-
-
-        HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-
         String headerName = "myheader";
         String headerValue = "abc";
         final String url = "/localhost";
