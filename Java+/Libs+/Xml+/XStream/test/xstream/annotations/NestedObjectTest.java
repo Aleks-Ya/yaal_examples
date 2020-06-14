@@ -1,6 +1,7 @@
-package xstream;
+package xstream.annotations;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,10 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static util.ResourceUtil.resourceToString;
 
-/**
- * Source: https://x-stream.github.io/tutorial.html
- */
-public class TutorialTest {
+public class NestedObjectTest {
     private XStream xstream;
     private Person person;
     private String xml;
@@ -21,14 +19,13 @@ public class TutorialTest {
     @Before
     public void setUp() {
         xstream = new XStream();
-        xstream.alias("person", Person.class);
-        xstream.alias("phonenumber", PhoneNumber.class);
+        xstream.processAnnotations(new Class[]{Person.class, PhoneNumber.class});
 
         person = new Person("Joe", "Walnes");
         person.setPhone(new PhoneNumber(123, "1234-456"));
         person.setFax(new PhoneNumber(123, "9999-999"));
 
-        xml = resourceToString("xstream/TutorialTest.xml");
+        xml = resourceToString("xstream/annotations/NestedObjectTest.xml");
     }
 
     @Test
@@ -43,34 +40,37 @@ public class TutorialTest {
         assertThat(actPerson, equalTo(person));
     }
 
+    @XStreamAlias("person")
     @SuppressWarnings("unused")
     public static class Person {
-        private String firstname;
-        private String lastname;
+        @XStreamAlias("firstname")
+        private String firstName;
+        @XStreamAlias("lastname")
+        private String lastName;
 
-        public String getFirstname() {
-            return firstname;
+        public String getFirstName() {
+            return firstName;
         }
 
         private PhoneNumber phone;
 
         private PhoneNumber fax;
 
-        public Person(String firstname, String lastname) {
-            this.firstname = firstname;
-            this.lastname = lastname;
+        public Person(String firstName, String lastName) {
+            this.firstName = firstName;
+            this.lastName = lastName;
         }
 
-        public void setFirstname(String firstname) {
-            this.firstname = firstname;
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
         }
 
-        public String getLastname() {
-            return lastname;
+        public String getLastName() {
+            return lastName;
         }
 
-        public void setLastname(String lastname) {
-            this.lastname = lastname;
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
         }
 
         public PhoneNumber getPhone() {
@@ -94,15 +94,15 @@ public class TutorialTest {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Person person = (Person) o;
-            return Objects.equals(firstname, person.firstname) &&
-                    Objects.equals(lastname, person.lastname) &&
+            return Objects.equals(firstName, person.firstName) &&
+                    Objects.equals(lastName, person.lastName) &&
                     Objects.equals(phone, person.phone) &&
                     Objects.equals(fax, person.fax);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(firstname, lastname, phone, fax);
+            return Objects.hash(firstName, lastName, phone, fax);
         }
     }
 
@@ -146,4 +146,5 @@ public class TutorialTest {
             return Objects.hash(code, number);
         }
     }
+
 }
