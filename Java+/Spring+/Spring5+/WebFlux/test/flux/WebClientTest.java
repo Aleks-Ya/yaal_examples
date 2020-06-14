@@ -22,9 +22,9 @@ public class WebClientTest {
 
         URI uri = server.url("/").uri();
 
-        WebClient client1 = WebClient.create();
+        WebClient client = WebClient.create();
 
-        WebClient.ResponseSpec mono = client1.get().uri(uri).retrieve();
+        WebClient.ResponseSpec mono = client.get().uri(uri).retrieve();
         String actBody = mono.bodyToMono(String.class).block();
         assertThat(actBody, equalTo(expBody));
 

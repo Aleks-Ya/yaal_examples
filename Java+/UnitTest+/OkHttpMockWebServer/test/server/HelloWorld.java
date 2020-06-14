@@ -5,10 +5,9 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Test;
-import util.InputStreamUtil;
+import util.NetUtil;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -32,13 +31,13 @@ public class HelloWorld {
 
         HttpUrl baseUrl = server.url("/v1/chat/");
 
-        String body = sendGet(new URL(baseUrl.url(), "messages/"));
+        String body = NetUtil.urlContentToString(new URL(baseUrl.url(), "messages/"));
         assertThat(body, equalTo(body1));
 
-        String actBody2 = sendGet(new URL(baseUrl.url(), "messages/2"));
+        String actBody2 = NetUtil.urlContentToString(new URL(baseUrl.url(), "messages/2"));
         assertThat(actBody2, equalTo(body2));
 
-        String actBody3 = sendGet(new URL(baseUrl.url(), "messages/3"));
+        String actBody3 = NetUtil.urlContentToString(new URL(baseUrl.url(), "messages/3"));
         assertThat(actBody3, equalTo(body3));
 
         RecordedRequest request1 = server.takeRequest();
@@ -52,16 +51,5 @@ public class HelloWorld {
         assertEquals("/v1/chat/messages/3", request3.getPath());
 
         server.shutdown();
-    }
-
-    private static String sendGet(URL url) throws IOException {
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.connect();
-        int responseCode = conn.getResponseCode();
-        String body = InputStreamUtil.inputStreamToString(conn.getInputStream());
-        conn.disconnect();
-        assertThat(responseCode, equalTo(200));
-        return body;
     }
 }
