@@ -1,4 +1,4 @@
-package kafka.offset;
+package kafka.consumer;
 
 import kafka.api.IntegrationTestHarness;
 import org.apache.kafka.clients.consumer.Consumer;
