@@ -1,0 +1,3 @@
+-- comment
+--[[ Multiline
+     comment ]]
