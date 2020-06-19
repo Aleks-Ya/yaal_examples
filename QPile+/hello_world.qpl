@@ -1,0 +1,25 @@
+PORTFOLIO HELLO_WORLD;
+DESCRIPTION Hello World!;
+CLIENTS_LIST ALL_CLIENTS;
+FIRMS_LIST MC0012300000;
+
+PROGRAM
+       `MESSAGE('Hello World!', 1);
+       FirmCode = "MC0012300000"
+       CurrentBalance = MONEY_CURRENT_BALANCE(ROWNAME, FirmCode, "EQTV", "SUR")
+       CurrentLimit = MONEY_CURRENT_LIMIT(ROWNAME, FirmCode, "EQTV", "SUR")
+       Locked = MONEY_LIMIT_LOCKED(ROWNAME, FirmCode, "EQTV", "SUR")
+       AvailableMoney = MoneyCurrentBalance + MoneyCurrentLimit – MoneyLocked
+       If AvailableMoney > 0
+          Status = "Orders available"
+       Else
+           Status = "Orders unavailable"
+           SET_ROW_COLOR(ROWNAME, "RGB(255,138,138)", "DEFAULT_COLOR")
+       End If
+END_PROGRAM
+
+PARAMETER AvailableMoney;
+PARAMETER_TITLE Available;
+PARAMETER_DESCRIPTION Available cash of the client;
+PARAMETER_TYPE NUMERIC(10,2);
+END
