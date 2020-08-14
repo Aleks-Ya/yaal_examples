@@ -1,4 +1,4 @@
-name := "akka-scala-examples"
+name := "akka-actor-scala-examples"
 
 version := "1.0"
 
