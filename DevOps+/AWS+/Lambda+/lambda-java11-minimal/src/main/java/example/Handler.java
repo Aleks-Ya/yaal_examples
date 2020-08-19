@@ -21,7 +21,7 @@ public class Handler implements RequestHandler<Map<String,String>, String>{
     logger.log("ENVIRONMENT VARIABLES: " + gson.toJson(System.getenv()));
     logger.log("CONTEXT: " + gson.toJson(context));
     // process event
-    logger.log("EVENT: " + gson.toJson(event));
+    logger.log("EVENT 4: " + gson.toJson(event));
     logger.log("EVENT TYPE: " + event.getClass().toString());
     return response;
   }
