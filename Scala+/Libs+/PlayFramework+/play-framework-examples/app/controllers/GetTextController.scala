@@ -9,7 +9,7 @@ import play.api.mvc._
 @Singleton
 class GetTextController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
 
-  def text() = Action { implicit request: Request[AnyContent] =>
+  def text(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     val content = "Hello Content!"
     Ok(content)
   }
