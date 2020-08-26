@@ -1,4 +1,4 @@
-package scala.clazz.implicit_class
+package scala.clazz.`implicit`.clazz
 
 import org.scalatest.{FlatSpec, Matchers}
 
