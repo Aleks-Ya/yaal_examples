@@ -8,9 +8,9 @@ lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
       organization := "ru.yaal.examples.bigdata.kafka",
-      scalaVersion := "2.11.8",
+      scalaVersion := "2.13.3",
       version := "1"
     )),
-    name := "KafkaQuickStart",
+    name := "KafkaScala",
     libraryDependencies ++= allDeps
   )
