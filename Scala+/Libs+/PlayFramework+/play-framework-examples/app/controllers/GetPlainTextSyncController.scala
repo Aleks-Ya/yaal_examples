@@ -10,7 +10,6 @@ import play.api.mvc._
 class GetPlainTextSyncController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
 
   def text(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    val content = "Hello Content!"
-    Ok(content)
+    Ok("Hello Content!")
   }
 }

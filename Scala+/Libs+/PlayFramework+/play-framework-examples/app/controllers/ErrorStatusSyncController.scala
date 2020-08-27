@@ -17,8 +17,7 @@ class ErrorStatusSyncController @Inject()(val controllerComponents: ControllerCo
    * </pre>
    */
   def badRequest(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    val content = "Your request is bad!"
-    BadRequest(content)
+    BadRequest("Your request is bad!")
   }
 
   /**
@@ -29,7 +28,6 @@ class ErrorStatusSyncController @Inject()(val controllerComponents: ControllerCo
    * </pre>
    */
   def serverError(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    val content = "An internal server error happened!"
-    InternalServerError(content)
+    InternalServerError("An internal server error happened!")
   }
 }

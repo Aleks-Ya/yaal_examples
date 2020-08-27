@@ -10,7 +10,7 @@ import play.api.mvc._
  * <pre>
  * curl -X POST \
  * -H "Content-Type: application/json" \
- * -d '{"name": "John"}' \
+ * -d '{"name": "John", "nicknames": ["Alpha", "Lord"]}' \
  * http://localhost:9000/json
  * </pre>
  */
@@ -24,7 +24,6 @@ class PostJsonSyncController @Inject()(val controllerComponents: ControllerCompo
     val name = (jsonValue \ "name").asOpt[String].get
     val nicknameList = (jsonValue \ "nicknames").asOpt[List[String]].get
     val nicknameStr = nicknameList.mkString(", ")
-    val content = f"Hello, $name ($nicknameStr)!"
-    Ok(content)
+    Ok(f"Hello, $name ($nicknameStr)!")
   }
 }
