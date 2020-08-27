@@ -14,4 +14,15 @@ class PlayJsonSpec extends FlatSpec with Matchers {
     val jsonStr = Json.stringify(jsonValue)
     jsonStr shouldEqual """{"a":1,"b":2}"""
   }
+
+  it should "deserialize JSON to object" in {
+    case class Person(name: String, age: Int)
+    val person = Person("John", 30)
+    val jsonStr = """{"name": "John", "age": 30}"""
+//    Json.parse(jsonStr)
+//    val jsonValue = Json.toJson(map)
+    Json.toJsObject(jsonStr)
+    val jsonStr = Json.stringify(jsonValue)
+    jsonStr shouldEqual """{"a":1,"b":2}"""
+  }
 }
