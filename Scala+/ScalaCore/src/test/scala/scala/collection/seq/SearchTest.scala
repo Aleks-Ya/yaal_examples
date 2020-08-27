@@ -1,8 +1,9 @@
 package scala.collection.seq
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class SearchTest extends FlatSpec with Matchers {
+class SearchTest extends AnyFlatSpec with Matchers {
 
   it should "find first suitable element" in {
     val s = Seq(-1, 0, 3)

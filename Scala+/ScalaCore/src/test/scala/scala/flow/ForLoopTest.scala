@@ -1,8 +1,9 @@
 package scala.flow
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class ForLoopTest extends FlatSpec with Matchers {
+class ForLoopTest extends AnyFlatSpec with Matchers {
 
   it should "iterate list (for each)" in {
     val list = 1 :: 2 :: Nil

@@ -1,8 +1,9 @@
 package scalatest.matcher
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class NumbersTest extends FlatSpec with Matchers {
+class NumbersTest extends AnyFlatSpec with Matchers {
 
   "shouldEqual matcher" should "work" in {
     val result = 3

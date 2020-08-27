@@ -1,11 +1,12 @@
 package scala.clazz.`implicit`.parameter
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 /**
   * Source: https://docs.scala-lang.org/tour/implicit-parameters.html
   */
-class MonoidExample extends FlatSpec with Matchers {
+class MonoidExample extends AnyFlatSpec with Matchers {
 
   it should "use implicit parameters" in {
     abstract class MonoId[A] {

@@ -1,8 +1,9 @@
 package scalatest.matcher
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class ClassTest extends FlatSpec with Matchers {
+class ClassTest extends AnyFlatSpec with Matchers {
 
   it should "assert class of a primitive" in {
     val s = "a"

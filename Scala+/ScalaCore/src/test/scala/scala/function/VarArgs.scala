@@ -1,8 +1,9 @@
 package scala.function
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class VarArgs extends FlatSpec with Matchers {
+class VarArgs extends AnyFlatSpec with Matchers {
 
   "Function" should "apply varargs argument" in {
     def len(varArgs: Int*): Int = {

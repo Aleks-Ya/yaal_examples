@@ -1,8 +1,9 @@
 package scala.collection.list
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class FlatTest extends FlatSpec with Matchers {
+class FlatTest extends AnyFlatSpec with Matchers {
 
   it should "covert list of list to list" in {
     val list = List(List(1, 2), List(3, 4))

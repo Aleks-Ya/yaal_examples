@@ -1,10 +1,11 @@
 package scala.xml
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 import scala.xml.pull._
 
-class DeserializeXmlStreamingTest extends FlatSpec with Matchers {
+class DeserializeXmlStreamingTest extends AnyFlatSpec with Matchers {
 
   it should "stream parse" in {
     val src = scala.io.Source.fromString("""<hello name="John"><world/></hello>""")

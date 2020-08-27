@@ -2,9 +2,11 @@ package scalatest.matcher.collections
 
 import java.util
 
-import org.scalatest.{Entry, FlatSpec, Matchers}
+import org.scalatest.Entry
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class MapTest extends FlatSpec with Matchers {
+class MapTest extends AnyFlatSpec with Matchers {
 
   it should "assert Scala Map" in {
     val scalaMap = Map("x" -> 24, "y" -> 25)
@@ -28,11 +30,5 @@ class MapTest extends FlatSpec with Matchers {
     javaMap should contain allOf(Entry("x", 24), Entry("y", 25))
     javaMap should contain oneOf(Entry("a", 1), Entry("x", 24))
   }
-
-  it should "verify empty maps" in {
-    Map() shouldBe empty
-    Map(1 -> 2) should not be empty
-  }
-
 
 }

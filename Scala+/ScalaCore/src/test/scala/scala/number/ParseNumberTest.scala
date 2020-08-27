@@ -1,8 +1,9 @@
 package scala.number
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class ParseNumberTest extends FlatSpec with Matchers {
+class ParseNumberTest extends AnyFlatSpec with Matchers {
 
   it should "parse NaN" in {
     val d = "NaN".toDouble
@@ -11,9 +12,6 @@ class ParseNumberTest extends FlatSpec with Matchers {
 
   it should "parse comma separated" in {
     val d = "1.1".toDouble
-    val d2 = "1,1".toDouble
-
-//    d.isNaN shouldBe true
   }
 
 }

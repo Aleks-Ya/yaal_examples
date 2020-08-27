@@ -1,8 +1,9 @@
 package scala.function
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class CollectionOfFunction extends FlatSpec with Matchers {
+class CollectionOfFunction extends AnyFlatSpec with Matchers {
 
   it should "create a Seq of functions" in {
     val functions: Seq[(Int, Int) => Int] = Seq(

@@ -1,8 +1,10 @@
 package scalatest.lifecycle
 
-import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
+import org.scalatest.BeforeAndAfter
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class BeforeAndAfterTest extends FlatSpec with BeforeAndAfter with Matchers {
+class BeforeAndAfterTest extends AnyFlatSpec with BeforeAndAfter with Matchers {
 
   private var initMe: String = _
 

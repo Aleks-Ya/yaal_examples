@@ -1,8 +1,9 @@
 package scala.function
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class CurryTest extends FlatSpec with Matchers {
+class CurryTest extends AnyFlatSpec with Matchers {
 
   "Carrying def" should "works" in {
     def sum(a: Int)(b: Int): Int = a + b

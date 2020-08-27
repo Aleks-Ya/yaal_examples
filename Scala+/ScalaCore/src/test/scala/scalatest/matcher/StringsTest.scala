@@ -1,8 +1,9 @@
 package scalatest.matcher
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class StringsTest extends FlatSpec with Matchers {
+class StringsTest extends AnyFlatSpec with Matchers {
 
   it should "check string equality" in {
     "abc" shouldEqual "abc"

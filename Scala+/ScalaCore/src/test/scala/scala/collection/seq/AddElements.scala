@@ -1,8 +1,9 @@
 package scala.collection.seq
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class AddElements extends FlatSpec with Matchers {
+class AddElements extends AnyFlatSpec with Matchers {
 
   it should "join 2 immutable Sequences" in {
     val s1 = Seq(1, 2)

@@ -1,8 +1,9 @@
 package scala.string.regex
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class FindMatchesTest extends FlatSpec with Matchers {
+class FindMatchesTest extends AnyFlatSpec with Matchers {
 
   it should "find match" in {
     val text = "Hello John now!"

@@ -1,8 +1,9 @@
 package scala.string
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class StringInterpolationTest extends FlatSpec with Matchers {
+class StringInterpolationTest extends AnyFlatSpec with Matchers {
 
   "s-interpolation" should "format string with parameters" in {
     val name = "John"

@@ -1,11 +1,12 @@
 package scala.clazz.`implicit`.conversion
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 /**
  * Source: https://www.baeldung.com/scala/implicit-conversions
  **/
-class LengthConversion extends FlatSpec with Matchers {
+class LengthConversion extends AnyFlatSpec with Matchers {
 
   it should "use implicit converter method" in {
     implicit def meters2centimeters(meters: Meters): Centimeters = Centimeters(meters.value * 100)

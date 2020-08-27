@@ -1,8 +1,9 @@
 package scala.collection.list
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class ListCreateTest extends FlatSpec with Matchers {
+class ListCreateTest extends AnyFlatSpec with Matchers {
 
   it should "create a list from elements and another list" in {
     val another = List(3, 4)

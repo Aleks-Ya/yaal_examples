@@ -1,10 +1,11 @@
 package scala.option
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 import scala.util.Try
 
-class TryTest extends FlatSpec with Matchers {
+class TryTest extends AnyFlatSpec with Matchers {
 
   it should "try" in {
     Try("123".toInt).toOption should not be empty

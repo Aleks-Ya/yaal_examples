@@ -1,8 +1,9 @@
 package scala.clazz
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class CaseClass extends FlatSpec with Matchers {
+class CaseClass extends AnyFlatSpec with Matchers {
 
   it should "instantiate a case class" in {
     case class Book(isbn: String)

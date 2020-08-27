@@ -1,8 +1,9 @@
 package scala.collection.map
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class MapContains extends FlatSpec with Matchers {
+class MapContains extends AnyFlatSpec with Matchers {
 
   it should "check a map contains entry" in {
     val map = Map("x" -> 24, "y" -> 25)

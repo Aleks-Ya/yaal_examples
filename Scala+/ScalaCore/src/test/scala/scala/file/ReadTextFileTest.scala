@@ -2,12 +2,13 @@ package scala.file
 
 import java.io.{BufferedReader, FileReader}
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 import scala.collection.mutable.ListBuffer
 import scala.io.Source
 
-class ReadTextFileTest extends FlatSpec with Matchers {
+class ReadTextFileTest extends AnyFlatSpec with Matchers {
 
   it should "read whole file to string" in {
     val uri = getClass.getResource("readme.txt").toURI

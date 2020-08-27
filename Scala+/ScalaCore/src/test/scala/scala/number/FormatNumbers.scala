@@ -3,9 +3,10 @@ package scala.number
 import java.math.BigDecimal
 import java.text.NumberFormat
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class FormatNumbers extends FlatSpec with Matchers {
+class FormatNumbers extends AnyFlatSpec with Matchers {
 
   it should "format Integer with a Locale" in {
     val locale = new java.util.Locale("ru", "RU")

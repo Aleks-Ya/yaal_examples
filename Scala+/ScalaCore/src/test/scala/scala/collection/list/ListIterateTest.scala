@@ -1,8 +1,9 @@
 package scala.collection.list
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class ListIterateTest extends FlatSpec with Matchers {
+class ListIterateTest extends AnyFlatSpec with Matchers {
 
   it should "iterate elements of List" in {
     val list = 1 :: 2 :: Nil

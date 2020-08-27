@@ -1,8 +1,9 @@
 package scala.clazz
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class ConstructorTest extends FlatSpec with Matchers {
+class ConstructorTest extends AnyFlatSpec with Matchers {
 
 
   it should "init class without constructor" in {

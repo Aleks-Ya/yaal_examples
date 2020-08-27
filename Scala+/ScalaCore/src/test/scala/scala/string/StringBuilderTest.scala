@@ -1,8 +1,9 @@
 package scala.string
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class StringBuilderTest extends FlatSpec with Matchers {
+class StringBuilderTest extends AnyFlatSpec with Matchers {
 
   it should "create an empty StringBuilder with constructor" in {
     val sb = new StringBuilder

@@ -1,8 +1,9 @@
 package scala.clazz.`implicit`.parameter
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class FormatWeightExample extends FlatSpec with Matchers {
+class FormatWeightExample extends AnyFlatSpec with Matchers {
 
   it should "use implicit parameters" in {
     case class WeightUnit(title: String)

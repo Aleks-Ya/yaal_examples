@@ -1,8 +1,9 @@
 package scala.clazz
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class Singleton extends FlatSpec with Matchers {
+class Singleton extends AnyFlatSpec with Matchers {
 
   it should "read value of a singleton" in {
     object MySingleton {

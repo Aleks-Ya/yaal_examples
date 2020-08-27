@@ -1,8 +1,9 @@
 package scala.flow
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class If extends FlatSpec with Matchers {
+class If extends AnyFlatSpec with Matchers {
 
   it should "full if statement" in {
     val a = -3

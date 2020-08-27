@@ -1,8 +1,9 @@
 package scalatest.matcher
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class CombiningMatchersTest extends FlatSpec with Matchers {
+class CombiningMatchersTest extends AnyFlatSpec with Matchers {
 
   /**
     * Docs: http://www.scalatest.org/user_guide/using_matchers#logicalExpressions

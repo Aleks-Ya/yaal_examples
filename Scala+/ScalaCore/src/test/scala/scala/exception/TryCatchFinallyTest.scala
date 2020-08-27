@@ -2,9 +2,10 @@ package scala.exception
 
 import java.io.IOException
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class TryCatchFinallyTest extends FlatSpec with Matchers {
+class TryCatchFinallyTest extends AnyFlatSpec with Matchers {
 
   it should "catch exception" in {
     def throwException = throw new IllegalArgumentException

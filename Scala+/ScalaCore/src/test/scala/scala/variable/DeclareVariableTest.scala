@@ -1,8 +1,9 @@
 package scala.variable
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class DeclareVariableTest extends FlatSpec with Matchers {
+class DeclareVariableTest extends AnyFlatSpec with Matchers {
 
   it should "declare a constant" in {
     val a = -3

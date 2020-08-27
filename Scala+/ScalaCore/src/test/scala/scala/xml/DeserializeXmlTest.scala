@@ -1,8 +1,9 @@
 package scala.xml
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class DeserializeXmlTest extends FlatSpec with Matchers {
+class DeserializeXmlTest extends AnyFlatSpec with Matchers {
 
   it should "parse XML from a string" in {
     val text = """<person name="John" age="30"><info>abcd</info></person>"""

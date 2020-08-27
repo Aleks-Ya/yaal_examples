@@ -1,8 +1,9 @@
 package scala.collection.tuple
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class TupleTest extends FlatSpec with Matchers {
+class TupleTest extends AnyFlatSpec with Matchers {
 
   it should "init a tuple" in {
     val t = (1, "hello", Console)

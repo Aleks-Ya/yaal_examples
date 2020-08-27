@@ -1,8 +1,9 @@
 package scala.collection.map
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class MapReduceTest extends FlatSpec with Matchers {
+class MapReduceTest extends AnyFlatSpec with Matchers {
 
   it should "reduce map by key" in {
     val map = Map("x" -> 1, "y" -> 2)

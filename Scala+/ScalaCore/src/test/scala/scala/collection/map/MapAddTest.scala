@@ -1,8 +1,9 @@
 package scala.collection.map
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class MapAddTest extends FlatSpec with Matchers {
+class MapAddTest extends AnyFlatSpec with Matchers {
 
   it should "add entry to mutable map" in {
     val map = scala.collection.mutable.Map[String, Int]()

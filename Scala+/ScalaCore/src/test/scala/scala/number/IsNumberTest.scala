@@ -1,10 +1,11 @@
 package scala.number
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 import scala.util.Try
 
-class IsNumberTest extends FlatSpec with Matchers {
+class IsNumberTest extends AnyFlatSpec with Matchers {
 
   it should "check is a String an Int" in {
     def isInt(s: String): Boolean = {

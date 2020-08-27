@@ -1,8 +1,9 @@
 package scala.flow
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class MatchTest extends FlatSpec with Matchers {
+class MatchTest extends AnyFlatSpec with Matchers {
 
   it should "match" in {
     val code = "M"

@@ -1,10 +1,11 @@
 package scala.exception
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 import scala.util.Try
 
-class TryFunctionTest extends FlatSpec with Matchers {
+class TryFunctionTest extends AnyFlatSpec with Matchers {
 
   it should "try to option (with exception)" in {
     def throwException = throw new IllegalArgumentException

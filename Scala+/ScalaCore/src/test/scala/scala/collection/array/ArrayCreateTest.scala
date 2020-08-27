@@ -1,8 +1,9 @@
 package scala.collection.array
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class ArrayCreateTest extends FlatSpec with Matchers {
+class ArrayCreateTest extends AnyFlatSpec with Matchers {
 
   it should "create an array with specified elements" in {
     val arr = Array(1, 2, 3)

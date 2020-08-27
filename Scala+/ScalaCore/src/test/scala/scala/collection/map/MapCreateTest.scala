@@ -1,8 +1,9 @@
 package scala.collection.map
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class MapCreateTest extends FlatSpec with Matchers {
+class MapCreateTest extends AnyFlatSpec with Matchers {
 
   it should "create a map" in {
     val map1 = Map("x" -> 24, "y" -> 25)

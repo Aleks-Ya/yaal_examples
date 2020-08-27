@@ -1,15 +1,15 @@
 package scalatest.matcher
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class OptionTest extends FlatSpec with Matchers {
+class OptionTest extends AnyFlatSpec with Matchers {
 
   "None" should "pass" in {
     val option = None
     option shouldEqual None
     option shouldBe None
     option should ===(None)
-    option shouldBe empty
   }
 
   "Some" should "pass" in {
@@ -17,7 +17,6 @@ class OptionTest extends FlatSpec with Matchers {
     option shouldEqual Some("hi")
     option shouldBe Some("hi")
     option should ===(Some("hi"))
-    option shouldBe defined
   }
 
   "Contain" should "pass" in {

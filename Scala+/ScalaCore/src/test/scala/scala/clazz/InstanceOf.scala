@@ -2,9 +2,10 @@ package scala.clazz
 
 import java.io.{ByteArrayInputStream, FileInputStream, InputStream}
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class InstanceOf extends FlatSpec with Matchers {
+class InstanceOf extends AnyFlatSpec with Matchers {
 
   it should "check class of an object" in {
     val is: InputStream = new ByteArrayInputStream(Array[Byte]())

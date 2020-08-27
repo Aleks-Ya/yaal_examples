@@ -1,10 +1,11 @@
 package scalatest.concurrent
 
 import org.scalatest.concurrent.Eventually
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.{Seconds, Span}
-import org.scalatest.{FlatSpec, Matchers}
 
-class EventuallyTest extends FlatSpec with Matchers with Eventually {
+class EventuallyTest extends AnyFlatSpec with Matchers with Eventually {
 
   it should "finished successful" in {
     val xs = 1 to 125

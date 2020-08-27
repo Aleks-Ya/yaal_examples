@@ -1,8 +1,10 @@
 package scalatest.exception
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class ExpectedExceptionTest extends FlatSpec with Matchers {
+
+class ExpectedExceptionTest extends AnyFlatSpec with Matchers {
 
   it should "throw exception" in {
     assertThrows[IndexOutOfBoundsException] {

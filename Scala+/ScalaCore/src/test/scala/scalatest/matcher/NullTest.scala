@@ -1,8 +1,9 @@
 package scalatest.matcher
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class NullTest extends FlatSpec with Matchers {
+class NullTest extends AnyFlatSpec with Matchers {
 
   "Not null" should "pass" in {
     "abc" should not be null

@@ -1,8 +1,9 @@
 package scalatest.matcher.collections
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class ArrayTest extends FlatSpec with Matchers {
+class ArrayTest extends AnyFlatSpec with Matchers {
 
   "array" should "work" in {
     val arr = Array(1, 2, 3)

@@ -1,8 +1,9 @@
 package scala.collection.map
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class MapMapTest extends FlatSpec with Matchers {
+class MapMapTest extends AnyFlatSpec with Matchers {
 
   it should "modify each value in a Map" in {
     val map = Map("x" -> 1, "y" -> 2)

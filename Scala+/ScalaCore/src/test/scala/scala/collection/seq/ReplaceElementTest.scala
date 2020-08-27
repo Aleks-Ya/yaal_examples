@@ -1,8 +1,9 @@
 package scala.collection.seq
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class ReplaceElementTest extends FlatSpec with Matchers {
+class ReplaceElementTest extends AnyFlatSpec with Matchers {
 
   it should "replace several elements in sequence" in {
     val s = Seq(1, 2, 3, 4)

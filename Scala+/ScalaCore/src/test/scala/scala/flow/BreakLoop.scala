@@ -1,10 +1,11 @@
 package scala.flow
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 import scala.util.control.Breaks._
 
-class BreakLoop extends FlatSpec with Matchers {
+class BreakLoop extends AnyFlatSpec with Matchers {
 
   it should "break a for loop" in {
     val list = 1 :: 2 :: 3 :: Nil
