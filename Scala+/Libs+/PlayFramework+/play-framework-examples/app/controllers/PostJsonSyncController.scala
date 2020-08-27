@@ -5,7 +5,7 @@ import play.api.libs.json.JsValue.jsValueToJsLookup
 import play.api.mvc._
 
 /**
- * Return text for a POST request to http://localhost:9000/json
+ * Return text for a POST request to http://localhost:9000/sync/post/json
  * Example:
  * <pre>
  * curl -X POST \
@@ -15,7 +15,7 @@ import play.api.mvc._
  * </pre>
  */
 @Singleton
-class PostJsonController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+class PostJsonSyncController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
 
   case class RequestBody(name: String)
 

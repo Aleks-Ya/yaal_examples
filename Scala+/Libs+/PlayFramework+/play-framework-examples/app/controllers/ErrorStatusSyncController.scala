@@ -7,13 +7,13 @@ import play.api.mvc._
  * Return error status for a GET request.
  */
 @Singleton
-class ErrorStatusController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+class ErrorStatusSyncController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
 
   /**
    * Return a 400 "Bad Request" status for a GET request.
    * Example:
    * <pre>
-   * curl -I http://localhost:9000/error/bad
+   * curl -I http://localhost:9000/sync/error/bad
    * </pre>
    */
   def badRequest(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
@@ -25,7 +25,7 @@ class ErrorStatusController @Inject()(val controllerComponents: ControllerCompon
    * Return a 500 "Internal Server  Error" status for a GET request.
    * Example:
    * <pre>
-   * curl -I http://localhost:9000/error/server
+   * curl -I http://localhost:9000/sync/error/server
    * </pre>
    */
   def serverError(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
