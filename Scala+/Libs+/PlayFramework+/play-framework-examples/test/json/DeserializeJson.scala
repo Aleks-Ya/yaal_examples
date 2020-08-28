@@ -1,18 +1,37 @@
 package json
 
 import org.scalatest.{FlatSpec, Matchers}
-import play.api.libs.json.{JsError, JsResult, JsSuccess, Json}
+import play.api.libs.functional.syntax.toFunctionalBuilderOps
+import play.api.libs.json._
 
 /**
- * JSON manipulation with play.libs.Json.
+ * Deserialize and validate JSON with play.libs.Json.
  */
-class PlayJsonSpec extends FlatSpec with Matchers {
+class DeserializeJson extends FlatSpec with Matchers {
 
-  it should "serialize map to JSON" in {
-    val map = Map("a" -> 1, "b" -> 2)
-    val jsonValue = Json.toJson(map)
-    val jsonStr = Json.stringify(jsonValue)
-    jsonStr shouldEqual """{"a":1,"b":2}"""
+  it should "deserialize JSON to object" in {
+    case class Person(name: String, age: Int, position: Position)
+    case class Position(id: Long, title: String)
+
+    implicit val positionReads: Reads[Position] = (
+      (__ \ "id").read[Long] and
+        (__ \ "title").read[String]
+      ) (Position.apply _)
+
+    implicit val personReads: Reads[Person] = (
+      (__ \ "name").read[String] and
+        (__ \ "age").read[Int] and
+        (__ \ "position").read[Position]
+      ) (Person.apply _)
+
+    val name = "John"
+    val age = 30
+    val positionId = 1L
+    val positionTitle = "Boss"
+    val jsValue = Json.parse(s"""{ "name":"$name", "age":$age, "position": {"id":$positionId, "title":"$positionTitle"} }""")
+    val personResult = jsValue.validate[Person]
+    val personAct = personResult.get
+    personAct shouldEqual Person(name, age, Position(positionId, positionTitle))
   }
 
   it should "validate string JSON property" in {
