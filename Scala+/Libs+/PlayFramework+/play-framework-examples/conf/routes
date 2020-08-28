@@ -1,6 +1,7 @@
 GET    /                            controllers.HomeController.index()
 GET    /sync/get/text               controllers.GetPlainTextSyncController.text()
 GET    /async/text/get              controllers.GetPlainTextAsyncController.text()
+GET    /async/error/bad             controllers.ErrorStatusAsyncController.text()
 POST   /sync/post/json              controllers.PostJsonSyncController.json()
 GET    /sync/error/bad              controllers.ErrorStatusSyncController.badRequest()
 GET    /sync/error/server           controllers.ErrorStatusSyncController.serverError()
