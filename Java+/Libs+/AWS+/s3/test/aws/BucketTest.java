@@ -1,6 +1,7 @@
 package aws;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
@@ -14,11 +15,20 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.emptyIterable;
+import static org.hamcrest.Matchers.emptyString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class CreateBucket {
+/**
+ * Create, list, delete S3 buckets.
+ * Requires aws.key.access and aws.key.secret Java properties.
+ */
+public class BucketTest {
     private static AmazonS3 s3client;
 
     @BeforeClass
@@ -29,9 +39,10 @@ public class CreateBucket {
         assertThat(secretKey, allOf(not(emptyString()), notNullValue()));
 
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+        AWSCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(credentials);
         s3client = AmazonS3ClientBuilder
                 .standard()
-                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .withCredentials(credentialsProvider)
                 .withRegion(Regions.EU_CENTRAL_1)
                 .build();
     }
