@@ -1,28 +1,26 @@
-package aws;
+package mock;
 
 import com.amazonaws.services.s3.model.Bucket;
 import org.junit.Test;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.emptyIterable;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Create, list, delete S3 buckets.
- * Requires aws.key.access and aws.key.secret Java properties.
- */
-public class BucketTest extends BaseS3Test {
+public class AdobeBucketJUnitTest extends AdobeBaseJUnitTest {
 
     @Test
     public void listBuckets() {
-        List<Bucket> buckets = s3.listBuckets();
-        assertThat(buckets, not(emptyIterable()));
+        String bucketName = "abc";
+        s3.createBucket(bucketName);
+        List<String> buckets = s3.listBuckets().stream().map(Bucket::getName).collect(Collectors.toList());
+        assertThat(buckets, contains(bucketName));
     }
 
     @Test
@@ -36,6 +34,6 @@ public class BucketTest extends BaseS3Test {
 
         s3.deleteBucket(bucketName);
         assertFalse(s3.doesBucketExistV2(bucketName));
-
     }
+
 }

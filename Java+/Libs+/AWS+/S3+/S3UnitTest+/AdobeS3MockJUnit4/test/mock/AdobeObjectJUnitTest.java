@@ -1,6 +1,5 @@
 package mock;
 
-import com.adobe.testing.s3mock.junit4.S3MockRule;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.Bucket;
@@ -8,7 +7,6 @@ import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-import org.junit.ClassRule;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -24,10 +22,7 @@ import static org.hamcrest.Matchers.hasSize;
 /**
  * Upload, download and list objects in a bucket.
  */
-public class AdobeObjectTest {
-    @ClassRule
-    public static final S3MockRule S3_MOCK_RULE = S3MockRule.builder().silent().build();
-    private final AmazonS3 s3 = S3_MOCK_RULE.createS3Client();
+public class AdobeObjectJUnitTest extends AdobeBaseJUnitTest {
 
     @Test
     public void uploadListDeleteObject() {
