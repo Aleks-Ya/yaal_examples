@@ -23,7 +23,6 @@ public class AdobeBucketTest {
     private final AmazonS3 s3client = S3_MOCK_RULE.createS3Client();
 
     @Test
-    @Ignore("exception on listBuckets()")
     public void listBuckets() {
         String bucketName = "abc";
         s3client.createBucket(bucketName);
