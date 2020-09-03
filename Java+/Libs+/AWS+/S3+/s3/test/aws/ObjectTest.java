@@ -25,11 +25,22 @@ import static org.hamcrest.Matchers.hasSize;
 public class ObjectTest extends BaseS3Test {
 
     @Test
-    public void uploadListDeleteObject() {
+    public void uploadListDeleteObjectInRoot() {
+        String keyName = "ObjectTest.txt";
+        uploadListDeleteObject(keyName);
+    }
+
+    @Test
+    public void uploadListDeleteObjectInFolder() {
+        String keyName = "abc/ObjectTest.txt";
+        uploadListDeleteObject(keyName);
+    }
+
+    private static void uploadListDeleteObject(String keyName) {
         Bucket bucket = createBucket();
 
-        String contentExp = "abc";
-        String keyName = uploadObject(bucket, contentExp);
+        String contentExp = "the content";
+        uploadObject(bucket, keyName, contentExp);
 
         listObjects(bucket, keyName);
 
@@ -83,14 +94,12 @@ public class ObjectTest extends BaseS3Test {
         assertThat(os.getKey(), equalTo(keyName));
     }
 
-    private static String uploadObject(Bucket bucket, String content) {
-        String keyName = "ObjectTest.txt";
+    private static void uploadObject(Bucket bucket, String keyName, String content) {
         try {
             s3.putObject(bucket.getName(), keyName, content);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
-        return keyName;
     }
 }
