@@ -1,5 +1,6 @@
 package kafka.consumer.dynamic;
 
+import kafka.BaseTest;
 import kafka.Utils;
 import kafka.api.IntegrationTestHarness;
 import org.apache.kafka.clients.consumer.Consumer;
@@ -35,7 +36,7 @@ import static org.hamcrest.Matchers.hasSize;
 /**
  * Implement "exactly once" consumer guarantee by committing each processed record individually.
  */
-public class ExactlyOnceConsumerGuaranteeTest extends IntegrationTestHarness {
+public class ExactlyOnceConsumerGuaranteeTest extends BaseTest {
 
     @Test(timeout = 10_000)
     public void consume() throws ExecutionException, InterruptedException {
@@ -44,7 +45,7 @@ public class ExactlyOnceConsumerGuaranteeTest extends IntegrationTestHarness {
 
         Integer expValue1 = 42;
         Integer expValue2 = 43;
-        produce(topic, expValue1, expValue2);
+        produceIntegers(topic, expValue1, expValue2);
 
         try (Consumer<String, Integer> consumer = createConsumer()) {
             java.util.List<ConsumerRecord<String, Integer>> recordList = consumeRecords(topic, consumer);
@@ -87,17 +88,6 @@ public class ExactlyOnceConsumerGuaranteeTest extends IntegrationTestHarness {
         ConsumerRecords<String, Integer> records = consumer.poll(Duration.ofSeconds(1));
         Iterable<ConsumerRecord<String, Integer>> topicRecords = records.records(topic);
         return Utils.iterableToList(topicRecords);
-    }
-
-    private void produce(String topic, Integer... values) throws InterruptedException, ExecutionException {
-        Serializer<String> keySerializer = new StringSerializer();
-        Serializer<Integer> valueSerializer = new IntegerSerializer();
-        try (Producer<String, Integer> producer = createProducer(keySerializer, valueSerializer, new Properties())) {
-            for (Integer value : values) {
-                ProducerRecord<String, Integer> record = new ProducerRecord<>(topic, value);
-                producer.send(record).get();
-            }
-        }
     }
 
     private Consumer<String, Integer> createConsumer() {

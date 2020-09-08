@@ -1,19 +1,14 @@
 package kafka.consumer.manual;
 
-import kafka.api.IntegrationTestHarness;
+import kafka.BaseTest;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
-import org.apache.kafka.common.serialization.IntegerSerializer;
-import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
 import org.junit.Test;
 import scala.collection.immutable.List;
 import scala.jdk.javaapi.CollectionConverters;
@@ -31,7 +26,7 @@ import static org.hamcrest.Matchers.is;
 /**
  * Commit offset manually (manual partition assignment with {@link KafkaConsumer#assign}).
  */
-public class ManualCommitOffsetTest extends IntegrationTestHarness {
+public class ManualCommitOffsetTest extends BaseTest {
 
     @Test(timeout = 10_000)
     public void commitOffset() throws ExecutionException, InterruptedException {
@@ -40,7 +35,7 @@ public class ManualCommitOffsetTest extends IntegrationTestHarness {
 
         createTopic(topic, 1, 1, new Properties());
 
-        produce(topic, value);
+        produceIntegers(topic, value);
 
         // Consume the record, but not commit offset.
         ConsumerRecords<String, Integer> records1 = consumeByNewConsumer(topic, false);
@@ -55,15 +50,6 @@ public class ManualCommitOffsetTest extends IntegrationTestHarness {
         // Try to consume the record again (cannot consume, because it was committed).
         ConsumerRecords<String, Integer> records3 = consumeByNewConsumer(topic, false);
         assertThat(records3.isEmpty(), is(true));
-    }
-
-    private void produce(String topic, Integer value) throws InterruptedException, ExecutionException {
-        Serializer<String> keySerializer = new StringSerializer();
-        Serializer<Integer> valueSerializer = new IntegerSerializer();
-        try (Producer<String, Integer> producer = createProducer(keySerializer, valueSerializer, new Properties())) {
-            ProducerRecord<String, Integer> record = new ProducerRecord<>(topic, value);
-            producer.send(record).get();
-        }
     }
 
     private ConsumerRecords<String, Integer> consumeByNewConsumer(String topic, boolean commit) {
