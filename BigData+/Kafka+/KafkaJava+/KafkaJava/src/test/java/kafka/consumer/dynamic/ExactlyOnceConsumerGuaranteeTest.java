@@ -1,4 +1,4 @@
-package kafka.consumer;
+package kafka.consumer.dynamic;
 
 import kafka.Utils;
 import kafka.api.IntegrationTestHarness;

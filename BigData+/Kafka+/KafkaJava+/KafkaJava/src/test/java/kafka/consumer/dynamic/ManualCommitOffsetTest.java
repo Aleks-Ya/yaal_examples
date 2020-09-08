@@ -1,9 +1,10 @@
-package kafka.consumer;
+package kafka.consumer.dynamic;
 
 import kafka.api.IntegrationTestHarness;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.Deserializer;
@@ -26,7 +27,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 /**
- * Commit offset manually.
+ * Commit offset manually (dynamic partition assignment with {@link KafkaConsumer#subscribe}).
  */
 public class ManualCommitOffsetTest extends IntegrationTestHarness {
 
