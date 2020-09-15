@@ -1,7 +1,9 @@
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class HelloWorld {
 
@@ -9,13 +11,13 @@ public class HelloWorld {
     public void homePage() throws Exception {
         try (final WebClient webClient = new WebClient()) {
             final HtmlPage page = webClient.getPage("http://htmlunit.sourceforge.net");
-            Assert.assertEquals("HtmlUnit – Welcome to HtmlUnit", page.getTitleText());
+            assertEquals("HtmlUnit – Welcome to HtmlUnit", page.getTitleText());
 
             final String pageAsXml = page.asXml();
-            Assert.assertTrue(pageAsXml.contains("<body class=\"composite\">"));
+            assertTrue(pageAsXml.contains("<body class=\"topBarDisabled\">"));
 
             final String pageAsText = page.asText();
-            Assert.assertTrue(pageAsText.contains("Support for the HTTP and HTTPS protocols"));
+            assertTrue(pageAsText.contains("Support for the HTTP and HTTPS protocols"));
         }
     }
 

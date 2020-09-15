@@ -1,0 +1,3 @@
+dependencies {
+    testImplementation  'org.jsoup:jsoup:1.13.1'
+}

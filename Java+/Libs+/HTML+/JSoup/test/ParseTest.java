@@ -1,14 +1,14 @@
-import org.hamcrest.Matchers;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.junit.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertThat;
 
 public class ParseTest {
+
     @Test
     public void findDiv() {
         String html = "<html>" +
@@ -27,7 +27,7 @@ public class ParseTest {
 
         Elements divs = doc.body().getElementsByTag("div");
         assertThat(divs, hasSize(2));
-        assertThat(divs.get(0).text(), Matchers.equalTo("Part 1"));
-        assertThat(divs.get(1).text(), Matchers.equalTo("Part 2"));
+        assertThat(divs.get(0).text(), equalTo("Part 1"));
+        assertThat(divs.get(1).text(), equalTo("Part 2"));
     }
 }
