@@ -119,6 +119,7 @@ include 'JSE+:Core',
         'Libs+:AWS+:S3+:S3UnitTest+:AdobeS3Mock',
         'Libs+:AWS+:S3+:S3UnitTest+:AdobeS3MockJUnit4',
         'Libs+:Guice',
+        'Libs+:OkHttp',
         'Algorithm',
         'Git+:JGit',
         'Util'
