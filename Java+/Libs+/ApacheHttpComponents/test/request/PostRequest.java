@@ -1,17 +1,17 @@
 package request;
 
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.junit.Test;
 
 import java.io.IOException;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 public class PostRequest {
 
@@ -23,7 +23,7 @@ public class PostRequest {
             HttpPost httpPost = new HttpPost("http://httpbin.org/post");
             httpPost.setEntity(myEntity);
             try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
-                assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
+                assertThat(response.getCode(), equalTo(200));
             }
         }
     }
