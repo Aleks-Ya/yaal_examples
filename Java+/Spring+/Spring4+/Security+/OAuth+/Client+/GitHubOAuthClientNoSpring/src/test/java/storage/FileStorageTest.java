@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class FileStorageTest {
     private static final String SESSION_ID_1 = "session1";

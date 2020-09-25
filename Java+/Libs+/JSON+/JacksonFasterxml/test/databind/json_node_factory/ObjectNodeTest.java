@@ -9,7 +9,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import static com.fasterxml.jackson.databind.node.JsonNodeFactory.instance;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ObjectNodeTest {
     @Test

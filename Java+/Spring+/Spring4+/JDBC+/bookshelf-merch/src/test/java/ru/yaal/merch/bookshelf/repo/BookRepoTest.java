@@ -12,7 +12,7 @@ import ru.yaal.merch.bookshelf.repository.BookRepo;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {RepoTestConfig.class})

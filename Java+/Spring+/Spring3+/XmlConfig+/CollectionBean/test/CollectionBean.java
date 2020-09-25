@@ -12,7 +12,7 @@ import java.util.Set;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.hasValue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @ContextConfiguration("classpath:spring-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)

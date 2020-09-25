@@ -9,7 +9,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import spel.Inventor;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Executing SpEL without run Spring (with additional objects).

@@ -3,7 +3,7 @@ package intuit.combinatorics.set;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Определить количество простых чисел во множестве натуральных чисел от 1 до n

@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.nio.charset.Charset;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Generate hash-code of a string.

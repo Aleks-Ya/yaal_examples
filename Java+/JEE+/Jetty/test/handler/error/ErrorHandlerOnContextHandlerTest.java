@@ -24,7 +24,7 @@ import java.nio.ByteBuffer;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  *

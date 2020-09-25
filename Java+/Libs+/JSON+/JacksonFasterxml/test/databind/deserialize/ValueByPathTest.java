@@ -8,7 +8,7 @@ import util.JsonUtil;
 import java.io.IOException;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Extract value from JSON by path.

@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import static com.cronutils.model.CronType.QUARTZ;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ParseTest {
 

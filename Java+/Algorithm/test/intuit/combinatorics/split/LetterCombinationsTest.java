@@ -6,7 +6,7 @@ import java.util.Set;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Задача: напечатать все варианты слов, полученных перестановкой букв в заданном слове, а также напечатать их количество.

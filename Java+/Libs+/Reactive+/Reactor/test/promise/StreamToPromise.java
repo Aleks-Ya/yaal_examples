@@ -6,7 +6,7 @@ import reactor.rx.Stream;
 import reactor.rx.Streams;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Преобразование Stream в Promise.

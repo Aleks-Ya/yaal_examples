@@ -7,7 +7,7 @@ import java.io.File;
 import java.net.URL;
 
 import static com.codeborne.pdftest.PDF.containsText;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class PdfAssert {
 

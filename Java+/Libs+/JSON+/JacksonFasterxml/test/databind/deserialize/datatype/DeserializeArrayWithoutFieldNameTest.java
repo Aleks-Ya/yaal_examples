@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Deserialize a JSON array (that has NOT field name) to Java Array, List, Set.

@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class XPathTest {
     private final HtmlCleaner cleaner = new HtmlCleaner();

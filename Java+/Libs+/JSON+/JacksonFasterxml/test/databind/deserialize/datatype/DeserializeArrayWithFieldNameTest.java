@@ -10,7 +10,7 @@ import java.util.Set;
 
 import static org.hamcrest.Matchers.arrayContainingInAnyOrder;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Deserialize a JSON array (that has field name) to Java Array, List, Set.

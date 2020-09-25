@@ -4,7 +4,7 @@ import intuit.combinatorics.tree.BiNode;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Алгоритм обхода бинарного дерева в глубину.

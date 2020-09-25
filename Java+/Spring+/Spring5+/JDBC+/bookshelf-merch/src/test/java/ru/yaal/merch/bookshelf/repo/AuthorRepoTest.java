@@ -10,7 +10,7 @@ import ru.yaal.merch.bookshelf.domain.Author;
 import ru.yaal.merch.bookshelf.repository.AuthorRepo;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {RepoTestConfig.class})

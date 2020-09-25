@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CredentialsTest {
 

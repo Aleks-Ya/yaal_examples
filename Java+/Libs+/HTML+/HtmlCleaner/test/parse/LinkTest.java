@@ -5,7 +5,7 @@ import org.htmlcleaner.TagNode;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class LinkTest {
     @Test

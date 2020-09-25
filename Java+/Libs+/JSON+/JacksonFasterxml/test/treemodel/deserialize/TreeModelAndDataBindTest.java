@@ -9,7 +9,7 @@ import util.ResourceUtil;
 import java.io.IOException;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Using Data Bind for parsing specific Nodes in Tree Model.

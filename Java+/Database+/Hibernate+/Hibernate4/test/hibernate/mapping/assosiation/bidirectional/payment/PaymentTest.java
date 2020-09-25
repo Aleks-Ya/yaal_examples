@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class PaymentTest {
     private static final HibernateSessionFactory436 factory = HibernateSessionFactory436.makeFactory(

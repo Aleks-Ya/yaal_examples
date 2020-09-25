@@ -1,7 +1,7 @@
 package util;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class NetAsserts {
     private NetAsserts() {
