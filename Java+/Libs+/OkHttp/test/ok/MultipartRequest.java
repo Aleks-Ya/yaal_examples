@@ -17,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertNotNull;
 
-public class BuilderTest {
+public class MultipartRequest {
 
     @Test
     public void multipart() throws IOException {
