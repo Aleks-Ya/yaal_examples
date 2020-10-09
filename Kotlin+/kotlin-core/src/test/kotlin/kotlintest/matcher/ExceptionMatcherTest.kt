@@ -18,6 +18,6 @@ class ExceptionMatcherTest : StringSpec({
 
     "assert exception cause" {
         val e = assertFailsWith<IllegalArgumentException> { throw IllegalArgumentException(NullPointerException()) }
-        assertTrue(e.cause is IndexOutOfBoundsException)
+        assertTrue(e.cause is NullPointerException)
     }
 })
