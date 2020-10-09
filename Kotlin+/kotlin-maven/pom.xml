@@ -4,7 +4,7 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <groupId>ru.yaal.examples.kotlin.core</groupId>
-    <artifactId>kotlin-core</artifactId>
+    <artifactId>kotlin-maven</artifactId>
     <version>1</version>
 
     <properties>
