@@ -1,6 +1,7 @@
-package csv;
+package csv.parse;
 
 import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.junit.Test;
 import util.ResourceUtil;
@@ -18,10 +19,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.aMapWithSize;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ProductionCalendarTest {
 
@@ -44,36 +45,37 @@ public class ProductionCalendarTest {
     private static Map<Integer, Year> parseCalendar() throws IOException {
         Map<Integer, Year> years = new HashMap<>();
         File file = ResourceUtil.resourceToFile(ProductionCalendarTest.class, "production_calendar.csv");
-        Reader in = new FileReader(file);
-        Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().withTrim().parse(in);
-        for (CSVRecord record : records) {
-            int year = Integer.parseInt(record.get("Год/Месяц"));
+        try (Reader in = new FileReader(file);
+             CSVParser parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().withTrim().parse(in)) {
+            for (CSVRecord record : parser) {
+                int year = Integer.parseInt(record.get("Год/Месяц"));
 
-            Map<Month, List<Integer>> holidaysInMonth = new HashMap<>();
-            holidaysInMonth.put(Month.JANUARY, parseHolidays(record.get("Январь")));
-            holidaysInMonth.put(Month.FEBRUARY, parseHolidays(record.get("Февраль")));
-            holidaysInMonth.put(Month.MARCH, parseHolidays(record.get("Март")));
-            holidaysInMonth.put(Month.APRIL, parseHolidays(record.get("Апрель")));
-            holidaysInMonth.put(Month.MAY, parseHolidays(record.get("Май")));
-            holidaysInMonth.put(Month.JUNE, parseHolidays(record.get("Июнь")));
-            holidaysInMonth.put(Month.JULY, parseHolidays(record.get("Июль")));
-            holidaysInMonth.put(Month.AUGUST, parseHolidays(record.get("Август")));
-            holidaysInMonth.put(Month.SEPTEMBER, parseHolidays(record.get("Сентябрь")));
-            holidaysInMonth.put(Month.OCTOBER, parseHolidays(record.get("Октябрь")));
-            holidaysInMonth.put(Month.NOVEMBER, parseHolidays(record.get("Ноябрь")));
-            holidaysInMonth.put(Month.DECEMBER, parseHolidays(record.get("Декабрь")));
+                Map<Month, List<Integer>> holidaysInMonth = new HashMap<>();
+                holidaysInMonth.put(Month.JANUARY, parseHolidays(record.get("Январь")));
+                holidaysInMonth.put(Month.FEBRUARY, parseHolidays(record.get("Февраль")));
+                holidaysInMonth.put(Month.MARCH, parseHolidays(record.get("Март")));
+                holidaysInMonth.put(Month.APRIL, parseHolidays(record.get("Апрель")));
+                holidaysInMonth.put(Month.MAY, parseHolidays(record.get("Май")));
+                holidaysInMonth.put(Month.JUNE, parseHolidays(record.get("Июнь")));
+                holidaysInMonth.put(Month.JULY, parseHolidays(record.get("Июль")));
+                holidaysInMonth.put(Month.AUGUST, parseHolidays(record.get("Август")));
+                holidaysInMonth.put(Month.SEPTEMBER, parseHolidays(record.get("Сентябрь")));
+                holidaysInMonth.put(Month.OCTOBER, parseHolidays(record.get("Октябрь")));
+                holidaysInMonth.put(Month.NOVEMBER, parseHolidays(record.get("Ноябрь")));
+                holidaysInMonth.put(Month.DECEMBER, parseHolidays(record.get("Декабрь")));
 
-            int totalWorkingDays = Integer.parseInt(record.get("Всего рабочих дней"));
-            int totalHolidays = Integer.parseInt(record.get("Всего праздничных и выходных дней"));
-            BigDecimal workingHours40 = new BigDecimal(record.get("Количество рабочих часов при 40-часовой рабочей неделе"));
-            BigDecimal workingHours36 = new BigDecimal(record.get("Количество рабочих часов при 36-часовой рабочей неделе"));
-            BigDecimal workingHours24 = new BigDecimal(record.get("Количество рабочих часов при 24-часовой рабочей неделе"));
+                int totalWorkingDays = Integer.parseInt(record.get("Всего рабочих дней"));
+                int totalHolidays = Integer.parseInt(record.get("Всего праздничных и выходных дней"));
+                BigDecimal workingHours40 = new BigDecimal(record.get("Количество рабочих часов при 40-часовой рабочей неделе"));
+                BigDecimal workingHours36 = new BigDecimal(record.get("Количество рабочих часов при 36-часовой рабочей неделе"));
+                BigDecimal workingHours24 = new BigDecimal(record.get("Количество рабочих часов при 24-часовой рабочей неделе"));
 
-            Year yearPojo = new Year(year, holidaysInMonth, totalWorkingDays, totalHolidays, workingHours40,
-                    workingHours36, workingHours24);
-            years.put(year, yearPojo);
+                Year yearPojo = new Year(year, holidaysInMonth, totalWorkingDays, totalHolidays, workingHours40,
+                        workingHours36, workingHours24);
+                years.put(year, yearPojo);
+            }
+            return years;
         }
-        return years;
     }
 
     private static class Year {
