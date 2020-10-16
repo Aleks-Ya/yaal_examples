@@ -1,0 +1,10 @@
+@startuml
+Alice -> Bob: authentication request
+alt positive decision
+    Alice <-- Bob: request accepted
+else negative decision
+    Alice <-- Bob: request rejected
+else error
+    Alice <-- Bob: request error
+end
+@enduml

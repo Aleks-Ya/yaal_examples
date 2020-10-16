@@ -1,0 +1,6 @@
+@startuml
+create Alice
+create Bob
+Alice -> Bob: new
+Bob --> Alice: Authentication Response
+@enduml

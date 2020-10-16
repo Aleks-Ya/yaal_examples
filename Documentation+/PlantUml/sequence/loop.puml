@@ -1,0 +1,5 @@
+@startuml
+loop 1000 times
+    Alice -> Bob: attack
+end
+@enduml
