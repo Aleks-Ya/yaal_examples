@@ -8,8 +8,9 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    testImplementation(kotlin("test"))
-    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
+    testImplementation("io.mockk:mockk:1.10.2")
+    testImplementation("org.assertj:assertj-core:3.17.2")
 }
 
 tasks.test {

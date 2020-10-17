@@ -1,16 +1,18 @@
 package clazz.generic
 
-import io.kotlintest.shouldBe
-import io.kotlintest.specs.StringSpec
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 
 data class Pair<K, V>(val key: K, val value: V)
 
-class GenericClassTest : StringSpec({
-    "generic data class" {
+class GenericClassTest {
+
+    @Test
+    fun `generic data class`() {
         val key = "John"
         val value = 30
         val pair = Pair(key, value)
-        pair.key shouldBe key
-        pair.value shouldBe value
+        assertThat(pair.key).isEqualTo(key)
+        assertThat(pair.value).isEqualTo(value)
     }
-})
+}

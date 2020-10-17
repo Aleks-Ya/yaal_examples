@@ -1,11 +1,13 @@
 package clazz.member.field
 
-import io.kotlintest.shouldBe
-import io.kotlintest.specs.StringSpec
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 
 
-class StaticFieldTest : StringSpec({
-    "read a static field" {
-        StaticField.MY_STATIC_FILED.shouldBe(20)
+class StaticFieldTest {
+
+    @Test
+    fun `read a static field`() {
+        assertThat(StaticField.MY_STATIC_FILED).isEqualTo(20)
     }
-})
+}
