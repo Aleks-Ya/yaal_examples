@@ -3,6 +3,7 @@ package clazz
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
 
+data class Person2(val name: String, val age: Int)
 
 class DataTest : StringSpec({
     "data class overrides equals() method" {
