@@ -1,12 +1,13 @@
 package tests
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import scopt.OptionParser
 
 /**
   * Parse a Map.
   */
-class ParseMap extends FlatSpec with Matchers {
+class ParseMap extends AnyFlatSpec with Matchers {
 
   private case class Config(entries: Map[String, Int] = null)
 
@@ -22,7 +23,7 @@ class ParseMap extends FlatSpec with Matchers {
       })
     }
     val configOpt = parser.parse(args, Config())
-    configOpt shouldBe defined
+    configOpt should not be None
     configOpt.get.entries shouldEqual exp
   }
 }

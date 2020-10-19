@@ -1,12 +1,13 @@
 package tests
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import scopt.OptionParser
 
 /**
-  * Use "=" and space as a value delimiter.
-  */
-class EqualAndSpace extends FlatSpec with Matchers {
+ * Use "=" and space as a value delimiter.
+ */
+class EqualAndSpace extends AnyFlatSpec with Matchers {
 
   private case class Config(personName: String = "")
 
@@ -27,7 +28,7 @@ class EqualAndSpace extends FlatSpec with Matchers {
       })
     }
     val configOpt = parser.parse(args, Config())
-    configOpt shouldBe defined
+    configOpt should not be None
     configOpt.get.personName shouldEqual nameValueExp
   }
 

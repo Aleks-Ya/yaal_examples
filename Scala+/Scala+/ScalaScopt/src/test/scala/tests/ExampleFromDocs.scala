@@ -2,13 +2,14 @@ package tests
 
 import java.io.File
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import scopt.OptionParser
 
 /**
   * Source: https://github.com/scopt/scopt/tree/v3.7.1
   */
-class ExampleFromDocs extends FlatSpec with Matchers {
+class ExampleFromDocs extends AnyFlatSpec with Matchers {
 
   it should "run example from docs" in {
     case class Config(foo: Int = -1, out: File = new File("."), xyz: Boolean = false,

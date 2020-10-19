@@ -1,9 +1,10 @@
 package tests
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import scopt.OptionParser
 
-class StringOpts extends FlatSpec with Matchers {
+class StringOpts extends AnyFlatSpec with Matchers {
 
   it should "process String arguments" in {
     case class Config(personName: String = "",
@@ -24,7 +25,7 @@ class StringOpts extends FlatSpec with Matchers {
     val args = Array("--name", nameValueExp, "--title", titleValueExp)
 
     val configOpt = parser.parse(args, Config())
-    configOpt shouldBe defined
+    configOpt should not be None
 
     val config = configOpt.get
     config.personName shouldEqual nameValueExp

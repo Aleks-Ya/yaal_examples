@@ -1,12 +1,13 @@
 package tests
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import scopt.OptionParser
 
 /**
   * Parse a string with spaces.
   */
-class ParseStringWithSpaces extends FlatSpec with Matchers {
+class ParseStringWithSpaces extends AnyFlatSpec with Matchers {
 
   private case class Config(text: String = "")
 
@@ -27,7 +28,7 @@ class ParseStringWithSpaces extends FlatSpec with Matchers {
       })
     }
     val configOpt = parser.parse(args, Config())
-    configOpt shouldBe defined
+    configOpt should not be None
     configOpt.get.text shouldEqual exp
   }
 

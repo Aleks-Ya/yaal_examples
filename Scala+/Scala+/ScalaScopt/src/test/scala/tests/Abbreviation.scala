@@ -1,9 +1,10 @@
 package tests
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import scopt.OptionParser
 
-class Abbreviation extends FlatSpec with Matchers {
+class Abbreviation extends AnyFlatSpec with Matchers {
 
   it should "use an abbreviation for an option" in {
     case class Config(personName: String = "")
