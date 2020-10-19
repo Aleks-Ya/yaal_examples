@@ -1,4 +1,4 @@
-package controllers
+package controllers.text
 
 import javax.inject._
 import play.api.mvc._
@@ -13,7 +13,7 @@ import scala.concurrent.{ExecutionContext, Future}
  * </pre>
  */
 @Singleton
-class GetPlainTextAsyncController @Inject()(val controllerComponents: ControllerComponents)(implicit ec: ExecutionContext) extends BaseController {
+class PlainTextResponseGetAsyncController @Inject()(val controllerComponents: ControllerComponents)(implicit ec: ExecutionContext) extends BaseController {
 
   def computePIAsynchronously(): Future[Double] = Future {
     Thread.sleep(5000)

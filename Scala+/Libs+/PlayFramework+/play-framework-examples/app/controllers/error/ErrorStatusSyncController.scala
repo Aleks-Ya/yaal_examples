@@ -1,4 +1,4 @@
-package controllers
+package controllers.error
 
 import javax.inject._
 import play.api.mvc._

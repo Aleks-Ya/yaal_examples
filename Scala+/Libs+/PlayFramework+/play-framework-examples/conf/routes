@@ -1,10 +1,10 @@
 GET    /                            controllers.HomeController.index()
-GET    /sync/get/text               controllers.GetPlainTextSyncController.text()
-GET    /async/text/get              controllers.GetPlainTextAsyncController.text()
-GET    /async/error/bad             controllers.ErrorStatusAsyncController.text()
-POST   /sync/post/json              controllers.PostJsonSyncController.json()
-GET    /sync/error/bad              controllers.ErrorStatusSyncController.badRequest()
-GET    /sync/error/server           controllers.ErrorStatusSyncController.serverError()
+GET    /sync/get/text               controllers.text.GetPlainTextSyncController.text()
+GET    /async/text/get              controllers.text.GetPlainTextAsyncController.text()
+GET    /async/error/bad             controllers.error.ErrorStatusAsyncController.text()
+POST   /sync/post/json              controllers.json.PostJsonSyncController.json()
+GET    /sync/error/bad              controllers.error.ErrorStatusSyncController.badRequest()
+GET    /sync/error/server           controllers.error.ErrorStatusSyncController.serverError()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

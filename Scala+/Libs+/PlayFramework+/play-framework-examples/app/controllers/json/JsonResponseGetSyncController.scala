@@ -1,4 +1,4 @@
-package controllers
+package controllers.json
 
 import javax.inject._
 import play.api.libs.functional.syntax.toFunctionalBuilderOps
@@ -9,7 +9,7 @@ import play.api.mvc._
  * Return JSON for a GET request to http://localhost:9000/sync/get/text
  */
 @Singleton
-class GetJsonSyncController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+class JsonResponseGetSyncController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
 
   def json(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     case class Person(name: String, age: Int)

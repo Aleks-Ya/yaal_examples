@@ -1,4 +1,4 @@
-package controllers
+package controllers.json
 
 import javax.inject._
 import play.api.libs.json.JsValue.jsValueToJsLookup
@@ -15,7 +15,7 @@ import play.api.mvc._
  * </pre>
  */
 @Singleton
-class PostJsonSyncController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+class JsonRequestPostSyncController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
 
   case class RequestBody(name: String)
 
