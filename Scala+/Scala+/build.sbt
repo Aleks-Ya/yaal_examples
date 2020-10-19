@@ -20,6 +20,11 @@ lazy val scalaTest: Project = (project in file("ScalaTest")).settings(
 
 lazy val scalaCore: Project = (project in file("ScalaCore")).settings(
   commonSettings,
+  libraryDependencies ++= Seq(scalaTestDep)
+)
+
+lazy val scalaMock: Project = (project in file("ScalaMock")).settings(
+  commonSettings,
   libraryDependencies ++= Seq(scalaTestDep, scalaMockDep)
 )
 
