@@ -9,7 +9,7 @@ import play.api.libs.json._
  */
 class DeserializeJson extends FlatSpec with Matchers {
 
-  it should "deserialize JSON to object" in {
+  it should "deserialize JSON string to object" in {
     case class Person(name: String, age: Int, position: Position)
     case class Position(id: Long, title: String)
 
@@ -32,6 +32,28 @@ class DeserializeJson extends FlatSpec with Matchers {
     val personResult = jsValue.validate[Person]
     val personAct = personResult.get
     personAct shouldEqual Person(name, age, Position(positionId, positionTitle))
+  }
+
+  it should "deserialize JsValue to object" in {
+    case class Person(name: String, age: Int)
+
+    implicit val personReads: Reads[Person] = (
+      (__ \ "name").read[String] and
+        (__ \ "age").read[Int]
+      ) (Person.apply _)
+
+    val name = "John"
+    val age = 30
+    val jsValue = Json.parse(s"""{ "name":"$name", "age":$age }""")
+
+    //With validation
+    val personResult = jsValue.validate[Person]
+    val personValidatedAct = personResult.get
+    personValidatedAct shouldEqual Person(name, age)
+
+    //Without validation
+    val personAct = jsValue.as[Person]
+    personAct shouldEqual Person(name, age)
   }
 
   it should "validate string JSON property" in {
