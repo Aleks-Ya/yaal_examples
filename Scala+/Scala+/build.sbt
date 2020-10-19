@@ -11,7 +11,7 @@ lazy val commonSettings = Seq(
 lazy val root: Project = (project in file(".")).settings(
   commonSettings,
   name := "ScalaExamples"
-).aggregate(ScalaCore, ScalaTest, ScalaScopt, ScalaMock)
+).aggregate(ScalaCore, ScalaTest, ScalaScopt, ScalaMock, json4s)
 
 lazy val ScalaTest: Project = project.settings(
   commonSettings,
@@ -32,6 +32,14 @@ lazy val ScalaScopt: Project = project.settings(
   commonSettings,
   libraryDependencies ++= Seq(
     "com.github.scopt" % "scopt_2.12" % "3.7.1" % Compile,
+    scalaTestDep
+  )
+)
+
+lazy val json4s: Project = project.settings(
+  commonSettings,
+  libraryDependencies ++= Seq(
+    "org.json4s" % "json4s-native_2.12" % "3.6.4" % Compile,
     scalaTestDep
   )
 )

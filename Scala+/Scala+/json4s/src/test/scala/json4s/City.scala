@@ -19,6 +19,6 @@ case class City(name: String, establishYear: Int) {
 }
 
 object City {
-  val moscowCity = City("Moscow", 1147)
+  val moscowCity: City = City("Moscow", 1147)
   val moscowJson =  """{"name":"Moscow","establishYear":1147}"""
 }
