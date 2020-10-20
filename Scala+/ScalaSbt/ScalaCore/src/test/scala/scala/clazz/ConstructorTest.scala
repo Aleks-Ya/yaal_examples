@@ -8,7 +8,7 @@ class ConstructorTest extends AnyFlatSpec with Matchers {
 
   it should "init class without constructor" in {
     class NoConstructorClass {
-      var name: String = "abc"
+      val name: String = "abc"
     }
     val person = new NoConstructorClass
     person.name shouldEqual "abc"
