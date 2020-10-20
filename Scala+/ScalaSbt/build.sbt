@@ -8,7 +8,7 @@ lazy val common = Seq(
   scalaVersion := "2.12.12"
 )
 
-lazy val root: Project = (project in file(".")).settings(common, name := "ScalaExamples")
+lazy val root: Project = (project in file(".")).settings(common, name := "ScalaSbt")
   .aggregate(ScalaCore, ScalaTest, ScalaScopt, ScalaMock, json4s, Slick, akkaActorScalaExamples, akkaQuickScala,
     playFrameworkExamples)
 
