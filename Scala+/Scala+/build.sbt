@@ -11,7 +11,7 @@ lazy val commonSettings = Seq(
 lazy val root: Project = (project in file(".")).settings(
   commonSettings,
   name := "ScalaExamples"
-).aggregate(ScalaCore, ScalaTest, ScalaScopt, ScalaMock, json4s, Slick)
+).aggregate(ScalaCore, ScalaTest, ScalaScopt, ScalaMock, json4s, Slick, akkaActorScalaExamples, akkaQuickScala)
 
 lazy val ScalaTest: Project = project.settings(commonSettings, libraryDependencies ++= Seq(scalaTestDep))
 lazy val ScalaCore: Project = project.settings(commonSettings, libraryDependencies ++= Seq(scalaTestDep))
@@ -29,3 +29,5 @@ lazy val Slick: Project = project.settings(commonSettings,
     "com.h2database" % "h2" % "1.4.200",
     scalaTestDep)
 )
+lazy val akkaActorScalaExamples: Project = (project in file("Akka+/akka-actor-scala-examples")).settings(commonSettings)
+lazy val akkaQuickScala: Project = (project in file("Akka+/akka-quickstart-scala")).settings(commonSettings)
