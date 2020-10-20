@@ -1,17 +1,3 @@
-//import Dependencies.scalaTestDep
-
-//name := "akka-actor-scala-examples"
-//
-//lazy val akkaVersion = "2.6.6"
-//
-//libraryDependencies ++= Seq(
-//  "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion,
-//  "ch.qos.logback" % "logback-classic" % "1.2.3",
-//  "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test,
-//  scalaTestDep
-//)
-
-
 import Dependencies.scalaTestDep
 
 lazy val akkaVersion = "2.6.6"
