@@ -9,7 +9,8 @@ lazy val common = Seq(
 )
 
 lazy val root: Project = (project in file(".")).settings(common, name := "ScalaExamples")
-  .aggregate(ScalaCore, ScalaTest, ScalaScopt, ScalaMock, json4s, Slick, akkaActorScalaExamples, akkaQuickScala)
+  .aggregate(ScalaCore, ScalaTest, ScalaScopt, ScalaMock, json4s, Slick, akkaActorScalaExamples, akkaQuickScala,
+    playFrameworkExamples)
 
 val deps = libraryDependencies
 
@@ -27,3 +28,4 @@ lazy val Slick = project.settings(common,
 )
 lazy val akkaActorScalaExamples = (project in file("Akka+/akka-actor-scala-examples")).settings(common)
 lazy val akkaQuickScala = (project in file("Akka+/akka-quickstart-scala")).settings(common)
+lazy val playFrameworkExamples = (project in file("PlayFramework+/play-framework-examples")).settings(common)
