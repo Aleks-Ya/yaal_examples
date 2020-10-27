@@ -7,13 +7,14 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import slick.jdbc.H2Profile.api._
+import slick.lifted.Tag
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-class Dml extends AnyFlatSpec with Matchers {
+class DmlMapToPrimitiveSeq extends AnyFlatSpec with Matchers {
 
-  it should "insert, select, delete" in {
+  it should "insert, select, delete (map to primitive seq)" in {
     val db = Database.forURL(url = "jdbc:h2:mem:test1", driver = "org.h2.Driver", keepAliveConnection = true)
 
     try {
@@ -26,6 +27,7 @@ class Dml extends AnyFlatSpec with Matchers {
 
         def * = (id, name, age)
       }
+
       val personsQuery = TableQuery[Persons]
 
       val createTableAction = DBIO.seq(
@@ -58,5 +60,4 @@ class Dml extends AnyFlatSpec with Matchers {
 
     } finally db.close
   }
-
 }
