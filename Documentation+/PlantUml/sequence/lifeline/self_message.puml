@@ -1,0 +1,6 @@
+@startuml
+Client -> Server: send request
+Server -> Server: authenticate
+Server -> Server: make response
+Client <-- Server: send response
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+
+autoactivate on
+Client -> Controller: getCertDn()
+
+Controller -> Controller: authenticate
+Controller -> Request
+Controller <-- Request
+Controller <-- Controller
+
+Controller -> Controller: authorize
+Controller <-- Controller
+
+Client <-- Controller
+
+@enduml
