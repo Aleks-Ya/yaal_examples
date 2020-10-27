@@ -1,11 +1,10 @@
+import Dependencies.scalaTestPlusPlayDep
+
 lazy val playFrameworkExamples = (project in file(".")).
   settings(
     name := "play-framework-examples",
     connectInput in run := true,
-    libraryDependencies ++= Seq(
-      guice,
-      "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
-    )
+    libraryDependencies ++= Seq(guice, scalaTestPlusPlayDep)
   ).enablePlugins(PlayScala)
 
 // Adds additional packages into Twirl

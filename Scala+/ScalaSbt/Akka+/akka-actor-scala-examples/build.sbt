@@ -1,4 +1,4 @@
-import Dependencies.{logbackClassic, scalaTestDep}
+import Dependencies.{logbackClassicDep, scalaTestDep}
 
 lazy val akkaVersion = "2.6.6"
 
@@ -8,6 +8,6 @@ lazy val akkaActorScalaExamples = (project in file(".")).
     libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion,
       "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test,
-      logbackClassic, scalaTestDep
+      logbackClassicDep, scalaTestDep
     )
   )
