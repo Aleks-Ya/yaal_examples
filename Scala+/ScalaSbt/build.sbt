@@ -16,7 +16,7 @@ val deps = libraryDependencies
 
 lazy val ScalaTest = project.settings(common)
 lazy val ScalaCore = project.settings(common, deps ++= Seq(scalaTestDep))
-lazy val ScalaMock = project.settings(common, deps ++= Seq(scalaTestDep, scalaMockDep))
+lazy val ScalaMock = project.settings(common)
 lazy val ScalaScopt = project.settings(common, deps ++= Seq("com.github.scopt" % "scopt_2.12" % "3.7.1", scalaTestDep))
 lazy val json4s = project.settings(common, deps ++= Seq("org.json4s" % "json4s-native_2.12" % "3.6.4", scalaTestDep))
 lazy val Slick = project.settings(common)
