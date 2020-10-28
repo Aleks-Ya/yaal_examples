@@ -14,7 +14,7 @@ lazy val root: Project = (project in file(".")).settings(common, name := "ScalaS
 
 val deps = libraryDependencies
 
-lazy val ScalaTest = project.settings(common, deps ++= Seq(scalaTestDep))
+lazy val ScalaTest = project.settings(common)
 lazy val ScalaCore = project.settings(common, deps ++= Seq(scalaTestDep))
 lazy val ScalaMock = project.settings(common, deps ++= Seq(scalaTestDep, scalaMockDep))
 lazy val ScalaScopt = project.settings(common, deps ++= Seq("com.github.scopt" % "scopt_2.12" % "3.7.1", scalaTestDep))
