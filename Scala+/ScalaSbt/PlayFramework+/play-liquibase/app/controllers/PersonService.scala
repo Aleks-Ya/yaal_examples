@@ -9,7 +9,7 @@ import scala.concurrent.duration.Duration
 
 @Singleton
 class PersonService @Inject()(private val personDao: PersonDao) {
-  def getAll: Seq[Person] = Await.result(personDao.getAll, Duration(3, TimeUnit.SECONDS))
+  def getAll: Seq[Person] = personDao.getAll
 
   def create(person: Person): Unit = Await.result(personDao.create(person), Duration(3, TimeUnit.SECONDS))
 
