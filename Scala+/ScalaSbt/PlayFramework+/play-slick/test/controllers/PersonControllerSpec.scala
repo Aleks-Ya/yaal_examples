@@ -3,7 +3,6 @@ package controllers
 import java.util.concurrent.TimeUnit
 
 import org.scalatestplus.play._
-import org.scalatestplus.play.guice._
 import play.api.libs.json.{Json, OFormat}
 import play.api.test.Helpers._
 import play.api.test._
@@ -14,7 +13,7 @@ import slick.lifted.TableQuery
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-class PersonControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting {
+class PersonControllerSpec extends PlaySpec {
 
   "PersonController GET" should {
 
