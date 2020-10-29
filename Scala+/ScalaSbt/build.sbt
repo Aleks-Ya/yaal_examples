@@ -24,3 +24,4 @@ lazy val akkaActorScalaExamples = (project in file("Akka+/akka-actor-scala-examp
 lazy val akkaQuickScala = (project in file("Akka+/akka-quickstart-scala")).settings(common)
 lazy val playFrameworkExamples = (project in file("PlayFramework+/play-framework-examples")).settings(common)
 lazy val playSlick = (project in file("PlayFramework+/play-slick")).settings(common)
+lazy val playSlickLiquibase = (project in file("PlayFramework+/play-slick-liquibase")).settings(common)
