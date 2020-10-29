@@ -13,5 +13,6 @@ object Dependencies {
   val slickTestkitDep = "com.typesafe.slick" %% "slick-testkit" % slickVersion % Test
   val playSlickLiquibaseDep = "com.ticketfly" %% "play-liquibase" % "2.2"
   val playSlickDep = "com.typesafe.play" %% "play-slick" % "5.0.0"
+  val playJdbcDep = "com.typesafe.play" %% "play-jdbc" % "2.8.3"
   val scalaTestPlusPlayDep = "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
 }
