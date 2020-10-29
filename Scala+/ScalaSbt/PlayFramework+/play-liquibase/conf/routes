@@ -1,0 +1,3 @@
+GET    /person                  controllers.PersonController.getPersons
+POST   /person                  controllers.PersonController.createPerson
+DELETE /person                  controllers.PersonController.deletePerson()

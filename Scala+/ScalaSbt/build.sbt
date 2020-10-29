@@ -9,13 +9,13 @@ lazy val common = Seq(
 )
 
 lazy val root: Project = (project in file(".")).settings(common, name := "ScalaSbt")
-  .aggregate(ScalaCore, ScalaTest, ScalaScopt, ScalaMock, json4s, Slick, akkaActorScalaExamples, akkaQuickScala,
-    playFrameworkExamples)
+  .aggregate(ScalaCore, ScalaTest, ScalaMock, ScalaScopt, json4s, Slick, akkaActorScalaExamples, akkaQuickScala,
+    playFrameworkExamples, playSlick, playLiquibase, playSlickLiquibase)
 
 val deps = libraryDependencies
 
-lazy val ScalaTest = project.settings(common)
 lazy val ScalaCore = project.settings(common, deps ++= Seq(scalaTestDep))
+lazy val ScalaTest = project.settings(common)
 lazy val ScalaMock = project.settings(common)
 lazy val ScalaScopt = project.settings(common, deps ++= Seq("com.github.scopt" % "scopt_2.12" % "3.7.1", scalaTestDep))
 lazy val json4s = project.settings(common, deps ++= Seq("org.json4s" % "json4s-native_2.12" % "3.6.4", scalaTestDep))
@@ -24,4 +24,5 @@ lazy val akkaActorScalaExamples = (project in file("Akka+/akka-actor-scala-examp
 lazy val akkaQuickScala = (project in file("Akka+/akka-quickstart-scala")).settings(common)
 lazy val playFrameworkExamples = (project in file("PlayFramework+/play-framework-examples")).settings(common)
 lazy val playSlick = (project in file("PlayFramework+/play-slick")).settings(common)
+lazy val playLiquibase = (project in file("PlayFramework+/play-liquibase")).settings(common)
 lazy val playSlickLiquibase = (project in file("PlayFramework+/play-slick-liquibase")).settings(common)
