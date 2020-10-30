@@ -1,6 +1,4 @@
-import Dependencies._
 import sbt.Project
-
 
 lazy val common = Seq(
   organization := "ru.yaal.examples.scala",
@@ -12,13 +10,11 @@ lazy val root: Project = (project in file(".")).settings(common, name := "ScalaS
   .aggregate(ScalaCore, ScalaTest, ScalaMock, ScalaScopt, json4s, Slick, akkaActorScalaExamples, akkaQuickScala,
     playFrameworkExamples, scalaTestPlusPlay, playTest, playSlick, playLiquibase, playSlickLiquibase)
 
-val deps = libraryDependencies
-
-lazy val ScalaCore = project.settings(common, deps ++= Seq(scalaTestDep))
+lazy val ScalaCore = project.settings(common)
 lazy val ScalaTest = project.settings(common)
 lazy val ScalaMock = project.settings(common)
-lazy val ScalaScopt = project.settings(common, deps ++= Seq(scoptDep, scalaTestDep))
-lazy val json4s = project.settings(common, deps ++= Seq(json4sNativeDep, scalaTestDep))
+lazy val ScalaScopt = project.settings(common)
+lazy val json4s = project.settings(common)
 lazy val Slick = project.settings(common)
 lazy val akkaActorScalaExamples = (project in file("Akka+/akka-actor-scala-examples")).settings(common)
 lazy val akkaQuickScala = (project in file("Akka+/akka-quickstart-scala")).settings(common)
