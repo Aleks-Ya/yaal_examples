@@ -6,7 +6,7 @@ ThisBuild / scalaVersion := "2.12.12"
 
 lazy val root: Project = (project in file(".")).settings(name := "ScalaSbt")
   .aggregate(ScalaCore, ScalaTest, ScalaMock, ScalaScopt, json4s, Slick, akkaActorScalaExamples, akkaQuickScala,
-    playFrameworkExamples, scalaTestPlusPlay, playTest, playSlick, playLiquibase, playSlickLiquibase)
+    playFrameworkExamples, scalaTestPlusPlay, playTest, playSlick, playLiquibase, playJdbc, playSlickLiquibase)
 
 lazy val ScalaCore = project in file("ScalaCore")
 lazy val ScalaTest = project in file("ScalaTest")

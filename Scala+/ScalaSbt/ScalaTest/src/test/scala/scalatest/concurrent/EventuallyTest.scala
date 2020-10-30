@@ -15,7 +15,7 @@ class EventuallyTest extends AnyFlatSpec with Matchers with Eventually {
     }
   }
 
-  it should "set individual timetout" in {
+  it should "set individual timeout" in {
     val xs = 1 to 125
     val it = xs.iterator
     eventually(timeout(Span(5, Seconds))) {
