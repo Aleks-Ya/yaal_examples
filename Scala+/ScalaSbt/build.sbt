@@ -10,12 +10,12 @@ lazy val root: Project = (project in file(".")).settings(common, name := "ScalaS
   .aggregate(ScalaCore, ScalaTest, ScalaMock, ScalaScopt, json4s, Slick, akkaActorScalaExamples, akkaQuickScala,
     playFrameworkExamples, scalaTestPlusPlay, playTest, playSlick, playLiquibase, playSlickLiquibase)
 
-lazy val ScalaCore = project.settings(common)
-lazy val ScalaTest = project.settings(common)
-lazy val ScalaMock = project.settings(common)
-lazy val ScalaScopt = project.settings(common)
-lazy val json4s = project.settings(common)
-lazy val Slick = project.settings(common)
+lazy val ScalaCore = (project in file("ScalaCore")).settings(common)
+lazy val ScalaTest = (project in file("ScalaTest")).settings(common)
+lazy val ScalaMock = (project in file("ScalaMock")).settings(common)
+lazy val ScalaScopt = (project in file("ScalaScopt")).settings(common)
+lazy val json4s = (project in file("json4s")).settings(common)
+lazy val Slick = (project in file("Slick")).settings(common)
 lazy val akkaActorScalaExamples = (project in file("Akka+/akka-actor-scala-examples")).settings(common)
 lazy val akkaQuickScala = (project in file("Akka+/akka-quickstart-scala")).settings(common)
 lazy val playFrameworkExamples = (project in file("PlayFramework+/play-framework-examples")).settings(common)
