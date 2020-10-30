@@ -1,21 +1,11 @@
-package controllers.json
+package controllers
 
 import javax.inject._
 import play.api.libs.json.JsValue.jsValueToJsLookup
 import play.api.mvc._
 
-/**
- * Return text for a POST request to http://localhost:9000/sync/post/json
- * Example:
- * <pre>
- * curl -X POST \
- * -H "Content-Type: application/json" \
- * -d '{"name": "John", "nicknames": ["Alpha", "Lord"]}' \
- * http://localhost:9000/json
- * </pre>
- */
 @Singleton
-class JsonRequestPostSyncController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+class PostController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
 
   case class RequestBody(name: String)
 
