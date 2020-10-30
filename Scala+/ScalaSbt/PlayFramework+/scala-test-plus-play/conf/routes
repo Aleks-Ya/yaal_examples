@@ -1,1 +1,1 @@
-GET    /text               controllers.PlainTextResponseGetSyncController.text()
+GET    /text               controllers.GetController.text()

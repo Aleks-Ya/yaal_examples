@@ -1,12 +1,11 @@
 package controllers
 
 import org.scalatestplus.play._
-import org.scalatestplus.play.guice._
 import play.api.test.Helpers._
 import play.api.test._
 import play.mvc.Http.MimeTypes
 
-class GetControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting {
+class GetControllerSpec extends PlaySpec {
 
   "GetPlainTextSyncController GET" should {
 
