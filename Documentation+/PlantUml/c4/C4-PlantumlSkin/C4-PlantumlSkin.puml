@@ -1,0 +1,41 @@
+'Source: https://github.com/skleanthous/C4-PlantumlSkin
+@startuml
+!includeurl https://raw.githubusercontent.com/skleanthous/C4-PlantumlSkin/master/build/output/c4.puml
+
+title Banking system
+caption This is the Banking System example taken from https://c4model.com/
+
+rectangle email_system <<External System>> [
+    **E-mail system**
+
+    The internal Microsoft Exchange
+    e-mail system
+]
+
+together {
+    actor "Personal Banking \nCustomer" <<Internal Person>> as customer
+
+    rectangle internet_banking <<System>> [
+        **Internet Banking System**
+
+        Allows customers to view
+        information about their bank,
+        accounts and make payments
+    ]
+
+    rectangle mfb <<External System>> [
+        **Mainframe Banking System**
+
+        Allows customers to view
+        information about their bank
+        accounts and make payments
+    ]
+}
+
+customer          .down.> internet_banking  : uses
+internet_banking  .down.> mfb               : uses
+internet_banking .right.> email_system      : send e-mails\nusing
+
+email_system          ..> customer          : send e-mails to
+
+@enduml
