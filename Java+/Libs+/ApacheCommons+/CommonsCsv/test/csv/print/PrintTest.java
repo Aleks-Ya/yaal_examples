@@ -77,4 +77,22 @@ public class PrintTest {
         assertThat(act, equalTo(exp));
     }
 
+    @Test
+    public void tabDelimiter() throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Appendable out = new OutputStreamWriter(baos);
+        char delimiter = '\t';
+        try (CSVPrinter printer = CSVFormat.DEFAULT
+                .withHeader("H1", "H2")
+                .withDelimiter(delimiter)
+                .withSystemRecordSeparator()
+                .print(out)) {
+            printer.printRecord("v1\tv2", "v3");
+            printer.printRecord("v4", "v5\tv6");
+        }
+        String act = new String(baos.toByteArray());
+        String exp = "H1\tH2\n\"v1\tv2\"\tv3\nv4\t\"v5\tv6\"\n";
+        assertThat(act, equalTo(exp));
+    }
+
 }
