@@ -1,11 +1,13 @@
-package optional;
+package java11.optional;
 
 import org.junit.Test;
 
 import java.util.Optional;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class OptionalTest {
     private boolean present = false;

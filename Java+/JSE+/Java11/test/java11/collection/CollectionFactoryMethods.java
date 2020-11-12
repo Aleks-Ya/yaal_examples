@@ -1,4 +1,4 @@
-package collection;
+package java11.collection;
 
 import org.junit.Test;
 

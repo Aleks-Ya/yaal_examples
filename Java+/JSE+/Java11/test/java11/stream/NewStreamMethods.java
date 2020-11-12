@@ -1,4 +1,4 @@
-package stream;
+package java11.stream;
 
 import org.junit.Test;
 

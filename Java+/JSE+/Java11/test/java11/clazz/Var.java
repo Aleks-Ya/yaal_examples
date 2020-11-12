@@ -1,4 +1,4 @@
-package java11;
+package java11.clazz;
 
 import org.junit.Test;
 
