@@ -1,4 +1,4 @@
-package java8.time_api.clock;
+package java8.time.clock;
 
 import java.time.Instant;
 

@@ -10,4 +10,4 @@
  * Посмотреть табло можно из любого аэропорта отправления, присутствующего на табло.
  * Время выводится во временной зоне аэропорта.
  */
-package java8.time_api.excercises.airport_monitor;
+package java8.time.excercises.airport_monitor;

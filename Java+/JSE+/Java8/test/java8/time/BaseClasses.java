@@ -1,4 +1,4 @@
-package java8.time_api;
+package java8.time;
 
 import org.junit.Test;
 

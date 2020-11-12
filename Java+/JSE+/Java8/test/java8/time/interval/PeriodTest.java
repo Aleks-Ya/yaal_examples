@@ -1,4 +1,4 @@
-package java8.time_api.interval;
+package java8.time.interval;
 
 import org.junit.Test;
 
