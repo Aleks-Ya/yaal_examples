@@ -2,9 +2,13 @@ package java8.stream;
 
 import org.junit.Test;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 
 /**
  * Использование Stream#peek.
@@ -14,9 +18,10 @@ public class Peeks {
     @Test
     public void peek() {
         StringBuilder sb = new StringBuilder();
-        Stream.of("a", "b", "c")
+        List<String> list = Stream.of("a", "b", "c")
                 .peek(sb::append)
-                .count();//без терминальной операции peek не работает
-        assertEquals(sb.toString(), "abc");
+                .collect(Collectors.toList());//peek() doesn't work without a terminal operation
+        assertThat(list, hasSize(3));
+        assertThat(sb.toString(), equalTo("abc"));
     }
 }

@@ -47,6 +47,6 @@ public class BaseClasses {
         ZoneId msk2 = ZoneId.of("UTC+03:00");
 
         String displayName = msk1.getDisplayName(TextStyle.FULL, new Locale("ru"));
-        assertThat(displayName, equalTo("Moscow Time"));
+        assertThat(displayName, equalTo("Москва"));
     }
 }

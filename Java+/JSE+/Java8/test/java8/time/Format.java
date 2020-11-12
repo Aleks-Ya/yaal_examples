@@ -55,7 +55,7 @@ public class Format {
                 .withLocale(new Locale("ru"))
                 .withZone(ZoneId.systemDefault());
         String str = formatter.format(instant);
-        assertEquals("25 марта 2007 г. 14:15:30 MSD", str);
+        assertEquals("25 марта 2007 г., 14:15:30 MSD", str);
     }
 
 }
