@@ -34,28 +34,28 @@ class DmlMapToPrimitiveSeq extends AnyFlatSpec with Matchers {
         personsQuery.schema.create
       )
       val createTableFuture = db.run(createTableAction)
-      Await.result(createTableFuture, Duration(1000, TimeUnit.SECONDS))
+      Await.result(createTableFuture, Duration.Inf)
 
       val insertAction = DBIO.seq(
         personsQuery += (1, "John", 30),
         personsQuery += (2, "Mary", 20),
       )
       val insertFuture = db.run(insertAction)
-      Await.result(insertFuture, Duration(1000, TimeUnit.SECONDS))
+      Await.result(insertFuture, Duration.Inf)
 
       val select1Future = db.run(personsQuery.result)
-      val res1 = Await.result(select1Future, Duration(1000, TimeUnit.SECONDS))
+      val res1 = Await.result(select1Future, Duration.Inf)
       assertThat(res1.mkString, equalTo("(1,John,30)(2,Mary,20)"))
 
       val deleteQuery = personsQuery.filter(_.id === 2)
       val deleteAction = deleteQuery.delete
       val deleteFuture = db.run(deleteAction)
-      Await.result(deleteFuture, Duration(1000, TimeUnit.SECONDS))
+      Await.result(deleteFuture, Duration.Inf)
 
       val select2Query = personsQuery.map(_.name)
       val select2Action = select2Query.result
       val select2Future = db.run(select2Action)
-      val select2Result = Await.result(select2Future, Duration(1000, TimeUnit.SECONDS))
+      val select2Result = Await.result(select2Future, Duration.Inf)
       assertThat(select2Result.mkString, equalTo("John"))
 
     } finally db.close

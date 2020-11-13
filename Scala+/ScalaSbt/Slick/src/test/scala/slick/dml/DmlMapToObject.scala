@@ -1,7 +1,5 @@
 package slick.dml
 
-import java.util.concurrent.TimeUnit
-
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import slick.jdbc.H2Profile.api._
@@ -21,7 +19,7 @@ class DmlMapToObject extends AnyFlatSpec with Matchers {
         personsQuery.schema.create
       )
       val createTableFuture = db.run(createTableAction)
-      Await.result(createTableFuture, Duration(1000, TimeUnit.SECONDS))
+      Await.result(createTableFuture, Duration.Inf)
 
       val expPerson1 = Person(1, "John", 30)
       val expPerson2 = Person(2, "Mary", 20)
@@ -30,19 +28,19 @@ class DmlMapToObject extends AnyFlatSpec with Matchers {
         personsQuery += expPerson2,
       )
       val insertFuture = db.run(insertAction)
-      Await.result(insertFuture, Duration(1000, TimeUnit.SECONDS))
+      Await.result(insertFuture, Duration.Inf)
 
       val select1Future = db.run(personsQuery.result)
-      val res1 = Await.result(select1Future, Duration(1000, TimeUnit.SECONDS))
+      val res1 = Await.result(select1Future, Duration.Inf)
       res1 should contain allOf(expPerson1, expPerson2)
 
       val deleteQuery = personsQuery.filter(_.id === expPerson2.id)
       val deleteAction = deleteQuery.delete
       val deleteFuture = db.run(deleteAction)
-      Await.result(deleteFuture, Duration(1000, TimeUnit.SECONDS))
+      Await.result(deleteFuture, Duration.Inf)
 
       val select2Future = db.run(personsQuery.result)
-      val select2Result = Await.result(select2Future, Duration(1000, TimeUnit.SECONDS))
+      val select2Result = Await.result(select2Future, Duration.Inf)
       select2Result should contain(expPerson1)
 
     } finally db.close
