@@ -80,6 +80,13 @@ public class Convert {
     }
 
     @Test
+    public void instantToZonedDateTime() {
+        Instant instant = Instant.parse("2007-03-25T10:15:30.00Z");
+        ZonedDateTime dateTime = ZonedDateTime.ofInstant(instant, ZoneId.systemDefault());
+        assertThat(dateTime.toString(), equalTo("2007-03-25T14:15:30+04:00[Europe/Moscow]"));
+    }
+
+    @Test
     public void zonedDateTimeToInstant() {
         ZonedDateTime date = ZonedDateTime.of(2007, 3, 25, 10, 15, 30, 5, ZoneId.of("+01:00"));
         Instant instant = date.toInstant();
