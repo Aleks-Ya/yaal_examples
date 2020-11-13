@@ -2,15 +2,16 @@ package slick.dml
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import slick.H2Helper
 import slick.jdbc.H2Profile.api._
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-class DmlMapToObject extends AnyFlatSpec with Matchers {
+class DmlMapToObject extends AnyFlatSpec with Matchers with H2Helper {
 
-   it should "insert, select, delete (map to object)" in {
-    val db = Database.forURL(url = "jdbc:h2:mem:test1", driver = "org.h2.Driver", keepAliveConnection = true)
+  it should "insert, select, delete (map to object)" in {
+    val db = h2Database
 
     try {
       val personsQuery = TableQuery[PersonTable]

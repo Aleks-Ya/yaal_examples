@@ -22,7 +22,7 @@ class PersonControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecti
       .configure(Map(
         "db.default.driver" -> driver,
         "db.default.url" -> url,
-        "db.default.user" -> "sa",
+        "db.default.username" -> "sa",
         "db.default.password" -> "",
         "liquibase.changelog" -> getClass.getClassLoader.getResource("liquibase/changelog.xml").getFile
       )).build()

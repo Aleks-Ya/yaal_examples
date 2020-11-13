@@ -4,16 +4,17 @@ import java.time.{Instant, ZonedDateTime}
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import slick.H2Helper
 import slick.jdbc.H2Profile.api._
 import slick.lifted.Tag
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-class DmlTimestamp extends AnyFlatSpec with Matchers {
+class DmlTimestamp extends AnyFlatSpec with Matchers with H2Helper {
 
   it should "map VARCHAR to ZonedDateTime" in {
-    val db = Database.forURL(url = "jdbc:h2:mem:test1", driver = "org.h2.Driver", keepAliveConnection = true)
+    val db = h2Database
 
     case class Person(id: Int, name: String, eventTime: ZonedDateTime)
 
@@ -65,7 +66,7 @@ class DmlTimestamp extends AnyFlatSpec with Matchers {
   }
 
   it should "map 'timestamp with time zone' to Instant" in {
-    val db = Database.forURL(url = "jdbc:h2:mem:test1", driver = "org.h2.Driver", keepAliveConnection = true)
+    val db = h2Database
 
     case class Person(id: Int, name: String, eventTime: Instant)
 

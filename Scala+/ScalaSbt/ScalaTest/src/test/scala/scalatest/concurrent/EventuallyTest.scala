@@ -8,7 +8,7 @@ import org.scalatest.time.{Seconds, Span}
 class EventuallyTest extends AnyFlatSpec with Matchers with Eventually {
 
   it should "finished successful" in {
-    val xs = 1 to 125
+    val xs = 1 to 25
     val it = xs.iterator
     eventually {
       it.next should be(3)

@@ -2,15 +2,16 @@ package slick.dml
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import slick.H2Helper
 import slick.jdbc.H2Profile.api._
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-class PlainQuery extends AnyFlatSpec with Matchers {
+class PlainQuery extends AnyFlatSpec with Matchers with H2Helper {
 
   it should "init database and insert with plain queries" in {
-    val db = Database.forURL(url = "jdbc:h2:mem:test1", driver = "org.h2.Driver", keepAliveConnection = true)
+    val db = h2Database
 
     try {
       val personsQuery = TableQuery[PersonTable]
@@ -50,7 +51,7 @@ class PlainQuery extends AnyFlatSpec with Matchers {
   }
 
   it should "combine plain queries and object mapping" in {
-    val db = Database.forURL(url = "jdbc:h2:mem:test1", driver = "org.h2.Driver", keepAliveConnection = true)
+    val db = h2Database
 
     try {
       val personsQuery = TableQuery[PersonTable]

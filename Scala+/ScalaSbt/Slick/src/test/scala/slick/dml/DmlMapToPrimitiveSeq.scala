@@ -1,21 +1,20 @@
 package slick.dml
 
-import java.util.concurrent.TimeUnit
-
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import slick.H2Helper
 import slick.jdbc.H2Profile.api._
 import slick.lifted.Tag
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-class DmlMapToPrimitiveSeq extends AnyFlatSpec with Matchers {
+class DmlMapToPrimitiveSeq extends AnyFlatSpec with Matchers with H2Helper {
 
   it should "insert, select, delete (map to primitive seq)" in {
-    val db = Database.forURL(url = "jdbc:h2:mem:test1", driver = "org.h2.Driver", keepAliveConnection = true)
+    val db = h2Database
 
     try {
       class Persons(tag: Tag) extends Table[(Int, String, Int)](tag, "PERSONS") {
