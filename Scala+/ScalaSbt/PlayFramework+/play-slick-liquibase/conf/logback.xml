@@ -34,6 +34,9 @@
   <logger name="play" level="INFO" />
   <logger name="application" level="DEBUG" />
 
+  <logger name="liquibase" level="INFO" />
+  <logger name="com.ticketfly.play.liquibase" level="INFO" />
+
   <root level="WARN">
     <!--<appender-ref ref="ASYNCFILE" />-->
     <appender-ref ref="ASYNCSTDOUT" />

@@ -9,13 +9,12 @@ import slick.jdbc.JdbcProfile
 import scala.concurrent.Future
 
 @Singleton
-class PersonDao @Inject()(private val dbConfigProvider: DatabaseConfigProvider) {
-  private val dbConfig: DatabaseConfig[JdbcProfile] = dbConfigProvider.get[JdbcProfile]
+class PersonDao @Inject()(private val db: Database) {
   private val personQuery: TableQuery[PersonTable] = TableQuery[PersonTable]
 
-  def getAll: Future[Seq[Person]] = dbConfig.db.run(personQuery.result)
+  def getAll: Future[Seq[Person]] = db.run(personQuery.result)
 
-  def create(person: Person): Future[Unit] = dbConfig.db.run(DBIO.seq(personQuery += person))
+  def create(person: Person): Future[Unit] = db.run(DBIO.seq(personQuery += person))
 
-  def delete(personId: Int): Future[Int] = dbConfig.db.run(personQuery.filter(_.id === personId).delete)
+  def delete(personId: Int): Future[Int] = db.run(personQuery.filter(_.id === personId).delete)
 }
