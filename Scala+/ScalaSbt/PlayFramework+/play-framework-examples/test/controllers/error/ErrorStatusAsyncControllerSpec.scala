@@ -6,14 +6,12 @@ import play.api.test.Helpers._
 import play.api.test._
 import play.mvc.Http.MimeTypes
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
 class ErrorStatusAsyncControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting {
 
   "ErrorStatusAsyncController GET" should {
 
     "return 400 status" in {
-      val controller = new ErrorStatusAsyncController(stubControllerComponents())
+      val controller = app.injector.instanceOf[ErrorStatusAsyncController]
       val text = controller.text().apply(FakeRequest(GET, "/"))
       status(text) mustBe BAD_REQUEST
       contentType(text) mustBe Some(MimeTypes.TEXT)

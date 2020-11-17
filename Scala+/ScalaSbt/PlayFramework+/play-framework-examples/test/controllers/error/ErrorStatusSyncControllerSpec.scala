@@ -11,7 +11,7 @@ class ErrorStatusSyncControllerSpec extends PlaySpec with GuiceOneAppPerTest wit
   "ErrorStatusSyncController GET" should {
 
     "return 400 status" in {
-      val controller = new ErrorStatusSyncController(stubControllerComponents())
+      val controller = app.injector.instanceOf[ErrorStatusSyncController]
       val text = controller.badRequest().apply(FakeRequest(GET, "/"))
       status(text) mustBe BAD_REQUEST
       contentType(text) mustBe Some(MimeTypes.TEXT)

@@ -11,7 +11,7 @@ class DynamicPathControllerSpec extends PlaySpec with GuiceOneAppPerTest with In
   "DynamicPathController GET" should {
 
     "return ID from URL path" in {
-      val controller = new DynamicPathController(stubControllerComponents())
+      val controller = app.injector.instanceOf[DynamicPathController]
       val id = "1"
       val text = controller.returnId(id).apply(FakeRequest(GET, "/2"))
       status(text) mustBe OK

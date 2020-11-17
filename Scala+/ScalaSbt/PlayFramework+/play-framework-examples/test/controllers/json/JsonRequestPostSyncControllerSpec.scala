@@ -12,12 +12,12 @@ class JsonRequestPostSyncControllerSpec extends PlaySpec with GuiceOneAppPerTest
   "PostJsonSyncController GET" should {
 
     "accept JSON request with names and return a greeting" in {
-      val controller = new JsonRequestPostSyncController(stubControllerComponents())
+      val controller = app.injector.instanceOf[JsonRequestPostSyncController]
       val text = controller.json().apply(FakeRequest(POST, "/")
         .withJsonBody(Json.parse("""{"name": "John", "nicknames": ["Alpha", "Lord"]}""")))
       status(text) mustBe OK
       contentType(text) mustBe Some(MimeTypes.TEXT)
-      contentAsString(text) must include ("Hello, John (Alpha, Lord)!")
+      contentAsString(text) must include("Hello, John (Alpha, Lord)!")
     }
 
   }

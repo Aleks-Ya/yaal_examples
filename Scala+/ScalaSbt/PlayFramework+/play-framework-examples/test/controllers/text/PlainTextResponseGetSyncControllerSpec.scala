@@ -11,7 +11,7 @@ class PlainTextResponseGetSyncControllerSpec extends PlaySpec with GuiceOneAppPe
   "GetPlainTextSyncController GET" should {
 
     "return greeting message" in {
-      val controller = new PlainTextResponseGetSyncController(stubControllerComponents())
+      val controller = app.injector.instanceOf[PlainTextResponseGetSyncController]
       val text = controller.text().apply(FakeRequest(GET, "/"))
       status(text) mustBe OK
       contentType(text) mustBe Some(MimeTypes.TEXT)

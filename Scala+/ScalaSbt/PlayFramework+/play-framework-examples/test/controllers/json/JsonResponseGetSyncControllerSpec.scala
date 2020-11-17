@@ -10,7 +10,7 @@ class JsonResponseGetSyncControllerSpec extends PlaySpec with GuiceOneAppPerTest
 
   "ResponseJsonSyncController GET" should {
     "form JSON body from an object" in {
-      val controller = new JsonResponseGetSyncController(stubControllerComponents())
+      val controller = app.injector.instanceOf[JsonResponseGetSyncController]
       val text = controller.json().apply(FakeRequest(GET, "/"))
       status(text) mustBe OK
       contentType(text) mustBe Some(MimeTypes.TEXT)
