@@ -1,7 +1,5 @@
 package controllers
 
-import java.util.concurrent.TimeUnit
-
 import org.scalatestplus.play._
 import play.api.libs.json.{Json, OFormat}
 import play.api.test.Helpers._
@@ -13,17 +11,16 @@ import slick.lifted.TableQuery
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-class PersonControllerSpec extends PlaySpec {
+class InitDatabaseWithLiquibaseInTestSpec extends PlaySpec {
 
-  "PersonController GET" should {
+  "Liquibase Unit Test" should {
 
     "return all Persons form database" in {
       val personsQuery = TableQuery[PersonTable]
-      createSchema(personsQuery)
       Await.result(H2Helper.dbConfig.db.run(DBIO.seq(
         personsQuery += Person(1, "John"),
         personsQuery += Person(2, "Mary"),
-      )), Duration(1000, TimeUnit.SECONDS))
+      )), Duration.Inf)
 
       val personDao = new PersonDao(H2Helper.databaseConfigProvider)
       val personService = new PersonService(personDao)
@@ -35,9 +32,6 @@ class PersonControllerSpec extends PlaySpec {
     }
 
     "create Person in database" in {
-      val personsQuery = TableQuery[PersonTable]
-      createSchema(personsQuery)
-
       val personDao = new PersonDao(H2Helper.databaseConfigProvider)
       val personService = new PersonService(personDao)
       val controller = new PersonController(stubControllerComponents(), personService)
@@ -54,9 +48,6 @@ class PersonControllerSpec extends PlaySpec {
     }
 
     "delete Person in database" in {
-      val personsQuery = TableQuery[PersonTable]
-      createSchema(personsQuery)
-
       val personDao = new PersonDao(H2Helper.databaseConfigProvider)
       val personService = new PersonService(personDao)
       val controller = new PersonController(stubControllerComponents(), personService)
@@ -77,14 +68,5 @@ class PersonControllerSpec extends PlaySpec {
       contentAsString(getResultFuture2) must include("""[]""")
     }
 
-  }
-
-  private def createSchema(personsQuery: TableQuery[PersonTable]): Unit = {
-    val createTableAction = DBIO.seq(
-      personsQuery.schema.dropIfExists,
-      personsQuery.schema.create
-    )
-    val createTableFuture = H2Helper.dbConfig.db.run(createTableAction)
-    Await.result(createTableFuture, Duration(1000, TimeUnit.SECONDS))
   }
 }
