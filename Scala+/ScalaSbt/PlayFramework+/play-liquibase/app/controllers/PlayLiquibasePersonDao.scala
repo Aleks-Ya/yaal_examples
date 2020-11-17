@@ -8,21 +8,21 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 @Singleton
-class PersonDao @Inject()(db: Database) {
+class PlayLiquibasePersonDao @Inject()(db: Database) {
 
-  def getAll: Future[Seq[Person]] = Future {
+  def getAll: Future[Seq[PlayLiquibasePerson]] = Future {
     db.withConnection { conn =>
       val statement = conn.createStatement()
       val resultSet = statement.executeQuery("select id, name from person")
-      val s: mutable.MutableList[Person] = mutable.MutableList()
+      val s: mutable.MutableList[PlayLiquibasePerson] = mutable.MutableList()
       while (resultSet.next()) {
-        s += Person(resultSet.getInt(1), resultSet.getString(2))
+        s += PlayLiquibasePerson(resultSet.getInt(1), resultSet.getString(2))
       }
       s
     }
   }
 
-  def create(person: Person): Future[Unit] = Future {
+  def create(person: PlayLiquibasePerson): Future[Unit] = Future {
     db.withConnection { conn =>
       val statement = conn.createStatement()
       statement.executeUpdate(s"insert into person(id, name) values (${person.id},'${person.name}')")

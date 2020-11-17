@@ -4,7 +4,6 @@ import org.scalatest.TestData
 import org.scalatestplus.play._
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.Application
-import play.api.db.Database
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.{Json, OFormat}
 import play.api.test.Helpers._
@@ -13,7 +12,7 @@ import play.mvc.Http.MimeTypes
 
 import scala.util.Random
 
-class PersonControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting {
+class PlayLiquibaseSpec extends PlaySpec with GuiceOneAppPerTest with Injecting {
 
   implicit override def newAppForTest(testData: TestData): Application = {
     val driver = "org.h2.Driver"
@@ -32,10 +31,7 @@ class PersonControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecti
   "PersonController GET" should {
 
     "initialize Liquibase and return all Persons form database" in {
-      val database = app.injector.instanceOf[Database]
-      val personDao = new PersonDao(database)
-      val personService = new PersonService(personDao)
-      val controller = new PersonController(stubControllerComponents(), personService)
+      val controller = app.injector.instanceOf[PlayLiquibasePersonController]
       val getResultFuture = controller.getPersons().apply(FakeRequest(GET, "/"))
       status(getResultFuture) mustBe OK
       contentType(getResultFuture) mustBe Some(MimeTypes.JSON)
@@ -43,13 +39,10 @@ class PersonControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecti
     }
 
     "initialize Liquibase and create Person in database" in {
-      val database = app.injector.instanceOf[Database]
-      val personDao = new PersonDao(database)
-      val personService = new PersonService(personDao)
-      val controller = new PersonController(stubControllerComponents(), personService)
+      val controller = app.injector.instanceOf[PlayLiquibasePersonController]
 
-      implicit val personFormat: OFormat[Person] = Json.format[Person]
-      val personJson = Json.toJson(Person(3, "John3"))
+      implicit val personFormat: OFormat[PlayLiquibasePerson] = Json.format[PlayLiquibasePerson]
+      val personJson = Json.toJson(PlayLiquibasePerson(3, "John3"))
       val createResultFuture = controller.createPerson().apply(FakeRequest(POST, "/").withJsonBody(personJson))
       status(createResultFuture) mustBe OK
 
@@ -60,14 +53,11 @@ class PersonControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecti
     }
 
     "initialize Liquibase and delete Person in database" in {
-      val database = app.injector.instanceOf[Database]
-      val personDao = new PersonDao(database)
-      val personService = new PersonService(personDao)
-      val controller = new PersonController(stubControllerComponents(), personService)
+      val controller = app.injector.instanceOf[PlayLiquibasePersonController]
 
-      implicit val personFormat: OFormat[Person] = Json.format[Person]
+      implicit val personFormat: OFormat[PlayLiquibasePerson] = Json.format[PlayLiquibasePerson]
       val personId = 4
-      val personJson = Json.toJson(Person(personId, "John4"))
+      val personJson = Json.toJson(PlayLiquibasePerson(personId, "John4"))
       val createResultFuture = controller.createPerson().apply(FakeRequest(POST, "/").withJsonBody(personJson))
       status(createResultFuture) mustBe OK
 

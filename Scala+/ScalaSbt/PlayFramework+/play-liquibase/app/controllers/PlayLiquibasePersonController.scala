@@ -5,9 +5,9 @@ import play.api.libs.json.{Json, OFormat}
 import play.api.mvc._
 
 @Singleton
-class PersonController @Inject()(val controllerComponents: ControllerComponents,
-                                 private val personService: PersonService) extends BaseController {
-  private implicit val personFormat: OFormat[Person] = Json.format[Person]
+class PlayLiquibasePersonController @Inject()(val controllerComponents: ControllerComponents,
+                                              private val personService: PlayLiquibasePersonService) extends BaseController {
+  private implicit val personFormat: OFormat[PlayLiquibasePerson] = Json.format[PlayLiquibasePerson]
 
   def getPersons: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     val body = Json.toJson(personService.getAll)
@@ -16,7 +16,7 @@ class PersonController @Inject()(val controllerComponents: ControllerComponents,
 
   def createPerson: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     val jsonValue = request.body.asJson.get
-    val person = jsonValue.as[Person]
+    val person = jsonValue.as[PlayLiquibasePerson]
     personService.create(person)
     Ok
   }
