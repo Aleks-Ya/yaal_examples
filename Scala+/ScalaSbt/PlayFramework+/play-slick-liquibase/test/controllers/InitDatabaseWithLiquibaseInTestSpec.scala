@@ -13,15 +13,15 @@ class InitDatabaseWithLiquibaseInTestSpec extends H2Liquibase {
 
   "Liquibase Unit Test" should {
     "add Persons from changelog.xml and from code and select them all" in {
-      val personsQuery = TableQuery[PersonTable]
+      val personsQuery = TableQuery[PlaySlickLiquibasePersonTable]
       Await.result(db.run(DBIO.seq(
-        personsQuery += Person(3, "John"),
-        personsQuery += Person(4, "Mary"),
+        personsQuery += PlaySlickLiquibasePerson(3, "John"),
+        personsQuery += PlaySlickLiquibasePerson(4, "Mary"),
       )), Duration.Inf)
 
-      val personDao = new PersonDao(db)
-      val personService = new PersonService(personDao)
-      val controller = new PersonController(stubControllerComponents(), personService)
+      val personDao = new PlaySlickLiquibasePersonDao(db)
+      val personService = new PlaySlickLiquibasePersonService(personDao)
+      val controller = new PlaySlickLiquibasePersonController(stubControllerComponents(), personService)
       val getResultFuture = controller.getPersons().apply(FakeRequest(GET, "/"))
       status(getResultFuture) mustBe OK
       contentType(getResultFuture) mustBe Some(MimeTypes.JSON)
