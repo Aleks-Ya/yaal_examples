@@ -1,8 +1,9 @@
+import org.slf4j.Logger;
+import org.slf4j.event.Level;
+
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-
-import org.slf4j.Logger;
 
 /**
  * Source: https://gist.github.com/martijnvogten/6088904
@@ -10,19 +11,15 @@ import org.slf4j.Logger;
 class LoggingOutputStream extends OutputStream {
 
     static void redirectSysOutAndSysErr(Logger logger) {
-        System.setOut(new PrintStream(new LoggingOutputStream(logger, LogLevel.INFO)));
-        System.setErr(new PrintStream(new LoggingOutputStream(logger, LogLevel.ERROR)));
+        System.setOut(new PrintStream(new LoggingOutputStream(logger, Level.INFO)));
+        System.setErr(new PrintStream(new LoggingOutputStream(logger, Level.ERROR)));
     }
 
     private final ByteArrayOutputStream baos = new ByteArrayOutputStream(1000);
     private final Logger logger;
-    private final LogLevel level;
+    private final Level level;
 
-    private enum LogLevel {
-        TRACE, DEBUG, INFO, WARN, ERROR,
-    }
-
-    private LoggingOutputStream(Logger logger, LogLevel level) {
+    private LoggingOutputStream(Logger logger, Level level) {
         this.logger = logger;
         this.level = level;
     }
