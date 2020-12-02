@@ -2,6 +2,7 @@ package kafka.compression;
 
 import kafka.api.IntegrationTestHarness;
 import org.apache.kafka.clients.consumer.Consumer;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -15,6 +16,7 @@ import scala.jdk.javaapi.CollectionConverters;
 
 import java.time.Duration;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
@@ -25,13 +27,13 @@ import static org.hamcrest.Matchers.equalTo;
  * Message compression by GZip.
  */
 public class CompressionTest extends IntegrationTestHarness {
-    private static final String topic = CompressionTest.class.getSimpleName().toLowerCase();
+    private static final String TOPIC = CompressionTest.class.getSimpleName().toLowerCase();
 
     @Test(timeout = 10_000)
     public void compression() throws ExecutionException, InterruptedException {
         String value = "my message";
 
-        createTopic(topic, 1, 1, new Properties());
+        createTopic(TOPIC, 1, 1, new Properties());
 
         Properties producerConfigOverrides = new Properties();
         producerConfigOverrides.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "gzip");
@@ -39,19 +41,50 @@ public class CompressionTest extends IntegrationTestHarness {
         StringSerializer keySer = new StringSerializer();
         StringSerializer valueSer = new StringSerializer();
         try (Producer<String, String> producer = createProducer(keySer, valueSer, producerConfigOverrides)) {
-            producer.send(new ProducerRecord<>(CompressionTest.topic, value)).get();
+            producer.send(new ProducerRecord<>(TOPIC, value)).get();
         }
 
         Deserializer<String> keyDes = new StringDeserializer();
         Deserializer<String> valueDes = new StringDeserializer();
         List<String> configsToRemove = CollectionConverters.asScala(Collections.<String>emptyList()).toList();
         try (Consumer<String, String> consumer = createConsumer(keyDes, valueDes, new Properties(), configsToRemove)) {
-            consumer.subscribe(Collections.singleton(CompressionTest.topic));
+            consumer.subscribe(Collections.singleton(TOPIC));
             ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));
             assertThat(consumerRecords.count(), equalTo(1));
             assertThat(consumerRecords.iterator().next().value(), equalTo(value));
         }
+    }
 
+    @Test(timeout = 10_000)
+    public void mixCompressedAndUncompressedMessages() throws ExecutionException, InterruptedException {
+        String compressedValue = "compressed message";
+        String unCompressedValue = "uncompressed message";
+
+        createTopic(TOPIC, 1, 1, new Properties());
+
+        StringSerializer keySer = new StringSerializer();
+        StringSerializer valueSer = new StringSerializer();
+
+        Properties producerConfigOverrides = new Properties();
+        producerConfigOverrides.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "gzip");
+        try (Producer<String, String> compressedProducer = createProducer(keySer, valueSer, producerConfigOverrides)) {
+            compressedProducer.send(new ProducerRecord<>(TOPIC, compressedValue)).get();
+        }
+        try (Producer<String, String> unCompressedProducer = createProducer(keySer, valueSer, new Properties())) {
+            unCompressedProducer.send(new ProducerRecord<>(TOPIC, unCompressedValue)).get();
+        }
+
+        Deserializer<String> keyDes = new StringDeserializer();
+        Deserializer<String> valueDes = new StringDeserializer();
+        List<String> configsToRemove = CollectionConverters.asScala(Collections.<String>emptyList()).toList();
+        try (Consumer<String, String> consumer = createConsumer(keyDes, valueDes, new Properties(), configsToRemove)) {
+            consumer.subscribe(Collections.singleton(TOPIC));
+            ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));
+            assertThat(consumerRecords.count(), equalTo(2));
+            Iterator<ConsumerRecord<String, String>> iterator = consumerRecords.iterator();
+            assertThat(iterator.next().value(), equalTo(compressedValue));
+            assertThat(iterator.next().value(), equalTo(unCompressedValue));
+        }
     }
 
     @Override
