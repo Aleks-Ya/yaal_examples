@@ -3,6 +3,8 @@
 ## Sources
 Docker Hub: https://hub.docker.com/r/landoop/fast-data-dev
 
+---------------------------------------------------------------------------------------------
+
 ## No SSL
 ### Run cluster
 1. `docker run --rm --net=host -e DEBUG=1 lensesio/fast-data-dev`
@@ -35,6 +37,7 @@ Produce to a topic:
 Consume from the beginning:
 `kafka-console-consumer --bootstrap-server localhost:9092 --from-beginning --topic my-topic`
 
+---------------------------------------------------------------------------------------------
 
 ## With SSL
 ### Run cluster
@@ -136,3 +139,5 @@ kafka-console-consumer --bootstrap-server localhost:9093 \
     --consumer-property ssl.truststore.password=fastdata \
     --topic my-topic
 ```
+
+---------------------------------------------------------------------------------------------
