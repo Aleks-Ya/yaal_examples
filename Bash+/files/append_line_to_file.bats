@@ -1,12 +1,11 @@
 #!/usr/bin/env bats
 
-# Replace substring from a file and store result in a variable.
-
-@test "Replace first match" {
+@test "Append line to a file (with tail empty line)" {
   file='/tmp/append_line_to_file.txt'
-  echo "Hello, world!" > $file
-  echo "Bye!" >> $file
+  echo "Line A" > $file
+  echo "Appended line B" >> $file
+  echo >> $file
   appended=$(<$file)
-  expected=$(echo -e 'Hello, world!\nBye!')
+  expected=$(echo -e 'Line A\nAppended line B\n')
   [ "${appended}" = "${expected}" ]
 }
