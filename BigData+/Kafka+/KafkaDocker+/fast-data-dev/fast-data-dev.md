@@ -5,7 +5,7 @@ Docker Hub: https://hub.docker.com/r/landoop/fast-data-dev
 
 ---------------------------------------------------------------------------------------------
 
-## No SSL
+## No SSL, No Authorization
 ### Run cluster
 1. `docker run --rm --net=host -e DEBUG=1 lensesio/fast-data-dev`
 2. Open http://localhost:3030/
@@ -18,6 +18,8 @@ Connect to the container by Bash:
 #### kafka-topics
 List topics:
 `kafka-topics --bootstrap-server localhost:9092 --list`
+Describe topic:
+`kafka-topics --bootstrap-server localhost:9092 --describe --topic my-topic`
 Create topic:
 ```
 kafka-topics --bootstrap-server localhost:9092 \
@@ -29,6 +31,17 @@ kafka-topics --bootstrap-server localhost:9092 \
 Delete topic:
 `kafka-topics --bootstrap-server localhost:9092 --delete --topic my-topic`
 
+#### kafka-configs
+Describe topic config:
+`kafka-configs --zookeeper localhost:2181 --describe --entity-type topics --entity-name my-topic`
+Change `max.message.bytes` topic property:
+```
+kafka-configs --zookeeper localhost:2181 \
+    --alter --add-config max.message.bytes=256000 \
+    --entity-type topics \
+    --entity-name my-topic
+```
+
 #### kafka-console-producer
 Produce to a topic:
 `kafka-console-producer --broker-list localhost:9092 --topic my-topic`
@@ -39,7 +52,7 @@ Consume from the beginning:
 
 ---------------------------------------------------------------------------------------------
 
-## With SSL
+## With SSL, No Authorization
 ### Run cluster
 1. `docker run --rm --net=host -e ENABLE_SSL=1 -e DEBUG=1 lensesio/fast-data-dev`
 2. Logs: `http://localhost:3030/logs/`
@@ -141,3 +154,15 @@ kafka-console-consumer --bootstrap-server localhost:9093 \
 ```
 
 ---------------------------------------------------------------------------------------------
+
+## With SSL, With Authorization (NOT WORK)
+### Run cluster
+1. 
+```
+docker run --rm --net=host \
+    -e ENABLE_SSL=1 \
+    -e DEBUG=1 \
+    -e KAFKA_AUTHORIZER_CLASS_NAME=kafka.security.authorizer.AclAuthorizer \
+    lensesio/fast-data-dev
+```
+2. Logs: `http://localhost:3030/logs/`
