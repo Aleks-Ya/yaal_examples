@@ -33,7 +33,7 @@ public class ArrayAssert {
     }
 
     @Test
-    @Ignore("Падает с ошибкой из-за того, что Mockito тянет старый Harmcrest 1.1")
+    @Ignore("Падает с ошибкой из-за того, что Mockito тянет старый Hamcrest 1.1")
     public void primitiveArray() {
         final int[] arr = {45, 34, 89};
         final Integer[] arrObj = toObjectArray(arr);
