@@ -7,6 +7,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.config.TopicConfig;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -22,18 +23,23 @@ import java.util.concurrent.ExecutionException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
 
 /**
  * Message compression by GZip.
  */
 public class CompressionTest extends IntegrationTestHarness {
     private static final String TOPIC = CompressionTest.class.getSimpleName().toLowerCase();
+    private Integer serializedValueSize;
 
     @Test(timeout = 10_000)
     public void compression() throws ExecutionException, InterruptedException {
-        String value = "my message";
+        String value = "message ".repeat(100000);
 
-        createTopic(TOPIC, 1, 1, new Properties());
+        var topicConfig = new Properties();
+        var maxMessageBytes = value.length() / 2; //uncompressed value will not fit the max.message.bytes
+        topicConfig.put(TopicConfig.MAX_MESSAGE_BYTES_CONFIG, String.valueOf(maxMessageBytes));
+        createTopic(TOPIC, 1, 1, topicConfig);
 
         Properties producerConfigOverrides = new Properties();
         producerConfigOverrides.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "gzip");
@@ -41,8 +47,11 @@ public class CompressionTest extends IntegrationTestHarness {
         StringSerializer keySer = new StringSerializer();
         StringSerializer valueSer = new StringSerializer();
         try (Producer<String, String> producer = createProducer(keySer, valueSer, producerConfigOverrides)) {
-            producer.send(new ProducerRecord<>(TOPIC, value)).get();
+            producer.send(new ProducerRecord<>(TOPIC, value),
+                    (metadata, exception) -> serializedValueSize = metadata.serializedValueSize()
+            ).get();
         }
+        assertThat(serializedValueSize, greaterThan(maxMessageBytes));
 
         Deserializer<String> keyDes = new StringDeserializer();
         Deserializer<String> valueDes = new StringDeserializer();
