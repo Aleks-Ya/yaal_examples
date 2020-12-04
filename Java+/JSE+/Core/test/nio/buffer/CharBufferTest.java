@@ -10,8 +10,8 @@ import static org.hamcrest.Matchers.equalTo;
 public class CharBufferTest {
     @Test
     public void allocate() {
-        CharBuffer cb = CharBuffer.allocate(3);
-        String data = "abc";
+        var cb = CharBuffer.allocate(3);
+        var data = "abc";
         cb.put(data);
         assertThat(new String(cb.array()), equalTo(data));
     }
