@@ -17,7 +17,7 @@ import static java.net.http.HttpResponse.BodyHandlers.ofString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class HttpAsync {
+public class GetAsync {
 
     @Test
     public void get() throws IOException {
@@ -59,7 +59,7 @@ public class HttpAsync {
         server.start();
         var baseUrl = server.url("/");
 
-        var outputDir = Files.createTempDirectory(HttpAsync.class.getSimpleName());
+        var outputDir = Files.createTempDirectory(GetAsync.class.getSimpleName());
         var request = HttpRequest.newBuilder().uri(baseUrl.uri()).GET().build();
         var bodyHandler = HttpResponse.BodyHandlers.ofFileDownload(outputDir,
                 StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);

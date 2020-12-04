@@ -15,7 +15,7 @@ import static java.lang.String.format;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class HttpSync {
+public class GetSync {
 
     @Test
     public void get() throws IOException, InterruptedException {
@@ -49,7 +49,7 @@ public class HttpSync {
         server.start();
         var baseUrl = server.url("/");
 
-        var outputDir = Files.createTempDirectory(HttpSync.class.getSimpleName());
+        var outputDir = Files.createTempDirectory(GetSync.class.getSimpleName());
         var request = HttpRequest.newBuilder().uri(baseUrl.uri()).GET().build();
         var bodyHandler = HttpResponse.BodyHandlers.ofFileDownload(outputDir,
                 StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
