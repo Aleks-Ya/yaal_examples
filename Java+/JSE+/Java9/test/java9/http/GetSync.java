@@ -16,10 +16,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class GetSync {
+    private final MockWebServer server = new MockWebServer();
 
     @Test
     public void get() throws IOException, InterruptedException {
-        var server = new MockWebServer();
         var body = "hello, world!";
         server.enqueue(new MockResponse().setBody(body));
         server.start();
@@ -40,7 +40,6 @@ public class GetSync {
 
     @Test
     public void getFile() throws IOException, InterruptedException {
-        var server = new MockWebServer();
         var body = "hello, world!";
         var outputFilename = "message.txt";
         server.enqueue(new MockResponse()
@@ -63,6 +62,24 @@ public class GetSync {
 
         var actContent = Files.readString(outputFile);
         assertThat(actContent, equalTo(body));
+
+        server.shutdown();
+    }
+
+    @Test
+    public void get500() throws IOException, InterruptedException {
+        var errorMessage = "No DB connection";
+        var statusCode = 500;
+        server.enqueue(new MockResponse().setResponseCode(statusCode).setBody(errorMessage));
+        server.start();
+        var baseUrl = server.url("/");
+
+        var request = HttpRequest.newBuilder().uri(baseUrl.uri()).GET().build();
+
+        var response = HttpClient.newHttpClient()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+        assertThat(response.statusCode(), equalTo(statusCode));
+        assertThat(response.body(), equalTo(errorMessage));
 
         server.shutdown();
     }
