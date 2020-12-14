@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
@@ -17,19 +16,19 @@ public class SuperWildcard {
 
     @Test
     public void test() {
-        Storage<List<? extends Collection>> s = new Storage<>();
-        List<Set> sets = new ArrayList<>();
+        Storage<List<? extends Number>> s = new Storage<>();
+        List<Integer> sets = new ArrayList<>();
         s.put(sets);
 
-        Collection<List<? extends Collection>> queues = new ArrayList<>();
+        Collection<List<? extends Number>> queues = new ArrayList<>();
         s.addMultiple(queues, 10);
         assertThat(queues, hasSize(10));
     }
 
     @Test
     public void get() {
-        Storage<List<? extends Collection>> s = new Storage<>();
-        List<Set> sets = new ArrayList<>();
+        Storage<List<? extends Number>> s = new Storage<>();
+        List<Integer> sets = new ArrayList<>();
         s.put(sets);
     }
 

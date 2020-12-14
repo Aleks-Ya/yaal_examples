@@ -28,7 +28,7 @@ public class MultiTypeContainer {
     }
 
     static class Favorites {
-        private Map<Class<?>, Object> favorites = new HashMap<>();
+        private final Map<Class<?>, Object> favorites = new HashMap<>();
 
         public <T> void putFavorite(Class<T> type, T instance) {
             assert (type != null);
