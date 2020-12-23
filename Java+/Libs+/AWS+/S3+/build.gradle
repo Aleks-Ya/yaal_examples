@@ -1,5 +1,5 @@
 subprojects {
     dependencies {
-        implementation 'com.amazonaws:aws-java-sdk-s3:1.11.853'
+        implementation 'com.amazonaws:aws-java-sdk-s3:1.11.925'
     }
 }
