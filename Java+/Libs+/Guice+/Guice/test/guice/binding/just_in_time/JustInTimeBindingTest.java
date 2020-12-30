@@ -1,7 +1,6 @@
 package guice.binding.just_in_time;
 
 import com.google.inject.Guice;
-import com.google.inject.Injector;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -13,17 +12,17 @@ import static org.hamcrest.Matchers.equalTo;
 public class JustInTimeBindingTest {
     private static final String TEXT = "hi";
 
+    @Test
+    public void bind() {
+        var injector = Guice.createInjector();
+        var generator = injector.getInstance(TextGenerator.class);
+        var text = generator.generate();
+        assertThat(text, equalTo(TEXT));
+    }
+
     private static class TextGenerator {
         String generate() {
             return TEXT;
         }
-    }
-
-    @Test
-    public void bind() {
-        Injector injector = Guice.createInjector();
-        TextGenerator generator = injector.getInstance(TextGenerator.class);
-        String text = generator.generate();
-        assertThat(text, equalTo(TEXT));
     }
 }

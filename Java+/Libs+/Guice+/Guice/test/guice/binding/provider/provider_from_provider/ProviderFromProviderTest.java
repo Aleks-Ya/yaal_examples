@@ -14,8 +14,8 @@ public class ProviderFromProviderTest {
 
     @Test
     public void bind() {
-        Injector injector = Guice.createInjector(new RootModule());
-        RootService service = injector.getInstance(RootService.class);
+        var injector = Guice.createInjector(new RootModule());
+        var service = injector.getInstance(RootService.class);
         assertThat(service.getPerson(), equalTo("Mr. John"));
     }
 }

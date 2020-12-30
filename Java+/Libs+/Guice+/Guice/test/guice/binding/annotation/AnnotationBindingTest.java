@@ -3,7 +3,6 @@ package guice.binding.annotation;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.google.inject.Key;
 import org.junit.Test;
 
@@ -15,6 +14,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class AnnotationBindingTest {
+
+    @Test
+    public void bind() {
+        var injector = Guice.createInjector(new DemoModule());
+        var person = injector.getInstance(Person.class);
+        var message = person.getMessage();
+        assertThat(message, equalTo("hello and bye"));
+    }
 
     @Qualifier
     @Retention(RUNTIME)
@@ -47,13 +54,5 @@ public class AnnotationBindingTest {
         String getMessage() {
             return greetingMessage + " and " + leavingMessage;
         }
-    }
-
-    @Test
-    public void bind() {
-        Injector injector = Guice.createInjector(new DemoModule());
-        Person person = injector.getInstance(Person.class);
-        String message = person.getMessage();
-        assertThat(message, equalTo("hello and bye"));
     }
 }

@@ -14,8 +14,8 @@ public class InstallModulesTest {
 
     @Test
     public void install() {
-        Injector injector = Guice.createInjector(new RootModule());
-        RootService service = injector.getInstance(RootService.class);
+        var injector = Guice.createInjector(new RootModule());
+        var service = injector.getInstance(RootService.class);
         assertThat(service.getPerson(), equalTo("Sr. Mark"));
     }
 }

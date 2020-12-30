@@ -3,7 +3,6 @@ package guice.binding.annotation;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.google.inject.Provides;
 import com.google.inject.name.Names;
 import org.junit.Test;
@@ -21,6 +20,14 @@ public class NamedAnnotationBindingTest {
     private static final String CITY_NAME = "city";
     private static final String DISTRICT_NAME = "district";
     private static final String STREET_NAME = "street";
+
+    @Test
+    public void bind() {
+        var injector = Guice.createInjector(new DemoModule());
+        var location = injector.getInstance(Location.class);
+        var message = location.getMessage();
+        assertThat(message, equalTo("Lenina St., Central District, Moscow, Russia"));
+    }
 
     private static class DemoModule extends AbstractModule {
         @Override
@@ -62,13 +69,5 @@ public class NamedAnnotationBindingTest {
         String getMessage() {
             return street + ", " + district + ", " + city + ", " + country;
         }
-    }
-
-    @Test
-    public void bind() {
-        Injector injector = Guice.createInjector(new DemoModule());
-        Location location = injector.getInstance(Location.class);
-        String message = location.getMessage();
-        assertThat(message, equalTo("Lenina St., Central District, Moscow, Russia"));
     }
 }

@@ -2,13 +2,22 @@ package guice.binding.linked;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
-import com.google.inject.Injector;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class ConditionalInstanceTest {
+
+    @Test
+    public void bind() {
+        var databaseType = "oracle";
+        var databaseModule = new DatabaseModule(databaseType);
+        var injector = Guice.createInjector(databaseModule);
+        var database = injector.getInstance(Database.class);
+        var connectionUrl = database.getConnection();
+        assertThat(connectionUrl, equalTo("url.to.oracle"));
+    }
 
     private static class DatabaseModule extends AbstractModule {
         private final String databaseType;
@@ -49,15 +58,5 @@ public class ConditionalInstanceTest {
         public String getConnection() {
             return "url.to.oracle";
         }
-    }
-
-    @Test
-    public void bind() {
-        String databaseType = "oracle";
-        DatabaseModule databaseModule = new DatabaseModule(databaseType);
-        Injector injector = Guice.createInjector(databaseModule);
-        Database database = injector.getInstance(Database.class);
-        String connectionUrl = database.getConnection();
-        assertThat(connectionUrl, equalTo("url.to.oracle"));
     }
 }

@@ -11,6 +11,13 @@ import static org.hamcrest.Matchers.is;
 
 public class InjectInjectorTest {
 
+    @Test
+    public void bind() {
+        var injector = Guice.createInjector();
+        var user = injector.getInstance(InjectorUser.class);
+        assertThat(user.getInjector(), is(injector));
+    }
+
     private static class InjectorUser {
         private final Injector injector;
 
@@ -22,12 +29,5 @@ public class InjectInjectorTest {
         public Injector getInjector() {
             return injector;
         }
-    }
-
-    @Test
-    public void bind() {
-        Injector injector = Guice.createInjector();
-        InjectorUser user = injector.getInstance(InjectorUser.class);
-        assertThat(user.getInjector(), is(injector));
     }
 }

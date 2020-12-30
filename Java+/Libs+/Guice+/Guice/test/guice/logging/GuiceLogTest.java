@@ -21,13 +21,13 @@ public class GuiceLogTest {
     @Test
     public void log() throws IOException {
         // Configure java.util.logging
-        InputStream configIs = GuiceLogTest.class.getClassLoader()
+        var configIs = GuiceLogTest.class.getClassLoader()
                 .getResourceAsStream("logging/GuiceLogTest.properties");
         LogManager.getLogManager().readConfiguration(configIs);
 
         // Run Guice
-        Injector injector = Guice.createInjector(new AppModule());
-        String str = injector.getInstance(String.class);
+        var injector = Guice.createInjector(new AppModule());
+        var str = injector.getInstance(String.class);
         assertThat(str, equalTo(STR));
     }
 

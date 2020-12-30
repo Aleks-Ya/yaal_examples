@@ -21,9 +21,9 @@ public class GenerateGraph {
         var outputFile = Files.createTempFile(GenerateGraph.class.getSimpleName(), ".dot");
         System.out.println("Output file: " + outputFile);
 
-        PrintWriter out = new PrintWriter(outputFile.toFile());
+        var out = new PrintWriter(outputFile.toFile());
 
-        GraphvizGrapher grapher = graphvizInjector.getInstance(GraphvizGrapher.class);
+        var grapher = graphvizInjector.getInstance(GraphvizGrapher.class);
         grapher.setOut(out);
         grapher.setRankdir("TB");
 
