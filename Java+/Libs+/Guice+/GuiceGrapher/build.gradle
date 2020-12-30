@@ -1,0 +1,3 @@
+dependencies {
+    implementation "com.google.inject.extensions:guice-grapher:$guiceVersion"
+}
