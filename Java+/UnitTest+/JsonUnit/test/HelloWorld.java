@@ -27,7 +27,7 @@ public class HelloWorld {
 
         // compares only the structure, not the values
         assertJsonEquals("[{\"test\":1}, {\"test\":2}]",
-                "[{\n\"test\": 1\n}, {\"TEST\": 4}]", when(IGNORING_VALUES));
+                "[{\n\"test\": 1\n}, {\"test\": 4}]", when(IGNORING_VALUES));
 
         // Lenient parsing of expected value
         assertJsonEquals("{//Look ma, no quotation marks\n test:'value'}",
