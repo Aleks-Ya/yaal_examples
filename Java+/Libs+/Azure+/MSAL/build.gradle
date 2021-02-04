@@ -1,0 +1,3 @@
+dependencies {
+    implementation 'com.microsoft.azure:msal4j:1.8.1', "$slf4jSimpleVersion"
+}
