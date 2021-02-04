@@ -16,6 +16,9 @@ subprojects {
     ext {
         h2Dependency = 'com.h2database:h2:1.4.200'
         slf4jSimpleVersion = 'org.slf4j:slf4j-simple:1.7.30'
+        okHttpVersion = '4.9.1'
+        okHttpDependency = "com.squareup.okhttp3:okhttp:$okHttpVersion"
+        mockWebServerDependency = "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
     }
 }
 
