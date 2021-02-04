@@ -19,6 +19,8 @@ subprojects {
         okHttpVersion = '4.9.1'
         okHttpDependency = "com.squareup.okhttp3:okhttp:$okHttpVersion"
         mockWebServerDependency = "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
+        jettyServletDependency = 'org.eclipse.jetty:jetty-servlet:10.0.0'
+        servlet4Dependency = 'javax.servlet:javax.servlet-api:4.0.1'
     }
 }
 

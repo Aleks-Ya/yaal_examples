@@ -2,8 +2,8 @@ dependencies {
     implementation "org.springframework:spring-webmvc:$springVersion",
             "org.springframework.security:spring-security-web:$springSecurityVersion",
             "org.springframework:spring-jdbc:$springVersion",
-            "$h2Dependency",
-            "javax.servlet:javax.servlet-api:$javaxServletApiVersion"
+            h2Dependency,
+            servlet4Dependency
 
     testImplementation "org.springframework.security:spring-security-test:$springSecurityVersion"
 }

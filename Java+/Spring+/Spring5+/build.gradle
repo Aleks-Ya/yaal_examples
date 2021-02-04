@@ -1,7 +1,6 @@
 subprojects {
     ext {
         springVersion = '5.2.7.RELEASE'
-        javaxServletApiVersion = '4.0.1'
     }
     dependencies {
         implementation "org.springframework:spring-context:$springVersion"

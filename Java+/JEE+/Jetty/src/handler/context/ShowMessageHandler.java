@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 class ShowMessageHandler extends AbstractHandler {
-    private String message;
+    private final String message;
 
     ShowMessageHandler(String message) {
         this.message = message;

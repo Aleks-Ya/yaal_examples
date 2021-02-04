@@ -135,8 +135,7 @@ include 'JSE+:Core',
 /**
  * JavaEE+
  */
-include 'JEE+:Jetty+:JettyServer',
-        'JEE+:Jetty+:JettyServletHandler',
+include 'JEE+:Jetty',
         'JEE+:NanoHttpd',
         'JEE+:Servlet+:Servlet3',
         'JEE+:Servlet+:Servlet4+:FileUpload',
