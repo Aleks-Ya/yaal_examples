@@ -1,6 +1,6 @@
 subprojects {
     dependencies {
-        implementation servlet4Dependency
+        implementation servlet4Dependency, jettyServlet10Dependency
     }
 }
 

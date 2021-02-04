@@ -1,5 +1,7 @@
 package handler.error;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.http.HttpFields;
 import org.eclipse.jetty.server.NetworkConnector;
 import org.eclipse.jetty.server.Request;
@@ -9,9 +11,6 @@ import org.eclipse.jetty.servlet.ServletHandler;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 
 import static util.NetAsserts.assertUrlContent;
@@ -30,7 +29,7 @@ public class ErrorHandlerTest {
 
         var errorHandler = new ErrorHandler() {
             @Override
-            public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
+            public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) {
                 System.out.println("Handle error");
             }
 
