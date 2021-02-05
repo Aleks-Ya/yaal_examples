@@ -42,6 +42,9 @@ public class SessionHandlerTest {
         contexts.setHandlers(new Handler[]{rootContext, enContext, ruContext});
 
         var sessionHandler = new SessionHandler();
+        var sessionCookieConfig = sessionHandler.getSessionCookieConfig();
+        sessionCookieConfig.setPath("/");
+
         var handlerList = new HandlerList(sessionHandler, contexts);
 
         var server = new Server(0);
@@ -58,24 +61,24 @@ public class SessionHandlerTest {
                 .build();
 
         {
-            var rootUri = URI.create(baseUrl);
-            var request = HttpRequest.newBuilder().uri(rootUri).GET().build();
+            var enUri = URI.create(baseUrl + enPath);
+            var request = HttpRequest.newBuilder().uri(enUri).GET().build();
             var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             assertThat(response.statusCode(), equalTo(SUCCESS_STATUS));
             assertThat(response.body(), equalTo("Session: counter=1"));
         }
 
         {
-            var enUri = URI.create(baseUrl + enPath);
-            var request = HttpRequest.newBuilder().uri(enUri).GET().build();
+            var ruUri = URI.create(baseUrl + ruPath);
+            var request = HttpRequest.newBuilder().uri(ruUri).GET().build();
             var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             assertThat(response.statusCode(), equalTo(SUCCESS_STATUS));
             assertThat(response.body(), equalTo("Session: counter=2"));
         }
 
         {
-            var ruUri = URI.create(baseUrl + ruPath);
-            var request = HttpRequest.newBuilder().uri(ruUri).GET().build();
+            var rootUri = URI.create(baseUrl);
+            var request = HttpRequest.newBuilder().uri(rootUri).GET().build();
             var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             assertThat(response.statusCode(), equalTo(SUCCESS_STATUS));
             assertThat(response.body(), equalTo("Session: counter=3"));
