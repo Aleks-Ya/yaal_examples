@@ -138,12 +138,8 @@ include 'JSE+:Core',
 include 'JEE+:Jetty',
         'JEE+:NanoHttpd',
         'JEE+:Servlet+:Servlet3',
-        'JEE+:Servlet+:Servlet4+:FileUpload',
-        'JEE+:Servlet+:Servlet4+:SendError',
-        'JEE+:Servlet+:Servlet4+:CancelByClient',
-        'JEE+:Servlet+:Servlet4+:KeepAlive',
+        'JEE+:Servlet+:Servlet4'
         'JEE+:Validation'
-
 /**
  * Spring+
  */

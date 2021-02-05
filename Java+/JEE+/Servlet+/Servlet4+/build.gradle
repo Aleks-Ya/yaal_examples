@@ -1,6 +1,0 @@
-subprojects {
-    dependencies {
-        implementation servlet4Dependency, jettyServlet10Dependency
-    }
-}
-
