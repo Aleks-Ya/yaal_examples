@@ -1,4 +1,4 @@
-package azure.bank;
+package azure.flow.authcode.web;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,7 +13,7 @@ import org.eclipse.jetty.server.session.SessionHandler;
 
 import java.io.IOException;
 
-public class BankWebApp implements AutoCloseable {
+class BankWebApp implements AutoCloseable {
     private final String authority;
     private final String redirectUriGraph;
     private final String clientId;

@@ -1,4 +1,4 @@
-package azure.bank;
+package azure.flow.authcode.web;
 
 import com.microsoft.aad.msal4j.AuthorizationRequestUrlParameters;
 import com.microsoft.aad.msal4j.Prompt;
@@ -16,9 +16,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import static azure.bank.RedirectHandler.REDIRECT_ENDPOINT;
+import static azure.flow.authcode.web.RedirectHandler.REDIRECT_ENDPOINT;
 
-public class AuthHandler extends HandlerWrapper {
+class AuthHandler extends HandlerWrapper {
     public static final String AUTH_ATTR = "AUTH";
     private static final List<String> NOT_SECURE_PATHS = List.of(REDIRECT_ENDPOINT);
     private final String authority;

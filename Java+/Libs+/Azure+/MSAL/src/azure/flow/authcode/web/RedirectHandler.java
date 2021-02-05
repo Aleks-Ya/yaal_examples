@@ -1,4 +1,4 @@
-package azure.bank;
+package azure.flow.authcode.web;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -7,9 +7,9 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 
 import java.io.IOException;
 
-import static azure.bank.AuthHandler.AUTH_ATTR;
+import static azure.flow.authcode.web.AuthHandler.AUTH_ATTR;
 
-public class RedirectHandler extends AbstractHandler {
+class RedirectHandler extends AbstractHandler {
     public static final String REDIRECT_ENDPOINT = "/redirect";
 
     @Override
