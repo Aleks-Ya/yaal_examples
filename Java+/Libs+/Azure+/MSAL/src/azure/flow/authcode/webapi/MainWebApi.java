@@ -1,14 +1,16 @@
-package azure.flow.authcode.web;
+package azure.flow.authcode.webapi;
 
 import static java.lang.String.format;
 
 /**
- * "Authentication Code Grant" flow example: Client + WebApp.
+ * "Authentication Code Grant" flow example: Client + WebApp + ApiApp.<p/>
  * Run:
- * 1. {@link Main}
- * 2. Open http://localhost:35712/info/
+ * <ol>
+ *      <li>@link Main}</li>
+ *      <li>Open http://localhost:35712/info/</li>
+ * </ol>
  */
-public class Main {
+public class MainWebApi {
     private final static String CLIENT_ID = "36922d24-27a7-4845-8978-c1935f155415";
     private final static String TENANT = "26376728-d7c9-4e0b-92b0-979740c8ac58";
     private final static String AUTHORITY = format("https://login.microsoftonline.com/%s/", TENANT);
