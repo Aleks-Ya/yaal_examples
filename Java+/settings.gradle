@@ -137,7 +137,6 @@ include 'JSE+:Core',
  */
 include 'JEE+:Jetty',
         'JEE+:NanoHttpd',
-        'JEE+:Servlet+:Servlet3',
         'JEE+:Servlet+:Servlet4'
         'JEE+:Validation'
 /**
