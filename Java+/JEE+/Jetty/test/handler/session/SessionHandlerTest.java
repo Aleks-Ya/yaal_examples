@@ -6,10 +6,6 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.session.DefaultSessionCache;
-import org.eclipse.jetty.server.session.DefaultSessionIdManager;
-import org.eclipse.jetty.server.session.NullSessionDataStore;
-import org.eclipse.jetty.server.session.SessionCache;
 import org.eclipse.jetty.server.session.SessionHandler;
 import org.junit.Test;
 
@@ -42,16 +38,13 @@ public class SessionHandlerTest {
         var ruHandler = new CountSessionHandler();
         ruContext.setHandler(ruHandler);
 
-        var sessionHandler = createSessionHandler();
-
         var contexts = new ContextHandlerCollection();
         contexts.setHandlers(new Handler[]{rootContext, enContext, ruContext});
 
+        var sessionHandler = new SessionHandler();
         var handlerList = new HandlerList(sessionHandler, contexts);
 
         var server = new Server(0);
-        var sessionIdManager = new DefaultSessionIdManager(server);
-        server.setSessionIdManager(sessionIdManager);
         server.setHandler(handlerList);
         server.start();
 
@@ -94,16 +87,7 @@ public class SessionHandlerTest {
 
         assertThat(rootSessionId, equalTo(enSessionId));
         assertThat(rootSessionId, equalTo(ruSessionId));
-        server.stop();
-    }
 
-    private static SessionHandler createSessionHandler() {
-        var sessionHandler = new SessionHandler();
-        SessionCache sessionCache = new DefaultSessionCache(sessionHandler);
-        var sessionDataStore = new NullSessionDataStore();
-        sessionCache.setSessionDataStore(sessionDataStore);
-        sessionHandler.setSessionCache(sessionCache);
-        sessionHandler.setHttpOnly(true);
-        return sessionHandler;
+        server.stop();
     }
 }
