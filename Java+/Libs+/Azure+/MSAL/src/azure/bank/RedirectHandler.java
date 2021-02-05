@@ -7,24 +7,18 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 
 import java.io.IOException;
 
-public class RedirectHandler extends AbstractHandler {
-    private String authCode;
+import static azure.bank.AuthHandler.AUTH_ATTR;
 
-    RedirectHandler() {
-    }
+public class RedirectHandler extends AbstractHandler {
+    public static final String REDIRECT_ENDPOINT = "/redirect";
 
     @Override
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        authCode = request.getParameter("code");
+        String authCode = request.getParameter("code");
+        request.getSession().setAttribute(AUTH_ATTR, authCode);
         System.out.println("Auth Code: " + authCode);
-        response.setContentType("text/html;charset=utf-8");
-        response.setStatus(HttpServletResponse.SC_OK);
-        baseRequest.setHandled(true);
-        response.getWriter().printf("<h1>Auth Code: %s</h1>", authCode);
-    }
-
-    public String getAuthCode() {
-        return authCode;
+        var targetPath = request.getParameter("state");
+        response.sendRedirect(targetPath);
     }
 }

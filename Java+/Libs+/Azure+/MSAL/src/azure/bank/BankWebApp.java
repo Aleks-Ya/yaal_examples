@@ -56,7 +56,6 @@ public class BankWebApp implements AutoCloseable {
 
     public void start() throws Exception {
         var rootContext = new ContextHandler();
-        rootContext.setHandler(new AuthenticateHandler(authority, redirectUriGraph, clientId));
 
         var bankInfoContext = new ContextHandler("/info");
         bankInfoContext.setHandler(new ShowMessageHandler("Info"));
@@ -67,8 +66,14 @@ public class BankWebApp implements AutoCloseable {
         var contexts = new ContextHandlerCollection();
         contexts.setHandlers(new Handler[]{rootContext, bankInfoContext, redirectContext});
 
+        var authFilter = new AuthHandler(authority, redirectUriGraph, clientId);
+        authFilter.setHandler(contexts);
+
         var sessionHandler = new SessionHandler();
-        var handlerList = new HandlerList(sessionHandler, contexts);
+        var sessionCookieConfig = sessionHandler.getSessionCookieConfig();
+        sessionCookieConfig.setPath("/");
+
+        var handlerList = new HandlerList(sessionHandler, authFilter);
 
         server.setHandler(handlerList);
         server.start();
