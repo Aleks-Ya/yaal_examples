@@ -1,0 +1,17 @@
+@startuml
+
+title Client + WebApp scenario
+
+autonumber
+autoactivate on
+
+Client -> WebApp: Resource request\nhttp://localhost:35712/info
+WebApp -> AzureAd: Redirect to authentication\nhttps://login.microsoftonline.com
+AzureAd -> AzureAd: Authenticate client
+AzureAd <-- AzureAd: Auth Code
+WebApp <-- AzureAd: Redirect with Auth Code\nhttp://localhost:35712/redirect
+WebApp -> WebApp: Get Resource
+WebApp <-- WebApp: HTML
+Client <-- WebApp: Resource
+
+@enduml

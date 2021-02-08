@@ -4,13 +4,13 @@ import static java.lang.String.format;
 
 /**
  * "Authentication Code Grant" flow example: Client + WebApp.<p/>
+ * <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-app-types?WT.mc_id=Portal-Microsoft_AAD_RegisteredApps#web-apps">Docs</a><p/>
  * Run:
  * <ol>
  *      <li>@link Main}</li>
- *      <li>Open http://localhost:35712/info/</li>
+ *      <li>Open <a href="http://localhost:35712/info/"/>http://localhost:35712/info/</a></li>
  * </ol>
  */
-
 public class MainWeb {
     private final static String CLIENT_ID = "36922d24-27a7-4845-8978-c1935f155415";
     private final static String TENANT = "26376728-d7c9-4e0b-92b0-979740c8ac58";
