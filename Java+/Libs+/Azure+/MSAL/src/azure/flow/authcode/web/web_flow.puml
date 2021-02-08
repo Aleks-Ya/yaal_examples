@@ -10,7 +10,11 @@ WebApp -> AzureAd: Redirect to authentication\nhttps://login.microsoftonline.com
 AzureAd -> AzureAd: Authenticate client
 AzureAd <-- AzureAd: Auth Code
 WebApp <-- AzureAd: Redirect with Auth Code\nhttp://localhost:35712/redirect
-WebApp -> WebApp: Get Resource
+WebApp -> AzureAd: Get Access Token by Auth Code
+WebApp <-- AzureAd: Access Token
+WebApp -> WebApp: Prepare Resource
+WebApp -> AzureGraph: Get User info\nhttps://graph.microsoft.com/v1.0/me
+WebApp <-- AzureGraph: User info
 WebApp <-- WebApp: HTML
 Client <-- WebApp: Resource
 

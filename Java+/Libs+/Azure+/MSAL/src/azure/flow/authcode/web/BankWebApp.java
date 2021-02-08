@@ -11,15 +11,19 @@ class BankWebApp implements AutoCloseable {
     private final String authority;
     private final String redirectUri;
     private final String clientId;
+    private final String clientSecret;
     private final Server server;
     private final int port;
+    private final String graphEndpoint;
 
-    public BankWebApp(int port, String authority, String redirectUri, String clientId) {
+    public BankWebApp(int port, String authority, String redirectUri, String clientId, String clientSecret, String graphEndpoint) {
         this.port = port;
         this.authority = authority;
         this.redirectUri = redirectUri;
         this.clientId = clientId;
         server = new Server(port);
+        this.clientSecret = clientSecret;
+        this.graphEndpoint = graphEndpoint;
     }
 
     @Override
@@ -35,10 +39,10 @@ class BankWebApp implements AutoCloseable {
         var rootContext = new ContextHandler();
 
         var bankInfoContext = new ContextHandler("/info");
-        bankInfoContext.setHandler(new InfoHandler("Info"));
+        bankInfoContext.setHandler(new InfoHandler("Info", graphEndpoint));
 
         var redirectContext = new ContextHandler("/redirect");
-        redirectContext.setHandler(new RedirectHandler());
+        redirectContext.setHandler(new RedirectHandler(authority, clientId, clientSecret, redirectUri));
 
         var contexts = new ContextHandlerCollection();
         contexts.setHandlers(new Handler[]{rootContext, bankInfoContext, redirectContext});

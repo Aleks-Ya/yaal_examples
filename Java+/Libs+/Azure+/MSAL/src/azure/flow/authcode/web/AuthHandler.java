@@ -20,6 +20,7 @@ import static azure.flow.authcode.web.RedirectHandler.REDIRECT_ENDPOINT;
 
 class AuthHandler extends HandlerWrapper {
     public static final String AUTH_ATTR = "AUTH";
+    public static final String ACCESS_TOKEN_ATTR = "ACCESS_TOKEN";
     private static final List<String> NOT_SECURE_PATHS = List.of(REDIRECT_ENDPOINT);
     private final String authority;
     private final String redirectUri;
@@ -42,7 +43,7 @@ class AuthHandler extends HandlerWrapper {
             super.handle(target, baseRequest, request, response);
         } else {
             var session = request.getSession();
-            var authAttribute = session.getAttribute(AUTH_ATTR);
+            var authAttribute = session.getAttribute(ACCESS_TOKEN_ATTR);
             if (authAttribute == null) {
                 System.out.println("Need authorize session id=" + session.getId());
                 authenticate(request, response);
