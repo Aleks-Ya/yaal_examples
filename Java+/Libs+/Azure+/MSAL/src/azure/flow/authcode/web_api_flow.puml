@@ -1,6 +1,6 @@
 @startuml
 
-title "Client+WebApp" scenario
+title "Client+WebApp+WebApi" scenario
 
 autonumber
 
@@ -28,14 +28,16 @@ deactivate WebApp
 Client -> WebApp: Resource request\nhttp://localhost:35712/info
 activate WebApp
 WebApp -> WebApp: Check authentication:\nSUCCESS
-    WebApp -> WebApp: Prepare Resource
-    activate WebApp
-        WebApp -> AzureGraph: Get User info\nhttps://graph.microsoft.com/v1.0/me
-        activate AzureGraph
-        WebApp <-- AzureGraph: User info
-        deactivate AzureGraph
-    WebApp <-- WebApp: HTML
-    deactivate WebApp
+    WebApp -> AzureAd: Get Access Token for ApiApp
+    activate AzureAd
+    WebApp <-- AzureAd: Access Token ApiApp
+    deactivate AzureAd
+    WebApp -> ApiApp: Resource request
+    ApiApp -> AzureGraph: Get User info\nhttps://graph.microsoft.com/v1.0/me
+    activate AzureGraph
+    ApiApp <-- AzureGraph: User info
+    deactivate AzureGraph
+    WebApp <-- ApiApp: HTML
 Client <-- WebApp: Resource
 deactivate WebApp
 
