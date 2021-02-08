@@ -4,7 +4,7 @@ title "Client+WebApp" scenario
 
 autonumber
 
-Client -> WebApp: Resource request\nhttp://localhost:35712/info
+Client -> WebApp: Resource request\nhttp://localhost:35712/info_web_only
 activate WebApp
 WebApp -> WebApp: Check authentication:\nFAILED
 Client <-- WebApp: Redirect to authentication\nhttps://login.microsoftonline.com
@@ -22,10 +22,10 @@ activate WebApp
     activate AzureAd
     WebApp <-- AzureAd: Access Token
     deactivate AzureAd
-Client <-- WebApp: Redirect to\nhttp://localhost:35712/info
+Client <-- WebApp: Redirect to\nhttp://localhost:35712/info_web_only
 deactivate WebApp
 
-Client -> WebApp: Resource request\nhttp://localhost:35712/info
+Client -> WebApp: Resource request\nhttp://localhost:35712/info_web_only
 activate WebApp
 WebApp -> WebApp: Check authentication:\nSUCCESS
     WebApp -> WebApp: Prepare Resource

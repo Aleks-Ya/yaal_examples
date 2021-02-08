@@ -39,8 +39,13 @@ class SessionHelper {
         return state;
     }
 
-    public static Optional<String> getAccessToken(HttpServletRequest request) {
+    public static Optional<String> getAccessTokenOptional(HttpServletRequest request) {
         return Optional.ofNullable((String) request.getSession().getAttribute(ACCESS_TOKEN_ATTR));
+    }
+
+    public static String getAccessTokenOrThrow(HttpServletRequest request) {
+        return getAccessTokenOptional(request)
+                .orElseThrow(() -> new IllegalStateException("Access token absents in session"));
     }
 
     public static void setAccessToken(HttpServletRequest request, String accessToken) {

@@ -41,8 +41,8 @@ class AuthHandler extends HandlerWrapper {
             super.handle(target, baseRequest, request, response);
         } else {
             var session = request.getSession();
-            var authAttribute = SessionHelper.getAccessToken(request);
-            if (authAttribute.isEmpty()) {
+            var accessTokenOpt = SessionHelper.getAccessTokenOptional(request);
+            if (accessTokenOpt.isEmpty()) {
                 System.out.println("Need authorize session id=" + session.getId());
                 authenticate(request, response);
             } else {

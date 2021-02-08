@@ -7,7 +7,7 @@ import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.session.SessionHandler;
 
-class WebApp implements AutoCloseable {
+class ApiApp implements AutoCloseable {
     private final String authority;
     private final String redirectUri;
     private final String clientId;
@@ -16,7 +16,7 @@ class WebApp implements AutoCloseable {
     private final int port;
     private final String meGraphEndpoint;
 
-    public WebApp(int port, String authority, String redirectUri, String clientId, String clientSecret,
+    public ApiApp(int port, String authority, String redirectUri, String clientId, String clientSecret,
                   String meGraphEndpoint) {
         this.port = port;
         this.authority = authority;
@@ -39,17 +39,14 @@ class WebApp implements AutoCloseable {
     public void start() throws Exception {
         var rootContext = new ContextHandler();
 
-        var infoWebOnlyContext = new ContextHandler("/info_web_only");
-        infoWebOnlyContext.setHandler(new InfoHandler("Info Web Only", meGraphEndpoint));
-
-        var infoWebAndApiContext = new ContextHandler("/info_web_and_api");
-        infoWebAndApiContext.setHandler(new InfoHandler("Info Web And Api", meGraphEndpoint));
+        var infoContext = new ContextHandler("/me");
+        infoContext.setHandler(new InfoHandler("Info ME", meGraphEndpoint));
 
         var redirectContext = new ContextHandler("/redirect");
         redirectContext.setHandler(new RedirectHandler(authority, clientId, clientSecret, redirectUri));
 
         var contexts = new ContextHandlerCollection();
-        contexts.setHandlers(new Handler[]{rootContext, infoWebOnlyContext, infoWebAndApiContext, redirectContext});
+        contexts.setHandlers(new Handler[]{rootContext, infoContext, redirectContext});
 
         var authFilter = new AuthHandler(authority, redirectUri, clientId);
         authFilter.setHandler(contexts);
