@@ -55,10 +55,10 @@ class AuthHandler extends HandlerWrapper {
     private void authenticate(HttpServletRequest request, HttpServletResponse response) throws IOException {
         var targetUrlPath = request.getPathInfo();
         var nonce = UUID.randomUUID().toString();
-        var state = SessionHelper.saveState(request, targetUrlPath);
+        var stateId = SessionHelper.saveState(request, targetUrlPath, nonce);
 //        var claims = request.getParameter("claims");
         var claims = USER_COUNTRY_CLAIM;
-        var authorizationCodeUrl = getAuthorizationCodeUrl(claims, "User.Read", redirectUri, state, nonce);
+        var authorizationCodeUrl = getAuthorizationCodeUrl(claims, "User.Read", redirectUri, stateId, nonce);
         response.sendRedirect(authorizationCodeUrl);
     }
 
@@ -74,6 +74,8 @@ class AuthHandler extends HandlerWrapper {
                 .nonce(nonce)
 //                .claimsChallenge(claims)
                 .build();
-        return pca.getAuthorizationRequestUrl(parameters).toString();
+        var authorizationUrl = pca.getAuthorizationRequestUrl(parameters).toString();
+        System.out.println("Authorization URL: " + authorizationUrl);
+        return authorizationUrl;
     }
 }

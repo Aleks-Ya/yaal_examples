@@ -14,14 +14,15 @@ class SessionHelper {
     private static final String STATES_ATTR = "STATES";
     private static final String ACCESS_TOKEN_ATTR = "ACCESS_TOKEN";
 
-    public static String saveState(HttpServletRequest request, String targetUrlPath) {
+    public static String saveState(HttpServletRequest request, String targetUrlPath, String nonce) {
         var states = (Map<String, State>) request.getSession().getAttribute(STATES_ATTR);
         if (states == null) {
             states = new HashMap<>();
             request.getSession().setAttribute(STATES_ATTR, states);
         }
         var id = UUID.randomUUID().toString();
-        states.put(id, new State(targetUrlPath));
+        states.put(id, new State(targetUrlPath, nonce));
+        System.out.println("State saved: " + id);
         return id;
     }
 

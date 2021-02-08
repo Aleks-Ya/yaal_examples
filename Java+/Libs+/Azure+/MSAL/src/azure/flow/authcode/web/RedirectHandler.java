@@ -4,6 +4,7 @@ import com.microsoft.aad.msal4j.AuthorizationCodeParameters;
 import com.microsoft.aad.msal4j.ClientCredentialFactory;
 import com.microsoft.aad.msal4j.ConfidentialClientApplication;
 import com.microsoft.aad.msal4j.IAuthenticationResult;
+import com.nimbusds.jwt.JWTParser;
 import com.nimbusds.oauth2.sdk.AuthorizationCode;
 import com.nimbusds.openid.connect.sdk.AuthenticationErrorResponse;
 import com.nimbusds.openid.connect.sdk.AuthenticationResponse;
@@ -18,8 +19,11 @@ import javax.naming.ServiceUnavailableException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.text.ParseException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+
+import static java.lang.String.format;
 
 class RedirectHandler extends AbstractHandler {
     public static final String REDIRECT_ENDPOINT = "/redirect";
@@ -45,11 +49,14 @@ class RedirectHandler extends AbstractHandler {
             if (isAuthenticationSuccessful(authResponse)) {
                 var oidcResponse = (AuthenticationSuccessResponse) authResponse;
                 var authResult = getAuthResultByAuthCode(oidcResponse.getAuthorizationCode(), redirectUri);
+                var idToken = authResult.accessToken();
+                var nonce = getNonceClaimValueFromIdToken(idToken);
+//                validateNonce(request, nonce); TODO enable nonce validation
                 var accessToken = authResult.accessToken();
                 SessionHelper.setAccessToken(request, accessToken);
             } else {
                 var oidcResponse = (AuthenticationErrorResponse) authResponse;
-                throw new IOException(String.format("Request for auth code failed: %s - %s",
+                throw new IOException(format("Request for auth code failed: %s - %s",
                         oidcResponse.getErrorObject().getCode(),
                         oidcResponse.getErrorObject().getDescription()));
             }
@@ -58,6 +65,18 @@ class RedirectHandler extends AbstractHandler {
         }
         var state = SessionHelper.getState(request);
         response.sendRedirect(state.getTargetUrlPath());
+    }
+
+    private String getNonceClaimValueFromIdToken(String idToken) throws ParseException {
+        return (String) JWTParser.parse(idToken).getHeader().getCustomParam("nonce");
+    }
+
+    private void validateNonce(HttpServletRequest request, String actNonce) throws Exception {
+        var expNonce = SessionHelper.getState(request).getNonce();
+        if (actNonce == null || actNonce.isEmpty() || expNonce == null || !expNonce.equals(actNonce)) {
+            throw new Exception(format("Wrong nonce (exp=%s, actual=%s)", expNonce, actNonce));
+        }
+        System.out.println("Nonce is correct: " + actNonce);
     }
 
     private static boolean isAuthenticationSuccessful(AuthenticationResponse authResponse) {
