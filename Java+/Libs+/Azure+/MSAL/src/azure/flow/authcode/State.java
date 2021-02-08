@@ -1,4 +1,4 @@
-package azure.flow.authcode.web;
+package azure.flow.authcode;
 
 public class State {
     private final String targetUrlPath;

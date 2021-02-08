@@ -1,4 +1,4 @@
-package azure.flow.authcode.web;
+package azure.flow.authcode;
 
 import com.microsoft.aad.msal4j.AuthorizationRequestUrlParameters;
 import com.microsoft.aad.msal4j.Prompt;
@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import static azure.flow.authcode.web.RedirectHandler.REDIRECT_ENDPOINT;
+import static azure.flow.authcode.RedirectHandler.REDIRECT_ENDPOINT;
 
 class AuthHandler extends HandlerWrapper {
     private static final List<String> NOT_SECURE_PATHS = List.of(REDIRECT_ENDPOINT);

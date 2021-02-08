@@ -1,4 +1,4 @@
-package azure.flow.authcode.web;
+package azure.flow.authcode;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

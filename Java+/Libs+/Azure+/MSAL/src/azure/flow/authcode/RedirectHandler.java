@@ -1,4 +1,4 @@
-package azure.flow.authcode.web;
+package azure.flow.authcode;
 
 import com.microsoft.aad.msal4j.AuthorizationCodeParameters;
 import com.microsoft.aad.msal4j.ClientCredentialFactory;

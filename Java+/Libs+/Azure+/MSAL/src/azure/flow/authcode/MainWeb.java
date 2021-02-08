@@ -1,4 +1,4 @@
-package azure.flow.authcode.web;
+package azure.flow.authcode;
 
 import static java.lang.String.format;
 
@@ -21,9 +21,9 @@ public class MainWeb {
     private final static String GRAPH_ENDPOINT = "https://graph.microsoft.com/";
 
     public static void main(String[] args) throws Exception {
-        try (var bankWebApp = new BankWebApp(WEB_APP_PORT, AUTHORITY, REDIRECT_URL, CLIENT_ID, CLIENT_SECRET, GRAPH_ENDPOINT)) {
-            bankWebApp.start();
-            var baseUrl = bankWebApp.getBaseUrl();
+        try (var webApp = new WebApp(WEB_APP_PORT, AUTHORITY, REDIRECT_URL, CLIENT_ID, CLIENT_SECRET, GRAPH_ENDPOINT)) {
+            webApp.start();
+            var baseUrl = webApp.getBaseUrl();
             System.out.println(baseUrl);
             Thread.sleep(120000);
         }
