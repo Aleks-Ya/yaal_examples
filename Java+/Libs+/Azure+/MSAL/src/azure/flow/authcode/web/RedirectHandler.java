@@ -21,8 +21,6 @@ import java.net.URI;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import static azure.flow.authcode.web.AuthHandler.ACCESS_TOKEN_ATTR;
-
 class RedirectHandler extends AbstractHandler {
     public static final String REDIRECT_ENDPOINT = "/redirect";
     private final String authority;
@@ -48,8 +46,7 @@ class RedirectHandler extends AbstractHandler {
                 var oidcResponse = (AuthenticationSuccessResponse) authResponse;
                 var authResult = getAuthResultByAuthCode(oidcResponse.getAuthorizationCode(), redirectUri);
                 var accessToken = authResult.accessToken();
-                System.out.println("Access Token: " + accessToken);
-                request.getSession().setAttribute(ACCESS_TOKEN_ATTR, accessToken);
+                SessionHelper.setAccessToken(request, accessToken);
             } else {
                 var oidcResponse = (AuthenticationErrorResponse) authResponse;
                 throw new IOException(String.format("Request for auth code failed: %s - %s",
@@ -59,8 +56,8 @@ class RedirectHandler extends AbstractHandler {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        var targetPath = request.getParameter("state");
-        response.sendRedirect(targetPath);
+        var state = SessionHelper.getState(request);
+        response.sendRedirect(state.getTargetUrlPath());
     }
 
     private static boolean isAuthenticationSuccessful(AuthenticationResponse authResponse) {
@@ -92,9 +89,6 @@ class RedirectHandler extends AbstractHandler {
         if (result == null) {
             throw new ServiceUnavailableException("authentication result was null");
         }
-
-//        SessionManagementHelper.storeTokenCacheInSession(httpServletRequest, app.tokenCache().serialize());
-
         return result;
     }
 

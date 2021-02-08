@@ -19,8 +19,6 @@ import java.util.UUID;
 import static azure.flow.authcode.web.RedirectHandler.REDIRECT_ENDPOINT;
 
 class AuthHandler extends HandlerWrapper {
-    public static final String AUTH_ATTR = "AUTH";
-    public static final String ACCESS_TOKEN_ATTR = "ACCESS_TOKEN";
     private static final List<String> NOT_SECURE_PATHS = List.of(REDIRECT_ENDPOINT);
     private final String authority;
     private final String redirectUri;
@@ -43,8 +41,8 @@ class AuthHandler extends HandlerWrapper {
             super.handle(target, baseRequest, request, response);
         } else {
             var session = request.getSession();
-            var authAttribute = session.getAttribute(ACCESS_TOKEN_ATTR);
-            if (authAttribute == null) {
+            var authAttribute = SessionHelper.getAccessToken(request);
+            if (authAttribute.isEmpty()) {
                 System.out.println("Need authorize session id=" + session.getId());
                 authenticate(request, response);
             } else {
@@ -55,8 +53,9 @@ class AuthHandler extends HandlerWrapper {
     }
 
     private void authenticate(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        var state = request.getPathInfo();
+        var targetUrlPath = request.getPathInfo();
         var nonce = UUID.randomUUID().toString();
+        var state = SessionHelper.saveState(request, targetUrlPath);
 //        var claims = request.getParameter("claims");
         var claims = USER_COUNTRY_CLAIM;
         var authorizationCodeUrl = getAuthorizationCodeUrl(claims, "User.Read", redirectUri, state, nonce);

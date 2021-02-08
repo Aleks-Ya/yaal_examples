@@ -11,9 +11,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import static azure.flow.authcode.web.AuthHandler.ACCESS_TOKEN_ATTR;
-import static azure.flow.authcode.web.AuthHandler.AUTH_ATTR;
-
 class InfoHandler extends AbstractHandler {
     private final String message;
     private final String graphEndpoint;
@@ -29,7 +26,8 @@ class InfoHandler extends AbstractHandler {
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);
-        var accessToken = (String) request.getSession().getAttribute(ACCESS_TOKEN_ATTR);
+        var accessToken = SessionHelper.getAccessToken(request)
+                .orElseThrow(() -> new IllegalStateException("Access token absents"));
         var me = getUserInfoFromGraph(accessToken);
         response.getWriter().printf("<h1>%s</h1><p>%s</p>", message, me);
     }
