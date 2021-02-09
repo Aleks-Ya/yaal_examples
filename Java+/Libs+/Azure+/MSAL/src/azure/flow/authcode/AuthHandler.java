@@ -12,13 +12,14 @@ import org.eclipse.jetty.server.handler.HandlerWrapper;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import static azure.flow.authcode.RedirectHandler.REDIRECT_ENDPOINT;
 
 class AuthHandler extends HandlerWrapper {
+    public static final String GRAPH_USER_READ_SCOPE = "https://graph.microsoft.com/User.Read";
     private static final List<String> NOT_SECURE_PATHS = List.of(REDIRECT_ENDPOINT);
     private final String authority;
     private final String redirectUri;
@@ -58,16 +59,17 @@ class AuthHandler extends HandlerWrapper {
         var stateId = SessionHelper.saveState(request, targetUrlPath, nonce);
 //        var claims = request.getParameter("claims");
         var claims = USER_COUNTRY_CLAIM;
-        var authorizationCodeUrl = getAuthorizationCodeUrl(claims, "User.Read", redirectUri, stateId, nonce);
+//        var scopes = Set.of(GRAPH_USER_READ_SCOPE, WEB_APP_SCOPE);
+        var scopes = Set.of(GRAPH_USER_READ_SCOPE);
+        var authorizationCodeUrl = getAuthorizationCodeUrl(claims, scopes, redirectUri, stateId, nonce);
         response.sendRedirect(authorizationCodeUrl);
     }
 
-    private String getAuthorizationCodeUrl(String claims, String scope, String registeredRedirectURL, String state, String nonce)
+    private String getAuthorizationCodeUrl(String claims, Set<String> scopes, String registeredRedirectURL, String state, String nonce)
             throws MalformedURLException {
-        var updatedScopes = scope == null ? "" : scope;
         var pca = PublicClientApplication.builder(clientId).authority(authority).build();
         var parameters = AuthorizationRequestUrlParameters
-                .builder(registeredRedirectURL, Collections.singleton(updatedScopes))
+                .builder(registeredRedirectURL, scopes)
                 .responseMode(ResponseMode.QUERY)
                 .prompt(Prompt.SELECT_ACCOUNT)
                 .state(state)

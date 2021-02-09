@@ -17,8 +17,8 @@ public class Main {
     private final static String API_APP_AUTHORITY = format("https://login.microsoftonline.com/%s/oauth2/v2.0/token", API_APP_TENANT);
 
     private final static int WEB_APP_PORT = 35712;
-    private final static String WEB_APP_CLIENT_ID = "36922d24-27a7-4845-8978-c1935f155415";
-    private final static String WEB_APP_CLIENT_SECRET = "8V3-KNVRb.He2RY~L08e37CBhB5EUE.V20";
+    private final static String WEB_APP_CLIENT_ID = "89f6d017-0ac1-413a-9e05-91ea9c8ada6a";
+    private final static String WEB_APP_CLIENT_SECRET = "M44g6_bolrpG_tkW2jr_LZEG~z.dw538a7";
     private final static String WEB_APP_TENANT = API_APP_TENANT;
     private final static String WEB_APP_AUTHORITY = format("https://login.microsoftonline.com/%s/", WEB_APP_TENANT);
     private final static String WEB_APP_REDIRECT_URL = "http://localhost:35712/redirect";
@@ -26,10 +26,10 @@ public class Main {
     private final static String ME_GRAPH_ENDPOINT = "https://graph.microsoft.com/v1.0/me";
 
     public static void main(String[] args) throws Exception {
-        try (var apiApp = new ApiApp(API_APP_PORT, WEB_APP_AUTHORITY, WEB_APP_REDIRECT_URL, WEB_APP_CLIENT_ID,
+        try (var apiApp = new ApiApp(API_APP_PORT, WEB_APP_AUTHORITY, WEB_APP_CLIENT_ID,
                 WEB_APP_CLIENT_SECRET, ME_GRAPH_ENDPOINT);
              var webApp = new WebApp(WEB_APP_PORT, WEB_APP_AUTHORITY, WEB_APP_REDIRECT_URL, WEB_APP_CLIENT_ID,
-                     WEB_APP_CLIENT_SECRET, ME_GRAPH_ENDPOINT)) {
+                     WEB_APP_CLIENT_SECRET, ME_GRAPH_ENDPOINT, API_APP_AUTHORITY, apiApp.getBaseUrl())) {
             apiApp.start();
             webApp.start();
             var baseUrl = webApp.getBaseUrl();

@@ -8,23 +8,28 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.session.SessionHandler;
 
 class WebApp implements AutoCloseable {
+    public static final String WEB_APP_SCOPE = "api://msal-web-app-id/Read.ME";
     private final String authority;
+    private final String apiAppAuthority;
+    private final String apiAppUrl;
     private final String redirectUri;
-    private final String clientId;
-    private final String clientSecret;
+    private final String webAppClientId;
+    private final String webAppClientSecret;
     private final Server server;
     private final int port;
     private final String meGraphEndpoint;
 
-    public WebApp(int port, String authority, String redirectUri, String clientId, String clientSecret,
-                  String meGraphEndpoint) {
+    public WebApp(int port, String authority, String redirectUri, String webAppClientId, String webAppClientSecret,
+                  String meGraphEndpoint, String apiAppAuthority, String apiAppUrl) {
         this.port = port;
         this.authority = authority;
         this.redirectUri = redirectUri;
-        this.clientId = clientId;
+        this.webAppClientId = webAppClientId;
         server = new Server(port);
-        this.clientSecret = clientSecret;
+        this.webAppClientSecret = webAppClientSecret;
         this.meGraphEndpoint = meGraphEndpoint;
+        this.apiAppAuthority = apiAppAuthority;
+        this.apiAppUrl = apiAppUrl;
     }
 
     @Override
@@ -43,15 +48,16 @@ class WebApp implements AutoCloseable {
         infoWebOnlyContext.setHandler(new InfoHandler("Info Web Only", meGraphEndpoint));
 
         var infoWebAndApiContext = new ContextHandler("/info_web_and_api");
-        infoWebAndApiContext.setHandler(new InfoHandler("Info Web And Api", meGraphEndpoint));
+        infoWebAndApiContext.setHandler(new ApiHandler("Info Web And Api", meGraphEndpoint, webAppClientId,
+                webAppClientSecret, apiAppAuthority, apiAppUrl));
 
         var redirectContext = new ContextHandler("/redirect");
-        redirectContext.setHandler(new RedirectHandler(authority, clientId, clientSecret, redirectUri));
+        redirectContext.setHandler(new RedirectHandler(authority, webAppClientId, webAppClientSecret, redirectUri));
 
         var contexts = new ContextHandlerCollection();
         contexts.setHandlers(new Handler[]{rootContext, infoWebOnlyContext, infoWebAndApiContext, redirectContext});
 
-        var authFilter = new AuthHandler(authority, redirectUri, clientId);
+        var authFilter = new AuthHandler(authority, redirectUri, webAppClientId);
         authFilter.setHandler(contexts);
 
         var sessionHandler = new SessionHandler();
