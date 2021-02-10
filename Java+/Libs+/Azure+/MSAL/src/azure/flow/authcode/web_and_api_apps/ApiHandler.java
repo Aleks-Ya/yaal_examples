@@ -1,4 +1,4 @@
-package azure.flow.authcode;
+package azure.flow.authcode.web_and_api_apps;
 
 import com.microsoft.aad.msal4j.ClientCredentialFactory;
 import com.microsoft.aad.msal4j.ConfidentialClientApplication;
@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
-import static azure.flow.authcode.ApiApp.API_APP_SCOPE;
+import static azure.flow.authcode.web_and_api_apps.ApiApp.API_APP_SCOPE;
 
 class ApiHandler extends AbstractHandler {
     private final String message;

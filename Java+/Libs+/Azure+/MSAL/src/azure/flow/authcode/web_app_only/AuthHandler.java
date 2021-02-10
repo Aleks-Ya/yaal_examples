@@ -1,4 +1,4 @@
-package azure.flow.authcode;
+package azure.flow.authcode.web_app_only;
 
 import com.microsoft.aad.msal4j.AuthorizationRequestUrlParameters;
 import com.microsoft.aad.msal4j.Prompt;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import static azure.flow.authcode.RedirectHandler.REDIRECT_ENDPOINT;
+import static azure.flow.authcode.web_and_api_apps.RedirectHandler.REDIRECT_ENDPOINT;
 
 class AuthHandler extends HandlerWrapper {
     public static final String GRAPH_USER_READ_SCOPE = "https://graph.microsoft.com/User.Read";

@@ -1,4 +1,4 @@
-package azure.flow.authcode;
+package azure.flow.authcode.web_app_only;
 
 import static java.lang.String.format;
 

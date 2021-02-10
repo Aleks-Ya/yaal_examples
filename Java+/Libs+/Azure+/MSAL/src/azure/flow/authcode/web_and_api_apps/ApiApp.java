@@ -1,4 +1,4 @@
-package azure.flow.authcode;
+package azure.flow.authcode.web_and_api_apps;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;

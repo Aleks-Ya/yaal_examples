@@ -1,5 +1,10 @@
-package azure.flow.authcode;
+package azure.flow.authcode.web_app_only;
 
+import com.microsoft.aad.msal4j.ClientCredentialFactory;
+import com.microsoft.aad.msal4j.ConfidentialClientApplication;
+import com.microsoft.aad.msal4j.IAuthenticationResult;
+import com.microsoft.aad.msal4j.OnBehalfOfParameters;
+import com.microsoft.aad.msal4j.UserAssertion;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
@@ -10,30 +15,58 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
-class InfoHandler extends AbstractHandler {
+import static azure.flow.authcode.web_and_api_apps.ApiApp.API_APP_SCOPE;
+
+class ApiHandler extends AbstractHandler {
     private final String message;
     private final String meGraphEndpoint;
+    private final String webAppClientId;
+    private final String webAppClientSecret;
+    private final String apiAppAuthority;
+    private final String apiAppUrl;
 
-    InfoHandler(String message, String meGraphEndpoint) {
+    ApiHandler(String message, String meGraphEndpoint, String webAppClientId, String webAppClientSecret,
+               String apiAppAuthority, String apiAppUrl) {
         this.message = message;
         this.meGraphEndpoint = meGraphEndpoint;
+        this.webAppClientId = webAppClientId;
+        this.webAppClientSecret = webAppClientSecret;
+        this.apiAppAuthority = apiAppAuthority;
+        this.apiAppUrl = apiAppUrl;
     }
 
     @Override
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        var clientCredential = ClientCredentialFactory.createFromSecret(webAppClientSecret);
+        var app = ConfidentialClientApplication.builder(webAppClientId, clientCredential)
+                .authority(apiAppAuthority)
+                .build();
+        var scopes = Set.of(API_APP_SCOPE);
+        var userAccessToken = SessionHelper.getAccessTokenOrThrow(request);
+        var userAssertion = new UserAssertion(userAccessToken);
+        var params = OnBehalfOfParameters.builder(scopes, userAssertion).build();
+        IAuthenticationResult result;
+        try {
+            result = app.acquireToken(params).get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+        var apiAccessToken = result.accessToken();
+
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);
-        var accessToken = SessionHelper.getAccessTokenOrThrow(request);
-        var me = getUserInfoFromGraph(accessToken);
+        var me = getDataFromApiApp(apiAccessToken);
         response.getWriter().printf("<h1>%s</h1><p>%s</p>", message, me);
     }
 
-    private String getUserInfoFromGraph(String accessToken) throws IOException {
+    private String getDataFromApiApp(String accessToken) throws IOException {
         // Microsoft Graph user endpoint
-        var url = new URL(meGraphEndpoint);
+        var url = new URL(apiAppUrl);
         var conn = (HttpURLConnection) url.openConnection();
 
         // Set the appropriate header fields in the request header.
