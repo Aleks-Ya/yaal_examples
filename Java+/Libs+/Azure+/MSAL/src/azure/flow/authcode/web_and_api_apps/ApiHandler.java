@@ -1,5 +1,6 @@
 package azure.flow.authcode.web_and_api_apps;
 
+import azure.flow.authcode.common.SessionHelper;
 import com.microsoft.aad.msal4j.ClientCredentialFactory;
 import com.microsoft.aad.msal4j.ConfidentialClientApplication;
 import com.microsoft.aad.msal4j.IAuthenticationResult;

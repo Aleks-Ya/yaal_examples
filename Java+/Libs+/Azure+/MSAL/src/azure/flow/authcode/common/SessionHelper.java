@@ -1,4 +1,4 @@
-package azure.flow.authcode.web_and_api_apps;
+package azure.flow.authcode.common;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -9,7 +9,7 @@ import java.util.UUID;
 
 import static java.lang.String.format;
 
-class SessionHelper {
+public class SessionHelper {
     private static final String STATE_REQUEST_PARAM = "state";
     private static final String STATES_ATTR = "STATES";
     private static final String ACCESS_TOKEN_ATTR = "ACCESS_TOKEN";

@@ -1,5 +1,6 @@
-package azure.flow.authcode.web_and_api_apps;
+package azure.flow.authcode.common;
 
+import azure.flow.authcode.common.SessionHelper;
 import com.microsoft.aad.msal4j.AuthorizationCodeParameters;
 import com.microsoft.aad.msal4j.ClientCredentialFactory;
 import com.microsoft.aad.msal4j.ConfidentialClientApplication;
@@ -25,14 +26,14 @@ import java.util.concurrent.Future;
 
 import static java.lang.String.format;
 
-class RedirectHandler extends AbstractHandler {
+public class RedirectHandler extends AbstractHandler {
     public static final String REDIRECT_ENDPOINT = "/redirect";
     private final String authority;
     private final String clientId;
     private final String clientSecret;
     private final String redirectUri;
 
-    RedirectHandler(String authority, String clientId, String clientSecret, String redirectUri) {
+    public RedirectHandler(String authority, String clientId, String clientSecret, String redirectUri) {
         this.authority = authority;
         this.clientId = clientId;
         this.clientSecret = clientSecret;

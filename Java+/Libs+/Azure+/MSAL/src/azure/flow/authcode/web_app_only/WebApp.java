@@ -1,11 +1,17 @@
 package azure.flow.authcode.web_app_only;
 
+import azure.flow.authcode.common.AuthHandler;
+import azure.flow.authcode.common.RedirectHandler;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.session.SessionHandler;
+
+import java.util.Set;
+
+import static azure.flow.authcode.common.AuthHandler.GRAPH_USER_READ_SCOPE;
 
 class WebApp implements AutoCloseable {
     public static final String WEB_APP_SCOPE = "api://msal-web-app-id/Read.ME";
@@ -49,7 +55,8 @@ class WebApp implements AutoCloseable {
         var contexts = new ContextHandlerCollection();
         contexts.setHandlers(new Handler[]{rootContext, infoWebOnlyContext, redirectContext});
 
-        var authFilter = new AuthHandler(authority, redirectUri, webAppClientId);
+        var scopes = Set.of(GRAPH_USER_READ_SCOPE);
+        var authFilter = new AuthHandler(authority, redirectUri, webAppClientId, scopes);
         authFilter.setHandler(contexts);
 
         var sessionHandler = new SessionHandler();

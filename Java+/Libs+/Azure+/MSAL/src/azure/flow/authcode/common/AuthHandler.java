@@ -1,4 +1,4 @@
-package azure.flow.authcode.web_and_api_apps;
+package azure.flow.authcode.common;
 
 import com.microsoft.aad.msal4j.AuthorizationRequestUrlParameters;
 import com.microsoft.aad.msal4j.Prompt;
@@ -16,20 +16,22 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import static azure.flow.authcode.web_and_api_apps.RedirectHandler.REDIRECT_ENDPOINT;
+import static azure.flow.authcode.common.RedirectHandler.REDIRECT_ENDPOINT;
 
-class AuthHandler extends HandlerWrapper {
+public class AuthHandler extends HandlerWrapper {
     public static final String GRAPH_USER_READ_SCOPE = "https://graph.microsoft.com/User.Read";
     private static final List<String> NOT_SECURE_PATHS = List.of(REDIRECT_ENDPOINT);
     private final String authority;
     private final String redirectUri;
     private final String clientId;
+    private final Set<String> scopes;
     private static final String USER_COUNTRY_CLAIM = "ctry";
 
-    AuthHandler(String authority, String redirectUri, String clientId) {
+    public AuthHandler(String authority, String redirectUri, String clientId, Set<String> scopes) {
         this.authority = authority;
         this.redirectUri = redirectUri;
         this.clientId = clientId;
+        this.scopes = scopes;
     }
 
     @Override
@@ -60,12 +62,12 @@ class AuthHandler extends HandlerWrapper {
 //        var claims = request.getParameter("claims");
         var claims = USER_COUNTRY_CLAIM;
 //        var scopes = Set.of(GRAPH_USER_READ_SCOPE, WEB_APP_SCOPE);
-        var scopes = Set.of(GRAPH_USER_READ_SCOPE);
-        var authorizationCodeUrl = getAuthorizationCodeUrl(claims, scopes, redirectUri, stateId, nonce);
+//        var scopes = Set.of(GRAPH_USER_READ_SCOPE);
+        var authorizationCodeUrl = getAuthorizationCodeUrl(claims, redirectUri, stateId, nonce);
         response.sendRedirect(authorizationCodeUrl);
     }
 
-    private String getAuthorizationCodeUrl(String claims, Set<String> scopes, String registeredRedirectURL, String state, String nonce)
+    private String getAuthorizationCodeUrl(String claims, String registeredRedirectURL, String state, String nonce)
             throws MalformedURLException {
         var pca = PublicClientApplication.builder(clientId).authority(authority).build();
         var parameters = AuthorizationRequestUrlParameters

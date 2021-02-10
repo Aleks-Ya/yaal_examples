@@ -1,5 +1,6 @@
 package azure.flow.authcode.web_and_api_apps;
 
+import azure.flow.authcode.common.SessionHelper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
