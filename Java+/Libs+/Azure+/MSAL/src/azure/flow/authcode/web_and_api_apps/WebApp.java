@@ -60,7 +60,7 @@ class WebApp implements AutoCloseable {
         var contexts = new ContextHandlerCollection();
         contexts.setHandlers(new Handler[]{rootContext, infoWebAndApiContext, redirectContext});
 
-        var scopes = Set.of(GRAPH_USER_READ_SCOPE);
+        var scopes = Set.of(WEB_APP_SCOPE);
         var authFilter = new AuthHandler(authority, redirectUri, webAppClientId, scopes);
         authFilter.setHandler(contexts);
 

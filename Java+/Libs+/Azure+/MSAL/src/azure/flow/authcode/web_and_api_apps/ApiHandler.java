@@ -42,12 +42,24 @@ class ApiHandler extends AbstractHandler {
     @Override
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        var clientCredential = ClientCredentialFactory.createFromSecret(webAppClientSecret);
-        var app = ConfidentialClientApplication.builder(webAppClientId, clientCredential)
-                .authority(apiAppAuthority)
-                .build();
         var scopes = Set.of(API_APP_SCOPE);
         var userAccessToken = SessionHelper.getAccessTokenOrThrow(request);
+        String apiAccessToken = requestOboAccessToken(request, webAppClientId, webAppClientSecret, apiAppAuthority,
+                scopes, userAccessToken);
+        response.setContentType("text/html;charset=utf-8");
+        response.setStatus(HttpServletResponse.SC_OK);
+        baseRequest.setHandled(true);
+        var me = getDataFromApiApp(apiAccessToken);
+        response.getWriter().printf("<h1>%s</h1><p>%s</p>", message, me);
+    }
+
+    private static String requestOboAccessToken(HttpServletRequest request, String clientId, String clientSecret,
+                                                String authority, Set<String> scopes, String userAccessToken)
+            throws java.net.MalformedURLException {
+        var clientCredential = ClientCredentialFactory.createFromSecret(clientSecret);
+        var app = ConfidentialClientApplication.builder(clientId, clientCredential)
+                .authority(authority)
+                .build();
         var userAssertion = new UserAssertion(userAccessToken);
         var params = OnBehalfOfParameters.builder(scopes, userAssertion).build();
         IAuthenticationResult result;
@@ -56,13 +68,7 @@ class ApiHandler extends AbstractHandler {
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
-        var apiAccessToken = result.accessToken();
-
-        response.setContentType("text/html;charset=utf-8");
-        response.setStatus(HttpServletResponse.SC_OK);
-        baseRequest.setHandled(true);
-        var me = getDataFromApiApp(apiAccessToken);
-        response.getWriter().printf("<h1>%s</h1><p>%s</p>", message, me);
+        return result.accessToken();
     }
 
     private String getDataFromApiApp(String accessToken) throws IOException {
