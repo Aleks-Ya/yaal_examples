@@ -53,7 +53,7 @@ class ApiHandler extends AbstractHandler {
         response.getWriter().printf("<h1>%s</h1><p>%s</p>", message, me);
     }
 
-    private static String requestOboAccessToken(HttpServletRequest request, String clientId, String clientSecret,
+    public static String requestOboAccessToken(HttpServletRequest request, String clientId, String clientSecret,
                                                 String authority, Set<String> scopes, String userAccessToken)
             throws java.net.MalformedURLException {
         var clientCredential = ClientCredentialFactory.createFromSecret(clientSecret);

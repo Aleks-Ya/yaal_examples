@@ -11,11 +11,9 @@ import org.eclipse.jetty.server.session.SessionHandler;
 
 import java.util.Set;
 
-import static azure.flow.authcode.common.AuthHandler.GRAPH_USER_READ_SCOPE;
-
 class WebApp implements AutoCloseable {
     public static final String WEB_APP_SCOPE = "api://msal-web-app-id/Read.ME";
-    private final String authority;
+    private final String webAppAuthority;
     private final String apiAppAuthority;
     private final String apiAppUrl;
     private final String redirectUri;
@@ -25,10 +23,10 @@ class WebApp implements AutoCloseable {
     private final int port;
     private final String meGraphEndpoint;
 
-    public WebApp(int port, String authority, String redirectUri, String webAppClientId, String webAppClientSecret,
+    public WebApp(int port, String webAppAuthority, String redirectUri, String webAppClientId, String webAppClientSecret,
                   String meGraphEndpoint, String apiAppAuthority, String apiAppUrl) {
         this.port = port;
-        this.authority = authority;
+        this.webAppAuthority = webAppAuthority;
         this.redirectUri = redirectUri;
         this.webAppClientId = webAppClientId;
         server = new Server(port);
@@ -55,13 +53,13 @@ class WebApp implements AutoCloseable {
                 webAppClientSecret, apiAppAuthority, apiAppUrl));
 
         var redirectContext = new ContextHandler("/redirect");
-        redirectContext.setHandler(new RedirectHandler(authority, webAppClientId, webAppClientSecret, redirectUri));
+        redirectContext.setHandler(new RedirectHandler(webAppAuthority, webAppClientId, webAppClientSecret, redirectUri));
 
         var contexts = new ContextHandlerCollection();
         contexts.setHandlers(new Handler[]{rootContext, infoWebAndApiContext, redirectContext});
 
         var scopes = Set.of(WEB_APP_SCOPE);
-        var authFilter = new AuthHandler(authority, redirectUri, webAppClientId, scopes);
+        var authFilter = new AuthHandler(webAppAuthority, redirectUri, webAppClientId, scopes);
         authFilter.setHandler(contexts);
 
         var sessionHandler = new SessionHandler();

@@ -1,6 +1,5 @@
 package azure.flow.authcode.web_and_api_apps;
 
-import azure.flow.authcode.common.SessionHelper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
@@ -11,14 +10,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Set;
 
-class InfoHandler extends AbstractHandler {
+import static azure.flow.authcode.common.AuthHandler.GRAPH_USER_READ_SCOPE;
+import static azure.flow.authcode.web_and_api_apps.ApiHandler.requestOboAccessToken;
+
+class OboInfoHandler extends AbstractHandler {
     private final String message;
     private final String meGraphEndpoint;
+    private final String msGraphAuthority;
+    private final String apiAppClientId;
+    private final String apiAppClientSecret;
 
-    InfoHandler(String message, String meGraphEndpoint) {
+    OboInfoHandler(String message, String meGraphEndpoint, String msGraphAuthority, String apiAppClientId, String apiAppClientSecret) {
         this.message = message;
         this.meGraphEndpoint = meGraphEndpoint;
+        this.msGraphAuthority = msGraphAuthority;
+        this.apiAppClientId = apiAppClientId;
+        this.apiAppClientSecret = apiAppClientSecret;
     }
 
     @Override
@@ -27,7 +36,11 @@ class InfoHandler extends AbstractHandler {
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);
-        var accessToken = SessionHelper.getAccessTokenOrThrow(request);
+        var scopes = Set.of(GRAPH_USER_READ_SCOPE);
+        var authorizationHeader = request.getHeader("Authorization");
+        var userAccessToken = authorizationHeader.split(" ")[1];
+        var accessToken = requestOboAccessToken(request, apiAppClientId, apiAppClientSecret, msGraphAuthority,
+                scopes, userAccessToken);
         var me = getUserInfoFromGraph(accessToken);
         response.getWriter().printf("<h1>%s</h1><p>%s</p>", message, me);
     }
