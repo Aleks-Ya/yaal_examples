@@ -44,9 +44,6 @@ class WebApp implements AutoCloseable {
     public void start() throws Exception {
         var rootContext = new ContextHandler();
 
-        var infoWebOnlyContext = new ContextHandler("/info_web_only");
-        infoWebOnlyContext.setHandler(new InfoHandler("Info Web Only", meGraphEndpoint));
-
         var infoWebAndApiContext = new ContextHandler("/info_web_and_api");
         infoWebAndApiContext.setHandler(new ApiHandler("Info Web And Api", meGraphEndpoint, webAppClientId,
                 webAppClientSecret, apiAppAuthority, apiAppUrl));
@@ -55,7 +52,7 @@ class WebApp implements AutoCloseable {
         redirectContext.setHandler(new RedirectHandler(authority, webAppClientId, webAppClientSecret, redirectUri));
 
         var contexts = new ContextHandlerCollection();
-        contexts.setHandlers(new Handler[]{rootContext, infoWebOnlyContext, infoWebAndApiContext, redirectContext});
+        contexts.setHandlers(new Handler[]{rootContext, infoWebAndApiContext, redirectContext});
 
         var authFilter = new AuthHandler(authority, redirectUri, webAppClientId);
         authFilter.setHandler(contexts);

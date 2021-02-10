@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import static azure.flow.authcode.web_and_api_apps.RedirectHandler.REDIRECT_ENDPOINT;
+import static azure.flow.authcode.web_app_only.RedirectHandler.REDIRECT_ENDPOINT;
 
 class AuthHandler extends HandlerWrapper {
     public static final String GRAPH_USER_READ_SCOPE = "https://graph.microsoft.com/User.Read";
@@ -59,7 +59,6 @@ class AuthHandler extends HandlerWrapper {
         var stateId = SessionHelper.saveState(request, targetUrlPath, nonce);
 //        var claims = request.getParameter("claims");
         var claims = USER_COUNTRY_CLAIM;
-//        var scopes = Set.of(GRAPH_USER_READ_SCOPE, WEB_APP_SCOPE);
         var scopes = Set.of(GRAPH_USER_READ_SCOPE);
         var authorizationCodeUrl = getAuthorizationCodeUrl(claims, scopes, redirectUri, stateId, nonce);
         response.sendRedirect(authorizationCodeUrl);
