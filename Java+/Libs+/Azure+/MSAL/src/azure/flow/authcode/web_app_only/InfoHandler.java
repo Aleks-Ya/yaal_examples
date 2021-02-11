@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static azure.flow.authcode.common.SessionHelper.WEB_APP_ACCESS_TOKEN_ATTR;
+
 class InfoHandler extends AbstractHandler {
     private final String message;
     private final String meGraphEndpoint;
@@ -27,7 +29,7 @@ class InfoHandler extends AbstractHandler {
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);
-        var accessToken = SessionHelper.getAccessTokenOrThrow(request);
+        var accessToken = SessionHelper.getAccessTokenOrThrow(request, WEB_APP_ACCESS_TOKEN_ATTR);
         var me = getUserInfoFromGraph(accessToken);
         response.getWriter().printf("<h1>%s</h1><p>%s</p>", message, me);
     }

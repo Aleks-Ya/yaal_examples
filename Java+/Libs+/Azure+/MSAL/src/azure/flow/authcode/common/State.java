@@ -3,10 +3,12 @@ package azure.flow.authcode.common;
 public class State {
     private final String targetUrlPath;
     private final String nonce;
+    private final String tokenAttr;
 
-    public State(String targetUrlPath, String nonce) {
+    public State(String targetUrlPath, String nonce, String tokenAttr) {
         this.targetUrlPath = targetUrlPath;
         this.nonce = nonce;
+        this.tokenAttr = tokenAttr;
     }
 
     public String getTargetUrlPath() {
@@ -15,5 +17,9 @@ public class State {
 
     public String getNonce() {
         return nonce;
+    }
+
+    public String getTokenAttr() {
+        return tokenAttr;
     }
 }

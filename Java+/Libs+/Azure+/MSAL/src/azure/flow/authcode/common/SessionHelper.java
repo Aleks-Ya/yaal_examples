@@ -12,16 +12,16 @@ import static java.lang.String.format;
 public class SessionHelper {
     private static final String STATE_REQUEST_PARAM = "state";
     private static final String STATES_ATTR = "STATES";
-    private static final String ACCESS_TOKEN_ATTR = "ACCESS_TOKEN";
+    public static final String WEB_APP_ACCESS_TOKEN_ATTR = "ACCESS_TOKEN";
 
-    public static String saveState(HttpServletRequest request, String targetUrlPath, String nonce) {
+    public static String saveState(HttpServletRequest request, String targetUrlPath, String nonce, String tokenAttr) {
         var states = (Map<String, State>) request.getSession().getAttribute(STATES_ATTR);
         if (states == null) {
             states = new HashMap<>();
             request.getSession().setAttribute(STATES_ATTR, states);
         }
         var id = UUID.randomUUID().toString();
-        states.put(id, new State(targetUrlPath, nonce));
+        states.put(id, new State(targetUrlPath, nonce, tokenAttr));
         System.out.println("State saved: " + id);
         return id;
     }
@@ -39,17 +39,17 @@ public class SessionHelper {
         return state;
     }
 
-    public static Optional<String> getAccessTokenOptional(HttpServletRequest request) {
-        return Optional.ofNullable((String) request.getSession().getAttribute(ACCESS_TOKEN_ATTR));
+    public static Optional<String> getAccessTokenOptional(HttpServletRequest request, String tokenAttr) {
+        return Optional.ofNullable((String) request.getSession().getAttribute(tokenAttr));
     }
 
-    public static String getAccessTokenOrThrow(HttpServletRequest request) {
-        return getAccessTokenOptional(request)
+    public static String getAccessTokenOrThrow(HttpServletRequest request, String tokenAttr) {
+        return getAccessTokenOptional(request, tokenAttr)
                 .orElseThrow(() -> new IllegalStateException("Access token absents in session"));
     }
 
-    public static void setAccessToken(HttpServletRequest request, String accessToken) {
+    public static void setAccessToken(HttpServletRequest request, String tokenAttr, String accessToken) {
         System.out.println("Set Access Token to session: " + accessToken);
-        request.getSession().setAttribute(ACCESS_TOKEN_ATTR, accessToken);
+        request.getSession().setAttribute(tokenAttr, accessToken);
     }
 }

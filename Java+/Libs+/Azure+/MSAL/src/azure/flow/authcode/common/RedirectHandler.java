@@ -1,6 +1,5 @@
 package azure.flow.authcode.common;
 
-import azure.flow.authcode.common.SessionHelper;
 import com.microsoft.aad.msal4j.AuthorizationCodeParameters;
 import com.microsoft.aad.msal4j.ClientCredentialFactory;
 import com.microsoft.aad.msal4j.ConfidentialClientApplication;
@@ -43,6 +42,9 @@ public class RedirectHandler extends AbstractHandler {
     @Override
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        var state = SessionHelper.getState(request);
+        var tokenAttr = state.getTokenAttr();
+        System.out.println("TokenAttr: " + tokenAttr);
         AuthenticationResponse authResponse;
         var url = baseRequest.getHttpURI().toString();
         try {
@@ -54,7 +56,7 @@ public class RedirectHandler extends AbstractHandler {
                 var nonce = getNonceClaimValueFromIdToken(idToken);
 //                validateNonce(request, nonce); TODO enable nonce validation
                 var accessToken = authResult.accessToken();
-                SessionHelper.setAccessToken(request, accessToken);
+                SessionHelper.setAccessToken(request, tokenAttr, accessToken);
             } else {
                 var oidcResponse = (AuthenticationErrorResponse) authResponse;
                 throw new IOException(format("Request for auth code failed: %s - %s",
@@ -64,7 +66,6 @@ public class RedirectHandler extends AbstractHandler {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        var state = SessionHelper.getState(request);
         response.sendRedirect(state.getTargetUrlPath());
     }
 
@@ -84,28 +85,18 @@ public class RedirectHandler extends AbstractHandler {
         return authResponse instanceof AuthenticationSuccessResponse;
     }
 
-    private IAuthenticationResult getAuthResultByAuthCode(
-            AuthorizationCode authorizationCode,
-            String currentUri) throws ServiceUnavailableException, MalformedURLException, ExecutionException, InterruptedException {
-
+    private IAuthenticationResult getAuthResultByAuthCode(AuthorizationCode authorizationCode, String currentUri)
+            throws ServiceUnavailableException, MalformedURLException, ExecutionException, InterruptedException {
         IAuthenticationResult result;
         ConfidentialClientApplication app;
-        try {
-            app = createClientApplication();
-
-            var authCode = authorizationCode.getValue();
-            var parameters = AuthorizationCodeParameters.builder(
-                    authCode,
-                    URI.create(currentUri)).
-                    build();
-
-            Future<IAuthenticationResult> future = app.acquireToken(parameters);
-
-            result = future.get();
-        } catch (ExecutionException | MalformedURLException | InterruptedException e) {
-            throw e;
-        }
-
+        app = createClientApplication();
+        var authCode = authorizationCode.getValue();
+        var parameters = AuthorizationCodeParameters.builder(
+                authCode,
+                URI.create(currentUri)).
+                build();
+        Future<IAuthenticationResult> future = app.acquireToken(parameters);
+        result = future.get();
         if (result == null) {
             throw new ServiceUnavailableException("authentication result was null");
         }

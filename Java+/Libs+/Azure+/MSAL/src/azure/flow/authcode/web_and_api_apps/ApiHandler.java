@@ -19,20 +19,19 @@ import java.net.URL;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
+import static azure.flow.authcode.common.SessionHelper.WEB_APP_ACCESS_TOKEN_ATTR;
 import static azure.flow.authcode.web_and_api_apps.ApiApp.API_APP_SCOPE;
 
 class ApiHandler extends AbstractHandler {
     private final String message;
-    private final String meGraphEndpoint;
     private final String webAppClientId;
     private final String webAppClientSecret;
     private final String apiAppAuthority;
     private final String apiAppUrl;
 
-    ApiHandler(String message, String meGraphEndpoint, String webAppClientId, String webAppClientSecret,
+    ApiHandler(String message, String webAppClientId, String webAppClientSecret,
                String apiAppAuthority, String apiAppUrl) {
         this.message = message;
-        this.meGraphEndpoint = meGraphEndpoint;
         this.webAppClientId = webAppClientId;
         this.webAppClientSecret = webAppClientSecret;
         this.apiAppAuthority = apiAppAuthority;
@@ -43,7 +42,7 @@ class ApiHandler extends AbstractHandler {
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         var scopes = Set.of(API_APP_SCOPE);
-        var userAccessToken = SessionHelper.getAccessTokenOrThrow(request);
+        var userAccessToken = SessionHelper.getAccessTokenOrThrow(request, WEB_APP_ACCESS_TOKEN_ATTR);
         String apiAccessToken = requestOboAccessToken(request, webAppClientId, webAppClientSecret, apiAppAuthority,
                 scopes, userAccessToken);
         response.setContentType("text/html;charset=utf-8");
@@ -54,7 +53,7 @@ class ApiHandler extends AbstractHandler {
     }
 
     public static String requestOboAccessToken(HttpServletRequest request, String clientId, String clientSecret,
-                                                String authority, Set<String> scopes, String userAccessToken)
+                                               String authority, Set<String> scopes, String userAccessToken)
             throws java.net.MalformedURLException {
         var clientCredential = ClientCredentialFactory.createFromSecret(clientSecret);
         var app = ConfidentialClientApplication.builder(clientId, clientCredential)

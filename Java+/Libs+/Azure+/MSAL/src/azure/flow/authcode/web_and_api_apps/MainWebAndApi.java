@@ -31,7 +31,7 @@ public class MainWebAndApi {
         try (var apiApp = new ApiApp(API_APP_PORT, TOKEN_AUTHORITY, API_APP_CLIENT_ID,
                 API_APP_CLIENT_SECRET, ME_GRAPH_ENDPOINT);
              var webApp = new WebApp(WEB_APP_PORT, WEB_APP_AUTHORITY, WEB_APP_REDIRECT_URL, WEB_APP_CLIENT_ID,
-                     WEB_APP_CLIENT_SECRET, ME_GRAPH_ENDPOINT, TOKEN_AUTHORITY, apiApp.getBaseUrl() + "/me")) {
+                     WEB_APP_CLIENT_SECRET, TOKEN_AUTHORITY, apiApp.getBaseUrl() + "/me")) {
             apiApp.start();
             webApp.start();
             var baseUrl = webApp.getBaseUrl();

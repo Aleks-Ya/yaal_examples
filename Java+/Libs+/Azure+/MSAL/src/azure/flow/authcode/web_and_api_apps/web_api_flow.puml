@@ -1,6 +1,6 @@
 @startuml
 
-title "Client+WebApp+WebApi" scenario
+title "Client+WebApp+ApiApp" scenario
 
 autonumber
 
