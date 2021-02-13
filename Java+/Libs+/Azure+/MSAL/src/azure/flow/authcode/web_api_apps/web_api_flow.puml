@@ -33,10 +33,7 @@ WebApp -> WebApp: Check authentication:\nSUCCESS
     WebApp <-- AzureAd: Access Token ApiApp
     deactivate AzureAd
     WebApp -> ApiApp: Resource request
-    ApiApp -> AzureGraph: Get User info\nhttps://graph.microsoft.com/v1.0/me
-    activate AzureGraph
-    ApiApp <-- AzureGraph: User info
-    deactivate AzureGraph
+    ApiApp -> ApiApp: Prepare resource
     WebApp <-- ApiApp: HTML
 Client <-- WebApp: Resource
 deactivate WebApp

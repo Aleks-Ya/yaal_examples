@@ -1,0 +1,44 @@
+@startuml
+
+title "Client+WebApp+ApiApp+Graph" scenario
+
+autonumber
+
+Client -> WebApp: Resource request\nhttp://localhost:35712/info_web_only
+activate WebApp
+WebApp -> WebApp: Check authentication:\nFAILED
+Client <-- WebApp: Redirect to authentication\nhttps://login.microsoftonline.com
+deactivate WebApp
+
+Client -> AzureAd: Authentication request\nhttps://login.microsoftonline.com
+activate AzureAd
+AzureAd -> AzureAd: Authenticate client
+Client <-- AzureAd: Redirect with Auth Code\nhttp://localhost:35712/redirect
+deactivate AzureAd
+
+Client -> WebApp: Open\nhttp://localhost:35712/redirect
+activate WebApp
+    WebApp -> AzureAd: Get Access Token by Auth Code
+    activate AzureAd
+    WebApp <-- AzureAd: Access Token
+    deactivate AzureAd
+Client <-- WebApp: Redirect to\nhttp://localhost:35712/info_web_only
+deactivate WebApp
+
+Client -> WebApp: Resource request\nhttp://localhost:35712/info_web_only
+activate WebApp
+WebApp -> WebApp: Check authentication:\nSUCCESS
+    WebApp -> AzureAd: Get Access Token for ApiApp
+    activate AzureAd
+    WebApp <-- AzureAd: Access Token ApiApp
+    deactivate AzureAd
+    WebApp -> ApiApp: Resource request
+    ApiApp -> AzureGraph: Get User info\nhttps://graph.microsoft.com/v1.0/me
+    activate AzureGraph
+    ApiApp <-- AzureGraph: User info
+    deactivate AzureGraph
+    WebApp <-- ApiApp: HTML
+Client <-- WebApp: Resource
+deactivate WebApp
+
+@enduml

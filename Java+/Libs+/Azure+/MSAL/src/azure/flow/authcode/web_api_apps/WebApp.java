@@ -1,4 +1,4 @@
-package azure.flow.authcode.web_and_api_apps;
+package azure.flow.authcode.web_api_apps;
 
 import azure.flow.authcode.common.WebAppAuthHandler;
 import azure.flow.authcode.common.RedirectHandler;

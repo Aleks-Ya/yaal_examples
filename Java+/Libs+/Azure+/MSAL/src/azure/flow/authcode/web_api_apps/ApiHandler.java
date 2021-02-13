@@ -1,4 +1,4 @@
-package azure.flow.authcode.web_and_api_apps;
+package azure.flow.authcode.web_api_apps;
 
 import azure.flow.authcode.common.SessionHelper;
 import com.microsoft.aad.msal4j.ClientCredentialFactory;
@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import static azure.flow.authcode.common.SessionHelper.WEB_APP_ACCESS_TOKEN_ATTR;
-import static azure.flow.authcode.web_and_api_apps.ApiApp.API_APP_SCOPE;
+import static azure.flow.authcode.web_api_apps.ApiApp.API_APP_SCOPE;
 
 class ApiHandler extends AbstractHandler {
     private final String message;

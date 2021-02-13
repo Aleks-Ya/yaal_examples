@@ -1,4 +1,4 @@
-package azure.flow.authcode.web_and_api_apps;
+package azure.flow.authcode.web_api_graph_apps;
 
 import static java.lang.String.format;
 
