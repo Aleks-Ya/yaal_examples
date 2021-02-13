@@ -1,6 +1,11 @@
 package azure.flow.authcode.web_app_only;
 
-import static java.lang.String.format;
+import static azure.flow.authcode.common.Constants.AUTHORITY;
+import static azure.flow.authcode.common.Constants.ME_GRAPH_ENDPOINT;
+import static azure.flow.authcode.common.Constants.WEB_APP_CLIENT_ID;
+import static azure.flow.authcode.common.Constants.WEB_APP_CLIENT_SECRET;
+import static azure.flow.authcode.common.Constants.WEB_APP_PORT;
+import static azure.flow.authcode.common.Constants.WEB_APP_REDIRECT_URL;
 
 /**
  * "Authentication Code Grant" flow example: Client + WebApp.<p/>
@@ -12,18 +17,9 @@ import static java.lang.String.format;
  * </ol>
  */
 public class MainWebOnly {
-    private final static int WEB_APP_PORT = 35712;
-    private final static String WEB_APP_CLIENT_ID = "89f6d017-0ac1-413a-9e05-91ea9c8ada6a";
-    private final static String WEB_APP_CLIENT_SECRET = "M44g6_bolrpG_tkW2jr_LZEG~z.dw538a7";
-    private final static String WEB_APP_TENANT = "26376728-d7c9-4e0b-92b0-979740c8ac58";
-    private final static String WEB_APP_AUTHORITY = format("https://login.microsoftonline.com/%s/", WEB_APP_TENANT);
-    private final static String WEB_APP_REDIRECT_URL = "http://localhost:35712/redirect";
-
-    private final static String ME_GRAPH_ENDPOINT = "https://graph.microsoft.com/v1.0/me";
-
     public static void main(String[] args) throws Exception {
-        try (var webApp = new WebApp(WEB_APP_PORT, WEB_APP_AUTHORITY, WEB_APP_REDIRECT_URL, WEB_APP_CLIENT_ID,
-                WEB_APP_CLIENT_SECRET, ME_GRAPH_ENDPOINT)) {
+        try (var webApp = new WebApp(WEB_APP_PORT, AUTHORITY, WEB_APP_REDIRECT_URL, WEB_APP_CLIENT_ID,
+                WEB_APP_CLIENT_SECRET, ME_GRAPH_ENDPOINT, "/info_web_only")) {
             webApp.start();
             var baseUrl = webApp.getBaseUrl();
             System.out.println(baseUrl);

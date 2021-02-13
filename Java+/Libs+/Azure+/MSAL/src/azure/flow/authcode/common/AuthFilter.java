@@ -18,7 +18,7 @@ import java.util.UUID;
 
 import static azure.flow.authcode.common.RedirectHandler.REDIRECT_ENDPOINT;
 
-public class WebAppAuthHandler extends HandlerWrapper {
+public class AuthFilter extends HandlerWrapper {
     public static final String GRAPH_USER_READ_SCOPE = "https://graph.microsoft.com/User.Read";
     private static final List<String> NOT_SECURE_PATHS = List.of(REDIRECT_ENDPOINT);
     private final String authority;
@@ -28,7 +28,7 @@ public class WebAppAuthHandler extends HandlerWrapper {
     private final Set<String> scopes;
     private static final String USER_COUNTRY_CLAIM = "ctry";
 
-    public WebAppAuthHandler(String authority, String redirectUri, String clientId, String tokenAttr, Set<String> scopes) {
+    public AuthFilter(String authority, String redirectUri, String clientId, String tokenAttr, Set<String> scopes) {
         this.authority = authority;
         this.redirectUri = redirectUri;
         this.clientId = clientId;
@@ -63,8 +63,6 @@ public class WebAppAuthHandler extends HandlerWrapper {
         var stateId = SessionHelper.saveState(request, targetUrlPath, nonce, tokenAttr);
 //        var claims = request.getParameter("claims");
         var claims = USER_COUNTRY_CLAIM;
-//        var scopes = Set.of(GRAPH_USER_READ_SCOPE, WEB_APP_SCOPE);
-//        var scopes = Set.of(GRAPH_USER_READ_SCOPE);
         var authorizationCodeUrl = getAuthorizationCodeUrl(claims, redirectUri, stateId, nonce, clientId);
         response.sendRedirect(authorizationCodeUrl);
     }

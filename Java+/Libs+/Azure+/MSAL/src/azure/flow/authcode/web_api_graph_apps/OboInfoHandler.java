@@ -5,15 +5,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Set;
 
-import static azure.flow.authcode.common.WebAppAuthHandler.GRAPH_USER_READ_SCOPE;
-import static azure.flow.authcode.web_api_graph_apps.ApiHandler.requestOboAccessToken;
+import static azure.flow.authcode.common.HttpClientHelper.getFromUrl;
+import static azure.flow.authcode.common.HttpClientHelper.requestOboAccessToken;
+import static azure.flow.authcode.common.AuthFilter.GRAPH_USER_READ_SCOPE;
 
 class OboInfoHandler extends AbstractHandler {
     private final String message;
@@ -39,42 +36,9 @@ class OboInfoHandler extends AbstractHandler {
         var scopes = Set.of(GRAPH_USER_READ_SCOPE);
         var authorizationHeader = request.getHeader("Authorization");
         var userAccessToken = authorizationHeader.split(" ")[1];
-        var accessToken = requestOboAccessToken(request, apiAppClientId, apiAppClientSecret, msGraphAuthority,
+        var accessToken = requestOboAccessToken(apiAppClientId, apiAppClientSecret, msGraphAuthority,
                 scopes, userAccessToken);
-        var me = getUserInfoFromGraph(accessToken);
+        var me = getFromUrl(meGraphEndpoint, accessToken);
         response.getWriter().printf("<h1>%s</h1><p>%s</p>", message, me);
-    }
-
-    private String getUserInfoFromGraph(String accessToken) throws IOException {
-        // Microsoft Graph user endpoint
-        var url = new URL(meGraphEndpoint);
-        var conn = (HttpURLConnection) url.openConnection();
-
-        // Set the appropriate header fields in the request header.
-        conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-        conn.setRequestProperty("Accept", "application/json");
-
-        var response = getResponseStringFromConn(conn);
-
-        var responseCode = conn.getResponseCode();
-        if (responseCode != HttpURLConnection.HTTP_OK) {
-            throw new IOException(response);
-        }
-        return response;
-    }
-
-    static String getResponseStringFromConn(HttpURLConnection conn) throws IOException {
-        BufferedReader reader;
-        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } else {
-            reader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-        }
-        var stringBuilder = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            stringBuilder.append(line);
-        }
-        return stringBuilder.toString();
     }
 }

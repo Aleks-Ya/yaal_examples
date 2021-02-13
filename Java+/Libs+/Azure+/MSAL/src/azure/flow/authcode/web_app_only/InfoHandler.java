@@ -6,12 +6,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
+import static azure.flow.authcode.common.HttpClientHelper.getFromUrl;
 import static azure.flow.authcode.common.SessionHelper.WEB_APP_ACCESS_TOKEN_ATTR;
 
 class InfoHandler extends AbstractHandler {
@@ -30,40 +27,7 @@ class InfoHandler extends AbstractHandler {
         response.setStatus(HttpServletResponse.SC_OK);
         baseRequest.setHandled(true);
         var accessToken = SessionHelper.getAccessTokenOrThrow(request, WEB_APP_ACCESS_TOKEN_ATTR);
-        var me = getUserInfoFromGraph(accessToken);
+        var me = getFromUrl(meGraphEndpoint, accessToken);
         response.getWriter().printf("<h1>%s</h1><p>%s</p>", message, me);
-    }
-
-    private String getUserInfoFromGraph(String accessToken) throws IOException {
-        // Microsoft Graph user endpoint
-        var url = new URL(meGraphEndpoint);
-        var conn = (HttpURLConnection) url.openConnection();
-
-        // Set the appropriate header fields in the request header.
-        conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-        conn.setRequestProperty("Accept", "application/json");
-
-        var response = getResponseStringFromConn(conn);
-
-        var responseCode = conn.getResponseCode();
-        if (responseCode != HttpURLConnection.HTTP_OK) {
-            throw new IOException(response);
-        }
-        return response;
-    }
-
-    static String getResponseStringFromConn(HttpURLConnection conn) throws IOException {
-        BufferedReader reader;
-        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } else {
-            reader = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-        }
-        var stringBuilder = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            stringBuilder.append(line);
-        }
-        return stringBuilder.toString();
     }
 }

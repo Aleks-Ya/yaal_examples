@@ -1,8 +1,7 @@
 package azure.flow.authcode.web_api_apps;
 
-import azure.flow.authcode.common.WebAppAuthHandler;
 import azure.flow.authcode.common.RedirectHandler;
-import org.eclipse.jetty.server.Handler;
+import azure.flow.authcode.common.AuthFilter;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
@@ -11,10 +10,10 @@ import org.eclipse.jetty.server.session.SessionHandler;
 
 import java.util.Set;
 
+import static azure.flow.authcode.common.Constants.WEB_APP_PERMISSION;
 import static azure.flow.authcode.common.SessionHelper.WEB_APP_ACCESS_TOKEN_ATTR;
 
 class WebApp implements AutoCloseable {
-    public static final String WEB_APP_SCOPE = "api://msal-web-app-id/Read.ME";
     private final String webAppAuthority;
     private final String apiAppAuthority;
     private final String apiAppUrl;
@@ -23,9 +22,10 @@ class WebApp implements AutoCloseable {
     private final String webAppClientSecret;
     private final Server server;
     private final int port;
+    private final String webPath;
 
     public WebApp(int port, String webAppAuthority, String redirectUri, String webAppClientId, String webAppClientSecret,
-                  String apiAppAuthority, String apiAppUrl) {
+                  String apiAppAuthority, String apiAppUrl, String webPath) {
         this.port = port;
         this.webAppAuthority = webAppAuthority;
         this.redirectUri = redirectUri;
@@ -34,6 +34,7 @@ class WebApp implements AutoCloseable {
         this.webAppClientSecret = webAppClientSecret;
         this.apiAppAuthority = apiAppAuthority;
         this.apiAppUrl = apiAppUrl;
+        this.webPath = webPath;
     }
 
     @Override
@@ -46,25 +47,21 @@ class WebApp implements AutoCloseable {
     }
 
     public void start() throws Exception {
-        var rootContext = new ContextHandler();
-
-        var infoWebAndApiContext = new ContextHandler("/info_web_api");
-        infoWebAndApiContext.setHandler(new ApiHandler("Info Web And Api", webAppClientId,
+        var infoContext = new ContextHandler(webPath);
+        infoContext.setHandler(new ApiHandler("Info Web And Api", webAppClientId,
                 webAppClientSecret, apiAppAuthority, apiAppUrl));
 
         var redirectContext = new ContextHandler("/redirect");
         redirectContext.setHandler(new RedirectHandler(webAppAuthority, webAppClientId, webAppClientSecret, redirectUri));
 
-        var contexts = new ContextHandlerCollection();
-        contexts.setHandlers(new Handler[]{rootContext, infoWebAndApiContext, redirectContext});
+        var contexts = new ContextHandlerCollection(infoContext, redirectContext);
 
-        var scopes = Set.of(WEB_APP_SCOPE);
-        var authFilter = new WebAppAuthHandler(webAppAuthority, redirectUri, webAppClientId, WEB_APP_ACCESS_TOKEN_ATTR, scopes);
+        var scopes = Set.of(WEB_APP_PERMISSION);
+        var authFilter = new AuthFilter(webAppAuthority, redirectUri, webAppClientId, WEB_APP_ACCESS_TOKEN_ATTR, scopes);
         authFilter.setHandler(contexts);
 
         var sessionHandler = new SessionHandler();
-        var sessionCookieConfig = sessionHandler.getSessionCookieConfig();
-        sessionCookieConfig.setPath("/");
+        sessionHandler.getSessionCookieConfig().setPath("/");
 
         var handlerList = new HandlerList(sessionHandler, authFilter);
 
