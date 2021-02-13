@@ -27,7 +27,7 @@ public class MainWebOnly {
             webApp.start();
             var baseUrl = webApp.getBaseUrl();
             System.out.println(baseUrl);
-            Thread.sleep(120000);
+            Thread.sleep(240000);
         }
     }
 }

@@ -48,8 +48,8 @@ class WebApp implements AutoCloseable {
     public void start() throws Exception {
         var rootContext = new ContextHandler();
 
-        var infoWebAndApiContext = new ContextHandler("/info_web_and_api");
-        infoWebAndApiContext.setHandler(new ApiHandler("Info Web And Api", webAppClientId,
+        var infoWebAndApiContext = new ContextHandler("/info_web_api_graph");
+        infoWebAndApiContext.setHandler(new ApiHandler("Info Web Api Graph", webAppClientId,
                 webAppClientSecret, apiAppAuthority, apiAppUrl));
 
         var redirectContext = new ContextHandler("/redirect");

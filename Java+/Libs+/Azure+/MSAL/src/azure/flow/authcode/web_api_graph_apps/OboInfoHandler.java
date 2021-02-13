@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.Set;
 
 import static azure.flow.authcode.common.WebAppAuthHandler.GRAPH_USER_READ_SCOPE;
-import static azure.flow.authcode.web_api_apps.ApiHandler.requestOboAccessToken;
+import static azure.flow.authcode.web_api_graph_apps.ApiHandler.requestOboAccessToken;
 
 class OboInfoHandler extends AbstractHandler {
     private final String message;

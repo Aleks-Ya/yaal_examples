@@ -48,7 +48,7 @@ class WebApp implements AutoCloseable {
     public void start() throws Exception {
         var rootContext = new ContextHandler();
 
-        var infoWebAndApiContext = new ContextHandler("/info_web_and_api");
+        var infoWebAndApiContext = new ContextHandler("/info_web_api");
         infoWebAndApiContext.setHandler(new ApiHandler("Info Web And Api", webAppClientId,
                 webAppClientSecret, apiAppAuthority, apiAppUrl));
 

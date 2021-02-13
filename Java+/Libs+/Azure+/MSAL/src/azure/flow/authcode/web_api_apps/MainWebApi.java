@@ -1,4 +1,4 @@
-package azure.flow.authcode.web_api_graph_apps;
+package azure.flow.authcode.web_api_apps;
 
 import static java.lang.String.format;
 
@@ -7,11 +7,11 @@ import static java.lang.String.format;
  * <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-app-types?WT.mc_id=Portal-Microsoft_AAD_RegisteredApps#web-apps">Docs</a><p/>
  * Run:
  * <ol>
- *      <li>{@link MainWebAndApi} class</li>
+ *      <li>{@link MainWebApi} class</li>
  *      <li>Open <a href="http://localhost:35712/info_web_only"/>http://localhost:35712/info_web_only</a></li>
  * </ol>
  */
-public class MainWebAndApi {
+public class MainWebApi {
     private final static int API_APP_PORT = 46823;
     private final static String API_APP_TENANT = "26376728-d7c9-4e0b-92b0-979740c8ac58";
     private final static String TOKEN_AUTHORITY = format("https://login.microsoftonline.com/%s/oauth2/v2.0/token", API_APP_TENANT);

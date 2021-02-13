@@ -39,7 +39,7 @@ class ApiApp implements AutoCloseable {
         var rootContext = new ContextHandler();
 
         var infoContext = new ContextHandler("/me");
-        infoContext.setHandler(new OboInfoHandler("Info ME", meGraphEndpoint, tokenAuthority, apiAppClientId, apiAppClientSecret));
+        infoContext.setHandler(new InfoHandler("Info ME"));
 
         var contexts = new ContextHandlerCollection();
         contexts.setHandlers(new Handler[]{rootContext, infoContext});
