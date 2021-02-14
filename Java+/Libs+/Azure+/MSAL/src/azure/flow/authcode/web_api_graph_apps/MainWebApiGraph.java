@@ -29,7 +29,7 @@ public class MainWebApiGraph {
             webApp.start();
             var baseUrl = webApp.getBaseUrl();
             System.out.println(baseUrl);
-            Thread.sleep(120000);
+            Thread.currentThread().join();
         }
     }
 }
