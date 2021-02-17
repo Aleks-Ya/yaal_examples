@@ -1,0 +1,42 @@
+@startuml
+
+title "Client+WebApp" scenario
+
+autonumber
+
+Client -> WebApp: Resource request\nhttp://localhost:35712/info
+activate WebApp
+WebApp -> WebApp: Check authentication:\nFAILED
+Client <-- WebApp: Redirect to authentication\nhttps://login.microsoftonline.com
+deactivate WebApp
+
+Client -> AzureAd: Authentication request\nhttps://login.microsoftonline.com
+activate AzureAd
+AzureAd -> AzureAd: Authenticate client
+Client <-- AzureAd: Redirect with Auth Code\nhttp://localhost:35712/redirect
+deactivate AzureAd
+
+Client -> WebApp: Open\nhttp://localhost:35712/redirect
+activate WebApp
+    WebApp -> AzureAd: Get Access Token by Auth Code
+    activate AzureAd
+    WebApp <-- AzureAd: Access Token
+    deactivate AzureAd
+Client <-- WebApp: Redirect to\nhttp://localhost:35712/info
+deactivate WebApp
+
+Client -> WebApp: Resource request\nhttp://localhost:35712/info
+activate WebApp
+WebApp -> WebApp: Check authentication:\nSUCCESS
+    WebApp -> WebApp: Prepare Resource
+    activate WebApp
+        WebApp -> AzureGraph: Get User info\nhttps://graph.microsoft.com/v1.0/me
+        activate AzureGraph
+        WebApp <-- AzureGraph: User info
+        deactivate AzureGraph
+    WebApp <-- WebApp: HTML
+    deactivate WebApp
+Client <-- WebApp: Resource
+deactivate WebApp
+
+@enduml
