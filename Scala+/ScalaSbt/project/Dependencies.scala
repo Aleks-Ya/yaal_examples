@@ -1,20 +1,20 @@
 import sbt._
 
 object Dependencies {
-  val scalaTestDep = "org.scalatest" %% "scalatest" % "3.2.2" % Test
-  val scalaMockDep = "org.scalamock" %% "scalamock" % "5.0.0" % Test
+  val scalaTestDep = "org.scalatest" %% "scalatest" % "3.2.3" % Test
+  val scalaMockDep = "org.scalamock" %% "scalamock" % "5.1.0" % Test
   val h2Dep = "com.h2database" % "h2" % "1.4.200"
-  val slf4jNopDep = "org.slf4j" % "slf4j-nop" % "1.6.4"
+  val slf4jNopDep = "org.slf4j" % "slf4j-nop" % "1.7.30"
   val logbackClassicDep = "ch.qos.logback" % "logback-classic" % "1.2.3"
-  val scoptDep = "com.github.scopt" % "scopt_2.12" % "3.7.1"
-  val json4sNativeDep = "org.json4s" %% "json4s-native" % "3.6.4"
+  val scoptDep = "com.github.scopt" %% "scopt" % "4.0.0"
+  val json4sNativeDep = "org.json4s" %% "json4s-native" % "3.6.10"
 
-  private val akkaVersion = "2.6.6"
+  private val akkaVersion = "2.6.12"
   val akkaActorTypedDep = "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion
   val akkaActorTestKitTypedDep = "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test
 
   private val slickVersion = "3.3.3"
-  private val playVersion = "2.8.3"
+  private val playVersion = "2.8.7"
   val slickDep = "com.typesafe.slick" %% "slick" % slickVersion
   val slickHikaricpDep = "com.typesafe.slick" %% "slick-hikaricp" % slickVersion
   val slickTestkitDep = "com.typesafe.slick" %% "slick-testkit" % slickVersion % Test

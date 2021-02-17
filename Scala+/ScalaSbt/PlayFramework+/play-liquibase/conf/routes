@@ -1,3 +1,3 @@
-GET    /person                  controllers.PersonController.getPersons
-POST   /person                  controllers.PersonController.createPerson
-DELETE /person                  controllers.PersonController.deletePerson()
+GET    /person                  controllers.PlayLiquibasePersonController.getPersons
+POST   /person                  controllers.PlayLiquibasePersonController.createPerson
+DELETE /person                  controllers.PlayLiquibasePersonController.deletePerson

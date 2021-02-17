@@ -1,0 +1,3 @@
+# ScalaSbt
+
+Compile: `sbt compile`

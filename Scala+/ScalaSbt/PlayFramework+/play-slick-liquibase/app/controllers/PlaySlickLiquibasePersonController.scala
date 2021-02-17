@@ -6,7 +6,8 @@ import play.api.mvc._
 
 @Singleton
 class PlaySlickLiquibasePersonController @Inject()(val controllerComponents: ControllerComponents,
-                                                   private val personService: PlaySlickLiquibasePersonService) extends BaseController {
+                                                   private val personService: PlaySlickLiquibasePersonService
+                                                  ) extends BaseController {
   private implicit val personFormat: OFormat[PlaySlickLiquibasePerson] = Json.format[PlaySlickLiquibasePerson]
 
   def getPersons: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>

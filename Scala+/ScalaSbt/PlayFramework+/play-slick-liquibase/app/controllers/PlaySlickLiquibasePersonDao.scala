@@ -1,10 +1,7 @@
 package controllers
 
 import javax.inject.{Inject, Singleton}
-import play.api.db.slick.DatabaseConfigProvider
-import slick.basic.DatabaseConfig
 import slick.jdbc.H2Profile.api._
-import slick.jdbc.JdbcProfile
 
 import scala.concurrent.Future
 
