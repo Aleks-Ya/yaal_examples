@@ -1,10 +1,10 @@
-import Dependencies.scalaTestPlusPlayDep
+import Dependencies.{jettyServletDep, scalaTestPlusPlayDep}
 
 lazy val playFrameworkExamples = (project in file(".")).
   settings(
     name := "play-framework-examples",
     connectInput in run := true,
-    libraryDependencies ++= Seq(guice, scalaTestPlusPlayDep)
+    libraryDependencies ++= Seq(guice, scalaTestPlusPlayDep, jettyServletDep)
   ).enablePlugins(PlayScala)
 
 // Adds additional packages into Twirl
