@@ -1,4 +1,4 @@
-package azure.certificate.web_signed;
+package azure.claim.web_claim;
 
 import jakarta.servlet.http.HttpServletRequest;
 

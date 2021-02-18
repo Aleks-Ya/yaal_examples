@@ -1,8 +1,8 @@
-package azure.certificate.web_signed;
+package azure.claim.web_claim;
 
 import static java.lang.String.format;
 
-interface Constants {
+public interface Constants {
     String TENANT = "26376728-d7c9-4e0b-92b0-979740c8ac58";
     String AUTHORITY = format("https://login.microsoftonline.com/%s/", TENANT);
     String ME_GRAPH_ENDPOINT = "https://graph.microsoft.com/v1.0/me";
