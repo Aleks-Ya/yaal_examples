@@ -17,7 +17,6 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 
 import javax.naming.ServiceUnavailableException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.security.KeyStoreException;
@@ -37,13 +36,16 @@ class RedirectHandler extends AbstractHandler {
     private final String clientId;
     private final File clientCertFile;
     private final String clientCertPassword;
+    private final String clientSecret;
     private final String redirectUri;
 
-    public RedirectHandler(String authority, String clientId, File clientCertFile, String clientCertPassword, String redirectUri) {
+    public RedirectHandler(String authority, String clientId, File clientCertFile, String clientCertPassword,
+                           String clientSecret, String redirectUri) {
         this.authority = authority;
         this.clientId = clientId;
         this.clientCertFile = clientCertFile;
         this.clientCertPassword = clientCertPassword;
+        this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;
     }
 
@@ -114,7 +116,8 @@ class RedirectHandler extends AbstractHandler {
 
     private ConfidentialClientApplication createClientApplication()
             throws IOException, CertificateException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, NoSuchProviderException {
-        var cert = ClientCredentialFactory.createFromCertificate(new FileInputStream(clientCertFile), clientCertPassword);
+//        var cert = ClientCredentialFactory.createFromCertificate(new FileInputStream(clientCertFile), clientCertPassword);
+        var cert = ClientCredentialFactory.createFromSecret(clientSecret);
         return ConfidentialClientApplication.builder(clientId, cert)
                 .authority(authority)
                 .build();

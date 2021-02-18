@@ -1,6 +1,7 @@
 package azure.claim.web_claim;
 
 import com.microsoft.aad.msal4j.AuthorizationRequestUrlParameters;
+import com.microsoft.aad.msal4j.ClaimsRequest;
 import com.microsoft.aad.msal4j.Prompt;
 import com.microsoft.aad.msal4j.PublicClientApplication;
 import com.microsoft.aad.msal4j.ResponseMode;
@@ -17,6 +18,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import static azure.claim.web_claim.RedirectHandler.REDIRECT_ENDPOINT;
+import static java.lang.String.format;
 
 class AuthFilter extends HandlerWrapper {
     public static final String GRAPH_USER_READ_SCOPE = "https://graph.microsoft.com/User.Read";
@@ -62,7 +64,15 @@ class AuthFilter extends HandlerWrapper {
         var nonce = UUID.randomUUID().toString();
         var stateId = SessionHelper.saveState(request, targetUrlPath, nonce, tokenAttr);
 //        var claims = request.getParameter("claims");
-        var claims = USER_COUNTRY_CLAIM;
+//        var claims = "\"" + USER_COUNTRY_CLAIM + "\"";
+//        var claims = "{\n" +
+//                "   \"userinfo\":\n" +
+//                "    {\n" +
+//                "     \"ctry\": {\"essential\": true}\n" +
+//                "    }\n" +
+//                "  }";
+//        var claims = "{\"id_token\": {\"ctry\": {\"essential\": false}}}";
+        var claims = "{\"id_token\": {\"ctry\": {\"values\": [\"abc\"] }}}";
         var authorizationCodeUrl = getAuthorizationCodeUrl(claims, redirectUri, stateId, nonce, clientId);
         response.sendRedirect(authorizationCodeUrl);
     }
@@ -70,13 +80,14 @@ class AuthFilter extends HandlerWrapper {
     private String getAuthorizationCodeUrl(String claims, String registeredRedirectURL, String state, String nonce, String clientId)
             throws MalformedURLException {
         var pca = PublicClientApplication.builder(clientId).authority(authority).build();
+        var claimsRequest = ClaimsRequest.formatAsClaimsRequest(claims);
         var parameters = AuthorizationRequestUrlParameters
                 .builder(registeredRedirectURL, scopes)
                 .responseMode(ResponseMode.QUERY)
                 .prompt(Prompt.SELECT_ACCOUNT)
                 .state(state)
                 .nonce(nonce)
-//                .claimsChallenge(claims)
+                .claims(claimsRequest)
                 .build();
         var authorizationUrl = pca.getAuthorizationRequestUrl(parameters).toString();
         System.out.println("Authorization URL: " + authorizationUrl);

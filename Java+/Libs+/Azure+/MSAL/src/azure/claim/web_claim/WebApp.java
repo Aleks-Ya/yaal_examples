@@ -18,13 +18,14 @@ class WebApp implements AutoCloseable {
     private final String webAppClientId;
     private final File clientCertFile;
     private final String clientCertPassword;
+    private final String clientSecret;
     private final Server server;
     private final int port;
     private final String meGraphEndpoint;
     private final String webPath;
 
     public WebApp(int port, String authority, String redirectUri, String webAppClientId, File clientCertFile,
-                  String clientCertPassword, String meGraphEndpoint, String webPath) {
+                  String clientCertPassword, String clientSecret, String meGraphEndpoint, String webPath) {
         this.port = port;
         this.authority = authority;
         this.redirectUri = redirectUri;
@@ -32,6 +33,7 @@ class WebApp implements AutoCloseable {
         server = new Server(port);
         this.clientCertFile = clientCertFile;
         this.clientCertPassword = clientCertPassword;
+        this.clientSecret = clientSecret;
         this.meGraphEndpoint = meGraphEndpoint;
         this.webPath = webPath;
     }
@@ -50,7 +52,8 @@ class WebApp implements AutoCloseable {
         infoContext.setHandler(new InfoHandler("Info Web Only", meGraphEndpoint));
 
         var redirectContext = new ContextHandler("/redirect");
-        redirectContext.setHandler(new RedirectHandler(authority, webAppClientId, clientCertFile, clientCertPassword, redirectUri));
+        redirectContext.setHandler(new RedirectHandler(authority, webAppClientId, clientCertFile, clientCertPassword,
+                clientSecret, redirectUri));
 
         var contexts = new ContextHandlerCollection(infoContext, redirectContext);
 
