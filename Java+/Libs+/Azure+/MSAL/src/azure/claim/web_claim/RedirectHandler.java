@@ -16,7 +16,6 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
 import javax.naming.ServiceUnavailableException;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.security.KeyStoreException;
@@ -34,17 +33,12 @@ class RedirectHandler extends AbstractHandler {
     public static final String REDIRECT_ENDPOINT = "/redirect";
     private final String authority;
     private final String clientId;
-    private final File clientCertFile;
-    private final String clientCertPassword;
     private final String clientSecret;
     private final String redirectUri;
 
-    public RedirectHandler(String authority, String clientId, File clientCertFile, String clientCertPassword,
-                           String clientSecret, String redirectUri) {
+    public RedirectHandler(String authority, String clientId, String clientSecret, String redirectUri) {
         this.authority = authority;
         this.clientId = clientId;
-        this.clientCertFile = clientCertFile;
-        this.clientCertPassword = clientCertPassword;
         this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;
     }
@@ -63,9 +57,15 @@ class RedirectHandler extends AbstractHandler {
                 var oidcResponse = (AuthenticationSuccessResponse) authResponse;
                 var authResult = getAuthResultByAuthCode(oidcResponse.getAuthorizationCode(), redirectUri);
                 var idToken = authResult.accessToken();
-                var nonce = getNonceClaimValueFromIdToken(idToken);
+                var idJwt = JWTParser.parse(idToken);
+                var idClaims = idJwt.getJWTClaimsSet().getClaims();
+                System.out.println("ID claims: " + idClaims);
+//                var nonce = getNonceClaimValueFromIdToken(idToken);
 //                validateNonce(request, nonce); TODO enable nonce validation
                 var accessToken = authResult.accessToken();
+                var accessJwt = JWTParser.parse(accessToken);
+                var accessClaims = accessJwt.getJWTClaimsSet();
+                System.out.println("Access claims: " + accessClaims);
                 SessionHelper.setAccessToken(request, tokenAttr, accessToken);
             } else {
                 var oidcResponse = (AuthenticationErrorResponse) authResponse;

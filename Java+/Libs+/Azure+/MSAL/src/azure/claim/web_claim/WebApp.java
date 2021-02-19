@@ -6,35 +6,27 @@ import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.session.SessionHandler;
 
-import java.io.File;
 import java.util.Set;
 
-import static azure.claim.web_claim.AuthFilter.GRAPH_USER_READ_SCOPE;
+import static azure.claim.web_claim.Constants.WEB_APP_CALL_API_SCOPE;
 import static azure.claim.web_claim.SessionHelper.WEB_APP_ACCESS_TOKEN_ATTR;
 
 class WebApp implements AutoCloseable {
     private final String authority;
     private final String redirectUri;
     private final String webAppClientId;
-    private final File clientCertFile;
-    private final String clientCertPassword;
     private final String clientSecret;
     private final Server server;
     private final int port;
-    private final String meGraphEndpoint;
     private final String webPath;
 
-    public WebApp(int port, String authority, String redirectUri, String webAppClientId, File clientCertFile,
-                  String clientCertPassword, String clientSecret, String meGraphEndpoint, String webPath) {
+    public WebApp(int port, String authority, String redirectUri, String webAppClientId, String clientSecret, String webPath) {
         this.port = port;
         this.authority = authority;
         this.redirectUri = redirectUri;
         this.webAppClientId = webAppClientId;
         server = new Server(port);
-        this.clientCertFile = clientCertFile;
-        this.clientCertPassword = clientCertPassword;
         this.clientSecret = clientSecret;
-        this.meGraphEndpoint = meGraphEndpoint;
         this.webPath = webPath;
     }
 
@@ -49,15 +41,14 @@ class WebApp implements AutoCloseable {
 
     public void start() throws Exception {
         var infoContext = new ContextHandler(webPath);
-        infoContext.setHandler(new InfoHandler("Info Web Only", meGraphEndpoint));
+        infoContext.setHandler(new ShowTokenHandler());
 
         var redirectContext = new ContextHandler("/redirect");
-        redirectContext.setHandler(new RedirectHandler(authority, webAppClientId, clientCertFile, clientCertPassword,
-                clientSecret, redirectUri));
+        redirectContext.setHandler(new RedirectHandler(authority, webAppClientId, clientSecret, redirectUri));
 
         var contexts = new ContextHandlerCollection(infoContext, redirectContext);
 
-        var scopes = Set.of(GRAPH_USER_READ_SCOPE);
+        var scopes = Set.of(WEB_APP_CALL_API_SCOPE);
         var authFilter = new AuthFilter(authority, redirectUri, webAppClientId, WEB_APP_ACCESS_TOKEN_ATTR, scopes);
         authFilter.setHandler(contexts);
 
