@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.text.ParseException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.in;
 import static org.hamcrest.Matchers.is;
@@ -18,7 +19,7 @@ import static org.hamcrest.Matchers.is;
 public class NoneAlgorithmTest {
     @Test
     public void sign() throws ParseException {
-        JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
+        var claimsSet = new JWTClaimsSet.Builder()
                 .subject("boss")
                 .claim("name", "John")
                 .claim("age", 30L)
@@ -29,6 +30,7 @@ public class NoneAlgorithmTest {
         var expPayload = expJwt.getPayload();
 
         var serialized = expJwt.serialize();
+        assertThat(serialized, equalTo("eyJhbGciOiJub25lIn0.eyJuYW1lIjoiSm9obiIsInN1YiI6ImJvc3MiLCJhZ2UiOjMwfQ."));
 
         var actJwt = PlainJWT.parse(serialized);
         var actPayload = actJwt.getPayload();
