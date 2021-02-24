@@ -5,6 +5,7 @@ import static azure.claim.web_claim.Constants.WEB_APP_CLIENT_ID;
 import static azure.claim.web_claim.Constants.WEB_APP_CLIENT_SECRET;
 import static azure.claim.web_claim.Constants.WEB_APP_PORT;
 import static azure.claim.web_claim.Constants.WEB_APP_REDIRECT_URL;
+import static azure.claim.web_claim.Constants.WEB_PATH;
 
 /**
  * Web-application displays optional claim "auth_time".<br/>
@@ -18,10 +19,10 @@ import static azure.claim.web_claim.Constants.WEB_APP_REDIRECT_URL;
 public class MainOptionalClaim {
     public static void main(String[] args) throws Exception {
         try (var webApp = new WebApp(WEB_APP_PORT, AUTHORITY, WEB_APP_REDIRECT_URL, WEB_APP_CLIENT_ID,
-                WEB_APP_CLIENT_SECRET, "/info_claim")) {
+                WEB_APP_CLIENT_SECRET, WEB_PATH)) {
             webApp.start();
             var baseUrl = webApp.getBaseUrl();
-            System.out.println(baseUrl);
+            System.out.println(baseUrl + WEB_PATH);
             Thread.currentThread().join();
         }
     }

@@ -19,11 +19,12 @@ import static azure.flow.authcode.common.Constants.WEB_APP_REDIRECT_URL;
  */
 public class MainWebOnly {
     public static void main(String[] args) throws Exception {
+        var webPath = "/info_web_only";
         try (var webApp = new WebApp(WEB_APP_PORT, AUTHORITY, WEB_APP_REDIRECT_URL, WEB_APP_CLIENT_ID,
-                WEB_APP_CLIENT_SECRET, ME_GRAPH_ENDPOINT, "/info_web_only")) {
+                WEB_APP_CLIENT_SECRET, ME_GRAPH_ENDPOINT, webPath)) {
             webApp.start();
             var baseUrl = webApp.getBaseUrl();
-            System.out.println(baseUrl);
+            System.out.println(baseUrl + webPath);
             Thread.currentThread().join();
         }
     }

@@ -11,4 +11,5 @@ interface Constants {
     String WEB_APP_CLIENT_CERT_PASSWORD = "";
     int WEB_APP_PORT = 31235;
     String WEB_APP_REDIRECT_URL = format("http://localhost:%s/redirect", WEB_APP_PORT);
+    String WEB_PATH = "/info";
 }

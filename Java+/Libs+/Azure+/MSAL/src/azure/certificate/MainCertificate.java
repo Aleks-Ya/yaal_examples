@@ -9,6 +9,7 @@ import static azure.certificate.Constants.WEB_APP_CLIENT_CERT_PASSWORD;
 import static azure.certificate.Constants.WEB_APP_CLIENT_ID;
 import static azure.certificate.Constants.WEB_APP_PORT;
 import static azure.certificate.Constants.WEB_APP_REDIRECT_URL;
+import static azure.certificate.Constants.WEB_PATH;
 
 /**
  * Web-application signed with a certificate.<br/>
@@ -23,10 +24,10 @@ public class MainCertificate {
     public static void main(String[] args) throws Exception {
         var clientCertFile = new File(MainCertificate.class.getResource(WEB_APP_CLIENT_CERT_FILE).getFile());
         try (var webApp = new WebApp(WEB_APP_PORT, AUTHORITY, WEB_APP_REDIRECT_URL, WEB_APP_CLIENT_ID,
-                clientCertFile, WEB_APP_CLIENT_CERT_PASSWORD, ME_GRAPH_ENDPOINT, "/info")) {
+                clientCertFile, WEB_APP_CLIENT_CERT_PASSWORD, ME_GRAPH_ENDPOINT, WEB_PATH)) {
             webApp.start();
             var baseUrl = webApp.getBaseUrl();
-            System.out.println(baseUrl);
+            System.out.println(baseUrl + WEB_PATH);
             Thread.currentThread().join();
         }
     }

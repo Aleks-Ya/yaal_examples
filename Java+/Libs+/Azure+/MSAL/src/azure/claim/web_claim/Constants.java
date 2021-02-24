@@ -10,4 +10,5 @@ public interface Constants {
     int WEB_APP_PORT = 31236;
     String WEB_APP_REDIRECT_URL = format("http://localhost:%s/redirect", WEB_APP_PORT);
     String WEB_APP_CALL_API_SCOPE = "api://msal-web-claim-id/API.Call";
+    String WEB_PATH = "/info_claim";
 }

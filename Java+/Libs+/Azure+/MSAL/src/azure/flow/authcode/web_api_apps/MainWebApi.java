@@ -22,14 +22,15 @@ import static azure.flow.authcode.common.Constants.WEB_APP_REDIRECT_URL;
 public class MainWebApi {
     public static void main(String[] args) throws Exception {
         var apiPath = "/me";
+        var webPath = "/info_web_api";
         try (var apiApp = new ApiApp(API_APP_PORT, apiPath);
              var webApp = new WebApp(WEB_APP_PORT, AUTHORITY, WEB_APP_REDIRECT_URL, WEB_APP_CLIENT_ID,
                      WEB_APP_CLIENT_SECRET, TOKEN_AUTHORITY, apiApp.getBaseUrl() + apiPath,
-                     "/info_web_api")) {
+                     webPath)) {
             apiApp.start();
             webApp.start();
             var baseUrl = webApp.getBaseUrl();
-            System.out.println(baseUrl);
+            System.out.println(baseUrl + webPath);
             Thread.currentThread().join();
         }
     }
