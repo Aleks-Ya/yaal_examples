@@ -1,4 +1,4 @@
-package azure.certificate.web_signed;
+package azure.certificate;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -7,8 +7,8 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 
 import java.io.IOException;
 
-import static azure.certificate.web_signed.HttpClientHelper.getFromUrl;
-import static azure.certificate.web_signed.SessionHelper.WEB_APP_ACCESS_TOKEN_ATTR;
+import static azure.certificate.HttpClientHelper.getFromUrl;
+import static azure.certificate.SessionHelper.WEB_APP_ACCESS_TOKEN_ATTR;
 
 class InfoHandler extends AbstractHandler {
     private final String message;

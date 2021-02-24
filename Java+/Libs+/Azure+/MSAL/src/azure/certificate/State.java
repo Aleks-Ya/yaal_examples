@@ -1,4 +1,4 @@
-package azure.certificate.web_signed;
+package azure.certificate;
 
 class State {
     private final String targetUrlPath;

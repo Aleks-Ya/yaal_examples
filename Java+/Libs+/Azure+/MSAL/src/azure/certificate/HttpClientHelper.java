@@ -1,4 +1,4 @@
-package azure.certificate.web_signed;
+package azure.certificate;
 
 import com.microsoft.aad.msal4j.ClientCredentialFactory;
 import com.microsoft.aad.msal4j.ConfidentialClientApplication;

@@ -1,4 +1,4 @@
-package azure.certificate.web_signed;
+package azure.certificate;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
@@ -9,8 +9,8 @@ import org.eclipse.jetty.server.session.SessionHandler;
 import java.io.File;
 import java.util.Set;
 
-import static azure.certificate.web_signed.AuthFilter.GRAPH_USER_READ_SCOPE;
-import static azure.certificate.web_signed.SessionHelper.WEB_APP_ACCESS_TOKEN_ATTR;
+import static azure.certificate.AuthFilter.GRAPH_USER_READ_SCOPE;
+import static azure.certificate.SessionHelper.WEB_APP_ACCESS_TOKEN_ATTR;
 
 class WebApp implements AutoCloseable {
     private final String authority;

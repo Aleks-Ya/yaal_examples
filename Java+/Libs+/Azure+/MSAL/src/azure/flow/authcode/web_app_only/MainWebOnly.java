@@ -8,11 +8,12 @@ import static azure.flow.authcode.common.Constants.WEB_APP_PORT;
 import static azure.flow.authcode.common.Constants.WEB_APP_REDIRECT_URL;
 
 /**
- * "Authentication Code Grant" flow example: Client + WebApp.<p/>
- * <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-app-types?WT.mc_id=Portal-Microsoft_AAD_RegisteredApps#web-apps">Docs</a><p/>
+ * "Authentication Code Grant" flow example: Client + WebApp.<br/>
+ * Docs: <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-app-types?WT.mc_id=Portal-Microsoft_AAD_RegisteredApps#web-apps">Web apps</a><br/>
+ * Azure App Registration: <a href="https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Overview/appId/89f6d017-0ac1-413a-9e05-91ea9c8ada6a/isMSAApp/">msal-authcode-web</a><br/>
  * Run:
  * <ol>
- *      <li>{@link MainWebOnly} class</li>
+ *      <li>Run {@link MainWebOnly} class</li>
  *      <li>Open <a href="http://localhost:35712/info_web_only"/>http://localhost:35712/info_web_only</a></li>
  * </ol>
  */

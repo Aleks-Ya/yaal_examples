@@ -1,4 +1,4 @@
-package azure.certificate.web_signed;
+package azure.certificate;
 
 import com.microsoft.aad.msal4j.AuthorizationRequestUrlParameters;
 import com.microsoft.aad.msal4j.Prompt;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import static azure.certificate.web_signed.RedirectHandler.REDIRECT_ENDPOINT;
+import static azure.certificate.RedirectHandler.REDIRECT_ENDPOINT;
 
 class AuthFilter extends HandlerWrapper {
     public static final String GRAPH_USER_READ_SCOPE = "https://graph.microsoft.com/User.Read";
