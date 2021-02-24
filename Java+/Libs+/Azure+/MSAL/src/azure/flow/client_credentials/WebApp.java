@@ -2,34 +2,24 @@ package azure.flow.client_credentials;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
-import org.eclipse.jetty.server.handler.ContextHandlerCollection;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.session.SessionHandler;
-
-import java.util.Set;
-
-import static azure.flow.client_credentials.AuthFilter.GRAPH_USER_READ_SCOPE;
-import static azure.flow.client_credentials.SessionHelper.WEB_APP_ACCESS_TOKEN_ATTR;
 
 class WebApp implements AutoCloseable {
     private final String authority;
-    private final String redirectUri;
-    private final String webAppClientId;
-    private final String webAppClientSecret;
+    private final String clientId;
+    private final String clientSecret;
     private final Server server;
     private final int port;
-    private final String meGraphEndpoint;
+    private final String usersGraphEndpoint;
     private final String webPath;
 
-    public WebApp(int port, String authority, String redirectUri, String webAppClientId, String webAppClientSecret,
-                  String meGraphEndpoint, String webPath) {
+    public WebApp(int port, String authority, String clientId, String clientSecret,
+                  String usersGraphEndpoint, String webPath) {
         this.port = port;
         this.authority = authority;
-        this.redirectUri = redirectUri;
-        this.webAppClientId = webAppClientId;
+        this.clientId = clientId;
         server = new Server(port);
-        this.webAppClientSecret = webAppClientSecret;
-        this.meGraphEndpoint = meGraphEndpoint;
+        this.clientSecret = clientSecret;
+        this.usersGraphEndpoint = usersGraphEndpoint;
         this.webPath = webPath;
     }
 
@@ -43,24 +33,9 @@ class WebApp implements AutoCloseable {
     }
 
     public void start() throws Exception {
-        var infoContext = new ContextHandler(webPath);
-        infoContext.setHandler(new InfoHandler("Info Web Only", meGraphEndpoint));
-
-        var redirectContext = new ContextHandler("/redirect");
-        redirectContext.setHandler(new RedirectHandler(authority, webAppClientId, webAppClientSecret, redirectUri));
-
-        var contexts = new ContextHandlerCollection(infoContext, redirectContext);
-
-        var scopes = Set.of(GRAPH_USER_READ_SCOPE);
-        var authFilter = new AuthFilter(authority, redirectUri, webAppClientId, WEB_APP_ACCESS_TOKEN_ATTR, scopes);
-        authFilter.setHandler(contexts);
-
-        var sessionHandler = new SessionHandler();
-        sessionHandler.getSessionCookieConfig().setPath("/");
-
-        var handlerList = new HandlerList(sessionHandler, authFilter);
-
-        server.setHandler(handlerList);
+        var userContext = new ContextHandler(webPath);
+        userContext.setHandler(new UsersHandler("Graph Users", clientId, clientSecret, authority, usersGraphEndpoint));
+        server.setHandler(userContext);
         server.start();
     }
 }

@@ -1,11 +1,11 @@
 package azure.flow.client_credentials;
 
 import static azure.flow.client_credentials.Constants.AUTHORITY;
-import static azure.flow.client_credentials.Constants.ME_GRAPH_ENDPOINT;
-import static azure.flow.client_credentials.Constants.WEB_APP_CLIENT_ID;
-import static azure.flow.client_credentials.Constants.WEB_APP_CLIENT_SECRET;
+import static azure.flow.client_credentials.Constants.CLIENT_ID;
+import static azure.flow.client_credentials.Constants.CLIENT_SECRET;
+import static azure.flow.client_credentials.Constants.USERS_GRAPH_ENDPOINT;
 import static azure.flow.client_credentials.Constants.WEB_APP_PORT;
-import static azure.flow.client_credentials.Constants.WEB_APP_REDIRECT_URL;
+import static azure.flow.client_credentials.Constants.WEB_PATH;
 
 /**
  * "Client Credentials" flow example.<br/>
@@ -14,16 +14,15 @@ import static azure.flow.client_credentials.Constants.WEB_APP_REDIRECT_URL;
  * Run:
  * <ol>
  *      <li>{@link MainClientCredentials} class</li>
- *      <li>Open <a href="http://localhost:35712/info_web_only"/>http://localhost:35712/info_web_only</a></li>
+ *      <li>Open <a href="http://localhost:35713/users"/>http://localhost:35713/users</a></li>
  * </ol>
  */
 public class MainClientCredentials {
     public static void main(String[] args) throws Exception {
-        try (var webApp = new WebApp(WEB_APP_PORT, AUTHORITY, WEB_APP_REDIRECT_URL, WEB_APP_CLIENT_ID,
-                WEB_APP_CLIENT_SECRET, ME_GRAPH_ENDPOINT, "/info_web_only")) {
+        try (var webApp = new WebApp(WEB_APP_PORT, AUTHORITY, CLIENT_ID, CLIENT_SECRET, USERS_GRAPH_ENDPOINT, WEB_PATH)) {
             webApp.start();
             var baseUrl = webApp.getBaseUrl();
-            System.out.println(baseUrl);
+            System.out.println(baseUrl + WEB_PATH);
             Thread.currentThread().join();
         }
     }
