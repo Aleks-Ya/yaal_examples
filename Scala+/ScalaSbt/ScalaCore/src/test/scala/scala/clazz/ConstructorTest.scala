@@ -5,13 +5,25 @@ import org.scalatest.matchers.should.Matchers
 
 class ConstructorTest extends AnyFlatSpec with Matchers {
 
-
   it should "init class without constructor" in {
     class NoConstructorClass {
       val name: String = "abc"
     }
     val person = new NoConstructorClass
     person.name shouldEqual "abc"
+  }
+
+  it should "init class fields without constructor" in {
+    class NoConstructorFieldClass(val name: String)
+    val person = new NoConstructorFieldClass("abc")
+    person.name shouldEqual "abc"
+  }
+
+  it should "invoke constructor of superclass" in {
+    class ParentClass(val name: String)
+    class ChildClass(val num: Int) extends ParentClass(num.toString)
+    val person = new ChildClass(123)
+    person.name shouldEqual "123"
   }
 
   it should "init class with constructor parameters" in {

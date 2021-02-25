@@ -1,13 +1,15 @@
-package json
+package json.manual
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import play.api.libs.functional.syntax.toFunctionalBuilderOps
 import play.api.libs.json._
 
 /**
  * Deserialize and validate JSON with play.libs.Json.
+ * Create Reads manually.
  */
-class DeserializeJson extends FlatSpec with Matchers {
+class DeserializeJsonManually extends AnyFlatSpec with Matchers {
 
   it should "deserialize JSON string to object" in {
     case class Person(name: String, age: Int, position: Position)

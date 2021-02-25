@@ -1,13 +1,15 @@
-package json
+package json.manual
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import play.api.libs.functional.syntax.{toFunctionalBuilderOps, unlift}
 import play.api.libs.json._
 
 /**
  * Serialize JSON with play.libs.Json.
+ * Create Writes manually.
  */
-class SerializeJson extends FlatSpec with Matchers {
+class SerializeJsonManually extends AnyFlatSpec with Matchers {
 
   it should "serialize map to JSON" in {
     val map = Map("a" -> 1, "b" -> 2)
@@ -35,16 +37,6 @@ class SerializeJson extends FlatSpec with Matchers {
         (JsPath \ "age").write[Int]
       ) (unlift(Person2.unapply))
     val person = Person2("John", 30)
-    val jsonValue = Json.toJson(person)
-    val jsonStr = Json.stringify(jsonValue)
-    jsonStr shouldEqual """{"name":"John","age":30}"""
-  }
-
-  case class Person3(name: String, age: Int) //Can't be in test body
-
-  it should "serialize case class to JSON (auto format generation)" in {
-    implicit val personFormat: OFormat[Person3] = Json.format[Person3]
-    val person = Person3("John", 30)
     val jsonValue = Json.toJson(person)
     val jsonStr = Json.stringify(jsonValue)
     jsonStr shouldEqual """{"name":"John","age":30}"""
