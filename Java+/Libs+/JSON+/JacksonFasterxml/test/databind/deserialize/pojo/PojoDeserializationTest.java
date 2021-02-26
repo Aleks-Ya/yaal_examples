@@ -7,8 +7,8 @@ import util.JsonUtil;
 
 import java.io.IOException;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Deserialize JSON to POJO.
@@ -17,10 +17,10 @@ public class PojoDeserializationTest {
 
     @Test
     public void readValue() throws IOException {
-        String json = JsonUtil.singleQuoteToDouble("{'id': 123, 'name': 'aleks'}");
-        ObjectMapper mapper = new ObjectMapper();
+        var json = JsonUtil.singleQuoteToDouble("{'id': 123, 'name': 'aleks'}");
+        var mapper = new ObjectMapper();
 
-        User user = mapper.readValue(json, User.class);
+        var user = mapper.readValue(json, User.class);
 
         assertThat(user.getId(), equalTo(123));
         assertThat(user.getName(), equalTo("aleks"));
@@ -31,11 +31,11 @@ public class PojoDeserializationTest {
      */
     @Test
     public void failOnUnknownProperties() throws IOException {
-        String json = JsonUtil.singleQuoteToDouble("{'id': 123, 'name': 'aleks', 'age': 30}");
-        ObjectMapper mapper = new ObjectMapper();
+        var json = JsonUtil.singleQuoteToDouble("{'id': 123, 'name': 'aleks', 'age': 30}");
+        var mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        User user = mapper.readValue(json, User.class);
+        var user = mapper.readValue(json, User.class);
 
         assertThat(user.getId(), equalTo(123));
         assertThat(user.getName(), equalTo("aleks"));

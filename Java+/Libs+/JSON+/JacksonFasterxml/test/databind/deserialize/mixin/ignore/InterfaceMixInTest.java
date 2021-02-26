@@ -7,9 +7,9 @@ import util.JsonUtil;
 
 import java.io.IOException;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Mix-In class is an interface.
@@ -18,16 +18,11 @@ public class InterfaceMixInTest {
 
     @Test
     public void deserialize() throws IOException {
-        String json = JsonUtil.singleQuoteToDouble("{'city': 'SPb', 'state': 'Leningrad'}");
-
-        ObjectMapper mapper = new ObjectMapper();
-
+        var json = JsonUtil.singleQuoteToDouble("{'city': 'SPb', 'state': 'Leningrad'}");
+        var mapper = new ObjectMapper();
         assertThat(json, containsString("state"));
-
         mapper.addMixIn(Address.class, AddressMixin.class);
-
-        Address deserializedUser = mapper.readValue(json, Address.class);
-
+        var deserializedUser = mapper.readValue(json, Address.class);
         assertThat(deserializedUser.state, nullValue());
     }
 

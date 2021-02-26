@@ -16,23 +16,25 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-
-import static org.hamcrest.Matchers.hasToString;
-import static org.hamcrest.MatcherAssert.assertThat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ObjectMapperTest {
 
     @Test
     public void test() throws IOException, ParseException, JSONException {
-        Artist artist = makeArtist();
-        Album album = makeAlbum(artist);
-        ObjectMapper mapper = initMapper();
+        var artist = makeArtist();
+        var album = makeAlbum(artist);
+        var mapper = initMapper();
 
-        StringWriter writer = new StringWriter();
+        var writer = new StringWriter();
         mapper.writeValue(writer, album);
 
-        String exp = "{ " +
+        var exp = "{ " +
                 "'Album-Title': 'Kind Of Blue', " +
                 "'links': [ 'link1', 'link2' ], " +
                 "'songs': [ 'So What', 'Flamenco Sketches', 'Freddie Freeloader' ], " +
@@ -43,10 +45,10 @@ public class ObjectMapperTest {
     }
 
     private static ObjectMapper initMapper() {
-        ObjectMapper mapper = new ObjectMapper();
+        var mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
         mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
-        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy");
+        var outputFormat = new SimpleDateFormat("dd MMM yyyy");
         mapper.setDateFormat(outputFormat);
         mapper.setPropertyNamingStrategy(new PropertyNamingStrategy() {
             private static final long serialVersionUID = 1L;
@@ -70,7 +72,7 @@ public class ObjectMapperTest {
     }
 
     private static Album makeAlbum(Artist artist) {
-        Album album = new Album("Kind Of Blue");
+        var album = new Album("Kind Of Blue");
         album.setArtist(artist);
         album.setLinks(new String[]{"link1", "link2"});
         List<String> songs = new ArrayList<>();
@@ -85,20 +87,20 @@ public class ObjectMapperTest {
     }
 
     private static Artist makeArtist() throws ParseException {
-        Artist artist = new Artist();
+        var artist = new Artist();
         artist.name = "Miles Davis";
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        var format = new SimpleDateFormat("dd-MM-yyyy");
         artist.birthDate = format.parse("26-05-1926");
         return artist;
     }
 
     @SuppressWarnings({"unused", "WeakerAccess"})
     private static class Album {
-        private String title;
+        private final String title;
         private String[] links;
-        private List<String> songs = new ArrayList<String>();
+        private List<String> songs = new ArrayList<>();
         private Artist artist;
-        private Map<String, String> musicians = new HashMap<String, String>();
+        private final Map<String, String> musicians = new HashMap<>();
 
         public Album(String title) {
             this.title = title;

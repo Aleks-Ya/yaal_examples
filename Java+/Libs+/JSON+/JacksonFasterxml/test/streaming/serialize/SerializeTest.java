@@ -2,7 +2,6 @@ package streaming.serialize;
 
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
 import org.json.JSONException;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -16,8 +15,8 @@ public class SerializeTest {
     @Test
     public void array() throws IOException, JSONException {
         OutputStream out = new ByteArrayOutputStream();
-        JsonFactory jsonFactory = new JsonFactory();
-        JsonGenerator jg = jsonFactory.createGenerator(out, JsonEncoding.UTF8);
+        var jsonFactory = new JsonFactory();
+        var jg = jsonFactory.createGenerator(out, JsonEncoding.UTF8);
 
         jg.writeStartArray();
         jg.writeStartObject();
@@ -28,8 +27,8 @@ public class SerializeTest {
 
         jg.close();
 
-        String actJson = out.toString();
-        String expJson = "[{ name: 'John', age: 30}]";
+        var actJson = out.toString();
+        var expJson = "[{ name: 'John', age: 30}]";
 
         JSONAssert.assertEquals(expJson, actJson, false);
     }

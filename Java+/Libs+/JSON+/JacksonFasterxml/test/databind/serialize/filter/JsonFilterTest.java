@@ -2,7 +2,6 @@ package databind.serialize.filter;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.PropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
@@ -21,11 +20,11 @@ public class JsonFilterTest {
 
     @Test
     public void filter() throws IOException, JSONException {
-        City city = new City();
+        var city = new City();
         city.name = "SPb";
         city.population = 100;
 
-        Person dtoObject = new Person();
+        var dtoObject = new Person();
         dtoObject.name = "John";
         dtoObject.age = 30;
         dtoObject.city = city;
@@ -33,17 +32,17 @@ public class JsonFilterTest {
         PropertyFilter noPersonAgeFilter = SimpleBeanPropertyFilter.serializeAllExcept("age");
         PropertyFilter noCityNameFilter = SimpleBeanPropertyFilter.serializeAllExcept("name");
 
-        String personFilterId = "personFilter";
-        String cityFilterId = "cityFilter";
+        var personFilterId = "personFilter";
+        var cityFilterId = "cityFilter";
 
         FilterProvider provider = new SimpleFilterProvider()
                 .addFilter(personFilterId, noPersonAgeFilter)
                 .addFilter(cityFilterId, noCityNameFilter);
 
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter writer = mapper.writer(provider);
+        var mapper = new ObjectMapper();
+        var writer = mapper.writer(provider);
 
-        String dtoAsString = writer.writeValueAsString(dtoObject);
+        var dtoAsString = writer.writeValueAsString(dtoObject);
         JSONAssert.assertEquals("{name: 'John', city:{ population:100}}", dtoAsString, JSONCompareMode.STRICT);
     }
 

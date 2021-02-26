@@ -20,17 +20,15 @@ public class CustomFieldSerializerTest {
 
     @Test
     public void test() throws IOException, JSONException {
-        Artist artist = new Artist();
+        var artist = new Artist();
         artist.name = "John";
 
-        ObjectMapper mapper = new ObjectMapper();
+        var mapper = new ObjectMapper();
 
-        StringWriter writer = new StringWriter();
+        var writer = new StringWriter();
         mapper.writeValue(writer, artist);
 
-
-        String exp = "{name: JOHN}";
-
+        var exp = "{name: JOHN}";
         JSONAssert.assertEquals(writer.toString(), exp, JSONCompareMode.STRICT);
     }
 

@@ -1,7 +1,6 @@
 package databind.serialize.custom.field;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -24,7 +23,7 @@ public class ThrowableSerializerTest {
 
     @Test
     public void test() throws IOException, JSONException {
-        RuntimeException cause = new RuntimeException("cause message");
+        var cause = new RuntimeException("cause message");
         cause.setStackTrace(new StackTraceElement[0]);
 
         StackTraceElement[] stackTrace = {
@@ -32,23 +31,23 @@ public class ThrowableSerializerTest {
                 new StackTraceElement("my.Class2", "getAge", "file2", 3)
         };
 
-        Throwable throwable = new Throwable("my message", cause);
+        var throwable = new Throwable("my message", cause);
         throwable.setStackTrace(stackTrace);
 
-        Data data = new Data();
+        var data = new Data();
         data.throwable = throwable;
 
 
-        SimpleModule module = new SimpleModule();
+        var module = new SimpleModule();
         module.addSerializer(Throwable.class, new ThrowableSerializer());
 
-        ObjectMapper mapper = new ObjectMapper();
+        var mapper = new ObjectMapper();
         mapper.registerModule(module);
 
-        StringWriter writer = new StringWriter();
+        var writer = new StringWriter();
         mapper.writeValue(writer, data);
 
-        String exp = "{throwable: {" +
+        var exp = "{throwable: {" +
                 "message: 'my message', " +
                 "localizedMessage: 'my message', " +
                 "cause: {message: 'cause message', localizedMessage: 'cause message', cause: null, stackTrace: '', suppressed: []}," +
@@ -56,7 +55,7 @@ public class ThrowableSerializerTest {
                 "suppressed: []}" +
                 "}";
 
-        String actJson = writer.toString();
+        var actJson = writer.toString();
         System.out.println(actJson);
         JSONAssert.assertEquals(exp, actJson, JSONCompareMode.STRICT);
     }
@@ -88,10 +87,10 @@ public class ThrowableSerializerTest {
         }
 
         private void serializeCause(Throwable throwable, JsonGenerator gen, SerializerProvider provider) throws IOException {
-            Throwable cause = throwable.getCause();
+            var cause = throwable.getCause();
             if (cause != null) {
                 gen.writeFieldName("cause");
-                JsonSerializer<Object> serializer = provider.findValueSerializer(cause.getClass());
+                var serializer = provider.findValueSerializer(cause.getClass());
                 serializer.serialize(cause, gen, provider);
             } else {
                 gen.writeNullField("cause");
@@ -99,11 +98,11 @@ public class ThrowableSerializerTest {
         }
 
         private void serializeStackTrace(Throwable throwable, JsonGenerator gen, SerializerProvider provider) throws IOException {
-            StackTraceElement[] cause = throwable.getStackTrace();
+            var cause = throwable.getStackTrace();
             if (cause != null) {
                 gen.writeFieldName("stackTrace");
-                String value = Stream.of(cause).map(StackTraceElement::toString).collect(Collectors.joining("; "));
-                JsonSerializer<Object> serializer = provider.findValueSerializer(String.class);
+                var value = Stream.of(cause).map(StackTraceElement::toString).collect(Collectors.joining("; "));
+                var serializer = provider.findValueSerializer(String.class);
                 serializer.serialize(value, gen, provider);
             } else {
                 gen.writeNullField("stackTrace");
@@ -111,10 +110,10 @@ public class ThrowableSerializerTest {
         }
 
         private void serializeSuppresed(Throwable throwable, JsonGenerator gen, SerializerProvider provider) throws IOException {
-            Throwable[] suppressed = throwable.getSuppressed();
+            var suppressed = throwable.getSuppressed();
             if (suppressed != null) {
                 gen.writeFieldName("suppressed");
-                JsonSerializer<Object> serializer = provider.findValueSerializer(suppressed.getClass());
+                var serializer = provider.findValueSerializer(suppressed.getClass());
                 serializer.serialize(suppressed, gen, provider);
             } else {
                 gen.writeNullField("suppressed");

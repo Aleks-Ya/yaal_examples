@@ -8,8 +8,10 @@ import util.JsonUtil;
 import java.io.IOException;
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.hasSize;
 
 /**
  * Deserialize a JSON array (that has NOT field name) to Java Array, List, Set.
@@ -18,9 +20,9 @@ public class DeserializeArrayWithoutFieldNameTest {
 
     @Test
     public void stringArrayToList() throws IOException {
-        String json = JsonUtil.singleQuoteToDouble("['aleks', 'john']");
-        ObjectMapper mapper = new ObjectMapper();
-        List<String> users = mapper.readValue(json, new TypeReference<List<String>>() {
+        var json = JsonUtil.singleQuoteToDouble("['aleks', 'john']");
+        var mapper = new ObjectMapper();
+        var users = mapper.readValue(json, new TypeReference<List<String>>() {
         });
         assertThat(users, hasSize(2));
         assertThat(users, hasItems("aleks", "john"));
@@ -28,9 +30,9 @@ public class DeserializeArrayWithoutFieldNameTest {
 
     @Test
     public void objectArrayToList() throws IOException {
-        String json = JsonUtil.singleQuoteToDouble("[ {'name': 'aleks'}, { 'name': 'john'}]");
-        ObjectMapper mapper = new ObjectMapper();
-        List<User> users = mapper.readValue(json, new TypeReference<List<User>>() {
+        var json = JsonUtil.singleQuoteToDouble("[ {'name': 'aleks'}, { 'name': 'john'}]");
+        var mapper = new ObjectMapper();
+        var users = mapper.readValue(json, new TypeReference<List<User>>() {
         });
         assertThat(users, hasSize(2));
         assertThat(users.get(0).name, equalTo("aleks"));

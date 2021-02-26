@@ -14,26 +14,26 @@ import static org.junit.Assert.assertEquals;
  * Polymorphic Deserialization
  */
 public class SubtypeResolverTest {
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @Test
     public void parent() throws IOException {
-        Parent expParent = new Parent();
+        var expParent = new Parent();
         expParent.setName("my name");
-        String parentJson = mapper.writeValueAsString(expParent);
+        var parentJson = mapper.writeValueAsString(expParent);
         assertEquals("{\"name\":\"my name\"}", parentJson);
-        Parent actParent = mapper.readValue(parentJson, Parent.class);
+        var actParent = mapper.readValue(parentJson, Parent.class);
         assertEquals(expParent, actParent);
     }
 
     @Test
     public void child() throws IOException {
-        Child expChild = new Child();
+        var expChild = new Child();
         expChild.setName("my name");
         expChild.setNumber(1);
-        String childJson = mapper.writeValueAsString(expChild);
+        var childJson = mapper.writeValueAsString(expChild);
         assertEquals("{\"name\":\"my name\",\"number\":1}", childJson);
-        Child actChild = mapper.readValue(childJson, Child.class);
+        var actChild = mapper.readValue(childJson, Child.class);
         assertEquals(expChild, actChild);
     }
 
@@ -41,13 +41,13 @@ public class SubtypeResolverTest {
     public void defaultTyping() throws IOException, JSONException {
         mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
 
-        Child expChild = new Child();
+        var expChild = new Child();
         expChild.setName("my name");
         expChild.setNumber(1);
-        String childJson = mapper.writeValueAsString(expChild);
-        String expJson = "[databind.deserialize.subtype_resolver.SubtypeResolverTest$Child,{name:'my name',number:1}]";
+        var childJson = mapper.writeValueAsString(expChild);
+        var expJson = "[databind.deserialize.subtype_resolver.SubtypeResolverTest$Child,{name:'my name',number:1}]";
         JSONAssert.assertEquals(expJson, childJson, JSONCompareMode.STRICT);
-        Parent actChild = mapper.readValue(childJson, Parent.class);
+        var actChild = mapper.readValue(childJson, Parent.class);
         assertEquals(expChild, actChild);
     }
 
@@ -72,7 +72,7 @@ public class SubtypeResolverTest {
         @Override
         public boolean equals(Object obj) {
             if (obj instanceof Parent) {
-                Parent o = (Parent) obj;
+                var o = (Parent) obj;
                 return name != null && name.equals(o.name);
             }
             return false;
@@ -100,9 +100,9 @@ public class SubtypeResolverTest {
         @Override
         public boolean equals(Object obj) {
             if (obj instanceof Child) {
-                Child o = (Child) obj;
-                boolean nameEquals = getName() != null && getName().equals(o.getName());
-                boolean numberEquals = number != null && number.equals(o.number);
+                var o = (Child) obj;
+                var nameEquals = getName() != null && getName().equals(o.getName());
+                var numberEquals = number != null && number.equals(o.number);
                 return nameEquals && numberEquals;
             }
             return false;

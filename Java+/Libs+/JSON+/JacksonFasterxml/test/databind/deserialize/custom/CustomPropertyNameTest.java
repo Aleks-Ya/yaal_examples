@@ -17,10 +17,10 @@ public class CustomPropertyNameTest {
 
     @Test
     public void test() throws IOException {
-        String json = JsonUtil.singleQuoteToDouble("{'_id': 123}");
-        ObjectMapper mapper = new ObjectMapper();
+        var json = JsonUtil.singleQuoteToDouble("{'_id': 123}");
+        var mapper = new ObjectMapper();
 
-        User user = mapper.readValue(json, User.class);
+        var user = mapper.readValue(json, User.class);
 
         assertThat(user.getId(), equalTo(123));
     }

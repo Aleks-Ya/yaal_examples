@@ -16,8 +16,8 @@ import java.io.StringWriter;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Custom serialization a StackTraceElement[] to JSON.
@@ -28,14 +28,14 @@ public class StackTraceSerializerTest {
 
     @Before
     public void setUp() {
-        SimpleModule module = new SimpleModule();
+        var module = new SimpleModule();
         module.addSerializer(StackTraceElement[].class, new StackTraceSerializer());
         mapper.registerModule(module);
     }
 
     @Test
     public void stackIsFieldInPojo() throws IOException, JSONException {
-        RuntimeException cause = new RuntimeException("cause message");
+        var cause = new RuntimeException("cause message");
         cause.setStackTrace(new StackTraceElement[0]);
 
         StackTraceElement[] stackTrace = {
@@ -43,15 +43,15 @@ public class StackTraceSerializerTest {
                 new StackTraceElement("my.Class2", "getAge", "file2", 3)
         };
 
-        Throwable throwable = new Throwable("my message", cause);
+        var throwable = new Throwable("my message", cause);
         throwable.setStackTrace(stackTrace);
 
         mapper.writeValue(writer, throwable);
 
-        String actJson = writer.toString();
+        var actJson = writer.toString();
         System.out.println(actJson);
 
-        String exp = "{" +
+        var exp = "{" +
                 "message: 'my message', " +
                 "localizedMessage: 'my message', " +
                 "cause: {message: 'cause message', localizedMessage: 'cause message', cause: null, stackTrace: '', suppressed: []}," +
@@ -62,7 +62,7 @@ public class StackTraceSerializerTest {
     }
 
     @Test
-    public void stackIsObject() throws IOException, JSONException {
+    public void stackIsObject() throws IOException {
         StackTraceElement[] stackTrace = {
                 new StackTraceElement("my.Class", "getName", "file", 1),
                 new StackTraceElement("my.Class2", "getAge", "file2", 3)
@@ -70,22 +70,22 @@ public class StackTraceSerializerTest {
 
         mapper.writeValue(writer, stackTrace);
 
-        String actJson = writer.toString();
+        var actJson = writer.toString();
         System.out.println(actJson);
 
-        String exp = "\"my.Class.getName(file:1); my.Class2.getAge(file2:3)\"";
+        var exp = "\"my.Class.getName(file:1); my.Class2.getAge(file2:3)\"";
 
         assertThat(actJson, equalTo(exp));
     }
 
     @Test
-    public void stackIsEmptyArray() throws IOException, JSONException {
+    public void stackIsEmptyArray() throws IOException {
         mapper.writeValue(writer, new StackTraceElement[0]);
         assertThat(writer.toString(), equalTo("\"\""));
     }
 
     @Test
-    public void stackIsNull() throws IOException, JSONException {
+    public void stackIsNull() throws IOException {
         mapper.writeValue(writer, null);
         assertThat(writer.toString(), equalTo("null"));
     }
@@ -99,7 +99,7 @@ public class StackTraceSerializerTest {
         @Override
         public void serialize(StackTraceElement[] stack, JsonGenerator gen, SerializerProvider provider) throws IOException {
             if (stack != null) {
-                String valueStr = Stream.of(stack).map(StackTraceElement::toString).collect(Collectors.joining("; "));
+                var valueStr = Stream.of(stack).map(StackTraceElement::toString).collect(Collectors.joining("; "));
                 gen.writeString(valueStr);
             } else {
                 gen.writeNull();

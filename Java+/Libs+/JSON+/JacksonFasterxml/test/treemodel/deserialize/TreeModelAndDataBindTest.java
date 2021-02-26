@@ -1,6 +1,5 @@
 package treemodel.deserialize;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.Test;
@@ -8,8 +7,8 @@ import util.ResourceUtil;
 
 import java.io.IOException;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Using Data Bind for parsing specific Nodes in Tree Model.
@@ -25,12 +24,12 @@ public class TreeModelAndDataBindTest {
 
     @Test
     public void treeToValue() throws IOException {
-        ObjectNode rootNode = (ObjectNode) MAPPER.readTree(JSON);
-        String company = rootNode.get(COMPANY_FIELD).textValue();
+        var rootNode = (ObjectNode) MAPPER.readTree(JSON);
+        var company = rootNode.get(COMPANY_FIELD).textValue();
         assertThat(company, equalTo(EXP_COMPANY));
 
-        JsonNode headNode = rootNode.get(HEAD_FIELD);
-        Head head = MAPPER.treeToValue(headNode, Head.class);
+        var headNode = rootNode.get(HEAD_FIELD);
+        var head = MAPPER.treeToValue(headNode, Head.class);
 
         assertThat(head.name, equalTo(EXP_HEAD_NAME));
         assertThat(head.title, equalTo(EXP_HEAD_TITLE));
@@ -38,12 +37,12 @@ public class TreeModelAndDataBindTest {
 
     @Test
     public void convertValue() throws IOException {
-        ObjectNode rootNode = (ObjectNode) MAPPER.readTree(JSON);
-        String company = rootNode.get(COMPANY_FIELD).textValue();
+        var rootNode = (ObjectNode) MAPPER.readTree(JSON);
+        var company = rootNode.get(COMPANY_FIELD).textValue();
         assertThat(company, equalTo(EXP_COMPANY));
 
-        JsonNode headNode = rootNode.get(HEAD_FIELD);
-        Head head = MAPPER.convertValue(headNode, Head.class);
+        var headNode = rootNode.get(HEAD_FIELD);
+        var head = MAPPER.convertValue(headNode, Head.class);
 
         assertThat(head.name, equalTo(EXP_HEAD_NAME));
         assertThat(head.title, equalTo(EXP_HEAD_TITLE));

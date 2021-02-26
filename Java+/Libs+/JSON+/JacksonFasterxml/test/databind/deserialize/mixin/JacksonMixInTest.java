@@ -15,7 +15,7 @@ import java.io.IOException;
 public class JacksonMixInTest {
 
     private static ObjectMapper buildMapper() {
-        ObjectMapper mapper = new ObjectMapper();
+        var mapper = new ObjectMapper();
         mapper.setVisibility(mapper.getSerializationConfig()
                 .getDefaultVisibilityChecker()
                 .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
@@ -28,17 +28,17 @@ public class JacksonMixInTest {
 
     @Test
     public void deserialize() throws IOException {
-        String json = JsonUtil.singleQuoteToDouble("{'city': 'SPb', 'state': 'Leningrad'}");
+        var json = JsonUtil.singleQuoteToDouble("{'city': 'SPb', 'state': 'Leningrad'}");
         System.out.println(json);
-        ObjectMapper mapper = buildMapper();
+        var mapper = buildMapper();
         mapper.addMixIn(Address.class, AddressMixin.class);
-        final Address deserializedUser = mapper.readValue(json, Address.class);
+        final var deserializedUser = mapper.readValue(json, Address.class);
         System.out.println(deserializedUser);
     }
 
     private static class Address {
-        private String city;
-        private String state;
+        private final String city;
+        private final String state;
 
         Address(String city, String state) {
             this.city = city;

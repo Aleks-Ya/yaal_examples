@@ -7,8 +7,10 @@ import util.JsonUtil;
 
 import java.io.IOException;
 
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
 
 /**
  * Mix-In class is an interface.
@@ -17,14 +19,14 @@ public class HierarchyMixInTest {
 
     @Test
     public void deserialize() throws IOException {
-        String fullJson = JsonUtil.singleQuoteToDouble("{'id': '1', 'city': 'SPb', 'state': 'Leningrad'}");
+        var fullJson = JsonUtil.singleQuoteToDouble("{'id': '1', 'city': 'SPb', 'state': 'Leningrad'}");
 
-        ObjectMapper mapper = new ObjectMapper();
+        var mapper = new ObjectMapper();
         assertThat(fullJson, containsString("id"));
         assertThat(fullJson, containsString("city"));
         assertThat(fullJson, containsString("state"));
 
-        Address fullAddress = mapper.readValue(fullJson, Address.class);
+        var fullAddress = mapper.readValue(fullJson, Address.class);
         assertThat(fullAddress.getId(), equalTo("1"));
         assertThat(fullAddress.getCity(), equalTo("SPb"));
         assertThat(fullAddress.getState(), equalTo("Leningrad"));
@@ -32,7 +34,7 @@ public class HierarchyMixInTest {
         mapper = new ObjectMapper(); //reset DeserializerCache
         mapper.addMixIn(Address.class, AddressMixin.class);
 
-        Address mixedInAddress = mapper.readValue(fullJson, Address.class);
+        var mixedInAddress = mapper.readValue(fullJson, Address.class);
         assertThat(mixedInAddress.getId(), nullValue());
         assertThat(mixedInAddress.getCity(), nullValue());
         assertThat(mixedInAddress.getState(), nullValue());

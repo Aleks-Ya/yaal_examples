@@ -14,12 +14,12 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * Use @JsonFilter to skip field from serialization.
+ * Use @JsonFilter to skip field from serialization.<br/>
  * Source: http://www.baeldung.com/jackson-serialize-field-custom-criteria
  */
 public class JacksonSerializeFiledCustomCriteriaTest {
@@ -41,7 +41,7 @@ public class JacksonSerializeFiledCustomCriteriaTest {
                         writer.serializeAsField(pojo, jgen, provider);
                         return;
                     }
-                    int intValue = ((Person) pojo).getAge();
+                    var intValue = ((Person) pojo).getAge();
                     if (intValue >= 0) {
                         writer.serializeAsField(pojo, jgen, provider);
                     }
@@ -62,12 +62,12 @@ public class JacksonSerializeFiledCustomCriteriaTest {
         };
 
         FilterProvider filters = new SimpleFilterProvider().addFilter("myFilter", theFilter);
-        Person dtoObject = new Person();
+        var dtoObject = new Person();
         dtoObject.setName("John");
         dtoObject.setAge(30);
 
-        ObjectMapper mapper = new ObjectMapper();
-        String dtoAsString = mapper.writer(filters).writeValueAsString(dtoObject);
+        var mapper = new ObjectMapper();
+        var dtoAsString = mapper.writer(filters).writeValueAsString(dtoObject);
         assertThat(dtoAsString, not(containsString("intValue")));
     }
 

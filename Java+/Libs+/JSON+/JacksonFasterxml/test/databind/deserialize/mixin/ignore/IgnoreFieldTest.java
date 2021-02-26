@@ -7,9 +7,9 @@ import util.JsonUtil;
 
 import java.io.IOException;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Source: https://dzone.com/articles/jackson-mixin-to-the-rescue
@@ -18,15 +18,11 @@ public class IgnoreFieldTest {
 
     @Test
     public void deserialize() throws IOException {
-        String fullJson = JsonUtil.singleQuoteToDouble("{'city': 'SPb', 'state': 'Leningrad'}");
-
-        ObjectMapper mapper = new ObjectMapper();
-
+        var fullJson = JsonUtil.singleQuoteToDouble("{'city': 'SPb', 'state': 'Leningrad'}");
+        var mapper = new ObjectMapper();
         assertThat(fullJson, containsString("state"));
-
         mapper.addMixIn(Address.class, AddressMixin.class);
-
-        Address deserializedUser = mapper.readValue(fullJson, Address.class);
+        var deserializedUser = mapper.readValue(fullJson, Address.class);
         assertThat(deserializedUser.state, nullValue());
     }
 

@@ -1,7 +1,6 @@
 package streaming.deserialize;
 
 import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import org.junit.Test;
 
@@ -16,16 +15,16 @@ public class DeserializeTest {
 
     @Test
     public void parse() throws IOException {
-        String json = "{\"name\":\"Tom\",\"age\":25,\"address\":[\"Poland\",\"5th avenue\"]}";
-        JsonFactory factory = new JsonFactory();
-        JsonParser parser = factory.createParser(json);
+        var json = "{\"name\":\"Tom\",\"age\":25,\"address\":[\"Poland\",\"5th avenue\"]}";
+        var factory = new JsonFactory();
+        var parser = factory.createParser(json);
 
         String parsedName = null;
         Integer parsedAge = null;
         List<String> addresses = new LinkedList<>();
 
         while (parser.nextToken() != JsonToken.END_OBJECT) {
-            String fieldName = parser.getCurrentName();
+            var fieldName = parser.getCurrentName();
             if ("name".equals(fieldName)) {
                 parser.nextToken();
                 parsedName = parser.getText();

@@ -16,7 +16,7 @@ public class ThrowableSerializationTest {
 
     @Test
     public void test() throws IOException, JSONException {
-        RuntimeException cause = new RuntimeException("cause message");
+        var cause = new RuntimeException("cause message");
         cause.setStackTrace(new StackTraceElement[0]);
 
         StackTraceElement[] stackTrace = {
@@ -24,18 +24,18 @@ public class ThrowableSerializationTest {
                 new StackTraceElement("my.Class2", "getAge", "file2", 3)
         };
 
-        Throwable throwable = new Throwable("my message", cause);
+        var throwable = new Throwable("my message", cause);
         throwable.setStackTrace(stackTrace);
 
-        ObjectMapper mapper = new ObjectMapper();
+        var mapper = new ObjectMapper();
 
-        StringWriter writer = new StringWriter();
+        var writer = new StringWriter();
         mapper.writeValue(writer, throwable);
 
-        String actJson = writer.toString();
+        var actJson = writer.toString();
         System.out.println(actJson);
 
-        String exp = "{" +
+        var exp = "{" +
                 "message: 'my message', " +
                 "localizedMessage: 'my message', " +
                 "cause: {message: 'cause message', localizedMessage: 'cause message', cause: null, stackTrace: [], suppressed: []}," +
