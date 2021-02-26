@@ -1,13 +1,12 @@
 package databind.serialize.pojo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONException;
 import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.io.IOException;
 import java.io.StringWriter;
+
+import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 
 /**
  * Standard serialization a Throwable to JSON.
@@ -15,7 +14,7 @@ import java.io.StringWriter;
 public class ThrowableSerializationTest {
 
     @Test
-    public void test() throws IOException, JSONException {
+    public void test() throws IOException {
         var cause = new RuntimeException("cause message");
         cause.setStackTrace(new StackTraceElement[0]);
 
@@ -45,6 +44,6 @@ public class ThrowableSerializationTest {
                 "{methodName: 'getAge', fileName: 'file2', lineNumber: 3, className: 'my.Class2',nativeMethod: false}]" +
                 "}";
 
-        JSONAssert.assertEquals(exp, actJson, JSONCompareMode.STRICT);
+        assertJsonEquals(exp, actJson);
     }
 }

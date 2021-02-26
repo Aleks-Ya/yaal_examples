@@ -7,10 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.cfg.MapperConfig;
 import com.fasterxml.jackson.databind.introspect.AnnotatedField;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
-import org.json.JSONException;
 import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -23,10 +20,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
+
 public class ObjectMapperTest {
 
     @Test
-    public void test() throws IOException, ParseException, JSONException {
+    public void test() throws IOException, ParseException {
         var artist = makeArtist();
         var album = makeAlbum(artist);
         var mapper = initMapper();
@@ -41,7 +40,7 @@ public class ObjectMapperTest {
                 "'artist': {  'name': 'Miles Davis',  'birthDate': '26 May 1926',  'age': 0 }, " +
                 "'musicians': {  'Julian Adderley': 'Alto Saxophone',  'Miles Davis': 'Trumpet, Band leader',  'Paul Chambers': 'double bass' }" +
                 "}";
-        JSONAssert.assertEquals(writer.toString(), exp, JSONCompareMode.STRICT);
+        assertJsonEquals(exp, writer.toString());
     }
 
     private static ObjectMapper initMapper() {

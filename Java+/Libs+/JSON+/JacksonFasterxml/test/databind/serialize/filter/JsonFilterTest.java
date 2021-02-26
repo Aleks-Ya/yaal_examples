@@ -6,12 +6,11 @@ import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.PropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import org.json.JSONException;
 import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.io.IOException;
+
+import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 
 /**
  * Use @JsonFilter to skip field from serialization.
@@ -19,7 +18,7 @@ import java.io.IOException;
 public class JsonFilterTest {
 
     @Test
-    public void filter() throws IOException, JSONException {
+    public void filter() throws IOException {
         var city = new City();
         city.name = "SPb";
         city.population = 100;
@@ -43,7 +42,7 @@ public class JsonFilterTest {
         var writer = mapper.writer(provider);
 
         var dtoAsString = writer.writeValueAsString(dtoObject);
-        JSONAssert.assertEquals("{name: 'John', city:{ population:100}}", dtoAsString, JSONCompareMode.STRICT);
+        assertJsonEquals("{name: 'John', city:{ population:100}}", dtoAsString);
     }
 
     @JsonFilter("personFilter")

@@ -5,13 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import org.json.JSONException;
 import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.io.IOException;
 import java.io.StringWriter;
+
+import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 
 /**
  * Serialize a field to JSON by a custom serializer.
@@ -19,7 +18,7 @@ import java.io.StringWriter;
 public class CustomFieldSerializerTest {
 
     @Test
-    public void test() throws IOException, JSONException {
+    public void test() throws IOException {
         var artist = new Artist();
         artist.name = "John";
 
@@ -28,8 +27,8 @@ public class CustomFieldSerializerTest {
         var writer = new StringWriter();
         mapper.writeValue(writer, artist);
 
-        var exp = "{name: JOHN}";
-        JSONAssert.assertEquals(writer.toString(), exp, JSONCompareMode.STRICT);
+        var exp = "{'name': 'JOHN'}";
+        assertJsonEquals(exp, writer.toString());
     }
 
     private static class Artist {

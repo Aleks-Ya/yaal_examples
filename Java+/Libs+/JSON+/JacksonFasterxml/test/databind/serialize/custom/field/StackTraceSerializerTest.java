@@ -5,17 +5,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdScalarSerializer;
-import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -34,7 +32,7 @@ public class StackTraceSerializerTest {
     }
 
     @Test
-    public void stackIsFieldInPojo() throws IOException, JSONException {
+    public void stackIsFieldInPojo() throws IOException {
         var cause = new RuntimeException("cause message");
         cause.setStackTrace(new StackTraceElement[0]);
 
@@ -58,7 +56,7 @@ public class StackTraceSerializerTest {
                 "stackTrace: 'my.Class.getName(file:1); my.Class2.getAge(file2:3)'," +
                 "suppressed: []}";
 
-        JSONAssert.assertEquals(exp, actJson, JSONCompareMode.STRICT);
+        assertJsonEquals(exp, actJson);
     }
 
     @Test

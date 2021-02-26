@@ -6,15 +6,14 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import org.json.JSONException;
 import org.junit.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
-import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 
 /**
  * Custom serialization a Throwable field to JSON.
@@ -22,7 +21,7 @@ import java.util.stream.Stream;
 public class ThrowableSerializerTest {
 
     @Test
-    public void test() throws IOException, JSONException {
+    public void test() throws IOException {
         var cause = new RuntimeException("cause message");
         cause.setStackTrace(new StackTraceElement[0]);
 
@@ -57,7 +56,7 @@ public class ThrowableSerializerTest {
 
         var actJson = writer.toString();
         System.out.println(actJson);
-        JSONAssert.assertEquals(exp, actJson, JSONCompareMode.STRICT);
+        assertJsonEquals(exp, actJson);
     }
 
 

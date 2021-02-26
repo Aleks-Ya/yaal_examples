@@ -23,6 +23,7 @@ subprojects {
         jettyServlet11Dependency = 'org.eclipse.jetty:jetty-servlet:11.0.0'
         servlet4Dependency = 'javax.servlet:javax.servlet-api:4.0.1'
         jacksonVersion = '2.12.1'
+        jsonUnitDependency = 'net.javacrumbs.json-unit:json-unit:2.24.0'
     }
 }
 
