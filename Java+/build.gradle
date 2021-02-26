@@ -22,6 +22,7 @@ subprojects {
         jettyServlet10Dependency = 'org.eclipse.jetty:jetty-servlet:10.0.0'
         jettyServlet11Dependency = 'org.eclipse.jetty:jetty-servlet:11.0.0'
         servlet4Dependency = 'javax.servlet:javax.servlet-api:4.0.1'
+        jacksonVersion = '2.12.1'
     }
 }
 
