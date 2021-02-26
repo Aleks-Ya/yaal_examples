@@ -5,8 +5,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -21,7 +20,7 @@ public class DeserializeTest {
 
         String parsedName = null;
         Integer parsedAge = null;
-        List<String> addresses = new LinkedList<>();
+        List<String> addresses = new ArrayList<>();
 
         while (parser.nextToken() != JsonToken.END_OBJECT) {
             var fieldName = parser.getCurrentName();
@@ -46,7 +45,7 @@ public class DeserializeTest {
 
         assertEquals(parsedName, "Tom");
         assertEquals(parsedAge, (Integer) 25);
-        assertEquals(addresses, Arrays.asList("Poland", "5th avenue"));
+        assertEquals(addresses, List.of("Poland", "5th avenue"));
     }
 
 }

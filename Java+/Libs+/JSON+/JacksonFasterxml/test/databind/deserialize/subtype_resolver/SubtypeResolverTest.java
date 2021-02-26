@@ -1,6 +1,7 @@
 package databind.deserialize.subtype_resolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class SubtypeResolverTest {
         var expParent = new Parent();
         expParent.setName("my name");
         var parentJson = mapper.writeValueAsString(expParent);
-        assertEquals("{\"name\":\"my name\"}", parentJson);
+        assertJsonEquals("{name:'my name'}", parentJson);
         var actParent = mapper.readValue(parentJson, Parent.class);
         assertEquals(expParent, actParent);
     }
@@ -30,14 +31,17 @@ public class SubtypeResolverTest {
         expChild.setName("my name");
         expChild.setNumber(1);
         var childJson = mapper.writeValueAsString(expChild);
-        assertEquals("{\"name\":\"my name\",\"number\":1}", childJson);
+        assertJsonEquals("{name:'my name', number:1}", childJson);
         var actChild = mapper.readValue(childJson, Child.class);
         assertEquals(expChild, actChild);
     }
 
     @Test
     public void defaultTyping() throws IOException {
-        mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        var ptv = BasicPolymorphicTypeValidator.builder()
+                .allowIfBaseType(Parent.class)
+                .build();
+        mapper.activateDefaultTyping(ptv, ObjectMapper.DefaultTyping.NON_FINAL);
 
         var expChild = new Child();
         expChild.setName("my name");

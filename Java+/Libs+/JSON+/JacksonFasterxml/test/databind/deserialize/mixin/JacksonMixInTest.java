@@ -23,7 +23,6 @@ public class JacksonMixInTest {
                 .withSetterVisibility(JsonAutoDetect.Visibility.NONE)
                 .withCreatorVisibility(JsonAutoDetect.Visibility.NONE));
         return mapper;
-
     }
 
     @Test

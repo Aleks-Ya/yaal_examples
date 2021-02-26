@@ -22,7 +22,7 @@ import java.util.Map;
 
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 
-public class ObjectMapperTest {
+public class PropertyNamingStrategyTest {
 
     @Test
     public void test() throws IOException, ParseException {

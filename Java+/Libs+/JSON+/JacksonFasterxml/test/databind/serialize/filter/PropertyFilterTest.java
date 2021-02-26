@@ -15,7 +15,7 @@ import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 /**
  * Use @JsonFilter to skip field from serialization.
  */
-public class JsonFilterTest {
+public class PropertyFilterTest {
 
     @Test
     public void filter() throws IOException {

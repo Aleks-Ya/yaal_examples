@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.not;
  * Use @JsonFilter to skip field from serialization.<br/>
  * Source: http://www.baeldung.com/jackson-serialize-field-custom-criteria
  */
-public class JacksonSerializeFiledCustomCriteriaTest {
+public class PropertyFilterCustomCriteriaTest {
 
     @Test
     public void at() throws IOException {

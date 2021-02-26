@@ -40,8 +40,8 @@ public class ThrowableSerializationTest {
                 "cause: {message: 'cause message', localizedMessage: 'cause message', cause: null, stackTrace: [], suppressed: []}," +
                 "suppressed: []," +
                 "stackTrace: [" +
-                "{methodName: 'getName', fileName: 'file', lineNumber: 1, className: 'my.Class', nativeMethod: false}," +
-                "{methodName: 'getAge', fileName: 'file2', lineNumber: 3, className: 'my.Class2',nativeMethod: false}]" +
+                "{classLoaderName:null, moduleName:null, moduleVersion:null, methodName: 'getName', fileName: 'file', lineNumber: 1, className: 'my.Class', nativeMethod: false}," +
+                "{classLoaderName:null, moduleName:null, moduleVersion:null, methodName: 'getAge', fileName: 'file2', lineNumber: 3, className: 'my.Class2',nativeMethod: false}]" +
                 "}";
 
         assertJsonEquals(exp, actJson);

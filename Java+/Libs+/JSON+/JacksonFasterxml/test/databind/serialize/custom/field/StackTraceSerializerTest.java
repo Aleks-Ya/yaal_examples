@@ -73,7 +73,7 @@ public class StackTraceSerializerTest {
 
         var exp = "\"my.Class.getName(file:1); my.Class2.getAge(file2:3)\"";
 
-        assertThat(actJson, equalTo(exp));
+        assertJsonEquals(exp, actJson);
     }
 
     @Test

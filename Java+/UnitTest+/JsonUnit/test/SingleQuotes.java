@@ -8,10 +8,16 @@ import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 public class SingleQuotes {
 
     @Test
-    public void test() {
+    public void singleQuotesInFieldNameAndValue() {
         String exp = "{'test': 'abc'}";
         String act = "{\"test\": \"abc\"}";
         assertJsonEquals(exp, act);
     }
 
+    @Test
+    public void singleQuotesInValueOnly() {
+        String exp = "{test: 'abc'}";
+        String act = "{\"test\": \"abc\"}";
+        assertJsonEquals(exp, act);
+    }
 }
