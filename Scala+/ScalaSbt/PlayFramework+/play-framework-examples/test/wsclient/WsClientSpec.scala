@@ -5,12 +5,12 @@ import org.eclipse.jetty.server.handler.AbstractHandler
 import org.eclipse.jetty.server.{Request, Server}
 import org.scalatestplus.play._
 import org.scalatestplus.play.guice._
-import play.api.libs.ws.{WSClient, WSRequest}
+import play.api.libs.ws.WSClient
 import play.api.test._
 
+import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.{Duration, DurationInt}
-import scala.concurrent.{Await, Future}
 
 /**
  * Using WSClient as an HTTP client.
@@ -38,8 +38,10 @@ class WsClientSpec extends PlaySpec with GuiceOneAppPerTest with Injecting {
       wsClient must not be null
 
       val url = server.getURI.toString
-      val request: WSRequest = wsClient.url(url).withRequestTimeout(10000.millis).withFollowRedirects(true)
-      val futureResponse: Future[String] = request.get().map { response =>
+      val futureResponse = wsClient.url(url)
+        .withRequestTimeout(10000.millis)
+        .withFollowRedirects(true)
+        .get().map { response =>
         if (response.status == expStatus) {
           response.body
         } else {
