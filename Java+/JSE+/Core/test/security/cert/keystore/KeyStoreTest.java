@@ -25,6 +25,7 @@ import static org.hamcrest.Matchers.equalTo;
  * Working with a KeyStore.
  */
 public class KeyStoreTest {
+    private static final String CERT_RESOURCE = "security/certificate.crt";
 
     @Test
     public void initEmptyKeyStore() throws KeyStoreException {
@@ -35,7 +36,7 @@ public class KeyStoreTest {
     @Test
     public void addCertificateToKeyStore() throws KeyStoreException {
         var keyStore = SecurityHelper.initEmptyKeyStore();
-        var certificate = SecurityHelper.readCertificateFromFile();
+        var certificate = SecurityHelper.readCertificateFromResource(CERT_RESOURCE);
         var certificateAlias = "my_cert";
         keyStore.setCertificateEntry(certificateAlias, certificate);
 
@@ -49,7 +50,7 @@ public class KeyStoreTest {
     public void addPrivateKeyToKeyStore() throws NoSuchAlgorithmException, KeyStoreException,
             UnrecoverableKeyException {
         var keyStore = SecurityHelper.initEmptyKeyStore();
-        var certificate = SecurityHelper.readCertificateFromFile();
+        var certificate = SecurityHelper.readCertificateFromResource(CERT_RESOURCE);
         Certificate[] certificateChain = {certificate};
 
         var keyGenerator = KeyPairGenerator.getInstance("RSA");
@@ -70,7 +71,7 @@ public class KeyStoreTest {
             IOException, CertificateException {
         var keyStore = SecurityHelper.initEmptyKeyStore();
 
-        var certificate = SecurityHelper.readCertificateFromFile();
+        var certificate = SecurityHelper.readCertificateFromResource(CERT_RESOURCE);
         var certificateAlias = "my_cert";
         keyStore.setCertificateEntry(certificateAlias, certificate);
         assertThat(Collections.list(keyStore.aliases()), contains(certificateAlias));

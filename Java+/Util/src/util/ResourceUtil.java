@@ -51,4 +51,9 @@ public class ResourceUtil {
     public static InputStream resourceToInputStream(Class<?> clazz, String resourceName) {
         return clazz.getResourceAsStream(resourceName);
     }
+
+    public static InputStream resourceToInputStream(String resourceName) {
+        return ResourceUtil.class.getClassLoader().getResourceAsStream(resourceName);
+    }
+
 }

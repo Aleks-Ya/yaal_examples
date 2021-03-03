@@ -33,10 +33,10 @@ public final class SecurityHelper {
         }
     }
 
-    public static Certificate readCertificateFromFile() {
+    public static Certificate readCertificateFromResource(String resource) {
         try {
             var certificateFactory = CertificateFactory.getInstance("X.509");
-            var certificateInputStream = resourceToInputStream(SecurityHelper.class, "certificate.crt");
+            var certificateInputStream = resourceToInputStream(resource);
             return certificateFactory.generateCertificate(certificateInputStream);
         } catch (CertificateException e) {
             throw new RuntimeException(e);

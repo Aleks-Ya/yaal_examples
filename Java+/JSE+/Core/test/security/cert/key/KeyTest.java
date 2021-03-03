@@ -25,7 +25,7 @@ public class KeyTest {
 
     @Test
     public void getPublicKeyFromCertificate() {
-        var certificate = SecurityHelper.readCertificateFromFile();
+        var certificate = SecurityHelper.readCertificateFromResource("security/certificate.crt");
         var pubKey = certificate.getPublicKey();
         assertNotNull(pubKey);
     }
