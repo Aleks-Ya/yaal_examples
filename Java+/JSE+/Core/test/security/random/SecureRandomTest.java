@@ -1,4 +1,4 @@
-package security;
+package security.random;
 
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ public class SecureRandomTest {
      */
     @Test
     public void test() throws NoSuchAlgorithmException {
-        SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+        var random = SecureRandom.getInstance("SHA1PRNG");
         System.out.println(random.nextInt());
     }
 }

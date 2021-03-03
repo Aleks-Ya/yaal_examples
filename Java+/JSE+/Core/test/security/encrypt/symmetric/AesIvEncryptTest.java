@@ -30,31 +30,31 @@ public class AesIvEncryptTest {
             BadPaddingException, IllegalBlockSizeException, InvalidAlgorithmParameterException {
 
 
-        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+        var keyGenerator = KeyGenerator.getInstance("AES");
         keyGenerator.init(192);
         Key key = keyGenerator.generateKey();
-        byte[] keyEncoded = key.getEncoded();
+        var keyEncoded = key.getEncoded();
         System.out.println(Arrays.toString(keyEncoded));
 
-        String inputStr = "my data";
-        byte[] inputBytes = inputStr.getBytes();
+        var inputStr = "my data";
+        var inputBytes = inputStr.getBytes();
         System.out.println(Arrays.toString(inputBytes));
 
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        var cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
-        SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
-        byte[] randomBytes = new byte[16];
+        var random = SecureRandom.getInstance("SHA1PRNG");
+        var randomBytes = new byte[16];
         random.nextBytes(randomBytes);
         System.out.println(Arrays.toString(randomBytes));
-        IvParameterSpec ivParameterSpec = new IvParameterSpec(randomBytes);
+        var ivParameterSpec = new IvParameterSpec(randomBytes);
 
         cipher.init(Cipher.ENCRYPT_MODE, key, ivParameterSpec);
-        byte[] encryptedBytes = cipher.doFinal(inputBytes);
+        var encryptedBytes = cipher.doFinal(inputBytes);
         System.out.println(Arrays.toString(encryptedBytes));
 
         cipher.init(Cipher.DECRYPT_MODE, key, ivParameterSpec);
-        byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
-        String originalStr = new String(decryptedBytes);
+        var decryptedBytes = cipher.doFinal(encryptedBytes);
+        var originalStr = new String(decryptedBytes);
 
         assertThat(originalStr, equalTo(inputStr));
     }

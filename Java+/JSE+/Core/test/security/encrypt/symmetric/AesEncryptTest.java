@@ -24,25 +24,25 @@ public class AesEncryptTest {
     @Test
     public void aesEncryptDecrypt() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException {
-        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+        var keyGenerator = KeyGenerator.getInstance("AES");
         keyGenerator.init(192);
         Key key = keyGenerator.generateKey();
-        byte[] keyEncoded = key.getEncoded();
+        var keyEncoded = key.getEncoded();
         System.out.println(Arrays.toString(keyEncoded));
 
-        String inputStr = "my data";
-        byte[] inputBytes = inputStr.getBytes();
+        var inputStr = "my data";
+        var inputBytes = inputStr.getBytes();
         System.out.println(Arrays.toString(inputBytes));
 
-        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        var cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
 
         cipher.init(Cipher.ENCRYPT_MODE, key);
-        byte[] encryptedBytes = cipher.doFinal(inputBytes);
+        var encryptedBytes = cipher.doFinal(inputBytes);
         System.out.println(Arrays.toString(encryptedBytes));
 
         cipher.init(Cipher.DECRYPT_MODE, key);
-        byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
-        String originalStr = new String(decryptedBytes);
+        var decryptedBytes = cipher.doFinal(encryptedBytes);
+        var originalStr = new String(decryptedBytes);
 
         assertThat(originalStr, equalTo(inputStr));
     }

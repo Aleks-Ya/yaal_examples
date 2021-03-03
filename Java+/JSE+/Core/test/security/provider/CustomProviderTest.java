@@ -17,21 +17,21 @@ public class CustomProviderTest {
 
     @Test
     public void sha256() throws NoSuchAlgorithmException {
-        Provider provider = null;
+        Provider provider = new MyProvider();
 
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        var digest = MessageDigest.getInstance("SHA-256");
 
-        String s = "abc";
-        byte[] bytes = s.getBytes(StandardCharsets.UTF_8);
-        byte[] encodedHash = digest.digest(bytes);
+        var s = "abc";
+        var bytes = s.getBytes(StandardCharsets.UTF_8);
+        var encodedHash = digest.digest(bytes);
         System.out.println(Arrays.toString(encodedHash));
         System.out.println(bytesToHex(encodedHash));
     }
 
     private static String bytesToHex(byte[] hash) {
-        StringBuilder hexString = new StringBuilder();
-        for (byte b : hash) {
-            String hex = Integer.toHexString(0xff & b);
+        var hexString = new StringBuilder();
+        for (var b : hash) {
+            var hex = Integer.toHexString(0xff & b);
             if (hex.length() == 1) hexString.append('0');
             hexString.append(hex);
         }
@@ -40,8 +40,7 @@ public class CustomProviderTest {
 
     public static final class MyProvider extends Provider {
         public MyProvider() {
-            super("MyProvider", 1.0,
-                    "Some info about my provider and which algorithms it supports");
+            super("MyProvider", "1.0", "Some info about my provider and which algorithms it supports");
             // com.my.crypto.provider.MyCipher extends CipherSPI
             put("Cipher.MyCipher", "com.my.crypto.provider.MyCipher");
         }

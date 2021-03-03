@@ -1,7 +1,6 @@
 package security;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
@@ -16,7 +15,7 @@ import static util.ResourceUtil.resourceToInputStream;
 public final class SecurityHelper {
     public static KeyStore initEmptyKeyStore() {
         try {
-            KeyStore keyStore = KeyStore.getInstance("JKS");
+            var keyStore = KeyStore.getInstance("JKS");
             keyStore.load(null, null);
             return keyStore;
         } catch (KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException e) {
@@ -26,7 +25,7 @@ public final class SecurityHelper {
 
     public static KeyPair generateKeyPair() {
         try {
-            KeyPairGenerator keyGenerator = KeyPairGenerator.getInstance("RSA");
+            var keyGenerator = KeyPairGenerator.getInstance("RSA");
             keyGenerator.initialize(1024);
             return keyGenerator.generateKeyPair();
         } catch (NoSuchAlgorithmException e) {
@@ -36,8 +35,8 @@ public final class SecurityHelper {
 
     public static Certificate readCertificateFromFile() {
         try {
-            CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
-            InputStream certificateInputStream = resourceToInputStream(SecurityHelper.class, "certificate.crt");
+            var certificateFactory = CertificateFactory.getInstance("X.509");
+            var certificateInputStream = resourceToInputStream(SecurityHelper.class, "certificate.crt");
             return certificateFactory.generateCertificate(certificateInputStream);
         } catch (CertificateException e) {
             throw new RuntimeException(e);
