@@ -6,6 +6,7 @@ GET    /async/error/bad             controllers.error.ErrorStatusAsyncController
 GET    /sync/error/bad              controllers.error.ErrorStatusSyncController.badRequest()
 GET    /sync/error/server           controllers.error.ErrorStatusSyncController.serverError()
 GET    /path/dynamic/returnId/:id   controllers.DynamicPathController.returnId(id)
+GET    /ssl                         controllers.ssl.SslController.ssl()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
