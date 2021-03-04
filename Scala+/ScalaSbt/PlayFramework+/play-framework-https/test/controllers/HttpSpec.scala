@@ -6,7 +6,7 @@ import org.scalatestplus.play.guice._
 import play.api.test.Helpers._
 import play.api.test._
 
-class HomeControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting {
+class HttpSpec extends PlaySpec with GuiceOneAppPerTest with Injecting {
 
   "HomeController GET" should {
 
