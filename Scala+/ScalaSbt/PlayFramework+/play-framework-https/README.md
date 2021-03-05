@@ -45,7 +45,7 @@ keytool -import -noprompt -alias ca-root -file ca-root.pem -keystore client_trus
 
 ```
 
-## Run
+## Test with a browser
 1. Run the app 
 ```
 sbt -Dhttps.port=9443 \
@@ -54,4 +54,4 @@ sbt -Dhttps.port=9443 \
     "project playFrameworkHttps" run
 ```
 2. Open http://localhost:9000
-3. Open https://localhost:9443
+3. Open https://localhost:9443 (not valid certificate)

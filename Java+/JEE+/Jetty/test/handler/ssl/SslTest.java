@@ -130,19 +130,20 @@ public class SslTest {
 
     private static KeyManager[] getKeyManagers() throws NoSuchAlgorithmException, KeyStoreException, IOException,
             CertificateException, UnrecoverableKeyException {
-        var keyManagerFactory = KeyManagerFactory.getInstance("PKIX");
         var keyStore = KeyStore.getInstance("JKS");
         keyStore.load(null, null);
+        var keyManagerFactory = KeyManagerFactory.getInstance("PKIX");
         keyManagerFactory.init(keyStore, new char[0]);
         return keyManagerFactory.getKeyManagers();
     }
 
     private static TrustManager[] getTrustManagers() throws NoSuchAlgorithmException, KeyStoreException, IOException,
             CertificateException {
-        var trustManagerFactory = TrustManagerFactory.getInstance("PKIX");
-        var truststoreFile = ResourceUtil.resourceToFile(SslTest.class, "client_truststore.jks");
+        var truststoreIS = ResourceUtil.resourceToInputStream(SslTest.class, "client_truststore.jks");
         var truststorePassword = "654321".toCharArray();
-        var truststore = KeyStore.getInstance(truststoreFile, truststorePassword);
+        var truststore = KeyStore.getInstance("JKS");
+        truststore.load(truststoreIS, truststorePassword);
+        var trustManagerFactory = TrustManagerFactory.getInstance("PKIX");
         trustManagerFactory.init(truststore);
         return trustManagerFactory.getTrustManagers();
     }
