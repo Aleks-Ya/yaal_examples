@@ -24,4 +24,6 @@ object Dependencies {
   val playJdbcDep = "com.typesafe.play" %% "play-jdbc" % playVersion
   val playTestDep = "com.typesafe.play" %% "play-test" % playVersion
   val scalaTestPlusPlayDep = "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test
+
+  val typesafeConfigDep = "com.typesafe" % "config" % "1.4.1"
 }
