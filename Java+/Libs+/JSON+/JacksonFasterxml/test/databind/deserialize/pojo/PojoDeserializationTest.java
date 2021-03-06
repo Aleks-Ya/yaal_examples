@@ -46,20 +46,12 @@ public class PojoDeserializationTest {
         private Integer id;
         private String name;
 
-        Integer getId() {
+        public Integer getId() {
             return id;
         }
 
-        private void setId(Integer id) {
-            this.id = id;
-        }
-
-        String getName() {
+        public String getName() {
             return name;
-        }
-
-        private void setName(String name) {
-            this.name = name;
         }
     }
 

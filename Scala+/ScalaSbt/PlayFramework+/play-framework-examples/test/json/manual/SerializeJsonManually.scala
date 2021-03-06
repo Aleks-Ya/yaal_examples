@@ -1,5 +1,6 @@
 package json.manual
 
+import net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import play.api.libs.functional.syntax.{toFunctionalBuilderOps, unlift}
@@ -15,7 +16,7 @@ class SerializeJsonManually extends AnyFlatSpec with Matchers {
     val map = Map("a" -> 1, "b" -> 2)
     val jsonValue = Json.toJson(map)
     val jsonStr = Json.stringify(jsonValue)
-    jsonStr shouldEqual """{"a":1,"b":2}"""
+    assertJsonEquals("""{"a":1,"b":2}""", jsonStr)
   }
 
   it should "serialize case class to JSON (implicit Writes)" in {
@@ -27,7 +28,7 @@ class SerializeJsonManually extends AnyFlatSpec with Matchers {
     val person = Person1("John", 30)
     val jsonValue = Json.toJson(person)
     val jsonStr = Json.stringify(jsonValue)
-    jsonStr shouldEqual """{"name":"John","age":30}"""
+    assertJsonEquals("""{"name":"John","age":30}""", jsonStr)
   }
 
   it should "serialize case class to JSON (implicit Writes - combinator pattern)" in {
@@ -39,7 +40,7 @@ class SerializeJsonManually extends AnyFlatSpec with Matchers {
     val person = Person2("John", 30)
     val jsonValue = Json.toJson(person)
     val jsonStr = Json.stringify(jsonValue)
-    jsonStr shouldEqual """{"name":"John","age":30}"""
+    assertJsonEquals("""{"name":"John","age":30}""", jsonStr)
   }
 
 }

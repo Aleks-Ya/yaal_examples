@@ -12,7 +12,9 @@ class ReadTextFileTest extends AnyFlatSpec with Matchers {
 
   it should "read whole file to string" in {
     val uri = getClass.getResource("readme.txt").toURI
-    val content = Source.fromFile(uri).getLines.mkString("\n")
+    val source = Source.fromFile(uri)
+    val content = source.getLines.mkString("\n")
+    source.close()
     content shouldEqual "hi\nbye"
   }
 

@@ -11,5 +11,8 @@ class VarArgs extends AnyFlatSpec with Matchers {
     }
 
     len(1, 2) shouldEqual 2
+
+    val args = List(1, 4, 6)
+    len(args: _*) shouldBe 3
   }
 }

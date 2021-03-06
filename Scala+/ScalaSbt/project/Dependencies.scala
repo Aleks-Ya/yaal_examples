@@ -26,4 +26,6 @@ object Dependencies {
   val scalaTestPlusPlayDep = "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test
 
   val typesafeConfigDep = "com.typesafe" % "config" % "1.4.1"
+
+  val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "2.24.0" % Test
 }
