@@ -3,6 +3,7 @@ package json.manual
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import play.api.libs.functional.syntax.toFunctionalBuilderOps
+import play.api.libs.json.JsValue.jsValueToJsLookup
 import play.api.libs.json._
 
 /**
@@ -11,7 +12,7 @@ import play.api.libs.json._
  */
 class DeserializeJsonManually extends AnyFlatSpec with Matchers {
 
-  it should "deserialize JSON string to object" in {
+  it should "deserialize JSON string to object (with Reads, without validation)" in {
     case class Person(name: String, age: Int, position: Position, oldPositions: List[Position])
     case class Position(id: Long, title: String)
 
@@ -40,7 +41,7 @@ class DeserializeJsonManually extends AnyFlatSpec with Matchers {
     personAct shouldEqual personExp
   }
 
-  it should "deserialize JsValue to object" in {
+  it should "deserialize JSON string to object (with Reads, with validation)" in {
     case class Person(name: String, age: Int)
 
     implicit val personReads: Reads[Person] = (
@@ -60,6 +61,47 @@ class DeserializeJsonManually extends AnyFlatSpec with Matchers {
     //Without validation
     val personAct = jsValue.as[Person]
     personAct shouldEqual Person(name, age)
+  }
+
+  it should "deserialize JSON string to object (with JsValue)" in {
+    case class Person(name: String, age: Int, position: Position, oldPositions: List[Position])
+    case class Position(id: Long, title: String)
+
+    implicit object positionReads extends Reads[Position] {
+      override def reads(json: JsValue): JsResult[Position] = json match {
+        case js: JsObject =>
+          val id = (js \ "id").as[Long]
+          val title = (js \ "title").as[String]
+          val position = Position(id, title)
+          JsSuccess(position)
+        case x => JsError(s"Unexpected json: $x")
+      }
+    }
+
+    implicit object personReads extends Reads[Person] {
+      override def reads(json: JsValue): JsResult[Person] = json match {
+        case js: JsObject =>
+          val name = (js \ "name").as[String]
+          val age = (js \ "age").as[Int]
+          val position = (js \ "position").as[Position]
+          val oldPositions = (js \ "oldPositions").as[List[Position]]
+          val person = Person(name, age, position, oldPositions)
+          JsSuccess(person)
+        case x => JsError(s"Unexpected json: $x")
+      }
+    }
+
+    val jsValue = Json.parse(
+      s"""{
+         |"name":"John",
+         |"age":30,
+         |"position": {"id":1, "title":"Boss"},
+         |"oldPositions": [ {"id": 2, "title": "Programmer"}, {"id":3, "title": "Tester"}]
+         |}""".stripMargin)
+    val personResult = jsValue.validate[Person]
+    val personAct = personResult.get
+    val personExp = Person("John", 30, Position(1, "Boss"), List(Position(2L, "Programmer"), Position(3L, "Tester")))
+    personAct shouldEqual personExp
   }
 
   it should "validate string JSON property" in {
