@@ -15,8 +15,8 @@ public class ConvertToJava7 {
 
     @Test
     public void zoneIdToTimeZone() {
-        ZoneId zoneId = ZoneId.systemDefault();
-        TimeZone timeZone = TimeZone.getTimeZone(zoneId.getId());
+        var zoneId = ZoneId.systemDefault();
+        var timeZone = TimeZone.getTimeZone(zoneId.getId());
         assertThat(timeZone.getID(), equalTo(zoneId.getId()));
     }
 }

@@ -13,16 +13,16 @@ import static org.junit.Assert.assertTrue;
 public class ClockInTestsTest {
     @Test
     public void isHourElapsed() {
-        Clock fixedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
+        var fixedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
         Clocks.instance.setClock(fixedClock);
-        TimeElapse out = new TimeElapse();
+        var out = new TimeElapse();
         assertFalse(out.isHourElapsed());
 
-        Clock clock30Minutes = Clock.offset(fixedClock, Duration.ofMinutes(30));
+        var clock30Minutes = Clock.offset(fixedClock, Duration.ofMinutes(30));
         Clocks.instance.setClock(clock30Minutes);
         assertFalse(out.isHourElapsed());
 
-        Clock clock61Minutes = Clock.offset(fixedClock, Duration.ofMinutes(61));
+        var clock61Minutes = Clock.offset(fixedClock, Duration.ofMinutes(61));
         Clocks.instance.setClock(clock61Minutes);
         assertTrue(out.isHourElapsed());
     }

@@ -22,31 +22,31 @@ import static org.hamcrest.Matchers.equalTo;
 public class BaseClasses {
     @Test
     public void local() {
-        LocalDate localDate = LocalDate.now();
-        LocalTime localTime = LocalTime.now();
-        LocalDateTime localDateTime = LocalDateTime.now();
-        MonthDay monthDay = MonthDay.now();
-        Instant instant = Instant.now();
+        var localDate = LocalDate.now();
+        var localTime = LocalTime.now();
+        var localDateTime = LocalDateTime.now();
+        var monthDay = MonthDay.now();
+        var instant = Instant.now();
     }
 
     @Test
     public void timeZone() {
-        Clock clock = Clock.fixed(Instant.now(), ZoneId.of("UTC+4"));
+        var clock = Clock.fixed(Instant.now(), ZoneId.of("UTC+4"));
 
-        ZonedDateTime zonedDateTime = ZonedDateTime.now();
-        ZoneId zoneId = ZoneId.systemDefault();
-        ZoneOffset zoneOffset = ZoneOffset.ofHours(3);
+        var zonedDateTime = ZonedDateTime.now();
+        var zoneId = ZoneId.systemDefault();
+        var zoneOffset = ZoneOffset.ofHours(3);
 
-        OffsetDateTime offsetDateTime = OffsetDateTime.now();
-        OffsetTime offsetTime = OffsetTime.now();
+        var offsetDateTime = OffsetDateTime.now();
+        var offsetTime = OffsetTime.now();
     }
 
     @Test
     public void moscowZoneId() {
-        ZoneId msk1 = ZoneId.of("Europe/Moscow");
-        ZoneId msk2 = ZoneId.of("UTC+03:00");
+        var msk1 = ZoneId.of("Europe/Moscow");
+        var msk2 = ZoneId.of("UTC+03:00");
 
-        String displayName = msk1.getDisplayName(TextStyle.FULL, new Locale("ru"));
+        var displayName = msk1.getDisplayName(TextStyle.FULL, new Locale("ru"));
         assertThat(displayName, equalTo("Москва"));
     }
 }

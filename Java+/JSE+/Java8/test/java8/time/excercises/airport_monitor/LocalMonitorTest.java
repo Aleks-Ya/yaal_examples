@@ -9,23 +9,23 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class LocalMonitorTest {
-    private CentralMonitor centralMonitor = new CentralMonitor();
-    private Airport belmontAirport = new Airport("Belmont", ZoneId.of("-7"));
-    private Airport astanaAirport = new Airport("Astana", ZoneId.of("+6"));
-    private LocalMonitor astanaMonitor = new LocalMonitor(centralMonitor, astanaAirport);
-    private LocalMonitor belmontMonitor = new LocalMonitor(centralMonitor, belmontAirport);
+    private final CentralMonitor centralMonitor = new CentralMonitor();
+    private final Airport belmontAirport = new Airport("Belmont", ZoneId.of("-7"));
+    private final Airport astanaAirport = new Airport("Astana", ZoneId.of("+6"));
+    private final LocalMonitor astanaMonitor = new LocalMonitor(centralMonitor, astanaAirport);
+    private final LocalMonitor belmontMonitor = new LocalMonitor(centralMonitor, belmontAirport);
 
     @Test
     public void printFlights() {
-        Event departure = new Event(belmontAirport, Instant.parse("2007-03-25T10:15:00.00Z"));
-        Event arrival = new Event(astanaAirport, Instant.parse("2007-03-27T03:45:00.00Z"));
+        var departure = new Event(belmontAirport, Instant.parse("2007-03-25T10:15:00.00Z"));
+        var arrival = new Event(astanaAirport, Instant.parse("2007-03-27T03:45:00.00Z"));
 
-        Flight flight = new Flight(departure, arrival);
+        var flight = new Flight(departure, arrival);
 
         centralMonitor.addFlight(flight);
 
-        String belmontPrint = belmontMonitor.printFlights();
-        String astanaPrint = astanaMonitor.printFlights();
+        var belmontPrint = belmontMonitor.printFlights();
+        var astanaPrint = astanaMonitor.printFlights();
 
         System.out.println(belmontPrint);
         System.out.println(astanaPrint);

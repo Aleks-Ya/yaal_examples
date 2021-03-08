@@ -23,73 +23,73 @@ public class Convert {
 
     @Test
     public void localDateToLocalDateTime() {
-        LocalDate date = LocalDate.parse("2015-03-25");
-        LocalTime time = LocalTime.MIDNIGHT;
-        LocalDateTime dateTime = LocalDateTime.of(date, time);
+        var date = LocalDate.parse("2015-03-25");
+        var time = LocalTime.MIDNIGHT;
+        var dateTime = LocalDateTime.of(date, time);
         assertThat(dateTime.toString(), equalTo("2015-03-25T00:00"));
     }
 
     @Test
     public void localDateTimeToLocalDate() {
-        LocalDateTime dateTime = LocalDateTime.parse("2015-03-25T10:15:30");
-        LocalDate localDate = LocalDate.ofEpochDay(dateTime.getLong(ChronoField.EPOCH_DAY));
+        var dateTime = LocalDateTime.parse("2015-03-25T10:15:30");
+        var localDate = LocalDate.ofEpochDay(dateTime.getLong(ChronoField.EPOCH_DAY));
         assertThat(localDate.toString(), equalTo("2015-03-25"));
     }
 
     @Test
     public void localDateTimeToInstant() {
-        LocalDateTime dateTime = LocalDateTime.parse("2015-03-25T10:15:30");
-        Instant instant = dateTime.toInstant(ZoneOffset.UTC);
+        var dateTime = LocalDateTime.parse("2015-03-25T10:15:30");
+        var instant = dateTime.toInstant(ZoneOffset.UTC);
         assertThat(instant.toString(), equalTo("2015-03-25T10:15:30Z"));
     }
 
     @Test
     public void localDateToInstant() {
-        LocalDate date = LocalDate.parse("2015-03-25");
-        Instant instant = date.atStartOfDay().toInstant(ZoneOffset.UTC);
+        var date = LocalDate.parse("2015-03-25");
+        var instant = date.atStartOfDay().toInstant(ZoneOffset.UTC);
         assertThat(instant.toString(), equalTo("2015-03-25T00:00:00Z"));
     }
 
     @Test
     public void instantToLocalDateTime() {
-        Instant instant = Instant.parse("2007-03-25T10:15:30.00Z");
-        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        var instant = Instant.parse("2007-03-25T10:15:30.00Z");
+        var dateTime = LocalDateTime.ofInstant(instant, ZoneId.of("Europe/Moscow"));
         assertThat(dateTime.toString(), equalTo("2007-03-25T14:15:30"));
     }
 
     @Test
     public void instantToLocalDate() {
-        Instant instant = Instant.parse("2007-03-25T10:15:30.00Z");
-        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-        LocalDate date = LocalDate.ofEpochDay(dateTime.getLong(ChronoField.EPOCH_DAY));
+        var instant = Instant.parse("2007-03-25T10:15:30.00Z");
+        var dateTime = LocalDateTime.ofInstant(instant, ZoneId.of("Europe/Moscow"));
+        var date = LocalDate.ofEpochDay(dateTime.getLong(ChronoField.EPOCH_DAY));
         assertThat(date.toString(), equalTo("2007-03-25"));
     }
 
     @Test
     public void yearMonthToInstant() {
-        YearMonth yearMonth = YearMonth.parse("2007-03");
-        Instant instant = yearMonth.atEndOfMonth().atStartOfDay().toInstant(ZoneOffset.UTC);
+        var yearMonth = YearMonth.parse("2007-03");
+        var instant = yearMonth.atEndOfMonth().atStartOfDay().toInstant(ZoneOffset.UTC);
         assertThat(instant.toString(), equalTo("2007-03-31T00:00:00Z"));
     }
 
     @Test
     public void dateToLocalDate() {
-        Date date = Date.from(Instant.parse("2007-03-25T10:15:30.00Z"));
-        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        var date = Date.from(Instant.parse("2007-03-25T10:15:30.00Z"));
+        var localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         assertThat(localDate.toString(), equalTo("2007-03-25"));
     }
 
     @Test
     public void instantToZonedDateTime() {
-        Instant instant = Instant.parse("2007-03-25T10:15:30.00Z");
-        ZonedDateTime dateTime = ZonedDateTime.ofInstant(instant, ZoneId.systemDefault());
+        var instant = Instant.parse("2007-03-25T10:15:30.00Z");
+        var dateTime = ZonedDateTime.ofInstant(instant, ZoneId.of("Europe/Moscow"));
         assertThat(dateTime.toString(), equalTo("2007-03-25T14:15:30+04:00[Europe/Moscow]"));
     }
 
     @Test
     public void zonedDateTimeToInstant() {
-        ZonedDateTime date = ZonedDateTime.of(2007, 3, 25, 10, 15, 30, 5, ZoneId.of("+01:00"));
-        Instant instant = date.toInstant();
+        var date = ZonedDateTime.of(2007, 3, 25, 10, 15, 30, 5, ZoneId.of("+01:00"));
+        var instant = date.toInstant();
         assertThat(instant.toString(), equalTo("2007-03-25T09:15:30.000000005Z"));
     }
 }

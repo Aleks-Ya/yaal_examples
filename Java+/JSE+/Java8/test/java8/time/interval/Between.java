@@ -14,11 +14,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class Between {
     @Test
     public void date() {
-        LocalDate date1 = LocalDate.of(2017, 10, 1);
+        var date1 = LocalDate.of(2017, 10, 1);
         long daysToAdd = 3;
-        LocalDate date2 = date1.plusDays(daysToAdd);
+        var date2 = date1.plusDays(daysToAdd);
 
-        long between = ChronoUnit.DAYS.between(date1, date2);
+        var between = ChronoUnit.DAYS.between(date1, date2);
         assertThat(between, equalTo(daysToAdd));
     }
 }

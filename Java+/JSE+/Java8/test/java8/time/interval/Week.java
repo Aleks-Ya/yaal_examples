@@ -49,14 +49,14 @@ public class Week {
     }
 
     private static LocalDate firstDayOfWeek(LocalDate date) {
-        LocalDate byMonday = date.with(DayOfWeek.MONDAY);
-        LocalDate byYear = date.withDayOfYear(1);
+        var byMonday = date.with(DayOfWeek.MONDAY);
+        var byYear = date.withDayOfYear(1);
         return byMonday.isAfter(byYear) ? byMonday : byYear;
     }
 
     private static LocalDate lastDayOfWeek(LocalDate date) {
-        LocalDate bySunday = date.with(DayOfWeek.SUNDAY);
-        LocalDate byYear = date.withDayOfYear(date.lengthOfYear());
+        var bySunday = date.with(DayOfWeek.SUNDAY);
+        var byYear = date.withDayOfYear(date.lengthOfYear());
         return bySunday.isBefore(byYear) ? bySunday : byYear;
     }
 
