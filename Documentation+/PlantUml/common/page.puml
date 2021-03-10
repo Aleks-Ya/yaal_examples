@@ -1,0 +1,26 @@
+@startuml
+
+title The Page 1 title
+header Page 1 header
+class Data1
+footer Page 1 footer
+
+newpage
+title The Page 2 title
+header Page 2 header
+class Data2
+footer Page 2 footer
+
+newpage
+title The Page 3 title
+header Page 3 header
+class Data3
+footer Page 3 footer
+
+newpage
+title The Page 4 title
+header Page 4 header
+class Data4
+footer Page 4 footer
+
+@enduml
