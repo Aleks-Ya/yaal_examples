@@ -30,13 +30,13 @@ public class CellAlignment {
         var valueC1 = "C C";
         var valueD1 = "D D";
 
-        try (var workbook = new XSSFWorkbook()) {
-            var sheet = workbook.createSheet("my sheet");
+        try (var wb = new XSSFWorkbook()) {
+            var sheet = wb.createSheet("my sheet");
             var row = sheet.createRow(0);
-            var cellA1 = createCell(workbook, row, 0, HorizontalAlignment.RIGHT, VerticalAlignment.CENTER, valueA1);
-            var cellB1 = createCell(workbook, row, 1, HorizontalAlignment.CENTER, VerticalAlignment.BOTTOM, valueB1);
-            var cellC1 = createCell(workbook, row, 2, HorizontalAlignment.LEFT, VerticalAlignment.TOP, valueC1);
-            var cellD1 = createCell(workbook, row, 3, HorizontalAlignment.DISTRIBUTED, VerticalAlignment.DISTRIBUTED, valueD1);
+            var cellA1 = createCell(wb, row, 0, HorizontalAlignment.RIGHT, VerticalAlignment.CENTER, valueA1);
+            var cellB1 = createCell(wb, row, 1, HorizontalAlignment.CENTER, VerticalAlignment.BOTTOM, valueB1);
+            var cellC1 = createCell(wb, row, 2, HorizontalAlignment.LEFT, VerticalAlignment.TOP, valueC1);
+            var cellD1 = createCell(wb, row, 3, HorizontalAlignment.DISTRIBUTED, VerticalAlignment.DISTRIBUTED, valueD1);
             cellA1.setCellValue(valueA1);
             cellB1.setCellValue(valueB1);
             cellC1.setCellValue(valueC1);
@@ -51,7 +51,7 @@ public class CellAlignment {
 //            setAlignment(cellC1, HorizontalAlignment.RIGHT);
 //            setAlignment(cellD1, HorizontalAlignment.DISTRIBUTED);
 
-            workbook.write(new FileOutputStream(file));
+            wb.write(new FileOutputStream(file));
         }
 
         try (var actWb = new XSSFWorkbook(new FileInputStream(file))) {

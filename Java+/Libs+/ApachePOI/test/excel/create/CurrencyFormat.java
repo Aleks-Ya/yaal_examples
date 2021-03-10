@@ -13,8 +13,8 @@ public class CurrencyFormat {
 
     @Test
     public void currency() throws IOException {
-        try (var workbook = new XSSFWorkbook()) {
-            var sheet = workbook.createSheet();
+        try (var wb = new XSSFWorkbook()) {
+            var sheet = wb.createSheet();
 
             addUsd(sheet);
             addRur(sheet);
@@ -25,7 +25,7 @@ public class CurrencyFormat {
 
             var file = Files.createTempFile(CurrencyFormat.class.getSimpleName(), ".xls").toFile();
             System.out.println("Workbook file: " + file.getAbsolutePath());
-            workbook.write(new FileOutputStream(file));
+            wb.write(new FileOutputStream(file));
         }
     }
 

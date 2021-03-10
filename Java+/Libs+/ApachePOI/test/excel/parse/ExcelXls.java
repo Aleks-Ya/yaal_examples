@@ -17,8 +17,8 @@ public class ExcelXls {
     public void readCellValue() throws IOException {
         var file = ExcelXls.class.getResource("Excel-97-2000-XP-2003.xls").getFile();
         try (var is = new FileInputStream(file);
-             var workbook = new HSSFWorkbook(is)) {
-            var sheet1 = workbook.getSheetAt(0);
+             var wb = new HSSFWorkbook(is)) {
+            var sheet1 = wb.getSheetAt(0);
             var row1 = sheet1.getRow(0);
             var cellA1 = row1.getCell(0);
             assertEquals("Header 1", cellA1.getStringCellValue());

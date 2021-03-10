@@ -25,8 +25,8 @@ public class MergeCells {
         var valueA2 = "C";
         var valueB2 = "D";
 
-        try (var workbook = new XSSFWorkbook()) {
-            var sheet = workbook.createSheet("my sheet");
+        try (var wb = new XSSFWorkbook()) {
+            var sheet = wb.createSheet("my sheet");
             var row1 = sheet.createRow(0);
             var cellA1 = row1.createCell(0);
             var cellB1 = row1.createCell(1);
@@ -44,7 +44,7 @@ public class MergeCells {
 
             sheet.validateMergedRegions();
 
-            workbook.write(new FileOutputStream(file));
+            wb.write(new FileOutputStream(file));
         }
 
         try (var actWb = new XSSFWorkbook(new FileInputStream(file))) {

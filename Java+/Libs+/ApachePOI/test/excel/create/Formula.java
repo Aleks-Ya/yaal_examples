@@ -14,8 +14,8 @@ public class Formula {
 
     @Test
     public void createFormula() throws IOException {
-        try (var workbook = new XSSFWorkbook()) {
-            var sheet = workbook.createSheet("my sheet");
+        try (var wb = new XSSFWorkbook()) {
+            var sheet = wb.createSheet("my sheet");
             var row = sheet.createRow(0);
             var cell0 = row.createCell(0);
             var cell1 = row.createCell(1);
@@ -24,11 +24,11 @@ public class Formula {
             cell1.setCellValue(10.5);
             cell2.setCellFormula(format("SUM(%s:%s)", cell0.getAddress(), cell1.getAddress()));
 
-            workbook.getCreationHelper().createFormulaEvaluator().evaluateAll();
+            wb.getCreationHelper().createFormulaEvaluator().evaluateAll();
 
             var file = Files.createTempFile(Formula.class.getSimpleName(), ".xls").toFile();
             System.out.println("Workbook file: " + file.getAbsolutePath());
-            workbook.write(new FileOutputStream(file));
+            wb.write(new FileOutputStream(file));
         }
     }
 
