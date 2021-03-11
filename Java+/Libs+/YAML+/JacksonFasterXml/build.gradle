@@ -1,4 +1,5 @@
 dependencies {
     implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion",
             "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    testImplementation jsonUnitDependency
 }
