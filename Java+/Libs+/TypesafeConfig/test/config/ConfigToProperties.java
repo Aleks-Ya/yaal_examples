@@ -12,15 +12,15 @@ import static org.hamcrest.Matchers.equalTo;
 public class ConfigToProperties extends BaseTest {
     @Test
     public void configToProperties() {
-        Properties expProperties = new Properties();
+        var expProperties = new Properties();
         expProperties.put("a", "1");
-        Config conf = ConfigFactory.parseProperties(expProperties);
-        Properties actProperties = configToProperties(conf);
+        var conf = ConfigFactory.parseProperties(expProperties);
+        var actProperties = configToProperties(conf);
         assertThat(actProperties, equalTo(expProperties));
     }
 
     private static Properties configToProperties(Config config) {
-        Properties properties = new Properties();
+        var properties = new Properties();
         config.entrySet().forEach(entry -> properties.put(entry.getKey(), entry.getValue().unwrapped()));
         return properties;
     }

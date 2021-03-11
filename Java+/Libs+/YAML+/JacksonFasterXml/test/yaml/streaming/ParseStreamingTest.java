@@ -2,28 +2,27 @@ package yaml.streaming;
 
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.fasterxml.jackson.dataformat.yaml.YAMLParser;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class ParseStreamingTest {
 
     @Test
     public void parse() throws IOException {
-        String yaml = "name: John\nage: 30";
+        var yaml = "name: John\nage: 30";
 
-        YAMLFactory factory = new YAMLFactory();
-        YAMLParser parser = factory.createParser(yaml);
+        var factory = new YAMLFactory();
+        var parser = factory.createParser(yaml);
 
         String parsedName = null;
         Integer parsedAge = null;
 
         while (parser.nextToken() != JsonToken.END_OBJECT) {
-            String fieldName = parser.getCurrentName();
+            var fieldName = parser.getCurrentName();
             if ("name".equals(fieldName)) {
                 parser.nextToken();
                 parsedName = parser.getText();

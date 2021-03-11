@@ -7,8 +7,8 @@ public class TutorialTest {
 
     @Test
     public void name() {
-        Yaml yaml = new Yaml();
-        Object obj = yaml.load("a: 1\nb: 2\nc:\n  - aaa\n  - bbb");
+        var yaml = new Yaml();
+        var obj = yaml.load("a: 1\nb: 2\nc:\n  - aaa\n  - bbb");
         System.out.println(obj);
     }
 }

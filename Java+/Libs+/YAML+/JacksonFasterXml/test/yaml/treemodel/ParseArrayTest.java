@@ -9,22 +9,21 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.net.URL;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class ParseArrayTest {
 
     @Test
     public void arrayOfStrings() throws IOException {
-        String yaml = "- John\n" +
+        var yaml = "- John\n" +
                 "- Tom";
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        ArrayNode arrayNode = (ArrayNode) mapper.readTree(yaml);
+        var mapper = new ObjectMapper(new YAMLFactory());
+        var arrayNode = (ArrayNode) mapper.readTree(yaml);
 
-        TextNode johnNode = (TextNode) arrayNode.get(0);
-        TextNode tomNode = (TextNode) arrayNode.get(1);
+        var johnNode = (TextNode) arrayNode.get(0);
+        var tomNode = (TextNode) arrayNode.get(1);
 
         assertThat(johnNode.textValue(), equalTo("John"));
         assertThat(tomNode.textValue(), equalTo("Tom"));
@@ -32,17 +31,17 @@ public class ParseArrayTest {
 
     @Test
     public void arrayOfObjects() throws IOException {
-        URL yaml = ParseArrayTest.class.getResource("ParseArrayTest_arrayOfObjects.yaml");
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        ArrayNode arrayNode = (ArrayNode) mapper.readTree(yaml);
+        var yaml = ParseArrayTest.class.getResource("ParseArrayTest_arrayOfObjects.yaml");
+        var mapper = new ObjectMapper(new YAMLFactory());
+        var arrayNode = (ArrayNode) mapper.readTree(yaml);
 
-        ObjectNode johnElementNode = (ObjectNode) arrayNode.get(0);
-        ObjectNode johnNode = (ObjectNode) johnElementNode.get("John");
-        TextNode johnTitleNode = (TextNode) johnNode.get("title");
+        var johnElementNode = (ObjectNode) arrayNode.get(0);
+        var johnNode = (ObjectNode) johnElementNode.get("John");
+        var johnTitleNode = (TextNode) johnNode.get("title");
 
-        ObjectNode tomElementNode = (ObjectNode) arrayNode.get(1);
-        ObjectNode tomNode = (ObjectNode) tomElementNode.get("Tom");
-        IntNode tomTitleNode = (IntNode) tomNode.get("age");
+        var tomElementNode = (ObjectNode) arrayNode.get(1);
+        var tomNode = (ObjectNode) tomElementNode.get("Tom");
+        var tomTitleNode = (IntNode) tomNode.get("age");
 
         assertThat(johnTitleNode.textValue(), equalTo("officer"));
         assertThat(tomTitleNode.asInt(), equalTo(30));

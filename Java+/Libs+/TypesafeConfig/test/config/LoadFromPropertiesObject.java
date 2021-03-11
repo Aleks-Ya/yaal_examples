@@ -1,6 +1,5 @@
 package config;
 
-import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import org.junit.Test;
 
@@ -13,10 +12,10 @@ public class LoadFromPropertiesObject extends BaseTest {
 
     @Test
     public void load() {
-        String key = "magic.number";
-        Properties properties = new Properties();
+        var key = "magic.number";
+        var properties = new Properties();
         properties.put(key, "7");
-        Config conf = ConfigFactory.parseProperties(properties);
+        var conf = ConfigFactory.parseProperties(properties);
         assertThat(conf.getInt(key), equalTo(7));
     }
 }

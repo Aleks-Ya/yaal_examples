@@ -4,16 +4,15 @@ import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class TutorialTest {
 
     @Test
     public void name() {
-        Map<String, String> map = new HashMap<>();
+        var map = new HashMap<String, String>();
         map.put("name", "Pushkin");
-        Yaml yaml = new Yaml();
-        String output = yaml.dump(map);
+        var yaml = new Yaml();
+        var output = yaml.dump(map);
         System.out.println(output);
 
     }
