@@ -1,6 +1,7 @@
 {
   "system": "Server",
-  "version": 33,
+  "version.major": 33,
+  "version.minor": 77,
   "parameters": {
     "host": "localhost",
     "port": 8080

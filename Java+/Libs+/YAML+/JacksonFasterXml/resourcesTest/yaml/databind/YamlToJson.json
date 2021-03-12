@@ -1,6 +1,7 @@
 {
   "person": {
-    "name": "John",
+    "name.first": "John",
+    "name.second": "Smith",
     "age": 30,
     "hobbies": [
       "Skiing",
