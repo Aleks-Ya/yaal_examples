@@ -1,0 +1,8 @@
+@startuml
+
+title Several instances of a class
+object "london: City" as london
+object "washington: City" as washington
+object "berlin: City" as berlin
+
+@enduml
