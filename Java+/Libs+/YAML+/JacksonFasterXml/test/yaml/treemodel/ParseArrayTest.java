@@ -1,11 +1,10 @@
 package yaml.treemodel;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.IntNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -19,7 +18,7 @@ public class ParseArrayTest {
     public void arrayOfStrings() throws IOException {
         var yaml = "- John\n" +
                 "- Tom";
-        var mapper = new ObjectMapper(new YAMLFactory());
+        var mapper = new YAMLMapper();
         var arrayNode = (ArrayNode) mapper.readTree(yaml);
 
         var johnNode = (TextNode) arrayNode.get(0);
@@ -32,7 +31,7 @@ public class ParseArrayTest {
     @Test
     public void arrayOfObjects() throws IOException {
         var yaml = ParseArrayTest.class.getResource("ParseArrayTest_arrayOfObjects.yaml");
-        var mapper = new ObjectMapper(new YAMLFactory());
+        var mapper = new YAMLMapper();
         var arrayNode = (ArrayNode) mapper.readTree(yaml);
 
         var johnElementNode = (ObjectNode) arrayNode.get(0);

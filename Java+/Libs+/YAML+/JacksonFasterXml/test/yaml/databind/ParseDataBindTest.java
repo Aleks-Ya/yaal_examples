@@ -1,7 +1,6 @@
 package yaml.databind;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -13,7 +12,7 @@ public class ParseDataBindTest {
     public void name() throws Exception {
         var yaml = "name: John\n" +
                 "age: 30";
-        var mapper = new ObjectMapper(new YAMLFactory());
+        var mapper = new YAMLMapper();
         var person = mapper.readValue(yaml, Person.class);
 
         assertThat(person.getName(), equalTo("John"));
