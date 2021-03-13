@@ -1,0 +1,13 @@
+---
+person:
+  name.first: John
+  name.second: Smith
+  age: 30
+  hobbies:
+    - Skiing
+    - Wakeboarding
+  passports:
+    - country: RU
+      expires: 2030
+    - country: USA
+      expires: 2050
