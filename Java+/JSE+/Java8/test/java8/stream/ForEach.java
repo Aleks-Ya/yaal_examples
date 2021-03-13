@@ -3,7 +3,6 @@ package java8.stream;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
@@ -15,13 +14,13 @@ public class ForEach {
 
     @Test
     public void methodReference() {
-        List<Integer> source = Arrays.asList(-1, 0, 1);
+        var source = Arrays.asList(-1, 0, 1);
         source.forEach(System.out::println);
     }
 
     @Test
     public void var() {
-        List<Storage> source = Arrays.asList(Storage.MINUS_ONE, Storage.ZERO, Storage.ONE);
+        var source = Arrays.asList(Storage.MINUS_ONE, Storage.ZERO, Storage.ONE);
         source.forEach(n -> n.num++);
         assertThat(source, hasItems(Storage.ZERO, Storage.ONE, Storage.TWO));
     }
@@ -42,7 +41,7 @@ public class ForEach {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
-            Storage storage = (Storage) o;
+            var storage = (Storage) o;
 
             return num == storage.num;
 

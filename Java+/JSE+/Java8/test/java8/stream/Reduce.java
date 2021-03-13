@@ -18,7 +18,7 @@ public class Reduce {
      */
     @Test
     public void sum() {
-        int sum = stream
+        var sum = stream
                 .mapToInt(Integer::intValue)
                 .reduce(0, (left, right) -> left + right);
         assertThat(sum, equalTo(6));

@@ -2,7 +2,6 @@ package java8.stream;
 
 import org.junit.Test;
 
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -13,7 +12,7 @@ public class ExceptionInStream {
 
     @Test(expected = RuntimeException.class)
     public void runtimeException() {
-        List<String> list = Stream.of("a", "bb", null, "cc", null)
+        var list = Stream.of("a", "bb", null, "cc", null)
                 .filter(s -> s.length() > 1)
                 .collect(Collectors.toList());
         System.out.println(list);
@@ -21,7 +20,7 @@ public class ExceptionInStream {
 
     @Test(expected = RuntimeException.class)
     public void checkedException() {
-        List<Integer> list = Stream.of(1, 2, null, 3, null)
+        var list = Stream.of(1, 2, null, 3, null)
                 .map(s -> {
                     try {
                         return throwChecked();

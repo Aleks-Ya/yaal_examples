@@ -19,11 +19,11 @@ public class GroupingBy {
 
     @Test
     public void groupBy() {
-        Stream<Integer> stream = Stream.of(1, 2, 3, -1);
-        String positiveKey = "positive";
-        String negativeKey = "negative";
+        var stream = Stream.of(1, 2, 3, -1);
+        var positiveKey = "positive";
+        var negativeKey = "negative";
 
-        Map<String, List<Integer>> grouped = stream
+        var grouped = stream
                 .collect(Collectors.groupingBy(num -> num > 0 ? positiveKey : negativeKey));
 
         assertThat(grouped, aMapWithSize(2));
@@ -37,10 +37,10 @@ public class GroupingBy {
      */
     @Test
     public void groupByOrdered() {
-        Stream<Integer> stream = Stream.of(1, 2, 0, 3, -1);
-        String positiveKey = "positive";
-        String zeroKey = "zero";
-        String negativeKey = "negative";
+        var stream = Stream.of(1, 2, 0, 3, -1);
+        var positiveKey = "positive";
+        var zeroKey = "zero";
+        var negativeKey = "negative";
 
         Map<String, List<Integer>> grouped = stream
                 .collect(Collectors.groupingBy(

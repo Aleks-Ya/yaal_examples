@@ -2,7 +2,6 @@ package java8.stream;
 
 import org.junit.Test;
 
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -13,7 +12,7 @@ public class IntStreamTest {
 
     @Test
     public void toList() {
-        List<Integer> list = IntStream.of(1, 2, 3)
+        var list = IntStream.of(1, 2, 3)
                 .boxed()
                 .collect(Collectors.toList());
         assertThat(list, contains(1, 2, 3));

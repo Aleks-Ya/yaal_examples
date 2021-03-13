@@ -16,10 +16,10 @@ public class SingleResultTest {
 
     @Test
     public void singleElement() {
-        String s = Stream.of("a", "b", "c")
+        var s = Stream.of("a", "b", "c")
                 .filter("b"::equals)
                 .collect(new SingleElementCollector<>());
-        String single = stream
+        var single = stream
                 .filter("b"::equals)
                 .collect(new SingleElementCollector<>());
         assertThat(single, equalTo("b"));
