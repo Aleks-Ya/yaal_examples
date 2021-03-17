@@ -1,0 +1,8 @@
+@startuml
+title Class Relationships
+
+package OneToMany {
+    A "1" o- "*" B
+}
+
+@enduml
