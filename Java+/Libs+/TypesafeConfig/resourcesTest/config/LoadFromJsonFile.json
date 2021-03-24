@@ -7,5 +7,11 @@
   "parameters": {
     "host": "localhost",
     "port": 8080
-  }
+  },
+  "support": [
+    {
+      "person.name": "John",
+      "person.email": "john@support.com"
+    }
+  ]
 }
