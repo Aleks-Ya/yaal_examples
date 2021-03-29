@@ -1,0 +1,20 @@
+@startuml
+
+actor ActorA [
+    Line 1
+    Line 2
+]
+component ComponentA [
+    Line 1
+    Line 2
+]
+node NodeA {
+    component ComponentB
+    component ComponentC [
+    ComponentC
+    ----
+        Line 1
+        Line 2
+    ]
+}
+@enduml
