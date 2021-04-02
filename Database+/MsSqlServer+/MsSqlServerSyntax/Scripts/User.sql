@@ -1,0 +1,13 @@
+CREATE LOGIN john_login WITH PASSWORD = 'johnLogin-1';
+
+
+USE [master];
+CREATE USER John WITH PASSWORD = 'john1-pass';
+
+EXEC sp_configure 'CONTAINED DATABASE AUTHENTICATION';
+
+EXEC sp_configure 'CONTAINED DATABASE AUTHENTICATION', 1
+RECONFIGURE;
+
+
+EXEC sp_helpuser;
