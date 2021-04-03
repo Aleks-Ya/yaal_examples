@@ -7,7 +7,6 @@ import com.google.cloud.storage.StorageOptions;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Random;
 
@@ -15,19 +14,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 
-public class UploadObject {
+public class UploadObject extends BaseTest {
     @Test
     public void upload() throws IOException {
-        var projectId = "enterprise-data-hub-dev";
-        var bucketName = "iablokov-test-bucket";
         var objectName = "file2.txt";
         var content = "the content " + new Random().nextInt(Integer.MAX_VALUE);
-        var credentialsFile = System.getProperty("credentialsFile");
-        if (credentialsFile == null) {
-            throw new RuntimeException("'credentialsFile' system property absents");
-        }
         var storage = StorageOptions.newBuilder()
-                .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream(credentialsFile)))
+                .setCredentials(ServiceAccountCredentials.fromStream(getCredentialsIs()))
                 .setProjectId(projectId)
                 .build()
                 .getService();
@@ -37,5 +30,4 @@ public class UploadObject {
         blob.downloadTo(os);
         assertThat(os.toString(), equalTo(content));
     }
-
 }

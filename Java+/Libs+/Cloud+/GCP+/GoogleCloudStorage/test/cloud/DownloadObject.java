@@ -7,25 +7,18 @@ import com.google.cloud.storage.StorageOptions;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 
-public class DownloadObject {
+public class DownloadObject extends BaseTest {
     @Test
     public void download() throws IOException {
-        var projectId = "enterprise-data-hub-dev";
-        var bucketName = "iablokov-test-bucket";
         var objectName = "file1.txt";
-        var credentialsFile = System.getProperty("credentialsFile");
-        if (credentialsFile == null) {
-            throw new RuntimeException("'credentialsFile' system property absents");
-        }
         var storage = StorageOptions.newBuilder()
-                .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream(credentialsFile)))
+                .setCredentials(ServiceAccountCredentials.fromStream(getCredentialsIs()))
                 .setProjectId(projectId)
                 .build()
                 .getService();
