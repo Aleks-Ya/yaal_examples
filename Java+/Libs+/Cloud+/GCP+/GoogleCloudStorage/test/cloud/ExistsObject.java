@@ -9,8 +9,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 public class ExistsObject extends BaseTest {
@@ -24,7 +24,7 @@ public class ExistsObject extends BaseTest {
                 .getService();
         var blob = storage.get(BlobId.of(bucketName, objectName));
         var exists = blob != null;
-        assertThat(exists, equalTo(false));
+        assertFalse(exists);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class ExistsObject extends BaseTest {
         storage.create(BlobInfo.newBuilder(bucketName, objectName).build(), "abc".getBytes());
         var blob = storage.get(BlobId.of(bucketName, objectName));
         var exists = blob != null;
-        assertThat(exists, equalTo(true));
+        assertTrue(exists);
     }
 
 }
