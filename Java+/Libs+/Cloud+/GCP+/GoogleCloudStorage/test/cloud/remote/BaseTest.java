@@ -1,4 +1,4 @@
-package cloud;
+package cloud.remote;
 
 
 import java.io.FileInputStream;
