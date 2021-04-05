@@ -5,20 +5,24 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystem;
 import java.nio.file.Files;
-import java.nio.file.Path;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class JimfsTest {
     @Test
     public void test() throws IOException {
-        // For a simple file system with Unix-style paths and behavior:
-        FileSystem fs = Jimfs.newFileSystem(Configuration.unix());
-        Path foo = fs.getPath("/foo");
+        var fs = Jimfs.newFileSystem(Configuration.unix());
+        var foo = fs.getPath("/foo");
         Files.createDirectory(foo);
 
-        Path hello = foo.resolve("hello.txt"); // /foo/hello.txt
-        Files.write(hello, ImmutableList.of("hello world"), StandardCharsets.UTF_8);
+        var hello = foo.resolve("hello.txt");
+        var expContent = "hello world";
+        Files.write(hello, ImmutableList.of(expContent), StandardCharsets.UTF_8);
+
+        var actContent = Files.readString(hello);
+        assertThat(actContent, equalTo(expContent + "\n"));
     }
 
 }
