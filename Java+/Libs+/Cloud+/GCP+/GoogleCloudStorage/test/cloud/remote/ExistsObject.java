@@ -11,7 +11,7 @@ public class ExistsObject extends BaseRemoteTest {
     @Test
     public void notExists() {
         var objectName = "not_exists.txt";
-        var blob = storage.get(BlobId.of(bucketName, objectName));
+        var blob = storage.get(BlobId.of(BUCKET_NAME, objectName));
         var exists = blob != null;
         assertFalse(exists);
     }
@@ -19,8 +19,8 @@ public class ExistsObject extends BaseRemoteTest {
     @Test
     public void exists() {
         var objectName = "exists.txt";
-        storage.create(BlobInfo.newBuilder(bucketName, objectName).build(), "abc".getBytes());
-        var blob = storage.get(BlobId.of(bucketName, objectName));
+        storage.create(BlobInfo.newBuilder(BUCKET_NAME, objectName).build(), "abc".getBytes());
+        var blob = storage.get(BlobId.of(BUCKET_NAME, objectName));
         var exists = blob != null;
         assertTrue(exists);
     }

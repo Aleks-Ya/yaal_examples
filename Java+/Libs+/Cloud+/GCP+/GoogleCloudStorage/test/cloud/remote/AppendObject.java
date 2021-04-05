@@ -15,14 +15,14 @@ public class AppendObject extends BaseRemoteTest {
     @Test
     public void appendObjectByCompose() {
         var targetObjectName = "append/target.txt";
-        var targetBlobId = BlobId.of(bucketName, targetObjectName);
+        var targetBlobId = BlobId.of(BUCKET_NAME, targetObjectName);
         var targetBlobInfo = BlobInfo.newBuilder(targetBlobId).build();
         var targetContent = "the content 1";
         storage.delete(targetBlobId);
         var targetBlob = storage.create(targetBlobInfo, targetContent.getBytes());
 
         var appendObjectName = "append/append.txt";
-        var appendBlobId = BlobId.of(bucketName, appendObjectName);
+        var appendBlobId = BlobId.of(BUCKET_NAME, appendObjectName);
         var appendBlobInfo = BlobInfo.newBuilder(appendBlobId).build();
         var appendContent = "the content 2";
         storage.delete(appendBlobId);

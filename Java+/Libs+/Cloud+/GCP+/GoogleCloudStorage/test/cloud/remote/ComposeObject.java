@@ -14,21 +14,21 @@ public class ComposeObject extends BaseRemoteTest {
     @Test
     public void compose() {
         var objectName1 = "compose/file1.txt";
-        var blobId1 = BlobId.of(bucketName, objectName1);
+        var blobId1 = BlobId.of(BUCKET_NAME, objectName1);
         var blobInfo1 = BlobInfo.newBuilder(blobId1).build();
         var content1 = "the content 1";
         storage.delete(blobId1);
         var blob1 = storage.create(blobInfo1, content1.getBytes());
 
         var objectName2 = "compose/file2.txt";
-        var blobId2 = BlobId.of(bucketName, objectName2);
+        var blobId2 = BlobId.of(BUCKET_NAME, objectName2);
         var blobInfo2 = BlobInfo.newBuilder(blobId2).build();
         var content2 = "the content 2";
         storage.delete(blobId2);
         var blob2 = storage.create(blobInfo2, content2.getBytes());
 
         var targetObjectName = "compose/target.txt";
-        var targetBlobId = BlobId.of(bucketName, targetObjectName);
+        var targetBlobId = BlobId.of(BUCKET_NAME, targetObjectName);
         var targetBlob = BlobInfo.newBuilder(targetBlobId).build();
 
         var composeRequest = Storage.ComposeRequest.newBuilder()

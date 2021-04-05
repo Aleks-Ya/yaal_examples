@@ -13,7 +13,7 @@ public class DownloadObject extends BaseRemoteTest {
     public void download() {
         var objectName = "file1.txt";
         var os = new ByteArrayOutputStream();
-        var blob = storage.get(BlobId.of(bucketName, objectName));
+        var blob = storage.get(BlobId.of(BUCKET_NAME, objectName));
         blob.downloadTo(os);
         assertThat(os.toString(), equalTo("abc"));
     }

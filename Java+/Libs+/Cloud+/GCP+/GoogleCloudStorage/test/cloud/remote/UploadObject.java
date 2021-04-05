@@ -16,7 +16,7 @@ public class UploadObject extends BaseRemoteTest {
     public void uploadByCreate() {
         var objectName = "file2.txt";
         var content = "the content " + new Random().nextInt(Integer.MAX_VALUE);
-        var blobId = BlobId.of(bucketName, objectName);
+        var blobId = BlobId.of(BUCKET_NAME, objectName);
 
         var blobInfo = BlobInfo.newBuilder(blobId).build();
         storage.delete(blobId);

@@ -10,15 +10,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public abstract class BaseRemoteTest {
-    protected static final String bucketName = "iablokov-test-bucket";
-    private static final String projectId = "enterprise-data-hub-dev";
+    protected static final String BUCKET_NAME = "iablokov-test-bucket";
+    private static final String PROJECT_ID = "enterprise-data-hub-dev";
     protected final Storage storage = getStorage();
 
     private Storage getStorage() {
         try {
             return StorageOptions.newBuilder()
                     .setCredentials(ServiceAccountCredentials.fromStream(getCredentialsIs()))
-                    .setProjectId(projectId)
+                    .setProjectId(PROJECT_ID)
                     .build()
                     .getService();
         } catch (IOException e) {
