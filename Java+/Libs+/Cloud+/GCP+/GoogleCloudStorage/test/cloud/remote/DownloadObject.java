@@ -8,11 +8,10 @@ import java.io.ByteArrayOutputStream;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class DownloadObject extends BaseTest {
+public class DownloadObject extends BaseRemoteTest {
     @Test
     public void download() {
         var objectName = "file1.txt";
-        var storage = getStorage();
         var os = new ByteArrayOutputStream();
         var blob = storage.get(BlobId.of(bucketName, objectName));
         blob.downloadTo(os);
