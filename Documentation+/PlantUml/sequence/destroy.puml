@@ -1,16 +1,18 @@
 @startuml
-title Work good
+title Destroy with a narrow
 autoactivate on
 Alice -> Bob ** : new
 Alice -> Bob: Authentication Request
 Alice <-- Bob: Authentication Response
+Alice -> Bob !!: destroy
 @enduml
 
 @startuml
-title Autoactivation creates wrong lifeline on Bob
+title Destroy without narrow
 autoactivate on
 create Alice
 create Bob
 Alice -> Bob: new
 Bob --> Alice: Authentication Response
+destroy Bob
 @enduml

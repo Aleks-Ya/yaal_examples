@@ -1,5 +1,8 @@
 @startuml
 loop 1000 times
     Alice -> Bob: attack
+    loop until done
+        Bob -> Bob: defend
+    end
 end
 @enduml
