@@ -1,5 +1,6 @@
-package cloud.remote;
+package cloud.remote.object;
 
+import cloud.remote.BaseRemoteTest;
 import com.google.cloud.storage.BlobId;
 import org.junit.Test;
 
