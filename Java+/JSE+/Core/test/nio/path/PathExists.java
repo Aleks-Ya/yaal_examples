@@ -1,4 +1,4 @@
-package io.path;
+package nio.path;
 
 import org.junit.Test;
 

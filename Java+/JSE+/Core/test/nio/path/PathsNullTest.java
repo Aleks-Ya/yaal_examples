@@ -16,7 +16,7 @@ public class PathsNullTest {
 
     @Test
     public void emptyInEnd() {
-        assertThat(Paths.get("/abc", "efg", ""), hasToString(equalTo("\\abc\\efg")));
+        assertThat(Paths.get("/abc", "efg", ""), hasToString(equalTo("/abc/efg")));
     }
 
     @Test(expected = NullPointerException.class)

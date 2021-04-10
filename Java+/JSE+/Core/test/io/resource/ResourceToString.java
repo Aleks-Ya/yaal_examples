@@ -2,13 +2,13 @@ package io.resource;
 
 import org.junit.Test;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -19,43 +19,43 @@ public class ResourceToString {
 
     @Test
     public void readAllLines() throws IOException {
-        URL resourceUrl = ResourceToString.class.getResource(RESOURCE_NAME);
-        Path path = new File(resourceUrl.getFile()).toPath();
-        List<String> lines = Files.readAllLines(path);
-        String actContent = lines.stream().collect(Collectors.joining("\n"));
+        var resourceUrl = ResourceToString.class.getResource(RESOURCE_NAME);
+        var path = new File(resourceUrl.getFile()).toPath();
+        var lines = Files.readAllLines(path);
+        var actContent = lines.stream().collect(Collectors.joining("\n"));
         assertEquals(EXP_CONTENT, actContent);
     }
 
     @Test
     public void readAllLines2() throws IOException, URISyntaxException {
-        URL resourceUrl = ResourceToString.class.getResource(RESOURCE_NAME);
-        Path path = Paths.get(resourceUrl.toURI());
-        List<String> lines = Files.readAllLines(path);
-        String actContent = lines.stream().collect(Collectors.joining("\n"));
+        var resourceUrl = ResourceToString.class.getResource(RESOURCE_NAME);
+        var path = Paths.get(resourceUrl.toURI());
+        var lines = Files.readAllLines(path);
+        var actContent = lines.stream().collect(Collectors.joining("\n"));
         assertEquals(EXP_CONTENT, actContent);
     }
 
     @Test
     public void readAllBytes() throws IOException {
-        URL resourceUrl = ResourceToString.class.getResource(RESOURCE_NAME);
-        Path path = new File(resourceUrl.getFile()).toPath();
-        String actContent = new String(Files.readAllBytes(path));
+        var resourceUrl = ResourceToString.class.getResource(RESOURCE_NAME);
+        var path = new File(resourceUrl.getFile()).toPath();
+        var actContent = new String(Files.readAllBytes(path));
         assertEquals(EXP_CONTENT, actContent);
     }
 
     @Test
     public void readAllBytes2() throws IOException, URISyntaxException {
-        URL resourceUrl = ResourceToString.class.getResource(RESOURCE_NAME);
-        Path path = Paths.get(resourceUrl.toURI());
-        String actContent = new String(Files.readAllBytes(path));
+        var resourceUrl = ResourceToString.class.getResource(RESOURCE_NAME);
+        var path = Paths.get(resourceUrl.toURI());
+        var actContent = new String(Files.readAllBytes(path));
         assertEquals(EXP_CONTENT, actContent);
     }
 
     @Test
     public void bufferedReader() {
-        InputStream is = ResourceToString.class.getResourceAsStream(RESOURCE_NAME);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        String actContent = reader.lines().collect(Collectors.joining("\n"));
+        var is = ResourceToString.class.getResourceAsStream(RESOURCE_NAME);
+        var reader = new BufferedReader(new InputStreamReader(is));
+        var actContent = reader.lines().collect(Collectors.joining("\n"));
         assertEquals(EXP_CONTENT, actContent);
     }
 }
