@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.notNullValue;
 public class UploadObject extends BaseRemoteTest {
     @Test
     public void uploadByCreate() {
-        var objectName = "file2.txt";
+        var objectName = "dir1/file2.txt";
         var content = "the content " + new Random().nextInt(Integer.MAX_VALUE);
         var blobId = BlobId.of(BUCKET_NAME, objectName);
 
