@@ -4,7 +4,7 @@ import elastic.ConnectionHelper;
 import org.elasticsearch.action.search.MultiSearchRequest;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -24,10 +24,7 @@ import static org.junit.Assert.assertThat;
 public class MiltiSearchRequestTest {
     @Test
     public void matchAllQuery() throws IOException {
-        RestClient lowLevelRestClient = ConnectionHelper.getLowLevelRestClient();
-        RestHighLevelClient client = new RestHighLevelClient(lowLevelRestClient);
-
-
+        RestHighLevelClient client = ConnectionHelper.getHighLevelRestClient();
 
         MatchAllQueryBuilder query = QueryBuilders.matchAllQuery();
 
@@ -52,7 +49,7 @@ public class MiltiSearchRequestTest {
         String[] excludeFields = new String[]{"email"};
         searchSourceBuilder.fetchSource(includeFields, excludeFields);
 
-        SearchResponse response = client.search(request1);
+        SearchResponse response = client.search(request1, RequestOptions.DEFAULT);
 
 
         System.out.println(response);

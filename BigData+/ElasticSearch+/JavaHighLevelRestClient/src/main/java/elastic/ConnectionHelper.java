@@ -6,6 +6,7 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 
 /**
@@ -17,24 +18,18 @@ public final class ConnectionHelper {
     private static final String SCHEMA = "http";
     private static final String USER_NAME = "elastic";
     private static final String PASSWORD = "changeme";
-    private static final RestClient lowLevelRestClient;
     private static final RestHighLevelClient higLevelRestClient;
 
     static {
         CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(USER_NAME, PASSWORD));
         HttpHost httpHost = new HttpHost(HOST, PORT, SCHEMA);
-        lowLevelRestClient = RestClient.builder(httpHost)
-                .setHttpClientConfigCallback(builder -> builder.setDefaultCredentialsProvider(credentialsProvider))
-                .build();
-        higLevelRestClient = new RestHighLevelClient(lowLevelRestClient);
+        RestClientBuilder lowLevelRestClientBuilder = RestClient.builder(httpHost)
+                .setHttpClientConfigCallback(builder -> builder.setDefaultCredentialsProvider(credentialsProvider));
+        higLevelRestClient = new RestHighLevelClient(lowLevelRestClientBuilder);
     }
 
     private ConnectionHelper() {
-    }
-
-    public static RestClient getLowLevelRestClient() {
-        return lowLevelRestClient;
     }
 
     public static RestHighLevelClient getHighLevelRestClient() {

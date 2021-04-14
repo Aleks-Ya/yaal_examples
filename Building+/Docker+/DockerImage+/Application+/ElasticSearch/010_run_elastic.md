@@ -9,7 +9,7 @@
 ### Run the original build
 
 ```
-export ELASTIC_VERSION=5.6.8
+export ELASTIC_VERSION=7.12.0
 export CONTAINER_NAME=elastic-${ELASTIC_VERSION}
 
 docker run -p 9200:9200 \

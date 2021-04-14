@@ -3,6 +3,7 @@ package elastic.search;
 import elastic.ConnectionHelper;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
@@ -15,8 +16,10 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class SearchRequestTest {
     private static final String PEOPLE_INDEX = "people";
@@ -42,7 +45,7 @@ public class SearchRequestTest {
         String[] excludeFields = new String[]{EMAIL_FILED};
         searchSourceBuilder.fetchSource(includeFields, excludeFields);
 
-        SearchResponse response = client.search(request);
+        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
 
         System.out.println(response);
 
@@ -67,7 +70,7 @@ public class SearchRequestTest {
         request.types(PERSONS_TYPE);
         request.source(searchSourceBuilder);
 
-        SearchResponse response = client.search(request);
+        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
 
         System.out.println(response);
 
@@ -77,7 +80,7 @@ public class SearchRequestTest {
         SearchHits searchHits = response.getHits();
         SearchHit hit0 = searchHits.getAt(0);
 
-        assertThat(hit0.getSource().get(EMAIL_FILED), equalTo(JOHN_EMAIL));
+        assertThat(hit0.getSourceAsMap().get(EMAIL_FILED), equalTo(JOHN_EMAIL));
     }
 
     @Test
@@ -98,7 +101,7 @@ public class SearchRequestTest {
         request.types(PERSONS_TYPE);
         request.source(searchSourceBuilder);
 
-        SearchResponse response = client.search(request);
+        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
 
         System.out.println(response);
 
@@ -109,8 +112,8 @@ public class SearchRequestTest {
         SearchHit hit0 = searchHits.getAt(0);
         SearchHit hit1 = searchHits.getAt(1);
 
-        assertThat(hit0.getSource().get(EMAIL_FILED), anyOf(equalTo(JOHN_EMAIL), equalTo(MARY_MAIL)));
-        assertThat(hit1.getSource().get(EMAIL_FILED), anyOf(equalTo(JOHN_EMAIL), equalTo(MARY_MAIL)));
+        assertThat(hit0.getSourceAsMap().get(EMAIL_FILED), anyOf(equalTo(JOHN_EMAIL), equalTo(MARY_MAIL)));
+        assertThat(hit1.getSourceAsMap().get(EMAIL_FILED), anyOf(equalTo(JOHN_EMAIL), equalTo(MARY_MAIL)));
     }
 
     @Test
@@ -126,7 +129,7 @@ public class SearchRequestTest {
         request.types(PERSONS_TYPE);
         request.source(searchSourceBuilder);
 
-        SearchResponse response = client.search(request);
+        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
 
         System.out.println(response);
 
