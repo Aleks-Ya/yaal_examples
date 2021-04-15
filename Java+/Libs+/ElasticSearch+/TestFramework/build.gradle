@@ -1,0 +1,4 @@
+dependencies {
+    testImplementation "org.elasticsearch.test:framework:$elasticSearchVersion",
+            'org.apache.logging.log4j:log4j-core:2.14.1'
+}

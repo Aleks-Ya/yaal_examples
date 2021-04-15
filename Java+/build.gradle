@@ -32,7 +32,10 @@ subprojects {
  */
 configure(subprojects - project('UnitTest+:JUnit+:JUnit5+').subprojects) {
     dependencies {
-        testImplementation 'junit:junit:4.13.2', 'org.hamcrest:hamcrest:2.2',
+        testImplementation('junit:junit:4.13.2') {
+            exclude group: 'org.hamcrest', module: 'hamcrest-core'
+        }
+        testImplementation 'org.hamcrest:hamcrest:2.2',
                 'com.googlecode.catch-exception:catch-exception:1.2.0',
                 'org.awaitility:awaitility:4.0.3', 'commons-io:commons-io:2.8.0'
     }
