@@ -26,6 +26,7 @@ subprojects {
         jsonUnitDependency = 'net.javacrumbs.json-unit:json-unit:2.24.0'
         mockitoDependency = 'org.mockito:mockito-core:3.9.0'
         log4jCoreDependency = 'org.apache.logging.log4j:log4j-core:2.14.1'
+        elasticSearchVersion = '7.12.0'
     }
 }
 

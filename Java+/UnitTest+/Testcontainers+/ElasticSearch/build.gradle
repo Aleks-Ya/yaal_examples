@@ -1,0 +1,4 @@
+dependencies {
+    testImplementation "org.testcontainers:elasticsearch:$testContainersVersion", slf4jSimpleVersion,
+            "org.elasticsearch.client:elasticsearch-rest-client:$elasticSearchVersion"
+}

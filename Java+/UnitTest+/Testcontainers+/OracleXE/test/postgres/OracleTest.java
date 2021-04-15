@@ -23,16 +23,16 @@ public class OracleTest {
 
     @Test
     public void test() throws SQLException {
-        String url = oracle.getJdbcUrl();
-        String username = oracle.getUsername();
-        String password = oracle.getPassword();
-        try (Connection conn = DriverManager.getConnection(url, username, password)) {
-            Statement update = conn.createStatement();
+        var url = oracle.getJdbcUrl();
+        var username = oracle.getUsername();
+        var password = oracle.getPassword();
+        try (var conn = DriverManager.getConnection(url, username, password)) {
+            var update = conn.createStatement();
             update.executeUpdate("CREATE TABLE numbers (numb INTEGER)");
             update.executeUpdate("INSERT INTO numbers VALUES (3)");
 
-            Statement select = conn.createStatement();
-            ResultSet resultSet = select.executeQuery("SELECT * FROM numbers");
+            var select = conn.createStatement();
+            var resultSet = select.executeQuery("SELECT * FROM numbers");
             assertTrue(resultSet.next());
             assertThat(resultSet.getInt(1), equalTo(3));
             assertFalse(resultSet.next());

@@ -1,5 +1,4 @@
 dependencies {
     testImplementation "org.testcontainers:postgresql:$testContainersVersion",
-            'org.postgresql:postgresql:42.2.12',
-            "$slf4jSimpleVersion"
+            'org.postgresql:postgresql:42.2.19', slf4jSimpleVersion
 }

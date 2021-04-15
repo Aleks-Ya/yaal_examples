@@ -1,7 +1,7 @@
 dependencies {
-    testImplementation "org.testcontainers:oracle-xe:$testContainersVersion",
-//            'com.oracle.jdbc:ojdbc8:12.2.0.1',
-            "$slf4jSimpleVersion"
+    testImplementation "org.testcontainers:oracle-xe:$testContainersVersion", slf4jSimpleVersion
+            'com.oracle.jdbc:ojdbc8:12.2.0.1'
+
 }
 repositories {
     maven {
