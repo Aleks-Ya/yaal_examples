@@ -25,7 +25,7 @@ public final class ConnectionHelper {
     private static final String SCHEMA = "http";
     private static final String USER_NAME = "elastic";
     private static final String PASSWORD = "changeme";
-    private static final RestHighLevelClient higLevelRestClient;
+    private static final RestHighLevelClient highLevelRestClient;
     private static final Random random = new Random();
 
     static {
@@ -34,14 +34,14 @@ public final class ConnectionHelper {
         var httpHost = new HttpHost(HOST, PORT, SCHEMA);
         var lowLevelRestClientBuilder = RestClient.builder(httpHost)
                 .setHttpClientConfigCallback(builder -> builder.setDefaultCredentialsProvider(credentialsProvider));
-        higLevelRestClient = new RestHighLevelClient(lowLevelRestClientBuilder);
+        highLevelRestClient = new RestHighLevelClient(lowLevelRestClientBuilder);
     }
 
     private ConnectionHelper() {
     }
 
     public static RestHighLevelClient getHighLevelRestClient() {
-        return higLevelRestClient;
+        return highLevelRestClient;
     }
 
     public static String createRandomIndexName() {
