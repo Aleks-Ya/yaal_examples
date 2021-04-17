@@ -19,7 +19,7 @@ import java.util.Random;
 /**
  * Connect to local ElasticSearch that run by Building+/Docker+/DockerImage+/Application+/ElasticSearch.
  */
-public final class ConnectionHelper {
+public final class EsHelper {
     private static final String HOST = "localhost";
     private static final int PORT = 9200;
     private static final String SCHEMA = "http";
@@ -37,7 +37,7 @@ public final class ConnectionHelper {
         highLevelRestClient = new RestHighLevelClient(lowLevelRestClientBuilder);
     }
 
-    private ConnectionHelper() {
+    private EsHelper() {
     }
 
     public static RestHighLevelClient getHighLevelRestClient() {
@@ -45,12 +45,12 @@ public final class ConnectionHelper {
     }
 
     public static String createRandomIndexName() {
-        return String.format("%s-%d", ConnectionHelper.class.getSimpleName(), random.nextInt(Integer.MAX_VALUE)).toLowerCase();
+        return String.format("%s-%d", EsHelper.class.getSimpleName(), random.nextInt(Integer.MAX_VALUE)).toLowerCase();
     }
 
     public static CreateIndexResponse createIndex(String indexName) {
         try {
-            CreateIndexRequest request = new CreateIndexRequest(indexName);
+            var request = new CreateIndexRequest(indexName);
             return getHighLevelRestClient().indices().create(request, RequestOptions.DEFAULT);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -59,7 +59,7 @@ public final class ConnectionHelper {
 
     public static boolean isIndexExist(String indexName) {
         try {
-            GetIndexRequest getIndexRequest = new GetIndexRequest(indexName);
+            var getIndexRequest = new GetIndexRequest(indexName);
             return getHighLevelRestClient().indices().exists(getIndexRequest, RequestOptions.DEFAULT);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -68,7 +68,7 @@ public final class ConnectionHelper {
 
     public static AcknowledgedResponse deleteIndex(String indexName) {
         try {
-            DeleteIndexRequest deleteIndexRequest = new DeleteIndexRequest(indexName);
+            var deleteIndexRequest = new DeleteIndexRequest(indexName);
             return getHighLevelRestClient().indices().delete(deleteIndexRequest, RequestOptions.DEFAULT);
         } catch (IOException e) {
             throw new RuntimeException(e);

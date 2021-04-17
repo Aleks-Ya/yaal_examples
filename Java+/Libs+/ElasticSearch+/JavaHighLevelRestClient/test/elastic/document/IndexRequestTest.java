@@ -7,10 +7,10 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static elastic.ConnectionHelper.createIndex;
-import static elastic.ConnectionHelper.createRandomIndexName;
-import static elastic.ConnectionHelper.deleteIndex;
-import static elastic.ConnectionHelper.getHighLevelRestClient;
+import static elastic.EsHelper.createIndex;
+import static elastic.EsHelper.createRandomIndexName;
+import static elastic.EsHelper.deleteIndex;
+import static elastic.EsHelper.getHighLevelRestClient;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 

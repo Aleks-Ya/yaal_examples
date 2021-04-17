@@ -3,19 +3,23 @@
 ##  Index single document
 ### Without ID
 ```
-curl -XPOST $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME?pretty -d '{
-  "name": "John",
-  "age": 30,
-  "email": "john@mail.ru"
-}'
+curl -XPOST $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME?pretty \
+    -H 'Content-Type: application/json' \
+    -d '{ 
+            "name": "John",
+            "age": 30,
+            "email": "john@mail.ru"
+        }'
 ```
 ### With ID
 ```
-curl -XPOST $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/1?pretty -d '{
-  "name": "John",
-  "age": 30,
-  "email": "john@mail.ru"
-}'
+curl -XPOST $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/1?pretty \
+    -H 'Content-Type: application/json' \
+    -d '{
+            "name": "John",
+            "age": 30,
+            "email": "john@mail.ru"
+        }'
 ```
 
 ## Bulk index

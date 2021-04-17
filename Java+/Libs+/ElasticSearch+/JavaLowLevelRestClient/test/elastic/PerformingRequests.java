@@ -25,8 +25,8 @@ public class PerformingRequests {
 
     @Test
     public void getRoot() throws IOException {
-        Request request = new Request("GET", "/");
-        Response response = client.performRequest(request);
+        var request = new Request("GET", "/");
+        var response = client.performRequest(request);
         client.close();
 
         System.out.println("Response: " + response);
@@ -35,39 +35,39 @@ public class PerformingRequests {
 
     @Test
     public void getMapping() throws IOException {
-        Request request = new Request("GET", "/_mapping");
-        Response response = client.performRequest(request);
+        var request = new Request("GET", "/_mapping");
+        var response = client.performRequest(request);
         client.close();
         assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
 
         System.out.println("Response: " + response);
-        HttpEntity entity = response.getEntity();
-        InputStream contentIS = entity.getContent();
-        String contentStr = StringHelper.inputStreamToString(contentIS);
+        var entity = response.getEntity();
+        var contentIS = entity.getContent();
+        var contentStr = StringHelper.inputStreamToString(contentIS);
         System.out.println("Body: " + contentStr);
     }
 
     @Test
     public void countAll() throws IOException {
-        String endpoint = format("%s/%s/_count", PEOPLE_INDEX, PERSONS_TYPE);
-        Request request = new Request("GET", endpoint);
-        Response response = client.performRequest(request);
+        var endpoint = format("%s/%s/_count", PEOPLE_INDEX, PERSONS_TYPE);
+        var request = new Request("GET", endpoint);
+        var response = client.performRequest(request);
         client.close();
         assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
 
         System.out.println("Response: " + response);
-        HttpEntity entity = response.getEntity();
-        InputStream contentIS = entity.getContent();
-        String contentStr = StringHelper.inputStreamToString(contentIS);
+        var entity = response.getEntity();
+        var contentIS = entity.getContent();
+        var contentStr = StringHelper.inputStreamToString(contentIS);
         System.out.println("Body: " + contentStr);
         assertThat(contentStr, containsString("\"count\":4"));
     }
 
     @Test
     public void countSearch() throws IOException {
-        String endpoint = format("%s/%s/_count", PEOPLE_INDEX, PERSONS_TYPE);
+        var endpoint = format("%s/%s/_count", PEOPLE_INDEX, PERSONS_TYPE);
         Map<String, String> params = Collections.emptyMap();
-        String body = "{\n" +
+        var body = "{\n" +
                 "  \"query\": {\n" +
                 "      \"term\": {\n" +
                 "          \"email\": \"john@mail.ru\"\n" +
@@ -75,17 +75,17 @@ public class PerformingRequests {
                 "  }\n" +
                 "}";
         HttpEntity requestEntity = new NStringEntity(body, ContentType.APPLICATION_JSON);
-        Request request = new Request("GET", endpoint);
+        var request = new Request("GET", endpoint);
         request.addParameters(params);
         request.setEntity(requestEntity);
-        Response response = client.performRequest(request);
+        var response = client.performRequest(request);
         client.close();
         assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
 
         System.out.println("Response: " + response);
-        HttpEntity responseEntity = response.getEntity();
-        InputStream contentIS = responseEntity.getContent();
-        String contentStr = StringHelper.inputStreamToString(contentIS);
+        var responseEntity = response.getEntity();
+        var contentIS = responseEntity.getContent();
+        var contentStr = StringHelper.inputStreamToString(contentIS);
         System.out.println("Body: " + contentStr);
         assertThat(contentStr, containsString("\"count\":1"));
     }

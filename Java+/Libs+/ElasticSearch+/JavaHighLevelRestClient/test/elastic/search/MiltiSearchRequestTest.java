@@ -1,6 +1,6 @@
 package elastic.search;
 
-import elastic.ConnectionHelper;
+import elastic.EsHelper;
 import org.elasticsearch.action.search.MultiSearchRequest;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
@@ -24,32 +24,32 @@ import static org.junit.Assert.assertThat;
 public class MiltiSearchRequestTest {
     @Test
     public void matchAllQuery() throws IOException {
-        RestHighLevelClient client = ConnectionHelper.getHighLevelRestClient();
+        var client = EsHelper.getHighLevelRestClient();
 
-        MatchAllQueryBuilder query = QueryBuilders.matchAllQuery();
+        var query = QueryBuilders.matchAllQuery();
 
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        var searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(query);
 
-        String index = "people";
-        String type = "persons";
+        var index = "people";
+        var type = "persons";
 
-        MultiSearchRequest multiSearchRequest = new MultiSearchRequest();
+        var multiSearchRequest = new MultiSearchRequest();
 
 //        MultiSearchAction multiSearchAction = new
 //        MultiSearchRequestBuilder multiSearchRequestBuilder = new MultiSearchRequestBuilder();
 
 
-        SearchRequest request1 = new SearchRequest();
+        var request1 = new SearchRequest();
         request1.indices(index);
         request1.types(type);
         request1.source(searchSourceBuilder);
 
-        String[] includeFields = new String[]{"name", "age", "companyId"};
-        String[] excludeFields = new String[]{"email"};
+        var includeFields = new String[]{"name", "age", "companyId"};
+        var excludeFields = new String[]{"email"};
         searchSourceBuilder.fetchSource(includeFields, excludeFields);
 
-        SearchResponse response = client.search(request1, RequestOptions.DEFAULT);
+        var response = client.search(request1, RequestOptions.DEFAULT);
 
 
         System.out.println(response);
@@ -57,8 +57,8 @@ public class MiltiSearchRequestTest {
         assertThat(response.status().getStatus(), equalTo(200));
         assertThat(response.getHits().getTotalHits(), equalTo(4L));
 
-        SearchHits searchHits = response.getHits();
-        SearchHit hit0 = searchHits.getAt(0);
+        var searchHits = response.getHits();
+        var hit0 = searchHits.getAt(0);
 
         assertThat(hit0, notNullValue());
     }

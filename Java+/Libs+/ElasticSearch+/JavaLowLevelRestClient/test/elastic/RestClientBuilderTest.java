@@ -11,9 +11,9 @@ public class RestClientBuilderTest {
 
     @Test
     public void setHeaders() throws IOException {
-        BasicHeader header = new BasicHeader("header", "value");
-        Header[] defaultHeaders = new Header[]{header};
-        RestClient client = SecurityHelper.newRestClientBuilder()
+        var header = new BasicHeader("header", "value");
+        var defaultHeaders = new Header[]{header};
+        var client = SecurityHelper.newRestClientBuilder()
                 .setDefaultHeaders(defaultHeaders)
                 .build();
         client.close();

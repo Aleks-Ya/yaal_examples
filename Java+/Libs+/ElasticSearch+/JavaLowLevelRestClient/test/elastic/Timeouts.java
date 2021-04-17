@@ -13,15 +13,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class Timeouts {
     @Test
     public void timeouts() throws IOException {
-        RestClient client = SecurityHelper.newRestClientBuilder()
+        var client = SecurityHelper.newRestClientBuilder()
                 .setRequestConfigCallback(
                         requestConfigBuilder -> requestConfigBuilder.setConnectTimeout(5000).setSocketTimeout(60000)
                 )
 //                .setMaxRetryTimeoutMillis(60000)
                 .build();
 
-        Request request = new Request("GET", "/");
-        Response response = client.performRequest(request);
+        var request = new Request("GET", "/");
+        var response = client.performRequest(request);
         client.close();
 
         System.out.println("Response: " + response);

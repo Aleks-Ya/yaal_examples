@@ -14,11 +14,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GetRequestTest {
     @Test
     public void getDocumentById() throws IOException {
-        RestHighLevelClient client = ConnectionHelper.getHighLevelRestClient();
+        var client = EsHelper.getHighLevelRestClient();
 
-        String index = "people";
-        GetRequest getRequest = new GetRequest(index, "companies", "1");
-        GetResponse response = client.get(getRequest, RequestOptions.DEFAULT);
+        var index = "people";
+        var getRequest = new GetRequest(index, "companies", "1");
+        var response = client.get(getRequest, RequestOptions.DEFAULT);
 
         System.out.println(response);
         assertThat(response.getIndex(), equalTo(index));
