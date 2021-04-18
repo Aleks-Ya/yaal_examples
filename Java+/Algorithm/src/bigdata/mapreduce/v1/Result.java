@@ -1,4 +1,4 @@
-package ru.yaal.bigdata.mapreduce.v2;
+package bigdata.mapreduce.v1;
 
 import java.util.Set;
 

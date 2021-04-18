@@ -1,4 +1,4 @@
-package ru.yaal.bigdata.mapreduce.cyclic;
+package bigdata.mapreduce.cyclic;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package ru.yaal.bigdata.mapreduce.v2;
+package bigdata.mapreduce.v2;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;

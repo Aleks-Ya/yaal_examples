@@ -1,4 +1,6 @@
-package ru.yaal.bigdata.mapreduce.cyclic;
+package bigdata.mapreduce.cyclic;
+
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,8 +9,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.stream.Collectors;
-
-import org.junit.Test;
 
 public class CyclicFileReaderTest {
 
