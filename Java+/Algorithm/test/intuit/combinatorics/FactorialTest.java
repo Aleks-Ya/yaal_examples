@@ -1,16 +1,12 @@
 package intuit.combinatorics;
 
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FactorialTest {
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     @Test
     public void zero() {
@@ -28,8 +24,7 @@ public class FactorialTest {
 
     @Test
     public void negative() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("Number must be positive.");
-        Factorial.factorial(-1);
+        var e = assertThrows(IllegalArgumentException.class, () -> Factorial.factorial(-1));
+        assertThat(e.getMessage(), equalTo("Number must be positive."));
     }
 }

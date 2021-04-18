@@ -1,32 +1,28 @@
 package intuit.combinatorics;
 
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Алгоритм поиска легкой монеты.
  */
 public class FindLighterCoinTest {
 
-    @Rule
-    public ExpectedException exceptionRule = ExpectedException.none();
-
     @Test
     public void oneCoin() {
-        exceptionRule.expect(IllegalArgumentException.class);
-        exceptionRule.expectMessage("Количество элементов должно быть больше 1");
-        FindLighterCoin.findLighterCoinIndex(new int[]{1});
+        var e = assertThrows(IllegalArgumentException.class,
+                () -> FindLighterCoin.findLighterCoinIndex(new int[]{1}));
+        assertThat(e.getMessage(), equalTo("Количество элементов должно быть больше 1"));
     }
 
     @Test
     public void allCoinsEquals() {
-        exceptionRule.expect(IllegalArgumentException.class);
-        exceptionRule.expectMessage("Одна монета должна быть легче. Остальные монеты дожны быть одинакового веса.");
-        assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{10, 10, 10, 10}), equalTo(2));
+        var e = assertThrows(IllegalArgumentException.class,
+                () -> assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{10, 10, 10, 10}), equalTo(2)));
+        assertThat(e.getMessage(), equalTo("Одна монета должна быть легче. Остальные монеты дожны быть одинакового веса."));
     }
 
     @Test

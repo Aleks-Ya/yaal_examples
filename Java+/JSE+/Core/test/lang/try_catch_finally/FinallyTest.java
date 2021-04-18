@@ -1,33 +1,31 @@
 package lang.try_catch_finally;
 
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FinallyTest {
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     /**
      * Если catch и finally бросают исключения, вверх по стеку полетит исключение из finally.
      */
     @Test
     public void exceptionInCatchVsFinally() {
-        String finallyMessage = "From finally";
-        exception.expectMessage(finallyMessage);
-        //noinspection finally
-        try {
-            throw new RuntimeException("From try");
-        } catch (Exception e) {
-            throw new RuntimeException("From catch");
-        } finally {
-            //noinspection ThrowFromFinallyBlock
-            throw new RuntimeException(finallyMessage);
-        }
+        var finallyMessage = "From finally";
+        var e = assertThrows(RuntimeException.class, () -> {
+            //noinspection finally
+            try {
+                throw new RuntimeException("From try");
+            } catch (Exception e1) {
+                throw new RuntimeException("From catch");
+            } finally {
+                //noinspection ThrowFromFinallyBlock
+                throw new RuntimeException(finallyMessage);
+            }
+        });
+        assertThat(e.getMessage(), equalTo(finallyMessage));
     }
 
     /**
@@ -35,7 +33,7 @@ public class FinallyTest {
      */
     @Test
     public void returnFromCatchVsFinally() {
-        String finallyMessage = "From finally";
+        var finallyMessage = "From finally";
         assertThat(returnString(finallyMessage), equalTo(finallyMessage));
     }
 

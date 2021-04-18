@@ -1,9 +1,7 @@
 package io.file.text.read;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.TemporaryFolder;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,10 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Чтение файла с помощью BufferedReader.
  */
 public class ByBufferedReader {
-    private static File file;
     private static final List<String> expLines = Arrays.asList("FirstLine", "SecondLine");
-    @Rule
-    public TemporaryFolder temp = new TemporaryFolder();
+    private static File file;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -39,7 +35,6 @@ public class ByBufferedReader {
      */
     @Test
     public void lineByLine() throws IOException {
-
         BufferedReader reader = new BufferedReader(new FileReader(file));
         StringBuilder sb = new StringBuilder();
         String line;

@@ -1,23 +1,19 @@
 package io.file.rename_folder;
 
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.TemporaryFolder;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import static java.lang.System.out;
 
 public class DirWithFiles {
-
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
-
     @Test
     public void rename() throws IOException {
+        var folder = Files.createTempDirectory(getClass().getSimpleName());
         out.println("===== File#renameTo =====");
-        File source = folder.newFolder();
+        File source = folder.toFile();
         new File(source, "file.txt").createNewFile();
         out.printf("SOURCE: %s%n", source);
 
