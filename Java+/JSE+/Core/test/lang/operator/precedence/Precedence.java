@@ -3,8 +3,8 @@ package lang.operator.precedence;
 import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Precedence {
 

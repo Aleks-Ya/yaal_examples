@@ -6,7 +6,7 @@ import org.python.util.PythonInterpreter;
 
 import java.io.InputStream;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class ExecFile {

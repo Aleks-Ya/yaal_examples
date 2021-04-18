@@ -6,8 +6,8 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Игнорирование пробелов и переносов строк при сравнении XML.
@@ -23,7 +23,7 @@ public class IgnoreWhitespace {
     public void ignore() throws IOException, SAXException {
         XMLUnit.setIgnoreWhitespace(true);
         DetailedDiff diff = new DetailedDiff(new Diff(one, two));
-        assertTrue(diff.toString(), diff.similar());
+        assertTrue(diff.similar(), diff.toString());
 
     }
 
@@ -31,6 +31,6 @@ public class IgnoreWhitespace {
     public void notIgnore() throws IOException, SAXException {
         XMLUnit.setIgnoreWhitespace(false);
         DetailedDiff diff = new DetailedDiff(new Diff(one, two));
-        assertFalse(diff.toString(), diff.similar());
+        assertFalse(diff.similar(), diff.toString());
     }
 }

@@ -2,7 +2,7 @@ package lang.string.string_builder.exercise;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Задача: из исходной строки удалить буквы английского алфавита.

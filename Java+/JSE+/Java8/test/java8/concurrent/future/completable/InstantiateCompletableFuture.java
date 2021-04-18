@@ -7,7 +7,7 @@ import java.util.concurrent.CompletionException;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Create instance of {@link CompletableFuture}.

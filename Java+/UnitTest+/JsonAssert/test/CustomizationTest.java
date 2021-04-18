@@ -7,7 +7,7 @@ import org.skyscreamer.jsonassert.ValueMatcher;
 import org.skyscreamer.jsonassert.comparator.CustomComparator;
 import org.skyscreamer.jsonassert.comparator.JSONComparator;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.skyscreamer.jsonassert.JSONCompare.compareJSON;
 
 public class CustomizationTest {
@@ -22,7 +22,7 @@ public class CustomizationTest {
         Customization custom = Customization.customization("first", comparator);
         JSONComparator jsonCmp = new CustomComparator(JSONCompareMode.STRICT, custom);
         JSONCompareResult result = compareJSON(expected, actual, jsonCmp);
-        assertTrue(result.getMessage(), result.passed());
+        assertTrue(result.passed(), result.getMessage());
     }
 
     @Test
@@ -35,6 +35,6 @@ public class CustomizationTest {
         Customization custom = Customization.customization("first", comparator);
         JSONComparator jsonCmp = new CustomComparator(JSONCompareMode.STRICT, custom);
         JSONCompareResult result = compareJSON(expected, actual, jsonCmp);
-        assertTrue(result.getMessage(), result.passed());
+        assertTrue(result.passed(), result.getMessage());
     }
 }

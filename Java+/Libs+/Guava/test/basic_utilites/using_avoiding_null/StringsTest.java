@@ -3,7 +3,7 @@ package basic_utilites.using_avoiding_null;
 import com.google.common.base.Strings;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StringsTest {
 

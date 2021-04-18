@@ -19,7 +19,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {SecurityConfig.class, DataSourceConfig.class})

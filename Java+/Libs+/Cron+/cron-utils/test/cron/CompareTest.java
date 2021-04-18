@@ -7,8 +7,8 @@ import com.cronutils.parser.CronParser;
 import org.junit.jupiter.api.Test;
 
 import static com.cronutils.model.CronType.QUARTZ;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CompareTest {
 

@@ -2,7 +2,7 @@ package lang.flow_control.break_operator;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * break с меткой позволяет перейти на любой оператор.

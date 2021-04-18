@@ -7,7 +7,7 @@ import security.SecurityHelper;
 import java.security.KeyStoreException;
 import java.security.cert.Certificate;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Working with a Keys.

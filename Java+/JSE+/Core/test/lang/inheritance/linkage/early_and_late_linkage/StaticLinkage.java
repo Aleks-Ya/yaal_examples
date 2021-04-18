@@ -2,7 +2,7 @@ package lang.inheritance.linkage.early_and_late_linkage;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Статические методы связываются на этапе компиляции.

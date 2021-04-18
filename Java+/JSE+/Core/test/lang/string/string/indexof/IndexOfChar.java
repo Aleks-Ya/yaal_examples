@@ -2,7 +2,7 @@ package lang.string.string.indexof;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Поиск символа в строке с помощью String#indexOf(Char).

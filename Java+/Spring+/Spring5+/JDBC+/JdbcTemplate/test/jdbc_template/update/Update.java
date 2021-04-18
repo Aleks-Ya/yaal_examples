@@ -3,7 +3,7 @@ package jdbc_template.update;
 import org.junit.jupiter.api.Test;
 import util.TestBase;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Внесение изменений в БД с помощью JdbcTemplate.

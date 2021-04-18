@@ -2,7 +2,7 @@ package lang.flow_control.break_operator;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * break без метки воздействует на конструкции switch, while, do, or for.

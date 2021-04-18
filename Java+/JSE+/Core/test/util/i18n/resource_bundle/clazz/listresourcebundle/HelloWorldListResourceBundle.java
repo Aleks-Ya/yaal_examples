@@ -6,7 +6,7 @@ import java.awt.Color;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Hello World на пакетах ресурсов в виде java-классов.

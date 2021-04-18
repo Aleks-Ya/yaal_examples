@@ -8,7 +8,7 @@ import util.TestBase;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Use {@link BeanPropertyRowMapper} to map rows to POJOs.

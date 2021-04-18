@@ -2,7 +2,7 @@ package lang.flow_control.do_while;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DoWhile {
 

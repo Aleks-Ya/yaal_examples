@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Source: https://connect2id.com/products/nimbus-jose-jwt/examples/jwt-with-rsa-signature

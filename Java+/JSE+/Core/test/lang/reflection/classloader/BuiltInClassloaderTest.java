@@ -3,7 +3,7 @@ package lang.reflection.classloader;
 import org.junit.jupiter.api.Test;
 //import sun.net.spi.nameservice.dns.DNSNameService;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class BuiltInClassloaderTest {
 

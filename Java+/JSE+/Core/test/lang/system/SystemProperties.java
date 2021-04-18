@@ -7,8 +7,10 @@ import java.util.Map;
 import java.util.Properties;
 
 import static java.lang.System.out;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SystemProperties {
 

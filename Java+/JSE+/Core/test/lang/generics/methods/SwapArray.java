@@ -2,7 +2,7 @@ package lang.generics.methods;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 /**
  * Write a generic method to exchange the positions of two different elements in an array.

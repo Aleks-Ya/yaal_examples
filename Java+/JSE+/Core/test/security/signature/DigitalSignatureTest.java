@@ -9,7 +9,7 @@ import java.security.Signature;
 import java.security.SignatureException;
 import java.util.Arrays;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Digital signature.

@@ -8,7 +8,7 @@ import org.springframework.core.type.classreading.SimpleMetadataReaderFactory;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class BeanDefinition2Test {
 

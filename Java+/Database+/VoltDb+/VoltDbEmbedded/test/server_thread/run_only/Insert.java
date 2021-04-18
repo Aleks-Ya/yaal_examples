@@ -11,7 +11,7 @@ import server_thread.ServerThreadHelper;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * JVM parameter: -Djava.library.path=libs

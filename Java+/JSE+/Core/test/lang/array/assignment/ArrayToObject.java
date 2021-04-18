@@ -2,7 +2,7 @@ package assignment;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Присвоение массива переменной Object.

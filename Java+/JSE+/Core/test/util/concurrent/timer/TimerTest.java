@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TimerTest {
     private boolean run = false;

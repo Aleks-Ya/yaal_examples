@@ -4,8 +4,8 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Использование класса Diff.
@@ -20,7 +20,7 @@ public class DiffUsage {
         Diff myDiff = new Diff(myControlXML, myTestXML);
 
         System.out.println(myDiff.toString());
-        assertTrue("XML similar " + myDiff.toString(), myDiff.similar());
-        assertFalse("XML identical " + myDiff.toString(), myDiff.identical());
+        assertTrue(myDiff.similar(), "XML similar " + myDiff.toString());
+        assertFalse(myDiff.identical(), "XML identical " + myDiff.toString());
     }
 }

@@ -2,7 +2,7 @@ package lang.reflection.usage.java_package;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Получить пакет Java в коде.
