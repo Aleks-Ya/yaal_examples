@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @WebMvcTest(includeFilters = @Filter(type = FilterType.REGEX, pattern = "rst\\.config\\..*"))
 public class MyControllerTest {
 	@Autowired

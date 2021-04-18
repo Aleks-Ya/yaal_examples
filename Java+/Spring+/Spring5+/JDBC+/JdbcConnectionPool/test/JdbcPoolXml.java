@@ -1,9 +1,9 @@
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -22,8 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * 3. Apache Commons DBCP
  * 4. HikariCP
  */
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:xml/context.xml")
-@RunWith(SpringJUnit4ClassRunner.class)
 public class JdbcPoolXml {
 
     @Autowired

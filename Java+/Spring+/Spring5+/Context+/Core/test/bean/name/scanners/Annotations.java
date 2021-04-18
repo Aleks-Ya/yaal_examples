@@ -1,14 +1,15 @@
 package bean.name.scanners;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {
         BeanWithGeneratedName.class,
         ComponentWithExplicitName.class,
@@ -16,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         RepositoryWithExplicitName.class,
         ControllerWithExplicitName.class
 })
-@RunWith(SpringJUnit4ClassRunner.class)
 public class Annotations {
 
     @Autowired

@@ -1,8 +1,8 @@
 import domain.NameEntity;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Одна встроенная БД.
  */
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:context.xml")
-@RunWith(SpringJUnit4ClassRunner.class)
 public class SpringEntityManagerTest {
 
     @PersistenceContext

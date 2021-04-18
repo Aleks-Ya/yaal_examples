@@ -10,7 +10,7 @@ import ldap.repository.PersonRepo;
 
 import java.util.List;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestLdapConfig.class)
 public class AuthorRepoTest {
 
