@@ -14,8 +14,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PaymentTest {
     private static final HibernateSessionFactory5 factory = HibernateSessionFactory5.makeFactory(
@@ -27,7 +27,7 @@ public class PaymentTest {
     private Slip expSlipB;
 
     @Test
-    public void test() throws Exception {
+    public void test() {
         try {
             saveEntities();
             loadEntities();
@@ -39,7 +39,7 @@ public class PaymentTest {
         }
     }
 
-    private void saveEntities() throws Exception {
+    private void saveEntities() {
         Session session = factory.openSession();
 
         Payment payment = new Payment("Bike buy");
@@ -71,7 +71,7 @@ public class PaymentTest {
         expSlipB = slipB;
     }
 
-    private void loadEntities() throws Exception {
+    private void loadEntities() {
         Session session = factory.openSession();
         List<Payment> allPayments = session.createCriteria(Payment.class).addOrder(Order.desc("id")).list();
         List<Transaction> allTransactions = session.createCriteria(Transaction.class).addOrder(Order.desc("id")).list();

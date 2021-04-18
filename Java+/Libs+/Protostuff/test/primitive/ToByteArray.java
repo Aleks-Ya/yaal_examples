@@ -6,8 +6,8 @@ import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
 import org.junit.jupiter.api.Test;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 public class ToByteArray {
     @Test
