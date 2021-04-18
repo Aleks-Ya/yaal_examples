@@ -26,8 +26,8 @@ subprojects {
         log4jCoreDependency = 'org.apache.logging.log4j:log4j-core:2.14.1'
         elasticSearchVersion = '7.12.0'
         junit5Version = '5.7.1'
-        spring5Version = '5.2.7.RELEASE'
-        spring4Version = '4.3.11.RELEASE'
+        spring5Version = '5.3.6'
+        spring4Version = '4.3.30.RELEASE'
         spring3Version = '3.2.18.RELEASE'
     }
 }
@@ -54,8 +54,5 @@ configure(subprojects - project(':Util')) {
     dependencies {
         implementation project(':Util')
         testImplementation project(path: ':Util', configuration: 'tests')
-    }
-    test {
-        testLogging.showStandardStreams = true
     }
 }
