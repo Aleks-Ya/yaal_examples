@@ -1,7 +1,7 @@
 package nio.walk;
 
 import io.file.dir_walk.file_visitor.CollectFileNamesFileVisitor;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;

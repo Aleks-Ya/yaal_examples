@@ -2,7 +2,7 @@ package databind.deserialize.datatype;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import util.JsonUtil;
 
 import java.io.IOException;

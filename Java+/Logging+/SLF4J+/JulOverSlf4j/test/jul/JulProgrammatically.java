@@ -1,6 +1,6 @@
 package jul;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import java.util.logging.Logger;

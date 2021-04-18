@@ -1,6 +1,6 @@
 package lang.inheritance.linkage.override.exception.exception_in_initializer;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Случаи бросания ExceptionInInitializerError.

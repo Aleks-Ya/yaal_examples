@@ -1,6 +1,6 @@
 package jul.logger;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

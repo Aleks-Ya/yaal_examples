@@ -1,7 +1,7 @@
 package io.file.dir_walk;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.List;
@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 public class DirWalkTest {
     private static File rootDir;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() {
         rootDir = new File("resourcesTest/io/file");
         assertTrue(rootDir.exists());

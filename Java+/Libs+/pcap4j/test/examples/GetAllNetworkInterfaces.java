@@ -1,6 +1,6 @@
 package examples;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.pcap4j.core.PcapNativeException;
 import org.pcap4j.core.PcapNetworkInterface;
 import org.pcap4j.core.Pcaps;

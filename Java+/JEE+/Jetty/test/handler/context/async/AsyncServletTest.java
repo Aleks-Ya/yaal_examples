@@ -3,7 +3,7 @@ package handler.context.async;
 import org.eclipse.jetty.server.NetworkConnector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static util.NetAsserts.assertUrlContent;
 

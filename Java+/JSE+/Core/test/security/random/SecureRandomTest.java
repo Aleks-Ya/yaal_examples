@@ -1,6 +1,6 @@
 package security.random;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

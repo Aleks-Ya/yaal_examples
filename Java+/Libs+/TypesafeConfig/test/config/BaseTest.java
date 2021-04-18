@@ -1,11 +1,11 @@
 package config;
 
 import com.typesafe.config.ConfigFactory;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 public class BaseTest {
 
-    @Before
+    @BeforeEach
     public void invalidateCaches() {
         ConfigFactory.invalidateCaches();
     }

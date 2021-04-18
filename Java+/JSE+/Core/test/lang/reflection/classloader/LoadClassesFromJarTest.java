@@ -1,6 +1,6 @@
 package lang.reflection.classloader;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

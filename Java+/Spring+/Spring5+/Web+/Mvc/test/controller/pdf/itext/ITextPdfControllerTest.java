@@ -3,7 +3,7 @@ package controller.pdf.itext;
 import com.codeborne.pdftest.PDF;
 import common.BaseTest;
 import controller.pdf.lowagie.UserPDFView;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MvcResult;

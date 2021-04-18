@@ -7,14 +7,14 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 
 import static java.util.Objects.requireNonNull;
 
 public abstract class BaseS3Test {
     protected static AmazonS3 s3;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() {
         String accessKey = requireNonNull(System.getProperty("aws.key.access"));
         String secretKey = requireNonNull(System.getProperty("aws.key.secret"));

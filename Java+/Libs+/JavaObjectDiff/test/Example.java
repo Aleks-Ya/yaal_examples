@@ -1,6 +1,6 @@
 import de.danielbechler.diff.ObjectDifferBuilder;
 import de.danielbechler.diff.node.DiffNode;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class Example {
 

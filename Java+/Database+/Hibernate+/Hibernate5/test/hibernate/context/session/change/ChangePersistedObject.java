@@ -3,7 +3,7 @@ package hibernate.context.session.change;
 import hibernate.context.session.HibernateSessionFactory5;
 import org.hibernate.Session;
 import org.hibernate.annotations.Immutable;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ChangePersistedObject {

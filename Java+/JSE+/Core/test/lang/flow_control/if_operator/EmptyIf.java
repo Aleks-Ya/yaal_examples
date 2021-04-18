@@ -1,6 +1,6 @@
 package lang.flow_control.if_operator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Варианты пустых if.

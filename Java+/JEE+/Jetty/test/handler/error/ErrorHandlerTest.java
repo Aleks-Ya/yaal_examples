@@ -8,8 +8,8 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ErrorHandler;
 import org.eclipse.jetty.servlet.ServletHandler;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.nio.ByteBuffer;
 
@@ -21,7 +21,7 @@ import static util.NetAsserts.assertUrlContent;
 public class ErrorHandlerTest {
 
     @Test
-    @Ignore("does not work")
+    @Disabled("does not work")
     public void test() throws Exception {
         var handler = new ServletHandler();
         var path = "/error";

@@ -1,6 +1,6 @@
 package databind.json_node_factory;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static com.fasterxml.jackson.databind.node.JsonNodeFactory.instance;
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;

@@ -5,8 +5,8 @@ import org.codehaus.plexus.components.io.fileselectors.FileSelector;
 import org.codehaus.plexus.components.io.fileselectors.IncludeExcludeFileSelector;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class UnpackTarTest {
     private File destDir;
     private TarUnArchiver ua;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         File srcFile = new File(getClass().getResource("my.tar").getFile());
         destDir = Files.createTempDirectory("UnpackTarTest_").toFile();

@@ -3,7 +3,7 @@ package freemarker.directive;
 import freemarker.BaseFreemarkerTest;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;

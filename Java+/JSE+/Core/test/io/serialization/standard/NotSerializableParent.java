@@ -1,12 +1,12 @@
 package io.serialization.standard;
 
+import org.junit.jupiter.api.Test;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-
-import org.junit.Test;
 
 /**
  * Если у сериализуемого класса есть несериализуемый родитель, то во время

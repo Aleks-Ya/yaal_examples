@@ -1,6 +1,6 @@
 package io.file.delete.delete_on_exit;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;

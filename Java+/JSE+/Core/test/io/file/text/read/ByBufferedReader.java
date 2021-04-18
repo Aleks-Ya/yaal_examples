@@ -1,8 +1,8 @@
 package io.file.text.read;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.BufferedReader;
@@ -25,7 +25,7 @@ public class ByBufferedReader {
     @Rule
     public TemporaryFolder temp = new TemporaryFolder();
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         file = File.createTempFile(ByRandomAccessFile.class.getSimpleName(), ".tmp");
         file.deleteOnExit();

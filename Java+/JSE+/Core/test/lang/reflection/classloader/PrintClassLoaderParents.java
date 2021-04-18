@@ -1,10 +1,6 @@
 package lang.reflection.classloader;
 
-import org.junit.Test;
-
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.security.CodeSource;
+import org.junit.jupiter.api.Test;
 
 
 public class PrintClassLoaderParents {

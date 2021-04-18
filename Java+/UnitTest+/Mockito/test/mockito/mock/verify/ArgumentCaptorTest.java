@@ -1,6 +1,6 @@
 package mockito.mock.verify;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.util.Date;

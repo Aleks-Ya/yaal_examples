@@ -1,6 +1,6 @@
 package lang.conversation.method_invokation.cut;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
 

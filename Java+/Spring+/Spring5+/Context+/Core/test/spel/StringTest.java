@@ -1,7 +1,7 @@
 package spel;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
@@ -20,7 +20,7 @@ public class StringTest {
     }
 
     @Test
-    @Ignore("Throws SpelParseException")
+    @Disabled("Throws SpelParseException")
     public void stringConstructor() {
         Expression exp = parser.parseExpression("${java.home}");
         String value = exp.getValue(String.class);

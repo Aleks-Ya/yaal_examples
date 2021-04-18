@@ -1,5 +1,5 @@
 import org.joda.time.DateTime;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Создаем объект с заданными датой и временем.

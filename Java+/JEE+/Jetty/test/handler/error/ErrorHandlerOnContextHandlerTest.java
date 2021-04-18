@@ -9,8 +9,8 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ErrorHandler;
 import org.eclipse.jetty.servlet.ServletHandler;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class ErrorHandlerOnContextHandlerTest {
 
     @Test
-    @Ignore("does not work")
+    @Disabled("does not work")
     public void test() throws Exception {
         var servletHandler = new ServletHandler();
         var path = "/error";

@@ -3,7 +3,7 @@ package hibernate.hql.select;
 import hibernate.context.session.HibernateSessionFactory436;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class HqlSelect {
 

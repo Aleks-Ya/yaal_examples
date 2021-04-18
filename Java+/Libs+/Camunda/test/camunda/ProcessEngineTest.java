@@ -6,8 +6,8 @@ import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.repository.DeploymentBuilder;
 import org.camunda.bpm.model.bpmn.Bpmn;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class ProcessEngineTest {
 
     @Test
-    @Ignore("not finished")
+    @Disabled("not finished")
     public void file() {
         ProcessEngineConfiguration config = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration();
         ProcessEngine engine = config.buildProcessEngine();

@@ -1,7 +1,7 @@
 package intuit.combinatorics.tree.iterator;
 
 import intuit.combinatorics.tree.BiNode;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 

@@ -3,7 +3,7 @@ package guice.binding.private_module;
 import com.google.inject.Guice;
 import com.google.inject.Key;
 import com.google.inject.PrivateModule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;

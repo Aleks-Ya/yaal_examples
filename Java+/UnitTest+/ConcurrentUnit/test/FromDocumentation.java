@@ -1,5 +1,5 @@
 import net.jodah.concurrentunit.Waiter;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Source: https://github.com/jhalterman/concurrentunit

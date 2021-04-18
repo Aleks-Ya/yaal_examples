@@ -1,6 +1,6 @@
 package lang.flow_control.for_operator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class For {
 

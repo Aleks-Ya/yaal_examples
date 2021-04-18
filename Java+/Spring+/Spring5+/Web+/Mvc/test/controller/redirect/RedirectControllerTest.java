@@ -1,7 +1,7 @@
 package controller.redirect;
 
 import common.BaseTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MvcResult;
 

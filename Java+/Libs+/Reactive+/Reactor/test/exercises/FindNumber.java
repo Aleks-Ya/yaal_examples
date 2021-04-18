@@ -1,6 +1,6 @@
 package exercises;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import reactor.rx.Streams;
 
 import java.util.Arrays;

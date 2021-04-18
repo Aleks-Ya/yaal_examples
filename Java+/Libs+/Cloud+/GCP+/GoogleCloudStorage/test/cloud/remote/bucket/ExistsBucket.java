@@ -1,7 +1,7 @@
 package cloud.remote.bucket;
 
 import cloud.remote.BaseRemoteTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

@@ -1,6 +1,6 @@
 package processor;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.reactivestreams.Processor;
 import reactor.core.processor.RingBufferProcessor;
 import reactor.rx.Stream;

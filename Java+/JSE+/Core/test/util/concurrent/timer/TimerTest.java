@@ -1,6 +1,6 @@
 package util.concurrent.timer;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Timer;
 import java.util.TimerTask;

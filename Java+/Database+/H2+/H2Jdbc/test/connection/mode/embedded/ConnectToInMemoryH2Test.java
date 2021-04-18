@@ -1,7 +1,7 @@
 package connection.mode.embedded;
 
 import org.h2.tools.Server;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

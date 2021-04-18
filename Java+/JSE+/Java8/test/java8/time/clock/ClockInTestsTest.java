@@ -1,6 +1,6 @@
 package java8.time.clock;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.Clock;
 import java.time.Duration;

@@ -1,6 +1,6 @@
 package util.i18n.resource_bundle.hierarchy;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 import java.util.MissingResourceException;

@@ -1,10 +1,9 @@
 package broadcaster;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import reactor.Environment;
 import reactor.rx.broadcast.Broadcaster;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 

@@ -1,6 +1,6 @@
 package jdbc.exception;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;

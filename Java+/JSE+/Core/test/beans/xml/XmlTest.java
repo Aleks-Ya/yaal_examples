@@ -1,6 +1,6 @@
 package beans.xml;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;

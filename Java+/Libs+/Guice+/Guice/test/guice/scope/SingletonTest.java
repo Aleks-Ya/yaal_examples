@@ -2,7 +2,7 @@ package guice.scope;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.inject.Singleton;
 

@@ -1,7 +1,7 @@
 package exception.standard;
 
 import common.BaseTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ContextConfiguration;
 
 import static exception.standard.StandardController.MISSING_SERVLET_PARAM_EXCEPTION;

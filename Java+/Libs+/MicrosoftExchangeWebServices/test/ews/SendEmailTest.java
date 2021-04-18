@@ -7,15 +7,15 @@ import microsoft.exchange.webservices.data.core.service.item.EmailMessage;
 import microsoft.exchange.webservices.data.credential.ExchangeCredentials;
 import microsoft.exchange.webservices.data.credential.WebCredentials;
 import microsoft.exchange.webservices.data.property.complex.MessageBody;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 
 public class SendEmailTest {
     private static ExchangeService service;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpService() throws Exception {
         String login = System.getenv("login");
         String password = System.getenv("password");

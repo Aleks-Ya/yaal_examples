@@ -1,7 +1,7 @@
 package catch_exception_in_single_line;
 
-import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertThrows;
 

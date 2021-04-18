@@ -1,4 +1,4 @@
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;

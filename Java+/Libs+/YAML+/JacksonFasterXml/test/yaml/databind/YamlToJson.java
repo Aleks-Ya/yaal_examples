@@ -2,7 +2,7 @@ package yaml.databind;
 
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import util.ResourceUtil;
 
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;

@@ -3,8 +3,7 @@ package handler.servlet;
 import org.eclipse.jetty.server.NetworkConnector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
-import org.junit.Test;
-import util.NetAsserts;
+import org.junit.jupiter.api.Test;
 
 import static util.NetAsserts.assertUrlContent;
 

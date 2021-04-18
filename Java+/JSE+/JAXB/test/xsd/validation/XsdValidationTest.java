@@ -1,6 +1,6 @@
 package xsd.validation;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;

@@ -1,8 +1,8 @@
 package server_thread.run_only;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.voltdb.client.Client;
 import org.voltdb.client.ClientFactory;
 import org.voltdb.client.ClientResponse;
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 public class Insert {
     private static Client client;
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() throws Exception {
         int port = ServerThreadHelper.runServer(MyTableInsertProcedure.class);
         client = ClientFactory.createClient();
@@ -53,7 +53,7 @@ public class Insert {
         assertEquals(ClientResponse.SUCCESS, response.getStatus());
     }
 
-    @AfterClass
+    @AfterAll
     public static void tearDown() {
         ServerThreadHelper.stopServer();
     }

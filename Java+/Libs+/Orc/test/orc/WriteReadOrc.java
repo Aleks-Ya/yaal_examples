@@ -12,8 +12,8 @@ import org.apache.orc.Reader;
 import org.apache.orc.RecordReader;
 import org.apache.orc.TypeDescription;
 import org.apache.orc.Writer;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +24,7 @@ import java.nio.file.Files;
 public class WriteReadOrc {
     private static final Logger log = LoggerFactory.getLogger(WriteReadOrc.class);
 
-    @Before
+    @BeforeEach
     public void initLog4j() {
         BasicConfigurator.configure();
     }

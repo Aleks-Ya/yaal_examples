@@ -7,8 +7,8 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 public class CellAlignment {
 
     @Test
-    @Ignore("alignment works strange")
+    @Disabled("alignment works strange")
     public void merge() throws IOException {
         var file = Files.createTempFile(CellAlignment.class.getSimpleName(), ".xls").toFile();
         System.out.println("Workbook file: " + file.getAbsolutePath());

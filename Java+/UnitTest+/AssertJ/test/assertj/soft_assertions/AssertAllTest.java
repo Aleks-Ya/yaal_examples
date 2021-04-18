@@ -1,7 +1,7 @@
 package assertj.soft_assertions;
 
 import org.assertj.core.api.SoftAssertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Required execute SoftAssertions#assertAll()

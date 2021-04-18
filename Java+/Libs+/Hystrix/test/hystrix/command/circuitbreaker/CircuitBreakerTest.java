@@ -3,7 +3,7 @@ package hystrix.command.circuitbreaker;
 import com.netflix.hystrix.HystrixCircuitBreaker;
 import com.netflix.hystrix.HystrixCommandKey;
 import hystrix.helloworld.HelloWorldCommand;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import rx.Observable;
 
 import java.util.concurrent.ExecutionException;

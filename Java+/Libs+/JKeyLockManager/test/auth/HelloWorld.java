@@ -4,7 +4,7 @@ import de.jkeylockmanager.manager.KeyLockManager;
 import de.jkeylockmanager.manager.KeyLockManagers;
 import de.jkeylockmanager.manager.LockCallback;
 import de.jkeylockmanager.manager.ReturnValueLockCallback;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class HelloWorld {
 

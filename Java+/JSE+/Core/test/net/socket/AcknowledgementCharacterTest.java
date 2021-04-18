@@ -1,7 +1,7 @@
 package net.socket;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -13,7 +13,7 @@ import java.net.SocketException;
 public class AcknowledgementCharacterTest {
 
     @Test
-    @Ignore("Not finished")
+    @Disabled("Not finished")
     public void shutdown() throws IOException, InterruptedException {
         ServerSocket serverSocket = new ServerSocket(23512);
         System.out.println("Server created");

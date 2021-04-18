@@ -6,7 +6,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class LogTest {
 

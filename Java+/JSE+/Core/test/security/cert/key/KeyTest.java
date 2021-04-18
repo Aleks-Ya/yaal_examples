@@ -1,7 +1,7 @@
 package security.cert.key;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import security.SecurityHelper;
 
 import java.security.KeyStoreException;
@@ -31,7 +31,7 @@ public class KeyTest {
     }
 
     @Test
-    @Ignore("Not finished")
+    @Disabled("Not finished")
     public void storeKeyPairToKeyStore() throws KeyStoreException {
         var keyPair = SecurityHelper.generateKeyPair();
         var keyStore = SecurityHelper.initEmptyKeyStore();

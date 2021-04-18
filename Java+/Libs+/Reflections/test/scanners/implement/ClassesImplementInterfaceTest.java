@@ -1,6 +1,6 @@
 package scanners.implement;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.reflections.Reflections;
 
 import java.util.Set;

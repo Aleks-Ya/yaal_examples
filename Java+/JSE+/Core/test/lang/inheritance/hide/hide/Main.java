@@ -1,6 +1,6 @@
 package lang.inheritance.hide.hide;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Сокрытие полей и методов в дочернем классе.

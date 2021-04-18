@@ -3,8 +3,8 @@ package xstream.annotations;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
 
@@ -17,7 +17,7 @@ public class SimpleObjectTest {
     private Person person;
     private String xml;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         xstream = new XStream();
         xstream.processAnnotations(Person.class);

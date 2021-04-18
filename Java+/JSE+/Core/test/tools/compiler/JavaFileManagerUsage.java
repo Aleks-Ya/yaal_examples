@@ -1,6 +1,6 @@
 package tools.compiler;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileManager;

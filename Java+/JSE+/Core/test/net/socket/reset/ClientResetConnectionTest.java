@@ -1,6 +1,6 @@
 package net.socket.reset;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.io.OutputStream;

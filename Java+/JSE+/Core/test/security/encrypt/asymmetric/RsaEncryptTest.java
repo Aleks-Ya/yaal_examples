@@ -1,6 +1,6 @@
 package security.encrypt.asymmetric;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;

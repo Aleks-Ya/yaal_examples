@@ -1,6 +1,6 @@
 package mockito.mock.create;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;

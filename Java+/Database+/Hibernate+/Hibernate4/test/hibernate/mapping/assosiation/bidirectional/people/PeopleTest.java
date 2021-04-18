@@ -6,7 +6,7 @@ import hibernate.mapping.assosiation.bidirectional.payment.Slip;
 import hibernate.mapping.assosiation.bidirectional.payment.Transaction;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.List;

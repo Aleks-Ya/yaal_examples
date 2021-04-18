@@ -2,7 +2,7 @@ package collections;
 
 import com.google.common.collect.Interner;
 import com.google.common.collect.Interners;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

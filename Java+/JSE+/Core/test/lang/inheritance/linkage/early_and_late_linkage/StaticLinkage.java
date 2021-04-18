@@ -1,6 +1,6 @@
 package lang.inheritance.linkage.early_and_late_linkage;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 

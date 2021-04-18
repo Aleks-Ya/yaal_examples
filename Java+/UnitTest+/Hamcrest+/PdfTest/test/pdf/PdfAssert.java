@@ -1,9 +1,8 @@
 package pdf;
 
 import com.codeborne.pdftest.PDF;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.net.URL;
 
 import static com.codeborne.pdftest.PDF.containsText;

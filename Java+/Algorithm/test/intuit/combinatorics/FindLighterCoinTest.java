@@ -1,7 +1,7 @@
 package intuit.combinatorics;
 
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.core.IsEqual.equalTo;

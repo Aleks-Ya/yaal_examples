@@ -7,7 +7,7 @@ import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.session.SessionHandler;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.net.CookieManager;
 import java.net.URI;

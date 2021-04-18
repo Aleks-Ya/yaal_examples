@@ -11,8 +11,8 @@ import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -24,7 +24,7 @@ public abstract class AdobeBaseTest {
     protected static S3MockApplication server;
     protected static AmazonS3 s3;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() {
         server = S3MockApplication.start();
         String serviceEndpoint = "http://localhost:" + server.getHttpPort() + "/";
@@ -36,7 +36,7 @@ public abstract class AdobeBaseTest {
                 .build();
     }
 
-    @AfterClass
+    @AfterAll
     public static void tearDown() {
         s3.shutdown();
         server.stop();

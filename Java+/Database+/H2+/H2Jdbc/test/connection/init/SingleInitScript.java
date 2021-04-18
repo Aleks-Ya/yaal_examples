@@ -1,6 +1,6 @@
 package connection.init;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import util.ResourceUtil;
 
 import java.sql.Connection;

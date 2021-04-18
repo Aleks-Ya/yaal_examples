@@ -1,6 +1,6 @@
 package lang.inheritance.linkage.derived_method_from_super_constructor;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
 

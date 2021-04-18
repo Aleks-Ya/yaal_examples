@@ -6,7 +6,7 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.elasticsearch.client.Request;
 import org.elasticsearch.client.RestClient;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.testcontainers.elasticsearch.ElasticsearchContainer;
 
 import java.io.IOException;

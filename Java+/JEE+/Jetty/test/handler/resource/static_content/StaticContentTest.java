@@ -6,11 +6,9 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.junit.Test;
-import util.NetAsserts;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.net.URL;
 
 import static util.NetAsserts.assertUrlContent;
 

@@ -1,6 +1,6 @@
 package lang.inheritance.linkage.override.exception.try_catch_finally;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Will a finally block execute even if the catch block defines a return statement?

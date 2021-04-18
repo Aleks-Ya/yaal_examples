@@ -1,6 +1,6 @@
 package lang.conversation.numeric_promositions;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class NumericPromotions {
     @Test

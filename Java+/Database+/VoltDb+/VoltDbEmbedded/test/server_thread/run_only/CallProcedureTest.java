@@ -1,6 +1,6 @@
 package server_thread.run_only;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.voltdb.client.Client;
 import org.voltdb.client.ClientFactory;
 import server_thread.ServerThreadHelper;

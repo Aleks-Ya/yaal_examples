@@ -1,7 +1,7 @@
 package hystrix.command;
 
 import hystrix.helloworld.HelloWorldCommand;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import rx.Observable;
 
 import java.util.concurrent.ExecutionException;

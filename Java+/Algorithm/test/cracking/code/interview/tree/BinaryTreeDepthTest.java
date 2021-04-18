@@ -1,7 +1,7 @@
 package cracking.code.interview.tree;
 
 import cracking.code.interview.tree.BinaryTreeDepth.Node;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

@@ -1,8 +1,8 @@
 package xstream;
 
 import com.thoughtworks.xstream.XStream;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
 
@@ -18,7 +18,7 @@ public class TutorialTest {
     private Person person;
     private String xml;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         xstream = new XStream();
         xstream.alias("person", Person.class);

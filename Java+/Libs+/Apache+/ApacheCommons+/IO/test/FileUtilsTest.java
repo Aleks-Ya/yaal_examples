@@ -1,6 +1,6 @@
 import org.apache.commons.io.FileUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -16,7 +16,7 @@ public class FileUtilsTest {
 
     private File outFile;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         outFile = Files.createTempFile("fileUtilsUse_", ".tmp").toFile();
         outFile.deleteOnExit();

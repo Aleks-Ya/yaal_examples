@@ -1,6 +1,6 @@
 package cracking.code.interview.tree;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 import java.util.List;

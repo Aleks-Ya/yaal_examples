@@ -1,6 +1,6 @@
 package common;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,7 +18,7 @@ public abstract class BaseTest {
 
     protected MockMvc mvc;
 
-    @Before
+    @BeforeEach
     public void setupMvc() {
         mvc = MockMvcBuilders.webAppContextSetup(context).build();
     }

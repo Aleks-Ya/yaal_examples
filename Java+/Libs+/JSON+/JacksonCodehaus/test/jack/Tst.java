@@ -1,7 +1,7 @@
 package jack;
 
-import org.junit.Test;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.junit.jupiter.api.Test;
 
 public class Tst {
 

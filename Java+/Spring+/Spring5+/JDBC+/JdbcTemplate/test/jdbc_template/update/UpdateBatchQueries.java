@@ -1,11 +1,7 @@
 package jdbc_template.update;
 
-import org.junit.Test;
-import util.AssertPrimitiveArrays;
+import org.junit.jupiter.api.Test;
 import util.TestBase;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static util.AssertPrimitiveArrays.assertArray;
 

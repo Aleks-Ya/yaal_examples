@@ -1,13 +1,11 @@
 package types;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.Properties;
-import java.util.TimeZone;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;

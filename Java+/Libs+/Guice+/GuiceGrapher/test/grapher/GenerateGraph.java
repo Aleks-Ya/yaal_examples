@@ -6,7 +6,7 @@ import com.google.inject.Inject;
 import com.google.inject.grapher.graphviz.GraphvizGrapher;
 import com.google.inject.grapher.graphviz.GraphvizModule;
 import com.google.inject.multibindings.Multibinder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.PrintWriter;

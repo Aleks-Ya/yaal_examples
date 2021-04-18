@@ -1,6 +1,6 @@
 package util.base64;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Base64;
 

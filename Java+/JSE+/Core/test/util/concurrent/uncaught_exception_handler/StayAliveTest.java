@@ -1,6 +1,6 @@
 package util.concurrent.uncaught_exception_handler;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Позволяет ли UncaughtExceptionHandler оставить поток живым, если упало необработанное исключение?

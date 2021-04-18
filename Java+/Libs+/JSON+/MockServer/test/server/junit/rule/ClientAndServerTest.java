@@ -11,9 +11,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
 
@@ -22,7 +22,7 @@ public class ClientAndServerTest {
 	private static final int PORT = 56699;
 	private static ClientAndServer mockServer;
 
-	@BeforeClass
+	@BeforeAll
 	public static void beforeClass() {
 		mockServer = startClientAndServer(PORT);
 	}
@@ -41,7 +41,7 @@ public class ClientAndServerTest {
 		assertThat(connection.getContentType(), equalTo(CONTENT_TYPE));
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void afterClass() {
 		mockServer.stop();
 	}

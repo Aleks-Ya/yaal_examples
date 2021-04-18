@@ -1,7 +1,7 @@
 package guice.binding.just_in_time;
 
 import com.google.inject.Guice;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;

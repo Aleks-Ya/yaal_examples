@@ -1,8 +1,8 @@
 package doc;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
 
 public class RedisBackedCacheIntTest {
@@ -11,7 +11,7 @@ public class RedisBackedCacheIntTest {
     public GenericContainer redis = new GenericContainer<>("redis:5.0.3-alpine")
             .withExposedPorts(6379);
 
-    @Before
+    @BeforeEach
     public void setUp() {
         String address = redis.getContainerIpAddress();
         Integer port = redis.getFirstMappedPort();

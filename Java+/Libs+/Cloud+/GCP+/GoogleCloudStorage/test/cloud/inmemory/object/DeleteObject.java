@@ -3,7 +3,7 @@ package cloud.inmemory.object;
 import cloud.inmemory.BaseInMemoryTest;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;

@@ -1,6 +1,6 @@
 package lang.operator.unary_inc_dec;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class Main {
     @Test

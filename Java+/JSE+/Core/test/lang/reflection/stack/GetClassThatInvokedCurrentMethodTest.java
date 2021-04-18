@@ -1,7 +1,7 @@
 package lang.reflection.stack;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 //import sun.reflect.Reflection;
 
@@ -15,7 +15,7 @@ public class GetClassThatInvokedCurrentMethodTest {
 //    }
 
     @Test
-    @Ignore("Require Java 9")
+    @Disabled("Require Java 9")
     public void stackWalker() {
 //        StackWalker walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
 //        Optional<Class<?>> callerClass = walker.walk(s ->
@@ -25,7 +25,7 @@ public class GetClassThatInvokedCurrentMethodTest {
     }
 
     @Test
-    @Ignore("doesn't work")
+    @Disabled("doesn't work")
     public void sunReflectReflection() {
 //        Class<?> callerClass = TheCaller.call();
 //        assertThat(callerClass, Matchers.is(TheCaller.class));

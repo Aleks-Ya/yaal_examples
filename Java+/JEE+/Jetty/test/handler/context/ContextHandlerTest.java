@@ -5,7 +5,7 @@ import org.eclipse.jetty.server.NetworkConnector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static util.NetAsserts.assertUrlContent;
 

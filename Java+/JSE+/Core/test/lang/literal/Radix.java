@@ -1,12 +1,12 @@
 package lang.literal;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
 
 public class Radix {
 
-	@Test    
+	@Test
     public void numbers() {
 		out.println("Разные системы счисления:");
 		out.printf("Двоичная: 0b1001 -> %d%n", 0b1001);
@@ -15,7 +15,7 @@ public class Radix {
 		out.printf("Шестнадцатеричная: 0xA3F -> %d%n%n", 0xA3F);
 	}
 
-	@Test	
+	@Test
 	public void chars() {
 		char c1 = 'a';
 		char c2 = '\u0122';

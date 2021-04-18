@@ -1,6 +1,6 @@
 package utils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.util.StringUtils;
 
 import static org.junit.Assert.assertFalse;

@@ -2,7 +2,7 @@ package hibernate.context.session;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

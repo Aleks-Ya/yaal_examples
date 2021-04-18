@@ -1,6 +1,6 @@
 package lang.inheritance.linkage.override.exception;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 

@@ -1,7 +1,7 @@
 package exception.handler.defaultt;
 
 import common.BaseTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ContextConfiguration;
 
 import static exception.handler.defaultt.AllExceptionController.FILE_NOT_FOUND_EXCEPTION;

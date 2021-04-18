@@ -1,7 +1,7 @@
 package config;
 
 import com.typesafe.config.ConfigFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ConfigToString extends BaseTest {
     @Test

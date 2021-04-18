@@ -1,6 +1,6 @@
 package util.i18n.resource_bundle.property.ruseng;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;

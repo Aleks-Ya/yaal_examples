@@ -2,11 +2,9 @@ package guice.logging;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
-import com.google.inject.Injector;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.logging.LogManager;
 
 import static org.hamcrest.MatcherAssert.assertThat;

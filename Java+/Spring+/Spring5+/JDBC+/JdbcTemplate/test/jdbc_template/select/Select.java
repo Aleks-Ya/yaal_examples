@@ -1,6 +1,6 @@
 package jdbc_template.select;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import util.TestBase;
 
 import java.util.List;

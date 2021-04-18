@@ -1,6 +1,6 @@
 package named_parameter_jdbc_template;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import util.TestBase;
 

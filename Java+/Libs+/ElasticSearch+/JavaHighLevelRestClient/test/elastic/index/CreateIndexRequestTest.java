@@ -1,6 +1,6 @@
 package elastic.index;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static elastic.EsHelper.createIndex;
 import static elastic.EsHelper.createRandomIndexName;

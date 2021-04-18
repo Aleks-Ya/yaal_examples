@@ -1,6 +1,6 @@
 package init;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Инициализация одномерных массивов.

@@ -1,7 +1,7 @@
 package lang.reflection.annotation_processor.class_by_element;
 
 import com.google.testing.compile.JavaFileObjects;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assert_;
 import static com.google.testing.compile.JavaSourceSubjectFactory.javaSource;

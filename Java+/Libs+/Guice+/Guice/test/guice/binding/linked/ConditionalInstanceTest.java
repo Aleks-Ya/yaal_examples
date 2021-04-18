@@ -2,7 +2,7 @@ package guice.binding.linked;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;

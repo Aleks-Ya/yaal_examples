@@ -1,7 +1,7 @@
 package row_mapper;
 
 import bean.Name;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import util.TestBase;

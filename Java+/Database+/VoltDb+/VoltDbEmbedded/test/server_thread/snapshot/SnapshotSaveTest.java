@@ -1,6 +1,6 @@
 package server_thread.snapshot;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.voltdb.VoltTable;
 import org.voltdb.client.Client;
 import org.voltdb.client.ClientFactory;

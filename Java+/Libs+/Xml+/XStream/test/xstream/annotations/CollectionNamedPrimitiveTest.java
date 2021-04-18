@@ -4,8 +4,8 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.NamedCollectionConverter;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class CollectionNamedPrimitiveTest {
     private Person person;
     private String xml;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         xstream = new XStream();
         xstream.processAnnotations(Person.class);

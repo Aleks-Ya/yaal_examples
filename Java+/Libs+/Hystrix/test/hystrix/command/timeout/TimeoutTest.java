@@ -1,7 +1,7 @@
 package hystrix.command.timeout;
 
 import com.netflix.hystrix.exception.HystrixRuntimeException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;

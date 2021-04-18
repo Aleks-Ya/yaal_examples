@@ -8,7 +8,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.SslConnectionFactory;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import util.ResourceUtil;
 
 import javax.net.ssl.KeyManager;

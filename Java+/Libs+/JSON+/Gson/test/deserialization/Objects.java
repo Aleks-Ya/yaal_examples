@@ -2,9 +2,10 @@ package deserialization;
 
 import static org.junit.Assert.assertEquals;
 import java.util.Date;
-import org.junit.Test;
+
 import com.google.gson.Gson;
 import myobject.MyObject;
+import org.junit.jupiter.api.Test;
 
 /**
  * Парсинг JSON в Java-объект.

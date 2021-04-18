@@ -1,4 +1,4 @@
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import reactor.rx.Streams;
 import reactor.rx.broadcast.Broadcaster;
 

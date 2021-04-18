@@ -10,7 +10,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import org.mockserver.client.server.MockServerClient;
 import org.mockserver.junit.MockServerRule;

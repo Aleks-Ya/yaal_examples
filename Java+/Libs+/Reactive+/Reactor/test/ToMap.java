@@ -1,9 +1,6 @@
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import reactor.rx.Stream;
-import reactor.rx.StreamUtils;
 import reactor.rx.Streams;
-
-import java.util.Map;
 
 /**
  * Преобразование Stream в Map.

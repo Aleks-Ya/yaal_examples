@@ -2,7 +2,7 @@ package pdf;
 
 import org.apache.lucene.document.Document;
 import org.apache.pdfbox.lucene.LucenePDFDocument;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;

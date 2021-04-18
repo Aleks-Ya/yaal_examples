@@ -2,7 +2,7 @@ package hibernate.mapping.assosiation.unidirectional;
 
 import hibernate.context.session.HibernateSessionFactory436;
 import org.hibernate.Session;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.List;

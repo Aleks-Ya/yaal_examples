@@ -1,7 +1,7 @@
 package io.file.text.read;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,7 +20,7 @@ public class ByRandomAccessFile {
     private static File file;
     private static final List<String> expLines = Arrays.asList("FirstLine", "SecondLine");
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() throws Exception {
         file = File.createTempFile(ByRandomAccessFile.class.getSimpleName(), ".tmp");
         file.deleteOnExit();

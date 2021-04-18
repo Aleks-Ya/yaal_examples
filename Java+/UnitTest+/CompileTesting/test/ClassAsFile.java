@@ -1,7 +1,7 @@
 import com.google.common.io.ByteSource;
 import com.google.common.io.Resources;
 import com.google.testing.compile.JavaFileObjects;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.tools.StandardLocation;
 

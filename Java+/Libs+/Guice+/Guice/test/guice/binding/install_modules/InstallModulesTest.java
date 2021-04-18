@@ -1,8 +1,7 @@
 package guice.binding.install_modules;
 
 import com.google.inject.Guice;
-import com.google.inject.Injector;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;

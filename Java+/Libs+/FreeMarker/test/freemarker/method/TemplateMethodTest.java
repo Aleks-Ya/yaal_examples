@@ -5,8 +5,8 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModelException;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class TemplateMethodTest extends BaseFreemarkerTest {
 
-    @BeforeClass
+    @BeforeAll
     public static void additionalSetUp() {
         cfg.setSharedVariable("sum", new SumTemplateMethodModel());
     }

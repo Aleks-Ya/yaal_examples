@@ -1,6 +1,6 @@
 package thymeleaf.expression.variable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;

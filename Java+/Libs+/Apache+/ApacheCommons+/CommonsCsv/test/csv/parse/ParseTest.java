@@ -3,7 +3,7 @@ package csv.parse;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import util.ResourceUtil;
 
 import java.io.File;

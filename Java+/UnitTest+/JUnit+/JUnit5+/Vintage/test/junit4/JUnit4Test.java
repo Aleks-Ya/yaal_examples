@@ -1,14 +1,14 @@
 package junit4;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertTrue;
 
 public class JUnit4Test {
     private boolean value;
 
-    @Before
+    @BeforeEach
     public void before() {
         value = true;
     }

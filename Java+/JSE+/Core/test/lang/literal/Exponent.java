@@ -1,6 +1,6 @@
 package lang.literal;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Знак экспоненты в литералах.

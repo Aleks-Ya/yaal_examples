@@ -1,6 +1,6 @@
 package yaml.serialize;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.HashMap;

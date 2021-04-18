@@ -1,6 +1,6 @@
 package jython;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.python.core.PyInteger;
 import org.python.core.PyObject;
 import org.python.core.PyString;

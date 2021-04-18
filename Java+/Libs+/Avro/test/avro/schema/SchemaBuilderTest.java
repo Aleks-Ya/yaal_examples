@@ -2,7 +2,7 @@ package avro.schema;
 
 import org.apache.avro.Schema;
 import org.apache.avro.SchemaBuilder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;

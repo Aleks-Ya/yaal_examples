@@ -1,6 +1,6 @@
 package yaml.deserialize;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.yaml.snakeyaml.Yaml;
 
 public class TutorialTest {

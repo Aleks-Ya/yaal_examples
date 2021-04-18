@@ -1,7 +1,7 @@
 package custom_runner.test_hierarchy.rule.tests;
 
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import custom_runner.test_hierarchy.rule.DependsOn;
 import custom_runner.test_hierarchy.rule.DependsOnRule;
 import custom_runner.test_hierarchy.rule.State;

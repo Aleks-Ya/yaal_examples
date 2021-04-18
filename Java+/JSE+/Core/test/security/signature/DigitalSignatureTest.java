@@ -1,6 +1,6 @@
 package security.signature;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.security.InvalidKeyException;
 import java.security.KeyPairGenerator;

@@ -1,6 +1,6 @@
 package lang.method_handler;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;

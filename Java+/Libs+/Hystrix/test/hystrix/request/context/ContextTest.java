@@ -2,7 +2,7 @@ package hystrix.request.context;
 
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
 import hystrix.helloworld.HelloWorldCommand;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import rx.Observable;
 
 import java.util.concurrent.ExecutionException;

@@ -1,7 +1,7 @@
 package azure.certificate.web_signed;
 
 import com.microsoft.aad.msal4j.ClientCredentialFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
 import java.io.IOException;

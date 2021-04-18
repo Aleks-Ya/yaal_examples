@@ -1,6 +1,6 @@
 package lang.generics.inheritance;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Иерархия классов (entity) и параллельная иерархия идентификаторов этих классов (id).

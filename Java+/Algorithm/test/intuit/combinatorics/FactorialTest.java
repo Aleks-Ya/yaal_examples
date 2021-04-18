@@ -1,10 +1,8 @@
 package intuit.combinatorics;
 
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
-
-import java.rmi.server.ExportException;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;

@@ -1,7 +1,7 @@
 package aws;
 
 import com.amazonaws.services.s3.model.Bucket;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.UUID;

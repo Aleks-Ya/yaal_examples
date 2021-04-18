@@ -2,7 +2,7 @@ package handler.filter;
 
 import org.eclipse.jetty.server.NetworkConnector;
 import org.eclipse.jetty.server.Server;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static util.NetAsserts.assertUrlContent;
 

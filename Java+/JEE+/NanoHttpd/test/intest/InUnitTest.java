@@ -1,8 +1,8 @@
 package intest;
 
 import fi.iki.elonen.NanoHTTPD;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class InUnitTest {
     private static final String CONTENT = "Hello";
 
-    @Before
+    @BeforeEach
     public void setup() throws IOException {
         new NanoHTTPD(8080) {
             @Override

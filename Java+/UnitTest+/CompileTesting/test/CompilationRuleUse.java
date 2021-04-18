@@ -1,6 +1,6 @@
 import com.google.testing.compile.CompilationRule;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;

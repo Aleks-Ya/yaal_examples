@@ -1,6 +1,6 @@
 package lang.inheritance.linkage.override.exception.try_catch_finally;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * A try block may be followed by either a catch or a finally block or both. But

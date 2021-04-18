@@ -1,6 +1,6 @@
 package lang.inheritance.derived_constructor_In_super_class;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
 

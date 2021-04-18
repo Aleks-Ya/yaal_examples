@@ -2,7 +2,7 @@ package log4j;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BasicConfig {
 

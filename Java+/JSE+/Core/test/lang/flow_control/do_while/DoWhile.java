@@ -1,6 +1,6 @@
 package lang.flow_control.do_while;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 

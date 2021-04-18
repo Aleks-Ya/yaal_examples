@@ -1,6 +1,6 @@
 package lang.inheritance.linkage.override.exception.try_catch_finally;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
 

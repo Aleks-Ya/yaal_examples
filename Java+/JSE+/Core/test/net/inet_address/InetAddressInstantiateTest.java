@@ -1,15 +1,17 @@
 package net.inet_address;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class InetAddressInstantiateTest {
 
-    @Test(expected = UnknownHostException.class)
-    public void isAbsolute() throws UnknownHostException {
+    @Test
+    public void isAbsolute() {
         //noinspection ResultOfMethodCallIgnored
-        InetAddress.getByName("http://www.google.com");
+        assertThrows(UnknownHostException.class, () -> InetAddress.getByName("http://www.google.com"));
     }
 }

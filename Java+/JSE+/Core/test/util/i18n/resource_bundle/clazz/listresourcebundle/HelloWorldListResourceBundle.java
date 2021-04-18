@@ -1,6 +1,6 @@
 package util.i18n.resource_bundle.clazz.listresourcebundle;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.Color;
 import java.util.Locale;

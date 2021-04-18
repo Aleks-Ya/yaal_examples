@@ -1,5 +1,5 @@
 import org.hamcrest.io.FileMatchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;

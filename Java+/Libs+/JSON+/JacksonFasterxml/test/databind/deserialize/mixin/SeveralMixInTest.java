@@ -2,7 +2,7 @@ package databind.deserialize.mixin;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import util.JsonUtil;
 
 import java.io.IOException;

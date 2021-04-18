@@ -1,6 +1,6 @@
 package xml.to.java.schema;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

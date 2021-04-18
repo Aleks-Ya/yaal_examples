@@ -5,7 +5,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.test.ESIntegTestCase;
 import org.hamcrest.MatcherAssert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static elastic.EsHelper.createRandomIndexName;
 import static elastic.EsHelper.isIndexExist;

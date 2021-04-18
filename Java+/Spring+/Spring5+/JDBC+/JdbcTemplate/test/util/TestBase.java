@@ -1,7 +1,7 @@
 package util;
 
 import conf.Config;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,7 +22,7 @@ public abstract class TestBase {
     @Autowired
     private TemplateUtil templateUtil;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         templateUtil.recreateNamesTable(true);
     }

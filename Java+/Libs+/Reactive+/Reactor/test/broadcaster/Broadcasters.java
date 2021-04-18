@@ -1,6 +1,6 @@
 package broadcaster;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import reactor.rx.Stream;
 import reactor.rx.broadcast.Broadcaster;
 

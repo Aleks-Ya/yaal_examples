@@ -1,6 +1,6 @@
 package util.collection.array_list.add;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;

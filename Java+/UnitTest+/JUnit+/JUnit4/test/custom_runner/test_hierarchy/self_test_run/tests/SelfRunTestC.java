@@ -1,7 +1,7 @@
 package custom_runner.test_hierarchy.self_test_run.tests;
 
 import custom_runner.test_hierarchy.self_test_run.State;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import custom_runner.test_hierarchy.self_test_run.DependsOn;
 import custom_runner.test_hierarchy.self_test_run.MyRunner;

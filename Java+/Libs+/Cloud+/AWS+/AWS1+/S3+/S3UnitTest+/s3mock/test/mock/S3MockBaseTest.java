@@ -12,8 +12,8 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import io.findify.s3mock.S3Mock;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,7 +25,7 @@ public abstract class S3MockBaseTest {
     protected static AmazonS3 s3;
     private static S3Mock api;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() {
         api = new S3Mock.Builder().withPort(8001).withInMemoryBackend().build();
         api.start();
@@ -40,7 +40,7 @@ public abstract class S3MockBaseTest {
                 .build();
     }
 
-    @AfterClass
+    @AfterAll
     public static void afterClass() {
         api.shutdown(); // kills the underlying actor system. Use api.stop() to just unbind the port.
     }

@@ -3,7 +3,7 @@ package parse;
 import org.hamcrest.Matchers;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.core.IsEqual.equalTo;

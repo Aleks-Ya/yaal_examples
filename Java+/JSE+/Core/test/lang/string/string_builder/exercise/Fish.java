@@ -1,6 +1,6 @@
 package lang.string.string_builder.exercise;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
 

@@ -1,6 +1,6 @@
 package lang.inheritance.linkage.override;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Переопределяющий метод может декларировать возвращаемый параметр дочернего класса.

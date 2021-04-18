@@ -1,5 +1,5 @@
 import it.sauronsoftware.cron4j.Scheduler;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Source: http://www.sauronsoftware.it/projects/cron4j/manual.php

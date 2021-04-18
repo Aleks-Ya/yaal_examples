@@ -1,7 +1,7 @@
 package controller.multipart.commons;
 
 import common.BaseTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mock.web.MockMultipartFile;

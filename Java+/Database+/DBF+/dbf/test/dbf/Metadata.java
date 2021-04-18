@@ -3,7 +3,7 @@ package dbf;
 import org.jamel.dbf.processor.DbfProcessor;
 import org.jamel.dbf.structure.DbfField;
 import org.jamel.dbf.structure.DbfHeader;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.DataInput;
 import java.io.DataInputStream;

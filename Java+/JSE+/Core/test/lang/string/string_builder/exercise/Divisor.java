@@ -1,6 +1,6 @@
 package lang.string.string_builder.exercise;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Составить программу, которая печатает все различные представления 

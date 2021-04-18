@@ -1,7 +1,7 @@
 package security.provider;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -12,7 +12,7 @@ import java.util.Arrays;
 /**
  * Custom JCA Provider implementation.
  */
-@Ignore("not finished")
+@Disabled("not finished")
 public class CustomProviderTest {
 
     @Test

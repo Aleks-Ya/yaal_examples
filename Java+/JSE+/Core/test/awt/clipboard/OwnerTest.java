@@ -1,6 +1,6 @@
 package awt.clipboard;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;

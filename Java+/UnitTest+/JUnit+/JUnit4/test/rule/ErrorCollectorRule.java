@@ -1,7 +1,7 @@
 package rule;
 
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.rules.ErrorCollector;
 
 import java.util.Arrays;

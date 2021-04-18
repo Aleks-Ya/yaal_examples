@@ -1,6 +1,6 @@
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 public class NoXml {
     private static EmbeddedDatabase db;
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         db = builder.setType(EmbeddedDatabaseType.H2)
@@ -40,7 +40,7 @@ public class NoXml {
         assertEquals("H2", rs.getString("title"));
     }
 
-    @AfterClass
+    @AfterAll
     public static void afterClass() {
         db.shutdown();
     }

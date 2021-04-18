@@ -2,8 +2,7 @@ package elastic;
 
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
-import org.elasticsearch.client.RestClient;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 

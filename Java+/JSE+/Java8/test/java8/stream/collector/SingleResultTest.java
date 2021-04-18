@@ -1,6 +1,6 @@
 package java8.stream.collector;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;

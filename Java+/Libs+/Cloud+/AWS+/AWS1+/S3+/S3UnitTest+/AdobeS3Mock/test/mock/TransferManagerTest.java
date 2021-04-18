@@ -2,7 +2,7 @@ package mock;
 
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;

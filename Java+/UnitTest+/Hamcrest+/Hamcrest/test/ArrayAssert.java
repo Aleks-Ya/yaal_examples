@@ -1,5 +1,5 @@
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayContaining;
@@ -33,7 +33,7 @@ public class ArrayAssert {
     }
 
     @Test
-    @Ignore("Падает с ошибкой из-за того, что Mockito тянет старый Hamcrest 1.1")
+    @Disabled("Падает с ошибкой из-за того, что Mockito тянет старый Hamcrest 1.1")
     public void primitiveArray() {
         final int[] arr = {45, 34, 89};
         final Integer[] arrObj = toObjectArray(arr);

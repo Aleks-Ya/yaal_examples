@@ -4,8 +4,8 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.util.Modules;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertFalse;
@@ -17,7 +17,7 @@ public class WrapBindingTest {
      * StackOverflow question: https://stackoverflow.com/questions/66649565/wrap-binding-in-guice
      */
     @Test
-    @Ignore("not finished")
+    @Disabled("not finished")
     public void wrap() {
         Injector prodInjector = Guice.createInjector(new ProdModule());
         Foo prodFoo = prodInjector.getInstance(Foo.class);

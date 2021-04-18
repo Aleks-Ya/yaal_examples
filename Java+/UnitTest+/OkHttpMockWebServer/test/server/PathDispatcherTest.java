@@ -4,7 +4,7 @@ import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import util.NetUtil;
 
 import java.io.FileNotFoundException;

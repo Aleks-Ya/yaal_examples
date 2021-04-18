@@ -1,6 +1,6 @@
 package lang.inheritance.call_super;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
 
