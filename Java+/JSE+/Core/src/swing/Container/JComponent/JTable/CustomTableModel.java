@@ -1,25 +1,16 @@
 package swing.Container.JComponent.JTable;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.*;
 
 /**
  * Таблица на основе простой модели таблицы.
  */
 public class CustomTableModel {
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new CustomTableModelFrame();
-            }
-        });
+        EventQueue.invokeLater(CustomTableModelFrame::new);
     }
 }
 
@@ -46,9 +37,9 @@ class CustomTableModelFrame extends JFrame {
 
 class InvestmentModel extends AbstractTableModel {
     private static final double INITIAL_BALANCE = 10000.0;
-    private int years;
-    private int minRate;
-    private int maxRate;
+    private final int years;
+    private final int minRate;
+    private final int maxRate;
 
     InvestmentModel(int y, int r1, int r2) {
         years = y;

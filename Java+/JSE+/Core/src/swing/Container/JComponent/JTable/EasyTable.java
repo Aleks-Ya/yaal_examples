@@ -1,15 +1,7 @@
 package swing.Container.JComponent.JTable;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.WindowConstants;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.print.PrinterException;
 
 /**
@@ -17,12 +9,7 @@ import java.awt.print.PrinterException;
  */
 class EasyTable {
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new EasyTableFrame();
-            }
-        });
+        EventQueue.invokeLater(EasyTableFrame::new);
     }
 }
 
@@ -66,15 +53,12 @@ class EasyTableFrame extends JFrame {
 
     private JPanel initPrintButton(final JTable table) {
         JButton print = new JButton("Распечатать");
-        print.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                try {
-                    //Печать таблицы на принтере
-                    table.print();
-                } catch (PrinterException e) {
-                    throw new RuntimeException(e.getMessage(), e);
-                }
+        print.addActionListener(event -> {
+            try {
+                //Печать таблицы на принтере
+                table.print();
+            } catch (PrinterException e) {
+                throw new RuntimeException(e.getMessage(), e);
             }
         });
 

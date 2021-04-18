@@ -1,28 +1,17 @@
 package swing.Container.JComponent.JTable;
 
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.WindowConstants;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 /**
  * Выбор строк, столбцов, ячеек.
  */
 public class Selection {
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new SelectionFrame();
-            }
-        });
+        EventQueue.invokeLater(SelectionFrame::new);
     }
 }
 
@@ -98,8 +87,8 @@ class SelectionFrame extends JFrame {
         setVisible(true);
     }
 
-    class SelectionAllowListener implements ActionListener {
-        private JTable table;
+    static class SelectionAllowListener implements ActionListener {
+        private final JTable table;
 
         SelectionAllowListener(JTable table) {
             this.table = table;
@@ -109,7 +98,7 @@ class SelectionFrame extends JFrame {
         public void actionPerformed(ActionEvent e) {
             JComboBox<String> source = (JComboBox<String>) e.getSource();
             String selectedItem = (String) source.getSelectedItem();
-            switch (selectedItem) {
+            switch (Objects.requireNonNull(selectedItem)) {
                 case ROW_SELECTION: {
                     table.setColumnSelectionAllowed(false);
                     table.setCellSelectionEnabled(false);
@@ -137,8 +126,8 @@ class SelectionFrame extends JFrame {
         }
     }
 
-    class SelectionModeListener implements ActionListener {
-        private ListSelectionModel selectionModel;
+    static class SelectionModeListener implements ActionListener {
+        private final ListSelectionModel selectionModel;
 
         SelectionModeListener(ListSelectionModel selectionModel) {
             this.selectionModel = selectionModel;
@@ -148,7 +137,7 @@ class SelectionFrame extends JFrame {
         public void actionPerformed(ActionEvent e) {
             JComboBox<String> source = (JComboBox<String>) e.getSource();
             String selectedItem = (String) source.getSelectedItem();
-            switch (selectedItem) {
+            switch (Objects.requireNonNull(selectedItem)) {
                 case SINGLE_SELECTION: {
                     selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                     break;

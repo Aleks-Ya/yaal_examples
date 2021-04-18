@@ -1,29 +1,15 @@
 package swing.Container.JComponent.JTable;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.WindowConstants;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.EventQueue;
+import java.awt.*;
 
 /**
  * Сделать курсор выделения невидимым.
  */
 class SelectionWithoutFocus {
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new SelectionWithoutFocusFrame();
-            }
-        });
+        EventQueue.invokeLater(SelectionWithoutFocusFrame::new);
     }
 }
 
@@ -53,12 +39,8 @@ class SelectionWithoutFocusFrame extends JFrame {
         table.setDefaultRenderer(Object.class, new CellRenderer());
 
         final JLabel selectedRow = new JLabel("Выбрана строка: " + table.getSelectedRow());
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                selectedRow.setText(String.format("Выбраны строки: %d-%d", e.getFirstIndex(), e.getLastIndex()));
-            }
-        });
+        table.getSelectionModel().addListSelectionListener(e -> selectedRow.setText(
+                String.format("Выбраны строки: %d-%d", e.getFirstIndex(), e.getLastIndex())));
 
         JPanel labelPanel = new JPanel();
         labelPanel.add(selectedRow);

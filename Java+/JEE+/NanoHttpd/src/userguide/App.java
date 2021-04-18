@@ -3,6 +3,7 @@ package userguide;
 import fi.iki.elonen.NanoHTTPD;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class App extends NanoHTTPD {
@@ -24,7 +25,7 @@ public class App extends NanoHTTPD {
     @Override
     public Response serve(IHTTPSession session) {
         String msg = "<html><body><h1>Hello server</h1>\n";
-        Map<String, String> parms = session.getParms();
+        Map<String, List<String>> parms = session.getParameters();
         if (parms.get("username") == null) {
             msg += "<form action='?' method='get'>\n  <p>Your name: <input type='text' name='username'></p>\n" + "</form>\n";
         } else {

@@ -9,6 +9,7 @@ import org.voltdb.utils.MiscUtils;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.charset.Charset;
 
 /**
  * Helper для удобного запуска сервера VoltDb из java-кода.
@@ -19,8 +20,8 @@ public class ServerThreadHelper {
     /**
      * SQL schema in resource file.
      */
-    public static int runServer(URL resource, Class... storedProcedures) throws Exception {
-        return runServer(FileUtils.readFileToString(new File(resource.getFile())), storedProcedures);
+    public static int runServer(URL resource, Class<?>... storedProcedures) throws Exception {
+        return runServer(FileUtils.readFileToString(new File(resource.getFile()), Charset.defaultCharset()), storedProcedures);
     }
 
     /**
@@ -33,14 +34,14 @@ public class ServerThreadHelper {
     /**
      * Use "default_schema.sql"
      */
-    public static int runServer(Class... storedProcedures) throws Exception {
+    public static int runServer(Class<?>... storedProcedures) throws Exception {
         return runServer(ServerThreadHelper.class.getResource("default_schema.sql"), storedProcedures);
     }
 
     /**
      * SQL schema as string.
      */
-    public static int runServer(String sqlSchema, Class... storedProcedures) throws Exception {
+    public static int runServer(String sqlSchema, Class<?>... storedProcedures) throws Exception {
         // Create a VoltDB configuration.
         Configuration config = new Configuration(new PortGenerator());
         config.m_pathToCatalog = Configuration.getPathToCatalogForTest("server_thread_helper.jar");
