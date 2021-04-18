@@ -2,7 +2,7 @@
  * Примеры выборки данных (SELECT) с помощью Java Persistance Query Language (JPQL).
  */
 dependencies {
-    implementation "org.springframework:spring-context:$spring4Version",
-            "org.springframework:spring-orm:$spring4Version"
-    testImplementation "org.springframework:spring-test:$spring4Version", "org.junit.vintage:junit-vintage-engine:$junit5Version"
+    implementation "org.springframework:spring-context:$spring5Version",
+            "org.springframework:spring-orm:$spring5Version"
+    testImplementation "org.springframework:spring-test:$spring5Version"
 }
