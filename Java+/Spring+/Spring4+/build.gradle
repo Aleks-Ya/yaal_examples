@@ -1,7 +1,6 @@
 subprojects {
     dependencies {
-        def version = '4.3.11.RELEASE'
-        implementation "org.springframework:spring-context:$version", 'javax.annotation:javax.annotation-api:1.3.2'
-        testImplementation "org.springframework:spring-test:$version", "org.junit.vintage:junit-vintage-engine:$junit5Version"
+        implementation "org.springframework:spring-context:$spring4Version", 'javax.annotation:javax.annotation-api:1.3.2'
+        testImplementation "org.springframework:spring-test:$spring4Version", "org.junit.vintage:junit-vintage-engine:$junit5Version"
     }
 }

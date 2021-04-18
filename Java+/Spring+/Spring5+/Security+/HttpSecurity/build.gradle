@@ -1,7 +1,7 @@
 dependencies {
-    implementation "org.springframework:spring-webmvc:$springVersion",
+    implementation "org.springframework:spring-webmvc:$spring5Version",
             "org.springframework.security:spring-security-web:$springSecurityVersion",
-            "org.springframework:spring-jdbc:$springVersion",
+            "org.springframework:spring-jdbc:$spring5Version",
             h2Dependency,
             servlet4Dependency
 
