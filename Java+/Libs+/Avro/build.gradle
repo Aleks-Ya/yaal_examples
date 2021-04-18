@@ -1,0 +1,3 @@
+dependencies {
+    implementation 'org.apache.avro:avro:1.9.2', slf4jSimpleVersion
+}

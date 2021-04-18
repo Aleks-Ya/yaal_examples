@@ -1,4 +1,4 @@
-package avro.no_code_generation;
+package avro.guide;
 
 import org.apache.avro.Schema;
 import org.apache.avro.file.DataFileStream;

@@ -1,4 +1,4 @@
-package avro.code_generation;
+package avro;
 
 import example.avro.User;
 import org.apache.avro.file.DataFileReader;
@@ -14,7 +14,8 @@ import java.io.IOException;
 
 /**
  * Serialize and deserialize objects without code generation.
- * Source: https://avro.apache.org/docs/current/gettingstartedjava.html
+ * Generate Java classes: "mvn generate-sources"
+ * Docs: https://avro.apache.org/docs/current/gettingstartedjava.html
  */
 public class CodeGenerationSerDeTest {
 

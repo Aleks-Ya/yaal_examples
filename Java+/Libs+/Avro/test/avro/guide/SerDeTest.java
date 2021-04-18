@@ -1,4 +1,4 @@
-package avro.no_code_generation;
+package avro.guide;
 
 import org.apache.avro.Schema;
 import org.apache.avro.file.DataFileReader;
@@ -16,14 +16,14 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Serialize and deserialize objects without code generation.
- * Source: https://avro.apache.org/docs/current/gettingstartedjava.html
+ * Serialize and deserialize objects.<br/>
+ * Source: <a href="https://avro.apache.org/docs/current/gettingstartedjava.html#Serializing+and+deserializing+without+code+generation">link<a/>
  */
-public class NoCodeGenerationSerDeTest {
+public class SerDeTest {
 
     @Test
     public void serDe() throws IOException {
-        InputStream schemaIS = NoCodeGenerationSerDeTest.class.getResourceAsStream("user.avsc");
+        InputStream schemaIS = SerDeTest.class.getResourceAsStream("user.avsc");
         Schema schema = new Schema.Parser().parse(schemaIS);
 
         // Create users

@@ -4,7 +4,7 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <groupId>ru.yaal.epam.bigdata.avro</groupId>
-    <artifactId>AvroJava</artifactId>
+    <artifactId>AvroMavenPlugin</artifactId>
     <version>1</version>
 
     <properties>
