@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,6 +15,7 @@ import java.util.Random;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
 
 /**
  * Upload, download and list objects in a bucket.
@@ -52,31 +54,33 @@ public class S3MockTransferManagerTest extends S3MockBaseTest {
     /**
      * Transfer#waitForCompletion() works quickly.
      */
-    @Test(timeout = 5000)
-    public void uploadFileListPerformance() throws IOException, InterruptedException {
-        Bucket bucket = createRandomBucket(s3);
+    @Test
+    public void uploadFileListPerformance() {
+        assertTimeout(Duration.ofMillis(5000), () -> {
+            Bucket bucket = createRandomBucket(s3);
 
-        var dir = Files.createTempDirectory(getClass().getSimpleName());
-        var random = new Random();
-        var fileNum = 1000;
-        var fileList = new ArrayList<File>();
-        for (int i = 0; i < fileNum; i++) {
-            var n = random.nextInt(Integer.MAX_VALUE);
-            var keyName = "key-" + n;
-            var content = "content-" + n;
-            var file = dir.resolve(keyName);
-            Files.write(file, content.getBytes());
-            fileList.add(file.toFile());
-        }
-        var transferManager = TransferManagerBuilder.standard().withS3Client(s3).build();
-        var upload = transferManager.uploadFileList(bucket.getName(), null,
-                dir.toFile(), fileList);
-        System.out.println("Waiting for completion...");
-        upload.waitForCompletion();
-        System.out.println("Uploading is completed.");
-        transferManager.shutdownNow(false);
+            var dir = Files.createTempDirectory(getClass().getSimpleName());
+            var random = new Random();
+            var fileNum = 1000;
+            var fileList = new ArrayList<File>();
+            for (int i = 0; i < fileNum; i++) {
+                var n = random.nextInt(Integer.MAX_VALUE);
+                var keyName = "key-" + n;
+                var content = "content-" + n;
+                var file = dir.resolve(keyName);
+                Files.write(file, content.getBytes());
+                fileList.add(file.toFile());
+            }
+            var transferManager = TransferManagerBuilder.standard().withS3Client(s3).build();
+            var upload = transferManager.uploadFileList(bucket.getName(), null,
+                    dir.toFile(), fileList);
+            System.out.println("Waiting for completion...");
+            upload.waitForCompletion();
+            System.out.println("Uploading is completed.");
+            transferManager.shutdownNow(false);
 
-        var objects = listObjects(bucket);
-        assertThat(objects, hasSize(fileList.size()));
+            var objects = listObjects(bucket);
+            assertThat(objects, hasSize(fileList.size()));
+        });
     }
 }

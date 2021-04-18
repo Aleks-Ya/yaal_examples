@@ -2,7 +2,6 @@ package nio.path;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.nio.file.LinkOption;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -14,6 +13,7 @@ import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.startsWith;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PathsTest {
 
@@ -44,9 +44,9 @@ public class PathsTest {
     /**
      * toRealPath()K проверяет наличие файла на диске.
      */
-    @Test(expected = NoSuchFileException.class)
-    public void toRealPath() throws IOException {
-        Paths.get("/nofile").toRealPath(LinkOption.NOFOLLOW_LINKS);
+    @Test
+    public void toRealPath() {
+        assertThrows(NoSuchFileException.class, () -> Paths.get("/nofile").toRealPath(LinkOption.NOFOLLOW_LINKS));
     }
 
     /**

@@ -2,6 +2,8 @@ package lang.inheritance.linkage.override.exception.exception_in_initializer;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 /**
  * Случаи бросания ExceptionInInitializerError.
  */
@@ -10,33 +12,33 @@ public class ExceptionIninitializerErrorTest {
     /**
      * Initialization of a static variable
      */
-    @Test(expected = ExceptionInInitializerError.class)
+    @Test
     public void staticField() {
-        new StaticField();
+        assertThrows(ExceptionInInitializerError.class, StaticField::new);
     }
 
     /**
      * Execution of an anonymous static block
      */
-    @Test(expected = ExceptionInInitializerError.class)
+    @Test
     public void staticInitializer() {
-        new StaticInitializer();
+        assertThrows(ExceptionInInitializerError.class, StaticInitializer::new);
     }
 
     /**
      * Execution of a static method
      */
-    @Test(expected = ExceptionInInitializerError.class)
+    @Test
     public void staticMethod() {
-        new StaticMethod();
+        assertThrows(ExceptionInInitializerError.class, StaticMethod::new);
     }
 
     /**
      * Исключения, брошенные в блоке инициализации объекта,
      * не оборачиваются в ExceptionInInitializerError.
      */
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    @Test
     public void initializer() {
-        new Initializer();
+        assertThrows(ArrayIndexOutOfBoundsException.class, Initializer::new);
     }
 }

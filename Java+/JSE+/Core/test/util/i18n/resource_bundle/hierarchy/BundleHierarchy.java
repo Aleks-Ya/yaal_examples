@@ -7,6 +7,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Поиск локализованной строки по иерархии ресурсов.
@@ -29,10 +30,12 @@ public class BundleHierarchy {
     /**
      * Попытка искать строку, находяюущюся в потомке.
      */
-    @Test(expected = MissingResourceException.class)
+    @Test
     public void notFound() {
-        ResourceBundle parent = ResourceBundle.getBundle(
-                "util.i18n.resource_bundle.hierarchy.Names", new Locale("ru", "RU"));
-        assertEquals("ru RU", parent.getString("ruRUvologdaKey"));
+        assertThrows(MissingResourceException.class, () -> {
+            ResourceBundle parent = ResourceBundle.getBundle(
+                    "util.i18n.resource_bundle.hierarchy.Names", new Locale("ru", "RU"));
+            parent.getString("ruRUvologdaKey");
+        });
     }
 }

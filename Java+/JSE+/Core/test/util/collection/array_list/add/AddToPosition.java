@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Добавление элементов в ArrayList в указанную позицию.
@@ -41,14 +42,16 @@ public class AddToPosition {
      * Вставка элемента за пределы коллекции приводит к IndexOutOfBoundsException.
      * Вызов ArrayList#ensureCapacity не помогает.
      */
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void afterEndException() {
-        ArrayList<String> list = new ArrayList<>();
-        list.add("a");
-        assertEquals("[a]", list.toString());
-        list.ensureCapacity(100); //не помогает
-        int position = list.size() + 1;
-        list.add(position, "b");
-        assertEquals("[a, b, c]", list.toString());
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            ArrayList<String> list = new ArrayList<>();
+            list.add("a");
+            assertEquals("[a]", list.toString());
+            list.ensureCapacity(100); //не помогает
+            int position = list.size() + 1;
+            list.add(position, "b");
+            assertEquals("[a, b, c]", list.toString());
+        });
     }
 }

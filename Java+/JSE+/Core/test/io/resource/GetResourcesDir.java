@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Получить папку с ресурсами.
@@ -29,8 +30,8 @@ public class GetResourcesDir {
         assertEquals(expResourcesDir, resource.toString());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void nullPath() {
-        GetResourcesDir.class.getResource(null);
+        assertThrows(NullPointerException.class, () -> GetResourcesDir.class.getResource(null));
     }
 }

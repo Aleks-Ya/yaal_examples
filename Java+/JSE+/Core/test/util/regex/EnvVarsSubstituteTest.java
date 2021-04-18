@@ -8,6 +8,7 @@ import java.util.Map;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EnvVarsSubstituteTest {
     private final Map<String, String> vars = new HashMap<>();
@@ -49,9 +50,9 @@ public class EnvVarsSubstituteTest {
         assertThat(act, equalTo("text: jdbc:phoenix_abc"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void emptyVarName() {
-        EnvVarsSubstitute.substitute("text: ${}", vars);
+        assertThrows(IllegalArgumentException.class, () -> EnvVarsSubstitute.substitute("text: ${}", vars));
     }
 
     @Test
@@ -60,8 +61,8 @@ public class EnvVarsSubstituteTest {
         EnvVarsSubstitute.substitute("text: ${abc:}", vars);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void varNotFound() {
-        EnvVarsSubstitute.substitute("text: ${not_exists}", vars);
+        assertThrows(IllegalArgumentException.class, () -> EnvVarsSubstitute.substitute("text: ${not_exists}", vars));
     }
 }

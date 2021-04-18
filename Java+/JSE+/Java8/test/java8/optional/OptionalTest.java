@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Использование класса-обертки Optional для замены null-значений.
@@ -32,9 +33,9 @@ public class OptionalTest {
     /**
      * Optional.of(null) бросает NPE.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void ofNPE() {
-        Optional.of(null);
+        assertThrows(NullPointerException.class, () -> Optional.of(null));
     }
 
     /**
@@ -77,10 +78,12 @@ public class OptionalTest {
     /**
      * Бросать исключение в случае null с помощью Optional#orElseThrow.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void orElseThrow() {
-        Optional<String> string = Optional.ofNullable(null);
-        string.orElseThrow(IllegalArgumentException::new);
+        assertThrows(IllegalArgumentException.class, () -> {
+            Optional<String> string = Optional.ofNullable(null);
+            string.orElseThrow(IllegalArgumentException::new);
+        });
     }
 
     private class Book {

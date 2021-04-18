@@ -8,8 +8,9 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.hamcrest.Matchers.startsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.startsWith;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static with.user.details.TestConfig.USER_DETAILS_SERVICE_BEAN;
 
 @RunWith(SpringRunner.class)
@@ -19,9 +20,9 @@ public class WithUserDetailsTest {
     @Autowired
     private MessageService messageService;
 
-    @Test(expected = AuthenticationCredentialsNotFoundException.class)
+    @Test
     public void getMessageUnauthenticated() {
-        messageService.getMessage();
+        assertThrows(AuthenticationCredentialsNotFoundException.class, () -> messageService.getMessage());
     }
 
     @Test

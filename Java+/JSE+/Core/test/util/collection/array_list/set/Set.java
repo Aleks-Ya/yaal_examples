@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Замена элементов коллекции ArrayList.
@@ -34,9 +35,9 @@ public class Set {
     /**
      * Вставить в конец листа нельзя.
      */
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void setNotExists() {
         assertEquals("[a, b, c]", list.toString());
-        list.set(3, 'd');
+        assertThrows(IndexOutOfBoundsException.class, () -> list.set(3, 'd'));
     }
 }

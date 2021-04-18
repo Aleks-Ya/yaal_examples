@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import java.net.URI;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class SendEmailTest {
     private static ExchangeService service;
 
@@ -37,13 +39,15 @@ public class SendEmailTest {
         msg.send();
     }
 
-    @Test(expected = ServiceResponseException.class)
-    public void sendError() throws Exception {
-        String emailAddress = "not_exists";
-        EmailMessage msg = new EmailMessage(service);
-        msg.setSubject("Hello world!");
-        msg.setBody(MessageBody.getMessageBodyFromText("Sent using the EWS Java API."));
-        msg.getToRecipients().add(emailAddress);
-        msg.send();
+    @Test
+    public void sendError() {
+        assertThrows(ServiceResponseException.class, () -> {
+            String emailAddress = "not_exists";
+            EmailMessage msg = new EmailMessage(service);
+            msg.setSubject("Hello world!");
+            msg.setBody(MessageBody.getMessageBodyFromText("Sent using the EWS Java API."));
+            msg.getToRecipients().add(emailAddress);
+            msg.send();
+        });
     }
 }

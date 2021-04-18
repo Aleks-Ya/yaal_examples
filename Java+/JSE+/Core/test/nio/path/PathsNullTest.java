@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasToString;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PathsNullTest {
     @Test
@@ -19,16 +20,16 @@ public class PathsNullTest {
         assertThat(Paths.get("/abc", "efg", ""), hasToString(equalTo("/abc/efg")));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void nullPath() {
         //noinspection ConstantConditions
-        Paths.get(null);
+        assertThrows(NullPointerException.class, () -> Paths.get(null));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void nullInEnd() {
         //noinspection ConstantConditions
-        Paths.get("/abc", null);
+        assertThrows(NullPointerException.class, () -> Paths.get("/abc", null));
     }
 
 }

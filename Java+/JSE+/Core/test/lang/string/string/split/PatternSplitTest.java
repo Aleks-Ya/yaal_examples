@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayContaining;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PatternSplitTest {
 
@@ -23,11 +24,13 @@ public class PatternSplitTest {
         assertThat(words, arrayContaining(""));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void nullString() {
-        Pattern p = Pattern.compile("\\s");
-        //noinspection ResultOfMethodCallIgnored
-        p.split(null);
+        assertThrows(NullPointerException.class, () -> {
+            Pattern p = Pattern.compile("\\s");
+            //noinspection ResultOfMethodCallIgnored
+            p.split(null);
+        });
     }
 
 }

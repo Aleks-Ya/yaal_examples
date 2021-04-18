@@ -3,6 +3,7 @@ package lang.string.string.indexof;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Поиск подстроки с помощью String#indexOf(String).
@@ -36,9 +37,9 @@ public class IndexOfString {
     /**
      * Поиск подстроки null.
      */
-    @Test(expected = NullPointerException.class)
+    @Test
     public void findNull() {
-        assertEquals(-1, "abc".indexOf(null));
+        assertThrows(NullPointerException.class, () -> "abc".indexOf(null));
     }
 
     /**

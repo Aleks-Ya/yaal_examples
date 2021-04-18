@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Из стрима должен остаться один элемент.
@@ -25,17 +26,17 @@ public class SingleResultTest {
         assertThat(single, equalTo("b"));
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void noElements() {
-        stream
+        assertThrows(NoSuchElementException.class, () -> stream
                 .filter("d"::equals)
-                .collect(new SingleElementCollector<>());
+                .collect(new SingleElementCollector<>()));
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void moreThanOneElement() {
-        stream
+        assertThrows(IllegalStateException.class, () -> stream
                 .filter(element -> element.equals("b") || element.equals("c"))
-                .collect(new SingleElementCollector<>());
+                .collect(new SingleElementCollector<>()));
     }
 }
