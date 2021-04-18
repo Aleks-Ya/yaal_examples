@@ -1,3 +1,4 @@
 dependencies {
     implementation 'org.assertj:assertj-core:3.14.0'
+    testImplementation "org.junit.vintage:junit-vintage-engine:$junit5Version"
 }
