@@ -1,0 +1,18 @@
+//Run JUnit5 tests by Gradle.
+//Run tests: "gradle clean test"
+
+apply plugin: 'java'
+sourceSets.test.java.srcDir 'test'
+ext {
+    junitVersion = '5.7.1'
+}
+dependencies {
+    testCompile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+}
+test {
+    useJUnitPlatform()
+}
+repositories {
+    mavenCentral()
+}
