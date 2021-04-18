@@ -1,6 +1,6 @@
 package custom_runner.test_hierarchy.use_junit_runner;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.Failure;

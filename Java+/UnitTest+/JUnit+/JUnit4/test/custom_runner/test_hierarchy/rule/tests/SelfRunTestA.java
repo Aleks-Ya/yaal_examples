@@ -1,6 +1,6 @@
 package custom_runner.test_hierarchy.rule.tests;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import custom_runner.test_hierarchy.rule.State;
 
 import static org.junit.Assert.assertEquals;

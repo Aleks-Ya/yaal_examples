@@ -2,7 +2,7 @@ package custom_runner.test_hierarchy.use_junit_runner.tests;
 
 import custom_runner.test_hierarchy.use_junit_runner.State;
 import custom_runner.test_hierarchy.use_junit_runner.TestHierarchyRunner;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
