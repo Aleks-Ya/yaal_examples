@@ -7,9 +7,6 @@ subprojects {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
     defaultTasks('test')
-    test {
-        testLogging.showStandardStreams = true
-    }
     repositories {
         mavenCentral()
     }
@@ -39,6 +36,11 @@ configure(subprojects - project('UnitTest+:JUnit+:JUnit4').subprojects) {
         testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version",
                 "org.junit.vintage:junit-vintage-engine:$junit5Version", 'org.hamcrest:hamcrest:2.2',
                 'org.awaitility:awaitility:4.0.3', 'commons-io:commons-io:2.8.0'
+        testRuntime "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
+    }
+    test {
+        testLogging.showStandardStreams = true
+        useJUnitPlatform()
     }
 }
 
@@ -49,5 +51,8 @@ configure(subprojects - project(':Util')) {
     dependencies {
         implementation project(':Util')
         testImplementation project(path: ':Util', configuration: 'tests')
+    }
+    test {
+        testLogging.showStandardStreams = true
     }
 }
