@@ -1,0 +1,5 @@
+dependencies {
+    def version = '1.29'
+    implementation "org.openjdk.jmh:jmh-core:$version"
+    annotationProcessor "org.openjdk.jmh:jmh-generator-annprocess:$version"
+}
