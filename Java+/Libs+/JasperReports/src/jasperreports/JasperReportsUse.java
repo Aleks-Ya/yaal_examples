@@ -1,4 +1,4 @@
-package ru.yaal.examples.java.jasperreports;
+package jasperreports;
 
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRMapArrayDataSource;
