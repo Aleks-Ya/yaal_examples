@@ -1,17 +1,8 @@
 subprojects {
-    apply plugin: 'java'
-    sourceSets.main.java.srcDir 'src'
-    sourceSets.main.resources.srcDir 'resources'
-    sourceSets.main.resources.srcDir 'resourcesTest'
-    sourceSets.test.java.srcDir 'test'
-    defaultTasks('test')
     test {
         useTestNG()
     }
     dependencies {
-        testImplementation 'org.testng:testng:6.8.21'
-    }
-    repositories {
-        mavenCentral()
+        testImplementation 'org.testng:testng:7.4.0'
     }
 }

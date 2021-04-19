@@ -1,6 +1,0 @@
-include 'TestNgXml',
-        'TestTree',
-        'TestDependencies',
-        'Listeners',
-        'TestGroups',
-        'CustomTestRunner'

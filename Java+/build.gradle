@@ -35,7 +35,7 @@ subprojects {
 /**
  * Add test dependencies to all projects (exclude JUnit5).
  */
-configure(subprojects - project('UnitTest+:JUnit+:JUnit4').subprojects) {
+configure(subprojects - project('UnitTest+:JUnit+:JUnit4').subprojects - project('UnitTest+:TestNG+').subprojects) {
     dependencies {
         testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version", 'org.hamcrest:hamcrest:2.2',
                 'org.awaitility:awaitility:4.0.3', 'commons-io:commons-io:2.8.0'
