@@ -3,7 +3,7 @@
  * встроенных БД: H2, HSQL и Dervy.
  */
 dependencies {
-    testImplementation "$h2Dependency",
+    testImplementation h2Dependency,
             'org.hsqldb:hsqldb:2.3.4',
             'org.apache.derby:derby:10.13.1.1'
 }
