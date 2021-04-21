@@ -4,7 +4,7 @@ import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.test.ESIntegTestCase;
 import org.hamcrest.MatcherAssert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import static elastic.EsHelper.createRandomIndexName;
 import static org.hamcrest.Matchers.equalTo;

@@ -1,3 +1,4 @@
 dependencies {
-    testImplementation "org.elasticsearch.test:framework:$elasticSearchVersion", log4jCoreDependency
+    testImplementation "org.elasticsearch.test:framework:$elasticSearchVersion", log4jCoreDependency,
+            "org.junit.vintage:junit-vintage-engine:$junit5Version"
 }
