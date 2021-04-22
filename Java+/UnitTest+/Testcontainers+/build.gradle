@@ -1,5 +1,5 @@
 subprojects {
     ext {
-        testContainersVersion = '1.15.1'
+        testContainersVersion = '1.15.3'
     }
 }
