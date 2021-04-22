@@ -1,5 +1,6 @@
 package elastic.document;
 
+import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.test.ESIntegTestCase;
@@ -18,18 +19,24 @@ public class IndexRequestTest extends ESIntegTestCase {
 
         var client = client();
 
-        var request = new IndexRequest(indexName);
-        request.id("1");
+        var indexRequest = new IndexRequest(indexName);
+        var id = "1";
+        indexRequest.id(id);
         var jsonString = "{" +
-                "\"user\":\"kimchy\"," +
-                "\"postDate\":\"2013-01-30\"," +
-                "\"message\":\"trying out Elasticsearch\"" +
+                "\"user\":\"John\"," +
+                "\"postDate\":\"2021-01-30\"," +
+                "\"message\":\"trying out ES\"" +
                 "}";
-        request.source(jsonString, XContentType.JSON);
+        indexRequest.source(jsonString, XContentType.JSON);
 
-        var indexResponse = client.index(request).actionGet();
+        var indexResponse = client.index(indexRequest).actionGet();
         var status = indexResponse.status();
         var statusCode = status.getStatus();
         MatcherAssert.assertThat(statusCode, equalTo(201));
+
+        var getRequest = new GetRequest(indexName, id);
+        var getResponse = client.get(getRequest).actionGet();
+        var source = getResponse.getSource();
+        MatcherAssert.assertThat(source.toString(), equalTo("{postDate=2021-01-30, message=trying out ES, user=John}"));
     }
 }
