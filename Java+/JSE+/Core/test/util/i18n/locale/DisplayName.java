@@ -16,10 +16,10 @@ public class DisplayName {
      */
     @Test
     public void defaultLocale() {
-        Locale norwegianNorwayBokmel = new Locale("no", "NO", "B");
+        var norwegianNorwayBokmel = new Locale("no", "NO", "B");
         assertEquals("Norwegian (Norway,Bokmål)", norwegianNorwayBokmel.getDisplayName());
 
-        Locale rus = new Locale("ru", "RU");
+        var rus = new Locale("ru", "RU");
         assertEquals("норвежский (Норвегия,Bokmål)", norwegianNorwayBokmel.getDisplayName(rus));
     }
 
@@ -28,10 +28,10 @@ public class DisplayName {
      */
     @Test
     public void specifiedLocale() {
-        Locale norwegianNorwayBokmel = new Locale("no", "NO", "B");
+        var norwegianNorwayBokmel = new Locale("no", "NO", "B");
 
-        Locale displayLocal = new Locale("ru", "RU");
-        String displayName = norwegianNorwayBokmel.getDisplayName(displayLocal);
+        var displayLocal = new Locale("ru", "RU");
+        var displayName = norwegianNorwayBokmel.getDisplayName(displayLocal);
 
         assertEquals("норвежский (Норвегия,Bokmål)", displayName);
     }

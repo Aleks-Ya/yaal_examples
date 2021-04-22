@@ -18,7 +18,7 @@ public class LookAroundTest {
 
     @Test
     public void notEndWith() {
-        Pattern p = Pattern.compile("^.*(?<!hede)$");
+        var p = Pattern.compile("^.*(?<!hede)$");
         assertTrue(p.matcher(NO).matches());
         assertTrue(p.matcher(BEGIN).matches());
         assertTrue(p.matcher(MIDDLE).matches());
@@ -27,7 +27,7 @@ public class LookAroundTest {
 
     @Test
     public void endWith() {
-        Pattern p = Pattern.compile(".*(?<=hede$)");
+        var p = Pattern.compile(".*(?<=hede$)");
         assertFalse(p.matcher(NO).matches());
         assertFalse(p.matcher(BEGIN).matches());
         assertFalse(p.matcher(MIDDLE).matches());
@@ -36,7 +36,7 @@ public class LookAroundTest {
 
     @Test
     public void notContain() {
-        Pattern p = Pattern.compile("^((?!hede).)*$");
+        var p = Pattern.compile("^((?!hede).)*$");
         assertTrue(p.matcher(NO).matches());
         assertFalse(p.matcher(BEGIN).matches());
         assertFalse(p.matcher(MIDDLE).matches());
@@ -45,7 +45,7 @@ public class LookAroundTest {
 
     @Test
     public void notStartWith() {
-        Pattern p = Pattern.compile("^(?!hede).*$");
+        var p = Pattern.compile("^(?!hede).*$");
         assertTrue(p.matcher(NO).matches());
         assertFalse(p.matcher(BEGIN).matches());
         assertTrue(p.matcher(MIDDLE).matches());

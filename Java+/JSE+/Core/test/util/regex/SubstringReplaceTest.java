@@ -19,8 +19,8 @@ public class SubstringReplaceTest {
 
     @Test
     public void realization1() {
-        Pattern p = Pattern.compile(REGEX);
-        Matcher m = p.matcher(SOURCE);
+        var p = Pattern.compile(REGEX);
+        var m = p.matcher(SOURCE);
         assertEquals("concert Tankian ludovico Tankian today ", m.replaceAll(REPLACER));
         assertEquals("concert Tankian ludovico Tankian today ", Pattern.compile(REGEX).matcher(SOURCE).replaceAll(REPLACER));
     }

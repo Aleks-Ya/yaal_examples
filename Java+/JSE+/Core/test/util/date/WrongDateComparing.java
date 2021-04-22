@@ -14,8 +14,8 @@ public class WrongDateComparing {
 
     @Test
     public void defaultLocal() {
-        Date d1 = Date.valueOf("1582-10-10");
-        Date d2 = Date.valueOf("1582-10-20");
+        var d1 = Date.valueOf("1582-10-10");
+        var d2 = Date.valueOf("1582-10-20");
         assertEquals(d1, d2);
     }
 

@@ -1,4 +1,3 @@
-import scanners.AnnotationTest;
 import listeners.IAnnotationTransformerImpl;
 import listeners.IHookableImpl;
 import listeners.IInvokedMethodListenerImpl;
@@ -7,6 +6,7 @@ import listeners.IReporterImpl;
 import listeners.ISuiteListenerImpl;
 import listeners.ITestListenerImpl;
 import org.testng.TestNG;
+import scanners.AnnotationTest;
 
 import java.util.Arrays;
 
@@ -20,7 +20,7 @@ public class Programmatically {
         // AnnotationTransformer можно установить так (или через setListenerClasses):
 //        tng.setAnnotationTransformer(new IAnnotationTransformerImpl());
 
-        tng.setListenerClasses(Arrays.<Class>asList(
+        tng.setListenerClasses(Arrays.asList(
                 IAnnotationTransformerImpl.class,
                 // работает только одни AnnotationTransformer
 //                IAnnotationTransformer2Impl.class,

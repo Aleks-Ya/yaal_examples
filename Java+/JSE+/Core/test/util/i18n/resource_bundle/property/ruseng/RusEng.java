@@ -13,15 +13,15 @@ public class RusEng {
 
     @Test
     public void main() throws UnsupportedEncodingException {
-        Locale english = Locale.ENGLISH;
-        Locale russian = new Locale("ru", "RU");
+        var english = Locale.ENGLISH;
+        var russian = new Locale("ru", "RU");
         printMessage(russian);
         printMessage(english);
     }
 
     private static void printMessage(Locale locale) throws UnsupportedEncodingException {
-        ResourceBundle myResources = ResourceBundle.getBundle("util/i18n/resource_bundle/property/ruseng/Messages", locale);
-        String message = new String(myResources.getString("hello").getBytes("ISO-8859-1"), "UTF-8");
+        var myResources = ResourceBundle.getBundle("util/i18n/resource_bundle/property/ruseng/Messages", locale);
+        var message = new String(myResources.getString("hello").getBytes("ISO-8859-1"), "UTF-8");
         System.out.printf("%s: %s\n", locale.toLanguageTag(), message);
     }
 }

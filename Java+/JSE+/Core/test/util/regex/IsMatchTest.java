@@ -23,7 +23,7 @@ public class IsMatchTest {
 
     @Test
     public void pattern() {
-    	Pattern pattern = Pattern.compile(REGEX);
+        var pattern = Pattern.compile(REGEX);
     	assertTrue(pattern.matcher(SOURCE_MATCH).matches());
     	assertFalse(pattern.matcher(SOURCE_NOT_MATCH).matches());
     }

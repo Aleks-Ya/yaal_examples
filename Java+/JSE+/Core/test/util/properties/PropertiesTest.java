@@ -15,13 +15,13 @@ public class PropertiesTest {
 
     @Test
     public void defaultProperties() {
-        String key = "a";
-        String value = "1";
+        var key = "a";
+        var value = "1";
 
-        Properties defaultProps = new Properties();
+        var defaultProps = new Properties();
         defaultProps.setProperty(key, value);
 
-        Properties actual = new Properties(defaultProps);
+        var actual = new Properties(defaultProps);
         assertThat(actual.getProperty(key), equalTo(value));
 
         assertThat(actual.size(), equalTo(0));

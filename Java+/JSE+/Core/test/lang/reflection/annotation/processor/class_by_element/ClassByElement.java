@@ -1,4 +1,4 @@
-package lang.reflection.annotation_processor.class_by_element;
+package lang.reflection.annotation.processor.class_by_element;
 
 import com.google.testing.compile.JavaFileObjects;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ public class ClassByElement {
         assert_().about(javaSource())
                 .that(JavaFileObjects.forSourceString("HelloWorld",
                         "package mypack;" +
-                                "import reflection.annotation_processor.class_by_element.MyAnnotation;" +
+                                "import lang.reflection.annotation.processor.class_by_element.MyAnnotation;" +
                                 "@MyAnnotation final class HelloWorld {}"))
                 .processedWith(new Processor())
                 .compilesWithoutError();

@@ -1,4 +1,4 @@
-package lang.reflection.annotation_processor.class_by_element;
+package lang.reflection.annotation.processor.class_by_element;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;

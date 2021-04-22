@@ -17,8 +17,8 @@ public class FileNamesTest {
      */
     @Test
     public void cutFileExtension() {
-        File file = new File("/home/user/data.txt");
-        String name = file.getName().replaceFirst("\\..*$", "");
+        var file = new File("/home/user/data.txt");
+        var name = file.getName().replaceFirst("\\..*$", "");
         assertThat(name, equalTo("data"));
     }
 }

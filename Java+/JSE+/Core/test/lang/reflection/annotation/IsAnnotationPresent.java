@@ -1,8 +1,6 @@
-package lang.reflection.usage.is_annotated;
+package lang.reflection.annotation;
 
 import org.junit.jupiter.api.Test;
-
-import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,22 +8,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Использование метода Class#isAnnotationPresent.
  */
-public class IsAnnotationPresent {
+class IsAnnotationPresent {
     @Test
-    public void present() throws ClassNotFoundException, NoSuchFieldException {
-        Class clazz = Class.forName("YesMarked");
+    void present() throws ClassNotFoundException, NoSuchFieldException {
+        var clazz = Class.forName("lang.reflection.annotation.YesMarked");
         assertTrue(clazz.isAnnotationPresent(Marked.class));
 
-        Field field = clazz.getDeclaredField("size");
+        var field = clazz.getDeclaredField("size");
         assertTrue(field.isAnnotationPresent(Marked.class));
     }
 
     @Test
-    public void notPresent() throws ClassNotFoundException, NoSuchFieldException {
-        Class clazz = Class.forName("NotMarked");
+    void notPresent() throws ClassNotFoundException, NoSuchFieldException {
+        var clazz = Class.forName("lang.reflection.annotation.NotMarked");
         assertFalse(clazz.isAnnotationPresent(Marked.class));
 
-        Field field = clazz.getDeclaredField("size");
+        var field = clazz.getDeclaredField("size");
         assertFalse(field.isAnnotationPresent(Marked.class));
     }
 }

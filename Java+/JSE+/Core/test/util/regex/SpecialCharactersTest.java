@@ -18,9 +18,9 @@ public class SpecialCharactersTest {
 
     @Test
     public void ampersand() {
-        final String source = "concert $Einaudi ludovico einaudi today ";
-        Pattern p = Pattern.compile("\\$Einaudi");
-        Matcher m = p.matcher(source);
+        var source = "concert $Einaudi ludovico einaudi today ";
+        var p = Pattern.compile("\\$Einaudi");
+        var m = p.matcher(source);
         assertTrue(m.find());
         assertEquals("$Einaudi", m.group());
         assertFalse(m.find());
@@ -28,9 +28,9 @@ public class SpecialCharactersTest {
 
     @Test
     public void brace() {
-        final String source = "concert {Einaudi} ludovico einaudi today ";
-        Pattern p = Pattern.compile("\\{Einaudi\\}");
-        Matcher m = p.matcher(source);
+        var source = "concert {Einaudi} ludovico einaudi today ";
+        var p = Pattern.compile("\\{Einaudi\\}");
+        var m = p.matcher(source);
         assertTrue(m.find());
         assertEquals("{Einaudi}", m.group());
         assertFalse(m.find());
@@ -38,9 +38,9 @@ public class SpecialCharactersTest {
 
     @Test
     public void wordInBraces() {
-        final String source = "concert {Einaudi} ludovico einaudi today ";
-        Pattern p = Pattern.compile("\\{\\w*\\}");
-        Matcher m = p.matcher(source);
+        var source = "concert {Einaudi} ludovico einaudi today ";
+        var p = Pattern.compile("\\{\\w*\\}");
+        var m = p.matcher(source);
         assertTrue(m.find());
         assertEquals("{Einaudi}", m.group());
         assertFalse(m.find());
@@ -51,9 +51,9 @@ public class SpecialCharactersTest {
      */
     @Test
     public void unclosedCharacterClass() {
-        String text = "abc main(java.lang.String[]) ghi";
-        String regex = "main(java.lang.String[])";
-        String quoted = Pattern.quote(regex);
+        var text = "abc main(java.lang.String[]) ghi";
+        var regex = "main(java.lang.String[])";
+        var quoted = Pattern.quote(regex);
         //noinspection ResultOfMethodCallIgnored
         Pattern.compile(quoted);// additional check that queted reqex can be compiled
         assertThat(text.replaceAll(quoted, "def"), equalTo("abc def ghi"));

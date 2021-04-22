@@ -20,9 +20,9 @@ public class EnvVarsSubstituteTest {
 
     @Test
     public void shouldReturnTheSameStringIfNoVariablesExistInTheOriginString() {
-        String content = "text: abc";
-        String act1 = EnvVarsSubstitute.substitute(content, vars);
-        String act2 = EnvVarsSubstitute.substitute(content, null);
+        var content = "text: abc";
+        var act1 = EnvVarsSubstitute.substitute(content, vars);
+        var act2 = EnvVarsSubstitute.substitute(content, null);
 
         assertThat(act1, equalTo(content));
         assertThat(act2, equalTo(content));
@@ -30,23 +30,23 @@ public class EnvVarsSubstituteTest {
 
     @Test
     public void shouldReplaceVariableIfNoDefaultValueSpecified() {
-        String content = "text: ${MY_VAR}_abc";
+        var content = "text: ${MY_VAR}_abc";
         vars.put("MY_VAR", "MY VALUE");
-        String act = EnvVarsSubstitute.substitute(content, vars);
+        var act = EnvVarsSubstitute.substitute(content, vars);
         assertThat(act, equalTo("text: MY VALUE_abc"));
     }
 
     @Test
     public void shouldUseDefaultValueIfVariableIsNotPresentInMap() {
-        String content = "text: ${MY_VAR:100}_abc";
-        String act = EnvVarsSubstitute.substitute(content, vars);
+        var content = "text: ${MY_VAR:100}_abc";
+        var act = EnvVarsSubstitute.substitute(content, vars);
         assertThat(act, equalTo("text: 100_abc"));
     }
 
     @Test
     public void shouldUseFirstSemicolonAsDefaultValueDelimiter() {
-        String content = "text: ${MY_VAR:jdbc:phoenix}_abc";
-        String act = EnvVarsSubstitute.substitute(content, vars);
+        var content = "text: ${MY_VAR:jdbc:phoenix}_abc";
+        var act = EnvVarsSubstitute.substitute(content, vars);
         assertThat(act, equalTo("text: jdbc:phoenix_abc"));
     }
 

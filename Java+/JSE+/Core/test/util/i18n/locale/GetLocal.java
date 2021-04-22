@@ -17,7 +17,7 @@ public class GetLocal {
      */
     @Test
     public void defaultLocal() {
-        Locale def = Locale.getDefault();
+        var def = Locale.getDefault();
         assertEquals("en", def.getLanguage());
         assertEquals("US", def.getCountry());
         assertEquals("", def.getVariant());
@@ -28,7 +28,7 @@ public class GetLocal {
      */
     @Test
     public void available() {
-        Locale[] locales = Locale.getAvailableLocales();
+        var locales = Locale.getAvailableLocales();
         assertTrue(locales.length > 100);
     }
 
@@ -37,7 +37,7 @@ public class GetLocal {
      */
     @Test
     public void language() {
-        Locale german = new Locale("de");
+        var german = new Locale("de");
         assertEquals("de", german.getLanguage());
         assertEquals("", german.getCountry());
         assertEquals("", german.getVariant());
@@ -48,7 +48,7 @@ public class GetLocal {
      */
     @Test
     public void languageAndCountry() {
-        Locale german = new Locale("de", "DE");
+        var german = new Locale("de", "DE");
         assertEquals("de", german.getLanguage());
         assertEquals("DE", german.getCountry());
         assertEquals("", german.getVariant());
@@ -59,7 +59,7 @@ public class GetLocal {
      */
     @Test
     public void languageAndCountryAndVariant() {
-        Locale norwegianNorwayBokmel = new Locale("no", "NO", "B");
+        var norwegianNorwayBokmel = new Locale("no", "NO", "B");
         assertEquals("no", norwegianNorwayBokmel.getLanguage());
         assertEquals("NO", norwegianNorwayBokmel.getCountry());
         assertEquals("B", norwegianNorwayBokmel.getVariant());

@@ -1,4 +1,4 @@
-package lang.reflection.annotation_processor.print_method_name;
+package lang.reflection.annotation.processor.print_method_name;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;

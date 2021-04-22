@@ -1,4 +1,4 @@
-package lang.reflection.usage.is_annotated;
+package lang.reflection.annotation;
 
 public class NotMarked {
     public int size;

@@ -1,6 +1,6 @@
 package listeners;
 
-import org.testng.IAnnotationTransformer2;
+import org.testng.IAnnotationTransformer;
 import org.testng.annotations.IConfigurationAnnotation;
 import org.testng.annotations.IDataProviderAnnotation;
 import org.testng.annotations.IFactoryAnnotation;
@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
 /**
  * Поддержка не работает.
  */
-public class IAnnotationTransformer2Impl implements IAnnotationTransformer2 {
+public class IAnnotationTransformer2Impl implements IAnnotationTransformer {
 
     @Override
     public void transform(IConfigurationAnnotation annotation,

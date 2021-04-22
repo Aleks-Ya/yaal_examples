@@ -14,12 +14,12 @@ import static org.hamcrest.Matchers.equalTo;
 public class MatcherReplaceTest {
     @Test
     public void replaceGroup() {
-        String source = "GET /abba HTTP/1.1/abba";
-        Pattern p = Pattern.compile("(/abba)");
-        Matcher m = p.matcher(source);
-        StringBuffer sb = new StringBuffer(source.length());
+        var source = "GET /abba HTTP/1.1/abba";
+        var p = Pattern.compile("(/abba)");
+        var m = p.matcher(source);
+        var sb = new StringBuffer(source.length());
         while (m.find()) {
-            String text = m.group();
+            var text = m.group();
             text = text.toUpperCase();
             m.appendReplacement(sb, Matcher.quoteReplacement(text));
         }

@@ -17,23 +17,23 @@ public class SubstringTest {
 
     @Test
     public void realization1() {
-        Pattern p = Pattern.compile("^[^\\s]*\\s([^\\s]*)\\s.*$");
-        Matcher m = p.matcher(SOURCE);
+        var p = Pattern.compile("^[^\\s]*\\s([^\\s]*)\\s.*$");
+        var m = p.matcher(SOURCE);
         assertTrue(m.matches());//Без вызова matches() упадет ошибка
         assertEquals(EXPECTED, m.group(1));
     }
 
     @Test
     public void realization2() {
-        Pattern p = Pattern.compile("^[^\\s]*\\s([^\\s]*)\\s.*$");
-        Matcher m = p.matcher(SOURCE);
+        var p = Pattern.compile("^[^\\s]*\\s([^\\s]*)\\s.*$");
+        var m = p.matcher(SOURCE);
         assertTrue(m.find());
         assertEquals(EXPECTED, m.group(1));
     }
 
     @Test
     public void realization3() {
-        String[] splitted = SOURCE.split(" ");
+        var splitted = SOURCE.split(" ");
         assertEquals(EXPECTED, splitted[1]);
     }
 }
