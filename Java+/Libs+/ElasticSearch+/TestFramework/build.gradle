@@ -2,3 +2,6 @@ dependencies {
     testImplementation "org.elasticsearch.test:framework:$elasticSearchVersion", log4jCoreDependency,
             "org.junit.vintage:junit-vintage-engine:$junit5Version"
 }
+test {
+    systemProperty "tests.security.manager", "false"
+}

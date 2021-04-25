@@ -6,10 +6,12 @@ import org.apache.http.nio.entity.NStringEntity;
 import org.elasticsearch.client.Request;
 import org.elasticsearch.client.RestClient;
 import org.junit.jupiter.api.Test;
+import util.InputStreamUtil;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Random;
 
 import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -41,7 +43,7 @@ public class PerformingRequests {
         System.out.println("Response: " + response);
         var entity = response.getEntity();
         var contentIS = entity.getContent();
-        var contentStr = StringHelper.inputStreamToString(contentIS);
+        var contentStr = InputStreamUtil.inputStreamToString(contentIS);
         System.out.println("Body: " + contentStr);
     }
 
@@ -56,7 +58,7 @@ public class PerformingRequests {
         System.out.println("Response: " + response);
         var entity = response.getEntity();
         var contentIS = entity.getContent();
-        var contentStr = StringHelper.inputStreamToString(contentIS);
+        var contentStr = InputStreamUtil.inputStreamToString(contentIS);
         System.out.println("Body: " + contentStr);
         assertThat(contentStr, containsString("\"count\":4"));
     }
@@ -83,9 +85,25 @@ public class PerformingRequests {
         System.out.println("Response: " + response);
         var responseEntity = response.getEntity();
         var contentIS = responseEntity.getContent();
-        var contentStr = StringHelper.inputStreamToString(contentIS);
+        var contentStr = InputStreamUtil.inputStreamToString(contentIS);
         System.out.println("Body: " + contentStr);
         assertThat(contentStr, containsString("\"count\":1"));
+    }
+
+    @Test
+    public void createIndex() throws IOException {
+        var indexName = new Random().nextInt(Integer.MAX_VALUE);
+        var request = new Request("PUT", "/" + indexName);
+        var response = client.performRequest(request);
+        client.close();
+        assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
+
+        System.out.println("Response: " + response);
+        var entity = response.getEntity();
+        var contentIS = entity.getContent();
+        var contentStr = InputStreamUtil.inputStreamToString(contentIS);
+        System.out.println("Body: " + contentStr);
+        assertThat(contentStr, containsString("\"acknowledged\":true"));
     }
 
 }
