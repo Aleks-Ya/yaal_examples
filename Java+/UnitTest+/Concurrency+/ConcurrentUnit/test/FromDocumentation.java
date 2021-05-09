@@ -6,12 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Source: https://github.com/jhalterman/concurrentunit
  */
-public class FromDocumentation {
+class FromDocumentation {
 
     @Test
-    public void shouldFail() {
+    void shouldFail() {
         assertThrows(AssertionError.class, () -> {
-            Waiter waiter = new Waiter();
+            var waiter = new Waiter();
             new Thread(() -> {
                 waiter.assertTrue(false);
             }).start();
