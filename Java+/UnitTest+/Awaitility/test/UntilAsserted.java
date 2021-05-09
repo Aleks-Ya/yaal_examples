@@ -6,11 +6,11 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UntilAsserted {
+class UntilAsserted {
 
     @Test
-    public void untilAsserted() {
-        final AtomicInteger n = new AtomicInteger(0);
+    void untilAsserted() {
+        final var n = new AtomicInteger(0);
 
         new Thread(() -> {
             try {
