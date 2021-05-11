@@ -28,4 +28,7 @@ object Dependencies {
   val typesafeConfigDep = "com.typesafe" % "config" % "1.4.1"
 
   val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "2.24.0" % Test
+
+  private val spark3Version = "3.1.1"
+  val spark3CoreDep = "org.apache.spark" %% "spark-core" % spark3Version
 }
