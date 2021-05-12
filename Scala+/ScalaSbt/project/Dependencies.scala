@@ -31,4 +31,5 @@ object Dependencies {
 
   private val spark3Version = "3.1.1"
   val spark3CoreDep = "org.apache.spark" %% "spark-core" % spark3Version
+  val spark3StreamingDep = "org.apache.spark" %% "spark-streaming" % spark3Version
 }
