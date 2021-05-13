@@ -1,9 +1,7 @@
 package server;
 
-import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.jupiter.api.Test;
 import util.NetUtil;
 
@@ -18,36 +16,36 @@ public class TakeRequest {
 
     @Test
     public void assertRequest() throws IOException, InterruptedException {
-        MockWebServer server = new MockWebServer();
+        var server = new MockWebServer();
 
-        String body1 = "hello, world!";
-        String body2 = "sup, bra?";
-        String body3 = "yo dog";
+        var body1 = "hello, world!";
+        var body2 = "sup, bra?";
+        var body3 = "yo dog";
         server.enqueue(new MockResponse().setBody(body1));
         server.enqueue(new MockResponse().setBody(body2));
         server.enqueue(new MockResponse().setBody(body3));
 
         server.start();
 
-        HttpUrl baseUrl = server.url("/v1/chat/");
+        var baseUrl = server.url("/v1/chat/");
 
-        String body = NetUtil.urlContentToString(new URL(baseUrl.url(), "messages/"));
+        var body = NetUtil.urlContentToString(new URL(baseUrl.url(), "messages/"));
         assertThat(body, equalTo(body1));
 
-        String actBody2 = NetUtil.urlContentToString(new URL(baseUrl.url(), "messages/2"));
+        var actBody2 = NetUtil.urlContentToString(new URL(baseUrl.url(), "messages/2"));
         assertThat(actBody2, equalTo(body2));
 
-        String actBody3 = NetUtil.urlContentToString(new URL(baseUrl.url(), "messages/3"));
+        var actBody3 = NetUtil.urlContentToString(new URL(baseUrl.url(), "messages/3"));
         assertThat(actBody3, equalTo(body3));
 
-        RecordedRequest request1 = server.takeRequest();
+        var request1 = server.takeRequest();
         assertEquals("/v1/chat/messages/", request1.getPath());
         assertThat(request1.getMethod(), equalTo("GET"));
 
-        RecordedRequest request2 = server.takeRequest();
+        var request2 = server.takeRequest();
         assertEquals("/v1/chat/messages/2", request2.getPath());
 
-        RecordedRequest request3 = server.takeRequest();
+        var request3 = server.takeRequest();
         assertEquals("/v1/chat/messages/3", request3.getPath());
 
         server.shutdown();

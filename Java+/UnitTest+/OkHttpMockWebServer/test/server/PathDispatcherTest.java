@@ -1,19 +1,14 @@
 package server;
 
-import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.jupiter.api.Test;
 import util.NetUtil;
 
 import java.io.FileNotFoundException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.endsWith;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PathDispatcherTest {
@@ -32,23 +27,23 @@ public class PathDispatcherTest {
                 .addPathResponse(path1, mockResponse1)
                 .addPathResponse(path2, mockResponse2);
 
-        MockWebServer server = new MockWebServer();
+        var server = new MockWebServer();
         server.setDispatcher(dispatcher);
 
-        HttpUrl baseUrl1 = server.url(path1);
-        HttpUrl baseUrl2 = server.url(path2);
+        var baseUrl1 = server.url(path1);
+        var baseUrl2 = server.url(path2);
 
-        String actBody1 = NetUtil.urlContentToString(baseUrl1.url());
+        var actBody1 = NetUtil.urlContentToString(baseUrl1.url());
         assertThat(actBody1, equalTo(body1));
 
-        String actBody2 = NetUtil.urlContentToString(baseUrl2.url());
+        var actBody2 = NetUtil.urlContentToString(baseUrl2.url());
         assertThat(actBody2, equalTo(body2));
 
-        RecordedRequest request1 = server.takeRequest();
+        var request1 = server.takeRequest();
         assertThat(request1.getMethod(), equalTo("GET"));
         assertThat(request1.getPath(), equalTo(path1));
 
-        RecordedRequest request2 = server.takeRequest();
+        var request2 = server.takeRequest();
         assertThat(request2.getMethod(), equalTo("GET"));
         assertThat(request2.getPath(), equalTo(path2));
     }
@@ -56,11 +51,11 @@ public class PathDispatcherTest {
     @Test
     public void pathNotSet() {
         var dispatcher = new PathDispatcher();
-        MockWebServer server = new MockWebServer();
+        var server = new MockWebServer();
         server.setDispatcher(dispatcher);
-        HttpUrl url = server.url("/p");
-        RuntimeException e = assertThrows(RuntimeException.class, () -> NetUtil.urlContentToString(url.uri()));
-        Throwable cause = e.getCause();
+        var url = server.url("/p");
+        var e = assertThrows(RuntimeException.class, () -> NetUtil.urlContentToString(url.uri()));
+        var cause = e.getCause();
         assertThat(cause, is(instanceOf(FileNotFoundException.class)));
         assertThat(cause.getMessage(), endsWith("/p"));
     }
