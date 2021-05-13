@@ -1,0 +1,76 @@
+package server;
+
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.SocketPolicy;
+import org.junit.jupiter.api.Test;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
+/**
+ * Client uses {@link Socket} for sending HTTP request to {@link MockWebServer}.
+ */
+public class TcpRequest {
+
+    @Test
+    public void socket() throws IOException, InterruptedException {
+        var server = new MockWebServer();
+
+        var body1 = "hello, world!";
+        var body2 = "buy all!";
+        server.enqueue(new MockResponse().setBody(body1).setSocketPolicy(SocketPolicy.DISCONNECT_AT_END));
+        server.enqueue(new MockResponse().setBody(body2).setSocketPolicy(SocketPolicy.DISCONNECT_AT_END));
+
+        server.start();
+
+        var host = server.getHostName();
+        var port = server.getPort();
+
+        var actResponse1 = readSocket(host, port);
+        var expResponse1 = expResponse(body1);
+        assertThat(actResponse1, equalTo(expResponse1));
+
+        var actResponse2 = readSocket(host, port);
+        var expResponse2 = expResponse(body2);
+        assertThat(actResponse2, equalTo(expResponse2));
+
+        var request1 = server.takeRequest();
+        assertThat(request1.getPath(), equalTo("/"));
+        assertThat(request1.getMethod(), equalTo("GET"));
+
+        var request2 = server.takeRequest();
+        assertThat(request2.getPath(), equalTo("/"));
+        assertThat(request2.getMethod(), equalTo("GET"));
+
+        server.shutdown();
+    }
+
+    private String readSocket(String host, int port) throws IOException {
+        try (var socket = new Socket(host, port)) {
+            var pw = new PrintWriter(socket.getOutputStream());
+            pw.println("GET / HTTP/1.1");
+            pw.println("Host: " + host);
+            pw.println("");
+            pw.flush();
+
+            var br = new BufferedReader(new InputStreamReader((socket.getInputStream())));
+            String line;
+            var sb = new StringBuilder();
+            while ((line = br.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            return sb.toString();
+        }
+    }
+
+    private String expResponse(String body) {
+        return String.format("HTTP/1.1 200 OK\nContent-Length: %d\n\n%s\n", body.length(), body);
+    }
+}
