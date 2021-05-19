@@ -28,4 +28,5 @@ lazy val playSlickLiquibase = project in file("PlayFramework+/play-slick-liquiba
 lazy val TypesafeConfig = project in file("Libs+/TypesafeConfig")
 lazy val OkHttpMockWebServer = project in file("Libs+/OkHttpMockWebServer")
 lazy val Spark3Core = project in file("Spark+/Spark3+/Spark3Core")
+lazy val Spark3Sql = project in file("Spark+/Spark3+/Spark3Sql")
 lazy val Spark3Streaming = project in file("Spark+/Spark3+/Spark3Streaming")

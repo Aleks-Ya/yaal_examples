@@ -31,6 +31,7 @@ object Dependencies {
 
   private val spark3Version = "3.1.1"
   val spark3CoreDep = "org.apache.spark" %% "spark-core" % spark3Version
+  val spark3SqlDep = "org.apache.spark" %% "spark-sql" % spark3Version
   val spark3StreamingDep = "org.apache.spark" %% "spark-streaming" % spark3Version
 
   val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "4.9.1" % Test
