@@ -39,7 +39,7 @@ configure(subprojects - project('UnitTest+:JUnit+:JUnit4').subprojects - project
     dependencies {
         testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version", 'org.hamcrest:hamcrest:2.2',
                 'org.awaitility:awaitility:4.1.0', 'commons-io:commons-io:2.8.0'
-        testRuntime "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
+        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
     }
     test {
         testLogging.showStandardStreams = true
