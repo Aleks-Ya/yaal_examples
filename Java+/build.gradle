@@ -29,6 +29,7 @@ subprojects {
         spring5Version = '5.3.6'
         spring4Version = '4.3.30.RELEASE'
         spring3Version = '3.2.18.RELEASE'
+        hadoop2Version = '2.10.1'
     }
 }
 
