@@ -11,13 +11,12 @@ import org.apache.parquet.avro.AvroReadSupport;
 import org.apache.parquet.hadoop.util.HadoopInputFile;
 import org.apache.parquet.hadoop.util.HadoopOutputFile;
 import org.junit.jupiter.api.Test;
+import util.FileUtil;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ReadWriteTest {
 
@@ -33,11 +32,7 @@ class ReadWriteTest {
                 .fields()
                 .name(myArrayField).type().array().items().intType().noDefault()
                 .endRecord();
-
-        var parquetFile = File.createTempFile(getClass().getSimpleName(), ".parquet");
-        parquetFile.deleteOnExit();
-        assertTrue(parquetFile.delete());
-        var path = new Path(parquetFile.getPath());
+        var path = new Path(FileUtil.createAbsentTempFile(".parquet").getPath());
 
         var expArray = List.of(1, 3, 5);
         var expRecord = new GenericRecordBuilder(schema).set(myArrayField, expArray).build();

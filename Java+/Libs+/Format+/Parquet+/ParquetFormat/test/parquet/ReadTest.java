@@ -16,13 +16,12 @@ import org.apache.parquet.hadoop.util.HadoopInputFile;
 import org.apache.parquet.hadoop.util.HadoopOutputFile;
 import org.apache.parquet.schema.PrimitiveType;
 import org.junit.jupiter.api.Test;
+import util.FileUtil;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ReadTest {
 
@@ -38,10 +37,7 @@ class ReadTest {
     }
 
     private Path writeParquetFile(Configuration conf, String myStringField, String expString) throws IOException {
-        var parquetFile = File.createTempFile(getClass().getSimpleName(), ".parquet");
-        parquetFile.deleteOnExit();
-        assertTrue(parquetFile.delete());
-        var path = new Path(parquetFile.getPath());
+        var path = new Path(FileUtil.createAbsentTempFile(".parquet").getPath());
 
         // Write Parquet file
         var schema1 = SchemaBuilder.record("myrecord")
