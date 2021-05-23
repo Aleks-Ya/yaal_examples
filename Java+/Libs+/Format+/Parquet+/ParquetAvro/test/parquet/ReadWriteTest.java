@@ -1,6 +1,6 @@
 package parquet;
 
-import org.apache.avro.Schema;
+import org.apache.avro.SchemaBuilder;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.generic.GenericRecordBuilder;
 import org.apache.hadoop.conf.Configuration;
@@ -11,14 +11,12 @@ import org.apache.parquet.avro.AvroReadSupport;
 import org.apache.parquet.hadoop.util.HadoopInputFile;
 import org.apache.parquet.hadoop.util.HadoopOutputFile;
 import org.junit.jupiter.api.Test;
-import util.ResourceUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ReadWriteTest {
@@ -30,31 +28,36 @@ class ReadWriteTest {
         conf.setBoolean("parquet.avro.add-list-element-records", false);
         conf.setBoolean("parquet.avro.write-old-list-structure", false);
 
-        var schema = new Schema.Parser().parse(ResourceUtil.resourceToInputStream("array.avsc"));
+        var myArrayField = "myarray";
+        var schema = SchemaBuilder.record("myrecord")
+                .fields()
+                .name(myArrayField).type().array().items().intType().noDefault()
+                .endRecord();
 
-        var file = File.createTempFile(getClass().getSimpleName(), ".tmp");
-        file.deleteOnExit();
-        assertTrue(file.delete());
-        var path = new Path(file.getPath());
+        var parquetFile = File.createTempFile(getClass().getSimpleName(), ".parquet");
+        parquetFile.deleteOnExit();
+        assertTrue(parquetFile.delete());
+        var path = new Path(parquetFile.getPath());
 
+        var expArray = List.of(1, 3, 5);
+        var expRecord = new GenericRecordBuilder(schema).set(myArrayField, expArray).build();
+
+        // Write Parquet file
         var outputFile = HadoopOutputFile.fromPath(path, conf);
         var writer = AvroParquetWriter
                 .<GenericRecord>builder(outputFile)
                 .withSchema(schema)
                 .withConf(conf)
                 .build();
-
-        // Write a record with an empty array.
-        var emptyArray = new ArrayList<Integer>();
-        var record = new GenericRecordBuilder(schema).set("myarray", emptyArray).build();
-        writer.write(record);
+        writer.write(expRecord);
         writer.close();
 
+        // Read Parquet file
         var inputFile = HadoopInputFile.fromPath(path, conf);
         var reader = AvroParquetReader.<GenericRecord>builder(inputFile).build();
-        var nextRecord = reader.read();
+        var actRecord = reader.read();
 
-        assertNotNull(nextRecord);
-        assertEquals(emptyArray, nextRecord.get("myarray"));
+        assertEquals(expArray, actRecord.get(myArrayField));
+        assertEquals(expRecord, actRecord);
     }
 }
