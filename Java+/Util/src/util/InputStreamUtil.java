@@ -13,7 +13,7 @@ public class InputStreamUtil {
 
     public static String inputStreamToString(InputStream is) {
         try {
-            try (InputStreamReader isr = new InputStreamReader(is); BufferedReader buffer = new BufferedReader(isr)) {
+            try (var isr = new InputStreamReader(is); var buffer = new BufferedReader(isr)) {
                 return buffer.lines().collect(Collectors.joining("\n"));
             }
         } catch (IOException e) {

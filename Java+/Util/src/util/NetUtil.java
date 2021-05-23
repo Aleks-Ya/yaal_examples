@@ -34,7 +34,7 @@ public class NetUtil {
         try {
             conn = (HttpURLConnection) url.openConnection();
             conn.connect();
-            BufferedReader bis = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+            var bis = new BufferedReader(new InputStreamReader((conn.getInputStream())));
             return bis.lines().collect(Collectors.joining("\n"));
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);
