@@ -37,7 +37,7 @@ class DataTypesTest {
                 .name(byteArrayFieldName).type().array().items().intType().noDefault()
                 .endRecord();
 
-        var path = new Path(FileUtil.createAbsentTempFile(".parquet").getPath());
+        var path = new Path(FileUtil.createAbsentTempFileDeleteOnExit(".parquet").getPath());
 
         var expByteArrayValue = List.of(1, 3, 5);
         var expBooleanValue = true;
@@ -85,7 +85,7 @@ class DataTypesTest {
                 .fields()
                 .name(stringFieldName).type().stringType().noDefault()
                 .endRecord();
-        var path = new Path(FileUtil.createAbsentTempFile(".parquet").getPath());
+        var path = new Path(FileUtil.createAbsentTempFileDeleteOnExit(".parquet").getPath());
 
         var expStringValue = "abc";
         var expRecord = new GenericRecordBuilder(schema)

@@ -32,7 +32,7 @@ class ReadWriteTest {
                 .fields()
                 .name(myArrayField).type().array().items().intType().noDefault()
                 .endRecord();
-        var path = new Path(FileUtil.createAbsentTempFile(".parquet").getPath());
+        var path = new Path(FileUtil.createAbsentTempFileDeleteOnExit(".parquet").getPath());
 
         var expArray = List.of(1, 3, 5);
         var expRecord = new GenericRecordBuilder(schema).set(myArrayField, expArray).build();

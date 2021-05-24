@@ -37,7 +37,7 @@ class ReadTest {
     }
 
     private Path writeParquetFile(Configuration conf, String myStringField, String expString) throws IOException {
-        var path = new Path(FileUtil.createAbsentTempFile(".parquet").getPath());
+        var path = new Path(FileUtil.createAbsentTempFileDeleteOnExit(".parquet").getPath());
 
         // Write Parquet file
         var schema1 = SchemaBuilder.record("myrecord")
