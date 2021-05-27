@@ -10,7 +10,7 @@ public class Printer implements InitializingBean {
     IMessageProvider provider;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         System.out.println(provider.getMessage());
     }
 }

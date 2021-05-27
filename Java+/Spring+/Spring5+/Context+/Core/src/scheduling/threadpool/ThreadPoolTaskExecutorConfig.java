@@ -9,7 +9,7 @@ class ThreadPoolTaskExecutorConfig {
 
     @Bean
     public ThreadPoolTaskExecutor taskExecutor() {
-        ThreadPoolTaskExecutor pool = new ThreadPoolTaskExecutor();
+        var pool = new ThreadPoolTaskExecutor();
         pool.setCorePoolSize(5);
         pool.setMaxPoolSize(10);
         return pool;

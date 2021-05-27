@@ -20,8 +20,8 @@ public class PartialBeanTest {
     @Test
     public void name() {
         Integer age = 25;
-        String name = "John";
-        Person person = ctx.getBean(Person.class, name, age);
+        var name = "John";
+        var person = ctx.getBean(Person.class, name, age);
         assertThat(person.toString(), equalTo("Person{name='John', age=25, city=SPb}"));
     }
 }

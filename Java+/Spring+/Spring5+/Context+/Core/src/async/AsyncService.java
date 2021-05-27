@@ -10,8 +10,7 @@ import java.util.concurrent.Future;
 class AsyncService {
     @Async("threadPoolTaskExecutor")
     void asyncMethodWithVoidReturnType() {
-        System.out.println("Execute method asynchronously. "
-                + Thread.currentThread().getName());
+        System.out.println("Execute method asynchronously. " + Thread.currentThread().getName());
     }
 
     @Async("threadPoolTaskExecutor")

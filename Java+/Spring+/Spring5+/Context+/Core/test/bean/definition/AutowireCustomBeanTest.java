@@ -9,8 +9,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -26,16 +24,16 @@ public class AutowireCustomBeanTest {
     private ApplicationContext context;
 
     @Test
-    public void main() throws IOException {
+    public void main() {
         assertNotNull(context);
         assertTrue(context instanceof ConfigurableApplicationContext);
 
-        ConfigurableApplicationContext configurableContext = (ConfigurableApplicationContext) context;
+        var configurableContext = (ConfigurableApplicationContext) context;
 
-        AutowireCapableBeanFactory autowireFactory = configurableContext.getAutowireCapableBeanFactory();
-        House house = (House) autowireFactory.autowire(House.class, AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, false);
+        var autowireFactory = configurableContext.getAutowireCapableBeanFactory();
+        var house = (House) autowireFactory.autowire(House.class, AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, false);
 
-        Address address = context.getBean(Address.class);
+        var address = context.getBean(Address.class);
         assertSame(address, house.getAddress());
     }
 }

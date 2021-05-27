@@ -1,4 +1,5 @@
 package profile;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -9,7 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class Main {
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        var context = new AnnotationConfigApplicationContext();
         context.getEnvironment().addActiveProfile("rough");
         context.scan("profile.provider");
         context.refresh();
