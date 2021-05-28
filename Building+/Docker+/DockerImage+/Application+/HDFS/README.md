@@ -1,15 +1,21 @@
 # Hadoop Docker image
+
+## MiniCluster
+Docs: https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/CLIMiniCluster.html
+
+
+## Deprecated
 Source: https://hub.docker.com/r/sequenceiq/hadoop-docker
 
-## Run
+### Run
 `docker run -it sequenceiq/hadoop-docker:2.7.1 /etc/bootstrap.sh -bash`
 
-## HDFS UI
+### HDFS UI
 `http://172.17.0.2:50070`
 
-## Test
-### Map reduce
+### Test
+#### Map reduce
 `bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.0.jar grep input output 'dfs[a-z.]+'`
 
-### HDFS
+#### HDFS
 `bin/hdfs dfs -cat output/*`
