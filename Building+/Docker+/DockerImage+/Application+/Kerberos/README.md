@@ -3,10 +3,10 @@
 ## Build from Dockerfile
 ```
 #Server
-docker build server
+docker build -t kerberos-server server
 
 #Client
-docker build client
+docker build -t kerberos-client client
 ```
 
 ## Run bash

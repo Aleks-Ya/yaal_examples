@@ -9,4 +9,4 @@ ENV DEFKTNAME=/etc/krb5.keytab
 ADD krb5.conf ${DEFKTNAME}
 ADD kdc.conf ${LOCALSTATEDIR}/krb5kdc/kdc.conf
 ADD kadm5.acl ${LOCALSTATEDIR}/krb5kdc/kadm5.acl
-RUN kdb5_util create -r ATHENA.MIT.EDU -s
+RUN kdb5_util create -r ATHENA.MIT.EDU -s -P the_pass
