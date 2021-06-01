@@ -11,31 +11,31 @@ import org.apache.hadoop.io.SequenceFile.Writer;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.compress.DefaultCodec;
 import org.apache.hadoop.util.ReflectionUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasEntry;
-import static org.junit.Assert.assertThat;
 
-public class SequenceFileReadWrite {
+class SequenceFileReadWrite {
+
     @Test
-    public void write() throws IOException {
-        File outFile = File.createTempFile(getClass().getSimpleName(), ".seq");
+    void write() throws IOException {
+        var outFile = File.createTempFile(getClass().getSimpleName(), ".seq");
         outFile.deleteOnExit();
-        Configuration conf = new Configuration();
-        FileSystem fs = FileSystem.get(conf);
-        Path path = new Path(outFile.toURI());
-        IntWritable key = new IntWritable();
-        Text value = new Text();
-        List<String> inLines = Arrays.asList("abc", "123");
+        var conf = new Configuration();
+        var fs = FileSystem.get(conf);
+        var path = new Path(outFile.toURI());
+        var key = new IntWritable();
+        var value = new Text();
+        var inLines = Arrays.asList("abc", "123");
         Writer writer = null;
         try {
             writer = SequenceFile.createWriter(conf, Writer.file(path),
@@ -47,8 +47,8 @@ public class SequenceFileReadWrite {
                     Writer.compression(SequenceFile.CompressionType.BLOCK, new DefaultCodec()),
                     Writer.progressable(null),
                     Writer.metadata(new Metadata()));
-            int ctr = 100;
-            for (String line : inLines) {
+            var ctr = 100;
+            for (var line : inLines) {
                 key.set(ctr++);
                 value.set(line);
                 if (ctr < 150)
@@ -62,10 +62,10 @@ public class SequenceFileReadWrite {
     }
 
     @Test
-    public void read() throws IOException, URISyntaxException {
-        URL inFile = getClass().getResource("read_sequence_file.seq");
-        Configuration conf = new Configuration();
-        Path path = new Path(inFile.toURI());
+    void read() throws IOException, URISyntaxException {
+        var inFile = getClass().getResource("read_sequence_file.seq");
+        var conf = new Configuration();
+        var path = new Path(Objects.requireNonNull(inFile).toURI());
         SequenceFile.Reader reader = null;
         try {
             reader = new SequenceFile.Reader(
@@ -74,14 +74,14 @@ public class SequenceFileReadWrite {
                     SequenceFile.Reader.bufferSize(4096),
                     SequenceFile.Reader.start(0)
             );
-            IntWritable key = (IntWritable) ReflectionUtils.newInstance(reader.getKeyClass(), conf);
-            Text value = (Text) ReflectionUtils.newInstance(reader.getValueClass(), conf);
+            var key = (IntWritable) ReflectionUtils.newInstance(reader.getKeyClass(), conf);
+            var value = (Text) ReflectionUtils.newInstance(reader.getValueClass(), conf);
             //long position = reader.getPosition();
             //reader.seek(position);
             while (reader.next(key, value)) {
-                String syncSeen = reader.syncSeen() ? "*" : "";
+                var syncSeen = reader.syncSeen() ? "*" : "";
                 Integer keyData = key.get();
-                String valueData = value.toString();
+                var valueData = value.toString();
                 System.out.printf("[%s]\t%s\t%s\n", syncSeen, keyData, valueData);
             }
         } finally {
@@ -90,10 +90,10 @@ public class SequenceFileReadWrite {
     }
 
     @Test
-    public void readToMap() throws IOException, URISyntaxException {
-        URL inFile = getClass().getResource("read_sequence_file.seq");
-        Configuration conf = new Configuration();
-        Path path = new Path(inFile.toURI());
+    void readToMap() throws IOException, URISyntaxException {
+        var inFile = getClass().getResource("read_sequence_file.seq");
+        var conf = new Configuration();
+        var path = new Path(Objects.requireNonNull(inFile).toURI());
         SequenceFile.Reader reader = null;
         Map<Integer, String> content = new HashMap<>();
         try {
@@ -103,11 +103,11 @@ public class SequenceFileReadWrite {
                     SequenceFile.Reader.bufferSize(4096),
                     SequenceFile.Reader.start(0)
             );
-            IntWritable key = (IntWritable) ReflectionUtils.newInstance(reader.getKeyClass(), conf);
-            Text value = (Text) ReflectionUtils.newInstance(reader.getValueClass(), conf);
+            var key = (IntWritable) ReflectionUtils.newInstance(reader.getKeyClass(), conf);
+            var value = (Text) ReflectionUtils.newInstance(reader.getValueClass(), conf);
             while (reader.next(key, value)) {
                 Integer keyData = key.get();
-                String valueData = value.toString();
+                var valueData = value.toString();
                 content.put(keyData, valueData);
             }
         } finally {

@@ -1,7 +1,8 @@
 /**
  * Java
  */
-include 'JSE+:Core',
+include 'BigData+:Hadoop+:Hadoop2+:Hdfs2',
+        'JSE+:Core',
         'JSE+:JMX+:HelloMBean',
         'JSE+:JMX+:CustomJmxClient',
         'JSE+:JMX+:Notifications',
