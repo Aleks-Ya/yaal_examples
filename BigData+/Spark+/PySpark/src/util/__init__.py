@@ -5,7 +5,7 @@ from pyspark.sql.session import SparkSession
 
 
 def create_spark_context(app_name: str) -> SparkSession:
-    os.environ['JAVA_HOME'] = '/home/aleks/.sdkman/candidates/java/8.0.222-zulu'
+    # os.environ['JAVA_HOME'] = '/home/aleks/.sdkman/candidates/java/8.0.222-zulu'
     os.environ['PYSPARK_PYTHON'] = '/usr/bin/python3'
     os.environ['PYSPARK_DRIVER_PYTHON'] = '/usr/bin/python3'
 
