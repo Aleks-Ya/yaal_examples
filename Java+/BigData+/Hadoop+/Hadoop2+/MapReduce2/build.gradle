@@ -1,0 +1,7 @@
+dependencies {
+    implementation "org.apache.hadoop:hadoop-client:$hadoop2Version", slf4jSimpleVersion
+    testImplementation "org.apache.hadoop:hadoop-minicluster:$hadoop2Version"
+    testImplementation 'org.apache.mrunit:mrunit:1.1.0:hadoop2', {
+        exclude group: "junit", module: 'junit'
+    }
+}

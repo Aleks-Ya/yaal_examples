@@ -5,14 +5,14 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mrunit.mapreduce.MapReduceDriver;
 import org.apache.hadoop.mrunit.types.Pair;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
 
-public class WordCountTest {
+class WordCountTest {
     @Test
-    public void processesValidRecord() throws IOException {
+    void processesValidRecord() throws IOException {
         new MapReduceDriver<LongWritable, Text, Text, IntWritable, Text, IntWritable>()
                 .withReducer(new WordCount.IntSumReducer())
                 .withMapper(new WordCount.TokenizerMapper())

@@ -3,13 +3,13 @@ package mr.mrunit;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mrunit.mapreduce.MapDriver;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-public class MapTest {
+class MapTest {
     @Test
-    public void singleInput() throws IOException {
+    void singleInput() throws IOException {
         new MapDriver<Text, LongWritable, Text, LongWritable>()
                 .withMapper(new MyMapper())
                 .withInput(new Text("a"), new LongWritable(1))

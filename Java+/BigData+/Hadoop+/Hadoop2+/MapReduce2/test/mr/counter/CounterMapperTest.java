@@ -2,22 +2,22 @@ package mr.counter;
 
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Counters;
 import org.apache.hadoop.mrunit.mapreduce.MapDriver;
 import org.apache.hadoop.mrunit.types.Pair;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Arrays;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
 
-public class CounterMapperTest {
+class CounterMapperTest {
     @Test
-    public void test() throws IOException {
-        MapDriver<Text, Text, Text, DoubleWritable> driver = new MapDriver<Text, Text, Text, DoubleWritable>()
+    void test() throws IOException {
+        var driver = new MapDriver<Text, Text, Text, DoubleWritable>()
                 .withMapper(new CounterMapper())
                 .withAll(Arrays.asList(
                         new Pair<>(new Text("John"), new Text("100.3")),
@@ -29,7 +29,7 @@ public class CounterMapperTest {
                 ));
         driver.runTest();
 
-        Counters counters = driver.getCounters();
+        var counters = driver.getCounters();
         assertThat(counters.countCounters(), equalTo(3));
         assertThat(counters.findCounter(CounterMapper.MyCounter.PERSONS).getValue(), equalTo(2L));
         assertThat(counters.findCounter(CounterMapper.COUNTER_GROUP, CounterMapper.COUNTER).getValue(), equalTo(1L));

@@ -10,8 +10,8 @@ public class MyReducer extends Reducer<Text, LongWritable, Text, LongWritable> {
 
     @Override
     protected void reduce(Text key, Iterable<LongWritable> values, Context context) throws IOException, InterruptedException {
-        long sum = 0L;
-        for (LongWritable value : values) {
+        var sum = 0L;
+        for (var value : values) {
             sum += value.get();
         }
         context.write(key, new LongWritable(sum));

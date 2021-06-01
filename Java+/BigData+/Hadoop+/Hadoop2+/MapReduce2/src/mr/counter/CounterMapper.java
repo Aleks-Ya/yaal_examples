@@ -20,8 +20,8 @@ public class CounterMapper extends Mapper<Text, Text, Text, DoubleWritable> {
 
     @Override
     public void map(Text person, Text salary, Context context) throws IOException, InterruptedException {
-        double value = Double.parseDouble(salary.toString());
-        DoubleWritable newValue = new DoubleWritable(value);
+        var value = Double.parseDouble(salary.toString());
+        var newValue = new DoubleWritable(value);
         context.write(person, newValue);
         context.getCounter(PERSONS).increment(1);
         if (value > 100_000) {

@@ -9,7 +9,7 @@ import java.io.IOException;
 public class MyMapper extends Mapper<Text, LongWritable, Text, LongWritable> {
     @Override
     public void map(Text key, LongWritable value, Context context) throws IOException, InterruptedException {
-        LongWritable newValue = new LongWritable(value.get() * 2);
+        var newValue = new LongWritable(value.get() * 2);
         context.write(key, newValue);
     }
 }

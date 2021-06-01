@@ -3,13 +3,13 @@ package mr.mrunit;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mrunit.mapreduce.MapReduceDriver;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-public class MapReduceTest {
+class MapReduceTest {
     @Test
-    public void singleInput() throws IOException {
+    void singleInput() throws IOException {
         new MapReduceDriver<Text, LongWritable, Text, LongWritable, Text, LongWritable>()
                 .withReducer(new MyReducer())
                 .withMapper(new MyMapper())
