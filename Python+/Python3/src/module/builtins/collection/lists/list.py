@@ -1,5 +1,9 @@
 # List
 
+# Create an empty list
+e = []
+assert len(e) == 0
+
 # Create a single element list
 single_element_list = [25]
 assert single_element_list[0] == 25

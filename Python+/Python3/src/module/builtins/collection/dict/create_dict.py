@@ -1,5 +1,9 @@
 # Create dictionary
 
+# Empty dict
+empty = {}
+assert len(empty) == 0
+
 # From literals
 a = dict(one=1, two=2, three=3)
 b = {'one': 1, 'two': 2, 'three': 3}
