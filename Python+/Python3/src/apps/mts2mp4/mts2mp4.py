@@ -1,4 +1,5 @@
 # Convert MTS video files to MP4 with "ffmpeg" tool.
+import datetime
 import os
 import subprocess
 import sys
@@ -11,8 +12,8 @@ def parse_bool(s: str) -> bool:
     return s.lower() in ("yes", "true", "t", "1")
 
 
-def check_dir_exits(directory: str):
-    if not os.path.isdir(directory):
+def check_dir_exits(directory: Path):
+    if not directory.exists():
         raise IOError(f"Directory absents: {directory}")
 
 
@@ -23,7 +24,7 @@ def check_ffmpeg_availability():
         raise IOError("ffmpeg is not found")
 
 
-def find_mts_files(src_dir_arg: str):
+def find_mts_files(src_dir_arg: Path):
     mts_files_result = []
     for subdir, dirs, files in os.walk(src_dir_arg):
         for file in files:
@@ -32,7 +33,7 @@ def find_mts_files(src_dir_arg: str):
     return mts_files_result
 
 
-def compose_dest_file_names(dest_dir_arg: str, mts_files_arg: List[str]):
+def compose_dest_file_names(dest_dir_arg: Path, mts_files_arg: List[str]):
     result: Dict[str, str] = {}
     for mts in mts_files_arg:
         p: Path = Path(mts)
@@ -56,15 +57,28 @@ def convert_files(mts_dict: Dict[str, str]):
         convert_file(mts_file, dest_file)
 
 
-src_dir: str = sys.argv[1]
-dest_dir: str = sys.argv[2]
+def append_date_to_dest_dir(dest_dir_arg: Path):
+    print(f'Root destination directory: {dest_dir_arg}')
+    if dest_dir_arg.exists():
+        current_date = str(datetime.datetime.now().date())
+        dest_dir_arg = dest_dir_arg.joinpath(current_date)
+        if not dest_dir_arg.exists():
+            print(f'Creating directory: {dest_dir_arg}')
+            dest_dir_arg.mkdir()
+        return dest_dir_arg
+    else:
+        raise IOError(f"Destination directory absents: {dest_dir_arg}")
+
+
+src_dir: Path = Path(sys.argv[1])
+dest_dir: Path = Path(sys.argv[2])
 delete_src_files: bool = parse_bool(sys.argv[3])
 
 print(f"Source directory: {src_dir}")
-print(f"Destination directory: {dest_dir}")
 print(f"Delete source files: {delete_src_files}")
 check_dir_exits(src_dir)
-check_dir_exits(dest_dir)
+dest_dir = append_date_to_dest_dir(dest_dir)
+print(f"Destination directory: {dest_dir}")
 check_ffmpeg_availability()
 mts_files = find_mts_files(src_dir)
 print(mts_files)
