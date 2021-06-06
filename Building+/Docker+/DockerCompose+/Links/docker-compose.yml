@@ -1,0 +1,13 @@
+version: '3'
+services:
+  server-service:
+    container_name: server-container
+    image: nginx
+    hostname: server-hostname
+  client-service:
+    container_name: client-container
+    image: alpine
+    links:
+      - server-service
+    tty: true
+    hostname: client-hostname
