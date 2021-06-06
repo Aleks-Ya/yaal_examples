@@ -2,7 +2,8 @@ FROM centos:7
 
 RUN yum install -y java wget
 
-ARG HADOOP_VERSION=2.9.2
+ARG HADOOP_VERSION
+
 ENV HADOOP_PREFIX=/opt/hadoop
 
 RUN wget -O /tmp/hadoop.tar.gz http://apache-mirror.rbc.ru/pub/apache/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz \

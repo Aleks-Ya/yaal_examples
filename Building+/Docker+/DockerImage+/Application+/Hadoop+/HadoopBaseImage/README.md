@@ -4,8 +4,8 @@
 https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-common/SingleCluster.html
 
 ## Build image
-Hadoop verson: 2.9.2
+Hadoop version: 2.10.1, 3.2.2 (version list: http://apache-mirror.rbc.ru/pub/apache/hadoop/common/)
 
-Image version: 1.1
+Image version: 1.0 (tag for created Docker image)
 
-`./build.sh 2.9.2 1.1`
+`./build.sh 3.2.2 1.0`

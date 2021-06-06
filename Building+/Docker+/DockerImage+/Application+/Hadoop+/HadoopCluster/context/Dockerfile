@@ -1,5 +1,5 @@
-ARG HADOOP_VERSION=2.9.2
-FROM spark-2.4.0-hadoop-${HADOOP_VERSION}-base-image:1.0
+ARG HADOOP_VERSION=2.10.1
+FROM spark-base-image-2.4.8-hadoop-${HADOOP_VERSION}:1.0
 ARG HADOOP_VERSION
 
 RUN yum install -y which net-tools nano telnet less
