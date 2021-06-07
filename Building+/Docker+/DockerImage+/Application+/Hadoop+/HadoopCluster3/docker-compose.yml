@@ -1,8 +1,8 @@
 version: '3'
 services:
   master-service:
-    container_name: hadoop-cluster-master
-    image: hadoop-cluster-master
+    container_name: hadoop3-cluster-master
+    image: hadoop3-cluster-master
     build:
       context: context
       args:
@@ -12,10 +12,10 @@ services:
     hostname: master-service
     entrypoint: ./entrypoint_master.sh
     volumes:
-      - /tmp/hadoop-cluster-logs/master:/tmp/logs
+      - /tmp/hadoop3-cluster-logs/master:/tmp/logs
   slave-service-1:
-    container_name: hadoop-cluster-slave-1
-    image: hadoop-cluster-slave-1
+    container_name: hadoop3-cluster-slave-1
+    image: hadoop3-cluster-slave-1
     build:
       context: context
       args:
@@ -30,10 +30,10 @@ services:
     tty: true
     entrypoint: ./entrypoint_slave_1.sh
     volumes:
-      - /tmp/hadoop-cluster-logs/slave-1:/tmp/logs
+      - /tmp/hadoop3-cluster-logs/slave-1:/tmp/logs
   slave-service-2:
-    container_name: hadoop-cluster-slave-2
-    image: hadoop-cluster-slave-2
+    container_name: hadoop3-cluster-slave-2
+    image: hadoop3-cluster-slave-2
     build:
       context: context
       args:
@@ -50,7 +50,7 @@ services:
     tty: true
     entrypoint: ./entrypoint_slave_2.sh
     volumes:
-      - /tmp/hadoop-cluster-logs/slave-2:/tmp/logs
+      - /tmp/hadoop3-cluster-logs/slave-2:/tmp/logs
 networks:
   default:
-    name: hadoop-cluster-network
+    name: hadoop3-cluster-network

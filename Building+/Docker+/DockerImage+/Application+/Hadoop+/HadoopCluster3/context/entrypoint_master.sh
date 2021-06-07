@@ -2,13 +2,25 @@
 
 set -e
 
-echo "HADOOP_PREFIX=$HADOOP_PREFIX"
+echo "HADOOP_HOME=$HADOOP_HOME"
 echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
 
+echo "Starting JournalNode..."
 hadoop-daemon.sh start journalnode
+echo "JournalNode started."
+
+echo "Formatting NameNode..."
 hdfs namenode -format -nonInteractive
+echo "NameNode is formatted."
+
+echo "Starting NameNode..."
 hadoop-daemon.sh --script hdfs start namenode
+echo "NameNode started."
+
+echo "Starting DataNode..."
 hadoop-daemon.sh --script hdfs start datanode
+echo "DataNode started."
+
 hdfs haadmin -transitionToActive --forceactive nn1
 start-yarn.sh
 

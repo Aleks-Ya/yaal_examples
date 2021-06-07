@@ -7,9 +7,9 @@ set -e
 
 ./remove_hosts.sh
 
-container_1=hadoop-cluster-master
-container_2=hadoop-cluster-slave-1
-container_3=hadoop-cluster-slave-2
+container_1=hadoop3-cluster-master
+container_2=hadoop3-cluster-slave-1
+container_3=hadoop3-cluster-slave-2
 
 ip_1=$(docker exec ${container_1} hostname -I)
 ip_2=$(docker exec ${container_2} hostname -I)

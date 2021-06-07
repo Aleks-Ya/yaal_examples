@@ -2,7 +2,7 @@
 
 set -e
 
-echo "HADOOP_PREFIX=$HADOOP_PREFIX"
+echo "HADOOP_HOME=$HADOOP_HOME"
 echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
 
 hadoop-daemon.sh start journalnode
