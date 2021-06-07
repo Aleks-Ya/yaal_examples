@@ -1,10 +1,14 @@
-version: '3.5'
+version: '3'
 services:
   master-service:
     container_name: hadoop-cluster-master
     image: hadoop-cluster-master
     build:
       context: context
+      args:
+        - HADOOP_VERSION=${HADOOP_VERSION}
+        - SPARK_VERSION=${SPARK_VERSION}
+        - SPARK_BASE_IMAGE_TAG=${SPARK_BASE_IMAGE_TAG}
     hostname: master-service
     entrypoint: ./entrypoint_master.sh
     volumes:
@@ -14,6 +18,10 @@ services:
     image: hadoop-cluster-slave-1
     build:
       context: context
+      args:
+        - HADOOP_VERSION=${HADOOP_VERSION}
+        - SPARK_VERSION=${SPARK_VERSION}
+        - SPARK_BASE_IMAGE_TAG=${SPARK_BASE_IMAGE_TAG}
     hostname: slave-service-1
     links:
       - master-service
@@ -28,6 +36,10 @@ services:
     image: hadoop-cluster-slave-2
     build:
       context: context
+      args:
+        - HADOOP_VERSION=${HADOOP_VERSION}
+        - SPARK_VERSION=${SPARK_VERSION}
+        - SPARK_BASE_IMAGE_TAG=${SPARK_BASE_IMAGE_TAG}
     hostname: slave-service-2
     links:
       - master-service

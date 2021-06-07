@@ -6,6 +6,7 @@
 1. Publish to Docker Hub
 
 ## Build images
+Choose Hadoop and Spark versions in `.env` file.
 `./build.sh`
 
 ## Run cluster
