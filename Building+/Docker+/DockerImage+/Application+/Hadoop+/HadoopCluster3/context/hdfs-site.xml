@@ -1,0 +1,71 @@
+<configuration>
+
+    <!-- Custom properties -->
+    <!-- Not work: Property "my.property.from.hadoop.env.sh" is available from hadoop-env.sh -->
+    <property>
+        <name>my.property</name>
+        <value>my_custom_value</value>
+    </property>
+    <property>
+        <name>my.property.with.another.property</name>
+        <value>File system: ${fs.defaultFS}, Custom: ${my.property}</value>
+    </property>
+
+
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://master-service:8020</value>
+    </property>
+    <property>
+        <name>dfs.replication</name>
+        <value>2</value>
+    </property>
+    <property>
+        <name>dfs.nameservices</name>
+        <value>mycluster</value>
+    </property>
+    <property>
+        <name>dfs.ha.namenodes.mycluster</name>
+        <value>nn1,nn2</value>
+    </property>
+    <property>
+        <name>dfs.namenode.rpc-address.mycluster.nn1</name>
+        <value>master-service:8020</value>
+    </property>
+    <property>
+        <name>dfs.namenode.rpc-address.mycluster.nn2</name>
+        <value>slave-service-1:8020</value>
+    </property>
+    <property>
+        <name>dfs.namenode.http-address.mycluster.nn1</name>
+        <value>master-service:50070</value>
+    </property>
+    <property>
+        <name>dfs.namenode.http-address.mycluster.nn2</name>
+        <value>slave-service-1:50070</value>
+    </property>
+    <property>
+        <name>dfs.namenode.shared.edits.dir</name>
+        <value>qjournal://master-service:8485;slave-service-1:8485;slave-service-2:8485/mycluster</value>
+    </property>
+    <property>
+        <name>dfs.client.failover.proxy.provider.mycluster</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+    <property>
+        <name>dfs.ha.fencing.methods</name>
+        <value>sshfence</value>
+    </property>
+    <property>
+        <name>dfs.ha.fencing.ssh.private-key-files</name>
+        <value>/root/.ssh/id_rsa</value>
+    </property>
+    <property>
+        <name>dfs.ha.fencing.methods</name>
+        <value>shell(/bin/true)</value>
+    </property>
+    <property>
+        <name>dfs.journalnode.edits.dir</name>
+        <value>/tmp/journal_node_local_data</value>
+    </property>
+</configuration>
