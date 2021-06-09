@@ -10,3 +10,9 @@ cryptography
 pympler
 kafka
 confluent_kafka
+matplotlib
+scipy
+numpy
+pandas
+sklearn
+joblib

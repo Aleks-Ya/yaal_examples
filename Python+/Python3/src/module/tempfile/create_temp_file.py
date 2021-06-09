@@ -1,8 +1,7 @@
-import tempfile
 import os
+import tempfile
 
-f: str = tempfile.mkstemp()
-full_name: str = f[1]
-print("Full name: " + full_name)
+file_descriptor, full_name = tempfile.mkstemp()
+print(f"File descriptor: {file_descriptor}, File name: {full_name}")
 
 os.remove(full_name)

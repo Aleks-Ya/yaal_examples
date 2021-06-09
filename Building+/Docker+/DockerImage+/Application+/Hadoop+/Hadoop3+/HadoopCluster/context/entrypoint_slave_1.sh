@@ -5,11 +5,22 @@ set -e
 echo "HADOOP_HOME=$HADOOP_HOME"
 echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
 
-hadoop-daemon.sh start journalnode
+echo "Starting JournalNode..."
+hdfs --daemon start journalnode
+echo "JournalNode started."
+
+echo "Starting StandbyNode..."
 hdfs namenode -bootstrapStandby
 hadoop-daemon.sh --script hdfs start namenode
+echo "JournalNode started."
+
+echo "Starting DataNode..."
 hadoop-daemon.sh --script hdfs start datanode
+echo "DataNode started."
+
+echo "Starting NodeManager..."
 yarn nodemanager
+echo "NodeManager started."
 
 SIGINT=2
 SIGTERM=15
