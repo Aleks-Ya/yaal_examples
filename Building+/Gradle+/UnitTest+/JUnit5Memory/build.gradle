@@ -9,6 +9,7 @@ dependencies {
 }
 test {
     useJUnitPlatform()
+	maxHeapSize = '512m'
 }
 repositories {
     mavenCentral()
