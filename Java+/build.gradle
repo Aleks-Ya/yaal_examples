@@ -31,6 +31,9 @@ subprojects {
         spring3Version = '3.2.18.RELEASE'
         hadoop2Version = '2.10.1'
     }
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
 }
 
 /**
