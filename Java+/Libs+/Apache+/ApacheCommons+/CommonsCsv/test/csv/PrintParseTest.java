@@ -1,9 +1,6 @@
 package csv;
 
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVPrinter;
-import org.apache.commons.csv.CSVRecord;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -11,34 +8,33 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 
-public class PrintParseTest {
+class PrintParseTest {
 
     @Test
-    public void printAndParse() throws IOException {
-        File file = File.createTempFile(PrintParseTest.class.getSimpleName(), ".csv");
+    void printAndParse() throws IOException {
+        var file = File.createTempFile(PrintParseTest.class.getSimpleName(), ".csv");
         System.out.println("CSV file: " + file.getAbsolutePath());
 
-        String header1 = "H1";
-        String header2 = "H2";
+        var header1 = "H1";
+        var header2 = "H2";
 
-        String value1 = "v1";
-        String value2 = "v2";
-        String value3 = "v3,v33";
-        String value4 = "v4";
-        String value5 = "v5\tv55";
-        String value6 = "v6";
-        String value7 = "v7\nv77";
-        String value8 = "v8";
+        var value1 = "v1";
+        var value2 = "v2";
+        var value3 = "v3,v33";
+        var value4 = "v4";
+        var value5 = "v5\tv55";
+        var value6 = "v6";
+        var value7 = "v7\nv77";
+        var value8 = "v8";
 
-        try (FileWriter fileWriter = new FileWriter(file);
-             CSVPrinter printer = CSVFormat.DEFAULT
+        try (var fileWriter = new FileWriter(file);
+             var printer = CSVFormat.DEFAULT
                      .withHeader(header1, header2)
                      .withSystemRecordSeparator()
                      .print(fileWriter)) {
@@ -49,30 +45,30 @@ public class PrintParseTest {
         }
 
         try (Reader reader = new FileReader(file);
-             CSVParser parser = CSVFormat.DEFAULT
+             var parser = CSVFormat.DEFAULT
                      .withFirstRecordAsHeader()
                      .withSystemRecordSeparator()
                      .parse(reader)) {
 
-            List<String> headerNames = parser.getHeaderNames();
+            var headerNames = parser.getHeaderNames();
             assertThat(headerNames, contains(header1, header2));
 
-            List<CSVRecord> records = parser.getRecords();
+            var records = parser.getRecords();
             assertThat(records, hasSize(4));
 
-            CSVRecord record0 = records.get(0);
+            var record0 = records.get(0);
             assertThat(record0.get(header1), equalTo(value1));
             assertThat(record0.get(header2), equalTo(value2));
 
-            CSVRecord record1 = records.get(1);
+            var record1 = records.get(1);
             assertThat(record1.get(header1), equalTo(value3));
             assertThat(record1.get(header2), equalTo(value4));
 
-            CSVRecord record2 = records.get(2);
+            var record2 = records.get(2);
             assertThat(record2.get(header1), equalTo(value5));
             assertThat(record2.get(header2), equalTo(value6));
 
-            CSVRecord record3 = records.get(3);
+            var record3 = records.get(3);
             assertThat(record3.get(header1), equalTo(value7));
             assertThat(record3.get(header2), equalTo(value8));
         }

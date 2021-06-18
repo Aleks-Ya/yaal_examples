@@ -1,16 +1,14 @@
 package csv.parse;
 
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
 import org.junit.jupiter.api.Test;
 import util.ResourceUtil;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.time.Month;
 import java.util.Collections;
 import java.util.HashMap;
@@ -24,14 +22,14 @@ import static org.hamcrest.Matchers.aMapWithSize;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 
-public class ProductionCalendarTest {
+class ProductionCalendarTest {
 
     @Test
-    public void parseProductionCalendar() throws IOException {
-        Map<Integer, Year> years = parseCalendar();
+    void parseProductionCalendar() throws IOException {
+        var years = parseCalendar();
         assertThat(years, aMapWithSize(27));
-        int year = 2020;
-        Year year2020 = years.get(year);
+        var year = 2020;
+        var year2020 = years.get(year);
         assertThat(year2020.getHolidays(Month.FEBRUARY), contains(1, 2, 8, 9, 15, 16, 22, 23, 24, 29));
         assertThat(year2020.getHolidays(Month.APRIL), contains(4, 5, 11, 12, 18, 19, 25, 26, 30));
         assertThat(year2020.getYear(), equalTo(year));
@@ -44,11 +42,11 @@ public class ProductionCalendarTest {
 
     private static Map<Integer, Year> parseCalendar() throws IOException {
         Map<Integer, Year> years = new HashMap<>();
-        File file = ResourceUtil.resourceToFile(ProductionCalendarTest.class, "production_calendar.csv");
-        try (Reader in = new FileReader(file);
-             CSVParser parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().withTrim().parse(in)) {
-            for (CSVRecord record : parser) {
-                int year = Integer.parseInt(record.get("Год/Месяц"));
+        var file = ResourceUtil.resourceToFile(ProductionCalendarTest.class, "production_calendar.csv");
+        try (Reader in = new FileReader(file, StandardCharsets.UTF_8);
+             var parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().withTrim().parse(in)) {
+            for (var record : parser) {
+                var year = Integer.parseInt(record.get("Год/Месяц"));
 
                 Map<Month, List<Integer>> holidaysInMonth = new HashMap<>();
                 holidaysInMonth.put(Month.JANUARY, parseHolidays(record.get("Январь")));
@@ -64,13 +62,13 @@ public class ProductionCalendarTest {
                 holidaysInMonth.put(Month.NOVEMBER, parseHolidays(record.get("Ноябрь")));
                 holidaysInMonth.put(Month.DECEMBER, parseHolidays(record.get("Декабрь")));
 
-                int totalWorkingDays = Integer.parseInt(record.get("Всего рабочих дней"));
-                int totalHolidays = Integer.parseInt(record.get("Всего праздничных и выходных дней"));
-                BigDecimal workingHours40 = new BigDecimal(record.get("Количество рабочих часов при 40-часовой рабочей неделе"));
-                BigDecimal workingHours36 = new BigDecimal(record.get("Количество рабочих часов при 36-часовой рабочей неделе"));
-                BigDecimal workingHours24 = new BigDecimal(record.get("Количество рабочих часов при 24-часовой рабочей неделе"));
+                var totalWorkingDays = Integer.parseInt(record.get("Всего рабочих дней"));
+                var totalHolidays = Integer.parseInt(record.get("Всего праздничных и выходных дней"));
+                var workingHours40 = new BigDecimal(record.get("Количество рабочих часов при 40-часовой рабочей неделе"));
+                var workingHours36 = new BigDecimal(record.get("Количество рабочих часов при 36-часовой рабочей неделе"));
+                var workingHours24 = new BigDecimal(record.get("Количество рабочих часов при 24-часовой рабочей неделе"));
 
-                Year yearPojo = new Year(year, holidaysInMonth, totalWorkingDays, totalHolidays, workingHours40,
+                var yearPojo = new Year(year, holidaysInMonth, totalWorkingDays, totalHolidays, workingHours40,
                         workingHours36, workingHours24);
                 years.put(year, yearPojo);
             }
