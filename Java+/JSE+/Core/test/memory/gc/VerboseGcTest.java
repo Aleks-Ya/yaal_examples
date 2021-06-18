@@ -1,7 +1,5 @@
 package memory.gc;
 
-import java.util.Map;
-
 /**
  * Use "-verbose:gc" and "-XX:+PrintGCTimeStamps" JVM options.
  */
@@ -12,11 +10,10 @@ public class VerboseGcTest {
         this.key = key;
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         System.setProperty("verbose:gc", "true");
         try {
-            Map map = System.getProperties();
-
+            var map = System.getProperties();
             for (; ; ) {
                 map.put(new VerboseGcTest("key"), "value");
             }
