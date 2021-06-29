@@ -18,6 +18,3 @@ s = 0
 for n in numbers:
     s += n
 assert s == 6
-
-# Declare type
-arr

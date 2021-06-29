@@ -1,13 +1,31 @@
-x = 0
+# Try-Except statement
+
+# Single exception
 try:
     x = 1 / 0
-except ZeroDivisionError as error:
-    print(error)
-    x = 2
-except ValueError as error:
-    print(error)
-    x = -1
+    assert False
+except ZeroDivisionError as ex:
+    print("Exception: ", ex)
 finally:
-    x = x * 3
+    print("Finally!")
 
-assert x == 6
+
+# Several exception types
+try:
+    x = 1 / 0
+    assert False
+except (ZeroDivisionError, RuntimeError) as ex:
+    print("Exception: ", ex)
+finally:
+    print("Finally!")
+
+# Multi "expect" clauses
+try:
+    x = 1 / 0
+    assert False
+except ZeroDivisionError as ex:
+    print("Exception: ", ex)
+except FileNotFoundError as ex:
+    print("Exception: ", ex)
+finally:
+    print("Finally!")
