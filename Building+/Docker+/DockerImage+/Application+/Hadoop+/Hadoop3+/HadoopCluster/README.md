@@ -1,7 +1,10 @@
 # Hadoop3 and Spark3 cluster  (HDFS, YARN, Spark)
 
 ## TODO
-1. Setup active failover (https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html)
+1. Fix Standby NameNode on `slave 1`
+1. Run daemons under specific Linux users (`hdfs`, `yarn`, `spark`)
+1. Setup Secirity (Kerberos, encryption)
+1. Setup active failover (https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html)
 1. Add Docker HEALTHCHECK
 1. Publish to Docker Hub
 

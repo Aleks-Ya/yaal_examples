@@ -13,12 +13,8 @@ echo "Starting StandbyNode..."
 hdfs namenode -bootstrapStandby
 echo "StandbyNode started."
 
-echo "Starting NameNode..."
-hadoop-daemon.sh --script hdfs start namenode
-echo "NameNode started."
-
 echo "Starting DataNode..."
-hadoop-daemon.sh --script hdfs start datanode
+hdfs --daemon start datanode
 echo "DataNode started."
 
 echo "Starting NodeManager..."
@@ -29,9 +25,9 @@ SIGINT=2
 SIGTERM=15
 stop()
 {
-  hadoop-daemon.sh --script hdfs stop datanode
-  hadoop-daemon.sh --script hdfs stop namenode
-  hadoop-daemon.sh --script stop journalnode
+  hdfs --daemon stop datanode
+  hdfs --daemon stop namenode
+  hdfs --daemon stop journalnode
   exit 0
 }
 trap stop $SIGINT $SIGTERM
