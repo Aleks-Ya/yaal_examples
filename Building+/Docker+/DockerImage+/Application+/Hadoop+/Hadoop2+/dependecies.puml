@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+component CentOs7
+file Hadoop2.7
+component HadoopBaseImage
+component SparkBaseImage
+component HadoopCluster
+
+HadoopBaseImage --> CentOs7
+HadoopBaseImage --> Hadoop2.7
+SparkBaseImage --> HadoopBaseImage
+HadoopCluster --> SparkBaseImage
+
+@enduml

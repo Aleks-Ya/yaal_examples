@@ -6,14 +6,11 @@ export SPARK_VERSION=$3
 export IMAGE_VERSION=$4
 
 if [[ -z ${HADOOP_VERSION} ]] || [[ -z ${HADOOP_IMAGE_VERSION} ]] || [[ -z ${SPARK_VERSION} ]] || [[ -z ${IMAGE_VERSION} ]]; then
-  echo 'Error: wrong parameters. Example: "./build.sh 3.2.2 1.0 3.1.2 1.0"'
+  echo 'Error: wrong parameters. Example: "./build.sh 2.10.1 1.0 2.4.8 1.0"'
   exit 1
 fi
-if [[ $HADOOP_VERSION == 3* ]];  then
-	export HADOOP_BUILD_VERSION=3.2
-else
-	export HADOOP_BUILD_VERSION=2.7
-fi
+export HADOOP_BUILD_VERSION=2.7
+
 
 echo "Hadoop image: ${HADOOP_IMAGE}"
 echo "Spark version: ${SPARK_VERSION}"

@@ -1,6 +1,6 @@
 FROM centos:7
 
-RUN yum install -y java wget
+RUN yum update -y && yum install -y java wget net-tools nano telnet less which
 
 ARG HADOOP_VERSION
 

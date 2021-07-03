@@ -1,7 +1,7 @@
 # Hadoop cluster (HDFS, YARN, Spark)
 
 ## TODO
-1. Setup active failover (https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html)
+1. Setup active failover (https://hadoop.apache.org/docs/r2.10.1/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html)
 1. Add Docker HEALTHCHECK
 1. Publish to Docker Hub
 

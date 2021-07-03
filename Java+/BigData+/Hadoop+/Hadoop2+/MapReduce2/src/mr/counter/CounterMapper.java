@@ -14,7 +14,7 @@ public class CounterMapper extends Mapper<Text, Text, Text, DoubleWritable> {
     static final String COUNTER_GROUP = "my";
     static final String COUNTER = "reachPeople";
 
-    enum MyCounter {
+    public enum MyCounter {
         PERSONS, LAST_TIME
     }
 
