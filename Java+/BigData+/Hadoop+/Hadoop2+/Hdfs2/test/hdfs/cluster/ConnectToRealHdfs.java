@@ -15,12 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Connect to a real HDFS cluster.
+ * Run Hadoop cluster (`Building+/Docker+/DockerImage+/Application+/Hadoop+/Hadoop2+/HadoopCluster`)
  */
 class ConnectToRealHdfs {
     @Test
     void test() throws IOException, URISyntaxException, InterruptedException {
         var conf = new Configuration();
-        var hdfsURI = "hdfs://ECSE00100BDE.epam.com:8020";
+        var hdfsURI = "hdfs://master-service:8020";
         conf.set("fs.defaultFS", hdfsURI);
         conf.set("dfs.permissions.enabled", "false");
         var user = "root";
