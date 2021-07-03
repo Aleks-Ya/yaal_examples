@@ -11,8 +11,11 @@ echo "JournalNode started."
 
 echo "Starting StandbyNode..."
 hdfs namenode -bootstrapStandby
+echo "StandbyNode started."
+
+echo "Starting NameNode..."
 hadoop-daemon.sh --script hdfs start namenode
-echo "JournalNode started."
+echo "NameNode started."
 
 echo "Starting DataNode..."
 hadoop-daemon.sh --script hdfs start datanode

@@ -21,12 +21,18 @@ echo "Starting DataNode..."
 hadoop-daemon.sh --script hdfs start datanode
 echo "DataNode started."
 
+echo "Activating NameNode..."
 hdfs haadmin -transitionToActive --forceactive nn1
-start-yarn.sh
+echo "NameNode is activated."
 
-# Start Spark History Server
+echo "Starting YARN..."
+start-yarn.sh
+echo "YARN started."
+
+echo "Starting SparkHistoryServer..."
 hdfs dfs -mkdir -p /shared/spark-logs
 start-history-server.sh
+echo "SparkHistoryServer started"
 
 SIGINT=2
 SIGTERM=15
