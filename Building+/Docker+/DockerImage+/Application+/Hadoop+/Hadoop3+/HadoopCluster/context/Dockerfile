@@ -3,8 +3,6 @@ ARG SPARK_VERSION
 ARG SPARK_BASE_IMAGE_TAG
 FROM spark-base-image-${SPARK_VERSION}-hadoop-${HADOOP_VERSION}:${SPARK_BASE_IMAGE_TAG}
 
-RUN yum install -y which net-tools nano telnet less
-
 ENV JAVA_HOME=/etc/alternatives/jre
 ENV HADOOP_HOME=/opt/hadoop
 ENV HADOOP_HOME=${HADOOP_HOME}
