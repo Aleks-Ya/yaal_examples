@@ -4,6 +4,8 @@
 1. Setup active failover (https://hadoop.apache.org/docs/r2.10.1/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html)
 1. Add Docker HEALTHCHECK
 1. Publish to Docker Hub
+1. Setup security (Kerberos, encryption)
+1. Fix JournalNode start
 
 ## Build images
 Choose Hadoop and Spark versions in `.env` file.
