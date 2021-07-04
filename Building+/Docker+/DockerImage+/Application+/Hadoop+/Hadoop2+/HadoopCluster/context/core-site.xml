@@ -13,4 +13,12 @@
        <value>org.apache.hadoop.hdfs.DistributedFileSystem</value>
        <description>The FileSystem for hdfs: uris.</description>
     </property>
+    <property>
+        <name>ipc.client.connect.max.retries</name>
+        <value>50</value>
+    </property>
+    <property>
+        <name>ipc.client.connect.retry.interval</name>
+        <value>3000</value>
+    </property>
 </configuration>

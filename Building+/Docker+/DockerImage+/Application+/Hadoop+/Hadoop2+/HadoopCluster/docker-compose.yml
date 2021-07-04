@@ -11,6 +11,8 @@ services:
     entrypoint: ./entrypoint_master.sh
     volumes:
       - /tmp/hadoop-cluster-logs/master:/tmp/logs
+    depends_on:
+      - postgres
   slave-service-1:
     container_name: hadoop-cluster-slave-1
     image: hadoop-cluster-slave-1
@@ -45,6 +47,13 @@ services:
     entrypoint: ./entrypoint_slave_2.sh
     volumes:
       - /tmp/hadoop-cluster-logs/slave-2:/tmp/logs
+  postgres:
+    container_name: hadoop-postgres
+    image: postgres:13
+    hostname: hadoop-postgres
+    tty: true
+    environment:
+      POSTGRES_PASSWORD: the_postgres_pass
 networks:
   default:
     name: hadoop-cluster-network

@@ -8,7 +8,9 @@ echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
 useradd -m -g root hdfs
 useradd -m -g root yarn
 useradd -m -g root spark
-chmod -R g+w /tmp/logs
+useradd -m -g root hive
+chmod -R g+w /tmp
+chmod -R g+w /opt/hadoop
 
 echo "Starting HDFS..."
 su hdfs -c "hadoop-daemon.sh start journalnode"
@@ -28,6 +30,15 @@ su hdfs -c "hdfs dfs -mkdir -p /shared/spark-logs"
 su hdfs -c "hdfs dfs -chown -R spark /shared/spark-logs"
 su spark -c "start-history-server.sh"
 echo "Spark started."
+
+echo "Starting Hive..."
+su hdfs -c "hdfs dfs -mkdir -p /user/hive/warehouse"
+su hdfs -c "hdfs dfs -chown -R hive /user/hive/warehouse"
+su hive -c "PGPASSWORD=the_postgres_pass psql -h hadoop-postgres -p 5432 -U postgres -c 'CREATE DATABASE hive'"
+su hive -c "schematool -dbType postgres -initSchema -userName postgres -passWord the_postgres_pass -verbose"
+#su hive -c "hiveserver2"
+#su yarn -c "start-yarn.sh"
+echo "Hive started."
 
 SIGINT=2
 SIGTERM=15

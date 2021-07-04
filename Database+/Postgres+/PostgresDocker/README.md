@@ -4,14 +4,21 @@ Source: https://hub.docker.com/_/postgres/
 
 ## Run
 ```
-docker run \
+docker run --rm \
   --name postgres13 \
   -e POSTGRES_USER=pguser \
   -e POSTGRES_PASSWORD=pgpass \
-  -d postgres:13
+  postgres:13
 ```
 
-## Connect via PSQL
+## Check connection with telnet
+```
+export POSTGRES_IP=$(docker inspect --format='{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres13)
+telnet $POSTGRES_IP 5432
+```
+
+## Connect with PSQL
+### From another container
 ```
 docker run -it --rm \
   --link postgres13:postgres \
@@ -19,6 +26,15 @@ docker run -it --rm \
   postgres:13 \
   psql -h postgres -U pguser
 ```
+### From host OS
+Install PSQL: `sudo apt install -y postgresql-client-12`
+Connect:
+```
+export POSTGRES_IP=$(docker inspect --format='{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres13)
+export PGPASSWORD=pgpass
+psql -h $POSTGRES_IP -p 5432 -U pguser -d postgres
+```
+
 
 ## Execute single command
 ```
@@ -50,7 +66,7 @@ docker run -it --rm \
 ```
 
 ## Connect via JDBC
-Container IP: `docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres13`
-URL: `jdbc:postgresql://172.17.0.2:5432/postgres`
+Container IP: `export POSTGRES_IP=$(docker inspect --format='{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres13)`
+URL: `jdbc:postgresql://${POSTGRES_IP}:5432/postgres`
 Login: `pguser`
 Password: `pgpass`
