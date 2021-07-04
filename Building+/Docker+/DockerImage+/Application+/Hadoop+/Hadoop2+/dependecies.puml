@@ -4,12 +4,14 @@
 component CentOs7
 file Hadoop2.7
 component HadoopBaseImage
+component HiveBaseImage
 component SparkBaseImage
 component HadoopCluster
 
 HadoopBaseImage --> CentOs7
 HadoopBaseImage --> Hadoop2.7
-SparkBaseImage --> HadoopBaseImage
+HiveBaseImage --> HadoopBaseImage
+SparkBaseImage --> HiveBaseImage
 HadoopCluster --> SparkBaseImage
 
 @enduml

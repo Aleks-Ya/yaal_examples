@@ -1,13 +1,14 @@
-ARG HADOOP_IMAGE
-FROM ${HADOOP_IMAGE}
+ARG HIVE_BASE_IMAGE
+FROM ${HIVE_BASE_IMAGE}
 ARG SPARK_VERSION
 ARG HADOOP_BUILD_VERSION
 
 ENV SPARK_DIR=/opt/spark
+ENV SPARK_TGZ=/tmp/spark.tgz
 
-RUN wget -O /tmp/spark.tgz http://mirror.linux-ia64.org/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_BUILD_VERSION}.tgz \
-  && tar -zxvf /tmp/spark.tgz -C /opt/ \
+RUN wget -O ${SPARK_TGZ} https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_BUILD_VERSION}.tgz \
+  && tar -zxvf ${SPARK_TGZ} -C /opt/ \
   && mv /opt/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_BUILD_VERSION} ${SPARK_DIR} \
-  && rm -f /tmp/spark.tgz
+  && rm -f ${SPARK_TGZ}
 
 WORKDIR ${SPARK_DIR}
