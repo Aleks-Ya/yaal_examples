@@ -6,9 +6,7 @@ services:
     build:
       context: context
       args:
-        - HADOOP_VERSION=${HADOOP_VERSION}
-        - SPARK_VERSION=${SPARK_VERSION}
-        - SPARK_BASE_IMAGE_TAG=${SPARK_BASE_IMAGE_TAG}
+        - SPARK_BASE_IMAGE=${SPARK_BASE_IMAGE}
     hostname: master-service
     entrypoint: ./entrypoint_master.sh
     volumes:
@@ -19,9 +17,7 @@ services:
     build:
       context: context
       args:
-        - HADOOP_VERSION=${HADOOP_VERSION}
-        - SPARK_VERSION=${SPARK_VERSION}
-        - SPARK_BASE_IMAGE_TAG=${SPARK_BASE_IMAGE_TAG}
+        - SPARK_BASE_IMAGE=${SPARK_BASE_IMAGE}
     hostname: slave-service-1
     links:
       - master-service
@@ -37,9 +33,7 @@ services:
     build:
       context: context
       args:
-        - HADOOP_VERSION=${HADOOP_VERSION}
-        - SPARK_VERSION=${SPARK_VERSION}
-        - SPARK_BASE_IMAGE_TAG=${SPARK_BASE_IMAGE_TAG}
+        - SPARK_BASE_IMAGE=${SPARK_BASE_IMAGE}
     hostname: slave-service-2
     links:
       - master-service
