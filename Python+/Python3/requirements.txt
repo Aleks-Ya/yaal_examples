@@ -16,3 +16,4 @@ numpy
 pandas
 sklearn
 joblib
+hdfs[avro,dataframe,kerberos]

@@ -2,7 +2,7 @@
 
 ## MiniCluster
 Docs: https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/CLIMiniCluster.html
-
+Run: `mapred minicluster -rmport 555 -jhsport 556`
 
 ## Deprecated
 Source: https://hub.docker.com/r/sequenceiq/hadoop-docker
