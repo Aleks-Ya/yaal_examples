@@ -8,10 +8,10 @@ Run: `mapred minicluster -rmport 555 -jhsport 556`
 Source: https://hub.docker.com/r/sequenceiq/hadoop-docker
 
 ### Run
-`docker run -it sequenceiq/hadoop-docker:2.7.1 /etc/bootstrap.sh -bash`
+`docker run -it --network host sequenceiq/hadoop-docker:2.7.1 /etc/bootstrap.sh -bash`
 
 ### HDFS UI
-`http://172.17.0.2:50070`
+`http://localhost:50070`
 
 ### Test
 #### Map reduce
