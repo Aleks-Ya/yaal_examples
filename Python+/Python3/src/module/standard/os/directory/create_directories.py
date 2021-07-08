@@ -1,7 +1,6 @@
 # Create a directory hierarchy
 import os
 import tempfile
-from csv import excel
 
 tmp_dir = tempfile.mkdtemp()
 not_exist_path = tmp_dir + "/d1/d2"
