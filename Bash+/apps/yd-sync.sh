@@ -8,7 +8,7 @@ if [ ! -z "$(ls -A $dir)" ]; then
 		exit 1
 	fi		
 	echo "Running Yandex Disk sync..."
-	yandex-disk sync --dir=$dir
+	yandex-disk sync --dir=$dir --exclude-dirs=Lubov
 	echo "Yandex Disk synced." 
 else 
 	echo "Target dir '$dir' is not mounted (empty)"
