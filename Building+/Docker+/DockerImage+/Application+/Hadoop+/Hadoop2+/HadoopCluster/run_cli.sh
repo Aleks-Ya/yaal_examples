@@ -9,4 +9,4 @@ docker run --rm -it \
   --mount type=bind,source=$HOST_DIR,target=$CONTAINER_DIR \
   --workdir $CONTAINER_DIR \
   hadoop-cluster-master \
-  bash
+  /opt/hadoop/entrypoint_client.sh
