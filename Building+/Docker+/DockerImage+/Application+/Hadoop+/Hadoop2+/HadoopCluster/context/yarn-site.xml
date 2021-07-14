@@ -36,4 +36,12 @@
         <value>b1,b2,b3</value>
         <description>The queues at the this level (root is the root queue).</description>
     </property>
+    <property>
+        <name>yarn.resourcemanager.recovery.enabled</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.store.class</name>
+        <value>org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore</value>
+    </property>
 </configuration>

@@ -21,4 +21,8 @@
         <name>ipc.client.connect.retry.interval</name>
         <value>3000</value>
     </property>
+    <property>
+        <name>hadoop.zk.address</name>
+        <value>zookeeper-1:2181,zookeeper-2:2181</value>
+    </property>
 </configuration>
