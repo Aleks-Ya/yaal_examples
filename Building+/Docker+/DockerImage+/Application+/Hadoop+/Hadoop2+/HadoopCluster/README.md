@@ -17,7 +17,8 @@ Choose Hadoop and Spark versions in `.env` file.
 sudo ./update_hosts.sh
 ```
 
-## Hadoop CLI
+## CLI
+### Hadoop CLI
 Run Bash with Hadoop CLI available: `./run_cli.sh`
 
 Examples of commands:
@@ -25,7 +26,10 @@ Examples of commands:
 - See HDFS Name Node statuses: `hdfs haadmin -getAllServiceState`
 - See YARN nodes: `yarn node -list -all`
 - Run example YARN application: `${HADOOP_PREFIX}/run_yarn_example.sh`
-- Run example Spark application: `${HADOOP_PREFIX}/run_spark_example.sh`
+- Run example Spark application: `su hdfs`, `${HADOOP_PREFIX}/run_spark_example.sh`
+
+### ZooKeeper CLI
+Run ZooKeeper CLI: `./run_zk_cli.sh`
 
 ## Remove cluster
 `docker-compose down`

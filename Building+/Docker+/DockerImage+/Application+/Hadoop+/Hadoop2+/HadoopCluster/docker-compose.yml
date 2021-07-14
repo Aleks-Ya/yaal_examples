@@ -13,6 +13,7 @@ services:
       - /tmp/hadoop-cluster-logs/master:/tmp/logs
     depends_on:
       - postgres
+      - zookeeper-1
   slave-service-1:
     container_name: hadoop-cluster-slave-1
     image: hadoop-cluster-slave-1
@@ -54,6 +55,22 @@ services:
     tty: true
     environment:
       POSTGRES_PASSWORD: the_postgres_pass
+  zookeeper-1:
+    container_name: hadoop-zk-1
+    image: zookeeper
+    hostname: hadoop-zk-1
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=hadoop-zk-2:2888:3888;2181
+    depends_on:
+      - zookeeper-2
+  zookeeper-2:
+    container_name: hadoop-zk-2
+    image: zookeeper
+    hostname: hadoop-zk-2
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=hadoop-zk-1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181
 networks:
   default:
     name: hadoop-cluster-network
