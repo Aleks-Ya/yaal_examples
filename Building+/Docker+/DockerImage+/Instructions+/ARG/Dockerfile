@@ -1,0 +1,10 @@
+ARG ALPINE_VERSION
+FROM alpine:${ALPINE_VERSION}
+ARG ALPINE_VERSION # Make ALPINE_VERSION available after FROM
+
+ARG PERSON
+
+# ARGs are not available in CMD
+ENV NAME=$PERSON             
+ENV VERSION=$ALPINE_VERSION
+CMD echo "Hello, ${NAME}, from Alpine-${VERSION}"
