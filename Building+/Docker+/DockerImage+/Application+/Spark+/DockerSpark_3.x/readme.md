@@ -1,5 +1,6 @@
 # DockerSpark
 
+DockerHub: https://hub.docker.com/r/bde2020/spark-master
 GitHub: https://github.com/big-data-europe/docker-spark
 
 Run: 
