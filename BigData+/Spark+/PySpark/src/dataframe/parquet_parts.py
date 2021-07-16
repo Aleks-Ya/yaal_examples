@@ -4,9 +4,9 @@ from __future__ import print_function
 import os
 import tempfile
 
-from src.util import create_spark_and_sql_contexts
+from src.util import create_spark_session_and_sql_contexts
 
-sparkContext, sqlContext = create_spark_and_sql_contexts(__file__)
+ss, sqlContext = create_spark_session_and_sql_contexts(__file__)
 
 columns = ['id', 'name', 'age', 'gender']
 values = [
@@ -34,4 +34,4 @@ df2.show()
 diff = df2.exceptAll(df)
 assert diff.count() == 0
 
-sparkContext.stop()
+ss.stop()

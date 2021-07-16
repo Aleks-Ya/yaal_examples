@@ -4,16 +4,16 @@ import pandas as pd
 from pyspark.sql.functions import udf
 from pyspark.sql.types import IntegerType, FloatType, ArrayType
 
-from util import create_spark_context
+from util import create_spark_session
 
-spark = create_spark_context(__file__)
+ss = create_spark_session(__file__)
 
 df_pd = pd.DataFrame(
     data={'integers': [1, 2, 3],
           'floats': [-1.0, 0.5, 2.7],
           'integer_arrays': [[1, 2], [3, 4, 5], [6, 7, 8, 9]]}
 )
-df = spark.createDataFrame(df_pd)
+df = ss.createDataFrame(df_pd)
 df.printSchema()
 df.show()
 
@@ -37,4 +37,4 @@ converted_df = df.select('integers', 'floats', 'integer_arrays',
 
 converted_df.show()
 
-spark.stop()
+ss.stop()

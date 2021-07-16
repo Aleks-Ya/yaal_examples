@@ -4,14 +4,14 @@ import pandas as pd
 from pyspark.sql.functions import udf
 from pyspark.sql.types import IntegerType, FloatType, ArrayType, StringType
 
-from util import create_spark_context
+from util import create_spark_session
 
-spark = create_spark_context(__file__)
+ss = create_spark_session(__file__)
 
 df_pd = pd.DataFrame(
     data={'integers': [1, 2, 3]}
 )
-df = spark.createDataFrame(df_pd)
+df = ss.createDataFrame(df_pd)
 df.printSchema()
 df.show()
 
@@ -38,4 +38,4 @@ converted_df = df.select('integers', udf_int('integers').alias('int_processed'))
 
 converted_df.show()
 
-spark.stop()
+ss.stop()

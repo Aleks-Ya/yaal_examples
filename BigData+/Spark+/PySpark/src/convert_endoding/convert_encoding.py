@@ -3,7 +3,7 @@ from __future__ import print_function
 import os
 import tempfile
 
-from util import create_spark_context
+from util import create_spark_session
 
 if __name__ == "__main__":
     input_file = os.path.join(os.getcwd(), 'win1251.csv')
@@ -11,9 +11,9 @@ if __name__ == "__main__":
     output_file = os.path.join(temp_dir, 'utf8.csv')
     print(f'Output file: {output_file}')
 
-    spark = create_spark_context("ConvertEncoding")
+    ss = create_spark_session("ConvertEncoding")
 
-    lines = spark.read.csv(input_file, encoding='Windows-1251')
+    lines = ss.read.csv(input_file, encoding='Windows-1251')
     lines.write.csv(output_file, encoding='UTF-8')
 
-    spark.stop()
+    ss.stop()

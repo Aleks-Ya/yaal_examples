@@ -1,8 +1,8 @@
 from __future__ import print_function
 
-from src.util import create_spark_and_sql_contexts
+from src.util import create_spark_session_and_sql_contexts
 
-sparkContext, sqlContext = create_spark_and_sql_contexts(__file__)
+ss, sqlContext = create_spark_session_and_sql_contexts(__file__)
 
 columns = ['id', 'dogs', 'cats']
 values = [
@@ -14,4 +14,4 @@ df = sqlContext.createDataFrame(values, columns)
 
 df.show()
 
-sparkContext.stop()
+ss.stop()
