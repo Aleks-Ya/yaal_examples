@@ -1,0 +1,24 @@
+version: '3'
+services:
+  master:
+    container_name: spark-standalone-cluster-master
+    image: spark-standalone
+    hostname: spark-standalone-cluster-master
+    entrypoint: ./entrypoint_master.sh
+  slave-1:
+    container_name: spark-standalone-cluster-slave-1
+    image: spark-standalone
+    hostname: spark-standalone-cluster-slave-1
+    entrypoint: ./entrypoint_slave_1.sh
+    depends_on:
+      - master
+  slave-2:
+    container_name: spark-standalone-cluster-slave-2
+    image: spark-standalone
+    hostname: spark-standalone-cluster-slave-2
+    entrypoint: ./entrypoint_slave_2.sh
+    depends_on:
+      - master
+networks:
+  default:
+    name: spark-standalone-cluster-network
