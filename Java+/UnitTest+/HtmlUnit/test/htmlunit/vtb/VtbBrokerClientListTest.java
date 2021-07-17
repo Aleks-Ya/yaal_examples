@@ -1,5 +1,7 @@
-package htmlunit;
+package htmlunit.vtb;
 
+import htmlunit.vtb.VtbBrokerClientList;
+import htmlunit.vtb.VtbBrokerLogin;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;

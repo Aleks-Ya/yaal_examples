@@ -1,4 +1,4 @@
-package htmlunit;
+package htmlunit.vtb;
 
 import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 class VtbBrokerClientList {
-    private final VtbBrokerLogin.AuthData authData;
+    private final AuthData authData;
 
-    VtbBrokerClientList(VtbBrokerLogin.AuthData authData) {
+    VtbBrokerClientList(AuthData authData) {
         this.authData = authData;
     }
 

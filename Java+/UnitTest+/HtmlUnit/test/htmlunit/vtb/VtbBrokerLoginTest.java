@@ -1,4 +1,4 @@
-package htmlunit;
+package htmlunit.vtb;
 
 import org.junit.jupiter.api.Test;
 
