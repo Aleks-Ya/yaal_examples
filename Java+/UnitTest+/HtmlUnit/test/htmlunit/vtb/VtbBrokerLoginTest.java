@@ -13,8 +13,8 @@ class VtbBrokerLoginTest {
         var vtbPassword = System.getProperty("vtb_password");
         var login = new VtbBrokerLogin(vtbLogin, vtbPassword);
         var auth = login.login();
-        assertNotNull(auth.getVtbAuthCookie());
-        assertNotNull(auth.getAspSessionIdCookie());
+        assertNotNull(auth.getAuthCookie());
+        assertNotNull(auth.getAspCookie());
         assertNotNull(auth.getSlbCookie());
     }
 

@@ -15,11 +15,11 @@ class AuthData {
         return slbCookie;
     }
 
-    public String getAspSessionIdCookie() {
+    public String getAspCookie() {
         return aspSessionIdCookie;
     }
 
-    public String getVtbAuthCookie() {
+    public String getAuthCookie() {
         return vtbAuthCookie;
     }
 }

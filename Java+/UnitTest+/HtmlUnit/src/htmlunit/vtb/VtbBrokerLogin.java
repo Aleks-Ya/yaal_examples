@@ -5,6 +5,11 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
+import static htmlunit.vtb.Constants.ASP_COOKIE;
+import static htmlunit.vtb.Constants.AUTH_COOKIE;
+import static htmlunit.vtb.Constants.SLB_COOKIE;
+import static htmlunit.vtb.Constants.VTB_BASE_URL;
+
 class VtbBrokerLogin {
     private final String username;
     private final String password;
@@ -21,7 +26,7 @@ class VtbBrokerLogin {
             webClient.setIncorrectnessListener((message, origin) -> {
             });
 
-            HtmlPage page = webClient.getPage("https://lk.olb.ru");
+            HtmlPage page = webClient.getPage(VTB_BASE_URL);
             var forms = page.getForms();
             if (forms.size() != 1) {
                 throw new LoginException("Expected 1 form, but found " + forms.size());
@@ -38,12 +43,12 @@ class VtbBrokerLogin {
             passwordInput.type(password);
             submitInput.click();
             var cookieManager = webClient.getCookieManager();
-            var vtbAuthCookie = cookieManager.getCookie(".vtb-auth");
+            var vtbAuthCookie = cookieManager.getCookie(AUTH_COOKIE);
             if (vtbAuthCookie == null) {
                 throw new NotAuthorizedException();
             }
-            var aspSessionIdCookie = cookieManager.getCookie("ASP.NET_SessionId");
-            var slbCookie = cookieManager.getCookie("slb");
+            var aspSessionIdCookie = cookieManager.getCookie(ASP_COOKIE);
+            var slbCookie = cookieManager.getCookie(SLB_COOKIE);
             System.out.println("Logged in.");
             return new AuthData(vtbAuthCookie.getValue(), aspSessionIdCookie.getValue(), slbCookie.getValue());
         } catch (LoginException e) {
