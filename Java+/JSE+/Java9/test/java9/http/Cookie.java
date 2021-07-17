@@ -21,7 +21,7 @@ public class Cookie {
     private static final int SUCCESS_STATUS = 200;
 
     @Test
-    public void setCookies() throws IOException, InterruptedException {
+    public void setCookiesByServer() throws IOException, InterruptedException {
         var cookieName1 = "abc";
         var cookieValue1 = "1";
         var cookiePair1 = cookieName1 + "=" + cookieValue1;
@@ -75,6 +75,35 @@ public class Cookie {
             assertThat(requestCookieHeader, equalTo("abc=1; efg=2"));
         }
         server.shutdown();
+    }
+
+    @Test
+    public void setCookiesByClient() throws IOException, InterruptedException {
+        var cookieName1 = "abc";
+        var cookieValue1 = "1";
+        var cookiePair1 = cookieName1 + "=" + cookieValue1;
+        var body1 = "body1";
+
+        var server = new MockWebServer();
+        server.enqueue(new MockResponse().setBody(body1));
+        server.start();
+        var baseUrl = server.url("/").uri();
+
+        var httpClient = HttpClient.newBuilder().build();
+        var request = HttpRequest.newBuilder()
+                .uri(baseUrl)
+                .header("Cookie", cookiePair1)
+                .GET()
+                .build();
+        var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        assertThat(response.statusCode(), equalTo(SUCCESS_STATUS));
+        assertThat(response.body(), equalTo(body1));
+
+        var request1 = server.takeRequest();
+        var headers = request1.getHeaders();
+        var actCookies = headers.get("Cookie");
+        server.shutdown();
+        assertThat(actCookies, equalTo(cookiePair1));
     }
 
 }
