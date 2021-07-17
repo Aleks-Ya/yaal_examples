@@ -15,6 +15,7 @@ class VtbBrokerLogin {
     }
 
     AuthData login() {
+        System.out.println("Logging in...");
         try (var webClient = new WebClient()) {
             webClient.setCssErrorHandler(new SilentCssErrorHandler());
             webClient.setIncorrectnessListener((message, origin) -> {
@@ -43,6 +44,7 @@ class VtbBrokerLogin {
             }
             var aspSessionIdCookie = cookieManager.getCookie("ASP.NET_SessionId");
             var slbCookie = cookieManager.getCookie("slb");
+            System.out.println("Logged in.");
             return new AuthData(vtbAuthCookie.getValue(), aspSessionIdCookie.getValue(), slbCookie.getValue());
         } catch (LoginException e) {
             throw e;

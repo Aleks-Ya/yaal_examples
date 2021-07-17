@@ -7,7 +7,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 import com.gargoylesoftware.htmlunit.util.Cookie;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 class VtbBrokerClientList {
@@ -18,6 +17,7 @@ class VtbBrokerClientList {
     }
 
     AgreementData clientList() {
+        System.out.println("Getting client list...");
         try (var webClient = new WebClient()) {
             webClient.setCssErrorHandler(new SilentCssErrorHandler());
             webClient.setIncorrectnessListener((message, origin) -> {
@@ -33,21 +33,10 @@ class VtbBrokerClientList {
             var options = clientCode.getOptions().stream()
                     .map(HtmlOption::getValueAttribute)
                     .collect(Collectors.toList());
+            System.out.println("Got client list: " + options);
             return new AgreementData(options);
         } catch (Exception e) {
             throw new ClientListException(e);
-        }
-    }
-
-    static class AgreementData {
-        private final List<String> agreements;
-
-        AgreementData(List<String> agreements) {
-            this.agreements = agreements;
-        }
-
-        public List<String> getAgreements() {
-            return agreements;
         }
     }
 
