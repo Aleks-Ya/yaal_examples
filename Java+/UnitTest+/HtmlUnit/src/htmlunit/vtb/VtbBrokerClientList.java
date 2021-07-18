@@ -9,7 +9,6 @@ import com.gargoylesoftware.htmlunit.util.Cookie;
 
 import java.util.stream.Collectors;
 
-import static htmlunit.vtb.Constants.ASP_COOKIE;
 import static htmlunit.vtb.Constants.AUTH_COOKIE;
 import static htmlunit.vtb.Constants.SLB_COOKIE;
 import static htmlunit.vtb.Constants.VTB_DOMAIN;
@@ -31,7 +30,6 @@ class VtbBrokerClientList {
 
             var cookieManager = webClient.getCookieManager();
             cookieManager.addCookie(new Cookie(VTB_DOMAIN, AUTH_COOKIE, authData.getAuthCookie(), "/", -1, true));
-            cookieManager.addCookie(new Cookie(VTB_DOMAIN, ASP_COOKIE, authData.getAspCookie()));
             cookieManager.addCookie(new Cookie(VTB_DOMAIN, SLB_COOKIE, authData.getSlbCookie()));
             HtmlPage page = webClient.getPage(VTB_REPORTS_URL);
             var clientCode = (HtmlSelect) page.getElementById("ClientCode");

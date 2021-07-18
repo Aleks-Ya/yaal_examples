@@ -14,7 +14,6 @@ class VtbBrokerLoginTest {
         var login = new VtbBrokerLogin(vtbLogin, vtbPassword);
         var auth = login.login();
         assertNotNull(auth.getAuthCookie());
-        assertNotNull(auth.getAspCookie());
         assertNotNull(auth.getSlbCookie());
     }
 
