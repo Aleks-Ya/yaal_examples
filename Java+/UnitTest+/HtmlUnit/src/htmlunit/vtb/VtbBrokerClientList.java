@@ -34,10 +34,6 @@ class VtbBrokerClientList {
         public ClientListException(Throwable cause) {
             super(cause);
         }
-
-        public ClientListException(String message) {
-            super(message);
-        }
     }
 
 }

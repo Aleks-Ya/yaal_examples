@@ -2,9 +2,6 @@ package htmlunit.vtb;
 
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-
 class VtbBrokerReportRequestTest {
 
     @Test
@@ -17,11 +14,8 @@ class VtbBrokerReportRequestTest {
         var clients = new VtbBrokerClientList(auth);
         var agreementData = clients.clientList();
 
-//        var auth = new AuthData("");
-
         var reportRequest = new VtbBrokerReportRequest(auth, agreementData);
         reportRequest.sendReportRequest();
-        assertThat(agreementData.getAgreements(), containsInAnyOrder("710H6840", "75529790", "75529792", "75529791"));
     }
 
 }
