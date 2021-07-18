@@ -1,7 +1,5 @@
 package htmlunit.vtb;
 
-import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
-import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
@@ -20,11 +18,7 @@ class VtbBrokerLogin {
 
     AuthData login() {
         System.out.println("Logging in...");
-        try (var webClient = new WebClient()) {
-            webClient.setCssErrorHandler(new SilentCssErrorHandler());
-            webClient.setIncorrectnessListener((message, origin) -> {
-            });
-
+        try (var webClient = WebClientFactory.create()) {
             HtmlPage page = webClient.getPage(VTB_BASE_URL);
             var forms = page.getForms();
             if (forms.size() != 1) {

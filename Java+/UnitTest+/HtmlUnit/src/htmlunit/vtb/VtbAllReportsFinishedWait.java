@@ -1,20 +1,14 @@
 package htmlunit.vtb;
 
-import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
-import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
-import com.gargoylesoftware.htmlunit.util.Cookie;
 
 import java.util.ArrayList;
 
-import static htmlunit.vtb.Constants.AUTH_COOKIE;
-import static htmlunit.vtb.Constants.SLB_COOKIE;
-import static htmlunit.vtb.Constants.VTB_DOMAIN;
 import static htmlunit.vtb.Constants.VTB_REPORTS_URL;
 
 class VtbAllReportsFinishedWait {
@@ -28,14 +22,7 @@ class VtbAllReportsFinishedWait {
 
     void waitUntilFinished() {
         System.out.printf("Waiting all reports are finished for agreement %s...\n", agreement);
-        try (var webClient = new WebClient()) {
-            webClient.setCssErrorHandler(new SilentCssErrorHandler());
-            webClient.setIncorrectnessListener((message, origin) -> {
-            });
-
-            var cookieManager = webClient.getCookieManager();
-            cookieManager.addCookie(new Cookie(VTB_DOMAIN, AUTH_COOKIE, authData.getAuthCookie(), "/", -1, true));
-            cookieManager.addCookie(new Cookie(VTB_DOMAIN, SLB_COOKIE, authData.getSlbCookie()));
+        try (var webClient = WebClientFactory.create(authData)) {
             HtmlPage page = webClient.getPage(VTB_REPORTS_URL);
 
             var getListForm = (HtmlForm) page.getElementById("getList");
