@@ -1,6 +1,5 @@
-# Run Hello World on a cluster
-from __future__ import print_function
-
+# Submits HelloWorld to a Standalone Spark cluster
+# (Building+/Docker+/DockerImage+/Application+/Spark+/SparkStandaloneDocker)
 from pyspark.sql import SparkSession
 
 if __name__ == "__main__":

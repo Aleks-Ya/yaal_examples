@@ -5,7 +5,8 @@ set -e
 echo "SPARK_HOME=$SPARK_HOME"
 echo "PWD=$PWD"
 
-useradd -m -g root spark
+. user.sh
+create_user root spark
 chmod -R g+w /tmp
 
 echo "Starting Spark Worker..."
