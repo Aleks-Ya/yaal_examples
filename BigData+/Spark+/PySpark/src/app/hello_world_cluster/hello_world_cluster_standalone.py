@@ -5,7 +5,7 @@ from pyspark.sql import SparkSession
 if __name__ == "__main__":
     ss = SparkSession \
         .builder \
-        .appName('HelloWorldCluster') \
+        .appName('HelloWorldClusterStandalone') \
         .master('spark://spark-standalone-cluster-master:7077') \
         .getOrCreate()
 
