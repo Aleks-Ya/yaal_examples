@@ -10,3 +10,7 @@ print(os.environ)
 # Set variable
 os.environ["NAME"] = "John"
 assert os.environ["NAME"] == "John"
+
+# Append PATH
+os.environ["PATH"] = f'{os.environ["PATH"]}:/abc'
+print(os.environ["PATH"])
