@@ -1,0 +1,9 @@
+#*/admin@HADOOPCLUSTER.LOCAL     xe
+#joeadmin@HADOOPCLUSTER.LOCAL   ADMCIL                          # line 2
+#joeadmin/*@HADOOPCLUSTER.LOCAL i   */root@HADOOPCLUSTER.LOCAL       # line 3
+#*/root@HADOOPCLUSTER.LOCAL     ci  *1@HADOOPCLUSTER.LOCAL           # line 4
+#*/root@HADOOPCLUSTER.LOCAL     l   *                           # line 5
+#sms@HADOOPCLUSTER.LOCAL        x   * -maxlife 9h -postdateable # line 6
+
+*/admin@HADOOPCLUSTER.LOCAL        *
+*/master.yaal.ru@HADOOPCLUSTER.LOCAL               *

@@ -1,11 +1,11 @@
-# Hadoop Single Node Cluster
+# Hadoop Base Image
 
 ## Documentation
 https://hadoop.apache.org/docs/r2.10.1/hadoop-project-dist/hadoop-common/SingleCluster.html
 
 ## Build image
-Hadoop version: 2.10.1 (version list: http://apache-mirror.rbc.ru/pub/apache/hadoop/common/)
+Available Hadoop versions list: http://apache-mirror.rbc.ru/pub/apache/hadoop/common/
 
-Image version: 1.0 (tag for created Docker image)
-
-`./build.sh 2.10.1 1.0`
+### Build Hadoop 2.10.1 
+Build: `./build.sh 2.10.1 1`  
+Result: Docker image `hadoop-base-image-2.10.1:1`

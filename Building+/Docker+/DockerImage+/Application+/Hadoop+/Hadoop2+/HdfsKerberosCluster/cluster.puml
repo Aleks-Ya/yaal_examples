@@ -1,0 +1,42 @@
+@startuml
+'https://plantuml.com/deployment-diagram
+
+
+node "master.yaal.ru" {
+    component NameNode
+    component DataNode1
+    component KerberosClient as KerberosClientM
+    actor "root:root" as RootM
+    actor "hadoop:hadoop" as HadoopM
+    actor "hdfs:hadoop" as HdfsM
+    person "hdfs/master.yaal.ru@HADOOPCLUSTER.LOCAL"
+    HdfsM --> NameNode: runs
+    HdfsM --> DataNode1: runs
+}
+node "slave1.yaal.ru" {
+    component DataNode2
+    component KerberosClient as KerberosClientS1
+    actor "root:root" as RootS1
+    actor "hadoop:hadoop" as HadoopS1
+    actor "hdfs:hadoop" as HdfsS1
+    person "hdfs/slave1.yaal.ru@HADOOPCLUSTER.LOCAL"
+    HdfsS1 --> DataNode2: runs
+}
+node "slave2.yaal.ru" {
+    component DataNode3
+    component KerberosClient as KerberosClientS2
+    actor "root:root" as RootS2
+    actor "hadoop:hadoop" as HadoopS2
+    actor "hdfs:hadoop" as HdfsS2
+    person "hdfs/slave2.yaal.ru@HADOOPCLUSTER.LOCAL"
+    HdfsS2 --> DataNode3: runs
+}
+node "kdc.yaal.ru" {
+    component KerberosKDC
+    component KerberosAdminClient
+    person "root/admin@HADOOPCLUSTER.LOCAL"
+    person "hadoop/admin@HADOOPCLUSTER.LOCAL"
+    actor "root:root" as RootKdc
+}
+
+@enduml

@@ -1,0 +1,51 @@
+version: '3'
+services:
+  master-service:
+    container_name: hdfs-kerberos-cluster-master
+    build:
+      context: context
+      args:
+        - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
+    hostname: master.yaal.ru
+    entrypoint: ./entrypoint_master.sh
+  slave-service-1:
+    container_name: hdfs-kerberos-cluster-slave-1
+    build:
+      context: context
+      args:
+        - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
+    hostname: slave1.yaal.ru
+    links:
+      - master-service
+    depends_on:
+      - master-service
+    tty: true
+    entrypoint: ./entrypoint_slave_1.sh
+  slave-service-2:
+    container_name: hdfs-kerberos-cluster-slave-2
+    build:
+      context: context
+      args:
+        - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
+    hostname: slave2.yaal.ru
+    links:
+      - master-service
+      - slave-service-1
+    depends_on:
+      - master-service
+      - slave-service-1
+    tty: true
+    entrypoint: ./entrypoint_slave_2.sh
+  kdc:
+    container_name: hdfs-kerberos-cluster-kdc
+    build:
+      context: kdc_context
+    hostname: kdc.yaal.ru
+    links:
+      - master-service
+      - slave-service-1
+      - slave-service-2
+    tty: true
+networks:
+  default:
+    name: hdfs-kerberos-cluster-network
