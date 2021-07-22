@@ -16,6 +16,6 @@ RUN mkdir -p ${HADOOP_LOG_DIR} \
   && tar -zxvf /tmp/hadoop.tar.gz -C /opt/ \
   && mv /opt/hadoop-${HADOOP_VERSION} ${HADOOP_PREFIX} \
   && rm -f /tmp/hadoop.tar.gz \
-  && chmod -R g+rw ${HADOOP_CONF_DIR}
+  && chmod -R g+rw ${HADOOP_CONF_DIR} ${HADOOP_LOG_DIR}
 
 WORKDIR ${HADOOP_PREFIX}
