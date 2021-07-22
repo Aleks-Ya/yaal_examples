@@ -1,0 +1,16 @@
+version: '3'
+services:
+  server-service:
+    container_name: shared-volume-server-container
+    image: alpine:latest
+    volumes:
+      - mydata:/tmp/vol
+    command: sh -c "echo the-server > /tmp/vol/server.txt && ls -l /tmp/vol/"
+  client-service:
+    container_name: shared-volume-client-container
+    image: alpine:latest
+    volumes:
+      - mydata:/tmp/vol
+    command: sh -c "echo the-client > /tmp/vol/client.txt && ls -l /tmp/vol/"
+volumes:
+  mydata:
