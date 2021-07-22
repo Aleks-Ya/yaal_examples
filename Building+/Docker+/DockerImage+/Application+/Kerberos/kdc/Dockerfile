@@ -12,6 +12,7 @@ ENV KRB5_KDC_PROFILE=${LOCALSTATEDIR}/kdc.conf
 ADD krb5.conf ${KRB5_CONFIG}
 ADD kdc.conf ${KRB5_KDC_PROFILE}
 ADD kadm5.acl ${LOCALSTATEDIR}/kadm5.acl
+ADD entrypoint.sh /tmp/entrypoint.sh
 
 RUN kdb5_util create -r ATHENA.MIT.EDU -s -P the_db_master_pass
 RUN kadmin.local -q "addprinc -pw the_admin_pass admin/admin@ATHENA.MIT.EDU" -p root/admin@ATHENA.MIT.EDU
@@ -23,4 +24,4 @@ EXPOSE 749
 EXPOSE 750
 EXPOSE 88
 
-CMD krb5kdc && kadmind && /bin/bash
+CMD krb5kdc && kadmind && /tmp/entrypoint.sh

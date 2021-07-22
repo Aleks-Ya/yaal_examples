@@ -1,0 +1,39 @@
+version: '3'
+services:
+  kdc:
+    container_name: kerberos-kdc
+    build:
+      context: kdc
+    hostname: kdc.kerberos.yaal.ru
+    tty: true
+    volumes:
+      - kerberos:/tmp/kerberos
+  admin-client:
+    container_name: kerberos-admin-client
+    build:
+      context: admin_client
+    hostname: admin-client.kerberos.yaal.ru
+    tty: true
+    links:
+      - kdc
+    depends_on:
+      - kdc
+    volumes:
+      - kerberos:/tmp/kerberos
+  client:
+    container_name: kerberos-client
+    build:
+      context: client
+    hostname: client.kerberos.yaal.ru
+    links:
+      - kdc
+    depends_on:
+      - kdc
+    tty: true
+    volumes:
+      - kerberos:/tmp/kerberos
+networks:
+  default:
+    name: kerberos-network
+volumes:
+  kerberos:
