@@ -21,8 +21,6 @@ RUN kdb5_util create -r LOCAL.REALM -s -P the_db_master_pass
 RUN kadmin.local -q "addprinc -pw the_sserver_pass $SSERVER_PRINCIPAL" -p $ROOT_PRINCIPAL
 RUN kadmin.local -q "addprinc -pw the_sclient_pass $SCLIENT_PRINCIPAL" -p $ROOT_PRINCIPAL
 
-EXPOSE 749
-EXPOSE 750
 EXPOSE 88
 
 CMD krb5kdc && /tmp/entrypoint.sh
