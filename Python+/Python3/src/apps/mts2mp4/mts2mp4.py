@@ -8,6 +8,31 @@ from subprocess import DEVNULL
 from typing import List, Dict
 
 
+class FileData:
+    def __init__(self, src_file: str, dest_file: str, src_file_size: int):
+        self.src_file = src_file
+        self.dest_file = dest_file
+        self.src_file_size = src_file_size
+
+    def __repr__(self):
+        size = str(round(self.src_file_size / 1000 / 1000)) + 'Mb'
+        return f'FileData[src_file={self.src_file}, dest_file={self.dest_file}, src_file_size={size}]'
+
+
+class FilesData:
+    def __init__(self, file_data_list: List[FileData]):
+        self.file_data_list = file_data_list
+        self.src_file_size_total = 0
+        for file_data in file_data_list:
+            self.src_file_size_total = self.src_file_size_total + file_data.src_file_size
+
+    def get_file_size_percent(self, file_data: FileData) -> float:
+        return file_data.src_file_size / self.src_file_size_total
+
+    def __repr__(self):
+        return str(self.file_data_list)
+
+
 def parse_bool(s: str) -> bool:
     return s.lower() in ("yes", "true", "t", "1")
 
@@ -24,13 +49,24 @@ def check_ffmpeg_availability():
         raise IOError("ffmpeg is not found")
 
 
-def find_mts_files(src_dir_arg: Path):
-    mts_files_result = []
+def compose_dest_file_name(dest_dir_arg: Path, mts_file: str) -> str:
+    p: Path = Path(mts_file)
+    name: str = p.stem + ".mp4"
+    dest: Path = Path(dest_dir_arg, name)
+    return str(dest)
+
+
+def find_mts_files(src_dir_arg: Path, dest_dir_arg: Path) -> FilesData:
+    file_data_list: List[FileData] = []
     for subdir, dirs, files in os.walk(src_dir_arg):
         for file in files:
             if file.lower().endswith("mts"):
-                mts_files_result.append(os.path.join(subdir, file))
-    return mts_files_result
+                src_file = os.path.join(subdir, file)
+                dest_file = compose_dest_file_name(dest_dir_arg, src_file)
+                src_file_size = os.path.getsize(src_file)
+                file_data = FileData(src_file, dest_file, src_file_size)
+                file_data_list.append(file_data)
+    return FilesData(file_data_list)
 
 
 def compose_dest_file_names(dest_dir_arg: Path, mts_files_arg: List[str]):
@@ -43,18 +79,29 @@ def compose_dest_file_names(dest_dir_arg: Path, mts_files_arg: List[str]):
     return result
 
 
-def convert_file(mts_file: str, dest_file: str):
-    print(f"Converting '{mts_file}' to '{dest_file}'...")
-    completed_process = subprocess.run(['ffmpeg', '-i', mts_file, '-vcodec', 'copy', '-an', dest_file],
+def format_size_percent(size_percent: float):
+    return str(round(size_percent * 100)) + '%'
+
+
+def convert_file(file_data: FileData, file_size_percent: float, finished_percent: float):
+    src_file: str = file_data.src_file
+    dest_file: str = file_data.dest_file
+    percent: str = format_size_percent(file_size_percent)
+    finished_percent_str: str = format_size_percent(finished_percent)
+    print(f"Converting '{src_file}' to '{dest_file}' ({percent}, total done {finished_percent_str})...")
+    completed_process = subprocess.run(['ffmpeg', '-i', src_file, '-vcodec', 'copy', '-an', dest_file],
                                        stdout=DEVNULL, stderr=DEVNULL)
     exit_code = completed_process.returncode
     if exit_code != 0:
         raise IOError("ffmpeg error")
 
 
-def convert_files(mts_dict: Dict[str, str]):
-    for mts_file, dest_file in mts_dict.items():
-        convert_file(mts_file, dest_file)
+def convert_files(files_data_arg: FilesData):
+    finished_percent: float = 0
+    for file_data in files_data_arg.file_data_list:
+        file_size_percent: float = files_data_arg.get_file_size_percent(file_data)
+        convert_file(file_data, file_size_percent, finished_percent)
+        finished_percent = finished_percent + file_size_percent
 
 
 def append_date_to_dest_dir(dest_dir_arg: Path):
@@ -80,9 +127,7 @@ check_dir_exits(src_dir)
 dest_dir = append_date_to_dest_dir(dest_dir)
 print(f"Destination directory: {dest_dir}")
 check_ffmpeg_availability()
-mts_files = find_mts_files(src_dir)
-print(mts_files)
-dest_files = compose_dest_file_names(dest_dir, mts_files)
-print(dest_files)
-convert_files(dest_files)
+files_data: FilesData = find_mts_files(src_dir, dest_dir)
+print(files_data)
+convert_files(files_data)
 print("Done.")
