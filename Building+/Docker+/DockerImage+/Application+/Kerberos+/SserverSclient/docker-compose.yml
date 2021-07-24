@@ -1,0 +1,46 @@
+version: '3'
+services:
+  kdc:
+    container_name: kdc
+    build:
+      context: kdc
+    hostname: kdc
+    domainname: kerberos.yaal.ru
+    tty: true
+    volumes:
+      - kerberos:/tmp/kerberos
+  sserver:
+    container_name: sserver
+    build:
+      context: sserver
+    hostname: sserver
+    domainname: kerberos.yaal.ru
+    links:
+      - kdc
+    depends_on:
+      - kdc
+    tty: true
+    ports:
+      - 5968:5968
+    volumes:
+      - kerberos:/tmp/kerberos
+  sclient:
+    container_name: sclient
+    build:
+      context: sclient
+    hostname: sclient
+    domainname: kerberos.yaal.ru
+    links:
+      - kdc
+      - sserver
+    depends_on:
+      - kdc
+      - sserver
+    tty: true
+    volumes:
+      - kerberos:/tmp/kerberos
+networks:
+  default:
+    name: kerberos.yaal.ru
+volumes:
+  kerberos:
