@@ -14,6 +14,8 @@ kadmin.local -q "ktadd -k $KERBEROS_SHARED/hdfs.keytab HOST/hdfs-master.hdfs.yaa
 kadmin.local -q "ktadd -k $KERBEROS_SHARED/hdfs.keytab HOST/hdfs-slave1.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
 kadmin.local -q "ktadd -k $KERBEROS_SHARED/hdfs.keytab HOST/hdfs-slave2.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
 
+kadmin.local -q "xst -norandkey -k $KERBEROS_SHARED/client.keytab client@HADOOPCLUSTER.LOCAL"
+
 cp "$KRB5_CONFIG" "$KERBEROS_SHARED"
 chmod a+r "$KERBEROS_SHARED"/hdfs.keytab #TODO use group permission
 ls -l "$KERBEROS_SHARED"
@@ -21,5 +23,6 @@ ls -l "$KERBEROS_SHARED"
 klist -kte "$KERBEROS_SHARED/hdfs.keytab"
 klist -kte "$KERBEROS_SHARED/sserver.keytab"
 klist -kte "$KERBEROS_SHARED/sclient.keytab"
+klist -kte "$KERBEROS_SHARED/client.keytab"
 
 bash

@@ -10,7 +10,7 @@ export KERBEROS_SHARED=/tmp/kerberos
 export KEYTAB="$KERBEROS_SHARED/hdfs.keytab"
 
 echo "kinit..."
-kinit -kt /tmp/kerberos/hdfs.keytab hdfs/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL
+kinit -kt /tmp/kerberos/client.keytab client@HADOOPCLUSTER.LOCAL
 echo "kinit done"
 
 echo "klist..."
