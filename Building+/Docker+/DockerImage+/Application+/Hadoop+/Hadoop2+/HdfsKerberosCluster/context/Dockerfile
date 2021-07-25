@@ -2,10 +2,12 @@ ARG HADOOP_BASE_IMAGE
 FROM $HADOOP_BASE_IMAGE
 
 USER root
-RUN yum install -y krb5-workstation krb5-libs \
+RUN yum install -y krb5-workstation krb5-libs jsvc \
     && useradd -m -g hadoop hdfs
 
 USER hdfs
+RUN mkdir -p /home/hdfs/namenode \
+    && mkdir -p /home/hdfs/datanode
 ENV PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin
 ENV HADOOP_ENV_SH=${HADOOP_CONF_DIR}/hadoop-env.sh
 
@@ -18,5 +20,13 @@ RUN sed -i "s@\${JAVA_HOME}@${JAVA_HOME}@g" ${HADOOP_ENV_SH} \
   && cat ${HADOOP_PREFIX}/hadoop-env-append.sh >> ${HADOOP_ENV_SH}
 
 ENV KRB5CCNAME=/tmp/krb5cc
+ENV KRB5_TRACE=/dev/stdout
+ENV KRB5_CONFIG=/tmp/kerberos/krb5.conf
+
+ENV HADOOP_OPTS="$HADOOP_OPTS -Djava.security.krb5.conf=$KRB5_CONFIG"
+
+USER root
+
+EXPOSE 1006
 
 WORKDIR ${HADOOP_PREFIX}

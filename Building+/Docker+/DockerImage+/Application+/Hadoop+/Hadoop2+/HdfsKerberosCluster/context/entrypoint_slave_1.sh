@@ -5,8 +5,8 @@ set -e
 echo "HADOOP_PREFIX=$HADOOP_PREFIX"
 echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
 
-export KRB5_CONFIG=/tmp/kerberos/krb5.conf
-kinit -kt /tmp/kerberos/hdfs.keytab hdfs/hdfs-slave1.yaal.ru@HADOOPCLUSTER.LOCAL
+ls -l /tmp/kerberos
+kinit -kt /tmp/kerberos/hdfs.keytab hdfs/hdfs-slave1.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL
 
 echo "Starting HDFS..."
 hadoop-daemon.sh --script hdfs start datanode

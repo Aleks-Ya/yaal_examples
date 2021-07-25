@@ -15,6 +15,7 @@ services:
       - kdc
     volumes:
       - kerberos:/tmp/kerberos
+    privileged: true
   slave-service-1:
     container_name: hdfs-slave1
     build:
@@ -28,10 +29,12 @@ services:
       - kdc
     depends_on:
       - master-service
+      - kdc
     tty: true
     entrypoint: ./entrypoint_slave_1.sh
     volumes:
       - kerberos:/tmp/kerberos
+    privileged: true
   slave-service-2:
     container_name: hdfs-slave2
     build:
@@ -47,10 +50,32 @@ services:
     depends_on:
       - master-service
       - slave-service-1
+      - kdc
     tty: true
     entrypoint: ./entrypoint_slave_2.sh
     volumes:
       - kerberos:/tmp/kerberos
+    privileged: true
+  client:
+    container_name: hdfs-client
+    build:
+      context: context
+      args:
+        - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
+    hostname: hdfs-client
+    domainname: hdfs.yaal.ru
+    links:
+      - master-service
+      - slave-service-1
+      - kdc
+    depends_on:
+      - master-service
+      - kdc
+    tty: true
+    entrypoint: ./entrypoint_client.sh
+    volumes:
+      - kerberos:/tmp/kerberos
+    privileged: true
   kdc:
     container_name: hdfs-kdc
     build:
