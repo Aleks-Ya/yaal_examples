@@ -22,10 +22,10 @@ Example of a command: `hdfs dfs -ls /`
 ## Web UI
 
 - HDFS
-    - Active Name Node UI: http://master-service:50070
-    - Data Node 1 UI: http://master-service:50075
-    - Data Node 2 UI: http://slave-service-1:50075
-    - Data Node 3 UI: http://slave-service-2:50075
+    - Active Name Node UI: http://hdfs-master.hdfs.yaal.ru:50070
+    - Data Node 1 UI: http://hdfs-master.hdfs.yaal.ru:50075
+    - Data Node 2 UI: http://hdfs-slave1.hdfs.yaal.ru:50075
+    - Data Node 3 UI: http://hdfs-slave2.hdfs.yaal.ru:50075
 
 ## Testing with `sserver` and `sclient`
 

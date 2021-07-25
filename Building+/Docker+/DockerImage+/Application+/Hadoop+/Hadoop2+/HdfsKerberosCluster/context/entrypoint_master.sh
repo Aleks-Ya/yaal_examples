@@ -6,7 +6,7 @@ echo "HADOOP_PREFIX=$HADOOP_PREFIX"
 echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
 
 export KRB5_CONFIG=/tmp/kerberos/krb5.conf
-kinit -kt /tmp/kerberos/hdfs.keytab hdfs/master.yaal.ru@HADOOPCLUSTER.LOCAL
+kinit -kt /tmp/kerberos/hdfs.keytab hdfs/hdfs-master.yaal.ru@HADOOPCLUSTER.LOCAL
 
 echo "Starting HDFS..."
 hdfs namenode -format -nonInteractive

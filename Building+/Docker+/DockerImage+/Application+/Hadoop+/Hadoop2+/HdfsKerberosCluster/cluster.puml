@@ -9,7 +9,7 @@ node "master.yaal.ru" {
     actor "root:root" as RootM
     actor "hadoop:hadoop" as HadoopM
     actor "hdfs:hadoop" as HdfsM
-    person "hdfs/master.yaal.ru@HADOOPCLUSTER.LOCAL"
+    person "hdfs/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
     HdfsM --> NameNode: runs
     HdfsM --> DataNode1: runs
 }
@@ -19,7 +19,7 @@ node "slave1.yaal.ru" {
     actor "root:root" as RootS1
     actor "hadoop:hadoop" as HadoopS1
     actor "hdfs:hadoop" as HdfsS1
-    person "hdfs/slave1.yaal.ru@HADOOPCLUSTER.LOCAL"
+    person "hdfs/hdfs-slave1.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
     HdfsS1 --> DataNode2: runs
 }
 node "slave2.yaal.ru" {
@@ -28,7 +28,7 @@ node "slave2.yaal.ru" {
     actor "root:root" as RootS2
     actor "hadoop:hadoop" as HadoopS2
     actor "hdfs:hadoop" as HdfsS2
-    person "hdfs/slave2.yaal.ru@HADOOPCLUSTER.LOCAL"
+    person "hdfs/hdfs-slave2.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
     HdfsS2 --> DataNode3: runs
 }
 node "kdc.yaal.ru" {

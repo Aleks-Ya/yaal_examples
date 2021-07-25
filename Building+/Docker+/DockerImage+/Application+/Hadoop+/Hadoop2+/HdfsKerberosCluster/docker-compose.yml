@@ -1,56 +1,56 @@
 version: '3'
 services:
-#  master-service:
-#    container_name: master
-#    build:
-#      context: context
-#      args:
-#        - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
-#    hostname: master
-#    domainname: hdfs.yaal.ru
-#    entrypoint: ./entrypoint_master.sh
-#    links:
-#      - kdc
-#    depends_on:
-#      - kdc
-#    volumes:
-#      - kerberos:/tmp/kerberos
-#  slave-service-1:
-#    container_name: slave1
-#    build:
-#      context: context
-#      args:
-#        - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
-#    hostname: slave1
-#    domainname: hdfs.yaal.ru
-#    links:
-#      - master-service
-#      - kdc
-#    depends_on:
-#      - master-service
-#    tty: true
-#    entrypoint: ./entrypoint_slave_1.sh
-#    volumes:
-#      - kerberos:/tmp/kerberos
-#  slave-service-2:
-#    container_name: slave2
-#    build:
-#      context: context
-#      args:
-#        - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
-#    hostname: slave2
-#    domainname: hdfs.yaal.ru
-#    links:
-#      - master-service
-#      - slave-service-1
-#      - kdc
-#    depends_on:
-#      - master-service
-#      - slave-service-1
-#    tty: true
-#    entrypoint: ./entrypoint_slave_2.sh
-#    volumes:
-#      - kerberos:/tmp/kerberos
+  master-service:
+    container_name: hdfs-master
+    build:
+      context: context
+      args:
+        - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
+    hostname: hdfs-master
+    domainname: hdfs.yaal.ru
+    entrypoint: ./entrypoint_master.sh
+    links:
+      - kdc
+    depends_on:
+      - kdc
+    volumes:
+      - kerberos:/tmp/kerberos
+  slave-service-1:
+    container_name: hdfs-slave1
+    build:
+      context: context
+      args:
+        - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
+    hostname: hdfs-slave1
+    domainname: hdfs.yaal.ru
+    links:
+      - master-service
+      - kdc
+    depends_on:
+      - master-service
+    tty: true
+    entrypoint: ./entrypoint_slave_1.sh
+    volumes:
+      - kerberos:/tmp/kerberos
+  slave-service-2:
+    container_name: hdfs-slave2
+    build:
+      context: context
+      args:
+        - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
+    hostname: hdfs-slave2
+    domainname: hdfs.yaal.ru
+    links:
+      - master-service
+      - slave-service-1
+      - kdc
+    depends_on:
+      - master-service
+      - slave-service-1
+    tty: true
+    entrypoint: ./entrypoint_slave_2.sh
+    volumes:
+      - kerberos:/tmp/kerberos
   kdc:
     container_name: hdfs-kdc
     build:
