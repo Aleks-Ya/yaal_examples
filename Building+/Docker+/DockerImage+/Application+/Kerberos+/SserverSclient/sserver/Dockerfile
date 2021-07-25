@@ -1,7 +1,6 @@
-# Run sserver
-FROM centos-updated:8
+FROM alpine-updated:3
 
-RUN yum install -y krb5-server
+RUN apk add krb5-server
 
 ENV KERBEROS_SHARED=/tmp/kerberos
 ENV KRB5_CONFIG="$KERBEROS_SHARED/krb5.conf"

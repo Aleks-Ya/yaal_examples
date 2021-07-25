@@ -1,9 +1,6 @@
-# Run KDC (Key Destribution Center)
+FROM alpine-updated:3
 
-FROM debian:stable
-
-RUN apt-get update && apt-get install -y nano net-tools telnet less htop
-RUN apt-get install -y krb5-admin-server krb5-config
+RUN apk add krb5-server krb5
 
 ENV LOCALSTATEDIR=/var
 ENV KRB5_CONFIG=${LOCALSTATEDIR}/krb5.conf

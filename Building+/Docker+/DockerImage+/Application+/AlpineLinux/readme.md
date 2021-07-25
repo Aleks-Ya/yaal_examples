@@ -1,12 +1,14 @@
 # Run Alpine Linux
 
+## Standard image
+
 Source: https://hub.docker.com/r/_/alpine/
+Run: `docker run -ti --rm alpine:latest`
 
-## Run exists image:
-`docker run -ti --rm alpine:latest`
+## Updated image
 
-## Build from Dockerfile and run
+Build latest: 
 ```
-docker build -t my-alpine .
-docker run -ti --rm my-alpine
-```
+export V=latest; docker build --build-arg VERSION=$V -t alpine-updated:$V .
+```  
+Run: `docker run -it alpine-updated:latest bash`

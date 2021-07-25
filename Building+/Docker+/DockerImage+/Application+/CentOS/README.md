@@ -14,8 +14,8 @@ Sources: https://hub.docker.com/_/centos
 Standard image + yum update + install useful tools.
 
 ### CentOs 8
-Build: `docker build --build-arg VERSION=8 -t centos-updated:8 .`
+Build: `export V=8; docker build --build-arg VERSION=$V -t centos-updated:$V .`
 Run: `docker run -it --rm --name centos-updated-8 centos-updated:8 bash`
 ### CentOs 7
-Build: `docker build --build-arg VERSION=7 -t centos-updated:7 .`
+Build: `export V=7; docker build --build-arg VERSION=$V -t centos-updated:$V .`
 Run: `docker run -it --rm --name centos-updated-7 centos-updated:7 bash`
