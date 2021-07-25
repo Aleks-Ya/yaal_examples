@@ -1,28 +1,28 @@
 version: '3'
 services:
   kdc:
-    container_name: kdc
+    container_name: ss-kdc
     build:
       context: kdc
-    hostname: kdc
+    hostname: ss-kdc
     domainname: kerberos.yaal.ru
     tty: true
     volumes:
       - kerberos:/tmp/kerberos
   sserver:
-    container_name: sserver
+    container_name: ss-sserver
     build:
       context: sserver
-    hostname: sserver
+    hostname: ss-sserver
     domainname: kerberos.yaal.ru
     tty: true
     volumes:
       - kerberos:/tmp/kerberos
   sclient:
-    container_name: sclient
+    container_name: ss-sclient
     build:
       context: sclient
-    hostname: sclient
+    hostname: ss-sclient
     domainname: kerberos.yaal.ru
     tty: true
     volumes:
