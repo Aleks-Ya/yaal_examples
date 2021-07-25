@@ -33,7 +33,7 @@
     </property>
     <property>
         <name>dfs.namenode.kerberos.principal</name>
-        <value>hdfs/_HOST@HADOOPCLUSTER.LOCAL</value>
+        <value>nn/_HOST@HADOOPCLUSTER.LOCAL</value>
     </property>
     <property>
         <name>dfs.datanode.data.dir.perm</name>
@@ -53,14 +53,14 @@
     </property>
     <property>
         <name>dfs.datanode.kerberos.principal</name>
-        <value>hdfs/_HOST@HADOOPCLUSTER.LOCAL</value>
+        <value>dn/_HOST@HADOOPCLUSTER.LOCAL</value>
     </property>
     <property>
         <name>dfs.namenode.kerberos.internal.spnego.principal</name>
-        <value>HTTP/_HOST@HADOOPCLUSTER.LOCAL</value>
+        <value>http/_HOST@HADOOPCLUSTER.LOCAL</value>
     </property>
     <property>
         <name>dfs.web.authentication.kerberos.principal</name>
-        <value>HTTP/_HOST@HADOOPCLUSTER.LOCAL</value>
+        <value>http/_HOST@HADOOPCLUSTER.LOCAL</value>
     </property>
 </configuration>

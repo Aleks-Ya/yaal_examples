@@ -9,7 +9,7 @@ node "master.yaal.ru" {
     actor "root:root" as RootM
     actor "hadoop:hadoop" as HadoopM
     actor "hdfs:hadoop" as HdfsM
-    person "hdfs/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
+    person "nn/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
     HdfsM --> NameNode: runs
     HdfsM --> DataNode1: runs
 }
