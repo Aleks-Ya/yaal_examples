@@ -29,7 +29,7 @@
     </property>
     <property>
         <name>dfs.namenode.keytab.file</name>
-        <value>/tmp/kerberos/hdfs.keytab</value>
+        <value>/etc/hdfs.keytab</value>
     </property>
     <property>
         <name>dfs.namenode.kerberos.principal</name>
@@ -49,7 +49,7 @@
     </property>
     <property>
         <name>dfs.datanode.keytab.file</name>
-        <value>/tmp/kerberos/hdfs.keytab</value>
+        <value>/etc/hdfs.keytab</value>
     </property>
     <property>
         <name>dfs.datanode.kerberos.principal</name>

@@ -6,7 +6,8 @@ echo "HADOOP_PREFIX=$HADOOP_PREFIX"
 echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
 
 ls -l /tmp/kerberos
-kinit -kt /tmp/kerberos/hdfs.keytab dn/hdfs-slave1.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL
+cp /tmp/kerberos/dn2.keytab /etc/hdfs.keytab
+kinit -kt /etc/hdfs.keytab dn/hdfs-slave1.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL
 
 echo "Starting DataNode..."
 hadoop-daemon.sh --script hdfs start datanode

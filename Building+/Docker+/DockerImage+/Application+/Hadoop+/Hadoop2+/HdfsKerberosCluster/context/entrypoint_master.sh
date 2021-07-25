@@ -6,10 +6,11 @@ echo "HADOOP_PREFIX=$HADOOP_PREFIX"
 echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
 
 ls -l /tmp/kerberos
-klist -kte /tmp/kerberos/hdfs.keytab
+cp /tmp/kerberos/nn.keytab /etc/hdfs.keytab
+klist -kte /etc/hdfs.keytab
 echo "kinit..."
-kinit -kt /tmp/kerberos/hdfs.keytab nn/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL
-kinit -kt /tmp/kerberos/hdfs.keytab dn/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL
+kinit -kt /etc/hdfs.keytab nn/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL
+kinit -kt /etc/hdfs.keytab dn/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL
 echo "kinit done"
 
 echo "klist..."
