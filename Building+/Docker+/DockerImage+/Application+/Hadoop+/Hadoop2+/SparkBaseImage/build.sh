@@ -7,7 +7,7 @@ export SPARK_VERSION=$4
 export SPARK_BASE_IMAGE_VERSION=$5
 
 if [[ -z ${HADOOP_VERSION} ]] || [[ -z ${HIVE_BASE_IMAGE_VERSION} ]] || [[ -z ${SPARK_VERSION} ]] || [[ -z ${SPARK_BASE_IMAGE_VERSION} ]]; then
-  echo 'Error: wrong parameters. Example: "./build.sh 2.10.1 2.3.9 1.0 2.4.8 1.0"'
+  echo 'Error: wrong parameters. Example: "./build.sh 2.10.1 2.3.9 1 2.4.8 1"'
   exit 1
 fi
 export HIVE_BASE_IMAGE="hive-base-image-${HIVE_VERSION}-hadoop-${HADOOP_VERSION}:${HIVE_BASE_IMAGE_VERSION}"

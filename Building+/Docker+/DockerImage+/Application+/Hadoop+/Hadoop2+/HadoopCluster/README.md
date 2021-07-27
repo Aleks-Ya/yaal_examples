@@ -18,6 +18,11 @@ sudo ./update_hosts.sh
 ```
 
 ## CLI
+
+### Run example apps
+YARN: `docker exec -it hadoop-cluster-master su hdfs bash -c '${HADOOP_PREFIX}/run_yarn_example.sh'`
+Spark: `docker exec -it hadoop-cluster-master su hdfs bash -c '${HADOOP_PREFIX}/run_spark_example.sh'`
+
 ### Hadoop CLI
 Run Bash with Hadoop CLI available: `./run_cli.sh`
 
@@ -25,8 +30,8 @@ Examples of commands:
 - See HDFS Data Node statuses: `hdfs dfsadmin -report`
 - See HDFS Name Node statuses: `hdfs haadmin -getAllServiceState`
 - See YARN nodes: `yarn node -list -all`
-- Run example YARN application: `${HADOOP_PREFIX}/run_yarn_example.sh`
-- Run example Spark application: `su hdfs`, `${HADOOP_PREFIX}/run_spark_example.sh`
+- Run example YARN application: `su hdfs bash -c '${HADOOP_PREFIX}/run_yarn_example.sh'`
+- Run example Spark application: `su hdfs bash -c '${HADOOP_PREFIX}/run_spark_example.sh'`
 
 ### ZooKeeper CLI
 Run ZooKeeper CLI: `./run_zk_cli.sh`

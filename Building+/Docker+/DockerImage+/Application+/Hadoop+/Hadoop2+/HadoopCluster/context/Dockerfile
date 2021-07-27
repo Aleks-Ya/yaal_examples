@@ -23,4 +23,6 @@ RUN mkdir -p ${HADOOP_LOG_DIR} \
   && sed -i "s@\${JAVA_HOME}@${JAVA_HOME}@g" ${HADOOP_ENV_SH} \
   && cat ${HADOOP_PREFIX}/hadoop-env-append.sh >> ${HADOOP_ENV_SH}
 
+USER root
+
 WORKDIR ${HADOOP_PREFIX}
