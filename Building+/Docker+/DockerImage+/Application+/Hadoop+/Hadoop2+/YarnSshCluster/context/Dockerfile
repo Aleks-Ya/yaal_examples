@@ -2,6 +2,7 @@ ARG HADOOP_VERSION=2.10.1
 FROM hadoop-base-image-${HADOOP_VERSION}:1
 ARG HADOOP_VERSION
 
+USER root
 RUN yum install -y rsync openssh-clients openssh-server
 
 ENV JAVA_HOME=/etc/alternatives/jre

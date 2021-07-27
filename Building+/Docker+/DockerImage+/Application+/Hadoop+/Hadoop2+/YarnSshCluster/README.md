@@ -1,4 +1,5 @@
-# Hadoop YARN cluster (without HDFS!)
+# Hadoop YARN cluster via SSH (without HDFS)
+YARN daemons are started by `start-yarn.sh` script from the master node via SSH.
 
 ## Build images
 `./build.sh`
