@@ -1,0 +1,6 @@
+FROM inherit-env-parent
+
+ENV NAME="World"
+ENV MESSAGE="${GREATING}, ${NAME}!"
+
+CMD echo "$MESSAGE"

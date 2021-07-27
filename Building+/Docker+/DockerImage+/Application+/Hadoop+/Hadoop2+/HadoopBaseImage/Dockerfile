@@ -4,6 +4,7 @@ RUN yum update -y && yum install -y java wget net-tools nano telnet less which
 ENV JAVA_HOME=/etc/alternatives/jre
 
 ARG HADOOP_VERSION
+ENV HADOOP_VERSION=$HADOOP_VERSION
 ENV HADOOP_PREFIX=/opt/hadoop
 ENV HADOOP_LOG_DIR=/tmp/logs
 ENV HADOOP_CONF_DIR=${HADOOP_PREFIX}/etc/hadoop
