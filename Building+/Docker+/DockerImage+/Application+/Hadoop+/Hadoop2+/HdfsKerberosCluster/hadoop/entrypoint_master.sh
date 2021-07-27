@@ -5,8 +5,9 @@ set -e
 echo "HADOOP_PREFIX=$HADOOP_PREFIX"
 echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
 
-ls -l /tmp/kerberos
-cp /tmp/kerberos/nn.keytab /etc/hdfs.keytab
+export KERBEROS_SHARED=/tmp/kerberos
+ls -l "$KERBEROS_SHARED"
+cp "$KERBEROS_SHARED/nn.keytab" /etc/hdfs.keytab
 klist -kte /etc/hdfs.keytab
 echo "kinit..."
 kinit -kt /etc/hdfs.keytab nn/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL

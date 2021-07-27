@@ -3,7 +3,7 @@ services:
   master-service:
     container_name: hdfs-master
     build:
-      context: context
+      context: hadoop
       args:
         - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
     hostname: hdfs-master
@@ -19,7 +19,7 @@ services:
   slave-service-1:
     container_name: hdfs-slave1
     build:
-      context: context
+      context: hadoop
       args:
         - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
     hostname: hdfs-slave1
@@ -38,7 +38,7 @@ services:
   slave-service-2:
     container_name: hdfs-slave2
     build:
-      context: context
+      context: hadoop
       args:
         - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
     hostname: hdfs-slave2
@@ -59,7 +59,7 @@ services:
   client:
     container_name: hdfs-client
     build:
-      context: context
+      context: hadoop
       args:
         - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
     hostname: hdfs-client

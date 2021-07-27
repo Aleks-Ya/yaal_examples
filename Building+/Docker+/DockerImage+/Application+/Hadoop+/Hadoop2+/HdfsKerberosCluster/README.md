@@ -8,11 +8,11 @@
 
 1. Start cluster: `./run_cluster.sh`
 2. Update hosts file: `sudo ./update_hosts.sh`
-3. Check: http://master-service:50070
+3. Check: http://hdfs-master.hdfs.yaal.ru:50070
 
 ## Hadoop CLI
 
-Run Bash with Hadoop CLI available: `./run_cli.sh`  
+Run Bash with Hadoop CLI available: `docker exec -it hdfs-master bash`  
 Example of a command: `hdfs dfs -ls /`
 
 ## Stop cluster
@@ -23,9 +23,9 @@ Example of a command: `hdfs dfs -ls /`
 
 - HDFS
     - Active Name Node UI: http://hdfs-master.hdfs.yaal.ru:50070
-    - Data Node 1 UI: http://hdfs-master.hdfs.yaal.ru:50075
-    - Data Node 2 UI: http://hdfs-slave1.hdfs.yaal.ru:50075
-    - Data Node 3 UI: http://hdfs-slave2.hdfs.yaal.ru:50075
+    - Data Node 1 UI: http://hdfs-master.hdfs.yaal.ru:1006
+    - Data Node 2 UI: http://hdfs-slave1.hdfs.yaal.ru:1006
+    - Data Node 3 UI: http://hdfs-slave2.hdfs.yaal.ru:1006
 
 ## Testing with `sserver` and `sclient`
 
