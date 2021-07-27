@@ -8,6 +8,7 @@ echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
 export KERBEROS_SHARED=/tmp/kerberos
 ls -l "$KERBEROS_SHARED"
 cp "$KERBEROS_SHARED/dn2.keytab" /etc/hdfs.keytab
+cp "$KERBEROS_SHARED/krb5.conf" /etc/krb5.conf
 kinit -kt /etc/hdfs.keytab dn/yarn-slave1.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
 
 echo "Starting DataNode..."

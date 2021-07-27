@@ -8,6 +8,7 @@ export KRB5_TRACE=/dev/stdout
 export KRB5CCNAME=/tmp/krb5cc
 export KERBEROS_SHARED=/tmp/kerberos
 export KEYTAB="$KERBEROS_SHARED/hdfs.keytab"
+cp "$KERBEROS_SHARED/krb5.conf" /etc/krb5.conf
 
 echo "kinit..."
 kinit -kt /tmp/kerberos/client.keytab client@HADOOPCLUSTER.LOCAL

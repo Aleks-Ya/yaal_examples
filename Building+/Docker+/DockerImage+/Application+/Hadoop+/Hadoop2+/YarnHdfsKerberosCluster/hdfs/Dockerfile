@@ -21,7 +21,7 @@ RUN sed -i "s@\${JAVA_HOME}@${JAVA_HOME}@g" ${HADOOP_ENV_SH} \
 
 ENV KRB5CCNAME=/tmp/krb5cc
 ENV KRB5_TRACE=/dev/stdout
-ENV KRB5_CONFIG=/tmp/kerberos/krb5.conf
+ENV KRB5_CONFIG=/etc/krb5.conf
 
 ENV HADOOP_OPTS="$HADOOP_OPTS -Djava.security.krb5.conf=$KRB5_CONFIG"
 

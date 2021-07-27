@@ -3,7 +3,7 @@ FROM alpine-updated:3
 RUN apk add krb5-server krb5
 
 ENV LOCALSTATEDIR=/var
-ENV KRB5_CONFIG=${LOCALSTATEDIR}/krb5.conf
+ENV KRB5_CONFIG=/etc/krb5.conf
 ENV KRB5_KDC_PROFILE=${LOCALSTATEDIR}/kdc.conf
 ENV ROOT_PRINCIPAL=root/admin@HADOOPCLUSTER.LOCAL
 ENV SSERVER_PRINCIPAL=sserver/yarn-sserver.yarn.yaal.ru@HADOOPCLUSTER.LOCAL

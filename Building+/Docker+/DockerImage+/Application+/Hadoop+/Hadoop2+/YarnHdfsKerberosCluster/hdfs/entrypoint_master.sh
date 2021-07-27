@@ -8,6 +8,7 @@ echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
 export KERBEROS_SHARED=/tmp/kerberos
 ls -l "$KERBEROS_SHARED"
 cp "$KERBEROS_SHARED/nn.keytab" /etc/hdfs.keytab
+cp "$KERBEROS_SHARED/krb5.conf" /etc/krb5.conf
 klist -kte /etc/hdfs.keytab
 echo "kinit..."
 kinit -kt /etc/hdfs.keytab nn/yarn-master.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
