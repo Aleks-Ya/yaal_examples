@@ -1,0 +1,30 @@
+<configuration>
+    <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+    </property>
+    <property>
+        <name>mapreduce.map.memory.mb</name>
+        <value>4096</value>
+    </property>
+    <property>
+        <name>mapreduce.reduce.memory.mb</name>
+        <value>8192</value>
+    </property>
+    <property>
+        <name>mapreduce.map.java.opts.max.heap</name>
+        <value>8192</value>
+    </property>
+    <property>
+        <name>mapreduce.reduce.java.opts.max.heap</name>
+        <value>8192</value>
+    </property>
+    <property>
+        <name>mapreduce.jobhistory.keytab</name>
+        <value>/etc/hdfs.keytab</value>
+    </property>
+    <property>
+        <name>mapreduce.jobhistory.principal</name>
+        <value>mapr@HADOOPCLUSTER.LOCAL</value>
+    </property>
+</configuration>

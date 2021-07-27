@@ -3,7 +3,7 @@ services:
   master-service:
     container_name: yarn-master
     build:
-      context: hdfs
+      context: hadoop
       args:
         - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
     hostname: yarn-master
@@ -19,7 +19,7 @@ services:
   slave-service-1:
     container_name: yarn-slave1
     build:
-      context: hdfs
+      context: hadoop
       args:
         - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
     hostname: yarn-slave1
@@ -38,7 +38,7 @@ services:
   slave-service-2:
     container_name: yarn-slave2
     build:
-      context: hdfs
+      context: hadoop
       args:
         - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
     hostname: yarn-slave2
@@ -59,7 +59,7 @@ services:
   client:
     container_name: yarn-client
     build:
-      context: hdfs
+      context: hadoop
       args:
         - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
     hostname: yarn-client

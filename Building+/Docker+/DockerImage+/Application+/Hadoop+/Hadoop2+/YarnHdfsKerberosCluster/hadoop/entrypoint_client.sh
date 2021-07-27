@@ -18,15 +18,19 @@ echo "klist..."
 klist
 echo "klist done"
 
-sleep 15s
+sleep 20s
 
-echo "report..."
+echo "HDFS report..."
 hdfs dfsadmin -report
-echo "report done"
+echo "HDFS report is done"
 
-echo "hdfs ls..."
+echo "HDFS ls..."
 hdfs dfs -ls /
-echo "hdfs ls done"
+echo "HDFS ls is done"
+
+echo "YARN node list..."
+yarn node -list -all
+echo "YARN node list is done"
 
 trap stop $SIGINT $SIGTERM
 echo 'Press Ctrl-C or execute "docker-compose stop" to exit'

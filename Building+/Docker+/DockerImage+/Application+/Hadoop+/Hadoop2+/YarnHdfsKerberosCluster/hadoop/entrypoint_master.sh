@@ -24,17 +24,23 @@ echo "Formatting namenode..."
 hdfs namenode -format -nonInteractive
 echo "Namenode is formatted"
 
-echo "Starting namenode..."
+echo "Starting NameNode..."
 hadoop-daemon.sh --script hdfs start namenode
-echo "Namenode started"
-echo "Starting datanode..."
+echo "NameNode started"
+echo "Starting DataNode..."
 hadoop-daemon.sh --script hdfs start datanode
-echo "HDFS started."
+echo "DataNode started."
+
+echo "Starting ResourceManager..."
+kinit -kt /etc/hdfs.keytab rm/yarn-master.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
+hadoop-daemon.sh --script yarn start resourcemanager
+echo "ResourceManager started."
 
 SIGINT=2
 SIGTERM=15
 stop()
 {
+  stop-yarn.sh
   hadoop-daemon.sh --script hdfs stop namenode
   hadoop-daemon.sh --script hdfs stop datanode
   exit 0

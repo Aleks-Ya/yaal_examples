@@ -15,10 +15,16 @@ echo "Starting DataNode..."
 hadoop-daemon.sh --script hdfs start datanode
 echo "DataNode started."
 
+echo "Starting NodeManager..."
+kinit -kt /etc/hdfs.keytab nm/yarn-slave1.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
+hadoop-daemon.sh --script yarn start nodemanager
+echo "NodeManager started."
+
 SIGINT=2
 SIGTERM=15
 stop()
 {
+  hadoop-daemon.sh --script yarn stop nodemanager
   hadoop-daemon.sh --script hdfs stop datanode
   exit 0
 }

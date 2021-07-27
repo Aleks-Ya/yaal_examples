@@ -13,6 +13,10 @@ ENV NN_MASTER_PRINCIPAL=nn/yarn-master.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
 ENV DN_MASTER_PRINCIPAL=dn/yarn-master.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
 ENV DN_SLAVE1_PRINCIPAL=dn/yarn-slave1.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
 ENV DN_SLAVE2_PRINCIPAL=dn/yarn-slave2.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
+ENV RM_MASTER_PRINCIPAL=rm/yarn-master.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
+ENV NM_SLAVE1_PRINCIPAL=nm/yarn-slave1.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
+ENV NM_SLAVE2_PRINCIPAL=nm/yarn-slave2.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
+ENV MAPR_PRINCIPAL=mapr@HADOOPCLUSTER.LOCAL
 ENV HOST_MASTER_PRINCIPAL=host/yarn-master.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
 ENV HOST_SLAVE1_PRINCIPAL=host/yarn-slave1.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
 ENV HOST_SLAVE2_PRINCIPAL=host/yarn-slave2.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
@@ -30,6 +34,10 @@ RUN kdb5_util create -r HADOOPCLUSTER.LOCAL -s -P the_db_master_pass \
     && kadmin.local -q "addprinc -pw the_dn_master_pass   -policy policy180 $DN_MASTER_PRINCIPAL"   -p $HADOOP_PRINCIPAL \
     && kadmin.local -q "addprinc -pw the_dn_slave1_pass   -policy policy180 $DN_SLAVE1_PRINCIPAL"   -p $HADOOP_PRINCIPAL \
     && kadmin.local -q "addprinc -pw the_dn_slave2_pass   -policy policy180 $DN_SLAVE2_PRINCIPAL"   -p $HADOOP_PRINCIPAL \
+    && kadmin.local -q "addprinc -pw the_rm_master_pass   -policy policy180 $RM_MASTER_PRINCIPAL"   -p $HADOOP_PRINCIPAL \
+    && kadmin.local -q "addprinc -pw the_nm_slave1_pass   -policy policy180 $NM_SLAVE1_PRINCIPAL"   -p $HADOOP_PRINCIPAL \
+    && kadmin.local -q "addprinc -pw the_nm_slave2_pass   -policy policy180 $NM_SLAVE2_PRINCIPAL"   -p $HADOOP_PRINCIPAL \
+    && kadmin.local -q "addprinc -pw the_mapr_pass        -policy policy180 $MAPR_PRINCIPAL"        -p $HADOOP_PRINCIPAL \
     && kadmin.local -q "addprinc -pw the_host_master_pass -policy policy180 $HOST_MASTER_PRINCIPAL" -p $HADOOP_PRINCIPAL \
     && kadmin.local -q "addprinc -pw the_host_slave1_pass -policy policy180 $HOST_SLAVE1_PRINCIPAL" -p $HADOOP_PRINCIPAL \
     && kadmin.local -q "addprinc -pw the_host_slave2_pass -policy policy180 $HOST_SLAVE2_PRINCIPAL" -p $HADOOP_PRINCIPAL \
