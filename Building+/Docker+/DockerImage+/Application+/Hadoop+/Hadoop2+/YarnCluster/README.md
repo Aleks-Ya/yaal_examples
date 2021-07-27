@@ -1,8 +1,5 @@
 # Hadoop YARN cluster (without HDFS!)
 
-## Documentation
-?
-
 ## Build images
 `./build.sh`
 

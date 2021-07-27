@@ -1,8 +1,8 @@
-ARG HADOOP_VERSION=2.9.2
-FROM hadoop-base-image-${HADOOP_VERSION}:1.0
+ARG HADOOP_VERSION=2.10.1
+FROM hadoop-base-image-${HADOOP_VERSION}:1
 ARG HADOOP_VERSION
 
-RUN yum install -y rsync which openssh-clients openssh-server net-tools nano telnet less
+RUN yum install -y rsync openssh-clients openssh-server
 
 ENV JAVA_HOME=/etc/alternatives/jre
 ENV HADOOP_PREFIX=/opt/hadoop
