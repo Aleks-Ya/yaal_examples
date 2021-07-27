@@ -7,9 +7,9 @@ set -e
 
 ./remove_hosts.sh
 
-container_1=hdfs-master
-container_2=hdfs-slave1
-container_3=hdfs-slave2
+container_1=yarn-master
+container_2=yarn-slave1
+container_3=yarn-slave2
 
 ip_1=$(docker exec ${container_1} hostname -I)
 ip_2=$(docker exec ${container_2} hostname -I)
@@ -17,9 +17,9 @@ ip_3=$(docker exec ${container_3} hostname -I)
 
 hosts_file=/etc/hosts
 
-host_1=${container_1}.hdfs.yaal.ru
-host_2=${container_2}.hdfs.yaal.ru
-host_3=${container_3}.hdfs.yaal.ru
+host_1=${container_1}.yarn.yaal.ru
+host_2=${container_2}.yarn.yaal.ru
+host_3=${container_3}.yarn.yaal.ru
 
 echo "${ip_1}    ${host_1}" >> ${hosts_file}
 echo "${ip_2}    ${host_2}" >> ${hosts_file}
