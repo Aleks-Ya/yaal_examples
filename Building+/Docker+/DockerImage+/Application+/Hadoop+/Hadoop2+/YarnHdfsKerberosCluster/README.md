@@ -17,7 +17,7 @@ Run Bash with Hadoop CLI available: `docker exec -it yarn-master bash`
 Example of a command: `hdfs dfs -ls /`
 
 ### Run example apps
-YARN: `docker exec -it yarn-master ${HADOOP_PREFIX}/run_yarn_example.sh`
+YARN: `docker exec -it yarn-master bash -c '${HADOOP_PREFIX}/run_yarn_example.sh'`
 
 ## Stop cluster
 
