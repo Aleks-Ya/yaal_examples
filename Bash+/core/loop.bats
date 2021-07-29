@@ -18,7 +18,11 @@
 @test "Infinite loop" {
   while true
 	do
-		echo "Press [CTRL+C] to stop.."
+		echo "Press Ctrl+C to stop.."
 		sleep 1
 	done
+}
+
+@test "Infinite loop (one line)" {
+  while true; do echo "Press Ctrl+C to stop.."; sleep 1; done
 }
