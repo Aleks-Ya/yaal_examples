@@ -57,10 +57,10 @@
     </property>
     <property>
         <name>dfs.namenode.kerberos.internal.spnego.principal</name>
-        <value>http/_HOST@HADOOPCLUSTER.LOCAL</value>
+        <value>HTTP/_HOST@HADOOPCLUSTER.LOCAL</value>
     </property>
     <property>
         <name>dfs.web.authentication.kerberos.principal</name>
-        <value>http/_HOST@HADOOPCLUSTER.LOCAL</value>
+        <value>HTTP/_HOST@HADOOPCLUSTER.LOCAL</value>
     </property>
 </configuration>

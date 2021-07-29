@@ -4,14 +4,14 @@
         <value>hdfs://hdfs-master.hdfs.yaal.ru:9000</value>
     </property>
     <property>
-       <name>fs.file.impl</name>
-       <value>org.apache.hadoop.fs.LocalFileSystem</value>
-       <description>The FileSystem for file: uris.</description>
+        <name>fs.file.impl</name>
+        <value>org.apache.hadoop.fs.LocalFileSystem</value>
+        <description>The FileSystem for file: uris.</description>
     </property>
     <property>
-       <name>fs.hdfs.impl</name>
-       <value>org.apache.hadoop.hdfs.DistributedFileSystem</value>
-       <description>The FileSystem for hdfs: uris.</description>
+        <name>fs.hdfs.impl</name>
+        <value>org.apache.hadoop.hdfs.DistributedFileSystem</value>
+        <description>The FileSystem for hdfs: uris.</description>
     </property>
     <property>
         <name>ipc.client.connect.max.retries</name>
@@ -35,5 +35,31 @@
             RULE:[2:$1/$2@$0]([*]/.*@HADOOPCLUSTER\.LOCAL)s/.*/hdfs/
             DEFAULT
         </value>
+    </property>
+
+    <!--Authenticate Web Consoles-->
+    <property>
+        <name>hadoop.http.filter.initializers</name>
+        <value>org.apache.hadoop.security.AuthenticationFilterInitializer</value>
+    </property>
+    <property>
+        <name>hadoop.http.authentication.type</name>
+        <value>kerberos</value>
+    </property>
+    <property>
+        <name>hadoop.http.authentication.kerberos.principal</name>
+        <value>HTTP/_HOST@HADOOPCLUSTER.LOCAL</value>
+    </property>
+    <property>
+        <name>hadoop.http.authentication.kerberos.keytab</name>
+        <value>/etc/hdfs.keytab</value>
+    </property>
+    <property>
+        <name>hadoop.http.authentication.simple.anonymous.allowed</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>hadoop.http.authentication.signature.secret.file</name>
+        <value>/tmp/hadoop-http-auth-signature-secret</value>
     </property>
 </configuration>

@@ -14,12 +14,15 @@ SCLIENT_KEYTAB="$KERBEROS_SHARED/sclient.keytab"
 kadmin.local -q "xst -norandkey -k $NN_KEYTAB $NN_MASTER_PRINCIPAL"
 kadmin.local -q "ktadd -k $NN_KEYTAB $DN_MASTER_PRINCIPAL"
 kadmin.local -q "ktadd -k $NN_KEYTAB $HOST_MASTER_PRINCIPAL"
+kadmin.local -q "ktadd -k $NN_KEYTAB $HTTP_MASTER_PRINCIPAL"
 
 kadmin.local -q "xst -norandkey -k $DN2_KEYTAB $DN_SLAVE1_PRINCIPAL"
 kadmin.local -q "ktadd -k $DN2_KEYTAB $HOST_SLAVE1_PRINCIPAL"
+kadmin.local -q "ktadd -k $DN2_KEYTAB $HTTP_SLAVE1_PRINCIPAL"
 
 kadmin.local -q "xst -norandkey -k $DN3_KEYTAB $DN_SLAVE2_PRINCIPAL"
 kadmin.local -q "ktadd -k $DN3_KEYTAB $HOST_SLAVE2_PRINCIPAL"
+kadmin.local -q "ktadd -k $DN3_KEYTAB $HTTP_SLAVE2_PRINCIPAL"
 
 kadmin.local -q "xst -norandkey -k $CLIENT_KEYTAB $CLIENT_PRINCIPAL"
 

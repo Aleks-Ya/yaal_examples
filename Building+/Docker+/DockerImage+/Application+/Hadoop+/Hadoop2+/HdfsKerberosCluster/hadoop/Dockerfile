@@ -16,8 +16,9 @@ RUN mkdir -p ${HADOOP_LOG_DIR}
 ADD --chown=hadoop:hadoop *.xml ${HADOOP_CONF_DIR}/
 ADD --chown=hadoop:hadoop *.sh ${HADOOP_PREFIX}/
 
-RUN sed -i "s@\${JAVA_HOME}@${JAVA_HOME}@g" ${HADOOP_ENV_SH} \
-  && cat ${HADOOP_PREFIX}/hadoop-env-append.sh >> ${HADOOP_ENV_SH}
+RUN echo ${RANDOM} >> /tmp/hadoop-http-auth-signature-secret \
+    && sed -i "s@\${JAVA_HOME}@${JAVA_HOME}@g" ${HADOOP_ENV_SH} \
+    && cat ${HADOOP_PREFIX}/hadoop-env-append.sh >> ${HADOOP_ENV_SH}
 
 ENV KRB5CCNAME=/tmp/krb5cc
 ENV KRB5_TRACE=/dev/stdout
