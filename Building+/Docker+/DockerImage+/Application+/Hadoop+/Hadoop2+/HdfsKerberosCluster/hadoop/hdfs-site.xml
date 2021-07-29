@@ -63,4 +63,12 @@
         <name>dfs.web.authentication.kerberos.principal</name>
         <value>HTTP/_HOST@HADOOPCLUSTER.LOCAL</value>
     </property>
+    <property>
+        <name>dfs.web.authentication.kerberos.keytab</name>
+        <value>/etc/hdfs.keytab</value>
+    </property>
+    <property>
+        <name>dfs.webhdfs.enabled</name>
+        <value>true</value>
+    </property>
 </configuration>
