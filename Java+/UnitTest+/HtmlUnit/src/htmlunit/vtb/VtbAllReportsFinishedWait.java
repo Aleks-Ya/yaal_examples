@@ -1,5 +1,6 @@
 package htmlunit.vtb;
 
+import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
 import java.io.IOException;
@@ -21,23 +22,23 @@ class VtbAllReportsFinishedWait {
     }
 
     void waitUntilFinished() {
-        System.out.printf("Waiting all reports are finished for agreement %s...\n", agreement);
+        System.out.printf("Waiting the last report is finished for agreement %s...\n", agreement);
         try (var webClient = WebClientFactory.create(authData)) {
             var done = false;
             var timer = new Timer();
             timer.start();
             while (!done) {
                 timer.waitForTime();
-                done = areAllReportsDone(webClient);
+                done = isLastReportDone(webClient);
                 timer.done();
             }
-            System.out.println("All requests are finished.");
+            System.out.println("The last request is finished.");
         } catch (Exception e) {
             throw new WaitReportsException(e);
         }
     }
 
-    private boolean areAllReportsDone(com.gargoylesoftware.htmlunit.WebClient webClient) throws IOException {
+    private boolean isLastReportDone(WebClient webClient) throws IOException {
         var table = WebClientHelper.getReportTable(webClient, agreement);
         var headerRow = table.getRow(0);
         var columnHeader = "Отчет";
@@ -48,20 +49,28 @@ class VtbAllReportsFinishedWait {
                 .getIndex();
         var dataRows = new ArrayList<>(table.getRows());
         dataRows.remove(0);
-        var allDone = true;
-        for (HtmlTableRow row : dataRows) {
-            var reportCell = row.getCell(reportCellIndex);
-            var content = reportCell.getTextContent();
-            if ("В обработке".equalsIgnoreCase(content) || "Новый".equalsIgnoreCase(content)) {
-                allDone = false;
-                System.out.println("Not ready row " + row.getIndex());
-            } else if ("Отчет готов".equalsIgnoreCase(content)) {
-                System.out.println("Ready row " + row.getIndex());
-            } else {
-                throw new WaitReportsException(String.format("Unknown %d row status: %s", row.getIndex(), content));
-            }
+        if (dataRows.isEmpty()) {
+            System.out.println("Now reports are requested.");
+            return true;
         }
-        return allDone;
+        var lastRow = dataRows.get(dataRows.size() - 1);
+        return isRowDone(reportCellIndex, lastRow);
+    }
+
+    private boolean isRowDone(int reportCellIndex, HtmlTableRow row) {
+        boolean result;
+        var reportCell = row.getCell(reportCellIndex);
+        var content = reportCell.getTextContent();
+        if ("В обработке".equalsIgnoreCase(content) || "Новый".equalsIgnoreCase(content)) {
+            result = false;
+            System.out.println("Not ready row " + row.getIndex());
+        } else if ("Отчет готов".equalsIgnoreCase(content)) {
+            result = true;
+            System.out.println("Ready row " + row.getIndex());
+        } else {
+            throw new WaitReportsException(String.format("Unknown %d row status: %s", row.getIndex(), content));
+        }
+        return result;
     }
 
     static class WaitReportsException extends RuntimeException {
