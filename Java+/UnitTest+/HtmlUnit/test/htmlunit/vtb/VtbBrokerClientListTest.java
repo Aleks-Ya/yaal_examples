@@ -1,7 +1,5 @@
 package htmlunit.vtb;
 
-import htmlunit.vtb.VtbBrokerClientList;
-import htmlunit.vtb.VtbBrokerLogin;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -11,9 +9,8 @@ class VtbBrokerClientListTest {
 
     @Test
     void loadClientList() {
-        var vtbLogin = System.getProperty("vtb_login");
-        var vtbPassword = System.getProperty("vtb_password");
-        var login = new VtbBrokerLogin(vtbLogin, vtbPassword);
+        var config = new Config();
+        var login = new VtbBrokerLogin(config);
         var auth = login.login();
 
         var clients = new VtbBrokerClientList(auth);

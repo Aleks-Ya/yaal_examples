@@ -10,9 +10,8 @@ class VtbLastReportDownloadTest {
 
     @Test
     void loadClientList() throws IOException {
-        var vtbLogin = System.getProperty("vtb_login");
-        var vtbPassword = System.getProperty("vtb_password");
-        var login = new VtbBrokerLogin(vtbLogin, vtbPassword);
+        var config = new Config();
+        var login = new VtbBrokerLogin(config);
         var auth = login.login();
 
         var clients = new VtbBrokerClientList(auth);

@@ -10,9 +10,8 @@ class VtbBrokerReportDownloader {
     public static void main(String[] args) throws IOException {
         System.out.println("Downloading broker reports...");
 
-        var username = System.getProperty("vtb_login");
-        var password = System.getProperty("vtb_password");
-        var login = new VtbBrokerLogin(username, password);
+        var config = new Config();
+        var login = new VtbBrokerLogin(config);
         var auth = login.login();
 
         var clients = new VtbBrokerClientList(auth);
