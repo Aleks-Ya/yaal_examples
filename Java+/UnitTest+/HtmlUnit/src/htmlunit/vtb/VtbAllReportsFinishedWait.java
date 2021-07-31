@@ -3,6 +3,7 @@ package htmlunit.vtb;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
+import javax.net.ssl.SSLException;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
@@ -23,18 +24,32 @@ class VtbAllReportsFinishedWait {
 
     void waitUntilFinished() {
         System.out.printf("Waiting the last report is finished for agreement %s...\n", agreement);
-        try (var webClient = WebClientFactory.create(authData)) {
-            var done = false;
+        try {
             var timer = new Timer();
             timer.start();
+            var done = false;
+            while (!done) {
+                try {
+                    tryToWait(timer);
+                    done = true;
+                } catch (SSLException e) {
+                    System.out.printf("Retry after exception %s: %s", e.getClass().getName(), e.getMessage());
+                }
+            }
+        } catch (Exception e) {
+            throw new WaitReportsException(e);
+        }
+    }
+
+    private void tryToWait(Timer timer) throws IOException {
+        try (var webClient = WebClientFactory.create(authData)) {
+            var done = false;
             while (!done) {
                 timer.waitForTime();
                 done = isLastReportDone(webClient);
-                timer.done();
+                timer.next();
             }
             System.out.println("The last request is finished.");
-        } catch (Exception e) {
-            throw new WaitReportsException(e);
         }
     }
 
@@ -108,7 +123,7 @@ class VtbAllReportsFinishedWait {
             }
         }
 
-        void done() {
+        void next() {
             var now = Instant.now();
             var durationMin = Duration.between(start, now).toMinutes();
             long incrementMin;
