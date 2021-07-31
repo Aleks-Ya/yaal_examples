@@ -4,6 +4,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static htmlunit.vtb.Constants.AUTH_COOKIE;
 import static htmlunit.vtb.Constants.SLB_COOKIE;
@@ -11,12 +13,15 @@ import static htmlunit.vtb.Constants.VTB_BASE_URL;
 import static htmlunit.vtb.Constants.VTB_REPORTS_URL;
 
 class VtbBrokerReportRequest {
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     private final AuthData authData;
     private final AgreementData agreementData;
+    private final LocalDate periodTo;
 
-    VtbBrokerReportRequest(AuthData authData, AgreementData agreementData) {
+    VtbBrokerReportRequest(AuthData authData, AgreementData agreementData, LocalDate periodTo) {
         this.authData = authData;
         this.agreementData = agreementData;
+        this.periodTo = periodTo;
     }
 
     void sendReportRequest() {
@@ -29,8 +34,15 @@ class VtbBrokerReportRequest {
                 System.out.printf("Requesting report for '%s'...\n", clientCode);
                 var authCookie = AUTH_COOKIE + "=" + authData.getAuthCookie();
                 var slbCookie = SLB_COOKIE + "=" + authData.getSlbCookie();
-                var body = "PeriodType=year&PeriodFrom=01.01.2021&PeriodTo=16.07.2021&Period_day=16.07.2021&startMonth=%D0%B8%D1%8E%D0%BB%2C+2021&startYear=2021&Period=01.01.2021-16.07.2021&fClientCode=#client_code#&ReportFormat=xls"
-                        .replace("#client_code#", clientCode);
+                var periodFrom = periodTo.withDayOfMonth(1).withMonth(1);
+                var periodFromStr = periodFrom.format(formatter);
+                var periodToStr = periodTo.format(formatter);
+                var startYearStr = String.valueOf(periodTo.getYear());
+                var body = "PeriodType=year&PeriodFrom=#period_from#&PeriodTo=#period_to#&Period_day=#period_to#&startMonth=%D0%B8%D1%8E%D0%BB%2C+2021&startYear=#start_year#&Period=#period_from#-#period_to#&fClientCode=#client_code#&ReportFormat=xls"
+                        .replaceAll("#period_from#", periodFromStr)
+                        .replaceAll("#period_to#", periodToStr)
+                        .replaceAll("#start_year#", startYearStr)
+                        .replaceAll("#client_code#", clientCode);
                 var request = HttpRequest.newBuilder()
                         .uri(uri)
                         .header("Cookie", authCookie + "; " + slbCookie)

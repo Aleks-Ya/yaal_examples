@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.LocalDate;
 
 class VtbBrokerReportDownloader {
     public static void main(String[] args) throws IOException {
@@ -17,7 +18,8 @@ class VtbBrokerReportDownloader {
         var clients = new VtbBrokerClientList(auth);
         var agreementData = clients.clientList();
 
-        var reportRequest = new VtbBrokerReportRequest(auth, agreementData);
+        var periodTo = LocalDate.now().minusDays(1);
+        var reportRequest = new VtbBrokerReportRequest(auth, agreementData, periodTo);
         reportRequest.sendReportRequest();
 
         for (String agreement : agreementData.getAgreements()) {
