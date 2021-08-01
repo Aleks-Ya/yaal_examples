@@ -17,3 +17,29 @@ spec:
       containers:
         - name: python-hello-world
           image: kubernates-python:1
+          command: ["python"]
+          args: ["hello_world.py"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-http-server-deployment
+  labels:
+    app: python-http-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-http-server
+  template:
+    metadata:
+      labels:
+        app: python-http-server
+    spec:
+      containers:
+        - name: python-http-server
+          image: kubernates-python:1
+          command: ["python"]
+          args: ["http_server.py"]
+          ports:
+            - containerPort: 8000
