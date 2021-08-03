@@ -7,7 +7,16 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 8080
+    - name: actuator
+      nodePort: 32099
+      port: 9999
+      protocol: TCP
+      targetPort: 9999
+    - name: http
+      nodePort: 32080
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
   selector:
     app: actuator-health-check-kubernetes
 ---
@@ -31,15 +40,15 @@ spec:
         - name: actuator-health-check-kubernetes
           image: actuator-health-check-kubernetes:1
           ports:
-            - containerPort: 8080
+            - containerPort: 9999
           readinessProbe:
             tcpSocket:
-              port: 8080
+              port: 9999
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              port: 8080
+              port: 9999
               path: /actuator/health
             initialDelaySeconds: 10
             periodSeconds: 3

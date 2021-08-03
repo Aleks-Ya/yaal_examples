@@ -13,10 +13,12 @@ curl -u admin:admin123 http://localhost:8081
 ```
 
 ## UI
-http://localhost:8081
+Url: http://localhost:8081  
+Login: `admin`  
+Password: `docker exec nexus cat /nexus-data/admin.password`
 
 ## Security
-Default password: admin/admin123
+Default login and password: `admin/admin123`
 
 ## API
 ### Search & Download
