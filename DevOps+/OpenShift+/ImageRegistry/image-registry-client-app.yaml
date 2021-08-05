@@ -1,0 +1,18 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: image-registry-client-template
+  annotations:
+    description: "Image Registry client"
+objects:
+  - apiVersion: v1
+    kind: Pod
+    metadata:
+      name: image-registry-client-pod
+    spec:
+      containers:
+        - image: docker:dind
+          name: image-registry-client-container
+          command: [ "sh", "-c", "while true; do echo 'Hello, World!'; sleep 3; done" ]
+labels:
+  app: image-registry-client
