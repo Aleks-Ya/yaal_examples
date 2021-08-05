@@ -45,3 +45,21 @@ setup() {
   [ "${arr[0]}" = "Some" ]
   [ "${arr[1]}" = "thing" ]
 }
+
+
+@test "String length (not empty)" {
+  s="abcd"
+  l=${#s}
+  (( $l == 4 ))
+}
+
+@test "String length (empty)" {
+  s=""
+  l=${#s}
+  (( $l == 0 ))
+}
+
+@test "String length (not defined)" {
+  l=${#not_exists}
+  (( $l == 0 ))
+}
