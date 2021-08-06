@@ -1,0 +1,35 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: build-args-input-stream
+spec:
+  lookupPolicy:
+    local: true
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: build-args-build-config
+  labels:
+    app: build-args
+spec:
+  source:
+    dockerfile: |
+      ARG CENTOS_VERSION
+      FROM centos:$CENTOS_VERSION
+      ARG PERSON
+      ENV PERSON=$PERSON
+      CMD cat /etc/os-release; while true; do echo Hello, ${PERSON}!; sleep 3; done
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+      buildArgs:
+        - name: "CENTOS_VERSION"
+          value: "7"
+        - name: "PERSON"
+          value: "John"
+  output:
+    to:
+      kind: "ImageStreamTag"
+      name: "build-args-input-stream:1"

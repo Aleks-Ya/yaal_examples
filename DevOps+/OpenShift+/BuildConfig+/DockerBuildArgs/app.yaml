@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: build-args-deployment
+  labels:
+    app: build-args
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: build-args
+  template:
+    metadata:
+      labels:
+        app: build-args
+    spec:
+      containers:
+        - image: build-args-input-stream:1
+          imagePullPolicy: Always
+          name: build-args-input-stream
