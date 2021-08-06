@@ -6,7 +6,9 @@ metadata:
     app: mywebsite
 spec:
   source:
-    dockerfile: "FROM centos:7\nRUN yum install -y httpd"
+    dockerfile: |
+      FROM centos:7
+      RUN yum install -y httpd
   strategy:
     type: Docker
     dockerStrategy:
