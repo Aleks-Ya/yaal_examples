@@ -1,4 +1,7 @@
 # BuildConfig example
+
+[NOT WORKING!]
+
 Example of BuildConfig with an Inline Dockerfile.
 
 1. Run "CRC (CodeReady Containers)" and login into `oc`

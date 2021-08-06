@@ -1,0 +1,27 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: inline-to-stream-input-stream
+spec:
+  lookupPolicy:
+    local: true
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: inline-to-stream-build-config
+  labels:
+    app: inline-to-stream
+spec:
+  source:
+    dockerfile: |
+      FROM centos:7
+      RUN yum install -y httpd
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  output:
+    to:
+      kind: "ImageStreamTag"
+      name: "inline-to-stream-input-stream:1"

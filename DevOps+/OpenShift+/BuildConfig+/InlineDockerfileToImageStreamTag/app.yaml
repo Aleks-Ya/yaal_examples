@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inline-to-stream-deployment
+  labels:
+    app: inline-to-stream
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inline-to-stream
+  template:
+    metadata:
+      labels:
+        app: inline-to-stream
+    spec:
+      containers:
+        - image: inline-to-stream-input-stream:1
+          imagePullPolicy: Always
+          name: inline-to-stream-input-stream
+          command: [ "sh", "-c", "while true; do echo 'Hello, World!'; sleep 3; done" ]
