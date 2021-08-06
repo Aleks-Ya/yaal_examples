@@ -1,0 +1,17 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: mywebsite
+  labels:
+    app: mywebsite
+spec:
+  source:
+    dockerfile: "FROM centos:7\nRUN yum install -y httpd"
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  output:
+    to:
+      kind: "DockerImage"
+      name: "image-registry.openshift-image-registry.svc:5000/myimages/myimage:1"
