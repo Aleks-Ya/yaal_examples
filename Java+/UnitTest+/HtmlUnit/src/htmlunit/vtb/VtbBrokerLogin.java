@@ -75,16 +75,12 @@ class VtbBrokerLogin {
         try (var webClient = WebClientFactory.create(authData)) {
             HtmlPage page = webClient.getPage(VTB_REPORTS_URL);
             var status = page.getWebResponse().getStatusCode();
-            boolean result;
-            if (status == 200) {
-                result = true;
-            } else if (status == 302) {
-                result = false;
-            } else {
+            if (status != 200) {
                 throw new LoginException("Unexpected status while checking is authorized: " + status);
             }
-            System.out.println("Is authorized already: " + result);
-            return result;
+            var isAuthorized = !"/Account/LogOn".equalsIgnoreCase(page.getUrl().getPath());
+            System.out.println("Is authorized already: " + isAuthorized);
+            return isAuthorized;
         } catch (Exception e) {
             throw new LoginException(e);
         }
