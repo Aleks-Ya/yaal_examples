@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: binary-to-stream-deployment
+  labels:
+    app: binary-to-stream
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: binary-to-stream
+  template:
+    metadata:
+      labels:
+        app: binary-to-stream
+    spec:
+      containers:
+        - image: binary-to-stream-input-stream:1
+          imagePullPolicy: Always
+          name: binary-to-stream-input-stream
+#          command: [ "sh", "-c", "while true; do echo 'Hello, World!'; sleep 3; done" ]
