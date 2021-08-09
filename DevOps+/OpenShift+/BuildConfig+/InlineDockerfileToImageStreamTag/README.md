@@ -8,7 +8,7 @@ Example of BuildConfig with an Inline Dockerfile.
 1. Build
    1. Create build config: `oc apply -f build-config.yaml`
    1. Describe build config: `oc describe buildconfig inline-to-stream-build-config`
-   1. Start build: `oc start-build inline-to-stream-build-config`
+   1. Start build: `oc start-build -F inline-to-stream-build-config`
    1. List builds: `oc get build`
    1. Describe build: `oc describe build inline-to-stream-build-config-1`
    1. Describe ImageStream: `oc describe imagestream inline-to-stream-input-stream`

@@ -10,7 +10,7 @@ Provide value to `ARG` Dockerfile instruction from OpenShift BuildConfig.
 1. Build
    1. Create build config: `oc apply -f build-config.yaml`
    1. Describe build config: `oc describe buildconfig build-args-build-config`
-   1. Start build: `oc start-build build-args-build-config`
+   1. Start build: `oc start-build -F build-args-build-config`
    1. List builds: `oc get build`
    1. Describe build: `oc describe build build-args-build-config-1`
    1. Describe ImageStream: `oc describe imagestream build-args-input-stream`

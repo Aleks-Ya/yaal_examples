@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-to-stream-deployment
+  labels:
+    app: image-to-stream
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: image-to-stream
+  template:
+    metadata:
+      labels:
+        app: image-to-stream
+    spec:
+      containers:
+        - image: image-to-stream-input-stream:1
+          imagePullPolicy: Always
+          name: image-to-stream-input-stream

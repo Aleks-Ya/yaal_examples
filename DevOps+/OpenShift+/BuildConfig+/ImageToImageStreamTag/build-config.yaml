@@ -1,0 +1,31 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: image-to-stream-input-stream
+spec:
+  lookupPolicy:
+    local: true
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: image-to-stream-build-config
+  labels:
+    app: image-to-stream
+spec:
+  source:
+    type: Dockerfile
+    dockerfile: |
+      FROM base
+      RUN echo "John" > /tmp/name.txt
+      CMD cat /etc/os-release; while true; do echo Hello, $(cat /tmp/name.txt)!; sleep 3; done
+  strategy:
+    type: Docker
+    dockerStrategy:
+      from:
+        kind: DockerImage
+        name: alpine:3
+  output:
+    to:
+      kind: "ImageStreamTag"
+      name: "image-to-stream-input-stream:1"

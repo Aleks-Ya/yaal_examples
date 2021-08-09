@@ -8,7 +8,7 @@ Example of BuildConfig with an Inline Dockerfile.
 1. Create project: `oc new-project build-config-project`
 1. Create build config: `oc apply -f build-config.yaml`
 1. Describe build config: `oc describe buildconfig mywebsite`
-1. Start build: `oc start-build mywebsite`
+1. Start build: `oc start-build -F mywebsite`
 1. List builds: `oc get build`
 1. Describe build: `oc describe build mywebsite-1`
 

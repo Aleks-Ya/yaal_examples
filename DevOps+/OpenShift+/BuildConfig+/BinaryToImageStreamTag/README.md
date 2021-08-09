@@ -9,7 +9,7 @@ Use Binary (local) BuildInput to create a Docker image in a ImageStreamTag.
 1. Build
     1. Create build config: `oc apply -f build-config.yaml`
     1. Describe build config: `oc describe buildconfig binary-to-stream-build-config`
-    1. Start build: `oc start-build --from-dir=./files binary-to-stream-build-config`
+    1. Start build: `oc start-build -F --from-dir=./files binary-to-stream-build-config`
     1. List builds: `oc get build`
     1. Describe build: `oc describe build binary-to-stream-build-config-1`
     1. Describe ImageStream: `oc describe imagestream binary-to-stream-input-stream`
