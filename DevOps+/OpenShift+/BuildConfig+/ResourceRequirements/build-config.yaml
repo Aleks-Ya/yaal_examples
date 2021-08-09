@@ -1,0 +1,36 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: resource-requirements-input-stream
+spec:
+  lookupPolicy:
+    local: true
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: resource-requirements-build-config
+  labels:
+    app: resource-requirements
+spec:
+  source:
+    dockerfile: |
+      FROM centos:7
+      RUN yum install -y httpd
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  resources:
+    requests:
+      memory: "15Mi"
+      cpu: "0.5"
+      ephemeral-storage: "500Mi"
+    limits:
+      memory: "15Mi"
+      cpu: "1"
+      ephemeral-storage: "1Gi"
+  output:
+    to:
+      kind: "ImageStreamTag"
+      name: "resource-requirements-input-stream:1"

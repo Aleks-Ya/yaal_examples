@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resource-requirements-deployment
+  labels:
+    app: resource-requirements
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: resource-requirements
+  template:
+    metadata:
+      labels:
+        app: resource-requirements
+    spec:
+      containers:
+        - image: resource-requirements-input-stream:1
+          imagePullPolicy: Always
+          name: resource-requirements-input-stream
+          command: [ "sh", "-c", "while true; do echo 'Hello, World!'; sleep 3; done" ]
