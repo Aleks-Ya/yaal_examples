@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-map-deployment
+  labels:
+    app: config-map
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-map
+  template:
+    metadata:
+      labels:
+        app: config-map
+    spec:
+      containers:
+        - image: config-map-input-stream:1
+          imagePullPolicy: Always
+          name: config-map-input-stream

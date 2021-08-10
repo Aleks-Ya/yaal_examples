@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: color-config-map
+data:
+  colorGood: green
+  colorBad: red
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: config-map-input-stream
+spec:
+  lookupPolicy:
+    local: true
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: config-map-build-config
+  labels:
+    app: config-map
+spec:
+  source:
+    dockerfile: |
+      FROM centos:7
+      CMD while true; do echo "Good: ${GOOD_COLOR}, Bad: ${BAD_COLOR}"; sleep 3; done
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+      env:
+        - name: GOOD_COLOR
+          valueFrom:
+            configMapKeyRef:
+              name: color-config-map
+              key: colorGood
+        - name: BAD_COLOR
+          valueFrom:
+            configMapKeyRef:
+              name: color-config-map
+              key: colorBad
+  output:
+    to:
+      kind: "ImageStreamTag"
+      name: "config-map-input-stream:1"
