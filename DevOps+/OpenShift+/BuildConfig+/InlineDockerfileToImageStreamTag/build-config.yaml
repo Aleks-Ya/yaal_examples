@@ -15,8 +15,9 @@ metadata:
 spec:
   source:
     dockerfile: |
-      FROM centos:7
-      RUN yum install -y httpd
+      FROM alpine:3
+      RUN apk add nano
+      CMD while true; do echo "Hello, World!"; sleep 3; done
   strategy:
     type: Docker
     dockerStrategy:

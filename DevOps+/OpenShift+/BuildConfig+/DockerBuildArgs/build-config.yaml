@@ -15,18 +15,18 @@ metadata:
 spec:
   source:
     dockerfile: |
-      ARG CENTOS_VERSION
-      FROM centos:$CENTOS_VERSION
+      ARG ALPINE_VERSION
+      FROM alpine:$ALPINE_VERSION
       ARG PERSON
       ENV PERSON=$PERSON
-      CMD cat /etc/os-release; while true; do echo Hello, ${PERSON}!; sleep 3; done
+      CMD cat /etc/os-release; while true; do echo "Hello, ${PERSON}!"; sleep 3; done
   strategy:
     type: Docker
     dockerStrategy:
       dockerfilePath: Dockerfile
       buildArgs:
-        - name: "CENTOS_VERSION"
-          value: "7"
+        - name: "ALPINE_VERSION"
+          value: "3"
         - name: "PERSON"
           value: "John"
   output:

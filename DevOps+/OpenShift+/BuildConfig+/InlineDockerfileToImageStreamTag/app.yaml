@@ -18,4 +18,3 @@ spec:
         - image: inline-to-stream-input-stream:1
           imagePullPolicy: Always
           name: inline-to-stream-input-stream
-          command: [ "sh", "-c", "while true; do echo 'Hello, World!'; sleep 3; done" ]

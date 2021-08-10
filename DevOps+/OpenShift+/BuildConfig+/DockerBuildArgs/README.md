@@ -14,10 +14,8 @@ Provide value to `ARG` Dockerfile instruction from OpenShift BuildConfig.
    1. List builds: `oc get build`
    1. Describe build: `oc describe build/build-args-build-config-1`
    1. Describe ImageStream: `oc describe is/build-args-input-stream`
-   1. Wait until build is completed
 1. Application
    1. Create application: `oc apply -f app.yaml`
-   1. List pods: `oc get pod`
    1. Check logs: `oc logs -f deployment/build-args-deployment`
 1. Cleanup
    1. Delete application: `oc delete -f app.yaml`

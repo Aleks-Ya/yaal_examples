@@ -23,7 +23,7 @@ metadata:
 spec:
   source:
     dockerfile: |
-      FROM centos:7
+      FROM alpine:3
       CMD while true; do echo "Good: ${GOOD_COLOR}, Bad: ${BAD_COLOR}"; sleep 3; done
   strategy:
     type: Docker
