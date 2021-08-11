@@ -14,7 +14,7 @@ class ProjectTest
 {
     @Test
     void listProjects() {
-        var client = ClientFactory.createDeveloperClient();
+        var client = ClientFactory.getDeveloperClient();
         var projects = client.projects().list().getItems();
         for (var project : projects) {
             System.out.println(project.getMetadata().getName());
@@ -31,7 +31,6 @@ class ProjectTest
         var client = ClientFactory.createAdminClient();
         var createdProject = client.projects().create(project);
         assertThat(createdProject.getStatus().getPhase(), equalTo("Active"));
-
 
         Thread.sleep(1000);
 
