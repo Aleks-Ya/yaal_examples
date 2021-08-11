@@ -11,19 +11,19 @@ import java.util.Date;
 /**
  * Представление Java-объекта в виде JSON.
  */
-public class ToJson {
+class ToJson {
     /**
      * Компактный формат JSON.
      */
     @Test
-    public void compact() {
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
+    void compact() {
+        var builder = new GsonBuilder();
+        var gson = builder.create();
 
         Object obj = new MyObject();
 
-        String jsonStr = gson.toJson(obj);
-        assertEquals("{\"number\":4,\"text\":\"abc\",\"inner\":{\"now\":\"Jul 8, 2015 6:37:19 AM\",\"sum\":18}}",
+        var jsonStr = gson.toJson(obj);
+        assertEquals("{\"number\":4,\"text\":\"abc\",\"inner\":{\"now\":\"Jul 8, 2015, 6:37:19 AM\",\"sum\":18}}",
                 jsonStr);
         System.out.println(jsonStr);
     }
@@ -32,15 +32,15 @@ public class ToJson {
      * Читаемый формат JSON.
      */
     @Test
-    public void prettyPrint() {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    void prettyPrint() {
+        var gson = new GsonBuilder().setPrettyPrinting().create();
         Object obj = new MyObject();
-        String jsonStr = gson.toJson(obj);
+        var jsonStr = gson.toJson(obj);
         assertEquals("{\n" +
                 "  \"number\": 4,\n" +
                 "  \"text\": \"abc\",\n" +
                 "  \"inner\": {\n" +
-                "    \"now\": \"Jul 8, 2015 6:37:19 AM\",\n" +
+                "    \"now\": \"Jul 8, 2015, 6:37:19 AM\",\n" +
                 "    \"sum\": 18\n" +
                 "  }\n" +
                 "}", jsonStr);

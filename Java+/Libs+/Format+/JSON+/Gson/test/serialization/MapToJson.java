@@ -11,20 +11,20 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MapToJson {
+class MapToJson {
 
     @Test
-    public void compact() {
+    void compact() {
         Map<String, Integer> map = new HashMap<>();
         map.put("abc", 123);
         map.put("Jonh", 30);
 
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        Type typeOfMap = new TypeToken<Map<String, Integer>>() {
+        var builder = new GsonBuilder();
+        var gson = builder.create();
+        var typeOfMap = new TypeToken<Map<String, Integer>>() {
         }.getType();
 
-        String jsonStr = gson.toJson(map, typeOfMap);
+        var jsonStr = gson.toJson(map, typeOfMap);
         assertEquals("{\"abc\":123,\"Jonh\":30}", jsonStr);
     }
 }

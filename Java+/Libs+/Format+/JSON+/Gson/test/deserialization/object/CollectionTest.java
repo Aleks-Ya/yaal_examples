@@ -1,25 +1,25 @@
-package deserialization;
+package deserialization.object;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Парсинг JSON в Java-объект.
  */
-public class Collection {
+class CollectionTest {
     private static final Gson gson = new Gson();
 
     @Test
-    public void collection() {
-        Type collectionType = new TypeToken<java.util.Collection<Integer>>() {
+    void collection() {
+        var collectionType = new TypeToken<Collection<Integer>>() {
         }.getType();
-        java.util.Collection<Integer> ints = gson.fromJson("[1,2,3]", collectionType);
+        Collection<Integer> ints = gson.fromJson("[1,2,3]", collectionType);
         assertEquals(ints, Arrays.asList(1, 2, 3));
     }
 }
