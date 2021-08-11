@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-as-file-cm
+data:
+  index.html: <html>My page</html>
+  content.html: <html>Content</html>
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cm-as-file-pod
+spec:
+  containers:
+    - image: alpine
+      name: alpine-container
+      command: [ "sh", "-c", "echo /etc/web/index.html: $(cat /etc/web/index.html); echo /etc/web/content.html: $(cat /etc/web/content.html); while true; do echo 'Press Ctrl-C'; sleep 3; done" ]
+      volumeMounts:
+        - name: cm-as-file-volume
+          mountPath: "/etc/web"
+          readOnly: true
+  volumes:
+    - name: cm-as-file-volume
+      configMap:
+        name: cm-as-file-cm
+  restartPolicy: OnFailure
