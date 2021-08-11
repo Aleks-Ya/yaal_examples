@@ -1,0 +1,3 @@
+dependencies {
+    implementation "io.fabric8:openshift-client:$fabric8ioVersion", slf4jSimpleVersion
+}
