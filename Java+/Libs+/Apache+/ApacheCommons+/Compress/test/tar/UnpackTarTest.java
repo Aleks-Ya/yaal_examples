@@ -1,24 +1,22 @@
 package tar;
 
-import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class UnpackTarTest {
+class UnpackTarTest {
 
     @Test
-    public void readEntries() throws IOException {
-        InputStream is = getClass().getResourceAsStream("mytar.tar");
-        TarArchiveInputStream tar = new TarArchiveInputStream(is);
+    void readEntries() throws IOException {
+        var is = getClass().getResourceAsStream("mytar.tar");
+        var tar = new TarArchiveInputStream(is);
 
-        TarArchiveEntry entry = tar.getNextTarEntry();
-        String name = entry.getName();
+        var entry = tar.getNextTarEntry();
+        var name = entry.getName();
         assertThat(name, equalTo("mytar/"));
     }
 

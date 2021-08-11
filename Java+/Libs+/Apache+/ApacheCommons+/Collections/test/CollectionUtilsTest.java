@@ -5,10 +5,10 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class CollectionUtilsTest {
+class CollectionUtilsTest {
 
     @Test
-    public void isNotEmpty() {
-        assertFalse(CollectionUtils.isNotEmpty(new ArrayList(0)));
+    void isNotEmpty() {
+        assertFalse(CollectionUtils.isNotEmpty(new ArrayList<>(0)));
     }
 }

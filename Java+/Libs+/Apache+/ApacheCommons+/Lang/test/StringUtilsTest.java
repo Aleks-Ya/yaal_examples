@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class StringUtilsTest {
+class StringUtilsTest {
 
     /**
      * Сравнение строк (безопасно с null).
      */
     @Test
-    public void equalsIgnoreCase() {
+    void equalsIgnoreCase() {
         assertFalse(StringUtils.equalsIgnoreCase(null, ""));
     }
 
@@ -18,7 +18,7 @@ public class StringUtilsTest {
      * Пустая строка.
      */
     @Test
-    public void isBlank() {
+    void isBlank() {
         assertTrue(StringUtils.isBlank(null));
     }
 }

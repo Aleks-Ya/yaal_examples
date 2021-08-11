@@ -6,10 +6,10 @@ import java.lang.reflect.InvocationTargetException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class CloneTest {
+class CloneTest {
 
     @Test
-    public void main() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    void main() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         A origin = new A();
         origin.setB(7);
         A clone = (A) BeanUtils.cloneBean(origin);

@@ -9,13 +9,13 @@ import java.nio.charset.Charset;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class IOUtilsTest {
+class IOUtilsTest {
 
     @Test
-    public void inputStreamToString() throws IOException {
-        String exp = "abc";
+    void inputStreamToString() throws IOException {
+        var exp = "abc";
         InputStream is = new ByteArrayInputStream(exp.getBytes());
-        String act = IOUtils.toString(is, Charset.defaultCharset());
+        var act = IOUtils.toString(is, Charset.defaultCharset());
         assertThat(act, equalTo(exp));
     }
 }

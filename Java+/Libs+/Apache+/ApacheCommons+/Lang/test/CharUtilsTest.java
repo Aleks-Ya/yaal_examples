@@ -1,11 +1,11 @@
 import org.apache.commons.lang3.CharUtils;
 import org.junit.jupiter.api.Test;
 
-public class CharUtilsTest {
+class CharUtilsTest {
     @Test
-    public void testName() {
+    void testName() {
         //удилить
-        char c =CharUtils.toChar('\u0410');
+        var c = CharUtils.toChar('\u0410');
         System.out.println(c);
         System.out.println('\u0410');
 

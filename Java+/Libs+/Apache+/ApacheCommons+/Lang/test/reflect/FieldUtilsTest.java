@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class FieldUtilsTest {
+class FieldUtilsTest {
 
     @Test
-    public void readPrivateField() throws IllegalAccessException {
-        String expName = "John";
-        Person child = new Person(expName);
-        String actName = (String) FieldUtils.readDeclaredField(child, "name", true);
+    void readPrivateField() throws IllegalAccessException {
+        var expName = "John";
+        var child = new Person(expName);
+        var actName = (String) FieldUtils.readDeclaredField(child, "name", true);
         assertThat(actName, equalTo(expName));
     }
 
@@ -25,10 +25,10 @@ public class FieldUtilsTest {
     }
 
     @Test
-    public void getProtectedFieldFromSuperClass() throws IllegalAccessException {
-        String expName = "John";
-        ChildClass child = new ChildClass(expName);
-        String actName = (String) FieldUtils.readField(child, "name", true);
+    void getProtectedFieldFromSuperClass() throws IllegalAccessException {
+        var expName = "John";
+        var child = new ChildClass(expName);
+        var actName = (String) FieldUtils.readField(child, "name", true);
         assertThat(actName, equalTo(expName));
     }
 

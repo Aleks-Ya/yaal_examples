@@ -3,11 +3,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class ArrayUtilsTest {
-
+class ArrayUtilsTest {
     @Test
-    public void main() {
-        int[] arr = {100, 200};
+    void main() {
+        var arr = new int[]{100, 200};
         assertFalse(ArrayUtils.isEmpty(arr));
     }
 }

@@ -6,36 +6,37 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FileUtilsTest {
+class FileUtilsTest {
 
     private File outFile;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         outFile = Files.createTempFile("fileUtilsUse_", ".tmp").toFile();
         outFile.deleteOnExit();
     }
 
     @Test
-    public void stringToFile() throws IOException {
-        String expected = "Hey, file!";
-        FileUtils.writeStringToFile(outFile, expected);
-        String actual = FileUtils.readFileToString(outFile);
+    void stringToFile() throws IOException {
+        var expected = "Hey, file!";
+        FileUtils.writeStringToFile(outFile, expected, Charset.defaultCharset());
+        var actual = FileUtils.readFileToString(outFile, Charset.defaultCharset());
         assertEquals(expected, actual);
     }
 
     @Test
-    public void inputStreamToFile() throws IOException {
+    void inputStreamToFile() throws IOException {
         byte[] expected = {1, 2, 3};
         InputStream is = new ByteArrayInputStream(expected);
         FileUtils.copyInputStreamToFile(is, outFile);
-        byte[] actual = FileUtils.readFileToByteArray(outFile);
+        var actual = FileUtils.readFileToByteArray(outFile);
         assertThat(actual, equalTo(expected));
     }
 }

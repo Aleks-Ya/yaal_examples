@@ -5,10 +5,10 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-public class MapUtilsTest {
+class MapUtilsTest {
 
     @Test
-    public void isNotEmpty() {
+    void isNotEmpty() {
         assertFalse(MapUtils.isNotEmpty(new HashMap<>()));
     }
 }
