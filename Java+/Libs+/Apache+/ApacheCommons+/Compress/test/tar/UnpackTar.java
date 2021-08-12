@@ -8,7 +8,7 @@ import java.io.IOException;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-class UnpackTarTest {
+class UnpackTar {
 
     @Test
     void readEntries() throws IOException {

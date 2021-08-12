@@ -1,12 +1,9 @@
 package ok;
 
-import okhttp3.HttpUrl;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.Test;
@@ -17,13 +14,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class MultipartRequest {
+class MultipartRequest {
 
     @Test
-    public void multipart() throws IOException {
-        String expBody = "hello, world!";
+    void multipart() throws IOException {
+        var expBody = "hello, world!";
 
-        MockWebServer server = new MockWebServer();
+        var server = new MockWebServer();
         server.enqueue(new MockResponse().setBody(expBody));
         server.start();
 
@@ -32,16 +29,16 @@ public class MultipartRequest {
                 .addFormDataPart("name", "John")
                 .build();
 
-        HttpUrl url = server.url("/v1/chat/");
-        Request request = new Request.Builder()
+        var url = server.url("/v1/chat/");
+        var request = new Request.Builder()
                 .url(url)
                 .method("POST", body)
                 .build();
 
-        OkHttpClient client = new OkHttpClient().newBuilder().build();
-        Response response = client.newCall(request).execute();
+        var client = new OkHttpClient().newBuilder().build();
+        var response = client.newCall(request).execute();
         assertThat(response.code(), equalTo(200));
-        ResponseBody actBody = response.body();
+        var actBody = response.body();
         assertNotNull(actBody);
         assertThat(actBody.string(), equalTo(expBody));
 

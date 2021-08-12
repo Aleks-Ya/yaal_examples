@@ -2,7 +2,6 @@ package ok;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -21,25 +20,25 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Transfer objects to Callback by Tags.
  */
-public class Tag {
+class Tag {
     private static boolean isCallbackVisited = false;
 
     @Test
-    public void tag() throws IOException {
-        MockWebServer server = new MockWebServer();
+    void tag() throws IOException {
+        var server = new MockWebServer();
         server.enqueue(new MockResponse());
         server.start();
 
-        String expStringTag = "the_tag";
-        LocalDate expDataTag = LocalDate.of(2020, 10, 25);
-        HttpUrl url = server.url("/");
-        Request request = new Request.Builder()
+        var expStringTag = "the_tag";
+        var expDataTag = LocalDate.of(2020, 10, 25);
+        var url = server.url("/");
+        var request = new Request.Builder()
                 .url(url)
                 .tag(String.class, expStringTag)
                 .tag(LocalDate.class, expDataTag)
                 .build();
 
-        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        var client = new OkHttpClient().newBuilder().build();
 
         client.newCall(request).enqueue(new Callback() {
 
@@ -49,8 +48,8 @@ public class Tag {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
-                String stringTagValue = call.request().tag(String.class);
-                LocalDate dataTagValue = call.request().tag(LocalDate.class);
+                var stringTagValue = call.request().tag(String.class);
+                var dataTagValue = call.request().tag(LocalDate.class);
                 assertThat(stringTagValue, equalTo(expStringTag));
                 assertThat(dataTagValue, equalTo(expDataTag));
                 isCallbackVisited = true;

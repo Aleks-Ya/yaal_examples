@@ -2,7 +2,6 @@ package ok;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -19,25 +18,25 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 
-public class AsyncRequests {
+class AsyncRequests {
 
     @Test
-    public void asyncMultiRequests() throws IOException {
-        String expBody1 = "Body #1";
-        String expBody2 = "Body #2";
+    void asyncMultiRequests() throws IOException {
+        var expBody1 = "Body #1";
+        var expBody2 = "Body #2";
 
-        MockWebServer server = new MockWebServer();
+        var server = new MockWebServer();
         server.enqueue(new MockResponse().setBody(expBody1));
         server.enqueue(new MockResponse().setBody(expBody2));
         server.start();
 
-        HttpUrl url = server.url("/v1/chat/");
-        Request request1 = new Request.Builder().url(url).build();
-        Request request2 = new Request.Builder().url(url).build();
+        var url = server.url("/v1/chat/");
+        var request1 = new Request.Builder().url(url).build();
+        var request2 = new Request.Builder().url(url).build();
 
-        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        var client = new OkHttpClient().newBuilder().build();
 
-        InfoCallback callback = new InfoCallback();
+        var callback = new InfoCallback();
         client.newCall(request1).enqueue(callback);
         client.newCall(request2).enqueue(callback);
         while (client.dispatcher().queuedCallsCount() > 0 || client.dispatcher().runningCallsCount() > 0) ;
