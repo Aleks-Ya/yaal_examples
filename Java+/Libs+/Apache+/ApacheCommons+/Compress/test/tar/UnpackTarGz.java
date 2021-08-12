@@ -1,39 +1,32 @@
 package tar;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
-import org.apache.commons.compress.archivers.ArchiveException;
-import org.apache.commons.compress.archivers.ArchiveStreamFactory;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
+import util.FileUtil;
 import util.ResourceUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static tar.Helper.assertFileContent;
+import static util.ResourceUtil.resourceToFile;
 
-class UnpackTar {
-
-    @Test
-    void useTarArchiveInputStream() throws IOException {
-        var is = getClass().getResourceAsStream("mytar.tar");
-        var tar = new TarArchiveInputStream(is);
-
-        var entry = tar.getNextTarEntry();
-        var name = entry.getName();
-        assertThat(name, equalTo("mytar/"));
-    }
+/**
+ * Unpack TAR archive compressed by GZIP ("*.tar.gz", "*.tgz").
+ */
+class UnpackTarGz {
 
     @Test
-    void useArchiveInputStream() throws IOException, ArchiveException {
-        var outDir = Files.createTempDirectory(getClass().getSimpleName()).toFile();
+    void unpack() throws IOException {
+        var outDir = FileUtil.createTempDirectory(getClass().getSimpleName());
         System.out.println("outDir: " + outDir.getAbsolutePath());
-        var is = getClass().getResourceAsStream("mytar.tar");
-        try (var ais = new ArchiveStreamFactory().createArchiveInputStream(is)) {
+        var is = ResourceUtil.resourceToInputStream(getClass(), "HDFS_CLIENT-configs.tar.gz");
+        try (var gis = new GzipCompressorInputStream(is);
+             var ais = new TarArchiveInputStream(gis)) {
             ArchiveEntry entry;
             while ((entry = ais.getNextEntry()) != null) {
                 if (!ais.canReadEntryData(entry)) {
@@ -57,8 +50,12 @@ class UnpackTar {
             }
         }
 
-        var expDir = ResourceUtil.resourceToFile(getClass(), "mytar.tar.extracted/mytar/content.txt").getParentFile().getParentFile();
-        assertFileContent(outDir, expDir, "mytar/content.txt");
-        assertFileContent(outDir, expDir, "mytar/subdir/subdir.txt");
+        var expDir = resourceToFile(getClass(), "HDFS_CLIENT-configs.extracted/core-site.xml")
+                .getParentFile();
+        assertFileContent(outDir, expDir, "core-site.xml");
+        assertFileContent(outDir, expDir, "hadoop-env.sh");
+        assertFileContent(outDir, expDir, "hdfs-site.xml");
+        assertFileContent(outDir, expDir, "log4j.properties");
     }
+
 }

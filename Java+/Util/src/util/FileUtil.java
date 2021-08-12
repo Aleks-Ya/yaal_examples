@@ -2,6 +2,7 @@ package util;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 public class FileUtil {
 
@@ -21,6 +22,14 @@ public class FileUtil {
             return file;
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+
+    public static File createTempDirectory(String suffix) {
+        try {
+            return Files.createTempDirectory(suffix).toFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
