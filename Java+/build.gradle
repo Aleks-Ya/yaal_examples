@@ -13,7 +13,7 @@ subprojects {
     ext {
         h2Dependency = 'com.h2database:h2:1.4.200'
         slf4jSimpleVersion = 'org.slf4j:slf4j-simple:1.8.0-beta4'
-        okHttpVersion = '4.9.1'
+        def okHttpVersion = '4.9.1'
         okHttpDependency = "com.squareup.okhttp3:okhttp:$okHttpVersion"
         mockWebServerDependency = "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
         jettyServlet10Dependency = 'org.eclipse.jetty:jetty-servlet:10.0.0'
@@ -28,7 +28,7 @@ subprojects {
         commonsLangDependency = 'org.apache.commons:commons-lang3:3.12.0'
         elasticSearchVersion = '7.12.0'
         junit5Version = '5.7.1'
-        spring5Version = '5.3.6'
+        spring5Version = '5.3.9'
         spring4Version = '4.3.30.RELEASE'
         spring3Version = '3.2.18.RELEASE'
         hadoop2Version = '2.10.1'

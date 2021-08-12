@@ -4,6 +4,6 @@ subprojects {
                 "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion",
                 slf4jSimpleVersion
 
-        testImplementation 'com.jayway.jsonpath:json-path-assert:2.4.0'
+        testImplementation 'com.jayway.jsonpath:json-path-assert:2.6.0'
     }
 }
