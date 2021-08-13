@@ -55,4 +55,12 @@ public class ResourceUtil {
         return ResourceUtil.class.getClassLoader().getResourceAsStream(resourceName);
     }
 
+    public static byte[] resourceToBytes(Class<?> clazz, String resourceName) {
+        try {
+            return Files.readAllBytes(resourceToFile(clazz, resourceName).toPath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
