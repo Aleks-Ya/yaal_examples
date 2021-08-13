@@ -9,10 +9,10 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
-public class ExceptionTest {
+class ExceptionTest {
 
     @Test
-    public void syntax1() {
+    void syntax1() {
         assertThatThrownBy(() -> {
             throw new Exception("boom!");
         })
@@ -21,7 +21,7 @@ public class ExceptionTest {
     }
 
     @Test
-    public void syntax2() {
+    void syntax2() {
         assertThatExceptionOfType(IOException.class).isThrownBy(() -> {
             throw new IOException("boom!");
         })
@@ -35,11 +35,11 @@ public class ExceptionTest {
      * By BDD.
      */
     @Test
-    public void givenWhenThen() {
+    void givenWhenThen() {
         // given some preconditions
 
         // when
-        Throwable thrown = catchThrowable(() -> {
+        var thrown = catchThrowable(() -> {
             throw new Exception("boom!");
         });
 

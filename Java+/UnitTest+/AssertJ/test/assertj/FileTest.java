@@ -12,18 +12,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Docs: https://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html#file-content-string-assertions
  */
-public class FileTest {
+class FileTest {
 
-    private static File createTmpFile(String content) throws IOException {
-        File f = File.createTempFile(FileTest.class.getSimpleName(), ".tmp");
-        Files.write(f.toPath(), content.getBytes());
+    private static File createTmpFile(byte[] content) throws IOException {
+        var f = File.createTempFile(FileTest.class.getSimpleName(), ".tmp");
+        Files.write(f.toPath(), content);
         return f;
     }
 
+    private static File createTmpFile(String content) throws IOException {
+        return createTmpFile(content.getBytes());
+    }
+
     @Test
-    public void assertFileContent() throws IOException {
-        String content = "Hello Big World";
-        File f = createTmpFile(content);
+    void assertFileContent() throws IOException {
+        var content = "Hello Big World";
+        var f = createTmpFile(content);
         assertThat(f)
                 .exists()
                 .isFile()
@@ -37,10 +41,18 @@ public class FileTest {
     }
 
     @Test
-    public void filesContentsAreEqual() throws IOException {
-        String content = "Hello Big World";
-        File actFile = createTmpFile(content);
-        File expFile = createTmpFile(content);
-        assertThat(actFile).hasSameContentAs(expFile);
+    void filesContentsAreEqualText() throws IOException {
+        var content = "Hello Big World";
+        var actFile = createTmpFile(content);
+        var expFile = createTmpFile(content);
+        assertThat(actFile).hasSameTextualContentAs(expFile);
+    }
+
+    @Test
+    void filesContentsAreEqualBinary() throws IOException {
+        var content = new byte[]{1, 3, 5, 7};
+        var actFile = createTmpFile(content);
+        var expFile = createTmpFile(content);
+        assertThat(actFile).hasSameBinaryContentAs(expFile);
     }
 }

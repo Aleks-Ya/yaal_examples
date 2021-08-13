@@ -1,3 +1,0 @@
-dependencies {
-    implementation 'org.assertj:assertj-core:3.14.0'
-}
