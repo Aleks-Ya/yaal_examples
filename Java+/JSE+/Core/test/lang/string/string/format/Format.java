@@ -3,6 +3,7 @@ package lang.string.string.format;
 import org.junit.jupiter.api.Test;
 
 import java.text.NumberFormat;
+import java.util.Locale;
 
 import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -50,7 +51,8 @@ public class Format {
         assertThat(format("Ведущий ноль и десятичные разряды : %01.2f %n", .14), equalTo("Ведущий ноль и десятичные разряды : 0.14 \n"));
         assertThat(format("Вещественное число: %f%n", 3.14), equalTo("Вещественное число: 3.140000\n"));
         assertThat(format("Десятичные разряды: %.2f%n", 3.14), equalTo("Десятичные разряды: 3.14\n"));
-        assertThat(format("Разделители групп разрядов: %,d%n", 1000000), equalTo("Разделители групп разрядов: 1,000,000\n"));
+        assertThat(format("Разделители групп разрядов (запятая): %,d%n", 1000000), equalTo("Разделители групп разрядов (запятая): 1,000,000\n"));
+        assertThat(format(Locale.forLanguageTag("RU"), "Разделители групп разрядов (пробел): %,d%n", 1000000), equalTo("Разделители групп разрядов (пробел): 1 000 000\n"));
 
         // Two or less decimal digits
         NumberFormat nf = NumberFormat.getInstance();

@@ -22,7 +22,6 @@ class ClientFactory {
 
     private static RestClient createRestClient() {
         try {
-            System.out.println("Init RestClient");
             var homeDir = System.getProperty("user.home");
             var properties = new Properties();
             properties.load(new FileInputStream(new File(homeDir, ".yandex-disk-credentials/disk.properties")));
