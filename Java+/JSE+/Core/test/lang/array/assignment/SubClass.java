@@ -1,4 +1,4 @@
-package assignment;
+package lang.array.assignment;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
  * Присвоение переменной массива суперкласса
  * массива дочернего класса.
  */
-public class SubClass {
+class SubClass {
 
     /**
      * Примитивные типы.
      */
     @Test
-    public void primitive() throws Exception {
+    void primitive() {
         long[] a;
         int[] b = {1};
 
@@ -27,7 +27,7 @@ public class SubClass {
      * Ссылочные типы.
      */
     @Test
-    public void reference() throws Exception {
+    void reference() {
         Exception[] a;
         RuntimeException[] b = {new RuntimeException()};
         a = b;

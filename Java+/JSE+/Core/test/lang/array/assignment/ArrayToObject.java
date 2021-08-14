@@ -1,15 +1,17 @@
-package assignment;
+package lang.array.assignment;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Присвоение массива переменной Object.
  */
-public class ArrayToObject {
+class ArrayToObject {
     @Test
-    public void object() throws Exception {
+    void object() {
         int[] a = {1, 2};
 
         Object o = a;

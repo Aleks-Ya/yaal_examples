@@ -1,4 +1,4 @@
-package init;
+package lang.array.init;
 
 import org.junit.jupiter.api.Test;
 
@@ -7,13 +7,13 @@ import java.util.Arrays;
 /**
  * Лишняя запятая в литерале.
  */
-public class TrailingComma {
+class TrailingComma {
 
     /**
      * Одна запятая не является ошибкой.
      */
     @Test
-    public void one() {
+    void one() {
         int[][] array = {{1, 2, 3}, {0, 0, 0,},};
         System.out.println(Arrays.deepToString(array));
     }
@@ -22,7 +22,7 @@ public class TrailingComma {
      * Две запятые - ошибка компиляции.
      */
     @Test
-    public void two() {
+    void two() {
         //Ошибка компиляции illegal start of expression
         //int[][] array = {{1, 2, 3}, {0, 0, 0,},,};
     }

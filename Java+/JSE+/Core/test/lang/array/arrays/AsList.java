@@ -5,16 +5,9 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Использование метода Arrays#asList.
- */
-public class AsList {
-
-    /**
-     * Чтобы получить коллекцию Long нужно ВСЕ элементы дополнить суффиксом L.
-     */
+class AsList {
     @Test
-    public void longCollection() throws Exception {
+    void longCollection() {
         List<Long> a = Arrays.asList(2L, 1L, 4L, 3L);
     }
 }

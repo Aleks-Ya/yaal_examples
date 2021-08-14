@@ -1,4 +1,4 @@
-package init;
+package lang.array.init;
 
 import org.junit.jupiter.api.Test;
 
@@ -9,9 +9,9 @@ import static java.lang.System.out;
 /**
  * Инициализация многомерных массивов.
  */
-public class MultiDimension {
+class MultiDimension {
     @Test
-    public void main() {
+    void main() {
         out.println("Второй размер 0");
         Integer[][] arr = new Integer[3][];
         out.println(arrToString(arr));

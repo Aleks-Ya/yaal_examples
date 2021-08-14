@@ -1,4 +1,4 @@
-package init;
+package lang.array.init;
 
 import org.junit.jupiter.api.Test;
 
@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Использование null при инициализации массива.
  */
-public class NullElement {
+class NullElement {
 
     /**
      * Одномерный массив.
      */
     @Test
-    public void oneDimension() {
+    void oneDimension() {
         String[] arr = {null, null};
         assertEquals(2, arr.length);
     }
@@ -22,7 +22,7 @@ public class NullElement {
      * Многомерный массив.
      */
     @Test
-    public void multiDimensions() {
+    void multiDimensions() {
         String[][] arr = {
                 null,
                 null,

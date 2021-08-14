@@ -1,13 +1,13 @@
-package init;
+package lang.array.init;
 
 import org.junit.jupiter.api.Test;
 
 /**
  * Инициализация одномерных массивов.
  */
-public class OneDimension {
+class OneDimension {
     @Test
-    public void main() {
+    void main() {
         {
             String[] arr = {"a"};
             String s = arr[0];
