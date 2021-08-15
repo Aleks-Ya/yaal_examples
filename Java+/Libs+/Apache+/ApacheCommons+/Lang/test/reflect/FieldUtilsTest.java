@@ -16,7 +16,15 @@ class FieldUtilsTest {
         assertThat(actName, equalTo(expName));
     }
 
+    @Test
+    void readPrivateStaticField() throws IllegalAccessException {
+        var city = (String) FieldUtils.readDeclaredStaticField(Person.class, "CITY", true);
+        assertThat(city, equalTo("Moscow"));
+    }
+
+    @SuppressWarnings("unused")
     private static class Person {
+        private static final String CITY = "Moscow";
         private final String name;
 
         private Person(String name) {
