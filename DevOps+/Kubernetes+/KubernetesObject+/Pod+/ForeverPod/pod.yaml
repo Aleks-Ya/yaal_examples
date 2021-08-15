@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: forever-pod
+spec:
+  containers:
+    - name: service-account-container
+      image: alpine
+      #command: [ "sh", "-c", "while true; do echo 'Hello, World!'; sleep 5; done" ]
+      #command: [ "sh", "-c", "trap 'exit 0' 15; while true; do :; done" ] #15 sec
+      #command: [ "sh", "-c", "trap 'exit 0' 15; sleep infinity" ] #37 sec
+      #command: [ "sleep infinity" ] #not work: sleep infinity executable file not found in $PATH"
+      #command: [ "sh", "-c", "sleep infinity" ] #40 sec
+      #command: [ "sh", "-c", "while true; do sleep 1; done" ] #32 sec
+      #command: [ "trap 'exit 0' 15", "while true; do sleep 1; done" ] #\"trap 'exit 0' 15\": executable file not found in $PATH"
+      #command: [ "sh", "-c", "trap 'exit 0' 2 15; while true; do sleep 1; done" ] #10 sec
+      command: [ "sh", "-c", "trap 'exit 0' 15; while true; do sleep 1; done" ] #12 sec
+  restartPolicy: OnFailure

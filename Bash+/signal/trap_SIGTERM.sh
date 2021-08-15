@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# SIGTERM (#15) is graseful process termination
+
 SIGTERM=15
 trap cleanup $SIGTERM
 

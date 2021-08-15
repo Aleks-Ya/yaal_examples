@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sa-with-secret-secret
+type: Opaque
+data:
+  username: bXlfdXNlcg==
+  password: bXlfcGFzc3dvcmQ=
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sa-with-secret-service-account
+secrets:
+  - name: sa-with-secret-secret
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sa-with-secret-pod
+spec:
+  containers:
+    - name: sa-with-secret-container
+      image: alpine
+      command: [ "sh", "-c", "ls -l /var/run/secrets/kubernetes.io/serviceaccount; while true; do echo 'Hello, World!'; sleep 5; done" ]
+  restartPolicy: OnFailure
+  serviceAccountName: sa-with-secret-service-account
+  automountServiceAccountToken: true

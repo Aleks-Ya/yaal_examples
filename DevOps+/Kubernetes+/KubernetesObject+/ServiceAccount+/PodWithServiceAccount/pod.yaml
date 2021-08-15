@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: my-pod-service-account
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: service-account-pod
+spec:
+  containers:
+    - name: service-account-container
+      image: alpine
+      command: [ "sh", "-c", "ls -l /var/run/secrets/kubernetes.io/serviceaccount; while true; do echo 'Hello, World!'; sleep 5; done" ]
+  restartPolicy: OnFailure
+  serviceAccountName: my-pod-service-account
+  automountServiceAccountToken: true
