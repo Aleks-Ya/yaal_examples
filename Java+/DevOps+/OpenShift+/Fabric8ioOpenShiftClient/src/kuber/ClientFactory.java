@@ -41,7 +41,7 @@ public class ClientFactory {
         }
     };
 
-    public static OpenShiftClient getDeveloperClient() {
+    public static OpenShiftClient devClient() {
         try {
             return developerClient.get();
         } catch (ConcurrentException e) {
@@ -49,12 +49,16 @@ public class ClientFactory {
         }
     }
 
-    public static OpenShiftClient createAdminClient() {
+    public static OpenShiftClient adminClient() {
         try {
             return adminClient.get();
         } catch (ConcurrentException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static OsHelper devHelper() {
+        return new OsHelper(devClient());
     }
 
     private static OpenShiftClient createClient(String url, Credentials credentials) {

@@ -22,7 +22,7 @@ class WatchProject {
                 .withNewSpec().endSpec()
                 .withNewMetadata().withName(projectName).endMetadata()
                 .build();
-        var client = ClientFactory.createAdminClient();
+        var client = ClientFactory.adminClient();
         var createdProject = client.projects().create(project);
         var watcher = new ProjectCreatedWatcher();
         client.projects().watch(watcher);

@@ -4,12 +4,13 @@ import io.fabric8.kubernetes.api.model.Pod;
 import io.fabric8.kubernetes.api.model.PodBuilder;
 import io.fabric8.kubernetes.client.Watcher;
 import io.fabric8.kubernetes.client.WatcherException;
-import kuber.ClientFactory;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.UUID;
 
+import static kuber.ClientFactory.devClient;
+import static kuber.ClientFactory.devHelper;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class WatchPod {
@@ -31,11 +32,9 @@ class WatchPod {
                 .endSpec()
                 .build();
         System.out.println("Pod: " + podName);
-        var client = ClientFactory.getDeveloperClient();
+        var client = devClient();
         var createdPod = client.pods().create(pod);
-        var watcher = new RunningPodWatcher();
-        client.pods().watch(watcher);
-        watcher.waitUntilIsRunning();
+        devHelper().waitUntilRunning(podName);
         System.out.println("Pod is running!");
         assertTrue(client.pods().delete(createdPod));
     }

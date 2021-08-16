@@ -14,7 +14,7 @@ class ProjectTest
 {
     @Test
     void listProjects() {
-        var client = ClientFactory.getDeveloperClient();
+        var client = ClientFactory.devClient();
         var projects = client.projects().list().getItems();
         for (var project : projects) {
             System.out.println(project.getMetadata().getName());
@@ -28,7 +28,7 @@ class ProjectTest
                 .withNewSpec().endSpec()
                 .withNewMetadata().withName(projectName).endMetadata()
                 .build();
-        var client = ClientFactory.createAdminClient();
+        var client = ClientFactory.adminClient();
         var createdProject = client.projects().create(project);
         assertThat(createdProject.getStatus().getPhase(), equalTo("Active"));
 

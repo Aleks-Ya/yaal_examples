@@ -1,7 +1,10 @@
 package kuber.configmap;
 
 import io.fabric8.kubernetes.api.model.ConfigMapBuilder;
+import io.fabric8.kubernetes.api.model.ConfigMapVolumeSourceBuilder;
+import io.fabric8.kubernetes.api.model.ContainerBuilder;
 import io.fabric8.kubernetes.api.model.PodBuilder;
+import io.fabric8.kubernetes.api.model.PodSpecBuilder;
 import io.fabric8.kubernetes.api.model.VolumeBuilder;
 import io.fabric8.kubernetes.api.model.VolumeMountBuilder;
 import kuber.ClientFactory;
@@ -33,26 +36,26 @@ class PodWithConfigMapAsFile {
         var volumeName = "cm-as-file-volume";
         var pod = new PodBuilder()
                 .withNewMetadata().withName(podName).endMetadata()
-                .withNewSpec()
-                .addNewContainer()
-                .withName(containerName)
-                .withImage(image)
-                .withCommand(List.of("sh", "-c", "ls -l /etc/cm; while true; do echo \"Hello, $(cat /etc/cm/name.txt) ($(cat /etc/cm/age.txt) years)!\"; sleep 3; done"))
-                .withVolumeMounts(new VolumeMountBuilder()
-                        .withName(volumeName)
-                        .withMountPath("/etc/cm")
+                .withSpec(new PodSpecBuilder()
+                        .withContainers(new ContainerBuilder()
+                                .withName(containerName)
+                                .withImage(image)
+                                .withCommand(List.of("sh", "-c", "ls -l /etc/cm; while true; do echo \"Hello, $(cat /etc/cm/name.txt) ($(cat /etc/cm/age.txt) years)!\"; sleep 3; done"))
+                                .withVolumeMounts(new VolumeMountBuilder()
+                                        .withName(volumeName)
+                                        .withMountPath("/etc/cm")
+                                        .build())
+                                .build())
+                        .withVolumes(new VolumeBuilder()
+                                .withName(volumeName)
+                                .withConfigMap(new ConfigMapVolumeSourceBuilder()
+                                        .withName(cmName)
+                                        .build())
+                                .build())
                         .build())
-                .endContainer()
-                .withVolumes(new VolumeBuilder()
-                        .withName(volumeName)
-                        .withNewConfigMap()
-                        .withName(cmName)
-                        .endConfigMap()
-                        .build())
-                .endSpec()
                 .build();
 
-        var client = ClientFactory.getDeveloperClient();
+        var client = ClientFactory.devClient();
         var createdCm = client.configMaps().create(cm);
         var createdPod = client.pods().create(pod);
 

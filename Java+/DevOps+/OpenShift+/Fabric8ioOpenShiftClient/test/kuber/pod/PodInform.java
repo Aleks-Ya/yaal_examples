@@ -28,7 +28,7 @@ class PodInform {
                 .endContainer()
                 .endSpec()
                 .build();
-        var client = ClientFactory.getDeveloperClient();
+        var client = ClientFactory.devClient();
         var createdPod = client.pods().create(pod);
         client.pods().inform(new PodResourceEventHandler(podName));
 

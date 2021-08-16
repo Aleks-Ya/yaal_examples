@@ -1,8 +1,10 @@
 package kuber.configmap;
 
 import io.fabric8.kubernetes.api.model.ConfigMapBuilder;
+import io.fabric8.kubernetes.api.model.ContainerBuilder;
 import io.fabric8.kubernetes.api.model.EnvFromSourceBuilder;
 import io.fabric8.kubernetes.api.model.PodBuilder;
+import io.fabric8.kubernetes.api.model.PodSpecBuilder;
 import kuber.ClientFactory;
 import org.junit.jupiter.api.Test;
 
@@ -12,10 +14,10 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class PodWithConfigMap {
+class PodWithConfigMapAsEnv {
 
     @Test
-    void createPodWithConfigMap() {
+    void createPodWithConfigMapAsEnv() {
         var dataName = "NAME";
         var dataAge = "AGE";
         var cmName = "cm-" + UUID.randomUUID();
@@ -31,21 +33,21 @@ class PodWithConfigMap {
         var image = "alpine:3";
         var pod = new PodBuilder()
                 .withNewMetadata().withName(podName).endMetadata()
-                .withNewSpec()
-                .addNewContainer()
-                .withName(containerName)
-                .withImage(image)
-                .withCommand(List.of("sh", "-c", "while true; do echo \"Hello, ${NAME} (${AGE} years)!\"; sleep 3; done"))
-                .withEnvFrom(new EnvFromSourceBuilder()
-                        .withNewConfigMapRef()
-                        .withName(cmName)
-                        .endConfigMapRef()
+                .withSpec(new PodSpecBuilder()
+                        .withContainers(new ContainerBuilder()
+                                .withName(containerName)
+                                .withImage(image)
+                                .withCommand(List.of("sh", "-c", "while true; do echo \"Hello, ${NAME} (${AGE} years)!\"; sleep 3; done"))
+                                .withEnvFrom(new EnvFromSourceBuilder()
+                                        .withNewConfigMapRef()
+                                        .withName(cmName)
+                                        .endConfigMapRef()
+                                        .build())
+                                .build())
                         .build())
-                .endContainer()
-                .endSpec()
                 .build();
 
-        var client = ClientFactory.getDeveloperClient();
+        var client = ClientFactory.devClient();
         client.configMaps().create(cm);
         client.pods().create(pod);
 
