@@ -1,0 +1,4 @@
+dependencies {
+    implementation "io.github.openfeign:feign-httpclient:$feignVersion", "io.github.openfeign:feign-gson:$feignVersion"
+    testImplementation "io.github.openfeign:feign-mock:$feignVersion"
+}
