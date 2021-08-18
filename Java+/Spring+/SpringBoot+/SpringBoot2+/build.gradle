@@ -1,7 +1,4 @@
 subprojects {
-    ext {
-        springBootVersion = '2.1.8.RELEASE'
-    }
     dependencies {
         testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
     }
