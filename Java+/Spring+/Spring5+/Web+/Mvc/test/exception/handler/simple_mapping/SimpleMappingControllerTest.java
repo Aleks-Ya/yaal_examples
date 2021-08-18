@@ -25,12 +25,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Use {@link SimpleMappingExceptionResolver}.
  */
 @ContextConfiguration(classes = {SimpleMappingController.class, SimpleMappingControllerTest.Config.class})
-public class SimpleMappingControllerTest extends BaseTest {
+class SimpleMappingControllerTest extends BaseTest {
 
     private static final int HTTP_STATUS = 409;
 
     @Test
-    public void fileNotFoundException() throws Exception {
+    void fileNotFoundException() throws Exception {
         mvc.perform(get(FILE_NOT_FOUND_EXCEPTION))
                 .andExpect(status().is(HTTP_STATUS))
                 .andExpect(content().string("Hi viewFileNotFoundException"));
@@ -38,14 +38,14 @@ public class SimpleMappingControllerTest extends BaseTest {
 
 
     @Test
-    public void numberFormatException() throws Exception {
+    void numberFormatException() throws Exception {
         mvc.perform(get(NUMBER_FORMAT_EXCEPTION))
                 .andExpect(status().is(HTTP_STATUS))
                 .andExpect(content().string("Hi viewNumberFormatException"));
     }
 
     @Test
-    public void missingServletRequestParameterException() throws Exception {
+    void missingServletRequestParameterException() throws Exception {
         mvc.perform(get(MISSING_SERVLET_PARAM_EXCEPTION))
                 .andExpect(status().is(HTTP_STATUS))
                 .andExpect(content().string("Hi viewDefault"));
@@ -59,8 +59,8 @@ public class SimpleMappingControllerTest extends BaseTest {
 
         @Bean
         public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
-            SimpleMappingExceptionResolver resolver = new SimpleMappingExceptionResolver();
-            Properties mapping = new Properties();
+            var resolver = new SimpleMappingExceptionResolver();
+            var mapping = new Properties();
             mapping.setProperty(FileNotFoundException.class.getName(), VIEW_FILE_NOT_FOUND_EXCEPTION);
             mapping.setProperty(NumberFormatException.class.getName(), VIEW_NUMBER_FORMAT_EXCEPTION);
             resolver.setExceptionMappings(mapping);

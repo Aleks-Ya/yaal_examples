@@ -15,10 +15,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Treat the body as JSON using @RequestBody and auto converting to JSON.
  */
 @ContextConfiguration(classes = {JsonAutoController.class, JsonAutoControllerTest.Config.class})
-public class JsonAutoControllerTest extends BaseTest {
+class JsonAutoControllerTest extends BaseTest {
 
     @Test
-    public void requestParam() throws Exception {
+    void requestParam() throws Exception {
         mvc.perform(
                 post(JsonAutoController.ENDPOINT)
                         .contentType(MediaType.APPLICATION_JSON)

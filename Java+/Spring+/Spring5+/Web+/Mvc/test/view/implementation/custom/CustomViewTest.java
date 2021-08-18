@@ -16,10 +16,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Custom implementation of {@link org.springframework.web.servlet.View}.
  */
 @ContextConfiguration(classes = {CustomViewController.class, PrintTextView.class, CustomViewTest.Config.class})
-public class CustomViewTest extends BaseTest {
+class CustomViewTest extends BaseTest {
 
     @Test
-    public void requestParam() throws Exception {
+    void requestParam() throws Exception {
         String message = "hello";
         mvc.perform(get(CustomViewController.ENDPOINT).param("message", message))
                 .andExpect(status().isOk())

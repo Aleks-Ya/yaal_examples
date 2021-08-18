@@ -10,10 +10,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ContextConfiguration(classes = {Config.class, ControllerAdviceComponent.class, TheController.class})
-public class ControllerAdviceTest extends BaseTest {
+class ControllerAdviceTest extends BaseTest {
 
     @Test
-    public void responseStatus() throws Exception {
+    void responseStatus() throws Exception {
         mvc.perform(get(TheController.ENDPOINT))
                 .andExpect(content().string(TheController.EXCEPTION_MESSAGE))
                 .andExpect(status().is(HttpStatus.I_AM_A_TEAPOT.value()));

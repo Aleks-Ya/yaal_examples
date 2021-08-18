@@ -12,10 +12,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Treat the body as String using @RequestBody.
  */
 @ContextConfiguration(classes = StringController.class)
-public class StringControllerTest extends BaseTest {
+class StringControllerTest extends BaseTest {
 
     @Test
-    public void requestParam() throws Exception {
+    void requestParam() throws Exception {
         mvc.perform(
                 post(StringController.ENDPOINT)
                         .contentType("text/plain")

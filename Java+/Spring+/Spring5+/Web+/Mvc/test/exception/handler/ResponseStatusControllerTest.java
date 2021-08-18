@@ -13,23 +13,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ContextConfiguration(classes = ResponseStatusController.class)
-public class ResponseStatusControllerTest extends BaseTest {
+class ResponseStatusControllerTest extends BaseTest {
 
     @Test
-    public void responseStatus() throws Exception {
+    void responseStatus() throws Exception {
         mvc.perform(get(RESPONSE_STATUS_MAPPING))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    public void responseStatusWithBody() throws Exception {
+    void responseStatusWithBody() throws Exception {
         mvc.perform(get(RESPONSE_STATUS_WITH_BODY_MAPPING))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string(RESPONSE_STATUS_WITH_BODY_CONTENT));
     }
 
     @Test
-    public void responseStatusWithBodyWithException() throws Exception {
+    void responseStatusWithBodyWithException() throws Exception {
         mvc.perform(get(RESPONSE_STATUS_WITH_BODY_WITH_EXCEPTION_MAPPING))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string(

@@ -16,10 +16,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Using {@link org.springframework.web.bind.annotation.ModelAttribute} annotation.
  */
 @ContextConfiguration(classes = {ModelAttributeController.class, WeekdayView.class, ModelAttributeTest.Config.class})
-public class ModelAttributeTest extends BaseTest {
+class ModelAttributeTest extends BaseTest {
 
     @Test
-    public void modelAttribute() throws Exception {
+    void modelAttribute() throws Exception {
         mvc.perform(get(ModelAttributeController.ENDPOINT).param("yearParam", "2018"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("31 Monday 2018"));

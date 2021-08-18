@@ -6,7 +6,6 @@ import controller.pdf.lowagie.UserPDFView;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.web.servlet.MvcResult;
 
 import static com.codeborne.pdftest.PDF.containsText;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -18,17 +17,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Treat the body as String using @RequestBody.
  */
 @ContextConfiguration(classes = {ITextPdfController.class, UserPDFView.class})
-public class ITextPdfControllerTest extends BaseTest {
+class ITextPdfControllerTest extends BaseTest {
 
     @Test
-    public void requestParam() throws Exception {
-        MvcResult mvcResult = mvc.perform(get(ITextPdfController.ENDPOINT).accept(MediaType.APPLICATION_PDF))
+    void requestParam() throws Exception {
+        var mvcResult = mvc.perform(get(ITextPdfController.ENDPOINT).accept(MediaType.APPLICATION_PDF))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_PDF_VALUE))
                 .andReturn();
 
-        byte[] body = mvcResult.getResponse().getContentAsByteArray();
-        PDF bodyPdf = new PDF(body);
+        var body = mvcResult.getResponse().getContentAsByteArray();
+        var bodyPdf = new PDF(body);
         assertThat(bodyPdf, containsText(ITextPdfController.MESSAGE));
     }
 }

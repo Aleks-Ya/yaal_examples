@@ -13,7 +13,7 @@ class JsonAutoController {
     @ResponseBody
     @RequestMapping(value = ENDPOINT, method = RequestMethod.POST)
     public String post(@RequestBody BodyJson bodyJson) {
-        return "response=" +bodyJson.getName();
+        return "response=" + bodyJson.getName();
     }
 
     static class BodyJson {
