@@ -27,3 +27,4 @@ dist
 build
 Pipfile.lock
 __pycache__
+*.hprof

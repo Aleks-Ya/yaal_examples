@@ -1,4 +1,4 @@
 dependencies {
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.0.3'
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign:$springCloudVersion"
     testImplementation wireMockDependency
 }

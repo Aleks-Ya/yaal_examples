@@ -21,7 +21,7 @@ subprojects {
         servlet4Dependency = 'javax.servlet:javax.servlet-api:4.0.1'
         jacksonVersion = '2.12.3'
         jsonUnitDependency = 'net.javacrumbs.json-unit:json-unit:2.24.0'
-        mockitoVersion = '3.9.0'
+        mockitoVersion = '3.11.2'
         mockitoDependency = "org.mockito:mockito-core:$mockitoVersion"
         log4jCoreDependency = 'org.apache.logging.log4j:log4j-core:2.14.1'
         gsonDependency = 'com.google.code.gson:gson:2.8.7'
@@ -32,7 +32,8 @@ subprojects {
         spring5Version = '5.3.9'
         spring4Version = '4.3.30.RELEASE'
         spring3Version = '3.2.18.RELEASE'
-        springBootVersion = '2.3.12.RELEASE'
+        springBootVersion = '2.5.3'
+        springCloudVersion = '3.0.3'
         hadoop2Version = '2.10.1'
         fabric8ioVersion = '5.6.0'
         feignVersion = '11.6'

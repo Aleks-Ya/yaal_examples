@@ -25,7 +25,7 @@ public class ElementVisitorTest {
         var instances = Elements.getElements(module).stream()
                 .map(element -> element.acceptVisitor(new DefaultElementVisitor<>() {
                     @Override
-                    public <T> Object visit(Binding<T> binding) {
+                    public Object visit(Binding binding) {
                         if (binding instanceof InstanceBinding) {
                             var instanceBinding = (InstanceBinding<Integer>) binding;
                             return instanceBinding.getInstance();
