@@ -231,6 +231,7 @@ include 'Spring+:Spring3+:AnnotationConfig+:Configuration',
         'Spring+:SpringBoot+:SpringBoot2+:Actuator+:HealthCheck',
         'Spring+:SpringBoot+:SpringBoot2+:Actuator+:Loggers',
         'Spring+:SpringBoot+:SpringBoot2+:JdbcSpringBoot',
+        'Spring+:SpringBoot+:SpringBoot2+:LoadBalancer',
         'Spring+:SpringBoot+:SpringBoot2+:Quartz',
         'Spring+:SpringBoot+:SpringBoot2+:OpenFeign',
         'Spring+:SpringBoot+:SpringBoot2+:DiscoveryClient'
