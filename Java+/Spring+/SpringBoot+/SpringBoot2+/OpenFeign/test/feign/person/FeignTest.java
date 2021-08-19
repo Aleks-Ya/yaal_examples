@@ -12,22 +12,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.configureFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE;
 
 /**
  * Use Feign to send HTTP request to WireMockServer (in unit-test).
  */
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(webEnvironment = NONE)
 class FeignTest {
     @Autowired
     private WireMockServer server;
@@ -36,7 +32,7 @@ class FeignTest {
     PersonApi personApi;
 
     @Test
-    void requestParam() throws Exception {
+    void requestParam() {
         server.start();
         var host = "localhost";
         var port = server.port();
@@ -45,17 +41,8 @@ class FeignTest {
         var path = "/hello";
         stubFor(get(urlEqualTo(path)).willReturn(aResponse().withBody(expBody)));
 
-        var uri = URI.create(server.url(path));
-        var request = HttpRequest.newBuilder()
-                .uri(uri)
-                .GET()
-                .build();
+        var actBody = personApi.getFirstName();
 
-        var response = HttpClient.newHttpClient()
-                .send(request, HttpResponse.BodyHandlers.ofString());
-        var statusCode = response.statusCode();
-        assertThat(statusCode).isEqualTo(200);
-        var actBody = response.body();
         System.out.println(actBody);
         assertThat(actBody).isEqualTo(expBody);
     }
@@ -70,9 +57,9 @@ class FeignTest {
         }
     }
 
-    @FeignClient(value = "person", url = "${localhost:9561}")
+    @FeignClient(value = "person", url = "http://localhost:9561")
     public interface PersonApi {
-        @RequestMapping(method = RequestMethod.GET, value = "/firstName")
+        @RequestMapping(method = RequestMethod.GET, value = "/hello")
         String getFirstName();
     }
 }
