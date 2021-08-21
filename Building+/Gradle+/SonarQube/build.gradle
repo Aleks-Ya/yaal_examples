@@ -1,0 +1,13 @@
+plugins {
+    id 'java'
+    id "org.sonarqube" version "3.3"
+}
+
+sourceSets.main.java.srcDir 'src'
+
+project.tasks["sonarqube"].dependsOn "compileJava"
+sonarqube {
+    properties {
+        property "sonar.sourceEncoding", "UTF-8"
+    }
+}
