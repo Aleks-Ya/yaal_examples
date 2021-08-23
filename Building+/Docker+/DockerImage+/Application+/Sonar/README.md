@@ -3,9 +3,9 @@
 ## Run Server
 [Link](https://store.docker.com/images/sonarqube)
 
-Run: `docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube`
+Run: `docker run --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube`
 
-UI: http://localhost:9000/about
+UI: http://localhost:9000
 
 Credentials: admin/admin
 
