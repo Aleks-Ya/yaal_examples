@@ -1,0 +1,40 @@
+<configuration>
+    <property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>yarn-master.yarn.yaal.ru</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+
+    <property>
+        <name>yarn.scheduler.capacity.root.queues</name>
+        <value>a,b,c</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.capacity.root.a.queues</name>
+        <value>a1,a2</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.capacity.root.b.queues</name>
+        <value>b1,b2,b3</value>
+    </property>
+
+    <property>
+        <name>yarn.resourcemanager.keytab</name>
+        <value>/etc/hdfs.keytab</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.principal</name>
+        <value>rm/_HOST@HADOOPCLUSTER.LOCAL</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.keytab</name>
+        <value>/etc/hdfs.keytab</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.principal</name>
+        <value>nm/_HOST@HADOOPCLUSTER.LOCAL</value>
+    </property>
+</configuration>

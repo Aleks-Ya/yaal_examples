@@ -1,0 +1,39 @@
+<configuration>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://yarn-master.yarn.yaal.ru:9000</value>
+    </property>
+    <property>
+       <name>fs.file.impl</name>
+       <value>org.apache.hadoop.fs.LocalFileSystem</value>
+       <description>The FileSystem for file: uris.</description>
+    </property>
+    <property>
+       <name>fs.hdfs.impl</name>
+       <value>org.apache.hadoop.hdfs.DistributedFileSystem</value>
+       <description>The FileSystem for hdfs: uris.</description>
+    </property>
+    <property>
+        <name>ipc.client.connect.max.retries</name>
+        <value>50</value>
+    </property>
+    <property>
+        <name>ipc.client.connect.retry.interval</name>
+        <value>3000</value>
+    </property>
+    <property>
+        <name>hadoop.security.authentication</name>
+        <value>kerberos</value>
+    </property>
+    <property>
+        <name>hadoop.security.authorization</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>hadoop.security.auth_to_local</name>
+        <value>
+            RULE:[2:$1/$2@$0]([*]/.*@HADOOPCLUSTER\.LOCAL)s/.*/hdfs/
+            DEFAULT
+        </value>
+    </property>
+</configuration>

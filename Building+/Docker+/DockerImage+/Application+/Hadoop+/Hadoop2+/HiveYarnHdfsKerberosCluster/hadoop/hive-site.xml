@@ -1,0 +1,15 @@
+<configuration>
+<!--    <property>
+        <name>javax.jdo.option.ConnectionURL</name>
+        <value>jdbc:postgresql://hadoop-postgres:5432/hive</value>
+    </property>
+    <property>
+        <name>javax.jdo.option.ConnectionDriverName</name>
+        <value>org.postgresql.Driver</value>
+    </property>-->
+    <!--<property>
+        <name>javax.jdo.option.ConnectionPassword</name>
+        <value>mine</value>
+        <description>password to use against metastore database</description>
+    </property>-->
+</configuration>
