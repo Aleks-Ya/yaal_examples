@@ -9,6 +9,10 @@
 1. Start cluster: `./run_cluster.sh`
 2. Update hosts file: `sudo ./update_hosts.sh`
 3. Check: http://hdfs-master.hdfs.yaal.ru:50070
+4. Check logs:
+    1. DataNode 1: `docker exec hdfs-master cat /opt/hadoop/logs/hadoop-hdfs-datanode-hdfs-master.log`
+    1. DataNode 2: `docker exec hdfs-slave1 cat /opt/hadoop/logs/hadoop-hdfs-datanode-hdfs-slave1.log`
+    1. DataNode 3: `docker exec hdfs-slave2 cat /opt/hadoop/logs/hadoop-hdfs-datanode-hdfs-slave2.log`
 
 ## Hadoop CLI
 
@@ -22,10 +26,10 @@ Example of a command: `hdfs dfs -ls /`
 ## Web UI
 
 - HDFS
-    - Active Name Node UI: http://hdfs-master.hdfs.yaal.ru:50070
-    - Data Node 1 UI: http://hdfs-master.hdfs.yaal.ru:1006
-    - Data Node 2 UI: http://hdfs-slave1.hdfs.yaal.ru:1006
-    - Data Node 3 UI: http://hdfs-slave2.hdfs.yaal.ru:1006
+    - Active NameNode UI: http://hdfs-master.hdfs.yaal.ru:50070
+    - DataNode 1 UI: http://hdfs-master.hdfs.yaal.ru:1006
+    - DataNode 2 UI: http://hdfs-slave1.hdfs.yaal.ru:1006
+    - DataNode 3 UI: http://hdfs-slave2.hdfs.yaal.ru:1006
 
 ## Web
 
@@ -51,8 +55,10 @@ kinit -kt /tmp/nn.keytab dn/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL
    `curl -i --negotiate -u :  http://hdfs-master.hdfs.yaal.ru:50070`
 3. Curl to WebHDFS
    `curl -i --negotiate -u : "http://hdfs-master.hdfs.yaal.ru:50070/webhdfs/v1/?op=LISTSTATUS"`
-4. Firefox to Web Console  
-   Open http://hdfs-master.hdfs.yaal.ru:50070
+4. Firefox to Web Console
+    1. Enable Kerberos: Firefox -> `about:config` -> `network.negotiate-auth.trusted-uris` = `.hdfs.yaal.ru`
+       (or `hdfs-master.hdfs.yaal.ru,hdfs-slave1.hdfs.yaal.ru,hdfs-slave2.hdfs.yaal.ru`)
+    1. Open http://hdfs-master.hdfs.yaal.ru:50070
 
 ## Testing with `sserver` and `sclient`
 
