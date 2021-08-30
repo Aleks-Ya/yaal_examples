@@ -3,7 +3,8 @@ FROM $HADOOP_BASE_IMAGE
 
 USER root
 RUN yum install -y krb5-workstation krb5-libs jsvc \
-    && useradd -m -g hadoop hdfs
+    && useradd -m -g hadoop hdfs \
+    && useradd -m -g hadoop yarn
 
 USER hdfs
 RUN mkdir -p /home/hdfs/namenode \

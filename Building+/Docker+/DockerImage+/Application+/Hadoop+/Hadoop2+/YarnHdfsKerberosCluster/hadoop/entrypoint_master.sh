@@ -4,6 +4,7 @@ set -e
 
 echo "HADOOP_PREFIX=$HADOOP_PREFIX"
 echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
+echo "HADOOP_LOG_DIR=$HADOOP_LOG_DIR"
 
 export KERBEROS_SHARED=/tmp/kerberos
 ls -l "$KERBEROS_SHARED"
@@ -33,14 +34,15 @@ echo "DataNode started."
 
 echo "Starting ResourceManager..."
 kinit -kt /etc/hdfs.keytab rm/yarn-master.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
-hadoop-daemon.sh --script yarn start resourcemanager
+export YARN_LOG_DIR=$HADOOP_LOG_DIR
+su yarn -c "yarn-daemon.sh --config $HADOOP_CONF_DIR start resourcemanager"
 echo "ResourceManager started."
 
 SIGINT=2
 SIGTERM=15
 stop()
 {
-  stop-yarn.sh
+  su yarn -c "yarn-daemon.sh --config $HADOOP_CONF_DIR stop resourcemanager"
   hadoop-daemon.sh --script hdfs stop namenode
   hadoop-daemon.sh --script hdfs stop datanode
   exit 0

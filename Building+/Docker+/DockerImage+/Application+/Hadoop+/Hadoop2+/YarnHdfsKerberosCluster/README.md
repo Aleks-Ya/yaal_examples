@@ -9,7 +9,15 @@
 1. Start cluster: `./run_cluster.sh`
 2. Update hosts file: `sudo ./update_hosts.sh`
 3. Check HDFS: http://yarn-master.yarn.yaal.ru:50070
-3. Check YARN: http://yarn-master.yarn.yaal.ru:8088
+4. Check YARN: http://yarn-master.yarn.yaal.ru:8088
+5. Check logs (HDFS):
+  1. DataNode 1: `docker exec yarn-master cat /opt/hadoop/logs/hadoop-hdfs-datanode-yarn-master.log`
+  1. DataNode 2: `docker exec yarn-slave1 cat /opt/hadoop/logs/hadoop-hdfs-datanode-yarn-slave1.log`
+  1. DataNode 3: `docker exec yarn-slave2 cat /opt/hadoop/logs/hadoop-hdfs-datanode-yarn-slave2.log`
+6. Check logs (YARN):
+  1. ResourceManager: `docker exec yarn-master bash -c 'cat $HADOOP_LOG_DIR/yarn-yarn-resourcemanager-yarn-master.log'`
+  1. NodeManager 1: `docker exec yarn-slave1 bash -c 'cat $HADOOP_LOG_DIR/yarn-yarn-nodemanager-yarn-slave1.log'`
+  1. NodeManager 2: `docker exec yarn-slave2 bash -c 'cat $HADOOP_LOG_DIR/yarn-yarn-nodemanager-yarn-slave2.log'`
 
 ## Hadoop CLI
 

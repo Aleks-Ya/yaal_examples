@@ -4,6 +4,7 @@ set -e
 
 echo "HADOOP_PREFIX=$HADOOP_PREFIX"
 echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
+echo "HADOOP_LOG_DIR=$HADOOP_LOG_DIR"
 
 export KERBEROS_SHARED=/tmp/kerberos
 ls -l "$KERBEROS_SHARED"
@@ -17,14 +18,15 @@ echo "DataNode started."
 
 echo "Starting NodeManager..."
 kinit -kt /etc/hdfs.keytab nm/yarn-slave1.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
-hadoop-daemon.sh --script yarn start nodemanager
+export YARN_LOG_DIR=$HADOOP_LOG_DIR
+su yarn -c "yarn-daemon.sh --config $HADOOP_CONF_DIR start nodemanager"
 echo "NodeManager started."
 
 SIGINT=2
 SIGTERM=15
 stop()
 {
-  hadoop-daemon.sh --script yarn stop nodemanager
+  su yarn -c "yarn-daemon.sh --config $HADOOP_CONF_DIR stop nodemanager"
   hadoop-daemon.sh --script hdfs stop datanode
   exit 0
 }
