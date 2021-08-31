@@ -14,8 +14,8 @@ ext.libs = [
         ]
 ]
 dependencies {
-    compile libs.joda, libs.spring
-    testCompile libs.testLibs
+    implementation libs.joda, libs.spring
+    testImplementation libs.testLibs
 }
 repositories {
     mavenCentral()

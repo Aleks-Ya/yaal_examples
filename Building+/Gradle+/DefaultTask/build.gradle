@@ -1,11 +1,9 @@
-// Run: gradle
+defaultTasks('hi', 'bye') 
 
-defaultTasks('hi', 'bay') 
-
-task hi << {
+task hi {
     println "Hi!"
 }
 
-task bay << {
-    println "Bay!"
+task bye {
+    println "Bye!"
 }

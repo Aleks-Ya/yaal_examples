@@ -7,7 +7,7 @@ allprojects {
 def log4j = 'log4j:log4j:1.2.17'
 
 dependencies {
-    compile log4j
+    implmentation log4j
 }
 
 repositories {
@@ -17,7 +17,7 @@ repositories {
 subprojects {
 
     dependencies {
-        compile log4j
+        implementation log4j
     }
 
     repositories {
@@ -31,3 +31,4 @@ task hello << cl
 project(':SubProject') {
     task hello << cl
 }
+

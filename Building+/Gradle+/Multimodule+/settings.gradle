@@ -1,6 +1,3 @@
-/**
- * Building+
- */
 include 'FirstMultimodule',
         'Dependencies+:ResourceDependency',
         'Dependencies+:BrokenRepoLink',

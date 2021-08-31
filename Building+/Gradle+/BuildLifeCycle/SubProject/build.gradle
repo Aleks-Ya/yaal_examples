@@ -2,27 +2,14 @@ println 'Sub Project - configuration phase'
 
 task subhello
 
-     subhello.doFirst {
-          println 'subhello - doFirst - execution phase'
-     }
-
-     subhello.configure {
-          println 'subhello - configuration phase'
-     }
-
-     subhello.doLast {
-          println 'subhello - doLast - execution phase'
-     }
-
-
-subhello << {
-  println "subhello - action 1 - execution phase"
+subhello.doFirst {
+     println 'subhello - doFirst - execution phase'
 }
 
-subhello << {
-  println "subhello - action 2 - execution phase"
+subhello.configure {
+     println 'subhello - configuration phase'
 }
 
-subhello.leftShift {
-  println "subhello - action 3 - execution phase"
+subhello.doLast {
+     println 'subhello - doLast - execution phase'
 }

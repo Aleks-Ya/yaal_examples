@@ -1,4 +1,3 @@
-//Run: gradle subhello
 println 'Project - configuration phase'
 
 task hello() {
@@ -15,10 +14,4 @@ task hello() {
      }
 }
 
-hello << {
-  println "hello - action 1 - execution phase"
-}
-
-hello << {
-  println "hello - action 2 - execution phase"
-}
+defaultTasks('subhello')
