@@ -1,0 +1,9 @@
+defaultTasks('hi', 'bye') 
+
+task hi {
+    println "Hi!"
+}
+
+task bye {
+    println "Bye!"
+}
