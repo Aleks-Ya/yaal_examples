@@ -3,7 +3,7 @@
 
 defaultTasks('tempFilesLength')
 
-task tempFilesLength << {
+task tempFilesLength {
     //long lengthSum = 0L
     //for(File f in fileTree(System.getProperty("user.home"))) {
     //    lengthSum += f.length()

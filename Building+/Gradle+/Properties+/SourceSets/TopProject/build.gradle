@@ -6,7 +6,7 @@ allprojects {
     sourceSets.main.java.srcDir 'src'
 }
 
-task printAllProjects() << {
+task printAllProjects() {
 	for (p in allprojects) {
 		println(p.name)
 		println("Java Src: $p.sourceSets.main.java.srcDirs")

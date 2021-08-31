@@ -2,6 +2,6 @@
 
 defaultTasks('home')
 
-task home << {
+task home {
     println "GRADLE HOME DIR IS '${gradle.gradleHomeDir}'"
 }

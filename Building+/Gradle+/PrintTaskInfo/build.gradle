@@ -4,7 +4,7 @@ task hello() {
   printInfo(it)
 }
 
-hello << {
+hello {
   println "EXECUTION PHASE"
   printInfo(it)
 }
