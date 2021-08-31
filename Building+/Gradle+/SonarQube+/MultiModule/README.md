@@ -1,4 +1,4 @@
-# SonarQube scanner for a single-module project
+# SonarQube scanner for a multi-module project
 
 ## Docs
 - ["SonarScanner for Gradle"](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-gradle/)
