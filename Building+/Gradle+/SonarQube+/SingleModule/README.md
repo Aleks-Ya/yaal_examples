@@ -11,7 +11,7 @@
 3. Generate token for `admin` and set `export ADMIN_SONAR_TOKEN=xxxx`
 
 ### Execute
-Run: `gradle sonarqube -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$ADMIN_SONAR_TOKEN`
+Run: `gradle --info clean sonarqube -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$ADMIN_SONAR_TOKEN`
 
 ## Run as non-admin user
 ### Prerequisites

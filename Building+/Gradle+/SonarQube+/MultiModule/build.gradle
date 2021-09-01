@@ -5,6 +5,7 @@ plugins {
 subprojects {
     apply plugin: 'java'
     apply plugin: 'org.sonarqube'
+    apply plugin: 'jacoco'
     repositories {
         mavenCentral()
     }
@@ -14,7 +15,14 @@ subprojects {
         testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
     }
     test {
+        finalizedBy jacocoTestReport
         useJUnitPlatform()
+    }
+    jacocoTestReport {
+        reports {
+            xml.required = true
+            html.required = false
+        }
     }
 }
 
