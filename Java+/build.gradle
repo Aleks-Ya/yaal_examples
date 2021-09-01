@@ -21,7 +21,7 @@ subprojects {
         servlet4Dependency = 'javax.servlet:javax.servlet-api:4.0.1'
         jacksonVersion = '2.12.3'
         jsonUnitDependency = 'net.javacrumbs.json-unit:json-unit:2.24.0'
-        mockitoVersion = '3.11.2'
+        mockitoVersion = '3.12.4'
         mockitoDependency = "org.mockito:mockito-core:$mockitoVersion"
         log4jCoreDependency = 'org.apache.logging.log4j:log4j-core:2.14.1'
         gsonDependency = 'com.google.code.gson:gson:2.8.7'

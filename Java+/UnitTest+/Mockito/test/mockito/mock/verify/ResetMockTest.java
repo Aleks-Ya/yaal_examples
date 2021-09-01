@@ -9,12 +9,12 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-public class ResetMockTest {
+class ResetMockTest {
 
     @Test
-    public void resetMockStatistics() {
-        Date mock = mock(Date.class);
-        long time = 1L;
+    void resetMockStatistics() {
+        var mock = mock(Date.class);
+        var time = 1L;
         mock.setTime(time);
         verify(mock).setTime(time);
         mock.setTime(time);

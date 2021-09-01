@@ -11,10 +11,10 @@ import static org.mockito.Mockito.mock;
 /**
  * Create mock for Generic classes.
  */
-public class Generics {
+class Generics {
 
     @Test
-    public void string() {
+    void string() {
         List<String> mock = mock(List.class);
         assertThat(mock.size(), equalTo(0));
     }

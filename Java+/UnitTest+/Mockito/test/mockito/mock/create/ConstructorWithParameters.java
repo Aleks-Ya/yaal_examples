@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 
-public class ConstructorWithParameters {
+class ConstructorWithParameters {
 
     @Test
-    public void string() {
-        Data mock = mock(Data.class);
+    void string() {
+        var mock = mock(Data.class);
         assertNull(mock.getTitle());
     }
 

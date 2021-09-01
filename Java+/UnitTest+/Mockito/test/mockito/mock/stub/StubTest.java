@@ -12,18 +12,18 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class StubTest {
+class StubTest {
 
     @Test
-    public void thenReturn() {
-        Iterator mock = mock(Iterator.class);
+    void thenReturn() {
+        var mock = mock(Iterator.class);
         when(mock.hasNext()).thenReturn(true);
         assertTrue(mock.hasNext());
     }
 
     @Test
-    public void then() {
-        Source mock = mock(Source.class);
+    void then() {
+        var mock = mock(Source.class);
         when(mock.doWork(anyString())).then(invocation -> {
             String src = invocation.getArgument(0);
             return src + src;
@@ -32,8 +32,8 @@ public class StubTest {
     }
 
     @Test
-    public void doAnswerTest() {
-        Source mock = mock(Source.class);
+    void doAnswerTest() {
+        var mock = mock(Source.class);
         doAnswer(invocation -> {
             String src = invocation.getArgument(0);
             return src + src;

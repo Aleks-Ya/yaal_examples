@@ -12,11 +12,11 @@ import static org.mockito.Mockito.when;
 /**
  * Create mock and define when() in one line.
  */
-public class MockAndWhenOneLIne {
+class MockAndWhenOneLIne {
 
     @Test
-    public void getMock() {
-        long exp = 1L;
+    void getMock() {
+        var exp = 1L;
         Date mock = when(mock(Date.class).getTime()).thenReturn(exp).getMock();
         assertThat(mock.getTime(), equalTo(exp));
     }

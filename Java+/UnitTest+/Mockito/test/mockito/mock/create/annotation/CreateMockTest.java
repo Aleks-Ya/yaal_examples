@@ -10,13 +10,13 @@ import java.util.List;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class CreateMockTest {
+class CreateMockTest {
 
     @Mock
     private List<String> mock;
 
     @Test
-    public void test() {
+    void test() {
         mock.add("a");
         verify(mock).add("a");
     }

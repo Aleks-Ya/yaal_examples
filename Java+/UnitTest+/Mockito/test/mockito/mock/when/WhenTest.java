@@ -9,12 +9,12 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class WhenTest {
+class WhenTest {
 
     @Test
-    public void returnValue() {
-        Date mock = mock(Date.class);
-        long value = 100L;
+    void returnValue() {
+        var mock = mock(Date.class);
+        var value = 100L;
         when(mock.getTime()).thenReturn(value);
         assertThat(mock.getTime(), equalTo(value));
     }
