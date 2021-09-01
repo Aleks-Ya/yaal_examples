@@ -1,0 +1,23 @@
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'jacoco'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        def junit5Version = '5.7.1'
+        testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version"
+        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
+    }
+    test {
+        finalizedBy jacocoTestReport
+        useJUnitPlatform()
+    }
+    jacocoTestReport {
+        reports {
+            xml.required = true
+            csv.required = true
+            html.required = true
+        }
+    }
+}
