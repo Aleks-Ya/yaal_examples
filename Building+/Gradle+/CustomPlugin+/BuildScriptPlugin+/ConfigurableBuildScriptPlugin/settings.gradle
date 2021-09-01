@@ -1,0 +1,20 @@
+interface SettingsGreetingPluginExtension {
+    Property<String> getMessage()
+
+    Property<String> getGreeter()
+}
+
+class SettingsGreetingPlugin implements Plugin<Settings> {
+    void apply(Settings settings) {
+        println("Applying SettingsGreetingPlugin...")
+        def extension = settings.extensions.create('greeting2', SettingsGreetingPluginExtension)
+        settings.rootProject.setName('NewProject')
+    }
+}
+
+apply plugin: SettingsGreetingPlugin
+
+greeting2 {
+    message = 'Hello'
+    greeter = 'Settings'
+}

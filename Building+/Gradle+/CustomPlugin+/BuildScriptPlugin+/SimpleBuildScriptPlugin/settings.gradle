@@ -1,0 +1,7 @@
+class SettingsGreetingPlugin implements Plugin<Settings> {
+    void apply(Settings settings) {
+        println("Applying SettingsGreetingPlugin...")
+    }
+}
+
+apply plugin: SettingsGreetingPlugin
