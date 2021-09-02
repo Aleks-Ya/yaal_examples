@@ -10,13 +10,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Поиск без учета регистра.
  */
-public class CaseInsensitiveTest {
+class CaseInsensitiveTest {
 
     /**
      * Конструкция "(?i)".
      */
     @Test
-    public void flag() {
+    void flag() {
         assertTrue("A".matches("(?i)a"));
         assertTrue("\u0044".matches("(?i)\u0064"));
         assertFalse("A".matches("(?-i)a"));
@@ -26,7 +26,7 @@ public class CaseInsensitiveTest {
      * Константа Pattern.CASE_INSENSITIVE.
      */
     @Test
-    public void magicConstant() {
+    void magicConstant() {
         assertTrue(Pattern.compile("a", Pattern.CASE_INSENSITIVE).matcher("A").matches());
         assertFalse(Pattern.compile("a").matcher("A").matches());
     }

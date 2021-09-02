@@ -2,7 +2,6 @@ package util.regex;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,12 +10,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Выбрать из строки подстроку, соответствующую регулярному выражению, и распечатать ее.
  */
-public class SubstringTest {
+class SubstringTest {
     private static final String SOURCE = "GET /abba HTTP/1.1";
     private static final String EXPECTED = "/abba";
 
     @Test
-    public void realization1() {
+    void realization1() {
         var p = Pattern.compile("^[^\\s]*\\s([^\\s]*)\\s.*$");
         var m = p.matcher(SOURCE);
         assertTrue(m.matches());//Без вызова matches() упадет ошибка
@@ -24,7 +23,7 @@ public class SubstringTest {
     }
 
     @Test
-    public void realization2() {
+    void realization2() {
         var p = Pattern.compile("^[^\\s]*\\s([^\\s]*)\\s.*$");
         var m = p.matcher(SOURCE);
         assertTrue(m.find());
@@ -32,7 +31,7 @@ public class SubstringTest {
     }
 
     @Test
-    public void realization3() {
+    void realization3() {
         var splitted = SOURCE.split(" ");
         assertEquals(EXPECTED, splitted[1]);
     }

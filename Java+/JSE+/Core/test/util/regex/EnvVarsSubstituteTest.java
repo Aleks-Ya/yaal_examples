@@ -10,16 +10,16 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class EnvVarsSubstituteTest {
+class EnvVarsSubstituteTest {
     private final Map<String, String> vars = new HashMap<>();
 
     @Test
-    public void shouldReturnNullIfOriginStringIsNull() {
+    void shouldReturnNullIfOriginStringIsNull() {
         assertNull(EnvVarsSubstitute.substitute(null, vars));
     }
 
     @Test
-    public void shouldReturnTheSameStringIfNoVariablesExistInTheOriginString() {
+    void shouldReturnTheSameStringIfNoVariablesExistInTheOriginString() {
         var content = "text: abc";
         var act1 = EnvVarsSubstitute.substitute(content, vars);
         var act2 = EnvVarsSubstitute.substitute(content, null);
@@ -29,7 +29,7 @@ public class EnvVarsSubstituteTest {
     }
 
     @Test
-    public void shouldReplaceVariableIfNoDefaultValueSpecified() {
+    void shouldReplaceVariableIfNoDefaultValueSpecified() {
         var content = "text: ${MY_VAR}_abc";
         vars.put("MY_VAR", "MY VALUE");
         var act = EnvVarsSubstitute.substitute(content, vars);
@@ -37,32 +37,32 @@ public class EnvVarsSubstituteTest {
     }
 
     @Test
-    public void shouldUseDefaultValueIfVariableIsNotPresentInMap() {
+    void shouldUseDefaultValueIfVariableIsNotPresentInMap() {
         var content = "text: ${MY_VAR:100}_abc";
         var act = EnvVarsSubstitute.substitute(content, vars);
         assertThat(act, equalTo("text: 100_abc"));
     }
 
     @Test
-    public void shouldUseFirstSemicolonAsDefaultValueDelimiter() {
+    void shouldUseFirstSemicolonAsDefaultValueDelimiter() {
         var content = "text: ${MY_VAR:jdbc:phoenix}_abc";
         var act = EnvVarsSubstitute.substitute(content, vars);
         assertThat(act, equalTo("text: jdbc:phoenix_abc"));
     }
 
     @Test
-    public void emptyVarName() {
+    void emptyVarName() {
         assertThrows(IllegalArgumentException.class, () -> EnvVarsSubstitute.substitute("text: ${}", vars));
     }
 
     @Test
-    public void shouldReternEnvVariableIfEmptyDefaultValue() {
+    void shouldReternEnvVariableIfEmptyDefaultValue() {
         vars.put("abc", "123");
         EnvVarsSubstitute.substitute("text: ${abc:}", vars);
     }
 
     @Test
-    public void varNotFound() {
+    void varNotFound() {
         assertThrows(IllegalArgumentException.class, () -> EnvVarsSubstitute.substitute("text: ${not_exists}", vars));
     }
 }

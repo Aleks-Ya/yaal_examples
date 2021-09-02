@@ -7,9 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Предопределенные символьные классы: \d
  */
-public class PredefinedCharacterClassesTest {
+class PredefinedCharacterClassesTest {
     @Test
-    public void digits() {
+    void digits() {
         assertTrue("a567b".matches("a\\d+b"));
     }
 
@@ -17,7 +17,7 @@ public class PredefinedCharacterClassesTest {
      * Punctuation characters
      */
     @Test
-    public void punctuation() {
+    void punctuation() {
         assertTrue("-!\"\\#$%&'()*+,./:;<=>?@[]^_`{|}~".matches("\\p{Punct}{32}"));
     }
 

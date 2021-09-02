@@ -10,14 +10,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Примеры позиционной проверки.
  */
-public class LookAroundTest {
+class LookAroundTest {
     private static final String NO = "obsolete obsolete";
     private static final String BEGIN = "hede obsolete";
     private static final String MIDDLE = "obsolete hede obsolete";
     private static final String END = "obsolete hede";
 
     @Test
-    public void notEndWith() {
+    void notEndWith() {
         var p = Pattern.compile("^.*(?<!hede)$");
         assertTrue(p.matcher(NO).matches());
         assertTrue(p.matcher(BEGIN).matches());
@@ -26,7 +26,7 @@ public class LookAroundTest {
     }
 
     @Test
-    public void endWith() {
+    void endWith() {
         var p = Pattern.compile(".*(?<=hede$)");
         assertFalse(p.matcher(NO).matches());
         assertFalse(p.matcher(BEGIN).matches());
@@ -35,7 +35,7 @@ public class LookAroundTest {
     }
 
     @Test
-    public void notContain() {
+    void notContain() {
         var p = Pattern.compile("^((?!hede).)*$");
         assertTrue(p.matcher(NO).matches());
         assertFalse(p.matcher(BEGIN).matches());
@@ -44,7 +44,7 @@ public class LookAroundTest {
     }
 
     @Test
-    public void notStartWith() {
+    void notStartWith() {
         var p = Pattern.compile("^(?!hede).*$");
         assertTrue(p.matcher(NO).matches());
         assertFalse(p.matcher(BEGIN).matches());

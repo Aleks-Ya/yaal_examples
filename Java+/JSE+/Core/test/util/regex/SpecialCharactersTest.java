@@ -2,7 +2,6 @@ package util.regex;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Поиск специальных символов.
  */
-public class SpecialCharactersTest {
+class SpecialCharactersTest {
 
     @Test
-    public void ampersand() {
+    void ampersand() {
         var source = "concert $Einaudi ludovico einaudi today ";
         var p = Pattern.compile("\\$Einaudi");
         var m = p.matcher(source);
@@ -27,9 +26,9 @@ public class SpecialCharactersTest {
     }
 
     @Test
-    public void brace() {
+    void brace() {
         var source = "concert {Einaudi} ludovico einaudi today ";
-        var p = Pattern.compile("\\{Einaudi\\}");
+        var p = Pattern.compile("\\{Einaudi}");
         var m = p.matcher(source);
         assertTrue(m.find());
         assertEquals("{Einaudi}", m.group());
@@ -37,9 +36,9 @@ public class SpecialCharactersTest {
     }
 
     @Test
-    public void wordInBraces() {
+    void wordInBraces() {
         var source = "concert {Einaudi} ludovico einaudi today ";
-        var p = Pattern.compile("\\{\\w*\\}");
+        var p = Pattern.compile("\\{\\w*}");
         var m = p.matcher(source);
         assertTrue(m.find());
         assertEquals("{Einaudi}", m.group());
@@ -50,7 +49,7 @@ public class SpecialCharactersTest {
      * Fix "PatternSyntaxException: Unclosed character class near index".
      */
     @Test
-    public void unclosedCharacterClass() {
+    void unclosedCharacterClass() {
         var text = "abc main(java.lang.String[]) ghi";
         var regex = "main(java.lang.String[])";
         var quoted = Pattern.quote(regex);

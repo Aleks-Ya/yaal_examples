@@ -11,13 +11,13 @@ import static org.hamcrest.Matchers.equalTo;
 /**
  * Замена подстроки с помощью Matcher.
  */
-public class MatcherReplaceTest {
+class MatcherReplaceTest {
     @Test
-    public void replaceGroup() {
+    void replaceGroup() {
         var source = "GET /abba HTTP/1.1/abba";
         var p = Pattern.compile("(/abba)");
         var m = p.matcher(source);
-        var sb = new StringBuffer(source.length());
+        var sb = new StringBuilder(source.length());
         while (m.find()) {
             var text = m.group();
             text = text.toUpperCase();

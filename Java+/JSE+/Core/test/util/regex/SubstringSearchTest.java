@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Поиск нескольких вхождений регулярного выражения в строку.
  */
-public class SubstringSearchTest {
+class SubstringSearchTest {
 
     @Test
-    public void main() {
+    void main() {
         var source = "concert Einaudi ludovico einaudi today ";
         var p = Pattern.compile("[Ee]inaudi");
         var m = p.matcher(source);
