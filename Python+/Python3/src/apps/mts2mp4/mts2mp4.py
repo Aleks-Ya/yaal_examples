@@ -108,7 +108,18 @@ def convert_files(files_data_arg: FilesData):
 def create_dir(dir_arg: Path):
     if not dir_arg.exists():
         print(f'Creating directory: {dir_arg}')
-    dir_arg.mkdir()
+        dir_arg.mkdir()
+
+
+def check_files_absent(files_data_arg: FilesData):
+    existing_files: List[str] = []
+    for file_data in files_data_arg.file_data_list:
+        dest_file = file_data.dest_file
+        if dest_file.exists():
+            existing_files.append(str(dest_file))
+
+    if existing_files:
+        raise IOError(f"Destination files already exist: {existing_files}")
 
 
 src_dir: Path = Path(sys.argv[1])
@@ -125,6 +136,7 @@ check_ffmpeg_availability()
 
 files_data: FilesData = find_mts_files(src_dir, dest_dir)
 print(files_data)
+check_files_absent(files_data)
 
 convert_files(files_data)
 
