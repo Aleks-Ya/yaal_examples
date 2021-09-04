@@ -28,3 +28,7 @@ print(f"now_date_time: {now_date_time}")
 
 now_utc = datetime.datetime.utcnow()
 print(f"now_utc: {now_utc}")
+
+# Epoch
+now_epoch_seconds = int(datetime.datetime.now().timestamp())
+print(f"now_epoch: {now_epoch_seconds}")

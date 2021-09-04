@@ -9,7 +9,7 @@ from typing import List, Dict
 
 
 class FileData:
-    def __init__(self, src_file: str, dest_file: str, src_file_size: int):
+    def __init__(self, src_file: Path, dest_file: Path, src_file_size: int):
         self.src_file = src_file
         self.dest_file = dest_file
         self.src_file_size = src_file_size
@@ -49,11 +49,10 @@ def check_ffmpeg_availability():
         raise IOError("ffmpeg is not found")
 
 
-def compose_dest_file_name(dest_dir_arg: Path, mts_file: str) -> str:
-    p: Path = Path(mts_file)
-    name: str = p.stem + ".mp4"
-    dest: Path = Path(dest_dir_arg, name)
-    return str(dest)
+def compose_dest_file_name(dest_dir_arg: Path, mts_file: Path, modified: datetime.date) -> Path:
+    name: str = mts_file.stem + ".mp4"
+    parent = str(modified)
+    return Path(dest_dir_arg, parent, name)
 
 
 def find_mts_files(src_dir_arg: Path, dest_dir_arg: Path) -> FilesData:
@@ -61,8 +60,9 @@ def find_mts_files(src_dir_arg: Path, dest_dir_arg: Path) -> FilesData:
     for subdir, dirs, files in os.walk(src_dir_arg):
         for file in files:
             if file.lower().endswith("mts"):
-                src_file = os.path.join(subdir, file)
-                dest_file = compose_dest_file_name(dest_dir_arg, src_file)
+                src_file = Path(subdir, file)
+                modified = datetime.date.fromtimestamp(os.path.getmtime(Path(subdir, file)))
+                dest_file = compose_dest_file_name(dest_dir_arg, src_file, modified)
                 src_file_size = os.path.getsize(src_file)
                 file_data = FileData(src_file, dest_file, src_file_size)
                 file_data_list.append(file_data)
@@ -84,8 +84,9 @@ def format_size_percent(size_percent: float):
 
 
 def convert_file(file_data: FileData, file_size_percent: float, finished_percent: float):
-    src_file: str = file_data.src_file
-    dest_file: str = file_data.dest_file
+    src_file: Path = file_data.src_file
+    dest_file: Path = file_data.dest_file
+    create_dir(dest_file.parent)
     percent: str = format_size_percent(file_size_percent)
     finished_percent_str: str = format_size_percent(finished_percent)
     print(f"Converting '{src_file}' to '{dest_file}' ({percent}, total done {finished_percent_str})...")
@@ -104,30 +105,27 @@ def convert_files(files_data_arg: FilesData):
         finished_percent = finished_percent + file_size_percent
 
 
-def append_date_to_dest_dir(dest_dir_arg: Path):
-    print(f'Root destination directory: {dest_dir_arg}')
-    if dest_dir_arg.exists():
-        current_date = str(datetime.datetime.now().date())
-        dest_dir_arg = dest_dir_arg.joinpath(current_date)
-        if not dest_dir_arg.exists():
-            print(f'Creating directory: {dest_dir_arg}')
-            dest_dir_arg.mkdir()
-        return dest_dir_arg
-    else:
-        raise IOError(f"Destination directory absents: {dest_dir_arg}")
+def create_dir(dir_arg: Path):
+    if not dir_arg.exists():
+        print(f'Creating directory: {dir_arg}')
+    dir_arg.mkdir()
 
 
 src_dir: Path = Path(sys.argv[1])
-dest_dir: Path = Path(sys.argv[2])
-delete_src_files: bool = parse_bool(sys.argv[3])
-
 print(f"Source directory: {src_dir}")
-print(f"Delete source files: {delete_src_files}")
 check_dir_exits(src_dir)
-dest_dir = append_date_to_dest_dir(dest_dir)
+
+dest_dir: Path = Path(sys.argv[2])
 print(f"Destination directory: {dest_dir}")
+
+delete_src_files: bool = parse_bool(sys.argv[3])
+print(f"Delete source files: {delete_src_files}")
+
 check_ffmpeg_availability()
+
 files_data: FilesData = find_mts_files(src_dir, dest_dir)
 print(files_data)
+
 convert_files(files_data)
+
 print("Done.")

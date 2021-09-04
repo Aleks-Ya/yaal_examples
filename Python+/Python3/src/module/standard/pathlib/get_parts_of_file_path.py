@@ -12,7 +12,3 @@ assert parent_dir_name == 'work'
 assert file_name == 'data.txt'
 assert base_name == 'data'
 assert extension == '.txt'
-
-# Init Path
-p2 = Path('/', 'tmp', 'work', 'data.txt')
-assert str(p2) == '/tmp/work/data.txt'
