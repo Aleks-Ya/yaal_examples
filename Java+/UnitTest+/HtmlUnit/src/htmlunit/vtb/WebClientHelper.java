@@ -31,8 +31,9 @@ class WebClientHelper {
         request.setAdditionalHeader("Sec-Fetch-Site", "same-origin");
         request.setAdditionalHeader("X-Requested-With", "XMLHttpRequest");
 
-        var startDate = LocalDate.now().withDayOfMonth(1).withMonth(1).format(formatter);
-        var endDate = LocalDate.now().withDayOfMonth(31).withMonth(12).format(formatter);
+        var now = LocalDate.now();
+        var startDate = now.withDayOfMonth(1).withMonth(1).format(formatter);
+        var endDate = now.withDayOfMonth(now.getMonth().maxLength()).withMonth(12).format(formatter);
         var body = String.format("StartDate=%s&EndDate=%s&ClientCode=%s&AgreementNumber=10H684",
                 startDate, endDate, agreement);
         request.setRequestBody(body);
