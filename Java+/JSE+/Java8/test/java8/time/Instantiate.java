@@ -19,7 +19,7 @@ import java.util.Locale;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class BaseClasses {
+public class Instantiate {
     @Test
     public void local() {
         var localDate = LocalDate.now();
@@ -48,5 +48,11 @@ public class BaseClasses {
 
         var displayName = msk1.getDisplayName(TextStyle.FULL, new Locale("ru"));
         assertThat(displayName, equalTo("Москва"));
+    }
+
+    @Test
+    public void epoch() {
+        var epochMilli = Instant.now().toEpochMilli();
+        var epochSecond = Instant.now().getEpochSecond();
     }
 }
