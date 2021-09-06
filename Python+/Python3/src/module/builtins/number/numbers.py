@@ -19,3 +19,8 @@ assert d == 25
 # floating point operations
 e = 5.2 * .3
 assert e == 1.56
+
+# number of digits in int
+f = 12345
+n = len(str(f))
+assert n == 5

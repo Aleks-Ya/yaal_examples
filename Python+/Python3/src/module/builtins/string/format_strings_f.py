@@ -1,4 +1,4 @@
-# Formatted strings
+# Format string with f-strings
 
 import decimal
 from datetime import datetime
