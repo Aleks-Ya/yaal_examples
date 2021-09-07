@@ -8,7 +8,7 @@
 
 ### Versions
 
-Available versions: 1.2.1, 1.2.2, 2.1.0, 2.1.1
+Available versions: `1.2.1`, `1.2.2`, `2.1.1`, `2.3.3`, `3.1.0`
 
 All versions: https://hub.docker.com/r/mcapitanio/hive/tags/
 
@@ -18,7 +18,7 @@ All versions: https://hub.docker.com/r/mcapitanio/hive/tags/
 git clone git@github.com:parrot-stream/docker-hive.git
 cd docker-hive
 git checkout 1.2.2
-docker-compose -p docker up
+docker-compose -p parrot up
 ```
 
 ## URLs
@@ -41,7 +41,7 @@ $hive
 ```
 
 ## Stop
-`docker-compose -p docker down --remove-orphans`
+`docker-compose -p parrot down --remove-orphans`
 
 ## Logs
 HCAT: /opt/hive/logs/
