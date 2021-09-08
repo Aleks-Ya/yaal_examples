@@ -1,16 +1,16 @@
 {
 	"folders": {},
 	"connections": {
-		"apache_hive2-17bc7077ecd-1bf7112c82cc3a55": {
+		"apache_hive2-17bc037ea1a-3f51cbc4cb6846f1": {
 			"provider": "hive",
 			"driver": "apache_hive2",
-			"name": "master-service",
+			"name": "localhost",
 			"save-password": true,
 			"read-only": false,
 			"configuration": {
-				"host": "master-service",
+				"host": "localhost",
 				"port": "10000",
-				"url": "jdbc:hive2://master-service:10000",
+				"url": "jdbc:hive2://localhost:10000",
 				"type": "dev",
 				"auth-model": "native",
 				"handlers": {}
