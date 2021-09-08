@@ -1,0 +1,26 @@
+ARG HIVE_BASE_IMAGE
+FROM $HIVE_BASE_IMAGE
+
+ENV JAVA_HOME=/etc/alternatives/jre
+ENV HADOOP_PREFIX=/opt/hadoop
+ENV HADOOP_HOME=${HADOOP_PREFIX}
+ENV HADOOP_CONF_DIR=${HADOOP_PREFIX}/etc/hadoop
+ENV HADOOP_LOG_DIR=/tmp/logs
+ENV HIVE_HOME=/opt/hive
+ENV PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin:$HIVE_HOME/bin
+ENV YARN_LOG_DIR=${HADOOP_LOG_DIR}/yarn
+ENV HADOOP_ENV_SH=${HADOOP_CONF_DIR}/hadoop-env.sh
+
+ADD *.xml ${HADOOP_CONF_DIR}/
+ADD *.sh ${HADOOP_PREFIX}/
+ADD java-opts ${HADOOP_CONF_DIR}/
+ADD hive-log4j2.properties ${HIVE_HOME}/conf/
+
+RUN mkdir -p ${HADOOP_LOG_DIR} \
+  && mkdir -p ${YARN_LOG_DIR} \
+  && sed -i "s@\${JAVA_HOME}@${JAVA_HOME}@g" ${HADOOP_ENV_SH} \
+  && cat ${HADOOP_PREFIX}/hadoop-env-append.sh >> ${HADOOP_ENV_SH}
+
+USER root
+
+WORKDIR ${HADOOP_PREFIX}

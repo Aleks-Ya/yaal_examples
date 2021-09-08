@@ -1,0 +1,76 @@
+version: '3'
+services:
+  master-service:
+    container_name: hive-yarn-hdfs-master
+    image: hive-yarn-hdfs-master
+    build:
+      context: context
+      args:
+        - HIVE_BASE_IMAGE=${HIVE_BASE_IMAGE}
+    hostname: master-service
+    entrypoint: ./entrypoint_master.sh
+    volumes:
+      - /tmp/hive-yarn-hdfs-logs/master:/tmp/logs
+    depends_on:
+      - postgres
+      - zookeeper-1
+  slave-service-1:
+    container_name: hive-yarn-hdfs-slave-1
+    image: hive-yarn-hdfs-slave-1
+    build:
+      context: context
+      args:
+        - HIVE_BASE_IMAGE=${HIVE_BASE_IMAGE}
+    hostname: slave-service-1
+    links:
+      - master-service
+    depends_on:
+      - master-service
+    tty: true
+    entrypoint: ./entrypoint_slave_1.sh
+    volumes:
+      - /tmp/hive-yarn-hdfs-logs/slave-1:/tmp/logs
+  slave-service-2:
+    container_name: hive-yarn-hdfs-slave-2
+    image: hive-yarn-hdfs-slave-2
+    build:
+      context: context
+      args:
+        - HIVE_BASE_IMAGE=${HIVE_BASE_IMAGE}
+    hostname: slave-service-2
+    links:
+      - master-service
+      - slave-service-1
+    depends_on:
+      - master-service
+      - slave-service-1
+    tty: true
+    entrypoint: ./entrypoint_slave_2.sh
+    volumes:
+      - /tmp/hive-yarn-hdfs-logs/slave-2:/tmp/logs
+  postgres:
+    container_name: hive-yarn-hdfs-postgres
+    image: postgres:13
+    hostname: hive-yarn-hdfs-postgres
+    tty: true
+    environment:
+      POSTGRES_PASSWORD: the_postgres_pass
+  zookeeper-1:
+    container_name: hive-yarn-hdfs-zk-1
+    image: zookeeper
+    hostname: hive-yarn-hdfs-zk-1
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=hive-yarn-hdfs-zk-2:2888:3888;2181
+    depends_on:
+      - zookeeper-2
+  zookeeper-2:
+    container_name: hive-yarn-hdfs-zk-2
+    image: zookeeper
+    hostname: hive-yarn-hdfs-zk-2
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=hive-yarn-hdfs-zk-1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181
+networks:
+  default:
+    name: hive-yarn-hdfs-network
