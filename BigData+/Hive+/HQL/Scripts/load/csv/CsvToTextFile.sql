@@ -1,7 +1,9 @@
--- Load CSV into Hive table
+-- Load CSV into Hive table stored as TextFile
 
-create database CSV_TO_HIVE;
-USE CSV_TO_HIVE;
+CREATE DATABASE IF NOT EXISTS yaal;
+USE yaal;
+
+DROP TABLE IF EXISTS employee;
 
 CREATE TABLE IF NOT EXISTS employee (
 	 id int,
@@ -10,7 +12,8 @@ CREATE TABLE IF NOT EXISTS employee (
 	 gender string)
  COMMENT 'Employee Table'
  ROW FORMAT DELIMITED
- FIELDS TERMINATED BY ',';
+ FIELDS TERMINATED BY ','
+ STORED AS TextFile;
 
 SELECT * from employee;
  
@@ -21,4 +24,6 @@ SELECT * from employee;
 
 LOAD DATA INPATH '/tmp/employee.csv' INTO TABLE employee;
 
-SELECT * from employee;
+SELECT * FROM employee;
+
+-- Result in HDFS: /user/hive/warehouse/yaal.db/employee/employee.csv

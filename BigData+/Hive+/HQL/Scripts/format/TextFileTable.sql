@@ -1,9 +1,9 @@
 
 -- Create a Hive table stored as a text file
 
-CREATE DATABASE IF NOT EXISTS iablokov_test;
+CREATE DATABASE IF NOT EXISTS yaal;
 
-USE iablokov_test;
+USE yaal;
 
 DROP TABLE IF EXISTS employee_textfile;
 
@@ -20,5 +20,5 @@ INSERT INTO employee_textfile(id, name, salary, deptno) VALUES(2, 'Mary', 100000
 
 SELECT * FROM employee_textfile;
 
--- File location in HDFS: /user/hive/warehouse/iablokov_test.db/employee_textfile/000000_0
--- docker exec -it hive-yarn-hdfs-master hdfs dfs -ls /user/hive/warehouse/iablokov_test.db/employee_textfile
+-- File location in HDFS: /user/hive/warehouse/yaal.db/employee_textfile/000000_0
+-- docker exec -it hive-yarn-hdfs-master hdfs dfs -ls /user/hive/warehouse/yaal.db/employee_textfile
