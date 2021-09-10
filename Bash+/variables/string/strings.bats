@@ -21,6 +21,14 @@ setup() {
   [ "${str////-}" = "Feature-Test-8" ]
 }
 
+@test "Interval from beginning to 5th char" {
+  [ "${str:0:5}" = "Featu" ]
+}
+
+@test "Interval from beginning to out of string length" {
+  [ "${str:0:50}" = $str ]
+}
+
 @test "Interval from 8 char to the end" {
   [ "${str:8}" = "Test-8" ]
 }
