@@ -1,0 +1,63 @@
+version: '3'
+services:
+  master-service:
+    container_name: yarn-hdfs-master
+    build:
+      context: hadoop
+      args:
+        - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
+    hostname: yarn-hdfs-master
+    domainname: yarn.yaal.ru
+    entrypoint: ./entrypoint_master.sh
+    privileged: true
+  slave-service-1:
+    container_name: yarn-hdfs-slave1
+    build:
+      context: hadoop
+      args:
+        - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
+    hostname: yarn-hdfs-slave1
+    domainname: yarn.yaal.ru
+    links:
+      - master-service
+    depends_on:
+      - master-service
+    tty: true
+    entrypoint: ./entrypoint_slave_1.sh
+    privileged: true
+  slave-service-2:
+    container_name: yarn-hdfs-slave2
+    build:
+      context: hadoop
+      args:
+        - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
+    hostname: yarn-hdfs-slave2
+    domainname: yarn.yaal.ru
+    links:
+      - master-service
+      - slave-service-1
+    depends_on:
+      - master-service
+      - slave-service-1
+    tty: true
+    entrypoint: ./entrypoint_slave_2.sh
+    privileged: true
+  client:
+    container_name: yarn-hdfs-client
+    build:
+      context: hadoop
+      args:
+        - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
+    hostname: yarn-hdfs-client
+    domainname: yarn.yaal.ru
+    links:
+      - master-service
+      - slave-service-1
+    depends_on:
+      - master-service
+    tty: true
+    entrypoint: ./entrypoint_client.sh
+    privileged: true
+networks:
+  default:
+    name: yarn.yaal.ru
