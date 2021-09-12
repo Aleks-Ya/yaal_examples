@@ -1,7 +1,7 @@
 <configuration>
     <property>
         <name>yarn.resourcemanager.hostname</name>
-        <value>yarn-master.yarn.yaal.ru</value>
+        <value>yarn-hdfs-kerberos-master.yarn.yaal.ru</value>
     </property>
     <property>
         <name>yarn.nodemanager.aux-services</name>

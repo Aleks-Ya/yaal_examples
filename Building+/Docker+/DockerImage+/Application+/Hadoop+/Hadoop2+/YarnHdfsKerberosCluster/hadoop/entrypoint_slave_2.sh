@@ -10,14 +10,14 @@ export KERBEROS_SHARED=/tmp/kerberos
 ls -l "$KERBEROS_SHARED"
 cp "$KERBEROS_SHARED/dn3.keytab" /etc/hdfs.keytab
 cp "$KERBEROS_SHARED/krb5.conf" /etc/krb5.conf
-kinit -kt /etc/hdfs.keytab dn/yarn-slave2.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
+kinit -kt /etc/hdfs.keytab dn/yarn-hdfs-kerberos-slave2.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
 
 echo "Starting DataNode..."
 hadoop-daemon.sh --script hdfs start datanode
 echo "DataNode started."
 
 echo "Starting NodeManager..."
-kinit -kt /etc/hdfs.keytab nm/yarn-slave2.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
+kinit -kt /etc/hdfs.keytab nm/yarn-hdfs-kerberos-slave2.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
 export YARN_LOG_DIR=$HADOOP_LOG_DIR
 su yarn -c "yarn-daemon.sh --config $HADOOP_CONF_DIR start nodemanager"
 echo "NodeManager started."

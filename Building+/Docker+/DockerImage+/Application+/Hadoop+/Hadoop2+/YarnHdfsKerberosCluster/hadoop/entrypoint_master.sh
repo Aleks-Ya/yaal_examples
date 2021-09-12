@@ -12,8 +12,8 @@ cp "$KERBEROS_SHARED/nn.keytab" /etc/hdfs.keytab
 cp "$KERBEROS_SHARED/krb5.conf" /etc/krb5.conf
 klist -kte /etc/hdfs.keytab
 echo "kinit..."
-kinit -kt /etc/hdfs.keytab nn/yarn-master.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
-kinit -kt /etc/hdfs.keytab dn/yarn-master.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
+kinit -kt /etc/hdfs.keytab nn/yarn-hdfs-kerberos-master.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
+kinit -kt /etc/hdfs.keytab dn/yarn-hdfs-kerberos-master.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
 echo "kinit done"
 
 echo "klist..."
@@ -33,7 +33,7 @@ hadoop-daemon.sh --script hdfs start datanode
 echo "DataNode started."
 
 echo "Starting ResourceManager..."
-kinit -kt /etc/hdfs.keytab rm/yarn-master.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
+kinit -kt /etc/hdfs.keytab rm/yarn-hdfs-kerberos-master.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
 export YARN_LOG_DIR=$HADOOP_LOG_DIR
 su yarn -c "yarn-daemon.sh --config $HADOOP_CONF_DIR start resourcemanager"
 echo "ResourceManager started."

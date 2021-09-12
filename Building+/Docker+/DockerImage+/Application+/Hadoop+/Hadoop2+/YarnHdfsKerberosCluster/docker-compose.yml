@@ -1,12 +1,12 @@
 version: '3'
 services:
   master-service:
-    container_name: yarn-master
+    container_name: yarn-hdfs-kerberos-master
     build:
       context: hadoop
       args:
         - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
-    hostname: yarn-master
+    hostname: yarn-hdfs-kerberos-master
     domainname: yarn.yaal.ru
     entrypoint: ./entrypoint_master.sh
     links:
@@ -17,12 +17,12 @@ services:
       - kerberos:/tmp/kerberos
     privileged: true
   slave-service-1:
-    container_name: yarn-slave1
+    container_name: yarn-hdfs-kerberos-slave1
     build:
       context: hadoop
       args:
         - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
-    hostname: yarn-slave1
+    hostname: yarn-hdfs-kerberos-slave1
     domainname: yarn.yaal.ru
     links:
       - master-service
@@ -36,12 +36,12 @@ services:
       - kerberos:/tmp/kerberos
     privileged: true
   slave-service-2:
-    container_name: yarn-slave2
+    container_name: yarn-hdfs-kerberos-slave2
     build:
       context: hadoop
       args:
         - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
-    hostname: yarn-slave2
+    hostname: yarn-hdfs-kerberos-slave2
     domainname: yarn.yaal.ru
     links:
       - master-service
@@ -57,12 +57,12 @@ services:
       - kerberos:/tmp/kerberos
     privileged: true
   client:
-    container_name: yarn-client
+    container_name: yarn-hdfs-kerberos-client
     build:
       context: hadoop
       args:
         - HADOOP_BASE_IMAGE=${HADOOP_BASE_IMAGE}
-    hostname: yarn-client
+    hostname: yarn-hdfs-kerberos-client
     domainname: yarn.yaal.ru
     links:
       - master-service
@@ -77,28 +77,28 @@ services:
       - kerberos:/tmp/kerberos
     privileged: true
   kdc:
-    container_name: yarn-kdc
+    container_name: yarn-hdfs-kerberos-kdc
     build:
       context: kdc
-    hostname: yarn-kdc
+    hostname: yarn-hdfs-kerberos-kdc
     domainname: yarn.yaal.ru
     tty: true
     volumes:
       - kerberos:/tmp/kerberos
   sserver:
-    container_name: yarn-sserver
+    container_name: yarn-hdfs-kerberos-sserver
     build:
       context: sserver
-    hostname: yarn-sserver
+    hostname: yarn-hdfs-kerberos-sserver
     domainname: yarn.yaal.ru
     tty: true
     volumes:
       - kerberos:/tmp/kerberos
   sclient:
-    container_name: yarn-sclient
+    container_name: yarn-hdfs-kerberos-sclient
     build:
       context: sclient
-    hostname: yarn-sclient
+    hostname: yarn-hdfs-kerberos-sclient
     domainname: yarn.yaal.ru
     tty: true
     volumes:

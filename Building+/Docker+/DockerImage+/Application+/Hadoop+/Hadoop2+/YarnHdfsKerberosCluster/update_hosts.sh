@@ -7,10 +7,10 @@ set -e
 
 ./remove_hosts.sh
 
-container_1=yarn-master
-container_2=yarn-slave1
-container_3=yarn-slave2
-container_4=yarn-kdc
+container_1=yarn-hdfs-kerberos-master
+container_2=yarn-hdfs-kerberos-slave1
+container_3=yarn-hdfs-kerberos-slave2
+container_4=yarn-hdfs-kerberos-kdc
 
 ip_1=$(docker exec ${container_1} hostname -I)
 ip_2=$(docker exec ${container_2} hostname -I)
