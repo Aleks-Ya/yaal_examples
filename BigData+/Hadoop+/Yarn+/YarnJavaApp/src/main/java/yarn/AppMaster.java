@@ -151,8 +151,8 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
 
             // Set Container jar
             LocalResource jar = Records.newRecord(LocalResource.class);
-            Utils.setUpLocalResource(Utils.YARNAPP_JAR_PATH, jar, conf);
-            cCLC.setLocalResources(Collections.singletonMap(Utils.YARNAPP_JAR_NAME, jar));
+            Utils.setUpLocalResource(Utils.YARN_APP_JAR_PATH, jar, conf);
+            cCLC.setLocalResources(Collections.singletonMap(Utils.YARN_APP_JAR_NAME, jar));
 
             // Set Container CLASSPATH
             List<String> additionalClasspath = Collections.singletonList("./log4j.properties");

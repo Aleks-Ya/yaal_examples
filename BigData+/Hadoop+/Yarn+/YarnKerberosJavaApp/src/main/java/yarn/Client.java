@@ -63,10 +63,10 @@ public class Client {
 
         // Set AM jar
         LocalResource yarnApplicationJar = Records.newRecord(LocalResource.class);
-        Utils.setUpLocalResource(Utils.YARNAPP_JAR_PATH, yarnApplicationJar, conf);
+        Utils.setUpLocalResource(Utils.YARN_APP_JAR_PATH, yarnApplicationJar, conf);
 
         Map<String, LocalResource> localResourceMap = new HashMap<>();
-        localResourceMap.put(Utils.YARNAPP_JAR_NAME, yarnApplicationJar);
+        localResourceMap.put(Utils.YARN_APP_JAR_NAME, yarnApplicationJar);
         amCLC.setLocalResources(localResourceMap);
 
         // Set AM resources

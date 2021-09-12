@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 class Utils {
-    static final String YARNAPP_JAR_NAME = "YarnApplication.jar";
-    static final Path YARNAPP_JAR_PATH = new Path("/apps/" + YARNAPP_JAR_NAME);
+    static final String YARN_APP_JAR_NAME = "YarnJavaApp.jar";
+    static final Path YARN_APP_JAR_PATH = new Path("/apps/" + YARN_APP_JAR_NAME);
 
     static void setUpEnv(Map<String, String> env, YarnConfiguration conf, List<String> additionalClasspath) {
         StringBuilder classPathEnv = new StringBuilder(Environment.CLASSPATH.$$())
