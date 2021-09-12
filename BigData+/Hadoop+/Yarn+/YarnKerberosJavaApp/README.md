@@ -1,4 +1,4 @@
-# Java Yarn application
+# Java Yarn application with Kerberos
 
 Run:
 
