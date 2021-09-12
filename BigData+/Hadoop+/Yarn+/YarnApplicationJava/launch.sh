@@ -2,14 +2,13 @@
 
 set -e
 
-# Puts the jar in HDFS under /apps/.
+echo "Authenticating in Kerberos..."
+kinit -kt /tmp/kerberos/client.keytab client@HADOOPCLUSTER.LOCAL
+
+echo "Putting the app jar into HDFS..."
 hdfs dfs -rm -r -f /apps
 hdfs dfs -mkdir -p /apps
-hdfs dfs -copyFromLocal YarnApplication.jar /apps/YarnApplication.jar
+hdfs dfs -copyFromLocal /tmp/YarnApplication.jar /apps/YarnApplication.jar
 
-echo "Executes the Client"
-yarn jar YarnApplication.jar yarn.Client
-
-# Outputs the whole log of the last app.
-#last=`ls -1t $HADOOP_HOME/logs/userlogs/ | head -1`
-#cat $HADOOP_HOME/logs/userlogs/"$last"/*/*
+echo "Executing the app..."
+yarn jar /tmp/YarnApplication.jar yarn.Client
