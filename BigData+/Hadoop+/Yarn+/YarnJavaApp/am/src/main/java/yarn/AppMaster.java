@@ -27,9 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static yarn.Client.PARAM_FROM_CLIENT_TO_CONTAINER_NAME;
-
 public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
+    private static final String PARAM_FROM_CLIENT_TO_CONTAINER_NAME = "param_from_client";
 
     private YarnConfiguration conf = new YarnConfiguration();
     private NMClient nmClient;
@@ -151,8 +150,8 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
 
             // Set Container jar
             LocalResource jar = Records.newRecord(LocalResource.class);
-            Utils.setUpLocalResource(Utils.YARN_APP_JAR_PATH, jar, conf);
-            cCLC.setLocalResources(Collections.singletonMap(Utils.YARN_APP_JAR_NAME, jar));
+            Utils.setUpLocalResource(Utils.CONTAINER_JAR_PATH, jar, conf);
+            cCLC.setLocalResources(Collections.singletonMap(Utils.CONTAINER_JAR_NAME, jar));
 
             // Set Container CLASSPATH
             List<String> additionalClasspath = Collections.singletonList("./log4j.properties");

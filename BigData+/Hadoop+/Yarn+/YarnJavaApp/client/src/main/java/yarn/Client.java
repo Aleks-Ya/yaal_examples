@@ -1,5 +1,6 @@
 package yarn;
 
+import de.danielbechler.diff.ObjectDifferBuilder;
 import org.apache.hadoop.yarn.api.ApplicationConstants;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 import org.apache.hadoop.yarn.api.records.ApplicationReport;
@@ -24,9 +25,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Client {
-    static final String PARAM_FROM_CLIENT_TO_CONTAINER_NAME = "param_from_client";
+    private static final String PARAM_FROM_CLIENT_TO_CONTAINER_NAME = "param_from_client";
 
     public static void main(String[] args) throws IOException {
+        //Use class from dependency
+        System.out.println(ObjectDifferBuilder.buildDefault().compare("abc", "axc"));
+
         System.out.println("Client: Initializing");
         System.out.println("Environment vars: " + System.getenv());
         System.out.println("System properties: " + System.getProperties());
@@ -63,10 +67,10 @@ public class Client {
 
         // Set AM jar
         LocalResource yarnApplicationJar = Records.newRecord(LocalResource.class);
-        Utils.setUpLocalResource(Utils.YARN_APP_JAR_PATH, yarnApplicationJar, conf);
+        Utils.setUpLocalResource(Utils.APPLICATION_MASTER_JAR_PATH, yarnApplicationJar, conf);
 
         Map<String, LocalResource> localResourceMap = new HashMap<>();
-        localResourceMap.put(Utils.YARN_APP_JAR_NAME, yarnApplicationJar);
+        localResourceMap.put(Utils.APPLICATION_MASTER_JAR_NAME, yarnApplicationJar);
         amCLC.setLocalResources(localResourceMap);
 
         // Set AM resources
