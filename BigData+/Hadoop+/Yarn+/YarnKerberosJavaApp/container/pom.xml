@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <name>Container</name>
+
+    <parent>
+        <groupId>ru.yaal.examples.bigdata.hadoop.yarn</groupId>
+        <artifactId>yarn-kerberos-java-app-parent</artifactId>
+        <version>1</version>
+    </parent>
+    <artifactId>yarn-kerberos-java-app-container</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>30.1.1-jre</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <modelVersion>4.0.0</modelVersion>
+</project>

@@ -2,13 +2,11 @@
 
 set -e
 
-echo "Authenticating in Kerberos..."
-kinit -kt /tmp/kerberos/client.keytab client@HADOOPCLUSTER.LOCAL
-
-echo "Putting the app jar into HDFS..."
+echo "Putting the jars into HDFS..."
 hdfs dfs -rm -r -f /apps
 hdfs dfs -mkdir -p /apps
-hdfs dfs -copyFromLocal /tmp/YarnKerberosJavaApp.jar /apps/YarnKerberosJavaApp.jar
+hdfs dfs -copyFromLocal /tmp/container.jar /apps/container.jar
+hdfs dfs -copyFromLocal /tmp/am.jar /apps/am.jar
 
-echo "Executing the app..."
-yarn jar /tmp/YarnKerberosJavaApp.jar yarn.Client
+echo "Executing the Client app..."
+yarn jar /tmp/client.jar yarn.Client

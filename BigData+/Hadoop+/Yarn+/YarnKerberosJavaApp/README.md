@@ -1,6 +1,6 @@
 # Java Yarn application with Kerberos
 
-Run
+Run:
 
 1. Run Yarn cluster: `Building+/Docker+/DockerImage+/Application+/Hadoop+/Hadoop2+/YarnHdfsKerberosCluster`
-1. Build and submit: `./submit.sh`
+1. Submit: `./submit.sh`

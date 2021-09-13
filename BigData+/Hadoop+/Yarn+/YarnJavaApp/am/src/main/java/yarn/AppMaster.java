@@ -96,7 +96,7 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
         capability.setMemorySize(128);
         capability.setVirtualCores(1);
 
-        // Reqiest Containers from RM
+        // Request Containers from RM
         System.out.println("AppMaster: Requesting " + containerCount + " Containers");
         for (int i = 0; i < containerCount; ++i) {
             rmClient.addContainerRequest(new ContainerRequest(capability, null, null, priority));
