@@ -4,6 +4,7 @@ import org.apache.hadoop.fs.FileContext;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.hadoop.yarn.api.ApplicationConstants;
 import org.apache.hadoop.yarn.api.ApplicationConstants.Environment;
 import org.apache.hadoop.yarn.api.records.LocalResource;
@@ -44,8 +45,15 @@ class Utils {
 
     static void setUpLocalResource(Path resPath, LocalResource res, YarnConfiguration conf) throws IOException {
         Path qPath = FileContext.getFileContext().makeQualified(resPath);
+        System.setProperty("java.security.krb5.conf", "/etc/krb5.conf");
 
-        FileStatus status = FileSystem.get(conf).getFileStatus(qPath);
+        System.out.println("AppMaster: UserGroupInformation loading");
+        UserGroupInformation.setConfiguration(conf);
+        UserGroupInformation.loginUserFromKeytab("client@HADOOPCLUSTER.LOCAL", "/tmp/kerberos/client.keytab");
+        System.out.println("AppMaster: UserGroupInformation loaded");
+
+        FileSystem fs = FileSystem.get(conf);
+        FileStatus status = fs.getFileStatus(qPath);
         res.setResource(URL.fromPath(qPath));
         res.setSize(status.getLen());
         res.setTimestamp(status.getModificationTime());

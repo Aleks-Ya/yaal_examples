@@ -1,6 +1,9 @@
 package yarn;
 
 import de.danielbechler.diff.ObjectDifferBuilder;
+import org.apache.hadoop.io.DataOutputBuffer;
+import org.apache.hadoop.security.Credentials;
+import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.hadoop.yarn.api.ApplicationConstants;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 import org.apache.hadoop.yarn.api.records.ApplicationReport;
@@ -15,6 +18,7 @@ import org.apache.hadoop.yarn.conf.YarnConfiguration;
 import org.apache.hadoop.yarn.util.Records;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -77,6 +81,17 @@ public class Client {
         Resource res = Records.newRecord(Resource.class);
         res.setMemorySize(256);
         res.setVirtualCores(1);
+
+        if (UserGroupInformation.isSecurityEnabled()) {
+            UserGroupInformation ugi = UserGroupInformation.loginUserFromKeytabAndReturnUGI("client", "/tmp/kerberos/client.keytab");
+            System.out.println("Ugi: " + ugi);
+            Credentials credentials = ugi.getCredentials();
+            System.out.println("Credentials: " + credentials);
+            DataOutputBuffer dob = new DataOutputBuffer();
+            credentials.writeTokenStorageToStream(dob);
+            ByteBuffer fsTokens = ByteBuffer.wrap(dob.getData(), 0, dob.getLength());
+            amCLC.setTokens(fsTokens);
+        }
 
         // Create Yarn Client
         YarnClient client = YarnClient.createYarnClient();

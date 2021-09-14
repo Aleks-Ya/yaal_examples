@@ -1,5 +1,8 @@
 package yarn;
 
+import org.apache.hadoop.io.DataOutputBuffer;
+import org.apache.hadoop.security.Credentials;
+import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.hadoop.yarn.api.ApplicationConstants;
 import org.apache.hadoop.yarn.api.records.Container;
 import org.apache.hadoop.yarn.api.records.ContainerLaunchContext;
@@ -18,6 +21,7 @@ import org.apache.hadoop.yarn.util.Records;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -102,6 +106,7 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
             rmClient.addContainerRequest(new ContainerRequest(capability, null, null, priority));
         }
 
+        System.out.println("AppMaster: Waiting containers finished");
         while (!containersFinished()) {
             Thread.sleep(100);
         }
@@ -118,8 +123,9 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
     public void onContainersAllocated(List<Container> containers) {
         for (Container container : containers) {
             try {
+                System.out.println("AppMaster: onContainersAllocated");
                 nmClient.startContainer(container, initContainer());
-                System.err.println("AppMaster: Container launched " + container.getId());
+                System.out.println("AppMaster: Container launched " + container.getId());
             } catch (Exception ex) {
                 System.err.println("AppMaster: Container not launched " + container.getId());
                 ex.printStackTrace();
@@ -140,6 +146,7 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
 
     private ContainerLaunchContext initContainer() {
         try {
+            System.out.println("AppMaster: Initializing container");
             // Create Container Context
             ContainerLaunchContext cCLC = Records.newRecord(ContainerLaunchContext.class);
             cCLC.setCommands(Collections.singletonList("$JAVA_HOME/bin/java"
@@ -148,7 +155,19 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
                     + " 1>" + ApplicationConstants.LOG_DIR_EXPANSION_VAR + "/stdout"
                     + " 2>" + ApplicationConstants.LOG_DIR_EXPANSION_VAR + "/stderr"));
 
+            Credentials credentials;
+            System.out.println("AppMaster: Is security enabled: " + UserGroupInformation.isSecurityEnabled());
+            if (UserGroupInformation.isSecurityEnabled()) {
+                credentials = UserGroupInformation.getCurrentUser().getCredentials();
+                System.out.println("AppMaster: Credentials: " + credentials);
+                DataOutputBuffer dob = new DataOutputBuffer();
+                credentials.writeTokenStorageToStream(dob);
+                ByteBuffer fsTokens = ByteBuffer.wrap(dob.getData(), 0, dob.getLength());
+                cCLC.setTokens(fsTokens);
+            }
+
             // Set Container jar
+            System.out.println("AppMaster: Setting container jar");
             LocalResource jar = Records.newRecord(LocalResource.class);
             Utils.setUpLocalResource(Utils.CONTAINER_JAR_PATH, jar, conf);
             cCLC.setLocalResources(Collections.singletonMap(Utils.CONTAINER_JAR_NAME, jar));
