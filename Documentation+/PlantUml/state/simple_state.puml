@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+hide empty description
+[*] --> State1
+State1: phase=start
+
+State1 --> State2
+State2: phase=executing
+State2: operator: Mary
+
+State1 --> State3
+State2 --> State4
+State3 --> State4
+State3: phase=executing
+State3: operator: Mary
+
+State4: phase=done
+
+State4 --> State5
+State5 --> [*]
+
+@enduml
