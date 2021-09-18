@@ -1,4 +1,4 @@
-# Hadoop cluster (HDFS, YARN, Spark)
+# SparkHiveYarnHdfsCluster
 
 ## TODO
 1. Setup active failover (https://hadoop.apache.org/docs/r2.10.1/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html)
