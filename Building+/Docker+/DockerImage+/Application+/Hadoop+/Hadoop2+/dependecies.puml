@@ -24,14 +24,15 @@ frame Base {
     HiveBaseImage --> HadoopBaseImage
     HiveBaseImage --> Hive2.3.9
 }
-component HadoopPseudoDistributedCluster
 component HadoopPseudoDistributedYarnCluster
 component HadoopSingleNodeCluster
 frame HDFS {
     component HdfsKerberosCluster
     component HdfsHaQjmCluster
+    component HdfsPseudoCluster
     HdfsKerberosCluster --> HadoopBaseImage
     HdfsHaQjmCluster --> HadoopBaseImage
+    HdfsPseudoCluster --> HadoopBaseImage
 }
 frame YARN {
     component YarnHdfsCluster
@@ -57,7 +58,6 @@ frame Spark {
 }
 
 CentOsUpdated7 --> CentOs7
-HadoopPseudoDistributedCluster --> HadoopBaseImage
 HadoopPseudoDistributedYarnCluster --> HadoopBaseImage
 HadoopSingleNodeCluster --> HadoopBaseImage
 

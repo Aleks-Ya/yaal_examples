@@ -1,4 +1,4 @@
-# Hadoop Pseudo-Distributed Cluster
+# HDFS Pseudo-Distributed Cluster
 
 ## Documentation
 https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-common/SingleCluster.html#Pseudo-Distributed_Operation
