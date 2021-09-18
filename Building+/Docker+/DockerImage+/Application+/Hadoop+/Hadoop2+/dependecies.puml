@@ -6,6 +6,7 @@ title "HadoopCluster2 image dependencies"
 frame OS {
     component CentOs7
     component CentOsUpdated7
+    CentOsUpdated7 --> CentOs7
 }
 frame Libs {
     file Hadoop2.7
@@ -24,7 +25,6 @@ frame Base {
     HiveBaseImage --> HadoopBaseImage
     HiveBaseImage --> Hive2.3.9
 }
-component HadoopPseudoDistributedYarnCluster
 component HadoopSingleNodeCluster
 frame HDFS {
     component HdfsKerberosCluster
@@ -38,10 +38,12 @@ frame YARN {
     component YarnHdfsCluster
     component YarnHdfsKerberosCluster
     component YarnSshCluster
+    component YarnHdfsPseudoCluster
     YarnHdfsCluster --> HadoopBaseImage
     YarnHdfsKerberosCluster --> HadoopBaseImage
     YarnHdfsKerberosCluster --> Kerberos5
     YarnSshCluster --> HadoopBaseImage
+    YarnHdfsPseudoCluster --> HadoopBaseImage
 }
 frame Hive {
     component HiveYarnHdfsCluster
@@ -56,9 +58,6 @@ frame Spark {
     SparkBaseImage --> Spark2.4.8
     SparkHiveYarnHdfsCluster --> SparkBaseImage
 }
-
-CentOsUpdated7 --> CentOs7
-HadoopPseudoDistributedYarnCluster --> HadoopBaseImage
 HadoopSingleNodeCluster --> HadoopBaseImage
 
 @enduml

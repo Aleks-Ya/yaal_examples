@@ -1,4 +1,4 @@
-# Hadoop YARN on single node
+# YarnHdfsPseudoCluster (Hadoop YARN on single node)
 
 ## Documentation
 https://hadoop.apache.org/docs/r2.9.2/hadoop-project-dist/hadoop-common/SingleCluster.html#YARN_on_a_Single_Node
