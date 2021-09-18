@@ -1,16 +1,21 @@
 @startuml
 'https://plantuml.com/component-diagram
 
-component CentOs7
-component CentOsUpdated7
-component HadoopBaseImage {
-    person "hadoop:hadoop"
+rectangle CentOs7 {
+    card "root:root"
 }
-component HiveBaseImage {
-    person "hive:hadoop"
+rectangle CentOsUpdated7
+rectangle HadoopBaseImage {
+    card "hadoop:hadoop"
+    card "hdfs:hadoop"
+    card "yarn:hadoop"
+    card "mapred:hadoop"
 }
-component SparkBaseImage {
-    person "spark:hadoop"
+rectangle HiveBaseImage {
+    card "hive:hadoop"
+}
+rectangle SparkBaseImage {
+    card "spark:hadoop"
 }
 
 CentOsUpdated7 --> CentOs7

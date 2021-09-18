@@ -1,0 +1,65 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+title "HadoopCluster2 image dependencies"
+
+frame OS {
+    component CentOs7
+    component CentOsUpdated7
+    CentOsUpdated7 --> CentOs7
+}
+frame Base {
+    component HadoopBaseImage [
+        **HadoopBaseImage**
+        JAVA_HOME=/etc/alternatives/jre
+        HADOOP_PREFIX=/opt/hadoop
+        HADOOP_LOG_DIR=/tmp/logs
+        HADOOP_CONF_DIR=${HADOOP_PREFIX}/etc/hadoop
+    ]
+    component HiveBaseImage [
+        **HiveBaseImage**
+        HIVE_TGZ=/tmp/hive.tgz
+        HIVE_HOME=/opt/hive
+        HIVE_LOG_DIR=${HIVE_HOME}/logs
+    ]
+    component SparkBaseImage [
+        **SparkBaseImage**
+        SPARK_DIR=/opt/spark
+        SPARK_TGZ=/tmp/spark.tgz
+    ]
+    HadoopBaseImage --> CentOsUpdated7
+    HiveBaseImage --> HadoopBaseImage
+}
+component HadoopSingleNodeCluster
+frame HDFS {
+    component HdfsKerberosCluster
+    component HdfsHaQjmCluster
+    component HdfsPseudoCluster
+    HdfsKerberosCluster --> HadoopBaseImage
+    HdfsHaQjmCluster --> HadoopBaseImage
+    HdfsPseudoCluster --> HadoopBaseImage
+}
+frame YARN {
+    component YarnHdfsCluster
+    component YarnHdfsKerberosCluster
+    component YarnSshCluster
+    component YarnHdfsPseudoCluster
+    YarnHdfsCluster --> HadoopBaseImage
+    YarnHdfsKerberosCluster --> HadoopBaseImage
+    YarnSshCluster --> HadoopBaseImage
+    YarnHdfsPseudoCluster --> HadoopBaseImage
+}
+frame Hive {
+    component HiveYarnHdfsCluster
+    component HiveYarnHdfsKerberosCluster
+    HiveYarnHdfsKerberosCluster --> HiveBaseImage
+    HiveYarnHdfsCluster --> HiveBaseImage
+}
+frame Spark {
+    component SparkHiveYarnHdfsCluster
+    SparkBaseImage --> HiveBaseImage
+    SparkHiveYarnHdfsCluster --> SparkBaseImage
+}
+HadoopSingleNodeCluster --> HadoopBaseImage
+
+@enduml

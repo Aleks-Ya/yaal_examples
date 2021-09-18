@@ -9,7 +9,10 @@ ENV HADOOP_PREFIX=/opt/hadoop
 ENV HADOOP_LOG_DIR=/tmp/logs
 ENV HADOOP_CONF_DIR=${HADOOP_PREFIX}/etc/hadoop
 
-RUN useradd -m hadoop
+RUN useradd -m hadoop && \
+    useradd -m -g hadoop hdfs && \
+    useradd -m -g hadoop yarn && \
+    useradd -m -g hadoop mapred
 USER hadoop
 
 RUN mkdir -p ${HADOOP_LOG_DIR} \

@@ -8,10 +8,10 @@ ENV HIVE_LOG_DIR=${HIVE_HOME}/logs
 ENV HIVE_VERSION=$HIVE_VERSION
 
 USER root
-RUN useradd -m -g hadoop hive \
-    && mkdir -p ${HIVE_HOME} \
-    && chown -R hive:hadoop ${HIVE_HOME} \
-    && yum install -y postgresql
+RUN useradd -m -g hadoop hive && \
+    mkdir -p ${HIVE_HOME} && \
+    chown -R hive:hadoop ${HIVE_HOME} && \
+    yum install -y postgresql
 
 USER hive
 RUN mkdir -p ${HIVE_LOG_DIR} \

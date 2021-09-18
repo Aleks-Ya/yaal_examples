@@ -2,8 +2,7 @@ ARG HADOOP_BASE_IMAGE
 FROM $HADOOP_BASE_IMAGE
 
 USER root
-RUN yum install -y krb5-workstation krb5-libs jsvc \
-    && useradd -m -g hadoop hdfs
+RUN yum install -y krb5-workstation krb5-libs jsvc
 
 USER hdfs
 RUN mkdir -p /home/hdfs/namenode \
