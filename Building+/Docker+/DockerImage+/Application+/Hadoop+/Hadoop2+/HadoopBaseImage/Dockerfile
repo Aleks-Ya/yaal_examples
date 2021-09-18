@@ -1,6 +1,6 @@
-FROM centos:7
+FROM centos-updated:7
 
-RUN yum update -y && yum install -y java wget net-tools nano telnet less which
+RUN yum install -y java
 ENV JAVA_HOME=/etc/alternatives/jre
 
 ARG HADOOP_VERSION

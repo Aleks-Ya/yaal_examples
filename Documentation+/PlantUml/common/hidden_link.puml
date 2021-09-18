@@ -1,0 +1,13 @@
+@startuml
+'Docs: https://plantuml.com/class-diagram#c08f8d9927fcb626
+
+class A
+class B
+class C
+class D
+class E
+
+A -[hidden]-> C
+B -[hidden]-> D
+
+@enduml

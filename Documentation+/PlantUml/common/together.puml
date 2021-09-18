@@ -1,0 +1,17 @@
+@startuml
+'Docs: https://plantuml.com/class-diagram#c08f8d9927fcb626
+
+together {
+    class B
+    class C
+    class D
+}
+together {
+    class A
+    class E
+}
+
+A --> C
+E --> D
+
+@enduml

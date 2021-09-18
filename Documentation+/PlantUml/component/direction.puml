@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+left to right direction
+'top to bottom direction
+
+package "Some Group" {
+  HTTP - [First Component]
+  [Another Component]
+}
+
+
+database "MySql" {
+  folder "This is my folder" {
+    [Folder 3]
+  }
+  frame "Foo" {
+    [Frame 4]
+  }
+}
+
+@enduml

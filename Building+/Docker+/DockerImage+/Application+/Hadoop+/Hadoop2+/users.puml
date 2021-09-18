@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+component CentOs7
+component CentOsUpdated7
+component HadoopBaseImage {
+    person "hadoop:hadoop"
+}
+component HiveBaseImage {
+    person "hive:hadoop"
+}
+component SparkBaseImage {
+    person "spark:hadoop"
+}
+
+CentOsUpdated7 --> CentOs7
+HadoopBaseImage --> CentOsUpdated7
+HiveBaseImage --> HadoopBaseImage
+YarnHdfsCluster --> HadoopBaseImage
+YarnHdfsKerberosCluster --> HadoopBaseImage
+SparkBaseImage --> HiveBaseImage
+HadoopCluster --> SparkBaseImage
+
+@enduml
