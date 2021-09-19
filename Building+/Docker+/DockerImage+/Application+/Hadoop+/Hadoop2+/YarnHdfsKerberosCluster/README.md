@@ -8,14 +8,14 @@
 1. Check HDFS: http://yarn-hdfs-kerberos-master.yarn.yaal.ru:50070
 1. Check YARN: http://yarn-hdfs-kerberos-master.yarn.yaal.ru:8088
 1. Check logs (HDFS):
-  1. NameNode: ? 
-  1. DataNode 1: `docker exec yarn-hdfs-kerberos-master cat /opt/hadoop/logs/hadoop-hdfs-datanode-yarn-hdfs-kerberos-master.log`
-  1. DataNode 2: `docker exec yarn-hdfs-kerberos-slave1 cat /opt/hadoop/logs/hadoop-hdfs-datanode-yarn-hdfs-kerberos-slave1.log`
-  1. DataNode 3: `docker exec yarn-hdfs-kerberos-slave2 cat /opt/hadoop/logs/hadoop-hdfs-datanode-yarn-hdfs-kerberos-slave2.log`
+  1. NameNode:   `docker exec yarn-hdfs-kerberos-master bash -c 'cat $HADOOP_LOG_DIR/hadoop--namenode-yarn-hdfs-kerberos-master.log'` 
+  1. DataNode 1: `docker exec yarn-hdfs-kerberos-master bash -c 'cat $HADOOP_LOG_DIR/hadoop-hdfs-datanode-yarn-hdfs-kerberos-master.log'`
+  1. DataNode 2: `docker exec yarn-hdfs-kerberos-slave1 bash -c 'cat $HADOOP_LOG_DIR/hadoop-hdfs-datanode-yarn-hdfs-kerberos-slave1.log'`
+  1. DataNode 3: `docker exec yarn-hdfs-kerberos-slave2 bash -c 'cat $HADOOP_LOG_DIR/hadoop-hdfs-datanode-yarn-hdfs-kerberos-slave2.log'`
 1. Check logs (YARN):
-  1. ResourceManager: `docker exec yarn-hdfs-kerberos-master bash -c 'cat $HADOOP_LOG_DIR/yarn-yarn-resourcemanager-yarn-hdfs-kerberos-master.log'`
-  1. NodeManager 1:   `docker exec yarn-hdfs-kerberos-slave1 bash -c 'cat $HADOOP_LOG_DIR/yarn-yarn-nodemanager-yarn-hdfs-kerberos-slave1.log'`
-  1. NodeManager 2:   `docker exec yarn-hdfs-kerberos-slave2 bash -c 'cat $HADOOP_LOG_DIR/yarn-yarn-nodemanager-yarn-hdfs-kerberos-slave2.log'`
+  1. ResourceManager: `docker exec yarn-hdfs-kerberos-master bash -c 'cat $YARN_LOG_DIR/yarn-yarn-resourcemanager-yarn-hdfs-kerberos-master.log'`
+  1. NodeManager 1:   `docker exec yarn-hdfs-kerberos-slave1 bash -c 'cat $YARN_LOG_DIR/yarn-yarn-nodemanager-yarn-hdfs-kerberos-slave1.log'`
+  1. NodeManager 2:   `docker exec yarn-hdfs-kerberos-slave2 bash -c 'cat $YARN_LOG_DIR/yarn-yarn-nodemanager-yarn-hdfs-kerberos-slave2.log'`
 
 ## Hadoop CLI
 

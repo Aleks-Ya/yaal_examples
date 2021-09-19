@@ -19,7 +19,6 @@ su hdfs -c "hadoop-daemon.sh --script hdfs start datanode"
 echo "DataNode started."
 
 echo "Starting ResourceManager..."
-export YARN_LOG_DIR=$HADOOP_LOG_DIR
 su yarn -c "yarn-daemon.sh --config $HADOOP_CONF_DIR start resourcemanager"
 echo "ResourceManager started."
 

@@ -34,7 +34,6 @@ echo "DataNode started."
 
 echo "Starting ResourceManager..."
 kinit -kt /etc/hdfs.keytab rm/yarn-hdfs-kerberos-master.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
-export YARN_LOG_DIR=$HADOOP_LOG_DIR
 su yarn -c "yarn-daemon.sh --config $HADOOP_CONF_DIR start resourcemanager"
 echo "ResourceManager started."
 

@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+title "Hadoop daemons"
+cloud "Domain: yaal.ru" {
+    node "master.yaal.ru" {
+        component "NameNode"
+        component "DataNode1"
+        component "ResourceManager"
+        component "HiveServer2"
+    }
+    node "slave1.yaal.ru" {
+        component "DataNode2"
+        component "NodeManager1"
+    }
+    node "slave2.yaal.ru" {
+        component "DataNode3"
+        component "NodeManager2"
+    }
+    node "kdc.yaal.ru"
+    node "client.yaal.ru"
+    node "sclient.yaal.ru"
+    node "sserver.yaal.ru" {
+        component "SServer"
+    }
+    node "postgres"
+    node "zookeeper1"
+    node "zookeeper2"
+}
+
+@enduml

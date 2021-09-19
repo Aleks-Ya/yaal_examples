@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+title "Hadoop cluster hosts"
+cloud "Domain: yaal.ru" {
+    node "master.yaal.ru"
+    node "slave1.yaal.ru"
+    node "slave2.yaal.ru"
+    node "kdc.yaal.ru"
+    node "client.yaal.ru"
+    node "sclient.yaal.ru"
+    node "sserver.yaal.ru"
+    node "postgres"
+    node "zookeeper1"
+    node "zookeeper2"
+}
+
+@enduml

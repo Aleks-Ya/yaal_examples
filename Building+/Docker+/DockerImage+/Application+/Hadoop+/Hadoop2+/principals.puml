@@ -1,0 +1,50 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+title "Kerberos principals"
+
+left to right direction
+
+node "hdfs-master.hdfs.yaal.ru" {
+    card "nn/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
+    card "dn/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
+    card "rm/yarn-hdfs-kerberos-master.yarn.yaal.ru@HADOOPCLUSTER.LOCAL"
+    card "host/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
+    card "HTTP/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
+    card "mapr@HADOOPCLUSTER.LOCAL"
+}
+
+node "hdfs-slave1.hdfs.yaal.ru" {
+    card "dn/hdfs-slave1.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
+    card "nm/yarn-hdfs-kerberos-slave1.yarn.yaal.ru@HADOOPCLUSTER.LOCAL"
+    card "host/hdfs-slave1.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
+    card "HTTP/hdfs-slave1.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
+    card "mapr@HADOOPCLUSTER.LOCAL"
+}
+
+node "hdfs-slave2.hdfs.yaal.ru" {
+    card "dn/hdfs-slave2.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
+    card "nm/yarn-hdfs-kerberos-slave2.yarn.yaal.ru@HADOOPCLUSTER.LOCAL"
+    card "host/hdfs-slave2.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
+    card "HTTP/hdfs-slave2.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
+    card "mapr@HADOOPCLUSTER.LOCAL"
+}
+
+node kdc {
+    card "root/admin@HADOOPCLUSTER.LOCAL"
+    card "hadoop/admin@HADOOPCLUSTER.LOCAL"
+}
+
+node client {
+    card "client@HADOOPCLUSTER.LOCAL"
+}
+
+node sclient {
+    card "sclient@HADOOPCLUSTER.LOCAL"
+}
+
+node "hdfs-sserver.hdfs.yaal.ru" {
+    card "sserver/hdfs-sserver.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL"
+}
+
+@enduml

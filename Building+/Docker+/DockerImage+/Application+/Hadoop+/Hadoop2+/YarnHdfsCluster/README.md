@@ -2,24 +2,22 @@
 
 Components: HDFS, YARN.
 
-## Build images
-
-`./build.sh`
-
 ## Run cluster
 
+1. Build: `./build.sh`
 1. Start cluster: `./run_cluster.sh`
-2. Update hosts file: `sudo ./update_hosts.sh`
-3. Check HDFS: http://yarn-hdfs-master.yarn.yaal.ru:50070
-4. Check YARN: http://yarn-hdfs-master.yarn.yaal.ru:8088
-5. Check logs (HDFS):
-  1. DataNode 1: `docker exec yarn-hdfs-master bash -c 'cat $HADOOP_LOG_DIR/hadoop--namenode-yarn-hdfs-master.log'`
-  1. DataNode 2: `docker exec yarn-hdfs-slave1 bash -c 'cat $HADOOP_LOG_DIR/hadoop--datanode-yarn-hdfs-slave1.log'`
-  1. DataNode 3: `docker exec yarn-hdfs-slave2 bash -c 'cat $HADOOP_LOG_DIR/hadoop--datanode-yarn-hdfs-slave2.log'`
-6. Check logs (YARN):
-  1. ResourceManager: `docker exec yarn-hdfs-master bash -c 'cat $HADOOP_LOG_DIR/yarn-yarn-resourcemanager-yarn-hdfs-master.log'`
-  1. NodeManager 1:   `docker exec yarn-hdfs-slave1 bash -c 'cat $HADOOP_LOG_DIR/yarn-yarn-nodemanager-yarn-hdfs-slave1.log'`
-  1. NodeManager 2:   `docker exec yarn-hdfs-slave2 bash -c 'cat $HADOOP_LOG_DIR/yarn-yarn-nodemanager-yarn-hdfs-slave2.log'`
+1. Update hosts file: `sudo ./update_hosts.sh`
+1. Check HDFS: http://yarn-hdfs-master.yarn.yaal.ru:50070
+1. Check YARN: http://yarn-hdfs-master.yarn.yaal.ru:8088
+1. Check logs (HDFS):
+  1. NameNode:   `docker exec yarn-hdfs-master bash -c 'cat $HADOOP_LOG_DIR/hadoop-hdfs-namenode-yarn-hdfs-master.log'`
+  1. DataNode 1: `docker exec yarn-hdfs-master bash -c 'cat $HADOOP_LOG_DIR/hadoop-hdfs-datanode-yarn-hdfs-master.log'`
+  1. DataNode 2: `docker exec yarn-hdfs-slave1 bash -c 'cat $HADOOP_LOG_DIR/hadoop-hdfs-datanode-yarn-hdfs-slave1.log'`
+  1. DataNode 3: `docker exec yarn-hdfs-slave2 bash -c 'cat $HADOOP_LOG_DIR/hadoop-hdfs-datanode-yarn-hdfs-slave2.log'`
+1. Check logs (YARN):
+  1. ResourceManager: `docker exec yarn-hdfs-master bash -c 'cat $YARN_LOG_DIR/yarn-yarn-resourcemanager-yarn-hdfs-master.log'`
+  1. NodeManager 1:   `docker exec yarn-hdfs-slave1 bash -c 'cat $YARN_LOG_DIR/yarn-yarn-nodemanager-yarn-hdfs-slave1.log'`
+  1. NodeManager 2:   `docker exec yarn-hdfs-slave2 bash -c 'cat $YARN_LOG_DIR/yarn-yarn-nodemanager-yarn-hdfs-slave2.log'`
 
 ## Hadoop CLI
 

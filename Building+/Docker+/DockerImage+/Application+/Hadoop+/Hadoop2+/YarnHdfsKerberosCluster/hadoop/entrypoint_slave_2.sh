@@ -18,7 +18,6 @@ echo "DataNode started."
 
 echo "Starting NodeManager..."
 kinit -kt /etc/hdfs.keytab nm/yarn-hdfs-kerberos-slave2.yarn.yaal.ru@HADOOPCLUSTER.LOCAL
-export YARN_LOG_DIR=$HADOOP_LOG_DIR
 su yarn -c "yarn-daemon.sh --config $HADOOP_CONF_DIR start nodemanager"
 echo "NodeManager started."
 
