@@ -5,10 +5,9 @@ set -e
 echo "HADOOP_PREFIX=$HADOOP_PREFIX"
 echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
 
-useradd -m -g root hdfs
-useradd -m -g root yarn
 chmod -R g+w /tmp
 chmod -R g+w /opt/hadoop
+chmod -R a+w "$HADOOP_LOG_DIR"
 
 echo "Starting HDFS..."
 su hdfs -c "hadoop-daemon.sh start journalnode"

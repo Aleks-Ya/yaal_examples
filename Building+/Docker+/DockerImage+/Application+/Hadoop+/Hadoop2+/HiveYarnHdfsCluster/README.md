@@ -9,16 +9,10 @@
 1. Setup security (Kerberos, encryption)
 1. Fix JournalNode start
 
-## Build images
-
-`./build.sh`
-
 ## Run cluster
-
-```
-./run_cluster.sh
-sudo ./update_hosts.sh
-```
+1. Build: `./build.sh`
+1. Run: `./run_cluster.sh`
+1. Update hosts: `sudo ./update_hosts.sh` 
 
 ## Log
 
@@ -28,7 +22,7 @@ Hive logs: `docker exec hive-yarn-hdfs-master cat /opt/hive/logs/hive.log`
 
 ### Run example apps
 
-YARN: `docker exec -it hadoop-cluster-master su hdfs bash -c '${HADOOP_PREFIX}/run_yarn_example.sh'`
+YARN: `docker exec -it hive-yarn-hdfs-master su hdfs bash -c '${HADOOP_PREFIX}/run_yarn_example.sh'`
 
 ### Hadoop CLI
 
