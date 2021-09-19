@@ -8,14 +8,14 @@ echo "HADOOP_LOG_DIR=$HADOOP_LOG_DIR"
 
 echo "Starting HDFS..."
 echo "Formatting namenode..."
-hdfs namenode -format -nonInteractive
+su hdfs -c "hdfs namenode -format -nonInteractive"
 echo "Namenode is formatted"
 
 echo "Starting NameNode..."
-hadoop-daemon.sh --script hdfs start namenode
+su hdfs -c "hadoop-daemon.sh --script hdfs start namenode"
 echo "NameNode started"
 echo "Starting DataNode..."
-hadoop-daemon.sh --script hdfs start datanode
+su hdfs -c "hadoop-daemon.sh --script hdfs start datanode"
 echo "DataNode started."
 
 echo "Starting ResourceManager..."
@@ -28,8 +28,8 @@ SIGTERM=15
 stop()
 {
   su yarn -c "yarn-daemon.sh --config $HADOOP_CONF_DIR stop resourcemanager"
-  hadoop-daemon.sh --script hdfs stop namenode
-  hadoop-daemon.sh --script hdfs stop datanode
+  su hdfs -c "hadoop-daemon.sh --script hdfs stop namenode"
+  su hdfs -c "hadoop-daemon.sh --script hdfs stop datanode"
   exit 0
 }
 trap stop $SIGINT $SIGTERM

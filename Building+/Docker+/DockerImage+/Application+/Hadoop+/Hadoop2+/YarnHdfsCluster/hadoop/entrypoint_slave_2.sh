@@ -7,7 +7,7 @@ echo "HADOOP_CONF_DIR=$HADOOP_CONF_DIR"
 echo "HADOOP_LOG_DIR=$HADOOP_LOG_DIR"
 
 echo "Starting DataNode..."
-hadoop-daemon.sh --script hdfs start datanode
+su hdfs -c "hadoop-daemon.sh --script hdfs start datanode"
 echo "DataNode started."
 
 echo "Starting NodeManager..."
@@ -20,7 +20,7 @@ SIGTERM=15
 stop()
 {
   su yarn -c "yarn-daemon.sh --config $HADOOP_CONF_DIR stop nodemanager"
-  hadoop-daemon.sh --script hdfs stop datanode
+  su hdfs -c "hadoop-daemon.sh --script hdfs stop datanode"
   exit 0
 }
 trap stop $SIGINT $SIGTERM

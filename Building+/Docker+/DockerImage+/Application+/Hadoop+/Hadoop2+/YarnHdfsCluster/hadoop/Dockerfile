@@ -1,17 +1,11 @@
 ARG HADOOP_BASE_IMAGE
 FROM $HADOOP_BASE_IMAGE
 
-USER root
-RUN useradd -m -g hadoop hdfs \
-    && useradd -m -g hadoop yarn
-
 USER hdfs
 RUN mkdir -p /home/hdfs/namenode \
     && mkdir -p /home/hdfs/datanode
 ENV PATH=$PATH:$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin
 ENV HADOOP_ENV_SH=${HADOOP_CONF_DIR}/hadoop-env.sh
-
-RUN mkdir -p ${HADOOP_LOG_DIR}
 
 ADD --chown=hadoop:hadoop *.xml ${HADOOP_CONF_DIR}/
 ADD --chown=hadoop:hadoop *.sh ${HADOOP_PREFIX}/
