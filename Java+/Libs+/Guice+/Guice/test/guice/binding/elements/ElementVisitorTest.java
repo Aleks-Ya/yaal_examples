@@ -23,19 +23,7 @@ public class ElementVisitorTest {
     public void visitBinding() {
         var module = new AppModule();
         var instances = Elements.getElements(module).stream()
-                .map(element -> element.acceptVisitor(new DefaultElementVisitor<>() {
-                    @Override
-                    public Object visit(Binding binding) {
-                        if (binding instanceof InstanceBinding) {
-                            var instanceBinding = (InstanceBinding<Integer>) binding;
-                            return instanceBinding.getInstance();
-                        } else if (binding instanceof LinkedKeyBinding) {
-                            var linkedKeyBinding = (LinkedKeyBinding<Writer>) binding;
-                            return linkedKeyBinding.getLinkedKey().toString();
-                        }
-                        return null;
-                    }
-                }))
+                .map(element -> element.acceptVisitor(new BindingVisitor()))
                 .collect(Collectors.toList());
         assertThat(instances, contains(INT, "Key[type=java.io.StringWriter, annotation=[none]]"));
     }
@@ -44,21 +32,37 @@ public class ElementVisitorTest {
     public void visitOther() {
         var module = new AppModule();
         var instances = Elements.getElements(module).stream()
-                .map(element -> element.acceptVisitor(new DefaultElementVisitor<>() {
-                    @Override
-                    protected Object visitOther(Element element) {
-                        if (element instanceof InstanceBinding) {
-                            var instanceBinding = (InstanceBinding<Integer>) element;
-                            return instanceBinding.getInstance();
-                        } else if (element instanceof LinkedKeyBinding) {
-                            var linkedKeyBinding = (LinkedKeyBinding<Writer>) element;
-                            return linkedKeyBinding.getLinkedKey().toString();
-                        }
-                        return null;
-                    }
-                }))
+                .map(element -> element.acceptVisitor(new OtherVisitor()))
                 .collect(Collectors.toList());
         assertThat(instances, contains(INT, "Key[type=java.io.StringWriter, annotation=[none]]"));
+    }
+
+    private static class BindingVisitor extends DefaultElementVisitor<Object> {
+        @Override
+        public Object visit(Binding binding) {
+            if (binding instanceof InstanceBinding) {
+                var instanceBinding = (InstanceBinding<Integer>) binding;
+                return instanceBinding.getInstance();
+            } else if (binding instanceof LinkedKeyBinding) {
+                var linkedKeyBinding = (LinkedKeyBinding<Writer>) binding;
+                return linkedKeyBinding.getLinkedKey().toString();
+            }
+            return null;
+        }
+    }
+
+    private static class OtherVisitor extends DefaultElementVisitor<Object> {
+        @Override
+        protected Object visitOther(Element element) {
+            if (element instanceof InstanceBinding) {
+                var instanceBinding = (InstanceBinding<Integer>) element;
+                return instanceBinding.getInstance();
+            } else if (element instanceof LinkedKeyBinding) {
+                var linkedKeyBinding = (LinkedKeyBinding<Writer>) element;
+                return linkedKeyBinding.getLinkedKey().toString();
+            }
+            return null;
+        }
     }
 
     private static class AppModule extends AbstractModule {
