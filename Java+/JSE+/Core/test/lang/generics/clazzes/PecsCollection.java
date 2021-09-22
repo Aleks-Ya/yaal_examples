@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.equalTo;
  * if you are only stuffing items in, it is a consumer and you should use "super".
  * If you do both with the same collection, you shouldn't use either "extends" or "super".
  */
-public class PecsCollection {
+class PecsCollection {
     private static final Cat cat = new Cat();
     private static final Animal animal = new Animal();
     private static final Creature creature = new Creature();
@@ -23,7 +23,7 @@ public class PecsCollection {
      * If you are only pulling items from a generic collection, it is a producer and you should use "extends";
      */
     @Test
-    public void producerExtends() {
+    void producerExtends() {
         List<? extends Creature> list;
         {
             List<Creature> creatureList = new ArrayList<>();
@@ -66,7 +66,7 @@ public class PecsCollection {
      * if you are only stuffing items in, it is a consumer and you should use "super".
      */
     @Test
-    public void consumerSuper() {
+    void consumerSuper() {
         List<? super Creature> list = new ArrayList<>();
         list.add(cat);
         list.add(animal);
@@ -79,7 +79,7 @@ public class PecsCollection {
      * if you are only stuffing items in, it is a consumer and you should use "super".
      */
     @Test
-    public void consumerSuper2() {
+    void consumerSuper2() {
         List<? super Cat> list;
         {
             list = new ArrayList<Creature>();
@@ -103,7 +103,7 @@ public class PecsCollection {
      * If you do both with the same collection, you shouldn't use either "extends" or "super".
      */
     @Test
-    public void producerAndConsumer1() {
+    void producerAndConsumer1() {
         List<Creature> list = new ArrayList<>();
         list.add(cat);
         list.add(animal);
@@ -129,7 +129,7 @@ public class PecsCollection {
      * If you do both with the same collection, you shouldn't use either "extends" or "super".
      */
     @Test
-    public void producerAndConsumer2() {
+    void producerAndConsumer2() {
         List<Animal> animals = new ArrayList<>();
         animals.add(new Animal());
         animals.add(new Cat());

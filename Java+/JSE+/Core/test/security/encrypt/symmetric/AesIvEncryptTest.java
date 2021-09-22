@@ -23,10 +23,10 @@ import static org.hamcrest.Matchers.equalTo;
  * Cipher Block Chaining (CBC)
  * IV is Initialization Vector
  */
-public class AesIvEncryptTest {
+class AesIvEncryptTest {
 
     @Test
-    public void aesEncryptDecrypt() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
+    void aesEncryptDecrypt() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException, InvalidAlgorithmParameterException {
 
 

@@ -14,16 +14,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Чтение целого файла в одно строку с помощью Files#readAllLines()
  */
-public class ReadAllLines {
+class ReadAllLines {
     @Test
-    public void files() throws IOException {
+    void files() throws IOException {
         //write
-        Path p = Files.createTempFile("prefix-file_", ".suffix");
-        List<String> expLines = Arrays.asList("FirstLine", "SecondLine");
+        var p = Files.createTempFile("prefix-file_", ".suffix");
+        var expLines = Arrays.asList("FirstLine", "SecondLine");
         Files.write(p, expLines, Charset.defaultCharset());
 
         //read
-        List<String> actLines = Files.readAllLines(p, Charset.defaultCharset());
+        var actLines = Files.readAllLines(p, Charset.defaultCharset());
         assertEquals(expLines, actLines);
     }
 }

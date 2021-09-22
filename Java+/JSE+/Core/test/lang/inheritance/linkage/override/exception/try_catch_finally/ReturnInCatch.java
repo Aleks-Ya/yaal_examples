@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Will a finally block execute even if the catch block defines a return statement?
  */
-public class ReturnInCatch {
+class ReturnInCatch {
 
     @Test
-    public void main() {
+    void main() {
         try {
             throw new Exception();
         } catch (Exception e) {

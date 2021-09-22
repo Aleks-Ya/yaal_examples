@@ -6,13 +6,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class FinallyTest {
+class FinallyTest {
 
     /**
      * Если catch и finally бросают исключения, вверх по стеку полетит исключение из finally.
      */
     @Test
-    public void exceptionInCatchVsFinally() {
+    void exceptionInCatchVsFinally() {
         var finallyMessage = "From finally";
         var e = assertThrows(RuntimeException.class, () -> {
             //noinspection finally
@@ -32,7 +32,7 @@ public class FinallyTest {
      * Если catch и finally возвращают значения, возвращено будет значение из finally.
      */
     @Test
-    public void returnFromCatchVsFinally() {
+    void returnFromCatchVsFinally() {
         var finallyMessage = "From finally";
         assertThat(returnString(finallyMessage), equalTo(finallyMessage));
     }

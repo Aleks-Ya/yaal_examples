@@ -9,10 +9,10 @@ import java.util.ResourceBundle;
 /**
  * Вывод сообщения на русском или английском языке с помощью ResourceBundle.
  */
-public class RusEng {
+class RusEng {
 
     @Test
-    public void main() throws UnsupportedEncodingException {
+    void main() throws UnsupportedEncodingException {
         var english = Locale.ENGLISH;
         var russian = new Locale("ru", "RU");
         printMessage(russian);

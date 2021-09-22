@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Main {
+class Main {
 
     @Test
-    public void charIntByte() {
+    void charIntByte() {
         char c = 'a';
         int i = c;
         byte b = (byte) i;
@@ -19,7 +19,7 @@ public class Main {
      * Приведение float к int обрезает дробную часть.
      */
     @Test
-    public void floatToInt() {
+    void floatToInt() {
         float f = 5.9f;
         assertEquals(5.9f, f, 0);
         int i = (int) f;
@@ -30,7 +30,7 @@ public class Main {
      * Присвоение примитивных типов без приведения.
      */
     @Test
-    public void integerNums() {
+    void integerNums() {
         final byte b = 1;
         final short s = 10_000;
         final int i = 1_000_000;
@@ -50,7 +50,7 @@ public class Main {
      * Приведение примитивных типов без переполнения.
      */
     @Test
-    public void integerNums2() {
+    void integerNums2() {
         final byte b = 1;
         final short s = 2;
         final int i = 3;
@@ -81,7 +81,7 @@ public class Main {
      * Приведение примитивных типов с переполнением.
      */
     @Test
-    public void integerNums3() {
+    void integerNums3() {
         final byte b = 1;
         final short s = 10_000;
         final int i = 1_000_000;

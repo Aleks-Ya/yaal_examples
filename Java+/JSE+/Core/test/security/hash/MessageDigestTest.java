@@ -10,10 +10,10 @@ import java.util.Arrays;
 /**
  * Generate hash-code of a string.
  */
-public class MessageDigestTest {
+class MessageDigestTest {
 
     @Test
-    public void sha256() throws NoSuchAlgorithmException {
+    void sha256() throws NoSuchAlgorithmException {
         var digest = MessageDigest.getInstance("SHA-256");
 
         var s = "abc";

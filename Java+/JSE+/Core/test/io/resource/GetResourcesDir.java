@@ -9,10 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Получить папку с ресурсами.
  */
-public class GetResourcesDir {
+class GetResourcesDir {
 
     @Test
-    public void classResource() {
+    void classResource() {
         var url1 = GetResourcesDir.class.getResource(".");
         var url2 = GetResourcesDir.class.getResource("");
 
@@ -22,7 +22,7 @@ public class GetResourcesDir {
     }
 
     @Test
-    public void classLoaderResource() {
+    void classLoaderResource() {
         var resource = ClassLoader.getSystemClassLoader().getResource(".");
 
         final var expResourcesDir = "file:/home/aleks/projects/learning/examples/Java+/JSE+/Core+/build/classes/test/";
@@ -31,7 +31,7 @@ public class GetResourcesDir {
     }
 
     @Test
-    public void nullPath() {
+    void nullPath() {
         assertThrows(NullPointerException.class, () -> GetResourcesDir.class.getResource(null));
     }
 }

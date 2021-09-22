@@ -1,13 +1,15 @@
 package lang.inheritance.linkage.override.exception;
 
-import java.io.FileNotFoundException;
+import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
 
 /**
  * Декларируемые исключения должны быть подклассами первоначального.
  */
-public class ThrowsType {
-    public static void main(String[] args) throws IOException, ReflectiveOperationException {
+class ThrowsType {
+    @Test
+    void exception() {
         System.out.println(new Child().makeString());
     }
 
@@ -20,7 +22,7 @@ public class ThrowsType {
 
     private static class Child extends Parent {
         @Override
-        String makeString() throws FileNotFoundException, ClassNotFoundException {
+        String makeString() {
             return "Child";
         }
     }

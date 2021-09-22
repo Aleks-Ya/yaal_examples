@@ -9,9 +9,9 @@ import static com.google.testing.compile.JavaSourceSubjectFactory.javaSource;
 /**
  * Как получить Class по Element в Annotation Processor.
  */
-public class ClassByElement {
+class ClassByElement {
     @Test
-    public void testName() {
+    void testName() {
         assert_().about(javaSource())
                 .that(JavaFileObjects.forSourceString("HelloWorld",
                         "package mypack;" +

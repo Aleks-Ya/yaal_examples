@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Get class that invoked the current method.
  */
-public class GetClassThatInvokedCurrentMethodTest {
+class GetClassThatInvokedCurrentMethodTest {
 
 //    private static Class<?> getCallerClass() {
 //        return Reflection.getCallerClass(2);

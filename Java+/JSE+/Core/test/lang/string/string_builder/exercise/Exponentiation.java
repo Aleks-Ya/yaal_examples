@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Возвести число в степень.
  */ 
-public class Exponentiation {
+class Exponentiation {
     @Test
-    public void main() {
+    void main() {
 		final int num = 2;
 		final int exponent = 4;
 		long result = num;

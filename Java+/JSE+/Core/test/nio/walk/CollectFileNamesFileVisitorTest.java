@@ -5,24 +5,21 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Обход диретории с помощью FileVisitor.
+ * Walk through a directory with a FileVisitor.
  */
-public class CollectFileNamesFileVisitorTest {
+class CollectFileNamesFileVisitorTest {
 
     @Test
-    public void test() throws IOException {
-        Path dir = Paths.get("resourcesTest");
-        CollectFileNamesFileVisitor visitor = new CollectFileNamesFileVisitor();
+    void walkDir() throws IOException {
+        var dir = Paths.get("resourcesTest/nio/walk");
+        var visitor = new CollectFileNamesFileVisitor();
         Files.walkFileTree(dir, visitor);
-        List<String> fileNames = visitor.getFileNames();
-        assertThat(fileNames, contains("story.txt", "config.xml", "novel.txt", "context.xml"));
+        var fileNames = visitor.getFileNames();
+        assertThat(fileNames).contains("content.xml", "content.xml", "novel.txt", "poem.txt");
     }
 }

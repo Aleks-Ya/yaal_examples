@@ -12,17 +12,17 @@ import static org.hamcrest.io.FileMatchers.anExistingFile;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MkDirsTest {
+class MkDirsTest {
 
     /**
      * If invoke File#mkdirs on a file, it creates a directory instead of file.
      */
     @Test
-    public void mkdirsOnFile() throws IOException {
-        File tmpDir = Files.createTempDirectory(getClass().getSimpleName()).toFile();
+    void mkdirsOnFile() throws IOException {
+        var tmpDir = Files.createTempDirectory(getClass().getSimpleName()).toFile();
         tmpDir.deleteOnExit();
 
-        File notExistsIntermediateDirs = new File(tmpDir, "a/b/file.txt");
+        var notExistsIntermediateDirs = new File(tmpDir, "a/b/file.txt");
         assertThat(notExistsIntermediateDirs, not(anExistingFile()));
 
         assertTrue(notExistsIntermediateDirs.mkdirs());

@@ -1,17 +1,15 @@
 package io.console_read;
 
-import java.io.Console;
-
 /**
  * Прочитать из консоли строку.
  */
 public class Main {
     public static void main(String[] args) {
-        Console console = System.console();
+        var console = System.console();
         if (console != null) {
             System.out.println("Enter empty line to exit");
             while (true) {
-                String line = console.readLine();
+                var line = console.readLine();
                 if (!line.isEmpty()) {
                     console.printf("'%s'\n", line);
                 } else {

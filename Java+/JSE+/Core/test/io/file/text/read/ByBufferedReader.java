@@ -17,15 +17,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Чтение файла с помощью BufferedReader.
  */
-public class ByBufferedReader {
+class ByBufferedReader {
     private static final List<String> expLines = Arrays.asList("FirstLine", "SecondLine");
     private static File file;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         file = File.createTempFile(ByRandomAccessFile.class.getSimpleName(), ".tmp");
         file.deleteOnExit();
-        try (PrintStream out = new PrintStream(new FileOutputStream(file))) {
+        try (var out = new PrintStream(new FileOutputStream(file))) {
             expLines.forEach(out::print);
         }
     }
@@ -34,9 +34,9 @@ public class ByBufferedReader {
      * Чтение файла по одной строке.
      */
     @Test
-    public void lineByLine() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        StringBuilder sb = new StringBuilder();
+    void lineByLine() throws IOException {
+        var reader = new BufferedReader(new FileReader(file));
+        var sb = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {
             sb.append(line);

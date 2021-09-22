@@ -7,14 +7,14 @@ import static java.lang.System.out;
 /**
  * Конверсия при вызове метода.
  */
-public class Primitive {
+class Primitive {
 
     /**
      * Конверсия при вызове метода с параметрами примитивных типов.
      */
     @Test
-    public void primitiveAll() {
-        Cut cut = new Cut();
+    void primitiveAll() {
+        var cut = new Cut();
 
         out.println("byte => " + cut.m((byte) 1));
         out.println("short => " + cut.m((short) 1));
@@ -37,10 +37,10 @@ public class Primitive {
      * Конверсия при вызове метода с параметрами примитивных типов (Byte).
      */
     @Test
-    public void primitiveByte() {
-        Cut cut = new Cut();
+    void primitiveByte() {
+        var cut = new Cut();
         byte b = 1;
-        Byte bb = new Byte("1");
+        Byte bb = Byte.valueOf("1");
         out.println("byte      => " + cut.m(b));
         out.println("byte+byte => " + cut.m(b + b));
         out.println("Byte      => " + cut.m(bb));

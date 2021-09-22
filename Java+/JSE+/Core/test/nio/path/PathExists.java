@@ -10,16 +10,16 @@ import java.nio.file.Path;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PathExists {
+class PathExists {
     @Test
-    public void exists() throws IOException {
-        File fileExists = File.createTempFile("prefix-file_", ".suffix");
-        Path existsPath = fileExists.toPath();
+    void exists() throws IOException {
+        var fileExists = File.createTempFile("prefix-file_", ".suffix");
+        var existsPath = fileExists.toPath();
         assertTrue(Files.exists(existsPath));
         assertFalse(Files.notExists(existsPath));
 
-        File fileNotExists = new File("not_exists");
-        Path notExistsPath = fileNotExists.toPath();
+        var fileNotExists = new File("not_exists");
+        var notExistsPath = fileNotExists.toPath();
         assertTrue(Files.notExists(notExistsPath));
         assertFalse(Files.exists(notExistsPath));
     }

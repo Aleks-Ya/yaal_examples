@@ -1,4 +1,4 @@
-package staticimport.other;
+package lang.import_operator.staticimport.other;
 
 /**
  * Для демонстрации статического импорта (конфликт имени поля и метода).

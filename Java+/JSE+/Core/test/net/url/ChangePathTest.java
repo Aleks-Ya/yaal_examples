@@ -9,18 +9,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasToString;
 
-public class ChangePathTest {
+class ChangePathTest {
 
     @Test
-    public void replacePath() throws MalformedURLException {
-        URL oldUrl = new URL("http://ya.ru/path/to/resource?a=b&c=d#frag");
-        String urlStr = oldUrl.toString();
+    void replacePath() throws MalformedURLException {
+        var oldUrl = new URL("http://ya.ru/path/to/resource?a=b&c=d#frag");
+        var urlStr = oldUrl.toString();
 
-        String oldPath = oldUrl.getPath();
-        String newPath = oldPath.toUpperCase();
+        var oldPath = oldUrl.getPath();
+        var newPath = oldPath.toUpperCase();
 
-        String newUrlStr = urlStr.replace(oldPath, newPath);
-        URL newUrl = new URL(newUrlStr);
+        var newUrlStr = urlStr.replace(oldPath, newPath);
+        var newUrl = new URL(newUrlStr);
 
         assertThat(newUrl, hasToString(equalTo(newUrlStr)));
     }

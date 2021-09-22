@@ -1,19 +1,19 @@
-package staticimport;
+package lang.import_operator.staticimport;
 
 import org.junit.jupiter.api.Test;
 
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.String.format;
+import static lang.import_operator.staticimport.other.OtherPackage.number;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static staticimport.other.OtherPackage.number;
 
 /**
  * Статический импорт.
  */
-public class StaticImport {
+class StaticImport {
     @Test
-    public void normal() throws Exception {
+    void normal() {
         assertTrue(1 < MAX_VALUE);
         assertEquals("abc", format("%s", "abc"));
     }
@@ -22,7 +22,7 @@ public class StaticImport {
      * Конфликт имен поля и метода нет: метод дополняется скобками.
      */
     @Test
-    public void conflict() throws Exception {
+    void conflict() {
         assertEquals(2, number());
         assertEquals(1, number);
     }

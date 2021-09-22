@@ -3,7 +3,6 @@ package io.zip;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -22,10 +21,10 @@ public class ZipHelper {
     }
 
     public static void assertZipEntry(ZipFile zf, String entryName, String expEntryContent, long size) throws IOException {
-        ZipEntry aEntry = zf.getEntry(entryName);
+        var aEntry = zf.getEntry(entryName);
         assertThat(aEntry.getSize(), equalTo(size));
-        InputStream ais = zf.getInputStream(aEntry);
-        String aContent = IOUtils.toString(ais, Charset.defaultCharset());
+        var ais = zf.getInputStream(aEntry);
+        var aContent = IOUtils.toString(ais, Charset.defaultCharset());
         assertThat(aContent, equalTo(expEntryContent));
     }
 }

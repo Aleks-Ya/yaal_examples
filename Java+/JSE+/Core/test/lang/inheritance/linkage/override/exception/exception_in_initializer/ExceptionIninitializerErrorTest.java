@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Случаи бросания ExceptionInInitializerError.
  */
-public class ExceptionIninitializerErrorTest {
+class ExceptionIninitializerErrorTest {
 
     /**
      * Initialization of a static variable
      */
     @Test
-    public void staticField() {
+    void staticField() {
         assertThrows(ExceptionInInitializerError.class, StaticField::new);
     }
 
@@ -21,7 +21,7 @@ public class ExceptionIninitializerErrorTest {
      * Execution of an anonymous static block
      */
     @Test
-    public void staticInitializer() {
+    void staticInitializer() {
         assertThrows(ExceptionInInitializerError.class, StaticInitializer::new);
     }
 
@@ -29,7 +29,7 @@ public class ExceptionIninitializerErrorTest {
      * Execution of a static method
      */
     @Test
-    public void staticMethod() {
+    void staticMethod() {
         assertThrows(ExceptionInInitializerError.class, StaticMethod::new);
     }
 
@@ -38,7 +38,7 @@ public class ExceptionIninitializerErrorTest {
      * не оборачиваются в ExceptionInInitializerError.
      */
     @Test
-    public void initializer() {
+    void initializer() {
         assertThrows(ArrayIndexOutOfBoundsException.class, Initializer::new);
     }
 }

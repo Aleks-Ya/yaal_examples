@@ -2,39 +2,34 @@ package net.socket.reset;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Client resets the connection (sends RST flag to Server).
  */
-public class ClientResetConnectionTest {
-    private static final int PORT = 2512;
+class ClientResetConnectionTest {
+    private static final int PORT = 2516;
     private final CountDownLatch latch = new CountDownLatch(1);
 
     @Test
-    public void clientGotDown() throws InterruptedException, ExecutionException {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        Future<Void> serverFuture = executor.submit(serverCallable());
-        Future<Void> clientFuture = executor.submit(clientCallable());
+    void clientGotDown() throws InterruptedException, ExecutionException {
+        var executor = Executors.newFixedThreadPool(2);
+        var serverFuture = executor.submit(serverCallable());
+        var clientFuture = executor.submit(clientCallable());
         try {
             serverFuture.get();
         } catch (ExecutionException e) {
             System.out.println("Server got SocketException");
-            SocketException cause = (SocketException) e.getCause();
-            assertThat(cause.getMessage(), equalTo("Connection reset by peer (Write failed)"));
+            var cause = (SocketException) e.getCause();
+            assertThat(cause.getMessage()).containsSubsequence("Connection reset by peer");
             clientFuture.get();
             executor.shutdown();
             return;
@@ -44,12 +39,12 @@ public class ClientResetConnectionTest {
 
     private Callable<Void> serverCallable() {
         return () -> {
-            try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            try (var serverSocket = new ServerSocket(PORT)) {
                 latch.countDown();
                 System.out.println("Server is waiting for client");
-                Socket clientSocket = serverSocket.accept();
+                var clientSocket = serverSocket.accept();
                 System.out.println("Server accepted");
-                OutputStream pw = clientSocket.getOutputStream();
+                var pw = clientSocket.getOutputStream();
                 //noinspection InfiniteLoopStatement
                 while (true) {
                     pw.write("abc".getBytes());
@@ -63,9 +58,9 @@ public class ClientResetConnectionTest {
             System.out.println("Client is waiting Server");
             latch.await();
             System.out.println("Client is reading data from Server");
-            StringBuilder sb = new StringBuilder();
-            Socket socket = new Socket("localhost", PORT);
-            InputStream is = socket.getInputStream();
+            var sb = new StringBuilder();
+            var socket = new Socket("localhost", PORT);
+            var is = socket.getInputStream();
             int i;
             while ((i = is.read()) != -1) {
                 sb.append((char) i);

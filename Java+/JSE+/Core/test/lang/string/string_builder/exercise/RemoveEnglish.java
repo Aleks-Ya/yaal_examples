@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Задача: из исходной строки удалить буквы английского алфавита.
  */
-public class RemoveEnglish {
+class RemoveEnglish {
 	@Test
 	public void test() {
 		final StringBuilder sb = new StringBuilder("Всем all привет");

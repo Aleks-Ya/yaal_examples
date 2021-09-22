@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Сокрытие локальных переменных.
  */
-public class HideLocalVariables {
+class HideLocalVariables {
     @Test
-    public void test() {
+    void test() {
         Byte[] Byte[] = {{0}};
         assertTrue(Byte.toString().startsWith("[[Ljava.lang.Byte;@"));
         assertEquals("class java.lang.Byte", Byte.class.toString());

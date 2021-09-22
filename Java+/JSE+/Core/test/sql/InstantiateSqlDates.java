@@ -12,56 +12,56 @@ import java.time.LocalTime;
 /**
  * Create instances of java.sql.Date, java.sql.Time and java.sql.Timestamp.
  */
-public class InstantiateSqlDates {
+class InstantiateSqlDates {
 
     @Test
-    public void parseString() {
-        Date date = Date.valueOf("2017-03-14");
+    void parseString() {
+        var date = Date.valueOf("2017-03-14");
         System.out.println("Date: " + date);
 
-        Time time = Time.valueOf("19:50:45");
+        var time = Time.valueOf("19:50:45");
         System.out.println("Time: " + time);
 
-        Timestamp timestamp = Timestamp.valueOf("2017-12-25 06:18:25");
+        var timestamp = Timestamp.valueOf("2017-12-25 06:18:25");
         System.out.println("Timestamp: " + timestamp);
     }
 
     @Test
-    public void parseString2() {
-        Timestamp ts1 = Timestamp.valueOf("2019-02-12 06:24:05.872662");
+    void parseString2() {
+        var ts1 = Timestamp.valueOf("2019-02-12 06:24:05.872662");
         System.out.println("TS: " + ts1);
-        Timestamp ts2 = new Timestamp(ts1.getTime());
+        var ts2 = new Timestamp(ts1.getTime());
         System.out.println("TS: " + ts2);
     }
 
 
     @Test
-    public void fromLocal() {
-        Date date = Date.valueOf(LocalDate.parse("2017-01-30"));
+    void fromLocal() {
+        var date = Date.valueOf(LocalDate.parse("2017-01-30"));
         System.out.println("Date: " + date);
 
-        Time time = Time.valueOf(LocalTime.parse("20:50:45"));
+        var time = Time.valueOf(LocalTime.parse("20:50:45"));
         System.out.println("Time: " + time);
 
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse("2016-12-25T23:40:30"));
+        var timestamp = Timestamp.valueOf(LocalDateTime.parse("2016-12-25T23:40:30"));
         System.out.println("Timestamp: " + timestamp);
     }
 
     @Test
-    public void fromLocal2() {
-        Date date = Date.valueOf(LocalDate.parse("2017-01-30"));
+    void fromLocal2() {
+        var date = Date.valueOf(LocalDate.parse("2017-01-30"));
         System.out.println("Date: " + date);
 
-        Time time = Time.valueOf(LocalTime.parse("20:50:45"));
+        var time = Time.valueOf(LocalTime.parse("20:50:45"));
         System.out.println("Time: " + time);
 
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse("2016-12-25T23:40:30"));
+        var timestamp = Timestamp.valueOf(LocalDateTime.parse("2016-12-25T23:40:30"));
         System.out.println("Timestamp: " + timestamp);
     }
 
     @Test
-    public void fromPythonUtcNow() {
-        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.parse("2016-12-25T23:40:30.234778"));
+    void fromPythonUtcNow() {
+        var timestamp = Timestamp.valueOf(LocalDateTime.parse("2016-12-25T23:40:30.234778"));
         System.out.println("Timestamp: " + timestamp);
     }
 }

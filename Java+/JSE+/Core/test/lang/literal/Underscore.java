@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Подчеркивание в чиловых литералах.
  */
-public class Underscore {
+class Underscore {
 
     /**
      * Одно подчеркивание в литералах разных типов данных.
      */
     @Test
-    public void one() {
+    void one() {
         out.println("Части числа отделены подчеркиванием:");
         out.printf("Двоичная: 0b10_01 -> %d (нельзя 0b_1001 и )%n", 0b10_01);
         out.printf("Восмеричная: 0_7_34_2 -> %d (нельзя _07342)%n", 0_7_34_2);
@@ -26,7 +26,7 @@ public class Underscore {
      * Несколько подчеркиваний подряд.
      */
     @Test
-    public void multipleUnderscore() {
+    void multipleUnderscore() {
         assertEquals(39, 3_____9);
     }
 }

@@ -6,7 +6,7 @@ import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Precedence {
+class Precedence {
 
 	@Test
     public void main() {
@@ -14,7 +14,7 @@ public class Precedence {
     }
     
     @Test
-    public void orAnd() {
+    void orAnd() {
 		int a = 0;
 		int b = 0;
 		int c = 0;
@@ -32,7 +32,7 @@ public class Precedence {
 	}
 
     @Test
-    public void castAndDot() {
+    void castAndDot() {
         Object o = new String();
         assertTrue(((String) o).isEmpty());
     }

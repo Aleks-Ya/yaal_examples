@@ -11,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Вызов метода с помощью MethodHandler.
  */
-public class MethodHandlerTest {
+class MethodHandlerTest {
     @Test
-    public void testName() throws Throwable {
+    void testName() throws Throwable {
         MethodType mt = MethodType.methodType(String.class, char.class, char.class);
         MethodHandles.Lookup lookup = MethodHandles.lookup();
         MethodHandle mh = lookup.findVirtual(String.class, "replace", mt);

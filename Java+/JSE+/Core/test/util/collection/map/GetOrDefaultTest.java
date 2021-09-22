@@ -12,23 +12,23 @@ import static org.hamcrest.Matchers.equalTo;
  * Using Map#getOrDefault.
  */
 @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-public class GetOrDefaultTest {
+class GetOrDefaultTest {
 
     @Test
-    public void getOrDefault() {
+    void getOrDefault() {
         Map<String, Integer> map = new HashMap<>();
-        int expValue = 100;
-        Integer actValue = map.getOrDefault("a", expValue);
+        var expValue = 100;
+        var actValue = map.getOrDefault("a", expValue);
         assertThat(actValue, equalTo(expValue));
     }
 
     @Test
-    public void getOrDefaultCapture() {
+    void getOrDefaultCapture() {
         Map<String, ?> map = new HashMap<>();
         Integer expValue = 100;
 //        Integer actValue = map.getOrDefault("a", expValue); // not compile
-        Object value = map.get("a");
-        Integer actValue = value != null ? (Integer) value : expValue;
+        var value = map.get("a");
+        var actValue = value != null ? (Integer) value : expValue;
         assertThat(actValue, equalTo(expValue));
     }
 }

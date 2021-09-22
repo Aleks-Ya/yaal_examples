@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Поиск подстроки с помощью String#indexOf(String).
  */
-public class IndexOfString {
+class IndexOfString {
 
     /**
      * Подстрока найдена.
      */
     @Test
-    public void found() {
+    void found() {
         assertEquals(1, "abcd".indexOf("bc"));
     }
 
@@ -22,7 +22,7 @@ public class IndexOfString {
      * Поиск с заданной позиции.
      */
     @Test
-    public void from() {
+    void from() {
         assertEquals(4, "abcdab".indexOf("ab", 1));
     }
 
@@ -30,7 +30,7 @@ public class IndexOfString {
      * Подстрока не найдена.
      */
     @Test
-    public void notFound() {
+    void notFound() {
         assertEquals(-1, "abcd".indexOf("bd"));
     }
 
@@ -38,7 +38,7 @@ public class IndexOfString {
      * Поиск подстроки null.
      */
     @Test
-    public void findNull() {
+    void findNull() {
         assertThrows(NullPointerException.class, () -> "abc".indexOf(null));
     }
 
@@ -46,7 +46,7 @@ public class IndexOfString {
      * Поиск пустой подстроки.
      */
     @Test
-    public void empty() {
+    void empty() {
         assertEquals(0, "abc".indexOf(""));
         assertEquals(1, "abc".indexOf("", 1));
         assertEquals(2, "abc".indexOf("", 2));

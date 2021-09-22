@@ -7,7 +7,7 @@ import java.util.ListResourceBundle;
  * Пакет ресурсов для английского языка.
  * Класс обязательно должен быть public.
  */
-public class Colors_en_EN extends ListResourceBundle {
+class Colors_en_EN extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
         return new Object[][]{

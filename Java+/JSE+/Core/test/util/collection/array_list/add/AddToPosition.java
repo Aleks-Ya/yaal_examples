@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Добавление элементов в ArrayList в указанную позицию.
  */
-public class AddToPosition {
+class AddToPosition {
 
     /**
      * Вставка между существующими элементами.
      */
     @Test
-    public void betweenExists() {
+    void betweenExists() {
         List<String> list = new ArrayList<>();
         list.add("a");
         list.add("c");
@@ -30,7 +30,7 @@ public class AddToPosition {
      * Вставка элемента в конец коллекции.
      */
     @Test
-    public void toEnd() {
+    void toEnd() {
         List<String> list = new ArrayList<>();
         list.add("a");
         assertEquals("[a]", list.toString());
@@ -43,7 +43,7 @@ public class AddToPosition {
      * Вызов ArrayList#ensureCapacity не помогает.
      */
     @Test
-    public void afterEndException() {
+    void afterEndException() {
         assertThrows(IndexOutOfBoundsException.class, () -> {
             ArrayList<String> list = new ArrayList<>();
             list.add("a");

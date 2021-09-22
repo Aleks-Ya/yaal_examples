@@ -3,7 +3,7 @@ package lang.inheritance.linkage.override;
 /**
  * Попытка переопределить метод, используя аргумент дочернего типа: нельзя.
  */
-public class DerivedParameter {
+class DerivedParameter {
 
     private static class Parent {
         void method(Exception e) {

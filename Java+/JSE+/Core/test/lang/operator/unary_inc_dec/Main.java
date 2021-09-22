@@ -2,9 +2,9 @@ package lang.operator.unary_inc_dec;
 
 import org.junit.jupiter.api.Test;
 
-public class Main {
+class Main {
     @Test
-    public void main() {
+    void main() {
         int a = 10;
         a = ++a + a + --a - --a + a++;
         System.out.println("a=" + a);

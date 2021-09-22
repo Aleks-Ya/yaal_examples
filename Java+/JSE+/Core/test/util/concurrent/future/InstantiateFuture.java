@@ -13,10 +13,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Create instance of {@link Future}.
  */
-public class InstantiateFuture {
+class InstantiateFuture {
 
     @Test
-    public void submitToExecutorService() throws ExecutionException, InterruptedException {
+    void submitToExecutorService() throws ExecutionException, InterruptedException {
         var executor = Executors.newSingleThreadExecutor();
         var future = executor.submit(() -> 2 * 3);
         var result = future.get();
@@ -24,7 +24,7 @@ public class InstantiateFuture {
     }
 
     @Test
-    public void futureTask() throws ExecutionException, InterruptedException {
+    void futureTask() throws ExecutionException, InterruptedException {
         var future = new FutureTask<>(() -> 2 * 3);
         future.run();
         var result = future.get();

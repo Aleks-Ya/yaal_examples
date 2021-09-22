@@ -13,9 +13,9 @@ import static org.hamcrest.core.IsEqual.equalTo;
 /**
  * Динамическая загрузка класса из jar с помощью URLClassLoader.
  */
-public class LoadClassFromJarTest {
+class LoadClassFromJarTest {
     @Test
-    public void loadClass()
+    void loadClass()
             throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         URL plugin = getClass().getResource("StringPlugin.jar");

@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Error будет перехвачен.
  */
-public class CatchError {
+class CatchError {
     @Test
-    public void main() {
+    void main() {
         try {
             myMethod();
         } catch (StackOverflowError s) {

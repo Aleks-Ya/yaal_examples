@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CodePointTest {
 
     @Test
-    public void charToCodePoint() {
+    void charToCodePoint() {
         char ch1, ch2;
         ch1 = '\ud800';
         ch2 = '\udc00';

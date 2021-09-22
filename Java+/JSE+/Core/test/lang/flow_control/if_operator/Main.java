@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
 
-public class Main {
+class Main {
 
     /**
      * if-else без скобок.
      */
     @Test
-    public void withoutBraces() {
+    void withoutBraces() {
         if (1 < 2) 
           for (int i = 0; i < 3; i++) out.println(i);
         else
@@ -21,7 +21,7 @@ public class Main {
      * else относится ко 2му if.
      */
     @Test
-    public void multiWithoutBraces() {
+    void multiWithoutBraces() {
         if (false) out.println("if 1");
         if (true) out.println("if 2");
         else out.println("else");

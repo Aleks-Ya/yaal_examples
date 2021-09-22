@@ -7,31 +7,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Применение метода StringBuilder#insert.
  */
-public class Insert {
-    
+class Insert {
+
     @Test
-    public void insert() {
-		StringBuilder sb = new StringBuilder("0123");
+    void insert() {
+        var sb = new StringBuilder("0123");
 
         // into the middle
-		sb.insert(2,7);
-		assertEquals("01723", sb.toString());
+        sb.insert(2, 7);
+        assertEquals("01723", sb.toString());
 
         //into the begin
         sb.insert(0, 5);
-		assertEquals("501723", sb.toString());
+        assertEquals("501723", sb.toString());
 
         //into the end
         sb.insert(sb.length(), 9);
-		assertEquals("5017239", sb.toString());
+        assertEquals("5017239", sb.toString());
     }
 
     @Test
-    public void insertString() {
-        StringBuilder sb = new StringBuilder("0123");
+    void insertString() {
+        var sb = new StringBuilder("0123");
 
         // into the middle
-        sb.insert(2,"987");
+        sb.insert(2, "987");
         assertEquals("0198723", sb.toString());
     }
 }

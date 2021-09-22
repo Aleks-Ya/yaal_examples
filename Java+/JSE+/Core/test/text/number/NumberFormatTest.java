@@ -6,11 +6,11 @@ import java.text.NumberFormat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class NumberFormatTest {
+class NumberFormatTest {
     @Test
-    public void test() {
-        NumberFormat format = NumberFormat.getIntegerInstance();
-        String str = format.format(100);
+    void test() {
+        var format = NumberFormat.getIntegerInstance();
+        var str = format.format(100);
         assertEquals("100", str);
     }
 }

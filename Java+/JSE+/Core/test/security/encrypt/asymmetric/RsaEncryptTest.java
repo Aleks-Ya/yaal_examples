@@ -18,10 +18,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Asymmetric encryption by RSA.
  */
-public class RsaEncryptTest {
+class RsaEncryptTest {
 
     @Test
-    public void rsaEncryptDecrypt() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
+    void rsaEncryptDecrypt() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException {
         var keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(1024);
@@ -52,7 +52,7 @@ public class RsaEncryptTest {
      * Max length of RSA encrypted data is 117 bytes.
      */
     @Test
-    public void rsaLongText() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException {
+    void rsaLongText() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException {
 
         var keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(1024);

@@ -12,12 +12,12 @@ import static java.lang.System.out;
 /**
  * Создание символической ссылки Linux с правами на исполнение.
  */
-public class SymbolicLink {
+class SymbolicLink {
 
     @Test
-    public void main() throws IOException {
-        Path target = Files.createTempFile("target_", ".sh");
-        Path link = Paths.get(target.getParent().toString(), "link_to_target");
+    void main() throws IOException {
+        var target = Files.createTempFile("target_", ".sh");
+        var link = Paths.get(target.getParent().toString(), "link_to_target");
         Files.deleteIfExists(link);
         Files.createSymbolicLink(link, target);
         out.printf("link   = %s%n", link);

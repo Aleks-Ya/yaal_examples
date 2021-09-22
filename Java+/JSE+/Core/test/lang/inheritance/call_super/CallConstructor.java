@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
 
-public class CallConstructor {
+class CallConstructor {
 	
 	@Test
     public void main() {

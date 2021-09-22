@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
 
-public class CallMethod {
+class CallMethod {
     @Test
-    public void main() {
+    void main() {
         new Child().print();
     }
 

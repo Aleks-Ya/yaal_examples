@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * break с меткой позволяет перейти на любой оператор.
  */
-public class WithLabel {
+class WithLabel {
 
     /**
      * Прерываем блок кода, ограниченный {}.
      */
     @Test
-    public void codeBlock() {
+    void codeBlock() {
         int a;
         block:
         {
@@ -27,7 +27,7 @@ public class WithLabel {
      * Прерываем блок кода, ограниченный {}.
      */
     @Test
-    public void twoCodeBlocks() {
+    void twoCodeBlocks() {
         int a;
         outer:
         {

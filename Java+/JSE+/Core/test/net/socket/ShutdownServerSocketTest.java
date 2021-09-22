@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.SocketException;
 
-public class ShutdownServerSocketTest {
+class ShutdownServerSocketTest {
 
     @Test
-    public void shutdown() throws IOException, InterruptedException {
-        ServerSocket serverSocket = new ServerSocket(23512);
+    void shutdown() throws IOException, InterruptedException {
+        var serverSocket = new ServerSocket(23512);
         System.out.println("Server created");
-        Thread t = new Thread(() -> {
+        var t = new Thread(() -> {
             try {
                 System.out.println("Wait socket");
                 serverSocket.accept();

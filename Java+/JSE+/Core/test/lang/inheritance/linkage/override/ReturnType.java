@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Переопределяющий метод может декларировать возвращаемый параметр дочернего класса.
  */
-public class ReturnType {
+class ReturnType {
     @Test
-    public void main() {
+    void main() {
         Child child = new Child();
         Result r = child.makeResult();
         System.out.println(r.getClass());

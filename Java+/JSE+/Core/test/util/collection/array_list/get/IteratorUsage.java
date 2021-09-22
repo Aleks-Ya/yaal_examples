@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Использование Iterator для получения элементов ArrayList.
  */
-public class IteratorUsage {
+class IteratorUsage {
     private final List<Character> list = new ArrayList<>();
 
     @BeforeEach
-    public void setUp() throws Exception {
+    void setUp() {
         list.add('a');
         list.add('b');
         list.add('c');
@@ -26,9 +25,9 @@ public class IteratorUsage {
      * Обход коллекции.
      */
     @Test
-    public void next() {
-        Iterator<Character> it = list.iterator();
-        StringBuilder sb = new StringBuilder();
+    void next() {
+        var it = list.iterator();
+        var sb = new StringBuilder();
         while (it.hasNext()) {
             sb.append(it.next());
         }
@@ -40,11 +39,11 @@ public class IteratorUsage {
      * Удаление элемента во время обхода коллекции.
      */
     @Test
-    public void remove() {
-        Iterator<Character> it = list.iterator();
-        StringBuilder sb = new StringBuilder();
+    void remove() {
+        var it = list.iterator();
+        var sb = new StringBuilder();
         while (it.hasNext()) {
-            Character next = it.next();
+            var next = it.next();
             if (next.equals('b')) {
                 it.remove();
             }

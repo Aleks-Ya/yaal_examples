@@ -7,10 +7,10 @@ import java.net.UnknownHostException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class InetAddressInstantiateTest {
+class InetAddressInstantiateTest {
 
     @Test
-    public void isAbsolute() {
+    void isAbsolute() {
         //noinspection ResultOfMethodCallIgnored
         assertThrows(UnknownHostException.class, () -> InetAddress.getByName("http://www.google.com"));
     }

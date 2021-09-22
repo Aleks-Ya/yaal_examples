@@ -10,13 +10,13 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.anEmptyMap;
 
-public class ConcurrentHashMapTest {
+class ConcurrentHashMapTest {
 
     /**
      * ConcurrentHashMap#computeIfAbsent puts computed value to the map.
      */
     @Test
-    public void computeIfAbsentPutValueToMap() {
+    void computeIfAbsentPutValueToMap() {
         Map<String, Integer> map = new ConcurrentHashMap<>();
         String key = "abc";
         Integer value = map.computeIfAbsent(key, s -> 1);
@@ -28,7 +28,7 @@ public class ConcurrentHashMapTest {
      * Delete element of a ConcurrentHashMap during iterating.
      */
     @Test
-    public void removeByIterator() {
+    void removeByIterator() {
         Map<String, Integer> map = new ConcurrentHashMap<>();
         map.put("abc", 1);
         Iterator<Map.Entry<String, Integer>> it = map.entrySet().iterator();

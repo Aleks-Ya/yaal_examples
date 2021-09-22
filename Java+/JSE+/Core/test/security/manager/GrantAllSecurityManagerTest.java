@@ -1,5 +1,6 @@
 package security.manager;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.security.Permission;
@@ -7,10 +8,10 @@ import java.security.Permission;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class GrantAllSecurityManagerTest {
+class GrantAllSecurityManagerTest {
 
     @Test
-    public void grantAll() {
+    void grantAll() {
         var securityManager = new GrantAllSecurityManager();
         System.setSecurityManager(securityManager);
         System.getProperty("java.home");

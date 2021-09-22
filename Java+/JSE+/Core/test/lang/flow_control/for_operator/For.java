@@ -2,13 +2,13 @@ package lang.flow_control.for_operator;
 
 import org.junit.jupiter.api.Test;
 
-public class For {
+class For {
 
     /**
      * Переход на метку перед for означает следующий виток цикла.
      */
     @Test
-    public void breakWithTag() {
+    void breakWithTag() {
         for (int i = 0; i < 5; i++) {
             inner:
             for (int j = 0; j < 3; j++) {

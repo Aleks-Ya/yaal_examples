@@ -13,12 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Дополнение стандартной сериализации в методах writeObject() и ().
  */
-public class NotSerializable {
+class NotSerializable {
     @Test
-    public void standard() {
+    void standard() {
         assertThrows(NotSerializableException.class, () -> {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(out);
+            var out = new ByteArrayOutputStream();
+            var oos = new ObjectOutputStream(out);
             oos.writeObject(new NotForSerialization());
             oos.close();
         });

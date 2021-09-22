@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
  * произведения (суммы). Представления чисел, отличающихся только 
  * порядком сомножителей (слагаемых), считаются одинаковыми.
  */ 
-public class Divisor {
+class Divisor {
     @Test
-    public void main() {
+    void main() {
 		DivisorCalculator c = new DivisorCalculator(76, 3);
     }
 }

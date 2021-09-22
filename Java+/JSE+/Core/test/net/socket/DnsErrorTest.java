@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Get DNS resolution error.
  */
-public class DnsErrorTest {
+class DnsErrorTest {
     @Test
-    public void unknownHostException() {
+    void unknownHostException() {
         assertThrows(UnknownHostException.class, () -> {
-            Socket socket = new Socket("not.resolved.address.ru", 6666);
+            var socket = new Socket("not.resolved.address.ru", 6666);
             socket.getInputStream();
             socket.close();
         });

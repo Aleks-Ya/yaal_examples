@@ -1,5 +1,6 @@
 package util.concurrent;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ExecutorService;
@@ -9,7 +10,18 @@ import java.util.concurrent.TimeUnit;
 /**
  * Демонстрация взаимной блокировки.
  */
-public class DeadLock {
+@Disabled("stuck, need fix")
+class DeadLock {
+
+    @Test
+    void test() throws InterruptedException {
+        ExecutorService se = Executors.newFixedThreadPool(2);
+        final Object resource1 = new Object();
+        final Object resource2 = new Object();
+        se.submit(new Work(resource1, resource2));
+        se.submit(new Work(resource2, resource1));
+        se.awaitTermination(1, TimeUnit.HOURS);
+    }
 
     private static class Work implements Runnable {
         private final Object a;
@@ -33,16 +45,5 @@ public class DeadLock {
                 }
             }
         }
-    }
-
-
-    @Test
-    public void test() throws InterruptedException {
-        ExecutorService se = Executors.newFixedThreadPool(2);
-        final Object resource1 = new Object();
-        final Object resource2 = new Object();
-        se.submit(new Work(resource1, resource2));
-        se.submit(new Work(resource2, resource1));
-        se.awaitTermination(1, TimeUnit.HOURS);
     }
 }

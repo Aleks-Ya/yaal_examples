@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
@@ -17,17 +15,16 @@ import static org.hamcrest.Matchers.lessThan;
 /**
  * Send HEAD HTTP request.
  */
-public class HeadRequestTest {
+class HeadRequestTest {
     @Test
-    public void sendHeadRequest() throws IOException {
-
-        URL url = new URL("https://www.ya.ru");
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    void sendHeadRequest() throws IOException {
+        var url = new URL("https://www.ya.ru");
+        var conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("HEAD");
         conn.connect();
-        int responseCode = conn.getResponseCode();
-        int contentLength = conn.getContentLength();
-        Map<String, List<String>> headerMap = conn.getHeaderFields();
+        var responseCode = conn.getResponseCode();
+        var contentLength = conn.getContentLength();
+        var headerMap = conn.getHeaderFields();
         conn.disconnect();
 
         System.out.println(responseCode);

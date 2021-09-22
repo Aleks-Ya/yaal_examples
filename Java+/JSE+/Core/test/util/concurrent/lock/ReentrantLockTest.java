@@ -6,13 +6,13 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class ReentrantLockTest {
+class ReentrantLockTest {
 
     /**
      * Get lock twice.
      */
     @Test
-    public void reenter() throws ExecutionException, InterruptedException {
+    void reenter() throws ExecutionException, InterruptedException {
         var log = new StringBuffer();
         var lock = new ReentrantLock();
         Runnable r1 = () -> {

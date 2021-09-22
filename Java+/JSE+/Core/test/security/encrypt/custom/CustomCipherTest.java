@@ -23,10 +23,10 @@ import static org.hamcrest.Matchers.equalTo;
  * Symmetric encryption by AES.
  * Electronic CopyBook Encryption (ECB)
  */
-public class CustomCipherTest {
+class CustomCipherTest {
 
     @Test
-    public void aesEncryptDecrypt() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
+    void aesEncryptDecrypt() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException {
         var keyGenerator = KeyGenerator.getInstance("AES");
         keyGenerator.init(192);

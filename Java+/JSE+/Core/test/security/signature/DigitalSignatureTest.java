@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Digital signature.
  */
-public class DigitalSignatureTest {
+class DigitalSignatureTest {
 
     @Test
-    public void rsaEncryptDecrypt() throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+    void rsaEncryptDecrypt() throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
         var keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(1024);
         var keyPair = keyPairGenerator.generateKeyPair();

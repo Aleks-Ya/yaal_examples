@@ -1,18 +1,15 @@
 package net.socket.down;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -21,22 +18,23 @@ import static org.hamcrest.Matchers.equalTo;
  * Client gets down and Server gets {@link SocketException} "Connection reset by peer (Write failed)"
  * while writing to OutputStream.
  */
-public class ClientGotDownUnexpectedlyOutputStreamTest {
+@Disabled("stuck, need fix")
+class ClientGotDownUnexpectedlyOutputStreamTest {
     private static final String BODY = "abc";
-    private static final int PORT = 2512;
+    private static final int PORT = 2513;
     private static final int SERVER_TIMEOUT = 1000;
     private final CountDownLatch latch = new CountDownLatch(1);
 
     @Test
-    public void clientGotDown() throws InterruptedException, ExecutionException {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        Future<Void> serverFuture = executor.submit(serverCallable());
-        Future<Void> clientFuture = executor.submit(clientCallable());
+    void clientGotDown() throws InterruptedException, ExecutionException {
+        var executor = Executors.newFixedThreadPool(2);
+        var serverFuture = executor.submit(serverCallable());
+        var clientFuture = executor.submit(clientCallable());
         try {
             serverFuture.get();
         } catch (ExecutionException e) {
             System.out.println("Server got SocketException");
-            SocketException cause = (SocketException) e.getCause();
+            var cause = (SocketException) e.getCause();
             assertThat(cause.getMessage(), equalTo("Connection reset by peer (Write failed)"));
             clientFuture.get();
             executor.shutdown();
@@ -47,13 +45,13 @@ public class ClientGotDownUnexpectedlyOutputStreamTest {
 
     private Callable<Void> serverCallable() {
         return () -> {
-            try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            try (var serverSocket = new ServerSocket(PORT)) {
                 serverSocket.setSoTimeout(SERVER_TIMEOUT);
                 latch.countDown();
                 System.out.println("Server is waiting for client");
-                Socket clientSocket = serverSocket.accept();
+                var clientSocket = serverSocket.accept();
                 System.out.println("Server accepted");
-                OutputStream pw = clientSocket.getOutputStream();
+                var pw = clientSocket.getOutputStream();
                 while (true) {
                     pw.write(BODY.getBytes());
                 }
@@ -65,9 +63,9 @@ public class ClientGotDownUnexpectedlyOutputStreamTest {
         return () -> {
             System.out.println("Client is waiting Server");
             latch.await();
-            StringBuilder sb = new StringBuilder();
-            Socket socket = new Socket("localhost", PORT);
-            InputStream is = socket.getInputStream();
+            var sb = new StringBuilder();
+            var socket = new Socket("localhost", PORT);
+            var is = socket.getInputStream();
             int i;
             while ((i = is.read()) != -1) {
                 sb.append((char) i);

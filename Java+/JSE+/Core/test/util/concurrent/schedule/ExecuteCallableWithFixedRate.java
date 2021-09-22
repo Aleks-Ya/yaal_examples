@@ -1,5 +1,6 @@
 package util.concurrent.schedule;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.Callable;
@@ -15,13 +16,13 @@ import static org.hamcrest.Matchers.equalTo;
 /**
  * Запуск Callable периодически.
  */
-public class ExecuteCallableWithFixedRate {
+class ExecuteCallableWithFixedRate {
 
     /**
      * Переодический запуск задачи.
      */
     @Test
-    public void period() throws InterruptedException, ExecutionException {
+    void period() throws InterruptedException, ExecutionException {
         String text = "aaa";
         Callable<String> callable = () -> text;
 

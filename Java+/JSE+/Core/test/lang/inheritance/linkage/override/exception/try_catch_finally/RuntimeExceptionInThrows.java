@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Объявление НЕпроверяемых исключений в throws.
  */
-public class RuntimeExceptionInThrows {
+class RuntimeExceptionInThrows {
     @Test
-    public void main() {
+    void main() {
       System.out.println(getInt());
     }
     

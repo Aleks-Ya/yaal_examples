@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
  * checked exception. In this case, you need to catch the checked exception or
  * declare it to be thrown by your method. Otherwise your code won’t compile.
  */
-public class TryWithFinallyOnly {
+class TryWithFinallyOnly {
     @Test
-    public void main() {
+    void main() {
         try {
             runtime();
         } catch (RuntimeException e) {

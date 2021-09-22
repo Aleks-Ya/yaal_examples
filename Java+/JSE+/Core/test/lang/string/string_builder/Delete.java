@@ -5,19 +5,19 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Delete {
-    
+class Delete {
+
     @Test
-    public void delete() {
-		StringBuilder sb = new StringBuilder("0123");
-		sb.delete(1,2);
-		assertEquals("023", sb.toString());
+    void delete() {
+        var sb = new StringBuilder("0123");
+        sb.delete(1, 2);
+        assertEquals("023", sb.toString());
     }
 
     @Test
-    public void deleteAll() {
-		StringBuilder sb = new StringBuilder("0123");
-		sb.delete(0, sb.length());
-		assertTrue(sb.toString().isEmpty());
+    void deleteAll() {
+        var sb = new StringBuilder("0123");
+        sb.delete(0, sb.length());
+        assertTrue(sb.toString().isEmpty());
     }
 }

@@ -8,12 +8,12 @@ import java.util.concurrent.CyclicBarrier;
 /**
  * Барьер отпускает потоки, когда их количество равно высоте барьера.
  */
-public class CyclicBarrierTest {
+class CyclicBarrierTest {
     private static final int height = 3;
     private static final CyclicBarrier barrier = new CyclicBarrier(height, () -> System.out.println("Barrier action"));
 
     @Test
-    public void name() throws InterruptedException {
+    void name() throws InterruptedException {
         for (int i = 0; i < height; i++) {
             new Worker().start();
         }

@@ -12,22 +12,22 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ValidateUrlTest {
+class ValidateUrlTest {
 
     @Test
-    public void correct() throws MalformedURLException {
+    void correct() throws MalformedURLException {
         new URL("https://www.ya.ru");
         new URL("http", "www.ya.ru", "path");
     }
 
     @Test
-    public void noProtocol() {
+    void noProtocol() {
         var e = assertThrows(MalformedURLException.class, () -> new URL("www.ya.ru"));
         assertThat(e.getMessage(), equalTo("no protocol: www.ya.ru"));
     }
 
     @Test
-    public void hasProtocol() {
+    void hasProtocol() {
         var pattern = Pattern.compile("^\\w+://.+");
         assertTrue(pattern.matcher("http://ya.ru/path?a=b&c=d").matches());
         assertFalse(pattern.matcher("ya.ru/path?a=b&c=d").matches());

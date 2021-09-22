@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Удаление элементов коллекции ArrayList по индексу.
  */
-public class DeleteByIndex {
+class DeleteByIndex {
     private final List<Character> charList = new ArrayList<>();
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         charList.add('a');
         charList.add('b');
         charList.add('c');
@@ -25,7 +25,7 @@ public class DeleteByIndex {
      * Удаление элемента по индексу.
      */
     @Test
-    public void byIndex() {
+    void byIndex() {
         assertEquals("[a, b, c]", charList.toString());
         char b = charList.remove(1);
         assertEquals('b', b);

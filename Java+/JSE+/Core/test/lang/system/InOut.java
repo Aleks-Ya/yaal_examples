@@ -8,15 +8,15 @@ import java.io.PrintStream;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class InOut {
+class InOut {
 
     @Test
-    public void replaceOutputStream() {
-        ByteArrayOutputStream byteOS = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(byteOS);
+    void replaceOutputStream() {
+        var byteOS = new ByteArrayOutputStream();
+        var printStream = new PrintStream(byteOS);
         System.setOut(printStream);
 
-        String output = "abc";
+        var output = "abc";
         System.out.print(output);
 
         assertThat(byteOS.toString(), equalTo("abc"));

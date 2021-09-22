@@ -1,5 +1,6 @@
 package util.collection.queue.blocking;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.BlockingQueue;
@@ -8,10 +9,22 @@ import java.util.concurrent.LinkedBlockingQueue;
 /**
  * Пример из https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/BlockingQueue.html
  */
+@Disabled
 @SuppressWarnings("InfiniteLoopStatement")
-public class BlockingQueueJavadocExample {
+class BlockingQueueJavadocExample {
 
-    private class Producer implements Runnable {
+    @Test
+    void main() {
+        BlockingQueue<Integer> q = new LinkedBlockingQueue<>();
+        var p = new Producer(q);
+        var c1 = new Consumer(q);
+        var c2 = new Consumer(q);
+        new Thread(p).start();
+        new Thread(c1).start();
+        new Thread(c2).start();
+    }
+
+    private static class Producer implements Runnable {
         private final BlockingQueue<Integer> queue;
 
         Producer(BlockingQueue<Integer> q) {
@@ -35,7 +48,7 @@ public class BlockingQueueJavadocExample {
         }
     }
 
-    private class Consumer implements Runnable {
+    private static class Consumer implements Runnable {
         private final BlockingQueue<Integer> queue;
 
         Consumer(BlockingQueue<Integer> q) {
@@ -57,14 +70,4 @@ public class BlockingQueueJavadocExample {
         }
     }
 
-    @Test
-    public void main() {
-        BlockingQueue<Integer> q = new LinkedBlockingQueue<>();
-        Producer p = new Producer(q);
-        Consumer c1 = new Consumer(q);
-        Consumer c2 = new Consumer(q);
-        new Thread(p).start();
-        new Thread(c1).start();
-        new Thread(c2).start();
-    }
 }

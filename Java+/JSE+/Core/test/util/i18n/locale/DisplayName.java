@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Варианты использования метода Locale#getDisplayName();
  */
-public class DisplayName {
+class DisplayName {
 
     /**
      * Возвращает название в локали по-умолчанию.
      */
     @Test
-    public void defaultLocale() {
+    void defaultLocale() {
         var norwegianNorwayBokmel = new Locale("no", "NO", "B");
         assertEquals("Norwegian (Norway,Bokmål)", norwegianNorwayBokmel.getDisplayName());
 
@@ -27,7 +27,7 @@ public class DisplayName {
      * Возвращает название в заданной локали.
      */
     @Test
-    public void specifiedLocale() {
+    void specifiedLocale() {
         var norwegianNorwayBokmel = new Locale("no", "NO", "B");
 
         var displayLocal = new Locale("ru", "RU");

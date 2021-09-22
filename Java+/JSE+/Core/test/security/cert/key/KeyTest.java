@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 /**
  * Working with a Keys.
  */
-public class KeyTest {
+class KeyTest {
 
     @Test
-    public void generateKeyPair() {
+    void generateKeyPair() {
         var keyPair = SecurityHelper.generateKeyPair();
         var publicKey = keyPair.getPublic();
         var privateKey = keyPair.getPrivate();
@@ -24,7 +24,7 @@ public class KeyTest {
     }
 
     @Test
-    public void getPublicKeyFromCertificate() {
+    void getPublicKeyFromCertificate() {
         var certificate = SecurityHelper.readCertificateFromResource("security/certificate.crt");
         var pubKey = certificate.getPublicKey();
         assertNotNull(pubKey);

@@ -12,19 +12,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Hello World на пакетах ресурсов в виде java-классов.
  * Использован ListResourceBundle для реализации пакета ресурсов.
  */
-public class HelloWorldListResourceBundle {
+class HelloWorldListResourceBundle {
     static final String LIGHT_KEY = "light";
     static final String DARK_KEY = "dark";
 
     @Test
-    public void ru() {
+    void ru() {
         ResourceBundle rb = ResourceBundle.getBundle("util.i18n.resource_bundle.clazz.listresourcebundle.Colors", new Locale("ru", "RU"));
         assertEquals(Color.WHITE, rb.getObject(LIGHT_KEY));
         assertEquals(Color.BLACK, rb.getObject(DARK_KEY));
     }
 
     @Test
-    public void en() {
+    void en() {
         ResourceBundle rb = ResourceBundle.getBundle("util.i18n.resource_bundle.clazz.listresourcebundle.Colors", new Locale("en", "EN"));
         assertEquals(Color.YELLOW, rb.getObject(LIGHT_KEY));
         assertEquals(Color.GRAY, rb.getObject(DARK_KEY));

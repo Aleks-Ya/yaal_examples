@@ -70,7 +70,7 @@ class ChildOfChild extends Child{
 	}
 }
 
-public class Main {
+class Main {
 	@Test
 	public void main() {
 		Child m = new Child();

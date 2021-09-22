@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
  * If both catch and finally blocks define return statements, the calling method
  * will receive the value from the finally block.
  */
-public class ReturnInCatchAndFinally {
+class ReturnInCatchAndFinally {
     @Test
-    public void main() {
+    void main() {
         System.out.println(method());
     }
 

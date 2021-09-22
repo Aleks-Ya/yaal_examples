@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Позволяет ли UncaughtExceptionHandler оставить поток живым, если упало необработанное исключение?
  */
-public class StayAliveTest {
+class StayAliveTest {
 
     @Test
-    public void name() throws InterruptedException {
+    void name() throws InterruptedException {
         MyThread t = new MyThread();
         t.start();
         Thread.sleep(500);

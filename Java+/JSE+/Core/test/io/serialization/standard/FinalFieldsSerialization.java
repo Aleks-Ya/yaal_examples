@@ -16,19 +16,19 @@ import static org.hamcrest.Matchers.equalTo;
 /**
  * Сериализация и десериализация final-поля: значение восстанавливается из сериализованной версии.
  */
-public class FinalFieldsSerialization {
+class FinalFieldsSerialization {
     @Test
-    public void standard() throws IOException, ClassNotFoundException {
-        MyClass expObj = new MyClass();
-        String expUid = expObj.uuid;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(out);
+    void standard() throws IOException, ClassNotFoundException {
+        var expObj = new MyClass();
+        var expUid = expObj.uuid;
+        var out = new ByteArrayOutputStream();
+        var oos = new ObjectOutputStream(out);
         oos.writeObject(expObj);
         oos.close();
 
-        ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(in);
-        MyClass actObj = (MyClass) ois.readObject();
+        var in = new ByteArrayInputStream(out.toByteArray());
+        var ois = new ObjectInputStream(in);
+        var actObj = (MyClass) ois.readObject();
 
         assertThat(actObj.uuid, equalTo(expUid));
     }

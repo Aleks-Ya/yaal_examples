@@ -12,7 +12,7 @@ import java.util.List;
  * Составляет список имен файлов.
  */
 public class CollectFileNamesFileVisitor extends SimpleFileVisitor<Path> {
-    private List<String> fileNames = new ArrayList<>();
+    private final List<String> fileNames = new ArrayList<>();
 
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {

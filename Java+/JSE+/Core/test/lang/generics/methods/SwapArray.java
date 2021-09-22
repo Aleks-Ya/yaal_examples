@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
  * Упражнения из Java Tutorial по Generics:
  * https://docs.oracle.com/javase/tutorial/java/generics/QandE/generics-questions.html
  */
-public class SwapArray {
+class SwapArray {
     public <T> void swapElements(T[] array, int index1, int index2) {
         assert (array != null);
         assert (index1 < array.length);
@@ -21,7 +21,7 @@ public class SwapArray {
     }
 
     @Test
-    public void test() {
+    void test() {
         String[] strArr = {"a", "b", "c"};
         swapElements(strArr, 0, 2);
         assertArrayEquals(new String[]{"c", "b", "a"}, strArr);

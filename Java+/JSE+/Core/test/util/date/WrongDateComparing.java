@@ -9,14 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Different dates are equal.
  */
-public class WrongDateComparing {
-
-
+class WrongDateComparing {
     @Test
-    public void defaultLocal() {
+    void defaultLocal() {
         var d1 = Date.valueOf("1582-10-10");
         var d2 = Date.valueOf("1582-10-20");
         assertEquals(d1, d2);
     }
-
 }

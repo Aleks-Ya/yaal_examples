@@ -19,16 +19,16 @@ import static org.hamcrest.Matchers.equalTo;
 /**
  * Run ServerSocket and send a request from Client Socket.
  */
-public class ServerSocketTest {
+class ServerSocketTest {
     private static final String BODY = "abc";
-    private static final int PORT = 2512;
+    private static final int PORT = 2517;
 
     @Test
-    public void test() throws IOException, ExecutionException, InterruptedException {
-        ServerSocket serverSocket = new ServerSocket(PORT);
+    void test() throws IOException, ExecutionException, InterruptedException {
+        var serverSocket = new ServerSocket(PORT);
         Future<Void> serverFuture = Executors.newSingleThreadExecutor().submit(() -> {
-            Socket socket = serverSocket.accept();
-            PrintWriter pw = new PrintWriter(socket.getOutputStream());
+            var socket = serverSocket.accept();
+            var pw = new PrintWriter(socket.getOutputStream());
             pw.write(BODY);
             pw.flush();
             socket.close();
@@ -36,9 +36,9 @@ public class ServerSocketTest {
             return null;
         });
 
-        Socket socket = new Socket("127.0.0.1", PORT);
-        BufferedReader bis = new BufferedReader(new InputStreamReader((socket.getInputStream())));
-        String act = bis.lines().collect(Collectors.joining("\n"));
+        var socket = new Socket("127.0.0.1", PORT);
+        var bis = new BufferedReader(new InputStreamReader((socket.getInputStream())));
+        var act = bis.lines().collect(Collectors.joining("\n"));
         socket.close();
         assertThat(act, equalTo(BODY));
 

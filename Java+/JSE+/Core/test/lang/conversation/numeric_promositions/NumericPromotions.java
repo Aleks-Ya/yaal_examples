@@ -2,9 +2,9 @@ package lang.conversation.numeric_promositions;
 
 import org.junit.jupiter.api.Test;
 
-public class NumericPromotions {
+class NumericPromotions {
     @Test
-    public void bytePromotion() {
+    void bytePromotion() {
         byte b = 10;
         int i1 = -b;
         int i2 = +b;
@@ -19,7 +19,7 @@ public class NumericPromotions {
     }
 
     @Test
-    public void shortPromotion() {
+    void shortPromotion() {
         short s = 10;
         int i1 = -s;
         int i2 = +s;
@@ -34,7 +34,7 @@ public class NumericPromotions {
     }
 
     @Test
-    public void charPromotion() {
+    void charPromotion() {
         char c = 'a';
         int i1 = -c;
         int i2 = +c;
@@ -49,7 +49,7 @@ public class NumericPromotions {
     }
 
     @Test
-    public void intPromotion() {
+    void intPromotion() {
         int i = 1;
         int i1 = -i;
         int i2 = +i;
@@ -64,7 +64,7 @@ public class NumericPromotions {
     }
 
     @Test
-    public void floatPromotion() {
+    void floatPromotion() {
         float f = 1;
         float i1 = -f;
         float i2 = +f;

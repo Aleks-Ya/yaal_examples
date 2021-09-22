@@ -9,12 +9,12 @@ import java.util.Locale;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class DecimalFormatTest {
+class DecimalFormatTest {
     private static final Locale ruRu = new Locale("ru", "RU");
 
     @Test
-    public void noEndingZeros() {
-        DecimalFormat format = new DecimalFormat("###.##", DecimalFormatSymbols.getInstance(ruRu));
+    void noEndingZeros() {
+        var format = new DecimalFormat("###.##", DecimalFormatSymbols.getInstance(ruRu));
 
         assertThat(format.format(100), equalTo("100"));
         assertThat(format.format(10.5), equalTo("10,5"));
@@ -22,8 +22,8 @@ public class DecimalFormatTest {
     }
 
     @Test
-    public void endingZeros() {
-        DecimalFormat format = new DecimalFormat("###.00", DecimalFormatSymbols.getInstance(ruRu));
+    void endingZeros() {
+        var format = new DecimalFormat("###.00", DecimalFormatSymbols.getInstance(ruRu));
 
         assertThat(format.format(100), equalTo("100,00"));
         assertThat(format.format(10.5), equalTo("10,50"));

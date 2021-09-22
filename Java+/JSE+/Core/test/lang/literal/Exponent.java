@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Знак экспоненты в литералах.
  */
-public class Exponent {
+class Exponent {
 
     /**
      * Обычная экспонента.
      */
     @Test
-    public void e() throws Exception {
+    void e() throws Exception {
         float f2 = 6.022137e23f;
         float f1 = 6.022137e+23f;
         float f3 = 6.022137e-23f;
@@ -25,7 +25,7 @@ public class Exponent {
      * В HEX экспонента вместо E обозначается P (т.к. E - цифра).
      */
     @Test
-    public void p() throws Exception {
+    void p() throws Exception {
         double $ = 0XD_EP2F;
         System.out.print($);
     }

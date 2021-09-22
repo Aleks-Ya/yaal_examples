@@ -14,14 +14,14 @@ import static org.hamcrest.Matchers.lessThan;
 /**
  * Вывести статус http-ответа.
  */
-public class ResponseStatusTest {
+class ResponseStatusTest {
     @Test
-    public void testName() throws Exception {
-        URL url = new URL("https://www.ya.ru");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    void testName() throws Exception {
+        var url = new URL("https://www.ya.ru");
+        var connection = (HttpURLConnection) url.openConnection();
         connection.connect();
-        int responseCode = connection.getResponseCode();
-        int contentLength = connection.getContentLength();
+        var responseCode = connection.getResponseCode();
+        var contentLength = connection.getContentLength();
 
         System.out.println(responseCode);
         System.out.println(contentLength);

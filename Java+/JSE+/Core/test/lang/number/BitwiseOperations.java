@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class BitwiseOperations {
+class BitwiseOperations {
     @Test
-    public void literalPositive() {
+    void literalPositive() {
         byte b1 = 0b0000_0101;
         short b2 = 0b0000_0000_0000_0101;
         int b3 = 0b0000_0000_0000_0000_0000_0000_0000_0101;
@@ -21,7 +21,7 @@ public class BitwiseOperations {
     }
 
     @Test
-    public void literalNegative() {
+    void literalNegative() {
         byte b1 = (byte) 0b1111_1011;
         int b2 = 0b1111_1111_1111_1111_1111_1111_1111_1011;
         short b3 = 0b1111_1111_1111_1111_1111_1111_1111_1011;
@@ -34,7 +34,7 @@ public class BitwiseOperations {
     }
 
     @Test
-    public void toBinaryString() {
+    void toBinaryString() {
         int i = 250;
         String act = Integer.toBinaryString(i);
         String exp = "11111010";
@@ -42,7 +42,7 @@ public class BitwiseOperations {
     }
 
     @Test
-    public void and() {
+    void and() {
         int b1 = 0b101;
         int b2 = 0b110;
         int act = b1 & b2;
@@ -51,7 +51,7 @@ public class BitwiseOperations {
     }
 
     @Test
-    public void or() {
+    void or() {
         int b1 = 0b101;
         int b2 = 0b110;
         int act = b1 | b2;
@@ -60,7 +60,7 @@ public class BitwiseOperations {
     }
 
     @Test
-    public void xor() {
+    void xor() {
         int b1 = 0b101;
         int b2 = 0b110;
         int act = b1 ^ b2;
@@ -69,7 +69,7 @@ public class BitwiseOperations {
     }
 
     @Test
-    public void complement() {
+    void complement() {
         int b = 0b0000_0000_0000_0000_0000_0000_0000_0101;
         int act = ~b;
         int exp = 0b1111_1111_1111_1111_1111_1111_1111_1010;
@@ -77,7 +77,7 @@ public class BitwiseOperations {
     }
 
     @Test
-    public void signedLeftShift() {
+    void signedLeftShift() {
         int b = 0b1111_0001_0000_0000_0000_0000_0000_0101;
         int act = b << 2;
         System.out.println(Integer.toBinaryString(act));
@@ -86,7 +86,7 @@ public class BitwiseOperations {
     }
 
     @Test
-    public void signedRightShift() {
+    void signedRightShift() {
         int b = 0b1111_0001_0000_0000_0000_0000_0000_0101;
         int act = b >> 2;
         int exp = 0b1111_1100_0100_0000_0000_0000_0000_0001;
@@ -94,7 +94,7 @@ public class BitwiseOperations {
     }
 
     @Test
-    public void unsignedRightShift() {
+    void unsignedRightShift() {
         int b = 0b1111_0001_0000_0000_0000_0000_0000_0101;
         int act = b >>> 2;
         int exp = 0b0011_1100_0100_0000_0000_0000_0000_0001;

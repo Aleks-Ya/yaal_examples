@@ -3,19 +3,20 @@ package awt.clipboard;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
-import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.Transferable;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
-public class OwnerTest {
+class OwnerTest {
     @Test
-    public void testLostOwnership() throws Exception {
-        Owner owner = spy(new Owner());
-        Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
-        Transferable t = mock(Transferable.class);
-        ClipboardOwner newOwner = mock(ClipboardOwner.class);
+    void testLostOwnership() {
+        var owner = spy(new Owner());
+        var cb = Toolkit.getDefaultToolkit().getSystemClipboard();
+        var t = mock(Transferable.class);
+        var newOwner = mock(ClipboardOwner.class);
         cb.setContents(t, newOwner);
         verify(owner).lostOwnership(cb, t);
     }

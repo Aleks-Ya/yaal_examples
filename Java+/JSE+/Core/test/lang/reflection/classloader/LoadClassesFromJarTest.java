@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Load, instantiate and invoke a method from a class absents in classpath.
  */
-public class LoadClassesFromJarTest {
+class LoadClassesFromJarTest {
 
     @Test
-    public void customClassLoader() throws ClassNotFoundException, IllegalAccessException,
+    void customClassLoader() throws ClassNotFoundException, IllegalAccessException,
             InstantiationException, InvocationTargetException, NoSuchMethodException {
 
         String name = "org.yaml.snakeyaml.DumperOptions";

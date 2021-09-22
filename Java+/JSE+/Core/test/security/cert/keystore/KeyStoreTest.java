@@ -24,17 +24,17 @@ import static org.hamcrest.Matchers.equalTo;
 /**
  * Working with a KeyStore.
  */
-public class KeyStoreTest {
+class KeyStoreTest {
     private static final String CERT_RESOURCE = "security/certificate.crt";
 
     @Test
-    public void initEmptyKeyStore() throws KeyStoreException {
+    void initEmptyKeyStore() throws KeyStoreException {
         var keyStore = SecurityHelper.initEmptyKeyStore();
         assertThat(Collections.list(keyStore.aliases()), empty());
     }
 
     @Test
-    public void addCertificateToKeyStore() throws KeyStoreException {
+    void addCertificateToKeyStore() throws KeyStoreException {
         var keyStore = SecurityHelper.initEmptyKeyStore();
         var certificate = SecurityHelper.readCertificateFromResource(CERT_RESOURCE);
         var certificateAlias = "my_cert";
@@ -47,7 +47,7 @@ public class KeyStoreTest {
     }
 
     @Test
-    public void addPrivateKeyToKeyStore() throws NoSuchAlgorithmException, KeyStoreException,
+    void addPrivateKeyToKeyStore() throws NoSuchAlgorithmException, KeyStoreException,
             UnrecoverableKeyException {
         var keyStore = SecurityHelper.initEmptyKeyStore();
         var certificate = SecurityHelper.readCertificateFromResource(CERT_RESOURCE);
@@ -67,7 +67,7 @@ public class KeyStoreTest {
     }
 
     @Test
-    public void saveKeyStoreToFile() throws NoSuchAlgorithmException, KeyStoreException,
+    void saveKeyStoreToFile() throws NoSuchAlgorithmException, KeyStoreException,
             IOException, CertificateException {
         var keyStore = SecurityHelper.initEmptyKeyStore();
 

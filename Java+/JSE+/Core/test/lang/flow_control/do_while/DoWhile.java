@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DoWhile {
+class DoWhile {
 
     /**
      * Блок do без {} возможен для одного оператора.
      */
     @Test
-    public void oneStatement() {
+    void oneStatement() {
         int i = 0;
         do i++; while (i < 5);
         //do i++; i++; while (i < 5); //compile error: "while expected"
@@ -21,7 +21,7 @@ public class DoWhile {
      * Блок do без {} возможен для одного оператора.
      */
     @Test
-    public void emptyStatement() {
+    void emptyStatement() {
         int i = 0;
         do ; while (i++ < 5);
         //do  while (i < 5); //compile error: "while expected"

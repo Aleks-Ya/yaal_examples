@@ -10,10 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Добавление в коллекцию List объектов разных типов.
  */
-public class Add {
+class Add {
 
     @Test
-    public void different() {
+    void different() {
         List<Object> list = new ArrayList<>();
         list.add(new String("1234"));
         list.add(new Person());
@@ -28,7 +28,7 @@ public class Add {
      * В ArrayList можно добавлять дублирующие элементы (в т.ч. несколько null).
      */
     @Test
-    public void duplicate() {
+    void duplicate() {
         Integer i = 100;
         List<Object> list = new ArrayList<>();
         list.add(i);
@@ -42,7 +42,7 @@ public class Add {
      * В ArrayList можно добавлять null несколько раз.
      */
     @Test
-    public void addNull() {
+    void addNull() {
         List<Object> list = new ArrayList<>();
         list.add(null);
         list.add(null);

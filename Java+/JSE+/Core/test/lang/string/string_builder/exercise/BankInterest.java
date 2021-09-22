@@ -9,9 +9,9 @@ import static java.lang.System.out;
  * Напечатать таблицу увеличения суммы вклада по месяцам на год. 
  * Сумма вклада вводится с клавиатуры
  */ 
-public class BankInterest {
+class BankInterest {
     @Test
-    public void main() {
+    void main() {
 		final float percent = 0.01f;
 		final double startAmount = 500_000;
 		final int months = 12;

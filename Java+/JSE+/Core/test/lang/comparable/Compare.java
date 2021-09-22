@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Compare {
-    
+class Compare {
+
     @Test
-    public void numbers() {
-    	Integer i = new Integer(100);
-		assertEquals(0,  i.compareTo(100));
-		assertEquals(1,  i.compareTo(99));
-		assertEquals(-1, i.compareTo(101));
+    void numbers() {
+        var i = Integer.valueOf(100);
+        assertEquals(0, i.compareTo(100));
+        assertEquals(1, i.compareTo(99));
+        assertEquals(-1, i.compareTo(101));
     }
 }

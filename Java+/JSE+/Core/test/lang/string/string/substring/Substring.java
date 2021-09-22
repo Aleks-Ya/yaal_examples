@@ -9,10 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * String#substring(int fromInclusive, int toExclusive)
  * String#substring(int fromInclusive)
  */
-public class Substring {
+class Substring {
 
     @Test
-    public void substring() {
+    void substring() {
         String s = "0123456789";
         assertEquals("12", s.substring(1, 3));
         assertEquals("6789", s.substring(6));
@@ -20,7 +20,7 @@ public class Substring {
     }
 
     @Test
-    public void substringException1() {
+    void substringException1() {
         assertThrows(StringIndexOutOfBoundsException.class, () -> {
             String s = "0";
             assertEquals("", s.substring(1));
@@ -29,7 +29,7 @@ public class Substring {
     }
 
     @Test
-    public void substringException2() {
+    void substringException2() {
         assertThrows(StringIndexOutOfBoundsException.class, () -> {
             String s = "012345";
             assertEquals("012345", s.substring(0, 6));

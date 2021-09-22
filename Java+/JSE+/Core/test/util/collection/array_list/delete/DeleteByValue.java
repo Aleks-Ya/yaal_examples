@@ -12,13 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Удаление элементов коллекции ArrayList по значению.
  */
-public class DeleteByValue {
+class DeleteByValue {
     private final List<Character> charList = new ArrayList<>();
     private final List<Integer> integerList = new ArrayList<>();
     private final List<String> stringList = new ArrayList<>();
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         charList.add('a');
         charList.add('b');
         charList.add('c');
@@ -34,7 +34,7 @@ public class DeleteByValue {
      * Удаление элемента по значению.
      */
     @Test
-    public void byValue() {
+    void byValue() {
         assertEquals("[big, medium, small]", stringList.toString());
         boolean removed = stringList.remove("medium");
         assertTrue(removed);
@@ -45,7 +45,7 @@ public class DeleteByValue {
      * Удаление элемента char по значению..
      */
     @Test
-    public void byCharacterValue() {
+    void byCharacterValue() {
         assertEquals("[a, b, c]", charList.toString());
         boolean removed = charList.remove(Character.valueOf('b'));
         assertTrue(removed);
@@ -56,7 +56,7 @@ public class DeleteByValue {
      * Удаление элемента char по значению..
      */
     @Test
-    public void byIntegerValue() {
+    void byIntegerValue() {
         assertEquals("[10, 20, 30]", integerList.toString());
         int index = 20;
         boolean removed = integerList.remove(Integer.valueOf(index));

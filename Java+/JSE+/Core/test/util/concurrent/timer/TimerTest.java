@@ -7,19 +7,19 @@ import java.util.TimerTask;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TimerTest {
+class TimerTest {
     private boolean run = false;
 
     @Test
-    public void oneTimeExecution() throws InterruptedException {
-        TimerTask task = new TimerTask() {
+    void oneTimeExecution() throws InterruptedException {
+        var task = new TimerTask() {
             @Override
             public void run() {
                 run = true;
             }
         };
-        Timer timer = new Timer();
-        int delay = 500;
+        var timer = new Timer();
+        var delay = 500;
         timer.schedule(task, delay);
         Thread.sleep(delay * 2);
         assertTrue(run);

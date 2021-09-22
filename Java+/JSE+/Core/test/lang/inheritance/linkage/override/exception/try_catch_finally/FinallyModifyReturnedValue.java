@@ -12,10 +12,10 @@ import static java.lang.System.out;
  * If a catch block returns an object, a finally block can modify the value being
  * returned by it.
  */
-public class FinallyModifyReturnedValue {
+class FinallyModifyReturnedValue {
 
     @Test
-    public void main() {
+    void main() {
         out.printf("object main: %s%n%n", object());
         out.printf("immutable main: %s%n%n", immutable());
         out.printf("primitive main: %s", primitive());

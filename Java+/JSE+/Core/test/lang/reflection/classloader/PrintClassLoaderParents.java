@@ -3,10 +3,10 @@ package lang.reflection.classloader;
 import org.junit.jupiter.api.Test;
 
 
-public class PrintClassLoaderParents {
+class PrintClassLoaderParents {
 
     @Test
-    public void printClassLoaderParents() {
+    void printClassLoaderParents() {
         Class<?> clazz = getClass();
         ClassLoader classLoader = clazz.getClassLoader();
         while (classLoader != null) {

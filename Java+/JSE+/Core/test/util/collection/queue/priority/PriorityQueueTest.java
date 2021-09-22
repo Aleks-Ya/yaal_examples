@@ -9,10 +9,10 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
-public class PriorityQueueTest {
+class PriorityQueueTest {
     @Test
-    public void naturalOrder() {
-        PriorityQueue<String> q = new PriorityQueue<>(3);
+    void naturalOrder() {
+        var q = new PriorityQueue<String>(3);
         q.add("c");
         q.add("a");
         q.add("b");
@@ -23,9 +23,9 @@ public class PriorityQueueTest {
     }
 
     @Test
-    public void comparator() {
-        Comparator<String> comparator = (o1, o2) -> Integer.valueOf(o2.length()).compareTo(o1.length());
-        PriorityQueue<String> q = new PriorityQueue<>(comparator);
+    void comparator() {
+        var comparator = (Comparator<String>) (o1, o2) -> Integer.valueOf(o2.length()).compareTo(o1.length());
+        var q = new PriorityQueue<String>(comparator);
         q.add("bb");
         q.add("ccc");
         q.add("a");

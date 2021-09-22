@@ -11,13 +11,13 @@ import static org.hamcrest.Matchers.equalTo;
  * if you are only stuffing items in, it is a consumer and you should use "super".
  * If you do both with the same collection, you shouldn't use either "extends" or "super".
  */
-public class PecsObject {
+class PecsObject {
 
     /**
      * If you are only pulling items from a generic collection, it is a producer and you should use "extends";
      */
     @Test
-    public void producerExtends() {
+    void producerExtends() {
         Cat cat = new Cat();
         Producer<? extends Creature> producer = new Producer<>(cat);
         Creature creature = producer.get();
@@ -28,7 +28,7 @@ public class PecsObject {
      * if you are only stuffing items in, it is a consumer and you should use "super".
      */
     @Test
-    public void consumerSuper() {
+    void consumerSuper() {
         Cat cat = new Cat();
         Consumer<? super Creature> consumer = new Consumer<>();
         consumer.put(cat);
@@ -39,7 +39,7 @@ public class PecsObject {
      * If you do both with the same collection, you shouldn't use either "extends" or "super".
      */
     @Test
-    public void producerAndConsumer() {
+    void producerAndConsumer() {
         Cat cat = new Cat();
         Storage<Creature> storage = new Storage<>();
         storage.put(cat);

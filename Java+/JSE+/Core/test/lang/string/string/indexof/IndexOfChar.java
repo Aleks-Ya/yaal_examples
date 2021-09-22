@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Поиск символа в строке с помощью String#indexOf(Char).
  */
-public class IndexOfChar {
+class IndexOfChar {
 
     /**
      * Символ найден.
      */
     @Test
-    public void found() {
+    void found() {
         assertEquals(1, "abc".indexOf('b'));
     }
 
@@ -21,7 +21,7 @@ public class IndexOfChar {
      * Символ не найден.
      */
     @Test
-    public void notFound() {
+    void notFound() {
         assertEquals(-1, "abc".indexOf('d'));
     }
 
@@ -29,7 +29,7 @@ public class IndexOfChar {
      * Поиск с заданной позиции.
      */
     @Test
-    public void from() {
+    void from() {
         assertEquals(3, "adcd".indexOf('d',2));
     }
 }

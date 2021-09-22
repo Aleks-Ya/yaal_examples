@@ -7,9 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * break без метки воздействует на конструкции switch, while, do, or for.
  */
-public class WithoutLabel {
+class WithoutLabel {
     @Test
-    public void forCycle() {
+    void forCycle() {
         int i = 0;
         for(;;i++) {
             break;
@@ -18,7 +18,7 @@ public class WithoutLabel {
     }
 
     @Test
-    public void whileCycle() {
+    void whileCycle() {
         int i = 0;
         while (true) {
             i++;
@@ -28,7 +28,7 @@ public class WithoutLabel {
     }
 
     @Test
-    public void doCycle() {
+    void doCycle() {
         int i = 0;
         do {
             i++;
@@ -38,7 +38,7 @@ public class WithoutLabel {
     }
 
     @Test
-    public void switchh() {
+    void switchh() {
         switch(2) {
             case 2: break;
             default:

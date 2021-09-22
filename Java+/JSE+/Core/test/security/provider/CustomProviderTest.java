@@ -13,10 +13,10 @@ import java.util.Arrays;
  * Custom JCA Provider implementation.
  */
 @Disabled("not finished")
-public class CustomProviderTest {
+class CustomProviderTest {
 
     @Test
-    public void sha256() throws NoSuchAlgorithmException {
+    void sha256() throws NoSuchAlgorithmException {
         Provider provider = new MyProvider();
 
         var digest = MessageDigest.getInstance("SHA-256");

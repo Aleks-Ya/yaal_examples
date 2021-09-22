@@ -9,25 +9,25 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasToString;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class PathsNullTest {
+class PathsNullTest {
     @Test
-    public void empty() {
+    void empty() {
         assertThat(Paths.get(""), hasToString(equalTo("")));
     }
 
     @Test
-    public void emptyInEnd() {
+    void emptyInEnd() {
         assertThat(Paths.get("/abc", "efg", ""), hasToString(equalTo("/abc/efg")));
     }
 
     @Test
-    public void nullPath() {
+    void nullPath() {
         //noinspection ConstantConditions
         assertThrows(NullPointerException.class, () -> Paths.get(null));
     }
 
     @Test
-    public void nullInEnd() {
+    void nullInEnd() {
         //noinspection ConstantConditions
         assertThrows(NullPointerException.class, () -> Paths.get("/abc", null));
     }

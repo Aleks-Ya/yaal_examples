@@ -2,13 +2,13 @@ package lang.conversation.boxing;
 
 import org.junit.jupiter.api.Test;
 
-public class Boxing {
+class Boxing {
 
     /**
      * Создание обертки.
      */
     @Test
-    public void integer() {
+    void integer() {
         Integer a = 2;//Integer.valueOf(2)
         System.out.println(a);
     }
@@ -17,7 +17,7 @@ public class Boxing {
      * В выражении участвует обертка и примитив.
      */
     @Test
-    public void expression() {
+    void expression() {
         Integer a = 2;//Integer.valueOf(2)
         Integer b = a * 3;//Integer.intValue(2) * 3 --> Integer.valueOf(6)
         System.out.println(b);
@@ -27,7 +27,7 @@ public class Boxing {
      * В выражении участвуют только обертки.
      */
     @Test
-    public void expression2() {
+    void expression2() {
         Integer a = 2;//Integer.valueOf(2)
         Integer b = 3;//Integer.valueOf(3)
         Integer c = a * b;//Integer.intValue(a) * Integer.intValue(b) --> Integer.valueOf(6)

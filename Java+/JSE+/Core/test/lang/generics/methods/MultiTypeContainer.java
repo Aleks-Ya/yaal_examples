@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Неоднородный контейнер.
  * Пример из книги Дж. Блоха "Java. Эффективное програмирование" (статья 29).
  */
-public class MultiTypeContainer {
+class MultiTypeContainer {
 
     @Test
-    public void testName() {
+    void testName() {
         Integer integer = 1;
         String string = "lang/string";
 

@@ -7,9 +7,9 @@ import static java.lang.System.out;
 /**
  * Имена переменных Java.
  */
-public class Variables {
+class Variables {
     @Test
-    public void correctNames() {
+    void correctNames() {
         int i = 1;
         int $ = 2;
         out.println(i + $);

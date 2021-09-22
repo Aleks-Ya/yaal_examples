@@ -7,10 +7,10 @@ import java.net.URISyntaxException;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class CompareUrlsTest {
+class CompareUrlsTest {
 
     @Test
-    public void differentFragments() throws URISyntaxException {
+    void differentFragments() throws URISyntaxException {
         assertNotEquals(new URI("https://ya.ru/search#abc"), new URI("https://ya.ru/search#cde"));
     }
 }

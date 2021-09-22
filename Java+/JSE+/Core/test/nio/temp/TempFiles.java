@@ -11,15 +11,15 @@ import static java.lang.System.out;
 /**
  * Создание временных папок и файлов в Java.
  */
-public class TempFiles {
+class TempFiles {
 
     /**
      * java.nio.file.Files#createTempFile
      */
     @Test
-    public void tempFiles() throws IOException {
-        Path f1 = Files.createTempFile("prefix-files_", ".suffix");
-        Path f2 = Files.createTempFile("prefix-files_", null);// ".tmp" suffix by default
+    void tempFiles() throws IOException {
+        var f1 = Files.createTempFile("prefix-files_", ".suffix");
+        var f2 = Files.createTempFile("prefix-files_", null);// ".tmp" suffix by default
 
         f1.toFile().deleteOnExit();
         f2.toFile().deleteOnExit();
@@ -29,8 +29,8 @@ public class TempFiles {
     }
 
     @Test
-    public void tempFolders() throws IOException {
-        Path tmpDir = Files.createTempDirectory("prefix-folder_");
+    void tempFolders() throws IOException {
+        var tmpDir = Files.createTempDirectory("prefix-folder_");
         tmpDir.toFile().deleteOnExit();
         out.println(tmpDir);
     }

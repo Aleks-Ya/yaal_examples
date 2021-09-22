@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Иерархия классов (entity) и параллельная иерархия идентификаторов этих классов (id).
  */
-public class Identifiers {
+class Identifiers {
     @Test
-    public void testName() {
+    void testName() {
         Entity<AppleId> apple = new AppleEntity();
         Id<AppleEntity> appleId = apple.id;
 

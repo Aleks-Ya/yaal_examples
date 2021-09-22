@@ -15,7 +15,82 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class PathsTest {
+class PathsTest {
+
+    @Test
+    void get() {
+        assertThat(Paths.get("/home/aleks", "Downloads", "torrent").toString(),
+                equalTo("/home/aleks/Downloads/torrent"));
+    }
+
+    /**
+     * toRealPath()K проверяет наличие файла на диске.
+     */
+    @Test
+    void toRealPath() {
+        assertThrows(NoSuchFileException.class, () -> Paths.get("/nofile").toRealPath(LinkOption.NOFOLLOW_LINKS));
+    }
+
+    /**
+     * normalize() удаляет "." и ".." из пути.
+     */
+    @Test
+    void normalize() {
+        var torrent = Paths.get("/home/aleks", "..", "Downloads");
+        assertThat(torrent.toString(), equalTo("/home/aleks/../Downloads"));
+        assertThat(torrent.normalize().toString(), equalTo("/home/Downloads"));
+    }
+
+    /**
+     * toAbsolutePath() в относительные пути добавляет текущую директорию.
+     */
+    @Test
+    void toAbsolutePath() {
+        var relative = Paths.get("Downloads", "torrent").toAbsolutePath().toString();
+        assertThat(relative, allOf(startsWith("/"), endsWith("Downloads/torrent")));
+
+        var absolute = Paths.get("/folder/Downloads", "torrent").toAbsolutePath().toString();
+        assertThat(absolute, equalTo("/folder/Downloads/torrent"));
+    }
+
+    /**
+     * resolve() объединяет 2 пути (к первому прицепляет 2ой).
+     */
+    @Test
+    void resolve() {
+        var relative = Paths.get("folder");
+        assertThat(relative.resolve("Downloads").toString(), equalTo("folder/Downloads"));
+
+        var absolute = Paths.get("/folder/Downloads");
+        assertThat(absolute.resolve("torrent").toString(), equalTo("/folder/Downloads/torrent"));
+        assertThat(absolute.resolve("/video/film").toString(), equalTo("/video/film"));
+    }
+
+    /**
+     * relativize() возвращает путь между двумя путями (какой командой перейти из 1го пути во 2ой).
+     */
+    @Test
+    void relativize() {
+        var relative1 = Paths.get("video");
+        var relative2 = Paths.get("torrent");
+        assertThat(relative1.relativize(relative2).toString(), equalTo("../torrent"));
+        assertThat(relative2.relativize(relative1).toString(), equalTo("../video"));
+
+        var absolute1 = Paths.get("/home/folder/Downloads");
+        var absolute2 = Paths.get("/home/video/film");
+        assertThat(absolute1.relativize(absolute2).toString(), equalTo("../../video/film"));
+        assertThat(absolute2.relativize(absolute1).toString(), equalTo("../../folder/Downloads"));
+    }
+
+    @Test
+    void commonEnd() {
+        assertCommonEnd("/a/b/c/d", "/a/b", "c/d");
+        assertCommonEnd("/a/b", "/a/b/c/d", "c/d");
+        assertCommonEnd("/a/b/c/d", "/a/b/", "c/d");
+        assertCommonEnd("/a/b/c/d/", "/a/b", "c/d");
+        assertCommonEnd("/a/b/c/d", "/a/b/c/d", "/a/b/c/d");
+        assertCommonEnd("/a/b/c/d", "/x/y/z", "");
+    }
 
     private static Path getCommonEnd(Path path1, Path path2) {
         var p1 = Objects.requireNonNull(path1);
@@ -33,81 +108,6 @@ public class PathsTest {
 
     private static void assertCommonEnd(String path1, String path2, String expCommonEnd) {
         assertThat(getCommonEnd(Paths.get(path1), Paths.get(path2)).toString(), equalTo(expCommonEnd));
-    }
-
-    @Test
-    public void get() {
-        assertThat(Paths.get("/home/aleks", "Downloads", "torrent").toString(),
-                equalTo("/home/aleks/Downloads/torrent"));
-    }
-
-    /**
-     * toRealPath()K проверяет наличие файла на диске.
-     */
-    @Test
-    public void toRealPath() {
-        assertThrows(NoSuchFileException.class, () -> Paths.get("/nofile").toRealPath(LinkOption.NOFOLLOW_LINKS));
-    }
-
-    /**
-     * normalize() удаляет "." и ".." из пути.
-     */
-    @Test
-    public void normalize() {
-        var torrent = Paths.get("/home/aleks", "..", "Downloads");
-        assertThat(torrent.toString(), equalTo("/home/aleks/../Downloads"));
-        assertThat(torrent.normalize().toString(), equalTo("/home/Downloads"));
-    }
-
-    /**
-     * toAbsolutePath() в относительные пути добавляет текущую директорию.
-     */
-    @Test
-    public void toAbsolutePath() {
-        var relative = Paths.get("Downloads", "torrent").toAbsolutePath().toString();
-        assertThat(relative, allOf(startsWith("/"), endsWith("Downloads/torrent")));
-
-        var absolute = Paths.get("/folder/Downloads", "torrent").toAbsolutePath().toString();
-        assertThat(absolute, equalTo("/folder/Downloads/torrent"));
-    }
-
-    /**
-     * resolve() объединяет 2 пути (к первому прицепляет 2ой).
-     */
-    @Test
-    public void resolve() {
-        var relative = Paths.get("folder");
-        assertThat(relative.resolve("Downloads").toString(), equalTo("folder/Downloads"));
-
-        var absolute = Paths.get("/folder/Downloads");
-        assertThat(absolute.resolve("torrent").toString(), equalTo("/folder/Downloads/torrent"));
-        assertThat(absolute.resolve("/video/film").toString(), equalTo("/video/film"));
-    }
-
-    /**
-     * relativize() возвращает путь между двумя путями (какой командой перейти из 1го пути во 2ой).
-     */
-    @Test
-    public void relativize() {
-        var relative1 = Paths.get("video");
-        var relative2 = Paths.get("torrent");
-        assertThat(relative1.relativize(relative2).toString(), equalTo("../torrent"));
-        assertThat(relative2.relativize(relative1).toString(), equalTo("../video"));
-
-        var absolute1 = Paths.get("/home/folder/Downloads");
-        var absolute2 = Paths.get("/home/video/film");
-        assertThat(absolute1.relativize(absolute2).toString(), equalTo("../../video/film"));
-        assertThat(absolute2.relativize(absolute1).toString(), equalTo("../../folder/Downloads"));
-    }
-
-    @Test
-    public void commonEnd() {
-        assertCommonEnd("/a/b/c/d", "/a/b", "c/d");
-        assertCommonEnd("/a/b", "/a/b/c/d", "c/d");
-        assertCommonEnd("/a/b/c/d", "/a/b/", "c/d");
-        assertCommonEnd("/a/b/c/d/", "/a/b", "c/d");
-        assertCommonEnd("/a/b/c/d", "/a/b/c/d", "/a/b/c/d");
-        assertCommonEnd("/a/b/c/d", "/x/y/z", "");
     }
 
 }

@@ -1,10 +1,9 @@
 package util.concurrent;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.lang.management.ManagementFactory;
-import java.lang.management.ThreadInfo;
-import java.lang.management.ThreadMXBean;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,16 +12,14 @@ import java.util.List;
  * Компиляция: {@code javac DefautlThreads.java}
  * Запуск: {@code java DefaultThreads}
  */
-public class DefaultThreads {
+class DefaultThreads {
 
     @Test
-    public void main() throws InterruptedException {
-        while (true) {
-            printThreads("by Thread.getAllStackTraces()", threadsByStackTraces());
-            printThreads("by thread groups", threadsByThreadGroups());
-            printThreadNamesByThreadMXBean();
-            Thread.sleep(5000);
-        }
+    void main() throws InterruptedException {
+        printThreads("by Thread.getAllStackTraces()", threadsByStackTraces());
+        printThreads("by thread groups", threadsByThreadGroups());
+        printThreadNamesByThreadMXBean();
+        Thread.sleep(5000);
     }
 
     private static Thread[] threadsByStackTraces() {
@@ -31,19 +28,19 @@ public class DefaultThreads {
 
     private static Thread[] threadsByThreadGroups() {
         //Определяем самую верхнюю группу потоков
-        ThreadGroup rootGroup = Thread.currentThread().getThreadGroup();
+        var rootGroup = Thread.currentThread().getThreadGroup();
         ThreadGroup parentGroup;
         while ((parentGroup = rootGroup.getParent()) != null) {
             rootGroup = parentGroup;
         }
         //Получаем потоки из верхней группы (рекурсивно)
-        Thread[] threads = new Thread[rootGroup.activeCount()];
+        var threads = new Thread[rootGroup.activeCount()];
         while (rootGroup.enumerate(threads, true) == threads.length) {
             threads = new Thread[threads.length * 2];
         }
         //Исключаем пустые ячейки массива
         List<Thread> threadList = new ArrayList<>();
-        for (Thread thread : threads) {
+        for (var thread : threads) {
             if (thread != null) {
                 threadList.add(thread);
             }
@@ -53,11 +50,11 @@ public class DefaultThreads {
     }
 
     private static void printThreadNamesByThreadMXBean() {
-        ThreadMXBean bean = ManagementFactory.getThreadMXBean();
-        long[] ids = bean.getAllThreadIds();
+        var bean = ManagementFactory.getThreadMXBean();
+        var ids = bean.getAllThreadIds();
         System.out.printf("Thread's by ThreadMXBean: %d\n", ids.length);
-        ThreadInfo[] infos = bean.getThreadInfo(ids);
-        for (ThreadInfo info : infos) {
+        var infos = bean.getThreadInfo(ids);
+        for (var info : infos) {
             System.out.println(info.getThreadName());
         }
     }
@@ -68,7 +65,7 @@ public class DefaultThreads {
     private static void printThreads(String comment, Thread[] threads) {
         System.out.println(comment);
         System.out.printf("Thread count is %d", threads.length);
-        for (Thread thread : threads) {
+        for (var thread : threads) {
             System.out.println(thread.getName());
         }
         System.out.println("--------------------------");

@@ -2,10 +2,10 @@ package lang.flow_control.switch_operator;
 
 import org.junit.jupiter.api.Test;
 
-public class EmptySwitch {
+class EmptySwitch {
 
     @Test
-    public void main() {
+    void main() {
 		//switch(1); //Compile Error
 
 		switch(1) {};

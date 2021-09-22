@@ -5,16 +5,16 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class CharAt {
+class CharAt {
 
     @Test
-    public void substring() {
+    void substring() {
         String s = "0123";
         assertEquals('1', s.charAt(1));
     }
 
     @Test
-    public void substringException1() {
+    void substringException1() {
         //noinspection ResultOfMethodCallIgnored
         assertThrows(IllegalArgumentException.class, () -> "0".charAt(1));
     }

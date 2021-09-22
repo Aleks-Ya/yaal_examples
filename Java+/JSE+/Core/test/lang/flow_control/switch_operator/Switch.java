@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
 
-public class Switch {
+class Switch {
 
     /**
      * switch использует equals(), а не сравнение по ссылке.
      */
     @Test
-    public void eq() {
+    void eq() {
         String value = new String("one"); // Не попадет в буфер строк -> сравнение по ссылке не сработает
         switch(value) {
             case "one":  out.println("switch use equals()");
@@ -21,7 +21,7 @@ public class Switch {
      * Одинаковое действие для нескольких case.
      */
     @Test
-    public void multi() {
+    void multi() {
         String day = new String("mon");
         switch(day) {
             case "mon":
@@ -43,7 +43,7 @@ public class Switch {
      * Секцию default можно расположить перед case.
      */
     @Test
-    public void defaultBeforeCase() {
+    void defaultBeforeCase() {
 		switch("winter") {
 			default: out.println("default section");
 			case "winter": out.println("winter section");
@@ -54,7 +54,7 @@ public class Switch {
      * Константа в switch expression.
      */
     @Test
-    public void constant() {
+    void constant() {
         switch(5) {
             case 1:
             case 2:

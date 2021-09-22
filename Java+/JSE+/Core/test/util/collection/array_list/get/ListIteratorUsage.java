@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Использование ListIterator для обхода ArrayList.
  * todo Методы set(), add()
  */
-public class ListIteratorUsage {
+class ListIteratorUsage {
     private final List<Character> list = new ArrayList<>();
 
     @BeforeEach
-    public void setUp() throws Exception {
+    void setUp() {
         list.add('a');
         list.add('b');
         list.add('c');
@@ -27,11 +26,11 @@ public class ListIteratorUsage {
      * Обход коллекции в прямом направлении.
      */
     @Test
-    public void next() {
+    void next() {
         //В прямом направлении
-        ListIterator<Character> it = list.listIterator();
-        StringBuilder indexesNext = new StringBuilder();
-        StringBuilder sbNext = new StringBuilder();
+        var it = list.listIterator();
+        var indexesNext = new StringBuilder();
+        var sbNext = new StringBuilder();
         while (it.hasNext()) {
             indexesNext.append(it.nextIndex());
             sbNext.append(it.next());
@@ -41,8 +40,8 @@ public class ListIteratorUsage {
         assertEquals("abc", sbNext.toString());
 
         //в обратном направлении
-        StringBuilder indexesPrevious = new StringBuilder();
-        StringBuilder sbPrevious = new StringBuilder();
+        var indexesPrevious = new StringBuilder();
+        var sbPrevious = new StringBuilder();
         while (it.hasPrevious()) {
             indexesPrevious.append(it.previousIndex());
             sbPrevious.append(it.previous());
@@ -58,11 +57,11 @@ public class ListIteratorUsage {
      * Удаление элемента во время обхода коллекции.
      */
     @Test
-    public void remove() {
-        ListIterator<Character> it = list.listIterator();
-        StringBuilder sb = new StringBuilder();
+    void remove() {
+        var it = list.listIterator();
+        var sb = new StringBuilder();
         while (it.hasNext()) {
-            Character next = it.next();
+            var next = it.next();
             if (next.equals('b')) {
                 it.remove();
             }

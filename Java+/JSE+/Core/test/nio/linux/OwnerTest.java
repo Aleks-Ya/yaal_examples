@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.attribute.UserPrincipal;
 
 import static java.lang.System.out;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,15 +12,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Изменение владельца файла.
  */
-public class OwnerTest {
+class OwnerTest {
 
     @Test
-    public void main() throws IOException {
-        Path target = Files.createTempFile("target_", ".sh");
+    void main() throws IOException {
+        var target = Files.createTempFile("target_", ".sh");
         target.toFile().deleteOnExit();
 
-        String exp = System.getenv("USERNAME");
-        UserPrincipal owner = Files.getOwner(target);
+        var exp = System.getenv("USERNAME");
+        var owner = Files.getOwner(target);
         assertThat(owner.getName(), Matchers.containsString(exp));
         out.printf("target = %s%n", target);
         out.printf("%s%n", owner);

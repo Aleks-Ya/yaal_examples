@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Интернирование строк.
  */
-public class Intern {
+class Intern {
 
     /**
      * Строки, созданные конструктором, НЕ интернируются.
      */
     @Test
-    public void constructor() {
+    void constructor() {
         String s1 = new String("a");
         String s2 = new String("a");
         assertFalse(s1 == s2);
@@ -25,7 +25,7 @@ public class Intern {
      * Строки, созданные из литералов, интернируются.
      */
     @Test
-    public void literal() {
+    void literal() {
         String s1 = "a";
         String s2 = "a";
         assertTrue(s1 == s2);
@@ -36,7 +36,7 @@ public class Intern {
      * Интернирование строк, созданных конструктором.
      */
     @Test
-    public void intern() {
+    void intern() {
         String s1 = new String("a");
         String s2 = new String("a");
 

@@ -11,10 +11,10 @@ import static org.hamcrest.Matchers.equalTo;
 /**
  * Using {@link java.util.Properties}.
  */
-public class PropertiesTest {
+class PropertiesTest {
 
     @Test
-    public void defaultProperties() {
+    void defaultProperties() {
         var key = "a";
         var value = "1";
 

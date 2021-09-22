@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Подсчитать количество подстроки в строку (разными способами).
  */
-public class SubstringCounter {
+class SubstringCounter {
 
     /**
      * Алгоритм на основе String#indexOf.

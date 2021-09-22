@@ -10,14 +10,14 @@ import java.net.SocketException;
 /**
  *
  */
-public class AcknowledgementCharacterTest {
+class AcknowledgementCharacterTest {
 
     @Test
     @Disabled("Not finished")
     public void shutdown() throws IOException, InterruptedException {
-        ServerSocket serverSocket = new ServerSocket(23512);
+        var serverSocket = new ServerSocket(23512);
         System.out.println("Server created");
-        Thread t = new Thread(() -> {
+        var t = new Thread(() -> {
             try {
                 System.out.println("Wait socket");
                 serverSocket.accept();

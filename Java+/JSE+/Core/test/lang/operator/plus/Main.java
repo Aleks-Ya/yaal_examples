@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
 
-public class Main {
+class Main {
 
     /**
      * Конкатенция String и char.
      */
     @Test
-    public void stringCharConcat() {
+    void stringCharConcat() {
         out.println("lang/string " + 'c');
     }
 }

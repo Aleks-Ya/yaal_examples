@@ -10,13 +10,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Способы получения объекта Local.
  */
-public class GetLocal {
+class GetLocal {
 
     /**
      * По-умолчанию.
      */
     @Test
-    public void defaultLocal() {
+    void defaultLocal() {
         var def = Locale.getDefault();
         assertEquals("en", def.getLanguage());
         assertEquals("US", def.getCountry());
@@ -27,7 +27,7 @@ public class GetLocal {
      * По-умолчанию.
      */
     @Test
-    public void available() {
+    void available() {
         var locales = Locale.getAvailableLocales();
         assertTrue(locales.length > 100);
     }
@@ -36,7 +36,7 @@ public class GetLocal {
      * Язык
      */
     @Test
-    public void language() {
+    void language() {
         var german = new Locale("de");
         assertEquals("de", german.getLanguage());
         assertEquals("", german.getCountry());
@@ -47,7 +47,7 @@ public class GetLocal {
      * Язык + Географическое расположение
      */
     @Test
-    public void languageAndCountry() {
+    void languageAndCountry() {
         var german = new Locale("de", "DE");
         assertEquals("de", german.getLanguage());
         assertEquals("DE", german.getCountry());
@@ -58,7 +58,7 @@ public class GetLocal {
      * Язык + Географическое расположение + Вариант
      */
     @Test
-    public void languageAndCountryAndVariant() {
+    void languageAndCountryAndVariant() {
         var norwegianNorwayBokmel = new Locale("no", "NO", "B");
         assertEquals("no", norwegianNorwayBokmel.getLanguage());
         assertEquals("NO", norwegianNorwayBokmel.getCountry());

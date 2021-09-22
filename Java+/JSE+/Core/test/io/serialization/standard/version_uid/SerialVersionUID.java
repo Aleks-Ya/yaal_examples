@@ -12,28 +12,28 @@ import java.io.Serializable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-public class SerialVersionUID {
+class SerialVersionUID {
     @Test
-    public void test() throws IOException, ClassNotFoundException {
-        ForSerialization expFv = new ForSerialization();
+    void test() throws IOException, ClassNotFoundException {
+        var expFv = new ForSerialization();
         expFv.num = 1;
 
-        ByteArrayOutputStream out = write(expFv);
-        ForSerialization actFv = (ForSerialization) read(out);
+        var out = write(expFv);
+        var actFv = (ForSerialization) read(out);
 
         assertNotSame(expFv, actFv);
         assertEquals(expFv.num, actFv.num);
     }
 
     private Object read(ByteArrayOutputStream out) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream bis = new ByteArrayInputStream(out.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(bis);
+        var bis = new ByteArrayInputStream(out.toByteArray());
+        var ois = new ObjectInputStream(bis);
         return ois.readObject();
     }
 
     private ByteArrayOutputStream write(ForSerialization fv) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(out);
+        var out = new ByteArrayOutputStream();
+        var oos = new ObjectOutputStream(out);
         oos.writeObject(fv);
         oos.close();
         return out;

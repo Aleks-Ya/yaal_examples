@@ -10,9 +10,9 @@ import static java.lang.System.out;
  * если плата за быка 10 рублей, за корову - 5 рублей, а телёнка - 0,5 рубля, 
  * если на 100 рублей надо купить 100 голов скота.
  */ 
-public class BullCawCalf {
+class BullCawCalf {
     @Test
-    public void main() {
+    void main() {
 		final float bullPrice = 10f;
 		final float cawPrice = 5f;
 		final float calfPrice = 0.5f;

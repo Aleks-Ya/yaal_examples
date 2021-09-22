@@ -12,14 +12,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Поиск локализованной строки по иерархии ресурсов.
  */
-public class BundleHierarchy {
+class BundleHierarchy {
 
     /**
      * Ищем строку в родительских пакетах.
      */
     @Test
-    public void fromChild() {
-        ResourceBundle parent = ResourceBundle.getBundle(
+    void fromChild() {
+        var parent = ResourceBundle.getBundle(
                 "util.i18n.resource_bundle.hierarchy.Names", new Locale("ru", "RU", "vologda"));
         assertEquals("ru RU vologda", parent.getString("ruRUvologdaKey"));
         assertEquals("ru RU", parent.getString("ruRUKey"));
@@ -31,9 +31,9 @@ public class BundleHierarchy {
      * Попытка искать строку, находяюущюся в потомке.
      */
     @Test
-    public void notFound() {
+    void notFound() {
         assertThrows(MissingResourceException.class, () -> {
-            ResourceBundle parent = ResourceBundle.getBundle(
+            var parent = ResourceBundle.getBundle(
                     "util.i18n.resource_bundle.hierarchy.Names", new Locale("ru", "RU"));
             parent.getString("ruRUvologdaKey");
         });

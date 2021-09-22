@@ -9,9 +9,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 
-public class BlockingQueueTest {
+class BlockingQueueTest {
     @Test
-    public void test() throws InterruptedException {
+    void test() throws InterruptedException {
         BlockingQueue<Integer> q = new ArrayBlockingQueue<>(2);
         q.put(1);
         q.put(2);

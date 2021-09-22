@@ -17,21 +17,21 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 /**
  * Сериализация с помощью Externalizable.
  */
-public class ExternalizableExample {
+class ExternalizableExample {
     @Test
-    public void standard() throws IOException, ClassNotFoundException {
-        ForSerialization exp = new ForSerialization();
+    void standard() throws IOException, ClassNotFoundException {
+        var exp = new ForSerialization();
         exp.setNum(8);
         exp.setTransientLong(16);
 
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(out);
+        var out = new ByteArrayOutputStream();
+        var oos = new ObjectOutputStream(out);
         oos.writeObject(exp);
         oos.close();
 
-        ByteArrayInputStream bis = new ByteArrayInputStream(out.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(bis);
-        ForSerialization act = (ForSerialization) ois.readObject();
+        var bis = new ByteArrayInputStream(out.toByteArray());
+        var ois = new ObjectInputStream(bis);
+        var act = (ForSerialization) ois.readObject();
 
         assertNotSame(exp, act);
         assertEquals(exp.getNum(), act.getNum());

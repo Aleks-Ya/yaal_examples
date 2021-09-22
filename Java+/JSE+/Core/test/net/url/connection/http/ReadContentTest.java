@@ -20,19 +20,19 @@ import static org.hamcrest.Matchers.lessThan;
 /**
  * Read content from HttpURLConnection.
  */
-public class ReadContentTest {
+class ReadContentTest {
     @Test
-    public void read() throws IOException {
-        URL url = new URL("https://www.ya.ru");
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    void read() throws IOException {
+        var url = new URL("https://www.ya.ru");
+        var conn = (HttpURLConnection) url.openConnection();
         conn.connect();
-        int responseCode = conn.getResponseCode();
-        int contentLength = conn.getContentLength();
+        var responseCode = conn.getResponseCode();
+        var contentLength = conn.getContentLength();
         assertThat(contentLength, greaterThan(0));
-        BufferedReader bis = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-        String content = bis.lines().collect(Collectors.joining("\n"));
+        var bis = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+        var content = bis.lines().collect(Collectors.joining("\n"));
         conn.disconnect();
-        assertThat((double) content.length(), closeTo((double) contentLength, 1000D));
+        assertThat((double) content.length(), closeTo(contentLength, 1000D));
         assertThat(content, containsString("</html>"));
 
         assertThat(responseCode, allOf(greaterThanOrEqualTo(200), lessThan(300)));

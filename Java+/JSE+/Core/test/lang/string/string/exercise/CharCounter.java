@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Подсчитать количество данного символа в строке (разными способами).
  */
-public class CharCounter {
+class CharCounter {
 	
 	@Test
 	public void count() {

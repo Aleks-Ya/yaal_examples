@@ -12,10 +12,10 @@ import static org.hamcrest.Matchers.hasSize;
 /**
  * Пример использования нижнего ограничения группового символа (? super MyClass).
  */
-public class SuperWildcard {
+class SuperWildcard {
 
     @Test
-    public void test() {
+    void test() {
         Storage<List<? extends Number>> s = new Storage<>();
         List<Integer> sets = new ArrayList<>();
         s.put(sets);
@@ -26,7 +26,7 @@ public class SuperWildcard {
     }
 
     @Test
-    public void get() {
+    void get() {
         Storage<List<? extends Number>> s = new Storage<>();
         List<Integer> sets = new ArrayList<>();
         s.put(sets);

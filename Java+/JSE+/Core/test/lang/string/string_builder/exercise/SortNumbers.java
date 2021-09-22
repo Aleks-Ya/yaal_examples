@@ -11,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Упорядочить коллекцию чисел по возрастанию.
  */
-public class SortNumbers {
+class SortNumbers {
     @Test
-    public void sort() {
+    void sort() {
         //Пустая коллекция
         List<Long> empty = new ArrayList<>(0);
         sorting(empty);

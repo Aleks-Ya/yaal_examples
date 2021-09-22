@@ -4,15 +4,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FocusTest {
+class FocusTest {
 
     @Test
-    public void right() {
-        Object[][] matrix = {
+    void right() {
+        var matrix = new Object[][]{
                 {1, 2, null, 3, 4, null, 5},
                 {4, 5, null}
         };
-        Focus<Object> focus = new Focus<>(matrix);
+        var focus = new Focus<Object>(matrix);
         assertEquals(1, focus.prevSelected());
         assertEquals(1, focus.selected());
         focus.right();
@@ -33,12 +33,12 @@ public class FocusTest {
     }
 
     @Test
-    public void left() {
-        Object[][] matrix = {
+    void left() {
+        var matrix = new Object[][]{
                 {0, 1, null, 3, 4, null, 6},
                 {4, 5, null}
         };
-        Focus<Object> focus = new Focus<>(matrix);
+        var focus = new Focus<Object>(matrix);
         focus.right();
         focus.right();
         focus.right();
@@ -63,8 +63,8 @@ public class FocusTest {
     }
 
     @Test
-    public void down() {
-        Object[][] matrix = {
+    void down() {
+        var matrix = new Object[][]{
                 {1, 2, 3},
                 {4, 5, null},
                 {null, 8, 9},
@@ -74,7 +74,7 @@ public class FocusTest {
                 {13, 14}
 
         };
-        Focus<Object> focus = new Focus<>(matrix);
+        var focus = new Focus<Object>(matrix);
         assertEquals(1, focus.prevSelected());
         assertEquals(1, focus.selected());
         focus.down();
@@ -95,8 +95,8 @@ public class FocusTest {
     }
 
     @Test
-    public void up() {
-        Object[][] matrix = {
+    void up() {
+        var matrix = new Object[][]{
                 {0, 12, 13},
                 {1, 15, null},
                 {null, 16, 17},
@@ -106,7 +106,7 @@ public class FocusTest {
                 {6, 19}
 
         };
-        Focus<Object> focus = new Focus<>(matrix);
+        var focus = new Focus<Object>(matrix);
         focus.down();
         focus.down();
         focus.down();
@@ -131,13 +131,13 @@ public class FocusTest {
     }
 
     @Test
-    public void rightDown() {
-        Object[][] matrix = {
+    void rightDown() {
+        var matrix = new Object[][]{
                 {1, 2, null},
                 {3, 4, null},
                 {5, 6, null},
         };
-        Focus<Object> focus = new Focus<>(matrix);
+        var focus = new Focus<Object>(matrix);
         assertEquals(1, focus.prevSelected());
         assertEquals(1, focus.selected());
         focus.right();

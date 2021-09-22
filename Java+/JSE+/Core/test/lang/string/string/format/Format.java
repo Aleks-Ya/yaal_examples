@@ -12,9 +12,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Примеры работы с методом String#format.
  */
-public class Format {
+class Format {
     @Test
-    public void string() {
+    void string() {
         assertThat(format("\nСтрока: %s%n", "Hello!"), equalTo("\nСтрока: Hello!\n"));
 
         assertThat(format("Перенос строки 1: %n"), equalTo("Перенос строки 1: \n"));
@@ -27,25 +27,25 @@ public class Format {
     }
 
     @Test
-    public void argOrder() {
+    void argOrder() {
         assertThat(format("Порядок аргументов: %2$s %1$s %n", "2nd", "1st"), equalTo("Порядок аргументов: 1st 2nd \n"));
     }
 
     @Test
-    public void nulls() {
+    void nulls() {
         //noinspection MalformedFormatString
         assertThat(format("Null: %s,%d,%f%n", null, null, null), equalTo("Null: null,null,null\n"));
     }
 
     @Test
-    public void integer() {
+    void integer() {
         assertThat(format("\nЦелое число: %d%n", 300), equalTo("\nЦелое число: 300\n"));
         assertThat(format("Ведущие нули: %05d %n", 300), equalTo("Ведущие нули: 00300 \n"));
         assertThat(format("Знакоместа в начале числа: %20d %n", 300), equalTo("Знакоместа в начале числа:                  300 \n"));
     }
 
     @Test
-    public void floating() {
+    void floating() {
         assertThat(format("Знакоместа в начале числа: %15f %n", 9.8), equalTo("Знакоместа в начале числа:        9.800000 \n"));
         assertThat(format("Ведущие нули: %010f %n", 9.8), equalTo("Ведущие нули: 009.800000 \n"));
         assertThat(format("Ведущий ноль и десятичные разряды : %01.2f %n", .14), equalTo("Ведущий ноль и десятичные разряды : 0.14 \n"));
@@ -65,7 +65,7 @@ public class Format {
     }
 
     @Test
-    public void escapeCharacter() {
+    void escapeCharacter() {
         assertThat(format("Percentage: %.2f%%%n", 1.5), equalTo("Percentage: 1.50%\n"));
     }
 }

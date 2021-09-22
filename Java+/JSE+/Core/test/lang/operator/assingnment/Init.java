@@ -2,7 +2,7 @@ package lang.operator.assingnment;
 
 import org.junit.jupiter.api.Test;
 
-public class Init {
+class Init {
 
 	@Test
     public void test() {

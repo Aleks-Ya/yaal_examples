@@ -5,15 +5,15 @@ import org.junit.jupiter.api.Test;
 /**
  * Варианты пустых if.
  */
-public class EmptyIf {
+class EmptyIf {
     @Test
-    public void emptyIfElse() throws Exception {
+    void emptyIfElse() throws Exception {
         if(false); else;
         if(true); else;
     }
 
     @Test
-    public void emptyIf() throws Exception {
+    void emptyIf() throws Exception {
         if(false);
     }
 }

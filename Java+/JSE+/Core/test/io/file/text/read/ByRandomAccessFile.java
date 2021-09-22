@@ -16,29 +16,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Чтение тектового файла с помощью RandomAccesFile.
  */
-public class ByRandomAccessFile {
+class ByRandomAccessFile {
     private static File file;
     private static final List<String> expLines = Arrays.asList("FirstLine", "SecondLine");
 
     @BeforeAll
-    public static void setUp() throws Exception {
+    static void setUp() throws Exception {
         file = File.createTempFile(ByRandomAccessFile.class.getSimpleName(), ".tmp");
         file.deleteOnExit();
-        try (PrintStream out = new PrintStream(new FileOutputStream(file))) {
+        try (var out = new PrintStream(new FileOutputStream(file))) {
             expLines.forEach(out::print);
         }
     }
 
     @Test
-    public void lineByLine() throws IOException {
-        StringBuilder lines = new StringBuilder();
-        try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
+    void lineByLine() throws IOException {
+        var lines = new StringBuilder();
+        try (var raf = new RandomAccessFile(file, "r")) {
             String line;
             while ((line = raf.readLine()) != null) {
                 lines.append(line);
             }
         }
-
         assertEquals("FirstLineSecondLine", lines.toString());
     }
 }

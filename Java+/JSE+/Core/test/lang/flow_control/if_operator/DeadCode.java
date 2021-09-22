@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
 
-public class DeadCode {
+class DeadCode {
 
     /**
      * Код if(false) {...} мертвым НЕ считается.
      */
     @Test
-    public void main() {
+    void main() {
         if (false) {
             out.println("false!");
         }

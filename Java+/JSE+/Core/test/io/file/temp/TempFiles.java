@@ -10,14 +10,14 @@ import static java.lang.System.out;
 /**
  * Создание временных папок и файлов в Java.
  */
-public class TempFiles {
+class TempFiles {
     /**
      * java.io.File#createTempFile
      */
     @Test
-    public void tempFile() throws IOException {
-        File f1 = File.createTempFile("prefix-file_", ".suffix");
-        File f2 = File.createTempFile("prefix-file_", null);// ".tmp" suffix by default
+    void tempFile() throws IOException {
+        var f1 = File.createTempFile("prefix-file_", ".suffix");
+        var f2 = File.createTempFile("prefix-file_", null);// ".tmp" suffix by default
 
         f1.deleteOnExit();
         f2.deleteOnExit();
@@ -27,9 +27,9 @@ public class TempFiles {
     }
 
     @Test
-    public void systemTempDir() {
-        String tmpDirStr = System.getProperty("java.io.tmpdir");
-        File tmpDir = new File(tmpDirStr);
+    void systemTempDir() {
+        var tmpDirStr = System.getProperty("java.io.tmpdir");
+        var tmpDir = new File(tmpDirStr);
         System.out.println("Temp dir: " + tmpDir.getAbsolutePath());
     }
 }

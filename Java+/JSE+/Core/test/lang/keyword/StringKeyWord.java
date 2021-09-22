@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
 
-public class StringKeyWord {
+class StringKeyWord {
 
 	/**
 	 * String String - корректное выражение.

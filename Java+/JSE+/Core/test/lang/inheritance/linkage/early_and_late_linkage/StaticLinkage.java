@@ -7,9 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Статические методы связываются на этапе компиляции.
  */
-public class StaticLinkage {
+class StaticLinkage {
     @Test
-    public void test() {
+    void test() {
         String str = ((StaticLinkage) null).getString();
         assertEquals("ok", str);
     }

@@ -10,9 +10,9 @@ import java.nio.charset.StandardCharsets;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class MemoryMappedFileTest {
+class MemoryMappedFileTest {
     @Test
-    public void memoryMappedFile() throws IOException {
+    void memoryMappedFile() throws IOException {
         var url = getClass().getResource("file.data");
         try (var fis = new FileInputStream(url.getFile());
              var channel = fis.getChannel()) {

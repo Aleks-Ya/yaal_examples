@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Модификатор доступа переопределяющего метода может быть менее строгим.
  */
-public class Fake {
+class Fake {
     @Test
-    public void main() {
+    void main() {
         //System.out.println(new Child().makeData());
     }
 

@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 /**
  * Модификатор доступа переопределяющего метода может быть менее строгим.
  */
-public class AccessModifier {
+class AccessModifier {
     @Test
-    public void main() {
+    void main() {
         System.out.println(new Child().makeString());
     }
 

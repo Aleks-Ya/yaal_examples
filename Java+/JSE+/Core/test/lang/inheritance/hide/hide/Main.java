@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Сокрытие полей и методов в дочернем классе.
  */
-public class Main {
+class Main {
 
     @Test
-    public void main() {
+    void main() {
         Parent p = new Parent();
         p.field++;
         p.method();

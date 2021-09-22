@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
 
-public class Main {
+class Main {
 
     @Test
-    public void main() {
+    void main() {
         Parent parent = new Parent();
         Parent child = new Child();
         out.println(parent.name);

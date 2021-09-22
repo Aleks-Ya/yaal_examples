@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class BuiltInClassloaderTest {
+class BuiltInClassloaderTest {
 
     /**
      * Boostrap Classloader is null.
      */
     @Test
-    public void bootstrapClassLoader() {
+    void bootstrapClassLoader() {
         assertNull(StringBuilder.class.getClassLoader());
         assertNull(Integer.class.getClassLoader());
         assertNull(String.class.getClassLoader());
@@ -20,13 +20,13 @@ public class BuiltInClassloaderTest {
     }
 
     @Test
-    public void extensionsClassLoader() {
+    void extensionsClassLoader() {
 //        ClassLoader extensionClassLoader = DNSNameService.class.getClassLoader();
 //        assertNull(extensionClassLoader.getParent());
     }
 
     @Test
-    public void systemClassLoader() {
+    void systemClassLoader() {
         ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
         ClassLoader extensionClassLoader = systemClassLoader.getParent();
         assertNull(extensionClassLoader.getParent());

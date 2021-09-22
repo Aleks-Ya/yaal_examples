@@ -2,7 +2,7 @@ package lang.operator.assingnment;
 
 import org.junit.jupiter.api.Test;
 
-public class ChainingDeclaration {
+class ChainingDeclaration {
 
 	@Test
     public void chain1() {
@@ -11,13 +11,13 @@ public class ChainingDeclaration {
     }
     
     @Test
-    public void chain2() {
+    void chain2() {
 		int b = 0, c = 0;
 		int a = b = c = 100;
     }
     
     @Test
-    public void chain3() {
+    void chain3() {
 		int b, c;
 		int a = b = c = 100;
     }
@@ -26,7 +26,7 @@ public class ChainingDeclaration {
      * Нельзя совмещать цепочку декларации и инициализации.
      */
     @Test
-    public void main() {
+    void main() {
 		//Ошибка компиляции 
 		//int a = b = c = 1;
     }

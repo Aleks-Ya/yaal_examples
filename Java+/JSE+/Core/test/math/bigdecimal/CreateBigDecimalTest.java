@@ -10,14 +10,14 @@ import static org.hamcrest.Matchers.equalTo;
 /**
  * Нужно использовать BigDecimal#valueOf вместо конструктора.
  */
-public class CreateBigDecimalTest {
+class CreateBigDecimalTest {
     @Test
-    public void valueOf() {
+    void valueOf() {
         assertThat(BigDecimal.valueOf(100.236).toString(), equalTo("100.236"));
     }
 
     @Test
-    public void constructor() {
+    void constructor() {
         assertThat(new BigDecimal(100.236).toString(), equalTo("100.2360000000000042064129956997931003570556640625"));
         assertThat(new BigDecimal("100.236").toString(), equalTo("100.236"));
     }

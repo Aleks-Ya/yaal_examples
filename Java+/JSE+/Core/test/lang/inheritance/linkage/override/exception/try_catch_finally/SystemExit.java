@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 /**
  * После System.exit() finally{} не вызовется.
  */
-public class SystemExit {
+class SystemExit {
     @Test
     @Disabled("Невозможно отследить выполнение")
     public void test() {

@@ -7,9 +7,9 @@ import java.nio.CharBuffer;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class CharBufferTest {
+class CharBufferTest {
     @Test
-    public void allocate() {
+    void allocate() {
         var cb = CharBuffer.allocate(3);
         var data = "abc";
         cb.put(data);

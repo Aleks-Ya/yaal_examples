@@ -10,12 +10,12 @@ import java.util.concurrent.TimeoutException;
 /**
  * Прорыв барьера по таймауту.
  */
-public class BrokenCyclicBarrierTest {
+class BrokenCyclicBarrierTest {
     private static final int height = 5;
     private static final CyclicBarrier barrier = new CyclicBarrier(height, () -> System.out.println("Barrier action"));
 
     @Test
-    public void name() throws InterruptedException {
+    void name() throws InterruptedException {
         broke();
         broke();
     }
@@ -31,7 +31,7 @@ public class BrokenCyclicBarrierTest {
         System.out.println("Exit");
     }
 
-    private class Worker extends Thread {
+    private static class Worker extends Thread {
         @Override
         public void run() {
             try {

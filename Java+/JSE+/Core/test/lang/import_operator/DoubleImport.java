@@ -9,10 +9,10 @@ import static java.lang.String.format;
 /**
  * Дублированный оператор импорта допустим.
  */
-public class DoubleImport {
+class DoubleImport {
 
     @Test
-    public void main() {
+    void main() {
         System.out.println(new IOException());
         System.out.println(format(""));
     }

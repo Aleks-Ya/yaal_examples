@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Suffix {
+class Suffix {
 
     /**
      * Все существующие суффиксы числовых литералов.
      */
     @Test
-    public void allSuffixed() {
+    void allSuffixed() {
         long l1 = 2l;
         long l2 = 2L;
         float f1 = 3f;

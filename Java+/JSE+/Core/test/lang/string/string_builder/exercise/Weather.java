@@ -10,9 +10,9 @@ import static java.lang.System.out;
  * выпало осадков в виде снега и сколько - в виде дождя. 
  * (Для определенности предполагается, что при 0 градусов идет дождь). 
  */ 
-public class Weather {
+class Weather {
     @Test
-    public void main() {
+    void main() {
 		final int[] t = new int[]{-1,   0,  3,  25, -16};
 		final int[] p = new int[]{80, 116, 65, 125, 102};
 		final int rainTemp = 0;

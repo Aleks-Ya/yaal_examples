@@ -17,27 +17,27 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 /**
  * Сериализация и десириализация коллекций.
  */
-public class ListSerialization {
+class ListSerialization {
     @Test
-    public void standard() throws IOException, ClassNotFoundException {
-        List<MyClass> exp = Arrays.asList(new MyClass(11), new MyClass(12));
+    void standard() throws IOException, ClassNotFoundException {
+        var exp = Arrays.asList(new MyClass(11), new MyClass(12));
 
-        ByteArrayOutputStream out = write(exp);
-        List<MyClass> act = (List<MyClass>) read(out);
+        var out = write(exp);
+        var act = (List<MyClass>) read(out);
 
         assertNotSame(exp, act);
         assertEquals(exp, act);
     }
 
     private Object read(ByteArrayOutputStream out) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream bis = new ByteArrayInputStream(out.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(bis);
+        var bis = new ByteArrayInputStream(out.toByteArray());
+        var ois = new ObjectInputStream(bis);
         return ois.readObject();
     }
 
     private ByteArrayOutputStream write(List<MyClass> exp) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(out);
+        var out = new ByteArrayOutputStream();
+        var oos = new ObjectOutputStream(out);
         oos.writeObject(exp);
         oos.close();
         return out;
@@ -56,7 +56,7 @@ class MyClass implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        MyClass myClass = (MyClass) o;
+        var myClass = (MyClass) o;
 
         return num == myClass.num;
 

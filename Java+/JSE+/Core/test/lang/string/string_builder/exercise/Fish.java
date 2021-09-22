@@ -14,9 +14,9 @@ import static java.lang.System.out;
  * Составить алгоритм и программу, подсчитывающую, 
  * сколько лет можно выдержать заданный план.
  */ 
-public class Fish {
+class Fish {
     @Test
-    public void main() {
+    void main() {
 		final float  yearIncreasePercent = 0.15f;
 		final double startValue = 5_000;
 		final double yearCatchValue = 1_000;

@@ -16,24 +16,24 @@ import static org.hamcrest.Matchers.equalTo;
 /**
  * Covert InputStream to String.
  */
-public class InputStreamToString {
+class InputStreamToString {
     private static final String CONTENT = "Hi!\nBye!";
     private final InputStream input = new ByteArrayInputStream(CONTENT.getBytes());
 
     @Test
-    public void byStreamJoining() throws IOException {
+    void byStreamJoining() throws IOException {
         String str;
-        try (BufferedReader buffer = new BufferedReader(new InputStreamReader(input))) {
+        try (var buffer = new BufferedReader(new InputStreamReader(input))) {
             str = buffer.lines().collect(Collectors.joining("\n"));
         }
         assertThat(str, equalTo(CONTENT));
     }
 
     @Test
-    public void byInputStreamReader() throws IOException {
-        StringBuilder result = new StringBuilder();
-        try (InputStreamReader isr = new InputStreamReader(input, StandardCharsets.UTF_8)) {
-            char[] c = new char[1];
+    void byInputStreamReader() throws IOException {
+        var result = new StringBuilder();
+        try (var isr = new InputStreamReader(input, StandardCharsets.UTF_8)) {
+            var c = new char[1];
             while (isr.read(c) != -1) {
                 result.append(c);
             }
@@ -42,15 +42,15 @@ public class InputStreamToString {
     }
 
     @Test
-    public void byBufferedReader2() throws IOException {
-        StringBuilder result = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8))) {
+    void byBufferedReader2() throws IOException {
+        var result = new StringBuilder();
+        try (var br = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8))) {
             String s;
             while ((s = br.readLine()) != null) {
                 result.append(s);
             }
         }
-        String expected = CONTENT.replace("\n", "");
+        var expected = CONTENT.replace("\n", "");
         assertThat(result.toString(), equalTo(expected));
     }
 }

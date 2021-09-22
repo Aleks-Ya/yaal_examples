@@ -12,21 +12,21 @@ import java.io.Serializable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-public class SerializationExample {
+class SerializationExample {
     @Test
-    public void standard() throws IOException, ClassNotFoundException {
-        MyClass exp = new MyClass();
+    void standard() throws IOException, ClassNotFoundException {
+        var exp = new MyClass();
         exp.setNum(8);
         exp.setTransientLong(16);
 
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(out);
+        var out = new ByteArrayOutputStream();
+        var oos = new ObjectOutputStream(out);
         oos.writeObject(exp);
         oos.close();
 
-        ByteArrayInputStream bis = new ByteArrayInputStream(out.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(bis);
-        MyClass act = (MyClass) ois.readObject();
+        var bis = new ByteArrayInputStream(out.toByteArray());
+        var ois = new ObjectInputStream(bis);
+        var act = (MyClass) ois.readObject();
 
         assertNotSame(exp, act);
         assertEquals(exp.getNum(), act.getNum());

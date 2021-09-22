@@ -7,9 +7,9 @@ import static java.lang.System.out;
 /**
  * Сокрытие поля суперкласса и доступ к нему из дочернего класса.
  */
-public class AccessFromChild {
+class AccessFromChild {
     @Test
-    public void main() {
+    void main() {
         new Child().printNames();
     }
 }

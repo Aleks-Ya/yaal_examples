@@ -1,5 +1,7 @@
 package lang.string.string_builder.exercise;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -9,9 +11,10 @@ import java.util.Random;
  * Заполнить коллекцию числами от 1 до 20.
  * Вытаскивать числа в случайной последовательности и выводить на экран.
  */
-public class Lottery {
-    public static void main(String... args) {
-        final int size = 20;
+class Lottery {
+    @Test
+    void lottery() {
+        final var size = 20;
         final List<Byte> nums = new ArrayList<>(size);
         for (byte i = 1; i <= size; i++) {
             nums.add(i);
@@ -19,9 +22,9 @@ public class Lottery {
         }
         System.out.println();
 
-        final Random random = new Random();
+        final var random = new Random();
         while (!nums.isEmpty()) {
-            int index = random.nextInt(nums.size());
+            var index = random.nextInt(nums.size());
             byte b = nums.remove(index);
             System.out.print(b + " ");
         }

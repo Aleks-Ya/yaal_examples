@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
  * Какое исключение будет выброшено наружу,
  * если и в catch, и в finally выброшены исключения?
  */
-public class ExceptionInCatchAndFinally {
+class ExceptionInCatchAndFinally {
     @Test
-    public void main() {
+    void main() {
         try {
             method();
         } catch(Exception e) {

@@ -8,9 +8,9 @@ import java.util.List;
 /**
  * Присваивание значений обобщенным переменным.
  */
-public class Assignment {
+class Assignment {
     @Test
-    public void assign() {
+    void assign() {
         List<? extends Number> numbers = new ArrayList<>();
         List<Integer> integers = new ArrayList<>();
         numbers = integers;
