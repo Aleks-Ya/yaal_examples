@@ -1,5 +1,6 @@
 package yarn;
 
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.yarn.api.ApplicationConstants;
 import org.apache.hadoop.yarn.api.records.Container;
 import org.apache.hadoop.yarn.api.records.ContainerLaunchContext;
@@ -27,9 +28,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
-    private static final String PARAM_FROM_CLIENT_TO_CONTAINER_NAME = "param_from_client";
+import static yarn.CommonConstants.CONTAINER_JAR_PATH;
+import static yarn.CommonConstants.PARAM_FROM_CLIENT_TO_CONTAINER_NAME;
 
+public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
     private YarnConfiguration conf = new YarnConfiguration();
     private NMClient nmClient;
     private int containerCount = 3;
@@ -149,14 +151,15 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
                     + " 2>" + ApplicationConstants.LOG_DIR_EXPANSION_VAR + "/stderr"));
 
             // Set Container jar
-            LocalResource jar = Records.newRecord(LocalResource.class);
-            Utils.setUpLocalResource(Utils.CONTAINER_JAR_PATH, jar, conf);
-            cCLC.setLocalResources(Collections.singletonMap(Utils.CONTAINER_JAR_NAME, jar));
+            FileSystem hdfs = FileSystem.get(conf);
+            org.apache.hadoop.fs.Path containerJarPath = new org.apache.hadoop.fs.Path(CONTAINER_JAR_PATH);
+            LocalResource jar = HadoopUtils.setUpLocalResource(containerJarPath,hdfs);
+            cCLC.setLocalResources(Collections.singletonMap(CONTAINER_JAR_PATH, jar));
 
             // Set Container CLASSPATH
             List<String> additionalClasspath = Collections.singletonList("./log4j.properties");
             Map<String, String> env = new HashMap<>();
-            Utils.setUpEnv(env, conf, additionalClasspath);
+            HadoopUtils.setUpEnv(env, conf, additionalClasspath);
             String paramFromClient = System.getenv(PARAM_FROM_CLIENT_TO_CONTAINER_NAME);
             env.put(PARAM_FROM_CLIENT_TO_CONTAINER_NAME, paramFromClient);
             cCLC.setEnvironment(env);

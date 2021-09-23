@@ -27,11 +27,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static yarn.Utils.APPLICATION_MASTER_JAR_PATH;
-import static yarn.Utils.CONTAINER_JAR_PATH;
+import static yarn.CommonConstants.CONTAINER_JAR_NAME;
+import static yarn.CommonConstants.CONTAINER_JAR_PATH;
+import static yarn.CommonConstants.PARAM_FROM_CLIENT_TO_CONTAINER_NAME;
 
 public class Client {
-    private static final String PARAM_FROM_CLIENT_TO_CONTAINER_NAME = "param_from_client";
+    private static final String APPLICATION_MASTER_JAR_NAME = "am.jar";
+    private static final Path APPLICATION_MASTER_JAR_PATH = new Path("/apps/" + APPLICATION_MASTER_JAR_NAME);
 
     public static void main(String[] args) throws IOException {
         //Use class from dependency
@@ -68,7 +70,7 @@ public class Client {
         // Set AM CLASSPATH
         List<String> additionalClasspath = Collections.singletonList("./log4j.properties");
         Map<String, String> env = new HashMap<>();
-        Utils.setUpEnv(env, conf, additionalClasspath);
+        HadoopUtils.setUpEnv(env, conf, additionalClasspath);
         env.put(PARAM_FROM_CLIENT_TO_CONTAINER_NAME, "123");
         amCLC.setEnvironment(env);
 
@@ -79,12 +81,12 @@ public class Client {
         hdfs.mkdirs(appsDir);
         URI localAmJarUri = new File("/tmp/am.jar").toURI();
         hdfs.copyFromLocalFile(new Path(localAmJarUri), APPLICATION_MASTER_JAR_PATH);
-        URI localContainerJarUri = new File("/tmp/container.jar").toURI();
-        hdfs.copyFromLocalFile(new Path(localContainerJarUri), CONTAINER_JAR_PATH);
+        URI localContainerJarUri = new File("/tmp", CONTAINER_JAR_NAME).toURI();
+        hdfs.copyFromLocalFile(new Path(localContainerJarUri), new Path(CONTAINER_JAR_PATH));
 
         Map<String, LocalResource> localResourceMap = new HashMap<>();
-        LocalResource yarnApplicationJar = Utils.setUpLocalResource(APPLICATION_MASTER_JAR_PATH, hdfs);
-        localResourceMap.put(Utils.APPLICATION_MASTER_JAR_NAME, yarnApplicationJar);
+        LocalResource yarnApplicationJar = HadoopUtils.setUpLocalResource(APPLICATION_MASTER_JAR_PATH, hdfs);
+        localResourceMap.put(APPLICATION_MASTER_JAR_NAME, yarnApplicationJar);
         amCLC.setLocalResources(localResourceMap);
 
         // Set AM resources

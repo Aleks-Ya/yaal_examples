@@ -3,9 +3,9 @@ package yarn;
 
 import com.google.common.base.Strings;
 
-public class Container {
-    private static final String PARAM_FROM_CLIENT_TO_CONTAINER_NAME = "param_from_client";
+import static yarn.CommonConstants.PARAM_FROM_CLIENT_TO_CONTAINER_NAME;
 
+public class Container {
     public static void main(String[] args) {
         System.out.println(Strings.repeat("Use classes from dependency", 1));
         System.out.println("Container: Initializing");

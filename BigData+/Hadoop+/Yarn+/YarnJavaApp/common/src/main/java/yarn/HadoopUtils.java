@@ -16,11 +16,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-class Utils {
+class HadoopUtils {
     static final String APPLICATION_MASTER_JAR_NAME = "am.jar";
     static final Path APPLICATION_MASTER_JAR_PATH = new Path("/apps/" + APPLICATION_MASTER_JAR_NAME);
-    static final String CONTAINER_JAR_NAME = "container.jar";
-    static final Path CONTAINER_JAR_PATH = new Path("/apps/" + CONTAINER_JAR_NAME);
 
     static void setUpEnv(Map<String, String> env, YarnConfiguration conf, List<String> additionalClasspath) {
         StringBuilder classPathEnv = new StringBuilder(Environment.CLASSPATH.$$())
