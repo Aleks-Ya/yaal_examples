@@ -1,6 +1,8 @@
 package yarn;
 
 import de.danielbechler.diff.ObjectDifferBuilder;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.yarn.api.ApplicationConstants;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 import org.apache.hadoop.yarn.api.records.ApplicationReport;
@@ -14,15 +16,19 @@ import org.apache.hadoop.yarn.client.api.YarnClientApplication;
 import org.apache.hadoop.yarn.conf.YarnConfiguration;
 import org.apache.hadoop.yarn.util.Records;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static yarn.Utils.APPLICATION_MASTER_JAR_PATH;
+import static yarn.Utils.CONTAINER_JAR_PATH;
 
 public class Client {
     private static final String PARAM_FROM_CLIENT_TO_CONTAINER_NAME = "param_from_client";
@@ -35,9 +41,11 @@ public class Client {
         System.out.println("Environment vars: " + System.getenv());
         System.out.println("System properties: " + System.getProperties());
 
-        String pwdDirs = System.getenv("PWD");
-        System.out.println("pwdDirs: " + pwdDirs);
-        System.out.println("Files in pwdDirs: " + Files.list(Paths.get(pwdDirs)).map(Path::toAbsolutePath).collect(Collectors.toList()));
+        String pwdDir = System.getenv("PWD");
+        System.out.println("pwdDir: " + pwdDir);
+        System.out.println("Files in pwdDir: " + Files.list(Paths.get(pwdDir))
+                .map(java.nio.file.Path::toAbsolutePath)
+                .collect(Collectors.toList()));
 
         try {
             new Client().run();
@@ -57,7 +65,6 @@ public class Client {
 
         YarnConfiguration conf = new YarnConfiguration();
 
-
         // Set AM CLASSPATH
         List<String> additionalClasspath = Collections.singletonList("./log4j.properties");
         Map<String, String> env = new HashMap<>();
@@ -66,10 +73,17 @@ public class Client {
         amCLC.setEnvironment(env);
 
         // Set AM jar
-        LocalResource yarnApplicationJar = Records.newRecord(LocalResource.class);
-        Utils.setUpLocalResource(Utils.APPLICATION_MASTER_JAR_PATH, yarnApplicationJar, conf);
+        FileSystem hdfs = FileSystem.get(conf);
+        Path appsDir = new Path("/apps");
+        hdfs.delete(appsDir, true);
+        hdfs.mkdirs(appsDir);
+        URI localAmJarUri = new File("/tmp/am.jar").toURI();
+        hdfs.copyFromLocalFile(new Path(localAmJarUri), APPLICATION_MASTER_JAR_PATH);
+        URI localContainerJarUri = new File("/tmp/container.jar").toURI();
+        hdfs.copyFromLocalFile(new Path(localContainerJarUri), CONTAINER_JAR_PATH);
 
         Map<String, LocalResource> localResourceMap = new HashMap<>();
+        LocalResource yarnApplicationJar = Utils.setUpLocalResource(APPLICATION_MASTER_JAR_PATH, hdfs);
         localResourceMap.put(Utils.APPLICATION_MASTER_JAR_NAME, yarnApplicationJar);
         amCLC.setLocalResources(localResourceMap);
 

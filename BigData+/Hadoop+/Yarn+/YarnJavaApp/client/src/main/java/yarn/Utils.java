@@ -19,6 +19,8 @@ import java.util.Map;
 class Utils {
     static final String APPLICATION_MASTER_JAR_NAME = "am.jar";
     static final Path APPLICATION_MASTER_JAR_PATH = new Path("/apps/" + APPLICATION_MASTER_JAR_NAME);
+    static final String CONTAINER_JAR_NAME = "container.jar";
+    static final Path CONTAINER_JAR_PATH = new Path("/apps/" + CONTAINER_JAR_NAME);
 
     static void setUpEnv(Map<String, String> env, YarnConfiguration conf, List<String> additionalClasspath) {
         StringBuilder classPathEnv = new StringBuilder(Environment.CLASSPATH.$$())
@@ -42,15 +44,15 @@ class Utils {
         env.put("CLASSPATH", classPathEnv.toString());
     }
 
-    static void setUpLocalResource(Path resPath, LocalResource res, YarnConfiguration conf) throws IOException {
+    static LocalResource setUpLocalResource(Path resPath, FileSystem hdfs) throws IOException {
         Path qPath = FileContext.getFileContext().makeQualified(resPath);
-
-        FileStatus status = FileSystem.get(conf).getFileStatus(qPath);
-        res.setResource(URL.fromPath(qPath));
-        res.setSize(status.getLen());
-        res.setTimestamp(status.getModificationTime());
-        res.setType(LocalResourceType.FILE);
-        res.setVisibility(LocalResourceVisibility.PUBLIC);
+        FileStatus status = hdfs.getFileStatus(qPath);
+        return LocalResource.newInstance(
+                URL.fromPath(qPath),
+                LocalResourceType.FILE,
+                LocalResourceVisibility.PUBLIC,
+                status.getLen(),
+                status.getModificationTime());
     }
 }
 
