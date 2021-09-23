@@ -1,4 +1,5 @@
 dependencies {
-    implementation "org.apache.hadoop:hadoop-hdfs:$hadoop2Version", slf4jSimpleVersion
+    implementation "org.apache.hadoop:hadoop-common:$hadoop2Version", "org.apache.hadoop:hadoop-hdfs:$hadoop2Version",
+            slf4jSimpleVersion
     testImplementation "org.apache.hadoop:hadoop-minicluster:$hadoop2Version"
 }

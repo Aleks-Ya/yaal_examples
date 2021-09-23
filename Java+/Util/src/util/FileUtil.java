@@ -3,6 +3,7 @@ package util;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Objects;
 
 public class FileUtil {
 
@@ -30,6 +31,14 @@ public class FileUtil {
             return Files.createTempDirectory(suffix).toFile();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static String fileToString(File file) {
+        try {
+            return new String(Files.readAllBytes(file.toPath()));
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 

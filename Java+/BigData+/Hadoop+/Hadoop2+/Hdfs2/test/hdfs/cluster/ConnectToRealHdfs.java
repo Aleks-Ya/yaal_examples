@@ -1,49 +1,60 @@
 package hdfs.cluster;
 
-import org.apache.hadoop.conf.Configuration;
+import cluster.HdfsFactory;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.hdfs.DistributedFileSystem;
 import org.junit.jupiter.api.Test;
+import util.FileUtil;
+import util.ResourceUtil;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 /**
  * Connect to a real HDFS cluster.
  * Run Hadoop cluster (`Building+/Docker+/DockerImage+/Application+/Hadoop+/Hadoop2+/HadoopCluster`)
  */
 class ConnectToRealHdfs {
+    private final String hdfsUri = HdfsFactory.getHdfsUri();
+    private final FileSystem fs = HdfsFactory.initFileSystem();
+
     @Test
-    void test() throws IOException, URISyntaxException, InterruptedException {
-        var conf = new Configuration();
-        var hdfsURI = "hdfs://master-service:8020";
-        conf.set("fs.defaultFS", hdfsURI);
-        conf.set("dfs.permissions.enabled", "false");
-        var user = "root";
-        var fs = FileSystem.get(new URI(hdfsURI), conf, user);
+    void writeUTF() throws IOException {
+        var remotePath = new Path(hdfsUri, "/tmp/iablokov/my.txt");
 
-        assertTrue(fs instanceof DistributedFileSystem);
-
-        var path = new Path(hdfsURI, "/tmp/iablokov/my.txt");
-
-        if (fs.exists(path)) {
-            fs.delete(path, false);
+        if (fs.exists(remotePath)) {
+            fs.delete(remotePath, false);
         }
 
-        var os = fs.create(path);
+        var os = fs.create(remotePath);
         var expContent = "hi!";
         os.writeUTF(expContent);
         os.close();
 
-        var is = fs.open(path);
+        var is = fs.open(remotePath);
         var actContent = is.readUTF();
         is.close();
 
-        assertEquals(expContent, actContent);
+        assertThat(actContent).isEqualTo(expContent);
+    }
+
+    @Test
+    void copyFromLocalFile() throws IOException {
+        var expLocalFile = ResourceUtil.resourceToFile(getClass(), "copyFromLocalFile.txt");
+        assertThat(expLocalFile).exists();
+        var localPath = new Path(expLocalFile.toURI());
+        var remotePath = new Path(hdfsUri, "/tmp/copyFromLocalFile.txt");
+
+        if (fs.exists(remotePath)) {
+            fs.delete(remotePath, false);
+        }
+        assertThat(fs.exists(remotePath)).isFalse();
+        fs.copyFromLocalFile(localPath, remotePath);
+        assertThat(fs.exists(remotePath)).isTrue();
+        var actLocalFile = FileUtil.createAbsentTempFile(".txt");
+        fs.copyToLocalFile(remotePath, new Path(actLocalFile.toURI()));
+        assertThat(actLocalFile).hasSameBinaryContentAs(expLocalFile);
     }
 }
