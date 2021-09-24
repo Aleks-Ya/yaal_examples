@@ -21,8 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasEntry;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SequenceFileReadWrite {
 
@@ -113,7 +112,7 @@ class SequenceFileReadWrite {
         } finally {
             IOUtils.closeStream(reader);
         }
-        assertThat(content, hasEntry(100, "abc"));
-        assertThat(content, hasEntry(101, "123"));
+        assertThat(content).containsEntry(100, "abc");
+        assertThat(content).containsEntry(101, "123");
     }
 }

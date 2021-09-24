@@ -1,13 +1,9 @@
-package hdfs.cluster;
+package hdfs.cluster.kerberos;
 
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileSystem;
+import cluster.HdfsFactory;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.hdfs.DistributedFileSystem;
-import org.apache.hadoop.security.UserGroupInformation;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,18 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ConnectToHdfsKerberosCluster {
     @Test
     void connect() throws IOException {
-        System.setProperty("java.security.krb5.conf", "/tmp/krb5.conf");
-
-        var conf = new Configuration();
-        conf.addResource(new FileInputStream("/tmp/core-site.xml"));
-        conf.addResource(new FileInputStream("/tmp/hdfs-site.xml"));
-        conf.reloadConfiguration();
-
-        UserGroupInformation.setConfiguration(conf);
-        UserGroupInformation.loginUserFromKeytab("client@HADOOPCLUSTER.LOCAL", "/tmp/client.keytab");
-
-        var fs = FileSystem.get(conf);
-        assertThat(fs).isInstanceOf(DistributedFileSystem.class);
+        var fs = HdfsFactory.fileSystemSecure();
 
         var path = new Path("/tmp/my.txt");
 

@@ -1,0 +1,28 @@
+apply plugin: 'java'
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    mavenCentral()
+}
+
+def slf4jSimpleVersion = 'org.slf4j:slf4j-simple:1.8.0-beta4'
+def junit5Version = '5.7.1'
+def hadoop2Version = '2.10.1'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+test {
+    testLogging.showStandardStreams = true
+    useJUnitPlatform()
+}
+
+dependencies {
+    implementation "org.apache.hadoop:hadoop-common:$hadoop2Version", "org.apache.hadoop:hadoop-hdfs:$hadoop2Version",
+            slf4jSimpleVersion
+    testImplementation "org.apache.hadoop:hadoop-minicluster:$hadoop2Version",
+            "org.junit.jupiter:junit-jupiter-api:$junit5Version", 'org.assertj:assertj-core:3.20.2'
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
+}

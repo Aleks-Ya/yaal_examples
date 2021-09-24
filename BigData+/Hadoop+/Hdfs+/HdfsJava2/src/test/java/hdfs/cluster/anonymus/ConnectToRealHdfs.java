@@ -1,11 +1,11 @@
-package hdfs.cluster;
+package hdfs.cluster.anonymus;
 
+import cluster.FileUtil;
 import cluster.HdfsFactory;
+import cluster.ResourceUtil;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.junit.jupiter.api.Test;
-import util.FileUtil;
-import util.ResourceUtil;
 
 import java.io.IOException;
 

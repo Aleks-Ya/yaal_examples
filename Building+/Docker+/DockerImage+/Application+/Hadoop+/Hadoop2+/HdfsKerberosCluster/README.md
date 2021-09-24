@@ -1,18 +1,15 @@
 # Hadoop HDFS cluster with Kerberos (no HA)
 
-## Build images
-
-`./build.sh`
-
 ## Run cluster
 
-1. Start cluster: `./run_cluster.sh`
-2. Update hosts file: `sudo ./update_hosts.sh`
-3. Check: http://hdfs-master.hdfs.yaal.ru:50070
-4. Check logs:
+1. Build: `./build.sh` 
+2. Start cluster: `./run_cluster.sh`
+3. Update hosts file: `sudo ./update_hosts.sh`
+4. Check: http://hdfs-master.hdfs.yaal.ru:50070
+5. Check logs:
     1. DataNode 1: `docker exec hdfs-master cat /opt/hadoop/logs/hadoop-hdfs-datanode-hdfs-master.log`
-    1. DataNode 2: `docker exec hdfs-slave1 cat /opt/hadoop/logs/hadoop-hdfs-datanode-hdfs-slave1.log`
-    1. DataNode 3: `docker exec hdfs-slave2 cat /opt/hadoop/logs/hadoop-hdfs-datanode-hdfs-slave2.log`
+    2. DataNode 2: `docker exec hdfs-slave1 cat /opt/hadoop/logs/hadoop-hdfs-datanode-hdfs-slave1.log`
+    3. DataNode 3: `docker exec hdfs-slave2 cat /opt/hadoop/logs/hadoop-hdfs-datanode-hdfs-slave2.log`
 
 ## Hadoop CLI
 
@@ -58,7 +55,9 @@ kinit -kt /tmp/nn.keytab dn/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL
 4. Firefox to Web Console
     1. Enable Kerberos: Firefox -> `about:config` -> `network.negotiate-auth.trusted-uris` = `.hdfs.yaal.ru`
        (or `hdfs-master.hdfs.yaal.ru,hdfs-slave1.hdfs.yaal.ru,hdfs-slave2.hdfs.yaal.ru`)
-    1. Open http://hdfs-master.hdfs.yaal.ru:50070
+    2. Open http://hdfs-master.hdfs.yaal.ru:50070
+5. Chrome to Web Console:
+   `google-chrome --auth-server-whitelist="*.yaal.ru" --auth-negotiate-delegate-whitelist="*.yaal.ru"`
 
 ## Testing with `sserver` and `sclient`
 

@@ -2,7 +2,6 @@
  * Java
  */
 include 'BigData+:Hadoop+:Hadoop2+:Common2',
-        'BigData+:Hadoop+:Hadoop2+:Hdfs2',
         'BigData+:Hadoop+:Hadoop2+:MapReduce2',
         'JSE+:Core',
         'JSE+:JMX+:HelloMBean',
