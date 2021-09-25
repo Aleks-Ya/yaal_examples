@@ -11,6 +11,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class UserGroup {
 
+    /**
+     * Prepare: create Linux user and group:
+     * sudo groupadd superuser
+     * sudo useradd -g superuser client
+     */
     @Test
     void getCurrentUser() throws IOException {
         HdfsFactory.fileSystemSecure();
@@ -22,7 +27,7 @@ class UserGroup {
 
         assertThat(userName).isEqualTo("client@HADOOPCLUSTER.LOCAL");
         assertThat(shortUserName).isEqualTo("client");
-        assertThat(groups).isEmpty();
+        assertThat(groups).contains("superuser");
     }
 
 }

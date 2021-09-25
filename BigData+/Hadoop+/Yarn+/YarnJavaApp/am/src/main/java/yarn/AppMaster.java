@@ -36,7 +36,7 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
     private NMClient nmClient;
     private int containerCount = 3;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         System.out.println("AppMaster: Environment variables: \n" + System.getenv());
         System.out.println("AppMaster: Java properties: \n" + System.getProperties());
 
@@ -60,11 +60,7 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
         System.out.println("launchContainer: " + launchContainer);
         System.out.println("launchContainer content:\n" + Files.readAllLines(Paths.get(launchContainer)));
 
-        try {
-            new AppMaster().run();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        new AppMaster().run();
     }
 
     private void run() throws Exception {
@@ -118,13 +114,13 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
 
     @Override
     public void onContainersAllocated(List<Container> containers) {
+        System.out.println("AppMaster: onContainersAllocated()" + containers);
         for (Container container : containers) {
             try {
                 nmClient.startContainer(container, initContainer());
-                System.err.println("AppMaster: Container launched " + container.getId());
+                System.out.println("AppMaster: Container launched " + container.getId());
             } catch (Exception ex) {
-                System.err.println("AppMaster: Container not launched " + container.getId());
-                ex.printStackTrace();
+                throw new RuntimeException(ex);
             }
         }
     }
@@ -132,43 +128,36 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
     @Override
     public void onContainersUpdated(List<UpdatedContainer> containers) {
         for (UpdatedContainer container : containers) {
-            try {
-                System.err.println("AppMaster: Container updated " + container.getContainer().getId());
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+            System.err.println("AppMaster: Container updated " + container.getContainer().getId());
         }
     }
 
-    private ContainerLaunchContext initContainer() {
-        try {
-            // Create Container Context
-            ContainerLaunchContext cCLC = Records.newRecord(ContainerLaunchContext.class);
-            cCLC.setCommands(Collections.singletonList("$JAVA_HOME/bin/java"
-                    + " -Xmx256M"
-                    + " yarn.Container"
-                    + " 1>" + ApplicationConstants.LOG_DIR_EXPANSION_VAR + "/stdout"
-                    + " 2>" + ApplicationConstants.LOG_DIR_EXPANSION_VAR + "/stderr"));
+    private ContainerLaunchContext initContainer() throws IOException {
+        System.out.println("AppMaster: initContainer() start");
+        // Create Container Context
+        ContainerLaunchContext cCLC = Records.newRecord(ContainerLaunchContext.class);
+        cCLC.setCommands(Collections.singletonList("$JAVA_HOME/bin/java"
+                + " -Xmx256M"
+                + " yarn.Container"
+                + " 1>" + ApplicationConstants.LOG_DIR_EXPANSION_VAR + "/stdout"
+                + " 2>" + ApplicationConstants.LOG_DIR_EXPANSION_VAR + "/stderr"));
 
-            // Set Container jar
-            FileSystem hdfs = FileSystem.get(conf);
-            org.apache.hadoop.fs.Path containerJarPath = new org.apache.hadoop.fs.Path(CONTAINER_JAR_PATH);
-            LocalResource jar = HadoopUtils.setUpLocalResource(containerJarPath,hdfs);
-            cCLC.setLocalResources(Collections.singletonMap(CONTAINER_JAR_PATH, jar));
+        // Set Container jar
+        FileSystem hdfs = FileSystem.get(conf);
+        org.apache.hadoop.fs.Path containerJarPath = new org.apache.hadoop.fs.Path(CONTAINER_JAR_PATH);
+        LocalResource jar = HadoopUtils.setUpLocalResource(containerJarPath, hdfs);
+        cCLC.setLocalResources(Collections.singletonMap(CONTAINER_JAR_PATH, jar));
 
-            // Set Container CLASSPATH
-            List<String> additionalClasspath = Collections.singletonList("./log4j.properties");
-            Map<String, String> env = new HashMap<>();
-            HadoopUtils.setUpEnv(env, conf, additionalClasspath);
-            String paramFromClient = System.getenv(PARAM_FROM_CLIENT_TO_CONTAINER_NAME);
-            env.put(PARAM_FROM_CLIENT_TO_CONTAINER_NAME, paramFromClient);
-            cCLC.setEnvironment(env);
+        // Set Container CLASSPATH
+        List<String> additionalClasspath = Collections.singletonList("./log4j.properties");
+        Map<String, String> env = new HashMap<>();
+        HadoopUtils.setUpEnv(env, conf, additionalClasspath);
+        String paramFromClient = System.getenv(PARAM_FROM_CLIENT_TO_CONTAINER_NAME);
+        env.put(PARAM_FROM_CLIENT_TO_CONTAINER_NAME, paramFromClient);
+        cCLC.setEnvironment(env);
 
-            return cCLC;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        }
+        System.out.println("AppMaster: initContainer() finish");
+        return cCLC;
     }
 
     @Override
@@ -183,14 +172,17 @@ public class AppMaster extends AMRMClientAsync.AbstractCallbackHandler {
 
     @Override
     public void onError(Throwable e) {
+        System.out.println("AppMaster: onError: " + e);
     }
 
     @Override
     public void onNodesUpdated(List<NodeReport> nodeReports) {
+        System.out.println("AppMaster: onNodesUpdated: " + nodeReports);
     }
 
     @Override
     public void onShutdownRequest() {
+        System.out.println("AppMaster: onShutdownRequest");
     }
 
     @Override
