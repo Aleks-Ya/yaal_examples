@@ -6,28 +6,29 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static cluster.Principal.CLIENT;
+import static cluster.Principal.CLIENT_SUPER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 class UserGroup {
 
-    /**
-     * Prepare: create Linux user and group:
-     * sudo groupadd superuser
-     * sudo useradd -g superuser client
-     */
     @Test
-    void getCurrentUser() throws IOException {
-        HdfsFactory.fileSystemSecure();
-
+    void getCurrentUser_client() throws IOException {
+        HdfsFactory.fileSystemSecure(CLIENT);
         var currentUser = UserGroupInformation.getCurrentUser();
-        var userName = currentUser.getUserName();
-        var shortUserName = currentUser.getShortUserName();
-        var groups = currentUser.getGroups();
+        assertThat(currentUser.getUserName()).isEqualTo("client@HADOOPCLUSTER.LOCAL");
+        assertThat(currentUser.getShortUserName()).isEqualTo("client");
+        assertThat(currentUser.getGroups()).isEmpty();
+    }
 
-        assertThat(userName).isEqualTo("client@HADOOPCLUSTER.LOCAL");
-        assertThat(shortUserName).isEqualTo("client");
-        assertThat(groups).contains("superuser");
+    @Test
+    void getCurrentUser_client_super() throws IOException {
+        HdfsFactory.fileSystemSecure(CLIENT_SUPER);
+        var currentUser = UserGroupInformation.getCurrentUser();
+        assertThat(currentUser.getUserName()).isEqualTo(CLIENT_SUPER.getPrincipal());
+        assertThat(currentUser.getShortUserName()).isEqualTo("client_super");
+        assertThat(currentUser.getGroups()).isEmpty();
     }
 
 }

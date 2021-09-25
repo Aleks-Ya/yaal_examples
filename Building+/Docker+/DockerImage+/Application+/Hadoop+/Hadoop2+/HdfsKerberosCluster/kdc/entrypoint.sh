@@ -8,6 +8,7 @@ NN_KEYTAB="$KERBEROS_SHARED/nn.keytab"
 DN2_KEYTAB="$KERBEROS_SHARED/dn2.keytab"
 DN3_KEYTAB="$KERBEROS_SHARED/dn3.keytab"
 CLIENT_KEYTAB="$KERBEROS_SHARED/client.keytab"
+CLIENT_SUPER_KEYTAB="$KERBEROS_SHARED/client_super.keytab"
 SSERVER_KEYTAB="$KERBEROS_SHARED/sserver.keytab"
 SCLIENT_KEYTAB="$KERBEROS_SHARED/sclient.keytab"
 
@@ -26,6 +27,8 @@ kadmin.local -q "ktadd -k $DN3_KEYTAB $HTTP_SLAVE2_PRINCIPAL"
 
 kadmin.local -q "xst -norandkey -k $CLIENT_KEYTAB $CLIENT_PRINCIPAL"
 
+kadmin.local -q "xst -norandkey -k $CLIENT_SUPER_KEYTAB $CLIENT_SUPER_PRINCIPAL"
+
 kadmin.local -q "xst -norandkey -k $SSERVER_KEYTAB $SSERVER_PRINCIPAL"
 kadmin.local -q "xst -norandkey -k $SCLIENT_KEYTAB $SCLIENT_PRINCIPAL"
 
@@ -37,6 +40,7 @@ klist -kte "$NN_KEYTAB"
 klist -kte "$DN2_KEYTAB"
 klist -kte "$DN3_KEYTAB"
 klist -kte "$CLIENT_KEYTAB"
+klist -kte "$CLIENT_SUPER_KEYTAB"
 klist -kte "$SSERVER_KEYTAB"
 klist -kte "$SCLIENT_KEYTAB"
 

@@ -12,7 +12,7 @@ import java.net.URI;
 public class HdfsFactory {
     private static final String HDFS_URI = "hdfs://hdfs-master.hdfs.yaal.ru:9000";
 
-    public static FileSystem initFileSystem() {
+    public static FileSystem fileSystemAnonymous() {
         try {
             var conf = new Configuration();
             conf.set("fs.defaultFS", HDFS_URI);
@@ -30,7 +30,7 @@ public class HdfsFactory {
         return HDFS_URI;
     }
 
-    public static Configuration configurationSecure() {
+    public static Configuration configurationSecure(Principal principal) {
         try {
             System.setProperty("java.security.krb5.conf", "/tmp/krb5.conf");
 
@@ -41,16 +41,16 @@ public class HdfsFactory {
 
             UserGroupInformation.setConfiguration(conf);
 
-            UserGroupInformation.loginUserFromKeytab("client@HADOOPCLUSTER.LOCAL", "/tmp/client.keytab");
+            UserGroupInformation.loginUserFromKeytab(principal.getPrincipal(), principal.getKeytab());
             return conf;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static FileSystem fileSystemSecure() {
+    public static FileSystem fileSystemSecure(Principal principal) {
         try {
-            var conf = HdfsFactory.configurationSecure();
+            var conf = HdfsFactory.configurationSecure(principal);
             var fs = FileSystem.get(conf);
             assert fs instanceof DistributedFileSystem;
             return fs;

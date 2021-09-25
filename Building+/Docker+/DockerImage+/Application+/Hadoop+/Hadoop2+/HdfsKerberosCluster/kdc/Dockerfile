@@ -20,6 +20,7 @@ ENV HTTP_MASTER_PRINCIPAL=HTTP/hdfs-master.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL
 ENV HTTP_SLAVE1_PRINCIPAL=HTTP/hdfs-slave1.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL
 ENV HTTP_SLAVE2_PRINCIPAL=HTTP/hdfs-slave2.hdfs.yaal.ru@HADOOPCLUSTER.LOCAL
 ENV CLIENT_PRINCIPAL=client@HADOOPCLUSTER.LOCAL
+ENV CLIENT_SUPER_PRINCIPAL=client_super@HADOOPCLUSTER.LOCAL
 ENV KRB5_TRACE=/dev/stdout
 
 ADD krb5.conf ${KRB5_CONFIG}
@@ -28,20 +29,21 @@ ADD entrypoint.sh /tmp/entrypoint.sh
 
 RUN kdb5_util create -r HADOOPCLUSTER.LOCAL -s -P the_db_master_pass \
     && kadmin.local -q "add_policy -maxlife 180days policy180" \
-    && kadmin.local -q "addprinc -pw the_hadoop_pass      -policy policy180 $HADOOP_PRINCIPAL"      -p $ROOT_PRINCIPAL   \
-    && kadmin.local -q "addprinc -pw the_nn_master_pass   -policy policy180 $NN_MASTER_PRINCIPAL"   -p $HADOOP_PRINCIPAL \
-    && kadmin.local -q "addprinc -pw the_dn_master_pass   -policy policy180 $DN_MASTER_PRINCIPAL"   -p $HADOOP_PRINCIPAL \
-    && kadmin.local -q "addprinc -pw the_dn_slave1_pass   -policy policy180 $DN_SLAVE1_PRINCIPAL"   -p $HADOOP_PRINCIPAL \
-    && kadmin.local -q "addprinc -pw the_dn_slave2_pass   -policy policy180 $DN_SLAVE2_PRINCIPAL"   -p $HADOOP_PRINCIPAL \
-    && kadmin.local -q "addprinc -pw the_host_master_pass -policy policy180 $HOST_MASTER_PRINCIPAL" -p $HADOOP_PRINCIPAL \
-    && kadmin.local -q "addprinc -pw the_host_slave1_pass -policy policy180 $HOST_SLAVE1_PRINCIPAL" -p $HADOOP_PRINCIPAL \
-    && kadmin.local -q "addprinc -pw the_host_slave2_pass -policy policy180 $HOST_SLAVE2_PRINCIPAL" -p $HADOOP_PRINCIPAL \
-    && kadmin.local -q "addprinc -pw the_http_slave2_pass -policy policy180 $HTTP_MASTER_PRINCIPAL" -p $HADOOP_PRINCIPAL \
-    && kadmin.local -q "addprinc -pw the_http_slave2_pass -policy policy180 $HTTP_SLAVE1_PRINCIPAL" -p $HADOOP_PRINCIPAL \
-    && kadmin.local -q "addprinc -pw the_http_slave2_pass -policy policy180 $HTTP_SLAVE2_PRINCIPAL" -p $HADOOP_PRINCIPAL \
-    && kadmin.local -q "addprinc -pw the_client_pass      -policy policy180 $CLIENT_PRINCIPAL"      -p $ROOT_PRINCIPAL   \
-    && kadmin.local -q "addprinc -pw the_sserver_pass     -policy policy180 $SSERVER_PRINCIPAL"     -p $ROOT_PRINCIPAL   \
-    && kadmin.local -q "addprinc -pw the_sclient_pass     -policy policy180 $SCLIENT_PRINCIPAL"     -p $ROOT_PRINCIPAL
+    && kadmin.local -q "addprinc -pw the_hadoop_pass       -policy policy180 $HADOOP_PRINCIPAL"       -p $ROOT_PRINCIPAL   \
+    && kadmin.local -q "addprinc -pw the_nn_master_pass    -policy policy180 $NN_MASTER_PRINCIPAL"    -p $HADOOP_PRINCIPAL \
+    && kadmin.local -q "addprinc -pw the_dn_master_pass    -policy policy180 $DN_MASTER_PRINCIPAL"    -p $HADOOP_PRINCIPAL \
+    && kadmin.local -q "addprinc -pw the_dn_slave1_pass    -policy policy180 $DN_SLAVE1_PRINCIPAL"    -p $HADOOP_PRINCIPAL \
+    && kadmin.local -q "addprinc -pw the_dn_slave2_pass    -policy policy180 $DN_SLAVE2_PRINCIPAL"    -p $HADOOP_PRINCIPAL \
+    && kadmin.local -q "addprinc -pw the_host_master_pass  -policy policy180 $HOST_MASTER_PRINCIPAL"  -p $HADOOP_PRINCIPAL \
+    && kadmin.local -q "addprinc -pw the_host_slave1_pass  -policy policy180 $HOST_SLAVE1_PRINCIPAL"  -p $HADOOP_PRINCIPAL \
+    && kadmin.local -q "addprinc -pw the_host_slave2_pass  -policy policy180 $HOST_SLAVE2_PRINCIPAL"  -p $HADOOP_PRINCIPAL \
+    && kadmin.local -q "addprinc -pw the_http_slave2_pass  -policy policy180 $HTTP_MASTER_PRINCIPAL"  -p $HADOOP_PRINCIPAL \
+    && kadmin.local -q "addprinc -pw the_http_slave2_pass  -policy policy180 $HTTP_SLAVE1_PRINCIPAL"  -p $HADOOP_PRINCIPAL \
+    && kadmin.local -q "addprinc -pw the_http_slave2_pass  -policy policy180 $HTTP_SLAVE2_PRINCIPAL"  -p $HADOOP_PRINCIPAL \
+    && kadmin.local -q "addprinc -pw the_client_pass       -policy policy180 $CLIENT_PRINCIPAL"       -p $ROOT_PRINCIPAL   \
+    && kadmin.local -q "addprinc -pw the_client_super_pass -policy policy180 $CLIENT_SUPER_PRINCIPAL" -p $ROOT_PRINCIPAL   \
+    && kadmin.local -q "addprinc -pw the_sserver_pass      -policy policy180 $SSERVER_PRINCIPAL"      -p $ROOT_PRINCIPAL   \
+    && kadmin.local -q "addprinc -pw the_sclient_pass      -policy policy180 $SCLIENT_PRINCIPAL"      -p $ROOT_PRINCIPAL
 
 EXPOSE 88
 

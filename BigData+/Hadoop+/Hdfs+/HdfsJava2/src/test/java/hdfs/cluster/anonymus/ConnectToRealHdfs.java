@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class ConnectToRealHdfs {
     private final String hdfsUri = HdfsFactory.getHdfsUri();
-    private final FileSystem fs = HdfsFactory.initFileSystem();
+    private final FileSystem fs = HdfsFactory.fileSystemAnonymous();
 
     @Test
     void writeUTF() throws IOException {
