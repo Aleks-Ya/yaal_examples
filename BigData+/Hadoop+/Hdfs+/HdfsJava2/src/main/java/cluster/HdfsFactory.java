@@ -48,9 +48,8 @@ public class HdfsFactory {
         }
     }
 
-    public static FileSystem fileSystemSecure(Principal principal) {
+    public static FileSystem fileSystemSecure(Configuration conf) {
         try {
-            var conf = HdfsFactory.configurationSecure(principal);
             var fs = FileSystem.get(conf);
             assert fs instanceof DistributedFileSystem;
             return fs;

@@ -17,7 +17,8 @@ class Owner {
 
     @Test
     void getFileOwner() throws IOException {
-        var fs = HdfsFactory.fileSystemSecure(CLIENT);
+        var conf = HdfsFactory.configurationSecure(CLIENT);
+        var fs = HdfsFactory.fileSystemSecure(conf);
 
         var hdfsUri = HdfsFactory.getHdfsUri();
         var remotePath = new Path(hdfsUri, "/tmp/owner.txt");
@@ -33,7 +34,8 @@ class Owner {
 
     @Test
     void setFileOwner() throws IOException {
-        var fs = HdfsFactory.fileSystemSecure(CLIENT_SUPER);
+        var conf = HdfsFactory.configurationSecure(CLIENT_SUPER);
+        var fs = HdfsFactory.fileSystemSecure(conf);
 
         var hdfsUri = HdfsFactory.getHdfsUri();
         var remotePath = new Path(hdfsUri, "/tmp/owner.txt");
@@ -57,7 +59,8 @@ class Owner {
 
     @Test
     void setFileOwner_AccessControlException() throws IOException {
-        var fs = HdfsFactory.fileSystemSecure(CLIENT);
+        var conf = HdfsFactory.configurationSecure(CLIENT);
+        var fs = HdfsFactory.fileSystemSecure(conf);
 
         var hdfsUri = HdfsFactory.getHdfsUri();
         var remotePath = new Path(hdfsUri, "/tmp/owner.txt");

@@ -62,4 +62,14 @@
         <name>hadoop.http.authentication.signature.secret.file</name>
         <value>/tmp/hadoop-http-auth-signature-secret</value>
     </property>
+
+    <!-- Impersonation -->
+    <property>
+        <name>hadoop.proxyuser.client_super.hosts</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.client_super.groups</name>
+        <value>*</value>
+    </property>
 </configuration>

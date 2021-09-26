@@ -12,7 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ConnectToHdfsKerberosCluster {
     @Test
     void connect() throws IOException {
-        var fs = HdfsFactory.fileSystemSecure(CLIENT);
+        var conf = HdfsFactory.configurationSecure(CLIENT);
+        var fs = HdfsFactory.fileSystemSecure(conf);
 
         var path = new Path("/tmp/my.txt");
 

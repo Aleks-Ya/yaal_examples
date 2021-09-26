@@ -15,7 +15,7 @@ class UserGroup {
 
     @Test
     void getCurrentUser_client() throws IOException {
-        HdfsFactory.fileSystemSecure(CLIENT);
+        HdfsFactory.configurationSecure(CLIENT);
         var currentUser = UserGroupInformation.getCurrentUser();
         assertThat(currentUser.getUserName()).isEqualTo("client@HADOOPCLUSTER.LOCAL");
         assertThat(currentUser.getShortUserName()).isEqualTo("client");
@@ -24,7 +24,7 @@ class UserGroup {
 
     @Test
     void getCurrentUser_client_super() throws IOException {
-        HdfsFactory.fileSystemSecure(CLIENT_SUPER);
+        HdfsFactory.configurationSecure(CLIENT_SUPER);
         var currentUser = UserGroupInformation.getCurrentUser();
         assertThat(currentUser.getUserName()).isEqualTo(CLIENT_SUPER.getPrincipal());
         assertThat(currentUser.getShortUserName()).isEqualTo("client_super");
