@@ -1,8 +1,7 @@
 # Run Kerberos client
 
-FROM debian:stable
+FROM debian-updated:stable
 
-RUN apt-get update && apt-get install -y nano net-tools telnet less htop
 RUN apt-get install -y krb5-user
 
 ENV KRB5_CONFIG=/tmp/kerberos/krb5.conf

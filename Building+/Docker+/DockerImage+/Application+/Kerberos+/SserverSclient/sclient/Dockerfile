@@ -8,4 +8,6 @@ ENV KEYTAB="$KERBEROS_SHARED/sclient.keytab"
 ENV KRB5CCNAME=/tmp/krb5cc
 ENV KRB5_TRACE=/dev/stdout
 
+ADD run_sclient.sh /tmp/
+
 CMD /bin/bash

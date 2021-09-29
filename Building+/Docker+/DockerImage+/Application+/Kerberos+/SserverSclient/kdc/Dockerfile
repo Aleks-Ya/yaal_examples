@@ -14,9 +14,9 @@ ADD krb5.conf ${KRB5_CONFIG}
 ADD kdc.conf ${KRB5_KDC_PROFILE}
 ADD entrypoint.sh /tmp/entrypoint.sh
 
-RUN kdb5_util create -r LOCAL.REALM -s -P the_db_master_pass
-RUN kadmin.local -q "add_policy -maxlife 180days policy180"
-RUN kadmin.local -q "addprinc -pw the_sserver_pass -policy policy180 $SSERVER_PRINCIPAL" -p $ROOT_PRINCIPAL
-RUN kadmin.local -q "addprinc -pw the_sclient_pass -policy policy180 $SCLIENT_PRINCIPAL" -p $ROOT_PRINCIPAL
+RUN kdb5_util create -r LOCAL.REALM -s -P the_db_master_pass && \
+    kadmin.local -q "add_policy -maxlife 180days policy180" && \
+    kadmin.local -q "addprinc -pw the_sserver_pass -policy policy180 $SSERVER_PRINCIPAL" -p $ROOT_PRINCIPAL && \
+    kadmin.local -q "addprinc -pw the_sclient_pass -policy policy180 $SCLIENT_PRINCIPAL" -p $ROOT_PRINCIPAL
 
 CMD krb5kdc && /tmp/entrypoint.sh

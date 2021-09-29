@@ -1,0 +1,1 @@
+sserver -S $KEYTAB -p 5968 -s sserver

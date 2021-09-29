@@ -1,20 +1,16 @@
-# Kerberos
+# Testing Kerberos with built-in SServer and SClient
 
-## Build and run
+## Run cluster
 
-`docker-compose down -v && docker-compose build && docker-compose up`
+Build and run: `docker-compose down -v && docker-compose build && docker-compose up`
 
 ## Testing with `sserver` and `sclient`
 
-1. Run server:  
-   Each connection stops the sever (start it again).  
-   `docker exec -it ss-sserver bash -c "sserver -S \$KEYTAB -p 5968 -s sserver"`
-2. Run client:  
-   `docker exec -it ss-sclient bash -c "kinit -kt \$KEYTAB sclient@LOCAL.REALM && sclient ss-sserver.kerberos.yaal.ru 5968 sserver"`
+1. Run server: `docker exec -it ss-sserver bash -c /tmp/run_sserver.sh`  
+   Each connection stops the sever (start it again).
+2. Run client: `docker exec -it ss-sclient bash -c /tmp/run_sclient.sh`
 
 ## KDC
 
-Connect by `kadmin` to KDC:
-`docker exec -it ss-kdc kadmin.local`
-Show KDC logs:
-`docker exec -it ss-kdc less /var/log/krb5kdc.log`
+Connect by `kadmin` to KDC: `docker exec -it ss-kdc kadmin.local`
+Show KDC logs: `docker exec -it ss-kdc less /var/log/krb5kdc.log`

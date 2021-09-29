@@ -38,7 +38,17 @@
   echo $quotes_need2
 }
 
-@test "Uninitialized variable" {
+@test "Initialized variable?" {
+  v=abc
+  if [ "$v" ]
+  then
+    echo "Initialized"
+  else
+    exit 1
+  fi
+}
+
+@test "Uninitialized variable?" {
   if [ -z "$unassigned" ]
   then
     echo "\$unassigned is NULL."
