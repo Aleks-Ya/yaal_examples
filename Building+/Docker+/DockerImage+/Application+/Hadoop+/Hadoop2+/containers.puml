@@ -1,0 +1,30 @@
+@startuml
+
+title "Hadoop cluster Docker containers"
+node "master-hadoop2" as master
+node "slave1-hadoop2" as slave1
+node "slave2-hadoop2" as slave2
+node "kdc-hadoop2" as kdc
+node "client-hadoop2" as client
+node "sclient-hadoop2" as sclient
+node "sserver-hadoop2" as sserver
+node "postgres-hadoop2" as postgres
+node "zk1-hadoop2" as zk1
+node "zk2-hadoop2" as zk2
+cloud "Cluster network" as cluster
+cloud "Host Network" as host
+
+master -down- cluster
+slave1 -down- cluster
+slave2 -down- cluster
+kdc -down- cluster
+client -up- cluster
+sclient -up- cluster
+sserver -up- cluster
+postgres -down- cluster
+zk1 -down- cluster
+zk2 -down- cluster
+
+host -left- cluster
+
+@enduml
