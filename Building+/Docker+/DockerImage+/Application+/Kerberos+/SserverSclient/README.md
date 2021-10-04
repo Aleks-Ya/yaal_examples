@@ -9,6 +9,7 @@ Build and run: `docker-compose down -v && docker-compose build && docker-compose
 1. Run server: `docker exec -it ss-sserver bash -c /tmp/run_sserver.sh`  
    Each connection stops the sever (start it again).
 2. Run client: `docker exec -it ss-sclient bash -c /tmp/run_sclient.sh`
+3. Show tickets: `docker exec -it ss-sclient bash -c /tmp/show_tickets.sh`
 
 ## KDC
 

@@ -9,5 +9,6 @@ ENV KRB5CCNAME=/tmp/krb5cc
 ENV KRB5_TRACE=/dev/stdout
 
 ADD run_sclient.sh /tmp/
+ADD show_tickets.sh /tmp/
 
 CMD /bin/bash
