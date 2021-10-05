@@ -10,7 +10,7 @@ object Dependencies {
   val json4sNativeDep = "org.json4s" %% "json4s-native" % "3.6.10"
   val jettyServletDep = "org.eclipse.jetty" % "jetty-servlet" % "9.4.36.v20210114" % Test
 
-  private val akkaVersion = "2.6.12"
+  private val akkaVersion = "2.6.16"
   val akkaActorTypedDep = "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion
   val akkaActorTestKitTypedDep = "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test
 

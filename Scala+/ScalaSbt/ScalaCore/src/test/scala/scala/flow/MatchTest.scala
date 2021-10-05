@@ -3,6 +3,9 @@ package scala.flow
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
+import java.time.LocalDateTime
+import java.util.Locale
+
 class MatchTest extends AnyFlatSpec with Matchers {
 
   it should "match" in {
@@ -38,5 +41,28 @@ class MatchTest extends AnyFlatSpec with Matchers {
     gender shouldEqual "man"
   }
 
+  it should "match class (use values)" in {
+    def title(ref: AnyRef): String = ref match {
+      case s: String => s"string: $s"
+      case l: Locale => s"locale: $l"
+      case _ => "shit"
+    }
+
+    title("abc") shouldEqual "string: abc"
+    title(Locale.US) shouldEqual "locale: en_US"
+    title(LocalDateTime.now()) shouldEqual "shit"
+  }
+
+  it should "match class (ignoring values)" in {
+    def title(ref: AnyRef): String = ref match {
+      case _: String => "string"
+      case _: Locale => "locale"
+      case _ => "shit"
+    }
+
+    title("abc") shouldEqual "string"
+    title(Locale.US) shouldEqual "locale"
+    title(LocalDateTime.now()) shouldEqual "shit"
+  }
 
 }
