@@ -6,7 +6,7 @@ subprojects {
     sourceSets.test.resources.srcDir 'resourcesTest'
 
     dependencies {
-        compile localGroovy()
+        implementation localGroovy()
     }
 
     repositories {
@@ -16,7 +16,7 @@ subprojects {
 
 configure(subprojects - project('Spock')) {
     dependencies {
-        testImplementation('org.junit.jupiter:junit-jupiter:5.4.0')
+        testImplementation('org.junit.jupiter:junit-jupiter:5.8.1')
     }
     test {
         useJUnitPlatform()
