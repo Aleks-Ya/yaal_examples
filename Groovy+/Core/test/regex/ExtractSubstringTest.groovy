@@ -10,7 +10,7 @@ class ExtractSubstringTest {
     @Test
     void substring() {
         def distributionUrl = 'gradle-6.5-bin.zip'
-        def match = (distributionUrl =~ /gradle-(.*)-bin.zip/)
+        def match = distributionUrl =~ /gradle-(.*)-bin.zip/
         if (match.find()) {
             def version = match.group(1)
             assertEquals('6.5', version)
@@ -20,9 +20,17 @@ class ExtractSubstringTest {
     }
 
     @Test
+    void substringFunctional() {
+        def distributionUrl = 'gradle-6.5-bin.zip'
+        def versionOpt = (distributionUrl =~ /gradle-(.*)-bin.zip/).results()
+                .findFirst().map(result -> result.group(1))
+        assertEquals('6.5', versionOpt.get())
+    }
+
+    @Test
     void gradleVersion() {
         def distributionUrl = 'distributionUrl=https\\://services.gradle.org/distributions/gradle-6.5-bin.zip'
-        def match = (distributionUrl =~ /.*gradle-(.*)-bin.zip/)
+        def match = distributionUrl =~ /.*gradle-(.*)-bin.zip/
         if (match.find()) {
             def version = match.group(1)
             assertEquals('6.5', version)

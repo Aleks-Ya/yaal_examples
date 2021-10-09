@@ -22,4 +22,11 @@ class ReadTextFileTest {
         assertTrue(lines.size() == 2)
         assertEquals(['abc', 'efg'], lines)
     }
+
+    @Test
+    void emptyFileToString() {
+        def path = getClass().getResource('/io/file/empty.txt').path
+        def content = new File(path).text
+        assertTrue(content.isEmpty())
+    }
 }
