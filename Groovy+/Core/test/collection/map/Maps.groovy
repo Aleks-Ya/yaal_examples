@@ -1,8 +1,12 @@
 package collection.map
 
+import org.junit.jupiter.api.Test
+
 class Maps {
-    static void main(args) {
-        def map = [name:"Gromit", likes:"cheese", id:1234]
+
+    @Test
+    void test() {
+        def map = [name: "Gromit", likes: "cheese", id: 1234]
         assert map.get("name") == "Gromit"
         assert map.get("id") == 1234
         assert map["name"] == "Gromit"
