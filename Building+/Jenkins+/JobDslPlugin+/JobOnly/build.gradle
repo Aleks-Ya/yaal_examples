@@ -3,7 +3,7 @@ apply plugin: 'groovy'
 sourceSets {
     jobs {
         groovy {
-            srcDirs 'jobs'
+            srcDirs 'jobs', 'examples'
         }
     }
 }
@@ -15,5 +15,5 @@ repositories {
 
 dependencies {
     implementation 'org.codehaus.groovy:groovy-all:3.0.8'
-    implementation "org.jenkins-ci.plugins:job-dsl-core:1.77"
+    implementation 'org.jenkins-ci.plugins:job-dsl-core:1.77' //need for idea.gdsl
 }
