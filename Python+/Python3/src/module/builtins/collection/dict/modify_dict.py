@@ -1,4 +1,5 @@
 # Add item to an empty dictionary
+
 empty_dict = dict()
 empty_dict['one'] = 1
 empty_dict['two'] = 2
@@ -20,3 +21,13 @@ assert join == dict(one=11, two=2, three=3)
 d = {'a': 1, 'b': 2}
 del d['a']
 assert d == {'b': 2}
+
+# Filter a dict 1
+e = {'a': 1, 'b': -2, 'c': 3}
+filtered = {k: v for k, v in e.items() if v > 0}
+assert filtered == {'a': 1, 'c': 3}
+
+# Filter a dict 2
+e = {'a': 1, 'b': -2, 'c': 3}
+filtered = dict(filter(lambda val: val[1] > 0, e.items()))
+assert filtered == {'a': 1, 'c': 3}
