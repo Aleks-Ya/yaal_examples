@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: remote-debug-pod
+spec:
+  containers:
+    - name: remote-debug-container
+      image: default-route-openshift-image-registry.apps-crc.testing/openshift/remote-debug:1
+      env:
+        - name: JAVA_TOOL_OPTIONS
+          value: -agentlib:jdwp=transport=dt_socket,server=y,address=5005,suspend=n
+  restartPolicy: Never
