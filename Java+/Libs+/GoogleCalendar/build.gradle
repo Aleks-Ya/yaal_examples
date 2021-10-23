@@ -1,0 +1,6 @@
+dependencies {
+    def version = '1.32.1'
+    implementation "com.google.api-client:google-api-client:$version"
+    implementation "com.google.oauth-client:google-oauth-client-jetty:$version"
+    implementation "com.google.apis:google-api-services-calendar:v3-rev20210804-$version"
+}
