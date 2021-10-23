@@ -5,6 +5,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
 import javax.net.ssl.SSLException;
 import java.io.IOException;
+import java.net.SocketException;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -32,7 +33,7 @@ class VtbAllReportsFinishedWait {
                 try {
                     tryToWait(timer);
                     done = true;
-                } catch (SSLException e) {
+                } catch (SocketException | SSLException e) {
                     System.out.printf("Retry after exception %s: %s", e.getClass().getName(), e.getMessage());
                 }
             }
