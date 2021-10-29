@@ -13,5 +13,6 @@ Add `--trace`, `--debug`, etc. parameter to Java app.
 
 ### For specific loggers
 
+For all: `-Dlogging.level.root=TRACE`  
 For Spring: `-Dlogging.level.org.springframework=TRACE`  
 For app: `-Dlogging.level.logging.LoggerA=TRACE`

@@ -2,3 +2,4 @@ logging:
   level:
     root: WARN
     logging.LoggerA: ERROR
+    logging.PrintApplicationYaml: INFO
