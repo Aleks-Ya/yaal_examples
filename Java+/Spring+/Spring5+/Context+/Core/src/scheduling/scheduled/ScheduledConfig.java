@@ -42,4 +42,9 @@ class ScheduledConfig {
         System.out.println(LocalDateTime.now());
         Thread.sleep(500);
     }
+
+    @Scheduled(cron = "0/2 * * * * *")
+    public void cron() {
+        System.out.println("Cron: " + LocalDateTime.now());
+    }
 }

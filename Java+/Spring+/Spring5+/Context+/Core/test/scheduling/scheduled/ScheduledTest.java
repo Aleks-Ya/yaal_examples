@@ -11,7 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = ScheduledConfig.class)
 public class ScheduledTest {
     @Test
-    public void name() throws InterruptedException {
+    public void schedule() throws InterruptedException {
         Thread.sleep(5000);
     }
 }
