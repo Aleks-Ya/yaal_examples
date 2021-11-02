@@ -1,0 +1,1 @@
+select username, account_status from DBA_USERS;
