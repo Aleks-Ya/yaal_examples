@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Docs: https://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html#file-content-string-assertions
  */
-class FileTest {
+class FileAssert {
 
     private static File createTmpFile(byte[] content) throws IOException {
-        var f = File.createTempFile(FileTest.class.getSimpleName(), ".tmp");
+        var f = File.createTempFile(FileAssert.class.getSimpleName(), ".tmp");
         Files.write(f.toPath(), content);
         return f;
     }

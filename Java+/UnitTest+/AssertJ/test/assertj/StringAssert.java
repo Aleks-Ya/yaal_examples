@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * See also https://github.com/joel-costigliola/assertj-examples/blob/master/assertions-examples/src/test/java/org/assertj/examples/StringAssertionsExamples.java
  */
-class StringTest {
+class StringAssert {
     @Test
     void string() {
         assertThat("a")
