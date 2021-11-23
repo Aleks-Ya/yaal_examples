@@ -1,0 +1,5 @@
+dependencies {
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.0',
+            'org.hibernate.validator:hibernate-validator:7.0.1.Final',
+            'org.glassfish:jakarta.el:4.0.0'
+}

@@ -168,8 +168,10 @@ include 'BigData+:Hadoop+:Hadoop2+:Common2',
  */
 include 'JEE+:Jetty',
         'JEE+:NanoHttpd',
-        'JEE+:Servlet+:Servlet4'
-        'JEE+:Validation'
+        'JEE+:Servlet+:Servlet4',
+        'JEE+:Validation+:Validation60',
+        'JEE+:Validation+:Validation62',
+        'JEE+:Validation+:Validation7'
 /**
  * Spring+
  */

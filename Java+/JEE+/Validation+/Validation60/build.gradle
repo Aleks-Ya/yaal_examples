@@ -1,0 +1,5 @@
+dependencies {
+    implementation 'javax.validation:validation-api:2.0.1.Final',
+            'org.hibernate.validator:hibernate-validator:6.0.22.Final',
+            'org.glassfish:javax.el:3.0.1-b09'
+}
