@@ -28,7 +28,7 @@ subprojects {
         commonsLangDependency = 'org.apache.commons:commons-lang3:3.12.0'
         wireMockDependency = 'com.github.tomakehurst:wiremock:2.27.2'
         elasticSearchVersion = '7.12.0'
-        junit5Version = '5.7.1'
+        junit5Version = '5.8.1'
         spring5Version = '5.3.9'
         spring4Version = '4.3.30.RELEASE'
         spring3Version = '3.2.18.RELEASE'
@@ -49,7 +49,7 @@ subprojects {
 configure(subprojects - project('UnitTest+:JUnit+:JUnit4').subprojects - project('UnitTest+:TestNG+').subprojects) {
     dependencies {
         testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version", 'org.hamcrest:hamcrest:2.2',
-                'org.awaitility:awaitility:4.1.0', 'commons-io:commons-io:2.8.0', 'org.assertj:assertj-core:3.20.2'
+                'org.awaitility:awaitility:4.1.1', 'commons-io:commons-io:2.11.0', 'org.assertj:assertj-core:3.21.0'
         testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
     }
     test {

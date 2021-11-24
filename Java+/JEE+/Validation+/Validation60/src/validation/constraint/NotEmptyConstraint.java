@@ -1,4 +1,4 @@
-package valid;
+package validation.constraint;
 
 import javax.validation.constraints.NotEmpty;
 

@@ -1,8 +1,8 @@
-package valid;
+package validation.constraint;
 
 import javax.validation.constraints.NotNull;
 
-public class UnderValidation {
+public class CustomMessage {
     static final String EMPTY_NAME_MESSAGE = "Имя пустое";
     @NotNull(message = EMPTY_NAME_MESSAGE)
     String name;

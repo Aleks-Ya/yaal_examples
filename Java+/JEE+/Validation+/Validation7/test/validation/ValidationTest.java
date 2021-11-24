@@ -1,4 +1,4 @@
-package valid;
+package validation;
 
 import jakarta.validation.Validation;
 import org.junit.jupiter.api.Test;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static valid.UnderValidation.EMPTY_NAME_MESSAGE;
+import static validation.UnderValidation.EMPTY_NAME_MESSAGE;
 
 class ValidationTest {
     @Test

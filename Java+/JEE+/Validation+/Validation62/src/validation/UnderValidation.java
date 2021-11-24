@@ -1,7 +1,6 @@
-package valid;
+package validation;
 
-
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 
 public class UnderValidation {
     static final String EMPTY_NAME_MESSAGE = "Имя пустое";
