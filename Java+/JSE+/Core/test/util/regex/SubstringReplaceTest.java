@@ -41,4 +41,13 @@ class SubstringReplaceTest {
     void replaceMultipleSpacesWithOne() {
         assertThat("   a   bc    d e ".replaceAll("\\s{2,}", " "), equalTo(" a bc d e "));
     }
+
+    @Test
+    void replaceGroup() {
+        var act = "http://host:8080/data?param1=33&param2=66".replaceAll("(param1=)(\\d+)", "$1\\44");
+        assertThat(act, equalTo("http://host:8080/data?param1=44&param2=66"));
+
+        act = "http://host:8080/data?param1=33min&param2=66".replaceAll("(param1=)(\\d+)(\\w+)", "$1\\44$3");
+        assertThat(act, equalTo("http://host:8080/data?param1=44min&param2=66"));
+    }
 }
