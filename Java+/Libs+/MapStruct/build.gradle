@@ -1,0 +1,5 @@
+dependencies {
+    def version = '1.4.2.Final'
+    implementation "org.mapstruct:mapstruct:$version"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$version"
+}
