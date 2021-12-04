@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDate;
 
+/**
+ * Config ~/.vtb-broker-report-downloader/config.properties:
+ * username=...
+ * password=...
+ */
 class VtbBrokerReportDownloader {
     public static void main(String[] args) throws IOException {
         System.out.println("Downloading broker reports...");
