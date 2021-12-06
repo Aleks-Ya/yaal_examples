@@ -1,6 +1,7 @@
 # Convert MTS video files to MP4 with "ffmpeg" tool.
 import datetime
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -122,6 +123,20 @@ def check_files_absent(files_data_arg: FilesData):
         raise IOError(f"Destination files already exist: {existing_files}")
 
 
+def to_mb(size_bytes: int) -> int:
+    return size_bytes // 1024 // 1024
+
+
+def check_enough_disk_space(files_data_arg: FilesData, dest_dir_arg: Path):
+    total_file_size = files_data_arg.src_file_size_total
+    available_disk_space_bytes = shutil.disk_usage(dest_dir_arg).free
+    reserve_disk_space_bytes = 1 * 1024 * 1024 * 1024  # 1Gb
+    if (total_file_size + reserve_disk_space_bytes) > available_disk_space_bytes:
+        raise IOError(f"Not enough disk space: (source files total size {to_mb(total_file_size)}MB, "
+                      f"reserve space {to_mb(reserve_disk_space_bytes)}MB, "
+                      f"destination available space {to_mb(available_disk_space_bytes)}MB).")
+
+
 src_dir: Path = Path(sys.argv[1])
 print(f"Source directory: {src_dir}")
 check_dir_exits(src_dir)
@@ -137,6 +152,8 @@ check_ffmpeg_availability()
 files_data: FilesData = find_mts_files(src_dir, dest_dir)
 print(files_data)
 check_files_absent(files_data)
+
+check_enough_disk_space(files_data, dest_dir)
 
 convert_files(files_data)
 

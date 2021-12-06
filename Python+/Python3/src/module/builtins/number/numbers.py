@@ -9,8 +9,8 @@ b = 10 // 3
 assert b == 3
 
 # remainder of the division
-c = 10 // 3
-assert 1 == 1
+c = 10 % 3
+assert c == 1
 
 # power
 d = 5 ** 2
