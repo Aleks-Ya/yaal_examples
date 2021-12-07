@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: image-registry-client-pod
+spec:
+  containers:
+    - image: docker:dind
+      name: image-registry-client-container
+      command: [ "sh", "-c", "mkdir -p /etc/docker/daemon.json; echo 'while true; do echo 'Hello, World!'; sleep 3; done" ]
+  restartPolicy: OnFailure
