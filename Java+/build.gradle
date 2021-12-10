@@ -30,7 +30,7 @@ subprojects {
         jaxbApiDependency = 'javax.xml.bind:jaxb-api:2.3.1'
         elasticSearchVersion = '7.12.0'
         junit5Version = '5.8.1'
-        spring5Version = '5.3.9'
+        spring5Version = '5.3.13'
         spring4Version = '4.3.30.RELEASE'
         spring3Version = '3.2.18.RELEASE'
         springBootVersion = '2.6.0'

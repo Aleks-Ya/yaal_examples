@@ -4,6 +4,4 @@ dependencies {
             "org.springframework:spring-jdbc:$spring5Version",
             h2Dependency,
             servlet4Dependency
-
-    testImplementation "org.springframework.security:spring-security-test:$springSecurityVersion"
 }
