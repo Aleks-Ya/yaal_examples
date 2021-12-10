@@ -7,25 +7,24 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.startsWith;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestConfig.class})
-public class WithSecurityContextTest {
+class WithSecurityContextTest {
 
     @Autowired
     private MessageService messageService;
 
     @Test
-    public void getMessageUnauthenticated() {
+    void getMessageUnauthenticated() {
         assertThrows(AuthenticationCredentialsNotFoundException.class, () -> messageService.getMessage());
     }
 
     @Test
     @WithMockCustomUser
-    public void getMessage() {
-        assertThat(messageService.getMessage(), startsWith("Hello"));
+    void getMessage() {
+        assertThat(messageService.getMessage()).isEqualTo("Hello, Rob Winch");
     }
 }

@@ -6,7 +6,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 
 @Configuration
 @Import(HelloMessageService.class)
-//@EnableGlobalMethodSecurity or @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 class TestConfig {
 }

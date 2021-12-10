@@ -8,26 +8,25 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.startsWith;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static with.user.details.TestConfig.USER_DETAILS_SERVICE_BEAN;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestConfig.class})
-public class WithUserDetailsTest {
+class WithUserDetailsTest {
 
     @Autowired
     private MessageService messageService;
 
     @Test
-    public void getMessageUnauthenticated() {
+    void getMessageUnauthenticated() {
         assertThrows(AuthenticationCredentialsNotFoundException.class, () -> messageService.getMessage());
     }
 
     @Test
     @WithUserDetails(value = TestConfig.USERNAME, userDetailsServiceBeanName = USER_DETAILS_SERVICE_BEAN)
-    public void getMessage() {
-        assertThat(messageService.getMessage(), startsWith("Hello"));
+    void getMessage() {
+        assertThat(messageService.getMessage()).isEqualTo("Hello, " + TestConfig.USERNAME);
     }
 }

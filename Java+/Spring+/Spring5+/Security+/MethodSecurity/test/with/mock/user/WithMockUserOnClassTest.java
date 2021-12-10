@@ -7,8 +7,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.startsWith;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 /**
  * WithMockUser on class
@@ -16,13 +16,13 @@ import static org.hamcrest.Matchers.startsWith;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestConfig.class})
 @WithMockUser
-public class WithMockUserOnClassTest {
+class WithMockUserOnClassTest {
 
     @Autowired
     private MessageService messageService;
 
     @Test
-    public void getMessageWithMockUser() {
-        assertThat(messageService.getMessage(), startsWith("Hello"));
+    void getMessageWithMockUser() {
+        assertThat(messageService.getMessage()).isEqualTo("Hello, user");
     }
 }

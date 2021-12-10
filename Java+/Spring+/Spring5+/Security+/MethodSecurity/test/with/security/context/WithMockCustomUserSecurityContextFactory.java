@@ -13,7 +13,7 @@ import java.util.Collections;
 class WithMockCustomUserSecurityContextFactory implements WithSecurityContextFactory<WithMockCustomUser> {
     @Override
     public SecurityContext createSecurityContext(WithMockCustomUser customUser) {
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        var context = SecurityContextHolder.createEmptyContext();
         UserDetails principal = new User(customUser.name(), customUser.username(), Collections.emptyList());
         Authentication auth =
                 new UsernamePasswordAuthenticationToken(principal, "password", principal.getAuthorities());

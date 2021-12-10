@@ -8,8 +8,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.startsWith;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -17,37 +16,37 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestConfig.class})
-public class WithMockUserOnMethodTest {
+class WithMockUserOnMethodTest {
 
     @Autowired
     private MessageService messageService;
 
     @Test
-    public void getMessageUnauthenticated() {
+    void getMessageUnauthenticated() {
         assertThrows(AuthenticationCredentialsNotFoundException.class, () -> messageService.getMessage());
     }
 
     @Test
     @WithMockUser
-    public void getMessageWithMockUser() {
-        assertThat(messageService.getMessage(), startsWith("Hello"));
+    void getMessageWithMockUser() {
+        assertThat(messageService.getMessage()).isEqualTo("Hello, user");
     }
 
     @Test
     @WithMockUser("customUsername")
-    public void getMessageWithMockUserCustomUsername() {
-        assertThat(messageService.getMessage(), startsWith("Hello"));
+    void getMessageWithMockUserCustomUsername() {
+        assertThat(messageService.getMessage()).isEqualTo("Hello, customUsername");
     }
 
     @Test
     @WithMockUser(username = "admin", roles = {"USER", "ADMIN"})
-    public void getMessageWithMockUserCustomUser() {
-        assertThat(messageService.getMessage(), startsWith("Hello"));
+    void getMessageWithMockUserCustomUser() {
+        assertThat(messageService.getMessage()).isEqualTo("Hello, admin");
     }
 
     @Test
     @WithMockUser(username = "admin", authorities = {"ADMIN", "USER"})
-    public void getMessageWithMockUserCustomAuthorities() {
-        assertThat(messageService.getMessage(), startsWith("Hello"));
+    void getMessageWithMockUserCustomAuthorities() {
+        assertThat(messageService.getMessage()).isEqualTo("Hello, admin");
     }
 }

@@ -14,11 +14,10 @@ import java.util.List;
 
 @Configuration
 @Import(HelloMessageService.class)
-//@EnableGlobalMethodSecurity or @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 class TestConfig {
-        static final String USERNAME = "name";
-        static final String USER_DETAILS_SERVICE_BEAN = "testUserDetailService";
+    static final String USERNAME = "name";
+    static final String USER_DETAILS_SERVICE_BEAN = "testUserDetailService";
 
     @Bean(name = USER_DETAILS_SERVICE_BEAN)
     public UserDetailsService testUserDetailService() {
