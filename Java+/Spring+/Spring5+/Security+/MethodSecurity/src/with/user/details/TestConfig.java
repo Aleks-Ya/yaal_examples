@@ -3,7 +3,7 @@ package with.user.details;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Configuration
 @Import(HelloMessageService.class)
-@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
+@EnableMethodSecurity(securedEnabled = true)
 class TestConfig {
     static final String USERNAME = "name";
     static final String USER_DETAILS_SERVICE_BEAN = "testUserDetailService";
