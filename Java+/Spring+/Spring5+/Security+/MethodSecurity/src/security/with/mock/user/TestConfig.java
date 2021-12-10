@@ -1,4 +1,4 @@
-package with.security.context;
+package security.with.mock.user;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

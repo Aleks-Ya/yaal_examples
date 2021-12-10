@@ -1,4 +1,4 @@
-package with.user.details;
+package security.with.user.details;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 

@@ -1,4 +1,4 @@
-package with.security.context;
+package security.with.mock.user;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

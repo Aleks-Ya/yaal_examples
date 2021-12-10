@@ -1,4 +1,4 @@
-package with.user.details;
+package security.with.user.details;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,7 +10,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static with.user.details.TestConfig.USER_DETAILS_SERVICE_BEAN;
+import static security.with.user.details.TestConfig.USER_DETAILS_SERVICE_BEAN;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestConfig.class})

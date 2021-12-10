@@ -1,4 +1,4 @@
-package with.security.context;
+package security.with.security.context;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

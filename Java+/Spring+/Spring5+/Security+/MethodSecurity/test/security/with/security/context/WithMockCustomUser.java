@@ -1,4 +1,4 @@
-package with.security.context;
+package security.with.security.context;
 
 import org.springframework.security.test.context.support.WithSecurityContext;
 
