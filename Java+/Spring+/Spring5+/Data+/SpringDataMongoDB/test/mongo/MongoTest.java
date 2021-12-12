@@ -1,23 +1,21 @@
-import data.User;
+package mongo;
+
+import mongo.data.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import repository.UserRepository;
-import spring.TestConfiguration;
+import mongo.repository.UserRepository;
 
-/**
- * @author Yablokov Aleksey
- */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfiguration.class)
-public class MongoTest {
+class MongoTest {
     @Autowired
     private UserRepository repo;
 
     @Test
-    public void test() {
+    void test() {
         repo.insert(new User("admin"));
     }
 }

@@ -19,6 +19,7 @@ classes
 .settings
 bin
 .attach_pid*
+.jpb
 
 #Python
 venv*

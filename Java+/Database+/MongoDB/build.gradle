@@ -1,3 +1,3 @@
 dependencies {
-    implementation 'org.mongodb:mongodb-driver:3.2.2', "de.flapdoodle.embed:de.flapdoodle.embed.mongo:1.50.3"
+    implementation mongoDbDriverDependency, 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.2.0', slf4jSimpleVersion
 }

@@ -1,3 +1,3 @@
 dependencies {
-    implementation h2Dependency, 'org.hibernate:hibernate-entitymanager:4.3.11.Final'
+    implementation h2Dependency, hibernateEntityManagerDependency
 }

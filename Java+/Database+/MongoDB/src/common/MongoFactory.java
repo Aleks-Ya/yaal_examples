@@ -1,43 +1,43 @@
 package common;
 
 import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
 import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.IMongodConfig;
-import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
+import de.flapdoodle.embed.mongo.config.ImmutableMongodConfig;
+import de.flapdoodle.embed.mongo.config.MongodConfig;
 import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
 
 import java.io.IOException;
 
-/**
- * @author Yablokov Aleksey
- */
 public class MongoFactory {
-    private MongoDatabase db;
-    private MongoClient mongoClient;
-    private MongodProcess mongod;
-    private MongodExecutable mongodExecutable;
-    private MongodStarter starter;
-    private IMongodConfig mongodConfig;
-    private int port = 20029;
-    private String localhost = "localhost";
-    private String databaseName = "test";
+    private final MongoDatabase db;
+    private final MongoClient mongoClient;
+    private final com.mongodb.client.MongoClient mongoClient2;
+    private final MongodProcess mongod;
+    private final MongodExecutable mongodExecutable;
+    private final MongodStarter starter;
+    private final ImmutableMongodConfig mongodConfig;
+    private final int port = 20029;
+    private final String ip = "localhost";
+    private final String databaseName = "test";
 
     public MongoFactory() throws IOException {
-        mongodConfig = new MongodConfigBuilder()
+        mongodConfig = MongodConfig.builder()
                 .version(Version.Main.PRODUCTION)
-                .net(new Net(port, Network.localhostIsIPv6()))
+                .net(new Net(ip, port, Network.localhostIsIPv6()))
                 .build();
 
         starter = MongodStarter.getDefaultInstance();
         mongodExecutable = starter.prepare(mongodConfig);
         mongod = mongodExecutable.start();
 
-        mongoClient = new MongoClient(localhost, port);
+        mongoClient = new MongoClient(ip, port);
+        mongoClient2 = MongoClients.create(String.format("mongodb://%s:%d", ip, port));
         db = mongoClient.getDatabase(databaseName);
     }
 
@@ -61,7 +61,7 @@ public class MongoFactory {
         return starter;
     }
 
-    public IMongodConfig getMongodConfig() {
+    public ImmutableMongodConfig getMongodConfig() {
         return mongodConfig;
     }
 
@@ -69,8 +69,8 @@ public class MongoFactory {
         return port;
     }
 
-    public String getLocalhost() {
-        return localhost;
+    public String getIp() {
+        return ip;
     }
 
     public String getDatabaseName() {
@@ -81,5 +81,9 @@ public class MongoFactory {
         if (mongodExecutable != null) {
             mongodExecutable.stop();
         }
+    }
+
+    public com.mongodb.client.MongoClient getMongoClient2() {
+        return mongoClient2;
     }
 }

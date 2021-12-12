@@ -1,18 +1,13 @@
-package spring;
+package mongo.spring;
 
 import common.MongoFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 
-/**
- * @author Yablokov Aleksey
- */
 @Configuration
 class MongoConfig {
     private MongoFactory factory;
@@ -23,12 +18,7 @@ class MongoConfig {
     }
 
     @Bean
-    public MongoDbFactory mongoDbFactory() throws Exception {
-        return new SimpleMongoDbFactory(factory.getMongoClient(), factory.getDatabaseName());
-    }
-
-    @Bean
-    public MongoTemplate mongoTemplate() throws Exception {
-        return new MongoTemplate(mongoDbFactory());
+    public MongoTemplate mongoTemplate() {
+        return new MongoTemplate(factory.getMongoClient2(), factory.getDatabaseName());
     }
 }

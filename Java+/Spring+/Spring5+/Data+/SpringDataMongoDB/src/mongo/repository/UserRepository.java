@@ -1,6 +1,6 @@
-package repository;
+package mongo.repository;
 
-import data.User;
+import mongo.data.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface UserRepository extends MongoRepository<User, String> {

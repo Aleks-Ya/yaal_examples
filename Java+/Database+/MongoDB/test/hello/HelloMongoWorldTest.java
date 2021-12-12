@@ -11,9 +11,9 @@ import java.io.IOException;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class HelloMongoWorldTest {
+class HelloMongoWorldTest {
     @Test
-    public void name() throws IOException {
+    void name() throws IOException {
         MongoFactory factory = new MongoFactory();
 
         MongoDatabase db = factory.getDb();
@@ -25,7 +25,7 @@ public class HelloMongoWorldTest {
         Document document = new Document("title", "test");
         strings.insertOne(document);
 
-        assertThat(strings.count(), equalTo(1L));
+        assertThat(strings.countDocuments(), equalTo(1L));
 
         factory.stop();
     }
