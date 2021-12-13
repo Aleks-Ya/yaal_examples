@@ -24,6 +24,8 @@ public class PersistedToDetached {
     public void evictPersisted() {
         House transientObject = new House(null, "Spb");
 
+        session.beginTransaction();
+
         Serializable id = session.save(transientObject);
         assertThat(session.getStatistics().getEntityCount(), equalTo(1));
 
@@ -37,6 +39,7 @@ public class PersistedToDetached {
         assertThat(persistedObject, sameInstance(transientObject));
 
         session.flush();
+        session.getTransaction().commit();
         session.close();
     }
 

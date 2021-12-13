@@ -21,32 +21,38 @@ public class TransientToPersisted {
     @Test
     public void saveTransient() {
         House transientObject = new House(null, "Spb");
+        session.beginTransaction();
         Serializable id = session.save(transientObject);
         House persistedObject = session.get(House.class, id);
         assertThat(persistedObject, Matchers.sameInstance(transientObject));
         session.flush();
+        session.getTransaction().commit();
         session.close();
     }
 
     @Test
     public void saveOrUpdateTransient() {
         House transientObject = new House(null, "Spb");
+        session.beginTransaction();
         session.saveOrUpdate(transientObject);
         int id = transientObject.id;
         House persistedObject = session.get(House.class, id);
         assertThat(persistedObject, Matchers.sameInstance(transientObject));
         session.flush();
+        session.getTransaction().commit();
         session.close();
     }
 
     @Test
     public void persistTransient() {
         House transientObject = new House(null, "Spb");
+        session.beginTransaction();
         session.persist(transientObject);
         int id = transientObject.id;
         House persistedObject = session.get(House.class, id);
         assertThat(persistedObject, Matchers.sameInstance(transientObject));
         session.flush();
+        session.getTransaction().commit();
         session.close();
     }
 

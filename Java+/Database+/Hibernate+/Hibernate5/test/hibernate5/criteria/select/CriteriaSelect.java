@@ -31,6 +31,7 @@ public class CriteriaSelect {
         CityEntity city4 = new CityEntity("Москва", moscowPopulation, region2);
 
         Session session = HibernateSessionFactory5.makeFactory(RegionEntity.class, CityEntity.class).openSession();
+        session.beginTransaction();
         session.save(region);
         session.save(region2);
         session.save(city1);
@@ -38,6 +39,7 @@ public class CriteriaSelect {
         session.save(city3);
         session.save(city4);
         session.flush();
+        session.getTransaction().commit();
 
         {
             System.out.println("\nSELECT всех объектов класса CityEntity:");

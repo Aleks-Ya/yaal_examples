@@ -62,8 +62,8 @@ public class PaymentTest {
         session.save(transaction);
         session.save(slipA);
         session.save(slipB);
-        session.getTransaction().commit();
         session.flush();
+        session.getTransaction().commit();
         session.close();
         expPayment = payment;
         expTransaction = transaction;

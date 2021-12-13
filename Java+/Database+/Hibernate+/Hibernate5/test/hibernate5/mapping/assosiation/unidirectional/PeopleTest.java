@@ -42,8 +42,8 @@ public class PeopleTest {
             session.save(woman);
             session.save(moscow);
             session.save(spb);
-            session.getTransaction().commit();
             session.flush();
+            session.getTransaction().commit();
         } finally {
             if (session != null) {
                 session.close();

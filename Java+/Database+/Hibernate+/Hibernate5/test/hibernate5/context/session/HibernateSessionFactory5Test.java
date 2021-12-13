@@ -17,16 +17,20 @@ public class HibernateSessionFactory5Test {
     public void getSessionFactory() throws Exception {
         SessionFactory sf = factory.getSessionFactory();
         Session s = sf.openSession();
+        s.beginTransaction();
         s.save(new House(1, "Spb"));
         s.flush();
+        s.getTransaction().commit();
         s.close();
     }
 
     @Test
     public void openSession() throws Exception {
         Session s = factory.openSession();
+        s.beginTransaction();
         s.save(new House(2, "Spb"));
         s.flush();
+        s.getTransaction().commit();
         s.close();
     }
 }

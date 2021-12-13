@@ -24,12 +24,14 @@ public class HqlSelect {
         HibernateSessionFactory5 factory436 = HibernateSessionFactory5
                 .makeFactory(RegionEntity.class, CityEntity.class);
         Session session = factory436.openSession();
+        session.beginTransaction();
         session.save(region);
         session.save(region2);
         session.save(city1);
         session.save(city2);
         session.save(city3);
         session.flush();
+        session.getTransaction().commit();
 
         {
             System.out.println("\nSELECT:");
