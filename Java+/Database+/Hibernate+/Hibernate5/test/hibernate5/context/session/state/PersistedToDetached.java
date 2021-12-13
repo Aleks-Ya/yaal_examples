@@ -8,28 +8,26 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.io.Serializable;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.hamcrest.MatcherAssert.assertThat;
 
-public class PersistedToDetached {
-
-    private static HibernateSessionFactory5 factory = HibernateSessionFactory5.makeFactory(House.class);
+class PersistedToDetached {
+    private static final HibernateSessionFactory5 factory = HibernateSessionFactory5.makeFactory(House.class);
     private final Session session = factory.getSessionFactory().openSession();
 
     @Test
-    public void evictPersisted() {
-        House transientObject = new House(null, "Spb");
+    void evictPersisted() {
+        var transientObject = new House(null, "Spb");
 
         session.beginTransaction();
 
-        Serializable id = session.save(transientObject);
+        var id = session.save(transientObject);
         assertThat(session.getStatistics().getEntityCount(), equalTo(1));
 
-        House persistedObject = session.get(House.class, id);
+        var persistedObject = session.get(House.class, id);
         assertThat(persistedObject, sameInstance(transientObject));
 
         session.evict(persistedObject);

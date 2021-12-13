@@ -9,21 +9,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.io.Serializable;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class TransientToPersisted {
+class TransientToPersisted {
 
-    private static HibernateSessionFactory5 factory = HibernateSessionFactory5.makeFactory(House.class);
+    private static final HibernateSessionFactory5 factory = HibernateSessionFactory5.makeFactory(House.class);
     private final Session session = factory.getSessionFactory().openSession();
 
     @Test
-    public void saveTransient() {
-        House transientObject = new House(null, "Spb");
+    void saveTransient() {
+        var transientObject = new House(null, "Spb");
         session.beginTransaction();
-        Serializable id = session.save(transientObject);
-        House persistedObject = session.get(House.class, id);
+        var id = session.save(transientObject);
+        var persistedObject = session.get(House.class, id);
         assertThat(persistedObject, Matchers.sameInstance(transientObject));
         session.flush();
         session.getTransaction().commit();
@@ -31,12 +30,12 @@ public class TransientToPersisted {
     }
 
     @Test
-    public void saveOrUpdateTransient() {
-        House transientObject = new House(null, "Spb");
+    void saveOrUpdateTransient() {
+        var transientObject = new House(null, "Spb");
         session.beginTransaction();
         session.saveOrUpdate(transientObject);
         int id = transientObject.id;
-        House persistedObject = session.get(House.class, id);
+        var persistedObject = session.get(House.class, id);
         assertThat(persistedObject, Matchers.sameInstance(transientObject));
         session.flush();
         session.getTransaction().commit();
@@ -44,12 +43,12 @@ public class TransientToPersisted {
     }
 
     @Test
-    public void persistTransient() {
-        House transientObject = new House(null, "Spb");
+    void persistTransient() {
+        var transientObject = new House(null, "Spb");
         session.beginTransaction();
         session.persist(transientObject);
         int id = transientObject.id;
-        House persistedObject = session.get(House.class, id);
+        var persistedObject = session.get(House.class, id);
         assertThat(persistedObject, Matchers.sameInstance(transientObject));
         session.flush();
         session.getTransaction().commit();

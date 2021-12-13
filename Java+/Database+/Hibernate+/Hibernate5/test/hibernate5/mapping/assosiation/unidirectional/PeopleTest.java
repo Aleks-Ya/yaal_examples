@@ -1,7 +1,6 @@
 package hibernate5.mapping.assosiation.unidirectional;
 
 import hibernate5.context.session.HibernateSessionFactory5;
-import org.hibernate.Session;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -10,30 +9,28 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PeopleTest {
+class PeopleTest {
     private static final HibernateSessionFactory5 factory = HibernateSessionFactory5.makeFactory(
             People.class, Address.class);
 
     @Test
-    public void test() throws Exception {
+    void test() {
         saveEntities();
         readEntities();
     }
 
-    private void saveEntities() throws Exception {
-        Session session = null;
-        try {
-            session = factory.openSession();
+    private void saveEntities() {
+        try (var session = factory.openSession()) {
             session.beginTransaction();
 
-            People man = new People();
-            People woman = new People();
+            var man = new People();
+            var woman = new People();
             Set<People> peoples = new HashSet<>();
             peoples.add(man);
             peoples.add(woman);
 
-            Address spb = new Address();
-            Address moscow = new Address();
+            var spb = new Address();
+            var moscow = new Address();
 
             moscow.setPeoples(peoples);
             spb.setPeoples(peoples);
@@ -44,22 +41,18 @@ public class PeopleTest {
             session.save(spb);
             session.flush();
             session.getTransaction().commit();
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
     }
 
-    private void readEntities() throws Exception {
-        Session session = factory.openSession();
+    private void readEntities() {
+        var session = factory.openSession();
 
         List<People> allPeoples = session.createCriteria(People.class).list();
-        final int expPeopleSize = 2;
+        final var expPeopleSize = 2;
         assertEquals(expPeopleSize, allPeoples.size());
 
         List<Address> allAddresses = session.createCriteria(Address.class).list();
-        for (Address address : allAddresses) {
+        for (var address : allAddresses) {
             assertEquals(expPeopleSize, address.getPeoples().size());
         }
 

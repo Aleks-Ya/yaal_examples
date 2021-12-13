@@ -14,17 +14,17 @@ import java.util.List;
  * Init SessionFactory of Hibernate 5.
  */
 public class HibernateSessionFactory5 implements Closeable {
-    private SessionFactory sessionFactory;
-    private List<Session> sessions = new ArrayList<>();
+    private final SessionFactory sessionFactory;
+    private final List<Session> sessions = new ArrayList<>();
 
-    private HibernateSessionFactory5(Class... classes) {
-        Configuration configuration = getConfiguration(classes);
-        StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
+    private HibernateSessionFactory5(Class<?>... classes) {
+        var configuration = getConfiguration(classes);
+        var serviceRegistryBuilder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
         ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);
     }
 
-    public static HibernateSessionFactory5 makeFactory(Class... classes) {
+    public static HibernateSessionFactory5 makeFactory(Class<?>... classes) {
         return new HibernateSessionFactory5(classes);
     }
 
@@ -33,13 +33,13 @@ public class HibernateSessionFactory5 implements Closeable {
     }
 
     public Session openSession() {
-        final Session session = sessionFactory.openSession();
+        final var session = sessionFactory.openSession();
         sessions.add(session);
         return session;
     }
 
-    private Configuration getConfiguration(Class... classes) {
-        Configuration configuration = new Configuration();
+    private Configuration getConfiguration(Class<?>... classes) {
+        var configuration = new Configuration();
         configuration.setProperty("hibernate.connection.driver_class", "org.h2.Driver");
         configuration.setProperty("hibernate.connection.url", "jdbc:h2:~/test");
         configuration.setProperty("hibernate.connection.username", "");
@@ -50,7 +50,7 @@ public class HibernateSessionFactory5 implements Closeable {
         configuration.setProperty("hibernate.show_sql", "true");
         configuration.setProperty("hibernate.hbm2ddl.auto", "create");
         configuration.setProperty("hibernate.connection.autocommit", "false");
-        for (Class clazz : classes) {
+        for (var clazz : classes) {
             configuration.addAnnotatedClass(clazz);
         }
         return configuration;
@@ -58,7 +58,7 @@ public class HibernateSessionFactory5 implements Closeable {
 
     @Override
     public void close() {
-        for (Session session : sessions) {
+        for (var session : sessions) {
             session.close();
         }
         sessionFactory.close();

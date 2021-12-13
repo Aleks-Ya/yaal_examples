@@ -9,36 +9,34 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.io.Serializable;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
-public class ChangePersistedObject {
-
-    private static HibernateSessionFactory5 factory = HibernateSessionFactory5.makeFactory(House.class);
+class ChangePersistedObject {
+    private static final HibernateSessionFactory5 factory = HibernateSessionFactory5.makeFactory(House.class);
     private final Session session = factory.getSessionFactory().openSession();
 
     @Test
-    public void changePersisted() {
+    void changePersisted() {
         assertThat(session.getStatistics().getEntityCount(), equalTo(0));
 
-        House transientObject = new House(null, "Spb");
+        var transientObject = new House(null, "Spb");
 
-        Serializable oldId = session.save(transientObject);
+        var oldId = session.save(transientObject);
         assertThat(session.getStatistics().getEntityCount(), equalTo(1));
 
-        House persistedObject = session.get(House.class, oldId);
+        var persistedObject = session.get(House.class, oldId);
 
-        String newAddress = "Msk";
+        var newAddress = "Msk";
         persistedObject.setAddress(newAddress);
 
-        Serializable newId = session.save(persistedObject);
+        var newId = session.save(persistedObject);
         assertThat(newId, equalTo(oldId));
         assertThat(persistedObject.getId(), equalTo(oldId));
         assertThat(session.getStatistics().getEntityCount(), equalTo(1));
 
-        House newPersistedObject = session.get(House.class, oldId);
+        var newPersistedObject = session.get(House.class, oldId);
         assertThat(newPersistedObject.getAddress(), equalTo(newAddress));
     }
 

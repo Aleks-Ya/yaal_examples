@@ -1,7 +1,5 @@
 package hibernate5.context.session;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.Column;
@@ -9,14 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-public class HibernateSessionFactory5Test {
+class HibernateSessionFactory5Test {
 
-    private static HibernateSessionFactory5 factory = HibernateSessionFactory5.makeFactory(House.class);
+    private static final HibernateSessionFactory5 factory = HibernateSessionFactory5.makeFactory(House.class);
 
     @Test
-    public void getSessionFactory() throws Exception {
-        SessionFactory sf = factory.getSessionFactory();
-        Session s = sf.openSession();
+    void getSessionFactory() {
+        var sf = factory.getSessionFactory();
+        var s = sf.openSession();
         s.beginTransaction();
         s.save(new House(1, "Spb"));
         s.flush();
@@ -25,8 +23,8 @@ public class HibernateSessionFactory5Test {
     }
 
     @Test
-    public void openSession() throws Exception {
-        Session s = factory.openSession();
+    void openSession() {
+        var s = factory.openSession();
         s.beginTransaction();
         s.save(new House(2, "Spb"));
         s.flush();
@@ -39,13 +37,18 @@ public class HibernateSessionFactory5Test {
 class House {
     @Id
     @GeneratedValue
-    private int id;
+    private final int id;
 
     @Column
-    private String address;
+    private final String address;
+
+    House() {
+        this(1, null);
+    }
 
     House(int id, String address) {
         this.id = id;
         this.address = address;
     }
+
 }

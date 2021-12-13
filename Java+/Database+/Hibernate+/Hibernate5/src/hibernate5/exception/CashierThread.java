@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
  * Непрерывно записывает и читает кассиров в своем потоке.
  */
 public class CashierThread extends Thread {
-    private Session session;
+    private final Session session;
     private boolean beginTransaction;
     private boolean commitTransaction;
 
@@ -25,8 +25,8 @@ public class CashierThread extends Thread {
             while (!beginTransaction) {
                 TimeUnit.MILLISECONDS.sleep(10);
             }
-            Transaction t = session.beginTransaction();
-            Cashier mary = new Cashier("Mary", "Noise", 25);
+            var t = session.beginTransaction();
+            var mary = new Cashier("Mary", "Noise", 25);
             session.save(mary);
 
             while (!commitTransaction) {
