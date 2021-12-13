@@ -1,11 +1,13 @@
-package hibernate5.criteria.select;
+package hibernate5.context.filtering.statik;
+
+import org.hibernate.annotations.Where;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 @Entity
+@Where( clause = "population > 1000000" )
 class CityEntity {
     @Id
     @GeneratedValue
@@ -13,22 +15,18 @@ class CityEntity {
 
     private String name;
 
-    private Long population;
-
-    @ManyToOne
-    private  RegionEntity region;
+    private Integer population;
 
     public CityEntity() {
     }
 
-    public CityEntity(String name, Long population,  RegionEntity region) {
+    public CityEntity(String name, Integer population) {
         this.name = name;
         this.population = population;
-        this.region = region;
     }
 
     @Override
     public String toString() {
-        return String.format("Город[id=%d, name=%s, region=%s]", id, name, region);
+        return String.format("City[id=%d, name=%s, population=%dk]", id, name, population/1000);
     }
 }

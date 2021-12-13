@@ -7,7 +7,7 @@ import javax.persistence.ManyToMany;
 import java.util.Set;
 
 @Entity
-public class Address {
+class Address {
 
     @Id
     @GeneratedValue

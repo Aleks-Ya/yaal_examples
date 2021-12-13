@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class RegionEntity {
+class RegionEntity {
     @Id
     @GeneratedValue
     private Long id;

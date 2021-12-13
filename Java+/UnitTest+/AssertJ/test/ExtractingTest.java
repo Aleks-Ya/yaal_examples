@@ -10,6 +10,33 @@ import static org.assertj.core.api.Assertions.tuple;
  */
 @SuppressWarnings("unused")
 class ExtractingTest {
+    private static final Car car1 = new Car("BMW", 2020);
+    private static final Person person1 = new Person("John", car1);
+
+    private static final Car car2 = new Car("Mercedes", 2019);
+    private static final Person person2 = new Person("Mike", car2);
+
+    private static final List<Person> persons = List.of(person1, person2);
+
+
+    @Test
+    void extractSeveralFields() {
+        assertThat(persons).extracting("name", "car.model", "car.year")
+                .contains(tuple("John", "BMW", 2020),
+                        tuple("Mike", "Mercedes", 2019));
+    }
+
+    @Test
+    void extractSeveralFieldsFlat() {
+        assertThat(persons).flatExtracting("name", "car.model", "car.year")
+                .contains("John", "BMW", 2020, "Mike", "Mercedes", 2019);
+    }
+
+    @Test
+    void map() {
+        assertThat(persons).map(person -> person.getCar().getModel()).containsOnly("BMW", "Mercedes");
+    }
+
     static class Person {
         private final String name;
         private final Car car;
@@ -44,20 +71,5 @@ class ExtractingTest {
         public Integer getYear() {
             return year;
         }
-    }
-
-    @Test
-    void extractSeveralFields() {
-        var car1 = new Car("BMW", 2020);
-        var person1 = new Person("John", car1);
-
-        var car2 = new Car("Mercedes", 2019);
-        var person2 = new Person("Mike", car2);
-
-        var persons = List.of(person1, person2);
-
-        assertThat(persons).extracting("name", "car.model", "car.year")
-                .contains(tuple("John", "BMW", 2020),
-                        tuple("Mike", "Mercedes", 2019));
     }
 }

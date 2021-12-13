@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Cashier {
+class Cashier {
 
     @Id
     @GeneratedValue(generator = "increment")
