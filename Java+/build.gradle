@@ -33,7 +33,7 @@ subprojects {
         spring5Version = '5.3.13'
         spring4Version = '4.3.30.RELEASE'
         spring3Version = '3.2.18.RELEASE'
-        springBootVersion = '2.6.0'
+        springBootVersion = '2.6.1'
         springCloudVersion = '3.0.3'
         hadoop2Version = '2.10.1'
         fabric8ioVersion = '5.6.0'
