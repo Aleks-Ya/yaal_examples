@@ -1,0 +1,20 @@
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    scm
+}
+
+dependencies {
+    scm 'org.eclipse.jgit:org.eclipse.jgit:4.9.2.201712150930-r'
+    constraints {
+        scm('org.apache.httpcomponents:httpclient:4.5.3') {
+            because 'previous versions have a bug impacting this application'
+        }
+        scm('commons-codec:commons-codec:1.11') {
+            because 'version 1.9 pulled from httpclient has bugs affecting this application'
+        }
+    }
+}
+

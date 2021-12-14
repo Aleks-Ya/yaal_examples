@@ -5,4 +5,5 @@ include 'FirstMultimodule',
         'Dependencies+:ExcludeDependency',
         'Dependencies+:Configuration+:ExtLibsConfiguration',
         'Dependencies+:Configuration+:CustomConfiguration',
-        'Dependencies+:Configuration+:ConfigurationOnDemand+:EmptyProjects'
+        'Dependencies+:Configuration+:ConfigurationOnDemand+:EmptyProjects',
+        'Dependencies+:UpgradeTransitiveDependencyVersion'
