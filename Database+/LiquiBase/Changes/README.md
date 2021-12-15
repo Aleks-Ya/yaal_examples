@@ -12,74 +12,67 @@ docker run --rm \
 ### 1.2. Create env variable with Postgres IP address:
 `export IP=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres-liquibase)`
 
-## 2. Create "commands" database
+## 2. Re-create "commands" database
 ```
 docker run -it --rm \
   --link postgres-liquibase:postgres \
   --env PGPASSWORD="pgpass" \
   -v $PWD:/scripts \
   postgres:13 \
-  psql -h postgres -U pguser -c 'CREATE DATABASE commands'
+  bash -c "psql -h postgres -U pguser -c 'DROP DATABASE IF EXISTS commands' && psql -h postgres -U pguser -c 'CREATE DATABASE commands'"
 ```
 
 ## 3. Execute commands
-### Migrate
+### Create Linux alias
+Works:
 ```
+alias liquibase_postgres='
 liquibase \
     --classpath=../postgresql-42.2.18.jar \
     --driver=org.postgresql.Driver \
-    --changeLogFile=db.changelog-master.xml \
     --url="jdbc:postgresql://${IP}:5432/commands" \
     --username=pguser \
-    --password=pgpass \
-    migrate
+    --password=pgpass'
 ```
+
+Env variables don't work (`The option --url is required.`):
+```
+export LIQUIBASE_CLASSPATH=../postgresql-42.2.18.jar
+export LIQUIBASE_DRIVER=org.postgresql.Driver
+export LIQUIBASE_COMMAND_URL=jdbc:postgresql://${IP}:5432/commands
+export LIQUIBASE_COMMAND_USERNAME=pguser
+export LIQUIBASE_COMMAND_PASSWORD=pgpass
+```
+
+`liquibase.properties` doesn't work (can't resolve Docker's `${IP}`):
+```
+classpath=../postgresql-42.2.18.jar
+driver=org.postgresql.Driver
+url=jdbc:postgresql://${IP}:5432/commands
+username=pguser
+password=pgpass
+```
+
+### Migrate
+`liquibase_postgres --changeLogFile=db.changelog-master.xml migrate`
 
 ### Update
-```
-liquibase \
-    --classpath=../postgresql-42.2.18.jar \
-    --driver=org.postgresql.Driver \
-    --changeLogFile=db.changelog-master.xml \
-    --url="jdbc:postgresql://172.17.0.2:5432/commands" \
-    --username=pguser \
-    --password=pgpass \
-    update
-```
+`liquibase_postgres --changeLogFile=db.changelog-master.xml update`
 
 ### Generate ChangeLog
-```
-liquibase \
-    --classpath=../postgresql-42.2.18.jar \
-    --driver=org.postgresql.Driver \
-    --changeLogFile=db.changelog-master2.xml \
-    --url="jdbc:postgresql://172.17.0.2:5432/commands" \
-    --username=pguser \
-    --password=pgpass \
-    generateChangeLog
-```
+`liquibase_postgres --changeLogFile=db.changelog-master2.xml generateChangeLog`
 
 ### Generate SQL script
-```
-liquibase \
-    --classpath=../postgresql-42.2.18.jar \
-    --driver=org.postgresql.Driver \
-    --changeLogFile=db.changelog-master.xml \
-    --url="jdbc:postgresql://172.17.0.2:5432/commands" \
-    --username=pguser \
-    --password=pgpass \
-    updateSQL
-```
-
+`liquibase_postgres --changeLogFile=db.changelog-master.xml updateSQL`
 
 ### Status (show number of not executed Change Sets)
-```
-liquibase \
-    --classpath=../postgresql-42.2.18.jar \
-    --driver=org.postgresql.Driver \
-    --changeLogFile=db.changelog-master.xml \
-    --url="jdbc:postgresql://172.17.0.2:5432/commands" \
-    --username=pguser \
-    --password=pgpass \
-    status
-```
+`liquibase_postgres --changeLogFile=db.changelog-master.xml status`
+
+### History
+`liquibase_postgres --changeLogFile=db.changelog-master.xml history`
+
+### Check sum
+Calculate check sum:
+`liquibase_postgres --changeLogFile=db.changelog-master.xml calculateCheckSum db.changelog-insert.xml::insert-example::liquibase-docs`
+Clear check sums:
+`liquibase_postgres --changeLogFile=db.changelog-master.xml clearCheckSums`
