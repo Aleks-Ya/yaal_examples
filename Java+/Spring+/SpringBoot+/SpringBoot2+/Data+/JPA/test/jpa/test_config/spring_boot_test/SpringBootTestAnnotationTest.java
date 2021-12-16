@@ -1,19 +1,17 @@
-package jpa.find;
+package jpa.test_config.spring_boot_test;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
+@SpringBootTest(classes = Person.class)
+@EnableJpaRepositories(basePackageClasses = PersonRepository.class)
 @EnableAutoConfiguration
-@ContextConfiguration(classes = {Person.class, PersonRepository.class})
-class FindTest {
+class SpringBootTestAnnotationTest {
     @Autowired
     private PersonRepository repo;
 

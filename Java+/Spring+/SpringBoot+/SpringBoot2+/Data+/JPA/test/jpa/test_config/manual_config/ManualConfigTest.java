@@ -1,19 +1,16 @@
-package jpa.find;
+package jpa.test_config.manual_config;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
-@EnableAutoConfiguration
-@ContextConfiguration(classes = {Person.class, PersonRepository.class})
-class FindTest {
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {Config.class, Person.class, PersonRepository.class})
+class ManualConfigTest {
     @Autowired
     private PersonRepository repo;
 

@@ -1,4 +1,4 @@
-package jpa.delete.soft.access_to_deleted;
+package jpa.test_config.manual_config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
