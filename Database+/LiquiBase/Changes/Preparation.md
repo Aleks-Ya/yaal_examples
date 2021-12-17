@@ -1,4 +1,4 @@
-# Using LiguiBase commands
+# Prepare Postgres for using LiquiBase
 
 ## 1. Run Postgres 
 ### 1.1. Run Postgres in Docker:
@@ -28,7 +28,7 @@ Works:
 ```
 alias liquibase_postgres='
 liquibase \
-    --classpath=../postgresql-42.2.18.jar \
+    --classpath=/home/aleks/pr/home/yaal_examples/Database+/LiquiBase/postgresql-42.2.18.jar \
     --driver=org.postgresql.Driver \
     --url="jdbc:postgresql://${IP}:5432/commands" \
     --username=pguser \
@@ -52,27 +52,3 @@ url=jdbc:postgresql://${IP}:5432/commands
 username=pguser
 password=pgpass
 ```
-
-### Migrate
-`liquibase_postgres --changeLogFile=db.changelog-master.xml migrate`
-
-### Update
-`liquibase_postgres --changeLogFile=db.changelog-master.xml update`
-
-### Generate ChangeLog
-`liquibase_postgres --changeLogFile=db.changelog-master2.xml generateChangeLog`
-
-### Generate SQL script
-`liquibase_postgres --changeLogFile=db.changelog-master.xml updateSQL`
-
-### Status (show number of not executed Change Sets)
-`liquibase_postgres --changeLogFile=db.changelog-master.xml status`
-
-### History
-`liquibase_postgres --changeLogFile=db.changelog-master.xml history`
-
-### Check sum
-Calculate check sum:
-`liquibase_postgres --changeLogFile=db.changelog-master.xml calculateCheckSum db.changelog-insert.xml::insert-example::liquibase-docs`
-Clear check sums:
-`liquibase_postgres --changeLogFile=db.changelog-master.xml clearCheckSums`

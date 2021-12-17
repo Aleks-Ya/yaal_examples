@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:  
+      id:  create-persons-table
+      author:  Alex
+      comment: Create 'persons' table
+      changes:
+      -  createTable:
+          schemaName:  public
+          tableName:  person
+          columns:
+          -  column:
+              name:  id
+              type:  java.sql.Types.BIGINT
+          -  column:
+              name:  name
+              type:  java.sql.Types.VARCHAR(255)
+            
+        

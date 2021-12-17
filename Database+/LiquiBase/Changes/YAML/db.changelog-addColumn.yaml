@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id:  add-age-column
+      author:  Alex
+      comment: Add column 'age' into 'persons' table
+      changes:
+      -  addColumn:
+          schemaName: public
+          tableName:  person
+          columns:
+          -  column:
+              name:  age
+              type:  java.sql.Types.SMALLINT
+        
