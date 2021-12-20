@@ -12,6 +12,44 @@
 				"port": "10000",
 				"url": "jdbc:hive2://master-service:10000",
 				"type": "dev",
+				"auth-model": "native"
+			}
+		},
+		"postgres-jdbc-17dc8e9b82f-156ae059594b6827": {
+			"provider": "postgresql",
+			"driver": "postgres-jdbc",
+			"name": "commands",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"host": "172.17.0.2",
+				"port": "5432",
+				"database": "commands",
+				"url": "jdbc:postgresql://172.17.0.2:5432/commands",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-show-non-default-db@": "false",
+					"@dbeaver-show-template-db@": "false",
+					"@dbeaver-show-unavailable-db@": "false",
+					"show-database-statistics": "false",
+					"@dbeaver-read-all-data-types-db@": "false",
+					"@dbeaver-use-prepared-statements-db@": "false",
+					"postgresql.dd.plain.string": "false",
+					"postgresql.dd.tag.string": "false"
+				},
+				"auth-model": "native"
+			}
+		},
+		"sqlite_jdbc-17dcea89c20-23e4c886de975fcc": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "zotero.sqlite",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"database": "/home/aleks/tmp/zotero_sqlite/zotero.sqlite",
+				"url": "jdbc:sqlite:/home/aleks/tmp/zotero_sqlite/zotero.sqlite",
+				"type": "dev",
 				"auth-model": "native",
 				"handlers": {}
 			}
