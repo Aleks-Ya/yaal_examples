@@ -1,0 +1,12 @@
+
+-- Date and time functions
+SELECT
+	CURRENT_DATE,
+	CURRENT_TIME,
+	CURRENT_TIMESTAMP,
+	CURRENT_TIME(2) AS current_time_2,
+	CURRENT_TIMESTAMP(2) AS  current_timestamp_2,
+	LOCALTIME,
+	LOCALTIMESTAMP,
+	LOCALTIME(2) AS localtime_2,
+	LOCALTIMESTAMP(2) AS localtimestamp_2;
