@@ -29,4 +29,19 @@ class CollectionAssert {
     void elementByIndex() {
         assertThat(list).element(1).isEqualTo("b");
     }
+
+    @Test
+    void singleElement() {
+        assertThat(List.of("a")).singleElement().isInstanceOf(String.class);
+    }
+
+    @Test
+    void allMatch() {
+        assertThat(list).allMatch(element -> element.length() == 1);
+    }
+
+    @Test
+    void allSatisfy() {
+        assertThat(list).allSatisfy(element -> assertThat(element.length()).isEqualTo(1));
+    }
 }
