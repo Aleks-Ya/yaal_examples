@@ -1,0 +1,30 @@
+{
+	"folders": {},
+	"connections": {
+		"sqlite_jdbc-17dde80b350-6731382d4c9a099": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "SQLiteSyntax.db",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"database": "SQLiteSyntax.db",
+				"url": "jdbc:sqlite:SQLiteSyntax.db",
+				"type": "dev",
+				"auth-model": "native",
+				"handlers": {}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}
