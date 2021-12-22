@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @EnableAutoConfiguration
-@ContextConfiguration(classes = {Person.class, PersonRepository.class})
+@ContextConfiguration(classes = PersonRepository.class)
 class DataJpaTestAnnotationTest {
     @Autowired
     private PersonRepository repo;
