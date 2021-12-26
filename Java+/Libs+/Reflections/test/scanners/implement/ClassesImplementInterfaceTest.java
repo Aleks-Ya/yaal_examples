@@ -3,21 +3,18 @@ package scanners.implement;
 import org.junit.jupiter.api.Test;
 import org.reflections.Reflections;
 
-import java.util.Set;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Найти классы в заданном пакете, которые реализуют данный интерфейс.
  */
-public class ClassesImplementInterfaceTest {
+class ClassesImplementInterfaceTest {
 
     @Test
-    public void searchAnnotatedMethods() {
-        Reflections reflections = new Reflections(ClassesImplementInterfaceTest.class.getPackage());
-        Set<Class<? extends MyInterface>> res = reflections.getSubTypesOf(MyInterface.class);
-        assertThat(res, contains(ImplA.class));
+    void searchAnnotatedMethods() {
+        var reflections = new Reflections(ClassesImplementInterfaceTest.class.getPackage().getName());
+        var res = reflections.getSubTypesOf(MyInterface.class);
+        assertThat(res).contains(ImplA.class);
     }
 
 }

@@ -2,21 +2,19 @@ package subtype;
 
 import org.junit.jupiter.api.Test;
 import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
-
-import java.util.Set;
+import org.reflections.scanners.Scanners;
 
 /**
  * Поиск с помощью {@linkplain org.reflections.scanners.SubTypesScanner}
  */
-public class BySubTypeScannerTest {
+class BySubTypeScannerTest {
 
     @Test
-    public void interfaceRealizationSearch() {
+    void interfaceRealizationSearch() {
         System.out.println("SubTypesScanner:");
-        Reflections reflections = new Reflections(BySubTypeScannerTest.class.getPackage(), new SubTypesScanner());
-        Set<Class<? extends ITree>> classes = reflections.getSubTypesOf(ITree.class);
-        for (Class clazz : classes) {
+        var reflections = new Reflections(BySubTypeScannerTest.class.getPackage().getName(), Scanners.SubTypes);
+        var classes = reflections.getSubTypesOf(ITree.class);
+        for (Class<?> clazz : classes) {
             System.out.println(clazz.getCanonicalName());
         }
         System.out.println();
@@ -26,11 +24,11 @@ public class BySubTypeScannerTest {
      * Не работает. См. Guava (com.google.common.reflect.ClassPath)
      */
     @Test
-    public void allClassesInPackage() {
+    void allClassesInPackage() {
         System.out.println("allClassesInPackage:");
-        Reflections reflections = new Reflections(BySubTypeScannerTest.class.getPackage(), new SubTypesScanner(false));
-        Set<Class<?>> classes = reflections.getSubTypesOf(Object.class);
-        for (Class<?> clazz : classes) {
+        var reflections = new Reflections(BySubTypeScannerTest.class.getPackage().getName(), Scanners.SubTypes.filterResultsBy(s -> false));
+        var classes = reflections.getSubTypesOf(Object.class);
+        for (var clazz : classes) {
             System.out.println(clazz.getName());
         }
         System.out.println();
