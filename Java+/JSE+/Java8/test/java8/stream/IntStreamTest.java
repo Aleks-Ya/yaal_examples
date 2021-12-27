@@ -5,17 +5,16 @@ import org.junit.jupiter.api.Test;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class IntStreamTest {
+class IntStreamTest {
 
     @Test
-    public void toList() {
+    void toList() {
         var list = IntStream.of(1, 2, 3)
                 .boxed()
                 .collect(Collectors.toList());
-        assertThat(list, contains(1, 2, 3));
+        assertThat(list).contains(1, 2, 3);
     }
 
 }

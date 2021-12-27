@@ -6,17 +6,16 @@ import java.util.Comparator;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class Sort {
+class Sort {
 
     @Test
-    public void reverse() {
+    void reverse() {
         var result = Stream.of(-1, 0, 1)
                 .sorted(Comparator.reverseOrder())
                 .collect(toList());
 
-        assertThat(result, contains(1, 0, -1));
+        assertThat(result).contains(1, 0, -1);
     }
 }

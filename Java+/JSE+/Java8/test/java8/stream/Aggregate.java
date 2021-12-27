@@ -4,42 +4,41 @@ import org.junit.jupiter.api.Test;
 
 import java.util.stream.Stream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Использование аггрегирующих операций.
  */
-public class Aggregate {
+class Aggregate {
     private final Stream<Integer> stream = Stream.of(1, 2, 3);
 
     @Test
-    public void sum() {
+    void sum() {
         var sum = stream.mapToInt(Integer::intValue).sum();
-        assertThat(sum, equalTo(6));
+        assertThat(sum).isEqualTo(6);
     }
 
     @Test
-    public void count() {
+    void count() {
         var sum = stream.mapToInt(Integer::intValue).count();
-        assertThat(sum, equalTo(3L));
+        assertThat(sum).isEqualTo(3L);
     }
 
     @Test
-    public void average() {
+    void average() {
         var average = stream.mapToInt(Integer::intValue).average();
-        assertThat(average.getAsDouble(), equalTo(2D));
+        assertThat(average.getAsDouble()).isEqualTo(2D);
     }
 
     @Test
-    public void min() {
+    void min() {
         var min = stream.mapToInt(Integer::intValue).min();
-        assertThat(min.getAsInt(), equalTo(1));
+        assertThat(min.getAsInt()).isEqualTo(1);
     }
 
     @Test
-    public void max() {
+    void max() {
         var max = stream.mapToInt(Integer::intValue).max();
-        assertThat(max.getAsInt(), equalTo(3));
+        assertThat(max.getAsInt()).isEqualTo(3);
     }
 }

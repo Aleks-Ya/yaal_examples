@@ -8,17 +8,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.aMapWithSize;
-import static org.hamcrest.Matchers.contains;
+import static java.util.List.of;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Grouping elements of a List to a Map.
  */
-public class GroupingBy {
+class GroupingBy {
 
     @Test
-    public void groupBy() {
+    void groupBy() {
         var stream = Stream.of(1, 2, 3, -1);
         var positiveKey = "positive";
         var negativeKey = "negative";
@@ -26,17 +25,16 @@ public class GroupingBy {
         var grouped = stream
                 .collect(Collectors.groupingBy(num -> num > 0 ? positiveKey : negativeKey));
 
-        assertThat(grouped, aMapWithSize(2));
-        assertThat(grouped.get(positiveKey), contains(1, 2, 3));
-        assertThat(grouped.get(negativeKey), contains(-1));
+        assertThat(grouped).hasSize(2)
+                .containsEntry(positiveKey, of(1, 2, 3))
+                .containsEntry(negativeKey, of(-1));
     }
-
 
     /**
      * Keys of outcome map are ordered (used LinkedHashMap).
      */
     @Test
-    public void groupByOrdered() {
+    void groupByOrdered() {
         var stream = Stream.of(1, 2, 0, 3, -1);
         var positiveKey = "positive";
         var zeroKey = "zero";
@@ -53,10 +51,9 @@ public class GroupingBy {
                         LinkedHashMap::new,
                         Collectors.toList()));
 
-        assertThat(grouped, aMapWithSize(3));
-        assertThat(grouped.get(positiveKey), contains(1, 2, 3));
-        assertThat(grouped.get(zeroKey), contains(0));
-        assertThat(grouped.get(negativeKey), contains(-1));
-        assertThat(grouped.keySet(), contains(positiveKey, zeroKey, negativeKey));
+        assertThat(grouped).hasSize(3).containsExactlyInAnyOrderEntriesOf(Map.of(
+                positiveKey, of(1, 2, 3),
+                zeroKey, of(0),
+                negativeKey, of(-1)));
     }
 }

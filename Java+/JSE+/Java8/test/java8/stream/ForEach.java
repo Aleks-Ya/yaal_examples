@@ -2,27 +2,26 @@ package java8.stream;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItems;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Использование конструкции forEach().
  */
-public class ForEach {
+class ForEach {
 
     @Test
-    public void methodReference() {
-        var source = Arrays.asList(-1, 0, 1);
+    void methodReference() {
+        var source = List.of(-1, 0, 1);
         source.forEach(System.out::println);
     }
 
     @Test
-    public void var() {
-        var source = Arrays.asList(Storage.MINUS_ONE, Storage.ZERO, Storage.ONE);
+    void var() {
+        var source = List.of(Storage.MINUS_ONE, Storage.ZERO, Storage.ONE);
         source.forEach(n -> n.num++);
-        assertThat(source, hasItems(Storage.ZERO, Storage.ONE, Storage.TWO));
+        assertThat(source).contains(Storage.ZERO, Storage.ONE, Storage.TWO);
     }
 
     static class Storage {
