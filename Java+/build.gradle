@@ -11,7 +11,7 @@ subprojects {
         mavenCentral()
     }
     ext {
-        h2Dependency = 'com.h2database:h2:1.4.200'
+        h2Dependency = 'com.h2database:h2:2.0.204'
         slf4jSimpleVersion = 'org.slf4j:slf4j-simple:1.8.0-beta4'
         def okHttpVersion = '4.9.1'
         okHttpDependency = "com.squareup.okhttp3:okhttp:$okHttpVersion"
