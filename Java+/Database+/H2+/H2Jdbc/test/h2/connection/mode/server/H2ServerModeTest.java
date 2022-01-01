@@ -1,6 +1,7 @@
 package h2.connection.mode.server;
 
 import org.junit.jupiter.api.Test;
+import util.FileUtil;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,11 +16,11 @@ class H2ServerModeTest {
 
     @Test
     void test() throws SQLException {
-
-        try (var conn1 = DriverManager.getConnection("jdbc:h2:/tmp/servertest;AUTO_SERVER=TRUE");
-             var conn2 = DriverManager.getConnection("jdbc:h2:/tmp/servertest")) {
+        var file = FileUtil.createAbsentTempFileDeleteOnExit(H2ServerModeTest.class.getSimpleName()).getAbsolutePath();
+        var url = "jdbc:h2:" + file;
+        try (var conn1 = DriverManager.getConnection(url + ";AUTO_SERVER=TRUE");
+             var conn2 = DriverManager.getConnection(url)) {
             var st1 = conn1.createStatement();
-            st1.executeUpdate("DROP TABLE IF EXISTS numbers");
             st1.executeUpdate("CREATE TABLE numbers (numb INTEGER)");
             st1.executeUpdate("INSERT INTO numbers VALUES (3)");
 
