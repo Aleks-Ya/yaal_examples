@@ -1,4 +1,4 @@
-package oracle;
+package jdbc.oracle;
 
 import org.junit.jupiter.api.Test;
 
