@@ -1,11 +1,12 @@
 package jdbc.transaction;
 
+import jdbc.H2Helper;
 import jdbc.H2Server;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-import static jdbc.H2Assert.rsToList;
+import static jdbc.H2Helper.rsToList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class RollbackTransaction {
@@ -17,14 +18,16 @@ class RollbackTransaction {
              var conn2 = h2.openConn()) {
             conn1.setAutoCommit(false);
             var st1 = conn1.createStatement();
-            st1.executeUpdate("CREATE TABLE person(id INTEGER, name VARCHAR)");
-            st1.executeUpdate("INSERT INTO person(id, name) VALUES (1, 'John')");
+            var table = H2Helper.randomTableName();
+            st1.executeUpdate(H2Helper.createPersonTable(table));
+            conn1.commit();
+            st1.executeUpdate(H2Helper.insertJohn(table));
             conn1.rollback();
-            st1.executeUpdate("INSERT INTO person(id, name) VALUES (2, 'Mary')");
+            st1.executeUpdate(H2Helper.insertMary(table));
             conn1.commit();
 
             var st2 = conn2.createStatement();
-            var rs = st2.executeQuery("SELECT id, name FROM person");
+            var rs = st2.executeQuery(H2Helper.selectAll(table));
             assertThat(rsToList(rs)).containsExactlyInAnyOrder("2 - Mary");
         }
     }

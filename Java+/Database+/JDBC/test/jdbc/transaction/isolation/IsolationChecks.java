@@ -1,20 +1,21 @@
 package jdbc.transaction.isolation;
 
+import jdbc.H2Helper;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.UUID;
 
 import static java.lang.String.format;
-import static jdbc.H2Assert.rsToList;
+import static jdbc.H2Helper.rsToList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class IsolationChecks {
-    private final String table = "Table_" + UUID.randomUUID().toString().replaceAll("-", "");
-    private final String createTable = format("CREATE TABLE %s(id INTEGER, name VARCHAR)", table);
-    private final String insertJohn = format("INSERT INTO %s(id, name) VALUES (1, 'John')", table);
-    private final String insertMary = format("INSERT INTO %s(id, name) VALUES (2, 'Mary')", table);
-    private final String selectAll = format("SELECT id, name FROM %s", table);
+    private final String table = H2Helper.randomTableName();
+    private final String createTable = H2Helper.createPersonTable(table);
+    private final String insertJohn = H2Helper.insertJohn(table);
+    private final String insertMary = H2Helper.insertMary(table);
+    private final String selectAll = H2Helper.selectAll(table);
 
     private final Connection conn1;
     private final Statement st1;
