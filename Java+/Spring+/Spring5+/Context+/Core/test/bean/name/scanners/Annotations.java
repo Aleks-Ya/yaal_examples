@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         RepositoryWithExplicitName.class,
         ControllerWithExplicitName.class
 })
-public class Annotations {
+class Annotations {
 
     @Autowired
     private ApplicationContext ctx;
@@ -26,18 +26,18 @@ public class Annotations {
      * Имя бина сгенерировано BeanNameGenerator.
      */
     @Test
-    public void generateName() {
-        assertEquals(BeanWithGeneratedName.class, ctx.getBean("beanWithGeneratedName").getClass());
+    void generateName() {
+        assertThat(ctx.getBean("beanWithGeneratedName")).isInstanceOf(BeanWithGeneratedName.class);
     }
 
     /**
      * Имя бина задано явно.
      */
     @Test
-    public void explicitName() {
-        assertEquals(ComponentWithExplicitName.class, ctx.getBean("componentName").getClass());
-        assertEquals(ServiceWithExplicitName.class, ctx.getBean("serviceName").getClass());
-        assertEquals(RepositoryWithExplicitName.class, ctx.getBean("repositoryName").getClass());
-        assertEquals(ControllerWithExplicitName.class, ctx.getBean("controllerName").getClass());
+    void explicitName() {
+        assertThat(ctx.getBean("componentName")).isInstanceOf(ComponentWithExplicitName.class);
+        assertThat(ctx.getBean("serviceName")).isInstanceOf(ServiceWithExplicitName.class);
+        assertThat(ctx.getBean("repositoryName")).isInstanceOf(RepositoryWithExplicitName.class);
+        assertThat(ctx.getBean("controllerName")).isInstanceOf(ControllerWithExplicitName.class);
     }
 }

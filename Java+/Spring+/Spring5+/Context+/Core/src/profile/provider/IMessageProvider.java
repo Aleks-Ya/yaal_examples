@@ -1,5 +1,5 @@
 package profile.provider;
 
-public interface IMessageProvider {
+interface IMessageProvider {
     String getMessage();
 }

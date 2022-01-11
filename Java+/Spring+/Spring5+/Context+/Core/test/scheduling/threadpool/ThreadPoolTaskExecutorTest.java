@@ -9,17 +9,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Использование TaskScheduler для запуска задач по расписанию.
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = ThreadPoolTaskExecutorConfig.class)
-public class ThreadPoolTaskExecutorTest {
+class ThreadPoolTaskExecutorTest {
 
     @Autowired
     private ThreadPoolTaskExecutor taskExecutor;
@@ -27,8 +25,8 @@ public class ThreadPoolTaskExecutorTest {
     private volatile String runnableThreadName;
 
     @Test
-    public void test() throws InterruptedException, ExecutionException {
-        Runnable runnable = () -> {
+    void test() throws InterruptedException, ExecutionException {
+        var runnable = (Runnable) () -> {
             try {
                 runnableThreadName = Thread.currentThread().getName();
                 Thread.sleep(300);
@@ -37,19 +35,19 @@ public class ThreadPoolTaskExecutorTest {
             }
         };
 
-        Callable<String> callable = () -> {
+        var callable = (Callable<String>) () -> {
             Thread.sleep(300);
             return Thread.currentThread().getName();
         };
 
         taskExecutor.execute(runnable);
-        Future<String> callableFuture = taskExecutor.submit(callable);
+        var callableFuture = taskExecutor.submit(callable);
 
         //noinspection StatementWithEmptyBody
         while (runnableThreadName == null) ;
 
-        assertThat(runnableThreadName, equalTo("taskExecutor-1"));
-        assertThat(callableFuture.get(), equalTo("taskExecutor-2"));
+        assertThat(runnableThreadName).isEqualTo("taskExecutor-1");
+        assertThat(callableFuture.get()).isEqualTo("taskExecutor-2");
 
     }
 }

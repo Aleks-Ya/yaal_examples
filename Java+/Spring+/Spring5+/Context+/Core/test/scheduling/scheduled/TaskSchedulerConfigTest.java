@@ -10,9 +10,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TaskSchedulerConfig.class)
-public class TaskSchedulerConfigTest {
+class TaskSchedulerConfigTest {
     @Test
-    public void test() throws InterruptedException {
+    void test() throws InterruptedException {
         Thread.sleep(5000);
     }
 }

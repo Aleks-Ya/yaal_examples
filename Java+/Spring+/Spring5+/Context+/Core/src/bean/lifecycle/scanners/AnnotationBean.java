@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-public class AnnotationBean implements InitializingBean, DisposableBean {
+class AnnotationBean implements InitializingBean, DisposableBean {
 
     @Autowired
     public AnnotationBean(MyBean bean) {

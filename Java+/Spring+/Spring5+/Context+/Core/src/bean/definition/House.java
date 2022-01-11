@@ -2,7 +2,7 @@ package bean.definition;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class House {
+class House {
     @Autowired
     private Address address;
 

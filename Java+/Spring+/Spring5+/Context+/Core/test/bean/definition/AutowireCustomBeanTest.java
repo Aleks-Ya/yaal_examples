@@ -9,24 +9,22 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Autowire Spring dependencies in a bean after the context was started.
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = Address.class)
-public class AutowireCustomBeanTest {
+class AutowireCustomBeanTest {
 
     @Autowired
     private ApplicationContext context;
 
     @Test
-    public void main() {
-        assertNotNull(context);
-        assertTrue(context instanceof ConfigurableApplicationContext);
+    void test() {
+        assertThat(context).isNotNull();
+        assertThat(context).isInstanceOf(ConfigurableApplicationContext.class);
 
         var configurableContext = (ConfigurableApplicationContext) context;
 
@@ -34,6 +32,6 @@ public class AutowireCustomBeanTest {
         var house = (House) autowireFactory.autowire(House.class, AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, false);
 
         var address = context.getBean(Address.class);
-        assertSame(address, house.getAddress());
+        assertThat(address).isSameAs(house.getAddress());
     }
 }

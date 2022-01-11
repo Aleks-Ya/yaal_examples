@@ -8,27 +8,26 @@ import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Autowire Spring dependencies in a bean after the context was started.
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = ValueTest.Data.class)
-public class ValueTest {
+class ValueTest {
 
     @Autowired
     private Data data;
 
     @Test
-    public void main() {
+    void main() {
         System.out.println(data.getUserLanguage());
     }
 
     @Test
-    public void ternaryInteger() {
-        assertThat(data.getTernaryInteger(), equalTo(33));
+    void ternaryInteger() {
+        assertThat(data.getTernaryInteger()).isEqualTo(33);
     }
 
     @Component

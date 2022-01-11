@@ -9,9 +9,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @TestPropertySource(properties = {"my-prop = 1000"})
 @ContextConfiguration(classes = ScheduledConfig.class)
-public class ScheduledTest {
+class ScheduledTest {
     @Test
-    public void schedule() throws InterruptedException {
+    void schedule() throws InterruptedException {
         Thread.sleep(5000);
     }
 }

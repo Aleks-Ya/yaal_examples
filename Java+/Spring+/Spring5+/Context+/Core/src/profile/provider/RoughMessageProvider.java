@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Profile("rough")
-public class RoughMessageProvider implements IMessageProvider {
+class RoughMessageProvider implements IMessageProvider {
     @Override
     public String getMessage() {
         return "fuck off";

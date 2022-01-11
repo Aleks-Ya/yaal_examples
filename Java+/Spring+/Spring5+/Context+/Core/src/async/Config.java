@@ -11,7 +11,7 @@ import java.util.concurrent.Executor;
 @EnableAsync
 @Configuration
 @Import(AsyncService.class)
-public class Config {
+class Config {
 
     @Bean(name = "threadPoolTaskExecutor")
     public Executor threadPoolTaskExecutor() {

@@ -8,8 +8,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.concurrent.ExecutionException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = Config.class)
@@ -21,7 +20,7 @@ class AsyncServiceTest {
     void withReturnType() throws ExecutionException, InterruptedException {
         var stringFuture = asyncService.asyncMethodWithReturnType();
         var value = stringFuture.get();
-        assertThat(value, equalTo("hello world !!!!"));
+        assertThat(value).isEqualTo("hello world !!!!");
     }
 
     @Test

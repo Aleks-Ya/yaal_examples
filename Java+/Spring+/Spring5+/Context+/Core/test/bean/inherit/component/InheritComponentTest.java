@@ -10,13 +10,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = InheritComponentConfig.class)
-public class InheritComponentTest {
+class InheritComponentTest {
 
     @Autowired
     private Child child;
 
     @Test
-    public void name() throws Exception {
+    void name() {
         assertNotNull(child);
     }
 }

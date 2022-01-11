@@ -7,21 +7,20 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {Person.class, City.class})
-public class PartialBeanTest {
+class PartialBeanTest {
 
     @Autowired
     private ApplicationContext ctx;
 
     @Test
-    public void name() {
+    void name() {
         Integer age = 25;
         var name = "John";
         var person = ctx.getBean(Person.class, name, age);
-        assertThat(person.toString(), equalTo("Person{name='John', age=25, city=SPb}"));
+        assertThat(person).hasToString("Person{name='John', age=25, city=SPb}");
     }
 }
