@@ -1,0 +1,1 @@
+Compile tests: `gradle clean compileTestJava`
