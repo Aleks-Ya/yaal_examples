@@ -1,4 +1,4 @@
-package jpa.delete.plain;
+package jpa.logging;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,8 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Objects;
 
-@Entity(name = "PersonDeletePlain")
-@Table(name = "persons_delete_plain")
+@Entity(name = "PersonLogging")
+@Table(name = "persons_logging")
 class Person {
     @Id
     @GeneratedValue

@@ -11,7 +11,7 @@ subprojects {
         mavenCentral()
     }
     ext {
-        h2Dependency = 'com.h2database:h2:2.0.204'
+        h2Dependency = 'com.h2database:h2:2.0.206'
         slf4jSimpleVersion = 'org.slf4j:slf4j-simple:1.8.0-beta4'
         def okHttpVersion = '4.9.1'
         okHttpDependency = "com.squareup.okhttp3:okhttp:$okHttpVersion"
@@ -33,7 +33,7 @@ subprojects {
         spring5Version = '5.3.13'
         spring4Version = '4.3.30.RELEASE'
         spring3Version = '3.2.18.RELEASE'
-        springBootVersion = '2.6.1'
+        springBootVersion = '2.6.2'
         springCloudVersion = '3.0.3'
         hadoop2Version = '2.10.1'
         fabric8ioVersion = '5.6.0'
