@@ -1,36 +1,32 @@
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.jpa.internal.EntityManagerFactoryImpl;
 import org.hibernate.service.ServiceRegistry;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.spi.PersistenceUnitTransactionType;
 
 public class JavaOnly {
 
     public static void main(String[] args) {
-        EntityManager em = getEntityManager();
-        RegionEntity region = new RegionEntity("Вологодская область");
+        var em = getEntityManager();
+        var region = new RegionEntity("Вологодская область");
         em.persist(region);
         System.out.println(em.contains(region));
     }
 
     private static EntityManager getEntityManager() {
-        Configuration configuration = getConfiguration();
+        var configuration = getConfiguration();
 
-        StandardServiceRegistryBuilder srBuilder = new StandardServiceRegistryBuilder();
-        srBuilder.applySettings(configuration.getProperties());
+        var srBuilder = new StandardServiceRegistryBuilder()
+                .applySettings(configuration.getProperties());
         ServiceRegistry serviceRegistry = srBuilder.build();
 
-        EntityManagerFactory emFactory = new EntityManagerFactoryImpl(
-                PersistenceUnitTransactionType.RESOURCE_LOCAL, true, null, configuration, serviceRegistry, null);
+        var emFactory = configuration.buildSessionFactory(serviceRegistry);
 
         return emFactory.createEntityManager();
     }
 
     private static Configuration getConfiguration() {
-        Configuration configuration = new Configuration();
+        var configuration = new Configuration();
         configuration.setProperty("hibernate.connection.driver_class", "org.h2.Driver");
         configuration.setProperty("hibernate.connection.url", "jdbc:h2:~/test");
         configuration.setProperty("hibernate.connection.pool_size", "1");

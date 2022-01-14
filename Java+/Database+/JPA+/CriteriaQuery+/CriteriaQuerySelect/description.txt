@@ -1,1 +1,0 @@
-Примеры выборки данных (SELECT) с помощью JPA CriteriaQuery.

@@ -1,6 +1,5 @@
 subprojects {
     dependencies {
-        implementation h2Dependency, 'org.hibernate:hibernate-entitymanager:4.3.11.Final'
-        //TODO replace with "hibernateEntityManagerDependency"
+        implementation h2Dependency, hibernate5EntityManagerDependency
     }
 }

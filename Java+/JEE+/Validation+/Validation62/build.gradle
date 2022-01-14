@@ -1,5 +1,5 @@
 dependencies {
     implementation 'jakarta.validation:jakarta.validation-api:2.0.2',
-            'org.hibernate.validator:hibernate-validator:6.2.0.Final',
-            'org.glassfish:jakarta.el:3.0.3'
+            'org.hibernate.validator:hibernate-validator:6.2.1.Final',
+            'org.glassfish:jakarta.el:3.0.4'
 }

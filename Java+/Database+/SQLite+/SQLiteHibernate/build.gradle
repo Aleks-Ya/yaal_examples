@@ -1,4 +1,4 @@
 dependencies {
-    implementation hibernateEntityManagerDependency, 'org.xerial:sqlite-jdbc:3.36.0.3',
+    implementation hibernate5EntityManagerDependency, 'org.xerial:sqlite-jdbc:3.36.0.3',
             'com.github.gwenn:sqlite-dialect:0.1.2'
 }

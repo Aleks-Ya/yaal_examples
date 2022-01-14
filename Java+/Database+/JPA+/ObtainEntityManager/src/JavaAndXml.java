@@ -1,13 +1,12 @@
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.HashMap;
 import java.util.Map;
 
 public class JavaAndXml {
     public static void main(String[] args) {
-        EntityManager em = getEntityManager();
-        RegionEntity region = new RegionEntity("Вологодская область");
+        var em = getEntityManager();
+        var region = new RegionEntity("Вологодская область");
         em.persist(region);
         System.out.println(em.contains(region));
         em.close();
@@ -15,8 +14,8 @@ public class JavaAndXml {
     }
 
     private static EntityManager getEntityManager() {
-        Map<String, String> props = getProperties();
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("manager1", props);
+        var props = getProperties();
+        var factory = Persistence.createEntityManagerFactory("manager1", props);
         return factory.createEntityManager();
     }
 

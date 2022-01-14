@@ -5,7 +5,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,23 +22,23 @@ public class JpqlDelete {
 
     @Test
     public void deleteAll() {
-        Query query = em.createQuery("DELETE FROM MealEntity");
-        int updated = query.executeUpdate();
+        var query = em.createQuery("DELETE FROM MealEntity");
+        var updated = query.executeUpdate();
         assertEquals(3, updated);
     }
 
     @Test
     public void deleteWhere() {
-        Query query = em.createQuery("DELETE FROM MealEntity WHERE name='Sandwich'");
-        int updated = query.executeUpdate();
+        var query = em.createQuery("DELETE FROM MealEntity WHERE name='Sandwich'");
+        var updated = query.executeUpdate();
         assertEquals(1, updated);
     }
 
     @Test
     public void deleteJoin() {
-        Query query = em.createQuery(
+        var query = em.createQuery(
                 "DELETE FROM MealEntity WHERE user IN(FROM UserEntity WHERE name='Smith')");
-        int updated = query.executeUpdate();
+        var updated = query.executeUpdate();
         assertEquals(3, updated);
     }
 }
