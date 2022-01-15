@@ -3,15 +3,11 @@ package jpql;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name = "meal")
 public class MealEntity {
     @Id
-//    @SequenceGenerator(name = "meal_generator", sequenceName = "meal_id_seq", allocationSize = 1)
-//    @GeneratedValue(generator = "meal_generator")
     private Long id;
     private String name;
 

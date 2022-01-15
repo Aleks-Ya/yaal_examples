@@ -33,16 +33,14 @@ public class Helper {
     }
 
     public static void saveEntities(EntityManager em) {
-        {
-            em.getTransaction().begin();
-            em.merge(region1);
-            em.merge(region2);
-            em.merge(city1);
-            em.merge(city2);
-            em.merge(city3);
-            em.merge(city4);
-            em.flush();
-            em.getTransaction().commit();
-        }
+        em.getTransaction().begin();
+        em.merge(region1);
+        em.merge(region2);
+        em.merge(city1);
+        em.merge(city2);
+        em.merge(city3);
+        em.merge(city4);
+        em.flush();
+        em.getTransaction().commit();
     }
 }

@@ -6,6 +6,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import javax.persistence.EntityManager;
+import java.util.function.Consumer;
 
 public class Helper {
     public static final UserEntity user = new UserEntity(1L, "Smith");
@@ -13,7 +14,7 @@ public class Helper {
     public static final MealEntity meal2 = new MealEntity(2L, "Soup", user);
     public static final MealEntity meal3 = new MealEntity(3L, "Salad", user);
 
-    public static SessionFactory initEntityManagerFactory() {
+    private static SessionFactory initEntityManagerFactory() {
         var configuration = new Configuration()
                 .setProperty("hibernate.connection.driver_class", "org.h2.Driver")
                 .setProperty("hibernate.connection.url", "jdbc:h2:~/test")
@@ -30,15 +31,22 @@ public class Helper {
         return configuration.buildSessionFactory(serviceRegistry);
     }
 
-    public static void saveEntities(EntityManager em) {
-        {
-            em.getTransaction().begin();
-            em.merge(user);
-            em.merge(meal1);
-            em.merge(meal2);
-            em.merge(meal3);
-            em.flush();
-            em.getTransaction().commit();
+    private static void saveEntities(EntityManager em) {
+        em.getTransaction().begin();
+        em.merge(user);
+        em.merge(meal1);
+        em.merge(meal2);
+        em.merge(meal3);
+        em.flush();
+        em.getTransaction().commit();
+    }
+
+    public static void withEntityManagerAndSavedEntities(Consumer<EntityManager> withEntityManager) {
+        try (var emFactory = initEntityManagerFactory()) {
+            var em = emFactory.createEntityManager();
+            saveEntities(em);
+            withEntityManager.accept(em);
         }
     }
+
 }

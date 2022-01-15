@@ -5,12 +5,9 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-//@Table(name = "users")
 public class UserEntity {
 
     @Id
-//    @SequenceGenerator(name = "user_generator", sequenceName = "user_id_seq", allocationSize = 1)
-//    @GeneratedValue(generator = "user_generator")
     private Long id;
 
     private String name;
