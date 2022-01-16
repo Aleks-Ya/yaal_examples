@@ -61,4 +61,14 @@ class JpqlSelect {
                     .map(MealEntity::getUser).allSatisfy(user -> assertThat(user).isEqualTo(Helper.user));
         });
     }
+
+    @Test
+    void selectWhereEnum() {
+        withEntityManagerAndSavedEntities((em) -> {
+            var query = em.createQuery(
+                    "FROM MealEntity WHERE category = jpql.MealCategory.VEGETABLES", MealEntity.class);
+            var meal = query.getSingleResult();
+            assertThat(meal).isEqualTo(Helper.meal3);
+        });
+    }
 }

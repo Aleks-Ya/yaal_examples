@@ -10,6 +10,7 @@ public class MealEntity {
     @Id
     private Long id;
     private String name;
+    private MealCategory category;
 
     @ManyToOne
     private UserEntity user;
@@ -17,9 +18,10 @@ public class MealEntity {
     public MealEntity() {
     }
 
-    public MealEntity(Long id, String name, UserEntity user) {
+    public MealEntity(Long id, String name, MealCategory category, UserEntity user) {
         this.id = id;
         this.name = name;
+        this.category = category;
         this.user = user;
     }
 
@@ -45,6 +47,14 @@ public class MealEntity {
 
     public void setUser(UserEntity user) {
         this.user = user;
+    }
+
+    public MealCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(MealCategory category) {
+        this.category = category;
     }
 
     @Override

@@ -10,9 +10,9 @@ import java.util.function.Consumer;
 
 public class Helper {
     public static final UserEntity user = new UserEntity(1L, "Smith");
-    public static final MealEntity meal1 = new MealEntity(1L, "Sandwich", user);
-    public static final MealEntity meal2 = new MealEntity(2L, "Soup", user);
-    public static final MealEntity meal3 = new MealEntity(3L, "Salad", user);
+    public static final MealEntity meal1 = new MealEntity(1L, "Sandwich", MealCategory.FAST_FOOD, user);
+    public static final MealEntity meal2 = new MealEntity(2L, "Soup", MealCategory.SOUPS, user);
+    public static final MealEntity meal3 = new MealEntity(3L, "Salad", MealCategory.VEGETABLES, user);
 
     private static SessionFactory initEntityManagerFactory() {
         var configuration = new Configuration()
@@ -41,12 +41,17 @@ public class Helper {
         em.getTransaction().commit();
     }
 
-    public static void withEntityManagerAndSavedEntities(Consumer<EntityManager> withEntityManager) {
+    public static void withEntityManager(Consumer<EntityManager> withEntityManager) {
         try (var emFactory = initEntityManagerFactory()) {
-            var em = emFactory.createEntityManager();
+            withEntityManager.accept(emFactory.createEntityManager());
+        }
+    }
+
+    public static void withEntityManagerAndSavedEntities(Consumer<EntityManager> withEntityManager) {
+        withEntityManager((em) -> {
             saveEntities(em);
             withEntityManager.accept(em);
-        }
+        });
     }
 
 }
