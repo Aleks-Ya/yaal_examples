@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -16,6 +15,6 @@ class Generics {
     @Test
     void string() {
         List<String> mock = mock(List.class);
-        assertThat(mock.size(), equalTo(0));
+        assertThat(mock.size()).isEqualTo(0);
     }
 }

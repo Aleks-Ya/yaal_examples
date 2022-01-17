@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
@@ -18,7 +16,7 @@ class StubTest {
     void thenReturn() {
         var mock = mock(Iterator.class);
         when(mock.hasNext()).thenReturn(true);
-        assertTrue(mock.hasNext());
+        assertThat(mock.hasNext()).isTrue();
     }
 
     @Test
@@ -28,7 +26,7 @@ class StubTest {
             String src = invocation.getArgument(0);
             return src + src;
         });
-        assertThat(mock.doWork("ab"), equalTo("abab"));
+        assertThat(mock.doWork("ab")).isEqualTo("abab");
     }
 
     @Test
@@ -38,7 +36,7 @@ class StubTest {
             String src = invocation.getArgument(0);
             return src + src;
         }).when(mock).doWork("ab");
-        assertThat(mock.doWork("ab"), equalTo("abab"));
+        assertThat(mock.doWork("ab")).isEqualTo("abab");
     }
 
     private interface Source {

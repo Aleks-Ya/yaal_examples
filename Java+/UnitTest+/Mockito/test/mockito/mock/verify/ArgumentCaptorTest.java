@@ -5,9 +5,7 @@ import org.mockito.ArgumentCaptor;
 
 import java.util.Date;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -29,7 +27,7 @@ class ArgumentCaptorTest {
         verify(mock, times(1)).after(captor.capture());
 
         var actDate = captor.getValue();
-        assertThat(actDate, equalTo(expDate));
+        assertThat(actDate).isEqualTo(expDate);
     }
 
 
@@ -47,6 +45,6 @@ class ArgumentCaptorTest {
         verify(mock, times(2)).after(captor.capture());
 
         var actDates = captor.getAllValues();
-        assertThat(actDates, contains(expDate1, expDate2));
+        assertThat(actDates).contains(expDate1, expDate2);
     }
 }

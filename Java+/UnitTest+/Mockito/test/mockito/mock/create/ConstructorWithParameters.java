@@ -2,7 +2,7 @@ package mockito.mock.create;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 class ConstructorWithParameters {
@@ -10,7 +10,7 @@ class ConstructorWithParameters {
     @Test
     void string() {
         var mock = mock(Data.class);
-        assertNull(mock.getTitle());
+        assertThat(mock.getTitle()).isNull();
     }
 
     private static class Data {
