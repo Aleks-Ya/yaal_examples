@@ -1,0 +1,10 @@
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+
+    //OkHttp SSE client
+    implementation 'com.launchdarkly:okhttp-eventsource:2.5.0'
+
+    //"JAX RS" SSE client
+    def cxfRtRsVersion = '3.5.0'
+    implementation "org.apache.cxf:cxf-rt-rs-sse:$cxfRtRsVersion", "org.apache.cxf:cxf-rt-rs-client:$cxfRtRsVersion"
+}
