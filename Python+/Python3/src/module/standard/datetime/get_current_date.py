@@ -1,14 +1,14 @@
 # Obtaining the current date and time
 import datetime
 
-current_date_time = datetime.datetime.now()
+current_date_time: datetime.datetime = datetime.datetime.now()
 print("Current datetime: ", current_date_time)
 
-current_date = datetime.datetime.now().date()
+current_date: datetime.date = datetime.datetime.now().date()
 print("Current date: ", current_date)
 
-current_year = datetime.datetime.now().date().year
+current_year: int = datetime.datetime.now().date().year
 print("Current year: ", current_year)
 
-current_time = datetime.datetime.now().time()
+current_time: datetime.time = datetime.datetime.now().time()
 print("Current time: ", current_time)

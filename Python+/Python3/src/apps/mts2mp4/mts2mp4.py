@@ -6,7 +6,7 @@ import subprocess
 import sys
 from pathlib import Path
 from subprocess import DEVNULL
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 
 class FileData:
@@ -137,6 +137,42 @@ def check_enough_disk_space(files_data_arg: FilesData, dest_dir_arg: Path):
                       f"destination available space {to_mb(available_disk_space_bytes)}MB).")
 
 
+def format_date_time(date_time: datetime.datetime) -> str:
+    return date_time.strftime('%Y-%m-%d %H:%M:%S')
+
+
+def get_last_performance_file() -> Path:
+    user_home_dir: Path = Path.home()
+    app_dir: Path = Path(user_home_dir, '.mts2mp4')
+    if not app_dir.exists():
+        app_dir.mkdir()
+    return Path(app_dir, 'last_performance_bytes_per_second.txt')
+
+
+def get_last_performance(performance_file: Path) -> Optional[int]:
+    performance: Optional[int] = None
+    if performance_file.exists():
+        with open(performance_file, 'r') as f:
+            performance = int(f.read())
+    return performance
+
+
+def write_last_performance(performance: int, performance_file: Path) -> None:
+    with open(performance_file, 'w') as f:
+        f.write(str(performance))
+
+
+def calc_exp_finish_date_time(performance: Optional[int], files_data_: FilesData) -> Optional[datetime.datetime]:
+    if performance:
+        exp_duration_sec: int = files_data_.src_file_size_total / performance
+        return start_date_time + datetime.timedelta(seconds=exp_duration_sec)
+    else:
+        return None
+
+
+start_date_time: datetime.datetime = datetime.datetime.now()
+print("Start time: ", format_date_time(start_date_time))
+
 src_dir: Path = Path(sys.argv[1])
 print(f"Source directory: {src_dir}")
 check_dir_exits(src_dir)
@@ -144,17 +180,27 @@ check_dir_exits(src_dir)
 dest_dir: Path = Path(sys.argv[2])
 print(f"Destination directory: {dest_dir}")
 
-delete_src_files: bool = parse_bool(sys.argv[3])
-print(f"Delete source files: {delete_src_files}")
-
 check_ffmpeg_availability()
 
 files_data: FilesData = find_mts_files(src_dir, dest_dir)
 print(files_data)
 check_files_absent(files_data)
 
+last_performance_file: Path = get_last_performance_file()
+last_performance: Optional[int] = get_last_performance(last_performance_file)
+exp_finish_date_time: Optional[datetime.datetime] = calc_exp_finish_date_time(last_performance, files_data)
+print(f"Expected finish time: "
+      f"{format_date_time(exp_finish_date_time) if exp_finish_date_time is not None else 'Unknown'}")
+
 check_enough_disk_space(files_data, dest_dir)
 
 convert_files(files_data)
 
 print("Done.")
+end_date_time: datetime.datetime = datetime.datetime.now()
+print("Finish time: ", format_date_time(end_date_time))
+
+act_duration_sec: int = (end_date_time - start_date_time).seconds
+act_performance: int = int(files_data.src_file_size_total / act_duration_sec)
+print(f"Actual performance: {act_performance} bytes/sec")
+write_last_performance(act_performance, last_performance_file)
