@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script>
+        window.onload = function () {
+            var source = new EventSource('/emitter');
+            source.onmessage = function (event) {
+                const { type, data } = JSON.parse(event.data)
+                if (type === 'close') {
+                    source.close()
+                } else {
+                    var el = document.getElementById('messages');
+                    el.appendChild(document.createTextNode(event.data));
+                    el.appendChild(document.createElement('br'));
+                    el.appendChild(document.createElement('br'));
+                }
+            };
+            source.onerror = function (event) {
+                var el = document.getElementById('errors');
+                el.appendChild(document.createTextNode(event));
+                el.appendChild(document.createElement('br'));
+                el.appendChild(document.createElement('br'));
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="messages"></div>
+<div id="errors" style="color:red"></div>
+</body>
+</html>
