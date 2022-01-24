@@ -2,19 +2,17 @@ package web.sse.javascript;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import util.ResourceUtil;
 
 import javax.annotation.PreDestroy;
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * Open http://localhost:8080/page
- */
 @SpringBootApplication
 public class JavaScriptEmitterApp {
     public static void main(String[] args) {
@@ -24,19 +22,17 @@ public class JavaScriptEmitterApp {
     @Controller
     public static class EmitterController {
         private final ExecutorService executor = Executors.newSingleThreadExecutor();
-
-        @GetMapping("/page")
-        @ResponseBody
-        public String page() {
-            return ResourceUtil.resourceToString(JavaScriptEmitterApp.class, "page.html");
-        }
+        private SseEmitter emitter;
 
         @GetMapping("/emitter")
         public SseEmitter eventEmitterBuilder() {
-            SseEmitter emitter = new SseEmitter(12000L);
+            emitter = new SseEmitter(12000L);
+            emitter.onCompletion(() -> System.out.println("Completed"));
+            emitter.onError((t) -> System.out.println("Error: " + t.getMessage()));
+            emitter.onTimeout(() -> System.out.println("Timeout"));
             executor.execute(() -> {
                 try {
-                    for (int i = 0; i < 4; i++) {
+                    for (var i = 0; i < 4; i++) {
                         var event = SseEmitter.event()
                                 .id("id" + i)
                                 .name("eventName" + i)
@@ -45,12 +41,21 @@ public class JavaScriptEmitterApp {
                                 .data("message" + i).build();
                         emitter.send(event);
                     }
-                    emitter.send(SseEmitter.event().name("close").build());
                 } catch (Exception e) {
                     emitter.completeWithError(e);
                 }
             });
             return emitter;
+        }
+
+        @GetMapping("/stop")
+        @ResponseStatus(HttpStatus.OK)
+        public void stopEmitter() throws IOException {
+            if (emitter != null) {
+                System.out.println("Closing the emitter...");
+                emitter.send(SseEmitter.event().name("close").build());
+                System.out.println("Emitter is closed.");
+            }
         }
 
         @PreDestroy

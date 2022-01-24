@@ -27,10 +27,10 @@ class CurlEmitterApp {
          */
         @GetMapping("/emitter")
         public SseEmitter eventEmitter(@RequestParam String userId) {
-            SseEmitter emitter = new SseEmitter(12000L);
+            var emitter = new SseEmitter(12000L);
             executor.execute(() -> {
                 try {
-                    for (int i = 0; i < 4; i++) {
+                    for (var i = 0; i < 4; i++) {
                         emitter.send("message" + i);
                     }
                     emitter.complete();
@@ -47,10 +47,10 @@ class CurlEmitterApp {
          */
         @GetMapping("/emitterBuilder")
         public SseEmitter eventEmitterBuilder(@RequestParam String userId) {
-            SseEmitter emitter = new SseEmitter(12000L);
+            var emitter = new SseEmitter(12000L);
             executor.execute(() -> {
                 try {
-                    for (int i = 0; i < 4; i++) {
+                    for (var i = 0; i < 4; i++) {
                         var event = SseEmitter.event()
                                 .id("id" + i)
                                 .name("eventName" + i)

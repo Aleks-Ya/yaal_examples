@@ -22,10 +22,10 @@ public class CxfRtRsEmitterApp {
 
         @GetMapping("/emitter")
         public SseEmitter eventEmitterBuilder() {
-            SseEmitter emitter = new SseEmitter(12000L);
+            var emitter = new SseEmitter(12000L);
             executor.execute(() -> {
                 try {
-                    for (int i = 0; i < 4; i++) {
+                    for (var i = 0; i < 4; i++) {
                         var event = SseEmitter.event()
                                 .id("id" + i)
                                 .name("eventName" + i)

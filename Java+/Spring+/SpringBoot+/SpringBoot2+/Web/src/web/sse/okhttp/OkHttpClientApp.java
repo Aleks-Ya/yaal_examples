@@ -31,7 +31,7 @@ public class OkHttpClientApp {
             }
 
             @Override
-            public void onComment(String comment)  {
+            public void onComment(String comment) {
                 eventHistory.add(format("onComment: comment='%s'", comment));
             }
 
@@ -40,7 +40,7 @@ public class OkHttpClientApp {
                 eventHistory.add(format("onError: throwable='%s'", t));
             }
         };
-        try (EventSource es = new EventSource.Builder(eventHandler, URI.create("http://localhost:8080/emitterOkHttp"))
+        try (var es = new EventSource.Builder(eventHandler, URI.create("http://localhost:8080/emitterOkHttp"))
                 .build()) {
             es.start();
             es.awaitClosed(Duration.ofSeconds(5));
