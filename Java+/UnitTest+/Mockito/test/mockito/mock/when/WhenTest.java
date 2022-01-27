@@ -5,6 +5,8 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,5 +47,15 @@ class WhenTest {
         assertThatThrownBy(() -> mock.mark(readlimit1)).isEqualTo(e1);
         assertThatThrownBy(() -> mock.mark(readlimit2)).isEqualTo(e2);
         mock.mark(15);
+    }
+
+    @Test
+    void returnMock() {
+        var serverSocketMock = mock(ServerSocket.class);
+        var inetAddressMock = mock(InetAddress.class);
+        var hostName = "news.com";
+        when(inetAddressMock.getHostName()).thenReturn(hostName);
+        when(serverSocketMock.getInetAddress()).thenReturn(inetAddressMock);
+        assertThat(serverSocketMock.getInetAddress().getHostName()).isEqualTo(hostName);
     }
 }
