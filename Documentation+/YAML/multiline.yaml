@@ -1,0 +1,41 @@
+---
+# Keep newlines
+
+# 1. Single newline at end
+multiline1: |
+  line1
+  line2
+  line3
+
+# 2. All newlines from end
+multiline3: |+
+  line1
+  line2
+  line3
+
+# 3. No newline at end
+multiline4: |-
+  line1
+  line2
+  line3
+---
+
+# Replace newlines with spaces
+
+# 1. Single newline at end
+multiline2: >
+  line1
+  line2
+  line3
+
+# 2. All newlines from end
+multiline3: >+
+  line1
+  line2
+  line3
+
+# 3. No newline at end
+multiline4: >-
+  line1
+  line2
+  line3

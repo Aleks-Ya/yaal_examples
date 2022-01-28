@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-volume-secret
+type: Opaque
+data:
+  username: bXlfdm9sdW1lX3VzZXJuYW1l
+  password: bXlfdm9sdW1lX3Bhc3N3b3Jk
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secret-volume-pod
+spec:
+  containers:
+  - name: secret-volume-container
+    image: alpine
+    command: [ "sh", "-c", "set -o xtrace; ls -l /etc/creds; echo $(cat /etc/creds/username); echo $(cat /etc/creds/password); while true; do echo 'Hello, World!'; sleep 5; done" ]
+    volumeMounts:
+    - name: credentials
+      mountPath: "/etc/creds"
+      readOnly: true
+  volumes:
+  - name: credentials
+    secret:
+      secretName: secret-volume-secret
+  restartPolicy: OnFailure
