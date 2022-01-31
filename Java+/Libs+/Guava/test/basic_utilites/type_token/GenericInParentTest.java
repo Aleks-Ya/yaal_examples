@@ -6,23 +6,23 @@ import org.junit.jupiter.api.Test;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Generic ConcreteClass have no generics (they are in ParentClass).
  */
-public class GenericInParentTest {
+class GenericInParentTest {
     @Test
-    public void test() {
-        ConcreteClass obj = new ConcreteClass();
-        assertEquals(Integer.class, obj.typeT.getRawType());
-        assertEquals(FileInputStream.class, obj.typeD.getRawType());
+    void test() {
+        var obj = new ConcreteClass();
+        assertThat(obj.typeT.getRawType()).isEqualTo(Integer.class);
+        assertThat(obj.typeD.getRawType()).isEqualTo(FileInputStream.class);
     }
 
     private static abstract class GenericClass<T extends Number, D extends InputStream> {
-        TypeToken<T> typeT = new TypeToken<T>(getClass()) {
+        TypeToken<T> typeT = new TypeToken<>(getClass()) {
         };
-        TypeToken<D> typeD = new TypeToken<D>(getClass()) {
+        TypeToken<D> typeD = new TypeToken<>(getClass()) {
         };
     }
 

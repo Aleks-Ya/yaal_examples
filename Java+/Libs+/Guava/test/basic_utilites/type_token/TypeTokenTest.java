@@ -3,23 +3,23 @@ package basic_utilites.type_token;
 import com.google.common.reflect.TypeToken;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Get generic class in runtime.
  */
-public class TypeTokenTest {
+class TypeTokenTest {
     @Test
-    public void test() {
-        ConcreteClass obj = new ConcreteClass();
-        assertEquals(Integer.class, obj.typeT.getRawType());
-        assertEquals(String.class, obj.typeD.getRawType());
+    void test() {
+        var obj = new ConcreteClass();
+        assertThat(obj.typeT.getRawType()).isEqualTo(Integer.class);
+        assertThat(obj.typeD.getRawType()).isEqualTo(String.class);
     }
 
     private static abstract class GenericClass<T, D> {
-        TypeToken<T> typeT = new TypeToken<T>(getClass()) {
+        TypeToken<T> typeT = new TypeToken<>(getClass()) {
         };
-        TypeToken<D> typeD = new TypeToken<D>(getClass()) {
+        TypeToken<D> typeD = new TypeToken<>(getClass()) {
         };
     }
 

@@ -3,13 +3,14 @@ package basic_utilites.using_avoiding_null;
 import com.google.common.base.MoreObjects;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class MoreObjectsTest {
+class MoreObjectsTest {
     @Test
-    public void firstNotNull() {
+    void firstNotNull() {
         Object o1 = null;
-        Object o2 = new Object();
-        assertEquals(o2, MoreObjects.firstNonNull(o1, o2));
+        var o2 = new Object();
+        var firstNonNull = MoreObjects.firstNonNull(o1, o2);
+        assertThat(firstNonNull).isEqualTo(o2);
     }
 }

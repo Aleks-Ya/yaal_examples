@@ -3,16 +3,19 @@ package basic_utilites.type_token;
 import com.google.common.reflect.TypeToken;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Interfaces anywhere.
  */
-public class InterfacesTest {
+class InterfacesTest {
     @Test
-    public void test() {
-        ConcreteClass obj = new ConcreteClass();
-        assertEquals(MyClass.class, obj.classT);
+    void test() {
+        var obj = new ConcreteClass();
+        assertThat(obj.classT).isEqualTo(MyClass.class);
+    }
+
+    private interface MyInterface {
     }
 
     private static abstract class GenericClass<T extends MyInterface> {
@@ -24,9 +27,6 @@ public class InterfacesTest {
     }
 
     private static class ConcreteClass extends ParentClass {
-    }
-
-    private interface MyInterface {
     }
 
     private static abstract class MyAbstract implements MyInterface {

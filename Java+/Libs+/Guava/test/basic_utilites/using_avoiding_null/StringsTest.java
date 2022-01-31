@@ -3,27 +3,27 @@ package basic_utilites.using_avoiding_null;
 import com.google.common.base.Strings;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class StringsTest {
+class StringsTest {
 
     @Test
-    public void emptyToNull() {
-        assertNull(Strings.emptyToNull(""));
-        assertNotNull(Strings.emptyToNull("aa"));
+    void emptyToNull() {
+        assertThat(Strings.emptyToNull("")).isNull();
+        assertThat(Strings.emptyToNull("aa")).isNotNull();
     }
 
     @Test
-    public void isNullOrEmpty() {
-        assertTrue(Strings.isNullOrEmpty(null));
-        assertTrue(Strings.isNullOrEmpty(""));
-        assertFalse(Strings.isNullOrEmpty("aa"));
+    void isNullOrEmpty() {
+        assertThat(Strings.isNullOrEmpty(null)).isTrue();
+        assertThat(Strings.isNullOrEmpty("")).isTrue();
+        assertThat(Strings.isNullOrEmpty("aa")).isFalse();
     }
 
     @Test
-    public void nullToEmpty() {
-        assertEquals("", Strings.nullToEmpty(null));
-        assertEquals("", Strings.nullToEmpty(""));
-        assertEquals("aa", Strings.nullToEmpty("aa"));
+    void nullToEmpty() {
+        assertThat(Strings.nullToEmpty(null)).isEqualTo("");
+        assertThat(Strings.nullToEmpty("")).isEqualTo("");
+        assertThat(Strings.nullToEmpty("aa")).isEqualTo("aa");
     }
 }

@@ -3,25 +3,22 @@ package io;
 import com.google.common.io.Files;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class FileToStringTest {
+class FileToStringTest {
 
     @Test
-    public void readFileToString() throws IOException {
-        Path f = java.nio.file.Files.createTempFile(FileToStringTest.class.getName() + "_", ".tmp");
-        String expContent = "abcd";
+    void readFileToString() throws IOException {
+        var f = java.nio.file.Files.createTempFile(FileToStringTest.class.getName() + "_", ".tmp");
+        var expContent = "abcd";
         java.nio.file.Files.write(f, expContent.getBytes());
 
-        File actFile = f.toFile();
-        String content = Files.asCharSource(actFile, Charset.defaultCharset()).read();
+        var actFile = f.toFile();
+        var content = Files.asCharSource(actFile, Charset.defaultCharset()).read();
 
-        assertThat(content, equalTo(expContent));
+        assertThat(content).isEqualTo(expContent);
     }
 }

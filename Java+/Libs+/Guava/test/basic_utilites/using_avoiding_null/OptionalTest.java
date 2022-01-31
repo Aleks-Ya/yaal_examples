@@ -3,22 +3,19 @@ package basic_utilites.using_avoiding_null;
 import com.google.common.base.Optional;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class OptionalTest {
+class OptionalTest {
     @Test
-    public void use() throws Exception {
-        Optional<Integer> possible = Optional.of(5);
-        assertTrue(possible.isPresent());
-        assertEquals(Integer.valueOf(5), possible.get());
+    void use() {
+        var possible = Optional.of(5);
+        assertThat(possible.isPresent()).isTrue();
+        assertThat(possible.get()).isEqualTo(Integer.valueOf(5));
     }
 
     @Test
-    public void useNull() throws Exception {
+    void useNull() {
         Optional<Integer> possible = Optional.fromNullable(null);
-        assertFalse(possible.isPresent());
-        //assertNull(possible.get());// IllegalArgumentException
+        assertThat(possible.isPresent()).isFalse();
     }
 }

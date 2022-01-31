@@ -9,24 +9,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class InputStreamToStringTest {
+class InputStreamToStringTest {
 
     @Test
-    public void byCharStreams() throws IOException {
-        String exp = "abc";
+    void byCharStreams() throws IOException {
+        var exp = "abc";
         Readable r = new StringReader(exp);
-        String act = CharStreams.toString(r);
-        assertThat(act, equalTo(exp));
+        var act = CharStreams.toString(r);
+        assertThat(act).isEqualTo(exp);
     }
 
     @Test
-    public void byByteStreams() throws IOException {
-        byte[] exp = "abc".getBytes();
+    void byByteStreams() throws IOException {
+        var exp = "abc".getBytes();
         InputStream is = new ByteArrayInputStream(exp);
-        byte[] act = ByteStreams.toByteArray(is);
-        assertThat(act, equalTo(exp));
+        var act = ByteStreams.toByteArray(is);
+        assertThat(act).isEqualTo(exp);
     }
 }

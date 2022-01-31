@@ -6,17 +6,17 @@ import org.junit.jupiter.api.Test;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Class fields in GenericClass.
  */
-public class TakeClassTest {
+class TakeClassTest {
     @Test
-    public void test() {
-        ConcreteClass obj = new ConcreteClass();
-        assertEquals(Integer.class, obj.classT);
-        assertEquals(FileInputStream.class, obj.classD);
+    void test() {
+        var obj = new ConcreteClass();
+        assertThat(obj.classT).isEqualTo(Integer.class);
+        assertThat(obj.classD).isEqualTo(FileInputStream.class);
     }
 
     private static abstract class GenericClass<T extends Number, D extends InputStream> {

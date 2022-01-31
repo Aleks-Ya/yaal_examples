@@ -4,21 +4,20 @@ import com.google.common.collect.Interner;
 import com.google.common.collect.Interners;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class InternerTest {
+class InternerTest {
 
     @Test
-    public void emptyToNull() {
-        ImmutableObject obj1 = new ImmutableObject(1);
-        ImmutableObject obj2 = new ImmutableObject(1);
-        assertFalse(obj1 == obj2);
+    void emptyToNull() {
+        var obj1 = new ImmutableObject(1);
+        var obj2 = new ImmutableObject(1);
+        assertThat(obj1 == obj2).isFalse();
 
         Interner<ImmutableObject> interner = Interners.newStrongInterner();
 
-        assertTrue(obj1 == interner.intern(obj1));
-        assertTrue(obj1 == interner.intern(obj2));
+        assertThat(obj1 == interner.intern(obj1)).isTrue();
+        assertThat(obj1 == interner.intern(obj2)).isTrue();
     }
 
     private static class ImmutableObject {
@@ -33,7 +32,7 @@ public class InternerTest {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
-            ImmutableObject that = (ImmutableObject) o;
+            var that = (ImmutableObject) o;
 
             return number == that.number;
         }
