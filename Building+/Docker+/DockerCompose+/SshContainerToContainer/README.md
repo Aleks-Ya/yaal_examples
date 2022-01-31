@@ -1,5 +1,8 @@
 # SSH connection between two Docker containers.
 
+## Build
+`docker-compose build`
+
 ## Start
 ```
 #Common
