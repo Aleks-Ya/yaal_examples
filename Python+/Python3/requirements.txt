@@ -19,3 +19,4 @@ joblib
 hdfs[avro,dataframe,kerberos]
 Faker
 freezegun
+jinja2
