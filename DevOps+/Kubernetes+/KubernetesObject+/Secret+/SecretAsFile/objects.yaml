@@ -15,7 +15,7 @@ spec:
   containers:
   - name: secret-volume-container
     image: alpine
-    command: [ "sh", "-c", "set -o xtrace; ls -l /etc/creds; echo $(cat /etc/creds/username); echo $(cat /etc/creds/password); while true; do echo 'Hello, World!'; sleep 5; done" ]
+    command: [ "sh", "-c", "set -o xtrace; ls -l /etc/creds; while true; do echo $(cat /etc/creds/username); echo $(cat /etc/creds/password); sleep 5; done" ]
     volumeMounts:
     - name: credentials
       mountPath: "/etc/creds"

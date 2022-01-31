@@ -7,4 +7,5 @@ Docs: [Using Secrets as files from a Pod](https://kubernetes.io/docs/concepts/co
 1. Describe Pod: `kubectl describe pod secret-volume-pod`
 1. Show Pod logs: `kubectl logs secret-volume-pod`
 1. Print secret env variables: `kubectl exec -it secret-volume-pod -- sh -c 'echo User: $(cat /etc/creds/username), Password: $(cat /etc/creds/password)'`
+1. Update secret at runtime: `kubectl apply -f update_secret.yaml`
 1. Delete: `kubectl delete -f objects.yaml`
