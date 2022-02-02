@@ -2,8 +2,7 @@ package lang.string.string.intern;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Интернирование строк.
@@ -15,10 +14,10 @@ class Intern {
      */
     @Test
     void constructor() {
-        String s1 = new String("a");
-        String s2 = new String("a");
-        assertFalse(s1 == s2);
-        assertTrue(s1.equals(s2));
+        var s1 = new String("a");
+        var s2 = new String("a");
+        assertThat(s1 == s2).isFalse();
+        assertThat(s1.equals(s2)).isTrue();
     }
 
     /**
@@ -26,10 +25,10 @@ class Intern {
      */
     @Test
     void literal() {
-        String s1 = "a";
-        String s2 = "a";
-        assertTrue(s1 == s2);
-        assertTrue(s1.equals(s2));
+        var s1 = "a";
+        var s2 = "a";
+        assertThat(s1 == s2).isTrue();
+        assertThat(s1.equals(s2)).isTrue();
     }
 
     /**
@@ -37,16 +36,16 @@ class Intern {
      */
     @Test
     void intern() {
-        String s1 = new String("a");
-        String s2 = new String("a");
+        var s1 = new String("a");
+        var s2 = new String("a");
 
-        String i1 = s1.intern();
-        String i2 = s2.intern();
+        var i1 = s1.intern();
+        var i2 = s2.intern();
 
-        assertTrue(i1 == i2);
-        assertTrue(i1.equals(i2));
+        assertThat(i1 == i2).isTrue();
+        assertThat(i1.equals(i2)).isTrue();
 
-        assertFalse(s1 == s2);
-        assertTrue(s1.equals(s2));
+        assertThat(s1 == s2).isFalse();
+        assertThat(s1.equals(s2)).isTrue();
     }
 }

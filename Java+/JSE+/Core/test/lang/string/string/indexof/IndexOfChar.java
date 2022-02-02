@@ -2,7 +2,7 @@ package lang.string.string.indexof;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Поиск символа в строке с помощью String#indexOf(Char).
@@ -14,7 +14,7 @@ class IndexOfChar {
      */
     @Test
     void found() {
-        assertEquals(1, "abc".indexOf('b'));
+        assertThat("abc".indexOf('b')).isEqualTo(1);
     }
 
     /**
@@ -22,7 +22,7 @@ class IndexOfChar {
      */
     @Test
     void notFound() {
-        assertEquals(-1, "abc".indexOf('d'));
+        assertThat("abc".indexOf('d')).isEqualTo(-1);
     }
 
     /**
@@ -30,6 +30,6 @@ class IndexOfChar {
      */
     @Test
     void from() {
-        assertEquals(3, "adcd".indexOf('d',2));
+        assertThat("adcd".indexOf('d', 2)).isEqualTo(3);
     }
 }

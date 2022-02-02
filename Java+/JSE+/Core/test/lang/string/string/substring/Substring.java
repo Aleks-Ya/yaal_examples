@@ -2,8 +2,9 @@ package lang.string.string.substring;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 
 /**
  * String#substring(int fromInclusive, int toExclusive)
@@ -13,27 +14,27 @@ class Substring {
 
     @Test
     void substring() {
-        String s = "0123456789";
-        assertEquals("12", s.substring(1, 3));
-        assertEquals("6789", s.substring(6));
-        assertEquals("", s.substring(10));
+        var s = "0123456789";
+        assertThat(s.substring(1, 3)).isEqualTo("12");
+        assertThat(s.substring(6)).isEqualTo("6789");
+        assertThat(s.substring(10)).isEmpty();
     }
 
     @Test
     void substringException1() {
-        assertThrows(StringIndexOutOfBoundsException.class, () -> {
-            String s = "0";
-            assertEquals("", s.substring(1));
+        assertThatThrownBy(() -> {
+            var s = "0";
+            assertThat(s.substring(1)).isEmpty();
             s.substring(2);
-        });
+        }).isInstanceOf(StringIndexOutOfBoundsException.class);
     }
 
     @Test
     void substringException2() {
-        assertThrows(StringIndexOutOfBoundsException.class, () -> {
-            String s = "012345";
-            assertEquals("012345", s.substring(0, 6));
+        assertThatThrownBy(() -> {
+            var s = "012345";
+            assertThat(s.substring(0, 6)).isEqualTo("012345");
             s.substring(0, 7);
-        });
+        }).isInstanceOf(StringIndexOutOfBoundsException.class);
     }
 }

@@ -2,20 +2,20 @@ package lang.string.string.charat;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 
 class CharAt {
 
     @Test
     void substring() {
-        String s = "0123";
-        assertEquals('1', s.charAt(1));
+        var s = "0123";
+        assertThat(s.charAt(1)).isEqualTo('1');
     }
 
     @Test
     void substringException1() {
-        //noinspection ResultOfMethodCallIgnored
-        assertThrows(IllegalArgumentException.class, () -> "0".charAt(1));
+        assertThatThrownBy(() -> "0".charAt(1)).isInstanceOf(StringIndexOutOfBoundsException.class);
     }
 }
