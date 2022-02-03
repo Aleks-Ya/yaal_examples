@@ -1,0 +1,29 @@
+# Log to console
+---
+- hosts: all
+  vars:
+    recipient: World
+    month: 12
+  tasks:
+    - name: Log to console at "0" level (default level, no "-v" needed)
+      debug:
+        msg: Hello, {{ recipient }}!
+    - name: Log to console at "1" level ("-v")
+      debug:
+        msg: Hello, {{ recipient }}!
+        verbosity: 1
+    - name: Log to console at "2" level ("-vv")
+      debug:
+        msg: Hello, {{ recipient }}!
+        verbosity: 2
+    - name: Log to console at "3" level ("-vvv")
+      debug:
+        msg: Hello, {{ recipient }}!
+        verbosity: 3
+    - name: Conditional log to console
+      debug:
+        msg: Happy December, {{ recipient }}!
+      when: month == 12
+    - name: Log variable to console
+      debug:
+        var: recipient

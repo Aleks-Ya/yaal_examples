@@ -1,0 +1,10 @@
+---
+branches:
+{% for key, value in branches.items() %}
+  {{ key }}: {{ value }}
+{% endfor %}
+
+personel:
+{% for key, value in personel.items() %}
+  {{ key }}: {{ value }}
+{% endfor %}

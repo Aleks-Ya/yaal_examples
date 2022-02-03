@@ -1,0 +1,29 @@
+# Loop
+---
+- hosts: all
+  tasks:
+    - name: Iterate a list from a variable
+      vars:
+        fruits:
+          - apple
+          - orange
+          - mango
+      debug:
+        var: item
+      loop: "{{ fruits }}"
+    - name: Iterate hardcoded list
+      debug:
+        var: item
+      loop: 
+        - Moscow
+        - London
+        - Washington
+    - name: Iterate a dictionar from a variable
+      vars:
+        managers:
+          security: John
+          sales: Mary
+          it: Mark
+      debug:
+        var: item
+      loop: "{{ managers | dict2items }}"

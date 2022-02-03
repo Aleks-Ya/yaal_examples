@@ -1,0 +1,23 @@
+# Gathering variables from several YAML files into single var
+---
+- hosts: all
+  vars_files:
+    - vars_1.yml
+    - vars_2.yml
+  tasks:
+    - file:
+        path: ./tmp
+        state: absent
+    - file:
+        path: ./tmp
+        state: directory
+    - name: Create gathered YAML file
+      template:
+        src: data.yaml.j2
+        dest: ./tmp/data.yaml
+    - name: Create gathered var
+      include_vars:
+        file: ./tmp/data.yaml
+        name: gathered_var
+    - debug:
+        var: gathered_var

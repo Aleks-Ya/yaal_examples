@@ -1,0 +1,19 @@
+# Using List variables
+---
+- hosts: all
+  vars:
+    fruits:
+      - apple
+      - orange
+      - mango
+  tasks:
+    - name: Create a dictionary variable
+      debug:
+        var: fruits
+    - name: Access to list element by index
+      debug:
+        msg: "Element 0: {{ fruits[0] }}, Element 1: {{ fruits[1] }}, Element 2: {{ fruits[2] }}"
+    - name: Get the 1st element
+      debug:
+        msg: "First element: {{ fruits | first }}"
+

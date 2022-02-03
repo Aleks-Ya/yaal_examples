@@ -1,0 +1,7 @@
+# Using "lookup" plugin
+---
+- hosts: all
+  tasks:
+    - name: Read file content 
+      debug:
+        msg: "File content: {{ lookup('file', 'data.txt') }}"

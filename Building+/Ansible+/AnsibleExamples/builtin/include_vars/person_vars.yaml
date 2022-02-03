@@ -1,0 +1,6 @@
+---
+location: Moscow
+info:
+  person: John
+  greeting: Hello
+  from_global_var: "{{ quality }}"

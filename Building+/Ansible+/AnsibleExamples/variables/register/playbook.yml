@@ -1,0 +1,10 @@
+# Use registered variables
+---
+- hosts: all
+  tasks:
+    - name: Register a variable
+      shell: echo "Hello"
+      register: hello_result
+    - name: Print the registered variable
+      debug:
+        var: hello_result

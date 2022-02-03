@@ -1,0 +1,19 @@
+# Using "vars_files" for importing variables from file
+---
+- hosts: all
+  vars:
+    manager: Mary
+    quality: high
+  vars_files:
+    - external_vars.yml
+  tasks:
+    - debug:
+        var: location    
+    - debug:
+        var: info.greeting
+    - debug:
+        var: info.person
+    - debug:
+        var: info.from_global_var
+    - debug:
+        var: manager

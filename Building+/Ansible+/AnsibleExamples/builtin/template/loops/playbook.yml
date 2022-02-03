@@ -1,0 +1,28 @@
+# Use loops in templates
+---
+- hosts: all
+  tasks:
+    - file:
+        path: ./tmp
+        state: absent
+    - file:
+        path: ./tmp
+        state: directory
+    - name: Loop a list
+      template:
+        src: list_loop.yaml.j2
+        dest: ./tmp/list_loop.yaml
+      vars:
+        fruits:
+          - apple
+          - orange
+          - mango
+    - name: Loop a list
+      template:
+        src: dict_loop.yaml.j2
+        dest: ./tmp/dict_loop.yaml
+      vars:
+        ages:
+          john: 30
+          mary: 25
+          mark: 20

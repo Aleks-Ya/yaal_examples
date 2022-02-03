@@ -1,0 +1,20 @@
+# Use a variable
+host={{ server }}
+
+# Declare variable
+{% set user='John Smith' %}
+username={{ user }}
+
+# Declare list variable
+{% set users=['John Smith', 'John Dow'] %}
+names={{ users }}
+
+# Declare variable multiline
+{%
+	set cars=[
+		'BMW', 
+		'Audi'
+	] 
+%}
+vehicles={{ cars }}
+

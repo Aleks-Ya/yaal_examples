@@ -1,0 +1,16 @@
+# Work with variables in templates
+---
+- hosts: all
+  vars:
+    server: go.com
+  tasks:
+    - file:
+        path: ./tmp
+        state: absent
+    - file:
+        path: ./tmp
+        state: directory
+    - template:
+         src: config.ini.j2
+         dest: ./tmp/config.ini
+         newline_sequence: '\n'

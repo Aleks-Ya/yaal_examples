@@ -1,7 +1,0 @@
-#Create directory playbook
----
-- hosts: all
-  tasks:
-    - file:
-        path: ./tmp
-        state: directory

@@ -1,0 +1,15 @@
+# Different scopes of variables
+---
+- hosts: all
+  vars:
+    my_playbook_var: John
+  tasks:
+    - name: Use a task viriable
+      vars:
+        my_task_var: Moscow
+      debug:
+        var: my_task_var
+    - name: Use a playbook viriable
+      debug:
+        var: my_playbook_var
+

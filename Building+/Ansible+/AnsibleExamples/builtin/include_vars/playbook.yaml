@@ -1,0 +1,18 @@
+# Using "include_vars" module for importing variables from file
+---
+- hosts: all
+  vars:
+    manager: Mary
+    quality: high
+  tasks:
+    - name: Include file vars into another var
+      include_vars:
+        file: person_vars.yaml
+        name: person
+    - debug:        
+        var: person
+    - name: Include file vars on the top level
+      include_vars:
+        file: flight_vars.yaml
+    - debug:        
+        var: flight

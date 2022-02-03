@@ -1,0 +1,14 @@
+# Get variable by name defined at runtime
+---
+- hosts: all
+  tasks:
+    - name: Get var value
+      vars:
+        person_var_name: person
+        person: 
+          name: John
+          age: 30
+        manager_var_name: manager
+        manager: Mark
+      debug:
+        msg: "Person: {{ lookup('vars', person_var_name) }}. Manager: {{ lookup('vars', manager_var_name) }}"
