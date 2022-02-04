@@ -12,4 +12,10 @@
     - name: Use a playbook viriable
       debug:
         var: my_playbook_var
-
+    - name: Block variables
+      block:
+        - name: Use a block viriable
+          debug:
+            var: my_block_var
+      vars:
+        my_block_var: the block

@@ -1,0 +1,20 @@
+# Use Blocks for grouping tasks
+---
+- hosts: all
+  tasks:
+    - name: Prepare environment 
+      block: 
+        - name: Prepare servers
+          debug:
+            msg: "Prepare servers"
+        - name: Prepare database
+          debug:
+            msg: "Prepare database"
+    - name: Do work 
+      block: 
+        - name: Process data on servers
+          debug:
+            msg: "Process data on servers"
+        - name: Store data into database
+          debug:
+            msg: "Store data into database"

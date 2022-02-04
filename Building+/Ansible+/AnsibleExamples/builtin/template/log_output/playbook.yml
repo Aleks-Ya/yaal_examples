@@ -1,0 +1,18 @@
+# Log the template destination file
+---
+- hosts: all
+  vars:
+    server: go.com
+  pre_tasks:
+    - file:
+        path: ./tmp
+        state: absent
+    - file:
+        path: ./tmp
+        state: directory
+  tasks:
+    - template:
+         src: config.ini.j2
+         dest: ./tmp/config.ini
+    - debug:
+        msg: "{{ lookup('file', './tmp/config.ini') }}"

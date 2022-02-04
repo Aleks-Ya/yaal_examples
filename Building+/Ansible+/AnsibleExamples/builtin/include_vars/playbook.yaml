@@ -16,3 +16,15 @@
         file: flight_vars.yaml
     - debug:        
         var: flight
+    - name: Include several files to the same var (NOT WORK - the second include overrides the first)
+      block:
+        - name: Include person_vars.yaml
+          include_vars:
+            file: person_vars.yaml
+            name: several_includes
+        - name: Include flight_vars.yaml
+          include_vars:
+            file: flight_vars.yaml
+            name: several_includes
+        - debug:        
+            var: several_includes
