@@ -1,0 +1,13 @@
+---
+age:
+{% for key, value in ages.items() %}
+  {{ key }}: {{ value }}
+{% endfor %}
+
+
+{% set cityPopulation={'Moscow': 25, 'London': 15, 'New York': 30} %}
+---
+city_population:
+{% for city, population in cityPopulation.items() %}
+  {{ city }}: {{ population }}
+{% endfor %}

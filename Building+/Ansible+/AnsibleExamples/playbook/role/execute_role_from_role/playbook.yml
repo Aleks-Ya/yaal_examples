@@ -1,0 +1,5 @@
+# Execute role from another role (as dependency)
+---
+- hosts: all
+  roles:
+    - client

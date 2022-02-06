@@ -1,0 +1,36 @@
+# Install packages with apt
+---
+- hosts: all
+  tasks:
+    - name: Add an APT signing key (by URL)
+      apt_key: 
+        url: https://packages.microsoft.com/keys/microsoft.asc
+        state: present
+    - name: Add an APT signing keys (by key server)
+      apt_key: 
+        id: 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
+        keyserver: pgp.mit.edu
+        state: present
+    - name: Add a PPA repository
+      apt_repository:
+        repo: 'ppa:hluk/copyq'
+        state: present
+    - name: Add a repository
+      apt_repository:
+        repo: 'deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main'
+        state: present        
+    - name: Update cache and Upgrade packages
+      apt:
+        cache_valid_time: 3600
+        update_cache: yes
+        upgrade: yes
+        autoremove: true
+    - name: Install packages from PPA
+      apt: 
+        pkg:
+          - curl
+          - krita
+        autoremove: true
+    - name: Download DEB and install it
+      apt: 
+        deb: https://repo.yandex.ru/yandex-disk/yandex-disk_latest_amd64.deb

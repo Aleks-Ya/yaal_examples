@@ -20,3 +20,4 @@ hdfs[avro,dataframe,kerberos]
 Faker
 freezegun
 jinja2
+pyyaml

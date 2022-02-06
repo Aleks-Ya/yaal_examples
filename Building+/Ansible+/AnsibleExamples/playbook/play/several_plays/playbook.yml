@@ -1,0 +1,14 @@
+# Several Plays in single Playbook
+---
+- name: Play A
+  hosts: all
+  tasks:
+    - name: Task from Play A
+      debug:
+        msg: "Task from Play A"
+- name: Play B
+  hosts: all
+  tasks:
+    - name: Task from Play B
+      debug:
+        msg: "Task from Play B"

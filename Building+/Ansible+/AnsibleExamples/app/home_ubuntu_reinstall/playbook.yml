@@ -1,21 +1,106 @@
 # Install software on new Ubuntu 
+# Prerequisites:
+# 1. sudo ansible-galaxy install comcast.sdkman
+# Run: sudo ansible-playbook app/home_ubuntu_reinstall/playbook.yml
 ---
-- hosts: all
+- name: Install with APT
+  hosts: all
+  gather_facts: no
   tasks:
-    - name: Add CopyQ repository
+    - name: Add PPA repos
       apt_repository:
-        repo: 'ppa:hluk/copyq'
+        repo: "{{ item }}"
         state: present
+      loop:
+        - 'ppa:hluk/copyq'
+        - 'ppa:rvm/smplayer'
+        - 'ppa:libreoffice/ppa'
+        - 'ppa:sebastian-stenzel/cryptomator'
+        - 'ppa:git-core/ppa'
+    - name: Add an APT signing keys
+      apt_key: 
+        url: https://packages.microsoft.com/keys/microsoft.asc
+        state: present
+    - name: Add an APT signing keys (by key server)
+      apt_key: 
+        id: 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
+        keyserver: pgp.mit.edu
+        state: present
+    - name: Add repos
+      apt_repository:
+        repo: "{{ item }}"
+        state: present
+      loop:
+        - 'deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main'
+        - 'deb https://linux.dropbox.com/ubuntu disco main'
+        # - 'deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main'
     - name: Update cache and Upgrade packages
       apt: 
         update_cache: yes
         upgrade: yes
-        autoremove: true
-    - name: Install packages
+        cache_valid_time: 3600
+    - name: Install packages with apt
       apt: 
         pkg:
           - curl
           - krita
           - doublecmd-qt
           - copyq
-        autoremove: true
+          - duplicity
+          - vlc
+          - smplayer
+          - smtube
+          - smplayer-themes
+          - smplayer-skins
+          - libreoffice
+          - cryptomator
+          - git
+          - teams
+          - dropbox
+    - name: Install Yandex Disk
+      apt: 
+        deb: https://repo.yandex.ru/yandex-disk/yandex-disk_latest_amd64.deb
+    - name: Autoremove
+      apt: 
+        autoremove: yes
+
+- name: Install with SNAP
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Install packages with snap
+      snap:
+        name:
+          - opera
+          - sublime-text
+          - sublime-merge
+          - drawio
+          - postman
+          - minikube
+
+- name: Install with SdkMan
+  hosts: all
+  gather_facts: yes
+  roles:
+    - role: comcast.sdkman
+      sdkman_user: aleks
+      sdkman_group: aleks
+      sdkman_auto_answer: true
+      sdkman_update: true
+      sdkman_install_packages:
+        - { candidate: java, version: '17-open' }
+        - { candidate: java, version: '11.0.12-open' }
+        - { candidate: java, version: '8.0.302-open' }
+        - { candidate: gradle, version: '7.3.3' }
+        - { candidate: kotlin, version: '1.6.10' }
+        - { candidate: maven, version: '3.8.4' }
+        - { candidate: sbt, version: '1.6.2' }
+        - { candidate: scala, version: '2.13.8' }
+        - { candidate: scala, version: '3.1.1' }
+      sdkman_defaults:
+        java: '17-open'
+        gradle: '7.3.3'
+        kotlin: '1.6.10'
+        maven: '3.8.4'
+        sbt: '1.6.2'
+        scala: '3.1.1'

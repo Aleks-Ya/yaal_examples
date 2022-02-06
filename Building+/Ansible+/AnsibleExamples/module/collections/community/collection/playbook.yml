@@ -1,0 +1,10 @@
+# Install packages with snap
+---
+- hosts: all
+  tasks:
+  - name: Install Opera browser and SubliteText
+    snap:
+      name:
+        - opera
+        - sublime-text
+      

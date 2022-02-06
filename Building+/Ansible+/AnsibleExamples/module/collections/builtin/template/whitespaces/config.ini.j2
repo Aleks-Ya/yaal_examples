@@ -1,0 +1,45 @@
+# Trim blocks
+{% set user='John Smith' %}
+username={{ user }}
+
+{% set cities=['Moscow', 'London', 'New York'] %}
+
+Preserve whitespaces in the line begigging ("lstrip_blocks" is off):
+{% for city in cities %}
+	{{ city }}
+{% endfor %}
+
+Remove whitespaces in the line begigging ("lstrip_blocks" is on):
+{% for city in cities -%}
+	{{ city }}
+{% endfor %}
+
+Single-level list:
+{% set cityPopulation={'Moscow': 25, 'London': 15, 'New York': 30} %}
+---
+cities:
+{% for city, population in cityPopulation.items() %}
+	- {{ city }} -> {{ population }}
+{% endfor %}
+
+{% set cityDistincts={
+	'Moscow':   ['Central', 'South', 'North'], 
+	'London':   ['Middle', 'West', 'East'], 
+	'New York': ['Downtown', 'Chineese', 'Japaneese']
+} %}
+Multi-level lists (print in both loops):
+---
+{% for city, distincts in cityDistincts.items() %}
+	{{ city }}:
+	{% for distinct in distincts %}
+		{{ '- ' + distinct }}
+	{% endfor %}
+{% endfor %}
+
+Multi-level lists (print in the inner loop):
+---
+{% for city, distincts in cityDistincts.items() %}
+	{%- for distinct in distincts -%}
+		{{ city + ' -> ' + distinct }}
+	{% endfor %}
+{% endfor %}
