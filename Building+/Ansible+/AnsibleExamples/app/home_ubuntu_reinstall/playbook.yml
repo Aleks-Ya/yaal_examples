@@ -1,0 +1,21 @@
+# Install software on new Ubuntu 
+---
+- hosts: all
+  tasks:
+    - name: Add CopyQ repository
+      apt_repository:
+        repo: 'ppa:hluk/copyq'
+        state: present
+    - name: Update cache and Upgrade packages
+      apt: 
+        update_cache: yes
+        upgrade: yes
+        autoremove: true
+    - name: Install packages
+      apt: 
+        pkg:
+          - curl
+          - krita
+          - doublecmd-qt
+          - copyq
+        autoremove: true

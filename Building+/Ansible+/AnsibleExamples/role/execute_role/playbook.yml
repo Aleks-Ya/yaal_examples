@@ -1,0 +1,14 @@
+# Execute roles from Playbook
+---
+- hosts: all
+  pre_tasks:
+    - name: Any pre tasks
+      debug:
+        msg: "Executing pre tasks"
+  roles:
+    - server
+    - client
+  tasks:
+    - name: Any tasks
+      debug:
+        msg: "Executing tasks"

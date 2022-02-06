@@ -1,0 +1,7 @@
+---
+- name: Task A on Server
+  debug:
+    msg: "Doing Task A on Server"
+- name: Task B on Server
+  debug:
+    msg: "Doing Task B on Server"
