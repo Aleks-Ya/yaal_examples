@@ -7,7 +7,7 @@
       - orange
       - mango
   tasks:
-    - name: Create a dictionary variable
+    - name: Create a list variable
       debug:
         var: fruits
     - name: Access to list element by index
@@ -16,4 +16,12 @@
     - name: Get the 1st element
       debug:
         msg: "First element: {{ fruits | first }}"
-
+    - name: Filter a list by condition
+      vars:
+        words:
+          - aaa
+          - abc
+          - bbb
+          - ccc
+      debug:
+        msg: "{{ words | select('match', '.b.') }}"

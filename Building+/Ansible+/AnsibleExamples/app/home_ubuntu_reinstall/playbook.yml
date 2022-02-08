@@ -1,6 +1,7 @@
 # Install software on new Ubuntu 
 # Prerequisites:
-# 1. sudo ansible-galaxy install comcast.sdkman
+# 1. sudo apt install -y ansible
+# 2. sudo ansible-galaxy install comcast.sdkman
 # Run: sudo ansible-playbook app/home_ubuntu_reinstall/playbook.yml
 ---
 - name: Install with APT

@@ -12,6 +12,11 @@
           age: 30
       debug:
         var: my_dict
+    - name: Create a dictionary variable (shorthand YAML syntax)
+      vars:
+        city_dict: { 'city': Moscow, 'established': 1147 }
+      debug:
+        var: city_dict
     - name: Access to element by dot notation
       vars:
         my_dict:

@@ -25,3 +25,8 @@
               age: 30
       debug:
         msg: "Age: {{ (yaml_text | from_yaml).person.age }}"
+    - name: Replace substring
+      vars:
+        text: Hello, World!
+      debug:
+        msg: "{{ text | regex_replace('World', 'John') }}"

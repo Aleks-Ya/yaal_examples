@@ -2,7 +2,7 @@
 ---
 - hosts: all
   tasks:
-    - name: Get var value
+    - name: Get var value by name
       vars:
         person_var_name: person
         person: 
@@ -12,3 +12,13 @@
         manager: Mark
       debug:
         msg: "Person: {{ lookup('vars', person_var_name) }}. Manager: {{ lookup('vars', manager_var_name) }}"
+    - name: List all variables
+      debug:
+        var: vars
+    - name: Find all variable names
+      debug:
+        msg: "{{ vars.keys() }}"
+    - name: Find variable by name part
+      debug:
+        msg: "{{ vars.keys() | select('match', '.*play.*') }}"
+

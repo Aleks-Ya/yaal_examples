@@ -1,15 +1,15 @@
-# Use a variable
+Use a variable:
 host={{ server }}
 
-# Declare variable
+Declare variable:
 {% set user='John Smith' %}
 username={{ user }}
 
-# Declare list variable
+Declare list variable:
 {% set users=['John Smith', 'John Dow'] %}
 names={{ users }}
 
-# Declare variable multiline
+Declare variable multiline:
 {%
 	set cars=[
 		'BMW', 
@@ -18,3 +18,15 @@ names={{ users }}
 %}
 vehicles={{ cars }}
 
+Find variables by name part:
+{% set play_vars=vars.keys() | select('match', '.*play.*_hosts$') %}
+play_vars={{ play_vars }}
+play_vars:
+{% for play_var in play_vars %}
+	- {{ play_var }}
+{% endfor %}
+
+Split a string:
+{% set setting_name='config.server.host' %}
+first_name_part_1={{ setting_name.split('.') | first }}
+first_name_part_2={{ setting_name.split('.')[0] }}

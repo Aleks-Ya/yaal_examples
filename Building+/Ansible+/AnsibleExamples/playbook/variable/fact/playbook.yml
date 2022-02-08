@@ -1,0 +1,23 @@
+# Use facts
+---
+- hosts: all
+  vars:
+    manager_position: Manager
+    moscow_city: Moscow
+  tasks:
+    - name: Set facts as key-value pairs
+      block:
+      - name: Set facts as key-value pairs
+        set_fact: person=John position={{ manager_position }}
+      - name: Print facts
+        debug:
+          msg: "{{ person }} is a {{ position }}"
+    - name: Set facts as a dictionary
+      block:
+      - name: Set facts as a dictionary
+        set_fact: 
+          city: "{{ moscow_city }}"
+          population: 20mln
+      - name: Print facts
+        debug:
+          msg: "{{ city }} has {{ population }} people"
