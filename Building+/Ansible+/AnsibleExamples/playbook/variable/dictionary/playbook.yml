@@ -1,8 +1,6 @@
 # Using Dictionary variables
 ---
 - hosts: all
-  vars:
-    my_playbook_var: John
   tasks:
     - name: Create a dictionary variable
       vars:
@@ -12,11 +10,13 @@
           age: 30
       debug:
         var: my_dict
+
     - name: Create a dictionary variable (shorthand YAML syntax)
       vars:
         city_dict: { 'city': Moscow, 'established': 1147 }
       debug:
         var: city_dict
+
     - name: Access to element by dot notation
       vars:
         my_dict:
@@ -25,6 +25,7 @@
           age: 30
       debug:
         msg: "Name: {{ my_dict.name }}, Position: {{ my_dict.position }}, Age: {{ my_dict.age }}"
+
     - name: Access to element by bracket notation
       vars:
         my_dict:
@@ -33,3 +34,27 @@
           age: 30
       debug:
         msg: "Name: {{ my_dict['name'] }}, Position: {{ my_dict['position'] }}, Age: {{ my_dict['age'] }}"
+
+    - name: Join (combine) two dictionaries
+      vars:
+        dict1:
+          a: 1
+          b: 2
+          c: 3
+        dict2:
+          d: 4
+          e: 5
+      debug:
+        msg: "{{ dict1 | combine(dict2) }}"
+
+    - name: Dictionary to list
+      vars:
+        dict3:
+          apple:
+            title: Apple
+            weight: 100
+          orange:
+            title: Orange
+            weight: 200
+      debug:
+        msg: "{{ dict3 | dict2items }}"

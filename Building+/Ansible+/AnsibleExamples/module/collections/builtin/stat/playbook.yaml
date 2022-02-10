@@ -1,0 +1,40 @@
+# Use "stat" module
+---
+- hosts: all
+  tasks:
+
+    - name: Check that file exists
+      stat: 
+        path: playbook.yaml
+      register: stat_result_1
+    - assert:
+        that: 
+          - stat_result_1.stat.exists
+          - not stat_result_1.stat.isdir
+
+    - name: Check that file doesn't exist
+      stat: 
+        path: absent.yaml
+      register: stat_result_2
+    - assert:
+        that: 
+          - not stat_result_2.stat.exists
+          - stat_result_2.stat.isdir is not defined
+
+    - name: Check that dir exists
+      stat: 
+        path: '..'
+      register: stat_result_3
+    - assert:
+        that: 
+          - stat_result_3.stat.exists
+          - stat_result_3.stat.isdir
+
+    - name: Check that dir doesn't exist
+      stat: 
+        path: '../not-exist-dir'
+      register: stat_result_4
+    - assert:
+        that: 
+          - not stat_result_4.stat.exists
+          - stat_result_4.stat.isdir is not defined

@@ -1,0 +1,23 @@
+# Use "if" in templates
+---
+- hosts: all
+  pre_tasks:
+    - file:
+        path: ./tmp
+        state: absent
+    - file:
+        path: ./tmp
+        state: directory
+  tasks:
+    - name: Use if in template
+      template:
+        src: if.yaml.j2
+        dest: ./tmp/if.yaml
+      vars:
+        gender: M
+    - name: Check is variable defined
+      template:
+        src: defined.yaml.j2
+        dest: ./tmp/defined.yaml
+      vars:
+        city: Moscow

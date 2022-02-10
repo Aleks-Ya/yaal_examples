@@ -1,0 +1,14 @@
+# Use multiline values
+---
+- hosts: all
+  tasks:
+    - name: Multiline var
+      vars:
+        person: John
+        age: 30
+        text: |
+          Details 
+          Name: {{ person }} 
+          Age: {{ age }} 
+      debug:
+        var: text

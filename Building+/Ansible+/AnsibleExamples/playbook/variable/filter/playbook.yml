@@ -2,11 +2,13 @@
 ---
 - hosts: all
   tasks:
+
     - name: Set default value 
       vars:
         person: John
       debug:
         msg: "Has value: {{ person | default('Nobody') }}. Doesn't have value: {{ person_absents | default('Nobody') }}"
+
     - name: Convert YAML to JSON
       vars:
         yaml_text: |
@@ -16,6 +18,7 @@
               age: 30
       debug:
         msg: "YAML: {{ yaml_text }}. JSON: {{ yaml_text | from_yaml | to_json }}"
+
     - name: Access a field from YAML
       vars:
         yaml_text: |
@@ -25,8 +28,32 @@
               age: 30
       debug:
         msg: "Age: {{ (yaml_text | from_yaml).person.age }}"
+
     - name: Replace substring
       vars:
         text: Hello, World!
       debug:
         msg: "{{ text | regex_replace('World', 'John') }}"
+
+    - name: Use "ternary" operator
+      vars:
+        driving_enabled_1: true
+        driving_enabled_2: false
+        driving_enabled_3: null
+      debug:
+        msg: >-
+          {{ driving_enabled_1 | ternary('go', 'stop', 'unknown') }},
+          {{ driving_enabled_2 | ternary('go', 'stop', 'unknown') }},
+          {{ driving_enabled_3 | ternary('go', 'stop', 'unknown') }}
+
+    - name: Debug var type
+      vars:
+        unicode_var: Hello, World!
+        integer_var: 42
+        boolean_var: true
+      debug:
+        msg: >-
+          Undefined: {{ undefined_var | type_debug }},
+          String: {{ unicode_var | type_debug }},
+          Integer: {{ integer_var | type_debug }},
+          Boolean: {{ boolean_var | type_debug }}

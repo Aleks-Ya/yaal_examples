@@ -1,13 +1,14 @@
 # Use loops in templates
 ---
 - hosts: all
-  tasks:
+  pre_tasks:
     - file:
         path: ./tmp
         state: absent
     - file:
         path: ./tmp
         state: directory
+  tasks:
     - name: Loop a list
       template:
         src: list_loop.yaml.j2

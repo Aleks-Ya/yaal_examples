@@ -7,15 +7,19 @@
       - orange
       - mango
   tasks:
+
     - name: Create a list variable
       debug:
         var: fruits
+
     - name: Access to list element by index
       debug:
         msg: "Element 0: {{ fruits[0] }}, Element 1: {{ fruits[1] }}, Element 2: {{ fruits[2] }}"
+
     - name: Get the 1st element
       debug:
         msg: "First element: {{ fruits | first }}"
+
     - name: Filter a list by condition
       vars:
         words:
@@ -25,3 +29,71 @@
           - ccc
       debug:
         msg: "{{ words | select('match', '.b.') }}"
+
+    - name: Map each list element to its attribute
+      vars:
+        cars:
+          - driver: John
+            car:
+              model: BMW
+              year: 2020
+          - driver: Mary
+            car:
+              model: Mercedes
+              year: 2010
+      debug:
+        msg: "{{ cars | map(attribute='car') | map(attribute='model') }}"
+
+    - name: Combine elements of two lists
+      vars:
+        persons:
+          - John
+          - Mary
+        ages:
+          - 30
+          - 25
+      debug:
+        msg: "{{ persons | zip(ages) | list }}"
+
+    - name: List to dictionary (standard key and value fields)
+      vars:
+        cars:
+          - key: BMW
+            value: 2020
+          - key: Mercedes
+            value: 2021
+      assert:
+        that: "{{ cars | items2dict }} == {'BMW': 2020, 'Mercedes': 2021}"
+
+    - name: List to dictionary (custom key and value fields)
+      vars:
+        cars:
+          - model: BMW
+            year: 2020
+          - model: Mercedes
+            year: 2021
+      assert:
+        that: "{{ cars | items2dict(key_name='model', value_name='year') }} == {'BMW': 2020, 'Mercedes': 2021}"
+
+    - name: List to complex dictionary
+      vars:
+        models:
+          - BMW
+          - Mercedes
+      set_fact:
+        my_map: "{{ my_map | default({}) | combine( {item : {'model': item, 'year': 2017}} )  }}"
+      with_items: "{{ models }}"
+    - debug:
+        msg: "{{ my_map }}"
+
+    - name: Product
+      vars:
+        models:
+          - BMW
+          - Mercedes
+        years:
+          BMW: 2019
+          Mercedes: 2018
+      debug:
+        msg: "{{ models | product(['abc']) }}"
+

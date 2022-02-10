@@ -1,0 +1,13 @@
+---
+person:
+  name: John
+{% if city is defined %}
+  city: variable 'city' is defined = {{ city }}
+{% else %}
+  city: variable 'city' is not defined
+{% endif %}
+{% if age is defined %}
+  age: Variable 'age' is defined: {{ age }}
+{% else %}
+  age: variable 'age' is not defined
+{% endif %}

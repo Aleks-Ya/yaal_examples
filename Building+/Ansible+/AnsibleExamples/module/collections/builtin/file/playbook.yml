@@ -1,0 +1,27 @@
+# Work with directories
+---
+- hosts: all
+  pre_tasks:
+    - file:
+        path: tmp
+        state: absent
+    - file:
+        path: tmp
+        state: directory
+  
+  tasks:
+
+    - name: Create a directory
+      file:
+        path: tmp/dir1
+        state: directory
+
+    - name: Delete a directory
+      file:
+        path: tmp/dir1
+        state: absent
+
+    - name: Create an empty file if absent
+      file:
+        path: tmp/empty.txt
+        state: touch

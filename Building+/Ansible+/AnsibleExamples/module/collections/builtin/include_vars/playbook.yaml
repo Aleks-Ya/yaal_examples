@@ -5,17 +5,28 @@
     manager: Mary
     quality: high
   tasks:
+
     - name: Include file vars into another var
       include_vars:
         file: person_vars.yaml
         name: person
     - debug:        
         var: person
+    - assert:
+        that: "person == {'info': {'from_global_var': 'high', 'greeting': 'Hello', 'person': 'John' }, 'location': 'Moscow'}"
+
     - name: Include file vars on the top level
       include_vars:
         file: flight_vars.yaml
     - debug:        
         var: flight
+    - debug:        
+        var: destination
+    - assert:
+        that: 
+          - "flight == {'duration': 3,'number': 'A-1234'}"
+          - "destination == 'London'"
+
     - name: Include several files to the same var (NOT WORK - the second include overrides the first)
       block:
         - name: Include person_vars.yaml
@@ -28,3 +39,24 @@
             name: several_includes
         - debug:        
             var: several_includes
+
+    - name: Include var dir
+      include_vars:
+        dir: var-dir
+    - debug:        
+        var: city
+
+    - name: Include empty var dir (no error)
+      file:
+        path: tmp/empty
+        state: directory
+    - include_vars:
+        dir: tmp/empty
+
+    - name: Include absent var dir (prevent error)
+      stat: 
+        path: '../not-exist-dir'
+      register: stat_result
+    - include_vars:
+        dir: '../not_exist_dir'
+      when: stat_result.stat.exists

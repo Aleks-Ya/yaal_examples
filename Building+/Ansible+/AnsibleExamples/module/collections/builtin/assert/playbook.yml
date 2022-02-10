@@ -1,0 +1,63 @@
+# Use "assert"
+---
+- hosts: all
+  tasks:
+
+    - name: Assert single condition
+      vars:
+        age: 21
+      assert: 
+        that: age > 18
+
+    - name: Assert that conditions are correct
+      vars:
+        age: 21
+      assert: 
+        that: 
+          - age > 18
+          - age < 60
+
+    - name: Success and fail messages
+      vars:
+        age: 21
+      assert: 
+        that: 
+          - age > 18
+          - age < 60
+        fail_msg: "'age' must be between 18 and 60"
+        success_msg: "'age' is between 18 and 60"
+
+    - name: Use quiet to avoid verbose output
+      vars:
+        age: 21
+      assert: 
+        that: 
+          - age > 18
+          - age < 60
+        quiet: true
+
+    - name: Assert a list
+      vars:
+        fruits:
+          - apple
+          - orange
+      assert: 
+        that: fruits == ['apple', 'orange']
+
+    - name: Assert a dictionary
+      vars:
+        person:
+          name: John
+          age: 30
+      assert: 
+        that: "person == {'name': 'John', 'age': 30}"
+
+    - name: Assert an object has a property
+      vars:
+        person:
+          name: John
+      assert: 
+        that: 
+          - person.name is defined
+          - person.age is not defined
+          

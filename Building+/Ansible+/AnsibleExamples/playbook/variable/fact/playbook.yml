@@ -5,6 +5,7 @@
     manager_position: Manager
     moscow_city: Moscow
   tasks:
+
     - name: Set facts as key-value pairs
       block:
       - name: Set facts as key-value pairs
@@ -12,6 +13,7 @@
       - name: Print facts
         debug:
           msg: "{{ person }} is a {{ position }}"
+
     - name: Set facts as a dictionary
       block:
       - name: Set facts as a dictionary
@@ -21,3 +23,13 @@
       - name: Print facts
         debug:
           msg: "{{ city }} has {{ population }} people"
+
+    - name: Use variable from the same fact
+      block:
+      - name: Use variable from the same fact
+        set_fact: 
+          person: John
+          greeting: "Hello, {{ person }}!"
+      - name: Print facts
+        debug:
+          msg: "Tell '{{ greeting }}' to {{ person }}."
