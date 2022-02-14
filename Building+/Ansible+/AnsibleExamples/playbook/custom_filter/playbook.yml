@@ -1,0 +1,64 @@
+# Use custom Jinja filters
+# Common place for Filter Python files: "{AnsibleProjectRoot}/filter_plugins/*.py"
+# Filter folder location in ansible.cfg: "filter_plugins"
+---
+- hosts: all
+  tasks:
+
+  - name: Plain filters
+    block:
+      - name: Invoke custom filter without arguments
+        vars:
+          result: "{{ 'John' | person_greeting_hello }}"
+        assert:
+          that: "result == 'Hello, John!'" 
+
+      - name: Invoke custom filter with 1 argument
+        vars:
+          result: "{{ 'John' | person_greeting_text('Hi') }}"
+        assert:
+          that: "result == 'Hi, John!'"
+
+      - name: Invoke custom filter with 2 arguments
+        vars:
+          result: "{{ 'John' | person_greeting_text_exclamation('Hi', '...') }}"
+        assert:
+          that: "result == 'Hi, John...'"
+
+      - name: List to list filter
+        vars:
+          result: "{{ [ 'a', 'b' ] | upper_case_list }}"
+        assert:
+          that: "result == [ 'A', 'B' ]"
+
+  - name: EvalContext filters
+    block:
+      - name: Use EvalContext in filter
+        vars:
+          result: "{{ 'John' | autoescape_status }}"
+        assert:
+          that: "result == 'AutoEscape is False, John.'" 
+
+  - name: Environment filters
+    block:
+      - name: Use Environment in filter
+        vars:
+          result: "{{ 'John' | loader_info }}"
+        assert:
+         that: "result == 'Loader is FileSystemLoader, John.'" 
+
+
+  - name: Context filters
+    block:
+      - name: Read a variable
+        vars:
+          age: 30
+          result: "{{ 'John' | find_age }}"
+        assert:
+         that: "result == 'John is 30 years old.'"
+
+      - name: Read an absent variable 
+        vars:
+          result: "{{ 'John' | find_age_absent }}"
+        assert:
+         that: "result == 'John is None years old.'"

@@ -68,3 +68,9 @@ assert result == '0a1b2c'
 # find element index by object
 lst = ['a', 'b', 'c']
 assert lst.index('b') == 1
+
+# transform list elements
+lst = ['a', 'b', 'c']
+result_map = map(lambda symbol: symbol.upper(), lst)
+result_list = list(result_map)
+assert result_list == ['A', 'B', 'C']
