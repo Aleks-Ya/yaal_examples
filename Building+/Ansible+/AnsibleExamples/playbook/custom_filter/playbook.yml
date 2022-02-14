@@ -31,6 +31,13 @@
         assert:
           that: "result == [ 'A', 'B' ]"
 
+      
+      - name: Set fact from filter result
+        set_fact:
+          result_fact: "{{ 'abc' | str_upper_case }}"
+      - assert:
+          that: "result_fact == 'ABC'"
+
   - name: EvalContext filters
     block:
       - name: Use EvalContext in filter
