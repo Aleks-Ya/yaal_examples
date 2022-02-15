@@ -38,6 +38,14 @@
       - assert:
           that: "result_fact == 'ABC'"
 
+  - name: Logging
+    block:
+      - name: Log from a custom filter
+        vars:
+          result: "{{ 'xyz' | str_upper_case_and_log }}"
+        assert:
+          that: "result == 'XYZ'"
+
   - name: EvalContext filters
     block:
       - name: Use EvalContext in filter

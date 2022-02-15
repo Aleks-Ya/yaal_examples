@@ -23,5 +23,5 @@ class FilterModule(object):
     def upper_case_list(self, strings: List[str]) -> List[str]:
         return list(map(lambda s: s.upper(), strings))
 
-    def str_upper_case(self,s: str) -> str:
+    def str_upper_case(self, s: str) -> str:
         return s.upper()
