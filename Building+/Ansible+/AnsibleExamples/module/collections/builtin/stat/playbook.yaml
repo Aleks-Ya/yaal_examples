@@ -38,3 +38,21 @@
         that: 
           - not stat_result_4.stat.exists
           - stat_result_4.stat.isdir is not defined
+
+    - name: Use path from variable (in quotes)
+      vars:
+        file_path: playbook.yaml
+      stat: 
+        path: "{{ file_path }}"
+      register: stat_result_5
+    - assert:
+        that: stat_result_5.stat.exists
+
+    - name: NOT WORK - Use path from variable (without quotes)
+      vars:
+        file_path: playbook.yaml
+      stat: 
+        path: file_path
+      register: stat_result_6
+    - assert:
+        that: not stat_result_6.stat.exists
