@@ -2,11 +2,12 @@
 # Prerequisites:
 # 1. sudo apt install -y ansible
 # 2. sudo ansible-galaxy install comcast.sdkman
-# Run: sudo ansible-playbook app/home_ubuntu_reinstall/playbook.yml
+# Run: ansible-playbook -K app/home_ubuntu_reinstall/playbook.yml
 ---
 - name: Install with APT
   hosts: all
   gather_facts: no
+  become: yes
   tasks:
     - name: Add PPA repos
       apt_repository:

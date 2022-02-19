@@ -1,0 +1,17 @@
+# Use custom Jinja tests
+# Common place for Test Python files: "{AnsibleProjectRoot}/test_plugins/*.py"
+# Filter folder location in ansible.cfg: "test_plugins"
+---
+- hosts: all
+  tasks:
+
+    - name: Invoke custom test
+      vars:
+        color_1: 'Blue'
+        color_2: 'blue'
+        color_3: 'Green'
+      assert:
+        that: 
+          - color_1 is blue
+          - color_2 is blue
+          - color_3 is not blue

@@ -1,0 +1,14 @@
+# Use custom collections
+---
+- hosts: all
+  collections:
+    - local.colors
+  tasks:
+    - name: Use a test plugin from a custom collection
+      vars:
+        color: 'Green'
+      assert:
+        that: 
+          - color == 'Green'
+          - color is local.colors.green
+      
