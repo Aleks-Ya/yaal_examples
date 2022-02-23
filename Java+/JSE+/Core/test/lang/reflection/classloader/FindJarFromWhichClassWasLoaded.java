@@ -1,10 +1,9 @@
 package lang.reflection.classloader;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.net.URL;
 import java.net.URLClassLoader;
-import java.security.CodeSource;
 
 
 class FindJarFromWhichClassWasLoaded {
@@ -14,8 +13,8 @@ class FindJarFromWhichClassWasLoaded {
      */
     @Test
     void findSourceJar() {
-        Class klass = org.apache.commons.io.FileUtils.class;
-        CodeSource codeSource = klass.getProtectionDomain().getCodeSource();
+        Class<?> klass = org.apache.commons.io.FileUtils.class;
+        var codeSource = klass.getProtectionDomain().getCodeSource();
         if (codeSource != null) {
             System.out.println(codeSource.getLocation());
         }
@@ -25,10 +24,11 @@ class FindJarFromWhichClassWasLoaded {
      * Print all loaded JARs.
      */
     @Test
+    @Disabled("Not work in Java >=9")
     void printAllClassJars() {
-        ClassLoader sysClassLoader = ClassLoader.getSystemClassLoader();
-        URL[] urLs = ((URLClassLoader) sysClassLoader).getURLs();
-        for (URL url : urLs) {
+        var sysClassLoader = org.apache.commons.io.FileUtils.class.getClassLoader();
+        var urLs = ((URLClassLoader) sysClassLoader).getURLs();
+        for (var url : urLs) {
             System.out.println(url.getFile());
         }
     }

@@ -2,22 +2,19 @@ package lang.reflection.annotation;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Использование метода Class#getAnnotation.
  */
 class GetAnnotation {
     @Test
-    void present() throws ClassNotFoundException {
-        Class clazz = Class.forName("YesMarked");
-        assertEquals(Marked.class, clazz.getAnnotation(Marked.class).annotationType());
+    void present() {
+        assertThat(YesMarked.class.getAnnotation(Marked.class).annotationType()).isEqualTo(Marked.class);
     }
 
     @Test
-    void notPresent() throws ClassNotFoundException {
-        Class clazz = Class.forName("NotMarked");
-        assertNull(clazz.getAnnotation(Marked.class));
+    void notPresent() {
+        assertThat(NotMarked.class.getAnnotation(Marked.class)).isNull();
     }
 }

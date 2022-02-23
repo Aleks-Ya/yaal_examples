@@ -2,7 +2,7 @@ package io.resource;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -12,22 +12,22 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class GetResourcesDir {
 
     @Test
-    void classResource() {
-        var url1 = GetResourcesDir.class.getResource(".");
+    void classResourceEmpty() {
         var url2 = GetResourcesDir.class.getResource("");
+        assertThat(url2.toString()).endsWith("Java+/JSE+/Core/build/classes/java/test/io/resource/");
+    }
 
-        final var expResourcesDir = "file:/home/aleks/projects/learning/examples/Java+/JSE+/Core+/build/classes/test/resource/";
-        assertEquals(expResourcesDir, url1.toString());
-        assertEquals(expResourcesDir, url2.toString());
+    @Test
+    void classResourceDot() {
+        var url1 = GetResourcesDir.class.getResource(".");
+        assertThat(url1.toString()).endsWith("Java+/JSE+/Core/build/classes/java/test/io/resource/");
     }
 
     @Test
     void classLoaderResource() {
         var resource = ClassLoader.getSystemClassLoader().getResource(".");
-
-        final var expResourcesDir = "file:/home/aleks/projects/learning/examples/Java+/JSE+/Core+/build/classes/test/";
         assertNotNull(resource);
-        assertEquals(expResourcesDir, resource.toString());
+        assertThat(resource.toString()).endsWith("Java+/JSE+/Core/build/classes/java/test/");
     }
 
     @Test
