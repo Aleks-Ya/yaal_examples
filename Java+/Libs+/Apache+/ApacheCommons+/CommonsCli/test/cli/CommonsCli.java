@@ -7,9 +7,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Создаем объект с заданными датой и временем.
@@ -26,9 +24,9 @@ class CommonsCli {
 
         CommandLineParser parser = new DefaultParser();
         var cmd = parser.parse(options, args);
-        assertTrue(cmd.hasOption("t"));
-        assertTrue(cmd.hasOption("d"));
-        assertThat(cmd.getOptionValue("d"), equalTo("abc"));
+        assertThat(cmd.hasOption("t")).isTrue();
+        assertThat(cmd.hasOption("d")).isTrue();
+        assertThat(cmd.getOptionValue("d")).isEqualTo("abc");
     }
 
     @Test

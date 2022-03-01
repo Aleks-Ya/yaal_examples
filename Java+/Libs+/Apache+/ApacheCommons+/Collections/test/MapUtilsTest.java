@@ -3,12 +3,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class MapUtilsTest {
 
     @Test
     void isNotEmpty() {
-        assertFalse(MapUtils.isNotEmpty(new HashMap<>()));
+        var isNotEmpty = MapUtils.isNotEmpty(new HashMap<>());
+        assertThat(isNotEmpty).isFalse();
     }
 }

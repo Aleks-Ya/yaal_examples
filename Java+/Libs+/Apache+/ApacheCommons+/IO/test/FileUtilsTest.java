@@ -4,14 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static java.nio.charset.Charset.defaultCharset;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class FileUtilsTest {
 
@@ -26,9 +26,9 @@ class FileUtilsTest {
     @Test
     void stringToFile() throws IOException {
         var expected = "Hey, file!";
-        FileUtils.writeStringToFile(outFile, expected, Charset.defaultCharset());
-        var actual = FileUtils.readFileToString(outFile, Charset.defaultCharset());
-        assertEquals(expected, actual);
+        FileUtils.writeStringToFile(outFile, expected, defaultCharset());
+        var actual = FileUtils.readFileToString(outFile, defaultCharset());
+        assertThat(expected).isEqualTo(actual);
     }
 
     @Test
@@ -37,6 +37,22 @@ class FileUtilsTest {
         InputStream is = new ByteArrayInputStream(expected);
         FileUtils.copyInputStreamToFile(is, outFile);
         var actual = FileUtils.readFileToByteArray(outFile);
-        assertThat(actual, equalTo(expected));
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void readFileToString() throws IOException {
+        var expected = "Hey, file!";
+        FileUtils.writeStringToFile(outFile, expected, defaultCharset());
+        var actual = FileUtils.readFileToString(outFile, defaultCharset());
+        assertThat(expected).isEqualTo(actual);
+    }
+
+    @Test
+    void readFileToString_FileNotFound() {
+        var file = new File("/tmp/absent.txt");
+        assertThatThrownBy(() -> FileUtils.readFileToString(file, defaultCharset()))
+                .isInstanceOf(FileNotFoundException.class)
+                .hasMessage("%s (No such file or directory)", file.getAbsolutePath());
     }
 }

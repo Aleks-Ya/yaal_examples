@@ -6,8 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class IOUtilsTest {
 
@@ -16,6 +15,6 @@ class IOUtilsTest {
         var exp = "abc";
         InputStream is = new ByteArrayInputStream(exp.getBytes());
         var act = IOUtils.toString(is, Charset.defaultCharset());
-        assertThat(act, equalTo(exp));
+        assertThat(act).isEqualTo(exp);
     }
 }
