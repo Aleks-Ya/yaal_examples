@@ -1,0 +1,24 @@
+# Use Vault
+---
+- hosts: all
+  tasks:
+
+    - name: Use value from an entire encrypted file
+      vars:
+        db_pass: "{{ lookup('file', 'database_password.txt') }}"
+      assert:
+        that: db_pass == 'dbpass'
+
+    - name: Use values from a var file (only values are encrypted)
+      include_vars:
+        file: encrypted_vars.yaml
+        name: servers
+    - set_fact: 
+        text_base64_decoded: "{{ servers.text_base64 | b64decode }}"
+    - assert:
+        that: 
+          - servers.server.login == 'admin'
+          - servers.server.password == 'adminpass'
+          - servers.key == 'seckey'
+          - servers.text_base64 == 'SGVsbG8sIFdvcmxkIQ=='
+          - text_base64_decoded == 'Hello, World!'

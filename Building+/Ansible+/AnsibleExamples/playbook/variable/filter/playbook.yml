@@ -57,3 +57,13 @@
           String: {{ unicode_var | type_debug }},
           Integer: {{ integer_var | type_debug }},
           Boolean: {{ boolean_var | type_debug }}
+
+    - name: Encode and decode Base64
+      vars:
+        greeting: Hello, World!
+        greeting64_encoded: "{{ greeting | b64encode }}"
+        greeting64_decoded: "{{ greeting64_encoded | b64decode }}"
+      assert:
+        that: 
+          - greeting64_encoded == 'SGVsbG8sIFdvcmxkIQ=='
+          - greeting64_decoded == greeting
