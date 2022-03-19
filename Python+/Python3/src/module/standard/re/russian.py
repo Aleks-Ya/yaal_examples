@@ -1,9 +1,10 @@
 # Search by a regular expression in Russian text
 import re
+from re import Match
 
-line = "Кошки круче собак во много раз"
+line: str = "Кошки круче собак во много раз"
 
-matchObj = re.match(r'(.*) круче (.*?) .*', line, re.M | re.I)
+matchObj: Match = re.match(r'(.*) круче (.*?) .*', line, re.M | re.I)
 
 if matchObj:
     print("matchObj.group() : ", matchObj.group())

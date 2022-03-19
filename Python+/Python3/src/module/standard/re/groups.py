@@ -1,9 +1,10 @@
 # Extract regex groups
 import re
+from re import Match
 
 line = "All cats are smarter than dogs"
 
-matchObj = re.match(r'.* (.*) are (.*?) .*', line, re.M | re.I)
+matchObj: Match = re.match(r'.* (.*) are (.*?) .*', line, re.M | re.I)
 
 if matchObj:
     assert matchObj.group() == 'All cats are smarter than dogs'
