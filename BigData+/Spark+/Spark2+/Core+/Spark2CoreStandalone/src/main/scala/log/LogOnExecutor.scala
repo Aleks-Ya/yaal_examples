@@ -17,7 +17,7 @@ object LogOnExecutor {
     val jars = Seq("target/scala-2.11/spark2corestandalone_2.11-1.jar")
     val conf = new SparkConf()
       .setAppName(getClass.getSimpleName)
-      .setMaster("spark://172.19.0.2:7077")
+      .setMaster("spark://spark-standalone-cluster-master:7077")
       .setJars(jars)
 
     class WordProcessor extends Serializable {

@@ -13,7 +13,7 @@ object HelloWorldTest {
   def main(args: Array[String]): Unit = {
     println("Start")
     val jars = Seq("target/scala-2.11/spark2corestandalone_2.11-1.jar")
-    val masterIp = "172.19.0.2"
+    val masterIp = "spark-standalone-cluster-master"
     val conf = new SparkConf()
       .setAppName(getClass.getSimpleName)
       .setMaster(s"spark://$masterIp:7077")
