@@ -23,23 +23,6 @@ class CustomEncoderTest extends AnyFlatSpec with Matchers {
     peopleDs.foreach(println(_))
   }
 
-  it should "encoder for java.util.Date" in {
-    val ss = Factory.ss
-    implicit val mapEncoder: Class[Date] => Encoder[Date] = Encoders.bean[Date]
-    val dates = Seq(new Date())
-    // not work
-    //    val ds = ss.createDataset(dates)
-    //    ds.show
-  }
-
-  it should "encoder for java.util.Date 2" in {
-    val ss = Factory.ss
-    implicit val mapEncoder: Class[LocalDateTime] => Encoder[LocalDateTime] = Encoders.bean[LocalDateTime]
-    val dates = Seq(LocalDateTime.now)
-    // not work
-    //    val ds = ss.createDataset(dates)
-    //    ds.show
-  }
 
   //  TODO add
   //  implicit val mapEncoder: Encoder[String] = org.apache.spark.sql.Encoders.STRING
