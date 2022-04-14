@@ -13,28 +13,32 @@ class ChangeColumnTypeTest extends AnyFlatSpec with Matchers {
     df.printSchema
     df.schema.treeString shouldEqual "root\n" +
       " |-- name: string (nullable = true)\n" +
-      " |-- age: integer (nullable = true)\n"
+      " |-- age: integer (nullable = true)\n" +
+      " |-- gender: string (nullable = true)\n"
 
     val newDf = df.withColumn("age", col("age").cast(ByteType))
     newDf.printSchema
     newDf.schema.treeString shouldEqual
       "root\n" +
         " |-- name: string (nullable = true)\n" +
-        " |-- age: byte (nullable = true)\n"
+        " |-- age: byte (nullable = true)\n" +
+        " |-- gender: string (nullable = true)\n"
   }
 
-  "Cast with conversion" should "works" in {
+  "Cast with conversion" should "work" in {
     val df = Factory.peopleDf
     df.printSchema
     df.schema.treeString shouldEqual "root\n" +
       " |-- name: string (nullable = true)\n" +
-      " |-- age: integer (nullable = true)\n"
+      " |-- age: integer (nullable = true)\n" +
+      " |-- gender: string (nullable = true)\n"
 
     val newDf = df.withColumn("age", col("age").cast(ByteType))
     newDf.printSchema
     newDf.schema.treeString shouldEqual
       "root\n" +
         " |-- name: string (nullable = true)\n" +
-        " |-- age: byte (nullable = true)\n"
+        " |-- age: byte (nullable = true)\n" +
+        " |-- gender: string (nullable = true)\n"
   }
 }

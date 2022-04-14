@@ -15,7 +15,6 @@ class ConcurrentModificationExceptionTest extends AnyFlatSpec with Matchers {
     ds.show
   }
 
-
   val ss: SparkSession = Factory.ss
 
   it should "work with exception (because 'ss' is out of the method)" in {

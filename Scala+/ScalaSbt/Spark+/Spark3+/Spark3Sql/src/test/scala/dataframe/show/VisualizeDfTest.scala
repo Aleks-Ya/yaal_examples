@@ -22,7 +22,8 @@ class VisualizeDfTest extends AnyFlatSpec with Matchers {
     tree shouldEqual
       "root\n" +
         " |-- name: string (nullable = true)\n" +
-        " |-- age: integer (nullable = true)\n"
+        " |-- age: integer (nullable = true)\n" +
+        " |-- gender: string (nullable = true)\n"
 
     println("Explain:\n")
     df.explain()

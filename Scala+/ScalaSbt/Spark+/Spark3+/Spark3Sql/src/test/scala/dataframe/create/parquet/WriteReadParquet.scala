@@ -19,7 +19,7 @@ class WriteReadParquet extends AnyFlatSpec with Matchers with BeforeAndAfterAll 
     val sql = Factory.ss.sqlContext
     val parquetDf = sql.read.parquet(file.getAbsolutePath)
     parquetDf.show()
-    parquetDf.collect.map(_.toString) should contain inOrderOnly("[Jhon,25]", "[Peter,35]")
+    parquetDf.collect.map(_.toString) should contain inOrderOnly("[John,25,M]", "[Peter,35,M]", "[Mary,20,F]")
 
     parquetDf.createOrReplaceTempView("parquetPeople")
     val resultDf = sql.sql("SELECT name FROM parquetPeople WHERE age > 30")

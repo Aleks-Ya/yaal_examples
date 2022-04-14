@@ -12,13 +12,15 @@ class RenameColumnTest extends AnyFlatSpec with Matchers {
     df.printSchema
     df.schema.treeString shouldEqual "root\n" +
       " |-- name: string (nullable = true)\n" +
-      " |-- age: integer (nullable = true)\n"
+      " |-- age: integer (nullable = true)\n" +
+      " |-- gender: string (nullable = true)\n"
 
     val newDf = df.withColumnRenamed("name", "fio")
     newDf.printSchema
     newDf.schema.treeString shouldEqual
       "root\n" +
         " |-- fio: string (nullable = true)\n" +
-        " |-- age: integer (nullable = true)\n"
+        " |-- age: integer (nullable = true)\n" +
+        " |-- gender: string (nullable = true)\n"
   }
 }

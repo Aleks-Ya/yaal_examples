@@ -31,16 +31,6 @@ object Factory {
     df.printSchema
     df
   }
-
-  def createPeopleDf(): DataFrame = {
-    val schema = StructType(
-      StructField("name", StringType, nullable = true) ::
-        StructField("age", IntegerType, nullable = true) :: Nil)
-    val peopleRdd = ss.sparkContext.parallelize(Seq("Jhon,25", "Peter,35"))
-    val rowRdd = peopleRdd.map(_.split(",")).map(p => Row(p(0), p(1).toInt))
-    ss.sqlContext.createDataFrame(rowRdd, schema)
-  }
-
   lazy val cityListDf: DataFrame = {
     val schema = StructType(
       StructField("city", StringType, nullable = true) :: Nil)
@@ -51,21 +41,29 @@ object Factory {
     df.printSchema
     df
   }
-
   lazy val cityObjectDf: DataFrame = {
     val list = Seq(City("Moscow", 1147), City("SPb", 1703)).asJava
     val df = ss.createDataFrame(list, classOf[City])
     df.show()
     df
   }
+  lazy val cityDs: Dataset[City] = {
+    createCityDs(Seq(City("Moscow", 1147), City("SPb", 1703)))
+  }
+
+  def createPeopleDf(): DataFrame = {
+    val schema = StructType(
+      StructField("name", StringType, nullable = true) ::
+        StructField("age", IntegerType, nullable = true) ::
+        StructField("gender", StringType, nullable = true) :: Nil)
+    val peopleRdd = ss.sparkContext.parallelize(Seq("John,25,M", "Peter,35,M", "Mary,20,F"))
+    val rowRdd = peopleRdd.map(_.split(",")).map(p => Row(p(0), p(1).toInt, p(2)))
+    ss.sqlContext.createDataFrame(rowRdd, schema)
+  }
 
   def createCityDs(cities: Seq[City]): Dataset[City] = {
     implicit val mapEncoder: Encoder[City] = Encoders.product[City]
     ss.createDataset(cities)
-  }
-
-  lazy val cityDs: Dataset[City] = {
-    createCityDs(Seq(City("Moscow", 1147), City("SPb", 1703)))
   }
 }
 
