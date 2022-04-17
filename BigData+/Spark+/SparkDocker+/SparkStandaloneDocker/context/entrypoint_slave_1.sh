@@ -11,7 +11,7 @@ chmod -R g+w /tmp
 
 echo "Starting Spark Worker..."
 chown -R spark:root /opt/spark/
-su spark -c "start-worker.sh spark://master:7077"
+su spark -c "start-worker.sh spark://spark-standalone-cluster-master:7077"
 echo "Spark Worker started."
 
 SIGINT=2

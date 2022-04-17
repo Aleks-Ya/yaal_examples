@@ -28,11 +28,6 @@ ps [docs](https://docs.docker.com/engine/reference/commandline/ps/)
 docker ps              # See a list of all running containers
 docker ps -a           # See a list of all containers, even the ones not running
 ```
-build [docs](https://docs.docker.com/engine/reference/commandline/build/)
-```
-docker build -t friendlyhello .
-docker build -t friendlyname .  # Create image using this directory's Dockerfile
-```
 run [docs](https://docs.docker.com/engine/reference/commandline/run/)
 ```
 docker run hello-world

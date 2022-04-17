@@ -1,10 +1,6 @@
 /**
-  * NOT FINISHED
-  * Run Spark cluster from yaal_examples/Building+/Docker+/DockerImage+/Application+/Spark
-  * Find master IP address: docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' spark_master_1
-  * Build: sbt package
-  * Run core.HelloWorldTest#main()
-  */
+ * NOT FINISHED
+ */
 package log
 
 import org.apache.spark.rdd.RDD

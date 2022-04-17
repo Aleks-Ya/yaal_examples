@@ -30,3 +30,6 @@ Pipfile.lock
 __pycache__
 *.hprof
 *.bak
+
+#SBT
+.bsp

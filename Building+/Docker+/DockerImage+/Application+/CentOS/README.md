@@ -1,4 +1,4 @@
-# CentOS Docker image
+# CentOS Docker image (DISCONTINUED)
 
 ## Standard image
 Sources: https://hub.docker.com/_/centos

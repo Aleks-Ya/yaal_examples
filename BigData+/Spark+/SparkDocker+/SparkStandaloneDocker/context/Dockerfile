@@ -1,6 +1,6 @@
-FROM centos:8
+FROM almalinux-updated
 
-RUN yum update -y && yum install -y java wget net-tools nano telnet which
+RUN yum install -y java python38
 
 ARG SPARK_VERSION
 ENV SPARK_DIR=/opt/spark
@@ -15,8 +15,6 @@ RUN wget -O ${SPARK_TGZ} https://archive.apache.org/dist/spark/spark-${SPARK_VER
 ENV SPARK_HOME=/opt/spark
 ENV SPARK_CONF_DIR=${SPARK_HOME}/conf
 ENV PATH=$PATH:$SPARK_HOME/bin::$SPARK_HOME/sbin
-
-RUN yum install -y python38
 
 ADD spark-defaults.conf ${SPARK_CONF_DIR}/
 ADD *.sh ${SPARK_HOME}/
