@@ -1,0 +1,21 @@
+version: '3'
+services:
+  server-service:
+    container_name: shared-host-dir-server-container
+    image: alpine:latest
+    volumes:
+      - mydata:/tmp/data
+    command: sh -c "cat /tmp/data/greeting.txt"
+  client-service:
+    container_name: shared-host-dir-client-container
+    image: alpine:latest
+    volumes:
+      - mydata:/tmp/data
+    command: sh -c "cat /tmp/data/greeting.txt"
+volumes:
+  mydata:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./data
