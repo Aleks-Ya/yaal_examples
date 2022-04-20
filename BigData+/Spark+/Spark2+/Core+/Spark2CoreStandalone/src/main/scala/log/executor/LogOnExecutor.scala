@@ -1,7 +1,4 @@
-/**
- * NOT FINISHED
- */
-package log
+package log.executor
 
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
