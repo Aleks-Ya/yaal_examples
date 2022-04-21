@@ -14,10 +14,16 @@ chown -R spark:root /opt/spark/
 su spark -c "start-master.sh"
 echo "Spark Master started."
 
+echo "Starting Spark History Server..."
+su spark -c "mkdir -p /datasets/spark-events"
+su spark -c "start-history-server.sh"
+echo "Spark History Server started."
+
 SIGINT=2
 SIGTERM=15
 stop()
 {
+  su spark -c "stop-history-server.sh"
   su spark -c "stop-master.sh"
   exit 0
 }

@@ -15,6 +15,8 @@ object ClientModeIdeApp {
       .set("spark.executor.memory", "512M")
       .set("spark.deploy.defaultCores", "1")
       .set("spark.cores.max", "2")
+      .set("spark.eventLog.enabled", "true")
+      .set("spark.eventLog.dir", "file:///media/aleks/ADATA/dataset/spark-events")
       .setJars(jars)
     val sc = new SparkContext(conf)
     val words = Seq("Hello, ", "World", "!")

@@ -18,6 +18,8 @@ Submit:
             --total-executor-cores 2 \
             --executor-cores 1 \
             --executor-memory 512M \
+            --conf "spark.eventLog.enabled=true" \
+            --conf "spark.eventLog.dir=file:///media/aleks/ADATA/dataset/spark-events" \
             target/scala-2.12/spark2corestandalone_2.12-1.jar
        ```
    4. Cluster mode (with `spark-submit`)
@@ -37,7 +39,8 @@ Submit:
             --total-executor-cores 2 \
             --executor-memory 512M \
             --num-executors 2 \
-            --files /datasets/log4j-driver.properties \
+            --conf "spark.eventLog.enabled=true" \
+            --conf "spark.eventLog.dir=file:///datasets/spark-events" \
             file:///datasets/spark2corestandalone_2.12-1.jar
        ```
 6. Application in the Spark UI: http://spark-standalone-cluster-master:8080

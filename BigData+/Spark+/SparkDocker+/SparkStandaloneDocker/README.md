@@ -8,6 +8,10 @@
 2. Publis hosts: `sudo ./update_hosts.sh`
 3. Open: http://spark-standalone-cluster-master:8080
 
+## Web
+1. Spark UI: http://spark-standalone-cluster-master:8080
+2. Spark History Server: http://spark-standalone-cluster-master:18080
+
 ## Connect by Spark Shell
 1. Run Spark Shell: `spark-shell --master spark://spark-standalone-cluster-master:7077`
 2. Execute app: `sc.parallelize(Seq(1, 2, 3)).collect()`
