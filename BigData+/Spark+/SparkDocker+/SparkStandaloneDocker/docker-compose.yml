@@ -5,6 +5,8 @@ services:
     image: spark-standalone
     hostname: spark-standalone-cluster-master
     entrypoint: ./entrypoint_master.sh
+    volumes:
+      - datasets:/datasets
   slave-1:
     container_name: spark-standalone-cluster-slave-1
     image: spark-standalone
@@ -12,6 +14,8 @@ services:
     entrypoint: ./entrypoint_slave_1.sh
     depends_on:
       - master
+    volumes:
+      - datasets:/datasets
   slave-2:
     container_name: spark-standalone-cluster-slave-2
     image: spark-standalone
@@ -19,6 +23,15 @@ services:
     entrypoint: ./entrypoint_slave_2.sh
     depends_on:
       - master
+    volumes:
+      - datasets:/datasets
 networks:
   default:
     name: spark-standalone-cluster-network
+volumes:
+  datasets:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /media/aleks/ADATA/dataset
