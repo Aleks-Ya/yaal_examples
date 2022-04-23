@@ -3,6 +3,9 @@ package app.sixexercises
 
 import org.apache.spark.sql.functions.{avg, col}
 
+/**
+ * What is the average revenue of the orders?
+ */
 object Exercise1App {
   def main(args: Array[String]): Unit = {
     val result = Factory.salesDs
