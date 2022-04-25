@@ -1,6 +1,6 @@
 # gpg CLI
 
-Import
+## Import
 
 Show fingerprint of *.asc file (PGP digital signatures):
 ```
@@ -15,21 +15,21 @@ Import private key from a file:
 gpg --import /tmp/CryptomatorVaultBackup-keys/CryptomatorVaultBackup-private.pgp
 ```
 
-Verify
+## Verify
 
 Verify file with its signature:
 ```
 gpg --verify veracrypt-1.24.deb.sig veracrypt-1.24.deb
 ```
 
-Generate
+## Generate
 
 Generate new key:
 ```
 gpg --gen-key
 ```
 
-List
+## List
 
 List public keys:
 ```
@@ -40,7 +40,7 @@ List secret keys:
 gpg --list-secret-keys
 ```
 
-Export
+## Export
 
 Export "CryptomatorVaultBackup" public key to a file:
 ```
@@ -59,14 +59,14 @@ Check password for a private key:
 gpg --export-secret-keys -a my-key-id > /dev/null && echo OK
 ```
 
-Delete
+## Delete
 
 Delete public and secret keys:
 ```
 gpg --delete-secret-and-public-key CryptomatorVaultBackup
 ```
 
-Other
+## Other
 
 Show version:
 ```
@@ -80,3 +80,7 @@ Initialize empty home directory (will be initialized while listing keys):
 ```
 gpg --homedir /tmp/gpg_home --list-keys
 ```
+
+## Encrypt/Decrypt file with password
+Encrypt: `gpg -c my.txt` -> `my.txt.gpg`
+Decrypt: `gpg my.txt.gpg` -> `my.txt`

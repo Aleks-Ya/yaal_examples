@@ -4,7 +4,7 @@ import core.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class ReduceByKeyTest extends AnyFlatSpec with Matchers {
+class ReduceByKeyTransformation extends AnyFlatSpec with Matchers {
 
   "RDD" should "process Scala's tuple" in {
     val list = Factory.sc.parallelize(Seq("a", "b"))

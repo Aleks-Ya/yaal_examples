@@ -1,11 +1,10 @@
-package core.transformation
+package core.transformation.map
 
 import core.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class MapPartitionsTest extends AnyFlatSpec with Matchers {
-
+class MapPartitionsTransformation extends AnyFlatSpec with Matchers {
 
   it should "use mapPartitions to initialize executor" in {
     def initExecutor(): Unit = {
@@ -30,6 +29,5 @@ class MapPartitionsTest extends AnyFlatSpec with Matchers {
         println(element)
       })
   }
-
 
 }
