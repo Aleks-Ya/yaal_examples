@@ -29,7 +29,7 @@ object Dependencies {
 
   val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "2.24.0" % Test
 
-  private val spark3Version = "3.1.1"
+  private val spark3Version = "3.2.1"
   val spark3CoreDep = "org.apache.spark" %% "spark-core" % spark3Version
   val spark3SqlDep = "org.apache.spark" %% "spark-sql" % spark3Version
   val spark3StreamingDep = "org.apache.spark" %% "spark-streaming" % spark3Version
