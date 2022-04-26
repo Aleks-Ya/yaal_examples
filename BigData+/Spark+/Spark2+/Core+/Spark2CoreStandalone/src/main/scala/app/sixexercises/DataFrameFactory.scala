@@ -4,11 +4,7 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 
 object DataFrameFactory {
   lazy val ss: SparkSession = {
-    val builder = SparkSession.builder()
-      .master("local")
-      .config("spark.sql.autoBroadcastJoinThreshold", -1)
-      .config("spark.executor.memory", "500mb")
-      .appName("SixExercises")
+    val builder = SparkSession.builder().appName("SixExercises")
 
     val logDir = sys.env.get("SPARK_HISTORY_FS_LOG_DIRECTORY")
     if (logDir.isDefined) {
