@@ -8,8 +8,8 @@ import org.apache.spark.sql.functions.{avg, col}
  */
 object Exercise1App {
   def main(args: Array[String]): Unit = {
-    val result = Factory.salesDs
-      .join(Factory.productsDs, "product_id")
+    val result = DatasetFactory.salesDs
+      .join(DatasetFactory.productsDs, "product_id")
       .withColumn("revenue", col("num_pieces_sold") * col("price"))
       .agg(avg("revenue"))
       .first()

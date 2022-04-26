@@ -6,7 +6,7 @@ package app.sixexercises
  */
 object WarmUp4App {
   def main(args: Array[String]): Unit = {
-    val productsSoldAtLeastOnce = Factory.salesDs
+    val productsSoldAtLeastOnce = DatasetFactory.salesDs
       .groupBy("product_id").sum("num_pieces_sold")
       .filter(row => row.getLong(row.fieldIndex("sum(num_pieces_sold)")) > 0)
       .count()

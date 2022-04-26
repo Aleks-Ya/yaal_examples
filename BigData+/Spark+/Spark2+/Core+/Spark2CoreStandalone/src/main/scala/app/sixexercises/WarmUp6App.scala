@@ -8,8 +8,8 @@ import java.time.LocalDate
  */
 object WarmUp6App {
   def main(args: Array[String]): Unit = {
-    import Factory.ss.sqlContext.implicits._
-    val dayToDistinctProductNumber = Factory.salesDs
+    import DataFrameFactory.ss.sqlContext.implicits._
+    val dayToDistinctProductNumber = DatasetFactory.salesDs
       .groupByKey(_.date)
       .mapGroups((date, iter) => (date, iter.toList.map(_.product_id).distinct.length))
       .sort($"_2".desc)

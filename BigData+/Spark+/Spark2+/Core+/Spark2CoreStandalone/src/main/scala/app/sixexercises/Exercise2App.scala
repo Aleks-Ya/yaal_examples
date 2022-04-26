@@ -8,8 +8,8 @@ import org.apache.spark.sql.functions.{avg, broadcast, col, round}
  */
 object Exercise2App {
   def main(args: Array[String]): Unit = {
-    val salesDs = Factory.salesDs
-    val sellersDs = Factory.sellersDs
+    val salesDs = DatasetFactory.salesDs
+    val sellersDs = DatasetFactory.sellersDs
     val salesSellersJoinDf = salesDs.join(broadcast(sellersDs), "seller_id")
     val groupBySellerDf = salesSellersJoinDf.groupBy("seller_id")
       .agg(round(avg(col("num_pieces_sold") / col("daily_target")) * 100, 4).as("order_contribution"))

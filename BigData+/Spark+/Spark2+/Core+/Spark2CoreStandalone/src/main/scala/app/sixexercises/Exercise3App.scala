@@ -5,9 +5,9 @@ import org.apache.spark.sql.functions.{broadcast, col, desc, sum}
 
 object Exercise3App {
   def main(args: Array[String]): Unit = {
-    val salesDs = Factory.salesDs
-    val sellersDs = Factory.sellersDs
-    val productsDs = Factory.productsDs
+    val salesDs = DatasetFactory.salesDs
+    val sellersDs = DatasetFactory.sellersDs
+    val productsDs = DatasetFactory.productsDs
     val salesSellersJoinDf = salesDs.join(broadcast(sellersDs), "seller_id")
     val salesSellersProductsJoinDf = salesSellersJoinDf.join(productsDs, "product_id")
     val soldAmountDf = salesSellersProductsJoinDf

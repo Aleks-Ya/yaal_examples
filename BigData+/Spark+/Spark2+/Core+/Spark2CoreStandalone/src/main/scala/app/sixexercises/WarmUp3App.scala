@@ -6,7 +6,7 @@ package app.sixexercises
  */
 object WarmUp3App {
   def main(args: Array[String]): Unit = {
-    val saleCount = Factory.salesDs.count()
+    val saleCount = DatasetFactory.salesDs.count()
     assert(saleCount == 20000040)
   }
 }
