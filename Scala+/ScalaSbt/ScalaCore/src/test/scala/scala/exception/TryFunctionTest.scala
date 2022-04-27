@@ -29,4 +29,11 @@ class TryFunctionTest extends AnyFlatSpec with Matchers {
     either.isLeft shouldBe true
     either.isRight shouldBe false
   }
+
+  it should "check was exception of not" in {
+    def throwException = throw new IllegalArgumentException
+
+    Try(throwException).isFailure shouldBe true
+    Try(throwException).isSuccess shouldBe false
+  }
 }

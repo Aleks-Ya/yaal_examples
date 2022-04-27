@@ -46,4 +46,7 @@ Submit:
 4. Application in the Spark UI: http://spark-standalone-cluster-master:8080
 5. Run "Six Examples"
     1. Build: `./build_jar.sh`
-    3. Run in cluster mode: `./src/main/scala/app/sixexercises/submit_cluster_mode.sh app.sixexercises.WarmUp1App`
+    2. Run in cluster mode: `./src/main/scala/app/sixexercises/submit_cluster_mode.sh app.sixexercises.WarmUp1App`
+6. Run "IMBD"
+    1. Build: `./build_jar.sh`
+    2. Run in cluster mode: `./src/main/scala/app/imdb/submit_cluster_mode.sh app.imdb.Exercise1App`

@@ -5,7 +5,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 
-class RandomSplitTest extends AnyFlatSpec with Matchers {
+class RandomSplitTransformation extends AnyFlatSpec with Matchers {
 
   it should "split a small dataset" in {
     val sqlContext = Factory.ss.sqlContext

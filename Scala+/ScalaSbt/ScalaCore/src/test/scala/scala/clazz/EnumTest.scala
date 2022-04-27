@@ -7,9 +7,20 @@ class EnumTest extends AnyFlatSpec with Matchers {
 
   it should "use enum" in {
     val toLeft = Direction.Left
+    toLeft shouldBe Direction.Left
+  }
+
+  it should "get all enum values" in {
     val values = Direction.values
     values should contain allOf(Direction.Left, Direction.Forward, Direction.Right)
   }
+
+  it should "use enum as method argument" in {
+    val toLeft = Direction.Left
+    getEnumName(toLeft) shouldBe "Left"
+  }
+
+  def getEnumName(enum: Direction.Category): String = enum.toString
 
 }
 

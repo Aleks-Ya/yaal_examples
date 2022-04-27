@@ -12,9 +12,11 @@ class DsRowToJsonTest extends AnyFlatSpec with Matchers {
 
   it should "dataframe.convert whole Dataset to JSON" in {
     val jsonList = Factory.cityDs.toJSON.collect()
-    jsonList should contain allOf(
+    jsonList should contain inOrderOnly (
       """{"name":"Moscow","establishYear":1147}""",
-      """{"name":"SPb","establishYear":1703}""")
+      """{"name":"SPb","establishYear":1703}""",
+      """{"name":"New York","establishYear":1665}"""
+    )
   }
 
   it should "dataframe.convert Dataset row to JSON" in {
@@ -27,8 +29,10 @@ class DsRowToJsonTest extends AnyFlatSpec with Matchers {
       s"$name - $json}"
     }).collect()
 
-    jsonList should contain allOf(
+    jsonList should contain inOrderOnly (
       """Moscow - {"name":"Moscow","establishYear":1147}}""",
-      """SPb - {"name":"SPb","establishYear":1703}}""")
+      """SPb - {"name":"SPb","establishYear":1703}}""",
+      """New York - {"name":"New York","establishYear":1665}}"""
+    )
   }
 }

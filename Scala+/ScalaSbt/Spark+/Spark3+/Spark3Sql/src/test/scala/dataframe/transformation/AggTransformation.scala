@@ -2,7 +2,7 @@ package dataframe.transformation
 
 import factory.Factory
 import org.apache.spark.sql.functions
-import org.apache.spark.sql.functions.sum
+import org.apache.spark.sql.functions.{max, sum}
 import org.apache.spark.sql.types.LongType
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -20,5 +20,10 @@ class AggTransformation extends AnyFlatSpec with Matchers {
     val df = Factory.peopleDf.agg(sum("age").as("age_sum"))
     df.schema.fields(df.schema.fieldIndex("age_sum")).dataType shouldBe LongType
     df.toJSON.collect() should contain only """{"age_sum":80}"""
+  }
+
+  it should "calculate several aggregations" in {
+    val df = Factory.peopleDf.agg(sum("age"), max("age"))
+    df.toJSON.collect() should contain only """{"sum(age)":80,"max(age)":35}"""
   }
 }

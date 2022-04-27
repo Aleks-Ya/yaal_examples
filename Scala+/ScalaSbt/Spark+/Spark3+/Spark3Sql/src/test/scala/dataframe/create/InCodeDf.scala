@@ -12,7 +12,7 @@ import org.scalatest.matchers.should.Matchers
  */
 class InCodeDf extends AnyFlatSpec with BeforeAndAfterAll with Matchers {
 
-  "Apply schema to RDD" should "print table" in {
+  it should "apply schema to RDD" in {
     val peopleRdd = Factory.ss.sparkContext.parallelize(Seq("Jhon,25", "Peter,35"))
     val nameField = StructField("name", StringType, nullable = true)
     val ageField = StructField("age", IntegerType, nullable = true)
@@ -44,7 +44,17 @@ class InCodeDf extends AnyFlatSpec with BeforeAndAfterAll with Matchers {
     override def toString: String = name + "-" + age
   }
 
-  "From Class" should "create DF from Object and Class" in {
+  it should "create DataFrame of numbers" in {
+    import Factory.ss.sqlContext.implicits._
+    val df = (1 to 3).toDF("id")
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"id":1}""",
+      """{"id":2}""",
+      """{"id":3}"""
+    )
+  }
+
+  it should "create DF from Object and Class" in {
     val john = new People("John", 25)
     val peter = new People("Peter", 35)
     val data = java.util.Arrays.asList(john, peter)
