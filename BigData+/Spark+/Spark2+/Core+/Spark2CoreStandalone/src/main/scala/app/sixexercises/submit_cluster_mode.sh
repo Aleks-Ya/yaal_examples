@@ -8,7 +8,7 @@ spark-submit \
      --driver-cores 1 \
      --driver-memory 512M \
      --executor-cores 1 \
-     --executor-memory 1G \
+     --executor-memory 512M \
      --num-executors 2 \
      --total-executor-cores 2 \
      --conf "spark.sql.autoBroadcastJoinThreshold=-1" \
