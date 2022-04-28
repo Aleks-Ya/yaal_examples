@@ -1,13 +1,13 @@
-package dataframe.structure
+package dataframe.transformation
 
 import factory.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 
-class RenameColumnTest extends AnyFlatSpec with Matchers {
+class WithColumnRenamedTransformation extends AnyFlatSpec with Matchers {
 
-  "Rename columns" should "works" in {
+  it should "rename a column" in {
     val df = Factory.peopleDf
     df.printSchema
     df.schema.treeString shouldEqual "root\n" +
