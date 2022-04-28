@@ -3,7 +3,7 @@
 addSbtPlugin("io.spray" % "sbt-revolver" % "0.9.1")
 
 // PlayFramework+/play-framework-examples
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.8.7")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.8.15")
 addSbtPlugin("org.foundweekends.giter8" % "sbt-giter8-scaffold" % "0.13.1")
 
 // Assembly

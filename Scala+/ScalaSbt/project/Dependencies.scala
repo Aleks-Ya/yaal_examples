@@ -15,7 +15,7 @@ object Dependencies {
   val akkaActorTestKitTypedDep = "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test
 
   private val slickVersion = "3.3.3"
-  private val playVersion = "2.8.7"
+  private val playVersion = "2.8.15"
   val slickDep = "com.typesafe.slick" %% "slick" % slickVersion
   val slickHikaricpDep = "com.typesafe.slick" %% "slick-hikaricp" % slickVersion
   val slickTestkitDep = "com.typesafe.slick" %% "slick-testkit" % slickVersion % Test
