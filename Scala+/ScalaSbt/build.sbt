@@ -27,7 +27,8 @@ lazy val playLiquibase = project in file("PlayFramework+/play-liquibase")
 lazy val playJdbc = project in file("PlayFramework+/play-jdbc")
 lazy val playSlickLiquibase = project in file("PlayFramework+/play-slick-liquibase")
 
-lazy val json4s = project in file("Libs+/json4s")
+lazy val json4s = project in file("Libs+/JSON+/json4s")
+lazy val SprayJson = project in file("Libs+/JSON+/SprayJson")
 lazy val TypesafeConfig = project in file("Libs+/TypesafeConfig")
 lazy val OkHttpMockWebServer = project in file("Libs+/OkHttpMockWebServer")
 
