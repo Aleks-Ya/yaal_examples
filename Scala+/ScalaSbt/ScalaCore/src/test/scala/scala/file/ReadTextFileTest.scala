@@ -1,10 +1,9 @@
 package scala.file
 
-import java.io.{BufferedReader, FileReader}
-
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
+import java.io.{BufferedReader, FileReader}
 import scala.collection.mutable.ListBuffer
 import scala.io.Source
 

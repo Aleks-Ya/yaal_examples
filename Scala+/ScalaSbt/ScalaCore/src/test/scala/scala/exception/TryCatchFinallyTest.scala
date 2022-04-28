@@ -1,9 +1,9 @@
 package scala.exception
 
-import java.io.IOException
-
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+
+import java.io.IOException
 
 class TryCatchFinallyTest extends AnyFlatSpec with Matchers {
 

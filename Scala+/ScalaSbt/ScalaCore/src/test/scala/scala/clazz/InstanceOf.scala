@@ -1,9 +1,9 @@
 package scala.clazz
 
-import java.io.{ByteArrayInputStream, FileInputStream, InputStream}
-
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+
+import java.io.{ByteArrayInputStream, FileInputStream, InputStream}
 
 class InstanceOf extends AnyFlatSpec with Matchers {
 

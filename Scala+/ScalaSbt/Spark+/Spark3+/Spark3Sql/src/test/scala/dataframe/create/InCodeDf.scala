@@ -13,13 +13,10 @@ import org.scalatest.matchers.should.Matchers
 class InCodeDf extends AnyFlatSpec with BeforeAndAfterAll with Matchers {
 
   it should "apply schema to RDD" in {
-    val peopleRdd = Factory.ss.sparkContext.parallelize(Seq("Jhon,25", "Peter,35"))
-    val nameField = StructField("name", StringType, nullable = true)
-    val ageField = StructField("age", IntegerType, nullable = true)
-    val schema = StructType(nameField :: ageField :: Nil)
-    val rowRdd = peopleRdd.map(_.split(",")).map(p => Row(p(0), p(1).toInt))
+    val schema = StructType(StructField("name", StringType) :: StructField("age", IntegerType) :: Nil)
+    val rdd = Factory.ss.sparkContext.parallelize(Seq(Row("Jhon", 25), Row("Peter", 35)))
     val sql = Factory.ss.sqlContext
-    val peopleDf = sql.createDataFrame(rowRdd, schema)
+    val peopleDf = sql.createDataFrame(rdd, schema)
     peopleDf.createOrReplaceTempView("people")
     sql.tableNames.toList should contain("people")
 

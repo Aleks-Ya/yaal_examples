@@ -11,4 +11,10 @@ class MapMapTest extends AnyFlatSpec with Matchers {
     newMap should contain allOf("x" -> 2, "y" -> 4)
   }
 
+  it should "convert a Map to a List" in {
+    val map = Map("x" -> 1, "y" -> 2)
+    val list = map.map { case (k, v) => s"$k-$v" }.toList
+    list should contain inOrderOnly("x-1", "y-2")
+  }
+
 }

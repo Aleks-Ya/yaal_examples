@@ -2,7 +2,7 @@ package factory
 
 import org.apache.spark.SparkContext
 import org.apache.spark.sql._
-import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
+import org.apache.spark.sql.types._
 
 import scala.collection.JavaConverters._
 
@@ -33,8 +33,7 @@ object Factory {
   }
   lazy val cityListDf: DataFrame = {
     val schema = StructType(StructField("city", StringType, nullable = true) :: Nil)
-    val cities = ss.sparkContext.parallelize(Seq("Moscow", "SPb"))
-    val rowRdd = cities.map(Row(_))
+    val rowRdd = ss.sparkContext.parallelize(Seq(Row("Moscow"), Row("SPb")))
     val df = ss.sqlContext.createDataFrame(rowRdd, schema)
     df.show
     df.printSchema
@@ -52,11 +51,10 @@ object Factory {
 
   def createPeopleDf(): DataFrame = {
     val schema = StructType(
-      StructField("name", StringType, nullable = true) ::
-        StructField("age", IntegerType, nullable = true) ::
-        StructField("gender", StringType, nullable = true) :: Nil)
-    val peopleRdd = ss.sparkContext.parallelize(Seq("John,25,M", "Peter,35,M", "Mary,20,F"))
-    val rowRdd = peopleRdd.map(_.split(",")).map(p => Row(p(0), p(1).toInt, p(2)))
+      StructField("name", StringType) ::
+        StructField("age", IntegerType) ::
+        StructField("gender", StringType) :: Nil)
+    val rowRdd = ss.sparkContext.parallelize(Seq(Row("John", 25, "M"), Row("Peter", 35, "M"), Row("Mary", 20, "F")))
     ss.sqlContext.createDataFrame(rowRdd, schema)
   }
 
@@ -64,6 +62,12 @@ object Factory {
     implicit val mapEncoder: Encoder[City] = Encoders.product[City]
     ss.createDataset(cities)
   }
+
+  def createDf(fields: Map[String, DataType], rows: Row*): DataFrame = {
+    val schema = StructType(fields.map { case (name, dataType) => StructField(name, dataType) }.toList)
+    ss.sqlContext.createDataFrame(ss.sparkContext.parallelize(rows), schema)
+  }
+
 }
 
 case class City(name: String, establishYear: Int)

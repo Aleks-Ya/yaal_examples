@@ -2,7 +2,7 @@ package dataframe.datatype
 
 import factory.Factory
 import org.apache.spark.sql.functions.{col, concat, lit, round}
-import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
+import org.apache.spark.sql.types.{IntegerType, StringType}
 import org.apache.spark.sql.{Row, functions}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -13,12 +13,7 @@ import org.scalatest.matchers.should.Matchers
 class Percents extends AnyFlatSpec with Matchers {
 
   it should "calculate percents" in {
-    val schema = StructType(
-      StructField("name", StringType, nullable = true) ::
-        StructField("production", IntegerType, nullable = true) :: Nil)
-    val rowRdd = Factory.ss.sparkContext.parallelize(Seq("USA,50", "Canada,25"))
-      .map(_.split(",")).map(p => Row(p(0), p(1).toInt))
-    val df = Factory.ss.sqlContext.createDataFrame(rowRdd, schema)
+    val df = Factory.createDf(Map("name" -> StringType, "production" -> IntegerType), Row("USA", 50), Row("Canada", 25))
     df.show()
 
     val totalProduction = df.agg(functions.sum("production")).first().getLong(0)

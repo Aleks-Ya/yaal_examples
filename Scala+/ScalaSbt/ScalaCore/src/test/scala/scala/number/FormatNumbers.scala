@@ -1,10 +1,10 @@
 package scala.number
 
-import java.math.BigDecimal
-import java.text.NumberFormat
-
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+
+import java.math.BigDecimal
+import java.text.NumberFormat
 
 class FormatNumbers extends AnyFlatSpec with Matchers {
 

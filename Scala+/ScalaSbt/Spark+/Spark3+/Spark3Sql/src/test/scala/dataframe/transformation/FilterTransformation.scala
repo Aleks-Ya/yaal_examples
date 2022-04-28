@@ -20,9 +20,8 @@ class FilterTransformation extends AnyFlatSpec with Matchers {
   }
 
   it should "exclude rows with null in a column" in {
-    val schema = StructType(StructField("name", StringType) :: StructField("age", IntegerType) :: Nil)
-    val rowRdd = Factory.ss.sparkContext.parallelize(Seq(Row("John", 35), Row("Peter", null), Row("Mary", 20)))
-    val df = Factory.ss.sqlContext.createDataFrame(rowRdd, schema)
+    val df = Factory.createDf(Map("name" -> StringType, "age" -> IntegerType),
+      Row("John", 35), Row("Peter", null), Row("Mary", 20))
 
     val filteredDf = df.filter(col("age").isNotNull)
     filteredDf.toJSON.collect() should contain inOrderOnly(

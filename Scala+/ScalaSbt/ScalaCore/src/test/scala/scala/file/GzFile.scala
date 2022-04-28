@@ -1,11 +1,10 @@
 package scala.file
 
-import java.io.{BufferedInputStream, FileInputStream}
-import java.util.zip.GZIPInputStream
-
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
+import java.io.{BufferedInputStream, FileInputStream}
+import java.util.zip.GZIPInputStream
 import scala.io.Source
 
 class GzFile extends AnyFlatSpec with Matchers {

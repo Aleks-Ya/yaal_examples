@@ -1,4 +1,4 @@
-package dataframe.structure
+package dataframe.transformation.column
 
 import factory.Factory
 import org.apache.spark.sql.functions._

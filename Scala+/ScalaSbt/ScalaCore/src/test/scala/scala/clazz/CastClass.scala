@@ -1,9 +1,9 @@
 package scala.clazz
 
-import java.io.{ByteArrayInputStream, InputStream}
-
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+
+import java.io.{ByteArrayInputStream, InputStream}
 
 class CastClass extends AnyFlatSpec with Matchers {
 

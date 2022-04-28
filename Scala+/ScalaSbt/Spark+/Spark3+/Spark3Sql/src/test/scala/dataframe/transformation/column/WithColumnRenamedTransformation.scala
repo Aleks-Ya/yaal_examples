@@ -1,4 +1,4 @@
-package dataframe.transformation
+package dataframe.transformation.column
 
 import factory.Factory
 import org.scalatest.flatspec.AnyFlatSpec
