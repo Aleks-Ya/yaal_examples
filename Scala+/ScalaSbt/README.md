@@ -1,3 +1,4 @@
 # ScalaSbt
 
-Compile: `sbt compile`
+Compile sources: `sbt compile`  
+Compile tests: `sbt test:compile`
