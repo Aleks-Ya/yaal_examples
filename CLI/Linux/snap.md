@@ -16,3 +16,4 @@ Switch to the edge channel:
 ```
 sudo snap switch --edge telegram-desktop
 ```
+Delete a snap: `sudo snap remove sublime-text`
