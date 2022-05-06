@@ -2,8 +2,6 @@
 package app.imdb
 
 import org.apache.spark.sql.functions.col
-import org.apache.spark.storage.StorageLevel
-import org.apache.spark.storage.StorageLevel.MEMORY_ONLY
 
 import scala.util.Try
 

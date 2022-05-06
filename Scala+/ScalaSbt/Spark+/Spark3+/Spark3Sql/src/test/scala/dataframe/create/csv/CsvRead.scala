@@ -44,10 +44,10 @@ class CsvRead extends AnyFlatSpec with Matchers {
     val file = getClass.getResource("people.csv")
     file should not be null
 
-    val idField = StructField("id", LongType, nullable = true)
-    val nameField = StructField("name", StringType, nullable = true)
-    val ageField = StructField("age", IntegerType, nullable = true)
-    val effectivenessField = StructField("effectiveness", DoubleType, nullable = true)
+    val idField = StructField("id", LongType)
+    val nameField = StructField("name", StringType)
+    val ageField = StructField("age", IntegerType)
+    val effectivenessField = StructField("effectiveness", DoubleType)
     val schema = StructType(idField :: nameField :: ageField :: effectivenessField :: Nil)
 
     val df = Factory.ss.sqlContext.read
