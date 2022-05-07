@@ -6,21 +6,22 @@ package app.imdb
  */
 object Exercise1App {
   def main(args: Array[String]): Unit = {
-    printInfo(ImdbTable.titleAkas)
-    printInfo(ImdbTable.titleBasics)
-    printInfo(ImdbTable.titleCrew, 8877960)
-    printInfo(ImdbTable.titleEpisode, 6661531)
-    printInfo(ImdbTable.titlePrincipals, 50034810)
-    printInfo(ImdbTable.titleRatings, 1238518)
-    printInfo(ImdbTable.nameBasics, 11582534)
+    printInfo(ImdbTable.titleAkas, "struct<titleId:string,ordering:int,title:string,region:string,language:string,types:string,attributes:string,isOriginalTitle:boolean>")
+    printInfo(ImdbTable.titleBasics, "struct<tconst:string,titleType:string,primaryTitle:string,originalTitle:string,isAdult:boolean,startYear:int,endYear:int,runtimeMinutes:int,genres:string>")
+    printInfo(ImdbTable.titleCrew, "struct<tconst:string,directors:string,writers:string>")
+    printInfo(ImdbTable.titleEpisode, "struct<tconst:string,parentTconst:string,seasonNumber:int,episodeNumber:int>")
+    printInfo(ImdbTable.titlePrincipals, "struct<tconst:string,ordering:int,nconst:string,category:string,job:string,characters:string>")
+    printInfo(ImdbTable.titleRatings, "struct<tconst:string,averageRating:double,numVotes:bigint>")
+    printInfo(ImdbTable.nameBasics, "struct<nconst:string,primaryName:string,birthYear:int,deathYear:int,primaryProfession:string,knownForTitles:string>")
   }
 
-  private def printInfo(imdbDataFrame: ImdbTable.Category): Unit = {
+  private def printInfo(imdbDataFrame: ImdbTable.Category, expSchema: String): Unit = {
     println("--------------------------------------------------------------")
     println(s"Table: ${imdbDataFrame.toString}")
     val df = DataFrameFactory.datasetByName(imdbDataFrame)
-    df.cache()
     df.printSchema()
+    println(s"Schema simple string: ${df.schema.simpleString}")
     df.show()
+    assert(df.schema.simpleString.equals(expSchema))
   }
 }

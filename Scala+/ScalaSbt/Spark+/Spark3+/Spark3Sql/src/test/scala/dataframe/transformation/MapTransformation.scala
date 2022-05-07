@@ -36,4 +36,22 @@ class MapTransformation extends AnyFlatSpec with Matchers {
     avgAge shouldBe 26.666666666666668
   }
 
+  it should "map to null" in {
+    import Factory.ss.sqlContext.implicits._
+    val df = Factory.peopleDf
+      .map(row => {
+        val name = row.getString(row.fieldIndex("name"))
+        val maturity = row.getInt(row.fieldIndex("age"))
+        val gender = if (name.equals("Mary")) null else "MALE"
+        (name, maturity, gender)
+      })
+      .toDF("name", "maturity", "gender")
+
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","maturity":25,"gender":"MALE"}""",
+      """{"name":"Peter","maturity":35,"gender":"MALE"}""",
+      """{"name":"Mary","maturity":20,"gender":null}"""
+    )
+  }
+
 }

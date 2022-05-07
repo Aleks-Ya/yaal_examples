@@ -10,6 +10,7 @@ object Factory {
 
   lazy val ss: SparkSession = {
     val builder = SparkSession.builder()
+      .config("spark.sql.jsonGenerator.ignoreNullFields", "false")
       .appName(getClass.getSimpleName)
       .master("local")
 

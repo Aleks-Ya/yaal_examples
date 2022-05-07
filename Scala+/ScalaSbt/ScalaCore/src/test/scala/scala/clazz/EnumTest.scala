@@ -3,6 +3,8 @@ package scala.clazz
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
+import scala.collection.mutable.ListBuffer
+
 class EnumTest extends AnyFlatSpec with Matchers {
 
   it should "use enum" in {
@@ -21,6 +23,12 @@ class EnumTest extends AnyFlatSpec with Matchers {
   }
 
   def getEnumName(enum: Direction.Category): String = enum.toString
+
+  it should "iterate all enum values" in {
+    val actual = ListBuffer[String]()
+    Direction.values.foreach(actual += _.toString)
+    actual should contain allOf("Left", "Forward", "Right")
+  }
 
 }
 
