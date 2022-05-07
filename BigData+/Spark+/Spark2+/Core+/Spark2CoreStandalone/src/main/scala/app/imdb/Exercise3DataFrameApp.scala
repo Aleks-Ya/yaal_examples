@@ -4,7 +4,7 @@ package app.imdb
 /**
  * Print the list of genres in the alphabetical order.
  */
-object Exercise2DataFrameApp {
+object Exercise3DataFrameApp {
   def main(args: Array[String]): Unit = {
     import DataFrameFactory.ss.sqlContext.implicits._
     val genres = DataFrameFactory.titleBasicsDf.select("genres").flatMap(row => {

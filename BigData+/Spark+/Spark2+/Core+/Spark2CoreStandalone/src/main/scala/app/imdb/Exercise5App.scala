@@ -1,32 +1,27 @@
 
 package app.imdb
 
-import org.apache.spark.sql.Row
-import org.apache.spark.sql.functions.{avg, col, max}
+import org.apache.spark.sql.functions.col
 
 import scala.util.Try
 
 /**
- * Calculate maximum and average movie duration.
+ * Find non-integer values in "runtimeMinutes" column of "title.basics.tsv" file.
  */
 object Exercise5App {
   def main(args: Array[String]): Unit = {
-    import DataFrameFactory.ss.sqlContext.implicits._
-    def runtimeMinutesToInt(row: Row) = row.getString(row.fieldIndex("runtimeMinutes")).toInt
+    val df = DataFrameFactory.titleBasicsDf
+    val rowCount = df.count()
+    println(s"Total row count: $rowCount")
 
-    val aggRow = DataFrameFactory.titleBasicsDf
-      .select("runtimeMinutes")
-      .filter(col("runtimeMinutes").isNotNull)
-      .filter(row => Try(runtimeMinutesToInt(row)).isSuccess)
-      .map(row => runtimeMinutesToInt(row))
-      .agg(max("value"), avg("value"))
-      .first()
-    val maxMovieDuration = aggRow.getInt(0)
-    val avgMovieDuration = aggRow.getDouble(1).round
+    val nonNullDf = df.filter(col("runtimeMinutes").isNotNull)
+    val nonNullCount = nonNullDf.count()
+    println(s"Non-null row count: $nonNullCount")
 
-    println(s"Max movie duration: $maxMovieDuration minutes")
-    println(s"Average movies duration: $avgMovieDuration minutes")
-    assert(maxMovieDuration == 51420)
-    assert(avgMovieDuration == 44)
+    val nonIntDf = nonNullDf.filter(row => Try(row.getString(row.fieldIndex("runtimeMinutes")).toInt).isFailure)
+    nonIntDf.printSchema()
+    nonIntDf.show()
+    val count = nonIntDf.count()
+    println(s"Non-Int row count: $count")
   }
 }

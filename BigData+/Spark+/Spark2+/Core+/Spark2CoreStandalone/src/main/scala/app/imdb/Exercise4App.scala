@@ -3,25 +3,29 @@ package app.imdb
 
 import org.apache.spark.sql.functions.col
 
-import scala.util.Try
-
 /**
- * Find non-integer values in "runtimeMinutes" column of "title.basics.tsv" file.
+ * Calculate how many movies has the highest rating.
  */
 object Exercise4App {
   def main(args: Array[String]): Unit = {
-    val df = DataFrameFactory.titleBasicsDf
-    val rowCount = df.count()
-    println(s"Total row count: $rowCount")
+    val highestRating = DataFrameFactory.titleRatingsDf
+      .select("averageRating")
+      .distinct()
+      .sort("averageRating")
+      .first()
+      .getDouble(0)
 
-    val nonNullDf = df.filter(col("runtimeMinutes").isNotNull)
-    val nonNullCount = nonNullDf.count()
-    println(s"Non-null row count: $nonNullCount")
+    val countMovies = DataFrameFactory.titleRatingsDf.count()
 
-    val nonIntDf = nonNullDf.filter(row => Try(row.getString(row.fieldIndex("runtimeMinutes")).toInt).isFailure)
-    nonIntDf.printSchema()
-    nonIntDf.show()
-    val count = nonIntDf.count()
-    println(s"Non-Int row count: $count")
+    val countMoviesWithHighersRating = DataFrameFactory.titleRatingsDf
+      .filter(col("averageRating") === highestRating)
+      .count()
+
+    println(s"Highest rating: $highestRating")
+    println(s"All movies: $countMovies")
+    println(s"Movies with the highest rating: $countMoviesWithHighersRating")
+    assert(highestRating == 1.0)
+    assert(countMovies == 1238518)
+    assert(countMoviesWithHighersRating == 1091)
   }
 }
