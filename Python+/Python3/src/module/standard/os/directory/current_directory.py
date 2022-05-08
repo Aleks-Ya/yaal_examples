@@ -2,11 +2,11 @@
 import os
 
 # Get current dir
-current_directory = os.getcwd()
+current_directory: str = os.getcwd()
 print(f'current_directory: {current_directory}')
 
 # Set current dir
-old_current_dir = os.getcwd()
+old_current_dir: str = os.getcwd()
 new_current_dir = '/tmp'
 os.chdir(new_current_dir)
 assert os.getcwd() == new_current_dir

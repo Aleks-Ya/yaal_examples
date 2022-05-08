@@ -19,3 +19,21 @@ assert len(s) == 2
 s = {3, 2, 1}
 sorted(s)
 assert s == {1, 2, 3}
+
+# Join sets by update
+s1 = {10, 11}
+s2 = {1, 2}
+s1.update(s2)
+assert s1 == {10, 11, 1, 2}
+
+# Join sets by union
+s1 = {10, 11}
+s2 = {1, 2}
+s3 = s1.union(s2)
+assert s3 == {10, 11, 1, 2}
+
+# Join sets by |=
+s1 = {10, 11}
+s2 = {1, 2}
+s1 |= s2
+assert s1 == {10, 11, 1, 2}
