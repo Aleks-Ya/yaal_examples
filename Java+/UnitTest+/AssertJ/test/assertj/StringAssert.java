@@ -25,4 +25,9 @@ class StringAssert {
         var pattern = Pattern.compile("[ab]");
         strings.forEach(string -> assertThat(string).matches(pattern));
     }
+
+    @Test
+    void assertToString() {
+        assertThat(123.5).hasToString("123.5");
+    }
 }
