@@ -1,0 +1,3 @@
+dependencies {
+    implementation 'dev.failsafe:failsafe:3.2.3'
+}
