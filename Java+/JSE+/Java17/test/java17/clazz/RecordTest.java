@@ -30,4 +30,18 @@ class RecordTest {
             return new Person2(id, name.toUpperCase());
         }
     }
+
+    @Test
+    void recordWithCalculatingMethod() {
+        var john = new Person3(1L, "John", 30);
+        assertThat(john.id()).isEqualTo(1L);
+        assertThat(john.name()).isEqualTo("John");
+        assertThat(john.adult()).isTrue();
+    }
+
+    private record Person3(Long id, String name, Integer age) {
+        public boolean adult() {
+            return age >= 18;
+        }
+    }
 }

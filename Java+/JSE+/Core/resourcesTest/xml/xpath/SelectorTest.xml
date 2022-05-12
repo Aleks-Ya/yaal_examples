@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<A>
+    <B>
+        <C>abc</C>
+    </B>
+    <D>
+        <E>e1</E>
+        <E>e2</E>
+    </D>
+    <F>
+        <G class="c1"/>
+        <G class="main_element_2"/>
+    </F>
+</A>

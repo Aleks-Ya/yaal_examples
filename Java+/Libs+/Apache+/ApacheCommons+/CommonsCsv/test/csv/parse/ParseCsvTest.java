@@ -12,11 +12,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 
-class ParseTest {
+class ParseCsvTest {
 
     @Test
     void tabDelimiter() throws IOException {
-        var file = ResourceUtil.resourceToFile(ParseTest.class, "ParseTest_tabDelimiter.csv");
+        var file = ResourceUtil.resourceToFile(ParseCsvTest.class, "ParseTest_tabDelimiter.csv");
 
         var header1 = "Name";
         var header2 = "Title";

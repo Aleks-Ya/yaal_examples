@@ -3,7 +3,7 @@ package selenium.tax;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class DeclarationPage {
+class DeclarationPage {
     private final WebDriver driver;
 
     public DeclarationPage(WebDriver driver) {
@@ -14,6 +14,7 @@ public class DeclarationPage {
         driver.get(declarationUrl);
         var foreignIncomesTab = driver.findElement(By.xpath("//*[@id='react-tabs-2']"));
         foreignIncomesTab.click();
-        return new NdflForm(foreignIncomesTab, driver);
+        var ndflForm = driver.findElement(By.id("3NDFL"));
+        return new NdflForm(ndflForm);
     }
 }

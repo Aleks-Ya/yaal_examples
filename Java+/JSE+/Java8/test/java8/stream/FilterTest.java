@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Фильтрация коллекций.
  */
-class Filter {
+class FilterTest {
 
     /**
      * Максимально коротка форма.

@@ -9,12 +9,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.List.of;
+import static java.util.stream.Collectors.groupingBy;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Grouping elements of a List to a Map.
  */
-class GroupingBy {
+class GroupingByTest {
 
     @Test
     void groupBy() {
@@ -23,7 +24,7 @@ class GroupingBy {
         var negativeKey = "negative";
 
         var grouped = stream
-                .collect(Collectors.groupingBy(num -> num > 0 ? positiveKey : negativeKey));
+                .collect(groupingBy(num -> num > 0 ? positiveKey : negativeKey));
 
         assertThat(grouped).hasSize(2)
                 .containsEntry(positiveKey, of(1, 2, 3))
@@ -41,7 +42,7 @@ class GroupingBy {
         var negativeKey = "negative";
 
         Map<String, List<Integer>> grouped = stream
-                .collect(Collectors.groupingBy(
+                .collect(groupingBy(
                         num -> {
                             if (num == 0) {
                                 return zeroKey;
@@ -56,4 +57,5 @@ class GroupingBy {
                 zeroKey, of(0),
                 negativeKey, of(-1)));
     }
+
 }
