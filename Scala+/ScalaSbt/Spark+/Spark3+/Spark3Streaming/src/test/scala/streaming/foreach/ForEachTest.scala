@@ -28,7 +28,7 @@ class ForEachTest extends AnyFlatSpec with BeforeAndAfterAll with Eventually wit
     //    val lines = ssc.socketTextStream("localhost", 9999)
     val queue = mutable.Queue(sc.parallelize(Seq("a", "b", "c")))
     val lines = ssc.queueStream(queue)
-    val result = new StringBuilder()
+    val result = new mutable.StringBuilder()
     lines.foreachRDD { rdd =>
       rdd.foreach { word: String => {
         result.synchronized {

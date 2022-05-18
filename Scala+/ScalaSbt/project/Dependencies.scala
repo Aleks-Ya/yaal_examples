@@ -36,4 +36,8 @@ object Dependencies {
   val spark3StreamingDep = "org.apache.spark" %% "spark-streaming" % spark3Version
 
   val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "4.9.1" % Test
+
+  private val kafkaVersion = "3.2.0"
+  val embeddedKafkaDep = "io.github.embeddedkafka" %% "embedded-kafka" % kafkaVersion % Test
+  val sparkStreamingKafkaDep = "org.apache.spark" %% "spark-streaming-kafka-0-10-assembly" % spark3Version
 }

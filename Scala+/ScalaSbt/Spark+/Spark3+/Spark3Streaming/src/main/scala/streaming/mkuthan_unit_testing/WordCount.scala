@@ -17,15 +17,12 @@ object WordCount {
 
   def count(sc: SparkContext, lines: RDD[String], stopWords: Set[String]): RDD[WordCount] = {
     val stopWordsVar = sc.broadcast(stopWords)
-
     val words = prepareWords(lines, stopWordsVar)
-
-    val wordCounts = words.map(word => (word, 1)).reduceByKey(_ + _).map {
-      case (word: String, count: Int) => WordCount(word, count)
-    }
-
+    val wordCounts = words
+      .map(word => (word, 1))
+      .reduceByKey(_ + _)
+      .map { case (word: String, count: Int) => WordCount(word, count) }
     val sortedWordCounts = wordCounts.sortBy(_.word)
-
     sortedWordCounts
   }
 
@@ -41,16 +38,12 @@ object WordCount {
             slideDuration: Duration,
             stopWords: Set[String])
            (handler: WordHandler): Unit = {
-
     val sc = ssc.sparkContext
     val stopWordsVar = sc.broadcast(stopWords)
-
     val words = lines.transform(prepareWords(_, stopWordsVar))
-
-    val wordCounts = words.map(x => (x, 1)).reduceByKeyAndWindow(_ + _, _ - _, windowDuration, slideDuration).map {
-      case (word: String, count: Int) => WordCount(word, count)
-    }
-
+    val wordCounts = words.map(x => (x, 1))
+      .reduceByKeyAndWindow(_ + _, _ - _, windowDuration, slideDuration)
+      .map { case (word: String, count: Int) => WordCount(word, count) }
     wordCounts.foreachRDD((rdd: RDD[WordCount], time: Time) => {
       handler(rdd.sortBy(_.word), time)
     })
@@ -59,7 +52,8 @@ object WordCount {
   private def prepareWords(lines: RDD[String], stopWords: Broadcast[Set[String]]): RDD[String] = {
     lines.flatMap(_.split("\\s"))
       .map(_.stripSuffix(",").stripPrefix(".").toLowerCase)
-      .filter(!stopWords.value.contains(_)).filter(!_.isEmpty)
+      .filter(!stopWords.value.contains(_))
+      .filter(_.nonEmpty)
   }
 
 }

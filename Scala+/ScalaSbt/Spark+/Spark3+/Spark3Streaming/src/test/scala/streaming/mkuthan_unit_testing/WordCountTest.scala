@@ -13,17 +13,11 @@ import java.nio.file.Files
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
-class StreamingTest extends AnyFlatSpec
-  with BeforeAndAfterAll
-  with Matchers
-  with Eventually
-  with GivenWhenThen {
-
-  private val appName = classOf[StreamingTest].getSimpleName
+class WordCountTest extends AnyFlatSpec with BeforeAndAfterAll with Matchers with Eventually with GivenWhenThen {
+  private val appName = classOf[WordCountTest].getSimpleName
   private val checkpointDir = Files.createTempDirectory(appName).toString
   private val batchDuration = Seconds(1)
-  implicit override val patienceConfig =
-    PatienceConfig(timeout = scaled(Span(5000, Millis)))
+  implicit override val patienceConfig: PatienceConfig = PatienceConfig(timeout = scaled(Span(5000, Millis)))
   private val windowDuration = Seconds(4)
   private val slideDuration = Seconds(2)
 
@@ -47,14 +41,10 @@ class StreamingTest extends AnyFlatSpec
   "Sample set" should "be counted" in {
     Given("streaming context is initialized")
     val lines = mutable.Queue[RDD[String]]()
-
-    var results = ListBuffer.empty[Array[WordCount]]
-
-    WordCount.count(ssc,
-      ssc.queueStream(lines),
-      windowDuration,
-      slideDuration) { (wordsCount: RDD[WordCount], time: Time) =>
-      results += wordsCount.collect()
+    val results = ListBuffer.empty[Array[WordCount]]
+    val dstream = ssc.queueStream(lines)
+    WordCount.count(ssc, dstream, windowDuration, slideDuration) {
+      (wordsCount: RDD[WordCount], time: Time) => results += wordsCount.collect()
     }
 
     ssc.start()
@@ -110,16 +100,16 @@ class StreamingTest extends AnyFlatSpec
   }
 
 
-//  private def makeInMemoryRDD() = {
-//    val lines = Seq("To be or not to be.", "That is the question.")
-//    sc.parallelize(lines)
-//  }
-//
-//  private def makeInMemoryDStream() = {
-//    val lines = mutable.Queue[RDD[String]]()
-//    val dstream = ssc.queueStream(lines)
-//    lines += sc.makeRDD(Seq("To be or not to be.", "That is the question."))
-//  }
+  //  private def makeInMemoryRDD() = {
+  //    val lines = Seq("To be or not to be.", "That is the question.")
+  //    sc.parallelize(lines)
+  //  }
+  //
+  //  private def makeInMemoryDStream() = {
+  //    val lines = mutable.Queue[RDD[String]]()
+  //    val dstream = ssc.queueStream(lines)
+  //    lines += sc.makeRDD(Seq("To be or not to be.", "That is the question."))
+  //  }
 
   override def afterAll(): Unit = {
     if (ssc != null) {

@@ -2,10 +2,9 @@ package streaming.foreach
 
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{Seconds, StreamingContext}
-import org.scalatest.BeforeAndAfterAll
 import org.scalatest.flatspec.AnyFlatSpec
 
-class ForEachPartitionTest extends AnyFlatSpec with BeforeAndAfterAll {
+class ForEachPartitionTest extends AnyFlatSpec {
 
   "Process DStream with foreachRDD" should "process lines" in {
     val conf = new SparkConf().setAppName(classOf[ForEachPartitionTest].getSimpleName).setMaster("local[2]")

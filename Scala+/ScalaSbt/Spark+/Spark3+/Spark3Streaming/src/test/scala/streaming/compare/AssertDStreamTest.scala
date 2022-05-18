@@ -1,4 +1,4 @@
-package streaming.source
+package streaming.compare
 
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.scheduler.{StreamingListener, StreamingListenerBatchCompleted}
@@ -9,9 +9,9 @@ import streaming.operation.stateful.UpdateStateByKeyTest
 
 import scala.collection.mutable
 
-class QueueStreamTest extends AnyFlatSpec with Matchers {
+class AssertDStreamTest extends AnyFlatSpec with Matchers {
 
-  it should "create DStream from a queue" in {
+  it should "assert a DStream using StringBuilder" in {
     val conf = new SparkConf()
       .setAppName(classOf[UpdateStateByKeyTest].getSimpleName)
       .setMaster("local[2]")
