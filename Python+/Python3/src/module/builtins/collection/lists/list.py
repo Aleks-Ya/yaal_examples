@@ -14,6 +14,13 @@ squares = [1, 4, 9, 16, 25]
 # length
 assert len([1, 2]) == 2
 
+# Does contain an element?
+symbols = ['a', 'b', 'c']
+contains_b = 'b' in symbols
+assert contains_b
+contains_z = 'z' in symbols
+assert not contains_z
+
 # get element by index
 assert squares[1] == 4
 assert squares[-2] == 16

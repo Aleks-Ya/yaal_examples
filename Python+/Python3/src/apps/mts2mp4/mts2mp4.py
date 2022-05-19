@@ -1,4 +1,6 @@
 # Convert MTS video files to MP4 with "ffmpeg" tool.
+# Run (remove audio): "python3 mts2mp4.py /media/JVCCAM_SD /home/aleks/tmp"
+# Run (preserve audio): "python3 mts2mp4.py /media/JVCCAM_SD /home/aleks/tmp --preserve-audio"
 import datetime
 import os
 import shutil
@@ -91,8 +93,14 @@ def convert_file(file_data: FileData, file_size_percent: float, finished_percent
     percent: str = format_size_percent(file_size_percent)
     finished_percent_str: str = format_size_percent(finished_percent)
     print(f"Converting '{src_file}' to '{dest_file}' ({percent}, total done {finished_percent_str})...")
-    completed_process = subprocess.run(['ffmpeg', '-i', src_file, '-vcodec', 'copy', '-an', dest_file],
-                                       stdout=DEVNULL, stderr=DEVNULL)
+    command = ['ffmpeg', '-i', str(src_file), '-vcodec', 'copy']
+    if preserve_audio:
+        command.append('-c:a')
+        command.append('copy')
+    else:
+        command.append('-an')
+    command.append(str(dest_file))
+    completed_process = subprocess.run(command, stdout=DEVNULL, stderr=DEVNULL)
     exit_code = completed_process.returncode
     if exit_code != 0:
         raise IOError("ffmpeg error")
@@ -179,6 +187,9 @@ check_dir_exits(src_dir)
 
 dest_dir: Path = Path(sys.argv[2])
 print(f"Destination directory: {dest_dir}")
+
+preserve_audio: bool = '--preserve-audio' in sys.argv
+print(f"Preserve audio: {preserve_audio}")
 
 check_ffmpeg_availability()
 

@@ -18,3 +18,17 @@ s = 0
 for n in numbers:
     s += n
 assert s == 6
+
+# Array size
+numbers = [1, 2, 3]
+size = len(numbers)
+assert size == 3
+
+# Index out of range (out of bound)
+try:
+    numbers = [1, 2, 3]
+    element = numbers[3]
+    assert False
+except IndexError as ex:
+    message = ex.args[0]
+    assert message == 'list index out of range'
