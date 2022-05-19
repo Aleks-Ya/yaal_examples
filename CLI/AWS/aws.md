@@ -3,36 +3,23 @@
 [Command reference](https://docs.aws.amazon.com/cli/latest/reference/#available-services)
 Default config file location: ~/.aws/config
 
-Version:
-```
-aws --version
-```
-Check credential:
-```
-aws sts get-caller-identity
-```
+Version: `aws --version`
+Check credential: `aws sts get-caller-identity`
+Choose output format (`text`, `table`, `json`, etc.): `aws s3api --output table list-buckets`
 
-help
-
+## help
 Help:
 ```
 aws help
 aws ec2 help
 ```
 
-configure
+## configure
+Configure most used parameters: `aws configure`
 
-Configure most used parameters:
-```
-aws configure
-```
+## s3api
 
-s3api
-
-List S3 buckets:
-```
-aws s3api list-buckets
-```
+List S3 buckets: `aws s3api list-buckets`
 List objects in a S3 bucket:
 ```
 aws s3api list-objects --bucket qwasceitnsuryw7
@@ -55,12 +42,9 @@ aws s3api put-object --bucket yaal-test-bucket --key my_texts/bye.txt --body /tm
 #Link to the object: https://yaal-test-bucket.s3.eu-central-1.amazonaws.com/my_texts/bye.txt
 ```
 
-lambda
+## lambda
 
-List Lambda Functions:
-```
-aws lambda list-functions
-```
+List Lambda Functions: `aws lambda list-functions`
 List versions of a Function:
 ```
 aws lambda list-versions-by-function --function-name my-function
