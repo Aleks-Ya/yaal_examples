@@ -1,0 +1,61 @@
+version: '3'
+services:
+  master:
+    build:
+      context: context
+      target: spark
+      args:
+        SPARK_VERSION: $SPARK_VERSION
+    container_name: spark-standalone-cluster-master
+    hostname: spark-standalone-cluster-master
+    entrypoint: ./entrypoint_master.sh
+    volumes:
+      - datasets:/datasets
+  slave-1:
+    build:
+      context: context
+      target: spark
+      args:
+        SPARK_VERSION: $SPARK_VERSION
+    container_name: spark-standalone-cluster-slave-1
+    hostname: spark-standalone-cluster-slave-1
+    entrypoint: ./entrypoint_slave_1.sh
+    depends_on:
+      - master
+    volumes:
+      - datasets:/datasets
+  slave-2:
+    build:
+      context: context
+      target: spark
+      args:
+        SPARK_VERSION: $SPARK_VERSION
+    container_name: spark-standalone-cluster-slave-2
+    hostname: spark-standalone-cluster-slave-2
+    entrypoint: ./entrypoint_slave_2.sh
+    depends_on:
+      - master
+    volumes:
+      - datasets:/datasets
+  livy:
+    build:
+      context: context
+      target: livy
+      args:
+        SPARK_VERSION: $SPARK_VERSION
+        LIVY_VERSION: $LIVY_VERSION
+    container_name: spark-standalone-cluster-livy
+    hostname: spark-standalone-cluster-livy
+    entrypoint: ./entrypoint.sh
+    depends_on:
+      - master
+networks:
+  default:
+    name: spark-standalone-cluster-network
+volumes:
+  datasets:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /media/aleks/ADATA/dataset
