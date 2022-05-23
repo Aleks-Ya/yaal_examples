@@ -11,14 +11,14 @@ chmod -R g+w /tmp
 
 echo "Starting Spark Worker..."
 chown -R spark:root ${SPARK_HOME}/
-su spark -c "start-worker.sh spark://spark-standalone-cluster-master:7077"
+su spark -c "start-slave.sh spark://spark-standalone-cluster-master:7077"
 echo "Spark Worker started."
 
 SIGINT=2
 SIGTERM=15
 stop()
 {
-  su spark -c "stop-worker.sh"
+  su spark -c "stop-slave.sh"
   exit 0
 }
 trap stop $SIGINT $SIGTERM

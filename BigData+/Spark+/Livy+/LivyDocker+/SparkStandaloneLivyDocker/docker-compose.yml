@@ -5,17 +5,19 @@ services:
       context: context
       target: spark
       args:
+        HADOOP_BUILD_VERSION: $HADOOP_BUILD_VERSION
         SPARK_VERSION: $SPARK_VERSION
     container_name: spark-standalone-cluster-master
     hostname: spark-standalone-cluster-master
     entrypoint: ./entrypoint_master.sh
     volumes:
-      - datasets:/datasets
+      - livy_shared:/shared
   slave-1:
     build:
       context: context
       target: spark
       args:
+        HADOOP_BUILD_VERSION: $HADOOP_BUILD_VERSION
         SPARK_VERSION: $SPARK_VERSION
     container_name: spark-standalone-cluster-slave-1
     hostname: spark-standalone-cluster-slave-1
@@ -23,12 +25,13 @@ services:
     depends_on:
       - master
     volumes:
-      - datasets:/datasets
+      - livy_shared:/shared
   slave-2:
     build:
       context: context
       target: spark
       args:
+        HADOOP_BUILD_VERSION: $HADOOP_BUILD_VERSION
         SPARK_VERSION: $SPARK_VERSION
     container_name: spark-standalone-cluster-slave-2
     hostname: spark-standalone-cluster-slave-2
@@ -36,12 +39,13 @@ services:
     depends_on:
       - master
     volumes:
-      - datasets:/datasets
+      - livy_shared:/shared
   livy:
     build:
       context: context
       target: livy
       args:
+        HADOOP_BUILD_VERSION: $HADOOP_BUILD_VERSION
         SPARK_VERSION: $SPARK_VERSION
         LIVY_VERSION: $LIVY_VERSION
     container_name: spark-standalone-cluster-livy
@@ -49,13 +53,15 @@ services:
     entrypoint: ./entrypoint.sh
     depends_on:
       - master
+    volumes:
+      - livy_shared:/shared
 networks:
   default:
     name: spark-standalone-cluster-network
 volumes:
-  datasets:
+  livy_shared:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /media/aleks/ADATA/dataset
+      device: /home/aleks/tmp/livy_shared

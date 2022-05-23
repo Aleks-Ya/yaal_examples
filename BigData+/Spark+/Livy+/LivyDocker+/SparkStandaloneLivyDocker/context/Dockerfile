@@ -1,7 +1,7 @@
 FROM almalinux-updated AS spark-distr
+ARG HADOOP_BUILD_VERSION
 ARG SPARK_VERSION
 ENV SPARK_TGZ=/tmp/spark.tgz
-ENV HADOOP_BUILD_VERSION=3.2
 RUN wget -O ${SPARK_TGZ} https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_BUILD_VERSION}.tgz \
   && tar -zxvf ${SPARK_TGZ} -C / \
   && mv /spark-${SPARK_VERSION}-bin-hadoop${HADOOP_BUILD_VERSION} /spark-distr \
@@ -41,7 +41,6 @@ WORKDIR ${SPARK_HOME}
 
 FROM spark as livy
 ARG LIVY_VERSION
-ENV LIVY_ZIP=/tmp/livy.zip
 ENV LIVY_HOME=/opt/livy
 RUN mkdir -p $LIVY_HOME
 COPY --from=livy-distr /livy-distr/ ${LIVY_HOME}

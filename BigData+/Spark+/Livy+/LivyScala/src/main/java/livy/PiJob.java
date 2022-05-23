@@ -1,15 +1,14 @@
 package livy;
 
-import java.util.*;
+import org.apache.livy.Job;
+import org.apache.livy.JobContext;
+import org.apache.spark.api.java.function.Function;
+import org.apache.spark.api.java.function.Function2;
 
-import org.apache.spark.api.java.*;
-import org.apache.spark.api.java.function.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.apache.livy.*;
-
-public class PiJob implements Job<Double>, Function<Integer, Integer>,
-        Function2<Integer, Integer, Integer> {
-
+public class PiJob implements Job<Double>, Function<Integer, Integer>, Function2<Integer, Integer, Integer> {
     private final int samples;
 
     public PiJob(int samples) {
@@ -17,8 +16,8 @@ public class PiJob implements Job<Double>, Function<Integer, Integer>,
     }
 
     @Override
-    public Double call(JobContext ctx) throws Exception {
-        List<Integer> sampleList = new ArrayList<Integer>();
+    public Double call(JobContext ctx) {
+        List<Integer> sampleList = new ArrayList<>();
         for (int i = 0; i < samples; i++) {
             sampleList.add(i + 1);
         }
@@ -30,7 +29,7 @@ public class PiJob implements Job<Double>, Function<Integer, Integer>,
     public Integer call(Integer v1) {
         double x = Math.random();
         double y = Math.random();
-        return (x*x + y*y < 1) ? 1 : 0;
+        return (x * x + y * y < 1) ? 1 : 0;
     }
 
     @Override

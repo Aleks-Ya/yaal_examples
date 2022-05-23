@@ -15,9 +15,9 @@ public class Main {
                 .build();
 
         try {
-            String piJar = "target/scala-2.11/fat.jar";
+            String piJar = "target/scala-2.11/livyscala_2.11-1.jar";
             System.err.printf("Uploading %s to the Spark context...\n", piJar);
-            client.uploadJar(new File(piJar)).get();
+            client.uploadJar(new File(piJar).getAbsoluteFile()).get();
 
             int samples = 5;
             System.err.printf("Running PiJob with %d samples...\n", samples);

@@ -16,23 +16,10 @@ Install jar to local repo:
 ```
 mvn install:install-file -Dfile=c:\alex\files\SAP\ngdbc.jar -DgroupId=com.sap.db.jdbc -DartifactId=ngdbc -Dversion=2.4.70 -Dpackaging=jar
 ```
-Download sources:
-```
-mvn dependency:sources
-```
-Download JavaDoc:
-```
-mvn dependency:resolve -Dclassifier=javadoc
-```
-Go offline:
-```
-mvn dependency:go-offline
-```
-Compile tests:
-```
-mvn test-compile
-```
-Debug, verbose:
-```
-mvn -X compile
-```
+Download sources: `mvn dependency:sources`
+Download JavaDoc: `mvn dependency:resolve -Dclassifier=javadoc`
+Go offline: `mvn dependency:go-offline`
+Debug, verbose: `mvn -X compile`
+## Tests
+Compile tests: `mvn test-compile`
+Skip tests: `mvn -DskipTests package`

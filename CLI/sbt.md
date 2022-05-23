@@ -49,3 +49,4 @@ Package current project: `sbt package`
 Create fat jar: `sbt assembly`
 Show task dependency tree: `sbt "inspect tree clean"`
 Set DEBUG log level: `sbt --debug sbtVersion`
+List main classes: `sbt "show discoveredMainClasses"`
