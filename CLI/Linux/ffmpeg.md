@@ -1,24 +1,22 @@
 # ffmpeg CLI
 
-Rotate a file horizontally:
-```
-ffmpeg -loglevel warning -i FrontRoll2.mp4 -vf "hflip" FrontRoll2_rotated.mp4
-```
+## Info
 Show info about video:
 ```
 ffprobe -hide_banner video.mp4
 ffmpeg -hide_banner -i video.mp4
 ```
+Show chapters: `ffprobe -hide_banner -show_chapters video.mp4`
+List all filters: `ffmpeg -hide_banner -filters`
+
+## Modify
+Rotate a file horizontally: `ffmpeg -loglevel warning -i video.mp4 -vf "hflip" rotated.mp4`
 Change video speed: 
 ```
 # Twice slower
 ffmpeg -loglevel warning -i origin.mp4 -filter:v setpts=2*PTS slow.mp4
 # Twice faster
 ffmpeg -loglevel warning -i origin.mp4 -filter:v setpts=0.5*PTS fast.mp4
-```
-List all filters:
-```
-ffmpeg -hide_banner -filters
 ```
 Convert MTS file to MP4:
 ```

@@ -1,17 +1,16 @@
 package serialization;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Представление Java-объекта в виде JSON.
  */
-class ToJson {
+class ObjectToJsonTest {
     /**
      * Компактный формат JSON.
      */
@@ -54,7 +53,7 @@ class ToJson {
         Inner inner = new Inner();
     }
 
-    class Inner {
+    static class Inner {
         Date now = new Date(1436326639819L);
         Integer sum = 18;
     }

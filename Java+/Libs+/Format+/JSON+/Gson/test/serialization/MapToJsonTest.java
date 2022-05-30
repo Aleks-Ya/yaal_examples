@@ -1,17 +1,15 @@
 package serialization;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class MapToJson {
+class MapToJsonTest {
 
     @Test
     void compact() {

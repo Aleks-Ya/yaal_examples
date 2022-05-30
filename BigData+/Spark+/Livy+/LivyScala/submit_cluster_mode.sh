@@ -1,5 +1,10 @@
 set -e
-echo "Submitting class: $1"
+echo "Submitting class: '$1'"
+if [ -z "$1" ]
+then
+  echo "Error: submitting class is missed"
+  exit 1
+fi
 unset JAVA_HOME
 /home/aleks/installed/spark-2.4.8-bin-hadoop2.7/bin/spark-submit \
      --class $1 \

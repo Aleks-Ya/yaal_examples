@@ -1,3 +1,5 @@
+package jsonunit;
+
 import org.junit.jupiter.api.Test;
 
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
@@ -6,10 +8,10 @@ import static net.javacrumbs.jsonunit.JsonAssert.when;
 import static net.javacrumbs.jsonunit.core.Option.IGNORING_VALUES;
 import static net.javacrumbs.jsonunit.core.Option.TREATING_NULL_AS_ABSENT;
 
-public class HelloWorld {
+class HelloWorldTest {
 
     @Test
-    public void test() {
+    void test() {
         // compares two JSON documents
         assertJsonEquals("{\"test\":1}", "{\n\"test\": 1\n}");
 

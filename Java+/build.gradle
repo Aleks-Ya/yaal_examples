@@ -24,7 +24,7 @@ subprojects {
         mockitoVersion = '4.2.0'
         mockitoDependency = "org.mockito:mockito-core:$mockitoVersion"
         log4jCoreDependency = 'org.apache.logging.log4j:log4j-core:2.14.1'
-        gsonDependency = 'com.google.code.gson:gson:2.8.7'
+        gsonDependency = 'com.google.code.gson:gson:2.9.0'
         commonsLangDependency = 'org.apache.commons:commons-lang3:3.12.0'
         wireMockDependency = 'com.github.tomakehurst:wiremock:2.27.2'
         jaxbApiDependency = 'javax.xml.bind:jaxb-api:2.3.1'
@@ -40,6 +40,7 @@ subprojects {
         feignVersion = '11.6'
         mongoDbDriverDependency = 'org.mongodb:mongodb-driver:3.12.10'
         hibernate5EntityManagerDependency = 'org.hibernate:hibernate-entitymanager:5.6.3.Final'
+        jsonAssertDep = 'org.skyscreamer:jsonassert:1.5.0'
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'

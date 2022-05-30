@@ -3,6 +3,7 @@
  */
 include 'BigData+:Hadoop+:Hadoop2+:Common2',
         'BigData+:Hadoop+:Hadoop2+:MapReduce2',
+        'BigData+:Livy+:LivySubmitByHttp',
         'JSE+:Core',
         'JSE+:JMX+:HelloMBean',
         'JSE+:JMX+:CustomJmxClient',
