@@ -37,13 +37,13 @@ dir_contain_files_list: List[Tuple[str, List[str], List[str]]] = \
 no_ts_dir_list: List[str] = []
 
 all_dirs_to_visit: Set[str] = set()
-all_dirs_to_visit.update(no_ts_dir_list)
 
 for dir_contain_files in dir_contain_files_list:
     has_ts_dir: bool = dir_has_ts_subdir(dir_contain_files)
     if not has_ts_dir:
         no_ts_dir_list.append(dir_contain_files[0])
 print(f'No .ts dirs: {no_ts_dir_list}')
+all_dirs_to_visit.update(no_ts_dir_list)
 
 dir_contain_files_has_ts_list: List[Tuple[str, List[str], List[str]]] = \
     [dir_contain_files for dir_contain_files in dir_contain_files_list if dir_has_ts_subdir(dir_contain_files)]
