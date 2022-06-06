@@ -17,18 +17,9 @@ gradle my_project:my_subproject:dependencies
 gradle dependencies --configuration implementation
 gradle dependencies --configuration testImplementation
 ```
-Show dependency insight report:
-```
-gradle -q dependencyInsight --dependency commons-codec --configuration scm
-```
-Publish artifact to Maven local repo:
-```
-gradle publishToMavenLocal
-```
-Print properties:
-```
-gradle properties
-```
+Show dependency insight report: `gradle -q dependencyInsight --dependency commons-codec --configuration scm`
+Publish artifact to Maven local repo: `gradle publishToMavenLocal`
+Print properties: `gradle properties`
 List available tasks:
 ```
 gradle tasks
