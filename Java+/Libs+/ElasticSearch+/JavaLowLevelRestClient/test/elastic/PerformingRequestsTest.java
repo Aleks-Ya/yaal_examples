@@ -7,24 +7,24 @@ import org.elasticsearch.client.Request;
 import org.elasticsearch.client.RestClient;
 import org.junit.jupiter.api.Test;
 import util.InputStreamUtil;
+import util.RandomUtil;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
-import java.util.Random;
 
 import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class PerformingRequests {
+class PerformingRequestsTest {
     private static final String PEOPLE_INDEX = "people";
     private static final String PERSONS_TYPE = "persons";
     private final RestClient client = SecurityHelper.getLowLevelRestClient();
 
     @Test
-    public void getRoot() throws IOException {
+    void getRoot() throws IOException {
         var request = new Request("GET", "/");
         var response = client.performRequest(request);
         client.close();
@@ -34,7 +34,7 @@ public class PerformingRequests {
     }
 
     @Test
-    public void getMapping() throws IOException {
+    void getMapping() throws IOException {
         var request = new Request("GET", "/_mapping");
         var response = client.performRequest(request);
         client.close();
@@ -48,7 +48,7 @@ public class PerformingRequests {
     }
 
     @Test
-    public void countAll() throws IOException {
+    void countAll() throws IOException {
         var endpoint = format("%s/%s/_count", PEOPLE_INDEX, PERSONS_TYPE);
         var request = new Request("GET", endpoint);
         var response = client.performRequest(request);
@@ -64,7 +64,7 @@ public class PerformingRequests {
     }
 
     @Test
-    public void countSearch() throws IOException {
+    void countSearch() throws IOException {
         var endpoint = format("%s/%s/_count", PEOPLE_INDEX, PERSONS_TYPE);
         Map<String, String> params = Collections.emptyMap();
         var body = "{\n" +
@@ -91,8 +91,8 @@ public class PerformingRequests {
     }
 
     @Test
-    public void createIndex() throws IOException {
-        var indexName = new Random().nextInt(Integer.MAX_VALUE);
+    void createIndex() throws IOException {
+        var indexName = RandomUtil.randomIntPositive();
         var request = new Request("PUT", "/" + indexName);
         var response = client.performRequest(request);
         client.close();

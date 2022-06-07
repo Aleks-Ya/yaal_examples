@@ -2,6 +2,7 @@ package livy;
 
 import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.Test;
+import util.RandomUtil;
 
 import java.io.IOException;
 import java.net.URI;
@@ -9,7 +10,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Map;
-import java.util.Random;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -29,7 +29,7 @@ class SubmitTest {
     @Test
     void postBatches() throws IOException, InterruptedException {
         var gson = new GsonBuilder().create();
-        var sessionName = "session-" + (new Random()).nextInt(1, Integer.MAX_VALUE);
+        var sessionName = "session-" + RandomUtil.randomIntPositive();
         var body = gson.toJson(Map.of("file", "file:///shared/livy-scala.jar",
                 "className", "livy.ClusterModeApp",
                 "name", sessionName,

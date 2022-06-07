@@ -4,19 +4,19 @@ import cloud.remote.BaseRemoteTest;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import org.junit.jupiter.api.Test;
+import util.RandomUtil;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Random;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class UploadObject extends BaseRemoteTest {
+class UploadObjectTest extends BaseRemoteTest {
     @Test
-    public void uploadByCreate() {
+    void uploadByCreate() {
         var objectName = "dir1/file2.txt";
-        var content = "the content " + new Random().nextInt(Integer.MAX_VALUE);
+        var content = "the content " + RandomUtil.randomIntPositive();
         var blobId = BlobId.of(BUCKET_NAME, objectName);
 
         var blobInfo = BlobInfo.newBuilder(blobId).build();

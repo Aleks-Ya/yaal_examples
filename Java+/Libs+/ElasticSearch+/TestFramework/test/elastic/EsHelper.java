@@ -2,17 +2,14 @@ package elastic;
 
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
 import org.elasticsearch.client.Client;
-
-import java.util.Random;
+import util.RandomUtil;
 
 public final class EsHelper {
-    private static final Random random = new Random();
-
     private EsHelper() {
     }
 
     public static String createRandomIndexName() {
-        return String.format("%s-%d", EsHelper.class.getSimpleName(), random.nextInt(Integer.MAX_VALUE)).toLowerCase();
+        return String.format("%s-%d", EsHelper.class.getSimpleName(), RandomUtil.randomIntPositive()).toLowerCase();
     }
 
     public static boolean isIndexExist(String indexName, Client client) {
