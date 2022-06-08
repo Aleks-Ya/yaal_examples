@@ -35,3 +35,7 @@ lazy val OkHttpMockWebServer = project in file("Libs+/OkHttpMockWebServer")
 lazy val Spark3Core = project in file("Spark+/Spark3+/Spark3Core")
 lazy val Spark3Sql = project in file("Spark+/Spark3+/Spark3Sql")
 lazy val Spark3Streaming = project in file("Spark+/Spark3+/Spark3Streaming")
+
+lazy val KafkaScalaCore = project in file("Kafka+/KafkaScalaCore")
+lazy val IoGithubEmbeddedKafka = project in file("Kafka+/EmbeddedKafka+/IoGithubEmbeddedKafka")
+lazy val ManubEmbeddedKafka = project in file("Kafka+/EmbeddedKafka+/ManubEmbeddedKafka")

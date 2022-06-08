@@ -1,12 +1,12 @@
 package kafka
 
-import java.util.Properties
-
 import net.manub.embeddedkafka.EmbeddedKafka
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
-import org.scalatest.{FlatSpec, WordSpec}
+import org.scalatest.flatspec.AnyFlatSpec
 
-class MyProducerTest extends FlatSpec with EmbeddedKafka {
+import java.util.Properties
+
+class MyProducerTest extends AnyFlatSpec with EmbeddedKafka {
 
   "Processor" should "" in {
     val props = new Properties()
