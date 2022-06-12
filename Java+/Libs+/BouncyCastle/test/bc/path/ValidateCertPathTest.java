@@ -66,7 +66,7 @@ import static util.ResourceUtil.resourceToInputStream;
  * openssl x509 -req -days 365 -in server.csr -CA ca-intermediate.crt -CAkey ca-intermediate-private.pem -out server.crt -CAcreateserial -extfile server-v3.ext
  * </pre>
  */
-public class ValidateCertPathTest {
+class ValidateCertPathTest {
     private static final X509Certificate caRootCert = readCertificateFromResource("bc/path/ca-root.crt");
     private static final X509Certificate caIntermediateCert = readCertificateFromResource("bc/path/ca-intermediate.crt");
     private static final X509Certificate serverCert = readCertificateFromResource("bc/path/server.crt");
@@ -75,13 +75,13 @@ public class ValidateCertPathTest {
     private static final String COLLECTION_CERT_STORE_TYPE = "Collection";
 
     @Test
-    public void validCertPath() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException,
+    void validCertPath() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException,
             CertPathBuilderException, NoSuchProviderException, CertPathValidatorException {
         validateCertPath(Set.of(ValidateCertPathTest.caIntermediateCert));
     }
 
     @Test
-    public void invalidCertPath() {
+    void invalidCertPath() {
         var e = assertThrows(CertPathBuilderException.class, () -> validateCertPath(Set.of()));
         assertThat(e.getMessage(), equalTo("No issuer certificate for certificate in certification path found."));
     }
@@ -114,7 +114,7 @@ public class ValidateCertPathTest {
         assertThat(validatorResult.getTrustAnchor().getTrustedCert(), equalTo(caRootCert));
     }
 
-    public static X509Certificate readCertificateFromResource(String resource) {
+    private static X509Certificate readCertificateFromResource(String resource) {
         try {
             var certificateFactory = CertificateFactory.getInstance(X509_CERTIFICATE_TYPE);
             var certificateInputStream = resourceToInputStream(resource);

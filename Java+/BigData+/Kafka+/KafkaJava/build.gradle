@@ -1,0 +1,10 @@
+dependencies {
+    def kafkaVersion = "2.8.1"
+    def scalaVersion = "2.13"
+    implementation "org.apache.kafka:kafka-clients:$kafkaVersion", gsonDependency, slf4jSimpleVersion
+    testImplementation jsonAssertDep,
+            "org.apache.kafka:kafka-clients:$kafkaVersion:test",
+            "org.apache.kafka:kafka_$scalaVersion:$kafkaVersion",
+            "org.apache.kafka:kafka_$scalaVersion:$kafkaVersion:test",
+            bouncyCustleDep
+}

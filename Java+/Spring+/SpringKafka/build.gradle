@@ -1,5 +1,5 @@
 dependencies {
-    def version = "2.8.6"
-    implementation "org.springframework.kafka:spring-kafka:$version"
-    testImplementation "org.springframework.kafka:spring-kafka-test:$version"
+    def springKafkaVersion = "2.8.6"
+    implementation "org.springframework.kafka:spring-kafka:$springKafkaVersion"
+    testImplementation "org.springframework.kafka:spring-kafka-test:$springKafkaVersion"
 }
