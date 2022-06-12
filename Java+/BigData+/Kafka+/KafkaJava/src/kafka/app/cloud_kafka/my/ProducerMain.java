@@ -1,16 +1,16 @@
-package cloud.my;
+package kafka.app.cloud_kafka.my;
 
-import java.util.Properties;
-
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.KafkaProducer;
+
+import java.util.Properties;
 
 
 public class ProducerMain {
 
     public static void main(String[] args) {
-        Properties props = new Properties();
+        var props = new Properties();
         props.put("bootstrap.servers", "steamer-01.srvs.cloudkafka.com:9092");
         props.put("acks", "all");
         props.put("retries", "0");
@@ -20,10 +20,10 @@ public class ProducerMain {
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
-        String topic = "je18-default";
+        var topic = "je18-default";
         Producer<String, String> producer = new KafkaProducer<>(props);
-        for (int i = 0; i < 100; i++) {
-            ProducerRecord<String, String> record = new ProducerRecord<>(topic, Integer.toString(i), Integer.toString(i));
+        for (var i = 0; i < 100; i++) {
+            var record = new ProducerRecord<String, String>(topic, Integer.toString(i), Integer.toString(i));
             producer.send(record);
         }
 

@@ -1,34 +1,33 @@
-package cloud.thirs;
+package kafka.app.cloud_kafka.thirs;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Properties;
 
 public class TestConsumer {
     public static void main(String[] args) {
         try {
-            PrintWriter caWriter = new PrintWriter("/tmp/ca.pem", "UTF-8");
-            String ca = System.getenv("CLOUDKARAFKA_CA");
+            var caWriter = new PrintWriter("/tmp/ca.pem", StandardCharsets.UTF_8);
+            var ca = System.getenv("CLOUDKARAFKA_CA");
             caWriter.println(ca);
             caWriter.close();
 
-            PrintWriter certWriter = new PrintWriter("/tmp/cert.pem", "UTF-8");
-            String cert = System.getenv("CLOUDKARAFKA_CERT");
+            var certWriter = new PrintWriter("/tmp/cert.pem", StandardCharsets.UTF_8);
+            var cert = System.getenv("CLOUDKARAFKA_CERT");
             certWriter.println(cert);
             certWriter.close();
 
-            PrintWriter keyWriter = new PrintWriter("/tmp/key.pem", "UTF-8");
-            String privateKey = System.getenv("CLOUDKARAFKA_PRIVATE_KEY");
+            var keyWriter = new PrintWriter("/tmp/key.pem", StandardCharsets.UTF_8);
+            var privateKey = System.getenv("CLOUDKARAFKA_PRIVATE_KEY");
             keyWriter.println(privateKey);
             keyWriter.close();
 
-            Runtime r = Runtime.getRuntime();
-            Process p = r.exec("openssl pkcs12 -export -password pass:test1234 -out /tmp/store.pkcs12 -inkey /tmp/key.pem -certfile /tmp/ca.pem -in /tmp/cert.pem -caname 'CA Root' -name client");
+            var r = Runtime.getRuntime();
+            var p = r.exec("openssl pkcs12 -export -password pass:test1234 -out /tmp/store.pkcs12 -inkey /tmp/key.pem -certfile /tmp/ca.pem -in /tmp/cert.pem -caname 'CA Root' -name client");
             p.waitFor();
 
             p = r.exec("keytool -importkeystore -noprompt -srckeystore /tmp/store.pkcs12 -destkeystore /tmp/keystore.jks -srcstoretype pkcs12 -srcstorepass test1234 -srckeypass test1234 -destkeypass test1234 -deststorepass test1234 -alias client");
@@ -37,10 +36,10 @@ public class TestConsumer {
             p = r.exec("keytool -noprompt -keystore /tmp/truststore.jks -alias CARoot -import -file /tmp/ca.pem -storepass test1234");
             p.waitFor();
 
-            String brokers = System.getenv("CLOUDKARAFKA_BROKERS");
-            String topicPrefix = System.getenv("CLOUDKARAFKA_TOPIC_PREFIX");
+            var brokers = System.getenv("CLOUDKARAFKA_BROKERS");
+            var topicPrefix = System.getenv("CLOUDKARAFKA_TOPIC_PREFIX");
 
-            Properties props = new Properties();
+            var props = new Properties();
             props.put("bootstrap.servers", brokers);
             props.put("group.id", "test");
             props.put("enable.auto.commit", "true");
@@ -55,12 +54,12 @@ public class TestConsumer {
             props.put("ssl.keystore.password", "test1234");
             props.put("ssl.keypassword", "test1234");
 
-            KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
+            var consumer = new KafkaConsumer<String, String>(props);
             consumer.subscribe(Collections.singletonList(topicPrefix + "default"));
             //noinspection InfiniteLoopStatement
             while (true) {
-                ConsumerRecords<String, String> records = consumer.poll(100);
-                for (ConsumerRecord<String, String> record : records)
+                var records = consumer.poll(100);
+                for (var record : records)
                     System.out.printf("offset = %d, key = %s, value = %s\n", record.offset(), record.key(), record.value());
             }
         } catch (IOException | InterruptedException e) {
