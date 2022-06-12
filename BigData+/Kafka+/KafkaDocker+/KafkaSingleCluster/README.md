@@ -6,7 +6,7 @@ Source: https://github.com/wurstmeister/kafka-docker
 `export KAFKA_ADVERTISED_HOST_NAME=$(ifconfig docker0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')`
 
 ## Run cluster
-`docker-compose up -d`
+`docker-compose up`
 
 ## Scale cluster (optional)
 `docker-compose up --scale kafka=2 -d`
@@ -46,3 +46,13 @@ docker run --rm \
 
 ## Stop cluster
 `docker-compose down`
+
+## Scripts location
+- `$KAFKA_HOME/bin/kafka-topics.sh`
+- `$KAFKA_HOME/bin/kafka-console-consumer.sh`
+
+## Kafka Tool
+### Connection settings
+Kafka Cluster Version: `2.1`
+ZooKeeper Host: `$KAFKA_ADVERTISED_HOST_NAME`
+ZooKeeper Port: `2181`

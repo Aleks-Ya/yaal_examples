@@ -1,13 +1,19 @@
-# kafka-acls CLI
+# kafka-acls.sh CLI
+
+Docs: [Command Line Interface](https://kafka.apache.org/documentation/#security_authz_cli)
 
 ## List ACLs
+`kafka-acls --bootstrap-server localhost:9092 --list`
+
+
+## Deprecated (via ZooKeeper)
+### List ACLs
 ```
 kafka-acls.sh \
     --authorizer-properties zookeeper.connect=$ZK \
     --list
 ```
-
-## Create ACL
+### Create ACL
 ```
 kafka-acls.sh \
     --authorizer-properties zookeeper.connect=$ZK \
@@ -19,8 +25,7 @@ kafka-acls.sh \
     --operation Write \
     --topic Test-topic
 ```
-
-## Remove ACL
+### Remove ACL
 ```
 kafka-acls.sh \
     --authorizer-properties zookeeper.connect=$ZK \
@@ -32,3 +37,5 @@ kafka-acls.sh \
     --operation Write \
     --topic Test-topic
 ```
+
+

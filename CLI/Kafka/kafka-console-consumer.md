@@ -1,5 +1,27 @@
 # kafka-console-consumer.sh CLI
 
+## Consume messages from the topic
+
+### Not print keys
+1. Start Console consumer: `kafka-console-consumer --bootstrap-server=localhost:9092 --topic=my-topic --from-beginning`
+2. Stop Console consumer: Ctrl-C
+
+### Print keys
+1. Start Console consumer: 
+```
+kafka-console-consumer \
+	--bootstrap-server=localhost:9092 \
+	--topic=my-topic \
+	--from-beginning \
+	--property "print.key=true"
+```
+2. Stop Console consumer: Ctrl-C
+
+
+## Set consumer group
+`kafka-console-consumer.sh --bootstrap-server=$(broker-list.sh) --topic=my-topic --from-beginning --group my-group`
+
+
 See yaal_examples
 
 ```
@@ -20,4 +42,3 @@ Available properties (source, usage: --property print.timestamp=true):
 3.     print.value - print the value
 4.     key.separator and line.separator
 5.     key.deserializer and value.deserializer
-   

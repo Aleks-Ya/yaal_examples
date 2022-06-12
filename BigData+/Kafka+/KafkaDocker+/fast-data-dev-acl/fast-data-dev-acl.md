@@ -21,10 +21,9 @@ kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 \
 List ACLs:
 `kafka-acls --bootstrap-server localhost:9092 --list`
 
-
 Create ACL:
 ```
-kafka-acls --bootstrap-server localhost:9093 \
+kafka-acls --bootstrap-server localhost:9092 \
     --add \
     --allow-principal User:CN=Bob,OU=Kitchen,O=Home,L=Anapa,C=RU \
     --operation Create \
