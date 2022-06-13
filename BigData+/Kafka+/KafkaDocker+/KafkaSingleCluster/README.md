@@ -28,6 +28,7 @@ export ZK_PORT=2181
 `docker exec -it kafkasinglecluster_kafka_1 bash -c '$KAFKA_HOME/bin/zookeeper-shell.sh $KAFKA_ZOOKEEPER_CONNECT'`
 
 ## Run Kafka Shell
+1. Start Bash
 ```
 docker run --rm \
     -v /var/run/docker.sock:/var/run/docker.sock \
@@ -35,6 +36,7 @@ docker run --rm \
     -e ZK=${ZK_HOST}:${ZK_PORT} \
     -it wurstmeister/kafka /bin/bash
 ```
+2. Create aliases: see `cli.md`
 
 ## Show app logs
 `docker exec -it kafkasinglecluster_kafka_1 bash -c 'ls $KAFKA_HOME/logs'`

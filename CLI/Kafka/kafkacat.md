@@ -1,10 +1,10 @@
-# kafkacat CLI
+# KCat (KafkaCat) CLI
 
-Does NOT support connecting via ZooKeeper
+Does NOT support connecting via ZooKeeper.
 
 Info
-Site: https://github.com/edenhill/kafkacat 
-Install: apt-get install kafkacat
+Site: https://github.com/edenhill/kcat
+Install: `sudo apt-get install -y kafkacat`
 Examples: https://docs.eventador.io/examples/kafkacat 
 
 Prepare
@@ -17,3 +17,6 @@ kafkacat -b $BROKERS -t my_topic
 
 ```
 
+Show metadata: `kafkacat -b $BROKERS -L`
+
+Help: `kafkacat -h`
