@@ -13,18 +13,17 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * Serialize and deserialize objects.<br/>
- * Source: <a href="https://avro.apache.org/docs/current/gettingstartedjava.html#Serializing+and+deserializing+without+code+generation">link<a/>
+ * <a href="https://avro.apache.org/docs/current/gettingstartedjava.html#Serializing+and+deserializing+without+code+generation">Source</a>
  */
-public class SerDeTest {
+class SerDeTest {
 
     @Test
-    public void serDe() throws IOException {
-        InputStream schemaIS = SerDeTest.class.getResourceAsStream("user.avsc");
-        Schema schema = new Schema.Parser().parse(schemaIS);
+    void serDe() throws IOException {
+        var schemaIS = SerDeTest.class.getResourceAsStream("user.avsc");
+        var schema = new Schema.Parser().parse(schemaIS);
 
         // Create users
         GenericRecord user1 = new GenericData.Record(schema);
@@ -37,16 +36,16 @@ public class SerDeTest {
         user2.put("favorite_color", "red");
 
         // Serialize user1 and user2 to disk
-        File file = File.createTempFile("users", ".avro");
+        var file = File.createTempFile("users", ".avro");
         DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<>(schema);
-        DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<>(datumWriter);
+        var dataFileWriter = new DataFileWriter<>(datumWriter);
         dataFileWriter.create(schema, file);
         dataFileWriter.append(user1);
         dataFileWriter.append(user2);
         dataFileWriter.close();
 
         DatumReader<GenericRecord> datumReader = new GenericDatumReader<>(schema);
-        DataFileReader<GenericRecord> dataFileReader = new DataFileReader<>(file, datumReader);
+        var dataFileReader = new DataFileReader<>(file, datumReader);
         GenericRecord user = null;
         while (dataFileReader.hasNext()) {
             user = dataFileReader.next(user);

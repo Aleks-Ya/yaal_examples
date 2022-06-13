@@ -1,12 +1,10 @@
 package avro.record;
 
-import org.apache.avro.Schema;
 import org.apache.avro.SchemaBuilder;
 import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.io.EncoderFactory;
-import org.apache.avro.io.JsonEncoder;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -16,13 +14,13 @@ import java.io.OutputStream;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class GenericRecordToJson {
+class GenericRecordToJsonTest {
 
     @Test
-    public void genericRecordToJson() throws IOException {
-        String nameField = "name";
-        String favoriteNumberField = "favorite_number";
-        Schema schema = SchemaBuilder.record("User")
+    void genericRecordToJson() throws IOException {
+        var nameField = "name";
+        var favoriteNumberField = "favorite_number";
+        var schema = SchemaBuilder.record("User")
                 .fields()
                 .name(nameField).type().stringType().noDefault()
                 .name(favoriteNumberField).type().intType().noDefault()
@@ -32,16 +30,16 @@ public class GenericRecordToJson {
         genericRecord.put(nameField, "John");
         genericRecord.put(favoriteNumberField, 256);
 
-        String actJson = convert(genericRecord);
-        String expJson = "{\"name\":\"John\",\"favorite_number\":256}";
+        var actJson = convert(genericRecord);
+        var expJson = "{\"name\":\"John\",\"favorite_number\":256}";
         assertThat(actJson, equalTo(expJson));
     }
 
     private static String convert(GenericRecord genericRecord) throws IOException {
-        Schema schema = genericRecord.getSchema();
-        GenericDatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<>(schema);
+        var schema = genericRecord.getSchema();
+        var datumWriter = new GenericDatumWriter<GenericRecord>(schema);
         OutputStream out = new ByteArrayOutputStream();
-        JsonEncoder encoder = EncoderFactory.get().jsonEncoder(schema, out);
+        var encoder = EncoderFactory.get().jsonEncoder(schema, out);
         datumWriter.write(genericRecord, encoder);
         encoder.flush();
         return out.toString();

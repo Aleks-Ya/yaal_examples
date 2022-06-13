@@ -23,31 +23,31 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Serialize and deserialize objects from bytes without code generation.
  */
-public class SerDeFromBytesTest {
+class SerDeFromBytesTest {
 
     @Test
-    public void serDe() throws IOException {
-        InputStream schemaIS = SerDeFromBytesTest.class.getResourceAsStream("user.avsc");
-        Schema schema = new Schema.Parser().parse(schemaIS);
+    void serDe() throws IOException {
+        var schemaIS = SerDeFromBytesTest.class.getResourceAsStream("user.avsc");
+        var schema = new Schema.Parser().parse(schemaIS);
 
-        String nameField = "name";
-        String favoriteNumberField = "favorite_number";
-        String favoriteColorField = "favorite_color";
+        var nameField = "name";
+        var favoriteNumberField = "favorite_number";
+        var favoriteColorField = "favorite_color";
 
-        String name1 = "Alyssa";
+        var name1 = "Alyssa";
         GenericRecord user1 = new GenericData.Record(schema);
         user1.put(nameField, name1);
         user1.put(favoriteNumberField, 256);
 
-        String name2 = "Ben";
+        var name2 = "Ben";
         GenericRecord user2 = new GenericData.Record(schema);
         user2.put(nameField, name2);
         user2.put(favoriteNumberField, 7);
         user2.put(favoriteColorField, "red");
 
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        var os = new ByteArrayOutputStream();
         DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<>(schema);
-        DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<>(datumWriter);
+        var dataFileWriter = new DataFileWriter<>(datumWriter);
         dataFileWriter.create(schema, os);
         dataFileWriter.append(user1);
         dataFileWriter.append(user2);
@@ -55,7 +55,7 @@ public class SerDeFromBytesTest {
 
         InputStream is = new ByteArrayInputStream(os.toByteArray());
         DatumReader<GenericRecord> datumReader = new GenericDatumReader<>(schema);
-        DataFileStream<GenericRecord> dataFileReader = new DataFileStream<>(is, datumReader);
+        var dataFileReader = new DataFileStream<>(is, datumReader);
         GenericRecord actRecord = new GenericData.Record(schema);
 
         assertTrue(dataFileReader.hasNext());

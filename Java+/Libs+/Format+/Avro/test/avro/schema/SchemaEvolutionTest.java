@@ -23,7 +23,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class SchemaEvolution {
+class SchemaEvolutionTest {
     private static final String NAME_FIELD = "name";
     private static final String AGE_FIELD = "age";
     private static final String EMPLOYED_FIELD = "employed";
@@ -54,7 +54,7 @@ public class SchemaEvolution {
             .endRecord();
 
     @Test
-    public void backwardCompatibility() {
+    void backwardCompatibility() {
         var person1 = new GenericData.Record(schema1);
         person1.put(NAME_FIELD, NAME_VALUE);
         person1.put(AGE_FIELD, AGE_VALUE);
@@ -71,20 +71,19 @@ public class SchemaEvolution {
     }
 
     @Test
-    public void backwardCompatibilityBroken() {
+    void backwardCompatibilityBroken() {
         var person1 = new GenericData.Record(schema1);
         person1.put(NAME_FIELD, NAME_VALUE);
         person1.put(AGE_FIELD, AGE_VALUE);
 
         var person1Bytes = writeRecordToBytes(person1);
 
-
         var e = assertThrows(AvroTypeException.class, () -> bytesToMap(person1Bytes, schema3));
         assertThat(e.getMessage(), equalTo("Found data.Person, expecting data.Person, missing required field gender"));
     }
 
     @Test
-    public void forwardCompatibility() {
+    void forwardCompatibility() {
         var person2 = new GenericData.Record(schema2);
         person2.put(NAME_FIELD, NAME_VALUE);
         person2.put(AGE_FIELD, AGE_VALUE);
