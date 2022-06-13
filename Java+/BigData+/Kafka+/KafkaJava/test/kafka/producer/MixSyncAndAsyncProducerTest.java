@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.contains;
 
 /**
  * Use case: chunking of big Kafka records. Not-chunked records must be sent asynchronously for better performance.
- * Chunked records must be send sequentially (synchronously) for easier consuming.
+ * Chunked records must be sent sequentially (synchronously) for easier consuming.
  */
 class MixSyncAndAsyncProducerTest extends BaseTest {
 
@@ -55,7 +55,7 @@ class MixSyncAndAsyncProducerTest extends BaseTest {
 
         var messages = List.of(m1, m2, m3, m4, m5, m6, m7, m8);
         try (Producer<String, String> producer = createProducer(new StringSerializer(), new StringSerializer(), new Properties());
-             var asyncProducer = new SyncAsyncProducer<String, String>(producer)) {
+             var asyncProducer = new SyncAsyncProducer<>(producer)) {
             for (var message : messages) {
                 var record = new ProducerRecord<String, String>(topic, message.text);
                 if (message.type == MessageType.ASYNC) {

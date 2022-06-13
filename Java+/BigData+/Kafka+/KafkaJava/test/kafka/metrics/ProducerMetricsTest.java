@@ -61,7 +61,7 @@ class ProducerMetricsTest extends BaseTest {
         return (T) producer.metrics().entrySet()
                 .stream().filter(entry -> "producer-metrics".equals(entry.getKey().group()))
                 .filter(entry -> metricName.equals(entry.getKey().name()))
-                .findFirst().get().getValue().metricValue();
+                .findFirst().orElseThrow().getValue().metricValue();
     }
 
     @Override

@@ -64,7 +64,7 @@ class MessageHeaderTest extends BaseTest {
         try (Producer<String, Integer> producer = createProducer(keySerializer, valueSerializer, new Properties())) {
             Header header = new RecordHeader(headerKey, headerValue);
             Collection<Header> headers = singleton(header);
-            var record = new ProducerRecord<String, Integer>(topic, 0, key, value, headers);
+            var record = new ProducerRecord<>(topic, 0, key, value, headers);
             producer.send(record).get();
         }
     }

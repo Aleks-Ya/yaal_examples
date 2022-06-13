@@ -30,18 +30,18 @@ public class AdminClientExample {
         deleteTopic(adminClient, topic);
     }
 
-    public static void createTopic(AdminClient adminClient, String topic) throws ExecutionException, InterruptedException {
+    private static void createTopic(AdminClient adminClient, String topic) throws ExecutionException, InterruptedException {
         var newTopic = new NewTopic(topic, 1, (short) 1);
         var result = adminClient.createTopics(singletonList(newTopic));
         result.all().get();
     }
 
-    public static void deleteTopic(AdminClient adminClient, String topic) throws ExecutionException, InterruptedException {
+    private static void deleteTopic(AdminClient adminClient, String topic) throws ExecutionException, InterruptedException {
         var result = adminClient.deleteTopics(singletonList(topic));
         result.all().get();
     }
 
-    public static boolean isTopicExist(AdminClient adminClient, String topic) throws ExecutionException, InterruptedException {
+    private static boolean isTopicExist(AdminClient adminClient, String topic) throws ExecutionException, InterruptedException {
         var result = adminClient.listTopics();
         var topicNames = result.names().get();
         return topicNames.contains(topic);
