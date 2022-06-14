@@ -9,16 +9,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {
-        TeapotMock.class
-})
-public class TeapotTest {
+@ContextConfiguration(classes = TeapotMock.class)
+class TeapotTest {
 
     @Autowired
     private ITeapot teapot;
 
     @Test
-    public void model() {
+    void model() {
         assertEquals("TestSpot", teapot.getModel());
     }
 }
