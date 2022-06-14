@@ -29,7 +29,7 @@ subprojects {
         wireMockDependency = 'com.github.tomakehurst:wiremock:2.27.2'
         jaxbApiDependency = 'javax.xml.bind:jaxb-api:2.3.1'
         elasticSearchVersion = '7.12.0'
-        junit5Version = '5.8.1'
+        junit5Version = '5.8.2'
         spring5Version = '5.3.13'
         spring4Version = '4.3.30.RELEASE'
         spring3Version = '3.2.18.RELEASE'
@@ -54,7 +54,7 @@ subprojects {
 configure(subprojects - project('UnitTest+:JUnit+:JUnit4').subprojects - project('UnitTest+:TestNG+').subprojects) {
     dependencies {
         testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version", 'org.hamcrest:hamcrest:2.2',
-                'org.awaitility:awaitility:4.1.1', 'commons-io:commons-io:2.11.0', 'org.assertj:assertj-core:3.21.0'
+                'org.awaitility:awaitility:4.2.0', 'commons-io:commons-io:2.11.0', 'org.assertj:assertj-core:3.23.1'
         testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
     }
     test {
