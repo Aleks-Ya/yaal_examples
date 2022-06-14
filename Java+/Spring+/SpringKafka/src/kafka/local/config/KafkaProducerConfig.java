@@ -12,13 +12,16 @@ import org.springframework.kafka.core.ProducerFactory;
 import java.util.Map;
 
 @Configuration
-public class KafkaProducerConfig {
+class KafkaProducerConfig {
 
-    @Value(value = "${kafka.bootstrapAddress}")
-    private String bootstrapAddress;
+    private final String bootstrapAddress;
+
+    KafkaProducerConfig(@Value("${kafka.bootstrapAddress}") String bootstrapAddress) {
+        this.bootstrapAddress = bootstrapAddress;
+    }
 
     @Bean
-    public ProducerFactory<String, String> producerFactory() {
+    ProducerFactory<String, String> producerFactory() {
         return new DefaultKafkaProducerFactory<>(Map.of(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress,
                 ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class,
@@ -26,7 +29,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, String> kafkaTemplate() {
+    KafkaTemplate<String, String> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 }

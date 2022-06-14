@@ -1,7 +1,7 @@
 package kafka.local;
 
 
-import kafka.local.consumer.KafkaListenerConsumer;
+import kafka.local.consumer.KafkaListenerAnnotationConsumer;
 import kafka.local.producer.KafkaTemplateProducer;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import util.RandomUtil;
@@ -25,7 +25,7 @@ public class LocalKafkaApplication {
             var message2 = "xyz";
             producer.sendMessage(message1);
             producer.sendMessage(message2);
-            var consumer = context.getBean(KafkaListenerConsumer.class);
+            var consumer = context.getBean(KafkaListenerAnnotationConsumer.class);
 
             var expMessages = List.of(message1, message2);
             while (!consumer.getMessages().equals(expMessages)) {

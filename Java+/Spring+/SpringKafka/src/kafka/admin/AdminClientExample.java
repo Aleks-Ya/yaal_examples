@@ -11,6 +11,7 @@ import static java.util.Collections.singletonList;
 
 /**
  * Use AdminClient API.
+ * Works with a local Kafka cluster (e.g. "BigData+/Kafka+/KafkaDocker+/fast-data-dev").
  */
 public class AdminClientExample {
 

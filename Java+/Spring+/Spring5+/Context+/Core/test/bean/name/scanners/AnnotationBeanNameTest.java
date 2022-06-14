@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         RepositoryWithExplicitName.class,
         ControllerWithExplicitName.class
 })
-class Annotations {
+class AnnotationBeanNameTest {
 
     @Autowired
     private ApplicationContext ctx;

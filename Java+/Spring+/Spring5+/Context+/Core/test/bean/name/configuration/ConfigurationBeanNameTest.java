@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = Config.class)
-class ConfigTest {
+class ConfigurationBeanNameTest {
 
     @Autowired
     private ApplicationContext ctx;
