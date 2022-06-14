@@ -2,6 +2,8 @@
 
 Location: `$KAFKA_HOME/bin/kafka-console-producer.sh`
 
+Help: `kafka-console-producer.sh --help`
+
 ## Add messages to the topic
 
 ### Add message without key

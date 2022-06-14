@@ -7,21 +7,19 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 
-import java.util.Map;
-
 @EnableKafka
 @Configuration
-class KafkaConsumerConfig {
+public class KafkaConsumerConfig {
 
-    private final Map<String, Object> consumerProperties;
+    private final ConsumerProperties consumerProperties;
 
-    KafkaConsumerConfig(Map<String, Object> consumerProperties) {
+    KafkaConsumerConfig(ConsumerProperties consumerProperties) {
         this.consumerProperties = consumerProperties;
     }
 
     @Bean
     ConsumerFactory<String, String> consumerFactory() {
-        return new DefaultKafkaConsumerFactory<>(consumerProperties);
+        return new DefaultKafkaConsumerFactory<>(consumerProperties.consumerProperties());
     }
 
     @Bean

@@ -10,7 +10,6 @@ import java.util.Map;
 
 @Configuration
 class ConsumerPropertiesConfig {
-
     private final String bootstrapAddress;
     private final String groupId;
 
@@ -21,13 +20,13 @@ class ConsumerPropertiesConfig {
     }
 
     @Bean
-    Map<String, Object> consumerProperties() {
-        return Map.of(
+    ConsumerProperties consumerProperties() {
+        return new ConsumerProperties(Map.of(
                 ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress,
                 ConsumerConfig.GROUP_ID_CONFIG, groupId,
                 ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest",
                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
-                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class));
     }
 
 }
