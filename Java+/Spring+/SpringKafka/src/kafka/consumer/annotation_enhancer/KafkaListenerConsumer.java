@@ -1,4 +1,4 @@
-package kafka.local.consumer;
+package kafka.consumer.annotation_enhancer;
 
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class KafkaListenerAnnotationConsumer {
+class KafkaListenerConsumer {
     private final List<String> messages = new ArrayList<>();
 
-    @KafkaListener(topics = "${topic}", groupId = "${group}")
+    @KafkaListener(topics = "${topic}")
     private void listen(String message) {
         System.out.println("Received Message: " + message);
         messages.add(message);

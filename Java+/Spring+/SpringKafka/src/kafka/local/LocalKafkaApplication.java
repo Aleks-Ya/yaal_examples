@@ -1,8 +1,6 @@
 package kafka.local;
 
 
-import kafka.local.consumer.KafkaListenerAnnotationConsumer;
-import kafka.local.producer.KafkaTemplateProducer;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import util.RandomUtil;
 
@@ -15,9 +13,10 @@ import java.util.List;
 public class LocalKafkaApplication {
 
     public static void main(String[] args) throws InterruptedException {
+        var groupId = "my_group1";
         System.setProperty("kafka.bootstrapAddress", "localhost:9092");
         System.setProperty("topic", "topic-" + RandomUtil.randomIntPositive());
-        System.setProperty("group", "my_group1");
+        System.setProperty("group", groupId);
 
         try (var context = new AnnotationConfigApplicationContext("kafka.local")) {
             var producer = context.getBean(KafkaTemplateProducer.class);
@@ -27,7 +26,8 @@ public class LocalKafkaApplication {
             producer.sendMessage(message2);
             var consumer = context.getBean(KafkaListenerAnnotationConsumer.class);
 
-            var expMessages = List.of(message1, message2);
+            var expGroupPrefix = groupId + ": ";
+            var expMessages = List.of(expGroupPrefix + message1, expGroupPrefix + message2);
             while (!consumer.getMessages().equals(expMessages)) {
                 //noinspection BusyWait
                 Thread.sleep(500);

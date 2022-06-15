@@ -1,4 +1,4 @@
-package kafka.local.producer;
+package kafka.local;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -9,7 +9,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 @Component
-public class KafkaTemplateProducer {
+class KafkaTemplateProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final String topic;
 

@@ -1,4 +1,4 @@
-package kafka.local.config;
+package kafka.local;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +9,7 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 
 @EnableKafka
 @Configuration
-public class KafkaConsumerConfig {
+class KafkaConsumerConfig {
 
     private final ConsumerProperties consumerProperties;
 
