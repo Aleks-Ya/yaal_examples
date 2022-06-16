@@ -1,26 +1,26 @@
 package postgres;
 
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.testcontainers.containers.PostgreSQLContainer.IMAGE;
 
-public class PostgreSqlTest {
-    private static final String postgresImage = IMAGE + ":12";
+@Testcontainers
+class PostgresqlTest {
+    private static final String postgresImage = IMAGE + ":14";
 
-    @Rule
-    public PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(postgresImage);
+    @Container
+    private final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(postgresImage);
 
     @Test
-    public void test() throws SQLException {
+    void test() throws SQLException {
+        assertThat(postgres.isRunning()).isTrue();
         var url = postgres.getJdbcUrl();
         var username = postgres.getUsername();
         var password = postgres.getPassword();
@@ -31,9 +31,9 @@ public class PostgreSqlTest {
 
             var select = conn.createStatement();
             var resultSet = select.executeQuery("SELECT * FROM numbers");
-            assertTrue(resultSet.next());
-            assertThat(resultSet.getInt(1), equalTo(3));
-            assertFalse(resultSet.next());
+            assertThat(resultSet.next()).isTrue();
+            assertThat(resultSet.getInt(1)).isEqualTo(3);
+            assertThat(resultSet.next()).isFalse();
         }
     }
 }

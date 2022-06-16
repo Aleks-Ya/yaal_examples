@@ -1,25 +1,25 @@
-package postgres;
+package oracle;
 
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.OracleContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class OracleTest {
-    private static final String ORACLE_IMAGE = "wnameless/oracle-xe-11g-r2";
+@Testcontainers
+class OracleTest {
+    private static final String ORACLE_IMAGE = "gvenzl/oracle-xe";
 
-    @Rule
-    public OracleContainer oracle = new OracleContainer(ORACLE_IMAGE);
+    @Container
+    private final OracleContainer oracle = new OracleContainer(ORACLE_IMAGE);
 
     @Test
-    public void test() throws SQLException {
+    void test() throws SQLException {
+        assertThat(oracle.isRunning()).isTrue();
         var url = oracle.getJdbcUrl();
         var username = oracle.getUsername();
         var password = oracle.getPassword();
@@ -30,9 +30,9 @@ public class OracleTest {
 
             var select = conn.createStatement();
             var resultSet = select.executeQuery("SELECT * FROM numbers");
-            assertTrue(resultSet.next());
-            assertThat(resultSet.getInt(1), equalTo(3));
-            assertFalse(resultSet.next());
+            assertThat(resultSet.next()).isTrue();
+            assertThat(resultSet.getInt(1)).isEqualTo(3);
+            assertThat(resultSet.next()).isFalse();
         }
     }
 }
