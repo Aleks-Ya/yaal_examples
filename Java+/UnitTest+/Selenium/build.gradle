@@ -1,4 +1,4 @@
 dependencies {
-    implementation 'org.seleniumhq.selenium:selenium-java:4.1.4', slf4jSimpleVersion
+    implementation 'org.seleniumhq.selenium:selenium-java:4.1.4', slf4jSimpleDep
 //    , 'io.github.bonigarcia:webdrivermanager:5.1.1',
 }

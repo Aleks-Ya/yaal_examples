@@ -1,4 +1,4 @@
 dependencies {
-    implementation servlet4Dependency, jettyServlet10Dependency
+    implementation servlet4Dep, jettyServlet10Dep
 }
 

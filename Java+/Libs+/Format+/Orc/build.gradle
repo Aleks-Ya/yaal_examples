@@ -1,5 +1,5 @@
 dependencies {
-    implementation 'org.apache.orc:orc-core:1.6.7', "org.apache.hadoop:hadoop-hdfs:$hadoop2Version", slf4jSimpleVersion
+    implementation 'org.apache.orc:orc-core:1.6.7', "org.apache.hadoop:hadoop-hdfs:$hadoop2Version", slf4jSimpleDep
     implementation("org.apache.hadoop:hadoop-common:$hadoop2Version") {
         exclude module: 'slf4j-log4j12'
     }

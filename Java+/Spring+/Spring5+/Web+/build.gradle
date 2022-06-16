@@ -2,7 +2,7 @@ subprojects {
     dependencies {
         implementation "org.springframework:spring-web:$spring5Version",
                 "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion",
-                slf4jSimpleVersion
+                slf4jSimpleDep
 
         testImplementation 'com.jayway.jsonpath:json-path-assert:2.6.0'
     }

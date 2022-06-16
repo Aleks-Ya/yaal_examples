@@ -11,23 +11,23 @@ subprojects {
         mavenCentral()
     }
     ext {
-        h2Dependency = 'com.h2database:h2:1.4.200'
-        slf4jSimpleVersion = 'org.slf4j:slf4j-simple:1.8.0-beta4'
+        h2Dep = 'com.h2database:h2:1.4.200'
+        slf4jSimpleDep = 'org.slf4j:slf4j-simple:1.8.0-beta4'
         def okHttpVersion = '4.9.1'
-        okHttpDependency = "com.squareup.okhttp3:okhttp:$okHttpVersion"
-        mockWebServerDependency = "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
-        jettyServlet10Dependency = 'org.eclipse.jetty:jetty-servlet:10.0.0'
-        jettyServlet11Dependency = 'org.eclipse.jetty:jetty-servlet:11.0.0'
-        servlet4Dependency = 'javax.servlet:javax.servlet-api:4.0.1'
+        okHttpDep = "com.squareup.okhttp3:okhttp:$okHttpVersion"
+        mockWebServerDep = "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
+        jettyServlet10Dep = 'org.eclipse.jetty:jetty-servlet:10.0.0'
+        jettyServlet11Dep = 'org.eclipse.jetty:jetty-servlet:11.0.0'
+        servlet4Dep = 'javax.servlet:javax.servlet-api:4.0.1'
         jacksonVersion = '2.12.3'
-        jsonUnitDependency = 'net.javacrumbs.json-unit:json-unit:2.24.0'
+        jsonUnitDep = 'net.javacrumbs.json-unit:json-unit:2.24.0'
         mockitoVersion = '4.2.0'
-        mockitoDependency = "org.mockito:mockito-core:$mockitoVersion"
-        log4jCoreDependency = 'org.apache.logging.log4j:log4j-core:2.14.1'
-        gsonDependency = 'com.google.code.gson:gson:2.9.0'
-        commonsLangDependency = 'org.apache.commons:commons-lang3:3.12.0'
-        wireMockDependency = 'com.github.tomakehurst:wiremock:2.27.2'
-        jaxbApiDependency = 'javax.xml.bind:jaxb-api:2.3.1'
+        mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
+        log4jCoreDep = 'org.apache.logging.log4j:log4j-core:2.14.1'
+        gsonDep = 'com.google.code.gson:gson:2.9.0'
+        commonsLangDep = 'org.apache.commons:commons-lang3:3.12.0'
+        wireMockDep = 'com.github.tomakehurst:wiremock:2.27.2'
+        jaxbApiDep = 'javax.xml.bind:jaxb-api:2.3.1'
         elasticSearchVersion = '7.12.0'
         junit5Version = '5.8.2'
         spring5Version = '5.3.13'
@@ -38,8 +38,8 @@ subprojects {
         hadoop2Version = '2.10.1'
         fabric8ioVersion = '5.6.0'
         feignVersion = '11.6'
-        mongoDbDriverDependency = 'org.mongodb:mongodb-driver:3.12.10'
-        hibernate5EntityManagerDependency = 'org.hibernate:hibernate-entitymanager:5.6.3.Final'
+        mongoDbDriverDep = 'org.mongodb:mongodb-driver:3.12.10'
+        hibernate5EntityManagerDep = 'org.hibernate:hibernate-entitymanager:5.6.3.Final'
         jsonAssertDep = 'org.skyscreamer:jsonassert:1.5.0'
         bouncyCustleDep = 'org.bouncycastle:bcpkix-jdk15on:1.68'
         testContainersVersion = '1.17.2'

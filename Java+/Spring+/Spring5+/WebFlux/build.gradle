@@ -1,5 +1,5 @@
 dependencies {
     implementation "org.springframework:spring-webflux:$spring5Version"
     implementation 'io.projectreactor.netty:reactor-netty:0.9.8.RELEASE'
-    testImplementation mockWebServerDependency
+    testImplementation mockWebServerDep
 }

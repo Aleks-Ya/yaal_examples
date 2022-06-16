@@ -3,5 +3,5 @@
  * для работы с БД.
  */
 dependencies {
-    testImplementation h2Dependency
+    testImplementation h2Dep
 }

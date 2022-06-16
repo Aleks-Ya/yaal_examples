@@ -1,5 +1,5 @@
 subprojects {
     dependencies {
-        testImplementation testContainersJunitDep, slf4jSimpleVersion
+        testImplementation testContainersJunitDep, slf4jSimpleDep
     }
 }

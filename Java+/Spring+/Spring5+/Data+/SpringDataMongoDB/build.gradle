@@ -1,4 +1,4 @@
 dependencies {
-    implementation mongoDbDriverDependency, 'org.springframework.data:spring-data-mongodb:3.3.0',
+    implementation mongoDbDriverDep, 'org.springframework.data:spring-data-mongodb:3.3.0',
             project(':Database+:MongoDB')
 }

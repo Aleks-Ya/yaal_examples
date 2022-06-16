@@ -1,6 +1,6 @@
 subprojects {
     dependencies {
-        implementation hibernate5EntityManagerDependency, "org.springframework:spring-orm:$spring5Version"
-        testImplementation h2Dependency
+        implementation hibernate5EntityManagerDep, "org.springframework:spring-orm:$spring5Version"
+        testImplementation h2Dep
     }
 }

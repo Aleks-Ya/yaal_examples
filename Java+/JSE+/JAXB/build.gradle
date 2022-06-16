@@ -1,4 +1,4 @@
 dependencies {
-    implementation jaxbApiDependency
+    implementation jaxbApiDep
     runtimeOnly 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
 }

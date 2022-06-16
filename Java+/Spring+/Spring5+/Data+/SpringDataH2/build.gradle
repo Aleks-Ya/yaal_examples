@@ -1,4 +1,4 @@
 dependencies {
-    implementation 'org.springframework.data:spring-data-jpa:2.6.0', h2Dependency,
-            'javax.persistence:javax.persistence-api:2.2', hibernate5EntityManagerDependency
+    implementation 'org.springframework.data:spring-data-jpa:2.6.0', h2Dep,
+            'javax.persistence:javax.persistence-api:2.2', hibernate5EntityManagerDep
 }

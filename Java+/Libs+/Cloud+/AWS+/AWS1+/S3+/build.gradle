@@ -1,6 +1,6 @@
 subprojects {
     dependencies {
         implementation "com.amazonaws:aws-java-sdk-s3:$aws1Version"
-        implementation jaxbApiDependency //optional
+        implementation jaxbApiDep //optional
     }
 }

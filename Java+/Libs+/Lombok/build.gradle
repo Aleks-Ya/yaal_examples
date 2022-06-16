@@ -2,5 +2,5 @@ plugins {
     id "io.freefair.lombok" version "6.3.0"
 }
 dependencies {
-    testImplementation mockitoDependency
+    testImplementation mockitoDep
 }

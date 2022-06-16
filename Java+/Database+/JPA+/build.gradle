@@ -1,5 +1,5 @@
 subprojects {
     dependencies {
-        implementation h2Dependency, hibernate5EntityManagerDependency
+        implementation h2Dep, hibernate5EntityManagerDep
     }
 }

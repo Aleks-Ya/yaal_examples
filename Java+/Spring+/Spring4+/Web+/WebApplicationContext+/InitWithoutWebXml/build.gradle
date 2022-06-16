@@ -10,7 +10,7 @@ sourceSets.main.java.srcDir 'src'
 project.webAppDirName = 'webapp'
 
 dependencies {
-    implementation 'org.springframework:spring-webmvc:4.3.10.RELEASE', servlet4Dependency
+    implementation 'org.springframework:spring-webmvc:4.3.10.RELEASE', servlet4Dep
 }
 repositories {
     mavenCentral()

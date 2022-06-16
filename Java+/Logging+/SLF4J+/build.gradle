@@ -1,5 +1,5 @@
 subprojects {
     dependencies {
-        implementation slf4jSimpleVersion
+        implementation slf4jSimpleDep
     }
 }
