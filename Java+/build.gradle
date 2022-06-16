@@ -43,6 +43,7 @@ subprojects {
         jsonAssertDep = 'org.skyscreamer:jsonassert:1.5.0'
         bouncyCustleDep = 'org.bouncycastle:bcpkix-jdk15on:1.68'
         testContainersVersion = '1.17.2'
+        testContainersDep = "org.testcontainers:testcontainers:$testContainersVersion"
         testContainersJunitDep = "org.testcontainers:junit-jupiter:$testContainersVersion"
     }
     tasks.withType(JavaCompile) {

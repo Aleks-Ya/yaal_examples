@@ -10,9 +10,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Use Azurite (a Local Blob Storage service) for testing.
+ * Azurite Docker container is running manually.
  * Docs: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/tech-specific-samples/blobstorage-unit-tests/
  */
-class AzuriteTest {
+class AzuriteManualTest {
     @Test
     void uploadListDownloadDeleteBlob() {
         var blobServiceClient = Factory.azuriteBlobServiceClient();

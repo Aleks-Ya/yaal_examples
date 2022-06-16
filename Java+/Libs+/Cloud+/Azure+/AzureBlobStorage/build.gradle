@@ -1,3 +1,4 @@
 dependencies {
     implementation 'com.azure:azure-storage-blob:12.17.0', slf4jSimpleDep
+    testImplementation testContainersDep, testContainersJunitDep
 }
