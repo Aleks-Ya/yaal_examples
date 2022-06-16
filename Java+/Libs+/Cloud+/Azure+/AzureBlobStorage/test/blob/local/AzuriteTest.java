@@ -1,5 +1,6 @@
-package blob;
+package blob.local;
 
+import blob.Factory;
 import com.azure.core.util.BinaryData;
 import com.azure.storage.blob.models.BlobItem;
 import org.junit.jupiter.api.Test;
@@ -7,10 +8,14 @@ import org.junit.jupiter.api.Test;
 import static blob.Factory.randomName;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class BlobTest {
+/**
+ * Use Azurite (a Local Blob Storage service) for testing.
+ * Docs: https://microsoft.github.io/code-with-engineering-playbook/automated-testing/tech-specific-samples/blobstorage-unit-tests/
+ */
+class AzuriteTest {
     @Test
     void uploadListDownloadDeleteBlob() {
-        var blobServiceClient = Factory.blobServiceClient();
+        var blobServiceClient = Factory.azuriteBlobServiceClient();
         var containerName = randomName();
         blobServiceClient.createBlobContainer(containerName);
 

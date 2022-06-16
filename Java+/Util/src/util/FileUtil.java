@@ -1,9 +1,11 @@
 package util;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Objects;
+import java.nio.file.Path;
+import java.util.Properties;
 
 public class FileUtil {
 
@@ -37,6 +39,16 @@ public class FileUtil {
     public static String fileToString(File file) {
         try {
             return new String(Files.readAllBytes(file.toPath()));
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+
+    public static Properties pathToProperties(Path path) {
+        try {
+            var properties = new Properties();
+            properties.load(new FileInputStream(path.toFile()));
+            return properties;
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);
         }

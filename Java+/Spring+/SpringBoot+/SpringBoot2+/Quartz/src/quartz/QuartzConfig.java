@@ -18,7 +18,7 @@ class QuartzConfig {
 
     @Bean
     JobDetailFactoryBean jobDetail() {
-        JobDetailFactoryBean jobDetailFactory = new JobDetailFactoryBean();
+        var jobDetailFactory = new JobDetailFactoryBean();
         jobDetailFactory.setJobClass(SampleJob.class);
         jobDetailFactory.setDescription("Invoke Sample Job service...");
         jobDetailFactory.setDurability(true);
@@ -27,7 +27,7 @@ class QuartzConfig {
 
     @Bean
     SimpleTriggerFactoryBean trigger(JobDetail job) {
-        SimpleTriggerFactoryBean trigger = new SimpleTriggerFactoryBean();
+        var trigger = new SimpleTriggerFactoryBean();
         trigger.setJobDetail(job);
         trigger.setRepeatInterval(300);
         trigger.setRepeatCount(REPEAT_COUNT);
@@ -36,14 +36,14 @@ class QuartzConfig {
 
     @Bean
     SpringBeanJobFactory springBeanJobFactory(ApplicationContext applicationContext) {
-        SpringBeanJobFactory jobFactory = new SpringBeanJobFactory();
+        var jobFactory = new SpringBeanJobFactory();
         jobFactory.setApplicationContext(applicationContext);
         return jobFactory;
     }
 
     @Bean
     SchedulerFactoryBean scheduler(Trigger trigger, JobDetail job, SpringBeanJobFactory springBeanJobFactory) {
-        SchedulerFactoryBean schedulerFactory = new SchedulerFactoryBean();
+        var schedulerFactory = new SchedulerFactoryBean();
         schedulerFactory.setConfigLocation(new ClassPathResource("quartz.properties"));
         schedulerFactory.setJobFactory(springBeanJobFactory);
         schedulerFactory.setJobDetails(job);

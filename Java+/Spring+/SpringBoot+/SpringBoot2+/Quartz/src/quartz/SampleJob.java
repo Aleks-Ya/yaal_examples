@@ -2,7 +2,6 @@ package quartz;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,7 +13,7 @@ class SampleJob implements Job {
         this.jobService = jobService;
     }
 
-    public void execute(JobExecutionContext context) throws JobExecutionException {
+    public void execute(JobExecutionContext context) {
         jobService.executeSampleJob();
     }
 }

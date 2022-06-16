@@ -11,15 +11,15 @@ import static org.hamcrest.Matchers.equalTo;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {QuartzConfig.class, SampleJob.class, SampleJobService.class})
-public class ScheduledTest {
+class ScheduledTest {
 
     @Autowired
     private SampleJobService sampleJobService;
 
     @Test
-    public void test() throws InterruptedException {
+    void test() throws InterruptedException {
         Thread.sleep(1000);
-        int expRepeatCount = QuartzConfig.REPEAT_COUNT + 1;//TODO why +1?
+        var expRepeatCount = QuartzConfig.REPEAT_COUNT + 1;//TODO why +1?
         assertThat(sampleJobService.getInvocationCounter(), equalTo(expRepeatCount));
     }
 }

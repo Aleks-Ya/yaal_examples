@@ -3,40 +3,51 @@ package blob;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.common.StorageSharedKeyCredential;
+import util.FileUtil;
 import util.RandomUtil;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Locale;
-import java.util.Properties;
 
 public class Factory {
-    private static BlobServiceClient client;
+    private static BlobServiceClient realClient;
+    private static BlobServiceClient azuriteClient;
 
-    public synchronized static BlobServiceClient blobServiceClient() {
-        if (client == null) {
-            client = initClient();
+    public synchronized static BlobServiceClient realBlobServiceClient() {
+        if (realClient == null) {
+            realClient = initRealClient();
         }
-        return client;
+        return realClient;
+    }
+
+    public synchronized static BlobServiceClient azuriteBlobServiceClient() {
+        if (azuriteClient == null) {
+            azuriteClient = initAzuriteClient();
+        }
+        return azuriteClient;
     }
 
     public static String randomName() {
         return "azure-blob-storage-examples-" + RandomUtil.randomIntPositive();
     }
 
-    private static BlobServiceClient initClient() {
-        try {
-            var properties = new Properties();
-            var file = Paths.get(System.getProperty("user.home"), ".azure-examples", "credentials.properties").toFile();
-            properties.load(new FileInputStream(file));
-            var accountName = properties.getProperty("blob.storage.account");
-            var accountKey = properties.getProperty("blob.storage.access.key");
-            var credential = new StorageSharedKeyCredential(accountName, accountKey);
-            var endpoint = String.format(Locale.ROOT, "https://%s.blob.core.windows.net", accountName);
-            return new BlobServiceClientBuilder().endpoint(endpoint).credential(credential).buildClient();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private static BlobServiceClient initRealClient() {
+        var path = Paths.get(System.getProperty("user.home"), ".azure-examples", "credentials.properties");
+        var properties = FileUtil.pathToProperties(path);
+        var accountName = properties.getProperty("blob.storage.account");
+        var accountKey = properties.getProperty("blob.storage.access.key");
+        var credential = new StorageSharedKeyCredential(accountName, accountKey);
+        var endpoint = String.format(Locale.ROOT, "https://%s.blob.core.windows.net", accountName);
+        return new BlobServiceClientBuilder().endpoint(endpoint).credential(credential).buildClient();
+    }
+
+    private static BlobServiceClient initAzuriteClient() {
+        var accountName = "devstoreaccount1";
+        var credential = new StorageSharedKeyCredential(accountName,
+                "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==");
+        return new BlobServiceClientBuilder()
+                .endpoint("http://127.0.0.1:10000/" + accountName)
+                .credential(credential)
+                .buildClient();
     }
 }
