@@ -11,13 +11,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Сериализация с помощью Externalizable.
  */
-class ExternalizableExample {
+class ExternalizableExampleTest {
     @Test
     void standard() throws IOException, ClassNotFoundException {
         var exp = new ForSerialization();
@@ -33,9 +32,9 @@ class ExternalizableExample {
         var ois = new ObjectInputStream(bis);
         var act = (ForSerialization) ois.readObject();
 
-        assertNotSame(exp, act);
-        assertEquals(exp.getNum(), act.getNum());
-        assertEquals(33, act.getTransientLong());
+        assertThat(exp).isNotSameAs(act);
+        assertThat(exp.getNum()).isEqualTo(act.getNum());
+        assertThat(act.getTransientLong()).isEqualTo(33);
     }
 }
 

@@ -16,9 +16,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Serialize and deserialize objects from bytes without code generation.
@@ -58,12 +56,12 @@ class SerDeFromBytesTest {
         var dataFileReader = new DataFileStream<>(is, datumReader);
         GenericRecord actRecord = new GenericData.Record(schema);
 
-        assertTrue(dataFileReader.hasNext());
+        assertThat(dataFileReader.hasNext()).isTrue();
         dataFileReader.next(actRecord);
-        assertThat(actRecord.get(nameField).toString(), equalTo(name1));
+        assertThat(actRecord.get(nameField).toString()).isEqualTo(name1);
 
-        assertTrue(dataFileReader.hasNext());
+        assertThat(dataFileReader.hasNext()).isTrue();
         dataFileReader.next(actRecord);
-        assertThat(actRecord.get(nameField).toString(), equalTo(name2));
+        assertThat(actRecord.get(nameField).toString()).isEqualTo(name2);
     }
 }

@@ -10,13 +10,13 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 /**
  * Covert InputStream to String.
  */
-class InputStreamToString {
+class InputStreamToStringTest {
     private static final String CONTENT = "Hi!\nBye!";
     private final InputStream input = new ByteArrayInputStream(CONTENT.getBytes());
 
@@ -26,7 +26,7 @@ class InputStreamToString {
         try (var buffer = new BufferedReader(new InputStreamReader(input))) {
             str = buffer.lines().collect(Collectors.joining("\n"));
         }
-        assertThat(str, equalTo(CONTENT));
+        assertThat(str).isEqualTo(CONTENT);
     }
 
     @Test
@@ -38,7 +38,7 @@ class InputStreamToString {
                 result.append(c);
             }
         }
-        assertThat(result.toString(), equalTo(CONTENT));
+        assertThat(result).hasToString(CONTENT);
     }
 
     @Test
@@ -51,6 +51,6 @@ class InputStreamToString {
             }
         }
         var expected = CONTENT.replace("\n", "");
-        assertThat(result.toString(), equalTo(expected));
+        assertThat(result).hasToString(expected);
     }
 }

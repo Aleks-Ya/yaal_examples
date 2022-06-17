@@ -7,10 +7,7 @@ import java.beans.XMLEncoder;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.sameInstance;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class XmlTest {
 
@@ -26,8 +23,7 @@ class XmlTest {
 
         try (var decoder = new XMLDecoder(new ByteArrayInputStream(bytes))) {
             var actObj = decoder.readObject();
-            assertThat(actObj, not(sameInstance(expObj)));
-            assertThat(actObj, equalTo(expObj));
+            assertThat(actObj).isNotSameAs(expObj).isEqualTo(expObj);
         }
     }
 

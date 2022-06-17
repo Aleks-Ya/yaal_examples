@@ -10,13 +10,12 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.UUID;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Сериализация и десериализация final-поля: значение восстанавливается из сериализованной версии.
  */
-class FinalFieldsSerialization {
+class FinalFieldsSerializationTest {
     @Test
     void standard() throws IOException, ClassNotFoundException {
         var expObj = new MyClass();
@@ -30,7 +29,7 @@ class FinalFieldsSerialization {
         var ois = new ObjectInputStream(in);
         var actObj = (MyClass) ois.readObject();
 
-        assertThat(actObj.uuid, equalTo(expUid));
+        assertThat(actObj.uuid).isEqualTo(expUid);
     }
 
     public static class MyClass implements Serializable {

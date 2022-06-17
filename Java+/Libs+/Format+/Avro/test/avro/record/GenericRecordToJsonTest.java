@@ -11,10 +11,20 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 class GenericRecordToJsonTest {
+
+    private static String convert(GenericRecord genericRecord) throws IOException {
+        var schema = genericRecord.getSchema();
+        var datumWriter = new GenericDatumWriter<GenericRecord>(schema);
+        OutputStream out = new ByteArrayOutputStream();
+        var encoder = EncoderFactory.get().jsonEncoder(schema, out);
+        datumWriter.write(genericRecord, encoder);
+        encoder.flush();
+        return out.toString();
+    }
 
     @Test
     void genericRecordToJson() throws IOException {
@@ -32,16 +42,6 @@ class GenericRecordToJsonTest {
 
         var actJson = convert(genericRecord);
         var expJson = "{\"name\":\"John\",\"favorite_number\":256}";
-        assertThat(actJson, equalTo(expJson));
-    }
-
-    private static String convert(GenericRecord genericRecord) throws IOException {
-        var schema = genericRecord.getSchema();
-        var datumWriter = new GenericDatumWriter<GenericRecord>(schema);
-        OutputStream out = new ByteArrayOutputStream();
-        var encoder = EncoderFactory.get().jsonEncoder(schema, out);
-        datumWriter.write(genericRecord, encoder);
-        encoder.flush();
-        return out.toString();
+        assertThat(actJson).isEqualTo(expJson);
     }
 }

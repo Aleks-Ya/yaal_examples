@@ -6,11 +6,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.lessThan;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Send HEAD HTTP request.
@@ -31,7 +27,7 @@ class HeadRequestTest {
         System.out.println(contentLength);
         System.out.println(headerMap);
 
-        assertThat(responseCode, allOf(greaterThanOrEqualTo(200), lessThan(300)));
-        assertThat(contentLength, greaterThan(0));
+        assertThat(responseCode).isGreaterThanOrEqualTo(200).isLessThan(300);
+        assertThat(contentLength).isGreaterThan(0);
     }
 }

@@ -1,13 +1,14 @@
 package lang.array.assignment;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Присвоение переменной массива суперкласса
  * массива дочернего класса.
  */
-class SubClass {
+class SubClassTest {
 
     /**
      * Примитивные типы.
@@ -31,6 +32,6 @@ class SubClass {
         Exception[] a;
         RuntimeException[] b = {new RuntimeException()};
         a = b;
-        Assert.assertArrayEquals(a, b);
+        assertThat(a).isEqualTo(b);
     }
 }

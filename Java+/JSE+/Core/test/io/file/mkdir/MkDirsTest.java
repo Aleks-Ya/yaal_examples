@@ -6,11 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.io.FileMatchers.anExistingFile;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class MkDirsTest {
 
@@ -23,12 +19,12 @@ class MkDirsTest {
         tmpDir.deleteOnExit();
 
         var notExistsIntermediateDirs = new File(tmpDir, "a/b/file.txt");
-        assertThat(notExistsIntermediateDirs, not(anExistingFile()));
+        assertThat(notExistsIntermediateDirs).doesNotExist();
 
-        assertTrue(notExistsIntermediateDirs.mkdirs());
+        assertThat(notExistsIntermediateDirs.mkdirs()).isTrue();
 
-        assertThat(notExistsIntermediateDirs, not(anExistingFile()));
-        assertTrue(notExistsIntermediateDirs.isDirectory());
-        assertFalse(notExistsIntermediateDirs.isFile());
+        assertThat(notExistsIntermediateDirs).exists();
+        assertThat(notExistsIntermediateDirs).isDirectory();
+        assertThat(notExistsIntermediateDirs.isFile()).isFalse();
     }
 }

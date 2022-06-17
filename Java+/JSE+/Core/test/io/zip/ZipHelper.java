@@ -7,24 +7,21 @@ import java.nio.charset.Charset;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ZipHelper {
     public static void assertZipEntryEquals(ZipEntry exp, ZipEntry act) {
-        assertNotNull(exp);
-        assertNotNull(act);
-        assertEquals(exp.getName(), act.getName());
-        assertEquals(exp.getSize(), act.getSize());
+        assertThat(exp).isNotNull();
+        assertThat(act).isNotNull();
+        assertThat(act.getName()).isEqualTo(exp.getName());
+        assertThat(act.getSize()).isEqualTo(exp.getSize());
     }
 
     public static void assertZipEntry(ZipFile zf, String entryName, String expEntryContent, long size) throws IOException {
         var aEntry = zf.getEntry(entryName);
-        assertThat(aEntry.getSize(), equalTo(size));
+        assertThat(aEntry.getSize()).isEqualTo(size);
         var ais = zf.getInputStream(aEntry);
         var aContent = IOUtils.toString(ais, Charset.defaultCharset());
-        assertThat(aContent, equalTo(expEntryContent));
+        assertThat(aContent).isEqualTo(expEntryContent);
     }
 }

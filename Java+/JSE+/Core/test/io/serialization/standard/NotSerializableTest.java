@@ -8,20 +8,20 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Дополнение стандартной сериализации в методах writeObject() и ().
  */
-class NotSerializable {
+class NotSerializableTest {
     @Test
     void standard() {
-        assertThrows(NotSerializableException.class, () -> {
+        assertThatThrownBy(() -> {
             var out = new ByteArrayOutputStream();
             var oos = new ObjectOutputStream(out);
             oos.writeObject(new NotForSerialization());
             oos.close();
-        });
+        }).isInstanceOf(NotSerializableException.class);
     }
 }
 

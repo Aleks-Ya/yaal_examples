@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 /**
  * Creating {@link Schema} with {@link SchemaBuilder}.
@@ -28,7 +28,7 @@ class SchemaBuilderTest {
                 .endRecord();
         var is = SchemaBuilderTest.class.getResourceAsStream("SchemaBuilderTest_buildSchema.avsc");
         var exp = new Schema.Parser().parse(is);
-        assertThat(act, equalTo(exp));
+        assertThat(act).isEqualTo(exp);
     }
 
     /**
@@ -43,6 +43,6 @@ class SchemaBuilderTest {
                 .endRecord();
         var is = SchemaBuilderTest.class.getResourceAsStream("SchemaBuilderTest_buildSchemaUnion.avsc");
         var exp = new Schema.Parser().parse(is);
-        assertThat(act, equalTo(exp));
+        assertThat(act).isEqualTo(exp);
     }
 }

@@ -9,8 +9,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 class UnpackGzipTest {
 
@@ -19,7 +19,7 @@ class UnpackGzipTest {
         var is = Objects.requireNonNull(getClass().getResource("content.txt.gz")).openStream();
         var gzip = new GZIPInputStream(is);
         var content = new BufferedReader(new InputStreamReader(gzip)).lines().collect(Collectors.joining());
-        assertThat(content, equalTo("file_content"));
+        assertThat(content).isEqualTo("file_content");
     }
 
     @Test
@@ -27,6 +27,6 @@ class UnpackGzipTest {
         var archiveFileName = "content.txt.gz";
         var lastDot = archiveFileName.lastIndexOf(".");
         var packedFileName = archiveFileName.substring(0, lastDot);
-        assertThat(packedFileName, equalTo("content.txt"));
+        assertThat(packedFileName).isEqualTo("content.txt");
     }
 }

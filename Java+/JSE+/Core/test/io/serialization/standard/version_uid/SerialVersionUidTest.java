@@ -9,10 +9,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.assertj.core.api.Assertions.assertThat;
 
-class SerialVersionUID {
+class SerialVersionUidTest {
     @Test
     void test() throws IOException, ClassNotFoundException {
         var expFv = new ForSerialization();
@@ -21,8 +20,8 @@ class SerialVersionUID {
         var out = write(expFv);
         var actFv = (ForSerialization) read(out);
 
-        assertNotSame(expFv, actFv);
-        assertEquals(expFv.num, actFv.num);
+        assertThat(actFv).isNotSameAs(expFv);
+        assertThat(actFv.num).isEqualTo(expFv.num);
     }
 
     private Object read(ByteArrayOutputStream out) throws IOException, ClassNotFoundException {

@@ -12,7 +12,7 @@ import java.io.Serializable;
  * Если у сериализуемого класса есть несериализуемый родитель, то во время
  * десериализации у родителя будет вызван конструктор по-умолчанию.
  */
-class NotSerializableParent {
+class NotSerializableParentTest {
 
     @Test
     void constructorsInvoke() throws Exception {

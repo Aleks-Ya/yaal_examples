@@ -9,10 +9,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.assertj.core.api.Assertions.assertThat;
 
-class SerializationExample {
+class SerializationExampleTest {
     @Test
     void standard() throws IOException, ClassNotFoundException {
         var exp = new MyClass();
@@ -28,9 +27,9 @@ class SerializationExample {
         var ois = new ObjectInputStream(bis);
         var act = (MyClass) ois.readObject();
 
-        assertNotSame(exp, act);
-        assertEquals(exp.getNum(), act.getNum());
-        assertEquals(0, act.getTransientLong());
+        assertThat(act).isNotSameAs(exp);
+        assertThat(act.getNum()).isEqualTo(exp.getNum());
+        assertThat(act.getTransientLong()).isEqualTo(0);
     }
 }
 
@@ -39,12 +38,12 @@ class MyClass implements Serializable {
 
     private transient long transientLong = 2;
 
-    public void setNum(int num) {
-        this.num = num;
-    }
-
     public int getNum() {
         return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public long getTransientLong() {

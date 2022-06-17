@@ -9,13 +9,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Дополнение стандартной сериализации в методах writeObject() и ().
  */
-class WriteReadObject {
+class WriteReadObjectTest {
     @Test
     void standard() throws IOException, ClassNotFoundException {
         var exp = new ForSerialization();
@@ -31,9 +30,9 @@ class WriteReadObject {
         var ois = new ObjectInputStream(bis);
         var act = (ForSerialization) ois.readObject();
 
-        assertNotSame(exp, act);
-        assertEquals(exp.getNum(), act.getNum());
-        assertEquals(33, act.getTransientLong());
+        assertThat(act).isNotSameAs(exp);
+        assertThat(act.getNum()).isEqualTo(exp.getNum());
+        assertThat(act.getTransientLong()).isEqualTo(33);
     }
 }
 
@@ -51,12 +50,12 @@ class ForSerialization implements Serializable {
         transientLong = 33;
     }
 
-    public void setNum(int num) {
-        this.num = num;
-    }
-
     public int getNum() {
         return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public long getTransientLong() {

@@ -18,10 +18,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 
 class SchemaEvolutionTest {
     private static final String NAME_FIELD = "name";
@@ -67,7 +66,7 @@ class SchemaEvolutionTest {
                 AGE_FIELD, AGE_VALUE,
                 EMPLOYED_FIELD, EMPLOYED_VALUE_DEFAULT
         );
-        assertThat(person2Map, equalTo(expPerson2Map));
+        assertThat(person2Map).isEqualTo(expPerson2Map);
     }
 
     @Test
@@ -78,8 +77,9 @@ class SchemaEvolutionTest {
 
         var person1Bytes = writeRecordToBytes(person1);
 
-        var e = assertThrows(AvroTypeException.class, () -> bytesToMap(person1Bytes, schema3));
-        assertThat(e.getMessage(), equalTo("Found data.Person, expecting data.Person, missing required field gender"));
+        assertThatThrownBy(() -> bytesToMap(person1Bytes, schema3))
+                .isInstanceOf(AvroTypeException.class)
+                .hasMessage("Found data.Person, expecting data.Person, missing required field gender");
     }
 
     @Test
@@ -96,7 +96,7 @@ class SchemaEvolutionTest {
                 NAME_FIELD, NAME_VALUE,
                 AGE_FIELD, AGE_VALUE
         );
-        assertThat(person1Map, equalTo(expPerson1Map));
+        assertThat(person1Map).isEqualTo(expPerson1Map);
     }
 
     private HashMap<Object, Object> bytesToMap(byte[] bytes, Schema schema) {
@@ -105,7 +105,7 @@ class SchemaEvolutionTest {
             var datumReader = new GenericDatumReader<GenericRecord>(schema);
             var map = new HashMap<>();
             try (var stream = new DataFileStream<>(is, datumReader)) {
-                assertTrue(stream.hasNext());
+                assertThat(stream.hasNext()).isTrue();
                 var actRecord = new GenericData.Record(schema);
                 stream.next(actRecord);
                 for (var field : actRecord.getSchema().getFields()) {

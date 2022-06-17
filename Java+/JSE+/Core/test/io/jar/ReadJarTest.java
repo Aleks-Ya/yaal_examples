@@ -13,8 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.jar.JarFile;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasEntry;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ReadJarTest {
 
@@ -36,8 +35,8 @@ class ReadJarTest {
                 fileNameToLinesMap.put(entry.getName(), lines);
             }
         }
-        assertThat(fileNameToLinesMap, hasEntry("cities.txt", Arrays.asList("Moscow", "SPb")));
-        assertThat(fileNameToLinesMap, hasEntry("names.txt", Arrays.asList("John", "Mary")));
-
+        assertThat(fileNameToLinesMap)
+                .containsEntry("cities.txt", Arrays.asList("Moscow", "SPb"))
+                .containsEntry("names.txt", Arrays.asList("John", "Mary"));
     }
 }

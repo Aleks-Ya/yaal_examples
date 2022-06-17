@@ -11,13 +11,12 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Сериализация и десириализация коллекций.
  */
-class ListSerialization {
+class ListSerializationTest {
     @Test
     void standard() throws IOException, ClassNotFoundException {
         var exp = Arrays.asList(new MyClass(11), new MyClass(12));
@@ -25,8 +24,8 @@ class ListSerialization {
         var out = write(exp);
         var act = (List<MyClass>) read(out);
 
-        assertNotSame(exp, act);
-        assertEquals(exp, act);
+        assertThat(act).isNotSameAs(exp);
+        assertThat(act).isEqualTo(exp);
     }
 
     private Object read(ByteArrayOutputStream out) throws IOException, ClassNotFoundException {
@@ -45,11 +44,11 @@ class ListSerialization {
 }
 
 class MyClass implements Serializable {
+    int num = 1;
+
     public MyClass(int num) {
         this.num = num;
     }
-
-    int num = 1;
 
     @Override
     public boolean equals(Object o) {

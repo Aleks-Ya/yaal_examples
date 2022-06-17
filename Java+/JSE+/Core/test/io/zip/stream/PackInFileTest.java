@@ -14,9 +14,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import static io.zip.ZipHelper.assertZipEntryEquals;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.aMapWithSize;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PackInFileTest {
     private static final String ROOT_ENTRY_NAME = "root.txt";
@@ -27,13 +25,6 @@ class PackInFileTest {
 
     private static final String FILE_2_ENTRY_NAME = "dir" + File.separator + "file2.txt";
     private static final String FILE_2_ENTRY_CONTENT = "dbe";
-
-    @Test
-    void pack() throws IOException {
-        var tempFile = File.createTempFile(getClass().getSimpleName(), ".zip");
-        writeZipFile(tempFile);
-        assertZipFile(tempFile);
-    }
 
     private static void writeZipFile(File tempFile) throws IOException {
         System.out.println("File: " + tempFile.getAbsolutePath());
@@ -57,10 +48,10 @@ class PackInFileTest {
                 contentMap.put(entry.getName(), new String(entryContent, 0, readBytes));
             }
 
-            assertThat(entryMap, aMapWithSize(3));
-            assertThat(contentMap, aMapWithSize(3));
+            assertThat(entryMap).hasSize(3);
+            assertThat(contentMap).hasSize(3);
 
-            assertThat(contentMap.get(ROOT_ENTRY_NAME), equalTo(ROOT_ENTRY_CONTENT));
+            assertThat(contentMap).containsEntry(ROOT_ENTRY_NAME, ROOT_ENTRY_CONTENT);
 
             var expRootEntry = new ZipEntry(ROOT_ENTRY_NAME);
             expRootEntry.setSize(ROOT_ENTRY_CONTENT.length());
@@ -75,5 +66,12 @@ class PackInFileTest {
         var entry = new ZipEntry(entryName);
         zos.putNextEntry(entry);
         zos.write(bytes);
+    }
+
+    @Test
+    void pack() throws IOException {
+        var tempFile = File.createTempFile(getClass().getSimpleName(), ".zip");
+        writeZipFile(tempFile);
+        assertZipFile(tempFile);
     }
 }

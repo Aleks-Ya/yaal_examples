@@ -1,5 +1,6 @@
 package net.url.connection.http;
 
+import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -9,13 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.closeTo;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.lessThan;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Read content from HttpURLConnection.
@@ -28,13 +23,13 @@ class ReadContentTest {
         conn.connect();
         var responseCode = conn.getResponseCode();
         var contentLength = conn.getContentLength();
-        assertThat(contentLength, greaterThan(0));
+        assertThat(contentLength).isGreaterThan(0);
         var bis = new BufferedReader(new InputStreamReader((conn.getInputStream())));
         var content = bis.lines().collect(Collectors.joining("\n"));
         conn.disconnect();
-        assertThat((double) content.length(), closeTo(contentLength, 1000D));
-        assertThat(content, containsString("</html>"));
+        assertThat((double) content.length()).isCloseTo(contentLength, Offset.offset(1000D));
+        assertThat(content).containsSubsequence("<html");
 
-        assertThat(responseCode, allOf(greaterThanOrEqualTo(200), lessThan(300)));
+        assertThat(responseCode).isGreaterThanOrEqualTo(200).isLessThan(300);
     }
 }
