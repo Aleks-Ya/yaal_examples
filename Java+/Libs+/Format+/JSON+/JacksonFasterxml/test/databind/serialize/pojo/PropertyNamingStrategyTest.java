@@ -22,10 +22,10 @@ import java.util.Map;
 
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 
-public class PropertyNamingStrategyTest {
+class PropertyNamingStrategyTest {
 
     @Test
-    public void test() throws IOException, ParseException {
+    void test() throws IOException, ParseException {
         var artist = makeArtist();
         var album = makeAlbum(artist);
         var mapper = initMapper();

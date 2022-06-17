@@ -3,7 +3,7 @@
  * The old one is Codehaus.
  */
 dependencies {
-    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion",
+    implementation jacksonDataBindDep,
             "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion", //for parsing dates of Java8
             "com.fasterxml.jackson.dataformat:jackson-dataformat-csv:$jacksonVersion" //for CSV support
 }

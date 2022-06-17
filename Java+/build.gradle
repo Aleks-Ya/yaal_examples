@@ -19,7 +19,8 @@ subprojects {
         jettyServlet10Dep = 'org.eclipse.jetty:jetty-servlet:10.0.0'
         jettyServlet11Dep = 'org.eclipse.jetty:jetty-servlet:11.0.0'
         servlet4Dep = 'javax.servlet:javax.servlet-api:4.0.1'
-        jacksonVersion = '2.12.3'
+        jacksonVersion = '2.13.3'
+        jacksonDataBindDep = "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         jsonUnitDep = 'net.javacrumbs.json-unit:json-unit:2.24.0'
         mockitoVersion = '4.2.0'
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
