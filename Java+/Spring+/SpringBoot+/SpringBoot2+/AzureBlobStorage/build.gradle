@@ -1,3 +1,4 @@
 dependencies {
     implementation "com.azure.spring:spring-cloud-azure-starter-storage-blob:4.2.0"
+    testImplementation testContainersDep, testContainersJunitDep
 }

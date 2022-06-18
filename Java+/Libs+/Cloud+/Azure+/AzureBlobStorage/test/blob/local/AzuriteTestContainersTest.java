@@ -30,7 +30,7 @@ class AzuriteTestContainersTest {
     private static final int PORT = 10000;
     @Container
     @SuppressWarnings("resource")
-    private final GenericContainer<?> azure =
+    private final GenericContainer<?> azurite =
             new GenericContainer<>("mcr.microsoft.com/azure-storage/azurite")
                     .withExposedPorts(PORT)
                     .withCommand("docker-entrypoint.sh azurite-blob --blobHost 0.0.0.0")
@@ -40,7 +40,7 @@ class AzuriteTestContainersTest {
 
     private BlobServiceClient initClient() {
         var credential = new StorageSharedKeyCredential(ACCOUNT_NAME, ACCOUNT_KEY);
-        var endpoint = String.format("http://%s:%s/%s", azure.getHost(), PORT, ACCOUNT_NAME);
+        var endpoint = String.format("http://%s:%s/%s", azurite.getHost(), PORT, ACCOUNT_NAME);
         return new BlobServiceClientBuilder().endpoint(endpoint).credential(credential).buildClient();
     }
 
