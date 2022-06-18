@@ -1,4 +1,4 @@
 dependencies {
-    implementation 'com.github.mizosoft.methanol:methanol:1.4.1' //MultipartBodyPublisher for HttpClient
+    implementation 'com.github.mizosoft.methanol:methanol:1.7.0' //MultipartBodyPublisher for HttpClient
     testImplementation mockWebServerDep
 }

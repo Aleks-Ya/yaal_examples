@@ -13,7 +13,7 @@ subprojects {
     ext {
         h2Dep = 'com.h2database:h2:1.4.200'
         slf4jSimpleDep = 'org.slf4j:slf4j-simple:1.8.0-beta4'
-        def okHttpVersion = '4.9.1'
+        def okHttpVersion = '4.10.0'
         okHttpDep = "com.squareup.okhttp3:okhttp:$okHttpVersion"
         mockWebServerDep = "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
         jettyServlet10Dep = 'org.eclipse.jetty:jetty-servlet:10.0.0'
