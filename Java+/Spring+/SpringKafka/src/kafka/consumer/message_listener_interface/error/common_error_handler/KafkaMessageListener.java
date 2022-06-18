@@ -20,7 +20,6 @@ class KafkaMessageListener implements MessageListener<String, Person> {
         var person = data.value();
         System.out.println("Received Message: " + person);
         if (person.id() == 2L) {
-//            skippedPersons.add(person);
             throw new IllegalArgumentException("Not allowed: " + person);
         }
         persons.add(person);

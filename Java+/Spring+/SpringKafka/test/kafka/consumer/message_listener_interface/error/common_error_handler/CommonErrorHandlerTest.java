@@ -26,8 +26,8 @@ import static org.awaitility.Awaitility.await;
 
 @ExtendWith(SpringExtension.class)
 @EmbeddedKafka
-@ContextConfiguration(classes = {CommonErrorHandlerTest.class, KafkaMessageListener.class, KafkaConsumerConfig.class})
-@TestPropertySource(properties = "topic=topic1")
+@ContextConfiguration(classes = {KafkaMessageListener.class, KafkaConsumerConfig.class})
+@TestPropertySource(properties = {"topic=topic1", "kafka.bootstrapAddress=${spring.embedded.kafka.brokers}"})
 class CommonErrorHandlerTest {
 
     @Autowired
@@ -56,17 +56,6 @@ class CommonErrorHandlerTest {
 
         await().timeout(15, TimeUnit.SECONDS).untilAsserted(() -> assertThat(consumer.getPersons()).contains(
                 new Person(1L, "John"), new Person(3L, "Jack")));
-    }
-
-    @Bean
-    @Primary
-    ConsumerProperties consumerPropertiesTest() {
-        return new ConsumerProperties(Map.of(
-                ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, broker.getBrokersAsString(),
-                ConsumerConfig.GROUP_ID_CONFIG, "groupTest",
-                ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest",
-                ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
-                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class));
     }
 }
 

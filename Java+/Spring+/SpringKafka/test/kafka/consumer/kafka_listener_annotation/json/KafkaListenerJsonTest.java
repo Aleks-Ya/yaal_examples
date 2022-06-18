@@ -1,13 +1,9 @@
 package kafka.consumer.kafka_listener_annotation.json;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.common.serialization.StringDeserializer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
@@ -17,7 +13,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,9 +20,8 @@ import static org.awaitility.Awaitility.await;
 
 @ExtendWith(SpringExtension.class)
 @EmbeddedKafka
-@ContextConfiguration(classes = {KafkaListenerJsonTest.class, KafkaListenerConsumer.class, KafkaConsumerConfig.class,
-        ConsumerPropertiesConfig.class})
-@TestPropertySource(properties = "topic=topic1")
+@ContextConfiguration(classes = {KafkaListenerConsumer.class, KafkaConsumerConfig.class})
+@TestPropertySource(properties = {"topic=topic1", "kafka.bootstrapAddress=${spring.embedded.kafka.brokers}"})
 class KafkaListenerJsonTest {
 
     @Autowired
@@ -46,8 +40,7 @@ class KafkaListenerJsonTest {
                 {"id": 2, "name": "Mary"}
                 """;
 
-        var producerProps = KafkaTestUtils.producerProps(broker);
-        var pf = new DefaultKafkaProducerFactory<Integer, String>(producerProps);
+        var pf = new DefaultKafkaProducerFactory<Integer, String>(KafkaTestUtils.producerProps(broker));
         var template = new KafkaTemplate<>(pf);
         template.send(topic, value1);
         template.send(topic, value2);
@@ -57,15 +50,5 @@ class KafkaListenerJsonTest {
                         .contains(new Person(1L, "John"), new Person(2L, "Mary")));
     }
 
-    @Bean
-    @Primary
-    ConsumerProperties consumerPropertiesTest() {
-        return new ConsumerProperties(Map.of(
-                ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, broker.getBrokersAsString(),
-                ConsumerConfig.GROUP_ID_CONFIG, "groupTest",
-                ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest",
-                ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
-                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class));
-    }
 }
 

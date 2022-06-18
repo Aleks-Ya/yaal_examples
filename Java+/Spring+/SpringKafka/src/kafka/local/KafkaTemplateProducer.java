@@ -16,7 +16,6 @@ class KafkaTemplateProducer {
     public KafkaTemplateProducer(KafkaTemplate<String, String> kafkaTemplate, @Value("${topic}") String topic) {
         this.kafkaTemplate = kafkaTemplate;
         this.topic = topic;
-        System.out.println("KafkaTemplateProducer topic: " + topic);
     }
 
     public void sendMessage(String message) {

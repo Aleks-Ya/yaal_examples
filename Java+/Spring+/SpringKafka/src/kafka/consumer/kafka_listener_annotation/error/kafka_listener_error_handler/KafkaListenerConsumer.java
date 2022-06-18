@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import static kafka.consumer.kafka_listener_annotation.error.kafka_listener_error_handler.ConsumerPropertiesConfig.ERROR_HANDLER_BEAN_NAME;
+import static kafka.consumer.kafka_listener_annotation.error.kafka_listener_error_handler.KafkaConsumerConfig.ERROR_HANDLER_BEAN_NAME;
 
 @Component
 class KafkaListenerConsumer {

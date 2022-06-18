@@ -1,5 +1,6 @@
 package kafka.consumer.message_listener_interface.error.common_error_handler;
 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -14,20 +15,24 @@ import org.springframework.kafka.listener.MessageListener;
 import org.springframework.kafka.listener.MessageListenerContainer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
+import java.util.Map;
+
 @EnableKafka
 @Configuration
 class KafkaConsumerConfig {
-    private final ConsumerProperties consumerProperties;
+    @Value("${kafka.bootstrapAddress}")
+    private String bootstrapAddress;
     @Value("${topic}")
     private String topic;
 
-    KafkaConsumerConfig(ConsumerProperties consumerProperties) {
-        this.consumerProperties = consumerProperties;
-    }
-
     @Bean
     ConsumerFactory<String, Person> consumerFactory() {
-        return new DefaultKafkaConsumerFactory<>(consumerProperties.consumerProperties(),
+        return new DefaultKafkaConsumerFactory<>(Map.of(
+                ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress,
+                ConsumerConfig.GROUP_ID_CONFIG, "groupTest",
+                ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest",
+                ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
+                ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class),
                 new StringDeserializer(), new JsonDeserializer<>(Person.class));
     }
 

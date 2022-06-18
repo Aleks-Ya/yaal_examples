@@ -14,11 +14,8 @@ import java.util.Map;
 @Configuration
 class KafkaProducerConfig {
 
-    private final String bootstrapAddress;
-
-    KafkaProducerConfig(@Value("${kafka.bootstrapAddress}") String bootstrapAddress) {
-        this.bootstrapAddress = bootstrapAddress;
-    }
+    @Value("${kafka.bootstrapAddress}")
+    private String bootstrapAddress;
 
     @Bean
     ProducerFactory<String, String> producerFactory() {
