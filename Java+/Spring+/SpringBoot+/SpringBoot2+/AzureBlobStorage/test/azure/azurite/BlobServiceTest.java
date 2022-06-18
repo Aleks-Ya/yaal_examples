@@ -28,7 +28,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE;
 
 @SpringBootTest(webEnvironment = NONE)
-@SpringBootConfiguration
 @EnableAutoConfiguration
 @ContextConfiguration(classes = {BlobServiceImpl.class, BlobServiceConfig.class})
 @TestPropertySource(properties = {

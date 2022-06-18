@@ -17,9 +17,16 @@ class MethodChainTest {
     }
 
     @Test
-    void method() {
+    void instanceMethod() {
         var exp = parser.parseExpression("new String('hello world').toUpperCase()");
         var value = (String) exp.getValue();
         assertThat(value).isEqualTo("HELLO WORLD");
+    }
+
+    @Test
+    void staticMethod() {
+        var exp = parser.parseExpression("T(java.util.UUID).randomUUID().toString()");
+        var value = (String) exp.getValue();
+        assertThat(value).hasSize(36);
     }
 }
