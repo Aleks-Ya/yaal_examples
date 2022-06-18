@@ -1,4 +1,4 @@
-package kafka.consumer.message_listener_interface.error.error_handler_deserializer;
+package kafka.consumer.message_listener_interface.error.common_error_handler;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.listener.MessageListener;
@@ -17,7 +17,12 @@ class KafkaMessageListener implements MessageListener<String, Person> {
 
     @Override
     public void onMessage(ConsumerRecord<String, Person> data) {
-        System.out.println("Received Message: " + data.value());
-        persons.add(data.value());
+        var person = data.value();
+        System.out.println("Received Message: " + person);
+        if (person.id() == 2L) {
+//            skippedPersons.add(person);
+            throw new IllegalArgumentException("Not allowed: " + person);
+        }
+        persons.add(person);
     }
 }

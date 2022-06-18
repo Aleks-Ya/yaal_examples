@@ -1,4 +1,4 @@
-package kafka.consumer.message_listener_interface.error.error_handler_deserializer;
+package kafka.consumer.message_listener_interface.error.error_handler_deserializer.value_function;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -24,12 +24,16 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
+/**
+ * Use ErrorHandlingDeserializer.VALUE_FUNCTION property to replace a bad Kafka record.
+ * Docs: https://docs.spring.io/spring-kafka/docs/current/reference/html/#error-handling-deserializer
+ */
 @ExtendWith(SpringExtension.class)
 @EmbeddedKafka
-@ContextConfiguration(classes = {ErrorHandlingDeserializerTest.class, KafkaMessageListener.class,
+@ContextConfiguration(classes = {ValueFunctionTest.class, KafkaMessageListener.class,
         KafkaConsumerConfig.class})
 @TestPropertySource(properties = "topic=topic1")
-class ErrorHandlingDeserializerTest {
+class ValueFunctionTest {
 
     @Autowired
     private KafkaMessageListener consumer;
@@ -55,9 +59,9 @@ class ErrorHandlingDeserializerTest {
         template.send(topic, value2Bad);
         template.send(topic, value3Good);
 
-        await().timeout(15, TimeUnit.SECONDS)
-                .untilAsserted(() -> assertThat(consumer.getPersons())
-                        .containsExactlyInAnyOrder(new Person(1L, "John"), new Person(3L, "Mary")));
+        await().timeout(15, TimeUnit.SECONDS).untilAsserted(() -> assertThat(consumer.getPersons())
+                .containsExactlyInAnyOrder(new Person(1L, "John"),
+                        new Person(0L, "Dow"), new Person(3L, "Mary")));
     }
 
     @Bean
@@ -69,7 +73,8 @@ class ErrorHandlingDeserializerTest {
                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class,
                 ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class,
                 ErrorHandlingDeserializer.KEY_DESERIALIZER_CLASS, StringDeserializer.class,
-                ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class
+                ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class,
+                ErrorHandlingDeserializer.VALUE_FUNCTION, KafkaConsumerConfig.FailedProvider.class
         ));
     }
 }

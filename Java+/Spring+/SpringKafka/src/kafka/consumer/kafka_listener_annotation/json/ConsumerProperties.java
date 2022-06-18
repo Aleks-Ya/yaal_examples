@@ -1,4 +1,4 @@
-package kafka.consumer.message_listener_interface.error.error_handler_deserializer;
+package kafka.consumer.kafka_listener_annotation.json;
 
 import java.util.Map;
 

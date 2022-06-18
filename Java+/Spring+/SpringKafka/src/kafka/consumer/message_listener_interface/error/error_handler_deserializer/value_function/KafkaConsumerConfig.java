@@ -1,4 +1,4 @@
-package kafka.consumer.message_listener_interface.error.error_handler_deserializer;
+package kafka.consumer.message_listener_interface.error.error_handler_deserializer.value_function;
 
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +12,10 @@ import org.springframework.kafka.listener.KafkaMessageListenerContainer;
 import org.springframework.kafka.listener.MessageListener;
 import org.springframework.kafka.listener.MessageListenerContainer;
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
+import org.springframework.kafka.support.serializer.FailedDeserializationInfo;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
+
+import java.util.function.Function;
 
 @EnableKafka
 @Configuration
@@ -39,26 +42,11 @@ class KafkaConsumerConfig {
         return new KafkaMessageListenerContainer<>(consumerFactory(), containerProperties);
     }
 
-//    @Bean
-//    public JsonMessageConverter jsonMessageConverter() {
-//        return new ByteArrayJsonMessageConverter();
-//    }
+    public static class FailedProvider implements Function<FailedDeserializationInfo, Person> {
+        @Override
+        public Person apply(FailedDeserializationInfo info) {
+            return new Person(0L, "Dow");
+        }
+    }
 
-//    @Bean
-//    public CommonLoggingErrorHandler errorHandler() {
-//        return new CommonLoggingErrorHandler();
-//    }
-
-//    @Bean
-//    public ConsumerAwareListenerErrorHandler listen3ErrorHandler() {
-//        return (m, e, c) -> {
-////            this.listen3Exception = e;
-//            MessageHeaders headers = m.getHeaders();
-//            c.seek(new org.apache.kafka.common.TopicPartition(
-//                            headers.get(KafkaHeaders.RECEIVED_TOPIC, String.class),
-//                            headers.get(KafkaHeaders.RECEIVED_PARTITION_ID, Integer.class)),
-//                    headers.get(KafkaHeaders.OFFSET, Long.class));
-//            return null;
-//        };
-//    }
 }
