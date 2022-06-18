@@ -1,5 +1,9 @@
 # kafka-consumer-groups CLI
 
+## Info
+Help: `kafka-consumer-groups.sh --help`
+Version: `kafka-consumer-groups.sh --bootstrap-server abc --version`
+
 ## Display all consumer groups
 `kafka-consumer-groups --bootstrap-server=localhost:9092 --list`
 

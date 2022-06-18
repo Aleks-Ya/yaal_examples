@@ -12,7 +12,7 @@ Content of `offset.json`:
         {
             "topic": "foo",
             "partition": 0,
-            "offset": 0
+            "offset": -1
         }
     ],
     "version": 1

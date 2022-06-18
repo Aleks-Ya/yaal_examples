@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Source: http://www.sauronsoftware.it/projects/cron4j/manual.php
  */
-public class QuickStartTest {
+class QuickStartTest {
 
     @Test
-    public void test() throws InterruptedException {
-        Scheduler s = new Scheduler();
+    void test() throws InterruptedException {
+        var s = new Scheduler();
         // Schedule a once-a-minute task.
         s.schedule("* * * * *", () -> System.out.println("Another minute ticked away..."));
         s.start();

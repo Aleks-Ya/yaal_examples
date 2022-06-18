@@ -1,24 +1,21 @@
 package cron;
 
-import com.cronutils.model.Cron;
-import com.cronutils.model.definition.CronDefinition;
 import com.cronutils.model.definition.CronDefinitionBuilder;
 import com.cronutils.parser.CronParser;
 import org.junit.jupiter.api.Test;
 
 import static com.cronutils.model.CronType.QUARTZ;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ParseTest {
+class ParseTest {
 
     @Test
-    public void parse() {
-        CronDefinition cronDefinition = CronDefinitionBuilder.instanceDefinitionFor(QUARTZ);
-        CronParser parser = new CronParser(cronDefinition);
-        String expCron = "0 23 * ? * 1-5 *";
-        Cron quartzCron = parser.parse(expCron);
-        String actCron = quartzCron.asString();
-        assertThat(actCron, equalTo(expCron));
+    void parse() {
+        var cronDefinition = CronDefinitionBuilder.instanceDefinitionFor(QUARTZ);
+        var parser = new CronParser(cronDefinition);
+        var expCron = "0 23 * ? * 1-5 *";
+        var quartzCron = parser.parse(expCron);
+        var actCron = quartzCron.asString();
+        assertThat(actCron).isEqualTo(expCron);
     }
 }

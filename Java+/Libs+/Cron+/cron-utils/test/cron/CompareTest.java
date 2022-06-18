@@ -1,25 +1,22 @@
 package cron;
 
-import com.cronutils.model.Cron;
-import com.cronutils.model.definition.CronDefinition;
 import com.cronutils.model.definition.CronDefinitionBuilder;
 import com.cronutils.parser.CronParser;
 import org.junit.jupiter.api.Test;
 
 import static com.cronutils.model.CronType.QUARTZ;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class CompareTest {
+class CompareTest {
 
     @Test
-    public void parse() {
-        CronDefinition cronDefinition = CronDefinitionBuilder.instanceDefinitionFor(QUARTZ);
-        CronParser parser = new CronParser(cronDefinition);
-        String expCron = "0 23 * ? * 1-5 *";
-        Cron cron1 = parser.parse(expCron);
-        Cron cron2 = parser.parse(expCron);
-        assertTrue(cron1.equivalent(cron2));
-        assertNotEquals(cron1, cron2);
+    void parse() {
+        var cronDefinition = CronDefinitionBuilder.instanceDefinitionFor(QUARTZ);
+        var parser = new CronParser(cronDefinition);
+        var expCron = "0 23 * ? * 1-5 *";
+        var cron1 = parser.parse(expCron);
+        var cron2 = parser.parse(expCron);
+        assertThat(cron1.equivalent(cron2)).isTrue();
+        assertThat(cron1).isNotEqualTo(cron2);
     }
 }
