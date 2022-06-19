@@ -1,3 +1,5 @@
+package quartz;
+
 import org.junit.jupiter.api.Test;
 import org.quartz.Job;
 import org.quartz.JobBuilder;
