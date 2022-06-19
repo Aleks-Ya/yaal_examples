@@ -15,10 +15,10 @@ import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 /**
  * Serialize a field to JSON by a custom serializer.
  */
-public class CustomFieldSerializerTest {
+class CustomFieldSerializerTest {
 
     @Test
-    public void test() throws IOException {
+    void test() throws IOException {
         var artist = new Artist();
         artist.name = "John";
 

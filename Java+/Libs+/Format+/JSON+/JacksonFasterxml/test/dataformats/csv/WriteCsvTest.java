@@ -7,10 +7,9 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.Objects;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
+import static org.assertj.core.api.Assertions.assertThat;
 
-class WriteCsv {
+class WriteCsvTest {
 
     @Test
     void writePojo() throws IOException {
@@ -23,7 +22,7 @@ class WriteCsv {
 
         MappingIterator<PersonPojo> it = mapper.readerFor(PersonPojo.class).with(schema).readValues(csv);
         var all = it.readAll();
-        assertThat(all, contains(expValue));
+        assertThat(all).contains(expValue);
     }
 
     @SuppressWarnings("unused")

@@ -7,37 +7,37 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Polymorphic Deserialization
  */
-public class SubtypeResolverTest {
+class SubtypeResolverTest {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void parent() throws IOException {
+    void parent() throws IOException {
         var expParent = new Parent();
         expParent.setName("my name");
         var parentJson = mapper.writeValueAsString(expParent);
         assertJsonEquals("{name:'my name'}", parentJson);
         var actParent = mapper.readValue(parentJson, Parent.class);
-        assertEquals(expParent, actParent);
+        assertThat(actParent).isEqualTo(expParent);
     }
 
     @Test
-    public void child() throws IOException {
+    void child() throws IOException {
         var expChild = new Child();
         expChild.setName("my name");
         expChild.setNumber(1);
         var childJson = mapper.writeValueAsString(expChild);
         assertJsonEquals("{name:'my name', number:1}", childJson);
         var actChild = mapper.readValue(childJson, Child.class);
-        assertEquals(expChild, actChild);
+        assertThat(actChild).isEqualTo(expChild);
     }
 
     @Test
-    public void defaultTyping() throws IOException {
+    void defaultTyping() throws IOException {
         var ptv = BasicPolymorphicTypeValidator.builder()
                 .allowIfBaseType(Parent.class)
                 .build();
@@ -50,7 +50,7 @@ public class SubtypeResolverTest {
         var expJson = "['databind.deserialize.subtype_resolver.SubtypeResolverTest$Child',{name:'my name',number:1}]";
         assertJsonEquals(expJson, childJson);
         var actChild = mapper.readValue(childJson, Parent.class);
-        assertEquals(expChild, actChild);
+        assertThat(actChild).isEqualTo(expChild);
     }
 
     private static class Parent {

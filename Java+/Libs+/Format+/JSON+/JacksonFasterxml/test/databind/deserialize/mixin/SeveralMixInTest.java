@@ -7,26 +7,24 @@ import util.JsonUtil;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.nullValue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Use several mix-ins for different deserialization.
  */
-public class SeveralMixInTest {
+class SeveralMixInTest {
 
     @Test
-    public void deserialize() throws IOException {
+    void deserialize() throws IOException {
         var json = JsonUtil.singleQuoteToDouble("{'city': 'SPb', 'state': 'Leningrad'}");
 
         var fullAddress = AddressDeserializer.deserializeFull(json);
-        assertThat(fullAddress.city, equalTo("SPb"));
-        assertThat(fullAddress.state, equalTo("Leningrad"));
+        assertThat(fullAddress.city).isEqualTo("SPb");
+        assertThat(fullAddress.state).isEqualTo("Leningrad");
 
         var emptyAddress = AddressDeserializer.deserializeEmpty(json);
-        assertThat(emptyAddress.city, nullValue());
-        assertThat(emptyAddress.state, nullValue());
+        assertThat(emptyAddress.city).isNull();
+        assertThat(emptyAddress.state).isNull();
     }
 
     private static class AddressDeserializer {

@@ -14,19 +14,16 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.not;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Use @JsonFilter to skip field from serialization.<br/>
  * Source: http://www.baeldung.com/jackson-serialize-field-custom-criteria
  */
-public class PropertyFilterCustomCriteriaTest {
+class PropertyFilterCustomCriteriaTest {
 
     @Test
-    public void at() throws IOException {
-
+    void at() throws IOException {
         PropertyFilter theFilter = new SimpleBeanPropertyFilter() {
             @Override
             public void serializeAsField(
@@ -68,7 +65,7 @@ public class PropertyFilterCustomCriteriaTest {
 
         var mapper = new ObjectMapper();
         var dtoAsString = mapper.writer(filters).writeValueAsString(dtoObject);
-        assertThat(dtoAsString, not(containsString("intValue")));
+        assertThat(dtoAsString).doesNotContain("intValue");
     }
 
     @JsonFilter("myFilter")

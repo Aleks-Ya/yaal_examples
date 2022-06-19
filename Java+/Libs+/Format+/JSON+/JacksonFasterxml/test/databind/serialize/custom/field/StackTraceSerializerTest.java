@@ -14,29 +14,28 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Custom serialization a StackTraceElement[] to JSON.
  */
-public class StackTraceSerializerTest {
+class StackTraceSerializerTest {
     private final StringWriter writer = new StringWriter();
     private final ObjectMapper mapper = new ObjectMapper();
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         var module = new SimpleModule();
         module.addSerializer(StackTraceElement[].class, new StackTraceSerializer());
         mapper.registerModule(module);
     }
 
     @Test
-    public void stackIsFieldInPojo() throws IOException {
+    void stackIsFieldInPojo() throws IOException {
         var cause = new RuntimeException("cause message");
         cause.setStackTrace(new StackTraceElement[0]);
 
-        StackTraceElement[] stackTrace = {
+        var stackTrace = new StackTraceElement[]{
                 new StackTraceElement("my.Class", "getName", "file", 1),
                 new StackTraceElement("my.Class2", "getAge", "file2", 3)
         };
@@ -60,8 +59,8 @@ public class StackTraceSerializerTest {
     }
 
     @Test
-    public void stackIsObject() throws IOException {
-        StackTraceElement[] stackTrace = {
+    void stackIsObject() throws IOException {
+        var stackTrace = new StackTraceElement[]{
                 new StackTraceElement("my.Class", "getName", "file", 1),
                 new StackTraceElement("my.Class2", "getAge", "file2", 3)
         };
@@ -77,15 +76,15 @@ public class StackTraceSerializerTest {
     }
 
     @Test
-    public void stackIsEmptyArray() throws IOException {
+    void stackIsEmptyArray() throws IOException {
         mapper.writeValue(writer, new StackTraceElement[0]);
-        assertThat(writer.toString(), equalTo("\"\""));
+        assertThat(writer).hasToString("\"\"");
     }
 
     @Test
-    public void stackIsNull() throws IOException {
+    void stackIsNull() throws IOException {
         mapper.writeValue(writer, null);
-        assertThat(writer.toString(), equalTo("null"));
+        assertThat(writer).hasToString("null");
     }
 
     private static class StackTraceSerializer extends StdScalarSerializer<StackTraceElement[]> {

@@ -15,10 +15,10 @@ import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 /**
  * Use @JsonFilter to skip field from serialization.
  */
-public class PropertyFilterTest {
+class PropertyFilterTest {
 
     @Test
-    public void filter() throws IOException {
+    void filter() throws IOException {
         var city = new City();
         city.name = "SPb";
         city.population = 100;

@@ -18,14 +18,14 @@ import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 /**
  * Custom serialization a Throwable field to JSON.
  */
-public class ThrowableSerializerTest {
+class ThrowableSerializerTest {
 
     @Test
-    public void test() throws IOException {
+    void test() throws IOException {
         var cause = new RuntimeException("cause message");
         cause.setStackTrace(new StackTraceElement[0]);
 
-        StackTraceElement[] stackTrace = {
+        var stackTrace = new StackTraceElement[]{
                 new StackTraceElement("my.Class", "getName", "file", 1),
                 new StackTraceElement("my.Class2", "getAge", "file2", 3)
         };

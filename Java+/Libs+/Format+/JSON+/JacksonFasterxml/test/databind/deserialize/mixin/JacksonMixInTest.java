@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Source: https://dzone.com/articles/jackson-mixin-to-the-rescue
  */
-public class JacksonMixInTest {
+class JacksonMixInTest {
 
     private static ObjectMapper buildMapper() {
         var mapper = new ObjectMapper();
@@ -26,7 +26,7 @@ public class JacksonMixInTest {
     }
 
     @Test
-    public void deserialize() throws IOException {
+    void deserialize() throws IOException {
         var json = JsonUtil.singleQuoteToDouble("{'city': 'SPb', 'state': 'Leningrad'}");
         System.out.println(json);
         var mapper = buildMapper();

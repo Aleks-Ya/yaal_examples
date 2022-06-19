@@ -8,17 +8,15 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.arrayContainingInAnyOrder;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Deserialize a JSON array (that has field name) to Java Array, List, Set.
  */
-public class DeserializeArrayWithFieldNameTest {
+class DeserializeArrayWithFieldNameTest {
 
     @Test
-    public void deserialize() throws IOException {
+    void deserialize() throws IOException {
         var json = JsonUtil.singleQuoteToDouble("{" +
                 "'list': ['aleks', 'john'], " +
                 "'set': ['spb', 'ny']," +
@@ -26,9 +24,9 @@ public class DeserializeArrayWithFieldNameTest {
                 "}");
         var mapper = new ObjectMapper();
         var names = mapper.readValue(json, Names.class);
-        assertThat(names.list, containsInAnyOrder("aleks", "john"));
-        assertThat(names.set, containsInAnyOrder("spb", "ny"));
-        assertThat(names.array, arrayContainingInAnyOrder("russia", "usa"));
+        assertThat(names.list).containsExactlyInAnyOrder("aleks", "john");
+        assertThat(names.set).containsExactlyInAnyOrder("spb", "ny");
+        assertThat(names.array).containsExactlyInAnyOrder("russia", "usa");
     }
 
     @SuppressWarnings("WeakerAccess")

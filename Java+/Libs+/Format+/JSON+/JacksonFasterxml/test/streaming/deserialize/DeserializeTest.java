@@ -8,12 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class DeserializeTest {
+class DeserializeTest {
 
     @Test
-    public void parse() throws IOException {
+    void parse() throws IOException {
         var json = "{\"name\":\"Tom\",\"age\":25,\"address\":[\"Poland\",\"5th avenue\"]}";
         var factory = new JsonFactory();
         var parser = factory.createParser(json);
@@ -43,9 +43,9 @@ public class DeserializeTest {
         }
         parser.close();
 
-        assertEquals(parsedName, "Tom");
-        assertEquals(parsedAge, (Integer) 25);
-        assertEquals(addresses, List.of("Poland", "5th avenue"));
+        assertThat(parsedName).isEqualTo("Tom");
+        assertThat(parsedAge).isEqualTo((Integer) 25);
+        assertThat(addresses).isEqualTo(List.of("Poland", "5th avenue"));
     }
 
 }

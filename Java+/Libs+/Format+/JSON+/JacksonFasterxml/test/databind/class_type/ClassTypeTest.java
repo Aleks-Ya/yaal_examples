@@ -5,17 +5,17 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Instantiate {@link com.fasterxml.jackson.databind.JavaType}.
  */
-public class ClassTypeTest {
+class ClassTypeTest {
 
     @Test
-    public void stringList() {
+    void stringList() {
         var type = TypeFactory.defaultInstance().constructCollectionType(List.class, String.class);
-        assertNotNull(type);
+        assertThat(type).isNotNull();
     }
 
 }

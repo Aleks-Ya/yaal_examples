@@ -8,12 +8,12 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class DeserializeArrayTest {
+class DeserializeArrayTest {
 
     @Test
-    public void parse() throws IOException {
+    void parse() throws IOException {
         var json = "[" +
                 "{\"name\":\"Tom\"}," +
                 "{\"name\":\"John\"}" +
@@ -30,7 +30,7 @@ public class DeserializeArrayTest {
             sb.append(name);
         }
 
-        assertEquals(sb.toString(), "TomJohn");
+        assertThat(sb).hasToString("TomJohn");
     }
 
 }

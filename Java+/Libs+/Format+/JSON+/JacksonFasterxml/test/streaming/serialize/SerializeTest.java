@@ -10,10 +10,10 @@ import java.io.OutputStream;
 
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 
-public class SerializeTest {
+class SerializeTest {
 
     @Test
-    public void array() throws IOException {
+    void array() throws IOException {
         OutputStream out = new ByteArrayOutputStream();
         var jsonFactory = new JsonFactory();
         var jg = jsonFactory.createGenerator(out, JsonEncoding.UTF8);

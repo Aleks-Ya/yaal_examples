@@ -9,17 +9,16 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Deserialize Java 8 dates.
  */
-public class DeserializeDateTest {
+class DeserializeDateTest {
     private static final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     @Test
-    public void dates() throws IOException {
+    void dates() throws IOException {
         var json = JsonUtil.singleQuoteToDouble("{" +
                 "'localDate': '2017-01-15'," +
                 "'localDateTime': '2007-12-03T10:15:30'" +
@@ -27,8 +26,8 @@ public class DeserializeDateTest {
 
         var names = mapper.readValue(json, Dates.class);
 
-        assertThat(names.localDate, equalTo(LocalDate.of(2017, 1, 15)));
-        assertThat(names.localDateTime, equalTo(LocalDateTime.of(2007, 12, 3, 10, 15, 30)));
+        assertThat(names.localDate).isEqualTo(LocalDate.of(2017, 1, 15));
+        assertThat(names.localDateTime).isEqualTo(LocalDateTime.of(2007, 12, 3, 10, 15, 30));
     }
 
     @SuppressWarnings("WeakerAccess")

@@ -7,23 +7,21 @@ import util.JsonUtil;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.nullValue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Mix-In class is an interface.
  */
-public class InterfaceMixInTest {
+class InterfaceMixInTest {
 
     @Test
-    public void deserialize() throws IOException {
+    void deserialize() throws IOException {
         var json = JsonUtil.singleQuoteToDouble("{'city': 'SPb', 'state': 'Leningrad'}");
         var mapper = new ObjectMapper();
-        assertThat(json, containsString("state"));
+        assertThat(json).containsSubsequence("state");
         mapper.addMixIn(Address.class, AddressMixin.class);
         var deserializedUser = mapper.readValue(json, Address.class);
-        assertThat(deserializedUser.state, nullValue());
+        assertThat(deserializedUser.state).isNull();
     }
 
     @SuppressWarnings("unused")

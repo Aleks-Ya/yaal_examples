@@ -12,10 +12,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
-public class CsvToJsonTest {
+class CsvToJsonTest {
 
     @Test
-    public void csvToJson() throws IOException {
+    void csvToJson() throws IOException {
         var csv = "name,age\nJohn,30\nMary,25\n";
         var csvSchema = CsvSchema.emptySchema().withHeader();
         var csvMapper = new CsvMapper();

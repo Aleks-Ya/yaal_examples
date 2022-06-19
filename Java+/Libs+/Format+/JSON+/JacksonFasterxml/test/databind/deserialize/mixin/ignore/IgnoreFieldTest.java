@@ -7,23 +7,21 @@ import util.JsonUtil;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.nullValue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Source: https://dzone.com/articles/jackson-mixin-to-the-rescue
  */
-public class IgnoreFieldTest {
+class IgnoreFieldTest {
 
     @Test
-    public void deserialize() throws IOException {
+    void deserialize() throws IOException {
         var fullJson = JsonUtil.singleQuoteToDouble("{'city': 'SPb', 'state': 'Leningrad'}");
         var mapper = new ObjectMapper();
-        assertThat(fullJson, containsString("state"));
+        assertThat(fullJson).containsSubsequence("state");
         mapper.addMixIn(Address.class, AddressMixin.class);
         var deserializedUser = mapper.readValue(fullJson, Address.class);
-        assertThat(deserializedUser.state, nullValue());
+        assertThat(deserializedUser.state).isNull();
     }
 
     @SuppressWarnings("WeakerAccess")

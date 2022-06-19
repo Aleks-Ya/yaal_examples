@@ -7,13 +7,12 @@ import util.ResourceUtil;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Using Data Bind for parsing specific Nodes in Tree Model.
  */
-public class TreeModelAndDataBindTest {
+class TreeModelAndDataBindTest {
     private static final String JSON = ResourceUtil.resourceToString(TreeModelAndDataBindTest.class, "TreeModelAndDataBindTest.json");
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final String EXP_HEAD_NAME = "John Smith";
@@ -23,29 +22,29 @@ public class TreeModelAndDataBindTest {
     private static final String HEAD_FIELD = "head";
 
     @Test
-    public void treeToValue() throws IOException {
+    void treeToValue() throws IOException {
         var rootNode = (ObjectNode) MAPPER.readTree(JSON);
         var company = rootNode.get(COMPANY_FIELD).textValue();
-        assertThat(company, equalTo(EXP_COMPANY));
+        assertThat(company).isEqualTo(EXP_COMPANY);
 
         var headNode = rootNode.get(HEAD_FIELD);
         var head = MAPPER.treeToValue(headNode, Head.class);
 
-        assertThat(head.name, equalTo(EXP_HEAD_NAME));
-        assertThat(head.title, equalTo(EXP_HEAD_TITLE));
+        assertThat(head.name).isEqualTo(EXP_HEAD_NAME);
+        assertThat(head.title).isEqualTo(EXP_HEAD_TITLE);
     }
 
     @Test
-    public void convertValue() throws IOException {
+    void convertValue() throws IOException {
         var rootNode = (ObjectNode) MAPPER.readTree(JSON);
         var company = rootNode.get(COMPANY_FIELD).textValue();
-        assertThat(company, equalTo(EXP_COMPANY));
+        assertThat(company).isEqualTo(EXP_COMPANY);
 
         var headNode = rootNode.get(HEAD_FIELD);
         var head = MAPPER.convertValue(headNode, Head.class);
 
-        assertThat(head.name, equalTo(EXP_HEAD_NAME));
-        assertThat(head.title, equalTo(EXP_HEAD_TITLE));
+        assertThat(head.name).isEqualTo(EXP_HEAD_NAME);
+        assertThat(head.title).isEqualTo(EXP_HEAD_TITLE);
     }
 
     @SuppressWarnings("WeakerAccess")

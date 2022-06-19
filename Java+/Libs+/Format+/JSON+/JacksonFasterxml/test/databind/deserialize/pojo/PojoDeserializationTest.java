@@ -7,38 +7,37 @@ import util.JsonUtil;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Deserialize JSON to POJO.
  */
-public class PojoDeserializationTest {
+class PojoDeserializationTest {
 
     @Test
-    public void readValue() throws IOException {
+    void readValue() throws IOException {
         var json = JsonUtil.singleQuoteToDouble("{'id': 123, 'name': 'aleks'}");
         var mapper = new ObjectMapper();
 
         var user = mapper.readValue(json, User.class);
 
-        assertThat(user.getId(), equalTo(123));
-        assertThat(user.getName(), equalTo("aleks"));
+        assertThat(user.getId()).isEqualTo(123);
+        assertThat(user.getName()).isEqualTo("aleks");
     }
 
     /**
      * Skip unknown fields.
      */
     @Test
-    public void failOnUnknownProperties() throws IOException {
+    void failOnUnknownProperties() throws IOException {
         var json = JsonUtil.singleQuoteToDouble("{'id': 123, 'name': 'aleks', 'age': 30}");
         var mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         var user = mapper.readValue(json, User.class);
 
-        assertThat(user.getId(), equalTo(123));
-        assertThat(user.getName(), equalTo("aleks"));
+        assertThat(user.getId()).isEqualTo(123);
+        assertThat(user.getName()).isEqualTo("aleks");
     }
 
     @SuppressWarnings("unused")
