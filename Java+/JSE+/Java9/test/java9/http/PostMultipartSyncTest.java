@@ -17,53 +17,17 @@ import java.util.Map;
 import java.util.UUID;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PostMultipartSyncTest {
 
-    @Test
-    void postMultipartManually() throws IOException, InterruptedException {
-        try (var server = new MockWebServer()) {
-            server.enqueue(new MockResponse());
-            server.start();
-            var path = "/";
-            var baseUrl = server.url(path);
-
-            String boundary = "-------------" + UUID.randomUUID().toString();
-            var request = HttpRequest.newBuilder()
-                    .uri(baseUrl.uri())
-                    .POST(ofMultipartData(Map.of(
-                            "message1", "abc",
-                            "message2", "efg"
-                    ), boundary))
-                    .header("Content-Type", "multipart/form-data; boundary=" + boundary)
-                    .build();
-
-            var response = HttpClient.newHttpClient()
-                    .send(request, HttpResponse.BodyHandlers.ofString());
-            assertThat(response.statusCode(), equalTo(200));
-
-            var recordedRequest = server.takeRequest();
-            assertThat(recordedRequest.getPath(), equalTo(path));
-            assertThat(recordedRequest.getMethod(), equalTo("POST"));
-            assertThat(recordedRequest.getBody().readString(Charset.defaultCharset()), allOf(
-                    containsString(boundary),
-                    containsString("Content-Disposition: form-data; name=\"message1\"\r\n\r\nabc\r\n"),
-                    containsString("Content-Disposition: form-data; name=\"message2\"\r\n\r\nefg\r\n")));
-        }
-    }
-
-    public static HttpRequest.BodyPublisher ofMultipartData(Map<Object, Object> data, String boundary) throws IOException {
+    private static HttpRequest.BodyPublisher ofMultipartData(Map<Object, Object> data, String boundary) throws IOException {
         var byteArrays = new ArrayList<byte[]>();
-        byte[] separator = ("--" + boundary + "\r\nContent-Disposition: form-data; name=").getBytes(UTF_8);
-        for (Map.Entry<Object, Object> entry : data.entrySet()) {
+        var separator = ("--" + boundary + "\r\nContent-Disposition: form-data; name=").getBytes(UTF_8);
+        for (var entry : data.entrySet()) {
             byteArrays.add(separator);
-            if (entry.getValue() instanceof Path) {
-                var path = (Path) entry.getValue();
-                String mimeType = Files.probeContentType(path);
+            if (entry.getValue() instanceof Path path) {
+                var mimeType = Files.probeContentType(path);
                 byteArrays.add(("\"" + entry.getKey() + "\"; filename=\"" + path.getFileName() +
                         "\"\r\nContent-Type: " + mimeType + "\r\n\r\n").getBytes(UTF_8));
                 byteArrays.add(Files.readAllBytes(path));
@@ -77,14 +41,46 @@ class PostMultipartSyncTest {
     }
 
     @Test
-    public void postMultipartWithLibrary() throws IOException, InterruptedException {
+    void postMultipartManually() throws IOException, InterruptedException {
         try (var server = new MockWebServer()) {
             server.enqueue(new MockResponse());
             server.start();
             var path = "/";
             var baseUrl = server.url(path);
 
-            String boundary = "-------------" + UUID.randomUUID().toString();
+            var boundary = "-------------" + UUID.randomUUID();
+            var request = HttpRequest.newBuilder()
+                    .uri(baseUrl.uri())
+                    .POST(ofMultipartData(Map.of(
+                            "message1", "abc",
+                            "message2", "efg"
+                    ), boundary))
+                    .header("Content-Type", "multipart/form-data; boundary=" + boundary)
+                    .build();
+
+            var response = HttpClient.newHttpClient()
+                    .send(request, HttpResponse.BodyHandlers.ofString());
+            assertThat(response.statusCode()).isEqualTo(200);
+
+            var recordedRequest = server.takeRequest();
+            assertThat(recordedRequest.getPath()).isEqualTo(path);
+            assertThat(recordedRequest.getMethod()).isEqualTo("POST");
+            assertThat(recordedRequest.getBody().readString(Charset.defaultCharset()))
+                    .containsSubsequence(boundary)
+                    .containsSubsequence("Content-Disposition: form-data; name=\"message1\"\r\n\r\nabc\r\n")
+                    .containsSubsequence("Content-Disposition: form-data; name=\"message2\"\r\n\r\nefg\r\n");
+        }
+    }
+
+    @Test
+    void postMultipartWithLibrary() throws IOException, InterruptedException {
+        try (var server = new MockWebServer()) {
+            server.enqueue(new MockResponse());
+            server.start();
+            var path = "/";
+            var baseUrl = server.url(path);
+
+            var boundary = "-------------" + UUID.randomUUID();
             var bodyPublisher = MultipartBodyPublisher.newBuilder()
                     .boundary(boundary)
                     .textPart("message1", "abc")
@@ -98,15 +94,15 @@ class PostMultipartSyncTest {
 
             var response = HttpClient.newHttpClient()
                     .send(request, HttpResponse.BodyHandlers.ofString());
-            assertThat(response.statusCode(), equalTo(200));
+            assertThat(response.statusCode()).isEqualTo(200);
 
             var recordedRequest = server.takeRequest();
-            assertThat(recordedRequest.getPath(), equalTo(path));
-            assertThat(recordedRequest.getMethod(), equalTo("POST"));
-            assertThat(recordedRequest.getBody().readString(Charset.defaultCharset()), allOf(
-                    containsString(boundary),
-                    containsString("Content-Disposition: form-data; name=\"message1\"\r\n\r\nabc\r\n"),
-                    containsString("Content-Disposition: form-data; name=\"message2\"\r\n\r\nefg\r\n")));
+            assertThat(recordedRequest.getPath()).isEqualTo(path);
+            assertThat(recordedRequest.getMethod()).isEqualTo("POST");
+            assertThat(recordedRequest.getBody().readString(Charset.defaultCharset()))
+                    .containsSubsequence(boundary)
+                    .containsSubsequence("Content-Disposition: form-data; name=\"message1\"\r\n\r\nabc\r\n")
+                    .containsSubsequence("Content-Disposition: form-data; name=\"message2\"\r\n\r\nefg\r\n");
         }
     }
 }

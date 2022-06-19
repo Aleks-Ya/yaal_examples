@@ -12,8 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
 import static java.lang.String.format;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class GetSyncTest {
     @Test
@@ -32,7 +31,7 @@ class GetSyncTest {
             var response = HttpClient.newHttpClient()
                     .send(request, HttpResponse.BodyHandlers.ofString());
             var statusCode = response.statusCode();
-            assertThat(statusCode, equalTo(200));
+            assertThat(statusCode).isEqualTo(200);
         }
     }
 
@@ -54,13 +53,13 @@ class GetSyncTest {
             var response = HttpClient.newHttpClient().send(request, bodyHandler);
 
             var statusCode = response.statusCode();
-            assertThat(statusCode, equalTo(200));
+            assertThat(statusCode).isEqualTo(200);
 
             var outputFile = response.body();
-            assertThat(outputFile, equalTo(outputDir.resolve(outputFilename)));
+            assertThat(outputFile).isEqualTo(outputDir.resolve(outputFilename));
 
             var actContent = Files.readString(outputFile);
-            assertThat(actContent, equalTo(body));
+            assertThat(actContent).isEqualTo(body);
         }
     }
 
@@ -77,8 +76,8 @@ class GetSyncTest {
 
             var response = HttpClient.newHttpClient()
                     .send(request, HttpResponse.BodyHandlers.ofString());
-            assertThat(response.statusCode(), equalTo(statusCode));
-            assertThat(response.body(), equalTo(errorMessage));
+            assertThat(response.statusCode()).isEqualTo(statusCode);
+            assertThat(response.body()).isEqualTo(errorMessage);
         }
     }
 

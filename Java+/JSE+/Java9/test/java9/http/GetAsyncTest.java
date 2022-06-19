@@ -14,8 +14,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static java.lang.String.format;
 import static java.net.http.HttpResponse.BodyHandlers.ofString;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class GetAsyncTest {
 
@@ -38,12 +37,12 @@ class GetAsyncTest {
             CompletableFuture.allOf(responseFuture1, responseFuture2).join();
 
             var response1 = responseFuture1.join();
-            assertThat(response1.statusCode(), equalTo(200));
-            assertThat(response1.body(), equalTo(body1));
+            assertThat(response1.statusCode()).isEqualTo(200);
+            assertThat(response1.body()).isEqualTo(body1);
 
             var response2 = responseFuture2.join();
-            assertThat(response2.statusCode(), equalTo(200));
-            assertThat(response2.body(), equalTo(body2));
+            assertThat(response2.statusCode()).isEqualTo(200);
+            assertThat(response2.body()).isEqualTo(body2);
         }
     }
 
@@ -65,13 +64,13 @@ class GetAsyncTest {
             var responseFuture = HttpClient.newHttpClient().sendAsync(request, bodyHandler);
             var response = responseFuture.join();
             var statusCode = response.statusCode();
-            assertThat(statusCode, equalTo(200));
+            assertThat(statusCode).isEqualTo(200);
 
             var outputFile = response.body();
-            assertThat(outputFile, equalTo(outputDir.resolve(outputFilename)));
+            assertThat(outputFile).isEqualTo(outputDir.resolve(outputFilename));
 
             var actContent = Files.readString(outputFile);
-            assertThat(actContent, equalTo(body));
+            assertThat(actContent).isEqualTo(body);
         }
     }
 
@@ -95,10 +94,10 @@ class GetAsyncTest {
             CompletableFuture.allOf(responseFuture1, responseFuture2).join();
 
             var actBody1 = responseFuture1.join();
-            assertThat(actBody1, equalTo(body.toUpperCase()));
+            assertThat(actBody1).isEqualTo(body.toUpperCase());
 
             var actBody2 = responseFuture2.join();
-            assertThat(actBody2, equalTo(body.toLowerCase()));
+            assertThat(actBody2).isEqualTo(body.toLowerCase());
         }
     }
 

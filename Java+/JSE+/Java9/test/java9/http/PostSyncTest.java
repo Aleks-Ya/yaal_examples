@@ -10,8 +10,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.Charset;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PostSyncTest {
 
@@ -31,12 +30,12 @@ class PostSyncTest {
 
             var response = HttpClient.newHttpClient()
                     .send(request, HttpResponse.BodyHandlers.ofString());
-            assertThat(response.statusCode(), equalTo(200));
+            assertThat(response.statusCode()).isEqualTo(200);
 
             var recordedRequest = server.takeRequest();
-            assertThat(recordedRequest.getPath(), equalTo(path));
-            assertThat(recordedRequest.getMethod(), equalTo("POST"));
-            assertThat(recordedRequest.getBody().readString(Charset.defaultCharset()), equalTo(body));
+            assertThat(recordedRequest.getPath()).isEqualTo(path);
+            assertThat(recordedRequest.getMethod()).isEqualTo("POST");
+            assertThat(recordedRequest.getBody().readString(Charset.defaultCharset())).isEqualTo(body);
         }
     }
 }
