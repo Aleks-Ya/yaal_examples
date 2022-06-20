@@ -19,4 +19,5 @@ unset JAVA_HOME
      --conf "spark.sql.autoBroadcastJoinThreshold=-1" \
      --conf "spark.eventLog.enabled=true" \
      --conf "spark.eventLog.dir=file:///shared/spark-events" \
-     file:///shared/livy-scala.jar
+     file:///shared/livy-scala.jar \
+     Hello World !

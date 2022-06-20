@@ -9,6 +9,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -30,7 +31,8 @@ class SubmitTest {
     void postBatches() throws IOException, InterruptedException {
         var gson = new GsonBuilder().create();
         var sessionName = "session-" + RandomUtil.randomIntPositive();
-        var body = gson.toJson(Map.of("file", "file:///shared/livy-scala.jar",
+        var body = gson.toJson(Map.of(
+                "file", "file:///shared/livy-scala.jar",
                 "className", "livy.ClusterModeApp",
                 "name", sessionName,
                 "conf", Map.of(
@@ -42,7 +44,8 @@ class SubmitTest {
                 "driverCores", 1,
                 "executorMemory", "1G",
                 "executorCores", 1,
-                "numExecutors", 1));
+                "numExecutors", 1,
+                "args", List.of("Hello", "World", "!")));
         var endpoint = baseUri.resolve("/batches");
         var request = HttpRequest.newBuilder()
                 .uri(endpoint)
