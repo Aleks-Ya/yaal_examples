@@ -6,7 +6,7 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MethodChainTest {
+class MethodTest {
     private final ExpressionParser parser = new SpelExpressionParser();
 
     @Test

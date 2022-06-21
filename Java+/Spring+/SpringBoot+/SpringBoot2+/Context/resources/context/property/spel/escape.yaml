@@ -1,0 +1,4 @@
+host: server1
+port: 1000
+env: dev
+url: https://${host}:${port}/${env}/${location}

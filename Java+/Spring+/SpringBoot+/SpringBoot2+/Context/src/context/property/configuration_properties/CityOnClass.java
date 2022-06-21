@@ -1,8 +1,11 @@
-package context;
+package context.property.configuration_properties;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.net.URI;
 
-class City {
+@ConfigurationProperties("information.city-info")
+class CityOnClass {
     private String title;
     private int year;
     private URI uri;
@@ -12,12 +15,12 @@ class City {
         return title;
     }
 
-    public int getYear() {
-        return year;
-    }
-
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getYear() {
+        return year;
     }
 
     public void setYear(int year) {

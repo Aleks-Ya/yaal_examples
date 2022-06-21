@@ -1,4 +1,4 @@
-package context;
+package context.property.configuration_properties;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -7,20 +7,20 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableAutoConfiguration
-public class Config {
+class Config {
     @Bean
-    public Person person() {
+    Person person() {
         return new Person("John", 30);
     }
 
     @Bean
     @ConfigurationProperties("information.city-info")
-    public City city() {
-        return new City();
+    CityOnMethod city() {
+        return new CityOnMethod();
     }
 
     @Bean
-    public AllInfo allInfo(Person person, City city) {
+    AllInfo allInfo(Person person, CityOnMethod city) {
         return new AllInfo(person, city);
     }
 

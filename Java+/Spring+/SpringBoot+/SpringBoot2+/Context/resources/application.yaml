@@ -1,6 +1,1 @@
-information:
-  city-info:
-    title: Moscow
-    year: 1147
-    uri: http://moscow.russia.ru:8080/info
-    previousUri: ${PREVIOUS_URI:http://msk.ru:5555/data}
+city: London
