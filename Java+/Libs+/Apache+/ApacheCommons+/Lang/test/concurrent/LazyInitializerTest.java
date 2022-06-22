@@ -4,10 +4,7 @@ import org.apache.commons.lang3.concurrent.ConcurrentException;
 import org.apache.commons.lang3.concurrent.LazyInitializer;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class LazyInitializerTest {
     private static final String EXP_VALUE = "abc";
@@ -22,9 +19,9 @@ class LazyInitializerTest {
 
     @Test
     void lazy() throws ConcurrentException {
-        assertFalse(initialized);
+        assertThat(initialized).isFalse();
         var actValue = str.get();
-        assertThat(actValue, equalTo(EXP_VALUE));
-        assertTrue(initialized);
+        assertThat(actValue).isEqualTo(EXP_VALUE);
+        assertThat(initialized).isTrue();
     }
 }

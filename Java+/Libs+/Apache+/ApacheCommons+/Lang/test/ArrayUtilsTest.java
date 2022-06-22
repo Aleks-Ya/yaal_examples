@@ -2,13 +2,12 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class ArrayUtilsTest {
     @Test
     void isEmpty() {
         var arr = new int[]{100, 200};
-        assertFalse(ArrayUtils.isEmpty(arr));
+        assertThat(ArrayUtils.isEmpty(arr)).isFalse();
     }
 
     @Test

@@ -1,8 +1,7 @@
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class StringUtilsTest {
 
@@ -11,7 +10,7 @@ class StringUtilsTest {
      */
     @Test
     void equalsIgnoreCase() {
-        assertFalse(StringUtils.equalsIgnoreCase(null, ""));
+        assertThat(StringUtils.equalsIgnoreCase(null, "")).isFalse();
     }
 
     /**
@@ -19,6 +18,6 @@ class StringUtilsTest {
      */
     @Test
     void isBlank() {
-        assertTrue(StringUtils.isBlank(null));
+        assertThat(StringUtils.isBlank(null)).isTrue();
     }
 }
