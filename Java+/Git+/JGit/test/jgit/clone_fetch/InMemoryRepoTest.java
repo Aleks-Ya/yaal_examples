@@ -14,11 +14,11 @@ import java.util.List;
 /**
  * Using InMemoryRepository.
  */
-public class InMemoryRepo {
+class InMemoryRepoTest {
     private static final String remoteRepoName = "remoteRepo";
 
     @Test
-    public void main() throws IOException, GitAPIException {
+    void main() throws IOException, GitAPIException {
         Repository repo = Helper.makeRemoteBareRepo();
 
         Git git = new Git(repo);

@@ -2,10 +2,9 @@ package lang.reflection.field;
 
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-class GetField {
+class GetFieldTest {
     private static final FieldsClass OBJECT = new FieldsClass();
     private static final Class<FieldsClass> clazz = FieldsClass.class;
 
@@ -13,14 +12,14 @@ class GetField {
     void getPublicInstanceField() throws IllegalAccessException, NoSuchFieldException {
         var field = clazz.getField("publicInstanceField");
         var value = (String) field.get(OBJECT);
-        assertThat(value, equalTo("a"));
+        assertThat(value).isEqualTo("a");
     }
 
     @Test
     void getPublicStaticField() throws IllegalAccessException, NoSuchFieldException {
         var field = clazz.getField("publicStaticField");
         var value = (Double) field.get(null);
-        assertThat(value, equalTo(2D));
+        assertThat(value).isEqualTo(2D);
     }
 
     @Test
@@ -28,7 +27,7 @@ class GetField {
         var field = clazz.getDeclaredField("privateInstanceField");
         field.setAccessible(true);
         var value = (Integer) field.get(OBJECT);
-        assertThat(value, equalTo(1));
+        assertThat(value).isEqualTo(1);
     }
 
     @Test
@@ -36,7 +35,7 @@ class GetField {
         var field = clazz.getDeclaredField("privateStaticField");
         field.setAccessible(true);
         var value = (Boolean) field.get(null);
-        assertThat(value, equalTo(true));
+        assertThat(value).isEqualTo(true);
     }
 
     private static class FieldsClass {

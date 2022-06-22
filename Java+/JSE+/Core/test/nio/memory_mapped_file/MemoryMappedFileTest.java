@@ -7,8 +7,7 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class MemoryMappedFileTest {
     @Test
@@ -19,7 +18,7 @@ class MemoryMappedFileTest {
             var buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size());
             var bytes = new byte[buffer.capacity()];
             buffer.get(bytes);
-            assertThat(new String(bytes, StandardCharsets.UTF_8), equalTo("Happy Memory Mapped File"));
+            assertThat(new String(bytes, StandardCharsets.UTF_8)).isEqualTo("Happy Memory Mapped File");
         }
     }
 }

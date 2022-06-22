@@ -2,8 +2,7 @@ package lang.generics.clazzes;
 
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Implement PECS principle (Producer Extends Consumer Super).
@@ -11,7 +10,7 @@ import static org.hamcrest.Matchers.equalTo;
  * if you are only stuffing items in, it is a consumer and you should use "super".
  * If you do both with the same collection, you shouldn't use either "extends" or "super".
  */
-class PecsObject {
+class PecsObjectTest {
 
     /**
      * If you are only pulling items from a generic collection, it is a producer and you should use "extends";
@@ -21,7 +20,7 @@ class PecsObject {
         Cat cat = new Cat();
         Producer<? extends Creature> producer = new Producer<>(cat);
         Creature creature = producer.get();
-        assertThat(creature, equalTo(cat));
+        assertThat(creature).isEqualTo(cat);
     }
 
     /**
@@ -32,7 +31,7 @@ class PecsObject {
         Cat cat = new Cat();
         Consumer<? super Creature> consumer = new Consumer<>();
         consumer.put(cat);
-        assertThat(consumer.toString(), equalTo("Cat"));
+        assertThat(consumer.toString()).isEqualTo("Cat");
     }
 
     /**
@@ -44,7 +43,7 @@ class PecsObject {
         Storage<Creature> storage = new Storage<>();
         storage.put(cat);
         Creature act = storage.get();
-        assertThat(act, equalTo(cat));
+        assertThat(act).isEqualTo(cat);
     }
 
     private static class Storage<T> {

@@ -16,10 +16,7 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.util.Collections;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Working with a KeyStore.
@@ -30,7 +27,7 @@ class KeyStoreTest {
     @Test
     void initEmptyKeyStore() throws KeyStoreException {
         var keyStore = SecurityHelper.initEmptyKeyStore();
-        assertThat(Collections.list(keyStore.aliases()), empty());
+        assertThat(Collections.list(keyStore.aliases())).isEmpty();
     }
 
     @Test
@@ -40,10 +37,10 @@ class KeyStoreTest {
         var certificateAlias = "my_cert";
         keyStore.setCertificateEntry(certificateAlias, certificate);
 
-        assertThat(Collections.list(keyStore.aliases()), contains(certificateAlias));
+        assertThat(Collections.list(keyStore.aliases())).contains(certificateAlias);
 
         var actCertificate = keyStore.getCertificate(certificateAlias);
-        assertThat(actCertificate, equalTo(certificate));
+        assertThat(actCertificate).isEqualTo(certificate);
     }
 
     @Test
@@ -60,10 +57,10 @@ class KeyStoreTest {
         var keyPass = "key pass".toCharArray();
         keyStore.setKeyEntry(keyAlias, privateKey, keyPass, certificateChain);
 
-        assertThat(Collections.list(keyStore.aliases()), contains(keyAlias));
+        assertThat(Collections.list(keyStore.aliases())).contains(keyAlias);
 
         var actKey = keyStore.getKey(keyAlias, keyPass);
-        assertThat(actKey, equalTo(privateKey));
+        assertThat(actKey).isEqualTo(privateKey);
     }
 
     @Test
@@ -74,7 +71,7 @@ class KeyStoreTest {
         var certificate = SecurityHelper.readCertificateFromResource(CERT_RESOURCE);
         var certificateAlias = "my_cert";
         keyStore.setCertificateEntry(certificateAlias, certificate);
-        assertThat(Collections.list(keyStore.aliases()), contains(certificateAlias));
+        assertThat(Collections.list(keyStore.aliases())).contains(certificateAlias);
 
         var keyStorePass = "my pass".toCharArray();
         var keyStoreFile = Files.createTempFile("keystore_", "_ks").toFile();
@@ -84,7 +81,7 @@ class KeyStoreTest {
         var actKeyStore = KeyStore.getInstance("JKS");
         var keyStoreInputStream = new FileInputStream(keyStoreFile);
         actKeyStore.load(keyStoreInputStream, keyStorePass);
-        assertThat(Collections.list(actKeyStore.aliases()), contains(certificateAlias));
+        assertThat(Collections.list(actKeyStore.aliases())).contains(certificateAlias);
     }
 
 }

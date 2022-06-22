@@ -3,8 +3,7 @@ package security.manager;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static security.manager.SecurityManagerHelper.configureSecurityManagerPolicyFromResource;
 
 @Disabled("need fix exception")
@@ -19,7 +18,7 @@ class PropertyPermissionTest {
         configureSecurityManagerPolicyFromResource(getClass(), "PropertyPermissionTest_grantSingleProperty.policy");
 
         var actValue = System.getProperty(propertyName);
-        assertThat(actValue, equalTo(expValue));
+        assertThat(actValue).isEqualTo(expValue);
     }
 
     @Test
@@ -31,7 +30,7 @@ class PropertyPermissionTest {
         configureSecurityManagerPolicyFromResource(getClass(), "PropertyPermissionTest_grantAllProperties.policy");
 
         var actValue = System.getProperty(propertyName);
-        assertThat(actValue, equalTo(expValue));
+        assertThat(actValue).isEqualTo(expValue);
     }
 
 }

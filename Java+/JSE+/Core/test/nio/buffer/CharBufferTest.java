@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.CharBuffer;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CharBufferTest {
     @Test
@@ -13,6 +12,6 @@ class CharBufferTest {
         var cb = CharBuffer.allocate(3);
         var data = "abc";
         cb.put(data);
-        assertThat(new String(cb.array()), equalTo(data));
+        assertThat(new String(cb.array())).isEqualTo(data);
     }
 }

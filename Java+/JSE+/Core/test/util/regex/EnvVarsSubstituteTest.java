@@ -5,17 +5,15 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class EnvVarsSubstituteTest {
     private final Map<String, String> vars = new HashMap<>();
 
     @Test
     void shouldReturnNullIfOriginStringIsNull() {
-        assertNull(EnvVarsSubstitute.substitute(null, vars));
+        assertThat(EnvVarsSubstitute.substitute(null, vars)).isNull();
     }
 
     @Test
@@ -24,8 +22,8 @@ class EnvVarsSubstituteTest {
         var act1 = EnvVarsSubstitute.substitute(content, vars);
         var act2 = EnvVarsSubstitute.substitute(content, null);
 
-        assertThat(act1, equalTo(content));
-        assertThat(act2, equalTo(content));
+        assertThat(act1).isEqualTo(content);
+        assertThat(act2).isEqualTo(content);
     }
 
     @Test
@@ -33,26 +31,27 @@ class EnvVarsSubstituteTest {
         var content = "text: ${MY_VAR}_abc";
         vars.put("MY_VAR", "MY VALUE");
         var act = EnvVarsSubstitute.substitute(content, vars);
-        assertThat(act, equalTo("text: MY VALUE_abc"));
+        assertThat(act).isEqualTo("text: MY VALUE_abc");
     }
 
     @Test
     void shouldUseDefaultValueIfVariableIsNotPresentInMap() {
         var content = "text: ${MY_VAR:100}_abc";
         var act = EnvVarsSubstitute.substitute(content, vars);
-        assertThat(act, equalTo("text: 100_abc"));
+        assertThat(act).isEqualTo("text: 100_abc");
     }
 
     @Test
     void shouldUseFirstSemicolonAsDefaultValueDelimiter() {
         var content = "text: ${MY_VAR:jdbc:phoenix}_abc";
         var act = EnvVarsSubstitute.substitute(content, vars);
-        assertThat(act, equalTo("text: jdbc:phoenix_abc"));
+        assertThat(act).isEqualTo("text: jdbc:phoenix_abc");
     }
 
     @Test
     void emptyVarName() {
-        assertThrows(IllegalArgumentException.class, () -> EnvVarsSubstitute.substitute("text: ${}", vars));
+        assertThatThrownBy(() -> EnvVarsSubstitute.substitute("text: ${}", vars))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -63,6 +62,7 @@ class EnvVarsSubstituteTest {
 
     @Test
     void varNotFound() {
-        assertThrows(IllegalArgumentException.class, () -> EnvVarsSubstitute.substitute("text: ${not_exists}", vars));
+        assertThatThrownBy(() -> EnvVarsSubstitute.substitute("text: ${not_exists}", vars))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }

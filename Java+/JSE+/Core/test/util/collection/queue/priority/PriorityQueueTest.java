@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 class PriorityQueueTest {
@@ -17,9 +16,9 @@ class PriorityQueueTest {
         q.add("a");
         q.add("b");
 
-        assertThat(q.remove(), equalTo("a"));
-        assertThat(q.remove(), equalTo("b"));
-        assertThat(q.remove(), equalTo("c"));
+        assertThat(q.remove()).isEqualTo("a");
+        assertThat(q.remove()).isEqualTo("b");
+        assertThat(q.remove()).isEqualTo("c");
     }
 
     @Test
@@ -30,8 +29,8 @@ class PriorityQueueTest {
         q.add("ccc");
         q.add("a");
 
-        assertThat(q.remove(), equalTo("ccc"));
-        assertThat(q.remove(), equalTo("bb"));
-        assertThat(q.remove(), equalTo("a"));
+        assertThat(q.remove()).isEqualTo("ccc");
+        assertThat(q.remove()).isEqualTo("bb");
+        assertThat(q.remove()).isEqualTo("a");
     }
 }

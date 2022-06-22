@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Регулярные выражения над именами файлов.
@@ -19,6 +18,6 @@ class FileNamesTest {
     void cutFileExtension() {
         var file = new File("/home/user/data.txt");
         var name = file.getName().replaceFirst("\\..*$", "");
-        assertThat(name, equalTo("data"));
+        assertThat(name).isEqualTo("data");
     }
 }

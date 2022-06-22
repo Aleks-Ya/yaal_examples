@@ -7,7 +7,7 @@ import security.SecurityHelper;
 import java.security.KeyStoreException;
 import java.security.cert.Certificate;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Working with a Keys.
@@ -19,15 +19,15 @@ class KeyTest {
         var keyPair = SecurityHelper.generateKeyPair();
         var publicKey = keyPair.getPublic();
         var privateKey = keyPair.getPrivate();
-        assertNotNull(publicKey);
-        assertNotNull(privateKey);
+        assertThat(publicKey).isNotNull();
+        assertThat(privateKey).isNotNull();
     }
 
     @Test
     void getPublicKeyFromCertificate() {
         var certificate = SecurityHelper.readCertificateFromResource("security/certificate.crt");
         var pubKey = certificate.getPublicKey();
-        assertNotNull(pubKey);
+        assertThat(pubKey).isNotNull();
     }
 
     @Test
@@ -43,7 +43,7 @@ class KeyTest {
         keyStore.setKeyEntry(priKeyAlias, priKey, null, chain);
 //        new KeyPair();
 
-        assertNotNull(pubKey);
-        assertNotNull(priKey);
+        assertThat(pubKey).isNotNull();
+        assertThat(priKey).isNotNull();
     }
 }

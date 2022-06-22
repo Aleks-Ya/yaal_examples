@@ -6,9 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.anEmptyMap;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ConcurrentHashMapTest {
 
@@ -20,8 +18,8 @@ class ConcurrentHashMapTest {
         Map<String, Integer> map = new ConcurrentHashMap<>();
         String key = "abc";
         Integer value = map.computeIfAbsent(key, s -> 1);
-        assertThat(value, equalTo(1));
-        assertThat(map.get(key), equalTo(1));
+        assertThat(value).isEqualTo(1);
+        assertThat(map.get(key)).isEqualTo(1);
     }
 
     /**
@@ -32,10 +30,10 @@ class ConcurrentHashMapTest {
         Map<String, Integer> map = new ConcurrentHashMap<>();
         map.put("abc", 1);
         Iterator<Map.Entry<String, Integer>> it = map.entrySet().iterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             it.next();
             it.remove();
         }
-        assertThat(map, anEmptyMap());
+        assertThat(map).isEmpty();
     }
 }

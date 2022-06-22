@@ -5,10 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 
 import static java.lang.System.out;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SystemProperties {
 
@@ -26,11 +23,11 @@ class SystemProperties {
         var name = "the_name";
         var value = "the_value";
 
-        assertNull(System.getProperty(name));
+        assertThat(System.getProperty(name)).isNull();
 
         System.setProperty(name, value);
 
-        assertThat(System.getProperty(name), equalTo(value));
+        assertThat(System.getProperty(name)).isEqualTo(value);
     }
 
     @Test
@@ -42,7 +39,7 @@ class SystemProperties {
     @Test
     void lineSeparator() {
         var separator = System.getProperty("line.separator");
-        assertTrue("\n".equals(separator) || "\r\n".equals(separator));
+        assertThat("\n".equals(separator) || "\r\n".equals(separator)).isTrue();
     }
 
     @Test

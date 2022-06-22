@@ -12,8 +12,7 @@ import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Symmetric encryption by AES.
@@ -44,7 +43,7 @@ class AesEncryptTest {
         var decryptedBytes = cipher.doFinal(encryptedBytes);
         var originalStr = new String(decryptedBytes);
 
-        assertThat(originalStr, equalTo(inputStr));
+        assertThat(originalStr).isEqualTo(inputStr);
     }
 
 }

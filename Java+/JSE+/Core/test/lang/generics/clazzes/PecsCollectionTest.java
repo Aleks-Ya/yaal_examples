@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Implement PECS principle (Producer Extends Consumer Super).
@@ -14,7 +13,7 @@ import static org.hamcrest.Matchers.equalTo;
  * if you are only stuffing items in, it is a consumer and you should use "super".
  * If you do both with the same collection, you shouldn't use either "extends" or "super".
  */
-class PecsCollection {
+class PecsCollectionTest {
     private static final Cat cat = new Cat();
     private static final Animal animal = new Animal();
     private static final Creature creature = new Creature();
@@ -33,12 +32,12 @@ class PecsCollection {
 
             list = creatureList;
 
-            Cat actCat = (Cat) list.get(0);
-            Animal actAnimal = (Animal) list.get(1);
-            Creature actCreature = list.get(2);
-            assertThat(actCat, equalTo(cat));
-            assertThat(actAnimal, equalTo(animal));
-            assertThat(actCreature, equalTo(creature));
+            var actCat = (Cat) list.get(0);
+            var actAnimal = (Animal) list.get(1);
+            var actCreature = list.get(2);
+            assertThat(actCat).isEqualTo(cat);
+            assertThat(actAnimal).isEqualTo(animal);
+            assertThat(actCreature).isEqualTo(creature);
         }
         {
             List<Animal> animalList = new ArrayList<>();
@@ -47,18 +46,18 @@ class PecsCollection {
 
             list = animalList;
 
-            Animal actAnimal = (Animal) list.get(0);
-            Creature actCreature = list.get(1);
-            assertThat(actAnimal, equalTo(cat));
-            assertThat(actCreature, equalTo(animal));
+            var actAnimal = (Animal) list.get(0);
+            var actCreature = list.get(1);
+            assertThat(actAnimal).isEqualTo(cat);
+            assertThat(actCreature).isEqualTo(animal);
         }
         {
             List<Cat> catList = new ArrayList<>();
             catList.add(cat);
 
             list = catList;
-            Creature actCreature = list.get(0);
-            assertThat(actCreature, equalTo(cat));
+            var actCreature = list.get(0);
+            assertThat(actCreature).isEqualTo(cat);
         }
     }
 
@@ -72,7 +71,7 @@ class PecsCollection {
         list.add(animal);
         list.add(creature);
 
-        assertThat(list, equalTo(List.of(cat, animal, creature)));
+        assertThat(list).isEqualTo(List.of(cat, animal, creature));
     }
 
     /**
@@ -84,18 +83,18 @@ class PecsCollection {
         {
             list = new ArrayList<Creature>();
             list.add(cat);
-            assertThat(list, equalTo(List.of(cat)));
+            assertThat(list).isEqualTo(List.of(cat));
         }
         {
             list = new ArrayList<Animal>();
             list.add(cat);
-            assertThat(list, equalTo(List.of(cat)));
+            assertThat(list).isEqualTo(List.of(cat));
         }
         {
             //noinspection Convert2Diamond
             list = new ArrayList<Cat>();
             list.add(cat);
-            assertThat(list, equalTo(List.of(cat)));
+            assertThat(list).isEqualTo(List.of(cat));
         }
     }
 
@@ -109,20 +108,20 @@ class PecsCollection {
         list.add(animal);
         list.add(creature);
 
-        Cat actCat1 = (Cat) list.get(0);
-        Animal actCat2 = (Animal) list.get(0);
-        Creature actCat3 = list.get(0);
-        assertThat(actCat1, equalTo(cat));
-        assertThat(actCat2, equalTo(cat));
-        assertThat(actCat3, equalTo(cat));
+        var actCat1 = (Cat) list.get(0);
+        var actCat2 = (Animal) list.get(0);
+        var actCat3 = list.get(0);
+        assertThat(actCat1).isEqualTo(cat);
+        assertThat(actCat2).isEqualTo(cat);
+        assertThat(actCat3).isEqualTo(cat);
 
-        Animal actAnimal1 = (Animal) list.get(1);
-        Creature actAnimal2 = list.get(1);
-        assertThat(actAnimal1, equalTo(animal));
-        assertThat(actAnimal2, equalTo(animal));
+        var actAnimal1 = (Animal) list.get(1);
+        var actAnimal2 = list.get(1);
+        assertThat(actAnimal1).isEqualTo(animal);
+        assertThat(actAnimal2).isEqualTo(animal);
 
-        Creature actCreature = list.get(2);
-        assertThat(actCreature, equalTo(creature));
+        var actCreature = list.get(2);
+        assertThat(actCreature).isEqualTo(creature);
     }
 
     /**
@@ -138,15 +137,15 @@ class PecsCollection {
         cats.add(new Cat());
         cats.add(new Cat());
 
-        Storage<List<? extends Animal>> storage = new Storage<>();
+        var storage = new Storage<List<? extends Animal>>();
 
         storage.put(animals);
         List<? extends Creature> actAnimals = storage.get();
 
         storage.put(cats);
         List<? extends Creature> actCats = storage.get();
-        assertThat(actAnimals, equalTo(animals));
-        assertThat(actCats, equalTo(cats));
+        assertThat(actAnimals).isEqualTo(animals);
+        assertThat(actCats).isEqualTo(cats);
     }
 
     private static class Storage<T> {

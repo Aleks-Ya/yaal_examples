@@ -2,9 +2,8 @@ package lang.try_catch_finally;
 
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class FinallyTest {
 
@@ -14,7 +13,7 @@ class FinallyTest {
     @Test
     void exceptionInCatchVsFinally() {
         var finallyMessage = "From finally";
-        var e = assertThrows(RuntimeException.class, () -> {
+        var e = assertThatThrownBy(() -> {
             //noinspection finally
             try {
                 throw new RuntimeException("From try");
@@ -24,8 +23,7 @@ class FinallyTest {
                 //noinspection ThrowFromFinallyBlock
                 throw new RuntimeException(finallyMessage);
             }
-        });
-        assertThat(e.getMessage(), equalTo(finallyMessage));
+        }).isInstanceOf(RuntimeException.class).hasMessage(finallyMessage);
     }
 
     /**
@@ -34,7 +32,7 @@ class FinallyTest {
     @Test
     void returnFromCatchVsFinally() {
         var finallyMessage = "From finally";
-        assertThat(returnString(finallyMessage), equalTo(finallyMessage));
+        assertThat(returnString(finallyMessage)).isEqualTo(finallyMessage);
     }
 
     private String returnString(String finallyMessage) {

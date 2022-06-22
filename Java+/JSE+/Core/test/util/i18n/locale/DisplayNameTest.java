@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Варианты использования метода Locale#getDisplayName();
  */
-class DisplayName {
+class DisplayNameTest {
 
     /**
      * Возвращает название в локали по-умолчанию.
@@ -17,10 +17,10 @@ class DisplayName {
     @Test
     void defaultLocale() {
         var norwegianNorwayBokmel = new Locale("no", "NO", "B");
-        assertEquals("Norwegian (Norway,Bokmål)", norwegianNorwayBokmel.getDisplayName());
+        assertThat(norwegianNorwayBokmel.getDisplayName()).isEqualTo("Norwegian (Norway, Bokmål)");
 
         var rus = new Locale("ru", "RU");
-        assertEquals("норвежский (Норвегия,Bokmål)", norwegianNorwayBokmel.getDisplayName(rus));
+        assertThat(norwegianNorwayBokmel.getDisplayName(rus)).isEqualTo("норвежский (Норвегия, Bokmål)");
     }
 
     /**
@@ -33,6 +33,6 @@ class DisplayName {
         var displayLocal = new Locale("ru", "RU");
         var displayName = norwegianNorwayBokmel.getDisplayName(displayLocal);
 
-        assertEquals("норвежский (Норвегия,Bokmål)", displayName);
+        assertThat(displayName).isEqualTo("норвежский (Норвегия, Bokmål)");
     }
 }

@@ -2,8 +2,7 @@ package net.url;
 
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Remove dot segments (/./ and /../) from URL.
@@ -11,8 +10,8 @@ import static org.hamcrest.Matchers.equalTo;
 class RemoveDotSegmentsFromUrlTest {
     @Test
     void removeDotSegments() {
-        assertThat(RemoveDotSegmentsFromUrl.removeDotSegments("/a/b/../c"), equalTo("/a/c"));
-        assertThat(RemoveDotSegmentsFromUrl.removeDotSegments("../css/common.css"), equalTo("css/common.css"));
+        assertThat(RemoveDotSegmentsFromUrl.removeDotSegments("/a/b/../c")).isEqualTo("/a/c");
+        assertThat(RemoveDotSegmentsFromUrl.removeDotSegments("../css/common.css")).isEqualTo("css/common.css");
     }
 
     /**
@@ -20,7 +19,7 @@ class RemoveDotSegmentsFromUrlTest {
      */
     @Test
     void rfc1() {
-        assertThat(RemoveDotSegmentsFromUrl.removeDotSegments("/a/b/c/./../../g"), equalTo("/a/g"));
-        assertThat(RemoveDotSegmentsFromUrl.removeDotSegments("mid/content=5/../6"), equalTo("mid/6"));
+        assertThat(RemoveDotSegmentsFromUrl.removeDotSegments("/a/b/c/./../../g")).isEqualTo("/a/g");
+        assertThat(RemoveDotSegmentsFromUrl.removeDotSegments("mid/content=5/../6")).isEqualTo("mid/6");
     }
 }

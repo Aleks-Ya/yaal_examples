@@ -11,9 +11,8 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Asymmetric encryption by RSA.
@@ -45,7 +44,7 @@ class RsaEncryptTest {
         var decryptedBytes = cipher.doFinal(encryptedBytes);
         var originalStr = new String(decryptedBytes);
 
-        assertThat(originalStr, equalTo(inputStr));
+        assertThat(originalStr).isEqualTo(inputStr);
     }
 
     /**
@@ -67,8 +66,9 @@ class RsaEncryptTest {
         var cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.ENCRYPT_MODE, keyPair.getPrivate());
 
-        var e = assertThrows(IllegalBlockSizeException.class, () -> cipher.doFinal(inputBytes));
-        assertThat(e.getMessage(), equalTo("Data must not be longer than 117 bytes"));
+        var e = assertThatThrownBy(() -> cipher.doFinal(inputBytes))
+                .isInstanceOf(IllegalBlockSizeException.class)
+                .hasMessage("Data must not be longer than 117 bytes");
     }
 
 }

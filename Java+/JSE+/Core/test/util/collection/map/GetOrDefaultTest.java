@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Using Map#getOrDefault.
@@ -19,7 +18,7 @@ class GetOrDefaultTest {
         Map<String, Integer> map = new HashMap<>();
         var expValue = 100;
         var actValue = map.getOrDefault("a", expValue);
-        assertThat(actValue, equalTo(expValue));
+        assertThat(actValue).isEqualTo(expValue);
     }
 
     @Test
@@ -29,6 +28,6 @@ class GetOrDefaultTest {
 //        Integer actValue = map.getOrDefault("a", expValue); // not compile
         var value = map.get("a");
         var actValue = value != null ? (Integer) value : expValue;
-        assertThat(actValue, equalTo(expValue));
+        assertThat(actValue).isEqualTo(expValue);
     }
 }

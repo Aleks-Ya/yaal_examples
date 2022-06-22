@@ -1,12 +1,10 @@
 package security.manager;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.security.Permission;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class GrantAllSecurityManagerTest {
 
@@ -15,7 +13,7 @@ class GrantAllSecurityManagerTest {
         var securityManager = new GrantAllSecurityManager();
         System.setSecurityManager(securityManager);
         System.getProperty("java.home");
-        assertThat(securityManager.invocations, equalTo(1));
+        assertThat(securityManager.invocations).isEqualTo(1);
     }
 
     public static class GrantAllSecurityManager extends SecurityManager {

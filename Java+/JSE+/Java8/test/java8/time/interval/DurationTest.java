@@ -6,20 +6,19 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class DurationTest {
+class DurationTest {
 
     @Test
-    public void instantiate() {
+    void instantiate() {
         var d1 = Duration.ofSeconds(10);
         var d2 = Duration.of(1, ChronoUnit.HOURS);
         var d3 = Duration.between(LocalTime.now(), LocalTime.now().plusMinutes(1));
     }
 
     @Test
-    public void format() {
+    void format() {
         var d = Duration.ofSeconds(93784);
 
         var days = d.toDays();
@@ -33,10 +32,10 @@ public class DurationTest {
 
         var seconds = noMinutes.getSeconds();
 
-        assertThat(days, equalTo(1L));
-        assertThat(hours, equalTo(2L));
-        assertThat(minutes, equalTo(3L));
-        assertThat(seconds, equalTo(4L));
+        assertThat(days).isEqualTo(1L);
+        assertThat(hours).isEqualTo(2L);
+        assertThat(minutes).isEqualTo(3L);
+        assertThat(seconds).isEqualTo(4L);
     }
 
 

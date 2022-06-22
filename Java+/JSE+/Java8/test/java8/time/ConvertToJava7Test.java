@@ -5,18 +5,17 @@ import org.junit.jupiter.api.Test;
 import java.time.ZoneId;
 import java.util.TimeZone;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Преобразование классов времени Java8 в Java7 и наоборот.
  */
-public class ConvertToJava7 {
+class ConvertToJava7Test {
 
     @Test
-    public void zoneIdToTimeZone() {
+    void zoneIdToTimeZone() {
         var zoneId = ZoneId.systemDefault();
         var timeZone = TimeZone.getTimeZone(zoneId.getId());
-        assertThat(timeZone.getID(), equalTo(zoneId.getId()));
+        assertThat(timeZone.getID()).isEqualTo(zoneId.getId());
     }
 }

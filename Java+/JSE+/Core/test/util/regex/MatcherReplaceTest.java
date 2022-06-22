@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Замена подстроки с помощью Matcher.
@@ -24,6 +23,6 @@ class MatcherReplaceTest {
             m.appendReplacement(sb, Matcher.quoteReplacement(text));
         }
         m.appendTail(sb);
-        assertThat(sb.toString(), equalTo("GET /ABBA HTTP/1.1/ABBA"));
+        assertThat(sb.toString()).isEqualTo("GET /ABBA HTTP/1.1/ABBA");
     }
 }

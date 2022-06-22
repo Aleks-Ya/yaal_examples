@@ -6,9 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.security.AccessControlException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static security.manager.SecurityManagerHelper.configureSecurityManagerPolicyFromResource;
 
 @Disabled("need fix exception")
@@ -19,11 +18,11 @@ class FilePermissionTest {
         configureSecurityManagerPolicyFromResource(getClass(), "PropertyPermissionTest_grantSingleFile.policy");
 
         var grantedFile = new File("granted.txt");
-        assertThat(grantedFile.exists(), equalTo(false));
+        assertThat(grantedFile.exists()).isEqualTo(false);
 
         var notGrantedFile = new File("not_granted.txt");
         //noinspection ResultOfMethodCallIgnored
-        assertThrows(AccessControlException.class, notGrantedFile::exists);
+        assertThatThrownBy(notGrantedFile::exists).isInstanceOf(AccessControlException.class);
     }
 
     @Test
@@ -32,7 +31,7 @@ class FilePermissionTest {
 
         var file = new File("abc.txt");
         var exists = file.exists();
-        assertThat(exists, equalTo(false));
+        assertThat(exists).isEqualTo(false);
     }
 
 }

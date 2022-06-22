@@ -6,13 +6,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Пример использования нижнего ограничения группового символа (? super MyClass).
  */
-class SuperWildcard {
+class SuperWildcardTest {
 
     @Test
     void test() {
@@ -22,7 +21,7 @@ class SuperWildcard {
 
         Collection<List<? extends Number>> queues = new ArrayList<>();
         s.addMultiple(queues, 10);
-        assertThat(queues, hasSize(10));
+        assertThat(queues).hasSize(10);
     }
 
     @Test

@@ -13,8 +13,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Run ServerSocket and send a request from Client Socket.
@@ -40,7 +39,7 @@ class ServerSocketTest {
         var bis = new BufferedReader(new InputStreamReader((socket.getInputStream())));
         var act = bis.lines().collect(Collectors.joining("\n"));
         socket.close();
-        assertThat(act, equalTo(BODY));
+        assertThat(act).isEqualTo(BODY);
 
         serverFuture.get();
     }

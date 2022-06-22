@@ -1,13 +1,12 @@
 package nio.linux;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 
 import static java.lang.System.out;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Изменение владельца файла.
@@ -21,7 +20,7 @@ class OwnerTest {
 
         var exp = System.getenv("USERNAME");
         var owner = Files.getOwner(target);
-        assertThat(owner.getName(), Matchers.containsString(exp));
+        assertThat(owner.getName()).containsSubsequence(exp);
         out.printf("target = %s%n", target);
         out.printf("%s%n", owner);
 

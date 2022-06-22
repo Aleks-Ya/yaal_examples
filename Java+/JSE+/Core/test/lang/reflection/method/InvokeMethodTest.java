@@ -1,13 +1,12 @@
 package lang.reflection.method;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-class InvokeMethod {
+class InvokeMethodTest {
 
     @Test
     void invokePrivateStaticMethod() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -15,7 +14,7 @@ class InvokeMethod {
         var method = clazz.getDeclaredMethod("multiply", Integer.class, Integer.class);
         method.setAccessible(true);
         var result = (Integer) method.invoke(null, 2, 3);
-        assertThat(result, Matchers.equalTo(6));
+        assertThat(result).isEqualTo(6);
     }
 
     @Test
@@ -23,7 +22,7 @@ class InvokeMethod {
         var clazz = MyClass.class;
         var method = clazz.getMethod("toUpperCase", String.class);
         var result = (String) method.invoke(null, "abc");
-        assertThat(result, Matchers.equalTo("ABC"));
+        assertThat(result).isEqualTo("ABC");
     }
 
     private static class MyClass {

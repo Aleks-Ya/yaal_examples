@@ -4,10 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Timestamp;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-class CloneSqlDates {
+class CloneSqlDatesTest {
 
     @Test
     void cloneSqlTimestamp() {
@@ -15,7 +14,7 @@ class CloneSqlDates {
         var clone1 = Timestamp.from(origin.toInstant());
         var clone2 = Timestamp.valueOf(origin.toString());
 
-        assertThat(clone1, equalTo(origin));
-        assertThat(clone2, equalTo(origin));
+        assertThat(clone1).isEqualTo(origin);
+        assertThat(clone2).isEqualTo(origin);
     }
 }

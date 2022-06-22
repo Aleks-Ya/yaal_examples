@@ -5,24 +5,23 @@ import org.junit.jupiter.api.Test;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Использование функциональных интерфейсов.
  */
-public class FunctionalInterfaces {
+class FunctionalInterfacesTest {
     @Test
-    public void consumer() {
-        StringBuilder log = new StringBuilder();
+    void consumer() {
+        var log = new StringBuilder();
         Consumer<String> logger = log::append;
         logger.accept("a");
-        assertThat(log.toString(), equalTo("a"));
+        assertThat(log.toString()).isEqualTo("a");
     }
 
     @Test
-    public void function() {
+    void function() {
         Function<String, Integer> length = String::length;
-        assertThat(length.apply("a"), equalTo(1));
+        assertThat(length.apply("a")).isEqualTo(1);
     }
 }

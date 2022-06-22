@@ -6,16 +6,15 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.function.Supplier;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Execute {@link CompletableFuture}.
  */
-public class RunCompletableFuture {
+class RunCompletableFutureTest {
 
     @Test
-    public void runByExecutorService() {
+    void runByExecutorService() {
         var cf = new CompletableFuture<String>();
         var message = "Hello";
         Executors.newCachedThreadPool().submit(() -> {
@@ -23,28 +22,28 @@ public class RunCompletableFuture {
             cf.complete(message);
             return null;
         });
-        assertThat(cf.join(), equalTo(message));
-        assertThat(cf.isDone(), equalTo(true));
+        assertThat(cf.join()).isEqualTo(message);
+        assertThat(cf.isDone()).isEqualTo(true);
     }
 
     @Test
-    public void runSupplierByCommonPool() {
+    void runSupplierByCommonPool() {
         var message = "Hello";
         Supplier<String> supplier = () -> message;
         CompletableFuture<String> cf = CompletableFuture.supplyAsync(supplier);
-        assertThat(cf.join(), equalTo(message));
-        assertThat(cf.isDone(), equalTo(true));
+        assertThat(cf.join()).isEqualTo(message);
+        assertThat(cf.isDone()).isEqualTo(true);
     }
 
     @Test
-    public void runRunnableByCommonPool() {
+    void runRunnableByCommonPool() {
         var sb = new StringBuilder();
         var message = "Hi";
         Runnable runnable = () -> sb.append(message);
         CompletableFuture<Void> cf = CompletableFuture.runAsync(runnable);
         cf.join();
-        assertThat(sb.toString(), equalTo(message));
-        assertThat(cf.isDone(), equalTo(true));
+        assertThat(sb.toString()).isEqualTo(message);
+        assertThat(cf.isDone()).isEqualTo(true);
     }
 
 }

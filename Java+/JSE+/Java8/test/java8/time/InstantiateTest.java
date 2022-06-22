@@ -16,12 +16,11 @@ import java.time.ZonedDateTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class Instantiate {
+class InstantiateTest {
     @Test
-    public void local() {
+    void local() {
         var localDate = LocalDate.now();
         var localTime = LocalTime.now();
         var localDateTime = LocalDateTime.now();
@@ -30,7 +29,7 @@ public class Instantiate {
     }
 
     @Test
-    public void timeZone() {
+    void timeZone() {
         var clock = Clock.fixed(Instant.now(), ZoneId.of("UTC+4"));
 
         var zonedDateTime = ZonedDateTime.now();
@@ -42,16 +41,16 @@ public class Instantiate {
     }
 
     @Test
-    public void moscowZoneId() {
+    void moscowZoneId() {
         var msk1 = ZoneId.of("Europe/Moscow");
         var msk2 = ZoneId.of("UTC+03:00");
 
         var displayName = msk1.getDisplayName(TextStyle.FULL, new Locale("ru"));
-        assertThat(displayName, equalTo("Москва"));
+        assertThat(displayName).isEqualTo("Москва");
     }
 
     @Test
-    public void epoch() {
+    void epoch() {
         var epochMilli = Instant.now().toEpochMilli();
         var epochSecond = Instant.now().getEpochSecond();
     }

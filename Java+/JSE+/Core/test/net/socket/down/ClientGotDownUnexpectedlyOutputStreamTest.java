@@ -11,8 +11,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Client gets down and Server gets {@link SocketException} "Connection reset by peer (Write failed)"
@@ -35,7 +34,7 @@ class ClientGotDownUnexpectedlyOutputStreamTest {
         } catch (ExecutionException e) {
             System.out.println("Server got SocketException");
             var cause = (SocketException) e.getCause();
-            assertThat(cause.getMessage(), equalTo("Connection reset by peer (Write failed)"));
+            assertThat(cause.getMessage()).isEqualTo("Connection reset by peer (Write failed)");
             clientFuture.get();
             executor.shutdown();
             return;

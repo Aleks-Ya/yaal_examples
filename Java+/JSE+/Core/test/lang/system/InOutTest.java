@@ -5,10 +5,9 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-class InOut {
+class InOutTest {
 
     @Test
     void replaceOutputStream() {
@@ -19,6 +18,6 @@ class InOut {
         var output = "abc";
         System.out.print(output);
 
-        assertThat(byteOS.toString(), equalTo("abc"));
+        assertThat(byteOS).hasToString("abc");
     }
 }

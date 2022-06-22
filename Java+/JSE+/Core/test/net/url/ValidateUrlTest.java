@@ -6,11 +6,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.regex.Pattern;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ValidateUrlTest {
 
@@ -22,14 +19,14 @@ class ValidateUrlTest {
 
     @Test
     void noProtocol() {
-        var e = assertThrows(MalformedURLException.class, () -> new URL("www.ya.ru"));
-        assertThat(e.getMessage(), equalTo("no protocol: www.ya.ru"));
+        var e = assertThatThrownBy(() -> new URL("www.ya.ru"))
+                .isInstanceOf(MalformedURLException.class).hasMessage("no protocol: www.ya.ru");
     }
 
     @Test
     void hasProtocol() {
         var pattern = Pattern.compile("^\\w+://.+");
-        assertTrue(pattern.matcher("http://ya.ru/path?a=b&c=d").matches());
-        assertFalse(pattern.matcher("ya.ru/path?a=b&c=d").matches());
+        assertThat(pattern.matcher("http://ya.ru/path?a=b&c=d").matches()).isTrue();
+        assertThat(pattern.matcher("ya.ru/path?a=b&c=d").matches()).isFalse();
     }
 }

@@ -5,9 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ByteBufferTest {
 
@@ -16,11 +15,12 @@ class ByteBufferTest {
         var bytes = "abc".getBytes();
         var cb = ByteBuffer.allocate(3);
         cb.put(bytes);
-        assertThat(cb.array(), equalTo(bytes));
+        assertThat(cb.array()).isEqualTo(bytes);
     }
 
     @Test
     void bufferOverflowException() {
-        assertThrows(BufferOverflowException.class, () -> ByteBuffer.allocate(2).put(new byte[]{1, 2, 3}));
+        assertThatThrownBy(() -> ByteBuffer.allocate(2).put(new byte[]{1, 2, 3}))
+                .isInstanceOf(BufferOverflowException.class);
     }
 }

@@ -1,6 +1,5 @@
 package util.concurrent.schedule;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.Callable;
@@ -10,13 +9,12 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Запуск Callable периодически.
  */
-class ExecuteCallableWithFixedRate {
+class ExecuteCallableWithFixedRateTest {
 
     /**
      * Переодический запуск задачи.
@@ -28,7 +26,7 @@ class ExecuteCallableWithFixedRate {
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         ScheduledFuture<String> future = executor.schedule(callable, 0, TimeUnit.SECONDS);
-        assertThat(future.get(), equalTo(text));
+        assertThat(future.get()).isEqualTo(text);
 
 
         int period = 2;

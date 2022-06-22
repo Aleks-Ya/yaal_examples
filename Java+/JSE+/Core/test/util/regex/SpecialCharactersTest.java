@@ -4,11 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.regex.Pattern;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Поиск специальных символов.
@@ -20,9 +16,9 @@ class SpecialCharactersTest {
         var source = "concert $Einaudi ludovico einaudi today ";
         var p = Pattern.compile("\\$Einaudi");
         var m = p.matcher(source);
-        assertTrue(m.find());
-        assertEquals("$Einaudi", m.group());
-        assertFalse(m.find());
+        assertThat(m.find()).isTrue();
+        assertThat(m.group()).isEqualTo("$Einaudi");
+        assertThat(m.find()).isFalse();
     }
 
     @Test
@@ -30,9 +26,9 @@ class SpecialCharactersTest {
         var source = "concert {Einaudi} ludovico einaudi today ";
         var p = Pattern.compile("\\{Einaudi}");
         var m = p.matcher(source);
-        assertTrue(m.find());
-        assertEquals("{Einaudi}", m.group());
-        assertFalse(m.find());
+        assertThat(m.find()).isTrue();
+        assertThat(m.group()).isEqualTo("{Einaudi}");
+        assertThat(m.find()).isFalse();
     }
 
     @Test
@@ -40,9 +36,9 @@ class SpecialCharactersTest {
         var source = "concert {Einaudi} ludovico einaudi today ";
         var p = Pattern.compile("\\{\\w*}");
         var m = p.matcher(source);
-        assertTrue(m.find());
-        assertEquals("{Einaudi}", m.group());
-        assertFalse(m.find());
+        assertThat(m.find()).isTrue();
+        assertThat(m.group()).isEqualTo("{Einaudi}");
+        assertThat(m.find()).isFalse();
     }
 
     /**
@@ -55,6 +51,6 @@ class SpecialCharactersTest {
         var quoted = Pattern.quote(regex);
         //noinspection ResultOfMethodCallIgnored
         Pattern.compile(quoted);// additional check that queted reqex can be compiled
-        assertThat(text.replaceAll(quoted, "def"), equalTo("abc def ghi"));
+        assertThat(text.replaceAll(quoted, "def")).isEqualTo("abc def ghi");
     }
 }

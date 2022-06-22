@@ -12,46 +12,44 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Парсинг строк с датами и временем.
  */
-public class Parsing {
+class ParsingTest {
     @Test
-    public void date() {
-        assertNotNull(LocalDate.parse("2015-03-25"));
+    void date() {
+        assertThat(LocalDate.parse("2015-03-25")).isNotNull();
     }
 
     @Test
-    public void dateTime() {
+    void dateTime() {
         //Without formatter
-        assertNotNull(LocalDateTime.parse("2015-03-25T10:15:30"));
+        assertThat(LocalDateTime.parse("2015-03-25T10:15:30")).isNotNull();
 
         //With formatter
         var formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
-        assertNotNull(LocalDateTime.parse("25.03.2015 10:40:50", formatter));
+        assertThat(LocalDateTime.parse("25.03.2015 10:40:50", formatter)).isNotNull();
     }
 
     @Test
-    public void instant() {
-        assertNotNull(Instant.parse("2007-03-25T10:15:30.00Z"));
+    void instant() {
+        assertThat(Instant.parse("2007-03-25T10:15:30.00Z")).isNotNull();
     }
 
     @Test
-    public void yearMonth() {
-        assertNotNull(YearMonth.parse("2007-03"));
+    void yearMonth() {
+        assertThat(YearMonth.parse("2007-03")).isNotNull();
     }
 
     @Test
-    public void zonedDateTime() {
+    void zonedDateTime() {
         var exp1 = ZonedDateTime.of(2007, 12, 3, 10, 15, 30, 0, ZoneId.of("Europe/Paris"));
-        assertThat(ZonedDateTime.parse("2007-12-03T10:15:30+01:00[Europe/Paris]"), equalTo(exp1));
+        assertThat(ZonedDateTime.parse("2007-12-03T10:15:30+01:00[Europe/Paris]")).isEqualTo(exp1);
 
         var exp2 = ZonedDateTime.of(2007, 12, 3, 10, 15, 30, 0, ZoneId.of("+01:00"));
-        assertThat(ZonedDateTime.parse("2007-12-03T10:15:30+01:00"), equalTo(exp2));
+        assertThat(ZonedDateTime.parse("2007-12-03T10:15:30+01:00")).isEqualTo(exp2);
 
         ZonedDateTime.parse("2016-01-01T14:01:00Z");
     }
@@ -61,23 +59,23 @@ public class Parsing {
      * ".234778" means microseconds.
      */
     @Test
-    public void pythonUtcNow() {
+    void pythonUtcNow() {
         var date = "2019-01-30 15:31:05.234778";
         var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
         var localDateTime = LocalDateTime.parse(date, formatter);
-        assertThat(localDateTime.get(ChronoField.MICRO_OF_SECOND), equalTo(234778));
-        assertThat(localDateTime.toString(), equalTo("2019-01-30T15:31:05.234778"));
+        assertThat(localDateTime.get(ChronoField.MICRO_OF_SECOND)).isEqualTo(234778);
+        assertThat(localDateTime.toString()).isEqualTo("2019-01-30T15:31:05.234778");
     }
 
     @Test
-    public void pythonUtcNowWithBuilder() {
+    void pythonUtcNowWithBuilder() {
         var date = "2019-01-30 15:31:05.234778";
         var formatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd HH:mm:ss")
                 .appendFraction(ChronoField.MICRO_OF_SECOND, 6, 6, true)
                 .toFormatter();
         var localDateTime = LocalDateTime.parse(date, formatter);
-        assertThat(localDateTime.get(ChronoField.MICRO_OF_SECOND), equalTo(234778));
-        assertThat(localDateTime.toString(), equalTo("2019-01-30T15:31:05.234778"));
+        assertThat(localDateTime.get(ChronoField.MICRO_OF_SECOND)).isEqualTo(234778);
+        assertThat(localDateTime.toString()).isEqualTo("2019-01-30T15:31:05.234778");
     }
 }

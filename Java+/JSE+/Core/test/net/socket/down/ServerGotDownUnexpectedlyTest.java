@@ -11,8 +11,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Server gets down and Client gets {@link SocketTimeoutException}.
@@ -63,7 +62,7 @@ class ServerGotDownUnexpectedlyTest {
                 }
             } catch (SocketTimeoutException e) {
                 System.out.println("Client got SocketTimeoutException");
-                assertThat(sb.toString(), equalTo(BODY));
+                assertThat(sb.toString()).isEqualTo(BODY);
                 return null;
             }
             throw new AssertionError("SocketTimeoutException is expected");

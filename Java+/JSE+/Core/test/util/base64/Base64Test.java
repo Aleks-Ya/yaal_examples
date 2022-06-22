@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Base64;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class Base64Test {
 
@@ -26,7 +25,7 @@ class Base64Test {
         System.out.println("decodedBytes length: " + decodedBytes.length);
         System.out.println("Decoded: " + actText);
 
-        assertThat(actText, equalTo(expText));
+        assertThat(actText).isEqualTo(expText);
     }
 
     @Test
@@ -45,7 +44,7 @@ class Base64Test {
         System.out.println("decodedBytes length: " + decodedBytes.length);
         System.out.println("Decoded: " + actText);
 
-        assertThat(actText, equalTo(expText));
+        assertThat(actText).isEqualTo(expText);
     }
 
 
@@ -65,6 +64,6 @@ class Base64Test {
         System.out.println("decodedBytes length: " + decodedBytes.length);
         System.out.println("Decoded: " + actText);
 
-        assertThat(actText, equalTo(expText));
+        assertThat(actText).isEqualTo(expText);
     }
 }

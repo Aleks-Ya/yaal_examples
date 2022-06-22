@@ -1,13 +1,11 @@
 package lang.process;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import util.InputStreamUtil;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static util.ResourceUtil.resourceToPath;
 
 class ExecuteProcess {
@@ -26,11 +24,11 @@ class ExecuteProcess {
         env.remove("OTHERVAR");//can remove exists variables
 
         var process = pb.start();
-        assertThat(process.waitFor(), equalTo(SUCCESS_EXIT_CODE));
+        assertThat(process.waitFor()).isEqualTo(SUCCESS_EXIT_CODE);
 
         var is = process.getInputStream();
         var actOutput = InputStreamUtil.inputStreamToString(is);
-        assertThat(actOutput, equalTo(envVarValue));
+        assertThat(actOutput).isEqualTo(envVarValue);
     }
 
     @Test
@@ -39,7 +37,7 @@ class ExecuteProcess {
         var pb = new ProcessBuilder(customExitValueSh, Integer.toString(expExitValue));
         var process = pb.start();
         var actExitValue = process.waitFor();
-        assertThat(actExitValue, equalTo(actExitValue));
+        assertThat(actExitValue).isEqualTo(actExitValue);
     }
 
     @Test
@@ -47,7 +45,7 @@ class ExecuteProcess {
         var pb = new ProcessBuilder(paramsToStdOutSh, "process output");
         pb.inheritIO();
         var process = pb.start();
-        assertThat(process.waitFor(), equalTo(SUCCESS_EXIT_CODE));
+        assertThat(process.waitFor()).isEqualTo(SUCCESS_EXIT_CODE);
     }
 
     @Test
@@ -55,10 +53,10 @@ class ExecuteProcess {
         var expOutput = "process output";
         var pb = new ProcessBuilder(paramsToStdOutSh, expOutput);
         var process = pb.start();
-        assertThat(process.waitFor(), equalTo(SUCCESS_EXIT_CODE));
+        assertThat(process.waitFor()).isEqualTo(SUCCESS_EXIT_CODE);
 
         var is = process.getInputStream();
         var actOutput = InputStreamUtil.inputStreamToString(is);
-        assertThat(actOutput, equalTo(expOutput));
+        assertThat(actOutput).isEqualTo(expOutput);
     }
 }

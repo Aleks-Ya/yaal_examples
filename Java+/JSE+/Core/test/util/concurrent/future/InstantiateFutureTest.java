@@ -7,20 +7,19 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Create instance of {@link Future}.
  */
-class InstantiateFuture {
+class InstantiateFutureTest {
 
     @Test
     void submitToExecutorService() throws ExecutionException, InterruptedException {
         var executor = Executors.newSingleThreadExecutor();
         var future = executor.submit(() -> 2 * 3);
         var result = future.get();
-        assertThat(result, equalTo(6));
+        assertThat(result).isEqualTo(6);
     }
 
     @Test
@@ -28,7 +27,7 @@ class InstantiateFuture {
         var future = new FutureTask<>(() -> 2 * 3);
         future.run();
         var result = future.get();
-        assertThat(result, equalTo(6));
+        assertThat(result).isEqualTo(6);
     }
 
 }

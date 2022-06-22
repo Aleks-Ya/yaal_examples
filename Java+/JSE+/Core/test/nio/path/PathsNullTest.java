@@ -4,32 +4,30 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Paths;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasToString;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class PathsNullTest {
     @Test
     void empty() {
-        assertThat(Paths.get(""), hasToString(equalTo("")));
+        assertThat(Paths.get("")).hasToString("");
     }
 
     @Test
     void emptyInEnd() {
-        assertThat(Paths.get("/abc", "efg", ""), hasToString(equalTo("/abc/efg")));
+        assertThat(Paths.get("/abc", "efg", "")).hasToString("/abc/efg");
     }
 
     @Test
     void nullPath() {
         //noinspection ConstantConditions
-        assertThrows(NullPointerException.class, () -> Paths.get(null));
+        assertThatThrownBy(() -> Paths.get(null)).isInstanceOf(NullPointerException.class);
     }
 
     @Test
     void nullInEnd() {
         //noinspection ConstantConditions
-        assertThrows(NullPointerException.class, () -> Paths.get("/abc", null));
+        assertThatThrownBy(() -> Paths.get("/abc", null)).isInstanceOf(NullPointerException.class);
     }
 
 }

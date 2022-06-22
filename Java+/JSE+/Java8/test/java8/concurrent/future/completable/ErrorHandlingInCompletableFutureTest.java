@@ -5,41 +5,41 @@ import org.junit.jupiter.api.Test;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Handle error in {@link CompletableFuture}s.
  */
-public class ErrorHandlingInCompletableFuture {
+class ErrorHandlingInCompletableFutureTest {
     private Boolean errorHappened;
 
     @Test
-    public void notHandleExceptions() {
+    void notHandleExceptions() {
         var expException = new IllegalArgumentException();
         var cf = CompletableFuture
                 .supplyAsync(() -> {
                     throw expException;
                 });
-        var actException = assertThrows(ExecutionException.class, cf::get);
-        assertThat(cf.isDone(), equalTo(true));
-        assertThat(actException.getCause(), equalTo(expException));
+        var actException = assertThatThrownBy(cf::get)
+                .isInstanceOf(ExecutionException.class)
+                .hasCause(expException);
+        assertThat(cf.isDone()).isEqualTo(true);
     }
 
     @Test
-    public void handle() {
+    void handle() {
         var cf = CompletableFuture
                 .supplyAsync(() -> {
                     throw new IllegalArgumentException();
                 })
                 .handle((s, t) -> s != null ? s : "Hello Exception");
-        assertThat(cf.join(), equalTo("Hello Exception"));
-        assertThat(cf.isDone(), equalTo(true));
+        assertThat(cf.join()).isEqualTo("Hello Exception");
+        assertThat(cf.isDone()).isEqualTo(true);
     }
 
     @Test
-    public void whenComplete() {
+    void whenComplete() {
         var cf = CompletableFuture
                 .supplyAsync(() -> {
                     throw new IllegalArgumentException();
@@ -47,28 +47,29 @@ public class ErrorHandlingInCompletableFuture {
                 .whenComplete((msg, t) -> {
                     errorHappened = t != null;
                 });
-        assertThat(errorHappened, equalTo(true));
-        assertThat(cf.isDone(), equalTo(true));
+        assertThat(errorHappened).isEqualTo(true);
+        assertThat(cf.isDone()).isEqualTo(true);
     }
 
     @Test
-    public void exceptionally() {
+    void exceptionally() {
         var cf = CompletableFuture
                 .supplyAsync(() -> {
                     throw new IllegalArgumentException();
                 }).exceptionally(t -> errorHappened = true);
-        assertThat(errorHappened, equalTo(true));
-        assertThat(cf.isDone(), equalTo(true));
+        assertThat(errorHappened).isEqualTo(true);
+        assertThat(cf.isDone()).isEqualTo(true);
     }
 
     @Test
-    public void completeExceptionally() {
+    void completeExceptionally() {
         var cf = CompletableFuture.supplyAsync(() -> "The result");
         var expException = new RuntimeException("Computation failed");
         cf.completeExceptionally(expException);
-        assertThat(cf.isDone(), equalTo(true));
-        var actException = assertThrows(ExecutionException.class, cf::get);
-        assertThat(actException.getCause(), equalTo(expException));
+        assertThat(cf.isDone()).isEqualTo(true);
+        var actException = assertThatThrownBy(cf::get)
+                .isInstanceOf(ExecutionException.class)
+                .hasCause(expException);
     }
 
 }

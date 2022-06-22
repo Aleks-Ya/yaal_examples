@@ -5,9 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasToString;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ChangePathTest {
 
@@ -22,6 +20,6 @@ class ChangePathTest {
         var newUrlStr = urlStr.replace(oldPath, newPath);
         var newUrl = new URL(newUrlStr);
 
-        assertThat(newUrl, hasToString(equalTo(newUrlStr)));
+        assertThat(newUrl).hasToString(newUrlStr);
     }
 }

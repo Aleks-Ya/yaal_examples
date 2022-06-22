@@ -5,9 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-
+import static org.assertj.core.api.Assertions.assertThat;
 
 class BlockingQueueTest {
     @Test
@@ -15,7 +13,7 @@ class BlockingQueueTest {
         BlockingQueue<Integer> q = new ArrayBlockingQueue<>(2);
         q.put(1);
         q.put(2);
-        assertThat(q.take(), equalTo(1));
-        assertThat(q.take(), equalTo(2));
+        assertThat(q.take()).isEqualTo(1);
+        assertThat(q.take()).isEqualTo(2);
     }
 }
