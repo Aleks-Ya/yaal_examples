@@ -4,9 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.quartz.Job;
 import org.quartz.JobBuilder;
 import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
 
+import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
@@ -22,7 +24,7 @@ class QuartzTest {
             scheduler.start();
 
             // define the job and tie it to our HelloJob class
-            var job = JobBuilder.newJob(HelloJob.class)
+            var job = newJob(HelloJob.class)
                     .withIdentity("job1", "group1")
                     .build();
 
@@ -48,10 +50,13 @@ class QuartzTest {
     }
 
     public static class HelloJob implements Job {
-
         @Override
-        public void execute(JobExecutionContext context) {
-            System.out.println("Hello, Quartz!");
+        public void execute(JobExecutionContext context) throws JobExecutionException {
+            try {
+                System.out.println("Hello, Quartz!");
+            } catch (Exception e) {
+                throw new JobExecutionException(e);
+            }
         }
     }
 }

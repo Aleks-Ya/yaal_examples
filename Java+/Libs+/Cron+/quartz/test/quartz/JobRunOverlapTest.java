@@ -7,39 +7,39 @@ import org.quartz.JobExecutionException;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
 
-import static java.util.concurrent.TimeUnit.MINUTES;
-import static org.awaitility.Awaitility.await;
-import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.newJob;
+import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
-class CronTriggerTest {
+/**
+ * The next fire happens before the previous fire is finished.
+ */
+class JobRunOverlapTest {
 
     @Test
-    void cron() throws SchedulerException {
+    void cron() throws SchedulerException, InterruptedException {
         var jobDetail = newJob(WaitJob.class)
                 .withIdentity("jobDetail1", "group1")
                 .build();
         var trigger = newTrigger()
                 .withIdentity("trigger1", "group1")
-                .withSchedule(cronSchedule("0/2 * * * * ?"))
+                .withSchedule(simpleSchedule().repeatForever().withIntervalInMilliseconds(500))
                 .build();
-
         var scheduler = StdSchedulerFactory.getDefaultScheduler();
         scheduler.start();
         scheduler.scheduleJob(jobDetail, trigger);
-        await().timeout(1, MINUTES).until(() -> WaitJob.executed > 2);
+        Thread.sleep(5000);
         scheduler.shutdown(true);
     }
 
     public static class WaitJob implements Job {
-        static int executed = 0;
-
         @Override
         public void execute(JobExecutionContext context) throws JobExecutionException {
             try {
-                System.out.println("Job is done: " + context.getJobDetail().getKey() + " " + context.getFireTime());
-                executed++;
+                System.out.printf("Start %s %s in %s\n",
+                        context.getJobDetail().getKey(), context.getFireInstanceId(), Thread.currentThread().getName());
+                Thread.sleep(2000);
+                System.out.printf("Finish %s %s\n", context.getJobDetail().getKey(), context.getFireInstanceId());
             } catch (Exception e) {
                 throw new JobExecutionException(e);
             }

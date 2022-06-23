@@ -1,4 +1,4 @@
-package quartz;
+package quartz.example;
 
 import org.quartz.JobDetail;
 import org.quartz.Trigger;
@@ -12,6 +12,9 @@ import org.springframework.scheduling.quartz.SimpleTriggerFactoryBean;
 import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 
 
+/**
+ * Define JobDetails and Trigger in Spring config.
+ */
 @Configuration
 class QuartzConfig {
     static final int REPEAT_COUNT = 3;
