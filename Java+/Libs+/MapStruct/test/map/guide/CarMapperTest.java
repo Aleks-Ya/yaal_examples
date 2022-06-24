@@ -6,7 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class CarMapperTest {
     @Test
-    public void shouldMapCarToDto() {
+    void shouldMapCarToDto() {
         var car = new Car("Morris", 5, CarType.BIG);
         var carDto = CarMapper.INSTANCE.carToCarDto(car);
         assertThat(carDto).isNotNull();

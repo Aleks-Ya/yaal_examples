@@ -14,7 +14,7 @@ public class AspectTest {
     MessageWriter writer;
 
     @Test
-    public void test() {
+    void test() {
         writer.writeMessage();
     }
 }

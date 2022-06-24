@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class FinalFieldSerialization {
     @Test
-    public void test() {
+    void test() {
         ForSerialization expObj = new ForSerialization();
         String expId = expObj.id;
 

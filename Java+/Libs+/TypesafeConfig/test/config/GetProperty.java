@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.notNullValue;
 public class GetProperty extends BaseTest {
 
     @Test
-    public void joinPath() {
+    void joinPath() {
         var json = "{\"kafka\":{\"common\":{\"bootstrap.servers\":\"kfk.awseuc1.tst.edh.cnb:9093\"}}}";
         var conf = ConfigFactory.parseString(json);
         assertThat(conf.getValue("kafka"), notNullValue());

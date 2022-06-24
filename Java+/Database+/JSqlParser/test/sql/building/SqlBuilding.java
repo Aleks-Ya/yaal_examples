@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class SqlBuilding {
     @Test
-    public void select() {
+    void select() {
         Select select = SelectUtils.buildSelectFromTable(new Table("mytable"));
     }
 }

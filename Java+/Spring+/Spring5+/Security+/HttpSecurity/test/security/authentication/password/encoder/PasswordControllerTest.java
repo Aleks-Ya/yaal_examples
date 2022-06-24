@@ -39,7 +39,7 @@ public class PasswordControllerTest {
     private static final List<GrantedAuthority> authorities = singletonList(new SimpleGrantedAuthority("admin"));
 
     @Test
-    public void test() throws Exception {
+    void test() throws Exception {
         String username = "aleks";
         String rawPassword = "apass";
 
@@ -61,7 +61,7 @@ public class PasswordControllerTest {
     }
 
     @Test
-    public void differSaltForTwoUsers() {
+    void differSaltForTwoUsers() {
         String username1 = "john";
         String username2 = "mary";
         String rawPassword = "pass";

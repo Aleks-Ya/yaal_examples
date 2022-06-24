@@ -18,7 +18,7 @@ import static org.hamcrest.Matchers.is;
  */
 public class NoneAlgorithmTest {
     @Test
-    public void sign() throws ParseException {
+    void sign() throws ParseException {
         var claimsSet = new JWTClaimsSet.Builder()
                 .subject("boss")
                 .claim("name", "John")

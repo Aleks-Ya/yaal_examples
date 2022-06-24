@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class WriteToString extends BaseFreemarkerTest {
 
     @Test
-    public void test() throws IOException, TemplateException {
+    void test() throws IOException, TemplateException {
         Map<String, Object> data = new HashMap<>();
         data.put("name", "Aleksey");
 

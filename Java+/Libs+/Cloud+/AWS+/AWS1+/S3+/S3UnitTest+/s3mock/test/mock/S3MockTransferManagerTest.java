@@ -53,7 +53,7 @@ class S3MockTransferManagerTest extends S3MockBaseTest {
      * Transfer#waitForCompletion() works quickly.
      */
     @Test
-    public void uploadFileListPerformance() {
+    void uploadFileListPerformance() {
         assertTimeout(Duration.ofMillis(5000), () -> {
             Bucket bucket = createRandomBucket(s3);
 

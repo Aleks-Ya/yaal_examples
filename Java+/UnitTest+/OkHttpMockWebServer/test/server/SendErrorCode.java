@@ -8,12 +8,14 @@ import util.NetUtil;
 import java.io.IOException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.startsWith;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SendErrorCode {
     @Test
-    public void setResponseCode() throws IOException {
+    void setResponseCode() throws IOException {
         var server = new MockWebServer();
         server.enqueue(new MockResponse().setResponseCode(418));
         server.start();

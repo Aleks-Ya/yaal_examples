@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.not;
 
 public class GetAllNetworkInterfaces {
     @Test
-    public void allNifs() throws PcapNativeException {
+    void allNifs() throws PcapNativeException {
         List<PcapNetworkInterface> allDevs = Pcaps.findAllDevs();
         assertThat(allDevs, not(emptyIterable()));
         allDevs.forEach(System.out::println);

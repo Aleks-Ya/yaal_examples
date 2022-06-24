@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ClockInTestsTest {
     @Test
-    public void isHourElapsed() {
+    void isHourElapsed() {
         var fixedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
         Clocks.instance.setClock(fixedClock);
         var out = new TimeElapse();

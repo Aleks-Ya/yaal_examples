@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class DefaultMethodTest {
     @Test
-    public void defaultMethod() {
+    void defaultMethod() {
         Car car = new CarImpl("BMW", 270);
         assertEquals("Car[BMW,270]", car.carInfo());
     }

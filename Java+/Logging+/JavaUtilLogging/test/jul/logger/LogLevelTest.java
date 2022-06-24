@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.nullValue;
 public class LogLevelTest {
 
     @Test
-    public void defaultLogLevel() {
+    void defaultLogLevel() {
         loadConfig("jul/logger/LogLevelTest.properties");
 
         Logger rootLog = Logger.getLogger("");
@@ -26,7 +26,7 @@ public class LogLevelTest {
     }
 
     @Test
-    public void specificLoggerLevel() {
+    void specificLoggerLevel() {
         loadConfig("jul/logger/LogLevelTest.properties");
 
         Logger log = Logger.getLogger("a.b.c");

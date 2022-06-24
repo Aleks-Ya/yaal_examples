@@ -44,38 +44,38 @@ public class RememberMeTest {
     }
 
     @Test
-    public void notAuthorizedRequestIsForbidden() throws Exception {
+    void notAuthorizedRequestIsForbidden() throws Exception {
         mvc.perform(get(ENDPOINT).with(user(USER))).andExpect(status().isOk());
         mvc.perform(get(ENDPOINT)).andExpect(status().isForbidden());
     }
 
     @Test
-    public void authorizationViaSession() throws Exception {
+    void authorizationViaSession() throws Exception {
         MockHttpSession session = new MockHttpSession();
         mvc.perform(get(ENDPOINT)
-                .session(session)
-                .with(user(USER))
-        )
+                        .session(session)
+                        .with(user(USER))
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().string(session.getId()));
 
         mvc.perform(get(ENDPOINT)
-                .session(session)
-        )
+                        .session(session)
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().string(session.getId()));
     }
 
     @Test
-    public void rememberMe() throws Exception {
+    void rememberMe() throws Exception {
         String body = "";
         MockHttpSession session1 = new MockHttpSession();
         MvcResult mvcResult = mvc.perform(post(ENDPOINT)
-                .content(body)
-                .session(session1)
-                .with(user(USER))
-                .param("remember-me", "on")
-        )
+                        .content(body)
+                        .session(session1)
+                        .with(user(USER))
+                        .param("remember-me", "on")
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().string(session1.getId()))
                 .andReturn();
@@ -85,9 +85,9 @@ public class RememberMeTest {
 
         MockHttpSession session2 = new MockHttpSession();
         mvc.perform(get(ENDPOINT)
-                        .session(session2)
+                                .session(session2)
 //                .cookie(cookies)
-        )
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().string(session2.getId()));
     }

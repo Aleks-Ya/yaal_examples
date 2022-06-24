@@ -3,8 +3,8 @@ package intuit.combinatorics.tree.callback;
 import intuit.combinatorics.tree.BiNode;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Алгоритм обхода бинарного дерева в глубину.
@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class InDeepTraversalTest {
 
     @Test
-    public void oneLevelTree() {
+    void oneLevelTree() {
         BiNode<Character> left = new BiNode<>('L');
         BiNode<Character> right = new BiNode<>('R');
         BiNode<Character> root = new BiNode<>('A', left, right);
@@ -22,7 +22,7 @@ public class InDeepTraversalTest {
     }
 
     @Test
-    public void twoLevelTree() {
+    void twoLevelTree() {
         BiNode<String> left2 = new BiNode<>("L2");
         BiNode<String> right2 = new BiNode<>("R2");
         BiNode<String> left1 = new BiNode<>("L1", left2, right2);

@@ -16,7 +16,7 @@ import java.util.Map;
 public class PrimitiveDataTypes extends BaseFreemarkerTest {
 
     @Test
-    public void allPrimitiveDataTypes() throws IOException, TemplateException {
+    void allPrimitiveDataTypes() throws IOException, TemplateException {
         Map<String, Object> map = new HashMap<>();
         map.put("string_in_map", "String in Map");
 

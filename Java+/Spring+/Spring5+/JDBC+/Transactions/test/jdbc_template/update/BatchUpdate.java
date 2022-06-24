@@ -19,7 +19,7 @@ public class BatchUpdate {
     private JdbcTemplate template;
 
     @Test
-    public void insert() {
+    void insert() {
         assertArray(template.batchUpdate(
                 "INSERT INTO names values(1, 'Vera')",
                 "INSERT INTO names values(2, 'Bagira')"
@@ -27,7 +27,7 @@ public class BatchUpdate {
     }
 
     @Test
-    public void update() {
+    void update() {
         assertArray(template.batchUpdate(
                 "UPDATE names SET title='Jerry' WHERE title='Vera'",
                 "UPDATE names SET title='Boris' WHERE id=600"
@@ -35,7 +35,7 @@ public class BatchUpdate {
     }
 
     @Test
-    public void delete() {
+    void delete() {
         assertArray(template.batchUpdate(
                 "DELETE FROM names WHERE title='Mary'",
                 "DELETE FROM names WHERE title='John'"

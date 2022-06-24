@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class GreatestCommonDivisorTest {
 
     @Test
-    public void testCalculate() {
+    void testCalculate() {
         assertEquals(50, GreatestCommonDivisor.calculate(100, 50));
         assertEquals(50, GreatestCommonDivisor.calculate(50, 100));
         assertEquals(2, GreatestCommonDivisor.calculate(10, 4));

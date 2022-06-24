@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class JwtRsaTest {
     @Test
-    public void sign() throws JOSEException, ParseException {
+    void sign() throws JOSEException, ParseException {
         // RSA signatures require a public and private RSA key pair, the public key
         // must be made known to the JWS recipient in order to verify the signatures
         RSAKey rsaJWK = new RSAKeyGenerator(2048)

@@ -31,7 +31,7 @@ public class SimpleJdbcInsertUse extends TestBase {
     }
 
     @Test
-    public void map() {
+    void map() {
         Map<String, Object> args = new HashMap<>();
         args.put("id", null);
         args.put("title", "Vera");
@@ -44,7 +44,7 @@ public class SimpleJdbcInsertUse extends TestBase {
     }
 
     @Test
-    public void mapSqlParameterSource() {
+    void mapSqlParameterSource() {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", null)
                 .addValue("title", "Vera");
@@ -57,7 +57,7 @@ public class SimpleJdbcInsertUse extends TestBase {
     }
 
     @Test
-    public void beanPropertySqlParameterSource() {
+    void beanPropertySqlParameterSource() {
         Name name = new Name();
         name.setTitle("Vera");
         SqlParameterSource map = new BeanPropertySqlParameterSource(name);

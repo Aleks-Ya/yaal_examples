@@ -4,8 +4,6 @@ import hibernate4.context.session.HibernateSessionFactory436;
 import hibernate4.mapping.assosiation.bidirectional.payment.Payment;
 import hibernate4.mapping.assosiation.bidirectional.payment.Slip;
 import hibernate4.mapping.assosiation.bidirectional.payment.Transaction;
-import hibernate4.mapping.assosiation.bidirectional.people.Address;
-import hibernate4.mapping.assosiation.bidirectional.people.People;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.junit.jupiter.api.Test;
@@ -19,7 +17,7 @@ public class PeopleTest {
             Payment.class, Transaction.class, Slip.class, People.class, Address.class);
 
     @Test
-    public void test() throws Exception {
+    void test() throws Exception {
         saveEntities();
         readEntities();
     }

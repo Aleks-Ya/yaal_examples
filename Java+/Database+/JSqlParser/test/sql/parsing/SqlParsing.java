@@ -8,20 +8,24 @@ import net.sf.jsqlparser.expression.operators.relational.InExpression;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.Statement;
-import net.sf.jsqlparser.statement.select.*;
+import net.sf.jsqlparser.statement.select.AllColumns;
+import net.sf.jsqlparser.statement.select.PlainSelect;
+import net.sf.jsqlparser.statement.select.Select;
+import net.sf.jsqlparser.statement.select.SelectBody;
+import net.sf.jsqlparser.statement.select.SelectItem;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class SqlParsing {
     @Test
-    public void palinSelect() throws JSQLParserException {
+    void palinSelect() throws JSQLParserException {
         Statement stmt = CCJSqlParserUtil.parse("SELECT * FROM tab1");
         Select select = (Select) stmt;
 
@@ -36,7 +40,7 @@ public class SqlParsing {
     }
 
     @Test
-    public void inExpression() throws JSQLParserException {
+    void inExpression() throws JSQLParserException {
         Statement stmt = CCJSqlParserUtil.parse("SELECT * FROM tab1 WHERE col IN (1, 2, 3)");
         Select select = (Select) stmt;
 

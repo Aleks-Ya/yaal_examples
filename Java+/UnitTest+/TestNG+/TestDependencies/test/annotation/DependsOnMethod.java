@@ -12,13 +12,13 @@ public class DependsOnMethod {
     private int b;
 
     @Test
-    public void testA() {
+    void testA() {
         assertEquals(0, a);
         a = 1;
     }
 
     @Test
-    public void testB() {
+    void testB() {
         assertEquals(0, b);
         b = 2;
     }

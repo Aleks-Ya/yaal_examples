@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Using standard Spring class PerformanceMonitorInterceptor for measuring method execution time.
- *
+ * <p>
  * Source: https://www.baeldung.com/spring-performance-logging
  */
 @ExtendWith(SpringExtension.class)
@@ -24,7 +24,7 @@ public class PerformanceMonitorInterceptorTest {
     private PersonService personService;
 
     @Test
-    public void test() throws InterruptedException {
+    void test() throws InterruptedException {
         System.setProperty("org.slf4j.simpleLogger.log.method_execution_time.builtin.PersonService", "TRACE");
         Person person = new Person("John", "Mark");
         String fullName = personService.getFullName(person);

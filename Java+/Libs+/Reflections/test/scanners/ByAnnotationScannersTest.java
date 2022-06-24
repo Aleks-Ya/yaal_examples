@@ -83,7 +83,7 @@ class ByAnnotationScannersTest {
     }
 
     @Test
-    public void searchAnnotatedPackages() {
+    void searchAnnotatedPackages() {
         System.out.println("Packages annotations:");
         var reflections = new Reflections(ByAnnotationScannersTest.class.getPackage().getName());
         var jokeClasses = reflections.getTypesAnnotatedWith(Joke.class);

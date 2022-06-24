@@ -18,7 +18,7 @@ public class XmlInitDataSource {
     private DataSource dataSource;
 
     @Test
-    public void test() throws SQLException {
+    void test() throws SQLException {
         AssertDataSource.assertDataSource(dataSource);
     }
 }

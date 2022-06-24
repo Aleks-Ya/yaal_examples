@@ -41,21 +41,21 @@ public class GetTest {
     }
 
     @Test
-    public void unauthorized() throws Exception {
+    void unauthorized() throws Exception {
         mvc.perform(get("/admin").with(anonymous()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("http://localhost/login"));
     }
 
     @Test
-    public void success() throws Exception {
+    void success() throws Exception {
         mvc.perform(get("/admin").with(user(Admin.LOGIN).roles(Roles.ADMIN)))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().string(MainController.ADMIN_BODY));
     }
 
     @Test
-    public void testAnonymous() throws Exception {
+    void testAnonymous() throws Exception {
         mvc.perform(get("/anonymous").with(anonymous()))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().string(MainController.ANONYMOUS_BODY));

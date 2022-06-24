@@ -10,14 +10,14 @@ import static com.google.testing.compile.JavaSourceSubjectFactory.javaSource;
 public class ClassAsString {
 
     @Test
-    public void easiest() {
+    void easiest() {
         assert_().about(javaSource())
                 .that(JavaFileObjects.forSourceString("HelloWorld", "final class HelloWorld {}"))
                 .compilesWithoutError();
     }
 
     @Test
-    public void annotationProcessor() {
+    void annotationProcessor() {
         assert_().about(javaSource())
                 .that(JavaFileObjects.forSourceString("HelloWorld", "@MyAnnotation final class HelloWorld {}"))
                 .processedWith(new MyAnnotationProcessor())

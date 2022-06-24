@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.emptyArray;
 public class ConsoleHandlerTest {
 
     @Test
-    public void handler() {
+    void handler() {
         loadConfig("jul/handler/ConsoleHandlerTest.properties");
 
         Logger rootLog = Logger.getLogger("");

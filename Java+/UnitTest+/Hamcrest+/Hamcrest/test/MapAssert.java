@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.hasValue;
  */
 public class MapAssert {
     @Test
-    public void testName() {
+    void testName() {
         final Map<Integer, String> actual = new HashMap<>();
         actual.put(100, "Dollars");
         actual.put(200, "Rouble");

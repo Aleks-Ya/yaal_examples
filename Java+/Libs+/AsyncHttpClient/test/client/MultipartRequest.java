@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 public class MultipartRequest {
 
     @Test
-    public void multipart() {
+    void multipart() {
     }
 
 }

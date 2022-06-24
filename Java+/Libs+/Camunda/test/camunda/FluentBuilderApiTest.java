@@ -10,7 +10,7 @@ import java.io.File;
 public class FluentBuilderApiTest {
 
     @Test
-    public void name() throws Exception {
+    void name() throws Exception {
         BpmnModelInstance modelInstance = Bpmn.createProcess()
                 .name("Example process")
                 .executable()

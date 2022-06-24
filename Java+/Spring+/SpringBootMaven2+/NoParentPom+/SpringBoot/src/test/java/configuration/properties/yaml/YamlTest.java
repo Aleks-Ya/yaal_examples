@@ -17,7 +17,7 @@ public class YamlTest {
     private YamlSettings yaml;
 
     @Test
-    public void yaml() {
+    void yaml() {
         assertThat(yaml.isEnabled(), equalTo(true));
         assertThat(yaml.getMessage().getPrefix(), equalTo("Hi, everybody!"));
         assertThat(yaml.getMessage().getSuffix(), equalTo("Good bye!"));

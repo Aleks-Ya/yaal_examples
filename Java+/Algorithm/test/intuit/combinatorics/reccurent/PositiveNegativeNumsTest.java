@@ -4,14 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.function.Function;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class PositiveNegativeNumsTest {
     private static final Function<Integer, Integer> func = new PositiveNegativeNums();
 
     @Test
-    public void good() {
+    void good() {
         assertThat(func.apply(0), equalTo(0));
         assertThat(func.apply(1), equalTo(1));
         assertThat(func.apply(2), equalTo(-2));
@@ -22,7 +22,7 @@ public class PositiveNegativeNumsTest {
     }
 
     @Test
-    public void noStackOverflow() {
+    void noStackOverflow() {
         func.apply(1_000_000);
     }
 }

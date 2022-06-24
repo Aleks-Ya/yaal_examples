@@ -34,7 +34,7 @@ public class AllExceptionControllerTest {
     }
 
     @Test
-    public void fileNotFoundException() throws Exception {
+    void fileNotFoundException() throws Exception {
         mvc.perform(get(FILE_NOT_FOUND_EXCEPTION))
                 .andExpect(status().is(HTTP_STATUS))
                 .andExpect(content().string("{\"exception\":\"java.io.FileNotFoundException: File Not Found Exception\"}"));
@@ -42,14 +42,14 @@ public class AllExceptionControllerTest {
 
 
     @Test
-    public void numberFormatException() throws Exception {
+    void numberFormatException() throws Exception {
         mvc.perform(get(NUMBER_FORMAT_EXCEPTION))
                 .andExpect(status().is(HTTP_STATUS))
                 .andExpect(content().string("{\"exception\":\"java.lang.NumberFormatException: Number Format Exception\"}"));
     }
 
     @Test
-    public void missingServletRequestParameterException() throws Exception {
+    void missingServletRequestParameterException() throws Exception {
         mvc.perform(get(MISSING_SERVLET_PARAM_EXCEPTION))
                 .andExpect(status().is(HTTP_STATUS))
                 .andExpect(content().string("{\"exception\":\"org.springframework.web.bind.MissingServletRequestParameterException: Required String parameter 'abc' is not present\"}"));
@@ -59,7 +59,7 @@ public class AllExceptionControllerTest {
      * We can't process NoHandlerFoundException with DefaultHandlerExceptionResolver.
      */
     @Test
-    public void noHandlerFoundException() throws Exception {
+    void noHandlerFoundException() throws Exception {
         mvc.perform(get("/not_exists"))
                 .andExpect(status().is(404))
                 .andExpect(content().string(""));

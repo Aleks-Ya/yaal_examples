@@ -8,7 +8,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class MergeConfigs extends BaseTest {
     @Test
-    public void merge() {
+    void merge() {
         System.setProperty("system.number", "1");
         ConfigFactory.invalidateCaches();//Reset properties returned by ConfigFactory.systemProperties()
         var systemPropertiesConf = ConfigFactory.load(ConfigFactory.systemProperties());
@@ -24,7 +24,7 @@ public class MergeConfigs extends BaseTest {
     }
 
     @Test
-    public void atPath() {
+    void atPath() {
         System.setProperty("system.number", "1");
         ConfigFactory.invalidateCaches();//Reset properties returned by ConfigFactory.systemProperties()
         var systemPropertiesConf = ConfigFactory.load(ConfigFactory.systemProperties()).atPath("sys");

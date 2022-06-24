@@ -19,7 +19,7 @@ public class MongoTest {
     private UserRepository repo;
 
     @Test
-    public void test() throws IOException {
+    void test() throws IOException {
         repo.insert(new User("admin"));
     }
 }

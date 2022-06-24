@@ -11,7 +11,7 @@ import static util.AssertPrimitiveArrays.assertArray;
 public class UpdateBatchQueries extends TestBase {
 
     @Test
-    public void insert() {
+    void insert() {
         String[] queries = {
                 "INSERT INTO names values(5, 'Vera')",
                 "INSERT INTO names values(6, 'Bagira')"};
@@ -20,7 +20,7 @@ public class UpdateBatchQueries extends TestBase {
     }
 
     @Test
-    public void update() {
+    void update() {
         String[] queries = {
                 "UPDATE names SET title='Jerry' WHERE title='John'",
                 "UPDATE names SET title='Boris' WHERE id=600"};
@@ -29,7 +29,7 @@ public class UpdateBatchQueries extends TestBase {
     }
 
     @Test
-    public void delete() {
+    void delete() {
         String[] queries = {
                 "DELETE FROM names WHERE title='Mary'",
                 "DELETE FROM names WHERE title='John'"};

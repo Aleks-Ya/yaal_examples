@@ -7,15 +7,15 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * @author Yablokov Aleksey
  */
 public class DateTimeFormatterBuilderTest {
     @Test
-    public void dateTimeFormat() {
+    void dateTimeFormat() {
         final DateTime dateTime = new DateTime(2015, 3, 25, 15, 45, 20, DateTimeZone.forID("+02:00"));
 
         DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();

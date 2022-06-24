@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class HtmlModeTest {
 
     @Test
-    public void test() {
+    void test() {
         ITemplateResolver resolver = new ClassLoaderTemplateResolver();
 
         TemplateEngine engine = new TemplateEngine();

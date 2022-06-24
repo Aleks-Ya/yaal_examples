@@ -16,7 +16,7 @@ public class CompilationRuleUse {
     public CompilationRule rule = new CompilationRule();
 
     @Test
-    public void testName() {
+    void testName() {
         Elements elements = rule.getElements();
         assertNotNull(elements);
 

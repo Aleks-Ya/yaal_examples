@@ -11,18 +11,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Update extends TestBase {
 
     @Test
-    public void insert() {
+    void insert() {
         String name = "Vera";
         assertEquals(1, template.update("INSERT INTO names values(3, ?)", name));
     }
 
     @Test
-    public void update() {
+    void update() {
         assertEquals(1, template.update("UPDATE names SET title='Jerry' WHERE title='John'"));
     }
 
     @Test
-    public void delete() {
+    void delete() {
         assertEquals(1, template.update("DELETE FROM names WHERE title='Mary'"));
     }
 }

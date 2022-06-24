@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static pdf.Helper.createPdfFile;
 
 public class PDFTextStripperTest {
 
     @Test
-    public void blank() throws IOException {
+    void blank() throws IOException {
         File file = createPdfFile();
         RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
         PDFParser parser = new PDFParser(randomAccessFile);

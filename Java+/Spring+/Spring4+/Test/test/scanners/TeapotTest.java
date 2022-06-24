@@ -18,7 +18,7 @@ public class TeapotTest {
     private ITeapot teapot;
 
     @Test
-    public void model() {
+    void model() {
         assertEquals("TestSpot", teapot.getModel());
     }
 }

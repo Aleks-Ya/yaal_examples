@@ -13,14 +13,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class PropertyMissing extends BaseTest {
 
     @Test
-    public void missingException() {
+    void missingException() {
         var conf = ConfigFactory.empty();
         var e = assertThrows(ConfigException.Missing.class, () -> conf.getString("absent.key"));
         assertThat(e.getMessage(), equalTo("empty config: No configuration setting found for key 'absent'"));
     }
 
     @Test
-    public void checkPropertyExists() {
+    void checkPropertyExists() {
         var presentKey = "present.key";
         var absentKey = "absent.key";
         var conf = ConfigFactory.parseMap(Map.of(presentKey, "abc"));

@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class FastMethodTest {
     @Test
-    public void test() throws Exception {
+    void test() throws Exception {
         FastClass fastClass = FastClass.create(SampleBean.class);
         FastMethod fastMethod = fastClass.getMethod(SampleBean.class.getMethod("getValue"));
         SampleBean bean = new SampleBean();

@@ -7,7 +7,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CompressStringTest {
     @Test
-    public void compress() {
+    void compress() {
         assertThat(CompressString.compress("abcccdddd"), equalTo("a1b1c3d4"));
         assertThat(CompressString.compress("abcccddd"), equalTo("abcccddd"));
         assertThat(CompressString.compress(""), equalTo(""));

@@ -40,7 +40,7 @@ public class CommonsMultipartControllerTest {
     }
 
     @Test
-    public void requestParam() throws Exception {
+    void requestParam() throws Exception {
         String filename1 = "file1.json";
         String fileContent1 = "file content 1";
         MockMultipartFile multipartFile1 = new MockMultipartFile(DATA_PART_NAME, filename1, MediaType.APPLICATION_JSON_VALUE, fileContent1.getBytes());

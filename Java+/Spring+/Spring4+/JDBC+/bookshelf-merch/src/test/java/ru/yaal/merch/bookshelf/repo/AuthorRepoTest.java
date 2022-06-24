@@ -20,7 +20,7 @@ public class AuthorRepoTest {
     private AuthorRepo repo;
 
     @Test
-    public void insert() {
+    void insert() {
         Author expected = new Author(null, "Conan Doyle");
         Long id = repo.insertAuthor(expected);
         expected.setId(id);

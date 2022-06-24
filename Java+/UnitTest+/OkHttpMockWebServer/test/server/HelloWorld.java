@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class HelloWorld {
 
     @Test
-    public void mock() throws IOException, InterruptedException {
+    void mock() throws IOException, InterruptedException {
         var server = new MockWebServer();
 
         var body1 = "hello, world!";

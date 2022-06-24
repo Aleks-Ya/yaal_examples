@@ -27,7 +27,7 @@ public class UnmarshallerTest {
     private Unmarshaller unmarshaller;
 
     @Test
-    public void marshall() throws IOException {
+    void marshall() throws IOException {
         String xml = "<oxm.Person><name>John</name><age>30</age></oxm.Person>";
         Person expPerson = new Person("John", 30);
         ByteArrayOutputStream os = new ByteArrayOutputStream();

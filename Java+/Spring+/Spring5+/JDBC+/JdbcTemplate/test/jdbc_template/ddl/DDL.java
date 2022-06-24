@@ -9,7 +9,7 @@ import util.TestBase;
 public class DDL extends TestBase {
 
     @Test
-    public void createTable() {
+    void createTable() {
         template.execute("create table mytable (id integer, name varchar(100))");
     }
 }

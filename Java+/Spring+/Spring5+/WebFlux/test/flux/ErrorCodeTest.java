@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ErrorCodeTest {
 
     @Test
-    public void error() throws IOException {
+    void error() throws IOException {
         MockWebServer server = new MockWebServer();
         server.enqueue(new MockResponse().setResponseCode(418));
         server.start();

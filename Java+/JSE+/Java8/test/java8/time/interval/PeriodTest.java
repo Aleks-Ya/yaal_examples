@@ -7,7 +7,7 @@ import java.time.Period;
 
 public class PeriodTest {
     @Test
-    public void instantiate() {
+    void instantiate() {
         var period = Period.between(LocalDate.now(), LocalDate.now().plusDays(1));
     }
 

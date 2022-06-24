@@ -14,7 +14,7 @@ public class ClassAnnotationPointcutTest {
     private Messenger writer;
 
     @Test
-    public void test() {
+    void test() {
         writer.writeMessage();
     }
 }

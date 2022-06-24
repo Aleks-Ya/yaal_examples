@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class LoadFromMap extends BaseTest {
 
     @Test
-    public void load() {
+    void load() {
         var key = "magic.number";
         var map = Map.of(key, "7");
         var conf = ConfigFactory.parseMap(map);

@@ -8,13 +8,16 @@ import util.NetUtil;
 import java.io.FileNotFoundException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.endsWith;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PathDispatcherTest {
 
     @Test
-    public void pathDispatcher() throws InterruptedException {
+    void pathDispatcher() throws InterruptedException {
         var path1 = "/person";
         var body1 = "John";
         var mockResponse1 = new MockResponse().setBody(body1);
@@ -49,7 +52,7 @@ public class PathDispatcherTest {
     }
 
     @Test
-    public void pathNotSet() {
+    void pathNotSet() {
         var dispatcher = new PathDispatcher();
         var server = new MockWebServer();
         server.setDispatcher(dispatcher);

@@ -29,7 +29,7 @@ public class JdbcUserDetailsManagerTest {
     private UserDetailsManager userDetailsManager;
 
     @Test
-    public void userDetailsService() {
+    void userDetailsService() {
         UserDetails user = userDetailsService.loadUserByUsername(SecurityConfig.USERNAME);
         assertNotNull(user);
 
@@ -39,7 +39,7 @@ public class JdbcUserDetailsManagerTest {
     }
 
     @Test
-    public void userDetailsManager() {
+    void userDetailsManager() {
         //Create an user
         String username = "Mary";
         GrantedAuthority expAuthority = new SimpleGrantedAuthority("readonly");

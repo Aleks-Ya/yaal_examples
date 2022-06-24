@@ -12,7 +12,7 @@ import java.util.Random;
  */
 public class FindNumber {
     @Test
-    public void testName() {
+    void testName() {
         Random r = new Random();
         int count = Streams.generate(() -> r.nextInt(15) + 3).next().get();
         int A = Streams.generate(() -> r.nextInt(100)).next().get();

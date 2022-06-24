@@ -18,7 +18,7 @@ public class PartialBeanTest {
     private ApplicationContext ctx;
 
     @Test
-    public void name() throws Exception {
+    void name() throws Exception {
         Integer age = 25;
         String name = "John";
         Person person = ctx.getBean(Person.class, name, age);

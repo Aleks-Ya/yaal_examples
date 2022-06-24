@@ -18,7 +18,7 @@ import java.util.Map;
 public class JavaBeanInMap extends BaseFreemarkerTest {
 
     @Test
-    public void test() throws IOException, TemplateException {
+    void test() throws IOException, TemplateException {
         Map<String, Object> root = new HashMap<>();
         root.put("data", new Data());
 

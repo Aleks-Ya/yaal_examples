@@ -3,7 +3,14 @@ package date;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Properties;
 import java.util.TimeZone;
@@ -17,7 +24,7 @@ public class ParseDateTest {
      * Parse Date, Time and Timestamp that wrote in standard formats.
      */
     @Test
-    public void standardFormats() throws ClassNotFoundException, SQLException, ParseException {
+    void standardFormats() throws ClassNotFoundException, SQLException, ParseException {
         Class.forName("org.relique.jdbc.csv.CsvDriver");
 
         Properties props = new Properties();
@@ -42,7 +49,7 @@ public class ParseDateTest {
      * Parse Date, Time and Timestamp that wrote in custom formats.
      */
     @Test
-    public void customFormats() throws ClassNotFoundException, SQLException {
+    void customFormats() throws ClassNotFoundException, SQLException {
         Class.forName("org.relique.jdbc.csv.CsvDriver");
 
         Properties props = new Properties();

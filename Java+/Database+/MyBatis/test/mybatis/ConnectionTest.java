@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
  */
 public class ConnectionTest {
     @Test
-    public void name() throws Exception {
+    void name() throws Exception {
         JdbcDataSource dataSource = new JdbcDataSource();
         dataSource.setURL("jdbc:h2:mem:");
 

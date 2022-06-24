@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class IfBoolean extends BaseFreemarkerTest {
 
     @Test
-    public void test() throws IOException, TemplateException {
+    void test() throws IOException, TemplateException {
         Map<String, Object> data = new HashMap<>();
         data.put("large", true);
         data.put("fat", false);

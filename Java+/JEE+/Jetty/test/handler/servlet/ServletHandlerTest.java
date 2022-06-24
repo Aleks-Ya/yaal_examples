@@ -17,7 +17,7 @@ import static util.NetAsserts.assertUrlContent;
 public class ServletHandlerTest {
 
     @Test
-    public void main() throws Exception {
+    void main() throws Exception {
         var handler = new ServletHandler();
         handler.addServletWithMapping(StarServlet.class, "/*");
         handler.addServletWithMapping(WelcomeServlet.class, "/welcome");

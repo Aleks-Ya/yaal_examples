@@ -20,7 +20,7 @@ public class SpringHibernateTest {
     private SessionFactory sessionFactory;
 
     @Test
-    public void save() {
+    void save() {
         NameEntity name = new NameEntity();
         name.setTitle("Boris");
         Session s = sessionFactory.openSession();

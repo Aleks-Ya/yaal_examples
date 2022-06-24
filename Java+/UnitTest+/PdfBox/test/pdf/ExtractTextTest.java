@@ -11,7 +11,7 @@ import java.util.List;
 public class ExtractTextTest {
 
     @Test
-    public void blank() throws IOException {
+    void blank() throws IOException {
         File file = Helper.createPdfFile();
         Document luceneDocument = LucenePDFDocument.getDocument(file);// doesn't work
         List fields = luceneDocument.getFields();

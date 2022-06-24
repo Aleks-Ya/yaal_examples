@@ -15,7 +15,7 @@ public class ResourceDatabasePopulatorTest {
             .setType(EmbeddedDatabaseType.H2).build();
 
     @Test
-    public void testName() throws Exception {
+    void testName() throws Exception {
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
         populator.addScript(new ClassPathResource("db/schema.sql"));
         populator.addScript(new ClassPathResource("db/test-data.sql"));

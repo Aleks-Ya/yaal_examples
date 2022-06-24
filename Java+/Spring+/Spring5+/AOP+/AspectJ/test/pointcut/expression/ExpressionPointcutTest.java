@@ -22,7 +22,7 @@ public class ExpressionPointcutTest {
     private StringService stringService;
 
     @Test
-    public void test() {
+    void test() {
         assertFalse(MyAdvice.invoked);
         String upper = stringService.toUpperCase("lower");
         assertTrue(MyAdvice.invoked);

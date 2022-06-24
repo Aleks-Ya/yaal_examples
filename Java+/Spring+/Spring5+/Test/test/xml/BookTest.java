@@ -17,7 +17,7 @@ public class BookTest {
     private Book book;
 
     @Test
-    public void title() {
+    void title() {
         assertEquals(book.getTitle(), "Java. Effective programming");
     }
 }

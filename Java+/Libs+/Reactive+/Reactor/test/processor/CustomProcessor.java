@@ -52,7 +52,7 @@ public class CustomProcessor {
     };
 
     @Test
-    public void name() {
+    void name() {
         Stream<String> stream = Streams.just("1", "2");
         stream.process(strToIntProcessor).consume(System.out::println);
     }

@@ -17,7 +17,7 @@ public class ConverterTest {
     private Converter writer;
 
     @Test
-    public void test() {
+    void test() {
         assertThat(writer.toUpperCase("a"), equalTo(ConverterAspect.PREFIX + "A"));
     }
 }

@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class ReuseConnection {
 
     @Test
-    public void reuse() throws SQLException {
+    void reuse() throws SQLException {
         int maximumPoolSize = 1;
 
         HikariConfig config = new HikariConfig();

@@ -11,14 +11,14 @@ import java.io.InputStream;
 public class ReadModelFromFileTest {
 
     @Test
-    public void file() {
+    void file() {
         File file = new File(getClass().getResource("read_model_from_file.bpmn").getFile());
         BpmnModelInstance modelInstance = Bpmn.readModelFromFile(file);
         Bpmn.validateModel(modelInstance);
     }
 
     @Test
-    public void stream() {
+    void stream() {
         InputStream stream = getClass().getResourceAsStream("read_model_from_file.bpmn");
         BpmnModelInstance modelInstance = Bpmn.readModelFromStream(stream);
         Bpmn.validateModel(modelInstance);

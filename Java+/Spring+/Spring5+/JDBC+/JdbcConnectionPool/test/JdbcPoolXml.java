@@ -43,22 +43,22 @@ public class JdbcPoolXml {
     private DataSource hikariDataSource;
 
     @Test
-    public void tomcatPool() throws SQLException {
+    void tomcatPool() throws SQLException {
         testDataSource(tomcatPoolDataSource);
     }
 
     @Test
-    public void boneCp() throws SQLException {
+    void boneCp() throws SQLException {
         testDataSource(boneCpDataSource);
     }
 
     @Test
-    public void apacheCommonsDbcp() throws SQLException {
+    void apacheCommonsDbcp() throws SQLException {
         testDataSource(apacheCommonsDataSource);
     }
 
     @Test
-    public void hikari() throws SQLException {
+    void hikari() throws SQLException {
         testDataSource(hikariDataSource);
     }
 

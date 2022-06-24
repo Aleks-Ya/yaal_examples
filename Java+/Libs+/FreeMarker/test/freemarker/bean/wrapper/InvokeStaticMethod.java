@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class InvokeStaticMethod extends BaseFreemarkerTest {
 
     @Test
-    public void test() throws IOException, TemplateException {
+    void test() throws IOException, TemplateException {
         BeansWrapperBuilder builder = new BeansWrapperBuilder(Configuration.VERSION_2_3_21);
         BeansWrapper beansWrapper = builder.build();
 

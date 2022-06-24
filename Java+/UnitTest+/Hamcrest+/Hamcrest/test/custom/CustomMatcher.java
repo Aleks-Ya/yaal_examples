@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.not;
 
 public class CustomMatcher {
     @Test
-    public void isEven() {
+    void isEven() {
         assertThat(1, not(IsEven.isEven()));
         assertThat(2, IsEven.isEven());
     }

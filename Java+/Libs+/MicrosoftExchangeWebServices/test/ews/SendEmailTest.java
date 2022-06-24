@@ -30,7 +30,7 @@ public class SendEmailTest {
     }
 
     @Test
-    public void sendSuccess() throws Exception {
+    void sendSuccess() throws Exception {
         String emailAddress = System.getenv("email");
         EmailMessage msg = new EmailMessage(service);
         msg.setSubject("Hello world!");
@@ -40,7 +40,7 @@ public class SendEmailTest {
     }
 
     @Test
-    public void sendError() {
+    void sendError() {
         assertThrows(ServiceResponseException.class, () -> {
             String emailAddress = "not_exists";
             EmailMessage msg = new EmailMessage(service);

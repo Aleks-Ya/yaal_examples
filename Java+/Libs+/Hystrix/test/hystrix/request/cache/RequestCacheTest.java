@@ -3,15 +3,15 @@ package hystrix.request.cache;
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RequestCacheTest {
 
     @Test
-    public void cache() {
+    void cache() {
         HystrixRequestContext context = HystrixRequestContext.initializeContext();
         try {
             String cacheKey = "my_key";

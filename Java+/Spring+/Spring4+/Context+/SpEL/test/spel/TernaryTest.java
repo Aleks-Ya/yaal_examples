@@ -5,21 +5,21 @@ import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class TernaryTest {
     private final ExpressionParser parser = new SpelExpressionParser();
 
     @Test
-    public void full() {
+    void full() {
         Expression exp = parser.parseExpression("false ? 'trueExp' : 'falseExp'");
         String value = exp.getValue(String.class);
         assertThat(value, equalTo("falseExp"));
     }
 
     @Test
-    public void elvisString() {
+    void elvisString() {
         Inventor tesla = new Inventor((String) null);
         Expression exp = parser.parseExpression("name?:'Unknown'");
         String value = (String) exp.getValue(tesla);
@@ -27,7 +27,7 @@ public class TernaryTest {
     }
 
     @Test
-    public void elvisInt() {
+    void elvisInt() {
         Inventor tesla = new Inventor((Integer) null);
         Expression exp = parser.parseExpression("id?:2");
         Integer value = (Integer) exp.getValue(tesla);

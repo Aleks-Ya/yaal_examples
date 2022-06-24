@@ -20,27 +20,27 @@ public class IsThereRouteBetweenGraphNodesTest {
     }
 
     @Test
-    public void noPath() {
+    void noPath() {
         assertFalse(IsThereRouteBetweenGraphNodes.hasPath(D, A));
     }
 
     @Test
-    public void noPath2() {
+    void noPath2() {
         assertFalse(IsThereRouteBetweenGraphNodes.hasPath(D, B));
     }
 
     @Test
-    public void hasPath() {
+    void hasPath() {
         assertTrue(IsThereRouteBetweenGraphNodes.hasPath(A, D));
     }
 
     @Test
-    public void hasPath2() {
+    void hasPath2() {
         assertTrue(IsThereRouteBetweenGraphNodes.hasPath(B, D));
     }
 
     @Test
-    public void hasPath3() {
+    void hasPath3() {
         assertTrue(IsThereRouteBetweenGraphNodes.hasPath(B, C));
     }
 }

@@ -9,15 +9,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ConfigOverridingTests extends BaseMvcTest {
 
     @Test
-    public void notExistApplicationNotExistProfile() throws Exception {
+    void notExistApplicationNotExistProfile() throws Exception {
         String expContent = ResourceUtil.resourceToString(ConfigOverridingTests.class, "notExistApp_notExistProfile_body.json");
         mvc.perform(get("/notExistApp/notExistProfile"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().json(expContent));
     }
-    
+
     @Test
-    public void applicationNotExistProfile() throws Exception {
+    void applicationNotExistProfile() throws Exception {
         String expContent = ResourceUtil.resourceToString(ConfigOverridingTests.class, "app1_notExistProfile_body.json");
         mvc.perform(get("/app1/notExistProfile"))
                 .andExpect(status().is2xxSuccessful())
@@ -25,7 +25,7 @@ public class ConfigOverridingTests extends BaseMvcTest {
     }
 
     @Test
-    public void applicationProfile() throws Exception {
+    void applicationProfile() throws Exception {
         String expContent = ResourceUtil.resourceToString(ConfigOverridingTests.class, "app1_profileA_body.json");
         mvc.perform(get("/app1/profileA"))
                 .andExpect(status().is2xxSuccessful())
@@ -33,7 +33,7 @@ public class ConfigOverridingTests extends BaseMvcTest {
     }
 
     @Test
-    public void applicationProfileLabel() throws Exception {
+    void applicationProfileLabel() throws Exception {
         String expContent = ResourceUtil.resourceToString(ConfigOverridingTests.class, "app1_profileA_labelA_body.json");
         mvc.perform(get("/app1/profileA/labelA"))
                 .andExpect(status().is2xxSuccessful())

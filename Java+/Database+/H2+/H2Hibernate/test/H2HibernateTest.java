@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 
 public class H2HibernateTest {
     @Test
-    public void javaConfig() {
+    void javaConfig() {
         new JavaConfig().workWithDb();
     }
 
     @Test
-    public void xmlConfig() {
+    void xmlConfig() {
         new XmlConfig().workWithDb();
     }
 }

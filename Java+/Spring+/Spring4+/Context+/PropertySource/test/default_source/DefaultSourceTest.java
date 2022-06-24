@@ -7,8 +7,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Можно задать путь к файлу свойств через свойства JVM: -Dconf=file:${user.dir}/any/file.properties
@@ -21,7 +21,7 @@ public class DefaultSourceTest {
     private Environment env;
 
     @Test
-    public void environmentFromClasspath() {
+    void environmentFromClasspath() {
         assertThat(env.getProperty("planet.name"), equalTo("Neptune"));
     }
 }

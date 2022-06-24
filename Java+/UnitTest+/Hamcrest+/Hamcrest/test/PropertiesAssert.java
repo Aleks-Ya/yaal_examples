@@ -18,12 +18,12 @@ import static org.hamcrest.Matchers.not;
 public class PropertiesAssert {
 
     @Test
-    public void emptyProperties() {
+    void emptyProperties() {
         assertThat(new Properties(), anEmptyMap());
     }
 
     @Test
-    public void properties() {
+    void properties() {
         Properties props = new Properties();
         String key = "key";
         String value = "value";

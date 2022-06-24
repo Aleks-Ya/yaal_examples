@@ -6,13 +6,13 @@ import static org.hamcrest.Matchers.greaterThan;
 
 public class NumberAssert {
     @Test
-    public void doubleNumbers() {
+    void doubleNumbers() {
         double d = 1.5;
         assertThat(d, greaterThan(1D));
     }
 
     @Test
-    public void close() {
+    void close() {
         assertThat(1020D, closeTo(1000D, 50D));
     }
 }

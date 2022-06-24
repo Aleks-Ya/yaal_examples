@@ -17,7 +17,7 @@ public class PropertiesTest {
     private PropertiesSettings properties;
 
     @Test
-    public void properties() {
+    void properties() {
         assertThat(properties.getMessage(), equalTo("Hello world!"));
         assertThat(properties.getSystem().getStatus(), equalTo("System is OK."));
     }

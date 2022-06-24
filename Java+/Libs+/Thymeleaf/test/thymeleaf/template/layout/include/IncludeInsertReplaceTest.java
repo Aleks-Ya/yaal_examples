@@ -12,7 +12,7 @@ import static util.ResourceUtil.resourceToString;
 public class IncludeInsertReplaceTest {
 
     @Test
-    public void test() {
+    void test() {
         ITemplateResolver resolver = new ClassLoaderTemplateResolver();
 
         TemplateEngine engine = new TemplateEngine();

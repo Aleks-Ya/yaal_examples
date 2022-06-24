@@ -39,7 +39,7 @@ public class ITextPdfControllerTest {
     }
 
     @Test
-    public void requestParam() throws Exception {
+    void requestParam() throws Exception {
         MvcResult mvcResult = mvc.perform(get(ITextPdfController.ENDPOINT).accept(MediaType.APPLICATION_PDF))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_PDF_VALUE))

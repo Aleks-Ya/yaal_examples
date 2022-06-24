@@ -15,14 +15,14 @@ import static org.hamcrest.Matchers.hasItemInArray;
 public class ArrayAssert {
 
     @Test
-    public void equal() {
+    void equal() {
         final Integer[] arr1 = {1, 2, 3};
         final Integer[] arr2 = {1, 2, 3};
         assertThat(arr1, equalTo(arr2));
     }
 
     @Test
-    public void objectArray() {
+    void objectArray() {
         final Integer[] arr = {45, 34, 89};
         assertThat(arr, hasItemInArray(34));
         assertThat(arr, arrayContaining(45, 34, 89));//все элементы в такой же последовательности

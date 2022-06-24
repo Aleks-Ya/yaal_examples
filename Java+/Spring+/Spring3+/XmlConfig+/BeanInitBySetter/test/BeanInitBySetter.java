@@ -14,7 +14,7 @@ public class BeanInitBySetter {
     private City city;
 
     @Test
-    public void test() {
+    void test() {
         assertEquals("SPb", city.getName());
         assertEquals(CountryEnum.RUSSIA, city.getCountry());
         assertEquals(1000000, city.getPopulation());

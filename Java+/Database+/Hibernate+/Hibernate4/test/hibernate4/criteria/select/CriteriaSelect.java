@@ -1,8 +1,6 @@
 package hibernate4.criteria.select;
 
 import hibernate4.context.session.HibernateSessionFactory436;
-import hibernate4.criteria.select.CityEntity;
-import hibernate4.criteria.select.RegionEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
@@ -17,7 +15,7 @@ import java.util.List;
 public class CriteriaSelect {
 
     @Test
-    public void test() {
+    void test() {
         RegionEntity region = new RegionEntity("Вологодская область");
         final long vologdaPopulation = 300000L;
         final String vologdaName = "Вологда";

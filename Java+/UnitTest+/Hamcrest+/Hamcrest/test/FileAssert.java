@@ -13,14 +13,14 @@ import static org.hamcrest.Matchers.endsWith;
  */
 public class FileAssert {
     @Test
-    public void existingFile() throws IOException {
+    void existingFile() throws IOException {
         File f = Files.createTempFile("pref", "suffix").toFile();
         f.deleteOnExit();
         assertThat(f, FileMatchers.anExistingFile());
     }
 
     @Test
-    public void canonicalPath() throws IOException {
+    void canonicalPath() throws IOException {
         File f = Files.createTempFile("pref", "suffix").toFile();
         f.deleteOnExit();
         assertThat(f, FileMatchers.aFileWithCanonicalPath(endsWith("suffix")));

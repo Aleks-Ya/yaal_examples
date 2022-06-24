@@ -22,7 +22,7 @@ import java.util.function.Function;
 public class InternalClusterTest {
 
     @Test
-    public void indexDocument() throws IOException, InterruptedException {
+    void indexDocument() throws IOException, InterruptedException {
         var clusterSeed = 1L;
         var baseDir = Files.createTempDirectory(getClass().getSimpleName());
         var randomlyAddDedicatedMasters = false;

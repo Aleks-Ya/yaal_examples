@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
  */
 public class ArrayToTreeTest {
     @Test
-    public void toNode() {
+    void toNode() {
         int[] arr = new int[]{3, 7, 14, 18, 21, 26};
         ArrayToTree.Node node = ArrayToTree.toNode(arr);
         System.out.println(node);

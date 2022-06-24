@@ -18,7 +18,7 @@ public class AuthorRepoTest {
     private PersonRepo repo;
 
     @Test
-    public void test() {
+    void test() {
         List<String> allPersonNames = repo.getAllPersonNames();
         System.out.println("Persons: " + allPersonNames);
     }

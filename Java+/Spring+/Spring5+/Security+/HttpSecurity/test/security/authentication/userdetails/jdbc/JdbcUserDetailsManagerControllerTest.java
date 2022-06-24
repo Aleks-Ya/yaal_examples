@@ -38,7 +38,7 @@ public class JdbcUserDetailsManagerControllerTest {
     }
 
     @Test
-    public void successAuthentication() throws Exception {
+    void successAuthentication() throws Exception {
         String correctPassword = SecurityConfig.PASSWORD;
         Authentication auth = new UsernamePasswordAuthenticationToken(SecurityConfig.USERNAME, correctPassword);
         mvc.perform(get(ENDPOINT).with(authentication(auth)))
@@ -46,7 +46,7 @@ public class JdbcUserDetailsManagerControllerTest {
     }
 
     @Test
-    public void failAuthentication() throws Exception {
+    void failAuthentication() throws Exception {
         String wrongPassword = SecurityConfig.PASSWORD + "a";
         Authentication auth = new UsernamePasswordAuthenticationToken(SecurityConfig.USERNAME, wrongPassword);
         mvc.perform(get(ENDPOINT).with(authentication(auth)))

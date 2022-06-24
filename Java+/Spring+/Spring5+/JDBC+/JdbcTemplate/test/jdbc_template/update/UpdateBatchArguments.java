@@ -14,7 +14,7 @@ import static util.AssertPrimitiveArrays.assertArray;
 public class UpdateBatchArguments extends TestBase {
 
     @Test
-    public void insert() {
+    void insert() {
         List<Object[]> values = Arrays.asList(
                 new Object[]{7, "Vera"},
                 new Object[]{8, "Bagira"});
@@ -23,7 +23,7 @@ public class UpdateBatchArguments extends TestBase {
     }
 
     @Test
-    public void update() {
+    void update() {
         List<Object[]> values = Arrays.asList(
                 new Object[]{"Yram", "Mary"},
                 new Object[]{"Nohj", "John"});
@@ -32,7 +32,7 @@ public class UpdateBatchArguments extends TestBase {
     }
 
     @Test
-    public void delete() {
+    void delete() {
         List<Object[]> values = Arrays.asList(
                 new Object[]{"Mary"},
                 new Object[]{"John"});

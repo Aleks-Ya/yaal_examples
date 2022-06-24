@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AutoincrementPrimaryKeyTest {
 
     @Test
-    public void main() throws SQLException, ClassNotFoundException {
+    void main() throws SQLException, ClassNotFoundException {
         //connect
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
         Connection conn = DriverManager.getConnection(

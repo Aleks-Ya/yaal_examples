@@ -33,14 +33,14 @@ public class StandardControllerTest {
     }
 
     @Test
-    public void requestParam() throws Exception {
+    void requestParam() throws Exception {
         mvc.perform(get("/requestParam"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string(""));
     }
 
     @Test
-    public void model() throws Exception {
+    void model() throws Exception {
         mvc.perform(get("/model"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("helloWorld"));

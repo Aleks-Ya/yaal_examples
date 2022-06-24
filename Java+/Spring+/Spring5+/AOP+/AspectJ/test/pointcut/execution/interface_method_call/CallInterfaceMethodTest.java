@@ -17,7 +17,7 @@ public class CallInterfaceMethodTest {
     private ConverterInterface reverse;
 
     @Test
-    public void test() {
+    void test() {
         assertThat(reverse.reverse("abc"), equalTo(MyAspect.PREFIX + "cba"));
     }
 }

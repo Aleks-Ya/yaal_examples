@@ -15,7 +15,7 @@ public class MethodReference {
      * Reference to a Static Method
      */
     @Test
-    public void staticMethod() {
+    void staticMethod() {
         List<StringBuilder> list = Arrays.asList(
                 new StringBuilder("a"),
                 new StringBuilder("b"),
@@ -32,7 +32,7 @@ public class MethodReference {
      * Reference to an Instance Method of a Particular Object.
      */
     @Test
-    public void methodOfParticularObject() {
+    void methodOfParticularObject() {
         List<String> list = Arrays.asList("a", "b", "c");
         PrintStream out = System.out;
         list.forEach(out::println);
@@ -43,7 +43,7 @@ public class MethodReference {
      * Reference to an Instance Method of an Arbitrary Object of a Particular Type.
      */
     @Test
-    public void methodOfParticularObjectOfParticularType() {
+    void methodOfParticularObjectOfParticularType() {
         String[] arr = new String[]{"b", "c", "a"};
         Arrays.sort(arr, String::compareToIgnoreCase);
         assertArrayEquals(new String[]{"a", "b", "c"}, arr);
@@ -53,7 +53,7 @@ public class MethodReference {
      * Reference to a Constructor.
      */
     @Test
-    public void constructor() {
+    void constructor() {
         List<String> list = Arrays.asList("a", "b", "c");
         list.forEach(StringBuilder::new);
     }

@@ -18,7 +18,7 @@ class RedisTest {
             new GenericContainer<>(DockerImageName.parse("redis:5.0.3-alpine")).withExposedPorts(6379);
 
     @Test
-    public void setAndGet() {
+    void setAndGet() {
         assertThat(redis.isRunning()).isTrue();
         try (var jedis = new Jedis(redis.getHost(), redis.getMappedPort(6379))) {
             var key = "key1".getBytes();

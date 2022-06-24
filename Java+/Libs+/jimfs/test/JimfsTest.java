@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class JimfsTest {
     @Test
-    public void test() throws IOException {
+    void test() throws IOException {
         var fs = Jimfs.newFileSystem(Configuration.unix());
         var foo = fs.getPath("/foo");
         Files.createDirectory(foo);

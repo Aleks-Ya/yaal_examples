@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class LoadFromPropertiesObject extends BaseTest {
 
     @Test
-    public void load() {
+    void load() {
         var key = "magic.number";
         var properties = new Properties();
         properties.put(key, "7");

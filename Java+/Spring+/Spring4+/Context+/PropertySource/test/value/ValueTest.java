@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Take properties using {@link Value} annotation.
@@ -20,7 +20,7 @@ public class ValueTest {
     private String planetName;
 
     @Test
-    public void value() {
+    void value() {
         assertThat(planetName, equalTo("Venus"));
     }
 }

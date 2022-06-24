@@ -5,12 +5,12 @@ import rx.functions.Action1;
 
 public class RxJavaHelloWorld {
     @Test
-    public void superCompact() {
+    void superCompact() {
         Observable.just("Hello, world!").subscribe(System.out::println);
     }
 
     @Test
-    public void compact() {
+    void compact() {
         Observable<String> myObservable = Observable.just("Hello, world!");
         @SuppressWarnings({"Convert2Lambda", "Anonymous2MethodRef"})
         Action1<String> onNextAction = new Action1<String>() {
@@ -23,7 +23,7 @@ public class RxJavaHelloWorld {
     }
 
     @Test
-    public void boilerplate() {
+    void boilerplate() {
         Observable<String> myObservable = Observable.create(
                 new Observable.OnSubscribe<String>() {
                     @Override

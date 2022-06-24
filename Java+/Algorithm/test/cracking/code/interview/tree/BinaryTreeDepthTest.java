@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class BinaryTreeDepthTest {
 
     @Test
-    public void emptyTree() {
+    void emptyTree() {
         Node root = new Node();
         assertTrue(BinaryTreeDepth.isBalanced(root));
     }
 
     @Test
-    public void unbalancedTree() {
+    void unbalancedTree() {
         Node rightAA = new Node();
         Node rightA = new Node(null, rightAA);
         Node right = new Node(null, rightA);
@@ -26,7 +26,7 @@ public class BinaryTreeDepthTest {
     }
 
     @Test
-    public void balancedTree() {
+    void balancedTree() {
         Node rightAA = new Node();
         Node rightA1 = new Node(null, rightAA);
         Node rightA2 = new Node(null, rightAA);

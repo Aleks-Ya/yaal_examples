@@ -13,7 +13,7 @@ import java.nio.file.Files;
 
 public class SinglePageTest {
     @Test
-    public void main() throws Exception {
+    void main() throws Exception {
         final String content = "abcde";
         final Integer port = 40888;
         NanoHTTPD server = new NanoHTTPD(port) {

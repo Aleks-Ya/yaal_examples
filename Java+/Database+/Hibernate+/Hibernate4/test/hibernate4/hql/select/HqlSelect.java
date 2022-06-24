@@ -1,8 +1,6 @@
 package hibernate4.hql.select;
 
 import hibernate4.context.session.HibernateSessionFactory436;
-import hibernate4.hql.select.CityEntity;
-import hibernate4.hql.select.RegionEntity;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.junit.jupiter.api.Test;
@@ -10,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class HqlSelect {
 
     @Test
-    public void main() {
+    void main() {
         RegionEntity region = new RegionEntity("Вологодская область");
         final long vologdaPopulation = 300000L;
         final String vologdaName = "Вологда";

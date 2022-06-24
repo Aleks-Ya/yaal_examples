@@ -15,7 +15,7 @@ import java.security.SecureRandom;
  */
 public class HelloWorldTest {
     @Test
-    public void hello() throws JOSEException {
+    void hello() throws JOSEException {
         // Create an HMAC-protected JWS object with some payload
         var jwsObject = new JWSObject(new JWSHeader(JWSAlgorithm.HS256), new Payload("Hello, world!"));
 

@@ -2,8 +2,14 @@ package camunda;
 
 import org.camunda.bpm.model.bpmn.Bpmn;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
-import org.camunda.bpm.model.bpmn.instance.*;
+import org.camunda.bpm.model.bpmn.instance.BpmnModelElementInstance;
+import org.camunda.bpm.model.bpmn.instance.Definitions;
+import org.camunda.bpm.model.bpmn.instance.EndEvent;
+import org.camunda.bpm.model.bpmn.instance.FlowNode;
 import org.camunda.bpm.model.bpmn.instance.Process;
+import org.camunda.bpm.model.bpmn.instance.SequenceFlow;
+import org.camunda.bpm.model.bpmn.instance.StartEvent;
+import org.camunda.bpm.model.bpmn.instance.UserTask;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -15,7 +21,7 @@ import java.io.File;
 public class CreateModelFromScratchTest {
 
     @Test
-    public void name() throws Exception {
+    void name() throws Exception {
         BpmnModelInstance modelInstance = Bpmn.createEmptyModel();
 
         Definitions definitions = modelInstance.newInstance(Definitions.class);

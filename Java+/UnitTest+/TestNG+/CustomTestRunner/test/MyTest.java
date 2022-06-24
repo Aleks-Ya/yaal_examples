@@ -3,7 +3,7 @@ import org.testng.annotations.Test;
 public class MyTest {
 
     @Test
-    public void testName() {
+    void testName() {
         System.out.println("Test");
     }
 }

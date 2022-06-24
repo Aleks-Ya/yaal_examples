@@ -1,9 +1,6 @@
 package hibernate4.mapping.assosiation.bidirectional.payment;
 
 import hibernate4.context.session.HibernateSessionFactory436;
-import hibernate4.mapping.assosiation.bidirectional.payment.Payment;
-import hibernate4.mapping.assosiation.bidirectional.payment.Slip;
-import hibernate4.mapping.assosiation.bidirectional.payment.Transaction;
 import hibernate4.mapping.assosiation.bidirectional.people.Address;
 import hibernate4.mapping.assosiation.bidirectional.people.People;
 import org.hamcrest.Matchers;
@@ -30,7 +27,7 @@ public class PaymentTest {
     private Slip expSlipB;
 
     @Test
-    public void test() throws Exception {
+    void test() throws Exception {
         try {
             saveEntities();
             loadEntities();

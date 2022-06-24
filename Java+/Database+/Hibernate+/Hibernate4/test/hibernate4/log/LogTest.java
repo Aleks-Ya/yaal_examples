@@ -1,6 +1,5 @@
 package hibernate4.log;
 
-import hibernate4.log.Cashier;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class LogTest {
 
     @Test
-    public void main() {
+    void main() {
         Configuration configuration = getConfiguration();
 
         StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());

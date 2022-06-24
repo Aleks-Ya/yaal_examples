@@ -12,7 +12,7 @@ import static elastic.EsHelper.createRandomIndexName;
 public class IndexRequestTest extends ESIntegTestCase {
 
     @Test
-    public void indexDocument() {
+    void indexDocument() {
         var indexName = createRandomIndexName();
         createIndex(indexName);
 

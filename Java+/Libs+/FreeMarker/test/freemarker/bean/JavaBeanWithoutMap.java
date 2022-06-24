@@ -16,7 +16,7 @@ import java.util.Date;
 public class JavaBeanWithoutMap extends BaseFreemarkerTest {
 
     @Test
-    public void test() throws IOException, TemplateException {
+    void test() throws IOException, TemplateException {
         Data data = new Data();
 
         Template template = cfg.getTemplate("bean/java_bean_without_map.ftl");

@@ -10,7 +10,7 @@ import java.time.Instant;
  */
 public class Tuples {
     @Test
-    public void helloWorld() {
+    void helloWorld() {
         Broadcaster<Tuple2<Instant, String>> sink = Broadcaster.create();
         sink.consume(tuple -> System.out.printf("%s - %s%n", tuple.getT1(), tuple.getT2()));
         sink.onNext(Tuple.of(Instant.now(), "Hi"));

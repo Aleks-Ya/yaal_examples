@@ -12,26 +12,26 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class FindLighterCoinTest {
 
     @Test
-    public void oneCoin() {
+    void oneCoin() {
         var e = assertThrows(IllegalArgumentException.class,
                 () -> FindLighterCoin.findLighterCoinIndex(new int[]{1}));
         assertThat(e.getMessage(), equalTo("Количество элементов должно быть больше 1"));
     }
 
     @Test
-    public void allCoinsEquals() {
+    void allCoinsEquals() {
         var e = assertThrows(IllegalArgumentException.class,
                 () -> assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{10, 10, 10, 10}), equalTo(2)));
         assertThat(e.getMessage(), equalTo("Одна монета должна быть легче. Остальные монеты дожны быть одинакового веса."));
     }
 
     @Test
-    public void evenCoins() {
+    void evenCoins() {
         assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{10, 10, 5, 10}), equalTo(2));
     }
 
     @Test
-    public void evenCoinsLong() {
+    void evenCoinsLong() {
         assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{1, 2, 2, 2, 2, 2, 2, 2}), equalTo(0));
         assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 1, 2, 2, 2, 2, 2, 2}), equalTo(1));
         assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 2, 1, 2, 2, 2, 2, 2}), equalTo(2));
@@ -43,12 +43,12 @@ public class FindLighterCoinTest {
     }
 
     @Test
-    public void oddCoins() {
+    void oddCoins() {
         assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{10, 10, 5}), equalTo(2));
     }
 
     @Test
-    public void oddCoinsLong() {
+    void oddCoinsLong() {
         assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{1, 2, 2, 2, 2, 2, 2}), equalTo(0));
         assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 1, 2, 2, 2, 2, 2}), equalTo(1));
         assertThat(FindLighterCoin.findLighterCoinIndex(new int[]{2, 2, 1, 2, 2, 2, 2}), equalTo(2));

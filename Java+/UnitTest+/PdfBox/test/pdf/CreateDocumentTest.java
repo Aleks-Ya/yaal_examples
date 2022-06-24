@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class CreateDocumentTest {
     @Test
-    public void blank() throws IOException {
+    void blank() throws IOException {
         PDDocument document = new PDDocument();
 
         PDPage blankPage = new PDPage();
@@ -26,7 +26,7 @@ public class CreateDocumentTest {
     }
 
     @Test
-    public void notBlank() throws IOException {
+    void notBlank() throws IOException {
         PDDocument document = new PDDocument();
         PDPage page = new PDPage();
         document.addPage(page);

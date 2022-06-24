@@ -13,14 +13,14 @@ import java.io.InputStream;
 public class Metadata {
 
     @Test
-    public void dbfInfo() {
+    void dbfInfo() {
         File dbf = new File(getClass().getClassLoader().getResource("PI_316201712.DBF").getFile());
         String info = DbfProcessor.readDbfInfo(dbf);
         System.out.println(info);
     }
 
     @Test
-    public void dbfHeader() {
+    void dbfHeader() {
         InputStream is = getClass().getClassLoader().getResourceAsStream("PI_316201712.DBF");
         DataInput di = new DataInputStream(is);
         DbfHeader header = DbfHeader.read(di);

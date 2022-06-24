@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VariableTest {
     @Test
-    public void test() {
+    void test() {
         ITemplateResolver resolver = new ClassLoaderTemplateResolver();
 
         TemplateEngine engine = new TemplateEngine();

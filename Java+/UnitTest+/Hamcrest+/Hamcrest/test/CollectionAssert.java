@@ -20,22 +20,22 @@ public class CollectionAssert {
     private final Collection<Integer> coll = asList(1, 2, 3);
 
     @Test
-    public void hasSizeTest() {
+    void hasSizeTest() {
         assertThat(coll, hasSize(3));
     }
 
     @Test
-    public void isInTest() {
+    void isInTest() {
         assertThat(2, is(in(coll)));
     }
 
     @Test
-    public void emptyCollection() {
+    void emptyCollection() {
         assertThat(new ArrayList<>(), emptyCollectionOf(Random.class));
     }
 
     @Test
-    public void wholeCollection() {
+    void wholeCollection() {
         Collection<Integer> expected = asList(1, 2, 3);
         assertThat(coll, equalTo(expected));
         assertEquals(expected, coll);

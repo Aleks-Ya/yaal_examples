@@ -8,10 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.hamcrest.Matchers.arrayContaining;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 /**
  * Внесение ПАКЕТНЫХ изменений в БД с помощью JdbcTemplate.
  */
@@ -23,27 +19,27 @@ public class BatchUpdate {
     private JdbcTemplate template;
 
     @Test
-    public void insert() {
+    void insert() {
         assertArray(template.batchUpdate(
                 "INSERT INTO names values(1, 'Vera')",
                 "INSERT INTO names values(2, 'Bagira')"
-        ), new int[]{1,1});
+        ), new int[]{1, 1});
     }
 
     @Test
-    public void update() {
+    void update() {
         assertArray(template.batchUpdate(
                 "UPDATE names SET title='Jerry' WHERE title='Vera'",
                 "UPDATE names SET title='Boris' WHERE id=600"
-        ), new int[] {1,0});
+        ), new int[]{1, 0});
     }
 
     @Test
-    public void delete() {
+    void delete() {
         assertArray(template.batchUpdate(
                 "DELETE FROM names WHERE title='Mary'",
                 "DELETE FROM names WHERE title='John'"
-        ), new int[]{1,1});
+        ), new int[]{1, 1});
     }
 
     /**

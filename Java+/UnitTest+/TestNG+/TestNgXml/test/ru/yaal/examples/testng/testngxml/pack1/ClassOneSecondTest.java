@@ -6,7 +6,7 @@ import static org.testng.Assert.assertTrue;
 
 public class ClassOneSecondTest {
     @Test
-    public void test() {
+    void test() {
         assertTrue(true);
     }
 }

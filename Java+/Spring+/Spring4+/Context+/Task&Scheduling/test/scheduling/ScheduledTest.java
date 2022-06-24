@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ContextConfiguration(classes = ScheduledConfig.class)
 public class ScheduledTest {
     @Test
-    public void name() throws InterruptedException {
+    void name() throws InterruptedException {
         Thread.sleep(5000);
     }
 }

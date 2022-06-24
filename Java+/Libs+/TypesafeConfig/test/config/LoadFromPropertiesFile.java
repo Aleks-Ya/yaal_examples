@@ -8,7 +8,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class LoadFromPropertiesFile extends BaseTest {
     @Test
-    public void loadFromResource() {
+    void loadFromResource() {
         var conf = ConfigFactory.load("config/LoadFromPropertiesFile.properties");
 
         var act = conf.getInt("aaa.bbb");

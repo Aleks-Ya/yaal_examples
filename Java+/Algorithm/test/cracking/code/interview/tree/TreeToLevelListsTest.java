@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Test;
 import java.util.LinkedList;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TreeToLevelListsTest {
     @Test
-    public void onlyRoot() {
+    void onlyRoot() {
         TreeToLevelLists.Node root = new TreeToLevelLists.Node();
         List<LinkedList<TreeToLevelLists.Node>> lists = TreeToLevelLists.treeToLists(root);
         assertThat(lists, hasSize(1));
@@ -19,7 +19,7 @@ public class TreeToLevelListsTest {
     }
 
     @Test
-    public void twoLevels() {
+    void twoLevels() {
         TreeToLevelLists.Node left = new TreeToLevelLists.Node();
         TreeToLevelLists.Node right = new TreeToLevelLists.Node();
         TreeToLevelLists.Node root = new TreeToLevelLists.Node();
@@ -33,7 +33,7 @@ public class TreeToLevelListsTest {
     }
 
     @Test
-    public void threeLevels() {
+    void threeLevels() {
         TreeToLevelLists.Node left = new TreeToLevelLists.Node();
         TreeToLevelLists.Node rightA = new TreeToLevelLists.Node();
         TreeToLevelLists.Node right = new TreeToLevelLists.Node();

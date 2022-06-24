@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public class Errors {
     @Test
-    public void onErrorResumeNext() {
+    void onErrorResumeNext() {
         Broadcaster<String> broadcaster = Broadcaster.create();
         broadcaster.onErrorResumeNext(Streams.just("Alternative Message"))
                 .consume(System.out::println);
@@ -18,7 +18,7 @@ public class Errors {
     }
 
     @Test
-    public void onErrorResumeNext2() {
+    void onErrorResumeNext2() {
         Broadcaster<String> broadcaster = Broadcaster.create();
         broadcaster
                 .onErrorReturn(throwable -> "aaaa")
@@ -28,7 +28,7 @@ public class Errors {
     }
 
     @Test
-    public void retry() {
+    void retry() {
         Broadcaster<String> broadcaster = Broadcaster.create();
         broadcaster
                 .retry()
@@ -39,7 +39,7 @@ public class Errors {
     }
 
     @Test
-    public void when() {
+    void when() {
         Broadcaster<String> broadcaster = Broadcaster.create();
         broadcaster
                 .when(IllegalArgumentException.class, e -> System.out.println("argument " + e.getClass().getSimpleName()))

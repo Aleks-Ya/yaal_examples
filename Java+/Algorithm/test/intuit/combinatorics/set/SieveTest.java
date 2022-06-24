@@ -2,8 +2,10 @@ package intuit.combinatorics.set;
 
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.emptyCollectionOf;
+import static org.hamcrest.Matchers.hasSize;
 
 /**
  * Определить количество простых чисел во множестве натуральных чисел от 1 до n
@@ -11,13 +13,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class SieveTest {
     @Test
-    public void empty() {
+    void empty() {
         assertThat(Sieve.findEasyNumbers(0), emptyCollectionOf(Integer.class));
         assertThat(Sieve.findEasyNumbers(1), emptyCollectionOf(Integer.class));
     }
 
     @Test
-    public void two() {
+    void two() {
         assertThat(Sieve.findEasyNumbers(2), contains(2));
         assertThat(Sieve.findEasyNumbers(3), contains(2, 3));
         assertThat(Sieve.findEasyNumbers(4), contains(2, 3));
@@ -32,12 +34,12 @@ public class SieveTest {
     }
 
     @Test
-    public void hundred() {
+    void hundred() {
         assertThat(Sieve.findEasyNumbers(100), contains(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97));
     }
 
     @Test
-    public void stress() {
+    void stress() {
         long start = System.currentTimeMillis();
         assertThat(Sieve.findEasyNumbers(3571), hasSize(500));
         long finish = System.currentTimeMillis();

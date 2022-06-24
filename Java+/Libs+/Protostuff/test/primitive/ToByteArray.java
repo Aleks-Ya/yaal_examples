@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 public class ToByteArray {
     @Test
-    public void oneClass() {
+    void oneClass() {
         ForSerialization exp = new ForSerialization();
         exp.a = 3;
 

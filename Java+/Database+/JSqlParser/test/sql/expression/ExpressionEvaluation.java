@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class ExpressionEvaluation {
     @Test
-    public void test() throws JSQLParserException {
+    void test() throws JSQLParserException {
         Expression expr = CCJSqlParserUtil.parseExpression("a*(5+mycolumn)");
     }
 }

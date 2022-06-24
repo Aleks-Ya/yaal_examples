@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Autowire Spring dependencies in a bean after the context was started.
@@ -22,12 +22,12 @@ public class ValueTest {
     private Data data;
 
     @Test
-    public void main() {
+    void main() {
         System.out.println(data.getUserLanguage());
     }
 
     @Test
-    public void ternaryInteger() {
+    void ternaryInteger() {
         assertThat(data.getTernaryInteger(), equalTo(33));
     }
 

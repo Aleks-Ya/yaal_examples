@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Assign extends BaseFreemarkerTest {
 
     @Test
-    public void test() throws IOException, TemplateException {
+    void test() throws IOException, TemplateException {
         Map<String, Object> data = new HashMap<>();
 
         Template template = cfg.getTemplate("directive/assign.ftl");

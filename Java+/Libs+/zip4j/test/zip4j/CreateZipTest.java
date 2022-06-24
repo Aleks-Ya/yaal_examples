@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 
 public class CreateZipTest {
     @Test
-    public void create() throws IOException {
+    void create() throws IOException {
         File notExistZipFile = Paths.get(
                 Files.createTempDirectory(CreateZipTest.class.getSimpleName()).toString(), "my.zip").toFile();
 

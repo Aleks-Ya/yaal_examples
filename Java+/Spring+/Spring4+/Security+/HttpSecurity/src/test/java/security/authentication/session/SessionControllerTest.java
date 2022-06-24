@@ -46,7 +46,7 @@ public class SessionControllerTest {
      * A new session is created for each request.
      */
     @Test
-    public void differentSessionsAuto() throws Exception {
+    void differentSessionsAuto() throws Exception {
         mvc.perform(get(ENDPOINT).with(user(USER)))
                 .andExpect(status().isOk());
         mvc.perform(get(ENDPOINT).with(user(USER)))
@@ -57,7 +57,7 @@ public class SessionControllerTest {
      * Several requests using the same session.
      */
     @Test
-    public void theSameSession() throws Exception {
+    void theSameSession() throws Exception {
         MockHttpSession session = new MockHttpSession();
         mvc.perform(get(ENDPOINT).session(session).with(user(USER)))
                 .andExpect(status().isOk())
@@ -71,7 +71,7 @@ public class SessionControllerTest {
      * New session is created after the current session invalidation.
      */
     @Test
-    public void createNewSessionAfterInvalidation() throws Exception {
+    void createNewSessionAfterInvalidation() throws Exception {
         MockHttpSession session = new MockHttpSession();
         String sessionId = session.getId();
 
@@ -89,7 +89,7 @@ public class SessionControllerTest {
      * Use different session for several requests.
      */
     @Test
-    public void differentSessionsMock() throws Exception {
+    void differentSessionsMock() throws Exception {
         MockHttpSession session1 = new MockHttpSession();
         mvc.perform(get(ENDPOINT).session(session1).with(user(USER)))
                 .andExpect(status().isOk())

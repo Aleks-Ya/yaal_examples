@@ -2,8 +2,10 @@ package java8.lambda;
 
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+import java.awt.BorderLayout;
 
 /**
  * Использование лямбды для реализации интерфейса ActionListener.
@@ -11,7 +13,7 @@ import java.awt.*;
 public class ListenerLambda {
 
     @Test
-    public void listener() {
+    void listener() {
         JButton testButton = new JButton("Test Button");
         testButton.addActionListener(e -> System.out.println("Click Detected by Lambda Listner"));
 

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
  */
 public class NodeTest {
     @Test
-    public void test() {
+    void test() {
         //init list
         final Node<Integer> first;
         {

@@ -7,8 +7,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Использование класса-обертки Optional для замены null-значений.
@@ -19,7 +19,7 @@ public class OptionalTest {
      * Использование Optional#of.
      */
     @Test
-    public void of() {
+    void of() {
         String expTitle = "Gravity";
         Optional<String> titleOptional = Optional.of(expTitle);
         Book expBook = new Book(titleOptional);
@@ -34,7 +34,7 @@ public class OptionalTest {
      * Optional.of(null) бросает NPE.
      */
     @Test
-    public void ofNPE() {
+    void ofNPE() {
         assertThrows(NullPointerException.class, () -> Optional.of(null));
     }
 
@@ -42,7 +42,7 @@ public class OptionalTest {
      * Использование Optional#empty.
      */
     @Test
-    public void empty() {
+    void empty() {
         Optional<Book> bookOptional = Optional.empty();
         assertFalse(bookOptional.isPresent());
     }
@@ -51,7 +51,7 @@ public class OptionalTest {
      * Использование Optional#ofNullable.
      */
     @Test
-    public void ofNullable() {
+    void ofNullable() {
         Optional<Book> bookOptional = Optional.ofNullable(null);
         assertFalse(bookOptional.isPresent());
     }
@@ -60,7 +60,7 @@ public class OptionalTest {
      * Избегание проверки на NPE с помощью маппинга Optional#map.
      */
     @Test
-    public void map() {
+    void map() {
         String s = null;
         Optional<Integer> opt = Optional.ofNullable(s).map(String::length);
         assertFalse(opt.isPresent());
@@ -70,7 +70,7 @@ public class OptionalTest {
      * Замена null значением по-умолчанию с помощью Optional#orElse.
      */
     @Test
-    public void orElse() {
+    void orElse() {
         Optional<String> string = Optional.ofNullable(null);
         assertEquals("default", string.orElse("default"));
     }
@@ -79,7 +79,7 @@ public class OptionalTest {
      * Бросать исключение в случае null с помощью Optional#orElseThrow.
      */
     @Test
-    public void orElseThrow() {
+    void orElseThrow() {
         assertThrows(IllegalArgumentException.class, () -> {
             Optional<String> string = Optional.ofNullable(null);
             string.orElseThrow(IllegalArgumentException::new);

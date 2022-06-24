@@ -34,16 +34,16 @@ public class StandardControllerTest {
     }
 
     @Test
-    public void missingServletRequestParameterException() throws Exception {
+    void missingServletRequestParameterException() throws Exception {
         mvc.perform(get(MISSING_SERVLET_PARAM_EXCEPTION))
                 .andExpect(status().isBadRequest())
-        .andExpect(content().string(""));
+                .andExpect(content().string(""));
     }
 
     @Test
-    public void noHandlerFoundException() throws Exception {
+    void noHandlerFoundException() throws Exception {
         mvc.perform(get("/not_exists"))
                 .andExpect(status().is(404))
-        .andExpect(content().string(""));
+                .andExpect(content().string(""));
     }
 }

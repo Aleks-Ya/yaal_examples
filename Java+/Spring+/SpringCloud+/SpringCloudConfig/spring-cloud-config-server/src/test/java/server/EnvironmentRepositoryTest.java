@@ -17,7 +17,7 @@ public class EnvironmentRepositoryTest extends BaseTest {
     private EnvironmentRepository repo;
 
     @Test
-    public void applicationProfile() {
+    void applicationProfile() {
         Environment environment = repo.findOne("app1", "profileA", null);
         List<PropertySource> propertySources = environment.getPropertySources();
         assertThat(propertySources, hasSize(3));

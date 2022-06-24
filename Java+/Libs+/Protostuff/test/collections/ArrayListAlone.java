@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 public class ArrayListAlone {
 
     @Test
-    public void arrayList() {
+    void arrayList() {
         List<String> expList = Arrays.asList("a", "b");
 
         byte[] bytes = serialize(expList);

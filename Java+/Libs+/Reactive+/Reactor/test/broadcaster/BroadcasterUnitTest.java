@@ -5,7 +5,6 @@ import reactor.Environment;
 import reactor.rx.broadcast.Broadcaster;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Тестирование Broadcasters.
@@ -13,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class BroadcasterUnitTest {
 
     @Test
-    public void test() {
+    void test() {
         //prepare
         Environment.initialize();
         Broadcaster<String> sink = Broadcaster.create(Environment.newDispatcher()); //run broadcaster in separate thread (dispatcher)

@@ -16,7 +16,7 @@ public class JulPropertiesFile {
     private static final Logger julLogger = Logger.getLogger(JulPropertiesFile.class.getName());
 
     @Test
-    public void viaSystemProperty() throws IOException {
+    void viaSystemProperty() throws IOException {
         URL configUrl = JulPropertiesFile.class.getClassLoader().getResource("logging.properties");
         String configPath = Objects.requireNonNull(configUrl).getFile();
         System.setProperty("java.util.logging.config.file", configPath);
@@ -26,7 +26,7 @@ public class JulPropertiesFile {
     }
 
     @Test
-    public void viaInputStream() throws IOException {
+    void viaInputStream() throws IOException {
         InputStream configIs = JulPropertiesFile.class.getClassLoader().getResourceAsStream("logging.properties");
         LogManager.getLogManager().readConfiguration(configIs);
 

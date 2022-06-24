@@ -1,8 +1,6 @@
 package hibernate4.criteria.result;
 
 import hibernate4.context.session.HibernateSessionFactory436;
-import hibernate4.criteria.result.CityEntity;
-import hibernate4.criteria.result.RegionEntity;
 import org.hibernate.Criteria;
 import org.hibernate.NonUniqueResultException;
 import org.hibernate.Session;
@@ -14,7 +12,7 @@ import java.util.List;
 public class CriteriaResult {
 
     @Test
-    public void test() {
+    void test() {
         RegionEntity region = new RegionEntity("Вологодская область");
         final long vologdaPopulation = 300000L;
         final String vologdaName = "Вологда";

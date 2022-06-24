@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class ReplaceProperty extends BaseTest {
     @Test
-    public void withValue() {
+    void withValue() {
         var path = "aaa.bbb";
         var config = ConfigFactory.load("config/LoadFromPropertiesFile.properties")
                 .withValue(path, ConfigValueFactory.fromAnyRef("88"));

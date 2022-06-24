@@ -14,7 +14,7 @@ public class BigDecimalAssert {
      * Сравнение нуля с разным количеством знаков после запятой.
      */
     @Test
-    public void zero() {
+    void zero() {
         assertThat(new BigDecimal(0), closeTo(BigDecimal.ZERO, BigDecimal.ZERO));
         assertThat(new BigDecimal(0.0), closeTo(BigDecimal.ZERO, BigDecimal.ZERO));
         assertThat(new BigDecimal("0"), closeTo(BigDecimal.ZERO, BigDecimal.ZERO));

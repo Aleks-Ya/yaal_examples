@@ -9,13 +9,13 @@ import rx.Observable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class CircuitBreakerTest {
 
     @Test
-    public void execute() {
+    void execute() {
 //        HystrixRequestContext context = HystrixRequestContext.initializeContext();
 
         String keyName = "abc";
@@ -27,14 +27,14 @@ public class CircuitBreakerTest {
     }
 
     @Test
-    public void queue() throws ExecutionException, InterruptedException {
+    void queue() throws ExecutionException, InterruptedException {
         Future<String> future = new HelloWorldCommand("Bob").queue();
         String s = future.get();
         assertThat(s, equalTo("Hello Bob!"));
     }
 
     @Test
-    public void observe() {
+    void observe() {
         Observable<String> observable = new HelloWorldCommand("Bob").observe();
         String s = observable.toBlocking().first();
         assertThat(s, equalTo("Hello Bob!"));

@@ -1,8 +1,6 @@
 package hibernate4.mapping.assosiation.unidirectional;
 
 import hibernate4.context.session.HibernateSessionFactory436;
-import hibernate4.mapping.assosiation.unidirectional.Address;
-import hibernate4.mapping.assosiation.unidirectional.People;
 import org.hibernate.Session;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +15,7 @@ public class PeopleTest {
             People.class, Address.class);
 
     @Test
-    public void test() throws Exception {
+    void test() throws Exception {
         saveEntities();
         readEntities();
     }

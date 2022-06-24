@@ -17,7 +17,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 public class PostForObjectTest {
 
     @Test
-    public void customHeader() {
+    void customHeader() {
         RestTemplate restTemplate = new RestTemplate();
 
         String headerName = "myheader";
@@ -39,7 +39,7 @@ public class PostForObjectTest {
     }
 
     @Test
-    public void bodyTest() {
+    void bodyTest() {
         final RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();

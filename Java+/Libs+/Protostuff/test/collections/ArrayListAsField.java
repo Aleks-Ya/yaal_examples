@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 public class ArrayListAsField {
 
     @Test
-    public void test() {
+    void test() {
         WithArrayList exp = new WithArrayList("a", "b");
 
         Schema<WithArrayList> schema = RuntimeSchema.getSchema(WithArrayList.class);

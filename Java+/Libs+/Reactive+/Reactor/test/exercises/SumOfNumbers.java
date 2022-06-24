@@ -16,7 +16,7 @@ import java.util.Random;
  */
 public class SumOfNumbers {
     @Test
-    public void test() throws IOException {
+    void test() throws IOException {
         int degree = 100;
         Path path = Files.createTempFile("SumOfNumbers", ".tmp");
         OutputStream out = new FileOutputStream(path.toFile());

@@ -44,25 +44,25 @@ public class PostTest {
     }
 
     @Test
-    public void unauthorized() throws Exception {
+    void unauthorized() throws Exception {
         mvc.perform(post("/admin").with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("http://localhost/login"));
     }
 
     @Test
-    public void success() throws Exception {
+    void success() throws Exception {
         mvc.perform(
-                post("/admin")
-                        .with(user(UserCredentials.Admin.LOGIN).roles(Roles.ADMIN))
-                        .with(csrf())
-        )
+                        post("/admin")
+                                .with(user(UserCredentials.Admin.LOGIN).roles(Roles.ADMIN))
+                                .with(csrf())
+                )
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
     }
 
 
     @Test
-    public void testAnonymous() throws Exception {
+    void testAnonymous() throws Exception {
         mvc.perform(post("/anonymous").with(anonymous()).with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
                 .andExpect(MockMvcResultMatchers.content().string(MainController.ANONYMOUS_BODY));

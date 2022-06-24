@@ -17,14 +17,14 @@ public class CustomRowMapperTest extends TestBase {
     private static final RowMapper<Name> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Name.class);
 
     @Test
-    public void singleObject() {
+    void singleObject() {
         Name name = template.queryForObject("SELECT * FROM names WHERE id=1", ROW_MAPPER);
         assertEquals(1, (int) name.getId());
         assertEquals("John", name.getTitle());
     }
 
     @Test
-    public void objectList() {
+    void objectList() {
         List<Name> names = template.query("SELECT * FROM names", ROW_MAPPER);
 
         Name name1 = names.get(0);

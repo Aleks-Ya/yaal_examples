@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class Convert {
 
     @Test
-    public void localDateToLocalDateTime() {
+    void localDateToLocalDateTime() {
         var date = LocalDate.parse("2015-03-25");
         var time = LocalTime.MIDNIGHT;
         var dateTime = LocalDateTime.of(date, time);
@@ -29,35 +29,35 @@ public class Convert {
     }
 
     @Test
-    public void localDateTimeToLocalDate() {
+    void localDateTimeToLocalDate() {
         var dateTime = LocalDateTime.parse("2015-03-25T10:15:30");
         var localDate = LocalDate.ofEpochDay(dateTime.getLong(ChronoField.EPOCH_DAY));
         assertThat(localDate.toString()).isEqualTo("2015-03-25");
     }
 
     @Test
-    public void localDateTimeToInstant() {
+    void localDateTimeToInstant() {
         var dateTime = LocalDateTime.parse("2015-03-25T10:15:30");
         var instant = dateTime.toInstant(ZoneOffset.UTC);
         assertThat(instant.toString()).isEqualTo("2015-03-25T10:15:30Z");
     }
 
     @Test
-    public void localDateToInstant() {
+    void localDateToInstant() {
         var date = LocalDate.parse("2015-03-25");
         var instant = date.atStartOfDay().toInstant(ZoneOffset.UTC);
         assertThat(instant.toString()).isEqualTo("2015-03-25T00:00:00Z");
     }
 
     @Test
-    public void instantToLocalDateTime() {
+    void instantToLocalDateTime() {
         var instant = Instant.parse("2007-03-25T10:15:30.00Z");
         var dateTime = LocalDateTime.ofInstant(instant, ZoneId.of("Europe/Moscow"));
         assertThat(dateTime.toString()).isEqualTo("2007-03-25T14:15:30");
     }
 
     @Test
-    public void instantToLocalDate() {
+    void instantToLocalDate() {
         var instant = Instant.parse("2007-03-25T10:15:30.00Z");
         var dateTime = LocalDateTime.ofInstant(instant, ZoneId.of("Europe/Moscow"));
         var date = LocalDate.ofEpochDay(dateTime.getLong(ChronoField.EPOCH_DAY));
@@ -65,28 +65,28 @@ public class Convert {
     }
 
     @Test
-    public void yearMonthToInstant() {
+    void yearMonthToInstant() {
         var yearMonth = YearMonth.parse("2007-03");
         var instant = yearMonth.atEndOfMonth().atStartOfDay().toInstant(ZoneOffset.UTC);
         assertThat(instant.toString()).isEqualTo("2007-03-31T00:00:00Z");
     }
 
     @Test
-    public void dateToLocalDate() {
+    void dateToLocalDate() {
         var date = Date.from(Instant.parse("2007-03-25T10:15:30.00Z"));
         var localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         assertThat(localDate.toString()).isEqualTo("2007-03-25");
     }
 
     @Test
-    public void instantToZonedDateTime() {
+    void instantToZonedDateTime() {
         var instant = Instant.parse("2007-03-25T10:15:30.00Z");
         var dateTime = ZonedDateTime.ofInstant(instant, ZoneId.of("Europe/Moscow"));
         assertThat(dateTime.toString()).isEqualTo("2007-03-25T14:15:30+04:00[Europe/Moscow]");
     }
 
     @Test
-    public void zonedDateTimeToInstant() {
+    void zonedDateTimeToInstant() {
         var date = ZonedDateTime.of(2007, 3, 25,
                 10, 15, 30, 5,
                 ZoneId.of("+01:00"));
@@ -95,7 +95,7 @@ public class Convert {
     }
 
     @Test
-    public void epochSecondToInstant() {
+    void epochSecondToInstant() {
         var expInstant = Instant.parse("2007-03-25T10:15:30.00Z");
         var epochSecond = expInstant.getEpochSecond();
         var actInstant = Instant.ofEpochSecond(epochSecond);
@@ -103,7 +103,7 @@ public class Convert {
     }
 
     @Test
-    public void epochMilliToInstant() {
+    void epochMilliToInstant() {
         var expInstant = Instant.parse("2007-03-25T10:15:30.00Z");
         var epochMilli = expInstant.toEpochMilli();
         var actInstant = Instant.ofEpochMilli(epochMilli);

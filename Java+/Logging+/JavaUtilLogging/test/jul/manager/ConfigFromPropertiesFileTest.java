@@ -13,7 +13,7 @@ public class ConfigFromPropertiesFileTest {
     private static final Logger julLogger = Logger.getLogger(ConfigFromPropertiesFileTest.class.getName());
 
     @Test
-    public void viaSystemProperty() throws IOException {
+    void viaSystemProperty() throws IOException {
         URL configUrl = ConfigFromPropertiesFileTest.class.getClassLoader()
                 .getResource("jul/manager/ConfigFromPropertiesFileTest.properties");
         String configPath = Objects.requireNonNull(configUrl).getFile();
@@ -24,7 +24,7 @@ public class ConfigFromPropertiesFileTest {
     }
 
     @Test
-    public void viaInputStream() throws IOException {
+    void viaInputStream() throws IOException {
         InputStream configIs = ConfigFromPropertiesFileTest.class.getClassLoader()
                 .getResourceAsStream("jul/manager/ConfigFromPropertiesFileTest.properties");
         LogManager.getLogManager().readConfiguration(configIs);

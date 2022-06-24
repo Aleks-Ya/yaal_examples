@@ -18,7 +18,7 @@ import static util.NetAsserts.assertUrlContent;
 public class CachingTest {
 
     @Test
-    public void test() throws Exception {
+    void test() throws Exception {
         var servletHandler = new ServletHandler();
         servletHandler.addServletWithMapping(RootPageServlet.class, "/cache/root");
         servletHandler.addServletWithMapping(CachedPageServlet.class, "/cache/data");

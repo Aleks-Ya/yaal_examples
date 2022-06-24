@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
  */
 public class StaticMethodTest {
     @Test
-    public void staticMethod() {
+    void staticMethod() {
         Car car = new CarImpl("BMW", 270);
         Car duplicate = Car.duplicate(car);
         assertNotSame(car, duplicate);

@@ -17,7 +17,7 @@ public class BeanDefinition2Test {
      * начальной инициализации контекста.
      */
     @Test
-    public void main() throws IOException {
+    void main() throws IOException {
         MetadataReaderFactory factory = new SimpleMetadataReaderFactory();
         MetadataReader reader = factory.getMetadataReader("newbean.Address");
         BeanDefinition definition = new ScannedGenericBeanDefinition(reader);

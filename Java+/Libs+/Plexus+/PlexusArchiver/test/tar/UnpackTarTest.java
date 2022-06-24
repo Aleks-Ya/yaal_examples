@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.arrayContaining;
+import static org.hamcrest.Matchers.arrayWithSize;
+import static org.hamcrest.Matchers.containsString;
 
 public class UnpackTarTest {
     private File destDir;
@@ -32,13 +34,13 @@ public class UnpackTarTest {
     }
 
     @Test
-    public void wholeTarAtOnce() throws IOException {
+    void wholeTarAtOnce() throws IOException {
         ua.extract();
         assertThat(destDir.list(), arrayContaining("mytar"));
     }
 
     @Test
-    public void fileSelector() throws IOException {
+    void fileSelector() throws IOException {
         IncludeExcludeFileSelector selector = new IncludeExcludeFileSelector();
         selector.setIncludes(new String[]{"mytar\\subdir\\subdir.txt"});
 

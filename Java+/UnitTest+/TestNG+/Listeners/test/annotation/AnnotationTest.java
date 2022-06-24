@@ -28,7 +28,7 @@ import org.testng.annotations.Test;
 })
 public class AnnotationTest {
     @Test
-    public void testA() {
+    void testA() {
         System.out.println("AnnotationTest#testA");
     }
 }

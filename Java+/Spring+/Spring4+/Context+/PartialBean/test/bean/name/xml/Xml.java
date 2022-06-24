@@ -20,7 +20,7 @@ public class Xml implements ApplicationContextAware {
      * Имя бина сгенерировано BeanNameGenerator.
      */
     @Test
-    public void generateName() {
+    void generateName() {
         assertEquals(BeanWithGeneratedNameXml.class,
                 ctx.getBean("bean.name.xml.BeanWithGeneratedNameXml#0").getClass());
     }
@@ -29,7 +29,7 @@ public class Xml implements ApplicationContextAware {
      * Имя бина задано явно.
      */
     @Test
-    public void explicitName() {
+    void explicitName() {
         assertEquals(BeanWithExplicitName.class, ctx.getBean("explicitName").getClass());
     }
 

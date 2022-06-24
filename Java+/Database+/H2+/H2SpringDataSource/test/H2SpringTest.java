@@ -22,7 +22,7 @@ public class H2SpringTest {
     private DataSource ds;
 
     @Test
-    public void name() throws SQLException {
+    void name() throws SQLException {
         Connection connection = ds.getConnection();
         Statement statement = connection.createStatement();
         statement.executeUpdate("INSERT INTO cars (id) VALUES (5)");

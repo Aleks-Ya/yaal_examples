@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class LoadFromSystemProperties extends BaseTest {
 
     @Test
-    public void load() {
+    void load() {
         var key = "magic.number";
         System.setProperty(key, "7");
 

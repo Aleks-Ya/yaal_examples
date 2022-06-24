@@ -4,7 +4,7 @@ import reactor.rx.broadcast.Broadcaster;
 
 public class ReactorHelloWorld {
     @Test
-    public void test() throws InterruptedException {
+    void test() throws InterruptedException {
         Environment.initialize();
 
         Broadcaster<String> sink = Broadcaster.create(Environment.get());

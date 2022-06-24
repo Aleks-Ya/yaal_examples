@@ -4,7 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Properties;
 import java.util.TimeZone;
@@ -18,7 +25,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class DataTypesTest {
 
     @Test
-    public void test() throws ClassNotFoundException, SQLException, ParseException {
+    void test() throws ClassNotFoundException, SQLException, ParseException {
         Class.forName("org.relique.jdbc.csv.CsvDriver");
 
         Properties props = new Properties();

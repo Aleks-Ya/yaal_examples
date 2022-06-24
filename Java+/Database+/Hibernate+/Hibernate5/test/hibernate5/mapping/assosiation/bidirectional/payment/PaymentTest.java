@@ -25,7 +25,7 @@ class PaymentTest {
     private Slip expSlipB;
 
     @Test
-    public void test() {
+    void test() {
         try {
             saveEntities();
             loadEntities();

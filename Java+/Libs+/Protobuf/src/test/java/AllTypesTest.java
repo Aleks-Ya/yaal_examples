@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AllTypesTest {
     @Test
-    public void testName() throws Exception {
+    void testName() throws Exception {
         AllTypes.Person.PhoneNumber.Builder phoneNumberBuilder = AllTypes.Person.PhoneNumber.newBuilder();
 
         phoneNumberBuilder.setNumber("777-99-33");

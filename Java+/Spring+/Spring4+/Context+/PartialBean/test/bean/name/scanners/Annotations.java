@@ -26,7 +26,7 @@ public class Annotations {
      * Имя бина сгенерировано BeanNameGenerator.
      */
     @Test
-    public void generateName() {
+    void generateName() {
         assertEquals(BeanWithGeneratedName.class, ctx.getBean("beanWithGeneratedName").getClass());
     }
 
@@ -34,7 +34,7 @@ public class Annotations {
      * Имя бина задано явно.
      */
     @Test
-    public void explicitName() {
+    void explicitName() {
         assertEquals(ComponentWithExplicitName.class, ctx.getBean("componentName").getClass());
         assertEquals(ServiceWithExplicitName.class, ctx.getBean("serviceName").getClass());
         assertEquals(RepositoryWithExplicitName.class, ctx.getBean("repositoryName").getClass());

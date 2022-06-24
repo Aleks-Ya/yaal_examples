@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class StreamToPromise {
     @Test
-    public void takeFirstElementOfStream() {
+    void takeFirstElementOfStream() {
         Stream<String> stream = Streams.just("a", "b");
 
         Promise<String> promise1 = stream.next();

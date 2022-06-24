@@ -12,26 +12,26 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class FixedSizeBitSetSquareImplTest {
 
     @Test
-    public void incorrectSize() {
+    void incorrectSize() {
         int size = 2;
         assertThrows(IllegalArgumentException.class, () -> new FixedSizeBitSetModel(size));
     }
 
     @Test
-    public void testSize() {
+    void testSize() {
         int size = 5;
         Model m = new FixedSizeBitSetModel(size);
         assertEquals(size, m.getSize());
     }
 
     @Test
-    public void testIsAlive() {
+    void testIsAlive() {
         Model m = new FixedSizeBitSetModel(5);
         assertFalse(m.isAlive(1, 1));
     }
 
     @Test
-    public void testAliveNeiboursCount() {
+    void testAliveNeiboursCount() {
         Model m = new FixedSizeBitSetModel(5);
         assertEquals(0, m.aliveNeiboursCount(1, 1));
         m.setAlive(1, 2, true);
@@ -42,7 +42,7 @@ public class FixedSizeBitSetSquareImplTest {
      * Can set alive not a border cell.
      */
     @Test
-    public void testSetAlive() {
+    void testSetAlive() {
         Model m = new FixedSizeBitSetModel(5);
         int x = 1;
         int y = 2;
@@ -55,7 +55,7 @@ public class FixedSizeBitSetSquareImplTest {
      * Can't set alive a border cell.
      */
     @Test
-    public void testSetAliveBorderCell() {
+    void testSetAliveBorderCell() {
         Model m = new FixedSizeBitSetModel(5);
         int x = 0;
         int y = 1;

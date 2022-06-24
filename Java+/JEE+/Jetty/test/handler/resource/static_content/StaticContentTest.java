@@ -21,7 +21,7 @@ public class StaticContentTest {
      * Resources are stored out of classpath.
      */
     @Test
-    public void specialResourceDirectory() throws Exception {
+    void specialResourceDirectory() throws Exception {
         var handler = new ResourceHandler();
         var staticContentPath = new File("static_content").getAbsolutePath();
         handler.setResourceBase(staticContentPath);
@@ -42,7 +42,7 @@ public class StaticContentTest {
      * Resources are stored in classpath.
      */
     @Test
-    public void resourcesInClasspath() throws Exception {
+    void resourcesInClasspath() throws Exception {
         var handler = new ResourceHandler();
         var res = StaticContentTest.class.getResource("index.html");
         var staticContentDir = new File(res.getFile()).getParentFile();
@@ -63,7 +63,7 @@ public class StaticContentTest {
      * Resources are stored in classpath.
      */
     @Test
-    public void customResourceRoot() throws Exception {
+    void customResourceRoot() throws Exception {
         var handler = new ResourceHandler();
         var res = StaticContentTest.class.getResource("index.html");
         var staticContentDir = new File(res.getFile()).getParentFile();
@@ -89,7 +89,7 @@ public class StaticContentTest {
      * Custom welcome file.
      */
     @Test
-    public void customWelcomeFile() throws Exception {
+    void customWelcomeFile() throws Exception {
         var handler = new ResourceHandler();
         var res = StaticContentTest.class.getResource("index.html");
         var staticContentDir = new File(res.getFile()).getParentFile();

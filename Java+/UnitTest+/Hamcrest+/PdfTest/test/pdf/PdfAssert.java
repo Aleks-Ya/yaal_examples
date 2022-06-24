@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class PdfAssert {
 
     @Test
-    public void canAssertThatPdfContainsText() {
+    void canAssertThatPdfContainsText() {
         URL pdfFile = PdfAssert.class.getResource("hello_world.pdf");
         PDF pdf = new PDF(pdfFile);
         assertThat(pdf, containsText("Hello World!"));

@@ -13,7 +13,7 @@ import static util.NetAsserts.assertUrlContent;
 public class AsyncServletTest {
 
     @Test
-    public void test() throws Exception {
+    void test() throws Exception {
         var context = new ServletContextHandler();
         var path = "/async";
         var asyncHolder = context.addServlet(AsyncServlet.class, path);

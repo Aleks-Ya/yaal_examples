@@ -18,7 +18,7 @@ import java.nio.file.Files;
 public class SnapshotSaveTest {
 
     @Test
-    public void testServer() throws Exception {
+    void testServer() throws Exception {
         int port = ServerThreadHelper.runServer();
 
         Client client = null;

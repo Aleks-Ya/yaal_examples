@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StringTemplateResolverTest {
     @Test
-    public void test() {
+    void test() {
         ITemplateResolver resolver = new StringTemplateResolver();
 
         TemplateEngine engine = new TemplateEngine();

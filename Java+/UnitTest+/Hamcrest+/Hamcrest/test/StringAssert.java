@@ -18,7 +18,7 @@ import static org.hamcrest.Matchers.stringContainsInOrder;
 public class StringAssert {
 
     @Test
-    public void strings() {
+    void strings() {
         final String str = "Людовико Эйнауди - Tu Sei";
         assertThat(str, containsString("Эйнауди"));
         assertThat(str, startsWith("Люд"));
@@ -35,7 +35,7 @@ public class StringAssert {
     }
 
     @Test
-    public void regExp() {
+    void regExp() {
         assertThat("obsolete hede", matchesPattern("^.*ete.*$"));
     }
 
@@ -44,7 +44,7 @@ public class StringAssert {
      * E.g.: "Id:{any-id}"
      */
     @Test
-    public void anySubstring() {
+    void anySubstring() {
         Matcher<String> matcher = matchesPattern("^Hello, \\w+!$");
         assertThat("Hello, John!", matcher);
         assertThat("Hello, Mary!", matcher);

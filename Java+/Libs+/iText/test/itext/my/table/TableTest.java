@@ -19,7 +19,7 @@ import java.io.IOException;
 public class TableTest {
 
     @Test
-    public void name() throws IOException {
+    void name() throws IOException {
         File file = File.createTempFile(TableTest.class.getSimpleName() + "_", ".pdf");
         PdfWriter writer = new PdfWriter(file);
         PdfDocument pdf = new PdfDocument(writer);

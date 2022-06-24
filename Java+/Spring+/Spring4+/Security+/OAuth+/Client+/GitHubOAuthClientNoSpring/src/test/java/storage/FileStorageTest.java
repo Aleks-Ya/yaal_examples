@@ -26,7 +26,7 @@ public class FileStorageTest {
     }
 
     @Test
-    public void saveAuthorizationCode() {
+    void saveAuthorizationCode() {
         assertNull(storage.readAuthenticationCode(SESSION_ID_1));
         storage.saveAuthorizationCode(SESSION_ID_1, VALUE_1);
         assertThat(storage.readAuthenticationCode(SESSION_ID_1), equalTo(VALUE_1));
@@ -38,7 +38,7 @@ public class FileStorageTest {
     }
 
     @Test
-    public void saveAccessToken() {
+    void saveAccessToken() {
         assertNull(storage.readAccessToken(SESSION_ID_1));
         storage.saveAccessToken(SESSION_ID_1, VALUE_1);
         assertThat(storage.readAccessToken(SESSION_ID_1), equalTo(VALUE_1));
@@ -50,7 +50,7 @@ public class FileStorageTest {
     }
 
     @Test
-    public void saveRefreshToken() {
+    void saveRefreshToken() {
         assertNull(storage.readRefreshToken(SESSION_ID_1));
         storage.saveRefreshToken(SESSION_ID_1, VALUE_1);
         assertThat(storage.readRefreshToken(SESSION_ID_1), equalTo(VALUE_1));
@@ -62,7 +62,7 @@ public class FileStorageTest {
     }
 
     @Test
-    public void saveAll() {
+    void saveAll() {
         saveAuthorizationCode();
         saveAccessToken();
         saveRefreshToken();

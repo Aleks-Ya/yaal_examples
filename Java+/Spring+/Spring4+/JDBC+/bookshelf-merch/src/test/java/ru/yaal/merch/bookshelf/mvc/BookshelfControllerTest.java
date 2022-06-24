@@ -38,11 +38,11 @@ public class BookshelfControllerTest {
     }
 
     @Test
-    public void addBook() throws Exception {
+    void addBook() throws Exception {
         addBookRequest(resourceToString("book.json"));
         this.mockMvc.perform(
-                get("/book/100")
-                        .accept(MediaType.parseMediaType("application/json")))
+                        get("/book/100")
+                                .accept(MediaType.parseMediaType("application/json")))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
@@ -52,13 +52,13 @@ public class BookshelfControllerTest {
 
 
     @Test
-    public void findBookByName() throws Exception {
+    void findBookByName() throws Exception {
         addBookRequest("{ \"id\": 301, \"name\": \"The Taming of the Shrew\", \"abstractPart\": \"Renowned as Shakespeare's most boisterous comedy\" }");
         addBookRequest("{ \"id\": 302, \"name\": \"The Taming\", \"abstractPart\": \"The Tempest, long considered one of Shakespeare's most lyrical plays\" }");
         this.mockMvc.perform(
-                get("/book/find")
-                        .accept(MediaType.parseMediaType("application/json"))
-                        .param("query", "Taming"))
+                        get("/book/find")
+                                .accept(MediaType.parseMediaType("application/json"))
+                                .param("query", "Taming"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
@@ -68,10 +68,10 @@ public class BookshelfControllerTest {
 
     private void addBookRequest(String json) throws Exception {
         this.mockMvc.perform(
-                post("/book")
-                        .accept(MediaType.parseMediaType("application/json"))
-                        .contentType("application/json")
-                        .content(json))
+                        post("/book")
+                                .accept(MediaType.parseMediaType("application/json"))
+                                .contentType("application/json")
+                                .content(json))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

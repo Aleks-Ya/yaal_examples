@@ -3,7 +3,11 @@ package dbf;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Don't work because JdbcOdbcDriver class is not found.
@@ -11,7 +15,7 @@ import java.sql.*;
 public class PrintTableNames {
 
     @Test
-    public void test() throws SQLException, ClassNotFoundException, IOException {
+    void test() throws SQLException, ClassNotFoundException, IOException {
         try {
             Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
             String connString = "jdbc:odbc:Driver={Microsoft dBASE Driver (*.dbf)};DefaultDir=E:\\db";//DeafultDir indicates the location of the db

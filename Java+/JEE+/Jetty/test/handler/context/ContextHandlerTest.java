@@ -16,7 +16,7 @@ import static util.NetAsserts.assertUrlContent;
 public class ContextHandlerTest {
 
     @Test
-    public void main() throws Exception {
+    void main() throws Exception {
         var rootContext = new ContextHandler();// корневой контекст по-умолчанию (/)
         rootContext.setHandler(new ShowMessageHandler("Root context handler: /"));
 

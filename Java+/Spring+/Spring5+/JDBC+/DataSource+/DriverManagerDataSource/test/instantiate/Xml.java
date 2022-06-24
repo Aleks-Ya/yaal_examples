@@ -24,7 +24,7 @@ public class Xml {
     private DataSource dataSource;
 
     @Test
-    public void test() throws SQLException {
+    void test() throws SQLException {
         try (Connection conn = dataSource.getConnection();
              Statement st = conn.createStatement()) {
             st.executeUpdate("CREATE TABLE t1 (k INT PRIMARY KEY)");

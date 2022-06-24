@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class Include extends BaseFreemarkerTest {
 
     @Test
-    public void include() throws TemplateException, IOException {
+    void include() throws TemplateException, IOException {
         Template template = cfg.getTemplate("directive/include/outer.ftl");
         Writer out = new StringWriter();
         template.process(null, out);

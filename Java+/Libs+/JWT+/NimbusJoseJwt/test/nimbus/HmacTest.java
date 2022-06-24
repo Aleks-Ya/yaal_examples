@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class HmacTest {
     @Test
-    public void sign() throws JOSEException, ParseException {
+    void sign() throws JOSEException, ParseException {
         var sharedSecret = "my-secret-more-longer-than-256-bits".getBytes();
 
         JWSSigner signer = new MACSigner(sharedSecret);

@@ -1,8 +1,6 @@
 package hibernate4.criteria.association;
 
 import hibernate4.context.session.HibernateSessionFactory436;
-import hibernate4.criteria.association.CityEntity;
-import hibernate4.criteria.association.RegionEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
@@ -14,7 +12,7 @@ import java.util.List;
 public class CriteriaAssociations {
 
     @Test
-    public void test() {
+    void test() {
         RegionEntity region = new RegionEntity("Вологодская область");
         final long vologdaPopulation = 300000L;
         final String vologdaName = "Вологда";

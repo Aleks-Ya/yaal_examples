@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class TrimSpaces extends BaseTest {
     @Test
-    public void trimSpacesFromProperties() {
+    void trimSpacesFromProperties() {
         var key1 = "single.space";
         var key2 = "twice.space";
         var properties = new Properties();
@@ -22,7 +22,7 @@ public class TrimSpaces extends BaseTest {
     }
 
     @Test
-    public void trimSpacesFromFile() {
+    void trimSpacesFromFile() {
         var conf = ConfigFactory.load("config/LoadFromPropertiesFile_trimSpacesFromFile.properties");
         assertThat(conf.getString("aaa.bbb"), equalTo("77"));
         assertThat(conf.getString("ggg.ttt"), equalTo(" "));

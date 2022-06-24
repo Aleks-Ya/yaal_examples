@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class Controller {
     @Test
-    public void main() throws Exception {
+    void main() throws Exception {
         String crawlStorageFolder = "/data/crawl/root";
         int numberOfCrawlers = 7;
 

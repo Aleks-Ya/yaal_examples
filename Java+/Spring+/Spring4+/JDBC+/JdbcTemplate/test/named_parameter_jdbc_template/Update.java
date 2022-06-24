@@ -22,7 +22,7 @@ public class Update {
     private NamedParameterJdbcTemplate template;
 
     @Test
-    public void queryForObject() {
+    void queryForObject() {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("title_param", "Ben");
         parameters.addValue("id_param", 4);

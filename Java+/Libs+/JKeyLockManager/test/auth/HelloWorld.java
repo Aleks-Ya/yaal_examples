@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class HelloWorld {
 
     @Test
-    public void test() {
+    void test() {
         KeyLockManager lockManager = KeyLockManagers.newLock();
         LockCallback callback = () -> System.out.println("aaa");
         String key = "abc";

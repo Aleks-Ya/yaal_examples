@@ -9,7 +9,7 @@ import reactor.rx.broadcast.Broadcaster;
  */
 public class Broadcasters {
     @Test
-    public void helloWorld() {
+    void helloWorld() {
         Broadcaster<String> sink = Broadcaster.create();
         Stream<String> stream = sink.map(String::toUpperCase);
         stream.consume(System.out::println);

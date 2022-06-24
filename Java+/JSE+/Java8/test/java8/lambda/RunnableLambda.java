@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class RunnableLambda {
 
     @Test
-    public void runnable() {
+    void runnable() {
         Runnable r = () -> {
             String threadName = Thread.currentThread().getName();
             System.out.println("Runnable lambda: " + threadName);

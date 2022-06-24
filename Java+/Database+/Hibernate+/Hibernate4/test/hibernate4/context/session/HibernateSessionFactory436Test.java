@@ -14,7 +14,7 @@ public class HibernateSessionFactory436Test {
     private static HibernateSessionFactory436 factory = HibernateSessionFactory436.makeFactory(House.class);
 
     @Test
-    public void getSessionFactory() throws Exception {
+    void getSessionFactory() throws Exception {
         SessionFactory sf = factory.getSessionFactory();
         Session s = sf.openSession();
         s.save(new House(1, "Spb"));
@@ -23,7 +23,7 @@ public class HibernateSessionFactory436Test {
     }
 
     @Test
-    public void openSession() throws Exception {
+    void openSession() throws Exception {
         Session s = factory.openSession();
         s.save(new House(2, "Spb"));
         s.flush();

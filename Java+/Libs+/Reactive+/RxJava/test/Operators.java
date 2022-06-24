@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class Operators {
     @Test
-    public void map() {
+    void map() {
         Observable.just("Hello, world!")
                 .map(String::hashCode)
                 .map(i -> Integer.toString(i))
@@ -20,7 +20,7 @@ public class Operators {
     }
 
     @Test
-    public void filter() {
+    void filter() {
         Observable.just("A", "", null, "B")
                 .filter(s -> s != null)
                 .filter(s -> s.length() > 0)
@@ -31,7 +31,7 @@ public class Operators {
      * Преобразование потока коллекций в поток элементов этих коллекций.
      */
     @Test
-    public void flatMap() {
+    void flatMap() {
         List<String> list1 = Arrays.asList("A", "B");
         List<String> list2 = Arrays.asList("C", "D");
         Observable.just(list1, list2)
@@ -43,7 +43,7 @@ public class Operators {
      * Взять 2 элемента из Источника.
      */
     @Test
-    public void take() {
+    void take() {
         Observable.just("A", "B", "C")
                 .take(2)
                 .subscribe(System.out::println);
@@ -53,7 +53,7 @@ public class Operators {
      * Выполнить действие над каждым элементом Источника.
      */
     @Test
-    public void doOnNext() {
+    void doOnNext() {
         StringBuilder sb = new StringBuilder();
         Observable.just("A", "B")
                 .doOnNext(sb::append)

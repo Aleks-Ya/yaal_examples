@@ -9,7 +9,7 @@ import static util.NetAsserts.assertUrlContent;
 public class FilterHandlerTest {
 
     @Test
-    public void authFilter() throws Exception {
+    void authFilter() throws Exception {
         var showAuthHandler = new ShowAuthHandler();
         var authFilter = new AuthFilterHandler();
         authFilter.setHandler(showAuthHandler);

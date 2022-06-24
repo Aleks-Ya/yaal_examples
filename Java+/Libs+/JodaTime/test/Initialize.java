@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class Initialize {
 
     @Test
-    public void init() {
+    void init() {
         new DateTime(2015, 3, 25, 15, 45, 20);
     }
 }

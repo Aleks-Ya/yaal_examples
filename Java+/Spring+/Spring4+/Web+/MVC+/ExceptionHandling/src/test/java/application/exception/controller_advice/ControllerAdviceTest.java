@@ -32,7 +32,7 @@ public class ControllerAdviceTest {
     }
 
     @Test
-    public void responseStatus() throws Exception {
+    void responseStatus() throws Exception {
         mvc.perform(get(TheController.ENDPOINT))
                 .andExpect(content().string(TheController.EXCEPTION_MESSAGE))
                 .andExpect(status().is(HttpStatus.I_AM_A_TEAPOT.value()));

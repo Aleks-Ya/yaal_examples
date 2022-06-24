@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class DownloadObjectTest extends BaseInMemoryTest {
     @Test
-    public void download() {
+    void download() {
         storage.create(BlobInfo.newBuilder(BUCKET_NAME, OBJECT_NAME).build(), CONTENT.getBytes());
         var os = new ByteArrayOutputStream();
         var blob = storage.get(BlobId.of(BUCKET_NAME, OBJECT_NAME));

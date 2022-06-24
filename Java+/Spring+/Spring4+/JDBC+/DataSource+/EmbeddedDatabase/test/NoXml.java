@@ -31,7 +31,7 @@ public class NoXml {
     }
 
     @Test
-    public void checkDataSource() throws SQLException {
+    void checkDataSource() throws SQLException {
         DataSource dataSource = db;
         Connection conn = dataSource.getConnection();
         Statement st = conn.createStatement();

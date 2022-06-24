@@ -24,7 +24,7 @@ public class XmlOneDb {
     private DataSource dataSource;
 
     @Test
-    public void test() throws SQLException {
+    void test() throws SQLException {
         try (Connection conn = dataSource.getConnection();
              Statement st = conn.createStatement()) {
             ResultSet rs = st.executeQuery("SELECT * FROM names WHERE id=2");

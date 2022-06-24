@@ -29,7 +29,7 @@ public class UserControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void whenPostRequestToUsersAndValidUser_thenCorrectResponse() throws Exception {
+    void whenPostRequestToUsersAndValidUser_thenCorrectResponse() throws Exception {
         MediaType textPlainUtf8 = new MediaType(MediaType.TEXT_PLAIN, StandardCharsets.UTF_8);
         String user = "{\"name\": \"bob\", \"email\" : \"bob@domain.com\"}";
         mockMvc.perform(MockMvcRequestBuilders.post("/users")
@@ -41,7 +41,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void whenPostRequestToUsersAndInValidUser_thenCorrectResponse() throws Exception {
+    void whenPostRequestToUsersAndInValidUser_thenCorrectResponse() throws Exception {
         String user = "{\"name\": \"\", \"email\" : \"bob@domain.com\"}";
         mockMvc.perform(MockMvcRequestBuilders.post("/users")
                         .content(user)

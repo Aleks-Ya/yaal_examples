@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.empty;
 public class EnumerationAssert {
 
     @Test
-    public void test() {
+    void test() {
         Enumeration<String> enumeration = Collections.emptyEnumeration();
         assertThat(Collections.list(enumeration), empty());
     }

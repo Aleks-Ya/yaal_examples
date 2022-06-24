@@ -30,7 +30,7 @@ public class Insert {
      * С помощью системной хранимой процедуры @AdHoc.
      */
     @Test
-    public void adHoc() throws IOException, ProcCallException {
+    void adHoc() throws IOException, ProcCallException {
         ClientResponse response = client.callProcedure("@AdHoc", "insert into my_table (id, number, text) values (1, 33, 'message');");
         assertEquals(ClientResponse.SUCCESS, response.getStatus());
     }
@@ -39,7 +39,7 @@ public class Insert {
      * С помощью автоматически генерируемой хранимой процедуры для таблицы (default procedure).
      */
     @Test
-    public void defaultProcedure() throws IOException, ProcCallException {
+    void defaultProcedure() throws IOException, ProcCallException {
         ClientResponse response = client.callProcedure("MY_TABLE.insert", 2, 44, "insert message");
         assertEquals(ClientResponse.SUCCESS, response.getStatus());
     }
@@ -48,7 +48,7 @@ public class Insert {
      * С помощью самописной хранимой процедуры.
      */
     @Test
-    public void customProcedure() throws IOException, ProcCallException {
+    void customProcedure() throws IOException, ProcCallException {
         ClientResponse response = client.callProcedure("MyTableInsertProcedure", 3, 55, "insert message");
         assertEquals(ClientResponse.SUCCESS, response.getStatus());
     }

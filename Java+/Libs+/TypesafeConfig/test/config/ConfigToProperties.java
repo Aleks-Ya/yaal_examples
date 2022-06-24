@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class ConfigToProperties extends BaseTest {
     @Test
-    public void configToProperties() {
+    void configToProperties() {
         var expProperties = new Properties();
         expProperties.put("a", "1");
         var conf = ConfigFactory.parseProperties(expProperties);

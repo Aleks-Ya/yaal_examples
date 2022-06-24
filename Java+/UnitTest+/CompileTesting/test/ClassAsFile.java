@@ -17,7 +17,7 @@ public class ClassAsFile {
      * Исходный код класса достаем из файла.
      */
     @Test
-    public void fromFIle() {
+    void fromFIle() {
         assert_().about(javaSource())
                 .that(JavaFileObjects.forResource("HelloWorld.java"))
                 .processedWith(new MyAnnotationProcessor())
@@ -28,7 +28,7 @@ public class ClassAsFile {
      * Проверка генерации файлов.
      */
     @Test
-    public void generateResources() {
+    void generateResources() {
         ByteSource expContent = Resources.asByteSource(ClassAsFile.class.getResource("exp_content.txt"));
 
         assert_().about(javaSource())

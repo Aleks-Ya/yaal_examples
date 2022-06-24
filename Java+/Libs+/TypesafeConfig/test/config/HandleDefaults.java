@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class HandleDefaults extends BaseTest {
 
     @Test
-    public void hasPath() {
+    void hasPath() {
         var conf = ConfigFactory.empty();
         var key = "absent.key";
         var defaultValue = 3;
@@ -24,7 +24,7 @@ public class HandleDefaults extends BaseTest {
     }
 
     @Test
-    public void withFallback() {
+    void withFallback() {
         var key = "absent.key";
         var defaultValue = 3;
         var defaultConfig = ConfigFactory.parseMap(Map.of(key, defaultValue));
@@ -34,7 +34,7 @@ public class HandleDefaults extends BaseTest {
     }
 
     @Test
-    public void configObject() {
+    void configObject() {
         var key = "absent.key";
         var defaultValue = 3;
         var conf = ConfigFactory.empty();
@@ -47,7 +47,7 @@ public class HandleDefaults extends BaseTest {
      * Default value is specified in reference.conf.
      */
     @Test
-    public void reference() {
+    void reference() {
         var key = "absent.key.def";
         var defaultValue = 3;
         var conf = ConfigFactory.load();

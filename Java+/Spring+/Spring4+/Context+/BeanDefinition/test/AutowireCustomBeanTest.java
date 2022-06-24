@@ -26,7 +26,7 @@ public class AutowireCustomBeanTest {
     private ApplicationContext context;
 
     @Test
-    public void main() throws IOException {
+    void main() throws IOException {
         assertNotNull(context);
         assertTrue(context instanceof ConfigurableApplicationContext);
 

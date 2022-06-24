@@ -26,7 +26,7 @@ import static org.hamcrest.Matchers.not;
 public class IterableAssert {
 
     @Test
-    public void matchers() {
+    void matchers() {
         final Iterable<String> iter = asList("Piter_", "SPB_", "Leningrad_", "Saint-Petersburg_");
         assertThat(iter, hasItem("SPB_"));
         assertThat(iter, hasItems("SPB_", "Leningrad_"));
@@ -40,13 +40,13 @@ public class IterableAssert {
     }
 
     @Test
-    public void hasPropertyWithValue() {
+    void hasPropertyWithValue() {
         Iterable<Data> iterable = asList(new Data("a"), new Data("b"));
         assertThat(iterable, everyItem(hasProperty("value", not(emptyOrNullString()))));
     }
 
     @Test
-    public void iterator() {
+    void iterator() {
         Iterator<String> iterator = asList("Piter_", "SPB_", "Leningrad_", "Saint-Petersburg_").iterator();
 
         Iterable<String> iterable = () -> iterator;

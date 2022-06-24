@@ -3,9 +3,9 @@ package hystrix.command.timeout;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -14,7 +14,7 @@ public class TimeoutTest {
     String commandGroupKey = "defaultTimeout";
 
     @Test
-    public void defaultTimeout() {
+    void defaultTimeout() {
         int executionIsolationThreadTimeoutInMilliseconds = 200;
         System.setProperty(TIMEOUT_PROPERTY, Integer.toString(executionIsolationThreadTimeoutInMilliseconds));
         String commandKey = "defaultTimeout";
@@ -30,7 +30,7 @@ public class TimeoutTest {
     }
 
     @Test
-    public void commandSpecificTimeoutViaConstructor() {
+    void commandSpecificTimeoutViaConstructor() {
         int executionIsolationThreadTimeoutInMilliseconds = 1000;
         String commandKey = "commandSpecificTimeoutViaConstructor";
         final TimeoutCommand command = new TimeoutCommand(commandKey, commandGroupKey,
@@ -46,7 +46,7 @@ public class TimeoutTest {
     }
 
     @Test
-    public void commandSpecificTimeoutViaProperty() {
+    void commandSpecificTimeoutViaProperty() {
         int executionIsolationThreadTimeoutInMilliseconds = 2000;
         String commandKey = "commandSpecificTimeoutViaProperty";
         final String prop = TIMEOUT_PROPERTY.replace("default", commandKey);

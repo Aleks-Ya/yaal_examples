@@ -6,7 +6,7 @@ import org.springframework.aop.framework.ProxyFactory;
 public class HelloWorldTest {
 
     @Test
-    public void test() {
+    void test() {
         MessageWriter target = new MessageWriter();
 
         ProxyFactory pf = new ProxyFactory();

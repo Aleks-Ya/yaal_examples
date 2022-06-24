@@ -17,7 +17,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 public class GetForObjectTest {
 
     @Test
-    public void getForObjectTest() throws Exception {
+    void getForObjectTest() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
 
         final String url = "localhost";
@@ -31,7 +31,7 @@ public class GetForObjectTest {
     }
 
     @Test
-    public void withHeaders() throws Exception {
+    void withHeaders() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
 
         ObjectMapper mapper = new ObjectMapper();

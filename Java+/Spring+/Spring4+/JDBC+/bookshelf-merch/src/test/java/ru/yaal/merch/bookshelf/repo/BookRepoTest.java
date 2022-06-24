@@ -22,14 +22,14 @@ public class BookRepoTest {
     private BookRepo repo;
 
     @Test
-    public void findByAuthor() {
+    void findByAuthor() {
         long authorId = 3L;
         List<Book> books = repo.findBooksByAuthor(authorId);
         assertThat(books, hasSize(2));
     }
 
     @Test
-    public void insert() {
+    void insert() {
         Book expected = new Book(null, "my book", "abstract", null);
         Long id = repo.insertBook(expected);
         expected.setId(id);
@@ -38,7 +38,7 @@ public class BookRepoTest {
     }
 
     @Test
-    public void select() {
+    void select() {
         long id = 1000L;
         Book expected = new Book(id, "10 book", "abstract10", null);
         repo.insertBook(expected);
@@ -47,7 +47,7 @@ public class BookRepoTest {
     }
 
     @Test
-    public void findByName() {
+    void findByName() {
         Book expected = new Book(20L, "20 find book", "abstract20", null);
         repo.insertBook(expected);
         Book expected2 = new Book(22L, "22 find book", "abstract22", null);

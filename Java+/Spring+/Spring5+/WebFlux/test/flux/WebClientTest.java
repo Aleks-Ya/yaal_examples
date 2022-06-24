@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class WebClientTest {
 
     @Test
-    public void get() throws IOException {
+    void get() throws IOException {
         MockWebServer server = new MockWebServer();
         String expBody = "abc";
         server.enqueue(new MockResponse().setBody(expBody));

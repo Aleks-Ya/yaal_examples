@@ -7,8 +7,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Take properties from {@link Environment}.
@@ -20,7 +20,7 @@ public class EnvironmentTest {
     private Environment env;
 
     @Test
-    public void environmentFromClasspath() {
+    void environmentFromClasspath() {
         assertThat(env.getProperty("planet.name"), equalTo("Mars"));
     }
 }

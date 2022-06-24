@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class LoadFromApplicationConf extends BaseTest {
 
     @Test
-    public void load() {
+    void load() {
         var conf = ConfigFactory.load();
         var act = conf.getString("property.from.app.conf");
         assertThat(act, equalTo("hello"));

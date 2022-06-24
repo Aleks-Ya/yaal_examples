@@ -22,7 +22,7 @@ public class WithMockUserOnClassTest {
     private MessageService messageService;
 
     @Test
-    public void getMessageWithMockUser() {
+    void getMessageWithMockUser() {
         assertThat(messageService.getMessage(), startsWith("Hello"));
     }
 }

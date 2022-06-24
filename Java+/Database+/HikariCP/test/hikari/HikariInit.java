@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class HikariInit {
 
     @Test
-    public void initWithJdbcUrl() throws SQLException {
+    void initWithJdbcUrl() throws SQLException {
         int maximumPoolSize = 5;
 
         HikariConfig config = new HikariConfig();

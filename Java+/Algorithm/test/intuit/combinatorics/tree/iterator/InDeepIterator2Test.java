@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Алгоритм обхода бинарного дерева в глубину.
@@ -14,13 +14,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class InDeepIterator2Test {
 
     @Test
-    public void zeroLevelTree() {
+    void zeroLevelTree() {
         BiNode<Character> root = new BiNode<>('A', null, null);
         assertThat(treeToString(root), equalTo("A"));
     }
 
     @Test
-    public void oneLevelTree() {
+    void oneLevelTree() {
         BiNode<Character> left = new BiNode<>('L');
         BiNode<Character> right = new BiNode<>('R');
         BiNode<Character> root = new BiNode<>('A', left, right);

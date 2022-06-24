@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class LoadFromJsonFile extends BaseTest {
     @Test
-    public void loadFromJson() {
+    void loadFromJson() {
         var conf = ConfigFactory.load("config/LoadFromJsonFile.json");
         assertThat(conf.getString("parameters.host"), equalTo("localhost"));
         assertThat(conf.getInt("parameters.port"), equalTo(8080));
@@ -20,7 +20,7 @@ public class LoadFromJsonFile extends BaseTest {
     }
 
     @Test
-    public void splitByDots() {
+    void splitByDots() {
         var confOriginal = ConfigFactory.load("config/LoadFromJsonFile.json");
         var confSplit = splitKeysByDots(confOriginal);
         assertThat(confSplit.getString("parameters.host"), equalTo("localhost"));

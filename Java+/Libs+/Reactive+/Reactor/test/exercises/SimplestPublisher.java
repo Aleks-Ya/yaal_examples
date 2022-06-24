@@ -10,7 +10,7 @@ import org.reactivestreams.Subscription;
  */
 public class SimplestPublisher {
     @Test
-    public void test() {
+    void test() {
         Publisher<Integer> publisher = new IntegerPublisher();
         Subscriber<Integer> subscriber = new IntegerSubscriber();
         publisher.subscribe(subscriber);

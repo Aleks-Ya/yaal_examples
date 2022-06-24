@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.is;
 
 public class BooleanAssert {
     @Test
-    public void booleans() {
+    void booleans() {
         assertThat(Boolean.TRUE, is(true));
     }
 }

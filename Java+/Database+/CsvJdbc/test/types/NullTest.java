@@ -3,13 +3,16 @@ package types;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.util.Properties;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * CSV standard doesn't support NULL values.
@@ -18,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class NullTest {
 
     @Test
-    public void test() throws ClassNotFoundException, SQLException, ParseException {
+    void test() throws ClassNotFoundException, SQLException, ParseException {
         Class.forName("org.relique.jdbc.csv.CsvDriver");
 
         Properties props = new Properties();

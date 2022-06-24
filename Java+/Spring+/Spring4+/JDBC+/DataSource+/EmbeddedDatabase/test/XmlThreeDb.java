@@ -34,17 +34,17 @@ public class XmlThreeDb {
     private DataSource derbyDataSource;
 
     @Test
-    public void h2() throws SQLException {
+    void h2() throws SQLException {
         testDbContent(h2DataSource, "H2");
     }
 
     @Test
-    public void hsql() throws SQLException {
+    void hsql() throws SQLException {
         testDbContent(hsqlDataSource, "Hsql");
     }
 
     @Test
-    public void derby() throws SQLException {
+    void derby() throws SQLException {
         testDbContent(derbyDataSource, "Derby");
     }
 

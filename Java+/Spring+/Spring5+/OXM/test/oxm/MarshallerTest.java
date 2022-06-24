@@ -26,7 +26,7 @@ public class MarshallerTest {
     private Marshaller marshaller;
 
     @Test
-    public void marshall() throws IOException {
+    void marshall() throws IOException {
         Person person = new Person("John", 30);
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         Result result = new StreamResult(os);

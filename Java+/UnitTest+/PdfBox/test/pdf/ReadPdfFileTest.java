@@ -13,7 +13,7 @@ import static pdf.Helper.createPdfFile;
 public class ReadPdfFileTest {
 
     @Test
-    public void blank() throws IOException {
+    void blank() throws IOException {
         File file = createPdfFile();
         RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
         PDFParser parser = new PDFParser(randomAccessFile);

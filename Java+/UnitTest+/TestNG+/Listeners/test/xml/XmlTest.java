@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
  */
 public class XmlTest {
     @Test
-    public void testA() {
+    void testA() {
         System.out.println("XmlTest#testA");
     }
 }

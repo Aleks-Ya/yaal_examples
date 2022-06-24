@@ -27,7 +27,7 @@ public class Select {
     private NamedParameterJdbcTemplate template;
 
     @Test
-    public void queryForObject() {
+    void queryForObject() {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("title_param", "Ben");
         parameters.addValue("id_param", 4);
@@ -39,7 +39,7 @@ public class Select {
     }
 
     @Test
-    public void whereInParameter() {
+    void whereInParameter() {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("ids", Arrays.asList(1, 4));
         List<String> list = template.queryForList("SELECT title FROM names WHERE id IN(:ids)", parameters, String.class);

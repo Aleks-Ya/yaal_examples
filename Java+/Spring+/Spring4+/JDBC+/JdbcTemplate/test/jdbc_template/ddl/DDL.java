@@ -19,7 +19,7 @@ public class DDL {
     private JdbcTemplate template;
 
     @Test
-    public void createTable() {
+    void createTable() {
         template.execute("create table mytable (id integer, name varchar(100))");
     }
 }

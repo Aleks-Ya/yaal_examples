@@ -8,8 +8,8 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import spel.Inventor;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Executing SpEL without run Spring (with additional objects).
@@ -21,7 +21,7 @@ public class EvaluationContextTest {
      * Create EvaluationContext explicitly.
      */
     @Test
-    public void explicitly() {
+    void explicitly() {
         Inventor tesla = new Inventor("Tesla");
         EvaluationContext context = new StandardEvaluationContext(tesla);
 
@@ -35,7 +35,7 @@ public class EvaluationContextTest {
      * Create EvaluationContext implicitly.
      */
     @Test
-    public void implicitly() {
+    void implicitly() {
         Inventor tesla = new Inventor("Tesla");
 
         Expression exp = parser.parseExpression("name");

@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AutoCloseableTest {
 
     @Test
-    public void myAutoClosableClass() throws Exception {
+    void myAutoClosableClass() throws Exception {
         try (MyAutoCloseable closeable = new MyAutoCloseable()) {
             assertFalse(MyAutoCloseable.isClosed);
         }

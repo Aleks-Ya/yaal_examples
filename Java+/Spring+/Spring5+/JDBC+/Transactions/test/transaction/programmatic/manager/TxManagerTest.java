@@ -24,7 +24,7 @@ public class TxManagerTest {
     private PlatformTransactionManager txManager;
 
     @Test
-    public void queryForObject() {
+    void queryForObject() {
         TransactionDefinition definition = new DefaultTransactionAttribute();
         TransactionStatus txStatus = txManager.getTransaction(definition);
         assertEquals("Mary", template.queryForObject("SELECT title FROM names WHERE id=2", String.class));

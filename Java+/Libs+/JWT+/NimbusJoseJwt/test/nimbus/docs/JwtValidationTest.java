@@ -27,7 +27,7 @@ import java.util.HashSet;
  */
 public class JwtValidationTest {
     @Test
-    public void sign() throws JOSEException, ParseException, MalformedURLException, BadJOSEException {
+    void sign() throws JOSEException, ParseException, MalformedURLException, BadJOSEException {
         // The access token to validate, typically submitted with a HTTP header like
         // Authorization: Bearer eyJraWQiOiJDWHVwIiwidHlwIjoiYXQrand0IiwiYWxnIjoi...
         String accessToken =

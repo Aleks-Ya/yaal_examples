@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ClassLoaderTemplateResolverTest {
     @Test
-    public void test() {
+    void test() {
         ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
         resolver.setPrefix("thymeleaf/template/resolver/");
 

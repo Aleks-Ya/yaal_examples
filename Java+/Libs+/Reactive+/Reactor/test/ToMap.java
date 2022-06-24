@@ -7,7 +7,7 @@ import reactor.rx.Streams;
  */
 public class ToMap {
     @Test
-    public void test() {
+    void test() {
         Stream<String> stream = Streams.just("a", "b");
         //непонятно
     }

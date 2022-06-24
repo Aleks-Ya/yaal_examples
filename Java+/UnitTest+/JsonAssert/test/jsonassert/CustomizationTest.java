@@ -14,7 +14,7 @@ import static org.skyscreamer.jsonassert.JSONCompare.compareJSON;
 class CustomizationTest {
 
     @Test
-    public void anyValueByPath() throws JSONException {
+    void anyValueByPath() throws JSONException {
         var actual = "{first: actual, second:1}";
         var expected = "{first: expected, second: 1}";
 

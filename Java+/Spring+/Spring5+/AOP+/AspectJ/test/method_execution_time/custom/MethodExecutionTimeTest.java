@@ -28,7 +28,7 @@ public class MethodExecutionTimeTest {
      * Log only public methods of a bean.
      */
     @Test
-    public void publicMethod() throws InterruptedException {
+    void publicMethod() throws InterruptedException {
         Person person = new Person("John", "Mark");
         String fullName = personService.getFullName(person);
         assertThat(fullName, equalTo("John Mark"));
@@ -38,7 +38,7 @@ public class MethodExecutionTimeTest {
      * Log public and other methods of a bean.
      */
     @Test
-    public void selfMethod() throws InterruptedException {
+    void selfMethod() throws InterruptedException {
         Person person = new Person("John", "Mark");
         String fullName = personServiceSelfMethod.getFullName(person);
         assertThat(fullName, equalTo("John Mark"));

@@ -26,7 +26,7 @@ public class BeanPropertyRowMapperTest extends TestBase {
     }
 
     @Test
-    public void customRowMapper() {
+    void customRowMapper() {
         RowMapper<Name> rowMapper = new NameRowMapper();
         Name name = template.queryForObject("SELECT * FROM names WHERE id=1", rowMapper);
         assertEquals(1, (int) name.getId());

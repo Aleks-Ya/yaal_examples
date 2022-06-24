@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 public class Manipulation {
 
     @Test
-    public void decrement() {
+    void decrement() {
         DateTime date = new DateTime().minusMinutes(1);
     }
 }

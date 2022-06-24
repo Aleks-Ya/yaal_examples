@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Nulls extends BaseFreemarkerTest {
 
     @Test
-    public void useDefaultValueIfNull() throws IOException, TemplateException {
+    void useDefaultValueIfNull() throws IOException, TemplateException {
         Map<String, Object> data = new HashMap<>();
         data.put("name", null);
 
@@ -31,7 +31,7 @@ public class Nulls extends BaseFreemarkerTest {
     }
 
     @Test
-    public void ifNotNull() throws IOException, TemplateException {
+    void ifNotNull() throws IOException, TemplateException {
         Map<String, Object> data = new HashMap<>();
         data.put("name", null);
         data.put("title", "a");

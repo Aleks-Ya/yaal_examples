@@ -15,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ToTreeTest {
     @Test
-    public void listToTree() {
+    void listToTree() {
         Set<Class<? extends View>> set = new HashSet<>();
         set.add(GridView.class);
         set.add(PanelView.class);

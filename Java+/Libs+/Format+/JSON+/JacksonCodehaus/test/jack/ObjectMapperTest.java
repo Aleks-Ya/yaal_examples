@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 class ObjectMapperTest {
 
     @Test
-    public void test() {
+    void test() {
         ObjectMapper mapper = new ObjectMapper();
     }
 }

@@ -12,7 +12,7 @@ public class JulProgrammatically {
     private static final Logger julLogger = Logger.getLogger(JulProgrammatically.class.getName());
 
     @Test
-    public void log() {
+    void log() {
         //register SLF4JBridgeHandler as handler for the j.u.l. root logger
         SLF4JBridgeHandler.removeHandlersForRootLogger();
         SLF4JBridgeHandler.install();

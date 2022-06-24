@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class ConfigToString extends BaseTest {
     @Test
-    public void configToString() {
+    void configToString() {
         var conf = ConfigFactory.load();
         var str = conf.toString();
         System.out.println(str);

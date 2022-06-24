@@ -27,7 +27,7 @@ public class TemplateMethodTest extends BaseFreemarkerTest {
     }
 
     @Test
-    public void test() throws IOException, TemplateException {
+    void test() throws IOException, TemplateException {
         Map<String, Object> data = new HashMap<>();
 
         Template template = cfg.getTemplate("method/template_method_test.ftl");

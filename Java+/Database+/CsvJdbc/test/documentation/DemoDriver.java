@@ -1,10 +1,13 @@
 package documentation;
 
-import java.io.File;
-import java.sql.*;
-
 import org.junit.jupiter.api.Test;
 import org.relique.jdbc.csv.CsvDriver;
+
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * Source: http://csvjdbc.sourceforge.net/
@@ -12,7 +15,7 @@ import org.relique.jdbc.csv.CsvDriver;
 public class DemoDriver {
 
     @Test
-    public void main() throws Exception {
+    void main() throws Exception {
         // Load the driver.
         Class.forName("org.relique.jdbc.csv.CsvDriver");
 

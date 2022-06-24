@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ComparatorLambda {
 
     @Test
-    public void comparator() {
+    void comparator() {
         Person john = new Person("John");
         Person mary = new Person("Mary");
         Person ira = new Person("Ira");

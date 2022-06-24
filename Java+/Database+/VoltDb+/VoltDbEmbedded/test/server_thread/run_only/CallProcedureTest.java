@@ -11,7 +11,7 @@ import server_thread.ServerThreadHelper;
 public class CallProcedureTest {
 
     @Test
-    public void testServer() throws Exception {
+    void testServer() throws Exception {
         int port = ServerThreadHelper.runServer();
 
         Client client = null;

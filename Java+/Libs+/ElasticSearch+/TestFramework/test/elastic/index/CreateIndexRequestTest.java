@@ -14,7 +14,7 @@ import static org.elasticsearch.test.hamcrest.ElasticsearchAssertions.assertAcke
 public class CreateIndexRequestTest extends ESIntegTestCase {
 
     @Test
-    public void createIndex() {
+    void createIndex() {
         var indexName = createRandomIndexName();
         assertFalse(isIndexExist(indexName, client()));
 
@@ -23,7 +23,7 @@ public class CreateIndexRequestTest extends ESIntegTestCase {
     }
 
     @Test
-    public void createIndexWithMapping() {
+    void createIndexWithMapping() {
         var indexName = createRandomIndexName();
         assertFalse(isIndexExist(indexName, client()));
 

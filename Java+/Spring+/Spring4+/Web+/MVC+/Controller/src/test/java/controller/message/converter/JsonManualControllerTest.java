@@ -34,12 +34,12 @@ public class JsonManualControllerTest {
     }
 
     @Test
-    public void requestParam() throws Exception {
+    void requestParam() throws Exception {
         mvc.perform(
-                post(JsonManualController.ENDPOINT)
-                        .contentType(MediaType.TEXT_PLAIN)
-                        .content("{ \"name\": \"abc\"}")
-        )
+                        post(JsonManualController.ENDPOINT)
+                                .contentType(MediaType.TEXT_PLAIN)
+                                .content("{ \"name\": \"abc\"}")
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().string("response=abc"));
     }

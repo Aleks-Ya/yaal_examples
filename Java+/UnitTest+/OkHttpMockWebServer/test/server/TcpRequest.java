@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class TcpRequest {
 
     @Test
-    public void socket() throws IOException, InterruptedException {
+    void socket() throws IOException, InterruptedException {
         var server = new MockWebServer();
 
         var body1 = "hello, world!";

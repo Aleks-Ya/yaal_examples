@@ -9,7 +9,7 @@ import java.io.InputStream;
 public class Metadata {
 
     @Test
-    public void dbfReader() {
+    void dbfReader() {
         InputStream is = getClass().getClassLoader().getResourceAsStream("PI_316201712.DBF");
         DBFReader reader = new DBFReader(is);
         int fieldsCount = reader.getFieldCount();

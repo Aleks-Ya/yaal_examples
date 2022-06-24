@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PriorityQueueTest {
 
     @Test
-    public void test() {
+    void test() {
         PriorityQueue<String> q = new PriorityQueueImpl<>();
         q.put("third", 1);
         q.put("first", 4);

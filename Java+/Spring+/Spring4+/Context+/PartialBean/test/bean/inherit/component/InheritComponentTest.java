@@ -16,7 +16,7 @@ public class InheritComponentTest {
     private Child child;
 
     @Test
-    public void name() throws Exception {
+    void name() throws Exception {
         assertNotNull(child);
     }
 }

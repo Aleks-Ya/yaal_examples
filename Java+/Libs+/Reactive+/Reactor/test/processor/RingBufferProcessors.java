@@ -11,7 +11,7 @@ import reactor.rx.Streams;
  */
 public class RingBufferProcessors {
     @Test
-    public void fromDocumentation() throws InterruptedException {
+    void fromDocumentation() throws InterruptedException {
         Processor<Integer, Integer> p = RingBufferProcessor.create("test", 32);
         Stream<Integer> s = Streams.wrap(p);
 

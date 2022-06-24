@@ -34,7 +34,7 @@ public class IterateMapTest {
     }
 
     @Test
-    public void test() {
+    void test() {
         ITemplateResolver resolver = new ClassLoaderTemplateResolver();
 
         TemplateEngine engine = new TemplateEngine();

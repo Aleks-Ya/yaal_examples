@@ -28,7 +28,7 @@ public class TxTemplateTest {
     private TransactionTemplate txTemplate;
 
     @Test
-    public void queryForObject() {
+    void queryForObject() {
         TransactionDefinition definition = new DefaultTransactionAttribute();
         TransactionStatus txStatus = txManager.getTransaction(definition);
 

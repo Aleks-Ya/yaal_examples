@@ -8,7 +8,7 @@ import org.springframework.aop.support.DefaultPointcutAdvisor;
 public class LoggingTest {
 
     @Test
-    public void test() {
+    void test() {
         IWork work1 = new Work1();
 
         Advisor advisor = new DefaultPointcutAdvisor(new DynamicPointcut(), new LogAdvice());

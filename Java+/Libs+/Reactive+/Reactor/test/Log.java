@@ -6,14 +6,14 @@ import reactor.rx.Streams;
  */
 public class Log {
     @Test
-    public void defaultLogger() {
+    void defaultLogger() {
         Streams.just("a", "b")
                 .log()
                 .consume();
     }
 
     @Test
-    public void customLogger() {
+    void customLogger() {
         Streams.just(1, 2)
                 .log(Log.class.getName())
                 .consume();

@@ -32,7 +32,7 @@ public class ClientAndServerTest {
     }
 
     @Test
-    public void test() throws IOException {
+    void test() throws IOException {
         final var PATH = "/login";
         final var CONTENT_TYPE = "application/json; charset=utf-8";
 
