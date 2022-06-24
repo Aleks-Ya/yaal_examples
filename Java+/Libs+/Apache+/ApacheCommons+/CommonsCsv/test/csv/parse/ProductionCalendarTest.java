@@ -17,31 +17,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.aMapWithSize;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ProductionCalendarTest {
 
-    @Test
-    void parseProductionCalendar() throws IOException {
-        var years = parseCalendar();
-        assertThat(years, aMapWithSize(27));
-        var year = 2020;
-        var year2020 = years.get(year);
-        assertThat(year2020.getHolidays(Month.FEBRUARY), contains(1, 2, 8, 9, 15, 16, 22, 23, 24, 29));
-        assertThat(year2020.getHolidays(Month.APRIL), contains(4, 5, 11, 12, 18, 19, 25, 26, 30));
-        assertThat(year2020.getYear(), equalTo(year));
-        assertThat(year2020.getTotalWorkingDays(), equalTo(250));
-        assertThat(year2020.getTotalHolidays(), equalTo(116));
-        assertThat(year2020.getWorkingHours40(), equalTo(BigDecimal.valueOf(1995)));
-        assertThat(year2020.getWorkingHours36(), equalTo(BigDecimal.valueOf(1795)));
-        assertThat(year2020.getWorkingHours24(), equalTo(BigDecimal.valueOf(1195)));
-    }
-
     private static Map<Integer, Year> parseCalendar() throws IOException {
-        Map<Integer, Year> years = new HashMap<>();
+        var years = new HashMap<Integer, Year>();
         var file = ResourceUtil.resourceToFile(ProductionCalendarTest.class, "production_calendar.csv");
         try (Reader in = new FileReader(file, StandardCharsets.UTF_8);
              var parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().withTrim().parse(in)) {
@@ -74,6 +55,33 @@ class ProductionCalendarTest {
             }
             return years;
         }
+    }
+
+    private static List<Integer> parseHolidays(String daysStr) {
+        if (daysStr == null) {
+            return Collections.emptyList();
+        }
+        return Stream.of(daysStr.split(","))
+                .map(dayStr -> dayStr.replace("*", ""))
+                .map(dayStr -> dayStr.replace("+", ""))
+                .map(Integer::valueOf)
+                .collect(Collectors.toList());
+    }
+
+    @Test
+    void parseProductionCalendar() throws IOException {
+        var years = parseCalendar();
+        assertThat(years).hasSize(27);
+        var year = 2020;
+        var year2020 = years.get(year);
+        assertThat(year2020.getHolidays(Month.FEBRUARY)).containsExactly(1, 2, 8, 9, 15, 16, 22, 23, 24, 29);
+        assertThat(year2020.getHolidays(Month.APRIL)).containsExactly(4, 5, 11, 12, 18, 19, 25, 26, 30);
+        assertThat(year2020.getYear()).isEqualTo(year);
+        assertThat(year2020.getTotalWorkingDays()).isEqualTo(250);
+        assertThat(year2020.getTotalHolidays()).isEqualTo(116);
+        assertThat(year2020.getWorkingHours40()).isEqualTo(BigDecimal.valueOf(1995));
+        assertThat(year2020.getWorkingHours36()).isEqualTo(BigDecimal.valueOf(1795));
+        assertThat(year2020.getWorkingHours24()).isEqualTo(BigDecimal.valueOf(1195));
     }
 
     private static class Year {
@@ -129,16 +137,5 @@ class ProductionCalendarTest {
         BigDecimal getWorkingHours24() {
             return workingHours24;
         }
-    }
-
-    private static List<Integer> parseHolidays(String daysStr) {
-        if (daysStr == null) {
-            return Collections.emptyList();
-        }
-        return Stream.of(daysStr.split(","))
-                .map(dayStr -> dayStr.replace("*", ""))
-                .map(dayStr -> dayStr.replace("+", ""))
-                .map(Integer::valueOf)
-                .collect(Collectors.toList());
     }
 }

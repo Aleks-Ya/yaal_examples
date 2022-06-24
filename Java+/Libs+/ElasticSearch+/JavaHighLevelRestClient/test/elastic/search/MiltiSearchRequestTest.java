@@ -11,14 +11,12 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Disabled("RestClient from Elastic v5 doesn't support MultiSearchRequest (need v6)")
-public class MiltiSearchRequestTest {
+class MiltiSearchRequestTest {
     @Test
-    public void matchAllQuery() throws IOException {
+    void matchAllQuery() throws IOException {
         var client = EsHelper.getHighLevelRestClient();
 
         var query = QueryBuilders.matchAllQuery();
@@ -49,13 +47,13 @@ public class MiltiSearchRequestTest {
 
         System.out.println(response);
 
-        assertThat(response.status().getStatus(), equalTo(200));
-        assertThat(response.getHits().getTotalHits(), equalTo(4L));
+        assertThat(response.status().getStatus()).isEqualTo(200);
+        assertThat(response.getHits().getTotalHits().value).isEqualTo(4L);
 
         var searchHits = response.getHits();
         var hit0 = searchHits.getAt(0);
 
-        assertThat(hit0, notNullValue());
+        assertThat(hit0).isNotNull();
     }
 
 }

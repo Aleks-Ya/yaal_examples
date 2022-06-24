@@ -9,18 +9,17 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class CollectionBindingTest {
+class CollectionBindingTest {
     private static final Collection<String> COLLECTION = Arrays.asList("A", "B");
 
     @Test
-    public void bind() {
+    void bind() {
         var injector = Guice.createInjector(new CollectionModule());
         var holder = injector.getInstance(CollectionHolder.class);
         var collection = holder.getCollection();
-        assertThat(collection, equalTo(COLLECTION));
+        assertThat(collection).isEqualTo(COLLECTION);
     }
 
     private static class CollectionModule extends AbstractModule {

@@ -12,8 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static tar.Helper.assertFileContent;
 
 class UnpackTar {
@@ -25,7 +24,7 @@ class UnpackTar {
 
         var entry = tar.getNextTarEntry();
         var name = entry.getName();
-        assertThat(name, equalTo("mytar/"));
+        assertThat(name).isEqualTo("mytar/");
     }
 
     @Test

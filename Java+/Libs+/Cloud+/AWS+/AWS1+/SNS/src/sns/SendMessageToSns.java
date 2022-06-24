@@ -12,8 +12,8 @@ import static java.util.Objects.requireNonNull;
 
 public class SendMessageToSns {
     public static void main(String[] args) {
-        String accessKey = requireNonNull(System.getProperty("aws.key.access"));
-        String secretKey = requireNonNull(System.getProperty("aws.key.secret"));
+        var accessKey = requireNonNull(System.getProperty("aws.key.access"));
+        var secretKey = requireNonNull(System.getProperty("aws.key.secret"));
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
         AWSCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(credentials);
         var snsClient = AmazonSNSClientBuilder.standard()

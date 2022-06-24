@@ -7,22 +7,22 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.instanceOf;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class OverrideSubModuleTest {
+class OverrideSubModuleTest {
     private static final List<Class<?>> invokedModules = new ArrayList<>();
 
     @Test
-    public void bind() {
+    void bind() {
         var testInjector = Guice.createInjector(new TestAppModule());
         var testSource = testInjector.getInstance(Source.class);
-        assertThat(testSource, instanceOf(H2Source.class));
+        assertThat(testSource).isInstanceOf(H2Source.class);
         var testInteger = testInjector.getInstance(Integer.class);
-        assertThat(testInteger, equalTo(42));
-        assertThat(invokedModules, contains(ProdAppModule.class, TestAppModule.class, TestSourceModule.class));
+        assertThat(testInteger).isEqualTo(42);
+        assertThat(invokedModules).containsExactly(ProdAppModule.class, TestAppModule.class, TestSourceModule.class);
+    }
+
+    interface Source {
     }
 
     private static class ProdAppModule extends AbstractModule {
@@ -61,9 +61,6 @@ public class OverrideSubModuleTest {
             invokedModules.add(getClass());
             bind(Source.class).to(H2Source.class);
         }
-    }
-
-    interface Source {
     }
 
     static class OracleSource implements Source {

@@ -7,17 +7,16 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.logging.LogManager;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Show Guice log in console.
  */
-public class GuiceLogTest {
+class GuiceLogTest {
     private static final String STR = "abc";
 
     @Test
-    public void log() throws IOException {
+    void log() throws IOException {
         // Configure java.util.logging
         var configIs = GuiceLogTest.class.getClassLoader()
                 .getResourceAsStream("logging/GuiceLogTest.properties");
@@ -26,7 +25,7 @@ public class GuiceLogTest {
         // Run Guice
         var injector = Guice.createInjector(new AppModule());
         var str = injector.getInstance(String.class);
-        assertThat(str, equalTo(STR));
+        assertThat(str).isEqualTo(STR);
     }
 
     private static class AppModule extends AbstractModule {

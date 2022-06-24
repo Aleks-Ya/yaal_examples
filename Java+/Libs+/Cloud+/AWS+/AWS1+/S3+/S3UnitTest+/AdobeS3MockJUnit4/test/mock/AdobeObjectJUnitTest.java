@@ -15,30 +15,12 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.UUID;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Upload, download and list objects in a bucket.
  */
-public class AdobeObjectJUnitTest extends AdobeBaseJUnitTest {
-
-    @Test
-    public void uploadListDeleteObject() {
-        Bucket bucket = createBucket(s3);
-
-        String contentExp = "abc";
-        String keyName = uploadObject(s3, bucket, contentExp);
-
-        listObjects(s3, bucket, keyName);
-
-        String contentAct = downloadObject(s3, bucket, keyName);
-        assertThat(contentAct, equalTo(contentExp));
-
-        deleteObject(s3, bucket, keyName);
-        deleteBucket(s3, bucket);
-    }
+class AdobeObjectJUnitTest extends AdobeBaseJUnitTest {
 
     private static String downloadObject(AmazonS3 s3, Bucket bucket, String keyName) {
         try {
@@ -78,9 +60,9 @@ public class AdobeObjectJUnitTest extends AdobeBaseJUnitTest {
     private static void listObjects(AmazonS3 s3, Bucket bucket, String keyName) {
         ListObjectsV2Result result = s3.listObjectsV2(bucket.getName());
         List<S3ObjectSummary> objects = result.getObjectSummaries();
-        assertThat(objects, hasSize(1));
+        assertThat(objects).hasSize(1);
         S3ObjectSummary os = objects.get(0);
-        assertThat(os.getKey(), equalTo(keyName));
+        assertThat(os.getKey()).isEqualTo(keyName);
     }
 
     private static String uploadObject(AmazonS3 s3, Bucket bucket, String content) {
@@ -92,5 +74,21 @@ public class AdobeObjectJUnitTest extends AdobeBaseJUnitTest {
             System.exit(1);
         }
         return keyName;
+    }
+
+    @Test
+    void uploadListDeleteObject() {
+        Bucket bucket = createBucket(s3);
+
+        String contentExp = "abc";
+        String keyName = uploadObject(s3, bucket, contentExp);
+
+        listObjects(s3, bucket, keyName);
+
+        String contentAct = downloadObject(s3, bucket, keyName);
+        assertThat(contentAct).isEqualTo(contentExp);
+
+        deleteObject(s3, bucket, keyName);
+        deleteBucket(s3, bucket);
     }
 }

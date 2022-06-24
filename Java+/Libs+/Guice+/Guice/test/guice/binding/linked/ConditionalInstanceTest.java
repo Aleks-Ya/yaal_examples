@@ -4,19 +4,22 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ConditionalInstanceTest {
+class ConditionalInstanceTest {
 
     @Test
-    public void bind() {
+    void bind() {
         var databaseType = "oracle";
         var databaseModule = new DatabaseModule(databaseType);
         var injector = Guice.createInjector(databaseModule);
         var database = injector.getInstance(Database.class);
         var connectionUrl = database.getConnection();
-        assertThat(connectionUrl, equalTo("url.to.oracle"));
+        assertThat(connectionUrl).isEqualTo("url.to.oracle");
+    }
+
+    interface Database {
+        String getConnection();
     }
 
     private static class DatabaseModule extends AbstractModule {
@@ -40,10 +43,6 @@ public class ConditionalInstanceTest {
 
             }
         }
-    }
-
-    interface Database {
-        String getConnection();
     }
 
     static class PostgresDatabase implements Database {

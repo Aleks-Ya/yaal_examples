@@ -11,13 +11,12 @@ import static elastic.EsHelper.createIndex;
 import static elastic.EsHelper.createRandomIndexName;
 import static elastic.EsHelper.deleteIndex;
 import static elastic.EsHelper.getHighLevelRestClient;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class IndexRequestTest {
+class IndexRequestTest {
 
     @Test
-    public void indexDocument() throws IOException {
+    void indexDocument() throws IOException {
         var indexName = createRandomIndexName();
         try {
             createIndex(indexName);
@@ -35,7 +34,7 @@ public class IndexRequestTest {
             var indexResponse = client.index(request, RequestOptions.DEFAULT);
             var status = indexResponse.status();
             var statusCode = status.getStatus();
-            assertThat(statusCode, equalTo(201));
+            assertThat(statusCode).isEqualTo(201);
         } finally {
             deleteIndex(indexName);
         }

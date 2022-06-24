@@ -11,18 +11,17 @@ import java.security.NoSuchProviderException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class CreateCredentialFromCertTest {
+class CreateCredentialFromCertTest {
 
     @Test
-    public void createFromCert() throws IOException, CertificateException, UnrecoverableKeyException,
+    void createFromCert() throws IOException, CertificateException, UnrecoverableKeyException,
             NoSuchAlgorithmException, KeyStoreException, NoSuchProviderException {
         var certFile = new FileInputStream(CreateCredentialFromCertTest.class.getResource("msal-web-signed.p12").getFile());
         var certPassword = "";
         var cert = ClientCredentialFactory.createFromCertificate(certFile, certPassword);
         var privateKey = cert.privateKey();
-        assertThat(privateKey, notNullValue());
+        assertThat(privateKey).isNotNull();
     }
 }

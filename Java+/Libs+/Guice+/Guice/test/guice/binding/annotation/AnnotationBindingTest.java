@@ -10,17 +10,16 @@ import javax.inject.Qualifier;
 import java.lang.annotation.Retention;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class AnnotationBindingTest {
+class AnnotationBindingTest {
 
     @Test
-    public void bind() {
+    void bind() {
         var injector = Guice.createInjector(new DemoModule());
         var person = injector.getInstance(Person.class);
         var message = person.getMessage();
-        assertThat(message, equalTo("hello and bye"));
+        assertThat(message).isEqualTo("hello and bye");
     }
 
     @Qualifier

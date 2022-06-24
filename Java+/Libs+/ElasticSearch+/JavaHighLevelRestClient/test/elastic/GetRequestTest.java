@@ -6,12 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class GetRequestTest {
+class GetRequestTest {
     @Test
-    public void getDocumentById() throws IOException {
+    void getDocumentById() throws IOException {
         var client = EsHelper.getHighLevelRestClient();
 
         var index = "people";
@@ -19,8 +18,8 @@ public class GetRequestTest {
         var response = client.get(getRequest, RequestOptions.DEFAULT);
 
         System.out.println(response);
-        assertThat(response.getIndex(), equalTo(index));
-        assertThat(response.getSource().get("title"), equalTo("Oracle"));
+        assertThat(response.getIndex()).isEqualTo(index);
+        assertThat(response.getSource().get("title")).isEqualTo("Oracle");
     }
 
 }

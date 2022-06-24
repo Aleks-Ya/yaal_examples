@@ -8,12 +8,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ParseCsvTest {
-
     @Test
     void tabDelimiter() throws IOException {
         var file = ResourceUtil.resourceToFile(ParseCsvTest.class, "ParseTest_tabDelimiter.csv");
@@ -31,7 +28,7 @@ class ParseCsvTest {
                      .parse(reader)) {
 
             var headerNames = parser.getHeaderNames();
-            assertThat(headerNames, contains(header1, header2, header3));
+            assertThat(headerNames).containsExactly(header1, header2, header3);
 
             var sb = new StringBuilder();
             for (var record : parser) {
@@ -43,7 +40,7 @@ class ParseCsvTest {
                         .append(record.get(header3))
                         .append("\n");
             }
-            assertThat(sb.toString(), equalTo("John-Mr.-30\nMary-Ms.-25\nMark-Mr.-20\nGary-Mr.-15\n"));
+            assertThat(sb.toString()).isEqualTo("John-Mr.-30\nMary-Ms.-25\nMark-Mr.-20\nGary-Mr.-15\n");
         }
     }
 

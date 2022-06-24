@@ -15,14 +15,13 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class SessionHandlerTest {
+class SessionHandlerTest {
     private static final int SUCCESS_STATUS = 200;
 
     @Test
-    public void session() throws Exception {
+    void session() throws Exception {
         var rootContext = new ContextHandler();
         var rootHandler = new CountSessionHandler();
         rootContext.setHandler(rootHandler);
@@ -64,32 +63,32 @@ public class SessionHandlerTest {
             var enUri = URI.create(baseUrl + enPath);
             var request = HttpRequest.newBuilder().uri(enUri).GET().build();
             var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-            assertThat(response.statusCode(), equalTo(SUCCESS_STATUS));
-            assertThat(response.body(), equalTo("Session: counter=1"));
+            assertThat(response.statusCode()).isEqualTo(SUCCESS_STATUS);
+            assertThat(response.body()).isEqualTo("Session: counter=1");
         }
 
         {
             var ruUri = URI.create(baseUrl + ruPath);
             var request = HttpRequest.newBuilder().uri(ruUri).GET().build();
             var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-            assertThat(response.statusCode(), equalTo(SUCCESS_STATUS));
-            assertThat(response.body(), equalTo("Session: counter=2"));
+            assertThat(response.statusCode()).isEqualTo(SUCCESS_STATUS);
+            assertThat(response.body()).isEqualTo("Session: counter=2");
         }
 
         {
             var rootUri = URI.create(baseUrl);
             var request = HttpRequest.newBuilder().uri(rootUri).GET().build();
             var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-            assertThat(response.statusCode(), equalTo(SUCCESS_STATUS));
-            assertThat(response.body(), equalTo("Session: counter=3"));
+            assertThat(response.statusCode()).isEqualTo(SUCCESS_STATUS);
+            assertThat(response.body()).isEqualTo("Session: counter=3");
         }
 
         var rootSessionId = rootHandler.getSession().getId();
         var enSessionId = enHandler.getSession().getId();
         var ruSessionId = ruHandler.getSession().getId();
 
-        assertThat(rootSessionId, equalTo(enSessionId));
-        assertThat(rootSessionId, equalTo(ruSessionId));
+        assertThat(rootSessionId).isEqualTo(enSessionId);
+        assertThat(rootSessionId).isEqualTo(ruSessionId);
 
         server.stop();
     }

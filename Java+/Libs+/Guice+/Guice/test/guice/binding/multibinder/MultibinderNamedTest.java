@@ -9,17 +9,19 @@ import org.junit.jupiter.api.Test;
 import javax.inject.Named;
 import java.util.Set;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class MultibinderNamedTest {
+class MultibinderNamedTest {
 
     @Test
-    public void bind() {
+    void bind() {
         var injector = Guice.createInjector(new DemoModule());
         var processor = injector.getInstance(SourceProcessor.class);
         var source = processor.getSources();
-        assertThat(source, hasSize(3));
+        assertThat(source).hasSize(3);
+    }
+
+    interface Source {
     }
 
     private static class DemoModule extends AbstractModule {
@@ -30,9 +32,6 @@ public class MultibinderNamedTest {
             multibinder.addBinding().to(DatabaseSource.class);
             multibinder.addBinding().toInstance(new FileSource());
         }
-    }
-
-    interface Source {
     }
 
     @Named("http")

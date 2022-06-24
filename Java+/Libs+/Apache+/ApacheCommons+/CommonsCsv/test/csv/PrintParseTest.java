@@ -9,10 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PrintParseTest {
 
@@ -51,26 +48,26 @@ class PrintParseTest {
                      .parse(reader)) {
 
             var headerNames = parser.getHeaderNames();
-            assertThat(headerNames, contains(header1, header2));
+            assertThat(headerNames).containsExactly(header1, header2);
 
             var records = parser.getRecords();
-            assertThat(records, hasSize(4));
+            assertThat(records).hasSize(4);
 
             var record0 = records.get(0);
-            assertThat(record0.get(header1), equalTo(value1));
-            assertThat(record0.get(header2), equalTo(value2));
+            assertThat(record0.get(header1)).isEqualTo(value1);
+            assertThat(record0.get(header2)).isEqualTo(value2);
 
             var record1 = records.get(1);
-            assertThat(record1.get(header1), equalTo(value3));
-            assertThat(record1.get(header2), equalTo(value4));
+            assertThat(record1.get(header1)).isEqualTo(value3);
+            assertThat(record1.get(header2)).isEqualTo(value4);
 
             var record2 = records.get(2);
-            assertThat(record2.get(header1), equalTo(value5));
-            assertThat(record2.get(header2), equalTo(value6));
+            assertThat(record2.get(header1)).isEqualTo(value5);
+            assertThat(record2.get(header2)).isEqualTo(value6);
 
             var record3 = records.get(3);
-            assertThat(record3.get(header1), equalTo(value7));
-            assertThat(record3.get(header2), equalTo(value8));
+            assertThat(record3.get(header1)).isEqualTo(value7);
+            assertThat(record3.get(header2)).isEqualTo(value8);
         }
     }
 

@@ -9,17 +9,16 @@ import org.junit.jupiter.api.Test;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class CustomProviderTest {
+class CustomProviderTest {
 
     @Test
-    public void bind() {
+    void bind() {
         var injector = Guice.createInjector(new DemoModule());
         var format = injector.getInstance(NumberFormat.class);
         var numberStr = format.format(1234);
-        assertThat(numberStr, equalTo("1,234"));
+        assertThat(numberStr).isEqualTo("1,234");
     }
 
     private static class DemoModule extends AbstractModule {

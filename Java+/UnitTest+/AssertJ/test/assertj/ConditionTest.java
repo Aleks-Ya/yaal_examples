@@ -19,11 +19,11 @@ class ConditionTest {
 
     @Test
     void scalar() {
-        Member member = new Member("John", 65);
+        var member = new Member("John", 65);
         assertThat(member).is(SENIOR_CONDITION);
         assertThatThrownBy(() -> assertThat(member).isNot(SENIOR_CONDITION)).isInstanceOf(AssertionError.class);
 
-        Member member2 = new Member("Jane", 60);
+        var member2 = new Member("Jane", 60);
         assertThat(member2).doesNotHave(NAME_JOHN_CONDITION);
         assertThatThrownBy(() -> assertThat(member2).has(NAME_JOHN_CONDITION)).isInstanceOf(AssertionError.class);
     }
@@ -40,8 +40,8 @@ class ConditionTest {
 
     @Test
     void combining() {
-        Member john = new Member("John", 60);
-        Member jane = new Member("Jane", 50);
+        var john = new Member("John", 60);
+        var jane = new Member("Jane", 50);
 
         assertThat(john).is(allOf(SENIOR_CONDITION, NAME_JOHN_CONDITION));
         assertThat(jane).is(allOf(not(NAME_JOHN_CONDITION), not(SENIOR_CONDITION)));

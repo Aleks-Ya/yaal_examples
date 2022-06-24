@@ -7,8 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PrintTest {
 
@@ -25,7 +24,7 @@ class PrintTest {
         }
         var act = baos.toString();
         var exp = "H1,H2\nv1,v2\nv3,v4\n";
-        assertThat(act, equalTo(exp));
+        assertThat(act).isEqualTo(exp);
     }
 
     @Test
@@ -41,7 +40,7 @@ class PrintTest {
         }
         var act = baos.toString();
         var exp = "H1,H2\n\"v1,v2\",v3\nv4,\"v5,v6\"\n";
-        assertThat(act, equalTo(exp));
+        assertThat(act).isEqualTo(exp);
     }
 
     @Test
@@ -57,7 +56,7 @@ class PrintTest {
         }
         var act = baos.toString();
         var exp = "H1,H2\nv1\tv2,v3\nv4,v5\tv6\n";
-        assertThat(act, equalTo(exp));
+        assertThat(act).isEqualTo(exp);
     }
 
     @Test
@@ -73,7 +72,7 @@ class PrintTest {
         }
         var act = baos.toString();
         var exp = "H1,H2\n\"v1\nv2\",v3\nv4,\"v5\nv6\"\n";
-        assertThat(act, equalTo(exp));
+        assertThat(act).isEqualTo(exp);
     }
 
     @Test
@@ -91,7 +90,7 @@ class PrintTest {
         }
         var act = baos.toString();
         var exp = "H1\tH2\n\"v1\tv2\"\tv3\nv4\t\"v5\tv6\"\n";
-        assertThat(act, equalTo(exp));
+        assertThat(act).isEqualTo(exp);
     }
 
 }

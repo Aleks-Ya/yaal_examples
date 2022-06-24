@@ -15,9 +15,9 @@ public abstract class BaseS3Test {
     protected static AmazonS3 s3;
 
     @BeforeAll
-    public static void setUp() {
-        String accessKey = requireNonNull(System.getProperty("aws.key.access"));
-        String secretKey = requireNonNull(System.getProperty("aws.key.secret"));
+    protected static void setUp() {
+        var accessKey = requireNonNull(System.getProperty("aws.key.access"));
+        var secretKey = requireNonNull(System.getProperty("aws.key.secret"));
 
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
         AWSCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(credentials);

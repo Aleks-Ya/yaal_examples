@@ -8,9 +8,7 @@ import util.RandomUtil;
 
 import java.io.ByteArrayOutputStream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class UploadObjectTest extends BaseRemoteTest {
     @Test
@@ -22,11 +20,11 @@ class UploadObjectTest extends BaseRemoteTest {
         var blobInfo = BlobInfo.newBuilder(blobId).build();
         storage.delete(blobId);
         var blob = storage.create(blobInfo, content.getBytes());
-        assertThat(blob, notNullValue());
+        assertThat(blob).isNotNull();
 
         var actBlob = storage.get(blobId);
         var os = new ByteArrayOutputStream();
         actBlob.downloadTo(os);
-        assertThat(os.toString(), equalTo(content));
+        assertThat(os).hasToString(content);
     }
 }

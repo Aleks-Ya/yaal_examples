@@ -6,17 +6,16 @@ import static elastic.EsHelper.createIndex;
 import static elastic.EsHelper.createRandomIndexName;
 import static elastic.EsHelper.deleteIndex;
 import static elastic.EsHelper.isIndexExist;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class CreateIndexRequestTest {
+class CreateIndexRequestTest {
     @Test
-    public void createAndDeleteIndex() {
+    void createAndDeleteIndex() {
         var indexName = createRandomIndexName();
-        assertFalse(isIndexExist(indexName));
-        assertTrue(createIndex(indexName).isAcknowledged());
-        assertTrue(isIndexExist(indexName));
-        assertTrue(deleteIndex(indexName).isAcknowledged());
-        assertFalse(isIndexExist(indexName));
+        assertThat(isIndexExist(indexName)).isFalse();
+        assertThat(createIndex(indexName).isAcknowledged()).isTrue();
+        assertThat(isIndexExist(indexName)).isTrue();
+        assertThat(deleteIndex(indexName).isAcknowledged()).isTrue();
+        assertThat(isIndexExist(indexName)).isFalse();
     }
 }

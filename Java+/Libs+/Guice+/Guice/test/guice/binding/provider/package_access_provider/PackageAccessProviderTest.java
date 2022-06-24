@@ -6,20 +6,19 @@ import guice.binding.provider.package_access_provider.package_provider.PackagePr
 import guice.binding.provider.package_access_provider.package_provider.PackageService;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Instantiate classes having package access modifier.
  */
-public class PackageAccessProviderTest {
+class PackageAccessProviderTest {
 
     @Test
-    public void bind() {
+    void bind() {
         var injector = Guice.createInjector(new DemoModule());
         var service = injector.getInstance(PackageService.class);
         var title = service.getTitle();
-        assertThat(title, equalTo("the title"));
+        assertThat(title).isEqualTo("the title");
     }
 
     private static class DemoModule extends AbstractModule {

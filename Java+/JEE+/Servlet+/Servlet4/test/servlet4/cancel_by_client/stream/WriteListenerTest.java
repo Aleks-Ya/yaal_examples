@@ -9,29 +9,27 @@ import java.net.URL;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Servlet understands when client close connection.
  */
-public class WriteListenerTest {
+class WriteListenerTest {
 
     @Test
-    public void test() throws Exception {
-        ServletHandler handler = new ServletHandler();
-        String servletPath = "/servlet";
+    void test() throws Exception {
+        var handler = new ServletHandler();
+        var servletPath = "/servlet";
         handler.addServletWithMapping(WriteListenerServlet.class, servletPath);
 
-        int port = 8089;
-        Server server = new Server(port);
+        var port = 8089;
+        var server = new Server(port);
         server.setHandler(handler);
         server.start();
 
-        URL url = new URL("http://localhost:" + port + servletPath);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        var url = new URL("http://localhost:" + port + servletPath);
+        var conn = (HttpURLConnection) url.openConnection();
         conn.connect();
         conn.getInputStream().close();
         conn.disconnect();
@@ -39,10 +37,10 @@ public class WriteListenerTest {
         await()
                 .atMost(5, SECONDS)
                 .pollInterval(100, MILLISECONDS)
-                .untilAsserted(() -> assertTrue(WriteListenerServlet.error != null));
+                .until(() -> WriteListenerServlet.error != null);
 
-        assertThat(WriteListenerServlet.error, equalTo(new RuntimeException()));
-        assertThat(WriteListenerServlet.wroteText.toString(), equalTo("0 1 "));
+        assertThat(WriteListenerServlet.error).isEqualTo(new RuntimeException());
+        assertThat(WriteListenerServlet.wroteText).hasToString("0 1 ");
 
         server.stop();
     }

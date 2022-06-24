@@ -7,29 +7,27 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class BucketTest extends S3MockBaseTest {
+class BucketTest extends S3MockBaseTest {
 
     @Test
-    public void listBuckets() {
+    void listBuckets() {
         String bucketName = "abc";
         s3.createBucket(bucketName);
         List<String> buckets = s3.listBuckets().stream().map(Bucket::getName).collect(Collectors.toList());
-        assertThat(buckets, contains(bucketName));
+        assertThat(buckets).containsExactly(bucketName);
     }
 
     @Test
-    public void createBucket() {
+    void createBucket() {
         String bucketName = UUID.randomUUID().toString();
         assertFalse(s3.doesBucketExistV2(bucketName));
 
         Bucket bucket = s3.createBucket(bucketName);
-        assertThat(bucket.getName(), equalTo(bucketName));
+        assertThat(bucket.getName()).isEqualTo(bucketName);
         assertTrue(s3.doesBucketExistV2(bucketName));
 
         s3.deleteBucket(bucketName);

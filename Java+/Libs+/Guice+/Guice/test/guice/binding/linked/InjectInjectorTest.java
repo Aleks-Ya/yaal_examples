@@ -6,16 +6,15 @@ import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class InjectInjectorTest {
+class InjectInjectorTest {
 
     @Test
-    public void bind() {
+    void bind() {
         var injector = Guice.createInjector();
         var user = injector.getInstance(InjectorUser.class);
-        assertThat(user.getInjector(), is(injector));
+        assertThat(user.getInjector()).isSameAs(injector);
     }
 
     private static class InjectorUser {

@@ -9,24 +9,23 @@ import org.junit.jupiter.api.Test;
 
 import javax.inject.Named;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Use {@link Named} annotation to distinguish implementations.
  */
-public class NamedAnnotationBindingTest {
+class NamedAnnotationBindingTest {
     private static final String COUNTRY_NAME = "country";
     private static final String CITY_NAME = "city";
     private static final String DISTRICT_NAME = "district";
     private static final String STREET_NAME = "street";
 
     @Test
-    public void bind() {
+    void bind() {
         var injector = Guice.createInjector(new DemoModule());
         var location = injector.getInstance(Location.class);
         var message = location.getMessage();
-        assertThat(message, equalTo("Lenina St., Central District, Moscow, Russia"));
+        assertThat(message).isEqualTo("Lenina St., Central District, Moscow, Russia");
     }
 
     private static class DemoModule extends AbstractModule {

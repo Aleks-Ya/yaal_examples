@@ -14,9 +14,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import static java.lang.String.format;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PerformingRequestsTest {
     private static final String PEOPLE_INDEX = "people";
@@ -30,7 +28,7 @@ class PerformingRequestsTest {
         client.close();
 
         System.out.println("Response: " + response);
-        assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
+        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(200);
     }
 
     @Test
@@ -38,7 +36,7 @@ class PerformingRequestsTest {
         var request = new Request("GET", "/_mapping");
         var response = client.performRequest(request);
         client.close();
-        assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
+        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(200);
 
         System.out.println("Response: " + response);
         var entity = response.getEntity();
@@ -53,14 +51,14 @@ class PerformingRequestsTest {
         var request = new Request("GET", endpoint);
         var response = client.performRequest(request);
         client.close();
-        assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
+        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(200);
 
         System.out.println("Response: " + response);
         var entity = response.getEntity();
         var contentIS = entity.getContent();
         var contentStr = InputStreamUtil.inputStreamToString(contentIS);
         System.out.println("Body: " + contentStr);
-        assertThat(contentStr, containsString("\"count\":4"));
+        assertThat(contentStr).containsSubsequence("\"count\":4");
     }
 
     @Test
@@ -80,14 +78,14 @@ class PerformingRequestsTest {
         request.setEntity(requestEntity);
         var response = client.performRequest(request);
         client.close();
-        assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
+        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(200);
 
         System.out.println("Response: " + response);
         var responseEntity = response.getEntity();
         var contentIS = responseEntity.getContent();
         var contentStr = InputStreamUtil.inputStreamToString(contentIS);
         System.out.println("Body: " + contentStr);
-        assertThat(contentStr, containsString("\"count\":1"));
+        assertThat(contentStr).containsSubsequence("\"count\":1");
     }
 
     @Test
@@ -96,14 +94,14 @@ class PerformingRequestsTest {
         var request = new Request("PUT", "/" + indexName);
         var response = client.performRequest(request);
         client.close();
-        assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
+        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(200);
 
         System.out.println("Response: " + response);
         var entity = response.getEntity();
         var contentIS = entity.getContent();
         var contentStr = InputStreamUtil.inputStreamToString(contentIS);
         System.out.println("Body: " + contentStr);
-        assertThat(contentStr, containsString("\"acknowledged\":true"));
+        assertThat(contentStr).containsSubsequence("\"acknowledged\":true");
     }
 
 }

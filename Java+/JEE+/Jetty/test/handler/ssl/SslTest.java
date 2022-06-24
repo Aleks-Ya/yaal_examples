@@ -29,8 +29,7 @@ import java.security.SecureRandom;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * HTTPS connection with Jetty + HttpClient.<br/>
@@ -78,18 +77,7 @@ import static org.hamcrest.Matchers.equalTo;
  * keytool -import -noprompt -alias ca-root -file ca-root.pem -keystore client_truststore.jks -storepass 654321
  * </pre>
  */
-public class SslTest {
-
-    @Test
-    public void ssl() throws Exception {
-        var server = new Server();
-        var expBody = "abc";
-        var url = runServer(server, expBody);
-        var response = runClient(url);
-        server.stop();
-        assertThat(response.statusCode(), equalTo(200));
-        assertThat(response.body(), equalTo(expBody));
-    }
+class SslTest {
 
     private static HttpResponse<String> runClient(String baseUrl) throws NoSuchAlgorithmException, KeyStoreException,
             IOException, CertificateException, UnrecoverableKeyException, KeyManagementException, InterruptedException {
@@ -146,5 +134,16 @@ public class SslTest {
         var trustManagerFactory = TrustManagerFactory.getInstance("PKIX");
         trustManagerFactory.init(truststore);
         return trustManagerFactory.getTrustManagers();
+    }
+
+    @Test
+    void ssl() throws Exception {
+        var server = new Server();
+        var expBody = "abc";
+        var url = runServer(server, expBody);
+        var response = runClient(url);
+        server.stop();
+        assertThat(response.statusCode()).isEqualTo(200);
+        assertThat(response.body()).isEqualTo(expBody);
     }
 }

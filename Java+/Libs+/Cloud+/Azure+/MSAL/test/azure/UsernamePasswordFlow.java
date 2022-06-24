@@ -21,17 +21,17 @@ public class UsernamePasswordFlow {
     private static final String password = System.getProperty("user_password");
 
     public static void main(String[] args) throws Exception {
-        PublicClientApplication pca = PublicClientApplication.builder(clientId)
+        var pca = PublicClientApplication.builder(clientId)
                 .authority(authority)
                 .build();
 
         //Get list of accounts from the application's token cache, and search them for the configured username
         //getAccounts() will be empty on this first call, as accounts are added to the cache when acquiring a token
-        Set<IAccount> accountsInCache = pca.getAccounts().join();
-        IAccount account = getAccountByUsername(accountsInCache, username);
+        var accountsInCache = pca.getAccounts().join();
+        var account = getAccountByUsername(accountsInCache, username);
 
         //Attempt to acquire token when user's account is not in the application's token cache
-        IAuthenticationResult result = acquireTokenUsernamePassword(pca, scope, account, username, password);
+        var result = acquireTokenUsernamePassword(pca, scope, account, username, password);
         System.out.println("Account username: " + result.account().username());
         System.out.println("Access token:     " + result.accessToken());
         System.out.println("Id token:         " + result.idToken());
@@ -54,7 +54,7 @@ public class UsernamePasswordFlow {
                                                                       String password) throws Exception {
         IAuthenticationResult result;
         try {
-            SilentParameters silentParameters =
+            var silentParameters =
                     SilentParameters
                             .builder(scope)
                             .account(account)
@@ -66,7 +66,7 @@ public class UsernamePasswordFlow {
         } catch (Exception ex) {
             if (ex.getCause() instanceof MsalException) {
                 System.out.println("==acquireTokenSilently call failed: " + ex.getCause());
-                UserNamePasswordParameters parameters =
+                var parameters =
                         UserNamePasswordParameters
                                 .builder(scope, username, password.toCharArray())
                                 .build();
@@ -91,7 +91,7 @@ public class UsernamePasswordFlow {
             System.out.println("==No accounts in cache");
         } else {
             System.out.println("==Accounts in cache: " + accounts.size());
-            for (IAccount account : accounts) {
+            for (var account : accounts) {
                 if (account.username().equals(username)) {
                     return account;
                 }

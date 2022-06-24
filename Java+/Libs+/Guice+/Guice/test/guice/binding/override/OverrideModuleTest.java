@@ -8,23 +8,20 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.instanceOf;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class OverrideModuleTest {
+class OverrideModuleTest {
     private static final List<Class<?>> invokedModules = new ArrayList<>();
 
     @Test
-    public void bind() {
+    void bind() {
         //PROD
         {
             invokedModules.clear();
             var injector = Guice.createInjector(new AppModule());
-            assertThat(injector.getInstance(Source.class), instanceOf(OracleSource.class));
-            assertThat(injector.getInstance(Integer.class), equalTo(42));
-            assertThat(invokedModules, contains(AppModule.class, ProductionSourceModule.class));
+            assertThat(injector.getInstance(Source.class)).isInstanceOf(OracleSource.class);
+            assertThat(injector.getInstance(Integer.class)).isEqualTo(42);
+            assertThat(invokedModules).containsExactly(AppModule.class, ProductionSourceModule.class);
         }
 
         //TEST
@@ -33,10 +30,13 @@ public class OverrideModuleTest {
             var injector = Guice.createInjector(Modules
                     .override(new AppModule())
                     .with(new TestSourceModule()));
-            assertThat(injector.getInstance(Source.class), instanceOf(H2Source.class));
-            assertThat(injector.getInstance(Integer.class), equalTo(42));
-            assertThat(invokedModules, contains(AppModule.class, ProductionSourceModule.class, TestSourceModule.class));
+            assertThat(injector.getInstance(Source.class)).isInstanceOf(H2Source.class);
+            assertThat(injector.getInstance(Integer.class)).isEqualTo(42);
+            assertThat(invokedModules).containsExactly(AppModule.class, ProductionSourceModule.class, TestSourceModule.class);
         }
+    }
+
+    interface Source {
     }
 
     private static class AppModule extends AbstractModule {
@@ -62,9 +62,6 @@ public class OverrideModuleTest {
             invokedModules.add(getClass());
             bind(Source.class).to(H2Source.class);
         }
-    }
-
-    interface Source {
     }
 
     static class OracleSource implements Source {

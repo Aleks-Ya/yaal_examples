@@ -4,21 +4,20 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ChildInjectorTest {
+class ChildInjectorTest {
     private static final String STR = "hi";
     private static final Integer INT = 7;
 
     @Test
-    public void bind() {
+    void bind() {
         var injector = Guice.createInjector(new MainModule());
         var childInjector = injector.createChildInjector(new ChildModule());
         var str = childInjector.getInstance(String.class);
         var integer = childInjector.getInstance(Integer.class);
-        assertThat(str, equalTo(STR));
-        assertThat(integer, equalTo(INT));
+        assertThat(str).isEqualTo(STR);
+        assertThat(integer).isEqualTo(INT);
     }
 
     private static class MainModule extends AbstractModule {

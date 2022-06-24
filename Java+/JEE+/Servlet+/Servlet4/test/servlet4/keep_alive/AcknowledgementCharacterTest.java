@@ -5,41 +5,39 @@ import org.eclipse.jetty.servlet.ServletHandler;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedInputStream;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class AcknowledgementCharacterTest {
+class AcknowledgementCharacterTest {
 
     @Test
-    public void test() throws Exception {
-        ServletHandler handler = new ServletHandler();
-        String servletPath = "/servlet";
+    void test() throws Exception {
+        var handler = new ServletHandler();
+        var servletPath = "/servlet";
         handler.addServletWithMapping(AcknowledgementCharacterServlet.class, servletPath);
 
-        int port = 8089;
-        Server server = new Server(port);
+        var port = 8089;
+        var server = new Server(port);
         server.setHandler(handler);
         server.setStopTimeout(5);
         server.start();
 
-        URL url = new URL("http://localhost:" + port + servletPath);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        var url = new URL("http://localhost:" + port + servletPath);
+        var conn = (HttpURLConnection) url.openConnection();
         conn.connect();
-        InputStream is = conn.getInputStream();
-        BufferedInputStream bis = new BufferedInputStream(is);
+        var is = conn.getInputStream();
+        var bis = new BufferedInputStream(is);
         int b;
-        StringBuilder input = new StringBuilder();
+        var input = new StringBuilder();
         while ((b = bis.read()) != -1) {
             input.append(b);
         }
         conn.disconnect();
 
 //        assertThat(AcknowledgementCharacterServlet.writeCount, equalTo(2L));
-        assertThat(input, equalTo(""));
+        assertThat(input).hasToString("");
 
         server.stop();
     }

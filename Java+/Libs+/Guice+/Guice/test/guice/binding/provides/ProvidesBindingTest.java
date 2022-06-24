@@ -5,17 +5,16 @@ import com.google.inject.Guice;
 import com.google.inject.Provides;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProvidesBindingTest {
+class ProvidesBindingTest {
     private static final String expected = "hello world";
 
     @Test
-    public void bind() {
+    void bind() {
         var injector = Guice.createInjector(new DemoModule());
         var actual = injector.getInstance(String.class);
-        assertThat(actual, equalTo(expected));
+        assertThat(actual).isEqualTo(expected);
     }
 
     private static class DemoModule extends AbstractModule {

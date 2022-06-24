@@ -10,12 +10,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class SearchRequestTest {
+class SearchRequestTest {
     private static final String PEOPLE_INDEX = "people";
     private static final String PERSONS_TYPE = "persons";
     private static final String EMAIL_FILED = "email";
@@ -24,7 +21,7 @@ public class SearchRequestTest {
     private static final RestHighLevelClient client = EsHelper.getHighLevelRestClient();
 
     @Test
-    public void matchAllQuery() throws IOException {
+    void matchAllQuery() throws IOException {
         var query = QueryBuilders.matchAllQuery();
 
         var searchSourceBuilder = new SearchSourceBuilder();
@@ -43,17 +40,17 @@ public class SearchRequestTest {
 
         System.out.println(response);
 
-        assertThat(response.status().getStatus(), equalTo(200));
-        assertThat(response.getHits().getTotalHits(), equalTo(4L));
+        assertThat(response.status().getStatus()).isEqualTo(200);
+        assertThat(response.getHits().getTotalHits().value).isEqualTo(4L);
 
         var searchHits = response.getHits();
         var hit0 = searchHits.getAt(0);
 
-        assertThat(hit0, notNullValue());
+        assertThat(hit0).isNotNull();
     }
 
     @Test
-    public void termQuery() throws IOException {
+    void termQuery() throws IOException {
         var query = QueryBuilders.termQuery(EMAIL_FILED, JOHN_EMAIL);
 
         var searchSourceBuilder = new SearchSourceBuilder();
@@ -68,17 +65,17 @@ public class SearchRequestTest {
 
         System.out.println(response);
 
-        assertThat(response.status().getStatus(), equalTo(200));
-        assertThat(response.getHits().getTotalHits(), equalTo(1L));
+        assertThat(response.status().getStatus()).isEqualTo(200);
+        assertThat(response.getHits().getTotalHits().value).isEqualTo(1L);
 
         var searchHits = response.getHits();
         var hit0 = searchHits.getAt(0);
 
-        assertThat(hit0.getSourceAsMap().get(EMAIL_FILED), equalTo(JOHN_EMAIL));
+        assertThat(hit0.getSourceAsMap().get(EMAIL_FILED)).isEqualTo(JOHN_EMAIL);
     }
 
     @Test
-    public void boolQueryShould() throws IOException {
+    void boolQueryShould() throws IOException {
         var query1 = QueryBuilders.termQuery(EMAIL_FILED, JOHN_EMAIL);
 
         var query2 = QueryBuilders.termQuery(EMAIL_FILED, MARY_MAIL);
@@ -99,19 +96,21 @@ public class SearchRequestTest {
 
         System.out.println(response);
 
-        assertThat(response.status().getStatus(), equalTo(200));
-        assertThat(response.getHits().getTotalHits(), equalTo(2L));
+        assertThat(response.status().getStatus()).isEqualTo(200);
+        assertThat(response.getHits().getTotalHits().value).isEqualTo(2L);
 
         var searchHits = response.getHits();
         var hit0 = searchHits.getAt(0);
         var hit1 = searchHits.getAt(1);
 
-        assertThat(hit0.getSourceAsMap().get(EMAIL_FILED), anyOf(equalTo(JOHN_EMAIL), equalTo(MARY_MAIL)));
-        assertThat(hit1.getSourceAsMap().get(EMAIL_FILED), anyOf(equalTo(JOHN_EMAIL), equalTo(MARY_MAIL)));
+        var email0 = hit0.getSourceAsMap().get(EMAIL_FILED);
+        var email1 = hit1.getSourceAsMap().get(EMAIL_FILED);
+        assertThat(JOHN_EMAIL.equals(email0) || MARY_MAIL.equals(email0)).isTrue();
+        assertThat(JOHN_EMAIL.equals(email1) || MARY_MAIL.equals(email1)).isTrue();
     }
 
     @Test
-    public void count() throws IOException {
+    void count() throws IOException {
         var query = QueryBuilders.termQuery(EMAIL_FILED, JOHN_EMAIL);
 
         var searchSourceBuilder = new SearchSourceBuilder();
@@ -127,7 +126,7 @@ public class SearchRequestTest {
 
         System.out.println(response);
 
-        assertThat(response.status().getStatus(), equalTo(200));
-        assertThat(response.getHits().getTotalHits(), equalTo(1L));
+        assertThat(response.status().getStatus()).isEqualTo(200);
+        assertThat(response.getHits().getTotalHits().value).isEqualTo(1L);
     }
 }

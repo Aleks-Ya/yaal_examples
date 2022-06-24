@@ -13,28 +13,27 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ElementVisitorTest {
+class ElementVisitorTest {
     private static final Integer INT = 7;
 
     @Test
-    public void visitBinding() {
+    void visitBinding() {
         var module = new AppModule();
         var instances = Elements.getElements(module).stream()
                 .map(element -> element.acceptVisitor(new BindingVisitor()))
                 .collect(Collectors.toList());
-        assertThat(instances, contains(INT, "Key[type=java.io.StringWriter, annotation=[none]]"));
+        assertThat(instances).containsExactly(INT, "Key[type=java.io.StringWriter, annotation=[none]]");
     }
 
     @Test
-    public void visitOther() {
+    void visitOther() {
         var module = new AppModule();
         var instances = Elements.getElements(module).stream()
                 .map(element -> element.acceptVisitor(new OtherVisitor()))
                 .collect(Collectors.toList());
-        assertThat(instances, contains(INT, "Key[type=java.io.StringWriter, annotation=[none]]"));
+        assertThat(instances).containsExactly(INT, "Key[type=java.io.StringWriter, annotation=[none]]");
     }
 
     private static class BindingVisitor extends DefaultElementVisitor<Object> {

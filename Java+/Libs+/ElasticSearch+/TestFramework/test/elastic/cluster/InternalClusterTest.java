@@ -1,5 +1,6 @@
 package elastic.cluster;
 
+import org.assertj.core.api.Assertions;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.client.Client;
@@ -7,7 +8,6 @@ import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.plugins.Plugin;
 import org.elasticsearch.test.InternalTestCluster;
 import org.elasticsearch.test.NodeConfigurationSource;
-import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -17,8 +17,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
-
-import static org.hamcrest.Matchers.equalTo;
 
 @Disabled("Not working")
 public class InternalClusterTest {
@@ -64,11 +62,11 @@ public class InternalClusterTest {
         var indexResponse = client.index(indexRequest).actionGet();
         var status = indexResponse.status();
         var statusCode = status.getStatus();
-        MatcherAssert.assertThat(statusCode, equalTo(201));
+        Assertions.assertThat(statusCode).isEqualTo(201);
 
         var getRequest = new GetRequest(indexName, id);
         var getResponse = client.get(getRequest).actionGet();
         var source = getResponse.getSource();
-        MatcherAssert.assertThat(source.toString(), equalTo("{postDate=2021-01-30, message=trying out ES, user=John}"));
+        Assertions.assertThat(source.toString()).isEqualTo("{postDate=2021-01-30, message=trying out ES, user=John}");
     }
 }

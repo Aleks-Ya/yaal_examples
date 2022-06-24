@@ -4,25 +4,22 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class OptionalTest {
+class OptionalTest {
     private boolean present = false;
     private boolean orElse = false;
 
     @Test
-    public void or() {
-        Integer opt = Optional.<Integer>empty().or(() -> Optional.of(1)).get();
-        assertThat(opt, equalTo(1));
+    void or() {
+        var opt = Optional.<Integer>empty().or(() -> Optional.of(1)).get();
+        assertThat(opt).isEqualTo(1);
     }
 
     @Test
-    public void ifPresentOrElse() {
+    void ifPresentOrElse() {
         Optional.empty().ifPresentOrElse(x -> present = true, () -> orElse = true);
-        assertFalse(present);
-        assertTrue(orElse);
+        assertThat(present).isFalse();
+        assertThat(orElse).isTrue();
     }
 }

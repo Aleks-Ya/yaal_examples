@@ -8,17 +8,19 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class MultibinderMultiModulesTest {
+class MultibinderMultiModulesTest {
 
     @Test
-    public void bind() {
+    void bind() {
         var injector = Guice.createInjector(new RootModule());
         var processor = injector.getInstance(SourceProcessor.class);
         var source = processor.getSources();
-        assertThat(source, hasSize(3));
+        assertThat(source).hasSize(3);
+    }
+
+    interface Source {
     }
 
     private static class RootModule extends AbstractModule {
@@ -45,9 +47,6 @@ public class MultibinderMultiModulesTest {
             var multibinder = Multibinder.newSetBinder(binder(), Source.class);
             multibinder.addBinding().toInstance(new FileSource());
         }
-    }
-
-    interface Source {
     }
 
     static class HttpSource implements Source {

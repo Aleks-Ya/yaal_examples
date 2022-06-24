@@ -12,18 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
 
 /**
  * Upload, download and list objects in a bucket.
  */
-public class S3MockTransferManagerTest extends S3MockBaseTest {
+class S3MockTransferManagerTest extends S3MockBaseTest {
 
     @Test
-    public void uploadFileList() throws IOException, InterruptedException {
+    void uploadFileList() throws IOException, InterruptedException {
         Bucket bucket = createRandomBucket(s3);
 
         var dir = Files.createTempDirectory(getClass().getSimpleName());
@@ -45,10 +43,10 @@ public class S3MockTransferManagerTest extends S3MockBaseTest {
         transferManager.shutdownNow(false);
 
         String actContent1 = downloadObject(bucket, keyName1);
-        assertThat(actContent1, equalTo(content1));
+        assertThat(actContent1).isEqualTo(content1);
 
         String actContent2 = downloadObject(bucket, keyName2);
-        assertThat(actContent2, equalTo(content2));
+        assertThat(actContent2).isEqualTo(content2);
     }
 
     /**
@@ -80,7 +78,7 @@ public class S3MockTransferManagerTest extends S3MockBaseTest {
             transferManager.shutdownNow(false);
 
             var objects = listObjects(bucket);
-            assertThat(objects, hasSize(fileList.size()));
+            assertThat(objects).hasSize(fileList.size());
         });
     }
 }

@@ -1,5 +1,6 @@
 package elastic.client.rest;
 
+import org.assertj.core.api.Assertions;
 import org.elasticsearch.client.Request;
 import org.elasticsearch.test.ESIntegTestCase;
 import org.hamcrest.CoreMatchers;
@@ -10,8 +11,6 @@ import util.InputStreamUtil;
 import util.RandomUtil;
 
 import java.io.IOException;
-
-import static org.hamcrest.CoreMatchers.containsString;
 
 class IndexRequestWithRestClientTest extends ESIntegTestCase {
 
@@ -30,6 +29,6 @@ class IndexRequestWithRestClientTest extends ESIntegTestCase {
         var contentIS = entity.getContent();
         var contentStr = InputStreamUtil.inputStreamToString(contentIS);
         System.out.println("Body: " + contentStr);
-        MatcherAssert.assertThat(contentStr, containsString("\"acknowledged\":true"));
+        Assertions.assertThat(contentStr).containsSubsequence("\"acknowledged\":true");
     }
 }
