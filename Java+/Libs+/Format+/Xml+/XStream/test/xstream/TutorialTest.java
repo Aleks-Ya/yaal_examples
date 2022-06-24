@@ -1,26 +1,27 @@
 package xstream;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.security.AnyTypePermission;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static util.ResourceUtil.resourceToString;
 
 /**
  * Source: https://x-stream.github.io/tutorial.html
  */
-public class TutorialTest {
+class TutorialTest {
     private XStream xstream;
     private Person person;
     private String xml;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         xstream = new XStream();
+        xstream.addPermission(AnyTypePermission.ANY);
         xstream.alias("person", Person.class);
         xstream.alias("phonenumber", PhoneNumber.class);
 
@@ -32,33 +33,31 @@ public class TutorialTest {
     }
 
     @Test
-    public void serialize() {
-        String actXml = xstream.toXML(person);
-        assertThat(actXml, equalTo(xml));
+    void serialize() {
+        var actXml = xstream.toXML(person);
+        assertThat(actXml).isEqualTo(xml);
     }
 
     @Test
-    public void deserialize() {
-        Person actPerson = (Person) xstream.fromXML(xml);
-        assertThat(actPerson, equalTo(person));
+    void deserialize() {
+        var actPerson = (Person) xstream.fromXML(xml);
+        assertThat(actPerson).isEqualTo(person);
     }
 
     @SuppressWarnings("unused")
     public static class Person {
         private String firstname;
         private String lastname;
-
-        public String getFirstname() {
-            return firstname;
-        }
-
         private PhoneNumber phone;
-
         private PhoneNumber fax;
 
         public Person(String firstname, String lastname) {
             this.firstname = firstname;
             this.lastname = lastname;
+        }
+
+        public String getFirstname() {
+            return firstname;
         }
 
         public void setFirstname(String firstname) {
@@ -93,7 +92,7 @@ public class TutorialTest {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            Person person = (Person) o;
+            var person = (Person) o;
             return Objects.equals(firstname, person.firstname) &&
                     Objects.equals(lastname, person.lastname) &&
                     Objects.equals(phone, person.phone) &&
@@ -136,7 +135,7 @@ public class TutorialTest {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            PhoneNumber that = (PhoneNumber) o;
+            var that = (PhoneNumber) o;
             return code == that.code &&
                     Objects.equals(number, that.number);
         }

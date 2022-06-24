@@ -1,17 +1,14 @@
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.core.IsEqual.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ParseTest {
+
+class ParseTest {
 
     @Test
-    public void findDiv() {
-        String html = "<html>" +
+    void findDiv() {
+        var html = "<html>" +
                 "<head>" +
                 "<title>First parse</title>" +
                 "</head>"
@@ -21,13 +18,13 @@ public class ParseTest {
                 "<div>Part 2</div>" +
                 "</body>" +
                 "</html>";
-        Document doc = Jsoup.parse(html);
+        var doc = Jsoup.parse(html);
 
-        assertThat(doc.title(), equalTo("First parse"));
+        assertThat(doc.title()).isEqualTo("First parse");
 
-        Elements divs = doc.body().getElementsByTag("div");
-        assertThat(divs, hasSize(2));
-        assertThat(divs.get(0).text(), equalTo("Part 1"));
-        assertThat(divs.get(1).text(), equalTo("Part 2"));
+        var divs = doc.body().getElementsByTag("div");
+        assertThat(divs).hasSize(2);
+        assertThat(divs.get(0).text()).isEqualTo("Part 1");
+        assertThat(divs.get(1).text()).isEqualTo("Part 2");
     }
 }

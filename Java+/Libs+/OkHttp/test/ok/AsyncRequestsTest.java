@@ -14,37 +14,34 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.empty;
+import static org.assertj.core.api.Assertions.assertThat;
 
-class AsyncRequests {
+class AsyncRequestsTest {
 
     @Test
     void asyncMultiRequests() throws IOException {
         var expBody1 = "Body #1";
         var expBody2 = "Body #2";
 
-        var server = new MockWebServer();
-        server.enqueue(new MockResponse().setBody(expBody1));
-        server.enqueue(new MockResponse().setBody(expBody2));
-        server.start();
+        try (var server = new MockWebServer()) {
+            server.enqueue(new MockResponse().setBody(expBody1));
+            server.enqueue(new MockResponse().setBody(expBody2));
+            server.start();
 
-        var url = server.url("/v1/chat/");
-        var request1 = new Request.Builder().url(url).build();
-        var request2 = new Request.Builder().url(url).build();
+            var url = server.url("/v1/chat/");
+            var request1 = new Request.Builder().url(url).build();
+            var request2 = new Request.Builder().url(url).build();
 
-        var client = new OkHttpClient().newBuilder().build();
+            var client = new OkHttpClient().newBuilder().build();
 
-        var callback = new InfoCallback();
-        client.newCall(request1).enqueue(callback);
-        client.newCall(request2).enqueue(callback);
-        while (client.dispatcher().queuedCallsCount() > 0 || client.dispatcher().runningCallsCount() > 0) ;
+            var callback = new InfoCallback();
+            client.newCall(request1).enqueue(callback);
+            client.newCall(request2).enqueue(callback);
+            while (client.dispatcher().queuedCallsCount() > 0 || client.dispatcher().runningCallsCount() > 0) ;
 
-        assertThat(callback.bodyList, containsInAnyOrder(expBody1, expBody2));
-        assertThat(callback.exceptionList, empty());
-
-        server.shutdown();
+            assertThat(callback.bodyList).containsExactlyInAnyOrder(expBody1, expBody2);
+            assertThat(callback.exceptionList).isEmpty();
+        }
     }
 
     private static class InfoCallback implements Callback {

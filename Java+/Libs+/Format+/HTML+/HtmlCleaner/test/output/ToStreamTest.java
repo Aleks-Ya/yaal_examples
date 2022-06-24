@@ -1,23 +1,19 @@
 package output;
 
-import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.SimpleHtmlSerializer;
-import org.htmlcleaner.TagNode;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import static org.hamcrest.Matchers.hasToString;
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ToStreamTest {
+class ToStreamTest {
     @Test
-    public void toOutputStream() throws IOException {
-        String html = "<html>" +
+    void toOutputStream() throws IOException {
+        var html = "<html>" +
                 "<head>" +
                 "<title>First parse</title>" +
                 "</head>" +
@@ -25,18 +21,18 @@ public class ToStreamTest {
                 "<p>My HTML</p>" +
                 "</body>" +
                 "</html>";
-        HtmlCleaner cleaner = new HtmlCleaner();
-        TagNode htmlTag = cleaner.clean(html);
-        CleanerProperties props = cleaner.getProperties();
-        SimpleHtmlSerializer serializer = new SimpleHtmlSerializer(props);
+        var cleaner = new HtmlCleaner();
+        var htmlTag = cleaner.clean(html);
+        var props = cleaner.getProperties();
+        var serializer = new SimpleHtmlSerializer(props);
         OutputStream os = new ByteArrayOutputStream();
         serializer.writeToStream(htmlTag, os);
 
-        String expHtml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        var expHtml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<html>" +
                 "<head><title>First parse</title></head>" +
                 "<body><p>My HTML</p></body>" +
                 "</html>";
-        assertThat(os, hasToString(equalTo(expHtml)));
+        assertThat(os).hasToString(expHtml);
     }
 }

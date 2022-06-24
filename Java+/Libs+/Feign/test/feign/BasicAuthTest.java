@@ -20,7 +20,7 @@ class BasicAuthTest {
     }
 
     @Test
-    public void basicAuth() {
+    void basicAuth() {
         var expBody = "the_body";
 
         var mockClient = new MockClient().ok(HttpMethod.GET, "/string", expBody);

@@ -16,7 +16,7 @@ class BadStatusTest {
     }
 
     @Test
-    public void bad() {
+    void bad() {
         var errorMessage = "I'm a teapot!";
 
         var mockClient = new MockClient().add(GET, "/string", 418, errorMessage);

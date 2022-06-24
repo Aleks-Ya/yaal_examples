@@ -11,9 +11,10 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.apache.parquet.schema.PrimitiveType.PrimitiveTypeName.BINARY;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-class CreateMessageType {
+
+class CreateMessageTypeTest {
 
     @Test
     void programmatically() {
@@ -25,7 +26,7 @@ class CreateMessageType {
                 "  required binary json (JSON);" +
                 "  required binary bson (BSON);" +
                 "}\n");
-        assertEquals(expMessageType, actMessageType);
+        assertThat(actMessageType).isEqualTo(expMessageType);
     }
 
     @Test
@@ -41,10 +42,10 @@ class CreateMessageType {
                 .required(BINARY).as(LogicalTypeAnnotation.bsonType()).named("bson")
                 .named("EmbeddedMessage");
 
-        assertEquals(expected, parsed);
+        assertThat(parsed).isEqualTo(expected);
 
         var reparsed = MessageTypeParser.parseMessageType(parsed.toString());
-        assertEquals(expected, reparsed);
+        assertThat(reparsed).isEqualTo(expected);
     }
 
     /**
@@ -63,6 +64,6 @@ class CreateMessageType {
                 .required(BINARY).as(LogicalTypeAnnotation.jsonType()).named("json")
                 .required(BINARY).as(LogicalTypeAnnotation.bsonType()).named("bson")
                 .named(messageTypeName);
-        assertEquals(expMessageType, actMessageType);
+        assertThat(actMessageType).isEqualTo(expMessageType);
     }
 }

@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ParseStreamingTest {
+
+class ParseStreamingTest {
 
     @Test
-    public void parse() throws IOException {
+    void parse() throws IOException {
         var yaml = "name: John\nage: 30";
 
         var factory = new YAMLFactory();
@@ -35,7 +35,7 @@ public class ParseStreamingTest {
         }
         parser.close();
 
-        assertThat(parsedName, equalTo("John"));
-        assertThat(parsedAge, equalTo(30));
+        assertThat(parsedName).isEqualTo("John");
+        assertThat(parsedAge).isEqualTo(30);
     }
 }

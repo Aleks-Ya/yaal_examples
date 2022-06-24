@@ -12,13 +12,13 @@ class GitHubContributorTest {
 
     @Test
     void listContributors() {
-        GitHub github = Feign.builder()
+        var github = Feign.builder()
                 .decoder(new GsonDecoder())
                 .target(GitHub.class, "https://api.github.com");
 
         // Fetch and print a list of the contributors to this library.
-        List<Contributor> contributors = github.contributors("OpenFeign", "feign");
-        for (Contributor contributor : contributors) {
+        var contributors = github.contributors("OpenFeign", "feign");
+        for (var contributor : contributors) {
             System.out.println(contributor.login + " (" + contributor.contributions + ")");
         }
     }

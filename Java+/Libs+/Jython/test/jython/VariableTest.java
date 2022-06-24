@@ -6,44 +6,39 @@ import org.python.core.PyObject;
 import org.python.core.PyString;
 import org.python.util.PythonInterpreter;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-
-public class Variable {
+class VariableTest {
     private final PythonInterpreter interp = new PythonInterpreter();
 
     @Test
-    public void setAndGetVar() {
+    void setAndGetVar() {
         interp.set("a", new PyInteger(42));
         interp.exec("print a");
         interp.exec("x = 2+2");
         PyInteger x = (PyInteger) interp.get("x");
-        assertThat(x.getValue(), equalTo(4));
+        assertThat(x.getValue()).isEqualTo(4);
     }
 
     @Test
-    public void getNotExistVar() {
+    void getNotExistVar() {
         PyObject notExists = interp.get("not_exists");
-        assertNull(notExists);
+        assertThat(notExists).isNull();
     }
 
     /**
      * PythonInterpreter#cleanup() doesn't remove variables.
      */
     @Test
-    public void removeVar() {
+    void removeVar() {
         String varName = "a";
         PyString varNamePy = new PyString(varName);
 
         interp.set(varName, new PyInteger(42));
-        assertTrue(interp.getLocals().__contains__(varNamePy));
+        assertThat(interp.getLocals().__contains__(varNamePy)).isTrue();
 
         interp.set(varName, null);
-        assertFalse(interp.getLocals().__contains__(varNamePy));
+        assertThat(interp.getLocals().__contains__(varNamePy)).isFalse();
     }
 
 }

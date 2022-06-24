@@ -6,31 +6,31 @@ import org.python.util.PythonInterpreter;
 
 import java.io.InputStream;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class ExecFile {
+class ExecFileTest {
 
     private final PythonInterpreter interp = new PythonInterpreter();
 
     @Test
-    public void classInFile() {
+    void classInFile() {
         InputStream is = getClass().getResourceAsStream("classes.py");
         interp.execfile(is);
         interp.exec("c = Checks()");
         interp.exec("n = c.not_null(123)");
         PyBoolean n = (PyBoolean) interp.get("n");
-        assertTrue(n.getBooleanValue());
+        assertThat(n.getBooleanValue()).isTrue();
     }
 
     @Test
-    public void methodInFile() {
+    void methodInFile() {
         InputStream is = getClass().getResourceAsStream("methods.py");
         interp.execfile(is);
         interp.set("str", "abc");
         interp.set("substr", "b");
         interp.exec("cont = contains(str, substr)");
         PyBoolean cont = (PyBoolean) interp.get("cont");
-        assertTrue(cont.getBooleanValue());
+        assertThat(cont.getBooleanValue()).isTrue();
     }
 }

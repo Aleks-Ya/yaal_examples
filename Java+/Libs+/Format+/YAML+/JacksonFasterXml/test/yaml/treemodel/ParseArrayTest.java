@@ -9,13 +9,13 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ParseArrayTest {
+
+class ParseArrayTest {
 
     @Test
-    public void arrayOfStrings() throws IOException {
+    void arrayOfStrings() throws IOException {
         var yaml = "- John\n" +
                 "- Tom";
         var mapper = new YAMLMapper();
@@ -24,12 +24,12 @@ public class ParseArrayTest {
         var johnNode = (TextNode) arrayNode.get(0);
         var tomNode = (TextNode) arrayNode.get(1);
 
-        assertThat(johnNode.textValue(), equalTo("John"));
-        assertThat(tomNode.textValue(), equalTo("Tom"));
+        assertThat(johnNode.textValue()).isEqualTo("John");
+        assertThat(tomNode.textValue()).isEqualTo("Tom");
     }
 
     @Test
-    public void arrayOfObjects() throws IOException {
+    void arrayOfObjects() throws IOException {
         var yaml = ParseArrayTest.class.getResource("ParseArrayTest_arrayOfObjects.yaml");
         var mapper = new YAMLMapper();
         var arrayNode = (ArrayNode) mapper.readTree(yaml);
@@ -42,7 +42,7 @@ public class ParseArrayTest {
         var tomNode = (ObjectNode) tomElementNode.get("Tom");
         var tomTitleNode = (IntNode) tomNode.get("age");
 
-        assertThat(johnTitleNode.textValue(), equalTo("officer"));
-        assertThat(tomTitleNode.asInt(), equalTo(30));
+        assertThat(johnTitleNode.textValue()).isEqualTo("officer");
+        assertThat(tomTitleNode.asInt()).isEqualTo(30);
     }
 }

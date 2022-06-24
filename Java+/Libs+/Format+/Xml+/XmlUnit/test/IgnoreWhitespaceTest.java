@@ -6,13 +6,13 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 /**
  * Игнорирование пробелов и переносов строк при сравнении XML.
  */
-public class IgnoreWhitespace {
+class IgnoreWhitespaceTest {
     String one = "<plan><week capacity='8' /></plan>";
 
     String two = "<plan>\n" +
@@ -20,17 +20,16 @@ public class IgnoreWhitespace {
             "</plan>";
 
     @Test
-    public void ignore() throws IOException, SAXException {
+    void ignore() throws IOException, SAXException {
         XMLUnit.setIgnoreWhitespace(true);
-        DetailedDiff diff = new DetailedDiff(new Diff(one, two));
-        assertTrue(diff.similar(), diff.toString());
-
+        var diff = new DetailedDiff(new Diff(one, two));
+        assertThat(diff.similar()).isTrue();
     }
 
     @Test
-    public void notIgnore() throws IOException, SAXException {
+    void notIgnore() throws IOException, SAXException {
         XMLUnit.setIgnoreWhitespace(false);
-        DetailedDiff diff = new DetailedDiff(new Diff(one, two));
-        assertFalse(diff.similar(), diff.toString());
+        var diff = new DetailedDiff(new Diff(one, two));
+        assertThat(diff.similar()).isFalse();
     }
 }

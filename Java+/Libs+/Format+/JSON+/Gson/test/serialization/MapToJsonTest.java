@@ -7,7 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 class MapToJsonTest {
 
@@ -23,6 +24,6 @@ class MapToJsonTest {
         }.getType();
 
         var jsonStr = gson.toJson(map, typeOfMap);
-        assertEquals("{\"abc\":123,\"Jonh\":30}", jsonStr);
+        assertThat(jsonStr).isEqualTo("{\"abc\":123,\"Jonh\":30}");
     }
 }

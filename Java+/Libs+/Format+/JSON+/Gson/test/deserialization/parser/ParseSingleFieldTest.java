@@ -3,17 +3,17 @@ package deserialization.parser;
 import com.google.gson.JsonParser;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-class ParseSingleField {
+
+class ParseSingleFieldTest {
 
     @Test
     void extractField() {
         var json = "{\"person\": {\"name\":\"John\", \"age\": 30}}";
         var object = JsonParser.parseString(json).getAsJsonObject();
         var age = object.get("person").getAsJsonObject().get("age").getAsInt();
-        assertThat(age, equalTo(30));
+        assertThat(age).isEqualTo(30);
     }
 
 }

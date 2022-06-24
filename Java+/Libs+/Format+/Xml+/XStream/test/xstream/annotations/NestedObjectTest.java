@@ -2,23 +2,24 @@ package xstream.annotations;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.security.AnyTypePermission;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static util.ResourceUtil.resourceToString;
 
-public class NestedObjectTest {
+class NestedObjectTest {
     private XStream xstream;
     private Person person;
     private String xml;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         xstream = new XStream();
+        xstream.addPermission(AnyTypePermission.ANY);
         xstream.processAnnotations(new Class[]{Person.class, PhoneNumber.class});
 
         person = new Person("Joe", "Walnes");
@@ -29,15 +30,15 @@ public class NestedObjectTest {
     }
 
     @Test
-    public void serialize() {
+    void serialize() {
         String actXml = xstream.toXML(person);
-        assertThat(actXml, equalTo(xml));
+        assertThat(actXml).isEqualTo(xml);
     }
 
     @Test
-    public void deserialize() {
+    void deserialize() {
         Person actPerson = (Person) xstream.fromXML(xml);
-        assertThat(actPerson, equalTo(person));
+        assertThat(actPerson).isEqualTo(person);
     }
 
     @XStreamAlias("person")
@@ -47,18 +48,16 @@ public class NestedObjectTest {
         private String firstName;
         @XStreamAlias("lastname")
         private String lastName;
-
-        public String getFirstName() {
-            return firstName;
-        }
-
         private PhoneNumber phone;
-
         private PhoneNumber fax;
 
         public Person(String firstName, String lastName) {
             this.firstName = firstName;
             this.lastName = lastName;
+        }
+
+        public String getFirstName() {
+            return firstName;
         }
 
         public void setFirstName(String firstName) {

@@ -15,7 +15,8 @@ import util.FileUtil;
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 class DataTypesTest {
 
@@ -68,12 +69,12 @@ class DataTypesTest {
         var actRecord = reader.read();
 
         //noinspection ConstantConditions
-        assertEquals(expBooleanValue, actRecord.get(booleanFieldName));
-        assertEquals(expInt32Value, actRecord.get(int32FieldName));
-        assertEquals(expFloatValue, actRecord.get(floatFieldName));
-        assertEquals(expDoubleValue, actRecord.get(doubleFieldName));
-        assertEquals(expByteArrayValue, actRecord.get(byteArrayFieldName));
-        assertEquals(expRecord, actRecord);
+        assertThat(actRecord.get(booleanFieldName)).isEqualTo(expBooleanValue);
+        assertThat(actRecord.get(int32FieldName)).isEqualTo(expInt32Value);
+        assertThat(actRecord.get(floatFieldName)).isEqualTo(expFloatValue);
+        assertThat(actRecord.get(doubleFieldName)).isEqualTo(expDoubleValue);
+        assertThat(actRecord.get(byteArrayFieldName)).isEqualTo(expByteArrayValue);
+        assertThat(actRecord).isEqualTo(expRecord);
     }
 
     @Test
@@ -107,8 +108,8 @@ class DataTypesTest {
         var reader = AvroParquetReader.<GenericRecord>builder(inputFile).build();
         var actRecord = reader.read();
 
-        assertEquals(expStringValue, actRecord.get(stringFieldName).toString());
-        assertEquals(expRecord, actRecord);
+        assertThat(actRecord.get(stringFieldName).toString()).isEqualTo(expStringValue);
+        assertThat(actRecord).isEqualTo(expRecord);
     }
 
 }

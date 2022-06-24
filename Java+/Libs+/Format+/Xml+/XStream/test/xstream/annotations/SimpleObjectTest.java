@@ -3,23 +3,24 @@ package xstream.annotations;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.security.AnyTypePermission;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static util.ResourceUtil.resourceToString;
 
-public class SimpleObjectTest {
+class SimpleObjectTest {
     private XStream xstream;
     private Person person;
     private String xml;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         xstream = new XStream();
+        xstream.addPermission(AnyTypePermission.ANY);
         xstream.processAnnotations(Person.class);
 
         person = new Person("Joe", 30, true, "yes", 1500.7);
@@ -27,15 +28,15 @@ public class SimpleObjectTest {
     }
 
     @Test
-    public void serialize() {
-        String actXml = xstream.toXML(person);
-        assertThat(actXml, equalTo(xml));
+    void serialize() {
+        var actXml = xstream.toXML(person);
+        assertThat(actXml).isEqualTo(xml);
     }
 
     @Test
-    public void deserialize() {
-        Person actPerson = (Person) xstream.fromXML(xml);
-        assertThat(actPerson, equalTo(person));
+    void deserialize() {
+        var actPerson = (Person) xstream.fromXML(xml);
+        assertThat(actPerson).isEqualTo(person);
     }
 
     @XStreamAlias("participant")
@@ -108,7 +109,7 @@ public class SimpleObjectTest {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            Person person = (Person) o;
+            var person = (Person) o;
             return Objects.equals(name, person.name) &&
                     Objects.equals(age, person.age) &&
                     Objects.equals(activity, person.activity) &&

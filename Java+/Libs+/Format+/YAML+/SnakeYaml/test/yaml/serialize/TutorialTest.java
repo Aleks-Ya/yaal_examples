@@ -5,15 +5,14 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.util.HashMap;
 
-public class TutorialTest {
+class TutorialTest {
 
     @Test
-    public void name() {
+    void name() {
         var map = new HashMap<String, String>();
         map.put("name", "Pushkin");
         var yaml = new Yaml();
         var output = yaml.dump(map);
         System.out.println(output);
-
     }
 }

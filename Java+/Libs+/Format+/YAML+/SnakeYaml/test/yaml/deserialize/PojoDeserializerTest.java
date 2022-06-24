@@ -3,10 +3,10 @@ package yaml.deserialize;
 import org.junit.jupiter.api.Test;
 import org.yaml.snakeyaml.Yaml;
 
-public class PojoDeserializerTest {
+class PojoDeserializerTest {
 
     @Test
-    public void deserialize() {
+    void deserialize() {
         var yaml = new Yaml();
         var is = PojoDeserializerTest.class.getResourceAsStream("data.yml");
         var obj = yaml.loadAs(is, Data.class);

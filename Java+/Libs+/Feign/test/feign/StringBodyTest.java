@@ -15,7 +15,7 @@ class StringBodyTest {
     }
 
     @Test
-    public void body() {
+    void body() {
         var expBody = "abc";
 
         var mockClient = new MockClient().ok(HttpMethod.GET, "/string", expBody);

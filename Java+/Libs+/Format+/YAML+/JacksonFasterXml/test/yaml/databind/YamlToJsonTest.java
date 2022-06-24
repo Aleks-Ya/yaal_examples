@@ -7,17 +7,17 @@ import util.ResourceUtil;
 
 import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 
-public class YamlToJson {
+class YamlToJsonTest {
 
     @Test
-    public void convert() throws Exception {
-        var yaml = ResourceUtil.resourceToString(YamlToJson.class, "YamlToJson.yaml");
+    void convert() throws Exception {
+        var yaml = ResourceUtil.resourceToString(YamlToJsonTest.class, "YamlToJson.yaml");
         var yamlMapper = new YAMLMapper();
         var node = yamlMapper.readTree(yaml);
 
         var jsonMapper = new JsonMapper();
         var jsonAct = jsonMapper.writeValueAsString(node);
-        var jsonExp = ResourceUtil.resourceToString(YamlToJson.class, "YamlToJson.json");
+        var jsonExp = ResourceUtil.resourceToString(YamlToJsonTest.class, "YamlToJson.json");
         assertJsonEquals(jsonExp, jsonAct);
     }
 }

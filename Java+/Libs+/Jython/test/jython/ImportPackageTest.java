@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.python.util.PythonInterpreter;
 
 
-public class ImportPackage {
+class ImportPackageTest {
     private final PythonInterpreter interp = new PythonInterpreter();
 
     @Test
-    public void importPackage() {
+    void importPackage() {
         interp.exec("import sys");
         interp.exec("print sys");
     }

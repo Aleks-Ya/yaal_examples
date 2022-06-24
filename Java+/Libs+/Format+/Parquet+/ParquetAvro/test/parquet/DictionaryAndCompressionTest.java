@@ -15,29 +15,26 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Random;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.lessThan;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Activating dictionary and compression to reduce Parquet file size.
  */
-class DictionaryAndCompression {
+class DictionaryAndCompressionTest {
 
     @Test
     void dictionary() throws IOException {
         long fileSize1 = writeParquetFile(false, CompressionCodecName.UNCOMPRESSED);
-        assertThat(fileSize1, allOf(greaterThan(500_000L), lessThan(510_000L)));
+        assertThat(fileSize1).isGreaterThan(500_000L).isLessThan(510_000L);
 
         long fileSize2 = writeParquetFile(true, CompressionCodecName.UNCOMPRESSED);
-        assertThat(fileSize2, allOf(greaterThan(7_000L), lessThan(8_000L)));
+        assertThat(fileSize2).isGreaterThan(7_000L).isLessThan(8_000L);
 
         long fileSize3 = writeParquetFile(false, CompressionCodecName.SNAPPY);
-        assertThat(fileSize3, allOf(greaterThan(70_000L), lessThan(72_000L)));
+        assertThat(fileSize3).isGreaterThan(70_000L).isLessThan(72_000L);
 
         long fileSize4 = writeParquetFile(true, CompressionCodecName.SNAPPY);
-        assertThat(fileSize4, allOf(greaterThan(7_000L), lessThan(8_000L)));
+        assertThat(fileSize4).isGreaterThan(7_000L).isLessThan(8_000L);
     }
 
     private long writeParquetFile(boolean dictionaryEnabled, CompressionCodecName compressionCodecName) throws IOException {

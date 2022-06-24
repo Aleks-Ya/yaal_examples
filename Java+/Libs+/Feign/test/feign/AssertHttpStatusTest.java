@@ -34,7 +34,7 @@ class AssertHttpStatusTest {
     }
 
     @Test
-    public void status() {
+    void status() {
         var expBody = "abc";
         var mockClient = new MockClient().ok(HttpMethod.GET, "/string", expBody);
         var server = Feign.builder()

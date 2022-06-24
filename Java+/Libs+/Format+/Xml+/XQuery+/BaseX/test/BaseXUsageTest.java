@@ -1,5 +1,5 @@
 /**
  * Забил пока.
  */
-public class BaseXUsage {
+class BaseXUsageTest {
 }

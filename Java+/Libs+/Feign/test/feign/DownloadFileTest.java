@@ -15,7 +15,7 @@ class DownloadFileTest {
     }
 
     @Test
-    public void body() {
+    void body() {
         var fileContent = "abc".getBytes();
         var mockClient = new MockClient().ok(HttpMethod.GET, "/file", fileContent);
         var server = Feign.builder().client(mockClient).target(new MockTarget<>(Server.class));

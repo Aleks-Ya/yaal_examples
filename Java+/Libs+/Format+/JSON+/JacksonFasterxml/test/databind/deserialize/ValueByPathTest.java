@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class ValueByPathTest {
     @Test
-    public void at() throws IOException {
+    void at() throws IOException {
         var json = JsonUtil.singleQuoteToDouble("{'a': 1, 'b': 'abc', 'c': {'d': true}}");
         var mapper = new ObjectMapper();
         var root = mapper.readTree(json);

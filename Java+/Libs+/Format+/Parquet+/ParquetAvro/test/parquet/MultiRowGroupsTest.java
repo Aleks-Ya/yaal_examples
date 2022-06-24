@@ -16,13 +16,20 @@ import java.io.IOException;
 import java.util.Random;
 import java.util.UUID;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 /**
  * Generate a Parquet file having >1 row groups.
  */
-class MultiRowGroups {
+class MultiRowGroupsTest {
+
+    private static int getRowGroupNumber(Configuration conf, Path path) throws IOException {
+        var inputFile = HadoopInputFile.fromPath(path, conf);
+        try (var r = ParquetFileReader.open(inputFile)) {
+            return r.getRowGroups().size();
+        }
+    }
 
     @Test
     void write() throws IOException {
@@ -59,13 +66,6 @@ class MultiRowGroups {
         }
 
         var rowGroupNumber = getRowGroupNumber(conf, path);
-        assertThat(rowGroupNumber, equalTo(2));
-    }
-
-    private static int getRowGroupNumber(Configuration conf, Path path) throws IOException {
-        var inputFile = HadoopInputFile.fromPath(path, conf);
-        try (var r = ParquetFileReader.open(inputFile)) {
-            return r.getRowGroups().size();
-        }
+        assertThat(rowGroupNumber).isEqualTo(2);
     }
 }

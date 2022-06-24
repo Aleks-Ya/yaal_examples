@@ -3,6 +3,7 @@ package xstream.annotations;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
+import com.thoughtworks.xstream.security.AnyTypePermission;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,18 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static util.ResourceUtil.resourceToString;
 
-public class CollectionImplicitPrimitiveTest {
+class CollectionImplicitPrimitiveTest {
     private XStream xstream;
     private Person person;
     private String xml;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         xstream = new XStream();
+        xstream.addPermission(AnyTypePermission.ANY);
         xstream.processAnnotations(Person.class);
 
         List<String> cities = new ArrayList<>();
@@ -35,15 +36,15 @@ public class CollectionImplicitPrimitiveTest {
     }
 
     @Test
-    public void serialize() {
-        String actXml = xstream.toXML(person);
-        assertThat(actXml, equalTo(xml));
+    void serialize() {
+        var actXml = xstream.toXML(person);
+        assertThat(actXml).isEqualTo(xml);
     }
 
     @Test
-    public void deserialize() {
-        Person actPerson = (Person) xstream.fromXML(xml);
-        assertThat(actPerson, equalTo(person));
+    void deserialize() {
+        var actPerson = (Person) xstream.fromXML(xml);
+        assertThat(actPerson).isEqualTo(person);
     }
 
     @XStreamAlias("participant")
@@ -80,7 +81,7 @@ public class CollectionImplicitPrimitiveTest {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            Person person = (Person) o;
+            var person = (Person) o;
             return Objects.equals(locations, person.locations) &&
                     Objects.equals(numList, person.numList);
         }

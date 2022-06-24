@@ -7,7 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 /**
  * Парсинг JSON в Java-объект.
@@ -20,6 +21,6 @@ class CollectionTest {
         var collectionType = new TypeToken<Collection<Integer>>() {
         }.getType();
         Collection<Integer> ints = gson.fromJson("[1,2,3]", collectionType);
-        assertEquals(ints, Arrays.asList(1, 2, 3));
+        assertThat(Arrays.asList(1, 2, 3)).isEqualTo(ints);
     }
 }

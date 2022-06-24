@@ -3,20 +3,20 @@ package yaml.databind;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ParseDataBindTest {
+
+class ParseDataBindTest {
 
     @Test
-    public void name() throws Exception {
+    void name() throws Exception {
         var yaml = "name: John\n" +
                 "age: 30";
         var mapper = new YAMLMapper();
         var person = mapper.readValue(yaml, Person.class);
 
-        assertThat(person.getName(), equalTo("John"));
-        assertThat(person.getAge(), equalTo(30));
+        assertThat(person.getName()).isEqualTo("John");
+        assertThat(person.getAge()).isEqualTo(30);
     }
 
     private static class Person {

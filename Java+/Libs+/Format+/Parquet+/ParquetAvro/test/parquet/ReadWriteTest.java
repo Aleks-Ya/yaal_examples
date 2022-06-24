@@ -16,7 +16,8 @@ import util.FileUtil;
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 class ReadWriteTest {
 
@@ -52,7 +53,7 @@ class ReadWriteTest {
         var reader = AvroParquetReader.<GenericRecord>builder(inputFile).build();
         var actRecord = reader.read();
 
-        assertEquals(expArray, actRecord.get(myArrayField));
-        assertEquals(expRecord, actRecord);
+        assertThat(actRecord.get(myArrayField)).isEqualTo(expArray);
+        assertThat(actRecord).isEqualTo(expRecord);
     }
 }

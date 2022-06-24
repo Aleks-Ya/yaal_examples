@@ -1,21 +1,18 @@
 package parse;
 
-import org.hamcrest.Matchers;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
 import org.htmlcleaner.XPatherException;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.hasToString;
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class XPathTest {
+class XPathTest {
     private final HtmlCleaner cleaner = new HtmlCleaner();
 
     @Test
-    public void correctHtml() throws XPatherException {
-        String html = "<html>" +
+    void correctHtml() throws XPatherException {
+        var html = "<html>" +
                 "<head>" +
                 "<title>First parse</title>" +
                 "</head>" +
@@ -25,11 +22,11 @@ public class XPathTest {
                 "<div>Part 2</div>" +
                 "</body>" +
                 "</html>";
-        TagNode htmlTag = cleaner.clean(html);
-        Object[] tags = htmlTag.evaluateXPath("//body//p");
-        assertThat(tags, Matchers.arrayWithSize(1));
-        TagNode pTag = (TagNode) tags[0];
-        assertThat(pTag.getName(), equalTo("p"));
-        assertThat(pTag.getText(), hasToString(equalTo("Parsed HTML into a doc.")));
+        var htmlTag = cleaner.clean(html);
+        var tags = htmlTag.evaluateXPath("//body//p");
+        assertThat(tags).hasSize(1);
+        var pTag = (TagNode) tags[0];
+        assertThat(pTag.getName()).isEqualTo("p");
+        assertThat(pTag.getText()).hasToString("Parsed HTML into a doc.");
     }
 }

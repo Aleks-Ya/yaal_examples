@@ -17,8 +17,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-class WriteReadOrc {
-    private static final Logger log = LoggerFactory.getLogger(WriteReadOrc.class);
+class WriteReadOrcTest {
+    private static final Logger log = LoggerFactory.getLogger(WriteReadOrcTest.class);
 
     @BeforeEach
     void initLog4j() {

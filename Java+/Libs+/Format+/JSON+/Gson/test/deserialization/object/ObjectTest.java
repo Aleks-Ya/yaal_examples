@@ -6,24 +6,24 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 /**
  * Парсинг JSON в Java-объект.
  */
-class Objects {
+class ObjectTest {
     private static final Gson gson = new Gson();
 
     @Test
     void object() {
         var json = "{\"number\":4,\"text\":\"abc\",\"inner\":{\"now\":\"Jul 8, 2015 6:37:19 AM\",\"sum\":18}}";
         var obj = gson.fromJson(json, MyObject.class);
-        assertEquals(obj.number, 4);
-        assertEquals(obj.text, "abc");
-        assertFalse(obj.excluded);
-        assertEquals(obj.inner.now, new Date(1436326639000L));
-        assertEquals((int) obj.inner.sum, 18);
+        assertThat(obj.number).isEqualTo(4);
+        assertThat(obj.text).isEqualTo("abc");
+        assertThat(obj.excluded).isFalse();
+        assertThat(obj.inner.now).isEqualTo(new Date(1436326639000L));
+        assertThat((int) obj.inner.sum).isEqualTo(18);
     }
 
 }

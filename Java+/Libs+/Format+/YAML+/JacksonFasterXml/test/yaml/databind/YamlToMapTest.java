@@ -9,28 +9,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.aMapWithSize;
-import static org.hamcrest.Matchers.hasEntry;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class YamlToMap {
-
-    @Test
-    public void convert() throws Exception {
-        var yaml = ResourceUtil.resourceToString(YamlToJson.class, "YamlToMap.yaml");
-        var map = yamlToMap(yaml);
-
-        assertThat(map, aMapWithSize(9));
-        assertThat(map, hasEntry("person.name.second", "Smith"));
-        assertThat(map, hasEntry("person.name.first", "John"));
-        assertThat(map, hasEntry("person.age", 30));
-        assertThat(map, hasEntry("person.hobbies.0", "Skiing"));
-        assertThat(map, hasEntry("person.hobbies.1", "Wakeboarding"));
-        assertThat(map, hasEntry("person.passports.0.country", "RU"));
-        assertThat(map, hasEntry("person.passports.0.expires", 2030));
-        assertThat(map, hasEntry("person.passports.1.country", "USA"));
-        assertThat(map, hasEntry("person.passports.1.expires", 2050));
-    }
+class YamlToMapTest {
 
     private static Map<String, Object> yamlToMap(String yaml) throws IOException {
         var mapper = new YAMLMapper();
@@ -87,5 +68,22 @@ public class YamlToMap {
     private static String makePath(String path, String field) {
         var separator = path.isBlank() ? "" : ".";
         return path + separator + field;
+    }
+
+    @Test
+    void convert() throws Exception {
+        var yaml = ResourceUtil.resourceToString(YamlToJsonTest.class, "YamlToMap.yaml");
+        var map = yamlToMap(yaml);
+
+        assertThat(map).hasSize(9)
+                .containsEntry("person.name.second", "Smith")
+                .containsEntry("person.name.first", "John")
+                .containsEntry("person.age", 30)
+                .containsEntry("person.hobbies.0", "Skiing")
+                .containsEntry("person.hobbies.1", "Wakeboarding")
+                .containsEntry("person.passports.0.country", "RU")
+                .containsEntry("person.passports.0.expires", 2030)
+                .containsEntry("person.passports.1.country", "USA")
+                .containsEntry("person.passports.1.expires", 2050);
     }
 }

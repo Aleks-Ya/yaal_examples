@@ -21,7 +21,8 @@ import util.FileUtil;
 import java.io.IOException;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 class ReadTest {
 
@@ -79,11 +80,11 @@ class ReadTest {
                 for (var colDescriptor : descriptorList) {
                     //Get datatype of the column
                     var type = colDescriptor.getPrimitiveType();
-                    assertEquals(type.getPrimitiveTypeName(), PrimitiveType.PrimitiveTypeName.BINARY);
+                    assertThat(PrimitiveType.PrimitiveTypeName.BINARY).isEqualTo(type.getPrimitiveTypeName());
 
                     var columnNamePath = colDescriptor.getPath();
                     var columnName = Arrays.toString(columnNamePath);
-                    assertEquals(columnName, Arrays.toString(new String[]{myStringField}));
+                    assertThat(Arrays.toString(new String[]{myStringField})).isEqualTo(columnName);
                     colReader = colReadStore.getColumnReader(colDescriptor);
                     var totalValuesInColumnChunk = rowGroup.getPageReader(colDescriptor).getTotalValueCount();
 
@@ -94,8 +95,8 @@ class ReadTest {
                     }
                 }
             }
-            assertEquals(expString, actString);
-            assertEquals(numRowGroups, 1);
+            assertThat(actString).isEqualTo(expString);
+            assertThat(numRowGroups).isEqualTo(1);
         }
         System.out.println("Total number of rows: " + rows);
     }
