@@ -7,23 +7,23 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import util.ResourceUtil;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class LinkTest {
+class LinkTest {
     @Test
     void test() {
         ITemplateResolver resolver = new ClassLoaderTemplateResolver();
 
-        TemplateEngine engine = new TemplateEngine();
+        var engine = new TemplateEngine();
         engine.setTemplateResolver(resolver);
 
-        Context context = new Context();
+        var context = new Context();
         context.setVariable("city", "Moscow");
 
-        String template = "thymeleaf/expression/link/link_template.html";
-        String result = engine.process(template, context);
+        var template = "thymeleaf/expression/link/link_template.html";
+        var result = engine.process(template, context);
 
-        String expContent = ResourceUtil.resourceToString(LinkTest.class, "link_expected.html");
-        assertEquals(expContent, result);
+        var expContent = ResourceUtil.resourceToString(LinkTest.class, "link_expected.html");
+        assertThat(result).isEqualTo(expContent);
     }
 }

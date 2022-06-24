@@ -13,7 +13,7 @@ import java.security.SecureRandom;
 /**
  * Source: https://connect2id.com/products/nimbus-jose-jwt#example
  */
-public class HelloWorldTest {
+class HelloWorldTest {
     @Test
     void hello() throws JOSEException {
         // Create an HMAC-protected JWS object with some payload

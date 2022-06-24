@@ -5,10 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Properties;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class LoadFromPropertiesObject extends BaseTest {
+class LoadFromPropertiesObjectTest extends BaseTest {
 
     @Test
     void load() {
@@ -16,6 +15,6 @@ public class LoadFromPropertiesObject extends BaseTest {
         var properties = new Properties();
         properties.put(key, "7");
         var conf = ConfigFactory.parseProperties(properties);
-        assertThat(conf.getInt(key), equalTo(7));
+        assertThat(conf.getInt(key)).isEqualTo(7);
     }
 }

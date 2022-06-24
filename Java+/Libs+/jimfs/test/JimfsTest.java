@@ -7,10 +7,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class JimfsTest {
+class JimfsTest {
     @Test
     void test() throws IOException {
         var fs = Jimfs.newFileSystem(Configuration.unix());
@@ -22,7 +21,7 @@ public class JimfsTest {
         Files.write(hello, ImmutableList.of(expContent), StandardCharsets.UTF_8);
 
         var actContent = Files.readString(hello);
-        assertThat(actContent, equalTo(expContent + "\n"));
+        assertThat(actContent).isEqualTo(expContent + "\n");
     }
 
 }

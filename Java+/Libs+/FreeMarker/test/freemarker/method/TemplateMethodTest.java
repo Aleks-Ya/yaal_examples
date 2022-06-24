@@ -14,12 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Use #assign directive.
  */
-public class TemplateMethodTest extends BaseFreemarkerTest {
+class TemplateMethodTest extends BaseFreemarkerTest {
 
     @BeforeAll
     public static void additionalSetUp() {
@@ -35,7 +35,7 @@ public class TemplateMethodTest extends BaseFreemarkerTest {
         StringWriter out = new StringWriter();
         template.process(data, out);
 
-        assertEquals("Sum=5", out.toString());
+        assertThat(out).hasToString("Sum=5");
     }
 
     public static class SumTemplateMethodModel implements TemplateMethodModelEx {

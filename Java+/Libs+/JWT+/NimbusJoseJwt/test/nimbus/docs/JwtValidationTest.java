@@ -25,12 +25,12 @@ import java.util.HashSet;
 /**
  * Source: https://connect2id.com/products/nimbus-jose-jwt/examples/validating-jwt-access-tokens#framework
  */
-public class JwtValidationTest {
+class JwtValidationTest {
     @Test
     void sign() throws JOSEException, ParseException, MalformedURLException, BadJOSEException {
         // The access token to validate, typically submitted with a HTTP header like
         // Authorization: Bearer eyJraWQiOiJDWHVwIiwidHlwIjoiYXQrand0IiwiYWxnIjoi...
-        String accessToken =
+        var accessToken =
                 "eyJraWQiOiJDWHVwIiwidHlwIjoiYXQrand0IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJib2IiLCJzY" +
                         "3AiOlsib3BlbmlkIiwiZW1haWwiXSwiY2xtIjpbIiFCZyJdLCJpc3MiOiJodHRwczpcL1wvZGVtby5jM" +
                         "mlkLmNvbVwvYzJpZCIsImV4cCI6MTU3MTMxMjAxOCwiaWF0IjoxNTcxMzExNDE4LCJ1aXAiOnsiZ3Jvd" +
@@ -58,7 +58,7 @@ public class JwtValidationTest {
                 new RemoteJWKSet<>(new URL("https://demo.c2id.com/c2id/jwks.json"));
 
         // The expected JWS algorithm of the access tokens (agreed out-of-band)
-        JWSAlgorithm expectedJWSAlg = JWSAlgorithm.RS256;
+        var expectedJWSAlg = JWSAlgorithm.RS256;
 
         // Configure the JWT processor with a key selector to feed matching public
         // RSA keys sourced from the JWK set URL
@@ -75,7 +75,7 @@ public class JwtValidationTest {
 
         // Process the token
         SecurityContext ctx = null; // optional context parameter, not required here
-        JWTClaimsSet claimsSet = jwtProcessor.process(accessToken, ctx);
+        var claimsSet = jwtProcessor.process(accessToken, ctx);
 
         // Print out the token claims set
         System.out.println(claimsSet.toJSONObject());

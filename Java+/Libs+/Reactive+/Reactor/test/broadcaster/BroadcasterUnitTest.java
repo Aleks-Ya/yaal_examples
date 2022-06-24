@@ -4,19 +4,19 @@ import org.junit.jupiter.api.Test;
 import reactor.Environment;
 import reactor.rx.broadcast.Broadcaster;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Тестирование Broadcasters.
  */
-public class BroadcasterUnitTest {
+class BroadcasterUnitTest {
 
     @Test
     void test() {
         //prepare
         Environment.initialize();
         Broadcaster<String> sink = Broadcaster.create(Environment.newDispatcher()); //run broadcaster in separate thread (dispatcher)
-        StringBuilder sb = new StringBuilder();
+        var sb = new StringBuilder();
         sink
                 .observe(s -> sleep(100)) //long-time operation
                 .consume(sb::append);
@@ -27,7 +27,7 @@ public class BroadcasterUnitTest {
 
         //assert
         sleep(500);//wait while broadcaster finished (if comment this line then the test will fail)
-        assertEquals("ab", sb.toString());
+        assertThat(sb.toString()).isEqualTo("ab");
     }
 
     private void sleep(int millis) {

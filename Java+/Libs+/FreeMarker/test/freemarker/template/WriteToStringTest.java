@@ -8,12 +8,12 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Результат работы - строка (а не файл).
  */
-public class WriteToString extends BaseFreemarkerTest {
+class WriteToStringTest extends BaseFreemarkerTest {
 
     @Test
     void test() throws IOException, TemplateException {
@@ -25,6 +25,6 @@ public class WriteToString extends BaseFreemarkerTest {
         StringWriter out = new StringWriter();
         template.process(data, out);
 
-        assertEquals("My name is Aleksey.", out.toString());
+        assertThat(out).hasToString("My name is Aleksey.");
     }
 }

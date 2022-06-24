@@ -1,7 +1,6 @@
 package freemarker.directive.if_;
 
 import freemarker.BaseFreemarkerTest;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.junit.jupiter.api.Test;
 
@@ -10,9 +9,9 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class IfBoolean extends BaseFreemarkerTest {
+class IfBooleanTest extends BaseFreemarkerTest {
 
     @Test
     void test() throws IOException, TemplateException {
@@ -20,11 +19,11 @@ public class IfBoolean extends BaseFreemarkerTest {
         data.put("large", true);
         data.put("fat", false);
 
-        Template template = cfg.getTemplate("directive/if_/if_boolean.ftl");
+        var template = cfg.getTemplate("directive/if_/if_boolean.ftl");
 
-        StringWriter out = new StringWriter();
+        var out = new StringWriter();
         template.process(data, out);
 
-        assertEquals("Large\nThin", out.toString());
+        assertThat(out).hasToString("Large\nThin");
     }
 }

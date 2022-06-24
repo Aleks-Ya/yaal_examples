@@ -13,12 +13,52 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Merge cells (rows).
  */
-public class RowSpanTest {
+class RowSpanTest {
+    @Test
+    void test() {
+        ITemplateResolver resolver = new ClassLoaderTemplateResolver();
+
+        var engine = new TemplateEngine();
+        engine.setTemplateResolver(resolver);
+
+        var personList = Arrays.asList(
+                new Person("Moscow", "Petr"),
+                new Person("Moscow", "Ann"),
+                new Person("SPb", "Simon"),
+                new Person("SPb", "John"),
+                new Person("SPb", "Mary"),
+                new Person("Sochi", "Bob")
+        );
+
+        List<Row> rows = new ArrayList<>();
+
+        personList.stream()
+                .collect(Collectors.groupingBy(Person::getCity, LinkedHashMap::new, Collectors.toList()))
+                .forEach((city, persons) -> {
+                    if (persons.size() > 0) {
+                        rows.add(new Row(city, persons.size(), persons.get(0).getName()));
+                    }
+                    if (persons.size() > 1) {
+                        for (var i = 1; i < persons.size(); i++) {
+                            rows.add(new Row(null, null, persons.get(i).getName()));
+                        }
+                    }
+                });
+
+        var context = new Context();
+        context.setVariable("rows", rows);
+
+        var template = "thymeleaf/template/iteration/table/row_span_template.html";
+        var result = engine.process(template, context);
+
+        var expContent = ResourceUtil.resourceToString(RowSpanTest.class, "row_span_expected.html");
+        assertThat(result).isEqualTo(expContent);
+    }
 
     @SuppressWarnings("unused")
     private static class Person {
@@ -62,47 +102,6 @@ public class RowSpanTest {
         public String getName() {
             return name;
         }
-    }
-
-    @Test
-    void test() {
-        ITemplateResolver resolver = new ClassLoaderTemplateResolver();
-
-        TemplateEngine engine = new TemplateEngine();
-        engine.setTemplateResolver(resolver);
-
-        List<Person> personList = Arrays.asList(
-                new Person("Moscow", "Petr"),
-                new Person("Moscow", "Ann"),
-                new Person("SPb", "Simon"),
-                new Person("SPb", "John"),
-                new Person("SPb", "Mary"),
-                new Person("Sochi", "Bob")
-        );
-
-        List<Row> rows = new ArrayList<>();
-
-        personList.stream()
-                .collect(Collectors.groupingBy(Person::getCity, LinkedHashMap::new, Collectors.toList()))
-                .forEach((city, persons) -> {
-                    if (persons.size() > 0) {
-                        rows.add(new Row(city, persons.size(), persons.get(0).getName()));
-                    }
-                    if (persons.size() > 1) {
-                        for (int i = 1; i < persons.size(); i++) {
-                            rows.add(new Row(null, null, persons.get(i).getName()));
-                        }
-                    }
-                });
-
-        Context context = new Context();
-        context.setVariable("rows", rows);
-
-        String template = "thymeleaf/template/iteration/table/row_span_template.html";
-        String result = engine.process(template, context);
-
-        String expContent = ResourceUtil.resourceToString(RowSpanTest.class, "row_span_expected.html");
-        assertEquals(expContent, result);
     }
 
 }

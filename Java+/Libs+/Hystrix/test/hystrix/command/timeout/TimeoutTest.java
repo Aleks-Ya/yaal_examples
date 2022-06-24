@@ -3,13 +3,10 @@ package hystrix.command.timeout;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class TimeoutTest {
+class TimeoutTest {
     private final String TIMEOUT_PROPERTY = "hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds";
     String commandGroupKey = "defaultTimeout";
 
@@ -23,9 +20,9 @@ public class TimeoutTest {
             command.execute();
             fail();
         } catch (HystrixRuntimeException e) {
-            assertThat(e.getMessage(), equalTo(commandKey + " timed-out and no fallback available."));
-            assertTrue(command.isResponseTimedOut());
-            assertThat(command.getExecutionTimeInMilliseconds(), greaterThanOrEqualTo(executionIsolationThreadTimeoutInMilliseconds));
+            assertThat(e.getMessage()).isEqualTo(commandKey + " timed-out and no fallback available.");
+            assertThat(command.isResponseTimedOut()).isTrue();
+            assertThat(command.getExecutionTimeInMilliseconds()).isGreaterThanOrEqualTo(executionIsolationThreadTimeoutInMilliseconds);
         }
     }
 
@@ -39,9 +36,9 @@ public class TimeoutTest {
             command.execute();
             fail();
         } catch (HystrixRuntimeException e) {
-            assertThat(e.getMessage(), equalTo(commandKey + " timed-out and no fallback available."));
-            assertTrue(command.isResponseTimedOut());
-            assertThat(command.getExecutionTimeInMilliseconds(), greaterThanOrEqualTo(executionIsolationThreadTimeoutInMilliseconds));
+            assertThat(e.getMessage()).isEqualTo(commandKey + " timed-out and no fallback available.");
+            assertThat(command.isResponseTimedOut()).isTrue();
+            assertThat(command.getExecutionTimeInMilliseconds()).isGreaterThanOrEqualTo(executionIsolationThreadTimeoutInMilliseconds);
         }
     }
 
@@ -57,9 +54,9 @@ public class TimeoutTest {
             command.execute();
             fail();
         } catch (HystrixRuntimeException e) {
-            assertThat(e.getMessage(), equalTo(commandKey + " timed-out and no fallback available."));
-            assertTrue(command.isResponseTimedOut());
-            assertThat(command.getExecutionTimeInMilliseconds(), greaterThanOrEqualTo(executionIsolationThreadTimeoutInMilliseconds));
+            assertThat(e.getMessage()).isEqualTo(commandKey + " timed-out and no fallback available.");
+            assertThat(command.isResponseTimedOut()).isTrue();
+            assertThat(command.getExecutionTimeInMilliseconds()).isGreaterThanOrEqualTo(executionIsolationThreadTimeoutInMilliseconds);
         }
     }
 

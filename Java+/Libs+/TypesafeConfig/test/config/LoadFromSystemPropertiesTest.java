@@ -3,10 +3,9 @@ package config;
 import com.typesafe.config.ConfigFactory;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class LoadFromSystemProperties extends BaseTest {
+class LoadFromSystemPropertiesTest extends BaseTest {
 
     @Test
     void load() {
@@ -16,6 +15,6 @@ public class LoadFromSystemProperties extends BaseTest {
         ConfigFactory.invalidateCaches();//Reset properties returned by ConfigFactory.systemProperties()
 
         var conf = ConfigFactory.load(ConfigFactory.systemProperties());
-        assertThat(conf.getInt(key), equalTo(7));
+        assertThat(conf.getInt(key)).isEqualTo(7);
     }
 }

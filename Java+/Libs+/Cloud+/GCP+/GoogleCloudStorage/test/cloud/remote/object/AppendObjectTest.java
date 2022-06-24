@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AppendObjectTest extends BaseRemoteTest {
     @Test
@@ -34,7 +33,7 @@ class AppendObjectTest extends BaseRemoteTest {
                 .build();
         storage.compose(composeRequest);
 
-        assertTrue(storage.delete(appendBlobId));
+        assertThat(storage.delete(appendBlobId)).isTrue();
 
         var actTargetBlob = storage.get(targetBlobId);
         var os = new ByteArrayOutputStream();

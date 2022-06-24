@@ -6,25 +6,25 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static util.ResourceUtil.resourceToString;
 
-public class IncludeInsertReplaceTest {
+class IncludeInsertReplaceTest {
 
     @Test
     void test() {
         ITemplateResolver resolver = new ClassLoaderTemplateResolver();
 
-        TemplateEngine engine = new TemplateEngine();
+        var engine = new TemplateEngine();
         engine.setTemplateResolver(resolver);
 
-        Context context = new Context();
+        var context = new Context();
 
-        String template = "thymeleaf/template/layout/include/include_insert_replace_template.html";
-        String result = engine.process(template, context);
+        var template = "thymeleaf/template/layout/include/include_insert_replace_template.html";
+        var result = engine.process(template, context);
 
-        String expContent = resourceToString(IncludeInsertReplaceTest.class, "include_insert_replace_expected.html");
-        assertEquals(expContent, result);
+        var expContent = resourceToString(IncludeInsertReplaceTest.class, "include_insert_replace_expected.html");
+        assertThat(result).isEqualTo(expContent);
     }
 
 }

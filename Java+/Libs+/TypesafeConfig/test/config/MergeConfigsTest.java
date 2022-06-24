@@ -3,10 +3,9 @@ package config;
 import com.typesafe.config.ConfigFactory;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class MergeConfigs extends BaseTest {
+class MergeConfigsTest extends BaseTest {
     @Test
     void merge() {
         System.setProperty("system.number", "1");
@@ -18,9 +17,9 @@ public class MergeConfigs extends BaseTest {
         var propertiesFileConf = ConfigFactory.load("config/LoadFromPropertiesFile.properties")
                 .withFallback(defaultConf);
 
-        assertThat(propertiesFileConf.getInt("system.number"), equalTo(1));
-        assertThat(propertiesFileConf.getInt("aaa.bbb"), equalTo(77));
-        assertThat(propertiesFileConf.getInt("magic.number"), equalTo(6));
+        assertThat(propertiesFileConf.getInt("system.number")).isEqualTo(1);
+        assertThat(propertiesFileConf.getInt("aaa.bbb")).isEqualTo(77);
+        assertThat(propertiesFileConf.getInt("magic.number")).isEqualTo(6);
     }
 
     @Test
@@ -30,7 +29,7 @@ public class MergeConfigs extends BaseTest {
         var systemPropertiesConf = ConfigFactory.load(ConfigFactory.systemProperties()).atPath("sys");
         var propertiesFileConf = ConfigFactory.load("config/LoadFromPropertiesFile.properties")
                 .withFallback(systemPropertiesConf);
-        assertThat(propertiesFileConf.getInt("sys.system.number"), equalTo(1));
-        assertThat(propertiesFileConf.getInt("aaa.bbb"), equalTo(77));
+        assertThat(propertiesFileConf.getInt("sys.system.number")).isEqualTo(1);
+        assertThat(propertiesFileConf.getInt("aaa.bbb")).isEqualTo(77);
     }
 }

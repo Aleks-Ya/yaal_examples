@@ -6,22 +6,22 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.StringTemplateResolver;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class StringTemplateResolverTest {
+class StringTemplateResolverTest {
     @Test
     void test() {
         ITemplateResolver resolver = new StringTemplateResolver();
 
-        TemplateEngine engine = new TemplateEngine();
+        var engine = new TemplateEngine();
         engine.setTemplateResolver(resolver);
 
-        Context context = new Context();
+        var context = new Context();
         context.setVariable("welcome", "Hello!");
 
-        String template = "Say [(${welcome})]";
-        String result = engine.process(template, context);
-        assertEquals("Say Hello!", result);
+        var template = "Say [(${welcome})]";
+        var result = engine.process(template, context);
+        assertThat(result).isEqualTo("Say Hello!");
     }
 
 }

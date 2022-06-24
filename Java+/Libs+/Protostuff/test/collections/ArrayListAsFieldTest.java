@@ -2,7 +2,6 @@ package collections;
 
 import io.protostuff.GraphIOUtil;
 import io.protostuff.LinkedBuffer;
-import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
 import org.junit.jupiter.api.Test;
 
@@ -10,27 +9,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Сериализация ArrayList как поля класса.
  */
-public class ArrayListAsField {
+class ArrayListAsFieldTest {
 
     @Test
     void test() {
-        WithArrayList exp = new WithArrayList("a", "b");
+        var exp = new WithArrayList("a", "b");
 
-        Schema<WithArrayList> schema = RuntimeSchema.getSchema(WithArrayList.class);
-        byte[] bytes = GraphIOUtil.toByteArray(exp, schema, LinkedBuffer.allocate());
+        var schema = RuntimeSchema.getSchema(WithArrayList.class);
+        var bytes = GraphIOUtil.toByteArray(exp, schema, LinkedBuffer.allocate());
 
-        WithArrayList act = new WithArrayList();
+        var act = new WithArrayList();
         GraphIOUtil.mergeFrom(bytes, act, schema);
 
-        assertNotSame(exp, act);
-        assertEquals(exp, act);
-        assertEquals(exp.list, act.list);
+        assertThat(act).isNotSameAs(exp);
+        assertThat(act).isEqualTo(exp);
+        assertThat(act.list).isEqualTo(exp.list);
     }
 
     private static class WithArrayList {
@@ -46,7 +44,7 @@ public class ArrayListAsField {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
-            WithArrayList that = (WithArrayList) o;
+            var that = (WithArrayList) o;
 
             return !(list != null ? !list.equals(that.list) : that.list != null);
         }

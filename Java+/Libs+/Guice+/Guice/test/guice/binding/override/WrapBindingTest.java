@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class WrapBindingTest {
 
@@ -20,13 +19,13 @@ class WrapBindingTest {
     void wrap() {
         var prodInjector = Guice.createInjector(new ProdModule());
         var prodFoo = prodInjector.getInstance(Foo.class);
-        assertFalse(Mockito.mockingDetails(prodFoo).isMock());
+        assertThat(Mockito.mockingDetails(prodFoo).isMock()).isFalse();
 
         var testInjector = Guice.createInjector(Modules
                 .override(new ProdModule())
                 .with(new TestModule()));
         var testFoo = testInjector.getInstance(Foo.class);
-        assertTrue(Mockito.mockingDetails(testFoo).isMock());
+        assertThat(Mockito.mockingDetails(testFoo).isMock()).isTrue();
     }
 
     interface Foo {

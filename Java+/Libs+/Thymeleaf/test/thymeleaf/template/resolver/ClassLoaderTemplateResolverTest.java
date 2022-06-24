@@ -5,23 +5,23 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ClassLoaderTemplateResolverTest {
+class ClassLoaderTemplateResolverTest {
     @Test
     void test() {
-        ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
+        var resolver = new ClassLoaderTemplateResolver();
         resolver.setPrefix("thymeleaf/template/resolver/");
 
-        TemplateEngine engine = new TemplateEngine();
+        var engine = new TemplateEngine();
         engine.setTemplateResolver(resolver);
 
-        Context context = new Context();
+        var context = new Context();
         context.setVariable("welcome", "Hello");
 
-        String template = "ClassLoaderTemplateResolver_template.txt";
-        String result = engine.process(template, context);
-        assertEquals("Say Hello, ClassLoaderTemplateResolver!", result);
+        var template = "ClassLoaderTemplateResolver_template.txt";
+        var result = engine.process(template, context);
+        assertThat(result).isEqualTo("Say Hello, ClassLoaderTemplateResolver!");
     }
 
 }

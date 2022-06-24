@@ -7,25 +7,25 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import util.ResourceUtil;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class HtmlModeTest {
+class HtmlModeTest {
 
     @Test
     void test() {
         ITemplateResolver resolver = new ClassLoaderTemplateResolver();
 
-        TemplateEngine engine = new TemplateEngine();
+        var engine = new TemplateEngine();
         engine.setTemplateResolver(resolver);
 
-        Context context = new Context();
+        var context = new Context();
         context.setVariable("welcome", "Hello!");
 
-        String template = "thymeleaf/template/mode/html_mode_template.html";
-        String result = engine.process(template, context);
+        var template = "thymeleaf/template/mode/html_mode_template.html";
+        var result = engine.process(template, context);
 
-        String expContent = ResourceUtil.resourceToString(HtmlModeTest.class, "html_mode_expected.html");
-        assertEquals(expContent, result);
+        var expContent = ResourceUtil.resourceToString(HtmlModeTest.class, "html_mode_expected.html");
+        assertThat(result).isEqualTo(expContent);
     }
 
 }

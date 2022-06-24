@@ -1,7 +1,6 @@
 package freemarker.directive.if_;
 
 import freemarker.BaseFreemarkerTest;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.junit.jupiter.api.Test;
 
@@ -10,12 +9,12 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Условные операторы в шаблонах.
  */
-public class IfString extends BaseFreemarkerTest {
+class IfStringTest extends BaseFreemarkerTest {
 
     @Test
     void test() throws IOException, TemplateException {
@@ -23,11 +22,11 @@ public class IfString extends BaseFreemarkerTest {
         data.put("name", "Aleksey");
         data.put("sex", "M");
 
-        Template template = cfg.getTemplate("directive/if_/if_string.ftl");
+        var template = cfg.getTemplate("directive/if_/if_string.ftl");
 
-        StringWriter out = new StringWriter();
+        var out = new StringWriter();
         template.process(data, out);
 
-        assertEquals("Hello, Mr. Aleksey!", out.toString());
+        assertThat(out).hasToString("Hello, Mr. Aleksey!");
     }
 }

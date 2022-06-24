@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class RowStyleTest {
 
@@ -25,7 +25,7 @@ class RowStyleTest {
 
             var rowStyle = wb.createCellStyle();
             rowStyle.setFont(font);
-            assertNull(row.getRowStyle());
+            assertThat(row.getRowStyle()).isNull();
             row.setRowStyle(rowStyle);
 
             var cellA1 = row.createCell(0);

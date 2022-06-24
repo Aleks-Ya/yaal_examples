@@ -5,16 +5,15 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class LoadFromMap extends BaseTest {
+class LoadFromMapTest extends BaseTest {
 
     @Test
     void load() {
         var key = "magic.number";
         var map = Map.of(key, "7");
         var conf = ConfigFactory.parseMap(map);
-        assertThat(conf.getInt(key), equalTo(7));
+        assertThat(conf.getInt(key)).isEqualTo(7);
     }
 }

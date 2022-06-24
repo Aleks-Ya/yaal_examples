@@ -8,11 +8,10 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import util.ResourceUtil;
 
 import java.util.Arrays;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class IterateListTest {
+class IterateListTest {
 
     @SuppressWarnings("unused")
     private static class Product {
@@ -43,22 +42,22 @@ public class IterateListTest {
     void test() {
         ITemplateResolver resolver = new ClassLoaderTemplateResolver();
 
-        TemplateEngine engine = new TemplateEngine();
+        var engine = new TemplateEngine();
         engine.setTemplateResolver(resolver);
 
-        List<Product> prods = Arrays.asList(
+        var prods = Arrays.asList(
                 new Product("Bread", 35.4, true),
                 new Product("Milk", 70.9, true),
                 new Product("Gun", 10_370.5, false)
         );
-        Context context = new Context();
+        var context = new Context();
         context.setVariable("prods", prods);
 
-        String template = "thymeleaf/template/iteration/table/iterate_list_template.html";
-        String result = engine.process(template, context);
+        var template = "thymeleaf/template/iteration/table/iterate_list_template.html";
+        var result = engine.process(template, context);
 
-        String expContent = ResourceUtil.resourceToString(IterateListTest.class, "iterate_list_expected.html");
-        assertEquals(expContent, result);
+        var expContent = ResourceUtil.resourceToString(IterateListTest.class, "iterate_list_expected.html");
+        assertThat(result).isEqualTo(expContent);
     }
 
 }

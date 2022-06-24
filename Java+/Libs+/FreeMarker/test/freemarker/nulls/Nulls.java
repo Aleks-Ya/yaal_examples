@@ -1,7 +1,6 @@
 package freemarker.nulls;
 
 import freemarker.BaseFreemarkerTest;
-import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +9,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Handling nulls.
@@ -22,12 +21,12 @@ public class Nulls extends BaseFreemarkerTest {
         Map<String, Object> data = new HashMap<>();
         data.put("name", null);
 
-        Template template = cfg.getTemplate("nulls/Nulls_useDefaultValueIfNull.ftl");
+        var template = cfg.getTemplate("nulls/Nulls_useDefaultValueIfNull.ftl");
 
-        StringWriter out = new StringWriter();
+        var out = new StringWriter();
         template.process(data, out);
 
-        assertEquals("My name is empty value.", out.toString());
+        assertThat(out).hasToString("My name is empty value.");
     }
 
     @Test
@@ -36,11 +35,11 @@ public class Nulls extends BaseFreemarkerTest {
         data.put("name", null);
         data.put("title", "a");
 
-        Template template = cfg.getTemplate("nulls/Nulls_ifNotNull.ftl");
+        var template = cfg.getTemplate("nulls/Nulls_ifNotNull.ftl");
 
-        StringWriter out = new StringWriter();
+        var out = new StringWriter();
         template.process(data, out);
 
-        assertEquals("name is null\ntitle is not null\n\nname or surname is null", out.toString());
+        assertThat(out).hasToString("name is null\ntitle is not null\n\nname or surname is null");
     }
 }

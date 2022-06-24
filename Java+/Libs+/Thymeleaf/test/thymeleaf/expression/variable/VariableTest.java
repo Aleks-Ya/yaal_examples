@@ -8,27 +8,26 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import util.ResourceUtil;
 
 import java.util.Arrays;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class VariableTest {
+class VariableTest {
     @Test
     void test() {
         ITemplateResolver resolver = new ClassLoaderTemplateResolver();
 
-        TemplateEngine engine = new TemplateEngine();
+        var engine = new TemplateEngine();
         engine.setTemplateResolver(resolver);
 
-        List<String> list = Arrays.asList("aaa", "bbb");
+        var list = Arrays.asList("aaa", "bbb");
 
-        Context context = new Context();
+        var context = new Context();
         context.setVariable("list", list);
 
-        String template = "thymeleaf/expression/variable/variable_template.html";
-        String result = engine.process(template, context);
+        var template = "thymeleaf/expression/variable/variable_template.html";
+        var result = engine.process(template, context);
 
-        String expContent = ResourceUtil.resourceToString(VariableTest.class, "variable_expected.html");
-        assertEquals(expContent, result);
+        var expContent = ResourceUtil.resourceToString(VariableTest.class, "variable_expected.html");
+        assertThat(result).isEqualTo(expContent);
     }
 }

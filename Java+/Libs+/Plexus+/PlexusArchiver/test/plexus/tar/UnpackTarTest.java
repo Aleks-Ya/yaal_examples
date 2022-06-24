@@ -1,4 +1,4 @@
-package tar;
+package plexus.tar;
 
 import org.codehaus.plexus.archiver.tar.TarUnArchiver;
 import org.codehaus.plexus.components.io.fileselectors.FileSelector;
@@ -9,15 +9,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.arrayContaining;
-import static org.hamcrest.Matchers.arrayWithSize;
-import static org.hamcrest.Matchers.containsString;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class UnpackTarTest {
+class UnpackTarTest {
     private File destDir;
     private TarUnArchiver ua;
 
@@ -34,13 +30,13 @@ public class UnpackTarTest {
     }
 
     @Test
-    void wholeTarAtOnce() throws IOException {
+    void wholeTarAtOnce() {
         ua.extract();
-        assertThat(destDir.list(), arrayContaining("mytar"));
+        assertThat(destDir.list()).containsExactly("mytar");
     }
 
     @Test
-    void fileSelector() throws IOException {
+    void fileSelector() {
         IncludeExcludeFileSelector selector = new IncludeExcludeFileSelector();
         selector.setIncludes(new String[]{"mytar\\subdir\\subdir.txt"});
 
@@ -48,13 +44,13 @@ public class UnpackTarTest {
         ua.extract();
 
         File[] level0 = destDir.listFiles();
-        assertThat(level0, arrayWithSize(1));
-        assertThat(level0[0].toString(), containsString("mytar"));
+        assertThat(level0).hasSize(1);
+        assertThat(level0[0].toString()).containsSubsequence("mytar");
         File[] level1 = level0[0].listFiles();
-        assertThat(level1, arrayWithSize(1));
+        assertThat(level1).hasSize(1);
         File[] level2 = level1[0].listFiles();
-        assertThat(level2, arrayWithSize(1));
-        assertThat(level2[0].toString(), containsString("subdir.txt"));
+        assertThat(level2).hasSize(1);
+        assertThat(level2[0].toString()).containsSubsequence("subdir.txt");
 
 
     }

@@ -3,15 +3,14 @@ package hystrix.command.key;
 import com.netflix.hystrix.HystrixCommandKey;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class HystrixCommandKeyTest {
+class HystrixCommandKeyTest {
 
     @Test
     void instantiate() {
-        String keyName = "abc";
-        HystrixCommandKey commandKey = HystrixCommandKey.Factory.asKey(keyName);
-        assertThat(commandKey.name(), equalTo(HystrixCommandKey.Factory.asKey(keyName)));
+        var keyName = "abc";
+        var commandKey = HystrixCommandKey.Factory.asKey(keyName);
+        assertThat(commandKey.name()).isEqualTo(HystrixCommandKey.Factory.asKey(keyName).name());
     }
 }

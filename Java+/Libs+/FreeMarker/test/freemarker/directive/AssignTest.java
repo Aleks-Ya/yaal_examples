@@ -10,12 +10,12 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Use #assign directive.
  */
-public class Assign extends BaseFreemarkerTest {
+class AssignTest extends BaseFreemarkerTest {
 
     @Test
     void test() throws IOException, TemplateException {
@@ -26,6 +26,6 @@ public class Assign extends BaseFreemarkerTest {
         StringWriter out = new StringWriter();
         template.process(data, out);
 
-        assertEquals("String=abc", out.toString());
+        assertThat(out).hasToString("String=abc");
     }
 }

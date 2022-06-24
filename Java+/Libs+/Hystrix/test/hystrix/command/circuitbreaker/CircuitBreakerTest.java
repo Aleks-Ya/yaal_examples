@@ -4,39 +4,36 @@ import com.netflix.hystrix.HystrixCircuitBreaker;
 import com.netflix.hystrix.HystrixCommandKey;
 import hystrix.helloworld.HelloWorldCommand;
 import org.junit.jupiter.api.Test;
-import rx.Observable;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class CircuitBreakerTest {
+class CircuitBreakerTest {
 
     @Test
     void execute() {
 //        HystrixRequestContext context = HystrixRequestContext.initializeContext();
 
-        String keyName = "abc";
-        HystrixCommandKey commandKey = HystrixCommandKey.Factory.asKey(keyName);
-        HystrixCircuitBreaker circuitBreaker = HystrixCircuitBreaker.Factory.getInstance(commandKey);
-        HelloWorldCommand command = new HelloWorldCommand("Bob");
-        String s = command.execute();
-        assertThat(s, equalTo("Hello Bob!"));
+        var keyName = "abc";
+        var commandKey = HystrixCommandKey.Factory.asKey(keyName);
+        var circuitBreaker = HystrixCircuitBreaker.Factory.getInstance(commandKey);
+        var command = new HelloWorldCommand("Bob");
+        var s = command.execute();
+        assertThat(s).isEqualTo("Hello Bob!");
     }
 
     @Test
     void queue() throws ExecutionException, InterruptedException {
-        Future<String> future = new HelloWorldCommand("Bob").queue();
-        String s = future.get();
-        assertThat(s, equalTo("Hello Bob!"));
+        var future = new HelloWorldCommand("Bob").queue();
+        var s = future.get();
+        assertThat(s).isEqualTo("Hello Bob!");
     }
 
     @Test
     void observe() {
-        Observable<String> observable = new HelloWorldCommand("Bob").observe();
-        String s = observable.toBlocking().first();
-        assertThat(s, equalTo("Hello Bob!"));
+        var observable = new HelloWorldCommand("Bob").observe();
+        var s = observable.toBlocking().first();
+        assertThat(s).isEqualTo("Hello Bob!");
     }
 }

@@ -13,16 +13,12 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Create and validate a JWT token (HMAC signed).
  */
-public class HmacTest {
+class HmacTest {
     @Test
     void sign() throws JOSEException, ParseException {
         var sharedSecret = "my-secret-more-longer-than-256-bits".getBytes();
@@ -43,21 +39,21 @@ public class HmacTest {
         var header = new JWSHeader(JWSAlgorithm.HS256);
         var signedJWT = new SignedJWT(header, claimsSet);
 
-        assertThat(signedJWT.getSignature(), nullValue());
+        assertThat(signedJWT.getSignature()).isNull();
         signedJWT.sign(signer);
-        assertThat(signedJWT.getSignature(), notNullValue());
+        assertThat(signedJWT.getSignature()).isNotNull();
 
         var s = signedJWT.serialize();
-        assertThat(s, equalTo("eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSm9obiIsInN1YiI6ImJvc3MiLCJhZ2UiOjMwfQ.7bHaRNV6OlggVoWsGmMgeOTr5gAgvfclK4IWMCbdECU"));
+        assertThat(s).isEqualTo("eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiSm9obiIsInN1YiI6ImJvc3MiLCJhZ2UiOjMwfQ.7bHaRNV6OlggVoWsGmMgeOTr5gAgvfclK4IWMCbdECU");
 
         var actJwt = SignedJWT.parse(s);
 
         JWSVerifier verifier = new MACVerifier(sharedSecret);
 
-        assertTrue(actJwt.verify(verifier));
+        assertThat(actJwt.verify(verifier)).isTrue();
         var actClaimSet = actJwt.getJWTClaimsSet();
-        assertThat(actClaimSet.getSubject(), equalTo(expSubject));
-        assertThat(actClaimSet.getClaim(nameClaim), equalTo(expNameValue));
-        assertThat(actClaimSet.getClaim(ageClaim), equalTo(expAgeValue));
+        assertThat(actClaimSet.getSubject()).isEqualTo(expSubject);
+        assertThat(actClaimSet.getClaim(nameClaim)).isEqualTo(expNameValue);
+        assertThat(actClaimSet.getClaim(ageClaim)).isEqualTo(expAgeValue);
     }
 }

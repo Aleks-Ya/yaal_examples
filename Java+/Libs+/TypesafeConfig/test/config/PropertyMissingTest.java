@@ -6,17 +6,16 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class PropertyMissing extends BaseTest {
+class PropertyMissingTest extends BaseTest {
 
     @Test
     void missingException() {
         var conf = ConfigFactory.empty();
         var e = assertThrows(ConfigException.Missing.class, () -> conf.getString("absent.key"));
-        assertThat(e.getMessage(), equalTo("empty config: No configuration setting found for key 'absent'"));
+        assertThat(e.getMessage()).isEqualTo("empty config: No configuration setting found for key 'absent'");
     }
 
     @Test
@@ -25,10 +24,10 @@ public class PropertyMissing extends BaseTest {
         var absentKey = "absent.key";
         var conf = ConfigFactory.parseMap(Map.of(presentKey, "abc"));
 
-        assertThat(conf.hasPath(absentKey), equalTo(false));
-        assertThat(conf.hasPathOrNull(absentKey), equalTo(false));
+        assertThat(conf.hasPath(absentKey)).isEqualTo(false);
+        assertThat(conf.hasPathOrNull(absentKey)).isEqualTo(false);
 
-        assertThat(conf.hasPath(presentKey), equalTo(true));
-        assertThat(conf.hasPathOrNull(presentKey), equalTo(true));
+        assertThat(conf.hasPath(presentKey)).isEqualTo(true);
+        assertThat(conf.hasPathOrNull(presentKey)).isEqualTo(true);
     }
 }

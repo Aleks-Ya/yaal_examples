@@ -2,15 +2,13 @@ import org.junit.jupiter.api.Test;
 import rx.Observable;
 
 import java.util.Arrays;
-import java.util.List;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Использование операторов RxJava.
  */
-public class Operators {
+class OperatorsTest {
     @Test
     void map() {
         Observable.just("Hello, world!")
@@ -32,8 +30,8 @@ public class Operators {
      */
     @Test
     void flatMap() {
-        List<String> list1 = Arrays.asList("A", "B");
-        List<String> list2 = Arrays.asList("C", "D");
+        var list1 = Arrays.asList("A", "B");
+        var list2 = Arrays.asList("C", "D");
         Observable.just(list1, list2)
                 .flatMap(Observable::from)
                 .subscribe(System.out::println);
@@ -54,10 +52,10 @@ public class Operators {
      */
     @Test
     void doOnNext() {
-        StringBuilder sb = new StringBuilder();
+        var sb = new StringBuilder();
         Observable.just("A", "B")
                 .doOnNext(sb::append)
                 .subscribe(System.out::println);
-        assertThat(sb.toString(), equalTo("AB"));
+        assertThat(sb.toString()).isEqualTo("AB");
     }
 }

@@ -7,16 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.everyItem;
-import static org.hamcrest.Matchers.in;
-import static org.hamcrest.Matchers.is;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Create a JWT token without signature.
  */
-public class NoneAlgorithmTest {
+class NoneAlgorithmTest {
     @Test
     void sign() throws ParseException {
         var claimsSet = new JWTClaimsSet.Builder()
@@ -30,13 +26,13 @@ public class NoneAlgorithmTest {
         var expPayload = expJwt.getPayload();
 
         var serialized = expJwt.serialize();
-        assertThat(serialized, equalTo("eyJhbGciOiJub25lIn0.eyJuYW1lIjoiSm9obiIsInN1YiI6ImJvc3MiLCJhZ2UiOjMwfQ."));
+        assertThat(serialized).isEqualTo("eyJhbGciOiJub25lIn0.eyJuYW1lIjoiSm9obiIsInN1YiI6ImJvc3MiLCJhZ2UiOjMwfQ.");
 
         var actJwt = PlainJWT.parse(serialized);
         var actPayload = actJwt.getPayload();
 
         var expPayloadMap = expPayload.toJSONObject();
         var actPayloadMap = actPayload.toJSONObject();
-        assertThat(actPayloadMap.entrySet(), everyItem(is(in((expPayloadMap.entrySet())))));
+        assertThat(actPayloadMap.entrySet()).allMatch(item -> expPayloadMap.entrySet().contains(item));
     }
 }

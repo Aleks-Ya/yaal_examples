@@ -2,17 +2,15 @@ package hystrix.command.fallback;
 
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class FallbackTest {
+class FallbackTest {
 
     @Test
     void fallback() {
-        final FallbackCommand command = new FallbackCommand();
-        String s = command.execute();
-        assertThat(s, equalTo(FallbackCommand.FALLBACK_RESULT));
-        assertTrue(command.isResponseFromFallback());
+        var command = new FallbackCommand();
+        var s = command.execute();
+        assertThat(s).isEqualTo(FallbackCommand.FALLBACK_RESULT);
+        assertThat(command.isResponseFromFallback()).isTrue();
     }
 }

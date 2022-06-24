@@ -23,9 +23,7 @@ import java.security.cert.X509CertSelector;
 import java.security.cert.X509Certificate;
 import java.util.Set;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static util.ResourceUtil.resourceToInputStream;
 
@@ -67,24 +65,12 @@ import static util.ResourceUtil.resourceToInputStream;
  * </pre>
  */
 class ValidateCertPathTest {
+    private static final String PKIX_ALGORITHM = "PKIX";
+    private static final String X509_CERTIFICATE_TYPE = "X.509";
     private static final X509Certificate caRootCert = readCertificateFromResource("bc/path/ca-root.crt");
     private static final X509Certificate caIntermediateCert = readCertificateFromResource("bc/path/ca-intermediate.crt");
     private static final X509Certificate serverCert = readCertificateFromResource("bc/path/server.crt");
-    private static final String PKIX_ALGORITHM = "PKIX";
-    private static final String X509_CERTIFICATE_TYPE = "X.509";
     private static final String COLLECTION_CERT_STORE_TYPE = "Collection";
-
-    @Test
-    void validCertPath() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException,
-            CertPathBuilderException, NoSuchProviderException, CertPathValidatorException {
-        validateCertPath(Set.of(ValidateCertPathTest.caIntermediateCert));
-    }
-
-    @Test
-    void invalidCertPath() {
-        var e = assertThrows(CertPathBuilderException.class, () -> validateCertPath(Set.of()));
-        assertThat(e.getMessage(), equalTo("No issuer certificate for certificate in certification path found."));
-    }
 
     private static void validateCertPath(Set<X509Certificate> intermediateCertSet) throws InvalidAlgorithmParameterException,
             NoSuchAlgorithmException, NoSuchProviderException, CertPathBuilderException, CertPathValidatorException {
@@ -107,11 +93,11 @@ class ValidateCertPathTest {
         var certPathBuilderResult = (PKIXCertPathBuilderResult) certPathBuilder.build(certPathParams);
         var certPath = certPathBuilderResult.getCertPath();
         var actCerts = certPath.getCertificates();
-        assertThat(actCerts, contains(serverCert, ValidateCertPathTest.caIntermediateCert));
+        assertThat(actCerts).asList().containsExactly(serverCert, ValidateCertPathTest.caIntermediateCert);
 
         var validator = CertPathValidator.getInstance(PKIX_ALGORITHM, BouncyCastleProvider.PROVIDER_NAME);
         var validatorResult = (PKIXCertPathValidatorResult) validator.validate(certPath, certPathParams);
-        assertThat(validatorResult.getTrustAnchor().getTrustedCert(), equalTo(caRootCert));
+        assertThat(validatorResult.getTrustAnchor().getTrustedCert()).isEqualTo(caRootCert);
     }
 
     private static X509Certificate readCertificateFromResource(String resource) {
@@ -122,5 +108,17 @@ class ValidateCertPathTest {
         } catch (CertificateException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    void validCertPath() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException,
+            CertPathBuilderException, NoSuchProviderException, CertPathValidatorException {
+        validateCertPath(Set.of(ValidateCertPathTest.caIntermediateCert));
+    }
+
+    @Test
+    void invalidCertPath() {
+        var e = assertThrows(CertPathBuilderException.class, () -> validateCertPath(Set.of()));
+        assertThat(e.getMessage()).isEqualTo("No issuer certificate for certificate in certification path found.");
     }
 }

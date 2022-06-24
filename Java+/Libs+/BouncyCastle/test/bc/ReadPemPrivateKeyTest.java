@@ -9,9 +9,7 @@ import util.ResourceUtil;
 import java.io.FileReader;
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ReadPemPrivateKeyTest {
 
@@ -22,8 +20,8 @@ class ReadPemPrivateKeyTest {
         var keyPair = (PEMKeyPair) pemParser.readObject();
         var privateKeyInfo = keyPair.getPrivateKeyInfo();
         var publicKeyInfo = keyPair.getPublicKeyInfo();
-        assertThat(privateKeyInfo, notNullValue());
-        assertThat(publicKeyInfo, notNullValue());
+        assertThat(privateKeyInfo).isNotNull();
+        assertThat(publicKeyInfo).isNotNull();
     }
 
     @Test
@@ -32,7 +30,7 @@ class ReadPemPrivateKeyTest {
         var pemParser = new PEMParser(new FileReader(keyFile));
         var keyPair = (PKCS8EncryptedPrivateKeyInfo) pemParser.readObject();
         var encoded = keyPair.getEncoded();
-        assertThat(encoded.length, equalTo(2481));
+        assertThat(encoded.length).isEqualTo(2481);
     }
 
 }

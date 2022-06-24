@@ -1,19 +1,18 @@
 import net.sf.cglib.reflect.FastClass;
-import net.sf.cglib.reflect.FastMethod;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Вызов метода с помощью FastMethod.
  */
-public class FastMethodTest {
+class FastMethodTest {
     @Test
     void test() throws Exception {
-        FastClass fastClass = FastClass.create(SampleBean.class);
-        FastMethod fastMethod = fastClass.getMethod(SampleBean.class.getMethod("getValue"));
-        SampleBean bean = new SampleBean();
+        var fastClass = FastClass.create(SampleBean.class);
+        var fastMethod = fastClass.getMethod(SampleBean.class.getMethod("getValue"));
+        var bean = new SampleBean();
         bean.setValue("Hello cglib!");
-        assertEquals("Hello cglib!", fastMethod.invoke(bean, new Object[0]));
+        assertThat(fastMethod.invoke(bean, new Object[0])).isEqualTo("Hello cglib!");
     }
 }
