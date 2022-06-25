@@ -1,0 +1,4 @@
+dependencies {
+    implementation redissonDep, slf4jSimpleDep
+    testImplementation 'com.github.kstyrc:embedded-redis:0.6'
+}
