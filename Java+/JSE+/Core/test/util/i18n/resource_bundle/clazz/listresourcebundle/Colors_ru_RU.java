@@ -11,8 +11,8 @@ public class Colors_ru_RU extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
         return new Object[][]{
-                {HelloWorldListResourceBundle.LIGHT_KEY, Color.WHITE},
-                {HelloWorldListResourceBundle.DARK_KEY, Color.BLACK}
+                {HelloWorldListResourceBundleTest.LIGHT_KEY, Color.WHITE},
+                {HelloWorldListResourceBundleTest.DARK_KEY, Color.BLACK}
         };
     }
 }

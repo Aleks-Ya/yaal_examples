@@ -11,8 +11,8 @@ class Colors_en_EN extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
         return new Object[][]{
-                {HelloWorldListResourceBundle.LIGHT_KEY, Color.YELLOW},
-                {HelloWorldListResourceBundle.DARK_KEY, Color.GRAY}
+                {HelloWorldListResourceBundleTest.LIGHT_KEY, Color.YELLOW},
+                {HelloWorldListResourceBundleTest.DARK_KEY, Color.GRAY}
         };
     }
 }

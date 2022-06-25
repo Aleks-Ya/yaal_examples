@@ -21,7 +21,7 @@ class ErrorHandlingInCompletableFutureTest {
                 .supplyAsync(() -> {
                     throw expException;
                 });
-        var actException = assertThatThrownBy(cf::get)
+        assertThatThrownBy(cf::get)
                 .isInstanceOf(ExecutionException.class)
                 .hasCause(expException);
         assertThat(cf.isDone()).isEqualTo(true);
@@ -44,9 +44,7 @@ class ErrorHandlingInCompletableFutureTest {
                 .supplyAsync(() -> {
                     throw new IllegalArgumentException();
                 })
-                .whenComplete((msg, t) -> {
-                    errorHappened = t != null;
-                });
+                .whenComplete((msg, t) -> errorHappened = t != null);
         assertThat(errorHappened).isEqualTo(true);
         assertThat(cf.isDone()).isEqualTo(true);
     }
@@ -67,7 +65,7 @@ class ErrorHandlingInCompletableFutureTest {
         var expException = new RuntimeException("Computation failed");
         cf.completeExceptionally(expException);
         assertThat(cf.isDone()).isEqualTo(true);
-        var actException = assertThatThrownBy(cf::get)
+        assertThatThrownBy(cf::get)
                 .isInstanceOf(ExecutionException.class)
                 .hasCause(expException);
     }
