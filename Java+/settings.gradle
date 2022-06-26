@@ -3,6 +3,8 @@
  */
 include 'BigData+:Hadoop+:Hadoop2+:Common2',
         'BigData+:Hadoop+:Hadoop2+:MapReduce2',
+        'BigData+:Hadoop+:Hadoop3+:Common3',
+        'BigData+:Hadoop+:Hadoop3+:MapReduce3',
         'BigData+:Livy+:LivySubmitByHttp',
         'BigData+:Kafka+:KafkaJava',
         'JSE+:Core',
