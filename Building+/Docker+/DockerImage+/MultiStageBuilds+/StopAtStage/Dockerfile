@@ -1,4 +1,4 @@
-FROM almalinux-updated AS directories
+FROM almalinux AS directories
 RUN mkdir /data
 
 FROM directories AS people

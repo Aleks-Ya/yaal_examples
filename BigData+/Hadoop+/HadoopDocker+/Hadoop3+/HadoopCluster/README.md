@@ -7,6 +7,7 @@
 1. Setup active failover (https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html)
 1. Add Docker HEALTHCHECK
 1. Publish to Docker Hub
+1. Fix `run_yarn_example.sh`
 
 ## Build images
 Choose Hadoop and Spark versions in `.env` file.

@@ -1,0 +1,9 @@
+version: '3'
+services:
+  server-service:
+    build:
+      context: .
+      args:
+        TEXT: ${GREETING}
+        NAME: ${PERSON}
+    container_name: default-env-in-file

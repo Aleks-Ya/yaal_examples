@@ -10,7 +10,7 @@ if [[ -z ${HADOOP_VERSION} ]] || [[ -z ${HADOOP_IMAGE_VERSION} ]] || [[ -z ${SPA
   exit 1
 fi
 if [[ $HADOOP_VERSION == 3* ]];  then
-	export HADOOP_BUILD_VERSION=3.2
+	export HADOOP_BUILD_VERSION=3
 else
 	export HADOOP_BUILD_VERSION=2.7
 fi

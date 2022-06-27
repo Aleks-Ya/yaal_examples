@@ -1,0 +1,7 @@
+FROM almalinux
+
+ARG TEXT
+ARG NAME
+ENV MESSAGE="${TEXT}, ${NAME}!"
+
+CMD echo "$MESSAGE"
