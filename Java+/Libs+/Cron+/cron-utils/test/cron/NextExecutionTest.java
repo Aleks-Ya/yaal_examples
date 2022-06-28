@@ -24,22 +24,18 @@ class NextExecutionTest {
         var executionTime = ExecutionTime.forCron(parsedQuartzCronExpression);
 
         // Given a Cron instance, we can ask for next/previous execution
-        System.out.println(String.format("Given the Quartz cron '%s' and reference date '%s', last execution was '%s'",
-                parsedQuartzCronExpression.asString(), now, executionTime.lastExecution(now).get())
-        );
-        System.out.println(String.format("Given the Quartz cron '%s' and reference date '%s', next execution will be '%s'",
-                parsedQuartzCronExpression.asString(), now, executionTime.nextExecution(now).get())
-        );
+        System.out.printf("Given the Quartz cron '%s' and reference date '%s', last execution was '%s'%n",
+                parsedQuartzCronExpression.asString(), now, executionTime.lastExecution(now).orElseThrow());
+        System.out.printf("Given the Quartz cron '%s' and reference date '%s', next execution will be '%s'%n",
+                parsedQuartzCronExpression.asString(), now, executionTime.nextExecution(now).orElseThrow());
 
         // or request time from last / to next execution
-        var secondsSinceLastExecution = executionTime.timeFromLastExecution(now).get().getSeconds();
-        System.out.println(String.format("Given the Quartz cron '%s' and reference date '%s', last execution was %s seconds ago",
-                parsedQuartzCronExpression.asString(), now, secondsSinceLastExecution));
+        var secondsSinceLastExecution = executionTime.timeFromLastExecution(now).orElseThrow().getSeconds();
+        System.out.printf("Given the Quartz cron '%s' and reference date '%s', last execution was %s seconds ago%n",
+                parsedQuartzCronExpression.asString(), now, secondsSinceLastExecution);
 
-        var secondsToNextExecution = executionTime.timeToNextExecution(now).get().getSeconds();
-        System.out.println(
-                String.format("Given the Quartz cron '%s' and reference date '%s', next execution will be in %s seconds",
-                        parsedQuartzCronExpression.asString(), now, secondsToNextExecution)
-        );
+        var secondsToNextExecution = executionTime.timeToNextExecution(now).orElseThrow().getSeconds();
+        System.out.printf("Given the Quartz cron '%s' and reference date '%s', next execution will be in %s seconds%n",
+                parsedQuartzCronExpression.asString(), now, secondsToNextExecution);
     }
 }

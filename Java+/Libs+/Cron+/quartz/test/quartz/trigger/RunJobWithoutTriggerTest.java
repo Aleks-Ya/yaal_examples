@@ -1,4 +1,4 @@
-package quartz;
+package quartz.trigger;
 
 import org.junit.jupiter.api.Test;
 import org.quartz.Job;
@@ -7,42 +7,37 @@ import org.quartz.JobExecutionException;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
 
-import static java.util.concurrent.TimeUnit.MINUTES;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
 import static org.quartz.JobBuilder.newJob;
-import static org.quartz.TriggerBuilder.newTrigger;
 
 /**
- * Specify JobDetails in Trigger.
+ * Trigger a Job without a Trigger.
  */
-class TriggerForJobTest {
+class RunJobWithoutTriggerTest {
 
     @Test
-    void schedule() throws SchedulerException {
+    void trigger() throws SchedulerException {
         var jobDetail = newJob(WaitJob.class)
                 .withIdentity("jobDetail1", "group1")
                 .storeDurably()
                 .build();
-        var trigger = newTrigger()
-                .withIdentity("trigger1", "group1")
-                .forJob(jobDetail)
-                .startNow()
-                .build();
-
         var scheduler = StdSchedulerFactory.getDefaultScheduler();
         scheduler.start();
         scheduler.addJob(jobDetail, true);
-        scheduler.scheduleJob(trigger);
-        await().timeout(1, MINUTES).until(() -> WaitJob.done);
+        scheduler.triggerJob(jobDetail.getKey());
+        await().timeout(5, SECONDS).until(() -> WaitJob.done);
         scheduler.shutdown(true);
     }
 
     public static class WaitJob implements Job {
+        static boolean started = false;
         static boolean done = false;
 
         @Override
         public void execute(JobExecutionContext context) throws JobExecutionException {
             try {
+                started = true;
                 Thread.sleep(500);
                 System.out.println("Job is done: " + context.getJobDetail().getKey());
                 done = true;

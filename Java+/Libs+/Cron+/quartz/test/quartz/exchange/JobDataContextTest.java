@@ -1,67 +1,71 @@
-package quartz;
+package quartz.exchange;
 
 import org.junit.jupiter.api.Test;
 import org.quartz.Job;
+import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
+import quartz.SingleResultListener;
 
 import static java.lang.String.format;
-import static java.util.concurrent.TimeUnit.MINUTES;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.awaitility.Awaitility.await;
-import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
+import static quartz.exchange.JobDataContextTest.GreetingJob.LOCATION_KEY;
+import static quartz.exchange.JobDataContextTest.GreetingJob.PERSON_KEY;
 
 /**
- * Configure a Job instance with JobData from JobDetails and Trigger.
+ * Configure a Job instance with JobData from JobDetails and Trigger (get JobData from JobExecutionContext).
  */
-class JobDataTest {
+class JobDataContextTest {
 
     @Test
     void jobData() throws SchedulerException {
+        //Put an Object
+        var map = new JobDataMap();
+        map.put(PERSON_KEY, new Person(1L, "John"));
         var jobDetail = newJob(GreetingJob.class)
-                .withIdentity("jobDetail1", "group1")
-                .usingJobData(GreetingJob.PERSON_KEY, "John")
+                .usingJobData(map)
                 .build();
+        //Put a primitive
         var trigger = newTrigger()
-                .withIdentity("trigger1", "group1")
-                .usingJobData(GreetingJob.LOCATION_KEY, "Spain")
-                .withSchedule(cronSchedule("0/2 * * * * ?"))
+                .usingJobData(LOCATION_KEY, "Spain")
+                .startNow()
                 .build();
 
-        assertThat(GreetingJob.greeting).isNull();
         var scheduler = StdSchedulerFactory.getDefaultScheduler();
+        var listener = SingleResultListener.<String>assign(scheduler, jobDetail);
         scheduler.start();
         scheduler.scheduleJob(jobDetail, trigger);
-        await().timeout(1, MINUTES).until(() -> GreetingJob.greeting != null);
-        assertThat(GreetingJob.greeting).isEqualTo("Hello from Spain, John!");
+        assertThat(listener.waitForResult()).isEqualTo("Hello from Spain, John!");
         scheduler.shutdown(true);
     }
 
     public static class GreetingJob implements Job {
         public static final String PERSON_KEY = "person";
         public static final String LOCATION_KEY = "location";
-        public static String greeting;
 
         @Override
         public void execute(JobExecutionContext context) throws JobExecutionException {
             try {
                 var triggerDataMap = context.getTrigger().getJobDataMap();
                 var jobDataMap = context.getJobDetail().getJobDataMap();
-                var person = jobDataMap.getString(PERSON_KEY);
+                var person = (Person) jobDataMap.get(PERSON_KEY);
                 var location = triggerDataMap.getString(LOCATION_KEY);
 
                 var mergedDataMap = context.getMergedJobDataMap();
-                assertThat(mergedDataMap.getString(PERSON_KEY)).isEqualTo(person);
+                assertThat(mergedDataMap.get(PERSON_KEY)).isEqualTo(person);
                 assertThat(mergedDataMap.getString(LOCATION_KEY)).isEqualTo(location);
 
-                greeting = format("Hello from %s, %s!", location, person);
+                context.setResult(format("Hello from %s, %s!", location, person.name()));
             } catch (Exception e) {
                 throw new JobExecutionException(e);
             }
         }
+    }
+
+    record Person(Long id, String name) {
     }
 }

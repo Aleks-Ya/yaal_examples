@@ -21,9 +21,7 @@ class HumanReadableTest {
         // and then just ask for a description
         var descriptor = CronDescriptor.instance(new Locale("RU"));// we support multiple languages! Just pick one!
         var quartzBuiltCronExpressionDescription = descriptor.describe(parser.parse(expression));
-        System.out.println(
-                String.format("Quartz expression '%s' is described as '%s'", expression, quartzBuiltCronExpressionDescription)
-        );
+        System.out.printf("Quartz expression '%s' is described as '%s'%n", expression, quartzBuiltCronExpressionDescription);
     }
 }
 

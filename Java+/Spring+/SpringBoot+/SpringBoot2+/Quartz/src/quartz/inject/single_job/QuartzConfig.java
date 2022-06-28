@@ -1,4 +1,4 @@
-package quartz.example;
+package quartz.inject.single_job;
 
 import org.quartz.JobDetail;
 import org.quartz.Trigger;

@@ -1,10 +1,8 @@
-package quartz.example;
+package quartz.inject.single_job;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.springframework.stereotype.Component;
 
-@Component
 class SampleJob implements Job {
 
     private final SampleJobService jobService;
