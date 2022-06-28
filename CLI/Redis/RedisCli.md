@@ -18,6 +18,7 @@ Help: `redis-cli --help`
 
 
 ## Commands
+### Other
 Exit: `EXIT`
 Check connection: `PING`
 Save a string: `SET person "John Dow"`
@@ -34,3 +35,11 @@ Show all elements of a set: `SMEMBERS fruits`
 Does a set contain an element: `SISMEMBER fruits Orange`
 Create a Hash: `HSET visitor1 name "John" age "30"`
 Get an field of a Hash: `HGET visitor1 age`
+List all keys: `KEYS '*'`
+List all databases: `INFO KEYSPACE`
+Show key number in databases: `INFO KEYSPACE`
+Delete a key: `DEL key1`
+
+### Security
+Require pass: `CONFIG SET requirepass "pass1"`
+Authenticate CLI: `AUTH "pass1"`

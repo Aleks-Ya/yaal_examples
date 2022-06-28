@@ -1,4 +1,4 @@
-package springredis.local;
+package redisspringboot.local;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
@@ -36,8 +35,7 @@ class StringRedisTemplateTest {
 
         @Bean
         public RedisConnectionFactory redisConnectionFactory() {
-            var config = new RedisStandaloneConfiguration("127.0.0.1", 6379);
-            return new LettuceConnectionFactory(config);
+            return new LettuceConnectionFactory();
         }
 
         @Bean

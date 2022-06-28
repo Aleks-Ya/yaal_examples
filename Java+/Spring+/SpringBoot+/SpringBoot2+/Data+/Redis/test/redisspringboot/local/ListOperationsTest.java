@@ -1,33 +1,33 @@
-package springredis.local;
+package redisspringboot.local;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ListOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import javax.annotation.Resource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = StringRedisTemplateTest.Config.class)
-class StringRedisTemplateTest {
+@ContextConfiguration(classes = ListOperationsTest.Config.class)
+class ListOperationsTest {
 
-    @Autowired
-    private StringRedisTemplate template;
+    @Resource(name = "redisTemplate")
+    private ListOperations<String, String> listOps;
 
     @Test
     void set() {
-        var key = "key-" + StringRedisTemplateTest.class.getSimpleName();
+        var key = "key1";
         var expValue = "value1";
-        var ops = template.boundValueOps(key);
-        ops.set(expValue);
-        var actValue = ops.get();
+        listOps.set(key, 0, expValue);
+        var actValue = listOps.leftPop(key);
         assertThat(actValue).isEqualTo(expValue);
     }
 
@@ -36,13 +36,15 @@ class StringRedisTemplateTest {
 
         @Bean
         public RedisConnectionFactory redisConnectionFactory() {
-            var config = new RedisStandaloneConfiguration("127.0.0.1", 6379);
-            return new LettuceConnectionFactory(config);
+            return new LettuceConnectionFactory();
         }
 
         @Bean
-        public StringRedisTemplate stringRedisTemplate() {
-            return new StringRedisTemplate(redisConnectionFactory());
+        public RedisTemplate<String, String> redisTemplate() {
+            var redisTemplate = new RedisTemplate<String, String>();
+            redisTemplate.setConnectionFactory(redisConnectionFactory());
+            redisTemplate.setEnableTransactionSupport(true);
+            return redisTemplate;
         }
     }
 }

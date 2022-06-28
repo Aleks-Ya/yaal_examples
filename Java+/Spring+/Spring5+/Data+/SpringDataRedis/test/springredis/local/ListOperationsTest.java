@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,10 +24,10 @@ class ListOperationsTest {
     private ListOperations<String, String> listOps;
 
     @Test
-    void set() {
-        var key = "key1";
+    void pushPop() {
+        var key = "key-" + ListOperationsTest.class.getSimpleName();
         var expValue = "value1";
-        listOps.set(key, 0, expValue);
+        listOps.rightPush(key, expValue);
         var actValue = listOps.leftPop(key);
         assertThat(actValue).isEqualTo(expValue);
     }
@@ -36,7 +37,8 @@ class ListOperationsTest {
 
         @Bean
         public RedisConnectionFactory redisConnectionFactory() {
-            return new LettuceConnectionFactory();
+            var config = new RedisStandaloneConfiguration("127.0.0.1", 6379);
+            return new LettuceConnectionFactory(config);
         }
 
         @Bean

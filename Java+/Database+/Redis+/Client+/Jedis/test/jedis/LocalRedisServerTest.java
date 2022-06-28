@@ -1,7 +1,6 @@
 package jedis;
 
 import org.junit.jupiter.api.Test;
-import redis.clients.jedis.JedisPool;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,8 +10,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 class LocalRedisServerTest {
 
     @Test
-    void connect() {
-        try (var pool = new JedisPool("localhost", 6379);
+    void ping() {
+        try (var pool = Factory.newPool();
+             var jedis = pool.getResource()) {
+            var response = jedis.ping();
+            assertThat(response).isEqualTo("PONG");
+        }
+    }
+
+    @Test
+    void setKey() {
+        try (var pool = Factory.newPool();
              var jedis = pool.getResource()) {
             var expValue = "Jedis";
             var key = "clientName";
