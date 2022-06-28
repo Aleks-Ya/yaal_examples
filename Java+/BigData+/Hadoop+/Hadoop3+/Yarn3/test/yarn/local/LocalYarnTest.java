@@ -1,4 +1,4 @@
-package yarn;
+package yarn.local;
 
 import org.apache.hadoop.yarn.api.records.ApplicationReport;
 import org.apache.hadoop.yarn.client.api.YarnClient;
@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * Connects to "BigData+/Hadoop+/HadoopDocker+/Hadoop3+/HadoopCluster".
  */
-class YarnTest {
+class LocalYarnTest {
     @Test
     void listApps() throws IOException, YarnException {
         var conf = new YarnConfiguration();
