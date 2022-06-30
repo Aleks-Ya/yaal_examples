@@ -1,4 +1,4 @@
-package concurrent;
+package lang.concurrent;
 
 import org.apache.commons.lang3.concurrent.ConcurrentException;
 import org.apache.commons.lang3.concurrent.LazyInitializer;
