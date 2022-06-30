@@ -10,6 +10,7 @@ import org.quartz.listeners.JobListenerSupport;
 import static org.quartz.impl.matchers.KeyMatcher.keyEquals;
 
 public class SingleResultListener<T> extends JobListenerSupport {
+    private JobExecutionContext toBeExecutionContext;
     private JobExecutionContext jobExecutionContext;
     private JobExecutionException jobExecutionException;
 
@@ -34,6 +35,11 @@ public class SingleResultListener<T> extends JobListenerSupport {
         jobExecutionException = exception;
     }
 
+    @Override
+    public void jobToBeExecuted(JobExecutionContext context) {
+        toBeExecutionContext = context;
+    }
+
     public JobExecutionContext getJobExecutionContext() {
         return jobExecutionContext;
     }
@@ -43,6 +49,11 @@ public class SingleResultListener<T> extends JobListenerSupport {
     }
 
     public T waitForResult() {
+        waitForFinish();
+        return (T) jobExecutionContext.getResult();
+    }
+
+    public void waitForFinish() {
         while (jobExecutionContext == null) {
             try {
                 Thread.sleep(500);
@@ -50,6 +61,9 @@ public class SingleResultListener<T> extends JobListenerSupport {
                 throw new RuntimeException(e);
             }
         }
-        return (T) jobExecutionContext.getResult();
+    }
+
+    public boolean isToBeExecuted() {
+        return toBeExecutionContext != null;
     }
 }

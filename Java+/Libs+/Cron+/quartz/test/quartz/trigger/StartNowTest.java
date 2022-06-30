@@ -7,19 +7,17 @@ import quartz.EmptyJob;
 import quartz.SingleResultListener;
 
 import static org.quartz.JobBuilder.newJob;
+import static org.quartz.TriggerBuilder.newTrigger;
 
-/**
- * Trigger a Job without a Trigger.
- */
-class RunJobWithoutTriggerTest {
+class StartNowTest {
     @Test
-    void trigger() throws SchedulerException {
-        var jobDetail = newJob(EmptyJob.class).storeDurably().build();
+    void startNow() throws SchedulerException {
+        var jobDetail = newJob(EmptyJob.class).build();
+        var trigger = newTrigger().startNow().build();
         var scheduler = StdSchedulerFactory.getDefaultScheduler();
         scheduler.start();
-        scheduler.addJob(jobDetail, true);
-        scheduler.triggerJob(jobDetail.getKey());
-        SingleResultListener.<String>assign(scheduler, jobDetail).waitForFinish();
+        scheduler.scheduleJob(jobDetail, trigger);
+        SingleResultListener.<String>assign(scheduler, jobDetail).waitForFinish(1000);
         scheduler.shutdown(true);
     }
 }
