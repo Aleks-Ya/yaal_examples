@@ -1,4 +1,4 @@
-package redisson;
+package redisson.local;
 
 import org.junit.jupiter.api.Test;
 import org.redisson.api.RExecutorService;
@@ -6,6 +6,7 @@ import org.redisson.api.RMap;
 import org.redisson.api.RMapReactive;
 import org.redisson.api.RMapRx;
 import org.redisson.api.redisnode.RedisNodes;
+import redisson.Factory;
 
 import java.util.concurrent.TimeUnit;
 

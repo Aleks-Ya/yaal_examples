@@ -16,4 +16,7 @@ public class RandomUtil {
         return random.nextInt(1, Integer.MAX_VALUE);
     }
 
+    public static long randomLongPositive() {
+        return random.nextLong(1L, Long.MAX_VALUE);
+    }
 }

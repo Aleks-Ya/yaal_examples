@@ -1,4 +1,4 @@
-package livy;
+package livy.local;
 
 import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ import java.util.Map;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-class SubmitTest {
+class LocalSubmitTest {
     private static final URI baseUri = URI.create("http://spark-standalone-cluster-livy:8998");
 
     @Test

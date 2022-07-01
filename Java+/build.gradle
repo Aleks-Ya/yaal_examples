@@ -49,6 +49,7 @@ subprojects {
         testContainersJunitDep = "org.testcontainers:junit-jupiter:$testContainersVersion"
         redissonDep = 'org.redisson:redisson:3.17.4'
         lettuceDep = 'io.lettuce:lettuce-core:6.1.8.RELEASE'
+        jedisDep = 'redis.clients:jedis:4.2.3'
         embeddedRedisOzimov = 'it.ozimov:embedded-redis:0.7.3'
     }
     tasks.withType(JavaCompile) {

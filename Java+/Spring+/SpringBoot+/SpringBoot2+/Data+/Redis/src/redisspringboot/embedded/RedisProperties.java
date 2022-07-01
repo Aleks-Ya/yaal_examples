@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class RedisProperties {
-    private int redisPort;
-    private String redisHost;
+class RedisProperties {
+    private final int redisPort;
+    private final String redisHost;
 
-    public RedisProperties(
-            @Value("${spring.redis.port}") int redisPort,
-            @Value("${spring.redis.host}") String redisHost) {
+    RedisProperties(@Value("${spring.redis.host}") String redisHost,
+                    @Value("${spring.redis.port}") int redisPort) {
         this.redisPort = redisPort;
         this.redisHost = redisHost;
     }
