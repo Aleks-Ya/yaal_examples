@@ -1,9 +1,9 @@
 # zip and unzip CLI
 
 ## List
-List packed files: 
-- zipinfo my.zip
-- unzip -l archive.zip
+List files in an archive: 
+- `zipinfo my.zip`
+- `unzip -l archive.zip`
 
 ## Unpack
 Unpack to specific folder: `unzip package.zip -d /opt`

@@ -1,0 +1,12 @@
+defaultTasks('copyFiles') 
+
+def toDir = new File("$buildDir", 'copied')
+
+delete(toDir)
+
+task copyFiles(type: Copy) {
+    from "$projectDir/source1"
+    from "$projectDir/source2"
+    into toDir
+    duplicatesStrategy 'exclude'
+}

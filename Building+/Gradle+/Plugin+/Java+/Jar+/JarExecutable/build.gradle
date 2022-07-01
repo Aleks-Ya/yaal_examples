@@ -1,21 +1,19 @@
-//Run: gradle
-//Run: gradle build
-//Run: gradle jar
-//Run Jar: java -jar build/libs/JarExecutable-1.0-SNAPSHOT.jar
+plugins {
+    id 'java'
+}
 
-apply plugin: 'java'
 sourceSets.main.java.srcDir 'src'
 defaultTasks('jar')
 
 group = "ru.yaal.project"
 version = "1.0-SNAPSHOT"
 jar {
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) } } 
     manifest.attributes "Main-Class": "Main"
+    duplicatesStrategy 'exclude'
 }
-
 dependencies {
-    compile 'org.springframework:spring-context:3.2.4.RELEASE'
+    implementation 'org.springframework:spring-context:5.3.21'
 }
 repositories {
     mavenCentral()

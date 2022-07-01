@@ -1,5 +1,12 @@
 # gradle CLI
 
+## Info
+Help: `gradle -h`
+Log level:
+- `gradle --warn`, `gradle -w`
+- `gradle --info`, `gradle -i`
+- `gradle --debug`, `gradle -d`
+
 Compile sources and tests:
 ```
 gradle clean compileJava
