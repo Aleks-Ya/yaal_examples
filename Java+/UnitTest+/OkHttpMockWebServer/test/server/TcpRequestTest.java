@@ -11,45 +11,42 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Client uses {@link Socket} for sending HTTP request to {@link MockWebServer}.
  */
-public class TcpRequest {
+class TcpRequestTest {
 
     @Test
     void socket() throws IOException, InterruptedException {
-        var server = new MockWebServer();
+        try (var server = new MockWebServer()) {
+            var body1 = "hello, world!";
+            var body2 = "buy all!";
+            server.enqueue(new MockResponse().setBody(body1).setSocketPolicy(SocketPolicy.DISCONNECT_AT_END));
+            server.enqueue(new MockResponse().setBody(body2).setSocketPolicy(SocketPolicy.DISCONNECT_AT_END));
 
-        var body1 = "hello, world!";
-        var body2 = "buy all!";
-        server.enqueue(new MockResponse().setBody(body1).setSocketPolicy(SocketPolicy.DISCONNECT_AT_END));
-        server.enqueue(new MockResponse().setBody(body2).setSocketPolicy(SocketPolicy.DISCONNECT_AT_END));
+            server.start();
 
-        server.start();
+            var host = server.getHostName();
+            var port = server.getPort();
 
-        var host = server.getHostName();
-        var port = server.getPort();
+            var actResponse1 = readSocket(host, port);
+            var expResponse1 = expResponse(body1);
+            assertThat(actResponse1).isEqualTo(expResponse1);
 
-        var actResponse1 = readSocket(host, port);
-        var expResponse1 = expResponse(body1);
-        assertThat(actResponse1, equalTo(expResponse1));
+            var actResponse2 = readSocket(host, port);
+            var expResponse2 = expResponse(body2);
+            assertThat(actResponse2).isEqualTo(expResponse2);
 
-        var actResponse2 = readSocket(host, port);
-        var expResponse2 = expResponse(body2);
-        assertThat(actResponse2, equalTo(expResponse2));
+            var request1 = server.takeRequest();
+            assertThat(request1.getPath()).isEqualTo("/");
+            assertThat(request1.getMethod()).isEqualTo("GET");
 
-        var request1 = server.takeRequest();
-        assertThat(request1.getPath(), equalTo("/"));
-        assertThat(request1.getMethod(), equalTo("GET"));
-
-        var request2 = server.takeRequest();
-        assertThat(request2.getPath(), equalTo("/"));
-        assertThat(request2.getMethod(), equalTo("GET"));
-
-        server.shutdown();
+            var request2 = server.takeRequest();
+            assertThat(request2.getPath()).isEqualTo("/");
+            assertThat(request2.getMethod()).isEqualTo("GET");
+        }
     }
 
     private String readSocket(String host, int port) throws IOException {

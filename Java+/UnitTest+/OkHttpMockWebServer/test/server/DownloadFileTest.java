@@ -15,35 +15,7 @@ import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DownloadFile {
-
-    @Test
-    void download() throws IOException {
-        var server = new MockWebServer();
-
-        var buffer = new Buffer();
-        var expFilename = "HDFS_CLIENT-configs.tar.gz";
-        var bytes = ResourceUtil.resourceToBytes(getClass(), expFilename);
-        buffer.write(bytes);
-        server.enqueue(new MockResponse()
-                .setBody(buffer)
-                .setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", expFilename))
-                .setHeader("Content-Type", "application/x-ustar;charset=utf-8")
-                .setHeader("Content-Length", String.valueOf(bytes.length))
-        );
-
-        server.start();
-
-        var baseUrl = server.url("/v1/chat/");
-
-        var outDir = Files.createTempDirectory(getClass().getSimpleName()).toFile();
-        var outFile = downloadFileFromUrl(new URL(baseUrl.url(), "messages/"), outDir);
-        assertThat(outFile).hasName(expFilename);
-        var expFile = ResourceUtil.resourceToFile(getClass(), expFilename);
-        assertThat(outFile).hasSameBinaryContentAs(expFile);
-
-        server.shutdown();
-    }
+class DownloadFileTest {
 
     public static File downloadFileFromUrl(URL url, File outputDir) {
         HttpURLConnection conn = null;
@@ -71,6 +43,32 @@ class DownloadFile {
             if (conn != null) {
                 conn.disconnect();
             }
+        }
+    }
+
+    @Test
+    void download() throws IOException {
+        try (var server = new MockWebServer()) {
+            var buffer = new Buffer();
+            var expFilename = "HDFS_CLIENT-configs.tar.gz";
+            var bytes = ResourceUtil.resourceToBytes(getClass(), expFilename);
+            buffer.write(bytes);
+            server.enqueue(new MockResponse()
+                    .setBody(buffer)
+                    .setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", expFilename))
+                    .setHeader("Content-Type", "application/x-ustar;charset=utf-8")
+                    .setHeader("Content-Length", String.valueOf(bytes.length))
+            );
+
+            server.start();
+
+            var baseUrl = server.url("/v1/chat/");
+
+            var outDir = Files.createTempDirectory(getClass().getSimpleName()).toFile();
+            var outFile = downloadFileFromUrl(new URL(baseUrl.url(), "messages/"), outDir);
+            assertThat(outFile).hasName(expFilename);
+            var expFile = ResourceUtil.resourceToFile(getClass(), expFilename);
+            assertThat(outFile).hasSameBinaryContentAs(expFile);
         }
     }
 }
