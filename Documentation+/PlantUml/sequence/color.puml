@@ -1,0 +1,15 @@
+@startuml
+participant Alice #lightblue
+participant Bob #lightgreen
+Alice -[#red]> Bob: Authentication Request
+Bob --[#brown]> Alice: Authentication Response
+
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: Another authentication Response
+
+alt#Gold #LightBlue Successful case
+    Bob -> Alice: Authentication Accepted
+else #Pink Failure
+    Bob -> Alice: Authentication Rejected
+end
+@enduml

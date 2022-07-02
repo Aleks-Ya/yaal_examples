@@ -7,7 +7,6 @@ spec:
   - name: people-app-container
     image: people-app
     imagePullPolicy: IfNotPresent
-#    command: [ "sh", "-c", "set -o xtrace; ls -l /etc/creds; echo Game: $(cat /config/game.properties); echo UI: $(cat /config/ui.properties); while true; do echo 'Hello, World!'; sleep 5; done" ]
     volumeMounts:
     - name: credentials
       mountPath: "/etc/creds"

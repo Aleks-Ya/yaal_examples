@@ -1,5 +1,11 @@
 # git CLI
 
+## Help
+Show help about a command in terminal: `git help submodule`
+### Help in web-broser
+Install: `sudo apt-get install git-doc`
+Show help about a command in browser: `git help -w submodule` (not all commands are available)
+
 ## Troubleshooting
 Verbose: `git push -v`
 Curl verbose: `GIT_CURL_VERBOSE=1 git push`
@@ -46,3 +52,6 @@ List all refs: `git show-ref`
 Show all configured properties: `git config --list`
 Show value of a config property: `git config --get-all user.email`
 Set property value: `git config push.default upstream`
+
+## SubTree
+Create a subproject: 
