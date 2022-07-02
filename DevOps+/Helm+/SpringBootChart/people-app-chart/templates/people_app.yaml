@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: people-app-pod
+spec:
+  containers:
+  - name: people-app-container
+    image: people-app
+    imagePullPolicy: IfNotPresent
+#    command: [ "sh", "-c", "set -o xtrace; ls -l /etc/creds; echo Game: $(cat /config/game.properties); echo UI: $(cat /config/ui.properties); while true; do echo 'Hello, World!'; sleep 5; done" ]
+    volumeMounts:
+    - name: credentials
+      mountPath: "/etc/creds"
+      readOnly: true
+    - name: config-map-volume
+      mountPath: "/config"
+      readOnly: true
+  volumes:
+  - name: credentials
+    projected:
+      sources:
+      - secret:
+          name: people-app-db-secret
+      - secret:
+          name: people-app-server-secret
+  - name: config-map-volume
+    configMap:
+      name: people-app-config-map
+  restartPolicy: OnFailure

@@ -12,6 +12,10 @@ Docs: [Running Kubernetes Locally via Minikube](https://kubernetes.io/docs/setup
 - List all services: `minikube service list`
 - Get URL of a service: `minikube service hello-minikube --url`
 
+## Docker images
+- List Docker images: `minikube image ls`
+- Load an image from local Docker registry to Minikube Docker Registry: `minikube image load centos:8`
+
 ## Other
 - Help: `minikube -h`
 - Show status: `minikube status`

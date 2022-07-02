@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: people-app-config-map
+data:
+  game.properties: |
+    city.name=SPb
+    city.established=1703
+  ui.properties: |
+    color=green
