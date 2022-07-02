@@ -10,11 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.servlet.http.Cookie;
 import java.util.Collections;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -28,7 +26,7 @@ import static security.authentication.rememberme.RememberMeController.ENDPOINT;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {MvcConfig.class, SecurityConfig.class, RememberMeController.class})
 @WebAppConfiguration
-public class RememberMeTest {
+class RememberMeTest {
     private static final User USER = new User(SecurityConfig.USERNAME, SecurityConfig.PASSWORD, Collections.emptyList());
     @Autowired
     private WebApplicationContext context;
@@ -51,7 +49,7 @@ public class RememberMeTest {
 
     @Test
     void authorizationViaSession() throws Exception {
-        MockHttpSession session = new MockHttpSession();
+        var session = new MockHttpSession();
         mvc.perform(get(ENDPOINT)
                         .session(session)
                         .with(user(USER))
@@ -68,9 +66,9 @@ public class RememberMeTest {
 
     @Test
     void rememberMe() throws Exception {
-        String body = "";
-        MockHttpSession session1 = new MockHttpSession();
-        MvcResult mvcResult = mvc.perform(post(ENDPOINT)
+        var body = "";
+        var session1 = new MockHttpSession();
+        var mvcResult = mvc.perform(post(ENDPOINT)
                         .content(body)
                         .session(session1)
                         .with(user(USER))
@@ -79,11 +77,11 @@ public class RememberMeTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(session1.getId()))
                 .andReturn();
-        Cookie[] cookies = mvcResult.getResponse().getCookies();
+        var cookies = mvcResult.getResponse().getCookies();
 //
 //        assertThat(cookies, not(emptyArray()));
 
-        MockHttpSession session2 = new MockHttpSession();
+        var session2 = new MockHttpSession();
         mvc.perform(get(ENDPOINT)
                                 .session(session2)
 //                .cookie(cookies)

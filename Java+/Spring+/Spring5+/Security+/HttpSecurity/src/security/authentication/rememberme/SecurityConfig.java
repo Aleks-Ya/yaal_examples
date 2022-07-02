@@ -32,7 +32,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     TokenBasedRememberMeServices tokenBasedRememberMeServices() {
-        TokenBasedRememberMeServices services = new TokenBasedRememberMeServices(KEY, userDetailsService());
+        var services = new TokenBasedRememberMeServices(KEY, userDetailsService());
 //        services.setCookieName();
         return services;
     }
@@ -55,7 +55,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     UsernamePasswordAuthenticationFilter usernamePasswordAuthenticationFilter() {
-        UsernamePasswordAuthenticationFilter filter = new UsernamePasswordAuthenticationFilter();
+        var filter = new UsernamePasswordAuthenticationFilter();
         filter.setAuthenticationManager(authenticationManager());
         filter.setRememberMeServices(tokenBasedRememberMeServices());
         return filter;

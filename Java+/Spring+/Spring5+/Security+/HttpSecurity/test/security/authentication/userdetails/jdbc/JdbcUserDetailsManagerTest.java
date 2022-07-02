@@ -12,7 +12,6 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Collection;
 import java.util.Collections;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {DataSourceConfig.class, SecurityConfig.class})
-public class JdbcUserDetailsManagerTest {
+class JdbcUserDetailsManagerTest {
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
@@ -30,10 +29,10 @@ public class JdbcUserDetailsManagerTest {
 
     @Test
     void userDetailsService() {
-        UserDetails user = userDetailsService.loadUserByUsername(SecurityConfig.USERNAME);
+        var user = userDetailsService.loadUserByUsername(SecurityConfig.USERNAME);
         assertNotNull(user);
 
-        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+        var authorities = user.getAuthorities();
         GrantedAuthority expAuthority = new SimpleGrantedAuthority(SecurityConfig.ROLE);
         assertThat(authorities, contains(expAuthority));
     }
@@ -41,15 +40,15 @@ public class JdbcUserDetailsManagerTest {
     @Test
     void userDetailsManager() {
         //Create an user
-        String username = "Mary";
+        var username = "Mary";
         GrantedAuthority expAuthority = new SimpleGrantedAuthority("readonly");
         UserDetails expUser = new User(username, "bird", Collections.singletonList(expAuthority));
         userDetailsManager.createUser(expUser);
 
         //Read the user
-        UserDetails actUser = userDetailsService.loadUserByUsername(username);
+        var actUser = userDetailsService.loadUserByUsername(username);
         assertThat(actUser, equalTo(expUser));
-        Collection<? extends GrantedAuthority> authorities = actUser.getAuthorities();
+        var authorities = actUser.getAuthorities();
         assertThat(authorities, contains(expAuthority));
     }
 }

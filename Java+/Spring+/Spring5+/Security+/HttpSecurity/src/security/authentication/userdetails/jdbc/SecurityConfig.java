@@ -29,7 +29,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     JdbcUserDetailsManager jdbcUserDetailsManager() {
-        JdbcUserDetailsManager manager = new JdbcUserDetailsManager();
+        var manager = new JdbcUserDetailsManager();
         manager.setDataSource(dataSource);
         return manager;
     }

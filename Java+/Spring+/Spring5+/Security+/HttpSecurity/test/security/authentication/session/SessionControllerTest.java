@@ -27,7 +27,7 @@ import static security.authentication.session.SessionController.ENDPOINT;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {MvcConfig.class, SecurityConfig.class, SessionController.class})
 @WebAppConfiguration
-public class SessionControllerTest {
+class SessionControllerTest {
     private static final User USER = new User(SecurityConfig.USERNAME, SecurityConfig.PASSWORD, Collections.emptyList());
     @Autowired
     private WebApplicationContext context;
@@ -58,7 +58,7 @@ public class SessionControllerTest {
      */
     @Test
     void theSameSession() throws Exception {
-        MockHttpSession session = new MockHttpSession();
+        var session = new MockHttpSession();
         mvc.perform(get(ENDPOINT).session(session).with(user(USER)))
                 .andExpect(status().isOk())
                 .andExpect(content().string(session.getId()));
@@ -72,8 +72,8 @@ public class SessionControllerTest {
      */
     @Test
     void createNewSessionAfterInvalidation() throws Exception {
-        MockHttpSession session = new MockHttpSession();
-        String sessionId = session.getId();
+        var session = new MockHttpSession();
+        var sessionId = session.getId();
 
         mvc.perform(get(ENDPOINT).session(session).with(user(USER)))
                 .andExpect(status().isOk())
@@ -90,12 +90,12 @@ public class SessionControllerTest {
      */
     @Test
     void differentSessionsMock() throws Exception {
-        MockHttpSession session1 = new MockHttpSession();
+        var session1 = new MockHttpSession();
         mvc.perform(get(ENDPOINT).session(session1).with(user(USER)))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo(session1.getId())));
 
-        MockHttpSession session2 = new MockHttpSession();
+        var session2 = new MockHttpSession();
         mvc.perform(get(ENDPOINT).session(session2).with(user(USER)))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo(session2.getId())));

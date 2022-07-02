@@ -23,7 +23,7 @@ import static security.authentication.userdetails.jdbc.JdbcUserDetailsManagerCon
 @ContextConfiguration(classes = {DataSourceConfig.class, MvcConfig.class, SecurityConfig.class,
         JdbcUserDetailsManagerController.class})
 @WebAppConfiguration
-public class JdbcUserDetailsManagerControllerTest {
+class JdbcUserDetailsManagerControllerTest {
     @Autowired
     private WebApplicationContext context;
 
@@ -39,7 +39,7 @@ public class JdbcUserDetailsManagerControllerTest {
 
     @Test
     void successAuthentication() throws Exception {
-        String correctPassword = SecurityConfig.PASSWORD;
+        var correctPassword = SecurityConfig.PASSWORD;
         Authentication auth = new UsernamePasswordAuthenticationToken(SecurityConfig.USERNAME, correctPassword);
         mvc.perform(get(ENDPOINT).with(authentication(auth)))
                 .andExpect(status().isOk());
@@ -47,7 +47,7 @@ public class JdbcUserDetailsManagerControllerTest {
 
     @Test
     void failAuthentication() throws Exception {
-        String wrongPassword = SecurityConfig.PASSWORD + "a";
+        var wrongPassword = SecurityConfig.PASSWORD + "a";
         Authentication auth = new UsernamePasswordAuthenticationToken(SecurityConfig.USERNAME, wrongPassword);
         mvc.perform(get(ENDPOINT).with(authentication(auth)))
                 .andExpect(status().isForbidden());

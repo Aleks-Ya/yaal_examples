@@ -27,7 +27,7 @@ import static security.authorization.roles.config.authentication.UserCredentials
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {AuthenticationConfig.class, AuthorizationConfig.class, MainController.class})
 @WebAppConfiguration
-public class GetTest {
+class GetTest {
 
     @Autowired
     private WebApplicationContext context;

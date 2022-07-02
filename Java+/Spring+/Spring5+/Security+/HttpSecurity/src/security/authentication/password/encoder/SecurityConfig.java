@@ -15,7 +15,6 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 import javax.sql.DataSource;
 import java.util.Collections;
-import java.util.List;
 
 @EnableWebSecurity
 class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -42,7 +41,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        var provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
         provider.setUserDetailsService(userDetailsService());
         return provider;
@@ -50,13 +49,13 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public AuthenticationManager authenticationManagerBean() {
-        List<AuthenticationProvider> providers = Collections.singletonList(authenticationProvider());
+        var providers = Collections.singletonList(authenticationProvider());
         return new ProviderManager(providers);
     }
 
     @Bean
     JdbcUserDetailsManager jdbcUserDetailsManager() {
-        JdbcUserDetailsManager manager = new JdbcUserDetailsManager();
+        var manager = new JdbcUserDetailsManager();
         manager.setDataSource(dataSource);
         return manager;
     }

@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {AuthenticationConfig.class, AuthorizationConfig.class, MainController.class})
 @WebAppConfiguration
-public class PostTest {
+class PostTest {
 
     @Autowired
     private WebApplicationContext context;
