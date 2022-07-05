@@ -15,8 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VoltDB.  If not, see <http://www.gnu.org/licenses/>.
 
-from xml.etree import ElementTree
 from xml.dom import minidom
+from xml.etree import ElementTree
+
 
 # To create a human readable xml file
 def prettify(elem):

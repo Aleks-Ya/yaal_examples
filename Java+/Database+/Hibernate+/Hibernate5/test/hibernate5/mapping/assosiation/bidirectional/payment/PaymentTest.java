@@ -3,7 +3,6 @@ package hibernate5.mapping.assosiation.bidirectional.payment;
 import hibernate5.context.session.HibernateSessionFactory5;
 import hibernate5.mapping.assosiation.bidirectional.people.Address;
 import hibernate5.mapping.assosiation.bidirectional.people.People;
-import org.hamcrest.Matchers;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.junit.jupiter.api.Test;
@@ -12,8 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PaymentTest {
     private static final HibernateSessionFactory5 factory = HibernateSessionFactory5.makeFactory(
@@ -82,21 +80,21 @@ class PaymentTest {
 
         session.close();
 
-        assertEquals(1, allPayments.size());
-        assertEquals(1, allTransactions.size());
-        assertEquals(2, allSlips.size());
-        assertThat(allSlips, Matchers.containsInAnyOrder(expSlipA, expSlipB));
+        assertThat(allPayments.size()).isEqualTo(1);
+        assertThat(allTransactions.size()).isEqualTo(1);
+        assertThat(allSlips.size()).isEqualTo(2);
+        assertThat(allSlips).containsExactlyInAnyOrder(expSlipA, expSlipB);
 
-        assertEquals(expPayment, actPayment);
-        assertEquals(expPayment, actTransaction.getPayment());
+        assertThat(actPayment).isEqualTo(expPayment);
+        assertThat(actTransaction.getPayment()).isEqualTo(expPayment);
 
-        assertEquals(expTransaction, actTransaction);
-        assertEquals(expTransaction, actPayment.getTransaction());
+        assertThat(actTransaction).isEqualTo(expTransaction);
+        assertThat(actPayment.getTransaction()).isEqualTo(expTransaction);
 
-        assertEquals(2, transactionSlips.size());
-        assertThat(transactionSlips, Matchers.containsInAnyOrder(expSlipA, expSlipB));
+        assertThat(transactionSlips).hasSize(2);
+        assertThat(transactionSlips).containsExactlyInAnyOrder(expSlipA, expSlipB);
         for (var slip : transactionSlips) {
-            assertEquals(expTransaction, slip.getTransaction());
+            assertThat(slip.getTransaction()).isEqualTo(expTransaction);
         }
 
     }

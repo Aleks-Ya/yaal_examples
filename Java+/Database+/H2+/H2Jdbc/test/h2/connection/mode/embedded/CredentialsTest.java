@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CredentialsTest {
 
@@ -19,7 +18,7 @@ class CredentialsTest {
             var st = conn.createStatement();
             var rs = st.executeQuery("SELECT * FROM INFORMATION_SCHEMA.USERS");
             if (rs.next()) {
-                assertThat(rs.getString("NAME"), equalTo("MY_USER"));
+                assertThat(rs.getString("NAME")).isEqualTo("MY_USER");
             }
         }
     }

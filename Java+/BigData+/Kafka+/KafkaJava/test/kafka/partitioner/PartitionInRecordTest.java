@@ -11,8 +11,7 @@ import org.junit.jupiter.api.Timeout;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Define partition in {@link ProducerRecord}.
@@ -33,17 +32,17 @@ class PartitionInRecordTest extends IntegrationTestHarness {
             var partitionNum1 = 1;
             var record1 = new ProducerRecord<String, String>(topic, partitionNum1, null, "A");
             var partition1 = producer.send(record1).get().partition();
-            assertThat(partition1, equalTo(partitionNum1));
+            assertThat(partition1).isEqualTo(partitionNum1);
 
             var partitionNum2 = 2;
             var record2 = new ProducerRecord<String, String>(topic, partitionNum2, null, "B");
             var partition2 = producer.send(record2).get().partition();
-            assertThat(partition2, equalTo(partitionNum2));
+            assertThat(partition2).isEqualTo(partitionNum2);
 
             var partitionNum0 = 0;
             var record0 = new ProducerRecord<String, String>(topic, partitionNum0, null, "C");
             var partition0 = producer.send(record0).get().partition();
-            assertThat(partition0, equalTo(partitionNum0));
+            assertThat(partition0).isEqualTo(partitionNum0);
 
         }
     }

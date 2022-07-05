@@ -1,2 +1,2 @@
-string,int,date,time,timestamp,bigdecimal
-Glass,1,2017-01-30,20:50:45,2016-12-25 23:40:30,100.50
+string,int,date      ,time    ,timestamp          ,bigdecimal
+Glass ,1  ,2017-01-30,20:50:45,2016-12-25 23:40:30,100.50

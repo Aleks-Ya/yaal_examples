@@ -25,29 +25,26 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
-import os
-
 # Main Java Class
 CatalogPasswordScrambler = 'org.voltdb.utils.CatalogPasswordScrambler'
 
+
 @VOLT.Command(
     # Descriptions for help screen.
-    description  = 'Mask user passwords in VoltDB deployment file.',
-    description2 = 'At least one deployment file is required.',
+    description='Mask user passwords in VoltDB deployment file.',
+    description2='At least one deployment file is required.',
 
     # Command line arguments.
-    arguments = (
-        VOLT.PathArgument(
-            'deploymentfile', 
-            'Source and optionally a destination masked deployment file(s)', 
-            min_count=1, max_count=2
+    arguments=(
+            VOLT.PathArgument(
+                'deploymentfile',
+                'Source and optionally a destination masked deployment file(s)',
+                min_count=1, max_count=2
             )
     )
 )
-
 # Command implementation
 def mask(runner):
-
     # Check that there's something to compile.
     if not runner.opts.deploymentfile:
         runner.abort_with_help('At least one deployment file must be specified.')
@@ -62,4 +59,3 @@ def mask(runner):
     # Build the positional and keyword argument lists and invoke the scrambler
     args = runner.opts.deploymentfile
     runner.java_execute(CatalogPasswordScrambler, None, *args)
-

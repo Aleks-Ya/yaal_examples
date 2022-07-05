@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Integration test for {@link FibonacciProducer} and {@link FibonacciConsumer}.
@@ -41,7 +40,7 @@ class FibonacciTest extends IntegrationTestHarness {
         });
         log.info("Received numbers: " + fibonacciSums);
 
-        assertThat(fibonacciSums, contains(1L, 4L, 12L, 33L));
+        assertThat(fibonacciSums).contains(1L, 4L, 12L, 33L);
     }
 
     @Override

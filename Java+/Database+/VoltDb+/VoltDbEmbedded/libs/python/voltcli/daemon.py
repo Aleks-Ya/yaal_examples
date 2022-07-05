@@ -49,11 +49,12 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import sys
-import os
-import time
 import atexit
+import os
 import signal
+import sys
+import time
+
 
 class Daemon(object):
     """
@@ -143,7 +144,7 @@ class Daemon(object):
         sys.stdout.flush()
 
         if self.pidfile:
-            file(self.pidfile,'w+').write("%d\n" % self.pid)
+            file(self.pidfile, 'w+').write("%d\n" % self.pid)
 
         atexit.register(self.delete_pid_file)
         os.dup2(si.fileno(), sys.stdin.fileno())
@@ -210,6 +211,7 @@ class Daemon(object):
         """
         raise Daemon.BadSubclassException(self)
 
+
 def read_pid_file(pidfile):
     """
     Read the PID file and return the PID or -1.
@@ -217,12 +219,13 @@ def read_pid_file(pidfile):
     pid = -1
     if os.path.exists(pidfile):
         try:
-            pf = file(pidfile,'r')
+            pf = file(pidfile, 'r')
             pid = int(pf.read().strip())
             pf.close()
         except IOError:
             pass
     return pid
+
 
 def get_status(pidfile):
     """

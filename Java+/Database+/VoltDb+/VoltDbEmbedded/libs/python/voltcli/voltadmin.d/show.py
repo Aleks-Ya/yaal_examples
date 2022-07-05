@@ -27,12 +27,14 @@
 
 def show_snapshots(runner):
     response = runner.call_proc('@SnapshotStatus', [], [])
-    print response.table(0).format_table(caption = 'Snapshot Status')
+    print
+    response.table(0).format_table(caption='Snapshot Status')
+
 
 @VOLT.Multi_Command(
-    bundles = VOLT.AdminBundle(),
-    description = 'Display information about a live database.',
-    modifiers = VOLT.Modifier('snapshots', show_snapshots, 'Display current snapshot status.')
+    bundles=VOLT.AdminBundle(),
+    description='Display information about a live database.',
+    modifiers=VOLT.Modifier('snapshots', show_snapshots, 'Display current snapshot status.')
 )
 def show(runner):
     runner.go()

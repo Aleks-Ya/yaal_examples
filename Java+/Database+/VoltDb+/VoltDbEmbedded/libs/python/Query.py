@@ -15,12 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with VoltDB.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys
 import cmd
-import socket
 import os.path
+import socket
+import sys
 from datetime import datetime
+
 from voltdbclient import *
+
 
 class VoltQueryClient(cmd.Cmd):
     TYPES = {"byte": FastSerializer.VOLTTYPE_TINYINT,
@@ -42,8 +44,8 @@ class VoltQueryClient(cmd.Cmd):
                     FastSerializer.VOLTTYPE_TIMESTAMP:
                         lambda x: datetime.fromtimestamp(x)}
 
-    def __init__(self, host, port, username = "", password = "",
-                 dump_file = None):
+    def __init__(self, host, port, username="", password="",
+                 dump_file=None):
         cmd.Cmd.__init__(self)
 
         self.__quiet = False
@@ -66,7 +68,7 @@ class VoltQueryClient(cmd.Cmd):
                                            FastSerializer.VOLTTYPE_STRING,
                                            FastSerializer.VOLTTYPE_TINYINT])
         self.snapshotsavejson = VoltProcedure(self.fs, "@SnapshotSave",
-                                          [FastSerializer.VOLTTYPE_STRING])
+                                              [FastSerializer.VOLTTYPE_STRING])
         self.snapshotscan = VoltProcedure(self.fs, "@SnapshotScan",
                                           [FastSerializer.VOLTTYPE_STRING])
         self.snapshotdelete = VoltProcedure(self.fs, "@SnapshotDelete",
@@ -78,14 +80,14 @@ class VoltQueryClient(cmd.Cmd):
         self.snapshotstatus = VoltProcedure(self.fs, "@SnapshotStatus")
 
         self.systemcatalog = VoltProcedure(self.fs, "@SystemCatalog",
-                                               [FastSerializer.VOLTTYPE_STRING])
+                                           [FastSerializer.VOLTTYPE_STRING])
 
         self.systeminformation = VoltProcedure(self.fs, "@SystemInformation",
                                                [FastSerializer.VOLTTYPE_STRING])
 
         self.updatecatalog = VoltProcedure(self.fs, "@UpdateApplicationCatalog",
-                                             [FastSerializer.VOLTTYPE_STRING,
-                                              FastSerializer.VOLTTYPE_STRING])
+                                           [FastSerializer.VOLTTYPE_STRING,
+                                            FastSerializer.VOLTTYPE_STRING])
 
         self.quiesce = VoltProcedure(self.fs, "@Quiesce")
 
@@ -99,7 +101,7 @@ class VoltQueryClient(cmd.Cmd):
 
         self.response = None
 
-    def __safe_call(self, proc, params = None, response = True, timeout = None):
+    def __safe_call(self, proc, params=None, response=True, timeout=None):
         if not proc:
             return None
 
@@ -148,7 +150,8 @@ class VoltQueryClient(cmd.Cmd):
         if not self.__quiet:
             for i in var:
                 if i != None:
-                    print i,
+                    print
+                    i,
             print
 
     def set_quiet(self, quiet):
@@ -207,8 +210,8 @@ class VoltQueryClient(cmd.Cmd):
             return self.help_stat()
         self.safe_print("Getting statistics")
         self.response = self.__safe_call(self.stat, [args[0], int(args[1])],
-                                         timeout = self.__timeout)
-        #self.safe_print(self.response)
+                                         timeout=self.__timeout)
+        # self.safe_print(self.response)
 
     def help_stat(self):
         self.safe_print(
@@ -224,19 +227,20 @@ Get the statistics:
             return self.help_snapshotsave()
 
         args = command.split()
-        if len(args) not in (1,3):
+        if len(args) not in (1, 3):
             return self.help_snapshotsave()
 
         self.safe_print("Taking snapshot")
         if len(args) == 3:
             self.response = self.__safe_call(self.snapshotsave,
                                              [args[0], args[1], int(args[2])],
-                                             timeout = self.__timeout)
+                                             timeout=self.__timeout)
         else:
-            print args
+            print
+            args
             self.response = self.__safe_call(self.snapshotsavejson,
                                              args,
-                                             timeout = self.__timeout)
+                                             timeout=self.__timeout)
         self.safe_print(self.response)
 
     def help_snapshotsave(self):
@@ -253,7 +257,7 @@ Get the statistics:
 
         self.safe_print("Scanning snapshots")
         self.response = self.__safe_call(self.snapshotscan, [command],
-                                         timeout = self.__timeout)
+                                         timeout=self.__timeout)
         self.safe_print(self.response)
 
     def help_snapshotscan(self):
@@ -272,7 +276,7 @@ Get the statistics:
 
         self.safe_print("Deleting snapshots")
         self.response = self.__safe_call(self.snapshotdelete, [paths, nonces],
-                                         timeout = self.__timeout)
+                                         timeout=self.__timeout)
         self.safe_print(self.response)
 
     def help_snapshotdelete(self):
@@ -293,7 +297,7 @@ Get the statistics:
         self.safe_print("Restoring snapshot")
         self.response = self.__safe_call(self.snapshotrestore,
                                          [args[0], args[1]],
-                                         timeout = self.__timeout)
+                                         timeout=self.__timeout)
         self.safe_print(self.response)
 
     def help_snapshotrestore(self):
@@ -306,7 +310,7 @@ Get the statistics:
 
         self.safe_print("Getting snapshot status")
         self.response = self.__safe_call(self.snapshotstatus,
-                                         timeout = self.__timeout)
+                                         timeout=self.__timeout)
         self.safe_print(self.response)
 
     def help_snapshotstatus(self):
@@ -323,7 +327,7 @@ Get the statistics:
         self.safe_print("Getting system catalog")
         self.response = self.__safe_call(self.systemcatalog,
                                          [selector],
-                                         timeout = self.__timeout)
+                                         timeout=self.__timeout)
         self.safe_print(self.response)
 
     def help_catalog(self):
@@ -340,7 +344,7 @@ Get the statistics:
         self.safe_print("Getting system information")
         self.response = self.__safe_call(self.systeminformation,
                                          [selector],
-                                         timeout = self.__timeout)
+                                         timeout=self.__timeout)
         self.safe_print(self.response)
 
     def help_sysinfo(self):
@@ -352,7 +356,7 @@ Get the statistics:
             return
         self.safe_print("Switching to master")
         self.response = self.__safe_call(self.promote,
-                                         timeout = self.__timeout)
+                                         timeout=self.__timeout)
         self.safe_print(self.response)
 
     def help_promote(self):
@@ -369,25 +373,25 @@ Get the statistics:
         if len(args) != 2:
             return self.help_updatecatalog()
 
-        if(not os.path.isfile(args[0]) or not os.path.isfile(args[1])):
+        if (not os.path.isfile(args[0]) or not os.path.isfile(args[1])):
             # args[0] is the catalog jar file
             # args[1] is the deployment xml file
             print >> sys.stderr, "Either file '%s' doesnot exist OR file '%s' doesnot exist!!" \
-                    (args[0],args[1])
+                (args[0], args[1])
             exit(1)
 
         xmlf = open(args[1], "r")
         xmlcntnts = xmlf.read()
-#       print "xmlcntnts = #%s#" % xmlcntnts
+        #       print "xmlcntnts = #%s#" % xmlcntnts
         jarf = open(args[0], "r")
         jarcntnts = jarf.read()
         hexJarcntnts = jarcntnts.encode('hex_codec')
-#       print "hexJarcntnts = #%s#" % hexJarcntnts
+        #       print "hexJarcntnts = #%s#" % hexJarcntnts
 
         self.safe_print("Updating the application catalog")
         self.response = self.__safe_call(self.updatecatalog,
-                                 [hexJarcntnts, xmlcntnts],
-                                 timeout = self.__timeout)
+                                         [hexJarcntnts, xmlcntnts],
+                                         timeout=self.__timeout)
         self.safe_print(self.response)
 
     def help_updatecatalog(self):
@@ -398,7 +402,7 @@ Get the statistics:
         if self.fs == None:
             return
         self.safe_print("Quiesce...")
-        self.response = self.__safe_call(self.quiesce, timeout = self.__timeout)
+        self.response = self.__safe_call(self.quiesce, timeout=self.__timeout)
         self.safe_print(self.response)
 
     def help_quiesce(self):
@@ -409,22 +413,24 @@ Get the statistics:
         if self.fs == None:
             return
         self.safe_print("Entering Admin Mode...")
-        self.response = self.__safe_call(self.pause, timeout = self.__timeout)
+        self.response = self.__safe_call(self.pause, timeout=self.__timeout)
         self.safe_print(self.response)
 
     def help_pause(self):
-        self.safe_print("Enters cluster Admin Mode.\nYou must be connected to the admin port in order to call this function.")
+        self.safe_print(
+            "Enters cluster Admin Mode.\nYou must be connected to the admin port in order to call this function.")
         self.safe_print("\tpause")
 
     def do_resume(self, command):
         if self.fs == None:
             return
         self.safe_print("Exiting Admin Mode...")
-        self.response = self.__safe_call(self.resume, timeout = self.__timeout)
+        self.response = self.__safe_call(self.resume, timeout=self.__timeout)
         self.safe_print(self.response)
 
     def help_resume(self):
-        self.safe_print("Exits cluster Admin Mode.\nYou must be connected to the admin port in order to call this function.")
+        self.safe_print(
+            "Exits cluster Admin Mode.\nYou must be connected to the admin port in order to call this function.")
         self.safe_print("\tresume")
 
     def do_adhoc(self, command):
@@ -435,7 +441,7 @@ Get the statistics:
 
         self.safe_print("Executing adhoc query: %s\n" % (command))
         self.response = self.__safe_call(self.adhoc, [command],
-                                         timeout = self.__timeout)
+                                         timeout=self.__timeout)
         self.safe_print(self.response)
 
     def help_adhoc(self):
@@ -446,8 +452,8 @@ Get the statistics:
         if self.fs == None:
             return
         self.safe_print("Shutting down the server")
-        self.__safe_call(self.shutdown, response = False,
-                         timeout = self.__timeout)
+        self.__safe_call(self.shutdown, response=False,
+                         timeout=self.__timeout)
 
     def help_shutdown(self):
         self.safe_print("Shutdown the server")
@@ -478,7 +484,8 @@ Get the statistics:
                         self.safe_print(strerr)
                    """ % (method_name, parsed[0], proc_name, proc_name)
             tmp = {}
-            exec code.strip() in tmp
+            exec
+            code.strip() in tmp
             setattr(self.__class__, "do_" + parsed[0], tmp[method_name])
 
             setattr(self.__class__, proc_name,
@@ -496,8 +503,11 @@ Get the statistics:
         self.safe_print()
         self.safe_print("Supported types", self.__class__.TYPES.keys())
 
+
 def help(program_name):
-    print program_name, "hostname port [dump=filename] [command]"
+    print
+    program_name, "hostname port [dump=filename] [command]"
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
@@ -511,7 +521,7 @@ if __name__ == "__main__":
 
     try:
         command = VoltQueryClient(sys.argv[1], int(sys.argv[2]),
-                                  dump_file = filename)
+                                  dump_file=filename)
     except socket.error:
         sys.stderr.write("Error connecting to the server %s\n" % (sys.argv[1]))
         exit(-1)

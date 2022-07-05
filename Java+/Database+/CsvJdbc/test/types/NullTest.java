@@ -3,37 +3,33 @@ package types;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.util.Properties;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * CSV standard doesn't support NULL values.
  * NULL, null, "NULL" will be treated as strings.
  */
-public class NullTest {
+class NullTest {
 
     @Test
     void test() throws ClassNotFoundException, SQLException, ParseException {
         Class.forName("org.relique.jdbc.csv.CsvDriver");
 
-        Properties props = new Properties();
+        var props = new Properties();
 
-        String database = new File(NullTest.class.getResource("null.csv").getFile()).getParent();
-        Connection conn = DriverManager.getConnection("jdbc:relique:csv:" + database, props);
-        Statement stmt = conn.createStatement();
+        var database = new File(NullTest.class.getResource("null.csv").getFile()).getParent();
+        var conn = DriverManager.getConnection("jdbc:relique:csv:" + database, props);
+        var stmt = conn.createStatement();
 
-        ResultSet results = stmt.executeQuery("SELECT * FROM null");
+        var results = stmt.executeQuery("SELECT * FROM null");
         results.next();
 
-        assertThat(results.getString("string"), equalTo("NULL"));
+        assertThat(results.getString("string")).isEqualTo("NULL");
 
         conn.close();
     }

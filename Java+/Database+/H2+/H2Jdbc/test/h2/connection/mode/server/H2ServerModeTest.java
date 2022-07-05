@@ -6,7 +6,7 @@ import util.FileUtil;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Run H2 in Sever Mode.
@@ -27,7 +27,7 @@ class H2ServerModeTest {
             var st2 = conn2.createStatement();
             var rs = st2.executeQuery("SELECT * FROM numbers");
             if (rs.next()) {
-                assertEquals(3, rs.getInt(1));
+                assertThat(rs.getInt(1)).isEqualTo(3);
             }
         }
     }

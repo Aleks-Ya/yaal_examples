@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Convenient way to instantiate two H2 connections in the server mode with a Factory.
@@ -26,7 +26,7 @@ class H2ServerModeFactory1Test {
             var st2 = conn2.createStatement();
             var rs = st2.executeQuery("SELECT * FROM numbers");
             if (rs.next()) {
-                assertEquals(3, rs.getInt(1));
+                assertThat(rs.getInt(1)).isEqualTo(3);
             }
         }
     }

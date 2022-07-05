@@ -26,8 +26,8 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 @VOLT.Command(
-    bundles = VOLT.AdminBundle(),
-    description = 'Promote a replica database to normal operation.'
+    bundles=VOLT.AdminBundle(),
+    description='Promote a replica database to normal operation.'
 )
 def promote(runner):
     # Check the STATUS column. runner.call_proc() detects and aborts on errors.

@@ -26,8 +26,8 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 @VOLT.Command(
-    bundles = VOLT.AdminBundle(),
-    description = 'Pause the VoltDB cluster and switch it to admin mode.'
+    bundles=VOLT.AdminBundle(),
+    description='Pause the VoltDB cluster and switch it to admin mode.'
 )
 def pause(runner):
     # Check the STATUS column. runner.call_proc() detects and aborts on errors.

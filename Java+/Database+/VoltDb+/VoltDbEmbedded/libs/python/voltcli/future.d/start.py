@@ -26,6 +26,6 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 @VOLT.Server('start',
-             description = 'Start the VoltDB server.')
+             description='Start the VoltDB server.')
 def start(runner):
     runner.go()

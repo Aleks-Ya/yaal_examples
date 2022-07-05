@@ -26,17 +26,17 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 import os
-from voltcli import utility
+
 
 @VOLT.Command(
     bundles=VOLT.AdminBundle(),
     description='Update the schema of a running database.',
     description2='Either a catalog (extension .jar), a deployment file (extension .xml), or both, must be provided.',
     arguments=(
-        VOLT.StringArgument(
-            'catalog_or_deployment',
-            'application catalog (extension .jar) and/or deployment configuration (extension .xml) file path(s)',
-            min_count=1, max_count=2),
+            VOLT.StringArgument(
+                'catalog_or_deployment',
+                'application catalog (extension .jar) and/or deployment configuration (extension .xml) file path(s)',
+                min_count=1, max_count=2),
     )
 )
 def update(runner):
@@ -58,7 +58,7 @@ def update(runner):
         else:
             runner.abort(
                 'The "%s" extension is not recognized as either a catalog or a deployment file'
-                    % extension)
+                % extension)
     if catalog is None and deployment is None:
         runner.abort('At least one catalog .jar or deployment .xml file is required.')
     params = [catalog, deployment]

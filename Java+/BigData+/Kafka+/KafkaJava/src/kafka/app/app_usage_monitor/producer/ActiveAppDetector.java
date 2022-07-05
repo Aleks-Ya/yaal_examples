@@ -22,7 +22,7 @@ class ActiveAppDetector {
             processCmd = exec(format("ps -o cmd= -p %d", activePid));
             processComm = exec(format("ps -o comm= -p %d", activePid));
             processArgs = exec(format("ps -o args= -p %d", activePid));
-        } catch(Exception e) {
+        } catch (Exception e) {
             error = e.toString();
         }
         return new AppInfo(activePid, processCmd, processComm, processArgs, error);

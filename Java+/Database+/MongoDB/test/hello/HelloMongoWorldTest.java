@@ -1,31 +1,28 @@
 package hello;
 
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import common.MongoFactory;
 import org.bson.Document;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class HelloMongoWorldTest {
     @Test
     void name() throws IOException {
-        MongoFactory factory = new MongoFactory();
+        var factory = new MongoFactory();
 
-        MongoDatabase db = factory.getDb();
+        var db = factory.getDb();
         db.drop();
-        String collectionName = "strings";
+        var collectionName = "strings";
         db.createCollection(collectionName);
-        MongoCollection<Document> strings = db.getCollection(collectionName);
+        var strings = db.getCollection(collectionName);
 
-        Document document = new Document("title", "test");
+        var document = new Document("title", "test");
         strings.insertOne(document);
 
-        assertThat(strings.countDocuments(), equalTo(1L));
+        assertThat(strings.countDocuments()).isEqualTo(1L);
 
         factory.stop();
     }

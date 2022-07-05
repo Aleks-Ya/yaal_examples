@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class PeopleTest {
+class PeopleTest {
     private static final HibernateSessionFactory436 factory = HibernateSessionFactory436.makeFactory(
             Payment.class, Transaction.class, Slip.class, People.class, Address.class);
 
@@ -29,14 +29,14 @@ public class PeopleTest {
             session = factory.openSession();
             session.beginTransaction();
 
-            People man = new People();
-            People woman = new People();
+            var man = new People();
+            var woman = new People();
             Set<People> peoples = new HashSet<>();
             peoples.add(man);
             peoples.add(woman);
 
-            Address spb = new Address();
-            Address moscow = new Address();
+            var spb = new Address();
+            var moscow = new Address();
             Set<Address> addresses = new HashSet<>();
             addresses.add(moscow);
             addresses.add(spb);
@@ -60,7 +60,7 @@ public class PeopleTest {
     }
 
     private void readEntities() throws Exception {
-        Session session = factory.openSession();
+        var session = factory.openSession();
         List<Address> allAddresses = session.createCriteria(Address.class).addOrder(Order.desc("id")).list();
         List<People> allPeoples = session.createCriteria(People.class).addOrder(Order.desc("id")).list();
         session.close();

@@ -8,9 +8,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class PeopleTest {
+class PeopleTest {
     private static final HibernateSessionFactory436 factory = HibernateSessionFactory436.makeFactory(
             People.class, Address.class);
 
@@ -26,14 +26,14 @@ public class PeopleTest {
             session = factory.openSession();
             session.beginTransaction();
 
-            People man = new People();
-            People woman = new People();
+            var man = new People();
+            var woman = new People();
             Set<People> peoples = new HashSet<>();
             peoples.add(man);
             peoples.add(woman);
 
-            Address spb = new Address();
-            Address moscow = new Address();
+            var spb = new Address();
+            var moscow = new Address();
 
             moscow.setPeoples(peoples);
             spb.setPeoples(peoples);
@@ -52,15 +52,15 @@ public class PeopleTest {
     }
 
     private void readEntities() throws Exception {
-        Session session = factory.openSession();
+        var session = factory.openSession();
 
         List<People> allPeoples = session.createCriteria(People.class).list();
-        final int expPeopleSize = 2;
-        assertEquals(expPeopleSize, allPeoples.size());
+        final var expPeopleSize = 2;
+        assertThat(allPeoples.size()).isEqualTo(expPeopleSize);
 
         List<Address> allAddresses = session.createCriteria(Address.class).list();
-        for (Address address : allAddresses) {
-            assertEquals(expPeopleSize, address.getPeoples().size());
+        for (var address : allAddresses) {
+            assertThat(address.getPeoples().size()).isEqualTo(expPeopleSize);
         }
 
         session.close();

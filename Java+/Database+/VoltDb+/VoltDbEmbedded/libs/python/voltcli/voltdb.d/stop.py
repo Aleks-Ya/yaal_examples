@@ -25,19 +25,17 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
-import signal
-from voltcli import utility
 
 @VOLT.Command(
-    description = 'Stop a VoltDB server daemon.',
-    options = [
+    description='Stop a VoltDB server daemon.',
+    options=[
         VOLT.StringOption('-H', '--host', 'host',
-            'HOST[:PORT] (default HOST=localhost, PORT=3021)',
-            default='localhost:3021'),
+                          'HOST[:PORT] (default HOST=localhost, PORT=3021)',
+                          default='localhost:3021'),
         # Keep the -I/--instance option hidden for now.
         VOLT.IntegerOption('-I', '--instance', 'instance',
-            #'specify an instance number for multiple servers on the same host'),
-            None),
+                           # 'specify an instance number for multiple servers on the same host'),
+                           None),
     ]
 )
 def stop(runner):

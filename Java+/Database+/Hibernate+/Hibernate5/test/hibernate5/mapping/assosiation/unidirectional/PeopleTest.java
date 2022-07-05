@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PeopleTest {
     private static final HibernateSessionFactory5 factory = HibernateSessionFactory5.makeFactory(
@@ -49,11 +49,11 @@ class PeopleTest {
 
         List<People> allPeoples = session.createCriteria(People.class).list();
         final var expPeopleSize = 2;
-        assertEquals(expPeopleSize, allPeoples.size());
+        assertThat(allPeoples).hasSize(expPeopleSize);
 
         List<Address> allAddresses = session.createCriteria(Address.class).list();
         for (var address : allAddresses) {
-            assertEquals(expPeopleSize, address.getPeoples().size());
+            assertThat(address.getPeoples()).hasSize(expPeopleSize);
         }
 
         session.close();

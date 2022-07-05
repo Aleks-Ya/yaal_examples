@@ -73,8 +73,8 @@ class AclFastDevDataTest {
 //            AclBinding binding = new AclBinding(pattern, entry);
 //            CreateAclsResult aclsResult = adminClient.createAcls(singletonList(binding));
 //            aclsResult.all().get();
-//            assertThat(topicDescription.name(), equalTo(topic));
-//            assertThat(topicDescription.partitions(), hasSize(1));
+//            assertThat(topicDescription.name()).isEqualTo(topic));
+//            assertThat(topicDescription.partitions()).hasSize(1));
         }
     }
 

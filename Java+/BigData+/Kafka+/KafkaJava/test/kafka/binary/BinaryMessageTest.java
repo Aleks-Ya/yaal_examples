@@ -22,13 +22,20 @@ import java.util.Collections;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Transfer binary messages.
  */
 class BinaryMessageTest extends IntegrationTestHarness {
+
+    private static java.util.List<ConsumerRecord<String, byte[]>> consumeRecords(String topic,
+                                                                                 Consumer<String, byte[]> consumer) {
+        consumer.subscribe(Collections.singleton(topic));
+        var records = consumer.poll(Duration.ofSeconds(1));
+        var topicRecords = records.records(topic);
+        return CollectionUtil.iterableToList(topicRecords);
+    }
 
     @Test
     @Timeout(10)
@@ -43,16 +50,8 @@ class BinaryMessageTest extends IntegrationTestHarness {
             var recordList = consumeRecords(topic, consumer);
             var record1 = recordList.get(0);
             var actBytes = record1.value();
-            assertThat(actBytes, equalTo(expBytes));
+            assertThat(actBytes).isEqualTo(expBytes);
         }
-    }
-
-    private static java.util.List<ConsumerRecord<String, byte[]>> consumeRecords(String topic,
-                                                                                 Consumer<String, byte[]> consumer) {
-        consumer.subscribe(Collections.singleton(topic));
-        var records = consumer.poll(Duration.ofSeconds(1));
-        var topicRecords = records.records(topic);
-        return CollectionUtil.iterableToList(topicRecords);
     }
 
     private void produce(String topic, byte[] bytes) throws InterruptedException, ExecutionException {

@@ -2,7 +2,7 @@ import config.JavaConfig;
 import config.XmlConfig;
 import org.junit.jupiter.api.Test;
 
-public class SQLiteHibernateTest {
+class SQLiteHibernateTest {
     @Test
     void javaConfig() {
         new JavaConfig().workWithDb();

@@ -3,10 +3,7 @@ package hibernate4.mapping.assosiation.bidirectional.payment;
 import hibernate4.context.session.HibernateSessionFactory436;
 import hibernate4.mapping.assosiation.bidirectional.people.Address;
 import hibernate4.mapping.assosiation.bidirectional.people.People;
-import org.hamcrest.Matchers;
 import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.junit.jupiter.api.Test;
 
@@ -14,10 +11,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class PaymentTest {
+class PaymentTest {
     private static final HibernateSessionFactory436 factory = HibernateSessionFactory436.makeFactory(
             Payment.class, Transaction.class, Slip.class, People.class, Address.class);
 
@@ -32,7 +28,7 @@ public class PaymentTest {
             saveEntities();
             loadEntities();
         } finally {
-            SessionFactory sessionFactory = factory.getSessionFactory();
+            var sessionFactory = factory.getSessionFactory();
             if (sessionFactory != null) {
                 sessionFactory.close();
             }
@@ -40,16 +36,16 @@ public class PaymentTest {
     }
 
     private void saveEntities() {
-        Session session = factory.openSession();
+        var session = factory.openSession();
 
-        Payment payment = new Payment("Bike buy");
+        var payment = new Payment("Bike buy");
 
-        Transaction transaction = new Transaction();
+        var transaction = new Transaction();
 //        payment.setTransaction(transaction);
         transaction.setPayment(payment);
 
-        Slip slipA = new Slip(transaction, "С Вас 1 000 $$$");
-        Slip slipB = new Slip(transaction, "С Вас $10 000 000");
+        var slipA = new Slip(transaction, "С Вас 1 000 $$$");
+        var slipB = new Slip(transaction, "С Вас $10 000 000");
 
         Set<Slip> slips = new HashSet<Slip>();
         slips.add(slipA);
@@ -72,33 +68,33 @@ public class PaymentTest {
     }
 
     private void loadEntities() {
-        Session session = factory.openSession();
+        var session = factory.openSession();
         List<Payment> allPayments = session.createCriteria(Payment.class).addOrder(Order.desc("id")).list();
         List<Transaction> allTransactions = session.createCriteria(Transaction.class).addOrder(Order.desc("id")).list();
         List<Slip> allSlips = session.createCriteria(Slip.class).addOrder(Order.desc("id")).list();
 
-        Payment actPayment = allPayments.get(0);
-        Transaction actTransaction = allTransactions.get(0);
-        Set<Slip> transactionSlips = actTransaction.getSlips();
+        var actPayment = allPayments.get(0);
+        var actTransaction = allTransactions.get(0);
+        var transactionSlips = actTransaction.getSlips();
         Hibernate.initialize(transactionSlips);
 
         session.close();
 
-        assertEquals(1, allPayments.size());
-        assertEquals(1, allTransactions.size());
-        assertEquals(2, allSlips.size());
-        assertThat(allSlips, Matchers.containsInAnyOrder(expSlipA, expSlipB));
+        assertThat(allPayments.size()).isEqualTo(1);
+        assertThat(allTransactions.size()).isEqualTo(1);
+        assertThat(allSlips.size()).isEqualTo(2);
+        assertThat(allSlips).containsExactlyInAnyOrder(expSlipA, expSlipB);
 
-        assertEquals(expPayment, actPayment);
-        assertEquals(expPayment, actTransaction.getPayment());
+        assertThat(actPayment).isEqualTo(expPayment);
+        assertThat(actTransaction.getPayment()).isEqualTo(expPayment);
 
-        assertEquals(expTransaction, actTransaction);
-        assertEquals(expTransaction, actPayment.getTransaction());
+        assertThat(actTransaction).isEqualTo(expTransaction);
+        assertThat(actPayment.getTransaction()).isEqualTo(expTransaction);
 
-        assertEquals(2, transactionSlips.size());
-        assertThat(transactionSlips, Matchers.containsInAnyOrder(expSlipA, expSlipB));
-        for (Slip slip : transactionSlips) {
-            assertEquals(expTransaction, slip.getTransaction());
+        assertThat(transactionSlips.size()).isEqualTo(2);
+        assertThat(transactionSlips).containsExactlyInAnyOrder(expSlipA, expSlipB);
+        for (var slip : transactionSlips) {
+            assertThat(slip.getTransaction()).isEqualTo(expTransaction);
         }
 
     }

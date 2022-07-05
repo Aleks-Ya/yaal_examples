@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-@Where( clause = "population > 1000000" )
+@Where(clause = "population > 1000000")
 class CityEntity {
     @Id
     @GeneratedValue
@@ -27,6 +27,6 @@ class CityEntity {
 
     @Override
     public String toString() {
-        return String.format("City[id=%d, name=%s, population=%dk]", id, name, population/1000);
+        return String.format("City[id=%d, name=%s, population=%dk]", id, name, population / 1000);
     }
 }

@@ -28,15 +28,64 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Create a custom Serializer/Deserializer.
  */
 class CustomSerializerTest extends IntegrationTestHarness {
     private static final String topic = CustomSerializerTest.class.getSimpleName().toLowerCase();
+
+    @Test
+    @Timeout(10)
+    void customNoException() throws ExecutionException, InterruptedException {
+        var value = new Person("John", 30);
+        createTopic(topic, 1, 1, new Properties());
+        producePerson(value);
+        var consumerRecords = consumePerson();
+        assertThat(consumerRecords.count()).isEqualTo(1);
+        assertThat(consumerRecords.iterator().next().value()).isEqualTo(value);
+    }
+
+    @Test
+    @Timeout(10)
+    void customException() {
+        var value = new Person("John", null);
+        createTopic(topic, 1, 1, new Properties());
+        assertThatThrownBy(() -> producePerson(value))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Age is null");
+    }
+
+    private ConsumerRecords<String, Person> consumePerson() {
+        var configsToRemove = CollectionConverters.asScala(Collections.<String>emptyList()).toList();
+        var consumerConfig = new Properties();
+        consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, PersonSerDe.class.getName());
+        consumerConfig.put(PersonSerDe.ALLOW_EMPTY_AGE_PROPERTY, false);
+        try (Consumer<String, Person> consumer = createConsumer(null, null,
+                consumerConfig, configsToRemove)) {
+            consumer.subscribe(Collections.singleton(topic));
+            return consumer.poll(Duration.ofSeconds(1));
+        }
+    }
+
+    private void producePerson(Person value) throws InterruptedException, ExecutionException {
+        var producerConfig = new Properties();
+        producerConfig.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        producerConfig.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, PersonSerDe.class.getName());
+        producerConfig.put(PersonSerDe.ALLOW_EMPTY_AGE_PROPERTY, false);
+        try (Producer<String, Person> producer = createProducer(null, null, producerConfig)) {
+            var record = new ProducerRecord<String, Person>(topic, value);
+            producer.send(record).get();
+        }
+    }
+
+    @Override
+    public int brokerCount() {
+        return 1;
+    }
 
     private static class Person implements Serializable {
         private final String name;
@@ -109,55 +158,5 @@ class CustomSerializerTest extends IntegrationTestHarness {
         public void close() {
             // nothing
         }
-    }
-
-    @Test
-    @Timeout(10)
-    void customNoException() throws ExecutionException, InterruptedException {
-        var value = new Person("John", 30);
-        createTopic(topic, 1, 1, new Properties());
-        producePerson(value);
-        var consumerRecords = consumePerson();
-        assertThat(consumerRecords.count(), equalTo(1));
-        assertThat(consumerRecords.iterator().next().value(), equalTo(value));
-    }
-
-    @Test
-    @Timeout(10)
-    void customException() {
-        var value = new Person("John", null);
-        createTopic(topic, 1, 1, new Properties());
-        assertThatThrownBy(() -> producePerson(value))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Age is null");
-    }
-
-    private ConsumerRecords<String, Person> consumePerson() {
-        var configsToRemove = CollectionConverters.asScala(Collections.<String>emptyList()).toList();
-        var consumerConfig = new Properties();
-        consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, PersonSerDe.class.getName());
-        consumerConfig.put(PersonSerDe.ALLOW_EMPTY_AGE_PROPERTY, false);
-        try (Consumer<String, Person> consumer = createConsumer(null, null,
-                consumerConfig, configsToRemove)) {
-            consumer.subscribe(Collections.singleton(topic));
-            return consumer.poll(Duration.ofSeconds(1));
-        }
-    }
-
-    private void producePerson(Person value) throws InterruptedException, ExecutionException {
-        var producerConfig = new Properties();
-        producerConfig.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        producerConfig.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, PersonSerDe.class.getName());
-        producerConfig.put(PersonSerDe.ALLOW_EMPTY_AGE_PROPERTY, false);
-        try (Producer<String, Person> producer = createProducer(null, null, producerConfig)) {
-            var record = new ProducerRecord<String, Person>(topic, value);
-            producer.send(record).get();
-        }
-    }
-
-    @Override
-    public int brokerCount() {
-        return 1;
     }
 }

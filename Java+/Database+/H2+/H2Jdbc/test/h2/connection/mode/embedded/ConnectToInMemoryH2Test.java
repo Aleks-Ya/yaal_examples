@@ -1,6 +1,7 @@
 package h2.connection.mode.embedded;
 
 import org.h2.tools.Server;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.sql.DriverManager;
@@ -12,6 +13,7 @@ class ConnectToInMemoryH2Test {
      * Connect URL: jdbc:h2:tcp://localhost:9092/mem:dbname
      */
     @Test
+    @Disabled("Sever works forever")
     void runServer() throws SQLException {
         var dbname = "dbname";
         var conn = DriverManager.getConnection("jdbc:h2:mem:" + dbname);

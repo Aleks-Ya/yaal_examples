@@ -10,12 +10,8 @@ import java.util.concurrent.ExecutionException;
 
 import static java.lang.String.format;
 import static java.util.Collections.singletonList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.not;
 
 /**
  * Use AdminClient API.
@@ -33,8 +29,8 @@ class AdminClientTest extends IntegrationTestHarness {
             var describeTopicsResult = adminClient.describeTopics(singletonList(topic));
             var topicDescriptionMap = describeTopicsResult.all().get();
             var topicDescription = topicDescriptionMap.get(topic);
-            assertThat(topicDescription.name(), equalTo(topic));
-            assertThat(topicDescription.partitions(), hasSize(1));
+            assertThat(topicDescription.name()).isEqualTo(topic);
+            assertThat(topicDescription.partitions()).hasSize(1);
         }
     }
 
@@ -48,8 +44,8 @@ class AdminClientTest extends IntegrationTestHarness {
         try (var adminClient = createAdminClient(new Properties())) {
             var result = adminClient.listTopics();
             var topicNames = result.names().get();
-            assertThat(topicNames, contains(topicExists));
-            assertThat(topicNames, not(contains(topicNotExists)));
+            assertThat(topicNames).contains(topicExists);
+            assertThat(topicNames).doesNotContain(topicNotExists);
         }
     }
 
@@ -58,14 +54,14 @@ class AdminClientTest extends IntegrationTestHarness {
     void createTopic() throws ExecutionException, InterruptedException {
         try (var adminClient = createAdminClient(new Properties())) {
             var topicNamesBefore = adminClient.listTopics().names().get();
-            assertThat(topicNamesBefore, not(contains(topic)));
+            assertThat(topicNamesBefore).doesNotContain(topic);
 
             var newTopic = new NewTopic(topic, 1, (short) 1);
             var result = adminClient.createTopics(singletonList(newTopic));
             result.all().get();
 
             var topicNamesAfter = adminClient.listTopics().names().get();
-            assertThat(topicNamesAfter, contains(topic));
+            assertThat(topicNamesAfter).contains(topic);
         }
     }
 
@@ -88,7 +84,7 @@ class AdminClientTest extends IntegrationTestHarness {
             var describeClusterResult = adminClient.describeCluster();
             var nodesFuture = describeClusterResult.nodes();
             var nodes = nodesFuture.get();
-            assertThat(nodes, hasSize(BROKER_COUNT));
+            assertThat(nodes).hasSize(BROKER_COUNT);
         }
     }
 

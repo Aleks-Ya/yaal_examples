@@ -29,6 +29,6 @@ public class CityEntity {
 
     @Override
     public String toString() {
-        return String.format("Город[id=%d, name=%s, population=%dтыс region=%s]", id, name, population/1000, region);
+        return String.format("Город[id=%d, name=%s, population=%dтыс region=%s]", id, name, population / 1000, region);
     }
 }

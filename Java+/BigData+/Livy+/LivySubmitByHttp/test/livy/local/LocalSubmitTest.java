@@ -12,8 +12,7 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class LocalSubmitTest {
     private static final URI baseUri = URI.create("http://spark-standalone-cluster-livy:8998");
@@ -23,7 +22,7 @@ class LocalSubmitTest {
         var endpoint = baseUri.resolve("/batches");
         var request = HttpRequest.newBuilder().uri(endpoint).GET().build();
         var response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        assertThat(response.statusCode(), equalTo(200));
+        assertThat(response.statusCode()).isEqualTo(200);
         System.out.println(response.body());
     }
 
@@ -56,7 +55,7 @@ class LocalSubmitTest {
                 .send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.statusCode());
         System.out.println(response.body());
-        assertThat(response.statusCode(), equalTo(201));
+        assertThat(response.statusCode()).isEqualTo(201);
     }
 
     @Test
@@ -65,7 +64,7 @@ class LocalSubmitTest {
         var endpoint = baseUri.resolve("/batches/" + batchId);
         var request = HttpRequest.newBuilder().uri(endpoint).GET().build();
         var response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        assertThat(response.statusCode(), equalTo(200));
+        assertThat(response.statusCode()).isEqualTo(200);
         System.out.println(response.body());
     }
 
@@ -75,7 +74,7 @@ class LocalSubmitTest {
         var endpoint = baseUri.resolve("/batches/" + batchId + "/state");
         var request = HttpRequest.newBuilder().uri(endpoint).GET().build();
         var response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        assertThat(response.statusCode(), equalTo(200));
+        assertThat(response.statusCode()).isEqualTo(200);
         System.out.println(response.body());
     }
 
@@ -85,7 +84,7 @@ class LocalSubmitTest {
         var endpoint = baseUri.resolve("/batches/" + batchId + "/log");
         var request = HttpRequest.newBuilder().uri(endpoint).GET().build();
         var response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        assertThat(response.statusCode(), equalTo(200));
+        assertThat(response.statusCode()).isEqualTo(200);
         System.out.println(response.body());
     }
 }

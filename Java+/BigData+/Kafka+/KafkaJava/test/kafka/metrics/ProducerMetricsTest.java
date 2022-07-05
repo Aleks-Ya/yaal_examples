@@ -9,15 +9,21 @@ import org.junit.jupiter.api.Timeout;
 
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
+import java.util.function.IntPredicate;
 import java.util.stream.IntStream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.lessThan;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ProducerMetricsTest extends BaseTest {
     private static final String BUFFER_AVAILABLE_BYTES_METRIC_NAME = "buffer-available-bytes";
     private static final String RECORD_SEND_TOTAL_METRIC_NAME = "record-send-total";
+
+    private static <T> T getMetricByName(Producer<String, String> producer, String metricName) {
+        return (T) producer.metrics().entrySet()
+                .stream().filter(entry -> "producer-metrics".equals(entry.getKey().group()))
+                .filter(entry -> metricName.equals(entry.getKey().name()))
+                .findFirst().orElseThrow().getValue().metricValue();
+    }
 
     @Test
     @Timeout(10)
@@ -25,10 +31,10 @@ class ProducerMetricsTest extends BaseTest {
         var topic = "topic";
         createTopic(topic, 1, 1, new Properties());
         try (Producer<String, String> producer = createProducer(new StringSerializer(), new StringSerializer(), new Properties())) {
-            assertThat(getMetricByName(producer, RECORD_SEND_TOTAL_METRIC_NAME), equalTo(0D));
+            assertThat((IntPredicate) getMetricByName(producer, RECORD_SEND_TOTAL_METRIC_NAME)).isEqualTo(0D);
             var record = new ProducerRecord<String, String>(topic, "abc");
             producer.send(record).get();
-            assertThat(getMetricByName(producer, RECORD_SEND_TOTAL_METRIC_NAME), equalTo(1D));
+            assertThat((IntPredicate) getMetricByName(producer, RECORD_SEND_TOTAL_METRIC_NAME)).isEqualTo(1D);
         }
     }
 
@@ -46,22 +52,15 @@ class ProducerMetricsTest extends BaseTest {
                     .map(producer::send)
                     .toList();
             Double bufferAvailableBytes2 = getMetricByName(producer, BUFFER_AVAILABLE_BYTES_METRIC_NAME);
-            assertThat(bufferAvailableBytes2, lessThan(bufferAvailableBytes1));
+            assertThat(bufferAvailableBytes2).isLessThan(bufferAvailableBytes1);
 
             for (var future : futures) {
                 future.get();
             }
 
             Double bufferAvailableBytes3 = getMetricByName(producer, BUFFER_AVAILABLE_BYTES_METRIC_NAME);
-            assertThat(bufferAvailableBytes3, equalTo(bufferAvailableBytes1));
+            assertThat(bufferAvailableBytes3).isEqualTo(bufferAvailableBytes1);
         }
-    }
-
-    private static <T> T getMetricByName(Producer<String, String> producer, String metricName) {
-        return (T) producer.metrics().entrySet()
-                .stream().filter(entry -> "producer-metrics".equals(entry.getKey().group()))
-                .filter(entry -> metricName.equals(entry.getKey().name()))
-                .findFirst().orElseThrow().getValue().metricValue();
     }
 
     @Override

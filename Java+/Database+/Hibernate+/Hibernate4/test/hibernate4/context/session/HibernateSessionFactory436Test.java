@@ -1,7 +1,5 @@
 package hibernate4.context.session;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.Column;
@@ -9,22 +7,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-public class HibernateSessionFactory436Test {
+class HibernateSessionFactory436Test {
 
-    private static HibernateSessionFactory436 factory = HibernateSessionFactory436.makeFactory(House.class);
+    private static final HibernateSessionFactory436 factory = HibernateSessionFactory436.makeFactory(House.class);
 
     @Test
-    void getSessionFactory() throws Exception {
-        SessionFactory sf = factory.getSessionFactory();
-        Session s = sf.openSession();
+    void getSessionFactory() {
+        var sf = factory.getSessionFactory();
+        var s = sf.openSession();
         s.save(new House(1, "Spb"));
         s.flush();
         s.close();
     }
 
     @Test
-    void openSession() throws Exception {
-        Session s = factory.openSession();
+    void openSession() {
+        var s = factory.openSession();
         s.save(new House(2, "Spb"));
         s.flush();
         s.close();

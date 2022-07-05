@@ -25,23 +25,23 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
-import os
 import urllib
 
+
 @VOLT.Command(
-    bundles = VOLT.AdminBundle(),
-    description = 'Save a VoltDB database snapshot.',
-    options = (
-        VOLT.BooleanOption('-b', '--blocking', 'blocking',
-                           'block transactions and wait until the snapshot completes',
-                           default = False),
-        VOLT.EnumOption('-f', '--format', 'format',
-                        'snapshot format', 'native', 'csv',
-                        default = 'native')
+    bundles=VOLT.AdminBundle(),
+    description='Save a VoltDB database snapshot.',
+    options=(
+            VOLT.BooleanOption('-b', '--blocking', 'blocking',
+                               'block transactions and wait until the snapshot completes',
+                               default=False),
+            VOLT.EnumOption('-f', '--format', 'format',
+                            'snapshot format', 'native', 'csv',
+                            default='native')
     ),
-    arguments = (
-        VOLT.PathArgument('directory', 'the snapshot server directory', absolute = True),
-        VOLT.StringArgument('nonce', 'the unique snapshot identifier (nonce)')
+    arguments=(
+            VOLT.PathArgument('directory', 'the snapshot server directory', absolute=True),
+            VOLT.StringArgument('nonce', 'the unique snapshot identifier (nonce)')
     )
 )
 def save(runner):
@@ -52,8 +52,9 @@ def save(runner):
     else:
         blocking = 'false'
     json_opts = ['{uripath:"%s",nonce:"%s",block:%s,format:"%s"}'
-                    % (uri, nonce, blocking, runner.opts.format)]
+                 % (uri, nonce, blocking, runner.opts.format)]
     runner.verbose_info('@SnapshotSave "%s"' % json_opts)
     columns = [VOLT.FastSerializer.VOLTTYPE_STRING]
     response = runner.call_proc('@SnapshotSave', columns, json_opts)
-    print response.table(0).format_table(caption = 'Snapshot Save Results')
+    print
+    response.table(0).format_table(caption='Snapshot Save Results')

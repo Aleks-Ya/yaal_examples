@@ -1,7 +1,6 @@
 package hibernate5.exception;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.util.concurrent.TimeUnit;
 

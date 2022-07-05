@@ -29,54 +29,58 @@
 
 # IMPORTANT: This depends on no other voltcli modules. Please keep it that way.
 
-import sys
-import os
-import subprocess
-import glob
-import copy
-import inspect
 import ConfigParser
-import zipfile
-import re
-import pkgutil
 import binascii
-import stat
-import daemon
+import copy
+import glob
+import os
+import pkgutil
+import re
 import signal
-import textwrap
+import stat
 import string
+import subprocess
+import sys
+import textwrap
+import zipfile
 
-#===============================================================================
+import daemon
+
+
+# ===============================================================================
 class Global:
-#===============================================================================
+    # ===============================================================================
     """
     Global data for utilities.
     """
     verbose_enabled = False
-    debug_enabled   = False
-    dryrun_enabled  = False
-    manifest_path   = 'MANIFEST'
+    debug_enabled = False
+    dryrun_enabled = False
+    manifest_path = 'MANIFEST'
     state_directory = ''
 
-#===============================================================================
+
+# ===============================================================================
 def set_dryrun(dryrun):
-#===============================================================================
+    # ===============================================================================
     """
     Enable or disable command dry run (display only/no execution).
     """
     Global.dryrun_enabled = dryrun
 
-#===============================================================================
+
+# ===============================================================================
 def set_verbose(verbose):
-#===============================================================================
+    # ===============================================================================
     """
     Enable or disable verbose messages. Increases the number of INFO messages.
     """
     Global.verbose_enabled = verbose
 
-#===============================================================================
+
+# ===============================================================================
 def set_debug(debug):
-#===============================================================================
+    # ===============================================================================
     """
     Enable or disable DEBUG messages. Also enables verbose INFO messages.
     """
@@ -84,9 +88,10 @@ def set_debug(debug):
     if debug:
         Global.verbose_enabled = True
 
-#===============================================================================
+
+# ===============================================================================
 def set_state_directory(directory):
-#===============================================================================
+    # ===============================================================================
     if not os.path.exists(directory):
         try:
             os.makedirs(directory)
@@ -94,46 +99,52 @@ def set_state_directory(directory):
             abort('Error creating state directory "%s".' % directory, e)
     Global.state_directory = os.path.expandvars(os.path.expanduser(directory))
 
-#===============================================================================
+
+# ===============================================================================
 def get_state_directory():
-#===============================================================================
+    # ===============================================================================
     """
     Return and create as needed a path for saving state.
     """
     return Global.state_directory
 
-#===============================================================================
+
+# ===============================================================================
 def is_dryrun():
-#===============================================================================
+    # ===============================================================================
     """
     Return True if dry-run is enabled.
     """
     return Global.dryrun_enabled
 
-#===============================================================================
+
+# ===============================================================================
 def is_verbose():
-#===============================================================================
+    # ===============================================================================
     """
     Return True if verbose messages are enabled.
     """
     return Global.verbose_enabled
 
-#===============================================================================
+
+# ===============================================================================
 def is_debug():
-#===============================================================================
+    # ===============================================================================
     """
     Return True if debug messages are enabled.
     """
     return Global.debug_enabled
 
-#===============================================================================
+
+# ===============================================================================
 def get_state_directory():
-#===============================================================================
+    # ===============================================================================
     return Global.state_directory
 
-#===============================================================================
-def display_messages(msgs, f = sys.stdout, tag = None, level = 0):
-#===============================================================================
+
+# ===============================================================================
+def display_messages(msgs, f=sys.stdout, tag=None, level=0):
+    # ===============================================================================
     """
     Low level message display.
     """
@@ -164,56 +175,62 @@ def display_messages(msgs, f = sys.stdout, tag = None, level = 0):
                 else:
                     # Recursively display an iterable with indentation added.
                     if hasattr(msg, '__iter__'):
-                        display_messages(msg, f = f, tag = tag, level = level + 1)
+                        display_messages(msg, f=f, tag=tag, level=level + 1)
                     else:
                         for msg2 in str(msg).split('\n'):
                             f.write('%s%s%s\n' % (stag, sindent, msg2))
 
-#===============================================================================
+
+# ===============================================================================
 def info(*msgs):
-#===============================================================================
+    # ===============================================================================
     """
     Display INFO level messages.
     """
-    display_messages(msgs, tag = 'INFO')
+    display_messages(msgs, tag='INFO')
 
-#===============================================================================
+
+# ===============================================================================
 def verbose_info(*msgs):
-#===============================================================================
+    # ===============================================================================
     """
     Display verbose INFO level messages if enabled.
     """
     if Global.verbose_enabled:
-        display_messages(msgs, tag = 'INFO2')
+        display_messages(msgs, tag='INFO2')
 
-#===============================================================================
+
+# ===============================================================================
 def debug(*msgs):
-#===============================================================================
+    # ===============================================================================
     """
     Display DEBUG level message(s) if debug is enabled.
     """
     if Global.debug_enabled:
-        display_messages(msgs, tag = 'DEBUG')
+        display_messages(msgs, tag='DEBUG')
 
-#===============================================================================
+
+# ===============================================================================
 def warning(*msgs):
-#===============================================================================
+    # ===============================================================================
     """
     Display WARNING level messages.
     """
-    display_messages(msgs, tag = 'WARNING')
+    display_messages(msgs, tag='WARNING')
 
-#===============================================================================
+
+# ===============================================================================
 def error(*msgs):
-#===============================================================================
+    # ===============================================================================
     """
     Display ERROR level messages.
     """
-    display_messages(msgs, tag = 'ERROR')
+    display_messages(msgs, tag='ERROR')
 
-#===============================================================================
+
+# ===============================================================================
 def abort(*msgs, **kwargs):
-#===============================================================================
+    # ===============================================================================
     """
     Display ERROR messages and then abort.
     :Keywords:
@@ -230,9 +247,10 @@ def abort(*msgs, **kwargs):
         return_code = 1
     sys.exit(return_code)
 
-#===============================================================================
+
+# ===============================================================================
 def find_in_path(name):
-#===============================================================================
+    # ===============================================================================
     """
     Find program in the system path.
     """
@@ -242,9 +260,10 @@ def find_in_path(name):
             return os.path.join(dir, name)
     return None
 
-#===============================================================================
+
+# ===============================================================================
 def find_programs(*names):
-#===============================================================================
+    # ===============================================================================
     """
     Check for required programs in the path.
     """
@@ -258,9 +277,10 @@ def find_programs(*names):
         abort('Required program(s) are not in the path:', missing)
     return paths
 
-#===============================================================================
+
+# ===============================================================================
 class PythonSourceFinder(object):
-#===============================================================================
+    # ===============================================================================
     """
     Find and invoke python source files in a set of directories and resource
     subdirectories (for searching in zip packages).  Execute all discovered
@@ -269,10 +289,11 @@ class PythonSourceFinder(object):
     code. The decorator is called when the source file is executed which serves
     as an opportunity to keep track of discovered functions.
     """
+
     class Scan(object):
         def __init__(self, package, path):
             self.package = package
-            self.path    = path
+            self.path = path
 
     def __init__(self):
         self.scan_locs = []
@@ -318,9 +339,10 @@ class PythonSourceFinder(object):
                     syms_tmp = copy.copy(syms)
                     execfile(modpath, syms_tmp)
 
-#===============================================================================
-def normalize_list(items, width, filler = None):
-#===============================================================================
+
+# ===============================================================================
+def normalize_list(items, width, filler=None):
+    # ===============================================================================
     """
     Normalize list to a specified width, truncating or filling as needed.
     Filler data can be supplied by caller. The filler will be copied to each
@@ -333,9 +355,10 @@ def normalize_list(items, width, filler = None):
         output += filler * (width - len(output))
     return tuple(output)
 
-#===============================================================================
-def format_table(tuples, caption = None, headings = None, indent = 0, separator = ' '):
-#===============================================================================
+
+# ===============================================================================
+def format_table(tuples, caption=None, headings=None, indent=0, separator=' '):
+    # ===============================================================================
     """
     Format a table, i.e. tuple list, including an optional caption, optional
     column headings, and rows of data cells. Aligns the headings and data
@@ -374,9 +397,10 @@ def format_table(tuples, caption = None, headings = None, indent = 0, separator 
         output.append(fmt % normalize_list(row, len(widths), ''))
     return '\n'.join(output)
 
-#===============================================================================
-def format_tables(tuples_list, caption_list = None, heading_list = None, indent = 0):
-#===============================================================================
+
+# ===============================================================================
+def format_tables(tuples_list, caption_list=None, heading_list=None, indent=0):
+    # ===============================================================================
     """
     Format multiple tables, i.e. a list of tuple lists. See format_table() for
     more information.
@@ -391,13 +415,14 @@ def format_tables(tuples_list, caption_list = None, heading_list = None, indent 
             heading = None
         else:
             heading = heading_list[i]
-        s = format_table(tuples_list[i], caption = caption, heading = heading, indent = indent)
+        s = format_table(tuples_list[i], caption=caption, heading=heading, indent=indent)
         output.append(s)
     return '\n\n'.join(output)
 
-#===============================================================================
-def format_volt_table(table, caption = None, headings = True):
-#===============================================================================
+
+# ===============================================================================
+def format_volt_table(table, caption=None, headings=True):
+    # ===============================================================================
     """
     Format a VoltTable for display.
     """
@@ -406,11 +431,12 @@ def format_volt_table(table, caption = None, headings = True):
         heading_row = [c.name for c in table.columns]
     else:
         heading_row = None
-    return format_table(rows, caption = caption, headings = heading_row)
+    return format_table(rows, caption=caption, headings=heading_row)
 
-#===============================================================================
-def format_volt_tables(table_list, caption_list = None, headings = True):
-#===============================================================================
+
+# ===============================================================================
+def format_volt_tables(table_list, caption_list=None, headings=True):
+    # ===============================================================================
     """
     Format a list of VoltTable's for display.
     """
@@ -421,12 +447,13 @@ def format_volt_tables(table_list, caption_list = None, headings = True):
                 caption = None
             else:
                 caption = caption_list[i]
-            output.append(format_volt_table(table_list[i], caption = caption, headings = headings))
+            output.append(format_volt_table(table_list[i], caption=caption, headings=headings))
     return '\n\n'.join(output)
 
-#===============================================================================
+
+# ===============================================================================
 def quote_shell_arg(arg):
-#===============================================================================
+    # ===============================================================================
     """
     Return an argument with quotes added as needed.
     """
@@ -435,9 +462,10 @@ def quote_shell_arg(arg):
         return '"%s"' % sarg
     return sarg
 
-#===============================================================================
+
+# ===============================================================================
 def unquote_shell_arg(arg):
-#===============================================================================
+    # ===============================================================================
     """
     Return an argument with quotes removed if present.
     """
@@ -454,36 +482,40 @@ def unquote_shell_arg(arg):
     if pos == len(sarg) - 1:
         # No first quote, don't know what else to do but return as is
         return sarg
-    return sarg[:pos] + sarg[pos+1:-1]
+    return sarg[:pos] + sarg[pos + 1:-1]
 
-#===============================================================================
+
+# ===============================================================================
 def quote_shell_args(*args_in):
-#===============================================================================
+    # ===============================================================================
     """
     Return a list of arguments that are quoted as needed.
     """
     return [quote_shell_arg(arg) for arg in args_in]
 
-#===============================================================================
+
+# ===============================================================================
 def unquote_shell_args(*args_in):
-#===============================================================================
+    # ===============================================================================
     """
     Return a list of arguments with quotes removed when present.
     """
     return [unquote_shell_arg(arg) for arg in args_in]
 
-#===============================================================================
+
+# ===============================================================================
 def join_shell_cmd(cmd, *args):
-#===============================================================================
+    # ===============================================================================
     """
     Join shell command and arguments into one string.
     Add quotes as appropriate.
     """
     return ' '.join(quote_shell_args(cmd, *args))
 
-#===============================================================================
+
+# ===============================================================================
 def run_cmd(cmd, *args):
-#===============================================================================
+    # ===============================================================================
     """
     Run external program without capturing or suppressing output and check return code.
     """
@@ -497,9 +529,10 @@ def run_cmd(cmd, *args):
         if retcode != 0:
             abort(return_code=retcode)
 
-#===============================================================================
+
+# ===============================================================================
 def exec_cmd(cmd, *args):
-#===============================================================================
+    # ===============================================================================
     """
     Run external program by replacing the current (Python) process.
     """
@@ -513,9 +546,10 @@ def exec_cmd(cmd, *args):
         cmd_and_args = unquote_shell_args(cmd, *args)
         os.execvp(cmd, cmd_and_args)
 
-#===============================================================================
+
+# ===============================================================================
 def pipe_cmd(*args):
-#===============================================================================
+    # ===============================================================================
     """
     Run an external program, capture its output, and yield each output line for
     iteration.
@@ -528,9 +562,10 @@ def pipe_cmd(*args):
     except Exception, e:
         warning('Exception running command: %s' % ' '.join(args), e)
 
-#===============================================================================
+
+# ===============================================================================
 def daemon_file_name(base_name=None, host=None, instance=None):
-#===============================================================================
+    # ===============================================================================
     """
     Build a daemon output file name using optional base name, host, and instance.
     """
@@ -546,9 +581,10 @@ def daemon_file_name(base_name=None, host=None, instance=None):
     daemon_name = ''.join(names)
     return daemon_name
 
-#===============================================================================
+
+# ===============================================================================
 class Daemonizer(daemon.Daemon):
-#===============================================================================
+    # ===============================================================================
     """
     Class that supports daemonization (inherited from the daemon module). The
     current process, i.e. the running Python script is completely replaced by
@@ -586,13 +622,13 @@ class Daemonizer(daemon.Daemon):
                     abort('Unable to remove the existing output file "%s".' % path, e)
         try:
             info('Starting %s in the background...' % (self.description), [
-                    'Output files are in "%s".' % self.output_dir
-                ])
+                'Output files are in "%s".' % self.output_dir
+            ])
             self.start(*args)
         except daemon.Daemon.AlreadyRunningException, e:
             abort('A %s background process appears to be running.' % self.description, (
-                     'Process ID (PID): %d' % e.pid,
-                     'PID file: %s' % e.pidfile),
+                'Process ID (PID): %d' % e.pid,
+                'PID file: %s' % e.pidfile),
                   'Please stop the process and try again.')
         except (IOError, OSError), e:
             abort('Unable to start the %s background process.' % self.description, e)
@@ -649,9 +685,10 @@ class Daemonizer(daemon.Daemon):
                 except (OSError, IOError), e:
                     warning('Failed to delete PID file "%s".' % path, e)
 
-#===============================================================================
+
+# ===============================================================================
 def is_string(item):
-#===============================================================================
+    # ===============================================================================
     """
     Return True if the item behaves like a string.
     """
@@ -661,9 +698,10 @@ def is_string(item):
     except TypeError:
         return False
 
-#===============================================================================
+
+# ===============================================================================
 def is_sequence(item):
-#===============================================================================
+    # ===============================================================================
     """
     Return True if the item behaves like an iterable sequence.
     """
@@ -676,9 +714,10 @@ def is_sequence(item):
     except TypeError:
         return False
 
-#===============================================================================
+
+# ===============================================================================
 def _flatten(item):
-#===============================================================================
+    # ===============================================================================
     """
     Internal function to recursively iterate a potentially nested sequence.
     None items are filtered out.
@@ -692,26 +731,29 @@ def _flatten(item):
         else:
             yield item
 
-#===============================================================================
+
+# ===============================================================================
 def flatten(*items):
-#===============================================================================
+    # ===============================================================================
     """
     Flatten and yield individual items from a potentially nested list or tuple.
     """
     for item in _flatten(items):
         yield item
 
-#===============================================================================
+
+# ===============================================================================
 def flatten_to_list(*items):
-#===============================================================================
+    # ===============================================================================
     """
     Flatten a potentially nested list or tuple to a simple list.
     """
     return [item for item in flatten(*items)]
 
-#===============================================================================
+
+# ===============================================================================
 def to_display_string(item):
-#===============================================================================
+    # ===============================================================================
     """
     Recursively convert simple items and potentially nested sequences to a
     string, using square brackets and commas to format sequences.
@@ -725,23 +767,25 @@ def to_display_string(item):
         s += to_display_string(subitem)
     return '[%s]' % s
 
-#===============================================================================
+
+# ===============================================================================
 class Zipper(object):
-#===============================================================================
+    # ===============================================================================
     """
     The Zipper class creates a zip file using the directories, strings, and
     exclusion regular expresions provided. It can also add a preamble and make
     the resulting file executable in order to support making a self-executable
     compressed Python program.
     """
-    def __init__(self, excludes = []):
+
+    def __init__(self, excludes=[]):
         self.output_file = None
-        self.output_zip  = None
+        self.output_zip = None
         self.output_path = None
-        self.manifest    = []
+        self.manifest = []
         self.re_excludes = [re.compile(exclude) for exclude in excludes]
 
-    def open(self, output_path, preamble = None, force = False):
+    def open(self, output_path, preamble=None, force=False):
         if os.path.exists(output_path) and not force:
             if choose('Overwrite "%s"?' % output_path, 'yes', 'no') == 'n':
                 abort()
@@ -755,7 +799,7 @@ class Zipper(object):
             except (IOError, OSError), e:
                 self._abort('Failed to open for writing.', e)
 
-    def close(self, make_executable = False):
+    def close(self, make_executable=False):
         if self.output_zip:
             # Write the manifest.
             try:
@@ -795,7 +839,7 @@ class Zipper(object):
             except (IOError, OSError), e:
                 self._abort('Failed to write string to file "%s".' % path_out, e)
 
-    def add_directory(self, path_in, dst, excludes = []):
+    def add_directory(self, path_in, dst, excludes=[]):
         if not os.path.isdir(path_in):
             self._abort('Zip source directory "%s" does not exist.' % path_in)
         self._verbose_info('add directory "%s" to "%s"' % (path_in, dst))
@@ -817,9 +861,10 @@ class Zipper(object):
     def _abort(self, *msgs):
         abort('Fatal error writing zip file "%s".' % self.output_path, msgs)
 
-#===============================================================================
+
+# ===============================================================================
 def merge_java_options(*opts):
-#===============================================================================
+    # ===============================================================================
     """
     Merge redundant -X... java command line options. Keep others intact.
     Arguments can be lists or individual arguments. Returns the reduced list.
@@ -839,25 +884,28 @@ def merge_java_options(*opts):
                 ret_opts.append(opt)
     return ret_opts
 
-#===============================================================================
+
+# ===============================================================================
 def kwargs_merge_list(kwargs, name, *args):
-#===============================================================================
+    # ===============================================================================
     """
     Merge and flatten kwargs list with additional items.
     """
     kwargs[name] = flatten_to_list(kwargs.get(name, None), *args)
 
-#===============================================================================
+
+# ===============================================================================
 def kwargs_merge_java_options(kwargs, name, *args):
-#===============================================================================
+    # ===============================================================================
     """
     Merge and flatten kwargs Java options list with additional options.
     """
     kwargs[name] = merge_java_options(kwargs.get(name, None), *args)
 
-#===============================================================================
+
+# ===============================================================================
 def choose(prompt, *choices):
-#===============================================================================
+    # ===============================================================================
     """
     Prompt the user for multiple choice input. Keep prompting until a valid
     choice is received. Choice shortcuts require unique first letters. The user
@@ -879,9 +927,10 @@ def choose(prompt, *choices):
         if response in letters or response in choices:
             return response[0]
 
-#===============================================================================
+
+# ===============================================================================
 def dict_to_sorted_pairs(d):
-#===============================================================================
+    # ===============================================================================
     """
     Convert a dictionary to a list of key/value pairs sorted by key.
     """
@@ -892,9 +941,10 @@ def dict_to_sorted_pairs(d):
         results.append((key, d[key]))
     return results
 
-#===============================================================================
+
+# ===============================================================================
 def pluralize(s, count):
-#===============================================================================
+    # ===============================================================================
     """
     Return word with 's' appended if the count > 1.
     """
@@ -902,16 +952,19 @@ def pluralize(s, count):
         return '%ss' % s
     return s
 
-#===============================================================================
-def kwargs_extract(kwargs, defaults, remove = True, check_extras = False):
-#===============================================================================
+
+# ===============================================================================
+def kwargs_extract(kwargs, defaults, remove=True, check_extras=False):
+    # ===============================================================================
     """
     Extract and optionally remove valid keyword arguments and convert to an
     object with attributes.  The defaults argument specifies both the list of
     valid keywords and their default values. Abort on any invalid keyword.
     """
+
     class O(object):
         pass
+
     o = O()
     if check_extras:
         bad = list(set(kwargs.keys()).difference(set(defaults.keys())))
@@ -929,25 +982,28 @@ def kwargs_extract(kwargs, defaults, remove = True, check_extras = False):
         setattr(o, name, value)
     return o
 
-#===============================================================================
-def kwargs_get(kwargs, name, remove = True, default = None):
-#===============================================================================
+
+# ===============================================================================
+def kwargs_get(kwargs, name, remove=True, default=None):
+    # ===============================================================================
     defaults = {name: default}
-    args = kwargs_extract(kwargs, defaults, remove = remove, check_extras = False)
+    args = kwargs_extract(kwargs, defaults, remove=remove, check_extras=False)
     return getattr(args, name)
 
-#===============================================================================
-def kwargs_get_string(kwargs, name, remove = True, default = None):
-#===============================================================================
-    value = kwargs_get(kwargs, name, remove = remove, default = default)
+
+# ===============================================================================
+def kwargs_get_string(kwargs, name, remove=True, default=None):
+    # ===============================================================================
+    value = kwargs_get(kwargs, name, remove=remove, default=default)
     if value is not None:
         value = str(value)
     return value
 
-#===============================================================================
-def kwargs_get_integer(kwargs, name, remove = True, default = None):
-#===============================================================================
-    value = kwargs_get(kwargs, name, remove = remove, default = default)
+
+# ===============================================================================
+def kwargs_get_integer(kwargs, name, remove=True, default=None):
+    # ===============================================================================
+    value = kwargs_get(kwargs, name, remove=remove, default=default)
     if value is not None:
         try:
             value = int(value)
@@ -955,37 +1011,43 @@ def kwargs_get_integer(kwargs, name, remove = True, default = None):
             abort('Keyword argument "%s" must be an integer: %s' % (name, str(value)))
     return value
 
-#===============================================================================
-def kwargs_get_boolean(kwargs, name, remove = True, default = None):
-#===============================================================================
-    value = kwargs_get(kwargs, name, remove = remove, default = default)
+
+# ===============================================================================
+def kwargs_get_boolean(kwargs, name, remove=True, default=None):
+    # ===============================================================================
+    value = kwargs_get(kwargs, name, remove=remove, default=default)
     if value is None or value == True or value == False:
         return value
     abort('Keyword argument "%s" must be a boolean value: %s' % (name, str(value)))
 
-#===============================================================================
-def kwargs_get_list(kwargs, name, remove = True, default = []):
-#===============================================================================
-    return flatten_to_list(kwargs_get(kwargs, name, remove = remove, default = default))
 
-#===============================================================================
+# ===============================================================================
+def kwargs_get_list(kwargs, name, remove=True, default=[]):
+    # ===============================================================================
+    return flatten_to_list(kwargs_get(kwargs, name, remove=remove, default=default))
+
+
+# ===============================================================================
 def kwargs_set_defaults(kwargs, **defaults):
-#===============================================================================
+    # ===============================================================================
     for name in defaults:
         if name not in kwargs:
             kwargs[name] = defaults[name]
 
-#===============================================================================
-def parse_hosts(host_string, min_hosts = None, max_hosts = None, default_port = None):
-#===============================================================================
+
+# ===============================================================================
+def parse_hosts(host_string, min_hosts=None, max_hosts=None, default_port=None):
+    # ===============================================================================
     """
     Split host string on commas, extract optional port for each and return list
     of host objects. Check against minimum/maximum quantities if specified.
     """
+
     class Host(object):
         def __init__(self, host, port):
             self.host = host
             self.port = port
+
     hosts = []
     for host_port in host_string.split(','):
         split_host = host_port.split(':')
@@ -1006,15 +1068,16 @@ def parse_hosts(host_string, min_hosts = None, max_hosts = None, default_port = 
         hosts.append(Host(host, port))
     if min_hosts is not None and len(hosts) < min_hosts:
         abort('Too few hosts in host string "%s". The minimum is %d.'
-                    % (host_string, min_hosts))
+              % (host_string, min_hosts))
     if max_hosts is not None and len(hosts) > max_hosts:
         abort('Too many hosts in host string "%s". The maximum is %d.'
-                    % (host_string, max_hosts))
+              % (host_string, max_hosts))
     return hosts
 
-#===============================================================================
+
+# ===============================================================================
 def paragraph(*lines):
-#===============================================================================
+    # ===============================================================================
     """
     Strip leading and trailing whitespace and wrap text into a paragraph block.
     The arguments can include arbitrarily nested sequences.
@@ -1024,20 +1087,23 @@ def paragraph(*lines):
         wlines.extend(line.strip().split('\n'))
     return textwrap.fill('\n'.join(wlines))
 
-#===============================================================================
+
+# ===============================================================================
 class File(object):
-#===============================================================================
+    # ===============================================================================
     """
     File reader/writer object that aborts on any error. Must explicitly call
     close(). The main point is to standardize the error-handling.
     """
-    def __init__(self, path, mode = 'r', make_dirs=False):
+
+    def __init__(self, path, mode='r', make_dirs=False):
         if mode not in ('r', 'w'):
             abort('Invalid file mode "%s".' % mode)
-        self.path      = path
-        self.mode      = mode
+        self.path = path
+        self.mode = mode
         self.make_dirs = make_dirs
-        self.f         = None
+        self.f = None
+
     def open(self):
         self.close()
         if self.mode == 'w' and self.make_dirs:
@@ -1048,6 +1114,7 @@ class File(object):
                 except (IOError, OSError), e:
                     self._abort('Unable to create directory "%s".' % dir)
         self.f = self._open()
+
     def read(self):
         if self.mode != 'r':
             self._abort('File is not open for reading in call to read().')
@@ -1065,8 +1132,10 @@ class File(object):
             # Close locally-opened file.
             if self.f is None:
                 f.close()
+
     def read_hex(self):
         return binascii.hexlify(self.read())
+
     def write(self, s):
         if self.mode != 'w':
             self._abort('File is not open for writing in call to write().')
@@ -1076,23 +1145,27 @@ class File(object):
             self.f.write(s)
         except (IOError, OSError), e:
             self._abort('Write error.', e)
+
     def close(self):
         if self.f:
             self.f.close()
+
     def _open(self):
         try:
             return open(self.path, self.mode)
         except (IOError, OSError), e:
             self._abort('File open error.', e)
-    def _abort(self, msg, e = None):
+
+    def _abort(self, msg, e=None):
         msgs = ['''File("%s",'%s'): %s''' % (self.path, self.mode, msg)]
         if e:
             msgs.append(str(e))
         abort(*msgs)
 
-#===============================================================================
+
+# ===============================================================================
 class FileGenerator(object):
-#===============================================================================
+    # ===============================================================================
     """
     File generator.
     """
@@ -1141,9 +1214,9 @@ class FileGenerator(object):
             output_stream.close()
 
 
-#===============================================================================
+# ===============================================================================
 class INIConfigManager(object):
-#===============================================================================
+    # ===============================================================================
     """
     Loads/saves INI format configuration to and from a dictionary.
     """
@@ -1178,9 +1251,10 @@ class INIConfigManager(object):
         finally:
             f.close()
 
-#===============================================================================
+
+# ===============================================================================
 class PersistentConfig(object):
-#===============================================================================
+    # ===============================================================================
     """
     Persistent access to configuration data. Manages two configuration
     files, one for permanent configuration and the other for local state.
@@ -1242,7 +1316,7 @@ class PersistentConfig(object):
         if self.local:
             self.save_local()
 
-    def query(self, filter = None):
+    def query(self, filter=None):
         """
         Query for keys and values as a merged dictionary.
         The optional filter is matched against the start of each key.
@@ -1262,93 +1336,116 @@ class PersistentConfig(object):
                     results[key] = self.permanent[key]
         return results
 
-    def query_pairs(self, filter = None):
+    def query_pairs(self, filter=None):
         """
         Query for keys and values as a sorted list of (key, value) pairs.
         The optional filter is matched against the start of each key.
         """
-        return dict_to_sorted_pairs(self.query(filter = filter))
+        return dict_to_sorted_pairs(self.query(filter=filter))
 
-#===============================================================================
+
+# ===============================================================================
 class VoltTupleWrapper(object):
-#===============================================================================
+    # ===============================================================================
     """
     Wraps a Volt tuple to add error handling, type safety, etc..
     """
+
     def __init__(self, tuple):
         self.tuple = tuple
+
     def column_count(self, index):
         return len(self.tuple)
+
     def column(self, index):
         if index < 0 or index >= len(self.tuple):
             abort('Bad column index %d (%d columns available).' % (index, len(self.tuple)))
         return self.tuple[index]
+
     def column_string(self, index):
         return str(self.column(index))
+
     def column_integer(self, index):
         try:
             return int(self.column(index))
         except ValueError:
             abort('Column %d value (%s) is not an integer.' % (index, str(self.column(index))))
+
     def __str__(self):
         return format_table([self.tuple])
 
-#===============================================================================
+
+# ===============================================================================
 class VoltTableWrapper(object):
-#===============================================================================
+    # ===============================================================================
     """
     Wraps a voltdbclient.VoltTable to add error handling, type safety, etc..
     """
+
     def __init__(self, table):
         self.table = table
+
     def tuple_count(self):
         return len(self.table.tuples)
+
     def tuple(self, index):
         if index < 0 or index >= len(self.table.tuples):
             abort('Bad tuple index %d (%d tuples available).' % (index, len(self.table.tuples)))
         return VoltTupleWrapper(self.table.tuples[index])
+
     def tuples(self):
         return self.table.tuples
-    def format_table(self, caption = None):
-        return format_volt_table(self.table, caption = caption)
+
+    def format_table(self, caption=None):
+        return format_volt_table(self.table, caption=caption)
+
     def __str__(self):
         return self.format_table()
 
-#===============================================================================
+
+# ===============================================================================
 class VoltResponseWrapper(object):
-#===============================================================================
+    # ===============================================================================
     """
     Wraps a voltdbclient.VoltResponse to add error handling, type safety, etc..
     """
+
     def __init__(self, response):
         self.response = response
+
     def status(self):
         return self.response.status
+
     def table_count(self):
         if not self.response.tables:
             return 0
         return len(self.response.tables)
+
     def table(self, index):
         if index < 0 or index >= self.table_count():
             abort('Bad table index %d (%d tables available).' % (index, self.table_count()))
         return VoltTableWrapper(self.response.tables[index])
-    def format_tables(self, caption_list = None):
-        return format_volt_tables(self.response.tables, caption_list = caption_list)
+
+    def format_tables(self, caption_list=None):
+        return format_volt_tables(self.response.tables, caption_list=caption_list)
+
     def __str__(self):
         output = [str(self.response)]
         if self.table_count() > 0:
             output.append(self.format_tables())
         return '\n\n'.join(output)
 
-#===============================================================================
+
+# ===============================================================================
 class MessageDict(dict):
-#===============================================================================
+    # ===============================================================================
     """
     Message dictionary provides message numbers as attributes or the messages
     by looking up that message number in the underlying dictionary.
         messages.MY_MESSAGE == <integer index>
         messages[messages.MY_MESSAGE] == <string>
     """
+
     def __init__(self, **kwargs):
         dict.__init__(self)
         i = 0
@@ -1357,13 +1454,15 @@ class MessageDict(dict):
             self[i] = kwargs[key]
             setattr(self, key, i)
 
-#===============================================================================
+
+# ===============================================================================
 class CodeFormatter(object):
-#===============================================================================
+    # ===============================================================================
     """
     Useful for formatting generated code. It is currently geared for DDL, but
     this isn't etched in stone.
     """
+
     def __init__(self, separator=',', vcomment_prefix='', indent_string='    '):
         self.separator = separator
         self.vcomment_prefix = vcomment_prefix
@@ -1372,6 +1471,7 @@ class CodeFormatter(object):
         self.lines = []
         self.pending_separator = [-1]
         self.block_start_index = [0]
+
     def _line(self, needs_separator, *lines):
         if needs_separator and self.separator and self.pending_separator[-1] >= 0:
             self.lines[self.pending_separator[-1]] += self.separator
@@ -1379,12 +1479,14 @@ class CodeFormatter(object):
             self.lines.append('%s%s' % (self.indent_string * self.level, line))
         if needs_separator:
             self.pending_separator[-1] = len(self.lines) - 1
+
     def _block_line(self, *lines):
         if self.pending_separator[-1] >= self.block_start_index[-1]:
             self.pending_separator[-1] += len(lines)
         for line in lines:
             self.lines.insert(self.block_start_index[-1], line)
             self.block_start_index[-1] += 1
+
     def block_start(self, *lines):
         if self.level == 0:
             self._line(False, '')
@@ -1393,6 +1495,7 @@ class CodeFormatter(object):
         self._line(False, '(')
         self.level += 1
         self.pending_separator.append(-1)
+
     def block_end(self, *lines):
         self.level -= 1
         self.pending_separator.pop()
@@ -1401,24 +1504,32 @@ class CodeFormatter(object):
         else:
             self._line(True, ')')
         self.block_start_index.pop()
+
     def code(self, *lines):
         self._line(False, *lines)
+
     def code_fragment(self, *lines):
         self._line(True, *lines)
+
     def comment(self, *lines):
         for line in lines:
             self._line(False, '-- %s' % line)
+
     def vcomment(self, *lines):
         for line in lines:
             self._line(False, '--%s %s' % (self.vcomment_prefix, line))
+
     def block_comment(self, *lines):
         for line in lines:
             self._block_line('-- %s' % line)
+
     def block_vcomment(self, *lines):
         for line in lines:
             self._block_line('--%s %s' % (self.vcomment_prefix, line))
+
     def blank(self, n=1):
         for line in range(n):
             self._line(False, '')
+
     def __str__(self):
         return '\n'.join(self.lines)

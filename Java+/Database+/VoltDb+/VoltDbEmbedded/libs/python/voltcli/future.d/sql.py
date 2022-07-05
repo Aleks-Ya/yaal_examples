@@ -26,23 +26,23 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 @VOLT.Command(
-    bundles = VOLT.ConnectionBundle(),
-    description  = 'Run the interactive SQL interpreter.',
-    description2 = 'Optional arguments are executed as non-interactive queries.',
-    options = [
+    bundles=VOLT.ConnectionBundle(),
+    description='Run the interactive SQL interpreter.',
+    description2='Optional arguments are executed as non-interactive queries.',
+    options=[
         VOLT.EnumOption(None, '--format', 'format',
                         'output format', 'fixed', 'csv', 'tab',
-                        default = 'fixed'),
+                        default='fixed'),
         VOLT.BooleanOption(None, '--clean', 'clean',
                            'clean output with no headings or counts',
-                           default = False),
+                           default=False),
         VOLT.BooleanOption(None, '--exception-stacks', 'exception_stacks',
                            'display exception stack traces',
-                           default = False),
+                           default=False),
     ],
-    arguments = [
-        VOLT.StringArgument('query', min_count = 0, max_count = None,
-                            help = 'One or more queries to execute non-interactively.')
+    arguments=[
+        VOLT.StringArgument('query', min_count=0, max_count=None,
+                            help='One or more queries to execute non-interactively.')
     ],
 )
 def sql(runner):
@@ -51,9 +51,9 @@ def sql(runner):
         if runner.opts.host.host:
             args.append('--servers=%s' % runner.opts.host.host)
         if runner.opts.host.port:
-            args.append('--port=%d'    % runner.opts.host.port)
+            args.append('--port=%d' % runner.opts.host.port)
     if runner.opts.username:
-        args.append('--user=%s'     % runner.opts.username)
+        args.append('--user=%s' % runner.opts.username)
         args.append('--password=%s' % runner.opts.password)
     for query in runner.opts.query:
         args.append('--query=%s' % query)

@@ -21,15 +21,20 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Implement "exactly once" consumer guarantee by committing each processed record individually.
  */
 class ExactlyOnceConsumerGuaranteeTest extends BaseTest {
+
+    private static java.util.List<ConsumerRecord<String, Integer>> consumeRecords(String topic,
+                                                                                  Consumer<String, Integer> consumer) {
+        consumer.subscribe(Collections.singleton(topic));
+        var records = consumer.poll(Duration.ofSeconds(1));
+        var topicRecords = records.records(topic);
+        return CollectionUtil.iterableToList(topicRecords);
+    }
 
     @Test
     @Timeout(10)
@@ -43,27 +48,27 @@ class ExactlyOnceConsumerGuaranteeTest extends BaseTest {
 
         try (var consumer = createConsumer()) {
             var recordList = consumeRecords(topic, consumer);
-            assertThat(recordList, hasSize(2));
+            assertThat(recordList).hasSize(2);
 
             var record1 = recordList.get(0);
             var actValue1 = record1.value();
-            assertThat(actValue1, equalTo(expValue1));
+            assertThat(actValue1).isEqualTo(expValue1);
 
             commitOffset(topic, consumer, record1);
         }
         try (var consumer = createConsumer()) {
             var recordList = consumeRecords(topic, consumer);
-            assertThat(recordList, hasSize(1));
+            assertThat(recordList).hasSize(1);
 
             var record1 = recordList.get(0);
             var actValue1 = record1.value();
-            assertThat(actValue1, equalTo(expValue2));
+            assertThat(actValue1).isEqualTo(expValue2);
 
             commitOffset(topic, consumer, record1);
         }
         try (var consumer = createConsumer()) {
             var recordList = consumeRecords(topic, consumer);
-            assertThat(recordList, empty());
+            assertThat(recordList).isEmpty();
         }
     }
 
@@ -74,14 +79,6 @@ class ExactlyOnceConsumerGuaranteeTest extends BaseTest {
         var offset = new OffsetAndMetadata(nextOffset);
         offsets.put(partition, offset);
         consumer.commitSync(offsets);
-    }
-
-    private static java.util.List<ConsumerRecord<String, Integer>> consumeRecords(String topic,
-                                                                                  Consumer<String, Integer> consumer) {
-        consumer.subscribe(Collections.singleton(topic));
-        var records = consumer.poll(Duration.ofSeconds(1));
-        var topicRecords = records.records(topic);
-        return CollectionUtil.iterableToList(topicRecords);
     }
 
     private Consumer<String, Integer> createConsumer() {

@@ -26,8 +26,7 @@ import java.util.concurrent.ExecutionException;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singleton;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static scala.jdk.javaapi.CollectionConverters.asScala;
 
 /**
@@ -53,7 +52,7 @@ class MessageHeaderTest extends BaseTest {
         var headers = record0.headers();
         var header = headers.lastHeader(headerKey);
         var headerValueAct = header.value();
-        assertThat(headerValueAct, equalTo(headerValue));
+        assertThat(headerValueAct).isEqualTo(headerValue);
 
     }
 

@@ -20,8 +20,7 @@ import java.util.Properties;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Using {@link UUIDSerializer}.
@@ -50,8 +49,8 @@ class UuidSerializerTest extends IntegrationTestHarness {
                 new Properties(), configsToRemove)) {
             consumer.subscribe(Collections.singleton(topic));
             var consumerRecords = consumer.poll(Duration.ofSeconds(1));
-            assertThat(consumerRecords.count(), equalTo(1));
-            assertThat(consumerRecords.iterator().next().value(), equalTo(value));
+            assertThat(consumerRecords.count()).isEqualTo(1);
+            assertThat(consumerRecords.iterator().next().value()).isEqualTo(value);
         }
 
     }

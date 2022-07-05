@@ -29,13 +29,12 @@
 
 __author__ = 'scooper'
 
-import sys
-import os
 import glob
+import os
+import platform
 import re
 import shlex
-import platform
-
+import sys
 from voltcli import utility
 
 re_voltdb_jar = re.compile('^voltdb(client)?-[.0-9]+[.]([\w]+\.)*jar$')
@@ -44,12 +43,12 @@ config_name = 'volt.cfg'
 config_name_local = 'volt_local.cfg'
 
 # Filled in during startup.
-standalone   = None
-version      = None
-command_dir  = None
+standalone = None
+version = None
+command_dir = None
 command_name = None
-voltdb_jar   = None
-classpath    = None
+voltdb_jar = None
+classpath = None
 
 # Location of third_party/python if available.
 third_party_python = None
@@ -71,7 +70,7 @@ if not java:
     utility.abort('Could not find java in environment, set JAVA_HOME or put java in the path.')
 java_opts = []
 
-#If this is a large memory system commit the full heap
+# If this is a large memory system commit the full heap
 specifyMinimumHeapSize = False
 if platform.system() == "Linux":
     memory = os.popen("free -m")
@@ -122,6 +121,7 @@ java_opts.append('-XX:+CMSScavengeBeforeRemark')
 java_opts.append('-XX:+CMSClassUnloadingEnabled')
 java_opts.append('-XX:PermSize=64m')
 
+
 def initialize(standalone_arg, command_name_arg, command_dir_arg, version_arg):
     """
     Set the VOLTDB_LIB and VOLTDB_VOLTDB environment variables based on the
@@ -141,15 +141,17 @@ def initialize(standalone_arg, command_name_arg, command_dir_arg, version_arg):
     # Add the working directory, the command directory, and VOLTCORE as
     # starting points for the scan.
     dirs = []
+
     def add_dir(dir):
         if dir and os.path.isdir(dir) and dir not in dirs:
             dirs.append(os.path.realpath(dir))
+
     add_dir(os.getcwd())
     add_dir(command_dir)
     add_dir(os.environ.get('VOLTCORE', None))
     utility.verbose_info('Base directories for scan:', dirs)
 
-    lib_search_globs    = []
+    lib_search_globs = []
     voltdb_search_globs = []
     for dir in dirs:
 
@@ -197,13 +199,13 @@ def initialize(standalone_arg, command_name_arg, command_dir_arg, version_arg):
     # If the VoltDB jar was found then VOLTDB_VOLTDB will also be set.
     if voltdb_jar is None:
         utility.abort('Failed to find the VoltDB jar file.',
-                        ('You may need to perform a build.',
-                         'Searched the following:', voltdb_search_globs))
+                      ('You may need to perform a build.',
+                       'Searched the following:', voltdb_search_globs))
 
     if not os.environ.get('VOLTDB_LIB', ''):
         utility.abort('Failed to find the VoltDB library directory.',
-                        ('You may need to perform a build.',
-                         'Searched the following:', lib_search_globs))
+                      ('You may need to perform a build.',
+                       'Searched the following:', lib_search_globs))
 
     # LOG4J configuration
     if 'LOG4J_CONFIG_PATH' not in os.environ:

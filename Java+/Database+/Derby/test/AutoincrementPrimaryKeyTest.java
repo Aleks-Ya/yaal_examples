@@ -1,38 +1,35 @@
 import org.junit.jupiter.api.Test;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Создание первичного ключа в БД Derby.
  */
-public class AutoincrementPrimaryKeyTest {
+class AutoincrementPrimaryKeyTest {
 
     @Test
     void main() throws SQLException, ClassNotFoundException {
         //connect
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-        Connection conn = DriverManager.getConnection(
+        var conn = DriverManager.getConnection(
                 "jdbc:derby:memory:db_name;create=true", "", "");
 
         //insert
-        Statement update = conn.createStatement();
+        var update = conn.createStatement();
         update.executeUpdate("CREATE TABLE numbers (" +
                 "ID INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, " +
                 "numb INT)");
         update.executeUpdate("INSERT INTO numbers(numb) VALUES (3)");
 
         //select
-        Statement select = conn.createStatement();
-        ResultSet resultSet = select.executeQuery("SELECT * FROM numbers");
+        var select = conn.createStatement();
+        var resultSet = select.executeQuery("SELECT * FROM numbers");
         if (resultSet.next()) {
-            assertEquals(1, resultSet.getInt(1));
-            assertEquals(3, resultSet.getInt(2));
+            assertThat(resultSet.getInt(1)).isEqualTo(1);
+            assertThat(resultSet.getInt(2)).isEqualTo(3);
         }
 
         //disconnect

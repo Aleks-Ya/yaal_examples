@@ -16,12 +16,12 @@ class CityEntity {
     private Long population;
 
     @ManyToOne
-    private  RegionEntity region;
+    private RegionEntity region;
 
     public CityEntity() {
     }
 
-    public CityEntity(String name, Long population,  RegionEntity region) {
+    public CityEntity(String name, Long population, RegionEntity region) {
         this.name = name;
         this.population = population;
         this.region = region;

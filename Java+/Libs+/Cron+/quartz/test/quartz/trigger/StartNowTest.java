@@ -17,7 +17,7 @@ class StartNowTest {
         var scheduler = StdSchedulerFactory.getDefaultScheduler();
         scheduler.start();
         scheduler.scheduleJob(jobDetail, trigger);
-        SingleResultListener.<String>assign(scheduler, jobDetail).waitForFinish(1000);
+        SingleResultListener.<String>assign(scheduler, jobDetail).waitForFinish();
         scheduler.shutdown(true);
     }
 }

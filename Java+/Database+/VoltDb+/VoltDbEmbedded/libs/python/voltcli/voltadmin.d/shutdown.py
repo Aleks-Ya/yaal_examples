@@ -26,9 +26,10 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 @VOLT.Command(
-    bundles = VOLT.AdminBundle(),
-    description = 'Shut down the running VoltDB cluster.'
+    bundles=VOLT.AdminBundle(),
+    description='Shut down the running VoltDB cluster.'
 )
 def shutdown(runner):
-    response = runner.call_proc('@Shutdown', [], [], check_status = False)
-    print response
+    response = runner.call_proc('@Shutdown', [], [], check_status=False)
+    print
+    response

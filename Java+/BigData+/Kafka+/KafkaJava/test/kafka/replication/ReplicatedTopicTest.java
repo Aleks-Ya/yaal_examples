@@ -21,8 +21,7 @@ import java.util.Collections;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Create a replicated topic.
@@ -56,16 +55,16 @@ class ReplicatedTopicTest extends IntegrationTestHarness {
 
             producer.send(new ProducerRecord<>(topic, value1)).get();
             var records1 = consumer.poll(Duration.ofSeconds(1));
-            assertThat(records1.count(), equalTo(1));
-            assertThat(records1.iterator().next().value(), equalTo(value1));
+            assertThat(records1.count()).isEqualTo(1);
+            assertThat(records1.iterator().next().value()).isEqualTo(value1);
 //        killRandomBroker();
             killBroker(0);
 
 
             producer.send(new ProducerRecord<>(topic, value2)).get();
             var records2 = consumer.poll(Duration.ofSeconds(1));
-            assertThat(records2.count(), equalTo(1));
-            assertThat(records2.iterator().next().value(), equalTo(value2));
+            assertThat(records2.count()).isEqualTo(1);
+            assertThat(records2.iterator().next().value()).isEqualTo(value2);
 //        killRandomBroker();
             killBroker(1);
 
@@ -74,16 +73,16 @@ class ReplicatedTopicTest extends IntegrationTestHarness {
 
             // Consume the record from any of 2 brokers
 //        ConsumerRecords<String, Integer> records1 = consumeByNewConsumerFromAnotherGroup(topic);
-//        assertThat(records1.count(), equalTo(1));
-//        assertThat(records1.iterator().next().value(), equalTo(value));
+//        assertThat(records1.count()).isEqualTo(1));
+//        assertThat(records1.iterator().next().value()).isEqualTo(value));
 
             // Kill one broker
 //        killRandomBroker();
 
             // Consume the record from the last broker
 //        ConsumerRecords<String, Integer> records2 = consumeByNewConsumerFromAnotherGroup(topic);
-//        assertThat(records2.count(), equalTo(1));
-//        assertThat(records2.iterator().next().value(), equalTo(value1));
+//        assertThat(records2.count()).isEqualTo(1));
+//        assertThat(records2.iterator().next().value()).isEqualTo(value1));
 
             // Kill the last broker
 //        killRandomBroker();

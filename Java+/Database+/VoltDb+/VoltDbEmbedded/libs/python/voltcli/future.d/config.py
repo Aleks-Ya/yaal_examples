@@ -25,10 +25,10 @@
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
-@VOLT.Command(description = 'Configure project settings.',
-              arguments = (
-                  VOLT.StringArgument('keyvalue', 'KEY=VALUE assignment',
-                                      min_count = 1, max_count = None),))
+@VOLT.Command(description='Configure project settings.',
+              arguments=(
+                      VOLT.StringArgument('keyvalue', 'KEY=VALUE assignment',
+                                          min_count=1, max_count=None),))
 def config(runner):
     bad = []
     for arg in runner.opts.keyvalue:

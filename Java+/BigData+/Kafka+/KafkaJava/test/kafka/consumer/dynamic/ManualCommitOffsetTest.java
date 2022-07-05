@@ -17,9 +17,7 @@ import java.util.Collections;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Commit offset manually (dynamic partition assignment with {@link KafkaConsumer#subscribe}).
@@ -38,17 +36,17 @@ class ManualCommitOffsetTest extends BaseTest {
 
         // Consume the record, but not commit offset.
         var records1 = consumeByNewConsumer(topic, false);
-        assertThat(records1.count(), equalTo(1));
-        assertThat(records1.iterator().next().value(), equalTo(value));
+        assertThat(records1.count()).isEqualTo(1);
+        assertThat(records1.iterator().next().value()).isEqualTo(value);
 
         // Consume the record again (it was not committed), and commit.
         var records2 = consumeByNewConsumer(topic, true);
-        assertThat(records2.count(), equalTo(1));
-        assertThat(records2.iterator().next().value(), equalTo(value));
+        assertThat(records2.count()).isEqualTo(1);
+        assertThat(records2.iterator().next().value()).isEqualTo(value);
 
         // Try to consume the record again (cannot consume, because it was committed).
         var records3 = consumeByNewConsumer(topic, false);
-        assertThat(records3.isEmpty(), is(true));
+        assertThat(records3).isEmpty();
     }
 
     private ConsumerRecords<String, Integer> consumeByNewConsumer(String topic, boolean commit) {

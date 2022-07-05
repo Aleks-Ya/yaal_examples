@@ -8,11 +8,11 @@ import server_thread.ServerThreadHelper;
 /**
  * JVM parameter: -Djava.library.path=libs
  */
-public class CallProcedureTest {
+class CallProcedureTest {
 
     @Test
     void testServer() throws Exception {
-        int port = ServerThreadHelper.runServer();
+        var port = ServerThreadHelper.runServer();
 
         Client client = null;
         try {

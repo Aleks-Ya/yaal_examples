@@ -26,14 +26,14 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 
 @VOLT.Command(
-    bundles = VOLT.ServerBundle('add',
-                                needs_catalog=False,
-                                supports_live=False,
-                                default_host=False,
-                                safemode_available=False,
-                                supports_daemon=True,
-                                supports_multiple_daemons=True),
-    description = 'Add the current node to a VoltDB cluster.'
+    bundles=VOLT.ServerBundle('add',
+                              needs_catalog=False,
+                              supports_live=False,
+                              default_host=False,
+                              safemode_available=False,
+                              supports_daemon=True,
+                              supports_multiple_daemons=True),
+    description='Add the current node to a VoltDB cluster.'
 )
 def add(runner):
     runner.go()

@@ -18,9 +18,7 @@ import java.util.Collections;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Message compression by GZip.
@@ -49,7 +47,7 @@ class CompressionTest extends IntegrationTestHarness {
                     (metadata, exception) -> serializedValueSize = metadata.serializedValueSize()
             ).get();
         }
-        assertThat(serializedValueSize, greaterThan(maxMessageBytes));
+        assertThat(serializedValueSize).isGreaterThan(maxMessageBytes);
 
         Deserializer<String> keyDes = new StringDeserializer();
         Deserializer<String> valueDes = new StringDeserializer();
@@ -57,8 +55,8 @@ class CompressionTest extends IntegrationTestHarness {
         try (Consumer<String, String> consumer = createConsumer(keyDes, valueDes, new Properties(), configsToRemove)) {
             consumer.subscribe(Collections.singleton(TOPIC));
             var consumerRecords = consumer.poll(Duration.ofSeconds(1));
-            assertThat(consumerRecords.count(), equalTo(1));
-            assertThat(consumerRecords.iterator().next().value(), equalTo(value));
+            assertThat(consumerRecords.count()).isEqualTo(1);
+            assertThat(consumerRecords.iterator().next().value()).isEqualTo(value);
         }
     }
 
@@ -88,10 +86,10 @@ class CompressionTest extends IntegrationTestHarness {
         try (Consumer<String, String> consumer = createConsumer(keyDes, valueDes, new Properties(), configsToRemove)) {
             consumer.subscribe(Collections.singleton(TOPIC));
             var consumerRecords = consumer.poll(Duration.ofSeconds(1));
-            assertThat(consumerRecords.count(), equalTo(2));
+            assertThat(consumerRecords.count()).isEqualTo(2);
             var iterator = consumerRecords.iterator();
-            assertThat(iterator.next().value(), equalTo(compressedValue));
-            assertThat(iterator.next().value(), equalTo(unCompressedValue));
+            assertThat(iterator.next().value()).isEqualTo(compressedValue);
+            assertThat(iterator.next().value()).isEqualTo(unCompressedValue);
         }
     }
 

@@ -35,8 +35,8 @@ class AclTest extends IntegrationTestHarness {
             var binding = new AclBinding(pattern, entry);
             var aclsResult = adminClient.createAcls(singletonList(binding));
             aclsResult.all().get();
-//            assertThat(topicDescription.name(), equalTo(topic));
-//            assertThat(topicDescription.partitions(), hasSize(1));
+//            assertThat(topicDescription.name()).isEqualTo(topic));
+//            assertThat(topicDescription.partitions()).hasSize(1));
         }
     }
 

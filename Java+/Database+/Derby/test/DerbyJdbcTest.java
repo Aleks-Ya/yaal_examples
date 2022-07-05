@@ -1,32 +1,29 @@
 import org.junit.jupiter.api.Test;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class DerbyJdbcTest {
+class DerbyJdbcTest {
 
     @Test
     void main() throws SQLException, ClassNotFoundException {
         //connect
         Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-        Connection conn = DriverManager.getConnection(
+        var conn = DriverManager.getConnection(
                 "jdbc:derby:memory:db_name;create=true", "", "");
 
         //insert
-        Statement update = conn.createStatement();
+        var update = conn.createStatement();
         update.executeUpdate("CREATE TABLE numbers (numb INTEGER)");
         update.executeUpdate("INSERT INTO numbers VALUES (3)");
 
         //select
-        Statement select = conn.createStatement();
-        ResultSet resultSet = select.executeQuery("SELECT * FROM numbers");
+        var select = conn.createStatement();
+        var resultSet = select.executeQuery("SELECT * FROM numbers");
         if (resultSet.next()) {
-            assertEquals(3, resultSet.getInt(1));
+            assertThat(resultSet.getInt(1)).isEqualTo(3);
         }
 
         //disconnect

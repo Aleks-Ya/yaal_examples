@@ -15,28 +15,13 @@ import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Use case: chunking of big Kafka records. Not-chunked records must be sent asynchronously for better performance.
  * Chunked records must be sent sequentially (synchronously) for easier consuming.
  */
 class MixSyncAndAsyncProducerTest extends BaseTest {
-
-    private enum MessageType {
-        SYNC, ASYNC
-    }
-
-    private static class Message {
-        public final String text;
-        public final MessageType type;
-
-        private Message(String text, MessageType type) {
-            this.text = text;
-            this.type = type;
-        }
-    }
 
     @Test
     @Timeout(10)
@@ -67,12 +52,26 @@ class MixSyncAndAsyncProducerTest extends BaseTest {
         }
 
         var actRecords = consumeAllStringsFromBeginning(topic);
-        assertThat(actRecords, contains(m1.text, m2.text, m3.text, m4.text, m5.text, m6.text, m7.text, m8.text));
+        assertThat(actRecords).contains(m1.text, m2.text, m3.text, m4.text, m5.text, m6.text, m7.text, m8.text);
     }
 
     @Override
     public int brokerCount() {
         return 1;
+    }
+
+    private enum MessageType {
+        SYNC, ASYNC
+    }
+
+    private static class Message {
+        public final String text;
+        public final MessageType type;
+
+        private Message(String text, MessageType type) {
+            this.text = text;
+            this.type = type;
+        }
     }
 
     private static class SyncAsyncProducer<K, V> implements AutoCloseable {
