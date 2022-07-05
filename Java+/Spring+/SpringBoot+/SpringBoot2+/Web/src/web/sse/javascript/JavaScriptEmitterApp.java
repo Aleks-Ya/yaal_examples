@@ -69,7 +69,7 @@ public class JavaScriptEmitterApp {
             log.info("Emitting is scheduled.");
         }
 
-//        @Scheduled(fixedRate = TIMEOUT / 2)
+        //        @Scheduled(fixedRate = TIMEOUT / 2)
         public void keepAlive() throws IOException {
             if (emitter != null) {
                 log.info("Sending keep alive event...");

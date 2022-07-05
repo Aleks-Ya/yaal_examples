@@ -17,10 +17,10 @@ class StringControllerTest extends BaseTest {
     @Test
     void requestParam() throws Exception {
         mvc.perform(
-                post(StringController.ENDPOINT)
-                        .contentType("text/plain")
-                        .content("the_body")
-        )
+                        post(StringController.ENDPOINT)
+                                .contentType("text/plain")
+                                .content("the_body")
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().string("body=the_body"));
     }

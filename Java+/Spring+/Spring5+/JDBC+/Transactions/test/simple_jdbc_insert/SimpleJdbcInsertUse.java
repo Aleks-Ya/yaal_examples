@@ -18,14 +18,14 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Вставка строк в БД с помощью SimpleJdbcInsert.
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = Config.class)
-public class SimpleJdbcInsertUse {
+class SimpleJdbcInsertUse {
 
     @Autowired
     private JdbcTemplate template;
@@ -46,10 +46,10 @@ public class SimpleJdbcInsertUse {
         args.put("title", "Vera");
 
         Number n = insert.executeAndReturnKey(args);
-        assertNotNull(n.intValue());
+        assertThat(n.intValue()).isNotNull();
 
         KeyHolder holder = insert.executeAndReturnKeyHolder(args);
-        assertNotNull(holder.getKey().intValue());
+        assertThat(holder.getKey().intValue()).isNotNull();
     }
 
     @Test
@@ -59,10 +59,10 @@ public class SimpleJdbcInsertUse {
                 .addValue("title", "Vera");
 
         Number n = insert.executeAndReturnKey(map);
-        assertNotNull(n.intValue());
+        assertThat(n.intValue()).isNotNull();
 
         KeyHolder holder = insert.executeAndReturnKeyHolder(map);
-        assertNotNull(holder.getKey().intValue());
+        assertThat(holder.getKey().intValue()).isNotNull();
     }
 
     @Test
@@ -72,9 +72,9 @@ public class SimpleJdbcInsertUse {
         SqlParameterSource map = new BeanPropertySqlParameterSource(name);
 
         Number n = insert.executeAndReturnKey(map);
-        assertNotNull(n.intValue());
+        assertThat(n.intValue()).isNotNull();
 
         KeyHolder holder = insert.executeAndReturnKeyHolder(map);
-        assertNotNull(holder.getKey().intValue());
+        assertThat(holder.getKey().intValue()).isNotNull();
     }
 }

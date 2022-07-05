@@ -8,7 +8,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ContextConfiguration(classes = {Config.class})
 @ExtendWith(SpringExtension.class)
-public class AspectTest {
+class AspectTest {
 
     @Autowired
     MessageWriter writer;

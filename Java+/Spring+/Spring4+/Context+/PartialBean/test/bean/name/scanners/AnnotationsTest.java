@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = {
         BeanWithGeneratedName.class,
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         ControllerWithExplicitName.class
 })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class Annotations {
+class AnnotationsTest {
 
     @Autowired
     private ApplicationContext ctx;
@@ -27,7 +27,7 @@ public class Annotations {
      */
     @Test
     void generateName() {
-        assertEquals(BeanWithGeneratedName.class, ctx.getBean("beanWithGeneratedName").getClass());
+        assertThat(ctx.getBean("beanWithGeneratedName")).isInstanceOf(BeanWithGeneratedName.class);
     }
 
     /**
@@ -35,9 +35,9 @@ public class Annotations {
      */
     @Test
     void explicitName() {
-        assertEquals(ComponentWithExplicitName.class, ctx.getBean("componentName").getClass());
-        assertEquals(ServiceWithExplicitName.class, ctx.getBean("serviceName").getClass());
-        assertEquals(RepositoryWithExplicitName.class, ctx.getBean("repositoryName").getClass());
-        assertEquals(ControllerWithExplicitName.class, ctx.getBean("controllerName").getClass());
+        assertThat(ctx.getBean("componentName")).isInstanceOf(ComponentWithExplicitName.class);
+        assertThat(ctx.getBean("serviceName")).isInstanceOf(ServiceWithExplicitName.class);
+        assertThat(ctx.getBean("repositoryName")).isInstanceOf(RepositoryWithExplicitName.class);
+        assertThat(ctx.getBean("controllerName")).isInstanceOf(ControllerWithExplicitName.class);
     }
 }

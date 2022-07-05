@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = PropertiesConfig.class)
@@ -18,7 +18,7 @@ public class PropertiesTest {
 
     @Test
     void properties() {
-        assertThat(properties.getMessage(), equalTo("Hello world!"));
-        assertThat(properties.getSystem().getStatus(), equalTo("System is OK."));
+        assertThat(properties.getMessage()).isEqualTo("Hello world!"));
+        assertThat(properties.getSystem().getStatus()).isEqualTo("System is OK."));
     }
 }

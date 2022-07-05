@@ -4,19 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration("classpath:spring-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-public class BeanInitBySetter {
+class BeanInitBySetterTest {
 
     @Autowired
     private City city;
 
     @Test
     void test() {
-        assertEquals("SPb", city.getName());
-        assertEquals(CountryEnum.RUSSIA, city.getCountry());
-        assertEquals(1000000, city.getPopulation());
+        assertThat(city.getName()).isEqualTo("SPb");
+        assertThat(city.getCountry()).isEqualTo(CountryEnum.RUSSIA);
+        assertThat(city.getPopulation()).isEqualTo(1000000);
     }
 }

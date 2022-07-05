@@ -8,11 +8,11 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:bean/name/xml/spring-context.xml")
-public class Xml implements ApplicationContextAware {
+class XmlTest implements ApplicationContextAware {
 
     private ApplicationContext ctx;
 
@@ -21,8 +21,7 @@ public class Xml implements ApplicationContextAware {
      */
     @Test
     void generateName() {
-        assertEquals(BeanWithGeneratedNameXml.class,
-                ctx.getBean("bean.name.xml.BeanWithGeneratedNameXml#0").getClass());
+        assertThat(ctx.getBean("bean.name.xml.BeanWithGeneratedNameXml#0")).isInstanceOf(BeanWithGeneratedNameXml.class);
     }
 
     /**
@@ -30,7 +29,7 @@ public class Xml implements ApplicationContextAware {
      */
     @Test
     void explicitName() {
-        assertEquals(BeanWithExplicitName.class, ctx.getBean("explicitName").getClass());
+        assertThat(ctx.getBean("explicitName")).isInstanceOf(BeanWithExplicitName.class);
     }
 
     @Override

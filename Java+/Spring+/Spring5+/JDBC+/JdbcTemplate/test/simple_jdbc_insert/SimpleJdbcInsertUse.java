@@ -7,19 +7,18 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.jdbc.support.KeyHolder;
 import util.TestBase;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Вставка строк в БД с помощью SimpleJdbcInsert.
  */
-public class SimpleJdbcInsertUse extends TestBase {
+class SimpleJdbcInsertUse extends TestBase {
 
     private SimpleJdbcInsert insert;
 
@@ -36,36 +35,36 @@ public class SimpleJdbcInsertUse extends TestBase {
         args.put("id", null);
         args.put("title", "Vera");
 
-        Number n = insert.executeAndReturnKey(args);
-        assertNotNull(n.intValue());
+        var n = insert.executeAndReturnKey(args);
+        assertThat(n.intValue()).isNotNull();
 
-        KeyHolder holder = insert.executeAndReturnKeyHolder(args);
-        assertNotNull(holder.getKey().intValue());
+        var holder = insert.executeAndReturnKeyHolder(args);
+        assertThat(holder.getKey().intValue()).isNotNull();
     }
 
     @Test
     void mapSqlParameterSource() {
-        MapSqlParameterSource map = new MapSqlParameterSource()
+        var map = new MapSqlParameterSource()
                 .addValue("id", null)
                 .addValue("title", "Vera");
 
-        Number n = insert.executeAndReturnKey(map);
-        assertNotNull(n.intValue());
+        var n = insert.executeAndReturnKey(map);
+        assertThat(n.intValue()).isNotNull();
 
-        KeyHolder holder = insert.executeAndReturnKeyHolder(map);
-        assertNotNull(holder.getKey().intValue());
+        var holder = insert.executeAndReturnKeyHolder(map);
+        assertThat(holder.getKey().intValue()).isNotNull();
     }
 
     @Test
     void beanPropertySqlParameterSource() {
-        Name name = new Name();
+        var name = new Name();
         name.setTitle("Vera");
         SqlParameterSource map = new BeanPropertySqlParameterSource(name);
 
-        Number n = insert.executeAndReturnKey(map);
-        assertNotNull(n.intValue());
+        var n = insert.executeAndReturnKey(map);
+        assertThat(n.intValue()).isNotNull();
 
-        KeyHolder holder = insert.executeAndReturnKeyHolder(map);
-        assertNotNull(holder.getKey().intValue());
+        var holder = insert.executeAndReturnKeyHolder(map);
+        assertThat(holder.getKey().intValue()).isNotNull();
     }
 }

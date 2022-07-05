@@ -18,10 +18,10 @@ class JsonManualControllerTest extends BaseTest {
     @Test
     void requestParam() throws Exception {
         mvc.perform(
-                post(JsonManualController.ENDPOINT)
-                        .contentType(MediaType.TEXT_PLAIN)
-                        .content("{ \"name\": \"abc\"}")
-        )
+                        post(JsonManualController.ENDPOINT)
+                                .contentType(MediaType.TEXT_PLAIN)
+                                .content("{ \"name\": \"abc\"}")
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().string("response=abc"));
     }

@@ -8,7 +8,7 @@
     </bean>
 
     <bean id="bean" class="java.math.BigDecimal">
-        <constructor-arg type="int" ref="otherBean" />
+        <constructor-arg type="int" ref="otherBean"/>
     </bean>
 
 </beans>

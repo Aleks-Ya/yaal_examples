@@ -23,54 +23,54 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { ResponseControllerTestContext.class })
+@ContextConfiguration(classes = {ResponseControllerTestContext.class})
 @WebAppConfiguration
 public class ResponseControllerTest {
 
-	private MockMvc mockMvc;
+    private MockMvc mockMvc;
 
-	@Before
-	public void setUp() {
-		mockMvc = MockMvcBuilders.standaloneSetup(new ResponseController())
-				.setHandlerExceptionResolvers(exceptionResolver()).setViewResolvers(viewResolver()).build();
-	}
+    @Before
+    public void setUp() {
+        mockMvc = MockMvcBuilders.standaloneSetup(new ResponseController())
+                .setHandlerExceptionResolvers(exceptionResolver()).setViewResolvers(viewResolver()).build();
+    }
 
-	private HandlerExceptionResolver exceptionResolver() {
-		SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
+    private HandlerExceptionResolver exceptionResolver() {
+        SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
 
-		Properties exceptionMappings = new Properties();
+        Properties exceptionMappings = new Properties();
 
-		exceptionMappings.put("net.petrikainulainen.spring.testmvc.todo.exception.TodoNotFoundException", "error/404");
-		exceptionMappings.put("java.lang.Exception", "error/error");
-		exceptionMappings.put("java.lang.RuntimeException", "error/error");
+        exceptionMappings.put("net.petrikainulainen.spring.testmvc.todo.exception.TodoNotFoundException", "error/404");
+        exceptionMappings.put("java.lang.Exception", "error/error");
+        exceptionMappings.put("java.lang.RuntimeException", "error/error");
 
-		exceptionResolver.setExceptionMappings(exceptionMappings);
+        exceptionResolver.setExceptionMappings(exceptionMappings);
 
-		Properties statusCodes = new Properties();
+        Properties statusCodes = new Properties();
 
-		statusCodes.put("error/404", "404");
-		statusCodes.put("error/error", "500");
+        statusCodes.put("error/404", "404");
+        statusCodes.put("error/error", "500");
 
-		exceptionResolver.setStatusCodes(statusCodes);
+        exceptionResolver.setStatusCodes(statusCodes);
 
-		return exceptionResolver;
-	}
+        return exceptionResolver;
+    }
 
-	private ViewResolver viewResolver() {
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+    private ViewResolver viewResolver() {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 
-		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/WEB-INF/jsp/");
-		viewResolver.setSuffix(".jsp");
+        viewResolver.setViewClass(JstlView.class);
+        viewResolver.setPrefix("/WEB-INF/jsp/");
+        viewResolver.setSuffix(".jsp");
 
-		return viewResolver;
-	}
+        return viewResolver;
+    }
 
-	@Test
-	public void findAll_TodosFound_ShouldReturnFoundTodoEntries() throws Exception {
-		mockMvc.perform(get("/respose_body")).andExpect(status().isOk())
-				.andExpect(content().contentType("application/json; charset=utf-8"))
-				.andExpect(jsonPath("message", is("Response body message")));
-	}
+    @Test
+    public void findAll_TodosFound_ShouldReturnFoundTodoEntries() throws Exception {
+        mockMvc.perform(get("/respose_body")).andExpect(status().isOk())
+                .andExpect(content().contentType("application/json; charset=utf-8"))
+                .andExpect(jsonPath("message", is("Response body message")));
+    }
 
 }

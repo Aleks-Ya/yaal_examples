@@ -6,18 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {MyAspect.class, ConverterImpl.class})
-public class SuperInterfaceMethodTest {
+class SuperInterfaceMethodTest {
 
     @Autowired
     private ConverterSuperInterface reverse;
 
     @Test
     void test() {
-        assertThat(reverse.reverse("abc"), equalTo(MyAspect.PREFIX + "cba"));
+        assertThat(reverse.reverse("abc")).isEqualTo(MyAspect.PREFIX + "cba");
     }
 }

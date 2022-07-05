@@ -8,8 +8,8 @@ import org.springframework.cloud.config.server.environment.EnvironmentRepository
 
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class EnvironmentRepositoryTest extends BaseTest {
@@ -20,6 +20,6 @@ public class EnvironmentRepositoryTest extends BaseTest {
     void applicationProfile() {
         Environment environment = repo.findOne("app1", "profileA", null);
         List<PropertySource> propertySources = environment.getPropertySources();
-        assertThat(propertySources, hasSize(3));
+        assertThat(propertySources).hasSize(3));
     }
 }

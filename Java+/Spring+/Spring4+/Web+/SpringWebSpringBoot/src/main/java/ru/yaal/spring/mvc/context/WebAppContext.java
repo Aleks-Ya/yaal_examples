@@ -19,33 +19,33 @@ import ru.yaal.spring.mvc.controller.argument.RequestBodyController.UserConverte
 @Configuration
 public class WebAppContext extends WebMvcConfigurerAdapter {
 
-	@Autowired(required = false)
-	private UserConverter converter;
+    @Autowired(required = false)
+    private UserConverter converter;
 
-	@Override
-	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-		if (converter != null) {
-			converters.add(converter);
-		}
-	}
+    @Override
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        if (converter != null) {
+            converters.add(converter);
+        }
+    }
 
-	@Bean
-	public ViewResolver viewResolver() {
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix("/WEB-INF/jsp/");
-		resolver.setSuffix(".jsp");
-		return resolver;
-	}
+    @Bean
+    public ViewResolver viewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/jsp/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
 
-	@Bean
-	public HandlerExceptionResolver exceptionResolver() {
-		Properties props = new Properties();
-		props.put(IOException.class.getName(), "exception/io_error");
+    @Bean
+    public HandlerExceptionResolver exceptionResolver() {
+        Properties props = new Properties();
+        props.put(IOException.class.getName(), "exception/io_error");
 
-		SimpleMappingExceptionResolver resolver = new SimpleMappingExceptionResolver();
-		resolver.setExceptionMappings(props);
-		resolver.setDefaultErrorView("exception/unexpected_error");
+        SimpleMappingExceptionResolver resolver = new SimpleMappingExceptionResolver();
+        resolver.setExceptionMappings(props);
+        resolver.setDefaultErrorView("exception/unexpected_error");
 
-		return resolver;
-	}
+        return resolver;
+    }
 }

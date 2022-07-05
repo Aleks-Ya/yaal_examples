@@ -12,30 +12,30 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class MyServiceTest {
-	@Autowired
-	MyService myservice;
+    @Autowired
+    MyService myservice;
 
-	@Test
-	@WithMockUser
-	public void testGreetingWithMockUser() {
-		myservice.greeting();
-	}
+    @Test
+    @WithMockUser
+    public void testGreetingWithMockUser() {
+        myservice.greeting();
+    }
 
-	@Test(expected = AccessDeniedException.class)
-	@WithMockUser("eve")
-	public void testGreetingWithMockEve() {
-		myservice.greeting();
-	}
+    @Test(expected = AccessDeniedException.class)
+    @WithMockUser("eve")
+    public void testGreetingWithMockEve() {
+        myservice.greeting();
+    }
 
-	@Test
-	@WithOAuth2Authentication
-	public void testGreetingWithOAuth2AuthenticationUser() {
-		myservice.greeting();
-	}
+    @Test
+    @WithOAuth2Authentication
+    public void testGreetingWithOAuth2AuthenticationUser() {
+        myservice.greeting();
+    }
 
-	@Test(expected = AccessDeniedException.class)
-	@WithOAuth2Authentication(username = "eve")
-	public void testGreetingWithOAuth2AuthenticationEve() {
-		myservice.greeting();
-	}
+    @Test(expected = AccessDeniedException.class)
+    @WithOAuth2Authentication(username = "eve")
+    public void testGreetingWithOAuth2AuthenticationEve() {
+        myservice.greeting();
+    }
 }

@@ -12,11 +12,11 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TxTemplateConfig.class)
-public class TxTemplateTest {
+class TxTemplateTest {
 
     @Autowired
     private JdbcTemplate template;
@@ -35,6 +35,6 @@ public class TxTemplateTest {
         String result = txTemplate.execute(
                 status -> template.queryForObject("SELECT title FROM names WHERE id=2", String.class));
         txManager.commit(txStatus);
-        assertEquals("Mary", result);
+        assertThat(result).isEqualTo("Mary");
     }
 }

@@ -8,29 +8,29 @@ import util.TestBase;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Custom implementation of {@link RowMapper}.
  */
-public class BeanPropertyRowMapperTest extends TestBase {
+class BeanPropertyRowMapperTest extends TestBase {
+
+    @Test
+    void customRowMapper() {
+        RowMapper<Name> rowMapper = new NameRowMapper();
+        var name = template.queryForObject("SELECT * FROM names WHERE id=1", rowMapper);
+        assertThat((int) name.getId()).isEqualTo(1);
+        assertThat(name.getTitle()).isEqualTo("John");
+    }
 
     private static class NameRowMapper implements RowMapper<Name> {
 
         @Override
         public Name mapRow(ResultSet rs, int rowNum) throws SQLException {
-            int id = rs.getInt("id");
-            String title = rs.getString("title");
+            var id = rs.getInt("id");
+            var title = rs.getString("title");
             return new Name(id, title);
         }
-    }
-
-    @Test
-    void customRowMapper() {
-        RowMapper<Name> rowMapper = new NameRowMapper();
-        Name name = template.queryForObject("SELECT * FROM names WHERE id=1", rowMapper);
-        assertEquals(1, (int) name.getId());
-        assertEquals("John", name.getTitle());
     }
 
 }

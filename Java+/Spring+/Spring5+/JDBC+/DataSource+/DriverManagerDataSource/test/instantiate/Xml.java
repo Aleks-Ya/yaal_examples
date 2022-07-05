@@ -11,14 +11,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Инициализация DriverManagerDataSource в XML.
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:context.xml")
-public class Xml {
+class Xml {
 
     @Autowired
     private DataSource dataSource;
@@ -28,7 +28,7 @@ public class Xml {
         try (Connection conn = dataSource.getConnection();
              Statement st = conn.createStatement()) {
             st.executeUpdate("CREATE TABLE t1 (k INT PRIMARY KEY)");
-            assertEquals(1, st.executeUpdate("INSERT INTO t1 VALUES (3)"));
+            assertThat(st.executeUpdate("INSERT INTO t1 VALUES (3)")).isEqualTo(1);
         }
     }
 }

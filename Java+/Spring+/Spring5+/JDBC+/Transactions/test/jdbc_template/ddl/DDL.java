@@ -13,7 +13,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = Config.class)
-public class DDL {
+class DDL {
 
     @Autowired
     private JdbcTemplate template;

@@ -11,15 +11,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 /**
  * Все три встроенные БД: h2, HSQL, Derby.
  */
 @ContextConfiguration("classpath:xml/context-three-db.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-public class XmlThreeDb {
+class XmlThreeDbTest {
 
     @Autowired
     @Qualifier("h2dataSource")
@@ -52,8 +51,8 @@ public class XmlThreeDb {
         try (Connection conn = dataSource.getConnection();
              Statement st = conn.createStatement()) {
             ResultSet rs = st.executeQuery("SELECT * FROM names WHERE id=2");
-            assertTrue(rs.next());
-            assertEquals(text, rs.getString("title"));
+            assertThat(rs.next()).isTrue();
+            assertThat(rs.getString("title")).isEqualTo(text);
         }
     }
 }

@@ -16,17 +16,17 @@ import org.springframework.ui.ModelMap;
 @Controller
 public class FormController {
 
-   @RequestMapping(value = "/form/student", method = RequestMethod.GET)
-   public ModelAndView student() {
-      return new ModelAndView("form/student", "command", new Student());
-   }
-   
-   @RequestMapping(value = "/form/addStudent", method = RequestMethod.POST)
-   public String addStudent(@ModelAttribute Student student, ModelMap model) {
-      model.addAttribute("name", student.getName());
-      model.addAttribute("age", student.getAge());
-      model.addAttribute("id", student.getId());
-      
-      return "form/result";
-   }
+    @RequestMapping(value = "/form/student", method = RequestMethod.GET)
+    public ModelAndView student() {
+        return new ModelAndView("form/student", "command", new Student());
+    }
+
+    @RequestMapping(value = "/form/addStudent", method = RequestMethod.POST)
+    public String addStudent(@ModelAttribute Student student, ModelMap model) {
+        model.addAttribute("name", student.getName());
+        model.addAttribute("age", student.getAge());
+        model.addAttribute("id", student.getId());
+
+        return "form/result";
+    }
 }

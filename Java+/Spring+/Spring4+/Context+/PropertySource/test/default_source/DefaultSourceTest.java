@@ -7,8 +7,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Можно задать путь к файлу свойств через свойства JVM: -Dconf=file:${user.dir}/any/file.properties
@@ -16,12 +15,12 @@ import static org.hamcrest.Matchers.equalTo;
  */
 @ContextConfiguration(classes = DefConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class DefaultSourceTest {
+class DefaultSourceTest {
     @Autowired
     private Environment env;
 
     @Test
     void environmentFromClasspath() {
-        assertThat(env.getProperty("planet.name"), equalTo("Neptune"));
+        assertThat(env.getProperty("planet.name")).isEqualTo("Neptune");
     }
 }

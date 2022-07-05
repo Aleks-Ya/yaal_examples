@@ -7,8 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Using standard Spring class PerformanceMonitorInterceptor for measuring method execution time.
@@ -18,7 +17,7 @@ import static org.hamcrest.Matchers.equalTo;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {ProfilerConfig.class, PersonService.class})
 @TestPropertySource(properties = "pointcut=execution(* method_execution_time.builtin.PersonService.*(..))")
-public class PerformanceMonitorInterceptorTest {
+class PerformanceMonitorInterceptorTest {
 
     @Autowired
     private PersonService personService;
@@ -26,8 +25,8 @@ public class PerformanceMonitorInterceptorTest {
     @Test
     void test() throws InterruptedException {
         System.setProperty("org.slf4j.simpleLogger.log.method_execution_time.builtin.PersonService", "TRACE");
-        Person person = new Person("John", "Mark");
-        String fullName = personService.getFullName(person);
-        assertThat(fullName, equalTo("John Mark"));
+        var person = new Person("John", "Mark");
+        var fullName = personService.getFullName(person);
+        assertThat(fullName).isEqualTo("John Mark");
     }
 }

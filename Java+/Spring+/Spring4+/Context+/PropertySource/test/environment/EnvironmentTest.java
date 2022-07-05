@@ -7,20 +7,19 @@ import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Take properties from {@link Environment}.
  */
 @ContextConfiguration(classes = EnvironmentConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class EnvironmentTest {
+class EnvironmentTest {
     @Autowired
     private Environment env;
 
     @Test
     void environmentFromClasspath() {
-        assertThat(env.getProperty("planet.name"), equalTo("Mars"));
+        assertThat(env.getProperty("planet.name")).isEqualTo("Mars");
     }
 }

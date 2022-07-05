@@ -11,8 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.client.ExpectedCount.once;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
@@ -40,7 +39,7 @@ class GetForEntityTest {
         expQuote.setType("City");
         expQuote.setValue(expValue);
 
-        assertThat(quote.toString(), equalTo(expQuote.toString()));
+        assertThat(quote).hasToString(expQuote.toString());
     }
 
     @Test
@@ -57,7 +56,7 @@ class GetForEntityTest {
         var entity = restTemplate.getForEntity(url, byte[].class);
         var quote = new String(Objects.requireNonNull(entity.getBody()), Charset.defaultCharset());
 
-        assertThat(quote, equalTo(body));
+        assertThat(quote).isEqualTo(body);
     }
 
 }

@@ -7,11 +7,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = Config.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ConfigTest {
+class ConfigTest {
 
     @Autowired
     private ApplicationContext ctx;
@@ -21,8 +21,7 @@ public class ConfigTest {
      */
     @Test
     void generateName() {
-        assertEquals(BeanWithGeneratedName.class,
-                ctx.getBean("generatedName").getClass());
+        assertThat(ctx.getBean("generatedName")).isInstanceOf(BeanWithGeneratedName.class);
     }
 
     /**
@@ -30,8 +29,7 @@ public class ConfigTest {
      */
     @Test
     void explicitName() {
-        assertEquals(BeanWithExplicitName.class,
-                ctx.getBean("explicitName").getClass());
+        assertThat(ctx.getBean("explicitName")).isInstanceOf(BeanWithExplicitName.class);
     }
 
 }

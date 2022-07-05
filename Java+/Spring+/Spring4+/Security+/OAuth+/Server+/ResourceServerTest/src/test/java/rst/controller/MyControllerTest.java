@@ -22,35 +22,35 @@ import org.springframework.test.web.servlet.request.RequestPostProcessor;
 @RunWith(SpringRunner.class)
 @WebMvcTest(includeFilters = @Filter(type = FilterType.REGEX, pattern = "rst\\.config\\..*"))
 public class MyControllerTest {
-	@Autowired
-	private MockMvc		mvc;
+    @Autowired
+    private MockMvc mvc;
 
-	@Autowired
-	private OAuthHelper	helper;
+    @Autowired
+    private OAuthHelper helper;
 
-	@MockBean
-	private MyService	service;
+    @MockBean
+    private MyService service;
 
-	@Before
-	public void setup() {
-		when(service.greeting()).thenReturn("Hello ");
-	}
+    @Before
+    public void setup() {
+        when(service.greeting()).thenReturn("Hello ");
+    }
 
-	@Test
-	public void testHelloUserWithRole() throws Exception {
-		RequestPostProcessor bearerToken = helper.bearerToken("myclientwith", "user");
-		mvc.perform(get("/hello").with(bearerToken)).andExpect(status().isOk()).andExpect(content().string("Hello user"));
-	}
+    @Test
+    public void testHelloUserWithRole() throws Exception {
+        RequestPostProcessor bearerToken = helper.bearerToken("myclientwith", "user");
+        mvc.perform(get("/hello").with(bearerToken)).andExpect(status().isOk()).andExpect(content().string("Hello user"));
+    }
 
-	@Test
-	public void testHelloAliceWithRole() throws Exception {
-		RequestPostProcessor bearerToken = helper.bearerToken("myclientwith", "alice");
-		mvc.perform(get("/hello").with(bearerToken)).andExpect(status().isOk()).andExpect(content().string("Hello alice"));
-	}
+    @Test
+    public void testHelloAliceWithRole() throws Exception {
+        RequestPostProcessor bearerToken = helper.bearerToken("myclientwith", "alice");
+        mvc.perform(get("/hello").with(bearerToken)).andExpect(status().isOk()).andExpect(content().string("Hello alice"));
+    }
 
-	@Test
-	public void testHelloWithoutRole() throws Exception {
-		RequestPostProcessor bearerToken = helper.bearerToken("myclientwithout", "user");
-		mvc.perform(get("/hello").with(bearerToken)).andExpect(status().isForbidden());
-	}
+    @Test
+    public void testHelloWithoutRole() throws Exception {
+        RequestPostProcessor bearerToken = helper.bearerToken("myclientwithout", "user");
+        mvc.perform(get("/hello").with(bearerToken)).andExpect(status().isForbidden());
+    }
 }

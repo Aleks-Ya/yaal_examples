@@ -6,26 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Using ExpressionPointcut for declaring pointcuts.
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {AopConfiguration.class, StringService.class})
-public class ExpressionPointcutTest {
+class ExpressionPointcutTest {
 
     @Autowired
     private StringService stringService;
 
     @Test
     void test() {
-        assertFalse(MyAdvice.invoked);
+        assertThat(MyAdvice.invoked).isFalse();
         String upper = stringService.toUpperCase("lower");
-        assertTrue(MyAdvice.invoked);
-        assertThat(upper, equalTo("LOWER"));
+        assertThat(MyAdvice.invoked).isTrue();
+        assertThat(upper).isEqualTo("LOWER");
     }
 }

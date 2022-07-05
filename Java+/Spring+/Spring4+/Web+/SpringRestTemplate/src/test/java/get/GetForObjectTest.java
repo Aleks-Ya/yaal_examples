@@ -47,7 +47,7 @@ public class GetForObjectTest {
         final MockRestServiceServer server = MockRestServiceServer.bindTo(restTemplate).build();
         server.expect(once(), requestTo(url))
                 .andExpect(method(HttpMethod.GET))
-                .andExpect(header(headerName, equalTo(headerValue)))
+                .andExpect(header(headerName).isEqualTo(headerValue)))
                 .andRespond(withSuccess("{}", MediaType.APPLICATION_JSON));
 
         HttpHeaders headers = new HttpHeaders();

@@ -6,42 +6,38 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
  * Запуск встроенной БД без xml.
  */
-public class NoXml {
+class NoXmlTest {
     private static EmbeddedDatabase db;
 
     @BeforeAll
     public static void beforeClass() {
-        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+        var builder = new EmbeddedDatabaseBuilder();
         db = builder.setType(EmbeddedDatabaseType.H2)
                 .addScript("db/schema.sql")
                 .addScript("db/test-data-h2.sql")
                 .build();
     }
 
-    @Test
-    void checkDataSource() throws SQLException {
-        DataSource dataSource = db;
-        Connection conn = dataSource.getConnection();
-        Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery("SELECT * FROM names WHERE id=2");
-        assertTrue(rs.next());
-        assertEquals("H2", rs.getString("title"));
-    }
-
     @AfterAll
     public static void afterClass() {
         db.shutdown();
+    }
+
+    @Test
+    void checkDataSource() throws SQLException {
+        DataSource dataSource = db;
+        var conn = dataSource.getConnection();
+        var st = conn.createStatement();
+        var rs = st.executeQuery("SELECT * FROM names WHERE id=2");
+        assertThat(rs.next()).isTrue();
+        assertThat(rs.getString("title")).isEqualTo("H2");
     }
 }

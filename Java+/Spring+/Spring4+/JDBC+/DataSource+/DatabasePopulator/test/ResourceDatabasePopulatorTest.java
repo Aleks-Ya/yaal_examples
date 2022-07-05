@@ -10,13 +10,13 @@ import javax.sql.DataSource;
  * Использование ResourceDatabasePopulator для
  * запуска скриптов из sql-файлов.
  */
-public class ResourceDatabasePopulatorTest {
-    private static DataSource dataSource = new EmbeddedDatabaseBuilder()
+class ResourceDatabasePopulatorTest {
+    private static final DataSource dataSource = new EmbeddedDatabaseBuilder()
             .setType(EmbeddedDatabaseType.H2).build();
 
     @Test
     void testName() throws Exception {
-        ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+        var populator = new ResourceDatabasePopulator();
         populator.addScript(new ClassPathResource("db/schema.sql"));
         populator.addScript(new ClassPathResource("db/test-data.sql"));
         populator.execute(dataSource);

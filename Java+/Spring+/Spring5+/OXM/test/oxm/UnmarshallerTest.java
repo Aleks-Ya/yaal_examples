@@ -16,13 +16,13 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SuppressWarnings("unused")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = UnmarshallerTest.Config.class)
-public class UnmarshallerTest {
+class UnmarshallerTest {
     @Autowired
     private Unmarshaller unmarshaller;
 
@@ -34,7 +34,7 @@ public class UnmarshallerTest {
         ByteArrayInputStream is = new ByteArrayInputStream(xml.getBytes());
         Source source = new StreamSource(is);
         Person actPerson = (Person) unmarshaller.unmarshal(source);
-        assertThat(actPerson, equalTo(expPerson));
+        assertThat(actPerson).isEqualTo(expPerson);
     }
 
     @Configuration

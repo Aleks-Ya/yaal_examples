@@ -12,7 +12,7 @@ import java.sql.SQLException;
  */
 @ContextConfiguration("classpath:xml/context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-public class XmlInitDataSource {
+class XmlInitDataSourceTest {
 
     @Autowired
     private DataSource dataSource;

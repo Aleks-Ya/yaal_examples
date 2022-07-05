@@ -2,19 +2,17 @@ package spel.parser;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.expression.EvaluationContext;
-import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import spel.Inventor;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Executing SpEL without run Spring (with additional objects).
  */
-public class EvaluationContextTest {
+class EvaluationContextTest {
     private final ExpressionParser parser = new SpelExpressionParser();
 
     /**
@@ -22,13 +20,13 @@ public class EvaluationContextTest {
      */
     @Test
     void explicitly() {
-        Inventor tesla = new Inventor("Tesla");
+        var tesla = new Inventor("Tesla");
         EvaluationContext context = new StandardEvaluationContext(tesla);
 
-        Expression exp = parser.parseExpression("name");
-        String value = (String) exp.getValue(context);
+        var exp = parser.parseExpression("name");
+        var value = (String) exp.getValue(context);
 
-        assertThat(value, equalTo("Tesla"));
+        assertThat(value).isEqualTo("Tesla");
     }
 
     /**
@@ -36,12 +34,12 @@ public class EvaluationContextTest {
      */
     @Test
     void implicitly() {
-        Inventor tesla = new Inventor("Tesla");
+        var tesla = new Inventor("Tesla");
 
-        Expression exp = parser.parseExpression("name");
-        String value = (String) exp.getValue(tesla);
+        var exp = parser.parseExpression("name");
+        var value = (String) exp.getValue(tesla);
 
-        assertThat(value, equalTo("Tesla"));
+        assertThat(value).isEqualTo("Tesla");
     }
 
 }

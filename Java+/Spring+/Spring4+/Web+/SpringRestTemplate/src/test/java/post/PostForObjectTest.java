@@ -26,7 +26,7 @@ public class PostForObjectTest {
         final MockRestServiceServer server = MockRestServiceServer.bindTo(restTemplate).build();
         server.expect(once(), requestTo(url))
                 .andExpect(method(HttpMethod.POST))
-                .andExpect(header(headerName, equalTo(headerValue)))
+                .andExpect(header(headerName).isEqualTo(headerValue)))
                 .andRespond(withSuccess("{}", MediaType.APPLICATION_JSON));
 
 
@@ -51,8 +51,8 @@ public class PostForObjectTest {
         final String URL = "localhost/path";
         final MockRestServiceServer server = MockRestServiceServer.bindTo(restTemplate).build();
         server.expect(once(), requestTo(URL)).andExpect(method(HttpMethod.POST))
-                .andExpect(jsonPath("key", equalTo("value")))
-                .andExpect(header("content-type", equalTo(MediaType.APPLICATION_JSON_UTF8_VALUE)))
+                .andExpect(jsonPath("key").isEqualTo("value")))
+                .andExpect(header("content-type").isEqualTo(MediaType.APPLICATION_JSON_UTF8_VALUE)))
                 .andRespond(withSuccess("{}", MediaType.APPLICATION_JSON));
 
         Quote quote = restTemplate.postForObject(URL, entity, Quote.class);

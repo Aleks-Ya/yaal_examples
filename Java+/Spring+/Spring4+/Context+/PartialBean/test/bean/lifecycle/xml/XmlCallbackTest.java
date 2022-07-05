@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @ContextConfiguration("classpath:bean/lifecycle/xml/context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-public class XmlCallback {
+class XmlCallbackTest {
 
     /**
      * Пустой тест заставляет Spring инъецировать бины.

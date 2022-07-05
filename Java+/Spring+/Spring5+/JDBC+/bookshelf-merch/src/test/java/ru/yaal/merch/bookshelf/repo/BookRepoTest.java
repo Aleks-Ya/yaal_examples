@@ -12,7 +12,7 @@ import ru.yaal.merch.bookshelf.repository.BookRepo;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {RepoTestConfig.class})
@@ -25,7 +25,7 @@ public class BookRepoTest {
     void findByAuthor() {
         long authorId = 3L;
         List<Book> books = repo.findBooksByAuthor(authorId);
-        assertThat(books, hasSize(2));
+        assertThat(books).hasSize(2));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class BookRepoTest {
         Long id = repo.insertBook(expected);
         expected.setId(id);
         Book actual = repo.findBookById(id);
-        assertThat(actual, equalTo(expected));
+        assertThat(actual).isEqualTo(expected));
     }
 
     @Test
@@ -43,7 +43,7 @@ public class BookRepoTest {
         Book expected = new Book(id, "10 book", "abstract10", null);
         repo.insertBook(expected);
         Book actual = repo.findBookById(id);
-        assertThat(actual, equalTo(expected));
+        assertThat(actual).isEqualTo(expected));
     }
 
     @Test
@@ -54,6 +54,6 @@ public class BookRepoTest {
         repo.insertBook(expected2);
         repo.insertBook(new Book(21L, "21 book", "abstract21", null));
         List<Book> actual = repo.findBooksByName("find");
-        assertThat(actual, containsInAnyOrder(expected, expected2));
+        assertThat(actual).containsExactlyInAnyOrder(expected, expected2));
     }
 }

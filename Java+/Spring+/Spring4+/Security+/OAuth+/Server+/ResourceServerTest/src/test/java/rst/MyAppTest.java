@@ -1,6 +1,6 @@
 package rst;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,11 +12,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MyAppTest {
-	@Autowired
-	private ConfigurableApplicationContext	context;
+    @Autowired
+    private ConfigurableApplicationContext context;
 
-	@Test
-	public void test() {
-		assertTrue(context.isActive());
-	}
+    @Test
+    public void test() {
+        assertTrue(context.isActive());
+    }
 }

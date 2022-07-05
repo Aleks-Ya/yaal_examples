@@ -8,32 +8,32 @@ import static util.AssertPrimitiveArrays.assertArray;
 /**
  * Use batch update with a batch of queries.
  */
-public class UpdateBatchQueries extends TestBase {
+class UpdateBatchQueries extends TestBase {
 
     @Test
     void insert() {
-        String[] queries = {
+        var queries = new String[]{
                 "INSERT INTO names values(5, 'Vera')",
                 "INSERT INTO names values(6, 'Bagira')"};
-        int[] result = template.batchUpdate(queries);
+        var result = template.batchUpdate(queries);
         assertArray(result, new int[]{1, 1});
     }
 
     @Test
     void update() {
-        String[] queries = {
+        var queries = new String[]{
                 "UPDATE names SET title='Jerry' WHERE title='John'",
                 "UPDATE names SET title='Boris' WHERE id=600"};
-        int[] result = template.batchUpdate(queries);
+        var result = template.batchUpdate(queries);
         assertArray(result, new int[]{1, 0});
     }
 
     @Test
     void delete() {
-        String[] queries = {
+        var queries = new String[]{
                 "DELETE FROM names WHERE title='Mary'",
                 "DELETE FROM names WHERE title='John'"};
-        int[] result = template.batchUpdate(queries);
+        var result = template.batchUpdate(queries);
         assertArray(result, new int[]{1, 1});
     }
 

@@ -21,9 +21,9 @@ class LowagiePdfControllerTest extends BaseTest {
     @Test
     void requestParam() throws Exception {
         var mvcResult = mvc.perform(
-                get(LowagiePdfController.ENDPOINT)
-                        .accept(MediaType.APPLICATION_PDF)
-        )
+                        get(LowagiePdfController.ENDPOINT)
+                                .accept(MediaType.APPLICATION_PDF)
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_PDF_VALUE))
                 .andReturn();

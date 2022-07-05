@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/redirect")
 public class RedirectController {
-   @RequestMapping(method = RequestMethod.GET)
-   public String redirectFrom() {
-      return "redirect:/redirect/redirectTo";
-   }
-   
-   @RequestMapping(value="redirectTo", method = RequestMethod.GET)
-   public String redirectTo() {
-      return "redirect/redirect_to";
-   }
+    @RequestMapping(method = RequestMethod.GET)
+    public String redirectFrom() {
+        return "redirect:/redirect/redirectTo";
+    }
+
+    @RequestMapping(value = "redirectTo", method = RequestMethod.GET)
+    public String redirectTo() {
+        return "redirect/redirect_to";
+    }
 }

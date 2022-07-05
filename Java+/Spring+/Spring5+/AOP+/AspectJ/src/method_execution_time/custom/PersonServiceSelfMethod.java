@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Processing invocation of the same class method.  
+ * Processing invocation of the same class method.
  */
 @Service
 class PersonServiceSelfMethod {

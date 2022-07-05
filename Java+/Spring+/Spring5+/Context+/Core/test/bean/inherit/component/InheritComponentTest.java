@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = InheritComponentConfig.class)
@@ -17,6 +17,6 @@ class InheritComponentTest {
 
     @Test
     void name() {
-        assertNotNull(child);
+        assertThat(child).isNotNull();
     }
 }

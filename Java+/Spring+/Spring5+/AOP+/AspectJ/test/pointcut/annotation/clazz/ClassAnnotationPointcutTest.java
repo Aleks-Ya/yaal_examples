@@ -8,7 +8,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {HelloClassAspect.class, Messenger.class})
-public class ClassAnnotationPointcutTest {
+class ClassAnnotationPointcutTest {
 
     @Autowired
     private Messenger writer;

@@ -6,33 +6,31 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import util.TestBase;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Use {@link BeanPropertyRowMapper} to map rows to POJOs.
  */
-public class CustomRowMapperTest extends TestBase {
+class CustomRowMapperTest extends TestBase {
     private static final RowMapper<Name> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Name.class);
 
     @Test
     void singleObject() {
-        Name name = template.queryForObject("SELECT * FROM names WHERE id=1", ROW_MAPPER);
-        assertEquals(1, (int) name.getId());
-        assertEquals("John", name.getTitle());
+        var name = template.queryForObject("SELECT * FROM names WHERE id=1", ROW_MAPPER);
+        assertThat((int) name.getId()).isEqualTo(1);
+        assertThat(name.getTitle()).isEqualTo("John");
     }
 
     @Test
     void objectList() {
-        List<Name> names = template.query("SELECT * FROM names", ROW_MAPPER);
+        var names = template.query("SELECT * FROM names", ROW_MAPPER);
 
-        Name name1 = names.get(0);
-        assertEquals(1, (int) name1.getId());
-        assertEquals("John", name1.getTitle());
+        var name1 = names.get(0);
+        assertThat((int) name1.getId()).isEqualTo(1);
+        assertThat(name1.getTitle()).isEqualTo("John");
 
-        Name name2 = names.get(1);
-        assertEquals(2, (int) name2.getId());
-        assertEquals("Mary", name2.getTitle());
+        var name2 = names.get(1);
+        assertThat((int) name2.getId()).isEqualTo(2);
+        assertThat(name2.getTitle()).isEqualTo("Mary");
     }
 }

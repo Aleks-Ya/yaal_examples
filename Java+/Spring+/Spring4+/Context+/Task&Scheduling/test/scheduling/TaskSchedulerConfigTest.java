@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @ContextConfiguration(classes = TaskSchedulerConfig.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class TaskSchedulerConfigTest {
+class TaskSchedulerConfigTest {
     @Test
     void test() throws InterruptedException {
         Thread.sleep(5000);

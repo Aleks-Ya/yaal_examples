@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {HelloMethodAspect.class, Messenger.class})
-public class MethodAnnotationPointcutTest {
+class MethodAnnotationPointcutTest {
 
     @Autowired
     private Messenger writer;

@@ -6,17 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = InheritComponentConfig.class)
-public class InheritComponentTest {
+class InheritComponentTest {
 
     @Autowired
     private Child child;
 
     @Test
-    void name() throws Exception {
-        assertNotNull(child);
+    void name() {
+        assertThat(child).isNotNull();
     }
 }

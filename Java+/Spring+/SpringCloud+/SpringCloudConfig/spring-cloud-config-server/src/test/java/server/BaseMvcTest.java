@@ -8,7 +8,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 @WebAppConfiguration
-public abstract class BaseMvcTest  extends BaseTest {
+public abstract class BaseMvcTest extends BaseTest {
     @Autowired
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     private WebApplicationContext context;

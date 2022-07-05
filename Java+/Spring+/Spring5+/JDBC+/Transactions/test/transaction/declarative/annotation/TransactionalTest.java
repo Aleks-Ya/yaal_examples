@@ -11,11 +11,11 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TransactionalConfig.class)
-public class TransactionalTest {
+class TransactionalTest {
 
     @Autowired
     private JdbcTemplate template;
@@ -27,7 +27,7 @@ public class TransactionalTest {
     void queryForObject() {
         TransactionDefinition definition = new DefaultTransactionAttribute();
         TransactionStatus txStatus = txManager.getTransaction(definition);
-        assertEquals("Mary", template.queryForObject("SELECT title FROM names WHERE id=2", String.class));
+        assertThat(template.queryForObject("SELECT title FROM names WHERE id=2", String.class)).isEqualTo("Mary");
         txManager.commit(txStatus);
     }
 }

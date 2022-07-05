@@ -4,21 +4,21 @@ import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import util.TestBase;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Выборка данных из БД с помощью NamedParameterJdbcTemplate.
  */
-public class Update extends TestBase {
+class Update extends TestBase {
 
     @Test
     void queryForObject() {
-        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        var parameters = new MapSqlParameterSource();
         parameters.addValue("title_param", "Ben");
         parameters.addValue("id_param", 4);
 
-        assertEquals(1, namedTemplate.update(
+        assertThat(namedTemplate.update(
                 "UPDATE names SET title=:title_param WHERE id=:id_param",
-                parameters));
+                parameters)).isEqualTo(1);
     }
 }

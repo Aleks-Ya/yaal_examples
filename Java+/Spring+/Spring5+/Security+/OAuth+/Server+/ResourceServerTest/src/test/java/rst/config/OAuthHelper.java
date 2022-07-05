@@ -22,48 +22,48 @@ import java.util.Set;
 @Component
 public class OAuthHelper {
 
-	public OAuthHelper(ClientDetailsService clientDetailsService, UserDetailsService userDetailsService, AuthorizationServerTokenServices tokenservice) {
-		this.clientDetailsService = clientDetailsService;
-		this.userDetailsService = userDetailsService;
-		this.tokenservice = tokenservice;
-	}
+    public OAuthHelper(ClientDetailsService clientDetailsService, UserDetailsService userDetailsService, AuthorizationServerTokenServices tokenservice) {
+        this.clientDetailsService = clientDetailsService;
+        this.userDetailsService = userDetailsService;
+        this.tokenservice = tokenservice;
+    }
 
-	ClientDetailsService				clientDetailsService;
-	UserDetailsService					userDetailsService;
-	AuthorizationServerTokenServices	tokenservice;
+    ClientDetailsService clientDetailsService;
+    UserDetailsService userDetailsService;
+    AuthorizationServerTokenServices tokenservice;
 
-	// For use with MockMvc
-	public RequestPostProcessor bearerToken(final String clientid, final String username) {
-		return mockRequest -> {
-			OAuth2Authentication auth = oAuth2Authentication(clientid, username);
-			OAuth2AccessToken token = tokenservice.createAccessToken(auth);
-			mockRequest.addHeader("Authorization", "Bearer " + token.getValue());
-			return mockRequest;
-		};
-	}
+    // For use with MockMvc
+    public RequestPostProcessor bearerToken(final String clientid, final String username) {
+        return mockRequest -> {
+            OAuth2Authentication auth = oAuth2Authentication(clientid, username);
+            OAuth2AccessToken token = tokenservice.createAccessToken(auth);
+            mockRequest.addHeader("Authorization", "Bearer " + token.getValue());
+            return mockRequest;
+        };
+    }
 
-	// For use with @WithOAuth2Authentication
-	public OAuth2Authentication oAuth2Authentication(final String clientId, final String username) {
-		// Look up authorities, resourceIds and scopes based on clientId
-		ClientDetails client = clientDetailsService.loadClientByClientId(clientId);
-		Collection<GrantedAuthority> authorities = client.getAuthorities();
-		Set<String> resourceIds = client.getResourceIds();
-		Set<String> scopes = client.getScope();
+    // For use with @WithOAuth2Authentication
+    public OAuth2Authentication oAuth2Authentication(final String clientId, final String username) {
+        // Look up authorities, resourceIds and scopes based on clientId
+        ClientDetails client = clientDetailsService.loadClientByClientId(clientId);
+        Collection<GrantedAuthority> authorities = client.getAuthorities();
+        Set<String> resourceIds = client.getResourceIds();
+        Set<String> scopes = client.getScope();
 
-		// Default values for other parameters
-		Map<String, String> requestParameters = Collections.emptyMap();
-		boolean approved = true;
-		String redirectUrl = null;
-		Set<String> responseTypes = Collections.emptySet();
-		Map<String, Serializable> extensionProperties = Collections.emptyMap();
+        // Default values for other parameters
+        Map<String, String> requestParameters = Collections.emptyMap();
+        boolean approved = true;
+        String redirectUrl = null;
+        Set<String> responseTypes = Collections.emptySet();
+        Map<String, Serializable> extensionProperties = Collections.emptyMap();
 
-		// Create request
-		OAuth2Request oAuth2Request = new OAuth2Request(requestParameters, clientId, authorities, approved, scopes, resourceIds, redirectUrl, responseTypes, extensionProperties);
+        // Create request
+        OAuth2Request oAuth2Request = new OAuth2Request(requestParameters, clientId, authorities, approved, scopes, resourceIds, redirectUrl, responseTypes, extensionProperties);
 
-		// Create OAuth2AccessToken
-		UserDetails user = userDetailsService.loadUserByUsername(username);
-		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null, authorities);
-		OAuth2Authentication auth = new OAuth2Authentication(oAuth2Request, authenticationToken);
-		return auth;
-	}
+        // Create OAuth2AccessToken
+        UserDetails user = userDetailsService.loadUserByUsername(username);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null, authorities);
+        OAuth2Authentication auth = new OAuth2Authentication(oAuth2Request, authenticationToken);
+        return auth;
+    }
 }

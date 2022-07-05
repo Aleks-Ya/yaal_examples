@@ -18,30 +18,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @ResponseBody
 public class ArgumentController {
-	
-	@RequestMapping(value = "/http")
-	public String http(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
-		int length = request.getContentLength();
-		String encoding = response.getCharacterEncoding();
-		int maxInactiveInterval = session.getMaxInactiveInterval();
+    @RequestMapping(value = "/http")
+    public String http(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
-		return String.format("Content length: %d, Max inactive interval: %d, Encoding: %s", length, maxInactiveInterval,
-				encoding);
-	}
+        int length = request.getContentLength();
+        String encoding = response.getCharacterEncoding();
+        int maxInactiveInterval = session.getMaxInactiveInterval();
 
-	@RequestMapping(value = "/request_param")
-	public String requestParam(@RequestParam("code") String code) {
-		return "Request param 'code': " + code;
-	}
+        return String.format("Content length: %d, Max inactive interval: %d, Encoding: %s", length, maxInactiveInterval,
+                encoding);
+    }
 
-	@RequestMapping(value = "/all_request_params")
-	public String allRequestParams(@RequestParam Map<String, String> params) {
-		return "All request params: " + params;
-	}
+    @RequestMapping(value = "/request_param")
+    public String requestParam(@RequestParam("code") String code) {
+        return "Request param 'code': " + code;
+    }
 
-	@RequestMapping(value = "/path_variable/{operation}/{id}")
-	public String pathVariable(@PathVariable("operation") String operationName, @PathVariable int id) {
-		return String.format("Operation: %s, Id: %d", operationName, id);
-	}
+    @RequestMapping(value = "/all_request_params")
+    public String allRequestParams(@RequestParam Map<String, String> params) {
+        return "All request params: " + params;
+    }
+
+    @RequestMapping(value = "/path_variable/{operation}/{id}")
+    public String pathVariable(@PathVariable("operation") String operationName, @PathVariable int id) {
+        return String.format("Operation: %s, Id: %d", operationName, id);
+    }
 }

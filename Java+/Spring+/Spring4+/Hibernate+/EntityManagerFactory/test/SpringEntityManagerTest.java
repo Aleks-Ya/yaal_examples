@@ -8,14 +8,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Одна встроенная БД.
  */
 @ContextConfiguration("classpath:context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-public class SpringEntityManagerTest {
+class SpringEntityManagerTest {
 
     @PersistenceContext
     private EntityManager em;
@@ -27,6 +27,6 @@ public class SpringEntityManagerTest {
         name.setTitle("Boris");
         em.persist(name);
         em.flush();
-        assertEquals(1, (int) name.getId());
+        assertThat((int) name.getId()).isEqualTo(1);
     }
 }

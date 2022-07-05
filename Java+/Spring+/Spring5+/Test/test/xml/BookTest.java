@@ -6,18 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration({
         "classpath:xml/spring-context.xml"
 })
-public class BookTest {
+class BookTest {
     @Autowired
     private Book book;
 
     @Test
     void title() {
-        assertEquals(book.getTitle(), "Java. Effective programming");
+        assertThat(book.getTitle()).isEqualTo("Java. Effective programming");
     }
 }

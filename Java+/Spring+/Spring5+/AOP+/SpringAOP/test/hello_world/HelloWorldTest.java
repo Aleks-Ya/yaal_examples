@@ -3,17 +3,17 @@ package hello_world;
 import org.junit.jupiter.api.Test;
 import org.springframework.aop.framework.ProxyFactory;
 
-public class HelloWorldTest {
+class HelloWorldTest {
 
     @Test
     void test() {
-        MessageWriter target = new MessageWriter();
+        var target = new MessageWriter();
 
-        ProxyFactory pf = new ProxyFactory();
+        var pf = new ProxyFactory();
         pf.addAdvice(new MessageDecorator());
         pf.setTarget(target);
 
-        MessageWriter proxy = (MessageWriter) pf.getProxy();
+        var proxy = (MessageWriter) pf.getProxy();
 
         target.writeMessage();
         System.out.println();

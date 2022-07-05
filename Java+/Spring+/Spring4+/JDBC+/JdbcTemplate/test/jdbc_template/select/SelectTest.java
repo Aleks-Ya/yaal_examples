@@ -11,8 +11,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -20,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Config.class)
-class Select {
+class SelectTest {
     private static final RowMapper<Name> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Name.class);
 
     @Autowired
@@ -33,7 +31,7 @@ class Select {
 
     @Test
     void queryPrimitiveList() {
-        List<Integer> list = template.queryForList("SELECT id FROM names", Integer.class);
+        var list = template.queryForList("SELECT id FROM names", Integer.class);
         assertThat(list).containsExactlyInAnyOrder(1, 2, 4);
     }
 
@@ -50,34 +48,34 @@ class Select {
 
     @Test
     void rowMapperForSingleObject() {
-        Name name = template.queryForObject("SELECT * FROM names WHERE id=1", ROW_MAPPER);
+        var name = template.queryForObject("SELECT * FROM names WHERE id=1", ROW_MAPPER);
         assertThat((int) name.getId()).isEqualTo(1);
         assertThat(name.getTitle()).isEqualTo("John");
     }
 
     @Test
     void rowMapperForObjectList() {
-        List<Name> names = template.query("SELECT * FROM names", ROW_MAPPER);
+        var names = template.query("SELECT * FROM names", ROW_MAPPER);
 
-        Name name1 = names.get(0);
+        var name1 = names.get(0);
         assertThat((int) name1.getId()).isEqualTo(1);
         assertThat(name1.getTitle()).isEqualTo("John");
 
-        Name name2 = names.get(1);
+        var name2 = names.get(1);
         assertThat((int) name2.getId()).isEqualTo(2);
         assertThat(name2.getTitle()).isEqualTo("Mary");
     }
 
     @Test
     void queryForList() {
-        List<String> list = template.queryForList("SELECT title FROM names WHERE id=?", String.class, 1);
+        var list = template.queryForList("SELECT title FROM names WHERE id=?", String.class, 1);
         assertThat(list).hasSize(1);
         assertThat(list.get(0)).isEqualTo("John");
     }
 
     @Test
     void whereIn() {
-        List<String> list = template.queryForList("SELECT title FROM names WHERE id IN(1,4)", String.class);
+        var list = template.queryForList("SELECT title FROM names WHERE id IN(1,4)", String.class);
         assertThat(list).containsExactlyInAnyOrder("John", "Ben");
     }
 }

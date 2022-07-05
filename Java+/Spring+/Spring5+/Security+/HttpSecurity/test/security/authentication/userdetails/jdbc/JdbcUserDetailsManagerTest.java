@@ -14,10 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Collections;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {DataSourceConfig.class, SecurityConfig.class})
@@ -30,11 +27,11 @@ class JdbcUserDetailsManagerTest {
     @Test
     void userDetailsService() {
         var user = userDetailsService.loadUserByUsername(SecurityConfig.USERNAME);
-        assertNotNull(user);
+        assertThat(user).isNotNull();
 
         var authorities = user.getAuthorities();
         GrantedAuthority expAuthority = new SimpleGrantedAuthority(SecurityConfig.ROLE);
-        assertThat(authorities, contains(expAuthority));
+        assertThat(authorities.contains(expAuthority)).isTrue();
     }
 
     @Test
@@ -47,8 +44,8 @@ class JdbcUserDetailsManagerTest {
 
         //Read the user
         var actUser = userDetailsService.loadUserByUsername(username);
-        assertThat(actUser, equalTo(expUser));
+        assertThat(actUser).isEqualTo(expUser);
         var authorities = actUser.getAuthorities();
-        assertThat(authorities, contains(expAuthority));
+        assertThat(authorities.contains(expAuthority)).isTrue();
     }
 }

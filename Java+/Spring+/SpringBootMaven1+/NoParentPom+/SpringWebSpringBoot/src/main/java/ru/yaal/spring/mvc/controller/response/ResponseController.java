@@ -14,23 +14,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class ResponseController {
-	
-	/**
-	 * Using ResponseEntity.
-	 */
-	@RequestMapping(value = "/respose_entity")
-	public ResponseEntity<String> responseEntity() {
-		HttpHeaders headers = new HttpHeaders();
-		headers.put("my_header", Arrays.asList("my header value"));
-		return new ResponseEntity<>("Body", headers, HttpStatus.ACCEPTED);
-	}
 
-	/**
-	 * Using ResponseBody.
-	 */
-	@RequestMapping(value = "/respose_body", produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public String responseBody() {
-		return "{message: Response body message}";
-	}
+    /**
+     * Using ResponseEntity.
+     */
+    @RequestMapping(value = "/respose_entity")
+    public ResponseEntity<String> responseEntity() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("my_header", Arrays.asList("my header value"));
+        return new ResponseEntity<>("Body", headers, HttpStatus.ACCEPTED);
+    }
+
+    /**
+     * Using ResponseBody.
+     */
+    @RequestMapping(value = "/respose_body", produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String responseBody() {
+        return "{message: Response body message}";
+    }
 }

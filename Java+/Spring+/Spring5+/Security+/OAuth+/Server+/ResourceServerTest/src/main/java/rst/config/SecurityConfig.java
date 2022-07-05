@@ -13,13 +13,13 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends ResourceServerConfigurerAdapter {
-	@Override
-	public void configure(final HttpSecurity http) throws Exception {
-		http.authorizeRequests().anyRequest().access("#oauth2.hasScope('myscope')");
-	}
+    @Override
+    public void configure(final HttpSecurity http) throws Exception {
+        http.authorizeRequests().anyRequest().access("#oauth2.hasScope('myscope')");
+    }
 
-	@Override
-	public void configure(final ResourceServerSecurityConfigurer resources) {
-		resources.resourceId("myresource");
-	}
+    @Override
+    public void configure(final ResourceServerSecurityConfigurer resources) {
+        resources.resourceId("myresource");
+    }
 }

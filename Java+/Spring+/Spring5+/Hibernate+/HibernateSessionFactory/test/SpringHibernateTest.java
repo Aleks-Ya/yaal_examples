@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Одна встроенная БД.
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:context.xml")
-public class SpringHibernateTest {
+class SpringHibernateTest {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -25,6 +25,6 @@ public class SpringHibernateTest {
         name.setTitle("Boris");
         Session s = sessionFactory.openSession();
         s.save(name);
-        assertEquals(1, (int) name.getId());
+        assertThat((int) name.getId()).isEqualTo(1);
     }
 }

@@ -12,16 +12,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Выборка данных из БД с помощью NamedParameterJdbcTemplate.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Config.class)
-public class Select {
+class Select {
 
     @Autowired
     private NamedParameterJdbcTemplate template;
@@ -32,10 +30,9 @@ public class Select {
         parameters.addValue("title_param", "Ben");
         parameters.addValue("id_param", 4);
 
-        assertEquals("" +
-                "Ben", template.queryForObject(
+        assertThat(template.queryForObject(
                 "SELECT title FROM names WHERE id=:id_param AND title=:title_param",
-                parameters, String.class));
+                parameters, String.class)).isEqualTo("Ben");
     }
 
     @Test
@@ -43,6 +40,6 @@ public class Select {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         parameters.addValue("ids", Arrays.asList(1, 4));
         List<String> list = template.queryForList("SELECT title FROM names WHERE id IN(:ids)", parameters, String.class);
-        assertThat(list, containsInAnyOrder("John", "Ben"));
+        assertThat(list).containsExactlyInAnyOrder("John", "Ben");
     }
 }

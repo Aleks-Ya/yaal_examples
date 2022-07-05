@@ -6,27 +6,25 @@ import org.junit.jupiter.api.Test;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.IOException;
-import java.net.URI;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class WebClientTest {
 
     @Test
     void get() throws IOException {
-        MockWebServer server = new MockWebServer();
-        String expBody = "abc";
+        var server = new MockWebServer();
+        var expBody = "abc";
         server.enqueue(new MockResponse().setBody(expBody));
         server.start();
 
-        URI uri = server.url("/").uri();
+        var uri = server.url("/").uri();
 
-        WebClient client = WebClient.create();
+        var client = WebClient.create();
 
-        WebClient.ResponseSpec mono = client.get().uri(uri).retrieve();
-        String actBody = mono.bodyToMono(String.class).block();
-        assertThat(actBody, equalTo(expBody));
+        var mono = client.get().uri(uri).retrieve();
+        var actBody = mono.bodyToMono(String.class).block();
+        assertThat(actBody).isEqualTo(expBody);
 
         server.shutdown();
     }

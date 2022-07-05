@@ -9,13 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.hasEntry;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration("classpath:spring-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-public class CollectionBean {
+class CollectionBeanTest {
 
     @Autowired
     ApplicationContext context;
@@ -23,25 +21,25 @@ public class CollectionBean {
     @Test
     void list() {
         List<MyClass> myList = (List<MyClass>) context.getBean("myList");
-        assertThat(myList, containsInAnyOrder(
+        assertThat(myList).containsExactlyInAnyOrder(
                 new MyClass("Hello, List!"),
-                new MyClass("Bay, List!"))
+                new MyClass("Bay, List!")
         );
     }
 
     @Test
     void set() {
         Set<MyClass> mySet = (Set<MyClass>) context.getBean("mySet");
-        assertThat(mySet, containsInAnyOrder(
+        assertThat(mySet).containsExactlyInAnyOrder(
                 new MyClass("Hello, Set!"),
-                new MyClass("Bay, Set!"))
+                new MyClass("Bay, Set!")
         );
     }
 
     @Test
     void map() {
         Map<String, MyClass> myMap = (Map<String, MyClass>) context.getBean("myMap");
-        assertThat(myMap, hasEntry("my1", new MyClass("Hello, Map!")));
-        assertThat(myMap, hasEntry("my2", new MyClass("Bay, Map!")));
+        assertThat(myMap).containsEntry("my1", new MyClass("Hello, Map!"));
+        assertThat(myMap).containsEntry("my2", new MyClass("Bay, Map!"));
     }
 }

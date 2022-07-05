@@ -20,10 +20,10 @@ class JsonAutoControllerTest extends BaseTest {
     @Test
     void requestParam() throws Exception {
         mvc.perform(
-                post(JsonAutoController.ENDPOINT)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{ \"name\": \"abc\"}")
-        )
+                        post(JsonAutoController.ENDPOINT)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{ \"name\": \"abc\"}")
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().string("response=abc"));
     }

@@ -7,19 +7,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import repository.UserRepository;
 import spring.TestConfiguration;
 
-import java.io.IOException;
-
 /**
  * @author Yablokov Aleksey
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfiguration.class)
-public class MongoTest {
+class MongoTest {
     @Autowired
     private UserRepository repo;
 
     @Test
-    void test() throws IOException {
+    void test() {
         repo.insert(new User("admin"));
     }
 }

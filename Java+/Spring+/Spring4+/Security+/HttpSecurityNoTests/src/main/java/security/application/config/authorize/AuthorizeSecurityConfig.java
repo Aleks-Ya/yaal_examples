@@ -9,12 +9,12 @@ import security.application.config.authentication.Roles;
 @EnableWebSecurity
 class AuthorizeSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
                 .mvcMatchers("/anonymus").anonymous()
                 .mvcMatchers("/admin").hasRole(Roles.ADMIN)
-				.mvcMatchers("/user").hasAnyRole(Roles.USER, Roles.ADMIN)
+                .mvcMatchers("/user").hasAnyRole(Roles.USER, Roles.ADMIN)
                 .anyRequest().authenticated().and().formLogin();
-	}
+    }
 }

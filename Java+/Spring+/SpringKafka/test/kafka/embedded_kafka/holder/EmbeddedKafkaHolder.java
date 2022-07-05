@@ -14,8 +14,7 @@ final class EmbeddedKafkaHolder {
         if (!started) {
             try {
                 embeddedKafka.afterPropertiesSet();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 throw new KafkaException("Embedded broker failed to start", e);
             }
             started = true;

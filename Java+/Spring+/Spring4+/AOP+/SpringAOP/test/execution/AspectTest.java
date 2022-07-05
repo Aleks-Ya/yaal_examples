@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @ContextConfiguration(classes = {Config.class})
 @RunWith(SpringJUnit4ClassRunner.class)
-public class AspectTest {
+class AspectTest {
 
     @Autowired
     MessageWriter writer;

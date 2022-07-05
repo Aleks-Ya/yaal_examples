@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @ImportResource("classpath:xml-context.xml")
 public class Address implements InitializingBean, DisposableBean {
 
-//    @PostConstruct
+    //    @PostConstruct
     public void postConstruct() {
         System.out.println("#1 Address#postConstruct()");
     }
@@ -28,7 +28,7 @@ public class Address implements InitializingBean, DisposableBean {
         System.out.println("#3 Address#initMethod()");
     }
 
-//    @PreDestroy
+    //    @PreDestroy
     public void preDestroy() {
         System.out.println("#1 Address#preDestroy()");
     }

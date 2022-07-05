@@ -4,7 +4,7 @@
 
        default-init-method="defaultInit"
        default-destroy-method="defaultDestroy"
-        >
+>
 
     <bean class="bean.lifecycle.MyBean"/>
     <bean class="bean.lifecycle.xml.XmlBean"/>

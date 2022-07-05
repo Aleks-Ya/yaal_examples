@@ -8,15 +8,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = TxTemplateConfig.class)
-public class TxTemplateTest {
+class TxTemplateTest {
 
     @Autowired
     private JdbcTemplate template;
@@ -30,11 +29,11 @@ public class TxTemplateTest {
     @Test
     void queryForObject() {
         TransactionDefinition definition = new DefaultTransactionAttribute();
-        TransactionStatus txStatus = txManager.getTransaction(definition);
+        var txStatus = txManager.getTransaction(definition);
 
-        String result = txTemplate.execute(
+        var result = txTemplate.execute(
                 status -> template.queryForObject("SELECT title FROM names WHERE id=2", String.class));
         txManager.commit(txStatus);
-        assertEquals("Mary", result);
+        assertThat(result).isEqualTo("Mary");
     }
 }

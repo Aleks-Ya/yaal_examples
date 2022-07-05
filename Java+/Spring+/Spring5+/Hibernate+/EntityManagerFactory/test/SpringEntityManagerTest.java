@@ -8,25 +8,25 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Одна встроенная БД.
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:context.xml")
-public class SpringEntityManagerTest {
+class SpringEntityManagerTest {
 
     @PersistenceContext
     private EntityManager em;
 
     @Test
     @Transactional
-    public void save() {
-        NameEntity name = new NameEntity();
+    void save() {
+        var name = new NameEntity();
         name.setTitle("Boris");
         em.persist(name);
         em.flush();
-        assertEquals(1, (int) name.getId());
+        assertThat((int) name.getId()).isEqualTo(1);
     }
 }

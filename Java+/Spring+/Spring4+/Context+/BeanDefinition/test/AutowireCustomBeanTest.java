@@ -9,33 +9,30 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Autowire Spring dependencies in a bean after the context was started.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Address.class)
-public class AutowireCustomBeanTest {
+class AutowireCustomBeanTest {
 
     @Autowired
     private ApplicationContext context;
 
     @Test
-    void main() throws IOException {
-        assertNotNull(context);
-        assertTrue(context instanceof ConfigurableApplicationContext);
+    void main() {
+        assertThat(context).isNotNull();
+        assertThat(context).isInstanceOf(ConfigurableApplicationContext.class);
 
-        ConfigurableApplicationContext configurableContext = (ConfigurableApplicationContext) context;
+        var configurableContext = (ConfigurableApplicationContext) context;
 
-        AutowireCapableBeanFactory autowireFactory = configurableContext.getAutowireCapableBeanFactory();
-        House house = (House) autowireFactory.autowire(House.class, AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, false);
+        var autowireFactory = configurableContext.getAutowireCapableBeanFactory();
+        var house = (House) autowireFactory.autowire(House.class, AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, false);
 
-        Address address = context.getBean(Address.class);
+        var address = context.getBean(Address.class);
         assertSame(address, house.getAddress());
     }
 }

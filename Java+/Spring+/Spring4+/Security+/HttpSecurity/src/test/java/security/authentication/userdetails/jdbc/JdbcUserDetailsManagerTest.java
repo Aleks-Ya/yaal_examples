@@ -15,10 +15,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Collection;
 import java.util.Collections;
 
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {DataSourceConfig.class, SecurityConfig.class})
@@ -48,7 +48,7 @@ public class JdbcUserDetailsManagerTest {
 
         //Read the user
         UserDetails actUser = userDetailsService.loadUserByUsername(username);
-        assertThat(actUser, equalTo(expUser));
+        assertThat(actUser).isEqualTo(expUser));
         Collection<? extends GrantedAuthority> authorities = actUser.getAuthorities();
         assertThat(authorities, contains(expAuthority));
     }

@@ -6,18 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {ConverterAspect.class, Converter.class})
-public class ConverterTest {
+class ConverterTest {
 
     @Autowired
     private Converter writer;
 
     @Test
     void test() {
-        assertThat(writer.toUpperCase("a"), equalTo(ConverterAspect.PREFIX + "A"));
+        assertThat(writer.toUpperCase("a")).isEqualTo(ConverterAspect.PREFIX + "A");
     }
 }

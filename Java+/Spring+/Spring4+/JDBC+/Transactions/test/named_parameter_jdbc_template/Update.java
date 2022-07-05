@@ -9,14 +9,14 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Выборка данных из БД с помощью NamedParameterJdbcTemplate.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Config.class)
-public class Update {
+class Update {
 
     @Autowired
     private NamedParameterJdbcTemplate template;
@@ -27,8 +27,8 @@ public class Update {
         parameters.addValue("title_param", "Ben");
         parameters.addValue("id_param", 4);
 
-        assertEquals(1, template.update(
+        assertThat(template.update(
                 "UPDATE names SET title=:title_param WHERE id=:id_param",
-                parameters));
+                parameters)).isEqualTo(1);
     }
 }

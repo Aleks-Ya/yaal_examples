@@ -9,8 +9,8 @@ import ru.yaal.merch.bookshelf.config.RepoTestConfig;
 import ru.yaal.merch.bookshelf.domain.Author;
 import ru.yaal.merch.bookshelf.repository.AuthorRepo;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {RepoTestConfig.class})
@@ -25,7 +25,7 @@ public class AuthorRepoTest {
         Long id = repo.insertAuthor(expected);
         expected.setId(id);
         Author actual = repo.findById(id);
-        assertThat(actual, equalTo(expected));
+        assertThat(actual).isEqualTo(expected));
     }
 
 }

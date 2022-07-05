@@ -15,13 +15,13 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SuppressWarnings("unused")
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = MarshallerTest.Config.class)
-public class MarshallerTest {
+class MarshallerTest {
     @Autowired
     private Marshaller marshaller;
 
@@ -33,7 +33,7 @@ public class MarshallerTest {
         marshaller.marshal(person, result);
         String act = new String(os.toByteArray());
         String exp = "<oxm.Person><name>John</name><age>30</age></oxm.Person>";
-        assertThat(act, equalTo(exp));
+        assertThat(act).isEqualTo(exp);
     }
 
     @Configuration
