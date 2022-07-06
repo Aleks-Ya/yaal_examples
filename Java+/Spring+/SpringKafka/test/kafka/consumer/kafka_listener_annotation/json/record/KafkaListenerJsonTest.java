@@ -1,4 +1,4 @@
-package kafka.consumer.kafka_listener_annotation.json;
+package kafka.consumer.kafka_listener_annotation.json.record;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

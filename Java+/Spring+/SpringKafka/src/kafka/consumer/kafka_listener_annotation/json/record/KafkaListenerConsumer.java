@@ -1,4 +1,4 @@
-package kafka.consumer.kafka_listener_annotation.json;
+package kafka.consumer.kafka_listener_annotation.json.record;
 
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;

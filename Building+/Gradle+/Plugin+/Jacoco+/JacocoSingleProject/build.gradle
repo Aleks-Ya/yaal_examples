@@ -3,6 +3,7 @@ plugins {
     id 'jacoco'
 }
 jacocoTestReport {
+    dependsOn test
     reports {
         xml.required = true
         csv.required = true

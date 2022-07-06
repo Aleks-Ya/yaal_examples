@@ -1,4 +1,4 @@
-package kafka.consumer.kafka_listener_annotation.json;
+package kafka.consumer.kafka_listener_annotation.json.record;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
