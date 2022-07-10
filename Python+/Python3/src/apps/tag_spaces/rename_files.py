@@ -32,7 +32,7 @@ def is_dir_contains_video_files(dir_tuple: Tuple[str, List[str], List[str]]) -> 
     return len(video_files) > 0
 
 
-target_file_name_pattern: Pattern = re.compile('\d\d \d\d \[[-\w\d\s]+\]\.mp4')
+target_file_name_pattern: Pattern = re.compile('\d\d \d\d\[[-\w\d\s]+\]\.mp4')
 parsable_file_name_pattern: Pattern = re.compile('(\d{1,2}) ?(\d{1,2})? ?(\[[-\w\d\s]+\])(\.mp4(.jpg)?)')
 
 
@@ -57,7 +57,7 @@ def make_correct_name(f: str):
             digit2 = '0' + digit2
     else:
         digit2 = '01'
-    return f'{digit1} {digit2} {tags}{extension}'
+    return f'{digit1} {digit2}{tags}{extension}'
 
 
 def get_thumbnail(dir_path: str, f: str) -> Optional[Path]:
@@ -70,7 +70,7 @@ def get_thumbnail(dir_path: str, f: str) -> Optional[Path]:
 
 
 # Tests "is_file_has_target_name()"
-assert is_file_has_target_name('05 01 [GasfortHolidayPark StartDeck].mp4')
+assert is_file_has_target_name('05 01[GasfortHolidayPark StartDeck].mp4')
 assert not is_file_has_target_name('2 1[GasfortHolidayPark Kicker Large Right Grab Nose Success Dirty Instructor].mp4')
 assert not is_file_has_target_name('4 10 [GasfortHolidayPark Flat HS BS D180 Blind].mp4')
 assert not is_file_has_target_name('4 7 [GasfortHolidayPark Flat HS BS D180 Blind].mp4')
@@ -92,26 +92,28 @@ assert is_file_has_parsable_name('1 4[SlidersCablePark RainBow Transfer Success 
 
 # Tests "make_correct_name()"
 assert make_correct_name('2 1[GasfortHolidayPark Kicker Large Right Grab Nose Success Dirty Instructor].mp4') \
-       == '02 01 [GasfortHolidayPark Kicker Large Right Grab Nose Success Dirty Instructor].mp4'
+       == '02 01[GasfortHolidayPark Kicker Large Right Grab Nose Success Dirty Instructor].mp4'
 assert make_correct_name('4 10 [GasfortHolidayPark Flat HS BS D180 Blind].mp4') \
-       == '04 10 [GasfortHolidayPark Flat HS BS D180 Blind].mp4'
+       == '04 10[GasfortHolidayPark Flat HS BS D180 Blind].mp4'
 assert make_correct_name('4 7 [GasfortHolidayPark Flat HS BS D180 Blind].mp4') \
-       == '04 07 [GasfortHolidayPark Flat HS BS D180 Blind].mp4'
+       == '04 07[GasfortHolidayPark Flat HS BS D180 Blind].mp4'
 assert make_correct_name('1 4[SlidersCablePark RainBow Transfer Success TS LandToRight D0 50-50].mp4') \
-       == '01 04 [SlidersCablePark RainBow Transfer Success TS LandToRight D0 50-50].mp4'
+       == '01 04[SlidersCablePark RainBow Transfer Success TS LandToRight D0 50-50].mp4'
+assert make_correct_name('01 01 [HipNotics Kicker Left Large HS D0 Success].mp4') \
+       == '01 01[HipNotics Kicker Left Large HS D0 Success].mp4'
 assert make_correct_name('09 1[HipNotics RoofTopDoubleKicker Transfer HS BoardSlide NotMe ToLeft Left].mp4.jpg') \
-       == '09 01 [HipNotics RoofTopDoubleKicker Transfer HS BoardSlide NotMe ToLeft Left].mp4.jpg'
+       == '09 01[HipNotics RoofTopDoubleKicker Transfer HS BoardSlide NotMe ToLeft Left].mp4.jpg'
 
 assert make_correct_name('13 [GasfortHolidayPark StartDeck].mp4') \
-       == '13 01 [GasfortHolidayPark StartDeck].mp4'
+       == '13 01[GasfortHolidayPark StartDeck].mp4'
 assert make_correct_name('01 [Kicker Large Left GasfortHolidayPark D360 HS FS Success].mp4') \
-       == '01 01 [Kicker Large Left GasfortHolidayPark D360 HS FS Success].mp4'
+       == '01 01[Kicker Large Left GasfortHolidayPark D360 HS FS Success].mp4'
 assert make_correct_name('19[GasfortHolidayPark Kicker Large Right Tail Grab D180 Success HS FS Instructor].mp4') \
-       == '19 01 [GasfortHolidayPark Kicker Large Right Tail Grab D180 Success HS FS Instructor].mp4'
+       == '19 01[GasfortHolidayPark Kicker Large Right Tail Grab D180 Success HS FS Instructor].mp4'
 assert make_correct_name('5 [GasfortHolidayPark StartDeck].mp4') \
-       == '05 01 [GasfortHolidayPark StartDeck].mp4'
+       == '05 01[GasfortHolidayPark StartDeck].mp4'
 assert make_correct_name('5 [GasfortHolidayPark StartDeck].mp4.jpg') \
-       == '05 01 [GasfortHolidayPark StartDeck].mp4.jpg'
+       == '05 01[GasfortHolidayPark StartDeck].mp4.jpg'
 
 dir_contain_files_list: List[Tuple[str, List[str], List[str]]] = \
     [dir_tuple for dir_tuple in os.walk(root_dir) if
