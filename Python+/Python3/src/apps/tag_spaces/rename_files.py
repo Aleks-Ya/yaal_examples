@@ -24,7 +24,7 @@ def is_ts_dir(dir_tuple: Tuple[str, List[str], List[str]]) -> bool:
 
 
 def is_video_file(f: str) -> bool:
-    return f.endswith('.mp4')
+    return f.lower().endswith('.mp4')
 
 
 def is_dir_contains_video_files(dir_tuple: Tuple[str, List[str], List[str]]) -> bool:
@@ -32,8 +32,8 @@ def is_dir_contains_video_files(dir_tuple: Tuple[str, List[str], List[str]]) -> 
     return len(video_files) > 0
 
 
-target_file_name_pattern: Pattern = re.compile('\d\d \d\d\[[-\w\d\s]+\]\.mp4')
-parsable_file_name_pattern: Pattern = re.compile('(\d{1,2}) ?(\d{1,2})? ?(\[[-\w\d\s]+\])(\.mp4(.jpg)?)')
+target_file_name_pattern: Pattern = re.compile('\d\d \d\d\[[-\w\d\s]+\]\.mp4', re.IGNORECASE)
+parsable_file_name_pattern: Pattern = re.compile('(\d{1,2}) ?(\d{1,2})? ?(\[[-\w\d\s]+\])(\.mp4(.jpg)?)', re.IGNORECASE)
 
 
 def is_file_has_target_name(f: str):
@@ -155,3 +155,4 @@ print(f'Match count: {len(video_match_list)}')
 print(f'Parsable count: {len(video_parsable_list)}')
 print(f'Not parsable count: {len(video_not_parsable_list)}')
 print(f'Thumbnail not match count: {len(thumbnail_not_match_list)}')
+print(f'Not parsable names: {video_not_parsable_list}')
