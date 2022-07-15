@@ -1,5 +1,6 @@
 # 1) Find and rename video files in TagSpaces location directory according to the target pattern.
 # Run: python rename_files.py /home/aleks/yandex-disk/video/Wakeboard
+import datetime
 import os
 import re
 import sys
@@ -32,8 +33,9 @@ def is_dir_contains_video_files(dir_tuple: Tuple[str, List[str], List[str]]) -> 
     return len(video_files) > 0
 
 
-target_file_name_pattern: Pattern = re.compile('\d\d \d\d\[[-\w\d\s]+\]\.mp4', re.IGNORECASE)
-parsable_file_name_pattern: Pattern = re.compile('(\d{1,2}) ?(\d{1,2})? ?(\[[-\w\d\s]+\])(\.mp4(.jpg)?)', re.IGNORECASE)
+target_file_name_pattern: Pattern = re.compile('\d\d\d\d-\d\d-\d\d \d\d \d\d\[[-\w\d\s]+\]\.mp4', re.IGNORECASE)
+parsable_file_name_pattern: Pattern = re.compile(
+    '(\d\d\d\d-\d\d-\d\d)? ?(\d{1,2}) ?(\d{1,2})? ?(\[[-\w\d\s]+\])(\.mp4(.jpg)?)', re.IGNORECASE)
 
 
 def is_file_has_target_name(f: str):
@@ -44,12 +46,21 @@ def is_file_has_parsable_name(f: str):
     return parsable_file_name_pattern.match(f)
 
 
-def make_correct_name(f: str):
+def is_dir_name_parsable(dir: str) -> bool:
+    try:
+        datetime.datetime.strptime(dir, '%Y-%M-%d')
+        return True
+    except ValueError:
+        return False
+
+
+def make_correct_name(f: str, dir_date: str):
     m: Match = re.match(parsable_file_name_pattern, f)
-    digit1: str = m.group(1)
-    digit2: str = m.group(2)
-    tags: str = m.group(3)
-    extension: str = m.group(4)
+    file_date: str = m.group(1)
+    digit1: str = m.group(2)
+    digit2: str = m.group(3)
+    tags: str = m.group(4)
+    extension: str = m.group(5)
     if len(digit1) == 1:
         digit1 = '0' + digit1
     if digit2 is not None:
@@ -57,7 +68,7 @@ def make_correct_name(f: str):
             digit2 = '0' + digit2
     else:
         digit2 = '01'
-    return f'{digit1} {digit2}{tags}{extension}'
+    return f'{file_date if file_date else dir_date} {digit1} {digit2}{tags}{extension}'
 
 
 def get_thumbnail(dir_path: str, f: str) -> Optional[Path]:
@@ -69,8 +80,13 @@ def get_thumbnail(dir_path: str, f: str) -> Optional[Path]:
         return None
 
 
+# Tests "is_dir_name_parsable()"
+assert is_dir_name_parsable('2022-05-20')
+assert not is_dir_name_parsable('2022-05-20_gopro')
+assert not is_dir_name_parsable('2022-05-35')
+
 # Tests "is_file_has_target_name()"
-assert is_file_has_target_name('05 01[GasfortHolidayPark StartDeck].mp4')
+assert is_file_has_target_name('2022-05-20 05 01[GasfortHolidayPark StartDeck].mp4')
 assert not is_file_has_target_name('2 1[GasfortHolidayPark Kicker Large Right Grab Nose Success Dirty Instructor].mp4')
 assert not is_file_has_target_name('4 10 [GasfortHolidayPark Flat HS BS D180 Blind].mp4')
 assert not is_file_has_target_name('4 7 [GasfortHolidayPark Flat HS BS D180 Blind].mp4')
@@ -79,6 +95,7 @@ assert not is_file_has_target_name('01 [Kicker Large Left GasfortHolidayPark D36
 assert not is_file_has_target_name('19[GasfortHolidayPark Kicker Large Right Tail Grab D180 HS FS Instructor].mp4')
 assert not is_file_has_target_name('5 [GasfortHolidayPark StartDeck].mp4')
 assert not is_file_has_target_name('1 4[SlidersCablePark RainBow Transfer Success TS LandToRight D0 50-50].mp4')
+assert not is_file_has_target_name('2022-05-2 01 04[SlidersCablePark Transfer Success TS LandToRight D0 50-50].mp4')
 
 # Tests "is_file_has_parsable_name()"
 assert is_file_has_parsable_name('2 1[GasfortHolidayPark Kicker Large Right Grab Nose Success Dirty Instructor].mp4')
@@ -91,29 +108,30 @@ assert is_file_has_parsable_name('5 [GasfortHolidayPark StartDeck].mp4')
 assert is_file_has_parsable_name('1 4[SlidersCablePark RainBow Transfer Success TS LandToRight D0 50-50].mp4')
 
 # Tests "make_correct_name()"
-assert make_correct_name('2 1[GasfortHolidayPark Kicker Large Right Grab Nose Success Dirty Instructor].mp4') \
-       == '02 01[GasfortHolidayPark Kicker Large Right Grab Nose Success Dirty Instructor].mp4'
-assert make_correct_name('4 10 [GasfortHolidayPark Flat HS BS D180 Blind].mp4') \
-       == '04 10[GasfortHolidayPark Flat HS BS D180 Blind].mp4'
-assert make_correct_name('4 7 [GasfortHolidayPark Flat HS BS D180 Blind].mp4') \
-       == '04 07[GasfortHolidayPark Flat HS BS D180 Blind].mp4'
-assert make_correct_name('1 4[SlidersCablePark RainBow Transfer Success TS LandToRight D0 50-50].mp4') \
-       == '01 04[SlidersCablePark RainBow Transfer Success TS LandToRight D0 50-50].mp4'
-assert make_correct_name('01 01 [HipNotics Kicker Left Large HS D0 Success].mp4') \
-       == '01 01[HipNotics Kicker Left Large HS D0 Success].mp4'
-assert make_correct_name('09 1[HipNotics RoofTopDoubleKicker Transfer HS BoardSlide NotMe ToLeft Left].mp4.jpg') \
-       == '09 01[HipNotics RoofTopDoubleKicker Transfer HS BoardSlide NotMe ToLeft Left].mp4.jpg'
+dir_name: str = '2022-01-30'
+assert make_correct_name('2 1[GasfortHolidayPark Kicker Large Right Grab Nose Success Dirty Instructor].mp4', dir_name) \
+       == '2022-01-30 02 01[GasfortHolidayPark Kicker Large Right Grab Nose Success Dirty Instructor].mp4'
+assert make_correct_name('4 10 [GasfortHolidayPark Flat HS BS D180 Blind].mp4', dir_name) \
+       == '2022-01-30 04 10[GasfortHolidayPark Flat HS BS D180 Blind].mp4'
+assert make_correct_name('4 7 [GasfortHolidayPark Flat HS BS D180 Blind].mp4', dir_name) \
+       == '2022-01-30 04 07[GasfortHolidayPark Flat HS BS D180 Blind].mp4'
+assert make_correct_name('1 4[SlidersCablePark RainBow Transfer Success TS LandToRight D0 50-50].mp4', dir_name) \
+       == '2022-01-30 01 04[SlidersCablePark RainBow Transfer Success TS LandToRight D0 50-50].mp4'
+assert make_correct_name('01 01 [HipNotics Kicker Left Large HS D0 Success].mp4', dir_name) \
+       == '2022-01-30 01 01[HipNotics Kicker Left Large HS D0 Success].mp4'
+assert make_correct_name('09 1[HipNotics RoofTopDoubleKicker Transfer HS BoardSlide ToLeft Left].mp4.jpg', dir_name) \
+       == '2022-01-30 09 01[HipNotics RoofTopDoubleKicker Transfer HS BoardSlide ToLeft Left].mp4.jpg'
 
-assert make_correct_name('13 [GasfortHolidayPark StartDeck].mp4') \
-       == '13 01[GasfortHolidayPark StartDeck].mp4'
-assert make_correct_name('01 [Kicker Large Left GasfortHolidayPark D360 HS FS Success].mp4') \
-       == '01 01[Kicker Large Left GasfortHolidayPark D360 HS FS Success].mp4'
-assert make_correct_name('19[GasfortHolidayPark Kicker Large Right Tail Grab D180 Success HS FS Instructor].mp4') \
-       == '19 01[GasfortHolidayPark Kicker Large Right Tail Grab D180 Success HS FS Instructor].mp4'
-assert make_correct_name('5 [GasfortHolidayPark StartDeck].mp4') \
-       == '05 01[GasfortHolidayPark StartDeck].mp4'
-assert make_correct_name('5 [GasfortHolidayPark StartDeck].mp4.jpg') \
-       == '05 01[GasfortHolidayPark StartDeck].mp4.jpg'
+assert make_correct_name('13 [GasfortHolidayPark StartDeck].mp4', dir_name) \
+       == '2022-01-30 13 01[GasfortHolidayPark StartDeck].mp4'
+assert make_correct_name('01 [Kicker Large Left GasfortHolidayPark D360 HS FS Success].mp4', dir_name) \
+       == '2022-01-30 01 01[Kicker Large Left GasfortHolidayPark D360 HS FS Success].mp4'
+assert make_correct_name('19[GasfortHolidayPark Kicker Large Right Tail Grab D180 Success HS FS].mp4', dir_name) \
+       == '2022-01-30 19 01[GasfortHolidayPark Kicker Large Right Tail Grab D180 Success HS FS].mp4'
+assert make_correct_name('5 [GasfortHolidayPark StartDeck].mp4', dir_name) \
+       == '2022-01-30 05 01[GasfortHolidayPark StartDeck].mp4'
+assert make_correct_name('5 [GasfortHolidayPark StartDeck].mp4.jpg', dir_name) \
+       == '2022-01-30 05 01[GasfortHolidayPark StartDeck].mp4.jpg'
 
 dir_contain_files_list: List[Tuple[str, List[str], List[str]]] = \
     [dir_tuple for dir_tuple in os.walk(root_dir) if
@@ -127,20 +145,23 @@ thumbnail_not_match_list: List[Path] = []
 for dir_contain_files in dir_contain_files_list:
     dir_path: str = dir_contain_files[0]
     files: List[str] = dir_contain_files[2]
+    dir_date: str = Path(dir_path).name
+    if not is_dir_name_parsable(dir_date):
+        raise Exception(f'Dir name is bad: {dir_path}')
     for file in files:
         if is_video_file(file):
             video_full: str = os.path.join(dir_path, file)
             if not is_file_has_target_name(file):
                 thumbnail_full: Path = get_thumbnail(dir_path, file)
                 if is_file_has_parsable_name(file):
-                    video_correct: str = make_correct_name(file)
+                    video_correct: str = make_correct_name(file, dir_date)
                     video_correct_full: str = os.path.join(dir_path, video_correct)
                     video_parsable_list.append(video_correct_full)
                     print(f'Rename "{video_full}" to "{video_correct_full}')
                     if not dry_run:
                         os.rename(video_full, video_correct_full)
                     if thumbnail_full is not None:
-                        thumbnail_correct: str = make_correct_name(thumbnail_full.name)
+                        thumbnail_correct: str = make_correct_name(thumbnail_full.name, dir_date)
                         thumbnail_correct_full: str = os.path.join(dir_path, ts_dir_name, thumbnail_correct)
                         thumbnail_not_match_list.append(thumbnail_full)
                         print(f'Rename "{thumbnail_full}" to "{thumbnail_correct_full}')

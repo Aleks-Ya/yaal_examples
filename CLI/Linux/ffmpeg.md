@@ -26,8 +26,9 @@ ffmpeg -i input.MTS -c:v copy -c:a copy output.mp4
 ffmpeg -i input.MTS -c:v copy -an output.mp4
 ffmpeg -i input.MTS -vcodec copy -an output.mp4
 ```
-Convert all *.MOV files in a folder to MP4:
+Convert all MOV files in a folder to MP4:
 ```
 export FILES=/home/aleks/tmp/2021-07-20/*.MOV
 for filename in $FILES; do ffmpeg -i "$filename" -c:v copy -c:a copy "$filename".mp4; done
 ```
+Change FPS to 30: `ffmpeg -i in.mp4 -filter:v fps=fps=30 out.mp4`
