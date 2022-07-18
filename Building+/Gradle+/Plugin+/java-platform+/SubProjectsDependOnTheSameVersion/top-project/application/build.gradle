@@ -1,0 +1,17 @@
+plugins {
+    id 'application'
+}
+
+sourceSets.main.java.srcDir 'src'
+mainClassName = "app.Application"
+
+dependencies {
+    implementation platform(project(':platform'))
+    implementation 'org.apache.commons:commons-lang3'
+    runtimeOnly 'org.postgresql:postgresql'
+    implementation project(':library')
+}
+
+repositories {
+    mavenCentral()
+}

@@ -1,0 +1,14 @@
+plugins {
+    id 'java-library'
+}
+
+sourceSets.main.java.srcDir 'src'
+
+dependencies {
+    api platform(project(':platform'))
+    api 'org.apache.commons:commons-lang3'
+}
+
+repositories {
+    mavenCentral()
+}

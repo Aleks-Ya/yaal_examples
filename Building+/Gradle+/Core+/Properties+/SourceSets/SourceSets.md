@@ -1,0 +1,1 @@
+# Работа с полем Project#sourceSets в скриптах Gradle

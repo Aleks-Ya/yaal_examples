@@ -1,1 +1,0 @@
-Использование свойства проекта Gradle Project#buildDir.
