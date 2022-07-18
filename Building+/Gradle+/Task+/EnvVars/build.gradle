@@ -1,0 +1,4 @@
+task printAllEnvVars {
+  System.getenv().forEach { name, value -> println("$name=$value") }
+  println('\nTotal env variables: ' + System.getenv().size())
+}
