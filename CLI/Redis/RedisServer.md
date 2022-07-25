@@ -3,6 +3,7 @@
 ## Install
 Install Server: `sudo apt install -y redis-server`
 Start Server: `sudo service redis-server start`
+Show Server status: `sudo service redis-server status`
 Stop Server: `sudo service redis-server stop`
 
 ## Configure

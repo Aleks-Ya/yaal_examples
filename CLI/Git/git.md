@@ -25,6 +25,7 @@ Remove local changes in a file: `git checkout db.changelog-insert.yaml`
 
 ## Log
 Log one line: `git log --pretty=oneline master`
+Log shows committer: `git log --pretty=full`
 
 ## Patch
 Create patch from the last commit: `git format-patch -1`
@@ -52,6 +53,11 @@ List all refs: `git show-ref`
 Show all configured properties: `git config --list`
 Show value of a config property: `git config --get-all user.email`
 Set property value: `git config push.default upstream`
+Set username: `git config --global user.name "Aleksey Yablokov"`
+Set email: `git config --global user.email ya_al@bk.ru`
 
 ## SubTree
 Create a subproject: 
+
+## Commit
+Change the author of the last commit: `git commit --amend --author="Mark <mark@address.com>" --no-edit`

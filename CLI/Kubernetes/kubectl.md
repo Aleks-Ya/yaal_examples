@@ -7,6 +7,7 @@ Docs: [kubectl Command Reference](https://kubernetes.io/docs/reference/generated
 - ConfigMap= `cm`
 - service = `src`
 - ReplicaSet = `rs`
+- Namespace = `ns`
 
 ## Cluster
 - Show cluster info: `kubectl cluster-info`
@@ -64,6 +65,8 @@ Docs: [kubectl Command Reference](https://kubernetes.io/docs/reference/generated
 - Show ConfigMap content as YAML: `kubectl get configmaps my-config-map -o yaml`
 
 ## Label
+- Show labels for all pods: `kubectl get pods --show-labels`
+- Show labels for specific pod: `kubectl get pod my_pod --show-labels`
 - Set label on pod: `kubectl label pods my_pod my_label=abc`
 
 ## Config
