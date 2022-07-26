@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  city: {{ .Values.city }}
+  cars:
+    {{- range $index, $car := .Values.cars }}
+    {{ $index }}: {{ $car }}
+    {{- end }} 
+  person:
+  {{- with .Values.person }}
+    name: {{ .name }}
+    age: {{ .age }}
+  {{- end }}
+

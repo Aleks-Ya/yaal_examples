@@ -1,0 +1,9 @@
+cars:
+  - RedCar
+  - BlueCar
+  - BlackCar
+goods:
+  - - GreenApple
+    - RedApple
+  - - SmallOrange
+    - BigOrange

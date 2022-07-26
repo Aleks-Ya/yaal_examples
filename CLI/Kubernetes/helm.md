@@ -44,3 +44,6 @@ Create new chart dir: `helm create mychart`
 
 ## Get
 Show the manifest (all Kubernetes resources of the release): `helm get manifest my-release-name`
+
+## Template
+Render chart YAML files: `helm template my_chart_folder`

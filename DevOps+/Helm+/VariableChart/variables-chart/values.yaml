@@ -1,0 +1,11 @@
+city: London
+
+cars:
+  - RedCar
+  - BlueCar
+  - BlackCar
+
+person:
+  name: John
+  age: 30
+  gender: Male
