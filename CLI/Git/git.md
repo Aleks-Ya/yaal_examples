@@ -61,3 +61,6 @@ Create a subproject:
 
 ## Commit
 Change the author of the last commit: `git commit --amend --author="Mark <mark@address.com>" --no-edit`
+
+## Credentials
+Use storage credential helper: `git config --global credential.helper store`

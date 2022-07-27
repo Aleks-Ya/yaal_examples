@@ -19,8 +19,8 @@ Docs: [kubectl Command Reference](https://kubernetes.io/docs/reference/generated
 - Describe specific node: `kubectl describe nodes my-node`
 
 ## Namespace
-- List all namespaces: `kubectl get namespaces`
-- List namespaces with labels: `kubectl get namespace --show-labels`
+- List all namespaces: `kubectl get ns`
+- List namespaces with labels: `kubectl get ns --show-labels`
 
 ## Deployment
 - Show all deployments: `kubectl get deployment`
@@ -109,3 +109,6 @@ Docs: [kubectl Command Reference](https://kubernetes.io/docs/reference/generated
 ## ServiceAccount (sa)
 - List ServiceAccount: `kubectl get sa`
 - Describe ServiceAccount: `kubectl describe sa my-service-account`
+
+## Delete objects
+Delete objects from several files: `kubectl delete -f pod.yaml -f sealed-secret.yaml`
