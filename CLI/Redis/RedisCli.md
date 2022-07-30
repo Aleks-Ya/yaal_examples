@@ -7,7 +7,8 @@
 Help: `redis-cli --help`
 
 ## Run CLI
-`redis-cli`
+Connect to default: `redis-cli`
+Connect to host: `redis-cli -h localhost -p 6379`
 
 ## Send a command as parameter
 `redis-cli ping`
@@ -24,7 +25,7 @@ Check connection: `PING`
 Save a string: `SET person "John Dow"`
 Read a string: `GET person`
 Create a counter: `SET visits 1`
-Incrementa a counter: `INCR visits`
+Increment a counter: `INCR visits`
 Create a bitmap: `SETBIT mykey 7 1`
 Get a bit from a bitmap: `GETBIT mykey 7`
 Create a list: `LPUSH persons John Mary Ann`
