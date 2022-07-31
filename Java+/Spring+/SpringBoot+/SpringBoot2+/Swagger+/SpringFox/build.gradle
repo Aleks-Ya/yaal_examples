@@ -1,0 +1,7 @@
+dependencies {
+    def swaggerVersion='3.0.0'
+    implementation springBootStarterWebDep,
+            "io.springfox:springfox-boot-starter:$swaggerVersion"
+//    ,
+//            "io.springfox:springfox-swagger-ui:$swaggerVersion"
+}
