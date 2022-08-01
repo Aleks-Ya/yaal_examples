@@ -1,4 +1,4 @@
-package blob.local;
+package blob.local.azurite;
 
 import blob.Factory;
 import com.azure.core.util.BinaryData;

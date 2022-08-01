@@ -1,4 +1,4 @@
-package blob.local;
+package blob.local.azurite;
 
 import com.azure.core.util.BinaryData;
 import com.azure.storage.blob.BlobServiceClient;
