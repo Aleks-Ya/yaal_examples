@@ -1,8 +1,8 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.sql.DataSource;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@SpringApplicationConfiguration(classes = ApplicationConfiguration.class)
+@ContextConfiguration(classes = ApplicationConfiguration.class)
 @ActiveProfiles("aaa")
 class H2SpringTest {
     @Autowired
