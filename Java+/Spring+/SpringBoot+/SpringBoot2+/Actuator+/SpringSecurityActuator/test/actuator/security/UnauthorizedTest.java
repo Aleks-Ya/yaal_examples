@@ -10,7 +10,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(properties = "spring.config.location=classpath:actuator/security/application.yaml")
+/**
+ * Without @EnableAutoConfiguration the ManagementWebSecurityAutoConfiguration is not applied, so
+ * the health endpoint is secured by Spring Security.
+ */
+@SpringBootTest(properties = "spring.config.location=classpath:actuator/security/Unauthorized.yaml")
 @AutoConfigureMockMvc
 class UnauthorizedTest {
 

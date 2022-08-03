@@ -1,7 +1,9 @@
-package actuator.security.basic;
+package actuator.security;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
@@ -12,17 +14,17 @@ import java.util.Base64;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//TODO NOT WORK
 @SpringBootTest(classes = BasicAuthTest.Config.class,
-        properties = "spring.config.location=classpath:actuator/security/basic/BasicAuth.yaml")
+        properties = "spring.config.location=classpath:actuator/security/BasicAuth.yaml")
 @AutoConfigureMockMvc
+@EnableAutoConfiguration(exclude = ManagementWebSecurityAutoConfiguration.class)
 class BasicAuthTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    void unauthorized() throws Exception {
+    void anonymous() throws Exception {
         mockMvc.perform(get("/actuator/health")).andExpect(status().isUnauthorized());
     }
 
