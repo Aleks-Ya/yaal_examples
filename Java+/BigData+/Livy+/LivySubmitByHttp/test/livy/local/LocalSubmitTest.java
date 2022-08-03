@@ -1,7 +1,9 @@
 package livy.local;
 
 import com.google.gson.GsonBuilder;
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 import util.RandomUtil;
 
 import java.io.IOException;
@@ -59,13 +61,27 @@ class LocalSubmitTest {
     }
 
     @Test
-    void getBatch() throws IOException, InterruptedException {
+    void getBatchExists() throws IOException, InterruptedException {
         var batchId = 0;
         var endpoint = baseUri.resolve("/batches/" + batchId);
         var request = HttpRequest.newBuilder().uri(endpoint).GET().build();
         var response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
         assertThat(response.statusCode()).isEqualTo(200);
         System.out.println(response.body());
+    }
+
+    @Test
+    void getBatchNotExists() throws IOException, InterruptedException, JSONException {
+        var batchId = 100_000;
+        var endpoint = baseUri.resolve("/batches/" + batchId);
+        var request = HttpRequest.newBuilder().uri(endpoint).GET().build();
+        var response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        assertThat(response.statusCode()).isEqualTo(404);
+        System.out.println(response.body());
+        var expJson = """
+                {"msg":"Session '100000' not found."}
+                """;
+        JSONAssert.assertEquals(expJson, response.body().strip(), false);
     }
 
     @Test

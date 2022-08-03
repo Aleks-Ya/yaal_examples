@@ -21,13 +21,29 @@ import static org.quartz.TriggerBuilder.newTrigger;
  */
 class StartWithDelayTest {
     @Test
-    void cron() throws SchedulerException {
+    void plus() throws SchedulerException {
         var jobDetail = newJob(EmptyJob.class).build();
         var delaySec = 1;
         var startDate = Date.from(Instant.now().plusSeconds(delaySec));
         var trigger = newTrigger().startAt(startDate).build();
         var scheduler = StdSchedulerFactory.getDefaultScheduler();
         scheduler.start();
+        scheduler.scheduleJob(jobDetail, trigger);
+        var listener = SingleResultListener.<String>assign(scheduler, jobDetail);
+        assertThat(listener.isToBeExecuted()).isFalse();
+        await().pollDelay(delaySec + 1, SECONDS).until(() -> true);
+        assertThat(listener.isToBeExecuted()).isTrue();
+        listener.waitForFinish();
+        scheduler.shutdown(true);
+    }
+
+    @Test
+    void startDelayed() throws SchedulerException {
+        var jobDetail = newJob(EmptyJob.class).build();
+        var delaySec = 1;
+        var trigger = newTrigger().startNow().build();
+        var scheduler = StdSchedulerFactory.getDefaultScheduler();
+        scheduler.startDelayed(delaySec);
         scheduler.scheduleJob(jobDetail, trigger);
         var listener = SingleResultListener.<String>assign(scheduler, jobDetail);
         assertThat(listener.isToBeExecuted()).isFalse();

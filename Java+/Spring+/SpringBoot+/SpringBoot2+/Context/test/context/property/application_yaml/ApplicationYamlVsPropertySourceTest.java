@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE;
 
 /**
- * Override application.yaml properties in a @PropertySource.
+ * application.yaml properties wins @PropertySource properties.
  */
 @SpringBootTest(webEnvironment = NONE,
         properties = "spring.config.location=classpath:context/property/application_yaml/ApplicationYamlVsPropertySourceTest.yaml")
