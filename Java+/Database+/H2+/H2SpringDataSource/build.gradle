@@ -1,5 +1,0 @@
-dependencies {
-    implementation h2Dep, "org.springframework.boot:spring-boot:$springBootVersion",
-            "org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion"
-    testImplementation "org.springframework:spring-test:$spring5Version"
-}

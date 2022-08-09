@@ -12,14 +12,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.testcontainers.containers.PostgreSQLContainer.IMAGE;
 
 @Testcontainers
-class PostgresqlTest {
-    private static final String postgresImage = IMAGE + ":14";
+class ConnectTest {
     @Container
-    private final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(postgresImage);
+    private final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(IMAGE + ":14");
 
     @Test
-    void test() throws SQLException {
-        assertThat(postgres.isRunning()).isTrue();
+    void connect() throws SQLException {
         var url = postgres.getJdbcUrl();
         var username = postgres.getUsername();
         var password = postgres.getPassword();

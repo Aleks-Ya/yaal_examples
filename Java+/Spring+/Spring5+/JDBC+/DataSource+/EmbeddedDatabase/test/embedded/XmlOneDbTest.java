@@ -1,3 +1,5 @@
+package embedded;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:xml/context-one-db.xml")
-class XmlOneDb {
+class XmlOneDbTest {
 
     @Autowired
     private DataSource dataSource;

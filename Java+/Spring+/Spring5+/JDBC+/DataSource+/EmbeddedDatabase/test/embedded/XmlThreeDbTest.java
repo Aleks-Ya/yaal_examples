@@ -1,3 +1,5 @@
+package embedded;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:xml/context-three-db.xml")
-class XmlThreeDb {
+class XmlThreeDbTest {
 
     @Autowired
     @Qualifier("h2dataSource")
