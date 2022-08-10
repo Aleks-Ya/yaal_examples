@@ -1,4 +1,4 @@
 dependencies {
-    implementation "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion", postgresDep
+    implementation springBootStarterDataJpaDep, postgresDep
     testImplementation testContainersPostgresDep, testContainersJunitDep, slf4jSimpleDep
 }

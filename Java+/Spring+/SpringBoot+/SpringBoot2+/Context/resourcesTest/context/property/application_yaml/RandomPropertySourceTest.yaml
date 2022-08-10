@@ -1,0 +1,7 @@
+info:
+  number:
+    integer: ${random.int}
+    long: ${random.long}
+  uuid: ${random.uuid}
+  string32: ${random.value}
+  uuidStatic: "#{T(java.util.UUID).randomUUID().toString()}"
