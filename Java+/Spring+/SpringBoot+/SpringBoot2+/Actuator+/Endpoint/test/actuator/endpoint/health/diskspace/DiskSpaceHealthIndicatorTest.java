@@ -1,4 +1,4 @@
-package actuator.endpoint.health.application;
+package actuator.endpoint.health.diskspace;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,18 +10,22 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(properties =
-        "spring.config.location=classpath:actuator/endpoint/health/application/application.yaml")
+@SpringBootTest(properties = {"spring.config.location=classpath:actuator/endpoint/health/diskspace/application.yaml"})
 @AutoConfigureMockMvc
-class ApplicationHealthIndicatorTest {
+class DiskSpaceHealthIndicatorTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    void health() throws Exception {
+    void statusDetails() throws Exception {
         mockMvc.perform(get("/actuator/health"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value("UP"));
+                .andExpect(jsonPath("$.status").value("UP"))
+                .andExpect(jsonPath("$.components.diskSpace.status").value("UP"))
+                .andExpect(jsonPath("$.components.diskSpace.details.exists").value("true"))
+                .andExpect(jsonPath("$.components.diskSpace.details.total").exists())
+                .andExpect(jsonPath("$.components.diskSpace.details.free").exists())
+                .andExpect(jsonPath("$.components.diskSpace.details.threshold").exists());
     }
 }

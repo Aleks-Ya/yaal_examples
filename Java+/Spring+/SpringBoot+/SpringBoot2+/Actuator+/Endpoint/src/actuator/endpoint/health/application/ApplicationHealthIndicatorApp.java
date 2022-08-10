@@ -6,14 +6,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import static util.ResourceUtil.resourceToPath;
 
 /**
- * Using {@link org.springframework.boot.actuate.health.ApplicationHealthIndicator}.
+ * Using {@link org.springframework.boot.actuate.health.ApplicationHealthIndicator}.<br/>
  * Endpoint: http://localhost:8080/actuator/health
  */
 @SpringBootApplication
 class ApplicationHealthIndicatorApp {
     public static void main(String[] args) {
         System.setProperty("spring.config.location",
-                resourceToPath(ApplicationHealthIndicatorApp.class, "ApplicationHealthIndicatorApp.yaml"));
+                resourceToPath(ApplicationHealthIndicatorApp.class, "application.yaml"));
         SpringApplication.run(ApplicationHealthIndicatorApp.class, args);
     }
 }

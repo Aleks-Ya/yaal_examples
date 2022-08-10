@@ -8,7 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@ContextConfiguration(classes = {Person.class, PersonRepository.class})
+@ContextConfiguration(classes = PersonRepository.class)
 class FindTest extends BaseTest {
     @Autowired
     private PersonRepository repo;

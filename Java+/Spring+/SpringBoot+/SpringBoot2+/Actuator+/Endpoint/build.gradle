@@ -1,0 +1,4 @@
+dependencies {
+    //For DataSourceHealthIndicator*Test
+    implementation springBootStarterJdbcDep, h2Dep
+}

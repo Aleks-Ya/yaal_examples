@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(properties = {"spring.config.location=classpath:actuator/endpoint/health/custom/CustomHealthIndicatorApp.yaml"})
+@SpringBootTest(properties = {"spring.config.location=classpath:actuator/endpoint/health/custom/application.yaml"})
 @AutoConfigureMockMvc
 class CustomHealthIndicatorTest {
 

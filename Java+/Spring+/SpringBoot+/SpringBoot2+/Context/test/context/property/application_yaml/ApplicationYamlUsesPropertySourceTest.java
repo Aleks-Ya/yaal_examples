@@ -10,13 +10,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE;
 
 /**
- * application.yaml properties wins @PropertySource properties.
+ * application.yaml uses properties defined in a @PropertySource.
  */
-@SpringBootTest(webEnvironment = NONE, classes = ApplicationYamlVsPropertySourceTest.class,
-        properties = "spring.config.location=classpath:context/property/application_yaml/ApplicationYamlVsPropertySourceTest.yaml")
+@SpringBootTest(webEnvironment = NONE, classes = ApplicationYamlUsesPropertySourceTest.class,
+        properties = "spring.config.location=classpath:context/property/application_yaml/ApplicationYamlUsesPropertySourceTest.yaml")
 @Configuration
-@PropertySource("classpath:context/property/application_yaml/ApplicationYamlVsPropertySourceTest.properties")
-class ApplicationYamlVsPropertySourceTest {
+@PropertySource("classpath:context/property/application_yaml/ApplicationYamlUsesPropertySourceTest.properties")
+class ApplicationYamlUsesPropertySourceTest {
+
+    @Value("${person.text}")
+    private String text;
 
     @Value("${person.name}")
     private String person;
@@ -26,8 +29,8 @@ class ApplicationYamlVsPropertySourceTest {
 
     @Test
     void versus() {
-        assertThat(person).isEqualTo("John");
-        assertThat(age).isEqualTo(25);
+        assertThat(person).isEqualTo("Mark");
+        assertThat(age).isEqualTo(20);
+        assertThat(text).isEqualTo("Mark-20");
     }
-
 }

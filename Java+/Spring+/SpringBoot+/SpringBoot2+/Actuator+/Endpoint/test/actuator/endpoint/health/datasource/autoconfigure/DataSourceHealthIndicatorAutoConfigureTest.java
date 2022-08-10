@@ -1,4 +1,4 @@
-package actuator.endpoint.health.application;
+package actuator.endpoint.health.datasource.autoconfigure;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +11,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(properties =
-        "spring.config.location=classpath:actuator/endpoint/health/application/application.yaml")
+        "spring.config.location=classpath:actuator/endpoint/health/datasource/autoconfigure/application.yaml")
 @AutoConfigureMockMvc
-class ApplicationHealthIndicatorTest {
+class DataSourceHealthIndicatorAutoConfigureTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    void health() throws Exception {
+    void statusDetails() throws Exception {
         mockMvc.perform(get("/actuator/health"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value("UP"));
+                .andExpect(jsonPath("$.status").value("UP"))
+                .andExpect(jsonPath("$.components.db.status").value("UP"))
+                .andExpect(jsonPath("$.components.db.details.database").value("H2"));
     }
 }

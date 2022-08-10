@@ -13,14 +13,16 @@ import static util.ResourceUtil.resourceToPath;
 /**
  * Using {@link DiskSpaceHealthIndicator}.
  * Endpoints:
- * - http://localhost:8080/actuator/health
- * - http://localhost:8080/actuator/health/diskSpace
+ * <ul>
+ *     <li>http://localhost:8080/actuator/health</li>
+ *     <li>http://localhost:8080/actuator/health/diskSpace</li>
+ * </ul>
  */
 @SpringBootApplication
 class DiskSpaceHealthIndicatorApp {
     public static void main(String[] args) {
         System.setProperty("spring.config.location",
-                resourceToPath(DiskSpaceHealthIndicatorApp.class, "DiskSpaceHealthIndicatorApp.yaml"));
+                resourceToPath(DiskSpaceHealthIndicatorApp.class, "application.yaml"));
         SpringApplication.run(DiskSpaceHealthIndicatorApp.class, args);
     }
 

@@ -1,0 +1,2 @@
+person:
+  text: ${person.name}-${person.age}

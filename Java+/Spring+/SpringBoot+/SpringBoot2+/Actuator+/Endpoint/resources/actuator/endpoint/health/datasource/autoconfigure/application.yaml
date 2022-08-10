@@ -1,0 +1,14 @@
+logging:
+  level:
+    org.springframework.boot.autoconfigure.logging: DEBUG
+
+management:
+  endpoint:
+    health:
+      show-components: always
+      show-details: always
+  health:
+    defaults:
+      enabled: false
+    db:
+      enabled: true
