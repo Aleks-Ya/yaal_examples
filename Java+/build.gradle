@@ -61,6 +61,7 @@ subprojects {
         lettuceDep = 'io.lettuce:lettuce-core:6.1.8.RELEASE'
         jedisDep = 'redis.clients:jedis:4.2.3'
         embeddedRedisOzimov = 'it.ozimov:embedded-redis:0.7.3'
+        hikariCPDep = 'com.zaxxer:HikariCP:5.0.1'
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'

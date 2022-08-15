@@ -1,3 +1,5 @@
+package pool;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:xml/context.xml")
-class JdbcPoolXml {
+class JdbcPoolXmlTest {
 
     @Autowired
     @Qualifier("tomcatPoolDataSource")
