@@ -28,6 +28,7 @@ subprojects {
         mockitoVersion = '4.2.0'
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
         log4jCoreDep = 'org.apache.logging.log4j:log4j-core:2.14.1'
+        logbackClassicDep = 'ch.qos.logback:logback-classic:1.2.11'
         gsonDep = 'com.google.code.gson:gson:2.9.0'
         commonsLangDep = 'org.apache.commons:commons-lang3:3.12.0'
         wireMockDep = 'com.github.tomakehurst:wiremock:2.27.2'

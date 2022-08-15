@@ -1,0 +1,16 @@
+<configuration>
+    <appender name="my" class="logback.appender.custom.MyConsoleAppender">
+        <prefix>PREFIX_</prefix>
+    </appender>
+
+    <appender name="encoder" class="logback.appender.custom.MyWithEncoderAppender">
+        <encoder>
+            <pattern>ENCODER: %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="my"/>
+        <appender-ref ref="encoder"/>
+    </root>
+</configuration>

@@ -54,4 +54,13 @@ public class FileUtil {
         }
     }
 
+    public static void deleteFileSilent(File file) {
+        if (file.exists()) {
+            var deleted = file.delete();
+            if (!deleted) {
+                throw new IllegalStateException("Cannot delete file: " + file.getAbsolutePath());
+            }
+        }
+    }
+
 }

@@ -31,6 +31,8 @@ class ParsingTest {
         //With formatter
         var formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
         assertThat(LocalDateTime.parse("25.03.2015 10:40:50", formatter)).isNotNull();
+
+        assertThat(LocalDateTime.parse("2022-08-15T03:22:32.19838")).isNotNull();
     }
 
     @Test

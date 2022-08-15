@@ -1,14 +1,12 @@
 package quartz.manipulate;
 
 import org.junit.jupiter.api.Test;
-import org.quartz.Job;
-import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
-import org.quartz.JobExecutionContext;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.impl.matchers.GroupMatcher;
+import quartz.EmptyJob;
 
 import java.sql.Date;
 import java.time.Instant;
@@ -30,7 +28,7 @@ class ListAllJobsTest {
             var jobGroupName = "jobGroup" + groupIndex;
             var triggerGroupName = "triggerGroup" + groupIndex;
             for (var i = 0; i < jobInGroupCount; i++) {
-                var jobDetail = newJob(WaitJob.class)
+                var jobDetail = newJob(EmptyJob.class)
                         .withIdentity("jobDetail" + i, jobGroupName)
                         .build();
                 var trigger = newTrigger()
@@ -55,11 +53,5 @@ class ListAllJobsTest {
         }
         assertThat(actJobDetails).containsAll(jobMap.keySet());
         scheduler.shutdown(true);
-    }
-
-    public static class WaitJob implements Job {
-        @Override
-        public void execute(JobExecutionContext context) {
-        }
     }
 }

@@ -26,6 +26,18 @@ public class ResourceUtil {
         }
     }
 
+    public static URL resourceToUrl(Class<?> clazz, String resourceName) {
+        try {
+            var resourceUrl = clazz.getResource(resourceName);
+            if (resourceUrl == null) {
+                throw new IOException(format("Resource '%s' not found", resourceName));
+            }
+            return resourceUrl;
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
+    }
+
     public static URL resourceToUrl(String resourceName) {
         try {
             var classLoader = ResourceUtil.class.getClassLoader();
