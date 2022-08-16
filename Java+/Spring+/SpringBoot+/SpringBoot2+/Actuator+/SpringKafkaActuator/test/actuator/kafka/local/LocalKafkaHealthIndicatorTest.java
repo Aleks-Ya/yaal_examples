@@ -19,9 +19,6 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-/**
- * Test for {@link LocalKafkaApplication} which is intended for local run.
- */
 @ExtendWith(SpringExtension.class)
 @EmbeddedKafka
 @ContextConfiguration(classes = {KafkaListenerAnnotationConsumer.class, KafkaConsumerConfig.class})
