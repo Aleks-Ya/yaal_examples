@@ -7,7 +7,7 @@ import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class PropertiesAssert {
+class PropertiesAssertTest {
     @Test
     void properties() {
         var properties = new Properties();

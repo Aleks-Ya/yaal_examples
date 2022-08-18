@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SuppressWarnings("unused")
-class PojoAssert {
+class PojoAssertTest {
     private static final Car car = new Car("BMW", 2020);
     private static final Person person = new Person("John", true, car);
 

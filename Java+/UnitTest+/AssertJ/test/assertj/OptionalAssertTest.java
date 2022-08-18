@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class OptionalAssert {
+class OptionalAssertTest {
     @Test
     void empty() {
         Optional<String> optEmpty = Optional.empty();

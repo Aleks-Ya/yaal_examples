@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * See also https://github.com/joel-costigliola/assertj-examples/blob/master/assertions-examples/src/test/java/org/assertj/examples/IterableAssertionsExamples.java
  */
-class CollectionAssert {
+class CollectionAssertTest {
     private static final List<String> list = asList("a", "b", "c");
 
     @Test
