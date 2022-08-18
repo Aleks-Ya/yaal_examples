@@ -1,5 +1,6 @@
 dependencies {
     def springKafkaVersion = "2.8.6"
-    implementation "org.springframework.kafka:spring-kafka:$springKafkaVersion", jacksonDataBindDep, slf4jSimpleDep
+    implementation "org.springframework.kafka:spring-kafka:$springKafkaVersion", jacksonDataBindDep, slf4jSimpleDep,
+            "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion" //for parsing dates of Java8
     testImplementation "org.springframework.kafka:spring-kafka-test:$springKafkaVersion"
 }
