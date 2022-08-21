@@ -44,6 +44,10 @@ public class SingleResultListener<T> extends JobListenerSupport {
         return jobExecutionContext;
     }
 
+    public JobExecutionContext getToBeExecutionContext() {
+        return toBeExecutionContext;
+    }
+
     public JobExecutionException getJobExecutionException() {
         return jobExecutionException;
     }
