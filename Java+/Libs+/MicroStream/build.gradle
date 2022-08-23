@@ -1,0 +1,8 @@
+dependencies {
+    def microStreamVersion = '04.01.00-MS-GA'
+    implementation "one.microstream:storage.embedded:$microStreamVersion",
+            "one.microstream:storage.embedded.configuration:$microStreamVersion"
+}
+repositories {
+    maven { url('https://repo.microstream.one/repository/maven-public/') }
+}
