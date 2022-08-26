@@ -22,3 +22,16 @@ kafka-console-producer.sh \
 ```
 1. Print key and value: `key:value`
 1. Stop Console producer: Ctrl-C
+
+### With a header (Kafka >= 3.1)
+1. Start the producer:
+```
+kafka-console-producer.sh \
+	--broker-list=$(broker-list.sh) \
+	--topic=my-topic \
+	--property "parse.headers=true"
+```
+2. Add message with headers (`\t` separates headers from the message):
+```
+header1:value1,header2:value2	my_message
+```
