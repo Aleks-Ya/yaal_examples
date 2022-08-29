@@ -1,5 +1,8 @@
 # kafka-console-consumer.sh CLI
 
+## Help
+`kafka-console-consumer.sh --help`
+
 ## Consume messages from the topic
 
 ### Not print keys
