@@ -8,7 +8,6 @@ import java.util.Objects;
 public class RegionEntity {
     @Id
     private Long id;
-
     private String name;
 
     public RegionEntity() {

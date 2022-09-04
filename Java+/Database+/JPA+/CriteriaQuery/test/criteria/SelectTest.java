@@ -6,7 +6,6 @@ import static criteria.Helper.initEntityManagerFactory;
 import static criteria.Helper.saveEntities;
 
 class SelectTest {
-
     @Test
     void select() {
         try (var emFactory = initEntityManagerFactory()) {
@@ -23,5 +22,4 @@ class SelectTest {
             em.close();
         }
     }
-
 }

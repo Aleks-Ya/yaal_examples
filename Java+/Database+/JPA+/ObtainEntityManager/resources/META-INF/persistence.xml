@@ -2,7 +2,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
              version="1.0">
-    <persistence-unit name="manager1">
-        <class>RegionEntity</class>
+    <persistence-unit name="persistence-unit-from-xml">
+        <class>em.RegionEntity</class>
     </persistence-unit>
 </persistence>

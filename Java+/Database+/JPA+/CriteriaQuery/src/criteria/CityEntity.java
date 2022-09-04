@@ -9,11 +9,8 @@ import java.util.Objects;
 public class CityEntity {
     @Id
     private Long id;
-
     private String name;
-
     private Long population;
-
     @ManyToOne
     private RegionEntity region;
 
