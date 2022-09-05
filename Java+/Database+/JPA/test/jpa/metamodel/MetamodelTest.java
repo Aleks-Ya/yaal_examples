@@ -1,5 +1,9 @@
-package metamodel;
+package jpa.metamodel;
 
+import jpa.metamodel.BaseEntity;
+import jpa.metamodel.CityEntity;
+import jpa.metamodel.Mayor;
+import jpa.metamodel.RegionEntity;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.metamodel.EmbeddableType;

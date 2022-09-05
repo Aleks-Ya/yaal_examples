@@ -1,4 +1,4 @@
-package metamodel;
+package jpa.metamodel;
 
 import javax.persistence.Entity;
 

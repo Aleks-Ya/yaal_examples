@@ -43,6 +43,11 @@ class ValueTest {
         assertThat(data.springProperty2).isEqualTo("London");
     }
 
+    @Test
+    void defaultValue() {
+        assertThat(data.car).isEqualTo("BMW");
+    }
+
     @Component
     static class Data {
         @Value("${city}")
@@ -55,5 +60,7 @@ class ValueTest {
         public Integer ternaryInteger;
         @Value("#{ 'host:port'.split(':')[0] }")
         public String splitString;
+        @Value("${car:BMW}")
+        public String car;
     }
 }

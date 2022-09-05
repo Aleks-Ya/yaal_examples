@@ -1,8 +1,7 @@
-package metamodel;
+package jpa.metamodel;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.util.Objects;
 

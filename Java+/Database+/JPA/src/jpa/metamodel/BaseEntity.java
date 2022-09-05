@@ -1,14 +1,11 @@
-package metamodel;
+package jpa.metamodel;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import java.util.Objects;
 
 @MappedSuperclass
-public class BaseEntity {
+public abstract class BaseEntity {
     @Id
     private Long id;
     private String name;

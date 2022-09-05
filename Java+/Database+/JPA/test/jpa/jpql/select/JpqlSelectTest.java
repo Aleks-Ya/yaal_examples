@@ -71,4 +71,15 @@ class JpqlSelectTest {
             assertThat(meal).isEqualTo(MealEntities.meal3);
         }, MealEntities.entities);
     }
+
+    @Test
+    void selectWhereParameter() {
+        withEntityManagerAndSavedEntities((em) -> {
+            var query = em.createQuery(
+                    "FROM MealEntity WHERE name LIKE :meal", MealEntity.class);
+            query.setParameter("meal", "Sandwich");
+            var meal = query.getSingleResult();
+            assertThat(meal).isEqualTo(MealEntities.meal1);
+        }, MealEntities.entities);
+    }
 }
