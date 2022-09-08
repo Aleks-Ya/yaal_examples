@@ -1,21 +1,12 @@
 package quartz.listener;
 
 import org.junit.jupiter.api.Test;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
-import org.quartz.impl.matchers.EverythingMatcher;
-import org.quartz.listeners.JobListenerSupport;
 import org.quartz.plugins.history.LoggingJobHistoryPlugin;
-import quartz.EmptyJob;
 import quartz.MultiResultListener;
 import quartz.ResultsJob;
-import quartz.SingleResultListener;
-import util.Tuple;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,9 +14,6 @@ import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
-import static org.quartz.impl.StdSchedulerFactory.PROP_SCHED_INSTANCE_NAME;
-import static org.quartz.impl.matchers.EverythingMatcher.allJobs;
-import static org.quartz.impl.matchers.KeyMatcher.keyEquals;
 
 /**
  * Log job history with {@link LoggingJobHistoryPlugin}.

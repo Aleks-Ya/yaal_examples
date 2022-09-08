@@ -1,9 +1,5 @@
 package jpa.metamodel;
 
-import jpa.metamodel.BaseEntity;
-import jpa.metamodel.CityEntity;
-import jpa.metamodel.Mayor;
-import jpa.metamodel.RegionEntity;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.metamodel.EmbeddableType;
@@ -14,13 +10,13 @@ import java.util.List;
 import static javax.persistence.metamodel.Type.PersistenceType.EMBEDDABLE;
 import static javax.persistence.metamodel.Type.PersistenceType.ENTITY;
 import static javax.persistence.metamodel.Type.PersistenceType.MAPPED_SUPERCLASS;
-import static jpa.JpaHelper.initEntityManagerFactory;
+import static jpa.JpaHelper.withEntityManagerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MetamodelTest {
     @Test
     void getEntities() {
-        try (var emFactory = initEntityManagerFactory(List.of(CityEntity.class, RegionEntity.class))) {
+        withEntityManagerFactory((emFactory) -> {
             var metamodel = emFactory.getMetamodel();
 
             var entities = metamodel.getEntities();
@@ -52,6 +48,6 @@ class MetamodelTest {
             var managedType = metamodel.managedType(RegionEntity.class);
             assertThat(managedType.getJavaType()).isEqualTo(RegionEntity.class);
             assertThat(managedType.getPersistenceType()).isEqualTo(ENTITY);
-        }
+        }, List.of(CityEntity.class, RegionEntity.class));
     }
 }

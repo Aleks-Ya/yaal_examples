@@ -7,8 +7,7 @@ import org.quartz.JobExecutionException;
 import org.quartz.JobListener;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
-import org.quartz.impl.matchers.KeyMatcher;
-import util.Tuple;
+import util.Tuple2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +63,7 @@ class JobListenerTest {
     private static class MyJobListener implements JobListener {
         final List<JobExecutionContext> jobToBeExecuted = new ArrayList<>();
         final List<JobExecutionContext> jobExecutionVetoed = new ArrayList<>();
-        final List<Tuple<JobExecutionContext, JobExecutionException>> jobWasExecuted = new ArrayList<>();
+        final List<Tuple2<JobExecutionContext, JobExecutionException>> jobWasExecuted = new ArrayList<>();
 
         @Override
         public String getName() {
@@ -83,7 +82,7 @@ class JobListenerTest {
 
         @Override
         public void jobWasExecuted(JobExecutionContext context, JobExecutionException jobException) {
-            jobWasExecuted.add(Tuple.of(context, jobException));
+            jobWasExecuted.add(Tuple2.of(context, jobException));
         }
     }
 }

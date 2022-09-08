@@ -7,7 +7,6 @@ import static jpa.JpaHelper.withEntityManagerAndSavedEntities;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class UpdateTest {
-
     @Test
     void updateWhere() {
         withEntityManagerAndSavedEntities((em) -> {
@@ -19,5 +18,4 @@ class UpdateTest {
             assertThat(updated).isEqualTo(1);
         }, MealEntities.entities);
     }
-
 }

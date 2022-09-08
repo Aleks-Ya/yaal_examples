@@ -7,7 +7,7 @@ import org.quartz.JobExecutionException;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.listeners.JobListenerSupport;
-import util.Tuple;
+import util.Tuple2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +52,7 @@ class JobResultTest {
     }
 
     private static class MyJobListener extends JobListenerSupport {
-        final List<Tuple<JobExecutionContext, JobExecutionException>> jobWasExecuted = new ArrayList<>();
+        final List<Tuple2<JobExecutionContext, JobExecutionException>> jobWasExecuted = new ArrayList<>();
 
         @Override
         public String getName() {
@@ -61,7 +61,7 @@ class JobResultTest {
 
         @Override
         public void jobWasExecuted(JobExecutionContext context, JobExecutionException jobException) {
-            jobWasExecuted.add(Tuple.of(context, jobException));
+            jobWasExecuted.add(Tuple2.of(context, jobException));
         }
     }
 }

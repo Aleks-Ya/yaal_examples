@@ -2,9 +2,9 @@ package jpa.criteria;
 
 import org.junit.jupiter.api.Test;
 
-import static jpa.JpaHelper.initEntityManagerFactory;
 import static jpa.JpaHelper.saveEntities;
 import static jpa.JpaHelper.withEntityManagerAndSavedEntities;
+import static jpa.JpaHelper.withEntityManagerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -25,7 +25,7 @@ class InstantiateCriteriaBuilderTest {
 
     @Test
     void fromEntityManagerFactory() {
-        try (var emFactory = initEntityManagerFactory(RegionEntities.entityClasses)) {
+        withEntityManagerFactory((emFactory) -> {
             var em = emFactory.createEntityManager();
             saveEntities(em, RegionEntities.entities);
             var builder = emFactory.getCriteriaBuilder();
@@ -33,7 +33,7 @@ class InstantiateCriteriaBuilderTest {
             var result = em.createQuery(cq.select(cq.from(CityEntity.class))).getResultList();
             em.close();
             assertThat(result).contains(RegionEntities.city1, RegionEntities.city2, RegionEntities.city3, RegionEntities.city4);
-        }
+        }, RegionEntities.entityClasses);
     }
 
 }
