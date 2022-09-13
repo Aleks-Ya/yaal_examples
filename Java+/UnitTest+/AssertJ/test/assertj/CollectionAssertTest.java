@@ -2,6 +2,7 @@ package assertj;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -43,5 +44,22 @@ class CollectionAssertTest {
     @Test
     void allSatisfy() {
         assertThat(list).allSatisfy(element -> assertThat(element.length()).isEqualTo(1));
+    }
+
+    @Test
+    void genericsWildcard1() {
+        var e1 = new RuntimeException();
+        var e2 = new IOException();
+        List<? extends Exception> list = asList(e1, e2);
+        assertThat(list).asList().contains(e1, e2);
+    }
+
+    @Test
+    void genericsWildcard2() {
+        var e1 = new RuntimeException();
+        var e2 = new IOException();
+        List<? extends Exception> list = asList(e1, e2);
+        //noinspection unchecked,CastCanBeRemovedNarrowingVariableType
+        assertThat((List<Exception>) list).contains(e1, e2);
     }
 }

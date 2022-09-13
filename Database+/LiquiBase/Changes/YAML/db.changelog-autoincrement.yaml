@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: autoincrement-table
+      author: Alex
+      comment: Create 'autoincrement' table
+      changes:
+      -  createTable:
+          schemaName: public
+          tableName: autoincrement
+          columns:
+          -  column:
+              name: id
+              type: java.sql.Types.BIGINT
+              autoIncrement: true
+          -  column:
+              name: name
+              type: java.sql.Types.VARCHAR(255)
+  - changeSet:
+      id: insert-into-autoincrement
+      author: Alex
+      comment: Insert a row into 'autoincrement' table
+      changes:
+      -  insert:
+          schemaName: public
+          tableName: autoincrement
+          columns:
+          -  column:
+              name:  name
+              value: John
+      -  insert:
+          schemaName: public
+          tableName: autoincrement
+          columns:
+          -  column:
+              name:  name
+              value: Mary
+        

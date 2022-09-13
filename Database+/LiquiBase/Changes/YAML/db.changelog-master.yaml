@@ -8,3 +8,9 @@ databaseChangeLog:
   - include:
       file: db.changelog-insert.yaml
       relativeToChangelogFile: true
+  - include:
+      file: db.changelog-autoincrement.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: db.changelog-autoincrement-sequence.yaml
+      relativeToChangelogFile: true

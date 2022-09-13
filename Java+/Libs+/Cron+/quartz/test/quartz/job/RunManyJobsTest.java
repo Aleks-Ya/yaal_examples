@@ -1,4 +1,4 @@
-package quartz;
+package quartz.job;
 
 import org.junit.jupiter.api.Test;
 import org.quartz.Job;

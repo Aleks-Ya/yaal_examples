@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: autoincrement-sequence-create
+      author: Alex
+      comment: Create 'autoincrement-sequence' table
+      changes:
+      - createSequence:  
+          schemaName:  public  
+          sequenceName:  autoincrement-sequence-id
+          dataType:  int  
+  - changeSet:  
+      id: autoincrement-sequence-table
+      author: Alex
+      comment: Create 'autoincrement-sequence' table
+      changes:
+      -  createTable:
+          schemaName: public
+          tableName: autoincrement-sequence
+          columns:
+          -  column:
+              name: id
+              type: java.sql.Types.BIGINT
+              defaultValueComputed: nextval('autoincrement-sequence-id')
+          -  column:
+              name: name
+              type: java.sql.Types.VARCHAR(255)
+  - changeSet:
+      id: insert-into-autoincrement-sequence
+      author: Alex
+      comment: Insert a row into 'autoincrement-sequence' table
+      changes:
+      -  insert:
+          schemaName: public
+          tableName: autoincrement-sequence
+          columns:
+          -  column:
+              name:  name
+              value: Mike
+      -  insert:
+          schemaName: public
+          tableName: autoincrement-sequence
+          columns:
+          -  column:
+              name:  name
+              value: Ann
+        

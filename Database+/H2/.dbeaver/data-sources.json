@@ -1,0 +1,31 @@
+{
+	"folders": {},
+	"connections": {
+		"h2_embedded-18335da03d2-326dc538401e0b4": {
+			"provider": "h2",
+			"driver": "h2_embedded",
+			"name": "mem",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"database": "mem:",
+				"url": "jdbc:h2:mem:",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native",
+				"handlers": {}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}

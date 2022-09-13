@@ -1,4 +1,4 @@
-package quartz;
+package quartz.job;
 
 import org.junit.jupiter.api.Test;
 import org.quartz.Job;
@@ -7,39 +7,54 @@ import org.quartz.JobExecutionException;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
 
+import java.sql.Date;
+import java.time.Instant;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 import static org.quartz.JobBuilder.newJob;
-import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 /**
- * The next fire happens before the previous fire is finished.
+ * Pause and resume a Job.
  */
-class JobRunOverlapTest {
+class PauseJobTest {
 
     @Test
-    void cron() throws SchedulerException, InterruptedException {
+    void unscheduleJob() throws SchedulerException, InterruptedException {
         var jobDetail = newJob(WaitJob.class)
                 .withIdentity("jobDetail1", "group1")
                 .build();
+        var delay = 500;
         var trigger = newTrigger()
                 .withIdentity("trigger1", "group1")
-                .withSchedule(simpleSchedule().repeatForever().withIntervalInMilliseconds(500))
+                .startAt(Date.from(Instant.now().plusMillis(delay)))
                 .build();
+
         var scheduler = StdSchedulerFactory.getDefaultScheduler();
         scheduler.start();
         scheduler.scheduleJob(jobDetail, trigger);
-        Thread.sleep(5000);
+        assertThat(WaitJob.started).isFalse();
+        scheduler.pauseJob(jobDetail.getKey());
+        Thread.sleep(delay * 2);
+        assertThat(WaitJob.started).isFalse();
+        scheduler.resumeJob(jobDetail.getKey());
+        await().timeout(5, SECONDS).until(() -> WaitJob.done);
         scheduler.shutdown(true);
     }
 
     public static class WaitJob implements Job {
+        static boolean started = false;
+        static boolean done = false;
+
         @Override
         public void execute(JobExecutionContext context) throws JobExecutionException {
             try {
-                System.out.printf("Start %s %s in %s\n",
-                        context.getJobDetail().getKey(), context.getFireInstanceId(), Thread.currentThread().getName());
-                Thread.sleep(2000);
-                System.out.printf("Finish %s %s\n", context.getJobDetail().getKey(), context.getFireInstanceId());
+                started = true;
+                Thread.sleep(500);
+                System.out.println("Job is done: " + context.getJobDetail().getKey());
+                done = true;
             } catch (Exception e) {
                 throw new JobExecutionException(e);
             }

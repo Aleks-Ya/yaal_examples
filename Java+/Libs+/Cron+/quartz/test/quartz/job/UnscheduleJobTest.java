@@ -1,4 +1,4 @@
-package quartz.manipulate;
+package quartz.job;
 
 import org.junit.jupiter.api.Test;
 import org.quartz.Job;
@@ -29,7 +29,8 @@ class UnscheduleJobTest {
         assertThat(scheduler.checkExists(jobDetail.getKey())).isFalse();
         scheduler.scheduleJob(jobDetail, trigger);
         assertThat(scheduler.checkExists(jobDetail.getKey())).isTrue();
-        scheduler.unscheduleJob(trigger.getKey());
+        boolean unscheduled = scheduler.unscheduleJob(trigger.getKey());
+        assertThat(unscheduled).isTrue();
         assertThat(scheduler.checkExists(jobDetail.getKey())).isFalse();
         scheduler.shutdown(true);
     }
@@ -45,7 +46,8 @@ class UnscheduleJobTest {
         scheduler.scheduleJob(jobDetail, Set.of(trigger1, trigger2), true);
         assertThat(scheduler.checkExists(jobDetail.getKey())).isTrue();
         assertThat(scheduler.getTriggersOfJob(jobDetail.getKey())).asList().containsExactlyInAnyOrder(trigger1, trigger2);
-        scheduler.unscheduleJob(trigger1.getKey());
+        boolean unscheduled = scheduler.unscheduleJob(trigger1.getKey());
+        assertThat(unscheduled).isTrue();
         assertThat(scheduler.getTriggersOfJob(jobDetail.getKey())).asList().containsExactly(trigger2);
         assertThat(scheduler.checkExists(jobDetail.getKey())).isTrue();
         scheduler.shutdown(true);

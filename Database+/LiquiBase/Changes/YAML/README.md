@@ -1,7 +1,7 @@
 # Using LiquiBase commands in YAML format
 
 ## 1. Run Postgres
-Prerequisites: run Postgres in Docker (`Changes/Preparation.md`)
+Prerequisites: run Postgres in Docker (`../Changes/Preparation.md`)
 
 ## 2. Execute commands
 ### Migrate

@@ -1,4 +1,4 @@
-package quartz.manipulate;
+package quartz.job;
 
 import org.junit.jupiter.api.Test;
 import org.quartz.Job;
@@ -37,7 +37,8 @@ class DeleteJobTest {
         assertThat(PauseJobTest.WaitJob.started).isFalse();
         assertThat(scheduler.getCurrentlyExecutingJobs()).isEmpty();
         assertThat(scheduler.checkExists(jobDetail.getKey())).isTrue();
-        scheduler.deleteJob(jobDetail.getKey());
+        var deleted = scheduler.deleteJob(jobDetail.getKey());
+        assertThat(deleted).isTrue();
         assertThat(scheduler.getCurrentlyExecutingJobs()).isEmpty();
         assertThat(scheduler.checkExists(jobDetail.getKey())).isFalse();
         scheduler.shutdown(true);
@@ -61,7 +62,8 @@ class DeleteJobTest {
                 .map(JobExecutionContext::getJobDetail).toList()).contains(jobDetail);
         assertThat(scheduler.checkExists(jobDetail.getKey())).isTrue();
 
-        scheduler.deleteJob(jobDetail.getKey());
+        var deleted = scheduler.deleteJob(jobDetail.getKey());
+        assertThat(deleted).isTrue();
         assertThat(scheduler.getCurrentlyExecutingJobs().stream()
                 .map(JobExecutionContext::getJobDetail).toList()).contains(jobDetail);
         assertThat(scheduler.checkExists(jobDetail.getKey())).isFalse();
