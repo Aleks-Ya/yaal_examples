@@ -5,17 +5,17 @@
     <artifactId>scala-on-maven</artifactId>
     <version>1</version>
 
-    <name>ScalaOnMavenx</name>
+    <name>ScalaOnMaven</name>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <scala.version>2.13.2</scala.version>
+        <scala.version>2.13.8</scala.version>
         <scala.compat.version>2.13</scala.compat.version>
-        <spec2.version>4.9.4</spec2.version>
-        <scoverage.plugin.version>1.4.1</scoverage.plugin.version>
+        <spec2.version>4.16.1</spec2.version>
+        <scoverage.plugin.version>1.4.11</scoverage.plugin.version>
     </properties>
 
     <dependencies>
@@ -29,7 +29,7 @@
         <dependency>
             <groupId>org.scalatest</groupId>
             <artifactId>scalatest_${scala.compat.version}</artifactId>
-            <version>3.1.2</version>
+            <version>3.2.12</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -54,7 +54,7 @@
                 <!-- see http://davidb.github.com/scala-maven-plugin -->
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
-                <version>4.4.0</version>
+                <version>4.7.1</version>
                 <executions>
                     <execution>
                         <goals>
@@ -71,7 +71,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
                 <configuration>
@@ -82,7 +81,7 @@
             <plugin>
                 <groupId>org.scalatest</groupId>
                 <artifactId>scalatest-maven-plugin</artifactId>
-                <version>2.0.0</version>
+                <version>2.1.0</version>
                 <executions>
                     <execution>
                         <id>test</id>
