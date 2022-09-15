@@ -10,20 +10,17 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Autowire not required bean via constructor.
+ * Autowire not required bean via field.
  */
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {AutowireAbsentBeanViaConstructor.CarService.class})
-class AutowireAbsentBeanViaConstructor {
-    private final PersonService personService;
-    private final CarService carService;
+@ContextConfiguration(classes = AutowireAbsentBeanViaFieldTest.CarService.class)
+class AutowireAbsentBeanViaFieldTest {
 
-    public AutowireAbsentBeanViaConstructor(
-            @Autowired(required = false) PersonService personService,
-            @Autowired CarService carService) {
-        this.personService = personService;
-        this.carService = carService;
-    }
+    @Autowired(required = false)
+    private PersonService personService;
+
+    @Autowired
+    private CarService carService;
 
     @Test
     void autowire() {

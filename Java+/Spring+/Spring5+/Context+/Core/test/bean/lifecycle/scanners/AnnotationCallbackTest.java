@@ -2,12 +2,15 @@ package bean.lifecycle.scanners;
 
 import bean.lifecycle.MyBean;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ContextConfiguration(classes = {AnnotationBean.class, MyBean.class})
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {
+        AnnotationBean.class,
+        MyBean.class
+})
 class AnnotationCallbackTest {
 
     /**
