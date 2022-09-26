@@ -2,17 +2,16 @@ package java8.io;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class AutoCloseableTest {
+class AutoCloseableTest {
 
     @Test
     void myAutoClosableClass() throws Exception {
         try (MyAutoCloseable closeable = new MyAutoCloseable()) {
-            assertFalse(MyAutoCloseable.isClosed);
+            assertThat(MyAutoCloseable.isClosed).isFalse();
         }
-        assertTrue(MyAutoCloseable.isClosed);
+        assertThat(MyAutoCloseable.isClosed).isTrue();
     }
 
     private static class MyAutoCloseable implements AutoCloseable {

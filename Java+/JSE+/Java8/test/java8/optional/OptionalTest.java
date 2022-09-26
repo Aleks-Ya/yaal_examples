@@ -4,16 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Использование класса-обертки Optional для замены null-значений.
  */
-public class OptionalTest {
+class OptionalTest {
 
     /**
      * Использование Optional#of.
@@ -25,9 +22,9 @@ public class OptionalTest {
         Book expBook = new Book(titleOptional);
         Optional<Book> bookOptional = Optional.of(expBook);
 
-        assertTrue(bookOptional.isPresent());
-        assertSame(expBook, bookOptional.get());
-        assertSame(expTitle, bookOptional.get().getTitle().get());
+        assertThat(bookOptional).isPresent();
+        assertThat(bookOptional.get()).isSameAs(expBook);
+        assertThat(bookOptional.get().getTitle().get()).isSameAs(expTitle);
     }
 
     /**
@@ -35,7 +32,7 @@ public class OptionalTest {
      */
     @Test
     void ofNPE() {
-        assertThrows(NullPointerException.class, () -> Optional.of(null));
+        assertThatThrownBy(() -> Optional.of(null)).isInstanceOf(NullPointerException.class);
     }
 
     /**
@@ -44,7 +41,7 @@ public class OptionalTest {
     @Test
     void empty() {
         Optional<Book> bookOptional = Optional.empty();
-        assertFalse(bookOptional.isPresent());
+        assertThat(bookOptional).isNotPresent();
     }
 
     /**
@@ -53,7 +50,7 @@ public class OptionalTest {
     @Test
     void ofNullable() {
         Optional<Book> bookOptional = Optional.ofNullable(null);
-        assertFalse(bookOptional.isPresent());
+        assertThat(bookOptional).isNotPresent();
     }
 
     /**
@@ -63,7 +60,7 @@ public class OptionalTest {
     void map() {
         String s = null;
         Optional<Integer> opt = Optional.ofNullable(s).map(String::length);
-        assertFalse(opt.isPresent());
+        assertThat(opt).isNotPresent();
     }
 
     /**
@@ -72,7 +69,7 @@ public class OptionalTest {
     @Test
     void orElse() {
         Optional<String> string = Optional.ofNullable(null);
-        assertEquals("default", string.orElse("default"));
+        assertThat(string.orElse("default")).isEqualTo("default");
     }
 
     /**
@@ -80,13 +77,13 @@ public class OptionalTest {
      */
     @Test
     void orElseThrow() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThatThrownBy(() -> {
             Optional<String> string = Optional.ofNullable(null);
             string.orElseThrow(IllegalArgumentException::new);
-        });
+        }).isInstanceOf(IllegalArgumentException.class);
     }
 
-    private class Book {
+    private static class Book {
         private Optional<String> title;
 
         public Book(Optional<String> title) {

@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Из стрима должен остаться один элемент.
@@ -27,15 +27,15 @@ class SingleResultTest {
 
     @Test
     void noElements() {
-        assertThrows(NoSuchElementException.class, () -> stream
-                .filter("d"::equals)
-                .collect(new SingleElementCollector<>()));
+        assertThatThrownBy(() -> stream.filter("d"::equals).collect(new SingleElementCollector<>()))
+                .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
     void moreThanOneElement() {
-        assertThrows(IllegalStateException.class, () -> stream
+        assertThatThrownBy(() -> stream
                 .filter(element -> element.equals("b") || element.equals("c"))
-                .collect(new SingleElementCollector<>()));
+                .collect(new SingleElementCollector<>()))
+                .isInstanceOf(IllegalStateException.class);
     }
 }

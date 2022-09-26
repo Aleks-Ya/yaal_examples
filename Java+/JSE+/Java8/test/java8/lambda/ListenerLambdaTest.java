@@ -10,7 +10,7 @@ import java.awt.BorderLayout;
 /**
  * Использование лямбды для реализации интерфейса ActionListener.
  */
-public class ListenerLambdaTest {
+class ListenerLambdaTest {
 
     @Test
     void listener() {

@@ -19,7 +19,7 @@ import java.time.ZonedDateTime;
 /**
  * Сравнение дат.
  */
-public class ComparisionTest {
+class ComparisionTest {
     @Test
     void inInterval() {
         var since = LocalDate.of(2012, 4, 25);

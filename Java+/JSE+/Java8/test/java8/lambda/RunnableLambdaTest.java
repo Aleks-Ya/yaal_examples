@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Использование лямбды для реализации интерфейса Runnable.
  */
-public class RunnableLambdaTest {
+class RunnableLambdaTest {
 
     @Test
     void runnable() {

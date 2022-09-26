@@ -6,10 +6,13 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class MethodReferenceTest {
+class MethodReferenceTest {
+
+    private static void appendPlus(StringBuilder sb) {
+        sb.append("+++");
+    }
 
     /**
      * Reference to a Static Method
@@ -21,11 +24,7 @@ public class MethodReferenceTest {
                 new StringBuilder("b"),
                 new StringBuilder("c"));
         list.forEach(MethodReferenceTest::appendPlus);
-        list.forEach(sb -> assertTrue(sb.toString().endsWith("+++")));
-    }
-
-    private static void appendPlus(StringBuilder sb) {
-        sb.append("+++");
+        list.forEach(sb -> assertThat(sb.toString().endsWith("+++")).isTrue());
     }
 
     /**
@@ -46,7 +45,7 @@ public class MethodReferenceTest {
     void methodOfParticularObjectOfParticularType() {
         String[] arr = new String[]{"b", "c", "a"};
         Arrays.sort(arr, String::compareToIgnoreCase);
-        assertArrayEquals(new String[]{"a", "b", "c"}, arr);
+        assertThat(arr).isEqualTo(new String[]{"a", "b", "c"});
     }
 
     /**

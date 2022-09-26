@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Use {@link Stream#map(Function)}.
@@ -23,13 +23,12 @@ class MapTest {
             if (num == 2) throw new IllegalArgumentException(message);
             return num * 2;
         };
-        var e = assertThrows(IllegalArgumentException.class, () -> {
+        assertThatThrownBy(() -> {
             var sum = Stream.of(1, 2, 3)
                     .map(multiplyTwo)
                     .reduce(Integer::sum).get();
             assertThat(sum).isEqualTo(12);
-        });
-        assertThat(e).hasMessage(message);
+        }).isInstanceOf(IllegalArgumentException.class).hasMessage(message);
     }
 
     @Test

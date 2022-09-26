@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Использование лямбды для реализации интерфейса Comparator.
  */
-public class ComparatorLambdaTest {
+class ComparatorLambdaTest {
 
     @Test
     void comparator() {
@@ -21,10 +21,10 @@ public class ComparatorLambdaTest {
 
         persons.sort((p1, p2) -> p1.name.compareTo(p2.name));
 
-        assertEquals(Arrays.asList(ira, john, mary), persons);
+        assertThat(persons).isEqualTo(Arrays.asList(ira, john, mary));
     }
 
-    private class Person {
+    private static class Person {
         public String name;
 
         public Person(String name) {

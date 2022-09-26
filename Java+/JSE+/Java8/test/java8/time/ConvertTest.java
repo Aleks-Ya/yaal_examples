@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Преобразование одних классов даты/времени в другие.
  */
-public class ConvertTest {
+class ConvertTest {
 
     @Test
     void localDateToLocalDateTime() {
