@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 import java.io.File
 import java.nio.file.Files
 
-class ListFilesInDir extends AnyFlatSpec with Matchers {
+class ListFilesInDirTest extends AnyFlatSpec with Matchers {
 
   it should "list all files in a directory" in {
     val dir = Files.createTempDirectory("files").toFile
