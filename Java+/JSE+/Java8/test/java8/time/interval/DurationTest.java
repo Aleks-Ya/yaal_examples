@@ -38,5 +38,13 @@ class DurationTest {
         assertThat(seconds).isEqualTo(4L);
     }
 
-
+    @Test
+    void compare() {
+        var small = Duration.ofSeconds(10);
+        var big = Duration.ofHours(1);
+        assertThat(small.compareTo(big)).isEqualTo(-1);
+        assertThat(big.compareTo(small)).isEqualTo(1);
+        var isSmallLess = small.compareTo(big) < 0;
+        assertThat(isSmallLess).isTrue();
+    }
 }

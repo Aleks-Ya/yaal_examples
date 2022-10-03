@@ -2,6 +2,7 @@ package java8.time;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -79,5 +80,11 @@ class ParsingTest {
         var localDateTime = LocalDateTime.parse(date, formatter);
         assertThat(localDateTime.get(ChronoField.MICRO_OF_SECOND)).isEqualTo(234778);
         assertThat(localDateTime.toString()).isEqualTo("2019-01-30T15:31:05.234778");
+    }
+
+    @Test
+    void duration() {
+        assertThat(Duration.parse("PT20.345S")).isEqualTo(Duration.ofSeconds(20, 345000000));
+        assertThat(Duration.parse("P2DT3H4M")).isEqualTo(Duration.ofDays(2).plusHours(3).plusMinutes(4));
     }
 }
