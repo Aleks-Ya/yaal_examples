@@ -1,9 +1,12 @@
 package scala.concurrent
 
+import org.scalatest.concurrent.PatienceConfiguration.Timeout
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import org.scalatest.time.{Seconds, Span}
 
+import scala.collection.mutable
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
 import scala.util.{Failure, Success}
@@ -11,21 +14,22 @@ import scala.util.{Failure, Success}
 class FutureTest extends AnyFlatSpec with Matchers {
 
   it should "invoke success or failure callback" in {
-    print(f"Main thread: ${Thread.currentThread().getName}")
+    println(f"Main thread: ${Thread.currentThread().getName}")
     val f = Future[String] {
-      print(f"Future thread: ${Thread.currentThread().getName}")
-      Thread.sleep(5000)
+      println(f"Future thread: ${Thread.currentThread().getName}")
+      Thread.sleep(3000)
+      print("Feature done")
       "a"
     }
-
     f onComplete {
       case Success(str) =>
-        print(f"Success thread: ${Thread.currentThread().getName}")
-        print(f"Success: $str")
+        println(f"Success thread: ${Thread.currentThread().getName}")
+        println(f"Success: $str")
       case Failure(e) =>
-        print(f"Error thread: ${Thread.currentThread().getName}")
-        print(f"Error: ${e.getMessage}")
+        println(f"Error thread: ${Thread.currentThread().getName}")
+        println(f"Error: ${e.getMessage}")
     }
+    ScalaFutures.whenReady(f, timeout = Timeout(Span(5, Seconds))) { _ => println("Ready") }
   }
 
   it should "invoke success callback only" in {
@@ -61,6 +65,16 @@ class FutureTest extends AnyFlatSpec with Matchers {
     f.isCompleted shouldBe true
     ScalaFutures.whenReady(f.failed) { e =>
       e shouldEqual expException
+    }
+  }
+
+  "Future" should "has no return value" in {
+    val sb = new mutable.StringBuilder()
+    val f = Future[Unit] {
+      sb.append("ok")
+    }
+    ScalaFutures.whenReady(f) { _ =>
+      sb.toString() shouldEqual "ok"
     }
   }
 

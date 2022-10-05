@@ -2,8 +2,6 @@ package util.concurrent.collection;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Iterator;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,11 +13,11 @@ class ConcurrentHashMapTest {
      */
     @Test
     void computeIfAbsentPutValueToMap() {
-        Map<String, Integer> map = new ConcurrentHashMap<>();
-        String key = "abc";
-        Integer value = map.computeIfAbsent(key, s -> 1);
+        var map = new ConcurrentHashMap<String, Integer>();
+        var key = "abc";
+        var value = map.computeIfAbsent(key, s -> 1);
         assertThat(value).isEqualTo(1);
-        assertThat(map.get(key)).isEqualTo(1);
+        assertThat(map).containsEntry(key, 1);
     }
 
     /**
@@ -27,9 +25,9 @@ class ConcurrentHashMapTest {
      */
     @Test
     void removeByIterator() {
-        Map<String, Integer> map = new ConcurrentHashMap<>();
+        var map = new ConcurrentHashMap<String, Integer>();
         map.put("abc", 1);
-        Iterator<Map.Entry<String, Integer>> it = map.entrySet().iterator();
+        var it = map.entrySet().iterator();
         while (it.hasNext()) {
             it.next();
             it.remove();
