@@ -2,10 +2,13 @@ package context.property.configuration_properties;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
 import java.net.URI;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE;
@@ -29,6 +32,13 @@ class ConfigurationPropertiesTest {
 
     @Autowired
     private AllInfo allInfo;
+
+    @Autowired
+    private Map<String, Object> allProperties;
+
+    @Autowired
+    @Qualifier("subPropertyAsMap")
+    private Map<String, Object> subPropertyAsMap;
 
     @Test
     void person() {
@@ -54,6 +64,16 @@ class ConfigurationPropertiesTest {
     void allInfo() {
         assertThat(allInfo.toString())
                 .isEqualTo("John-30 from Moscow-1147 at http://moscow.russia.ru:8080/info or at http://m.city.ru:7777/info");
+    }
+
+    @Test
+    void allPropertiesAsMap() {
+        assertThat(allProperties).hasSize(60);
+    }
+
+    @Test
+    void subPropertyAsMap() {
+        assertThat(subPropertyAsMap).hasSize(1);
     }
 
 }
