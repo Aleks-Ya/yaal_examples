@@ -12,4 +12,4 @@ Print response status and headers: `curl -i http://ya.ru`
 Verbose: `curl --verbose https://google.com`
 Basic auth: `curl -u username:password https://google.com`
 Ignore certificate errors: `curl --insecure https://google.com`
-Don't show progress: `curl -i http://ya.ru`
+Don't show progress: `curl -s http://ya.ru`
