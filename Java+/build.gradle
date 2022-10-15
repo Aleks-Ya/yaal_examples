@@ -25,7 +25,7 @@ subprojects {
         jacksonVersion = '2.13.3'
         jacksonDataBindDep = "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         jsonUnitDep = 'net.javacrumbs.json-unit:json-unit:2.35.0'
-        mockitoVersion = '4.2.0'
+        mockitoVersion = '4.8.0'
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
         log4jCoreDep = 'org.apache.logging.log4j:log4j-core:2.14.1'
         logbackClassicDep = 'ch.qos.logback:logback-classic:1.2.11'
@@ -34,7 +34,7 @@ subprojects {
         wireMockDep = 'com.github.tomakehurst:wiremock:2.27.2'
         jaxbApiDep = 'javax.xml.bind:jaxb-api:2.3.1'
         elasticSearchVersion = '7.12.0'
-        junit5Version = '5.8.2'
+        junit5Version = '5.9.1'
         spring5Version = '5.3.22'
         spring4Version = '4.3.30.RELEASE'
         spring3Version = '3.2.18.RELEASE'
@@ -54,7 +54,7 @@ subprojects {
         hibernate5EntityManagerDep = 'org.hibernate:hibernate-entitymanager:5.6.11.Final'
         jsonAssertDep = 'org.skyscreamer:jsonassert:1.5.0'
         bouncyCustleDep = 'org.bouncycastle:bcpkix-jdk15on:1.68'
-        testContainersVersion = '1.17.3'
+        testContainersVersion = '1.17.5'
         testContainersDep = "org.testcontainers:testcontainers:$testContainersVersion"
         testContainersJunitDep = "org.testcontainers:junit-jupiter:$testContainersVersion"
         testContainersPostgresDep = "org.testcontainers:postgresql:$testContainersVersion"

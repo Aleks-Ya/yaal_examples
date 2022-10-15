@@ -5,7 +5,7 @@
 
 ## Run
 1. Run: `gradle clean test`
-1. Reports:
+2. Reports:
     1. HTML: `build/reports/jacoco/test/html/index.html`
-    1. XML:  `build/reports/jacoco/test/jacocoTestReport.xml`
-    1. CSV:  `build/reports/jacoco/test/jacocoTestReport.csv`
+    2. XML:  `build/reports/jacoco/test/jacocoTestReport.xml`
+    3. CSV:  `build/reports/jacoco/test/jacocoTestReport.csv`

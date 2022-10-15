@@ -17,7 +17,7 @@ test {
     useJUnitPlatform()
 }
 dependencies {
-    def junit5Version = '5.7.1'
+    def junit5Version = '5.9.1'
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
 }

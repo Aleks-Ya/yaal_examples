@@ -1,9 +1,7 @@
 apply plugin: 'java'
 sourceSets.test.java.srcDir 'test'
-ext {
-    junitVersion = '5.7.1'
-}
 dependencies {
+    def junitVersion = '5.9.1'
     testImplementation ("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
