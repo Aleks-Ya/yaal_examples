@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+dependencies {
+    def junit5Version = '5.9.1'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
+}
+repositories {
+    mavenCentral()
+}
+tasks.register('testJacocoReport', JacocoReport) {
+    reports {
+        xml.required = true
+        csv.required = true
+        html.required = true
+    }
+    executionData(file("$buildDir/build/jacoco/test.exec"))
+}
+tasks.register('integrationTestJacocoReport', JacocoReport) {
+    reports {
+        xml.required = true
+        csv.required = true
+        html {
+            required = true
+            outputLocation = layout.buildDirectory.dir('jacocoHtmlInteg')
+        }
+    }
+    executionData(file("$buildDir/build/jacoco/integrationTest.exec"))
+}
+test {
+    useJUnitPlatform {
+        excludeTags 'integration'
+    }
+    finalizedBy testJacocoReport
+}
+tasks.register('integrationTest', Test) {
+    shouldRunAfter test
+    useJUnitPlatform {
+        includeTags 'integration'
+    }
+    finalizedBy integrationTestJacocoReport
+}
+check.dependsOn integrationTest

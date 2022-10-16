@@ -11,6 +11,9 @@ jacocoTestReport {
 }
 test {
     useJUnitPlatform()
+    jacoco {
+        destinationFile = layout.buildDirectory.file("jacoco/test-custom.exec").get().asFile
+    }
     finalizedBy jacocoTestReport
 }
 dependencies {

@@ -1,0 +1,36 @@
+apply plugin: 'java'
+sourceSets {
+    intTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+configurations {
+    intTestImplementation.extendsFrom implementation
+    intTestRuntimeOnly.extendsFrom runtimeOnly
+}
+dependencies {
+    def junitVersion = '5.9.1'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    intTestImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    intTestRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+}
+test {
+    useJUnitPlatform()
+}
+repositories {
+    mavenCentral()
+}
+tasks.register('integrationTest', Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+
+    testClassesDirs = sourceSets.intTest.output.classesDirs
+    classpath = sourceSets.intTest.runtimeClasspath
+    shouldRunAfter test
+    useJUnitPlatform()
+}
+check.dependsOn integrationTest
+
+
