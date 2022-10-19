@@ -19,8 +19,8 @@ class WhereTest {
         var city3 = new CityEntity("Sochi", 700_000);
         var city4 = new CityEntity("Vologda", 300_000);
 
-        try (var factory436 = HibernateSessionFactory5.makeFactory(CityEntity.class)) {
-            var session = factory436.openSession();
+        try (var factory436 = HibernateSessionFactory5.makeFactory(CityEntity.class);
+             var session = factory436.openSession()) {
             session.beginTransaction();
             session.save(city1);
             session.save(city2);

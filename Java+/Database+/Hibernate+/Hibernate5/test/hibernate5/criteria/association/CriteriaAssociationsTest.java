@@ -25,30 +25,30 @@ class CriteriaAssociationsTest {
         var city2 = new CityEntity("Санкт-Петербург", spbPopulation, region);
         var city3 = new CityEntity("Волгоград", 300000L, region);
 
-
-        var region2 = new RegionEntity("Московская область"
-        );
+        var region2 = new RegionEntity("Московская область");
         var moscowPopulation = 12000000L;
         var city4 = new CityEntity("Москва", moscowPopulation, region2);
 
-        var session = HibernateSessionFactory5.makeFactory(RegionEntity.class, CityEntity.class).openSession();
-        session.beginTransaction();
-        session.save(region);
-        session.save(region2);
-        session.save(city1);
-        session.save(city2);
-        session.save(city3);
-        session.save(city4);
-        session.flush();
-        session.getTransaction().commit();
+        try (var sessionFactory = HibernateSessionFactory5.makeFactory(RegionEntity.class, CityEntity.class);
+             var session = sessionFactory.openSession();) {
+            session.beginTransaction();
+            session.save(region);
+            session.save(region2);
+            session.save(city1);
+            session.save(city2);
+            session.save(city3);
+            session.save(city4);
+            session.flush();
+            session.getTransaction().commit();
 
-        {
-            System.out.println("\n ASSOCIATION:");
-            var criteria = session.createCriteria(CityEntity.class);
-            var regionCriteria = criteria.createCriteria("region");
-            regionCriteria.add(Restrictions.ilike("name", "Вологод%"));
-            criteria.addOrder(Order.desc("population"));
-            printList(criteria.list());
+            {
+                System.out.println("\n ASSOCIATION:");
+                var criteria = session.createCriteria(CityEntity.class);
+                var regionCriteria = criteria.createCriteria("region");
+                regionCriteria.add(Restrictions.ilike("name", "Вологод%"));
+                criteria.addOrder(Order.desc("population"));
+                printList(criteria.list());
+            }
         }
 
     }

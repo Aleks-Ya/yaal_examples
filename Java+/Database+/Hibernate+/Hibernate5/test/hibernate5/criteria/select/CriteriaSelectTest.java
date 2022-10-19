@@ -26,84 +26,84 @@ class CriteriaSelectTest {
         var city2 = new CityEntity("Санкт-Петербург", spbPopulation, region);
         var city3 = new CityEntity("Волгоград", 1000000L, region);
 
-
-        var region2 = new RegionEntity("Московская область"
-        );
+        var region2 = new RegionEntity("Московская область");
         var moscowPopulation = 12000000L;
         var city4 = new CityEntity("Москва", moscowPopulation, region2);
 
-        var session = HibernateSessionFactory5.makeFactory(RegionEntity.class, CityEntity.class).openSession();
-        session.beginTransaction();
-        session.save(region);
-        session.save(region2);
-        session.save(city1);
-        session.save(city2);
-        session.save(city3);
-        session.save(city4);
-        session.flush();
-        session.getTransaction().commit();
+        try (var sessionFactory = HibernateSessionFactory5.makeFactory(RegionEntity.class, CityEntity.class);
+             var session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.save(region);
+            session.save(region2);
+            session.save(city1);
+            session.save(city2);
+            session.save(city3);
+            session.save(city4);
+            session.flush();
+            session.getTransaction().commit();
 
-        {
-            System.out.println("\nSELECT всех объектов класса CityEntity:");
-            var criteria = session.createCriteria(CityEntity.class);
-            printList(criteria.list());
-            //todo Добавить CityEntity extends PlaceEntity - должны находиться объекты обоих классов
-        }
-        {
-            System.out.println("\nSELECT + equals CRITERION:");
-            var criteria = session.createCriteria(CityEntity.class);
-            Criterion criterion = Restrictions.eq("name", vologdaName);
-            criteria.add(criterion);
-            printList(criteria.list());
-        }
-        {
-            System.out.println("\nSELECT + like case sensitive CRITERION:");
-            var criteria = session.createCriteria(CityEntity.class);
-            criteria.add(Restrictions.like("name", "Вол", MatchMode.START));
-            criteria.add(Restrictions.like("name", "Вол%"));// тоже самое
-            printList(criteria.list());
-        }
-        {
-            System.out.println("\nSELECT + like case INsensitive CRITERION:");
-            var criteria = session.createCriteria(CityEntity.class);
-            criteria.add(Restrictions.ilike("name", "вол", MatchMode.START));
-            criteria.add(Restrictions.ilike("name", "вол%"));// тоже самое
-            printList(criteria.list());
-        }
-        {
-            System.out.println("\nSELECT + and CRITERION:");
-            var criteria = session.createCriteria(CityEntity.class);
-            criteria.add(Restrictions.like("name", vologdaName, MatchMode.START));
-            criteria.add(Restrictions.eq("population", vologdaPopulation));
-            printList(criteria.list());
-        }
-        {
-            System.out.println("\nSELECT + or 2 arguments CRITERION:");
-            var criteria = session.createCriteria(CityEntity.class);
-            Criterion name = Restrictions.like("name", vologdaName, MatchMode.START);
-            Criterion population = Restrictions.eq("population", moscowPopulation);
-            var or = Restrictions.or(name, population);
-            criteria.add(or);
-            printList(criteria.list());
-        }
-        {
-            System.out.println("\nSELECT + or >2 arguments CRITERION:");
-            var criteria = session.createCriteria(CityEntity.class);
-            Criterion name = Restrictions.like("name", vologdaName, MatchMode.START);
-            Criterion population = Restrictions.eq("population", moscowPopulation);
-            Criterion population2 = Restrictions.eq("population", spbPopulation);
-            var or = Restrictions.disjunction();
-            or.add(name);
-            or.add(population);
-            or.add(population2);
-            criteria.add(or);
-            printList(criteria.list());
-        }
-        {
-            System.out.println("\nSELECT + sql CRITERION:");
-            var criteria = session.createCriteria(CityEntity.class);
-            criteria.add(Restrictions.sqlRestriction("{alias}.name like 'Вол%'"));
-            printList(criteria.list());
+            {
+                System.out.println("\nSELECT всех объектов класса CityEntity:");
+                var criteria = session.createCriteria(CityEntity.class);
+                printList(criteria.list());
+                //todo Добавить CityEntity extends PlaceEntity - должны находиться объекты обоих классов
+            }
+            {
+                System.out.println("\nSELECT + equals CRITERION:");
+                var criteria = session.createCriteria(CityEntity.class);
+                Criterion criterion = Restrictions.eq("name", vologdaName);
+                criteria.add(criterion);
+                printList(criteria.list());
+            }
+            {
+                System.out.println("\nSELECT + like case sensitive CRITERION:");
+                var criteria = session.createCriteria(CityEntity.class);
+                criteria.add(Restrictions.like("name", "Вол", MatchMode.START));
+                criteria.add(Restrictions.like("name", "Вол%"));// тоже самое
+                printList(criteria.list());
+            }
+            {
+                System.out.println("\nSELECT + like case INsensitive CRITERION:");
+                var criteria = session.createCriteria(CityEntity.class);
+                criteria.add(Restrictions.ilike("name", "вол", MatchMode.START));
+                criteria.add(Restrictions.ilike("name", "вол%"));// тоже самое
+                printList(criteria.list());
+            }
+            {
+                System.out.println("\nSELECT + and CRITERION:");
+                var criteria = session.createCriteria(CityEntity.class);
+                criteria.add(Restrictions.like("name", vologdaName, MatchMode.START));
+                criteria.add(Restrictions.eq("population", vologdaPopulation));
+                printList(criteria.list());
+            }
+            {
+                System.out.println("\nSELECT + or 2 arguments CRITERION:");
+                var criteria = session.createCriteria(CityEntity.class);
+                Criterion name = Restrictions.like("name", vologdaName, MatchMode.START);
+                Criterion population = Restrictions.eq("population", moscowPopulation);
+                var or = Restrictions.or(name, population);
+                criteria.add(or);
+                printList(criteria.list());
+            }
+            {
+                System.out.println("\nSELECT + or >2 arguments CRITERION:");
+                var criteria = session.createCriteria(CityEntity.class);
+                Criterion name = Restrictions.like("name", vologdaName, MatchMode.START);
+                Criterion population = Restrictions.eq("population", moscowPopulation);
+                Criterion population2 = Restrictions.eq("population", spbPopulation);
+                var or = Restrictions.disjunction();
+                or.add(name);
+                or.add(population);
+                or.add(population2);
+                criteria.add(or);
+                printList(criteria.list());
+            }
+            {
+                System.out.println("\nSELECT + sql CRITERION:");
+                var criteria = session.createCriteria(CityEntity.class);
+                criteria.add(Restrictions.sqlRestriction("{alias}.name like 'Вол%'"));
+                printList(criteria.list());
+            }
         }
     }
 

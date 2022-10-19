@@ -19,8 +19,8 @@ class FilterTest {
         var sochiName = "Sochi";
         var vologdaName = "Vologda";
 
-        try (var factory436 = HibernateSessionFactory5.makeFactory(CityEntity.class)) {
-            var session = factory436.openSession();
+        try (var factory436 = HibernateSessionFactory5.makeFactory(CityEntity.class);
+             var session = factory436.openSession()) {
             session.beginTransaction();
             session.save(new CityEntity(moscowName, 25_000_000));
             session.save(new CityEntity(spbName, 10_000_000));
