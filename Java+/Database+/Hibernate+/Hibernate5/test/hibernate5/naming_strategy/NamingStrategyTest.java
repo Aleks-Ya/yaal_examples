@@ -12,7 +12,7 @@ import static hibernate5.naming_strategy.CityEntity.COLUMN_NAME;
 import static hibernate5.naming_strategy.CityEntity.TABLE_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DefaultNamingTest {
+class NamingStrategyTest {
 
     @Test
     void defaultPhysicalNamingStrategyStandardImpl() {
