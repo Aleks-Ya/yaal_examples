@@ -1,0 +1,7 @@
+h2:
+  file: /tmp/liquibase-spring-boot
+spring:
+  liquibase:
+    enabled: true
+    change-log: classpath:liquibase/drivermanager/changelog/db.changelog-master.yaml
+    drop-first: true

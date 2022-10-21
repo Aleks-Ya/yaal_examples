@@ -11,5 +11,5 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
-    <context:property-placeholder location="jdbc.properties"/>
+    <context:property-placeholder location="spring/drivermanager/instantiate/jdbc.properties"/>
 </beans>

@@ -1,14 +1,7 @@
 h2:
   file: /tmp/liquibase-spring-boot
 spring:
-  datasource:
-    url: jdbc:h2:${h2.file};AUTO_SERVER=TRUE
-    username:
-    password:
   liquibase:
     enabled: true
     change-log: classpath:liquibase/drivermanager/changelog/db.changelog-master.yaml
     drop-first: true
-  test:
-    database:
-      replace: none

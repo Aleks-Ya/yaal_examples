@@ -18,7 +18,7 @@ import static util.ResourceUtil.resourceToPath;
 public class LiquibaseRepoApp {
 
     public static void main(String[] args) {
-        System.setProperty("spring.config.location", resourceToPath(LiquibaseRepoApp.class, "application.yaml"));
+        System.setProperty("spring.config.location", resourceToPath(LiquibaseRepoApp.class, "SpringBootTestTest.yaml"));
         SpringApplication.run(LiquibaseRepoApp.class, args);
     }
 

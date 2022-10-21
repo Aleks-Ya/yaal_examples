@@ -2,12 +2,12 @@ package liquibase.repo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(properties = "spring.config.location=classpath:liquibase/repo/application.yaml")
-class LiquibaseRepoTest {
+@DataJpaTest(properties = "spring.config.location=classpath:liquibase/repo/SpringJpaTestTest.yaml")
+class SpringJpaTestTest {
 
     @Autowired
     private PersonRepository repo;

@@ -1,4 +1,4 @@
-package instantiate;
+package spring.drivermanager.instantiate;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,11 +14,11 @@ import java.sql.Statement;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Инициализация DriverManagerDataSource в XML.
+ * Initialize DriverManagerDataSource in XML.
  */
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration("classpath:context.xml")
-class Xml {
+@ContextConfiguration("classpath:spring/drivermanager/instantiate/context.xml")
+class XmlTest {
 
     @Autowired
     private DataSource dataSource;

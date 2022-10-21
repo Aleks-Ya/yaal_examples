@@ -1,4 +1,4 @@
-package instantiate;
+package spring.drivermanager.instantiate;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Инициализация DriverManagerDataSource в Java-коде.
+ * Initialize DriverManagerDataSource programmatically.
  */
-class JavaCode {
+class JavaCodeTest {
 
     @Test
     void test() throws SQLException {
