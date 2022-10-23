@@ -1,6 +1,6 @@
 package hibernate5.context.filtering.dynamic;
 
-import hibernate5.context.session.HibernateSessionFactory5;
+import hibernate5.HibernateSessionFactory5;
 import org.junit.jupiter.api.Test;
 
 import static hibernate5.context.filtering.dynamic.CityEntity.CITY_POPULATION_FILTER;

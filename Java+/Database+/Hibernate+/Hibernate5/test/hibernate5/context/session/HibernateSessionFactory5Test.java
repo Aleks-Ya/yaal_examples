@@ -1,5 +1,6 @@
 package hibernate5.context.session;
 
+import hibernate5.HibernateSessionFactory5;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.Column;

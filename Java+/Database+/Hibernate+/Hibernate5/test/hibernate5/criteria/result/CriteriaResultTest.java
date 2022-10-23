@@ -1,6 +1,6 @@
 package hibernate5.criteria.result;
 
-import hibernate5.context.session.HibernateSessionFactory5;
+import hibernate5.HibernateSessionFactory5;
 import org.hibernate.NonUniqueResultException;
 import org.hibernate.criterion.Order;
 import org.junit.jupiter.api.Test;

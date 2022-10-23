@@ -1,6 +1,6 @@
 package hibernate5.criteria.select;
 
-import hibernate5.context.session.HibernateSessionFactory5;
+import hibernate5.HibernateSessionFactory5;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;

@@ -1,6 +1,6 @@
 package hibernate5.mapping.assosiation.bidirectional.payment;
 
-import hibernate5.context.session.HibernateSessionFactory5;
+import hibernate5.HibernateSessionFactory5;
 import hibernate5.mapping.assosiation.bidirectional.people.Address;
 import hibernate5.mapping.assosiation.bidirectional.people.People;
 import org.hibernate.Hibernate;

@@ -1,6 +1,7 @@
 package hibernate5.exception;
 
-import hibernate5.context.session.HibernateSessionFactory5;
+
+import hibernate5.HibernateSessionFactory5;
 
 import java.util.concurrent.TimeUnit;
 

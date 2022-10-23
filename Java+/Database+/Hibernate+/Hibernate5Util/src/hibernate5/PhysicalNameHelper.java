@@ -1,6 +1,5 @@
 package hibernate5;
 
-import hibernate5.context.session.HibernateSessionFactory5;
 import org.hibernate.SessionFactory;
 import org.hibernate.metamodel.internal.MetamodelImpl;
 import org.hibernate.persister.entity.SingleTableEntityPersister;

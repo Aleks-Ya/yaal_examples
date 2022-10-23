@@ -1,6 +1,6 @@
 package hibernate5.hql.select;
 
-import hibernate5.context.session.HibernateSessionFactory5;
+import hibernate5.HibernateSessionFactory5;
 import org.hibernate.query.Query;
 import org.junit.jupiter.api.Test;
 

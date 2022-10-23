@@ -2,9 +2,9 @@ package hibernate5.metamodel;
 
 import org.junit.jupiter.api.Test;
 
+import static hibernate5.HibernateSessionFactory5.makeFactory;
 import static hibernate5.PhysicalNameHelper.getPhysicalColumnNames;
 import static hibernate5.PhysicalNameHelper.getPhysicalTableName;
-import static hibernate5.context.session.HibernateSessionFactory5.makeFactory;
 import static hibernate5.metamodel.CityEntity.COLUMN_NAME;
 import static hibernate5.metamodel.CityEntity.TABLE_NAME;
 import static org.assertj.core.api.Assertions.assertThat;

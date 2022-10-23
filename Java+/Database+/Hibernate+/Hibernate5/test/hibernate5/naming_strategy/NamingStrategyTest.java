@@ -1,6 +1,6 @@
 package hibernate5.naming_strategy;
 
-import hibernate5.context.session.HibernateSessionFactory5;
+import hibernate5.HibernateSessionFactory5;
 import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
 import org.junit.jupiter.api.Test;
 

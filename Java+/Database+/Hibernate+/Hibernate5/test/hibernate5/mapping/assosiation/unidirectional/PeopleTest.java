@@ -1,6 +1,6 @@
 package hibernate5.mapping.assosiation.unidirectional;
 
-import hibernate5.context.session.HibernateSessionFactory5;
+import hibernate5.HibernateSessionFactory5;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;

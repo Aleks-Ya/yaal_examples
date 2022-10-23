@@ -1,4 +1,4 @@
-package hibernate5.context.session;
+package hibernate5;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

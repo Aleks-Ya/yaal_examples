@@ -1,6 +1,6 @@
 package hibernate5.context.session.change;
 
-import hibernate5.context.session.HibernateSessionFactory5;
+import hibernate5.HibernateSessionFactory5;
 import org.hibernate.Session;
 import org.hibernate.annotations.Immutable;
 import org.junit.jupiter.api.Test;
