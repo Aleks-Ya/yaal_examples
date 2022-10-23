@@ -1,1 +1,1 @@
-{"resources":{"Scripts/sql/Sequence.sql":{"default-datasource":"h2_embedded-18335da03d2-326dc538401e0b4","default-schema":"PUBLIC"}}}
+{"resources":{"Scripts/h2/Sequence.sql":{"default-datasource":"h2_embedded-18335da03d2-326dc538401e0b4","default-schema":"PUBLIC"},"Scripts/sql/Sequence.sql":{"default-schema":"PUBLIC","default-datasource":"h2_embedded-18335da03d2-326dc538401e0b4"}}}

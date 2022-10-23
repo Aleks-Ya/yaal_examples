@@ -1,5 +1,6 @@
 package assertj;
 
+import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -62,4 +63,12 @@ class CollectionAssertTest {
         //noinspection unchecked,CastCanBeRemovedNarrowingVariableType
         assertThat((List<Exception>) list).contains(e1, e2);
     }
+
+    @Test
+    void untyped() {
+        List list = asList("a", "b", "c");
+        assertThat(list).asList().contains("a", "b", "c");
+        assertThat(list).asInstanceOf(InstanceOfAssertFactories.list(String.class)).asList().contains("a", "b", "c");
+    }
+
 }

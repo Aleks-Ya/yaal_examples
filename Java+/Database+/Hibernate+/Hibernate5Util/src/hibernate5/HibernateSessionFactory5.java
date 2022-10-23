@@ -2,10 +2,12 @@ package hibernate5;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.model.naming.ImplicitNamingStrategy;
 import org.hibernate.boot.model.naming.PhysicalNamingStrategy;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import util.ReflectionUtil;
 
 import java.io.Closeable;
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ import java.util.Map;
 public class HibernateSessionFactory5 implements Closeable {
     private final SessionFactory sessionFactory;
     private final List<Session> sessions = new ArrayList<>();
+    private final ImplicitNamingStrategy implicitNamingStrategy;
+    private final PhysicalNamingStrategy physicalNamingStrategy;
 
     private HibernateSessionFactory5(Map<String, String> propertiesOverride,
                                      PhysicalNamingStrategy physicalNamingStrategy,
@@ -26,6 +30,8 @@ public class HibernateSessionFactory5 implements Closeable {
         var serviceRegistryBuilder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
         ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
         sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+        implicitNamingStrategy = ReflectionUtil.readFieldValue(configuration, "implicitNamingStrategy");
+        this.physicalNamingStrategy = ReflectionUtil.readFieldValue(configuration, "physicalNamingStrategy");
     }
 
     public static HibernateSessionFactory5 makeFactory(Map<String, String> propertiesOverride,
@@ -78,5 +84,13 @@ public class HibernateSessionFactory5 implements Closeable {
             session.close();
         }
         sessionFactory.close();
+    }
+
+    public ImplicitNamingStrategy getImplicitNamingStrategy() {
+        return implicitNamingStrategy;
+    }
+
+    public PhysicalNamingStrategy getPhysicalNamingStrategy() {
+        return physicalNamingStrategy;
     }
 }

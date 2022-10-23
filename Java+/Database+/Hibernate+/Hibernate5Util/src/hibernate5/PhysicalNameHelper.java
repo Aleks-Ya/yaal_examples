@@ -1,6 +1,7 @@
 package hibernate5;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.metamodel.internal.MetamodelImpl;
 import org.hibernate.persister.entity.SingleTableEntityPersister;
 
@@ -27,6 +28,14 @@ public class PhysicalNameHelper {
                 .map(persister::getPropertyColumnNames)
                 .flatMap(Arrays::stream)
                 .toList();
+    }
+
+    public static String getPhysicalNamingStrategyProperty(SessionFactory sessionFactory) {
+        return (String) sessionFactory.getProperties().get(AvailableSettings.PHYSICAL_NAMING_STRATEGY);
+    }
+
+    public static String getPhysicalNamingStrategyProperty(HibernateSessionFactory5 sessionFactory) {
+        return getPhysicalNamingStrategyProperty(sessionFactory.getSessionFactory());
     }
 
     private static SingleTableEntityPersister getSingleTableEntityPersister(SessionFactory sessionFactory,
