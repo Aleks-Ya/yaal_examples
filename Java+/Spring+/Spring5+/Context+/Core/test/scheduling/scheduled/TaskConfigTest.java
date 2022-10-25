@@ -6,8 +6,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
- * Не дописан.
- * Использование Task для запуска задач по расписанию.
+ * Not finished.
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TaskConfig.class)

@@ -12,13 +12,11 @@ class TaskConfig {
 
     @Bean
     public Task task() {
-        return new Task(() -> System.out.println("TASK"));
+        return new Task(() -> System.out.println("Task"));
     }
-
 
     @Bean
     public Task task2() {
-        return new IntervalTask(() -> System.out.println("TASK"), 1000);
+        return new IntervalTask(() -> System.out.println("Interval Task"), 1000);
     }
-
 }
