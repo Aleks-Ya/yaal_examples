@@ -10,8 +10,7 @@ import static org.mockito.Mockito.mock;
 /**
  * Create mock for Generic classes.
  */
-class Generics {
-
+class GenericsTest {
     @Test
     void string() {
         List<String> mock = mock(List.class);

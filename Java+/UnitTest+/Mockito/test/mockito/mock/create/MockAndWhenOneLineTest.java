@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 /**
  * Create mock and define when() in one line.
  */
-class MockAndWhenOneLIne {
+class MockAndWhenOneLineTest {
 
     @Test
     void getMock() {
