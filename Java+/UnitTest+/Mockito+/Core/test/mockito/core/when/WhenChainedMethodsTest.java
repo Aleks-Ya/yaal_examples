@@ -1,4 +1,4 @@
-package mockito.mock.when;
+package mockito.core.when;
 
 import org.junit.jupiter.api.Test;
 

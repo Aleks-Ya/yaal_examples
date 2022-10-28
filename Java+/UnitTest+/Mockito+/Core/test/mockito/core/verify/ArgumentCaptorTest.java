@@ -1,4 +1,4 @@
-package mockito.mock.verify;
+package mockito.core.verify;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;

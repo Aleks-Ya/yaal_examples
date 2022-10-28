@@ -1,4 +1,4 @@
-package mockito.mock.create.annotation;
+package mockito.core.create.annotation;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

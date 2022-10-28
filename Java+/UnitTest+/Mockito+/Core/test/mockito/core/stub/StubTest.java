@@ -1,4 +1,4 @@
-package mockito.mock.stub;
+package mockito.core.stub;
 
 import org.junit.jupiter.api.Test;
 
