@@ -1,9 +1,9 @@
 package guide.injection.testreporter;
 
-import java.util.HashMap;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestReporter;
+
+import java.util.HashMap;
 
 /**
  * Source: http://junit.org/junit5/docs/current/user-guide/#writing-tests-dependency-injection

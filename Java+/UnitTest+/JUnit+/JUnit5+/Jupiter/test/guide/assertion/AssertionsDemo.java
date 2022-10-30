@@ -4,7 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofMinutes;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Source: http://junit.org/junit5/docs/current/user-guide/#writing-tests-assertions

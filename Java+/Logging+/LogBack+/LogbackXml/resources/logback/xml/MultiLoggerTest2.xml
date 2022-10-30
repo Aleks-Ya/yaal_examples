@@ -4,7 +4,7 @@
             <pattern>Logger2: %msg%n</pattern>
         </encoder>
     </appender>
-    <logger name="my.logger" level="DEBUG" additivity="false">
+    <logger name="jupiter.logger" level="DEBUG" additivity="false">
         <appender-ref ref="stdout"/>
     </logger>
     <root level="debug">

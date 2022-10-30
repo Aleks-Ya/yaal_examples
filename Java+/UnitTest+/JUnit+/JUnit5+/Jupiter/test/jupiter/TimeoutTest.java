@@ -1,4 +1,4 @@
-package my;
+package jupiter;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
