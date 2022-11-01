@@ -14,7 +14,7 @@ Import private key from a file:
 gpg --import /tmp/CryptomatorVaultBackup-keys/CryptomatorVaultBackup-private.pgp
 ```
 
-## Verify
+## Verify signature
 Verify file with its signature: `gpg --verify veracrypt-1.24.deb.sig veracrypt-1.24.deb`
 
 ## Generate
@@ -50,5 +50,16 @@ Specify custom home directory: `gpg --homedir /tmp/gpg_home --list-keys`
 Initialize empty home directory (will be initialized while listing keys): `gpg --homedir /tmp/gpg_home --list-keys`
 
 ## Encrypt/Decrypt file with password
-Encrypt: `gpg -c my.txt` -> `my.txt.gpg`
+### Individual file
+#### Encrypt
+With compression: `gpg -c my.txt` -> `my.txt.gpg`
+Without compression: `gpg --compress-algo none -c my.txt`
+Specify passpharase as a text: `gpg --batch --passphrase 12345 my.txt`
+#### Decrypt
 Decrypt: `gpg my.txt.gpg` -> `my.txt`
+### All files in a folder
+
+`find . -iname "*.txt" -exec gpg --batch --passphrase "12345" -c {} \;`
+
+### Check file integrity
+`gpg --decrypt --output /dev/null my.gpg`

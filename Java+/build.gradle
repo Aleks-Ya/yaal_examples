@@ -24,6 +24,7 @@ subprojects {
         servlet4Dep = 'javax.servlet:javax.servlet-api:4.0.1'
         jacksonVersion = '2.13.3'
         jacksonDataBindDep = "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+        jacksonDatatypeJsr310Dep = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
         jsonUnitDep = 'net.javacrumbs.json-unit:json-unit:2.35.0'
         mockitoVersion = '4.8.0'
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
