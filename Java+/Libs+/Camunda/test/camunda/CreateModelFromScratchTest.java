@@ -14,28 +14,27 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-
 /**
  * Создание модели в java-коде и сохранение ее в bpmn-файл.
  */
-public class CreateModelFromScratchTest {
+class CreateModelFromScratchTest {
 
     @Test
     void name() throws Exception {
-        BpmnModelInstance modelInstance = Bpmn.createEmptyModel();
+        var modelInstance = Bpmn.createEmptyModel();
 
-        Definitions definitions = modelInstance.newInstance(Definitions.class);
+        var definitions = modelInstance.newInstance(Definitions.class);
         definitions.setTargetNamespace("http://camunda.org/examples");
         modelInstance.setDefinitions(definitions);
 
         // create the process
-        Process process = createElement(definitions, "process-with-one-task", Process.class, modelInstance);
+        var process = createElement(definitions, "process-with-one-task", Process.class, modelInstance);
 
         // create start event, user task and end event
-        StartEvent startEvent = createElement(process, "start", StartEvent.class, modelInstance);
-        UserTask task1 = createElement(process, "task1", UserTask.class, modelInstance);
+        var startEvent = createElement(process, "start", StartEvent.class, modelInstance);
+        var task1 = createElement(process, "task1", UserTask.class, modelInstance);
         task1.setName("User Task");
-        EndEvent endEvent = createElement(process, "end", EndEvent.class, modelInstance);
+        var endEvent = createElement(process, "end", EndEvent.class, modelInstance);
 
         // create the connections between the elements
         createSequenceFlow(process, startEvent, task1, modelInstance);
@@ -43,7 +42,7 @@ public class CreateModelFromScratchTest {
 
         // validate and write model to file
         Bpmn.validateModel(modelInstance);
-        File file = File.createTempFile(getClass().getSimpleName() + "-", ".bpmn");
+        var file = File.createTempFile(getClass().getSimpleName() + "-", ".bpmn");
         System.out.println(file.getAbsolutePath());
         Bpmn.writeModelToFile(file, modelInstance);
     }
@@ -52,15 +51,15 @@ public class CreateModelFromScratchTest {
                                                                  String id,
                                                                  Class<T> elementClass,
                                                                  BpmnModelInstance modelInstance) {
-        T element = modelInstance.newInstance(elementClass);
+        var element = modelInstance.newInstance(elementClass);
         element.setAttributeValue("id", id, true);
         parentElement.addChildElement(element);
         return element;
     }
 
     private SequenceFlow createSequenceFlow(Process process, FlowNode from, FlowNode to, BpmnModelInstance modelInstance) {
-        String identifier = from.getId() + "-" + to.getId();
-        SequenceFlow sequenceFlow = createElement(process, identifier, SequenceFlow.class, modelInstance);
+        var identifier = from.getId() + "-" + to.getId();
+        var sequenceFlow = createElement(process, identifier, SequenceFlow.class, modelInstance);
         process.addChildElement(sequenceFlow);
         sequenceFlow.setSource(from);
         from.getOutgoing().add(sequenceFlow);

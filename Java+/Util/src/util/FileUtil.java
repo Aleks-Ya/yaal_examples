@@ -63,4 +63,8 @@ public class FileUtil {
         }
     }
 
+    public static File getUserHome() {
+        return new File(System.getProperty("user.home"));
+    }
+
 }

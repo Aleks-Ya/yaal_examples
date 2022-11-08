@@ -1,17 +1,15 @@
 package camunda;
 
 import org.camunda.bpm.model.bpmn.Bpmn;
-import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-
-public class FluentBuilderApiTest {
+class FluentBuilderApiTest {
 
     @Test
     void name() throws Exception {
-        BpmnModelInstance modelInstance = Bpmn.createProcess()
+        var modelInstance = Bpmn.createProcess()
                 .name("Example process")
                 .executable()
                 .startEvent()
@@ -23,7 +21,7 @@ public class FluentBuilderApiTest {
         // validate and write model to file
         Bpmn.validateModel(modelInstance);
 
-        File file = File.createTempFile("FluentBuilderApiTest-", ".bpmn");
+        var file = File.createTempFile("FluentBuilderApiTest-", ".bpmn");
         System.out.println(file.getAbsolutePath());
         Bpmn.writeModelToFile(file, modelInstance);
     }
