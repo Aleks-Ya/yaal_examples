@@ -1,5 +1,7 @@
 package blob;
 
+import com.azure.core.util.BinaryData;
+import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.azure.storage.common.StorageSharedKeyCredential;
@@ -10,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.Locale;
 
 public class Factory {
+    public static final String DELIMITER = "/";
     private static BlobServiceClient realClient;
     private static BlobServiceClient azuriteClient;
 
@@ -49,5 +52,12 @@ public class Factory {
                 .endpoint("http://127.0.0.1:10000/" + accountName)
                 .credential(credential)
                 .buildClient();
+    }
+
+    public static String createBlob(BlobContainerClient blobContainerClient, String... path) {
+        var blobName = String.join(DELIMITER, path);
+        var blobClient = blobContainerClient.getBlobClient(blobName);
+        blobClient.upload(BinaryData.fromString("content of " + blobName));
+        return blobName;
     }
 }

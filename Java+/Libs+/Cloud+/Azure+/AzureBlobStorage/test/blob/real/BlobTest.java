@@ -13,26 +13,22 @@ class BlobTest {
     void uploadListDownloadDeleteBlob() {
         var blobServiceClient = Factory.realBlobServiceClient();
         var containerName = randomName();
-        blobServiceClient.createBlobContainer(containerName);
+        var blobContainerClient = blobServiceClient.createBlobContainer(containerName);
 
-        var blobContainerClient = blobServiceClient.getBlobContainerClient(containerName);
-        var blobs = blobContainerClient.listBlobs().stream().map(BlobItem::getName).toList();
-        assertThat(blobs).isEmpty();
+        assertThat(blobContainerClient.listBlobs()).isEmpty();
 
         var blobName = randomName();
         var blobClient = blobContainerClient.getBlobClient(blobName);
         var blobContent = "abc";
         blobClient.upload(BinaryData.fromString(blobContent));
 
-        var blobs2 = blobContainerClient.listBlobs().stream().map(BlobItem::getName).toList();
-        assertThat(blobs2).contains(blobName);
+        assertThat(blobContainerClient.listBlobs().stream().map(BlobItem::getName)).contains(blobName);
 
         var binaryData = blobClient.downloadContent();
         assertThat(binaryData.toString()).isEqualTo(blobContent);
 
         blobClient.delete();
-        var blobs3 = blobContainerClient.listBlobs().stream().map(BlobItem::getName).toList();
-        assertThat(blobs3).isEmpty();
+        assertThat(blobContainerClient.listBlobs()).isEmpty();
     }
 
 }

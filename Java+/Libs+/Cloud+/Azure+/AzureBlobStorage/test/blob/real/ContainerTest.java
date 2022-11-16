@@ -14,8 +14,8 @@ class ContainerTest {
         var container = getClass().getSimpleName().toLowerCase() + RandomUtil.randomIntPositive();
         client.createBlobContainer(container);
         var containers = client.listBlobContainers();
-        assertThat(containers.stream().map(BlobContainerItem::getName).toList()).contains(container);
+        assertThat(containers.stream().map(BlobContainerItem::getName)).contains(container);
         client.deleteBlobContainer(container);
-        assertThat(containers.stream().map(BlobContainerItem::getName).toList()).doesNotContain(container);
+        assertThat(containers.stream().map(BlobContainerItem::getName)).doesNotContain(container);
     }
 }
