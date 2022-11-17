@@ -1,11 +1,13 @@
+package reactor2;
+
 import org.junit.jupiter.api.Test;
 import reactor.Environment;
 import reactor.rx.broadcast.Broadcaster;
 
-public class ReactorHelloWorld {
+class ReactorHelloWorldTest {
     @Test
     void test() throws InterruptedException {
-        Environment.initialize();
+        Environment.initializeIfEmpty();
 
         Broadcaster<String> sink = Broadcaster.create(Environment.get());
 

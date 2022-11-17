@@ -1,20 +1,21 @@
-package processor;
+package reactor2.processor;
 
 import org.junit.jupiter.api.Test;
 import org.reactivestreams.Processor;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
-import reactor.rx.Stream;
 import reactor.rx.Streams;
 
 /**
  * Не доделал.
  */
-public class CustomProcessor {
+class CustomProcessorTest {
     Processor<String, Integer> strToIntProcessor = new Processor<String, Integer>() {
+        private Subscription subscription;
+
         @Override
         public void subscribe(Subscriber<? super Integer> s) {
-            Subscription subscription = new Subscription() {
+            var subscription = new Subscription() {
                 @Override
                 public void request(long n) {
                     "".toString();
@@ -27,8 +28,6 @@ public class CustomProcessor {
             };
             s.onSubscribe(subscription);
         }
-
-        private Subscription subscription;
 
         @Override
         public void onSubscribe(Subscription s) {
@@ -53,7 +52,7 @@ public class CustomProcessor {
 
     @Test
     void name() {
-        Stream<String> stream = Streams.just("1", "2");
+        var stream = Streams.just("1", "2");
         stream.process(strToIntProcessor).consume(System.out::println);
     }
 }

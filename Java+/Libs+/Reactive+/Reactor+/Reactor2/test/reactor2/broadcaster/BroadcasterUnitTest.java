@@ -1,4 +1,4 @@
-package broadcaster;
+package reactor2.broadcaster;
 
 import org.junit.jupiter.api.Test;
 import reactor.Environment;
@@ -14,7 +14,7 @@ class BroadcasterUnitTest {
     @Test
     void test() {
         //prepare
-        Environment.initialize();
+        Environment.initializeIfEmpty();
         Broadcaster<String> sink = Broadcaster.create(Environment.newDispatcher()); //run broadcaster in separate thread (dispatcher)
         var sb = new StringBuilder();
         sink

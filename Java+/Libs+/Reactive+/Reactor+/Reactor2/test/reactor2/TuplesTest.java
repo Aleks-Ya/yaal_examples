@@ -1,3 +1,5 @@
+package reactor2;
+
 import org.junit.jupiter.api.Test;
 import reactor.fn.tuple.Tuple;
 import reactor.fn.tuple.Tuple2;
@@ -8,7 +10,7 @@ import java.time.Instant;
 /**
  * Передача нескольких аргументов с помощью кортежа.
  */
-public class Tuples {
+class TuplesTest {
     @Test
     void helloWorld() {
         Broadcaster<Tuple2<Instant, String>> sink = Broadcaster.create();

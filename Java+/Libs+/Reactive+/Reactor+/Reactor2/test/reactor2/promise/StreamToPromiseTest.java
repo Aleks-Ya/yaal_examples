@@ -1,4 +1,4 @@
-package promise;
+package reactor2.promise;
 
 import org.junit.jupiter.api.Test;
 import reactor.rx.Streams;

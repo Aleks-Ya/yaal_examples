@@ -1,3 +1,5 @@
+package reactor2;
+
 import org.junit.jupiter.api.Test;
 import reactor.rx.Streams;
 import reactor.rx.broadcast.Broadcaster;
@@ -7,7 +9,7 @@ import java.io.IOException;
 /**
  * Преобразование потоков с помощью обработчиков.
  */
-public class Errors {
+class ErrorsTest {
     @Test
     void onErrorResumeNext() {
         Broadcaster<String> broadcaster = Broadcaster.create();

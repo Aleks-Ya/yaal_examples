@@ -1,4 +1,4 @@
-package processor;
+package reactor2.processor;
 
 import org.junit.jupiter.api.Test;
 import reactor.rx.Streams;
@@ -6,7 +6,7 @@ import reactor.rx.Streams;
 /**
  * Преобразование потоков с помощью обработчиков.
  */
-public class Processors {
+class ProcessorsTest {
     @Test
     void filter() {
         Streams.just("a", null, "b")

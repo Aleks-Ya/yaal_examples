@@ -1,0 +1,6 @@
+dependencies {
+    def reactorVersion = '2.0.6.RELEASE'
+    implementation "io.projectreactor:reactor-core:$reactorVersion",
+            "io.projectreactor:reactor-stream:$reactorVersion",
+            logbackClassicDep
+}

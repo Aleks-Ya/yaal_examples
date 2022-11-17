@@ -1,4 +1,4 @@
-package exercises;
+package reactor2.exercises;
 
 import org.junit.jupiter.api.Test;
 import org.reactivestreams.Publisher;
@@ -8,7 +8,7 @@ import org.reactivestreams.Subscription;
 /**
  * Передать из Publisher в Subscriber числа 1, 2 и 3.
  */
-public class SimplestPublisher {
+class SimplestPublisherTest {
     @Test
     void test() {
         Publisher<Integer> publisher = new IntegerPublisher();
@@ -42,17 +42,17 @@ public class SimplestPublisher {
 
     private static class IntegerPublisher implements Publisher<Integer> {
         private Integer[] nums = {1, 2, 3};
-        private int index = 0;
         private final int maxIndex = nums.length - 1;
+        private int index = 0;
 
         @Override
         public void subscribe(Subscriber<? super Integer> s) {
-            Subscription subscription = new Subscription() {
+            var subscription = new Subscription() {
                 @Override
                 public void request(long n) {
                     System.out.println("Requested: " + n);
                     while (index <= maxIndex && n > 0) {
-                        Integer num = nums[index++];
+                        var num = nums[index++];
                         s.onNext(num);
                         n--;
                     }
