@@ -25,7 +25,7 @@ subprojects {
         jacksonVersion = '2.13.3'
         jacksonDataBindDep = "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         jacksonDatatypeJsr310Dep = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
-        jsonUnitDep = 'net.javacrumbs.json-unit:json-unit:2.35.0'
+        jsonUnitDep = 'net.javacrumbs.json-unit:json-unit:2.36.0'
         mockitoVersion = '4.8.0'
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
         mockitoJunitJupiterDep = "org.mockito:mockito-junit-jupiter:$mockitoVersion"
@@ -55,7 +55,7 @@ subprojects {
         mongoDbDriverDep = 'org.mongodb:mongodb-driver:3.12.10'
         hibernate5Version = '5.6.12.Final'
         hibernate5EntityManagerDep = "org.hibernate:hibernate-entitymanager:$hibernate5Version"
-        jsonAssertDep = 'org.skyscreamer:jsonassert:1.5.0'
+        jsonAssertDep = 'org.skyscreamer:jsonassert:1.5.1'
         bouncyCustleDep = 'org.bouncycastle:bcpkix-jdk15on:1.68'
         testContainersVersion = '1.17.5'
         testContainersDep = "org.testcontainers:testcontainers:$testContainersVersion"
