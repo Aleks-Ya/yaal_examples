@@ -3,6 +3,8 @@ package scheduling.threadpool;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -11,12 +13,13 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 /**
  * Использование TaskScheduler для запуска задач по расписанию.
  */
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = ThreadPoolTaskExecutorConfig.class)
+@ContextConfiguration(classes = ThreadPoolTaskExecutorTest.Config.class)
 class ThreadPoolTaskExecutorTest {
 
     @Autowired
@@ -43,11 +46,20 @@ class ThreadPoolTaskExecutorTest {
         taskExecutor.execute(runnable);
         var callableFuture = taskExecutor.submit(callable);
 
-        //noinspection StatementWithEmptyBody
-        while (runnableThreadName == null) ;
+        await().until(() -> runnableThreadName != null);
 
         assertThat(runnableThreadName).isEqualTo("taskExecutor-1");
         assertThat(callableFuture.get()).isEqualTo("taskExecutor-2");
+    }
 
+    @Configuration
+    static class Config {
+        @Bean
+        public ThreadPoolTaskExecutor taskExecutor() {
+            var pool = new ThreadPoolTaskExecutor();
+            pool.setCorePoolSize(5);
+            pool.setMaxPoolSize(10);
+            return pool;
+        }
     }
 }
