@@ -21,7 +21,7 @@ class CyclicBarrierTest {
         System.out.println("Exit");
     }
 
-    private class Worker extends Thread {
+    private static class Worker extends Thread {
         @Override
         public void run() {
             try {

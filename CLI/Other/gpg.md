@@ -58,7 +58,6 @@ Specify passpharase as a text: `gpg --batch --passphrase 12345 my.txt`
 #### Decrypt
 Decrypt: `gpg my.txt.gpg` -> `my.txt`
 ### All files in a folder
-
 `find . -iname "*.txt" -exec gpg --batch --passphrase "12345" -c {} \;`
 
 ### Check file integrity
