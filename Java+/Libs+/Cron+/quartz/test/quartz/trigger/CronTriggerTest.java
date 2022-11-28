@@ -37,4 +37,20 @@ class CronTriggerTest {
         scheduler.shutdown(true);
     }
 
+    @Test
+    void cronTriggerEquals() {
+        var triggerName = "name1";
+        var triggerGroup = "group1";
+        var cronExpression = "0/2 * * * * ?";
+        var trigger1 = newTrigger().withIdentity(triggerName, triggerGroup)
+                .withSchedule(cronSchedule(cronExpression)).build();
+        var trigger2 = newTrigger().withIdentity(triggerName, triggerGroup)
+                .withSchedule(cronSchedule(cronExpression)).build();
+        assertThat(trigger1).isEqualTo(trigger2);
+
+        var trigger3 = newTrigger().withIdentity(triggerName, triggerGroup)
+                .withSchedule(cronSchedule("0/10 * * * * ?")).build();
+        assertThat(trigger3).isEqualTo(trigger1);
+    }
+
 }

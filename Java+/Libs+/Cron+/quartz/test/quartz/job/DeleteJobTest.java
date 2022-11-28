@@ -34,7 +34,7 @@ class DeleteJobTest {
         var scheduler = StdSchedulerFactory.getDefaultScheduler();
         scheduler.start();
         scheduler.scheduleJob(jobDetail, trigger);
-        assertThat(PauseJobTest.WaitJob.started).isFalse();
+        assertThat(DeleteJobTest.WaitJob.started).isFalse();
         assertThat(scheduler.getCurrentlyExecutingJobs()).isEmpty();
         assertThat(scheduler.checkExists(jobDetail.getKey())).isTrue();
         var deleted = scheduler.deleteJob(jobDetail.getKey());
