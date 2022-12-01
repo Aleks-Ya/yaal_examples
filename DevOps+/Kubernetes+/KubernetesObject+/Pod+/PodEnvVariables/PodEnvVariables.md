@@ -1,4 +1,4 @@
-# Craete a Pod with environment variables
+# Create a Pod with environment variables
 
 1. Create: `kubectl create -f pod.yaml`
 1. Show Pod logs: `kubectl logs pod-env-vars-pod`
