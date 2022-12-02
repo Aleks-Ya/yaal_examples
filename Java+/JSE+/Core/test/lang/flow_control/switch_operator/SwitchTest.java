@@ -12,8 +12,9 @@ class SwitchTest {
     @Test
     void eq() {
         String value = new String("one"); // Не попадет в буфер строк -> сравнение по ссылке не сработает
-        switch(value) {
-            case "one":  out.println("switch use equals()");
+        switch (value) {
+            case "one":
+                out.println("switch use equals()");
         }
     }
 
@@ -23,7 +24,7 @@ class SwitchTest {
     @Test
     void multi() {
         String day = new String("mon");
-        switch(day) {
+        switch (day) {
             case "mon":
             case "tue":
             case "wed":
@@ -35,7 +36,8 @@ class SwitchTest {
             case "sun":
                 out.printf("%s is a holiday%n", day);
                 break;
-            default: out.printf("%s is not a day%n");
+            default:
+                out.printf("%s is not a day%n");
         }
     }
 
@@ -44,18 +46,20 @@ class SwitchTest {
      */
     @Test
     void defaultBeforeCase() {
-		switch("winter") {
-			default: out.println("default section");
-			case "winter": out.println("winter section");
-		}
-	}
+        switch ("winter") {
+            default:
+                out.println("default section");
+            case "winter":
+                out.println("winter section");
+        }
+    }
 
     /**
      * Константа в switch expression.
      */
     @Test
     void constant() {
-        switch(5) {
+        switch (5) {
             case 1:
             case 2:
             default:

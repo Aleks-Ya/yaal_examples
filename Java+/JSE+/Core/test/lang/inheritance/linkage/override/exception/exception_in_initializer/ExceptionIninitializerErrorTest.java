@@ -2,7 +2,7 @@ package lang.inheritance.linkage.override.exception.exception_in_initializer;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Случаи бросания ExceptionInInitializerError.
@@ -14,7 +14,7 @@ class ExceptionIninitializerErrorTest {
      */
     @Test
     void staticField() {
-        assertThrows(ExceptionInInitializerError.class, StaticField::new);
+        assertThatThrownBy(StaticField::new).isInstanceOf(ExceptionInInitializerError.class);
     }
 
     /**
@@ -22,7 +22,7 @@ class ExceptionIninitializerErrorTest {
      */
     @Test
     void staticInitializer() {
-        assertThrows(ExceptionInInitializerError.class, StaticInitializer::new);
+        assertThatThrownBy(StaticInitializer::new).isInstanceOf(ExceptionInInitializerError.class);
     }
 
     /**
@@ -30,7 +30,7 @@ class ExceptionIninitializerErrorTest {
      */
     @Test
     void staticMethod() {
-        assertThrows(ExceptionInInitializerError.class, StaticMethod::new);
+        assertThatThrownBy(StaticMethod::new).isInstanceOf(ExceptionInInitializerError.class);
     }
 
     /**
@@ -39,6 +39,6 @@ class ExceptionIninitializerErrorTest {
      */
     @Test
     void initializer() {
-        assertThrows(ArrayIndexOutOfBoundsException.class, Initializer::new);
+        assertThatThrownBy(Initializer::new).isInstanceOf(ArrayIndexOutOfBoundsException.class);
     }
 }

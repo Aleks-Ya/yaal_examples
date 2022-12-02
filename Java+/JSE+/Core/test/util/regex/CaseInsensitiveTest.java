@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Поиск без учета регистра.
@@ -17,9 +16,9 @@ class CaseInsensitiveTest {
      */
     @Test
     void flag() {
-        assertTrue("A".matches("(?i)a"));
-        assertTrue("\u0044".matches("(?i)\u0064"));
-        assertFalse("A".matches("(?-i)a"));
+        assertThat("A".matches("(?i)a")).isTrue();
+        assertThat("\u0044".matches("(?i)\u0064")).isTrue();
+        assertThat("A".matches("(?-i)a")).isFalse();
     }
 
     /**
@@ -27,7 +26,7 @@ class CaseInsensitiveTest {
      */
     @Test
     void magicConstant() {
-        assertTrue(Pattern.compile("a", Pattern.CASE_INSENSITIVE).matcher("A").matches());
-        assertFalse(Pattern.compile("a").matcher("A").matches());
+        assertThat(Pattern.compile("a", Pattern.CASE_INSENSITIVE).matcher("A").matches()).isTrue();
+        assertThat(Pattern.compile("a").matcher("A").matches()).isFalse();
     }
 }

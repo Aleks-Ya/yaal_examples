@@ -7,7 +7,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Чтение целого файла в одно строку с помощью Files#readAllLines()
@@ -22,6 +22,6 @@ class ReadAllLinesTest {
 
         //read
         var actLines = Files.readAllLines(p, Charset.defaultCharset());
-        assertEquals(expLines, actLines);
+        assertThat(actLines).isEqualTo(expLines);
     }
 }

@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Test;
 class DeclareButDoNotThrowTest {
     @Test
     void main() throws Exception {
-      System.out.println(getInt());
+        System.out.println(getInt());
     }
-    
+
     private int getInt() throws Exception {
-      return 1;
+        return 1;
     }
 }

@@ -1,7 +1,13 @@
 package swing.Container.JComponent.JTable;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.WindowConstants;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.awt.print.PrinterException;
 
 /**

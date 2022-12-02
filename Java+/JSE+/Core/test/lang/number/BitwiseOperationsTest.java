@@ -2,9 +2,7 @@ package lang.number;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class BitwiseOperationsTest {
     @Test
@@ -14,10 +12,10 @@ class BitwiseOperationsTest {
         int b3 = 0b0000_0000_0000_0000_0000_0000_0000_0101;
         long b4 = 0b0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0000_0101;
         int exp = 5;
-        assertEquals(exp, b1);
-        assertEquals(exp, b2);
-        assertEquals(exp, b3);
-        assertEquals(exp, b4);
+        assertThat(b1 == exp).isTrue();
+        assertThat(b2 == exp).isTrue();
+        assertThat(b3).isEqualTo(exp);
+        assertThat(b4).isEqualTo(exp);
     }
 
     @Test
@@ -27,10 +25,10 @@ class BitwiseOperationsTest {
         short b3 = 0b1111_1111_1111_1111_1111_1111_1111_1011;
         long b4 = 0b1111_1111_1111_1111_1111_1111_1111_1111_1111_1111_1111_1111_1111_1111_1111_1011L;
         int exp = -5;
-        assertEquals(exp, b1);
-        assertEquals(exp, b2);
-        assertEquals(exp, b3);
-        assertEquals(exp, b4);
+        assertThat(b1 == exp).isTrue();
+        assertThat(b2).isEqualTo(exp);
+        assertThat(b3 == exp).isTrue();
+        assertThat(b4).isEqualTo(exp);
     }
 
     @Test
@@ -38,7 +36,7 @@ class BitwiseOperationsTest {
         int i = 250;
         String act = Integer.toBinaryString(i);
         String exp = "11111010";
-        assertEquals(exp, act);
+        assertThat(act).isEqualTo(exp);
     }
 
     @Test
@@ -47,7 +45,7 @@ class BitwiseOperationsTest {
         int b2 = 0b110;
         int act = b1 & b2;
         int exp = 0b100;
-        assertEquals(exp, act);
+        assertThat(act).isEqualTo(exp);
     }
 
     @Test
@@ -56,7 +54,7 @@ class BitwiseOperationsTest {
         int b2 = 0b110;
         int act = b1 | b2;
         int exp = 0b111;
-        assertEquals(exp, act);
+        assertThat(act).isEqualTo(exp);
     }
 
     @Test
@@ -65,7 +63,7 @@ class BitwiseOperationsTest {
         int b2 = 0b110;
         int act = b1 ^ b2;
         int exp = 0b011;
-        assertEquals(exp, act);
+        assertThat(act).isEqualTo(exp);
     }
 
     @Test
@@ -73,7 +71,7 @@ class BitwiseOperationsTest {
         int b = 0b0000_0000_0000_0000_0000_0000_0000_0101;
         int act = ~b;
         int exp = 0b1111_1111_1111_1111_1111_1111_1111_1010;
-        assertEquals(exp, act);
+        assertThat(act).isEqualTo(exp);
     }
 
     @Test
@@ -82,7 +80,7 @@ class BitwiseOperationsTest {
         int act = b << 2;
         System.out.println(Integer.toBinaryString(act));
         int exp = 0b1100_0100_0000_0000_0000_0000_0001_0100;
-        assertEquals(exp, act);
+        assertThat(act).isEqualTo(exp);
     }
 
     @Test
@@ -90,7 +88,7 @@ class BitwiseOperationsTest {
         int b = 0b1111_0001_0000_0000_0000_0000_0000_0101;
         int act = b >> 2;
         int exp = 0b1111_1100_0100_0000_0000_0000_0000_0001;
-        assertEquals(exp, act);
+        assertThat(act).isEqualTo(exp);
     }
 
     @Test
@@ -98,7 +96,7 @@ class BitwiseOperationsTest {
         int b = 0b1111_0001_0000_0000_0000_0000_0000_0101;
         int act = b >>> 2;
         int exp = 0b0011_1100_0100_0000_0000_0000_0000_0001;
-        assertEquals(exp, act);
+        assertThat(act).isEqualTo(exp);
     }
 
     @Test
@@ -109,7 +107,7 @@ class BitwiseOperationsTest {
         int mask2 = 0b0000_0000_1000_0000_0000_0000_0000_0000;
         boolean isSet1 = (value & mask1) > 0;
         boolean isSet2 = (value & mask2) > 0;
-        assertTrue(isSet1);
-        assertFalse(isSet2);
+        assertThat(isSet1).isTrue();
+        assertThat(isSet2).isFalse();
     }
 }

@@ -2,7 +2,7 @@ package lang.flow_control.break_operator;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * break без метки воздействует на конструкции switch, while, do, or for.
@@ -11,10 +11,10 @@ class WithoutLabelTest {
     @Test
     void forCycle() {
         int i = 0;
-        for(;;i++) {
+        for (; ; i++) {
             break;
         }
-        assertEquals(0, i);
+        assertThat(i).isEqualTo(0);
     }
 
     @Test
@@ -24,7 +24,7 @@ class WithoutLabelTest {
             i++;
             break;
         }
-        assertEquals(1, i);
+        assertThat(i).isEqualTo(1);
     }
 
     @Test
@@ -34,13 +34,14 @@ class WithoutLabelTest {
             i++;
             break;
         } while (true);
-        assertEquals(1, i);
+        assertThat(i).isEqualTo(1);
     }
 
     @Test
     void switchh() {
-        switch(2) {
-            case 2: break;
+        switch (2) {
+            case 2:
+                break;
             default:
                 throw new AssertionError();
         }

@@ -6,12 +6,12 @@ import static java.lang.System.out;
 
 class StringKeyWordTest {
 
-	/**
-	 * String String - корректное выражение.
-	 */
-	@Test    
+    /**
+     * String String - корректное выражение.
+     */
+    @Test
     public void numbers() {
-		String String = "oppa!"; 
-		out.println(String);
-	}
+        String String = "oppa!";
+        out.println(String);
+    }
 }

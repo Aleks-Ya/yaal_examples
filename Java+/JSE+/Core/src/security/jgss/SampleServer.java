@@ -16,22 +16,22 @@ import java.net.Socket;
  * A sample server application that uses JGSS to do mutual authentication
  * with a client using Kerberos as the underlying mechanism. It then
  * exchanges data securely with the client.
- *
+ * <p>
  * Every message exchanged with the client includes a 4-byte application-
  * level header that contains the big-endian integer value for the number
  * of bytes that will follow as part of the JGSS token.
- *
+ * <p>
  * The protocol is:
- *    1.  Context establishment loop:
- *         a. client sends init sec context token to server
- *         b. server sends accept sec context token to client
- *         ....
- *    2. client sends a wrap token to the server.
- *    3. server sends a mic token to the client for the application
- *       message that was contained in the wrap token.
+ * 1.  Context establishment loop:
+ * a. client sends init sec context token to server
+ * b. server sends accept sec context token to client
+ * ....
+ * 2. client sends a wrap token to the server.
+ * 3. server sends a mic token to the client for the application
+ * message that was contained in the wrap token.
  */
 
-public class SampleServer  {
+public class SampleServer {
 
     public static void main(String[] args) throws IOException, GSSException {
         // Obtain the command-line arguments and parse the port number
@@ -60,7 +60,7 @@ public class SampleServer  {
              * to use whatever credentials it has available that
              * can be used to accept this connection.
              */
-            GSSContext context = manager.createContext((GSSCredential)null);
+            GSSContext context = manager.createContext((GSSCredential) null);
 
             // Do the context eastablishment loop
 

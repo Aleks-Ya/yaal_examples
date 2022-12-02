@@ -1,7 +1,15 @@
 package swing.Container.Layout.GridLayout;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.HeadlessException;
 
 /**
  * Оставляем пустые ячейки при добавлении компонентов в GridLayout.

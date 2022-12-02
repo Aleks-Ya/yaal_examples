@@ -1,32 +1,39 @@
 package security.jgss;
-import org.ietf.jgss.*;
-import java.net.Socket;
-import java.io.IOException;
+
+import org.ietf.jgss.GSSContext;
+import org.ietf.jgss.GSSException;
+import org.ietf.jgss.GSSManager;
+import org.ietf.jgss.GSSName;
+import org.ietf.jgss.MessageProp;
+import org.ietf.jgss.Oid;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 
 /**
  * A sample client application that uses JGSS to do mutual authentication
  * with a server using Kerberos as the underlying mechanism. It then
  * exchanges data securely with the server.
- *
+ * <p>
  * Every message sent to the server includes a 4-byte application-level
  * header that contains the big-endian integer value for the number
  * of bytes that will follow as part of the JGSS token.
- *
+ * <p>
  * The protocol is:
- *    1.  Context establishment loop:
- *         a. client sends init sec context token to server
- *         b. server sends accept sec context token to client
- *         ....
- *    2. client sends a wrap token to the server.
- *    3. server sends a MIC token to the client for the application
- *       message that was contained in the wrap token.
+ * 1.  Context establishment loop:
+ * a. client sends init sec context token to server
+ * b. server sends accept sec context token to client
+ * ....
+ * 2. client sends a wrap token to the server.
+ * 3. server sends a MIC token to the client for the application
+ * message that was contained in the wrap token.
  */
 
 public class SampleClient {
 
-    public static void main(String[] args) throws IOException, GSSException  {
+    public static void main(String[] args) throws IOException, GSSException {
 
         // Obtain the command-line arguments and parse the port number
 
@@ -135,7 +142,7 @@ public class SampleClient {
          * The second argument is true to request
          * privacy (encryption of the message).
          */
-        MessageProp prop =  new MessageProp(0, true);
+        MessageProp prop = new MessageProp(0, true);
 
         /*
          * Encrypt the data and send it across. Integrity protection

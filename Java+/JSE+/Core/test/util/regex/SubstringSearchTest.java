@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Поиск нескольких вхождений регулярного выражения в строку.
@@ -18,10 +16,10 @@ class SubstringSearchTest {
         var source = "concert Einaudi ludovico einaudi today ";
         var p = Pattern.compile("[Ee]inaudi");
         var m = p.matcher(source);
-        assertTrue(m.find());
-        assertEquals("Einaudi", m.group());
-        assertTrue(m.find());
-        assertEquals("einaudi", m.group());
-        assertFalse(m.find());
+        assertThat(m.find()).isTrue();
+        assertThat(m.group()).isEqualTo("Einaudi");
+        assertThat(m.find()).isTrue();
+        assertThat(m.group()).isEqualTo("einaudi");
+        assertThat(m.find()).isFalse();
     }
 }

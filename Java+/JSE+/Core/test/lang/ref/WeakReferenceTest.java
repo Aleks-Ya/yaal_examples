@@ -2,7 +2,6 @@ package lang.ref;
 
 import org.junit.jupiter.api.Test;
 
-import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 
 import static org.assertj.core.api.Assertions.assertThat;

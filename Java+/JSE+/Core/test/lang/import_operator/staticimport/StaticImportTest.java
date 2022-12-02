@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.String.format;
 import static lang.import_operator.staticimport.other.OtherPackage.number;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Статический импорт.
@@ -14,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class StaticImportTest {
     @Test
     void normal() {
-        assertTrue(1 < MAX_VALUE);
-        assertEquals("abc", format("%s", "abc"));
+        assertThat(1 < MAX_VALUE).isTrue();
+        assertThat(format("%s", "abc")).isEqualTo("abc");
     }
 
     /**
@@ -23,7 +22,7 @@ class StaticImportTest {
      */
     @Test
     void conflict() {
-        assertEquals(2, number());
-        assertEquals(1, number);
+        assertThat(number()).isEqualTo(2);
+        assertThat(number).isEqualTo(1);
     }
 }

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Использование ListIterator для обхода ArrayList.
@@ -35,9 +35,9 @@ class ListIteratorUsageTest {
             indexesNext.append(it.nextIndex());
             sbNext.append(it.next());
         }
-        assertEquals("[a, b, c]", list.toString());
-        assertEquals("012", indexesNext.toString());
-        assertEquals("abc", sbNext.toString());
+        assertThat(list).hasToString("[a, b, c]");
+        assertThat(indexesNext).hasToString("012");
+        assertThat(sbNext).hasToString("abc");
 
         //в обратном направлении
         var indexesPrevious = new StringBuilder();
@@ -47,9 +47,9 @@ class ListIteratorUsageTest {
             sbPrevious.append(it.previous());
         }
 
-        assertEquals("[a, b, c]", list.toString());
-        assertEquals("210", indexesPrevious.toString());
-        assertEquals("cba", sbPrevious.toString());
+        assertThat(list).hasToString("[a, b, c]");
+        assertThat(indexesPrevious).hasToString("210");
+        assertThat(sbPrevious).hasToString("cba");
 
     }
 
@@ -67,8 +67,8 @@ class ListIteratorUsageTest {
             }
             sb.append(next);
         }
-        assertEquals("[a, c]", list.toString());
-        assertEquals("abc", sb.toString());
+        assertThat(list).hasToString("[a, c]");
+        assertThat(sb).hasToString("abc");
     }
 
 }

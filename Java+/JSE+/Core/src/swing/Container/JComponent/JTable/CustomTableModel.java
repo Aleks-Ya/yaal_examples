@@ -1,9 +1,13 @@
 package swing.Container.JComponent.JTable;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.WindowConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 
 /**
  * Таблица на основе простой модели таблицы.

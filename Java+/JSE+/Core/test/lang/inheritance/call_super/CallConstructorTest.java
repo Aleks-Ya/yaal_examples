@@ -5,22 +5,22 @@ import org.junit.jupiter.api.Test;
 import static java.lang.System.out;
 
 class CallConstructorTest {
-	
-	@Test
+
+    @Test
     public void main() {
-		new Child();
-	}
+        new Child();
+    }
 }
 
 class Parent {
     Parent(String s) {
-		out.println("Parent's constructor: " + s);
-	}
+        out.println("Parent's constructor: " + s);
+    }
 }
 
 class Child extends Parent {
-	Child() {
-		super("hello from Child");
-		out.println("Child's constructor");
-	}
+    Child() {
+        super("hello from Child");
+        out.println("Child's constructor");
+    }
 }

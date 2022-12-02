@@ -9,36 +9,36 @@ import static java.lang.System.out;
  */
 class LinkageTest {
 
-	@Test
-    public void main(){
+    @Test
+    public void main() {
         Parent obj = new Child();
         Tester t = new Tester();
         t.test(obj);
     }
 }
 
-class Tester{
+class Tester {
 
-    public void test(Parent obj){
+    public void test(Parent obj) {
         System.out.println("Testing parent...");
         obj.test();
     }
 
-    public void test(Child obj){
+    public void test(Child obj) {
         System.out.println("Testing child...");
         obj.test();
     }
 }
 
 
-class Parent{
-    public void test(){
+class Parent {
+    public void test() {
         out.println("parent::test");
     }
 }
 
-class Child extends Parent{
-    public void test(){
+class Child extends Parent {
+    public void test() {
         out.println("child::test");
     }
 }

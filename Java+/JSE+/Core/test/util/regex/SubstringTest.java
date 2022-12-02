@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Выбрать из строки подстроку, соответствующую регулярному выражению, и распечатать ее.
@@ -18,21 +17,21 @@ class SubstringTest {
     void realization1() {
         var p = Pattern.compile("^[^\\s]*\\s([^\\s]*)\\s.*$");
         var m = p.matcher(SOURCE);
-        assertTrue(m.matches());//Без вызова matches() упадет ошибка
-        assertEquals(EXPECTED, m.group(1));
+        assertThat(m.matches()).isTrue();//Без вызова matches() упадет ошибка
+        assertThat(m.group(1)).isEqualTo(EXPECTED);
     }
 
     @Test
     void realization2() {
         var p = Pattern.compile("^[^\\s]*\\s([^\\s]*)\\s.*$");
         var m = p.matcher(SOURCE);
-        assertTrue(m.find());
-        assertEquals(EXPECTED, m.group(1));
+        assertThat(m.find()).isTrue();
+        assertThat(m.group(1)).isEqualTo(EXPECTED);
     }
 
     @Test
     void realization3() {
         var splitted = SOURCE.split(" ");
-        assertEquals(EXPECTED, splitted[1]);
+        assertThat(splitted[1]).isEqualTo(EXPECTED);
     }
 }

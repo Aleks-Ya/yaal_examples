@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
@@ -23,8 +23,8 @@ class MultiTypeContainerTest {
         c.putFavorite(Integer.class, integer);
         c.putFavorite(String.class, string);
 
-        assertEquals(integer, c.getFavorite(Integer.class));
-        assertEquals(string, c.getFavorite(String.class));
+        assertThat(c.getFavorite(Integer.class)).isEqualTo(integer);
+        assertThat(c.getFavorite(String.class)).isEqualTo(string);
     }
 
     static class Favorites {

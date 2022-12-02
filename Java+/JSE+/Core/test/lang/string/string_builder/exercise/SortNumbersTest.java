@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Упорядочить коллекцию чисел по возрастанию.
@@ -17,17 +17,17 @@ class SortNumbersTest {
         //Пустая коллекция
         List<Long> empty = new ArrayList<>(0);
         sorting(empty);
-        assertEquals("[]", empty.toString());
+        assertThat(empty).hasToString("[]");
 
         //Коллекция из 2-х элементов
         List<Long> two = Arrays.asList(2L, 1L);
         sorting(two);
-        assertEquals("[1, 2]", two.toString());
+        assertThat(two).hasToString("[1, 2]");
 
         //Коллекция из большого числа элементов
         List<Long> more = Arrays.asList(2L, 1L, 4L, 3L);
         sorting(more);
-        assertEquals("[1, 2, 3, 4]", more.toString());
+        assertThat(more).hasToString("[1, 2, 3, 4]");
     }
 
     private void sorting(List<Long> source) {

@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Способы получения объекта Local.
@@ -18,9 +17,9 @@ class GetLocalTest {
     @Test
     void defaultLocal() {
         var def = Locale.getDefault();
-        assertEquals("en", def.getLanguage());
-        assertEquals("US", def.getCountry());
-        assertEquals("", def.getVariant());
+        assertThat(def.getLanguage()).isEqualTo("en");
+        assertThat(def.getCountry()).isEqualTo("US");
+        assertThat(def.getVariant()).isEmpty();
     }
 
     /**
@@ -29,7 +28,7 @@ class GetLocalTest {
     @Test
     void available() {
         var locales = Locale.getAvailableLocales();
-        assertTrue(locales.length > 100);
+        assertThat(locales.length > 100).isTrue();
     }
 
     /**
@@ -38,9 +37,9 @@ class GetLocalTest {
     @Test
     void language() {
         var german = new Locale("de");
-        assertEquals("de", german.getLanguage());
-        assertEquals("", german.getCountry());
-        assertEquals("", german.getVariant());
+        assertThat(german.getLanguage()).isEqualTo("de");
+        assertThat(german.getCountry()).isEmpty();
+        assertThat(german.getVariant()).isEmpty();
     }
 
     /**
@@ -49,9 +48,9 @@ class GetLocalTest {
     @Test
     void languageAndCountry() {
         var german = new Locale("de", "DE");
-        assertEquals("de", german.getLanguage());
-        assertEquals("DE", german.getCountry());
-        assertEquals("", german.getVariant());
+        assertThat(german.getLanguage()).isEqualTo("de");
+        assertThat(german.getCountry()).isEqualTo("DE");
+        assertThat(german.getVariant()).isEmpty();
     }
 
     /**
@@ -60,8 +59,8 @@ class GetLocalTest {
     @Test
     void languageAndCountryAndVariant() {
         var norwegianNorwayBokmel = new Locale("no", "NO", "B");
-        assertEquals("no", norwegianNorwayBokmel.getLanguage());
-        assertEquals("NO", norwegianNorwayBokmel.getCountry());
-        assertEquals("B", norwegianNorwayBokmel.getVariant());
+        assertThat(norwegianNorwayBokmel.getLanguage()).isEqualTo("no");
+        assertThat(norwegianNorwayBokmel.getCountry()).isEqualTo("NO");
+        assertThat(norwegianNorwayBokmel.getVariant()).isEqualTo("B");
     }
 }

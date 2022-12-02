@@ -2,8 +2,7 @@ package lang.variable;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Сокрытие локальных переменных.
@@ -12,9 +11,8 @@ class HideLocalVariablesTest {
     @Test
     void test() {
         Byte[] Byte[] = {{0}};
-        assertTrue(Byte.toString().startsWith("[[Ljava.lang.Byte;@"));
-        assertEquals("class java.lang.Byte", Byte.class.toString());
-        assertEquals(1, Byte.length);
-        assertEquals(8, new Byte("8").byteValue());
+        assertThat(Byte.toString().startsWith("[[Ljava.lang.Byte;@")).isTrue();
+        assertThat(Byte.class.toString()).isEqualTo("class java.lang.Byte");
+        assertThat(Byte.length).isEqualTo(1);
     }
 }

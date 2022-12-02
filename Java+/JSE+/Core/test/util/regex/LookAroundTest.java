@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Примеры позиционной проверки.
@@ -19,36 +18,36 @@ class LookAroundTest {
     @Test
     void notEndWith() {
         var p = Pattern.compile("^.*(?<!hede)$");
-        assertTrue(p.matcher(NO).matches());
-        assertTrue(p.matcher(BEGIN).matches());
-        assertTrue(p.matcher(MIDDLE).matches());
-        assertFalse(p.matcher(END).matches());
+        assertThat(p.matcher(NO).matches()).isTrue();
+        assertThat(p.matcher(BEGIN).matches()).isTrue();
+        assertThat(p.matcher(MIDDLE).matches()).isTrue();
+        assertThat(p.matcher(END).matches()).isFalse();
     }
 
     @Test
     void endWith() {
         var p = Pattern.compile(".*(?<=hede$)");
-        assertFalse(p.matcher(NO).matches());
-        assertFalse(p.matcher(BEGIN).matches());
-        assertFalse(p.matcher(MIDDLE).matches());
-        assertTrue(p.matcher(END).matches());
+        assertThat(p.matcher(NO).matches()).isFalse();
+        assertThat(p.matcher(BEGIN).matches()).isFalse();
+        assertThat(p.matcher(MIDDLE).matches()).isFalse();
+        assertThat(p.matcher(END).matches()).isTrue();
     }
 
     @Test
     void notContain() {
         var p = Pattern.compile("^((?!hede).)*$");
-        assertTrue(p.matcher(NO).matches());
-        assertFalse(p.matcher(BEGIN).matches());
-        assertFalse(p.matcher(MIDDLE).matches());
-        assertFalse(p.matcher(END).matches());
+        assertThat(p.matcher(NO).matches()).isTrue();
+        assertThat(p.matcher(BEGIN).matches()).isFalse();
+        assertThat(p.matcher(MIDDLE).matches()).isFalse();
+        assertThat(p.matcher(END).matches()).isFalse();
     }
 
     @Test
     void notStartWith() {
         var p = Pattern.compile("^(?!hede).*$");
-        assertTrue(p.matcher(NO).matches());
-        assertFalse(p.matcher(BEGIN).matches());
-        assertTrue(p.matcher(MIDDLE).matches());
-        assertTrue(p.matcher(END).matches());
+        assertThat(p.matcher(NO).matches()).isTrue();
+        assertThat(p.matcher(BEGIN).matches()).isFalse();
+        assertThat(p.matcher(MIDDLE).matches()).isTrue();
+        assertThat(p.matcher(END).matches()).isTrue();
     }
 }

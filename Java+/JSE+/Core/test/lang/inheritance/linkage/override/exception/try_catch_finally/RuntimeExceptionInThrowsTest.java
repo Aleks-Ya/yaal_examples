@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Test;
 class RuntimeExceptionInThrowsTest {
     @Test
     void main() {
-      System.out.println(getInt());
+        System.out.println(getInt());
     }
-    
+
     static int getInt() throws RuntimeException {
-      return 1;
+        return 1;
     }
 }

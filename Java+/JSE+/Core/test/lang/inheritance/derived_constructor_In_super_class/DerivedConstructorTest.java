@@ -13,11 +13,15 @@ class DerivedConstructorTest {
         out.println(ch);
         out.println(p);
     }
-  }
-
-class Parent {
-    Parent(){}
-    Parent(Child ch) {}
 }
 
-class Child extends Parent {}
+class Parent {
+    Parent() {
+    }
+
+    Parent(Child ch) {
+    }
+}
+
+class Child extends Parent {
+}

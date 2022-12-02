@@ -10,6 +10,7 @@ public class StaticField {
         System.out.println(new Parent().s);
         System.out.println(new Child().s);
     }
+
     private static class Parent {
         static String s = "Parent";
     }

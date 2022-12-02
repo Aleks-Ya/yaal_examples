@@ -2,7 +2,7 @@ package lang.inheritance.linkage.override.exception;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Нет ограничений на непроверяемые исключения, бросаемые переопределяемым методом.
@@ -11,7 +11,7 @@ class UncheckedTest {
 
     @Test
     void main() {
-        assertEquals("Child", new Child().makeString());
+        assertThat(new Child().makeString()).isEqualTo("Child");
     }
 
     private static class Parent {

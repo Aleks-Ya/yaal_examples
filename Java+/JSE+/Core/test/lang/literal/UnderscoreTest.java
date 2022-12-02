@@ -3,7 +3,7 @@ package lang.literal;
 import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Подчеркивание в чиловых литералах.
@@ -27,6 +27,6 @@ class UnderscoreTest {
      */
     @Test
     void multipleUnderscore() {
-        assertEquals(39, 3_____9);
+        assertThat(3_____9).isEqualTo(39);
     }
 }

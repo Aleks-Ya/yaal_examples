@@ -1,10 +1,10 @@
 package swing.Container.JComponent.JTextComponent.JTextField;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Вызов слушателя, когда пользователь нажимает Enter.

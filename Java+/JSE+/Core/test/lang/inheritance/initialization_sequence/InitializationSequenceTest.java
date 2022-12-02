@@ -5,23 +5,23 @@ import org.junit.jupiter.api.Test;
 import static java.lang.System.out;
 
 class Parent {
-	private static int i1 = staticField();
+    private static int i1 = staticField();
 
     static {
-		out.println("1 Parent static initializer");
-	}
+        out.println("1 Parent static initializer");
+    }
 
-	private static int i2 = staticField();
+    private static int i2 = staticField();
 
-	private static int staticField() {
-		out.println("1 Parent static field ");
-		return 0;
-	}
+    private static int staticField() {
+        out.println("1 Parent static field ");
+        return 0;
+    }
 
     private static int field() {
-		out.println("3 Parent field ");
-		return 0;
-	}
+        out.println("3 Parent field ");
+        return 0;
+    }
 
     Parent() {
         out.println("4 Parent constructor ");
@@ -29,17 +29,20 @@ class Parent {
 
     private int o1 = field();
 
-	{
-		out.println("3 Parent object initializer");
-	}
+    {
+        out.println("3 Parent object initializer");
+    }
+
     private int o2 = field();
 }
 
 class Child extends Parent {
     private static int i1 = staticField();
-	static {
-		out.println("2 Child static initializer");
-	}
+
+    static {
+        out.println("2 Child static initializer");
+    }
+
     private static int i2 = staticField();
 
     Child() {
@@ -47,9 +50,11 @@ class Child extends Parent {
     }
 
     private int o1 = field();
-	{
-		out.println("5 Child object initializer");
-	}
+
+    {
+        out.println("5 Child object initializer");
+    }
+
     private int o2 = field();
 
 
@@ -64,15 +69,15 @@ class Child extends Parent {
     }
 }
 
-class ChildOfChild extends Child{
-	static {
-		out.println("ChildOfChild static initializer");
-	}
+class ChildOfChild extends Child {
+    static {
+        out.println("ChildOfChild static initializer");
+    }
 }
 
 class InitializationSequenceTest {
-	@Test
-	public void main() {
-		Child m = new Child();
-	}
+    @Test
+    public void main() {
+        Child m = new Child();
+    }
 }

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Get DNS resolution error.
@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class DnsErrorTest {
     @Test
     void unknownHostException() {
-        assertThrows(UnknownHostException.class, () -> {
+        assertThatThrownBy(() -> {
             var socket = new Socket("not.resolved.address.ru", 6666);
             socket.getInputStream();
             socket.close();
-        });
+        }).isInstanceOf(UnknownHostException.class);
     }
 }

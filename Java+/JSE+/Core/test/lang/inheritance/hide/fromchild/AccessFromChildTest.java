@@ -20,7 +20,7 @@ class Parent {
 
 class Child extends Parent {
     String name = "Child";
-    
+
     void printNames() {
         out.printf("super.name = %s%n", super.name);
         out.printf("this.name  = %s%n", this.name);

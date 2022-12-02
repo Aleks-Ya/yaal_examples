@@ -10,9 +10,9 @@ class SystemExitTest {
     @Test
     @Disabled("Невозможно отследить выполнение")
     public void test() {
-        try{
+        try {
             System.exit(0);
-        }finally {
+        } finally {
             throw new AssertionError();
         }
     }

@@ -6,20 +6,21 @@ import static java.lang.System.out;
 
 class StaticMemberInheritanceTest {
 
-	@Test
+    @Test
     public void main() {
-		Child c = new Child();
-		out.println(c.field);
-		out.println(c.method());
-	}
+        Child c = new Child();
+        out.println(c.field);
+        out.println(c.method());
+    }
 }
 
 class Parent {
-	static int field = 1;
-	
-	static String method() {
-		return "parent";
-	}
+    static int field = 1;
+
+    static String method() {
+        return "parent";
+    }
 }
 
-class Child extends Parent {}
+class Child extends Parent {
+}

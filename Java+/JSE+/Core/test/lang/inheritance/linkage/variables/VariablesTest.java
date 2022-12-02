@@ -19,6 +19,7 @@ class VariablesTest {
 
 class Parent {
     String name = "Parent";
+
     String getName() {
         return name;
     }
@@ -26,7 +27,7 @@ class Parent {
 
 class Child extends Parent {
     String name = "Child";
-    
+
     String getName() {
         return name;
     }

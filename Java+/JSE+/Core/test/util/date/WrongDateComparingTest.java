@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Different dates are equal.
@@ -14,6 +14,6 @@ class WrongDateComparingTest {
     void defaultLocal() {
         var d1 = Date.valueOf("1582-10-10");
         var d2 = Date.valueOf("1582-10-20");
-        assertEquals(d1, d2);
+        assertThat(d2).isEqualTo(d1);
     }
 }

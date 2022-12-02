@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Удаление элементов коллекции ArrayList по значению.
@@ -35,10 +34,10 @@ class DeleteByValueTest {
      */
     @Test
     void byValue() {
-        assertEquals("[big, medium, small]", stringList.toString());
+        assertThat(stringList).hasToString("[big, medium, small]");
         boolean removed = stringList.remove("medium");
-        assertTrue(removed);
-        assertEquals("[big, small]", stringList.toString());
+        assertThat(removed).isTrue();
+        assertThat(stringList).hasToString("[big, small]");
     }
 
     /**
@@ -46,10 +45,10 @@ class DeleteByValueTest {
      */
     @Test
     void byCharacterValue() {
-        assertEquals("[a, b, c]", charList.toString());
+        assertThat(charList).hasToString("[a, b, c]");
         boolean removed = charList.remove(Character.valueOf('b'));
-        assertTrue(removed);
-        assertEquals("[a, c]", charList.toString());
+        assertThat(removed).isTrue();
+        assertThat(charList).hasToString("[a, c]");
     }
 
     /**
@@ -57,10 +56,10 @@ class DeleteByValueTest {
      */
     @Test
     void byIntegerValue() {
-        assertEquals("[10, 20, 30]", integerList.toString());
+        assertThat(integerList).hasToString("[10, 20, 30]");
         int index = 20;
         boolean removed = integerList.remove(Integer.valueOf(index));
-        assertTrue(removed);
-        assertEquals("[10, 30]", integerList.toString());
+        assertThat(removed).isTrue();
+        assertThat(integerList).hasToString("[10, 30]");
     }
 }

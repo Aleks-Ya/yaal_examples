@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Удаление элементов коллекции ArrayList по индексу.
@@ -26,9 +26,9 @@ class DeleteByIndexTest {
      */
     @Test
     void byIndex() {
-        assertEquals("[a, b, c]", charList.toString());
+        assertThat(charList).hasToString("[a, b, c]");
         char b = charList.remove(1);
-        assertEquals('b', b);
-        assertEquals("[a, c]", charList.toString());
+        assertThat(b).isEqualTo('b');
+        assertThat(charList).hasToString("[a, c]");
     }
 }

@@ -2,7 +2,7 @@ package util.regex;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Предопределенные символьные классы: \d
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class PredefinedCharacterClassesTest {
     @Test
     void digits() {
-        assertTrue("a567b".matches("a\\d+b"));
+        assertThat("a567b".matches("a\\d+b")).isTrue();
     }
 
     /**
@@ -18,7 +18,7 @@ class PredefinedCharacterClassesTest {
      */
     @Test
     void punctuation() {
-        assertTrue("-!\"\\#$%&'()*+,./:;<=>?@[]^_`{|}~".matches("\\p{Punct}{32}"));
+        assertThat("-!\"\\#$%&'()*+,./:;<=>?@[]^_`{|}~".matches("\\p{Punct}{32}")).isTrue();
     }
 
 }

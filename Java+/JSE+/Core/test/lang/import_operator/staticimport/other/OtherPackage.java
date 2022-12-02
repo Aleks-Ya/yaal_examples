@@ -6,7 +6,7 @@ package lang.import_operator.staticimport.other;
 public class OtherPackage {
     public static int number = 1;
 
-    public static int number(){
+    public static int number() {
         return 2;
     }
 }

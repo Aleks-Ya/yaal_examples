@@ -2,7 +2,7 @@ package swing.Container.JComponent.Focus.withdrawal;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class FocusTest {
 
@@ -12,24 +12,24 @@ class FocusTest {
                 {1, 2, null, 3, 4, null, 5},
                 {4, 5, null}
         };
-        var focus = new Focus<Object>(matrix);
-        assertEquals(1, focus.prevSelected());
-        assertEquals(1, focus.selected());
+        var focus = new Focus<>(matrix);
+        assertThat(focus.prevSelected()).isEqualTo(1);
+        assertThat(focus.selected()).isEqualTo(1);
         focus.right();
-        assertEquals(1, focus.prevSelected());
-        assertEquals(2, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(1);
+        assertThat(focus.selected()).isEqualTo(2);
         focus.right();
-        assertEquals(2, focus.prevSelected());
-        assertEquals(3, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(2);
+        assertThat(focus.selected()).isEqualTo(3);
         focus.right();
-        assertEquals(3, focus.prevSelected());
-        assertEquals(4, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(3);
+        assertThat(focus.selected()).isEqualTo(4);
         focus.right();
-        assertEquals(4, focus.prevSelected());
-        assertEquals(5, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(4);
+        assertThat(focus.selected()).isEqualTo(5);
         focus.right();
-        assertEquals(4, focus.prevSelected());
-        assertEquals(5, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(4);
+        assertThat(focus.selected()).isEqualTo(5);
     }
 
     @Test
@@ -38,28 +38,28 @@ class FocusTest {
                 {0, 1, null, 3, 4, null, 6},
                 {4, 5, null}
         };
-        var focus = new Focus<Object>(matrix);
+        var focus = new Focus<>(matrix);
         focus.right();
         focus.right();
         focus.right();
         focus.right();
-        assertEquals(4, focus.prevSelected());
-        assertEquals(6, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(4);
+        assertThat(focus.selected()).isEqualTo(6);
         focus.left();
-        assertEquals(6, focus.prevSelected());
-        assertEquals(4, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(6);
+        assertThat(focus.selected()).isEqualTo(4);
         focus.left();
-        assertEquals(4, focus.prevSelected());
-        assertEquals(3, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(4);
+        assertThat(focus.selected()).isEqualTo(3);
         focus.left();
-        assertEquals(3, focus.prevSelected());
-        assertEquals(1, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(3);
+        assertThat(focus.selected()).isEqualTo(1);
         focus.left();
-        assertEquals(1, focus.prevSelected());
-        assertEquals(0, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(1);
+        assertThat(focus.selected()).isEqualTo(0);
         focus.left();
-        assertEquals(1, focus.prevSelected());
-        assertEquals(0, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(1);
+        assertThat(focus.selected()).isEqualTo(0);
     }
 
     @Test
@@ -74,24 +74,24 @@ class FocusTest {
                 {13, 14}
 
         };
-        var focus = new Focus<Object>(matrix);
-        assertEquals(1, focus.prevSelected());
-        assertEquals(1, focus.selected());
+        var focus = new Focus<>(matrix);
+        assertThat(focus.prevSelected()).isEqualTo(1);
+        assertThat(focus.selected()).isEqualTo(1);
         focus.down();
-        assertEquals(1, focus.prevSelected());
-        assertEquals(4, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(1);
+        assertThat(focus.selected()).isEqualTo(4);
         focus.down();
-        assertEquals(4, focus.prevSelected());
-        assertEquals(10, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(4);
+        assertThat(focus.selected()).isEqualTo(10);
         focus.down();
-        assertEquals(10, focus.prevSelected());
-        assertEquals(11, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(10);
+        assertThat(focus.selected()).isEqualTo(11);
         focus.down();
-        assertEquals(11, focus.prevSelected());
-        assertEquals(13, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(11);
+        assertThat(focus.selected()).isEqualTo(13);
         focus.down();
-        assertEquals(11, focus.prevSelected());
-        assertEquals(13, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(11);
+        assertThat(focus.selected()).isEqualTo(13);
     }
 
     @Test
@@ -106,28 +106,28 @@ class FocusTest {
                 {6, 19}
 
         };
-        var focus = new Focus<Object>(matrix);
+        var focus = new Focus<>(matrix);
         focus.down();
         focus.down();
         focus.down();
         focus.down();
-        assertEquals(4, focus.prevSelected());
-        assertEquals(6, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(4);
+        assertThat(focus.selected()).isEqualTo(6);
         focus.up();
-        assertEquals(6, focus.prevSelected());
-        assertEquals(4, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(6);
+        assertThat(focus.selected()).isEqualTo(4);
         focus.up();
-        assertEquals(4, focus.prevSelected());
-        assertEquals(3, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(4);
+        assertThat(focus.selected()).isEqualTo(3);
         focus.up();
-        assertEquals(3, focus.prevSelected());
-        assertEquals(1, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(3);
+        assertThat(focus.selected()).isEqualTo(1);
         focus.up();
-        assertEquals(1, focus.prevSelected());
-        assertEquals(0, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(1);
+        assertThat(focus.selected()).isEqualTo(0);
         focus.up();
-        assertEquals(1, focus.prevSelected());
-        assertEquals(0, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(1);
+        assertThat(focus.selected()).isEqualTo(0);
     }
 
     @Test
@@ -137,20 +137,20 @@ class FocusTest {
                 {3, 4, null},
                 {5, 6, null},
         };
-        var focus = new Focus<Object>(matrix);
-        assertEquals(1, focus.prevSelected());
-        assertEquals(1, focus.selected());
+        var focus = new Focus<>(matrix);
+        assertThat(focus.prevSelected()).isEqualTo(1);
+        assertThat(focus.selected()).isEqualTo(1);
         focus.right();
-        assertEquals(1, focus.prevSelected());
-        assertEquals(2, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(1);
+        assertThat(focus.selected()).isEqualTo(2);
         focus.down();
-        assertEquals(2, focus.prevSelected());
-        assertEquals(4, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(2);
+        assertThat(focus.selected()).isEqualTo(4);
         focus.down();
-        assertEquals(4, focus.prevSelected());
-        assertEquals(6, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(4);
+        assertThat(focus.selected()).isEqualTo(6);
         focus.down();
-        assertEquals(4, focus.prevSelected());
-        assertEquals(6, focus.selected());
+        assertThat(focus.prevSelected()).isEqualTo(4);
+        assertThat(focus.selected()).isEqualTo(6);
     }
 }

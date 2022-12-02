@@ -11,14 +11,14 @@ import java.io.RandomAccessFile;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Чтение тектового файла с помощью RandomAccesFile.
  */
 class ByRandomAccessFileTest {
-    private static File file;
     private static final List<String> expLines = Arrays.asList("FirstLine", "SecondLine");
+    private static File file;
 
     @BeforeAll
     static void setUp() throws Exception {
@@ -38,6 +38,6 @@ class ByRandomAccessFileTest {
                 lines.append(line);
             }
         }
-        assertEquals("FirstLineSecondLine", lines.toString());
+        assertThat(lines).hasToString("FirstLineSecondLine");
     }
 }

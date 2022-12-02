@@ -1,9 +1,8 @@
 package lang.reflection.classloader;
 
 import org.junit.jupiter.api.Test;
-//import sun.net.spi.nameservice.dns.DNSNameService;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class BuiltInClassloaderTest {
 
@@ -12,23 +11,23 @@ class BuiltInClassloaderTest {
      */
     @Test
     void bootstrapClassLoader() {
-        assertNull(StringBuilder.class.getClassLoader());
-        assertNull(Integer.class.getClassLoader());
-        assertNull(String.class.getClassLoader());
-        assertNull(int[].class.getClassLoader());
-        assertNull(Integer[].class.getClassLoader());
+        assertThat(StringBuilder.class.getClassLoader()).isNull();
+        assertThat(Integer.class.getClassLoader()).isNull();
+        assertThat(String.class.getClassLoader()).isNull();
+        assertThat(int[].class.getClassLoader()).isNull();
+        assertThat(Integer[].class.getClassLoader()).isNull();
     }
 
     @Test
     void extensionsClassLoader() {
 //        ClassLoader extensionClassLoader = DNSNameService.class.getClassLoader();
-//        assertNull(extensionClassLoader.getParent());
+//        assertThat(extensionClassLoader.getParent());
     }
 
     @Test
     void systemClassLoader() {
         ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
         ClassLoader extensionClassLoader = systemClassLoader.getParent();
-        assertNull(extensionClassLoader.getParent());
+        assertThat(extensionClassLoader.getParent()).isNull();
     }
 }

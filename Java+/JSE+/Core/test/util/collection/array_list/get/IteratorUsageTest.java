@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Использование Iterator для получения элементов ArrayList.
@@ -31,8 +31,8 @@ class IteratorUsageTest {
         while (it.hasNext()) {
             sb.append(it.next());
         }
-        assertEquals("[a, b, c]", list.toString());
-        assertEquals("abc", sb.toString());
+        assertThat(list).hasToString("[a, b, c]");
+        assertThat(sb).hasToString("abc");
     }
 
     /**
@@ -49,8 +49,8 @@ class IteratorUsageTest {
             }
             sb.append(next);
         }
-        assertEquals("[a, c]", list.toString());
-        assertEquals("abc", sb.toString());
+        assertThat(list).hasToString("[a, c]");
+        assertThat(sb).hasToString("abc");
     }
 
 }

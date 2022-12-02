@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Добавление элементов в ArrayList в указанную позицию.
@@ -21,9 +21,9 @@ class AddToPositionTest {
         List<String> list = new ArrayList<>();
         list.add("a");
         list.add("c");
-        assertEquals("[a, c]", list.toString());
+        assertThat(list).hasToString("[a, c]");
         list.add(1, "b");
-        assertEquals("[a, b, c]", list.toString());
+        assertThat(list).hasToString("[a, b, c]");
     }
 
     /**
@@ -33,9 +33,9 @@ class AddToPositionTest {
     void toEnd() {
         List<String> list = new ArrayList<>();
         list.add("a");
-        assertEquals("[a]", list.toString());
+        assertThat(list).hasToString("[a]");
         list.add(1, "b");
-        assertEquals("[a, b]", list.toString());
+        assertThat(list).hasToString("[a, b]");
     }
 
     /**
@@ -44,14 +44,14 @@ class AddToPositionTest {
      */
     @Test
     void afterEndException() {
-        assertThrows(IndexOutOfBoundsException.class, () -> {
+        assertThatThrownBy(() -> {
             ArrayList<String> list = new ArrayList<>();
             list.add("a");
-            assertEquals("[a]", list.toString());
+            assertThat(list).hasToString("[a]");
             list.ensureCapacity(100); //не помогает
             int position = list.size() + 1;
             list.add(position, "b");
-            assertEquals("[a, b, c]", list.toString());
-        });
+            assertThat(list).hasToString("[a, b, c]");
+        }).isInstanceOf(IndexOutOfBoundsException.class);
     }
 }

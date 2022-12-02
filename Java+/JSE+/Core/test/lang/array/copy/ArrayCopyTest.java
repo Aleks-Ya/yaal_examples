@@ -2,7 +2,7 @@ package lang.array.copy;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Копирование массивов.
@@ -31,20 +31,22 @@ class ArrayCopyTest {
 
     @Test
     void npe() {
-        assertThrows(NullPointerException.class, () -> System.arraycopy(null, 1, littleNums, 1, 1));
+        assertThatThrownBy(() -> System.arraycopy(null, 1, littleNums, 1, 1))
+                .isInstanceOf(NullPointerException.class);
     }
 
     @Test
     void arrayStoreException() {
-        assertThrows(ArrayStoreException.class, () -> {
+        assertThatThrownBy(() -> {
             Integer[] intArray = new Integer[]{1, 2, 3, 4, 5};
             System.arraycopy(bigNums, 1, intArray, 1, 1);
-        });
+        }).isInstanceOf(ArrayStoreException.class);
     }
 
     @Test
     void indexOutOfBoundsException() {
-        assertThrows(IndexOutOfBoundsException.class, () -> System.arraycopy(bigNums, 2, littleNums, 4, 20));
+        assertThatThrownBy(() -> System.arraycopy(bigNums, 2, littleNums, 4, 20))
+                .isInstanceOf(IndexOutOfBoundsException.class);
     }
 
 }

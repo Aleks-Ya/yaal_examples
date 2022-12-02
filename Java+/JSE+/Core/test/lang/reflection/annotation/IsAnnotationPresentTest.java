@@ -2,8 +2,7 @@ package lang.reflection.annotation;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Использование метода Class#isAnnotationPresent.
@@ -12,18 +11,18 @@ class IsAnnotationPresentTest {
     @Test
     void present() throws ClassNotFoundException, NoSuchFieldException {
         var clazz = Class.forName("lang.reflection.annotation.YesMarked");
-        assertTrue(clazz.isAnnotationPresent(Marked.class));
+        assertThat(clazz.isAnnotationPresent(Marked.class)).isTrue();
 
         var field = clazz.getDeclaredField("size");
-        assertTrue(field.isAnnotationPresent(Marked.class));
+        assertThat(field.isAnnotationPresent(Marked.class)).isTrue();
     }
 
     @Test
     void notPresent() throws ClassNotFoundException, NoSuchFieldException {
         var clazz = Class.forName("lang.reflection.annotation.NotMarked");
-        assertFalse(clazz.isAnnotationPresent(Marked.class));
+        assertThat(clazz.isAnnotationPresent(Marked.class)).isFalse();
 
         var field = clazz.getDeclaredField("size");
-        assertFalse(field.isAnnotationPresent(Marked.class));
+        assertThat(field.isAnnotationPresent(Marked.class)).isFalse();
     }
 }

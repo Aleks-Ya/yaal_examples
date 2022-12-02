@@ -11,12 +11,12 @@ class IfTest {
      */
     @Test
     void withoutBraces() {
-        if (1 < 2) 
-          for (int i = 0; i < 3; i++) out.println(i);
+        if (1 < 2)
+            for (int i = 0; i < 3; i++) out.println(i);
         else
-          for (int i = 9; i > 6; i--) out.println(i);
+            for (int i = 9; i > 6; i--) out.println(i);
     }
-    
+
     /**
      * else относится ко 2му if.
      */

@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Замена элементов коллекции ArrayList.
@@ -27,9 +27,9 @@ class SetTest {
      */
     @Test
     void set() {
-        assertEquals("[a, b, c]", list.toString());
+        assertThat(list).hasToString("[a, b, c]");
         list.set(1, 'd');
-        assertEquals("[a, d, c]", list.toString());
+        assertThat(list).hasToString("[a, d, c]");
     }
 
     /**
@@ -37,7 +37,7 @@ class SetTest {
      */
     @Test
     void setNotExists() {
-        assertEquals("[a, b, c]", list.toString());
-        assertThrows(IndexOutOfBoundsException.class, () -> list.set(3, 'd'));
+        assertThat(list).hasToString("[a, b, c]");
+        assertThatThrownBy(() -> list.set(3, 'd')).isInstanceOf(IndexOutOfBoundsException.class);
     }
 }

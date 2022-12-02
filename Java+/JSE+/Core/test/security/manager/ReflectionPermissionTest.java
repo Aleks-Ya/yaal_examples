@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.security.AccessControlException;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static security.manager.SecurityManagerHelper.configureSecurityManagerPolicyFromResource;
 
 @Disabled("need fix exception")
@@ -21,7 +21,8 @@ class ReflectionPermissionTest {
     @Test
     void notGrantSuppressAccessChecks() {
         configureSecurityManagerPolicyFromResource(getClass(), "ReflectionPermissionTest_disabled.policy");
-        assertThrows(AccessControlException.class, () -> getClass().getDeclaredField("privateField").setAccessible(true));
+        assertThatThrownBy(() -> getClass().getDeclaredField("privateField").setAccessible(true))
+                .isInstanceOf(AccessControlException.class);
     }
 
 }

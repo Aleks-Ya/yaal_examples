@@ -7,25 +7,25 @@ import java.io.IOException;
 class ThrowNullTest {
     @Test
     void main() throws IOException {
-      try {
-		  throwNull();
-	  } catch (Exception e) {
-		  System.out.println(e);
-	  }
-	  
-	  try {
-		  throwNullVar();
-	  } catch (Exception e) {
-		  System.out.println(e);
-	  }
+        try {
+            throwNull();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        try {
+            throwNullVar();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
-    
+
     private void throwNull() {
-      throw null;
+        throw null;
     }
-    
+
     private void throwNullVar() throws IOException {
-		IOException e = null;
-		throw e;
-	}
+        IOException e = null;
+        throw e;
+    }
 }

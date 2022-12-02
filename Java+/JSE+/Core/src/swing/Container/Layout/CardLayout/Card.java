@@ -30,6 +30,7 @@ class BorderFrame extends JFrame implements ItemListener {
     private static final String BUTTON_PANEL = "Button Panel";
     private static final String TEXT_FIELD_PANEL = "Text Field Panel";
     private JPanel cardPanel;
+
     BorderFrame() throws HeadlessException {
         init();
 

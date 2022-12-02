@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import javax.tools.JavaFileManager;
 import javax.tools.ToolProvider;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Использование JavaFileManager.
@@ -16,6 +16,6 @@ class JavaFileManagerUsageTest {
     void getInstance() {
         var compiler = ToolProvider.getSystemJavaCompiler();
         JavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
-        assertNotNull(fileManager);
+        assertThat(fileManager).isNotNull();
     }
 }

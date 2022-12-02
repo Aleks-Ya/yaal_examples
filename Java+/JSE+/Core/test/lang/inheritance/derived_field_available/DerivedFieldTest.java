@@ -6,13 +6,14 @@ class DerivedFieldTest {
     @Test
     void main() {
         Parent p = new Child();
-        
+
         //compile error
         //out.println(p.name);
     }
 }
 
-class Parent {}
+class Parent {
+}
 
 class Child extends Parent {
     String name = "Child";

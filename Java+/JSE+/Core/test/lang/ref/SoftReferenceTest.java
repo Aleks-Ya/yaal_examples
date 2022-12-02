@@ -2,7 +2,6 @@ package lang.ref;
 
 import org.junit.jupiter.api.Test;
 
-import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
 
 import static org.assertj.core.api.Assertions.assertThat;

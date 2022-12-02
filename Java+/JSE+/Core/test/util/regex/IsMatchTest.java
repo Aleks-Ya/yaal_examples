@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Соответствует ли целая строка регулярному выражению.
@@ -17,14 +16,14 @@ class IsMatchTest {
 
     @Test
     void string() {
-        assertTrue(SOURCE_MATCH.matches(REGEX));
-        assertFalse(SOURCE_NOT_MATCH.matches(REGEX));
+        assertThat(SOURCE_MATCH.matches(REGEX)).isTrue();
+        assertThat(SOURCE_NOT_MATCH.matches(REGEX)).isFalse();
     }
 
     @Test
     void pattern() {
         var pattern = Pattern.compile(REGEX);
-        assertTrue(pattern.matcher(SOURCE_MATCH).matches());
-        assertFalse(pattern.matcher(SOURCE_NOT_MATCH).matches());
+        assertThat(pattern.matcher(SOURCE_MATCH).matches()).isTrue();
+        assertThat(pattern.matcher(SOURCE_NOT_MATCH).matches()).isFalse();
     }
 }

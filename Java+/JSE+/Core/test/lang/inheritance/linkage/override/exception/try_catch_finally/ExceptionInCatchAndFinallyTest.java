@@ -11,7 +11,7 @@ class ExceptionInCatchAndFinallyTest {
     void main() {
         try {
             method();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             //System.out.println(e);
         }

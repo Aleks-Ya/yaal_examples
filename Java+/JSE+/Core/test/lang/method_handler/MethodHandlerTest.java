@@ -6,7 +6,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Вызов метода с помощью MethodHandler.
@@ -18,6 +18,6 @@ class MethodHandlerTest {
         MethodHandles.Lookup lookup = MethodHandles.lookup();
         MethodHandle mh = lookup.findVirtual(String.class, "replace", mt);
         String s = (String) mh.invokeExact("daddy", 'd', 'n');
-        assertEquals("nanny", s);
+        assertThat(s).isEqualTo("nanny");
     }
 }

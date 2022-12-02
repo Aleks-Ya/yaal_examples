@@ -2,9 +2,7 @@ package lang.array.assignment;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Присвоение массива переменной Object.
@@ -15,10 +13,10 @@ class ArrayToObjectTest {
         int[] a = {1, 2};
 
         Object o = a;
-        assertTrue(o.getClass().isArray());
-        assertEquals("class [I", o.getClass().toString());
+        assertThat(o.getClass().isArray()).isTrue();
+        assertThat(o.getClass().toString()).isEqualTo("class [I");
 
         int[] b = (int[]) o;
-        assertArrayEquals(a, b);
+        assertThat(a).isEqualTo(b);
     }
 }

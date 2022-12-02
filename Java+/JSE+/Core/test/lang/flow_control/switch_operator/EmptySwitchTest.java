@@ -6,13 +6,15 @@ class EmptySwitchTest {
 
     @Test
     void main() {
-		//switch(1); //Compile Error
+        //switch(1); //Compile Error
 
-		switch(1) {};
+        switch (1) {
+        }
+        ;
 
-		switch(1) {
-			case 2:
-			default:
+        switch (1) {
+            case 2:
+            default:
         }
     }
 }

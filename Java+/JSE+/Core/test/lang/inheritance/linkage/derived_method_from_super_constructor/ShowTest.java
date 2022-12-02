@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static java.lang.System.out;
 
 class ShowTest {
-	@Test
+    @Test
     public void test() {
         new Child();
     }
@@ -13,11 +13,11 @@ class ShowTest {
 
 class Parent {
 
-    Parent(){
+    Parent() {
         test();
     }
 
-    void test(){
+    void test() {
         out.println("parent::test");
     }
 
@@ -27,7 +27,7 @@ class Child extends Parent {
 
     private String field = "Init";
 
-    Child(){
+    Child() {
         field = "Init in constructor";
     }
 

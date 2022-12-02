@@ -2,7 +2,7 @@ package lang.array.init;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Использование null при инициализации массива.
@@ -15,7 +15,7 @@ class NullElementTest {
     @Test
     void oneDimension() {
         String[] arr = {null, null};
-        assertEquals(2, arr.length);
+        assertThat(arr).hasSize(2);
     }
 
     /**
@@ -28,7 +28,7 @@ class NullElementTest {
                 null,
                 {null, null}
         };
-        assertEquals(3, arr.length);
-        assertEquals(2, arr[2].length);
+        assertThat(arr.length).isEqualTo(3);
+        assertThat(arr[2].length).isEqualTo(2);
     }
 }

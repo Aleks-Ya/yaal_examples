@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Load, instantiate and invoke a method from a class absents in classpath.
@@ -31,7 +31,7 @@ class LoadClassesFromJarTest {
         Object snakeYaml = clazz.newInstance();
         Method getNameMethod = clazz.getMethod("isAllowUnicode");
         boolean result = (boolean) getNameMethod.invoke(snakeYaml);
-        assertTrue(result);
+        assertThat(result).isTrue();
     }
 
     private void assertClassAbsent(String name) {

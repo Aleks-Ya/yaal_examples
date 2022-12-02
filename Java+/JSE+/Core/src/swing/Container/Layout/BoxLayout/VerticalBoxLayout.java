@@ -1,7 +1,13 @@
 package swing.Container.Layout.BoxLayout;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+import java.awt.Container;
+import java.awt.Dimension;
 
 /**
  * Вертикальное расположение компонентов с помощью BoxLayout.

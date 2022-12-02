@@ -2,7 +2,7 @@ package math;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Задача: отрезать последнюю цифру от числа Double.
@@ -11,12 +11,12 @@ class CutLastNumberTest {
 
     @Test
     void testName() {
-        assertEquals(0, cutLastNumber(0.0), 0);
-        assertEquals(0, cutLastNumber(0.1), 0);
-        assertEquals(.45, cutLastNumber(.456), 0);
-        assertEquals(123.45, cutLastNumber(123.456), 0);
-        assertEquals(123, cutLastNumber(123.4), 0);
-        assertEquals(12, cutLastNumber(123D), 0);
+        assertThat(cutLastNumber(0.0)).isEqualTo(0);
+        assertThat(cutLastNumber(0.1)).isEqualTo(0);
+        assertThat(cutLastNumber(.456)).isEqualTo(.45);
+        assertThat(cutLastNumber(123.456)).isEqualTo(123.45);
+        assertThat(cutLastNumber(123.4)).isEqualTo(123);
+        assertThat(cutLastNumber(123D)).isEqualTo(12);
     }
 
     /**

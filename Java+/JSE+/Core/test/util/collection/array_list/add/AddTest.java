@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Добавление в коллекцию List объектов разных типов.
@@ -35,7 +35,7 @@ class AddTest {
         list.add(i);
         list.add(null);
         list.add(null);
-        assertEquals(4, list.size());
+        assertThat(list).hasSize(4);
     }
 
     /**

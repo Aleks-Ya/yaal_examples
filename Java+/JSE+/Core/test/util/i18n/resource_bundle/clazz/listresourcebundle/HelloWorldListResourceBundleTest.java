@@ -6,7 +6,7 @@ import java.awt.Color;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Hello World на пакетах ресурсов в виде java-классов.
@@ -15,18 +15,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class HelloWorldListResourceBundleTest {
     static final String LIGHT_KEY = "light";
     static final String DARK_KEY = "dark";
+    private static final String BASE_NAME = "util.i18n.resource_bundle.clazz.listresourcebundle.Colors";
 
     @Test
     void ru() {
-        var rb = ResourceBundle.getBundle("util.i18n.resource_bundle.clazz.listresourcebundle.Colors", new Locale("ru", "RU"));
-        assertEquals(Color.WHITE, rb.getObject(LIGHT_KEY));
-        assertEquals(Color.BLACK, rb.getObject(DARK_KEY));
+        var locale = new Locale("ru", "RU");
+        var rb = ResourceBundle.getBundle(BASE_NAME, locale);
+        assertThat(rb.getObject(LIGHT_KEY)).isEqualTo(Color.WHITE);
+        assertThat(rb.getObject(DARK_KEY)).isEqualTo(Color.BLACK);
     }
 
     @Test
     void en() {
-        var rb = ResourceBundle.getBundle("util.i18n.resource_bundle.clazz.listresourcebundle.Colors", new Locale("en", "EN"));
-        assertEquals(Color.YELLOW, rb.getObject(LIGHT_KEY));
-        assertEquals(Color.GRAY, rb.getObject(DARK_KEY));
+        var locale = new Locale("en", "EN");
+        var rb = ResourceBundle.getBundle(BASE_NAME, locale);
+        assertThat(rb.getObject(LIGHT_KEY)).isEqualTo(Color.YELLOW);
+        assertThat(rb.getObject(DARK_KEY)).isEqualTo(Color.GRAY);
     }
 }

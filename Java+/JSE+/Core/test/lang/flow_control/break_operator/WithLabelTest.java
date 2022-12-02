@@ -2,7 +2,7 @@ package lang.flow_control.break_operator;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * break с меткой позволяет перейти на любой оператор.
@@ -20,7 +20,7 @@ class WithLabelTest {
             a = 1;
             break block;
         }
-        assertEquals(1, a);
+        assertThat(a).isEqualTo(1);
     }
 
     /**
@@ -37,6 +37,6 @@ class WithLabelTest {
                 break outer;
             }
         }
-        assertEquals(1, a);
+        assertThat(a).isEqualTo(1);
     }
 }

@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.regex.Pattern;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Флаг DOTALL: метасимвол . совпадает с line terminators.
@@ -16,8 +15,8 @@ class DotAllTest {
      */
     @Test
     void flag() {
-        assertTrue("a\nb".matches("(?s).*"));
-        assertFalse("a\nb".matches(".*"));
+        assertThat("a\nb".matches("(?s).*")).isTrue();
+        assertThat("a\nb".matches(".*")).isFalse();
     }
 
     /**
@@ -25,7 +24,7 @@ class DotAllTest {
      */
     @Test
     void magicConstant() {
-        assertTrue(Pattern.compile(".*", Pattern.DOTALL).matcher("a\nb").matches());
-        assertFalse(Pattern.compile(".*").matcher("a\nb").matches());
+        assertThat(Pattern.compile(".*", Pattern.DOTALL).matcher("a\nb").matches()).isTrue();
+        assertThat(Pattern.compile(".*").matcher("a\nb").matches()).isFalse();
     }
 }

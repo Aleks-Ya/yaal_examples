@@ -6,8 +6,8 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Поиск локализованной строки по иерархии ресурсов.
@@ -21,10 +21,10 @@ class BundleHierarchyTest {
     void fromChild() {
         var parent = ResourceBundle.getBundle(
                 "util.i18n.resource_bundle.hierarchy.Names", new Locale("ru", "RU", "vologda"));
-        assertEquals("ru RU vologda", parent.getString("ruRUvologdaKey"));
-        assertEquals("ru RU", parent.getString("ruRUKey"));
-        assertEquals("ru", parent.getString("ruKey"));
-        assertEquals("nothing", parent.getString("Key"));
+        assertThat(parent.getString("ruRUvologdaKey")).isEqualTo("ru RU vologda");
+        assertThat(parent.getString("ruRUKey")).isEqualTo("ru RU");
+        assertThat(parent.getString("ruKey")).isEqualTo("ru");
+        assertThat(parent.getString("Key")).isEqualTo("nothing");
     }
 
     /**
@@ -32,10 +32,10 @@ class BundleHierarchyTest {
      */
     @Test
     void notFound() {
-        assertThrows(MissingResourceException.class, () -> {
+        assertThatThrownBy(() -> {
             var parent = ResourceBundle.getBundle(
                     "util.i18n.resource_bundle.hierarchy.Names", new Locale("ru", "RU"));
             parent.getString("ruRUvologdaKey");
-        });
+        }).isInstanceOf(MissingResourceException.class);
     }
 }

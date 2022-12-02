@@ -2,7 +2,7 @@ package lang.inheritance.linkage.early_and_late_linkage;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Статические методы связываются на этапе компиляции.
@@ -11,7 +11,7 @@ class StaticLinkageTest {
     @Test
     void test() {
         String str = ((StaticLinkageTest) null).getString();
-        assertEquals("ok", str);
+        assertThat(str).isEqualTo("ok");
     }
 
     static String getString() {

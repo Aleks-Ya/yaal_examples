@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class TimerTest {
     private boolean run = false;
@@ -22,6 +22,6 @@ class TimerTest {
         var delay = 500;
         timer.schedule(task, delay);
         Thread.sleep(delay * 2);
-        assertTrue(run);
+        assertThat(run).isTrue();
     }
 }

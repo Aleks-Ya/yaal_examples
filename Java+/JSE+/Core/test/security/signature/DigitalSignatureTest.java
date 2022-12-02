@@ -9,7 +9,7 @@ import java.security.Signature;
 import java.security.SignatureException;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Digital signature.
@@ -39,6 +39,6 @@ class DigitalSignatureTest {
         verificationSignature.initVerify(publicKey);
         verificationSignature.update(inputBytes);
         var matchers = verificationSignature.verify(signatureBytes);
-        assertTrue(matchers);
+        assertThat(matchers).isTrue();
     }
 }

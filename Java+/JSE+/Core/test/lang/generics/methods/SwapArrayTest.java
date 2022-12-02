@@ -2,7 +2,7 @@ package lang.generics.methods;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Write a generic method to exchange the positions of two different elements in an array.
@@ -24,6 +24,6 @@ class SwapArrayTest {
     void test() {
         String[] strArr = {"a", "b", "c"};
         swapElements(strArr, 0, 2);
-        assertArrayEquals(new String[]{"c", "b", "a"}, strArr);
+        assertThat(strArr).isEqualTo(new String[]{"c", "b", "a"});
     }
 }

@@ -5,14 +5,13 @@ import org.junit.jupiter.api.Test;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class IsAbsoluteTest {
 
     @Test
     void isAbsolute() throws URISyntaxException {
-        assertTrue(new URI("https://ya.ru/search").isAbsolute());
-        assertFalse(new URI("/search").isAbsolute());
+        assertThat(new URI("https://ya.ru/search").isAbsolute()).isTrue();
+        assertThat(new URI("/search").isAbsolute()).isFalse();
     }
 }

@@ -8,12 +8,14 @@ import org.junit.jupiter.api.Test;
 class EmptyIfTest {
     @Test
     void emptyIfElse() throws Exception {
-        if(false); else;
-        if(true); else;
+        if (false) ;
+        else ;
+        if (true) ;
+        else ;
     }
 
     @Test
     void emptyIf() throws Exception {
-        if(false);
+        if (false) ;
     }
 }

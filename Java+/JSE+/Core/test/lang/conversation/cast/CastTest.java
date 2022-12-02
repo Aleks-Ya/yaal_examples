@@ -3,7 +3,7 @@ package lang.conversation.cast;
 import org.junit.jupiter.api.Test;
 
 import static java.lang.System.out;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CastTest {
 
@@ -21,9 +21,9 @@ class CastTest {
     @Test
     void floatToInt() {
         float f = 5.9f;
-        assertEquals(5.9f, f, 0);
+        assertThat(f).isEqualTo(5.9f);
         int i = (int) f;
-        assertEquals(5, i);
+        assertThat(i).isEqualTo(5);
     }
 
     /**

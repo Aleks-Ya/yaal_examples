@@ -1,6 +1,10 @@
 package swing.example;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.WindowConstants;
 
 public class RadionButtonMenuBar {
     public static void main(String[] args) {

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ReentrantReadWriteLockTest {
 
@@ -13,9 +13,9 @@ class ReentrantReadWriteLockTest {
      */
     @Test
     void unlockNotLocked() {
-        assertThrows(IllegalMonitorStateException.class, () -> {
+        assertThatThrownBy(() -> {
             ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
             lock.readLock().unlock();
-        });
+        }).isInstanceOf(IllegalMonitorStateException.class);
     }
 }
