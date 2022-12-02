@@ -19,15 +19,7 @@ class HeadRequestTest {
         conn.setRequestMethod("HEAD");
         conn.connect();
         var responseCode = conn.getResponseCode();
-        var contentLength = conn.getContentLength();
-        var headerMap = conn.getHeaderFields();
         conn.disconnect();
-
-        System.out.println(responseCode);
-        System.out.println(contentLength);
-        System.out.println(headerMap);
-
         assertThat(responseCode).isGreaterThanOrEqualTo(200).isLessThan(300);
-        assertThat(contentLength).isGreaterThan(0);
     }
 }
