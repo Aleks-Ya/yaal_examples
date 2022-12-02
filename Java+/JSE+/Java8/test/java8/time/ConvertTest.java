@@ -65,6 +65,13 @@ class ConvertTest {
     }
 
     @Test
+    void instantToDate() {
+        var instant = Instant.parse("2007-03-25T10:15:30.00Z");
+        var date = Date.from(instant);
+        assertThat(date.toString()).isEqualTo("Sun Mar 25 18:15:30 PST 2007");
+    }
+
+    @Test
     void yearMonthToInstant() {
         var yearMonth = YearMonth.parse("2007-03");
         var instant = yearMonth.atEndOfMonth().atStartOfDay().toInstant(ZoneOffset.UTC);
