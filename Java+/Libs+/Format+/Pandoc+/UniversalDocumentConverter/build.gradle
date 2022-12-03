@@ -1,0 +1,3 @@
+dependencies {
+    implementation "org.bitbucket.leito:universal-document-converter:1.1.0"
+}

@@ -8,9 +8,8 @@ import org.hibernate.cfg.Configuration;
  * Конфигурирование Hibernate в java-коде.
  */
 public class JavaConfig extends AbstractConfig {
-
     protected Configuration getConfiguration() {
-        Configuration configuration = new Configuration();
+        var configuration = new Configuration();
         configuration.setProperty("hibernate.connection.driver_class", "org.sqlite.JDBC");
         configuration.setProperty("hibernate.connection.url", "jdbc:sqlite:/tmp/test.sqlite");
         configuration.setProperty("hibernate.connection.username", "");

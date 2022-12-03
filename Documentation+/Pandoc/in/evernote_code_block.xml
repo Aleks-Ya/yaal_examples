@@ -1,0 +1,57 @@
+<en-note>
+	<div>Git&nbsp;(latest version)</div>
+	<div STYLE="--en-codeblock:true;box-sizing: border-box; padding: 8px; font-family: Monaco, Menlo, Consolas, &quot;Courier New&quot;, monospace; font-size: 12px; color: rgb(51, 51, 51); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; background-color: rgb(251, 250, 248); border: 1px solid rgba(0, 0, 0, 0.14902); background-position: initial initial; background-repeat: initial initial;">
+		<div>sudo apt-add-repository -y ppa:git-core/ppa; sudo apt-get update; sudo apt-get install -y git</div>
+	</div>
+	<div>
+		<br/>
+	</div>
+	<div>Tune Git after install:</div>
+	<div STYLE="--en-codeblock:true;box-sizing: border-box; padding: 8px; font-family: Monaco, Menlo, Consolas, &quot;Courier New&quot;, monospace; font-size: 12px; color: rgb(51, 51, 51); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; background-color: rgb(251, 250, 248); border: 1px solid rgba(0, 0, 0, 0.14902); background-position: initial initial; background-repeat: initial initial;">
+		<div>git config --global user.name &quot;Aleksey Yablokov&quot;</div>
+		<div>git config --global user.email ya_al@bk.ru</div>
+		<div>git config --global alias.ch checkout</div>
+		<div>git config --global alias.br branch</div>
+		<div>git config --global alias.st status</div>
+	</div>
+	<div>
+		<br/>
+	</div>
+	<div>Show all settings: </div>
+	<div STYLE="--en-codeblock:true;box-sizing: border-box; padding: 8px; font-family: Monaco, Menlo, Consolas, &quot;Courier New&quot;, monospace; font-size: 12px; color: rgb(51, 51, 51); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; background-color: rgb(251, 250, 248); border: 1px solid rgba(0, 0, 0, 0.14902); background-position: initial initial; background-repeat: initial initial;">
+		<div>git config --global --list</div>
+	</div>
+	<div>
+		<br/>
+	</div>
+	<div>
+		<br/>
+	</div>
+	<hr/>
+	<div>Git&nbsp;Client</div>
+	<div> SmartGit</div>
+	<div>
+		<a TITLE="http://www.syntevo.com/" HREF="http://www.syntevo.com/" REV="en_rl_none" SHAPE="rect" TARGET="_blank">http://www.syntevo.com/</a>&nbsp;
+	</div>
+	<div> &Ucy;&scy;&tcy;&acy;&ncy;&ocy;&vcy;&kcy;&acy;:</div>
+	<ol>
+		<li>
+			<div>&Scy;&kcy;&acy;&chcy;&acy;&tcy;&softcy; &icy; &rcy;&acy;&scy;&pcy;&acy;&kcy;&ocy;&vcy;&acy;&tcy;&softcy; &acy;&rcy;&khcy;&icy;&vcy;</div>
+		</li>
+		<li>
+			<div>&Zcy;&acy;&pcy;&ucy;&scy;&tcy;&icy;&tcy;&softcy; bin/add-menuitem.sh</div>
+		</li>
+	</ol>
+	<div>&Scy;&ncy;&yacy;&tcy;&icy;&iecy; &ocy;&gcy;&rcy;&acy;&ncy;&icy;&chcy;&iecy;&ncy;&icy;&yacy; &ncy;&acy; &kcy;&ocy;&lcy;&icy;&chcy;&iecy;&scy;&tcy;&vcy;&ocy; &pcy;&rcy;&ocy;&scy;&mcy;&acy;&tcy;&rcy;&icy;&vcy;&acy;&iecy;&mcy;&ycy;&khcy; &fcy;&acy;&jcy;&lcy;&ocy;&vcy;:</div>
+	<ol>
+		<li>
+			<div>sudo gedit&nbsp; /etc/sysctl.conf</div>
+		</li>
+		<li>
+			<div>&Dcy;&ocy;&pcy;&icy;&scy;&acy;&tcy;&softcy; fs.inotify.max_user_watches = 102400</div>
+		</li>
+		<li>
+			<div>sudo /sbin/sysctl -p</div>
+		</li>
+	</ol>
+</en-note>

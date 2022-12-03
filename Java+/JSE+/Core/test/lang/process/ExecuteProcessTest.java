@@ -59,4 +59,19 @@ class ExecuteProcessTest {
         var actOutput = InputStreamUtil.inputStreamToString(is);
         assertThat(actOutput).isEqualTo(expOutput);
     }
+
+    @Test
+    void writeToStdIn_readStdOut() throws IOException, InterruptedException {
+        var process = new ProcessBuilder("tr", "a", "b")
+                .redirectInput(ProcessBuilder.Redirect.PIPE)
+                .start();
+        try (var stdIn = process.outputWriter()) {
+            stdIn.append("aaa");
+        }
+        assertThat(process.waitFor()).isEqualTo(SUCCESS_EXIT_CODE);
+
+        var stdOut = process.getInputStream();
+        var actOutput = InputStreamUtil.inputStreamToString(stdOut);
+        assertThat(actOutput).isEqualTo("bbb");
+    }
 }
