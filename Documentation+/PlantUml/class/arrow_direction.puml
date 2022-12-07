@@ -1,0 +1,49 @@
+@startuml
+title Horizontally oriented arrow
+class Person
+class City
+Person -> City
+
+newpage
+title Vertically oriented arrow
+class Person
+class City
+Person --> City
+
+newpage
+title Keywords
+class City
+class Person1
+class Person2
+class Person3
+class Person4
+City -up-> Person1
+City -right-> Person2
+City -left-> Person3
+City -down-> Person4
+
+newpage
+title Keywords (shortcuts)
+class City
+class Person1
+class Person2
+class Person3
+class Person4
+City -u-> Person1
+City -r-> Person2
+City -l-> Person3
+City -d-> Person4
+
+newpage
+title "top to bottom" parameter (default)
+class Person
+class City
+Person --> City
+
+newpage
+title "left to right direction" parameter
+left to right direction
+class Person
+class City
+Person --> City
+@enduml
