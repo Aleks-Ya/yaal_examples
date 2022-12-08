@@ -1,4 +1,4 @@
-# Craete pod 
+# Create pod
 
 ## Create a Nginx pod from file
 1. Create: `kubectl create -f nginx.yaml`

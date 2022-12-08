@@ -49,6 +49,7 @@ Docs: [kubectl Command Reference](https://kubernetes.io/docs/reference/generated
 - List pod Volumes: `kubectl get pod my_pod --template={{.spec.volumes}}`
 - Create pod from YAML: `kubectl create -f nginx.yaml`
 - Connect to Pod with Bash: `kubectl exec -it mypod -- sh`
+- Connect to specific container of a Pod with Bash: `kubectl exec -it mypod -c mycontainer -- sh`
 
 ## ForwardPort
 - Forward pod (found by deployment) port 88 to localhost:8088 : `kubectl port-forward deployment/my-deployment 8088:80`
