@@ -20,3 +20,5 @@ Not verbose (hide progress indicator):
 ```
 wget -nv http://10.3.50.157:8080/emiss-etl-dag.zip
 ```
+Send POST request:
+`wget --post-data '{"tenantId":"249355261054976","needValidation":false}' http://localhost:80/jwt-validation/validate`
