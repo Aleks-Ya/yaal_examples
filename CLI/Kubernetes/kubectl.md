@@ -50,6 +50,9 @@ Docs: [kubectl Command Reference](https://kubernetes.io/docs/reference/generated
 - Create pod from YAML: `kubectl create -f nginx.yaml`
 - Connect to Pod with Bash: `kubectl exec -it mypod -- sh`
 - Connect to specific container of a Pod with Bash: `kubectl exec -it mypod -c mycontainer -- sh`
+- Get pod name by prefix:
+	+ `kubectl get pod -l app=rm-spark-job-service -o name` -> `pod/rm-spark-job-service-86d9487485-cxsmv` + line break
+	+ `kubectl get pod -l app=rm-spark-job-service -o jsonpath="{.items[0].metadata.name}"` -> `rm-spark-job-service-86d9487485-cxsmvaleksei`
 
 ## ForwardPort
 - Forward pod (found by deployment) port 88 to localhost:8088 : `kubectl port-forward deployment/my-deployment 8088:80`
@@ -100,6 +103,7 @@ Docs: [kubectl Command Reference](https://kubernetes.io/docs/reference/generated
 
 ## Other
 - Show help: `kubectl -h`
+- Show help about specific command: `kubectl exec --help`
 
 ## CronJob
 - List all CronJobs: `kubectl get cronjob`
@@ -112,4 +116,4 @@ Docs: [kubectl Command Reference](https://kubernetes.io/docs/reference/generated
 - Describe ServiceAccount: `kubectl describe sa my-service-account`
 
 ## Delete objects
-Delete objects from several files: `kubectl delete -f pod.yaml -f sealed-secret.yaml`
+- Delete objects from several files: `kubectl delete -f pod.yaml -f sealed-secret.yaml`

@@ -9,23 +9,22 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class WebClientTest {
+class WebClientTest {
 
     @Test
     void get() throws IOException {
-        var server = new MockWebServer();
-        var expBody = "abc";
-        server.enqueue(new MockResponse().setBody(expBody));
-        server.start();
+        try (var server = new MockWebServer()) {
+            var expBody = "abc";
+            server.enqueue(new MockResponse().setBody(expBody));
+            server.start();
 
-        var uri = server.url("/").uri();
+            var uri = server.url("/").uri();
 
-        var client = WebClient.create();
+            var client = WebClient.create();
 
-        var mono = client.get().uri(uri).retrieve();
-        var actBody = mono.bodyToMono(String.class).block();
-        assertThat(actBody).isEqualTo(expBody);
-
-        server.shutdown();
+            var mono = client.get().uri(uri).retrieve();
+            var actBody = mono.bodyToMono(String.class).block();
+            assertThat(actBody).isEqualTo(expBody);
+        }
     }
 }

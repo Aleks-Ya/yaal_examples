@@ -11,22 +11,21 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ErrorCodeTest {
+class ErrorCodeTest {
 
     @Test
     void error() throws IOException {
-        var server = new MockWebServer();
-        server.enqueue(new MockResponse().setResponseCode(418));
-        server.start();
+        try (var server = new MockWebServer()) {
+            server.enqueue(new MockResponse().setResponseCode(418));
+            server.start();
 
-        var client = WebClient.create();
+            var client = WebClient.create();
 
-        var uri = server.url("/").uri();
-        var mono = client.get().uri(uri).retrieve();
-        var e = assertThrows(WebClientResponseException.class,
-                () -> mono.bodyToMono(String.class).block());
-        assertThat(e.getMessage()).startsWith("418 I'm a teapot from GET");
-
-        server.shutdown();
+            var uri = server.url("/").uri();
+            var mono = client.get().uri(uri).retrieve();
+            var e = assertThrows(WebClientResponseException.class,
+                    () -> mono.bodyToMono(String.class).block());
+            assertThat(e.getMessage()).startsWith("418 I'm a teapot from GET");
+        }
     }
 }
