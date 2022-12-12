@@ -1,4 +1,4 @@
-package controller.message.converter;
+package controller.request.body;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;

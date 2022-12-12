@@ -14,9 +14,9 @@ import java.net.URL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = TestPropertySourceTest.class)
+@ContextConfiguration(classes = TestPropertySourceArrayTest.class)
 @TestPropertySource(properties = {"person=John", "url=http://site.com:7777", "price=2.5", "costs=10.55"})
-class TestPropertySourceTest {
+class TestPropertySourceArrayTest {
 
     @Value("${person}")
     private String person;

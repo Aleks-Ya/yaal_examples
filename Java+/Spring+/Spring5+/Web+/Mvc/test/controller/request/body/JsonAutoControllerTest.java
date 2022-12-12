@@ -1,4 +1,4 @@
-package controller.message.converter;
+package controller.request.body;
 
 import common.BaseTest;
 import org.junit.jupiter.api.Test;

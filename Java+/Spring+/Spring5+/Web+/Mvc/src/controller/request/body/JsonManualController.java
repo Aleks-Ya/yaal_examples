@@ -1,4 +1,4 @@
-package controller.message.converter;
+package controller.request.body;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
