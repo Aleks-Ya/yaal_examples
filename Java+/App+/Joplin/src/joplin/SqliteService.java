@@ -9,7 +9,7 @@ import java.util.List;
 import static java.lang.String.format;
 import static joplin.MarkupLanguage.MD;
 
-class SqliteService implements AutoCloseable {
+public class SqliteService implements AutoCloseable {
     private static final String NOTES_TABLE = "notes";
     private static final String ID_COLUMN = "id";
     private static final String TITLE_COLUMN = "title";
@@ -19,11 +19,11 @@ class SqliteService implements AutoCloseable {
     private static final String UPDATED_TIME_COLUMN = "updated_time";
     private final Connection connection;
 
-    SqliteService(String sqliteDbFile) throws SQLException {
+    public SqliteService(String sqliteDbFile) throws SQLException {
         connection = DriverManager.getConnection("jdbc:sqlite:" + sqliteDbFile);
     }
 
-    List<NoteEntity> fetchNotes(String notebookId, MarkupLanguage markupLanguage) throws SQLException {
+    public List<NoteEntity> fetchNotes(String notebookId, MarkupLanguage markupLanguage) throws SQLException {
         var query = format("SELECT %s, %s, %s, %s, %s FROM %s WHERE %s='%s' AND %s=%d",
                 ID_COLUMN, TITLE_COLUMN, BODY_COLUMN, MARKUP_LANGUAGE_COLUMN, UPDATED_TIME_COLUMN, NOTES_TABLE,
                 NOTEBOOK_COLUMN, notebookId, MARKUP_LANGUAGE_COLUMN, markupLanguage.getCode());
@@ -43,7 +43,7 @@ class SqliteService implements AutoCloseable {
         }
     }
 
-    void updateNote(NoteEntity noteEntity) throws SQLException {
+    public void updateNote(NoteEntity noteEntity) throws SQLException {
         var body = noteEntity.body().replaceAll("'", "''");
         try (var statement = connection.createStatement()) {
             var updateQuery = format("UPDATE %s SET %s='%s', %s=%d, %s=%d WHERE %s='%s'", NOTES_TABLE, BODY_COLUMN,

@@ -1,4 +1,4 @@
-package joplin;
+package joplin.html_to_markdown;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,5 +1,8 @@
-package joplin;
+package joplin.html_to_markdown;
 
+import joplin.MarkupLanguage;
+import joplin.NoteEntity;
+import joplin.SqliteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

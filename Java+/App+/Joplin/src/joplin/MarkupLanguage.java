@@ -2,7 +2,7 @@ package joplin;
 
 import java.util.Objects;
 
-enum MarkupLanguage {
+public enum MarkupLanguage {
     HTML(2), MD(1);
     private final Integer code;
 

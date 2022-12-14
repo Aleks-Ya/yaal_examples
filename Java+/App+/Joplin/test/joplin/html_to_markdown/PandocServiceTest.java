@@ -1,4 +1,4 @@
-package joplin;
+package joplin.html_to_markdown;
 
 import org.junit.jupiter.api.Test;
 
