@@ -7,14 +7,20 @@ import org.hibernate.service.ServiceRegistry;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static java.util.function.Function.identity;
 
 public class JpaHelper {
 
-    private static SessionFactory initEntityManagerFactory(List<Class<?>> entityClasses, String url) {
+    private static SessionFactory initEntityManagerFactory(List<Class<?>> entityClasses, String url,
+                                                           Function<Configuration, Configuration> configurationFunction) {
         var configuration = new Configuration()
                 .setProperty("hibernate.connection.driver_class", "org.h2.Driver")
                 .setProperty("hibernate.connection.url", url)
@@ -25,6 +31,7 @@ public class JpaHelper {
                 .setProperty("hibernate.hbm2ddl.auto", "create")
                 .setProperty("hibernate.connection.autocommit", "false");
         entityClasses.forEach(configuration::addAnnotatedClass);
+        configuration = configurationFunction.apply(configuration);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties()).build();
         return configuration.buildSessionFactory(serviceRegistry);
@@ -38,15 +45,17 @@ public class JpaHelper {
     }
 
     public static void withEntityManagerFactory(Consumer<EntityManagerFactory> withEntityManagerFactory,
-                                                List<Class<?>> entityClasses) {
+                                                List<Class<?>> entityClasses,
+                                                Function<Configuration, Configuration> configurationFunction) {
         try (var h2Server = H2Server.newServer();
-             var emFactory = initEntityManagerFactory(entityClasses, h2Server.newDatabaseUrl())) {
+             var emFactory = initEntityManagerFactory(entityClasses, h2Server.newDatabaseUrl(), configurationFunction)) {
             withEntityManagerFactory.accept(emFactory);
         }
     }
 
     public static void withEntityManager(Consumer<EntityManager> withEntityManager, List<Class<?>> entityClasses) {
-        withEntityManagerFactory((emFactory) -> withEntityManager.accept(emFactory.createEntityManager()), entityClasses);
+        withEntityManagerFactory((emFactory) -> withEntityManager.accept(emFactory.createEntityManager()),
+                entityClasses, identity());
     }
 
     public static void withEntityManagerAndSavedEntities(Consumer<EntityManager> withEntityManager, List<?> entities) {
@@ -56,5 +65,17 @@ public class JpaHelper {
             saveEntities(em, entities);
             withEntityManager.accept(em);
         }, entityClasses);
+    }
+
+    public static Integer h2RowCount(EntityManagerFactory emFactory, String tableName) {
+        var h2Url = emFactory.getProperties().get("hibernate.connection.url").toString();
+        try (var connection = DriverManager.getConnection(h2Url);
+             var statement = connection.createStatement()) {
+            var resultSet = statement.executeQuery("SELECT count(*) FROM " + tableName);
+            resultSet.next();
+            return resultSet.getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

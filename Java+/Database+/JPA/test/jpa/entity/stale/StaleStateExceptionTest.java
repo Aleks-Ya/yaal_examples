@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import javax.persistence.OptimisticLockException;
 import java.util.List;
 
+import static java.util.function.Function.identity;
 import static jpa.JpaHelper.withEntityManagerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -37,7 +38,7 @@ class StaleStateExceptionTest {
                     .hasMessage("No row with the given identifier exists: [jpa.entity.stale.Person#1]");
             em2.clear();
             assertThat(em2.find(Person.class, expPerson.getId())).isNull();
-        }), List.of(Person.class));
+        }), List.of(Person.class), identity());
     }
 
     @Test
@@ -70,6 +71,6 @@ class StaleStateExceptionTest {
                     .isInstanceOf(StaleStateException.class)
                     .hasMessage(expMessage);
             em2.getTransaction().commit();
-        }), List.of(Person.class));
+        }), List.of(Person.class), identity());
     }
 }

@@ -7,6 +7,7 @@ import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.ManagedType;
 import java.util.List;
 
+import static java.util.function.Function.identity;
 import static javax.persistence.metamodel.Type.PersistenceType.EMBEDDABLE;
 import static javax.persistence.metamodel.Type.PersistenceType.ENTITY;
 import static javax.persistence.metamodel.Type.PersistenceType.MAPPED_SUPERCLASS;
@@ -48,6 +49,6 @@ class MetamodelTest {
             var managedType = metamodel.managedType(RegionEntity.class);
             assertThat(managedType.getJavaType()).isEqualTo(RegionEntity.class);
             assertThat(managedType.getPersistenceType()).isEqualTo(ENTITY);
-        }, List.of(CityEntity.class, RegionEntity.class));
+        }, List.of(CityEntity.class, RegionEntity.class), identity());
     }
 }
