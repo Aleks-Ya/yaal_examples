@@ -3,6 +3,9 @@ package joplin.html_to_markdown;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Convert Joplin HTML notes to Joplin MarkDown notes using Pandoc.
+ */
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
 

@@ -29,8 +29,7 @@ class HtmlToMdConverter {
                     mdBody = htmlNote.body();
                     notUpdatedBodyCounter += 1;
                 }
-                var updatedTime = htmlNote.updatedTime() + 1;
-                var mdNote = new NoteEntity(htmlNote.id(), htmlNote.title(), mdBody, MarkupLanguage.MD, updatedTime);
+                var mdNote = new NoteEntity(htmlNote.id(), htmlNote.title(), mdBody, MarkupLanguage.MD, htmlNote.updatedTime());
                 databaseService.updateNote(mdNote);
                 log.info("Note updated: {} \"{}\"", htmlNote.id(), htmlNote.title());
             }

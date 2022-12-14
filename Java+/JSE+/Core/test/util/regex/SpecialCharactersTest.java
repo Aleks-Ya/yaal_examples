@@ -53,4 +53,9 @@ class SpecialCharactersTest {
         Pattern.compile(quoted);// additional check that queted reqex can be compiled
         assertThat(text.replaceAll(quoted, "def")).isEqualTo("abc def ghi");
     }
+
+    @Test
+    void backslash() {
+        assertThat(Pattern.matches("^[-\\w\\\\]*$", "a-\\bcd\\")).isTrue();
+    }
 }
