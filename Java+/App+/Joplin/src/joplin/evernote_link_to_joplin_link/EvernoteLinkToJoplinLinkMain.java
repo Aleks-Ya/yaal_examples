@@ -1,5 +1,7 @@
 package joplin.evernote_link_to_joplin_link;
 
+import joplin.LinkParser;
+import joplin.LinkType;
 import joplin.SqliteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,20 +15,21 @@ import java.util.Optional;
  * -> "[Link 1](:/f62e68ee907f4a9d8a87a1391c8ea3f3)"
  * Searches Joplin notes by link title ("Link 1").
  */
-public class Main {
-    private static final Logger log = LoggerFactory.getLogger(Main.class);
+public class EvernoteLinkToJoplinLinkMain {
+    private static final Logger log = LoggerFactory.getLogger(EvernoteLinkToJoplinLinkMain.class);
 
     public static void main(String[] args) {
         log.info("Started");
         var sqliteDbFile = "/home/aleks/.config/joplin-desktop/database.sqlite";
         try (var sqliteService = new SqliteService(sqliteDbFile)) {
-            var linkParser = new EvernoteLinkParser();
+            var linkParser = new LinkParser();
             var joplinLinkCreator = new JoplinLinkCreator();
             var noteUpdater = new NoteUpdater(sqliteService);
             var allNotes = sqliteService.fetchAllNotes();
             var evernoteLinks = allNotes.stream()
                     .map(linkParser::parseLinks)
                     .flatMap(Collection::stream)
+                    .filter(link -> link.type() == LinkType.EVERNOTE)
                     .toList();
             log.info("EvernoteLink number: {}", evernoteLinks.size());
             var joplinLinks = evernoteLinks.stream()

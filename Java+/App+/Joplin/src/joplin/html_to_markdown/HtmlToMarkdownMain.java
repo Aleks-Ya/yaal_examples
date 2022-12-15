@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Convert Joplin HTML notes to Joplin MarkDown notes using Pandoc.
  */
-public class Main {
-    private static final Logger log = LoggerFactory.getLogger(Main.class);
+public class HtmlToMarkdownMain {
+    private static final Logger log = LoggerFactory.getLogger(HtmlToMarkdownMain.class);
 
     public static void main(String[] args) throws Exception {
         log.info("Started");

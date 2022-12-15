@@ -55,11 +55,12 @@ public class SqliteService implements AutoCloseable {
     }
 
     public void updateNote(NoteEntity note) {
+        var title = note.title().replaceAll("'", "''");
         var body = note.body().replaceAll("'", "''");
         var updatedTime = note.updatedTime() + 1;
         try (var statement = connection.createStatement()) {
             var updateQuery = format("UPDATE %s SET %s='%s', %s='%s', %s=%d, %s=%d WHERE %s='%s'", NOTES_TABLE,
-                    TITLE_COLUMN, note.title(),
+                    TITLE_COLUMN, title,
                     BODY_COLUMN, body,
                     MARKUP_LANGUAGE_COLUMN, note.markupLanguage().getCode(),
                     UPDATED_TIME_COLUMN, updatedTime,

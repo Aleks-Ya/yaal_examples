@@ -1,4 +1,4 @@
-package joplin.search_and_replace;
+package joplin.search_and_replace_body;
 
 import joplin.NoteEntity;
 import joplin.SqliteService;
@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Find and replace in Joplin note body.
  */
-public class Main {
-    private static final Logger log = LoggerFactory.getLogger(Main.class);
+public class SearchAndReplaceBodyMain {
+    private static final Logger log = LoggerFactory.getLogger(SearchAndReplaceBodyMain.class);
 
     public static void main(String[] args) {
         log.info("Started");

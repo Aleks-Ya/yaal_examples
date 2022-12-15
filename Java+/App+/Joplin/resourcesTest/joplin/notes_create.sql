@@ -64,6 +64,9 @@ sftp в командной строке
 scp
 
 * * *
+[Joplin link    1   ](:/db65929324925ccbfa789f95cdd293ba)
+
+[Русская ссылка 1](:/ddc9f19456f64ade383ecdd76cf5b90d)
 
 Windows:[](https://winscp.net)
 

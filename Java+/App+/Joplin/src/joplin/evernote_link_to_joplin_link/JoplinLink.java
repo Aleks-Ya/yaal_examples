@@ -1,4 +1,6 @@
 package joplin.evernote_link_to_joplin_link;
 
-record JoplinLink(EvernoteLink evernoteLink, String matchedTextReplacement) {
+import joplin.Link;
+
+record JoplinLink(Link evernoteLink, String matchedTextReplacement) {
 }

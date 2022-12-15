@@ -1,9 +1,6 @@
 # rar CLI
 
-Install:
-```
-sudo apt install -y rur unrar
-```
+Install: `sudo apt install -y rur unrar`
 
 Unpack all RAR files in current directory:
 ```

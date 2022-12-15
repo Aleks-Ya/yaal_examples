@@ -1,9 +1,9 @@
 package joplin.evernote_link_to_joplin_link;
 
+import joplin.LinkParser;
 import joplin.SqliteService;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.Optional;
 
 import static joplin.SqliteUtils.populateDatabase;
@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class JoplinLinkCreatorTest {
 
     @Test
-    void createJoplinLink() throws SQLException {
+    void createJoplinLink() {
         var dbFile = populateDatabase();
         try (var sqliteService = new SqliteService(dbFile)) {
-            var wrapper = new EvernoteLinkParser();
+            var wrapper = new LinkParser();
             var joplinLinkCreator = new JoplinLinkCreator();
             var allNotes = sqliteService.fetchAllNotes();
             var note = sqliteService.fetchNoteById("a2d7d7efe84a47bf8ffde18121477efd").orElseThrow();

@@ -10,7 +10,7 @@ class SqliteServiceTest {
     private static final String NOTEBOOK_ID = "4b2503c75de64099b68262878dc240b8";
 
     @Test
-    void fetchNotes() throws Exception {
+    void fetchNotes() {
         var dbFile = populateDatabase();
         try (var sqliteService = new SqliteService(dbFile)) {
             var notes = sqliteService.fetchNotes(NOTEBOOK_ID, HTML);
@@ -23,7 +23,7 @@ class SqliteServiceTest {
     }
 
     @Test
-    void fetchAllNotes() throws Exception {
+    void fetchAllNotes() {
         var dbFile = populateDatabase();
         try (var sqliteService = new SqliteService(dbFile)) {
             var notes = sqliteService.fetchAllNotes();
@@ -38,22 +38,16 @@ class SqliteServiceTest {
     }
 
     @Test
-    void fetchNoteById() throws Exception {
+    void fetchNoteById() {
         var dbFile = populateDatabase();
         try (var sqliteService = new SqliteService(dbFile)) {
             var noteOpt = sqliteService.fetchNoteById("6ded77a0daca4ff3828a9241dd0ae0ed");
-            assertThat(noteOpt).hasValue(new NoteEntity(
-                    "6ded77a0daca4ff3828a9241dd0ae0ed",
-                    "2016-09-26 email",
-                    "<en-note><div> <p STYLE=\"margin-bottom: 0in; line-height: 100%\">Hello John,</p> <p STYLE=\"margin-bottom: 0in; line-height: 100%\"><br CLEAR=\"none\"/> </p> <p STYLE=\"margin-bottom: 0in; line-height: 100%\">Bye John</p> <p STYLE=\"margin-bottom: 0in; line-height: 100%\">Paragraph #2</p> <p STYLE=\"margin-bottom: 0in; line-height: 100%\"> Another paragraph </p> <br CLEAR=\"none\"/></div></en-note>",
-                    HTML,
-                    1669478641200L
-            ));
+            assertThat(noteOpt).hasValue(new NoteEntity("6ded77a0daca4ff3828a9241dd0ae0ed", "2016-09-26 email", "<en-note><div> <p STYLE=\"margin-bottom: 0in; line-height: 100%\">Hello John,</p> <p STYLE=\"margin-bottom: 0in; line-height: 100%\"><br CLEAR=\"none\"/> </p> <p STYLE=\"margin-bottom: 0in; line-height: 100%\">Bye John</p> <p STYLE=\"margin-bottom: 0in; line-height: 100%\">Paragraph #2</p> <p STYLE=\"margin-bottom: 0in; line-height: 100%\"> Another paragraph </p> <br CLEAR=\"none\"/></div></en-note>", HTML, 1669478641200L));
         }
     }
 
     @Test
-    void updateNote() throws Exception {
+    void updateNote() {
         var dbFile = populateDatabase();
         try (var sqliteService = new SqliteService(dbFile)) {
             var id = "e6900575a9724851bdd8b02d2411967d";
