@@ -1,0 +1,5 @@
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+dependencies {
+    implementation 'org.eclipse.persistence:eclipselink:2.7.5', h2Dep
+}
