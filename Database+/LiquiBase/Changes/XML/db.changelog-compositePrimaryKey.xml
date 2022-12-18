@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!-- Create composite primary key during table creation -->
+    <changeSet id="1" author="bob">
+        <createTable tableName="person">
+            <column name="first_name" type="VARCHAR(50)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="person_pk"/>
+            </column>
+            <column name="second_name" type="VARCHAR(50)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="person_pk"/>
+            </column>
+            <column name="age" type="BIGINT"/>
+        </createTable>
+        <insert tableName="person">
+            <column name="first_name" type="VARCHAR(50)" value="John"/>
+            <column name="second_name" type="VARCHAR(50)" value="Smith"/>
+            <column name="age" type="BOOLEAN" value="30"/>
+        </insert>
+    </changeSet>
+
+    <!-- Create composite primary key in separated command -->
+    <changeSet id="2" author="bob">
+        <createTable tableName="person2">
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="second_name" type="VARCHAR(50)"/>
+            <column name="age" type="BIGINT"/>
+        </createTable>
+        <addPrimaryKey tableName="person2" columnNames="first_name,second_name" constraintName="person2_pk"/>
+        <insert tableName="person2">
+            <column name="first_name" type="VARCHAR(50)" value="Gary"/>
+            <column name="second_name" type="VARCHAR(50)" value="Johnson"/>
+            <column name="age" type="BOOLEAN" value="35"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

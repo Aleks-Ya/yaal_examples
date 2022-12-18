@@ -8,4 +8,6 @@
   <include file="db.changelog-createTable.xml"/>
   <include file="db.changelog-insert.xml"/>
   <include file="db.changelog-renameTable.xml"/>
+  <include file="db.changelog-compositePrimaryKey.xml"/>
+
 </databaseChangeLog>
