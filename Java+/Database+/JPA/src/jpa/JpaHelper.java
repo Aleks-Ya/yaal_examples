@@ -10,7 +10,9 @@ import javax.persistence.EntityManagerFactory;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -58,6 +60,12 @@ public class JpaHelper {
                 entityClasses, identity());
     }
 
+    public static void withEntityManager(Consumer<EntityManager> withEntityManager, List<Class<?>> entityClasses,
+                                         Function<Configuration, Configuration> configurationFunction) {
+        withEntityManagerFactory((emFactory) -> withEntityManager.accept(emFactory.createEntityManager()),
+                entityClasses, configurationFunction);
+    }
+
     public static void withEntityManagerAndSavedEntities(Consumer<EntityManager> withEntityManager, List<?> entities) {
         var entityClasses = entities.stream().map(Object::getClass).distinct()
                 .collect(Collectors.toCollection(() -> new ArrayList<Class<?>>()));
@@ -77,5 +85,35 @@ public class JpaHelper {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Map<String, Column> getColumnMetaData(EntityManagerFactory emFactory, String tableName) {
+        var h2Url = emFactory.getProperties().get("hibernate.connection.url").toString();
+        try (var connection = DriverManager.getConnection(h2Url)) {
+            var metadata = connection.getMetaData();
+            try (var columnsRs = metadata.getColumns(null, null, tableName.toUpperCase(), null)) {
+                var result = new HashMap<String, Column>();
+                while (columnsRs.next()) {
+                    var columnName = columnsRs.getString("COLUMN_NAME");
+                    result.put(columnName, new Column(
+                            columnsRs.getString("TABLE_CAT"),
+                            columnsRs.getString("TABLE_SCHEM"),
+                            columnsRs.getString("TABLE_NAME"),
+                            columnName,
+                            columnsRs.getInt("DATA_TYPE"),
+                            columnsRs.getString("TYPE_NAME"),
+                            columnsRs.getInt("COLUMN_SIZE"),
+                            columnsRs.getInt("SQL_DATA_TYPE")
+                    ));
+                }
+                return result;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public record Column(String catalog, String schema, String tableName, String columnName, Integer dataType,
+                         String typeName, Integer columnSize, Integer sqlDataType) {
     }
 }
