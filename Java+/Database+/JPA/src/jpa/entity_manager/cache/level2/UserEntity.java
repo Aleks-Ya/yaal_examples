@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Cacheable
-public class UserEntity {
+class UserEntity {
 
     @Id
     private Long id;

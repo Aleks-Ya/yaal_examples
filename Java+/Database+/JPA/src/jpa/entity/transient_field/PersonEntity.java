@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class PersonEntity {
+class PersonEntity {
     static final List<Class<?>> events = new ArrayList<>();
     @Id
     private Long id;

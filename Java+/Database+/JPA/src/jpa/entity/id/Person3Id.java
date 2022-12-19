@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class Person3Id implements Serializable {
+class Person3Id implements Serializable {
     private String firstName;
 
     private String secondName;

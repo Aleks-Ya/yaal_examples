@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @EntityListeners(EventListener.class)
-public class Person2 {
+class Person2 {
     @Id
     private Long id;
 

@@ -3,7 +3,7 @@ package jpa.entity.id;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Person2Id implements Serializable {
+class Person2Id implements Serializable {
     private String firstName;
 
     private String secondName;

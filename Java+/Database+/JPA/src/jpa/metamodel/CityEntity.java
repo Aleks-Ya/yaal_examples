@@ -6,7 +6,7 @@ import javax.persistence.ManyToOne;
 import java.util.Objects;
 
 @Entity
-public class CityEntity extends BaseEntity {
+class CityEntity extends BaseEntity {
     private Long population;
     @ManyToOne
     private RegionEntity region;

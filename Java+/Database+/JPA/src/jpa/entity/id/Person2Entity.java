@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @IdClass(Person2Id.class)
-public class Person2Entity {
+class Person2Entity {
     @Id
     private String firstName;
     @Id

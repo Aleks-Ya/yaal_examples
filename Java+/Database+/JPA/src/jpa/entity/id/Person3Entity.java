@@ -6,7 +6,7 @@ import javax.persistence.IdClass;
 import java.util.Objects;
 
 @Entity
-public class Person3Entity {
+class Person3Entity {
     @Id
     private Person3Id id;
 

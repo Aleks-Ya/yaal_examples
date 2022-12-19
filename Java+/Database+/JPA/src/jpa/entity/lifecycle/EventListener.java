@@ -10,7 +10,7 @@ import javax.persistence.PreUpdate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventListener {
+class EventListener {
     public static final List<String> events = new ArrayList<>();
 
     @PrePersist

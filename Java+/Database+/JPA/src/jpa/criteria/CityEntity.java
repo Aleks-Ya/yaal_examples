@@ -6,7 +6,7 @@ import javax.persistence.ManyToOne;
 import java.util.Objects;
 
 @Entity
-public class CityEntity {
+class CityEntity {
     @Id
     private Long id;
     private String name;

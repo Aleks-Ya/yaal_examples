@@ -4,7 +4,7 @@ import javax.persistence.Embeddable;
 import java.util.Objects;
 
 @Embeddable
-public class Mayor {
+class Mayor {
     private Long mayorId;
     private String mayorName;
 

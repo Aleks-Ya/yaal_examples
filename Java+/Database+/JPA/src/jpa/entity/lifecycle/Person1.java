@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Person1 {
+class Person1 {
     @Transient
     public final List<Class<?>> events = new ArrayList<>();
     @Id

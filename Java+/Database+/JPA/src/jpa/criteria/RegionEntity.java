@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-public class RegionEntity {
+class RegionEntity {
     @Id
     private Long id;
     private String name;

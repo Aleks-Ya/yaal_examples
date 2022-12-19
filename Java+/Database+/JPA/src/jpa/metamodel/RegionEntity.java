@@ -3,7 +3,7 @@ package jpa.metamodel;
 import javax.persistence.Entity;
 
 @Entity
-public class RegionEntity extends BaseEntity {
+class RegionEntity extends BaseEntity {
 
     public RegionEntity() {
     }
