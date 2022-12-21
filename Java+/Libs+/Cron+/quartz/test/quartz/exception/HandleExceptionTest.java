@@ -37,8 +37,8 @@ class HandleExceptionTest {
         scheduler.shutdown(true);
         assertThat(jobListener.jobWasExecuted).hasSize(1);
         var tuple = jobListener.jobWasExecuted.get(0);
-        var jobExecutionContext = tuple.left();
-        var exception = tuple.right();
+        var jobExecutionContext = tuple.getLeft();
+        var exception = tuple.getRight();
         assertThat(jobExecutionContext.getJobDetail()).isEqualTo(jobDetail);
         assertThat(exception).isEqualTo(WaitJob.e2);
 

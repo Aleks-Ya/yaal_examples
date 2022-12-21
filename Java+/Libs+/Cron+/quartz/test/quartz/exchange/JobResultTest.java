@@ -34,7 +34,7 @@ class JobResultTest {
         scheduler.scheduleJob(jobDetail, trigger);
 
         await().until(() -> !jobListener.jobWasExecuted.isEmpty());
-        assertThat(jobListener.jobWasExecuted.get(0).left().getResult()).isEqualTo(42);
+        assertThat(jobListener.jobWasExecuted.get(0).getLeft().getResult()).isEqualTo(42);
         scheduler.shutdown(true);
     }
 

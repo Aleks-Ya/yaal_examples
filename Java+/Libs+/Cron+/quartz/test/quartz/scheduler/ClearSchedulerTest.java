@@ -22,8 +22,8 @@ class ClearSchedulerTest {
     void clear() throws SchedulerException {
         var jobDetail1 = newJob(EmptyJob.class).build();
         var jobDetail2 = newJob(EmptyJob.class).build();
-        var trigger1 = newTrigger().startAt(Date.from(Instant.now().plusSeconds(5000))).build();
-        var trigger2 = newTrigger().startAt(Date.from(Instant.now().plusSeconds(3000))).build();
+        var trigger1 = newTrigger().startAt(Date.from(Instant.now().plusSeconds(5))).build();
+        var trigger2 = newTrigger().startAt(Date.from(Instant.now().plusSeconds(3))).build();
         var scheduler = StdSchedulerFactory.getDefaultScheduler();
 
         scheduler.start();
