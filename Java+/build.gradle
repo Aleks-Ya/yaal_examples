@@ -55,6 +55,7 @@ subprojects {
         mongoDbDriverDep = 'org.mongodb:mongodb-driver:3.12.10'
         hibernate5Version = '5.6.12.Final'
         hibernate5EntityManagerDep = "org.hibernate:hibernate-entitymanager:$hibernate5Version"
+        eclipseLink2Dep = 'org.eclipse.persistence:eclipselink:2.7.5'
         jsonAssertDep = 'org.skyscreamer:jsonassert:1.5.1'
         bouncyCustleDep = 'org.bouncycastle:bcpkix-jdk15on:1.68'
         testContainersVersion = '1.17.5'

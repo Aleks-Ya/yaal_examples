@@ -1,5 +1,5 @@
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 dependencies {
-    implementation eclipseLink2Dep, h2Dep
+    implementation springBootStarterDataJpaDep, h2Dep, eclipseLink2Dep
 }
