@@ -1,5 +1,6 @@
 package jpa.eclipselink.save;
 
+import jpa.eclipselink.JpaConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -10,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @EnableAutoConfiguration
-@ContextConfiguration(classes = {Person.class, PersonRepository.class})
+@ContextConfiguration(classes = {Person.class, PersonRepository.class, JpaConfig.class})
 class SaveTest {
     @Autowired
     private PersonRepository repo;

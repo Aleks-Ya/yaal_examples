@@ -1,5 +1,6 @@
 package jpa.eclipselink.test_config.spring_boot_test;
 
+import jpa.eclipselink.JpaConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -8,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(classes = Person.class)
+@SpringBootTest(classes = {Person.class, JpaConfig.class})
 @EnableJpaRepositories(basePackageClasses = PersonRepository.class)
 @EnableAutoConfiguration
 class SpringBootTestAnnotationTest {

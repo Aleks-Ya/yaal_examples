@@ -1,5 +1,6 @@
 package jpa.eclipselink.delete.native_query;
 
+import jpa.eclipselink.JpaConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -11,10 +12,11 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
 @EnableAutoConfiguration
-@ContextConfiguration(classes = Person.class)
+@ContextConfiguration(classes = {Person.class, JpaConfig.class})
 class DeleteByNativeQueryTest {
     private final Person person1 = new Person("John");
     private final Person person2 = new Person("Jim");
@@ -47,11 +49,8 @@ class DeleteByNativeQueryTest {
         var updatedRows = em.createNativeQuery("DELETE FROM Person p").executeUpdate();
         assertThat(updatedRows).isEqualTo(1);
 
-        try {
-            em.refresh(actPerson);
-        } catch (EntityNotFoundException ignored) {
-        }
-        assertThat(em.find(Person.class, person1.getId())).isNull();
+        assertThatThrownBy(() -> em.refresh(actPerson)).isInstanceOf(EntityNotFoundException.class);
+        assertThat(em.find(Person.class, person1.getId())).isEqualTo(person1);//TODO how to refresh?
     }
 
     @Test
@@ -93,7 +92,7 @@ class DeleteByNativeQueryTest {
     }
 
     private List<Person> findAllPersons() {
-        return em.createQuery("FROM Person", Person.class).getResultList();
+        return em.createNativeQuery("SELECT * FROM Person p", Person.class).getResultList();
     }
 
 }

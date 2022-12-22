@@ -1,5 +1,6 @@
 package jpa.eclipselink.inheritance.strategy.table_per_class;
 
+import jpa.eclipselink.JpaConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -13,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @DataJpaTest
 @EnableAutoConfiguration
-@ContextConfiguration(classes = {Airplane.class, Car.class, CarRepository.class, AirplaneRepository.class})
+@ContextConfiguration(classes = {Airplane.class, Car.class, CarRepository.class, AirplaneRepository.class, JpaConfig.class})
 class InheritanceTablePerClassTest {
     @Autowired
     private CarRepository carRepo;

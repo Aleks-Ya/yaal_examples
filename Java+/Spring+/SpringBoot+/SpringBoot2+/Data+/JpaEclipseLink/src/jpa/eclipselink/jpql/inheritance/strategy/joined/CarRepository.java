@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 interface CarRepository extends CrudRepository<Car, Long> {
-    @Query("FROM Car WHERE wheel = jpa.eclipselink.jpql.inheritance.strategy.joined.SteeringWheel.RIGHT AND available = true")
+    @Query("SELECT c FROM Car c WHERE c.wheel = jpa.eclipselink.jpql.inheritance.strategy.joined.SteeringWheel.RIGHT AND c.available = true")
     List<Car> findAvailableRightWheelCars();
 }

@@ -1,5 +1,6 @@
 package jpa.eclipselink.entity_manager;
 
+import jpa.eclipselink.JpaConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -19,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @DataJpaTest
 @EnableAutoConfiguration
-@ContextConfiguration(classes = InjectEntityManagerTest.PersonEM.class)
+@ContextConfiguration(classes = {InjectEntityManagerTest.PersonEM.class, JpaConfig.class})
 class InjectEntityManagerTest {
     @Autowired
     private EntityManager em;

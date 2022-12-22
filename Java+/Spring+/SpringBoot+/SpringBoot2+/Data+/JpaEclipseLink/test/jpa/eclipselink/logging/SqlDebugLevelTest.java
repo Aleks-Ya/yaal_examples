@@ -1,5 +1,6 @@
 package jpa.eclipselink.logging;
 
+import jpa.eclipselink.JpaConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -11,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @EnableAutoConfiguration
-@ContextConfiguration(classes = {Person.class, PersonRepository.class})
+@ContextConfiguration(classes = {Person.class, PersonRepository.class, JpaConfig.class})
 @TestPropertySource(properties = {
         "spring.jpa.properties.hibernate.show_sql=false", //default value in tests is true, hide for test
         "logging.level.org.hibernate.SQL=DEBUG"})

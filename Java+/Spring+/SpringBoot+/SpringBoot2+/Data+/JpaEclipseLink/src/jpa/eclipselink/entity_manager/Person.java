@@ -1,7 +1,5 @@
 package jpa.eclipselink.entity_manager;
 
-import org.hibernate.annotations.Where;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,7 +8,6 @@ import java.util.Objects;
 
 @Entity(name = "PersonWhere")
 @Table(name = "persons_where")
-@Where(clause = "age >= 18 AND alive = true")
 class Person {
     @Id
     @GeneratedValue

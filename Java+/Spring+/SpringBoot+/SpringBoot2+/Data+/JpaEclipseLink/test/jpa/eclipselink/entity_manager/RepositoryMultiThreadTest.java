@@ -1,5 +1,6 @@
 package jpa.eclipselink.entity_manager;
 
+import jpa.eclipselink.JpaConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -19,7 +20,7 @@ import static util.Tuple4.of;
  */
 @DataJpaTest
 @EnableAutoConfiguration
-@ContextConfiguration(classes = {Person.class, PersonRepository.class, PersonService.class})
+@ContextConfiguration(classes = {Person.class, PersonRepository.class, PersonService.class, JpaConfig.class})
 class RepositoryMultiThreadTest {
     @Autowired
     private PersonService service;
