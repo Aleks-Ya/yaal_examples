@@ -1,0 +1,70 @@
+package jpa.hibernate.entity_manager;
+
+import org.hibernate.annotations.Where;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.Objects;
+
+@Entity(name = "PersonWhere")
+@Table(name = "persons_where")
+@Where(clause = "age >= 18 AND alive = true")
+class Person {
+    @Id
+    @GeneratedValue
+    private Integer id;
+    private String name;
+    private Integer age;
+    private Boolean alive;
+
+    public Person() {
+    }
+
+    public Person(String name, Integer age, Boolean alive) {
+        this.name = name;
+        this.age = age;
+        this.alive = alive;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public Boolean getAlive() {
+        return alive;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(id, person.id) && Objects.equals(name, person.name) && Objects.equals(age, person.age)
+                && Objects.equals(alive, person.alive);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, age, alive);
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", alive=" + alive +
+                '}';
+    }
+}
