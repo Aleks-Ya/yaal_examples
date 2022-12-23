@@ -1,13 +1,12 @@
 package jpa.eclipselink.entity_manager;
 
-import jpa.eclipselink.JpaConfig;
+import jpa.eclipselink.BaseEclipseLinkTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.test.context.ContextConfiguration;
 
 import java.util.concurrent.Executors;
 
@@ -18,10 +17,9 @@ import static util.Tuple4.of;
 /**
  * Use {@link Service} and {@link Repository} from different threads.
  */
-@DataJpaTest
 @EnableAutoConfiguration
-@ContextConfiguration(classes = {Person.class, PersonRepository.class, PersonService.class, JpaConfig.class})
-class RepositoryMultiThreadTest {
+@Import(PersonService.class)
+class RepositoryMultiThreadTest extends BaseEclipseLinkTest {
     @Autowired
     private PersonService service;
 

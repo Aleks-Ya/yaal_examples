@@ -1,20 +1,16 @@
 package jpa.eclipselink.logging;
 
-import jpa.eclipselink.JpaConfig;
+import jpa.eclipselink.BaseEclipseLinkTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
 @EnableAutoConfiguration
-@ContextConfiguration(classes = {Person.class, PersonRepository.class, JpaConfig.class})
-@TestPropertySource(properties = "spring.jpa.properties.hibernate.show_sql=true")
-class ShowSqlTest {
+@TestPropertySource(properties = "spring.jpa.properties.hibernate.show_sql=true")//TODO replace Hibernate property with EclipseLink
+class ShowSqlTest extends BaseEclipseLinkTest {
     @Autowired
     private PersonRepository repo;
 

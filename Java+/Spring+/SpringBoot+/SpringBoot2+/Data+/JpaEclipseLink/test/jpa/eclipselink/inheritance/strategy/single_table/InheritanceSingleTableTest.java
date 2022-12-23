@@ -1,21 +1,17 @@
 package jpa.eclipselink.inheritance.strategy.single_table;
 
-import jpa.eclipselink.JpaConfig;
+import jpa.eclipselink.BaseEclipseLinkTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Use default {@link javax.persistence.Inheritance} strategy ({@link javax.persistence.InheritanceType#SINGLE_TABLE}).
  */
-@DataJpaTest
 @EnableAutoConfiguration
-@ContextConfiguration(classes = {Airplane.class, Car.class, CarRepository.class, AirplaneRepository.class, JpaConfig.class})
-class InheritanceSingleTableTest {
+class InheritanceSingleTableTest extends BaseEclipseLinkTest {
     @Autowired
     private CarRepository carRepo;
 

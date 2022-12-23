@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = {Person.class, JpaConfig.class})
+@DirtiesContext
 @EnableJpaRepositories(basePackageClasses = PersonRepository.class)
 @EnableAutoConfiguration
 class SpringBootTestAnnotationTest {

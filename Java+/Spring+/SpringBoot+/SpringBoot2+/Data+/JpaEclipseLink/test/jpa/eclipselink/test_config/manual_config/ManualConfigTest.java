@@ -3,12 +3,14 @@ package jpa.eclipselink.test_config.manual_config;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
+@DirtiesContext
 @ContextConfiguration(classes = {Config.class, Person.class, PersonRepository.class})
 class ManualConfigTest {
     @Autowired

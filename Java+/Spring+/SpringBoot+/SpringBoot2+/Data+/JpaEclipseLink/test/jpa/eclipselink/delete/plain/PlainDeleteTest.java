@@ -1,18 +1,14 @@
 package jpa.eclipselink.delete.plain;
 
-import jpa.eclipselink.JpaConfig;
+import jpa.eclipselink.BaseEclipseLinkTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
 @EnableAutoConfiguration
-@ContextConfiguration(classes = {Person.class, PersonRepository.class, JpaConfig.class})
-class PlainDeleteTest {
+class PlainDeleteTest extends BaseEclipseLinkTest {
     @Autowired
     private PersonRepository repo;
 

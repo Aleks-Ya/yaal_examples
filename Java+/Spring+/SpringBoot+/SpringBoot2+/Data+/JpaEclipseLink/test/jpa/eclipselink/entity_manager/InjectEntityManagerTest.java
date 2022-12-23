@@ -1,11 +1,9 @@
 package jpa.eclipselink.entity_manager;
 
-import jpa.eclipselink.JpaConfig;
+import jpa.eclipselink.BaseEclipseLinkTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ContextConfiguration;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -18,10 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Inject and use {@link EntityManager}.
  */
-@DataJpaTest
 @EnableAutoConfiguration
-@ContextConfiguration(classes = {InjectEntityManagerTest.PersonEM.class, JpaConfig.class})
-class InjectEntityManagerTest {
+class InjectEntityManagerTest extends BaseEclipseLinkTest {
     @Autowired
     private EntityManager em;
 

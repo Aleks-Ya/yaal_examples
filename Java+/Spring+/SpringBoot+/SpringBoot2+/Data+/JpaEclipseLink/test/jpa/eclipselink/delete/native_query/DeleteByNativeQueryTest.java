@@ -1,11 +1,9 @@
 package jpa.eclipselink.delete.native_query;
 
-import jpa.eclipselink.JpaConfig;
+import jpa.eclipselink.BaseEclipseLinkTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ContextConfiguration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -14,10 +12,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@DataJpaTest
 @EnableAutoConfiguration
-@ContextConfiguration(classes = {Person.class, JpaConfig.class})
-class DeleteByNativeQueryTest {
+class DeleteByNativeQueryTest extends BaseEclipseLinkTest {
     private final Person person1 = new Person("John");
     private final Person person2 = new Person("Jim");
     private final Person person3 = new Person("Mary");
