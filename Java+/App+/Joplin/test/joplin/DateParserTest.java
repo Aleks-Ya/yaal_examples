@@ -12,7 +12,7 @@ class DateParserTest {
     @Test
     void parseDatesInTitle() {
         var title = "Positive: 2022-12-25 11.08.16 2015.08.24ПН 13.12.2017ср 11.12.2017 Negative: 17-23.11.14";
-        var note = new NoteEntity("e6900575a9724851bdd8b02d2411967d", title, "the body", MarkupLanguage.MD,
+        var note = new NoteEntity(new NoteId("e6900575a9724851bdd8b02d2411967d"), title, "the body", MarkupLanguage.MD,
                 Instant.now().toEpochMilli());
         var dateParser = new DateParser();
         var dates = dateParser.parseDates(title, note);

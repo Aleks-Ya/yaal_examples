@@ -40,10 +40,10 @@ public class SqliteService implements AutoCloseable {
         return queryToNoteEntityList(query);
     }
 
-    public Optional<NoteEntity> fetchNoteById(String id) {
+    public Optional<NoteEntity> fetchNoteById(NoteId id) {
         var query = format("SELECT %s, %s, %s, %s, %s FROM %s WHERE %s='%s'",
                 ID_COLUMN, TITLE_COLUMN, BODY_COLUMN, MARKUP_LANGUAGE_COLUMN, UPDATED_TIME_COLUMN, NOTES_TABLE,
-                ID_COLUMN, id);
+                ID_COLUMN, id.id());
         var noteList = queryToNoteEntityList(query);
         if (noteList.isEmpty()) {
             return Optional.empty();
@@ -64,7 +64,7 @@ public class SqliteService implements AutoCloseable {
                     BODY_COLUMN, body,
                     MARKUP_LANGUAGE_COLUMN, note.markupLanguage().getCode(),
                     UPDATED_TIME_COLUMN, updatedTime,
-                    ID_COLUMN, note.id());
+                    ID_COLUMN, note.id().id());
             var updated = statement.executeUpdate(updateQuery);
             if (updated != 1) {
                 throw new IllegalStateException("Wrong updated row number: expected=1, actual=" + updated);
@@ -88,7 +88,7 @@ public class SqliteService implements AutoCloseable {
              var resultSet = statement.executeQuery(query)) {
             var result = new ArrayList<NoteEntity>();
             while (resultSet.next()) {
-                var id = resultSet.getString(ID_COLUMN);
+                var id = new NoteId(resultSet.getString(ID_COLUMN));
                 var title = resultSet.getString(TITLE_COLUMN);
                 var body = resultSet.getString(BODY_COLUMN);
                 var language = MarkupLanguage.parseCode(resultSet.getInt(MARKUP_LANGUAGE_COLUMN));

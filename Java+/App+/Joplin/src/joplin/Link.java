@@ -1,6 +1,6 @@
 package joplin;
 
-public record Link(NoteEntity note, String element, String text, String url) {
+public record Link(NoteId noteId, String element, String text, String url) {
     public LinkType type() {
         if (url == null) {
             return LinkType.GENERAL;

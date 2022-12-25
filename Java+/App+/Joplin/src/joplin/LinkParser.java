@@ -14,7 +14,7 @@ public class LinkParser {
             var matchedText = matcher.group(0);
             var title = matcher.group(1);
             var url = matcher.group(2);
-            links.add(new Link(note, matchedText, title, url));
+            links.add(new Link(note.id(), matchedText, title, url));
         }
         return links;
     }

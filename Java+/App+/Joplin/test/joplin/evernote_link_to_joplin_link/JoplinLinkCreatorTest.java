@@ -1,6 +1,7 @@
 package joplin.evernote_link_to_joplin_link;
 
 import joplin.LinkParser;
+import joplin.NoteId;
 import joplin.SqliteService;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +19,7 @@ class JoplinLinkCreatorTest {
             var wrapper = new LinkParser();
             var joplinLinkCreator = new JoplinLinkCreator();
             var allNotes = sqliteService.fetchAllNotes();
-            var note = sqliteService.fetchNoteById("a2d7d7efe84a47bf8ffde18121477efd").orElseThrow();
+            var note = sqliteService.fetchNoteById(new NoteId("a2d7d7efe84a47bf8ffde18121477efd")).orElseThrow();
             var evernoteLinks = wrapper.parseLinks(note);
             var joplinLinks = evernoteLinks.stream()
                     .map(evernoteLink -> joplinLinkCreator.createJoplinLink(evernoteLink, allNotes))

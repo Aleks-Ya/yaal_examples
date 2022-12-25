@@ -14,7 +14,7 @@ class NoteUpdater {
     }
 
     void update(LinkReplacement replacement) {
-        var oldNote = sqliteService.fetchNoteById(replacement.link().note().id()).orElseThrow();
+        var oldNote = sqliteService.fetchNoteById(replacement.link().noteId()).orElseThrow();
         var newBody = oldNote.body().replace(replacement.link().element(), replacement.newSubstring());
         var newNote = new NoteEntity(oldNote.id(), oldNote.title(), newBody, oldNote.markupLanguage(), oldNote.updatedTime());
         log.info("Update link: id={}, text='{}', element='{}', replacement='{}'",

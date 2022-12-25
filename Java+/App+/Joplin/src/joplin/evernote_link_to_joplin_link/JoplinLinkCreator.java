@@ -35,10 +35,10 @@ class JoplinLinkCreator {
                 .toList();
         if (linkTargets.size() == 0) {
             log.warn("Target note was not found for: id={}, originalTitle='{}', newTitle='{}', matchedText='{}'",
-                    evernoteLink.note().id(), evernoteLink.text(), newTitle, evernoteLink.element());
+                    evernoteLink.noteId().id(), evernoteLink.text(), newTitle, evernoteLink.element());
             return Optional.empty();
         } else if (linkTargets.size() == 1) {
-            var matchedTextReplacement = format("[%s](:/%s)", newTitle, linkTargets.get(0).id());
+            var matchedTextReplacement = format("[%s](:/%s)", newTitle, linkTargets.get(0).id().id());
             return Optional.of(new JoplinLink(evernoteLink, matchedTextReplacement));
         } else {
             log.warn("Many target notes found: evernoteLink={}, targets={}", evernoteLink, linkTargets);

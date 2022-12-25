@@ -14,7 +14,7 @@ class NoteUpdater {
     }
 
     void updateNote(JoplinLink joplinLink) {
-        var id = joplinLink.evernoteLink().note().id();
+        var id = joplinLink.evernoteLink().noteId();
         var note = sqliteService.fetchNoteById(id).orElseThrow();
         var oldBody = note.body();
         var target = joplinLink.evernoteLink().element();

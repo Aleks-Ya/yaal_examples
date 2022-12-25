@@ -1,6 +1,7 @@
 package joplin.evernote_link_to_joplin_link;
 
 import joplin.LinkParser;
+import joplin.NoteId;
 import joplin.SqliteService;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +20,7 @@ class NoteUpdaterTest {
             var wrapper = new LinkParser();
             var joplinLinkCreator = new JoplinLinkCreator();
             var allNotes = sqliteService.fetchAllNotes();
-            var note = sqliteService.fetchNoteById("a2d7d7efe84a47bf8ffde18121477efd").orElseThrow();
+            var note = sqliteService.fetchNoteById(new NoteId("a2d7d7efe84a47bf8ffde18121477efd")).orElseThrow();
             var evernoteLinks = wrapper.parseLinks(note);
             var joplinLinks = evernoteLinks.stream()
                     .map(evernoteLink -> joplinLinkCreator.createJoplinLink(evernoteLink, allNotes))
@@ -29,9 +30,9 @@ class NoteUpdaterTest {
 
             var noteUpdater = new NoteUpdater(sqliteService);
             noteUpdater.updateNote(joplinLink);
-            var newNote = sqliteService.fetchNoteById("a2d7d7efe84a47bf8ffde18121477efd").orElseThrow();
+            var newNote = sqliteService.fetchNoteById(new NoteId("a2d7d7efe84a47bf8ffde18121477efd")).orElseThrow();
             assertThat(newNote).satisfies(note1 -> {
-                        assertThat(note1.id()).isEqualTo("a2d7d7efe84a47bf8ffde18121477efd");
+                        assertThat(note1.id().id()).isEqualTo("a2d7d7efe84a47bf8ffde18121477efd");
                         assertThat(note1.title()).isEqualTo("Discourse marker list");
                         assertThat(note1.body())
                                 .contains("[Meal\\'s \\\"shopping\\\" list](:/e6900575a9724851bdd8b02d2411967d)")
