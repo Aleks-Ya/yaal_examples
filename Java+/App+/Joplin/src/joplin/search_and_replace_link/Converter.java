@@ -21,13 +21,13 @@ class Converter {
         var linkReplacer = new LinkReplacer();
         var noteUpdater = new NoteBodyUpdater(sqliteService);
         var allNotes = sqliteService.fetchAllNotes();
-        var modifiedReplacements = allNotes.stream()
+        var updatedNumber = allNotes.stream()
                 .map(linkParser::parseLinks)
                 .flatMap(Collection::stream)
                 .map(linkReplacer::replace)
-                .filter(replacement -> !replacement.oldText().equals(replacement.newText()))
-                .toList();
-        modifiedReplacements.forEach(noteUpdater::updateNote);
-        log.info("Finished (updated {} notes, total {} notes)", modifiedReplacements.size(), allNotes.size());
+                .map(noteUpdater::updateNote)
+                .filter(updated -> updated)
+                .count();
+        log.info("Finished (updated {} notes, total {} notes)", updatedNumber, allNotes.size());
     }
 }

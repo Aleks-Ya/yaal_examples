@@ -11,14 +11,19 @@ public class NoteBodyUpdater {
         this.sqliteService = sqliteService;
     }
 
-    public void updateNote(Replacement replacement) {
-        var id = replacement.noteId();
-        var note = sqliteService.fetchNoteById(id).orElseThrow();
+    public boolean updateNote(Replacement replacement) {
         var oldText = replacement.oldText();
         var newText = replacement.newText();
+        var id = replacement.noteId();
+        var note = sqliteService.fetchNoteById(id).orElseThrow();
+        if (oldText.equals(newText)) {
+            log.info("Skip update the same text: id={}, title='{}', text='{}'", id.id(), note.title(), oldText);
+            return false;
+        }
         var newBody = note.body().replace(oldText, newText);
         log.info("Update link: id={}, title='{}', oldText='{}', newText='{}'", id.id(), note.title(), oldText, newText);
         var newNote = new NoteEntity(note.id(), note.title(), newBody, note.markupLanguage(), note.updatedTime());
         sqliteService.updateNote(newNote);
+        return true;
     }
 }

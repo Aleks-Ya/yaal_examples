@@ -127,5 +127,6 @@ INSERT INTO "notes" ("id","parent_id","title","body","created_time","updated_tim
   ',1547501767000,1547501955001,0,0,0,0,'aleks_ya','',0,0,0,'evernote','net.cozic.joplin-desktop','',0,1547501767000,1547501955000,'',0,1,0,'','','');
 INSERT INTO "notes" ("id","parent_id","title","body","created_time","updated_time","is_conflict","latitude","longitude","altitude","author","source_url","is_todo","todo_due","todo_completed","source","source_application","application_data","order","user_created_time","user_updated_time","encryption_cipher_text","encryption_applied","markup_language","is_shared","share_id","conflict_original_id","master_key_id") VALUES ('bf941399ecf6497b98693f618d2798bd','dbe1644c85c34e8092b2779e5f78e99e','Русское название статьи 2','Русский
 текст 2
-
+{width=100
+height=200}
   ',1398929637000,1670335098337,0,0,0,0,'','',0,0,0,'joplin-desktop','net.cozic.joplin-desktop','',1669470821852,1398929637000,1471150622000,'',0,1,0,'','','');
