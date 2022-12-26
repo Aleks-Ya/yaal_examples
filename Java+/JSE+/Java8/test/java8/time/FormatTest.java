@@ -2,7 +2,9 @@ package java8.time;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.DayOfWeek;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -37,6 +39,24 @@ class FormatTest {
         var formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         var str = dateTime.format(formatter);
         assertThat(str).isEqualTo("25.03.2015");
+    }
+
+    @Test
+    void localDate() {
+        var localDate = LocalDate.parse("2015-03-25");
+        var formatter = DateTimeFormatter.ofPattern("dd.MM.yyyyEEE");
+        var str = localDate.format(formatter);
+        assertThat(str).isEqualTo("25.03.2015Wed");
+    }
+
+    @Test
+    void dayOfWeek() {
+        var day = DayOfWeek.SATURDAY;
+        assertThat(DateTimeFormatter.ofPattern("E").format(day)).isEqualTo("Sat");
+        assertThat(DateTimeFormatter.ofPattern("EE").format(day)).isEqualTo("Sat");
+        assertThat(DateTimeFormatter.ofPattern("EEE").format(day)).isEqualTo("Sat");
+        assertThat(DateTimeFormatter.ofPattern("EEEE").format(day)).isEqualTo("Saturday");
+        assertThat(DateTimeFormatter.ofPattern("EEEEE").format(day)).isEqualTo("S");
     }
 
     @Test

@@ -6,14 +6,21 @@ import joplin.SqliteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+
 class Converter {
     private static final Logger log = LoggerFactory.getLogger(Converter.class);
+    private final SqliteService sqliteService;
 
-    public void convert(String sqliteDbFile, String notebookId) throws Exception {
-        try (var databaseService = new SqliteService(sqliteDbFile)) {
+    Converter(SqliteService sqliteService) {
+        this.sqliteService = sqliteService;
+    }
+
+    public void convert(String notebookId) {
+        try {
             var xmlService = new XmlService();
             var pandocService = new PandocService();
-            var htmlNotes = databaseService.fetchNotes(notebookId, MarkupLanguage.HTML);
+            var htmlNotes = sqliteService.fetchNotes(notebookId, MarkupLanguage.HTML);
             log.info("Fetched notes: {}", htmlNotes.size());
             var updatedBodyCounter = 0;
             var notUpdatedBodyCounter = 0;
@@ -30,13 +37,15 @@ class Converter {
                     notUpdatedBodyCounter += 1;
                 }
                 var mdNote = new NoteEntity(htmlNote.id(), htmlNote.title(), mdBody, MarkupLanguage.MD, htmlNote.updatedTime());
-                databaseService.updateNote(mdNote);
+                sqliteService.updateNote(mdNote);
                 log.info("Note updated: {} \"{}\"", htmlNote.id(), htmlNote.title());
             }
             log.info("Finished");
             log.info("Fetched notes: {}", htmlNotes.size());
             log.info("Updated notes: total={}, updatedBody={}, notUpdatedBody={}",
                     updatedBodyCounter + notUpdatedBodyCounter, updatedBodyCounter, notUpdatedBodyCounter);
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }

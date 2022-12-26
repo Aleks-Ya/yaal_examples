@@ -20,7 +20,7 @@ class ConverterTest {
             var link2 = "[Meal\\'s \\\"shopping\\\" list](:/e6900575a9724851bdd8b02d2411967d)";
             var changedNoteIds = List.of(noteId1, noteId2);
 
-            var noteNumber = 8;
+            var noteNumber = 9;
             var allNotes = sqliteService.fetchAllNotes();
             assertThat(allNotes).hasSize(noteNumber);
             var unchangedNotes = allNotes.stream().filter(note -> !changedNoteIds.contains(note.id())).toList();

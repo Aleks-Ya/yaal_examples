@@ -24,7 +24,7 @@ class ConverterTest {
             var link4 = "[Русское название статьи 2](evernote:///view/48821034/s241/87b5042e-7d6e-40bc-b434-2f4daf68722a/87b5042e-7d6e-40bc-b434-2f4daf68722a/)";
             var changedNoteIds = List.of(noteId1, noteId2, noteId3, noteId4);
 
-            var noteNumber = 8;
+            var noteNumber = 9;
             var allNotes = sqliteService.fetchAllNotes();
             assertThat(allNotes).hasSize(noteNumber);
             var unchangedNotes = allNotes.stream().filter(note -> !changedNoteIds.contains(note.id())).toList();

@@ -2,6 +2,8 @@ package joplin;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+
 import static joplin.MarkupLanguage.HTML;
 import static joplin.SqliteUtils.populateDatabase;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,7 +29,7 @@ class SqliteServiceTest {
         var dbFile = populateDatabase();
         try (var sqliteService = new SqliteService(dbFile)) {
             var notes = sqliteService.fetchAllNotes();
-            assertThat(notes).hasSize(8).allSatisfy(note -> {
+            assertThat(notes).hasSize(9).allSatisfy(note -> {
                 assertThat(note.id().id()).isNotEmpty();
                 assertThat(note.title()).isNotEmpty();
                 assertThat(note.body()).isNotEmpty();
@@ -65,8 +67,23 @@ class SqliteServiceTest {
                 assertThat(note.title()).isEqualTo(newTitle);
                 assertThat(note.body()).isEqualTo(newBody);
                 assertThat(note.markupLanguage()).isEqualTo(newMarkupLanguage);
-                assertThat(note.updatedTime()).isEqualTo(newUpdatedTime + 1);
+                assertThat(note.updatedTime()).isEqualTo(newUpdatedTime + Duration.ofDays(1).toMillis());
             });
+        }
+    }
+
+    @Test
+    void dryRun() {
+        var dbFile = populateDatabase();
+        try (var sqliteService = new SqliteService(dbFile, true)) {
+            var id = new NoteId("e6900575a9724851bdd8b02d2411967d");
+            var oldNote = sqliteService.fetchNoteById(id).orElseThrow();
+            var newTitle = "The new title";
+            var newNote = new NoteEntity(id, newTitle, oldNote.body(), oldNote.markupLanguage(), oldNote.updatedTime());
+            assertThat(newNote).isNotEqualTo(oldNote);
+            sqliteService.updateNote(newNote);
+            var actNote = sqliteService.fetchNoteById(id).orElseThrow();
+            assertThat(actNote).isEqualTo(oldNote).isNotEqualTo(newNote);
         }
     }
 }

@@ -17,37 +17,40 @@ import static java.util.regex.Pattern.compile;
 public class DateParser {
     private static final Logger log = LoggerFactory.getLogger(DateParser.class);
     private static final List<Format> FORMATTERS = List.of(
-            new Format(compile("[\\^\\s]((\\d{2}\\.\\d{2}\\.\\d{4})[ПНВТСРЧБпнвтсрчб]{2})[$\\s]"), ofPattern("dd.MM.yyyy")),
-            new Format(compile("[\\^\\s]((\\d{4}\\.\\d{2}\\.\\d{2})[ПНВТСРЧБпнвтсрчб]{2})[$\\s]"), ofPattern("yyyy.MM.dd")),
-            new Format(compile("[\\^\\s]((\\d{4}-\\d{2}-\\d{2}))[$\\s]"), ofPattern("yyyy-MM-dd")),
-            new Format(compile("[\\^\\s]((\\d{2}\\.\\d{2}\\.\\d{4}))[$\\s]"), ofPattern("dd.MM.yyyy")),
-            new Format(compile("[\\^\\s]((\\d{2}\\.\\d{2}\\.\\d{2}))[$\\s]"), ofPattern("dd.MM.yy"))
+            new Format(compile("(\\d{2}\\.\\d{2}\\.\\d{4})([ПНВТСРЧБпнвтсрчбMOTUWEHFRSAmotuwehfrsa]{2})?"), ofPattern("dd.MM.yyyy")),
+            new Format(compile("(\\d{4}\\.\\d{2}\\.\\d{2})([ПНВТСРЧБпнвтсрчбMOTUWEHFRSAmotuwehfrsa]{2})?"), ofPattern("yyyy.MM.dd")),
+            new Format(compile("(\\d{4}-\\d{2}-\\d{2})([ПНВТСРЧБпнвтсрчбMOTUWEHFRSAmotuwehfrsa]{2})?"), ofPattern("yyyy-MM-dd")),
+            new Format(compile("(\\d{2}\\.\\d{2}\\.\\d{2})([ПНВТСРЧБпнвтсрчбMOTUWEHFRSAmotuwehfrsa]{2})?"), ofPattern("dd.MM.yy")),
+            new Format(compile("(\\d{2}/\\d{2}/\\d{4})([ПНВТСРЧБпнвтсрчбMOTUWEHFRSAmotuwehfrsa]{2})?"), ofPattern("MM/dd/yyyy")),
+            new Format(compile("(\\d{2}/\\d{1}/\\d{4})([ПНВТСРЧБпнвтсрчбMOTUWEHFRSAmotuwehfrsa]{2})?"), ofPattern("MM/d/yyyy")),
+            new Format(compile("(\\d{1}/\\d{2}/\\d{4})([ПНВТСРЧБпнвтсрчбMOTUWEHFRSAmotuwehfrsa]{2})?"), ofPattern("M/dd/yyyy")),
+            new Format(compile("(\\d{1}/\\d{1}/\\d{4})([ПНВТСРЧБпнвтсрчбMOTUWEHFRSAmotuwehfrsa]{2})?"), ofPattern("M/d/yyyy"))
     );
 
-    public List<Date> parseDates(String text, NoteEntity note) {
+    public List<Date> parseDates(String text, NoteId noteId) {
         if (text == null) {
             return Collections.emptyList();
         }
-        var links = new ArrayList<Date>();
-        var cleanText = text;
-        for (var format : FORMATTERS) {
-            var pattern = format.pattern();
-            var formatter = format.dateTimeFormatter();
-            var matcher = pattern.matcher(cleanText);
-            while (matcher.find()) {
-                var matchedText = matcher.group(1);
-                var dateText = matcher.group(2);
-                try {
-                    var localDate = LocalDate.from(formatter.parse(dateText));
-                    links.add(new Date(note, matchedText, localDate));
-                    cleanText = cleanText.replace(matchedText, "");
-                } catch (DateTimeParseException e) {
-                    log.debug("Cannot parse date '{}' with formatter '{}'", matchedText, formatter);
+        var dates = new ArrayList<Date>();
+        var words = text.split("\\s");
+        for (String word : words) {
+            for (var format : FORMATTERS) {
+                var pattern = format.pattern();
+                var formatter = format.dateTimeFormatter();
+                var matcher = pattern.matcher(word);
+                if (matcher.matches()) {
+                    var matchedText = matcher.group(0);
+                    var dateText = matcher.group(1);
+                    try {
+                        var localDate = LocalDate.from(formatter.parse(dateText));
+                        dates.add(new Date(noteId, matchedText, localDate));
+                    } catch (DateTimeParseException e) {
+                        log.debug("Cannot parse date '{}' with formatter '{}'", matchedText, formatter);
+                    }
                 }
             }
         }
-
-        return links;
+        return dates;
     }
 
     private record Format(Pattern pattern, DateTimeFormatter dateTimeFormatter) {

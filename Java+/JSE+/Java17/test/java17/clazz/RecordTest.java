@@ -16,19 +16,10 @@ class RecordTest {
         assertThat(john).isEqualTo(john2);
     }
 
-    private record Person(Long id, String name) {
-    }
-
     @Test
     void recordWithFactoryMethod() {
         var john = Person2.create(1L, "John");
         assertThat(john).isEqualTo(new Person2(1L, "JOHN"));
-    }
-
-    private record Person2(Long id, String name) {
-        public static Person2 create(Long id, String name) {
-            return new Person2(id, name.toUpperCase());
-        }
     }
 
     @Test
@@ -39,9 +30,30 @@ class RecordTest {
         assertThat(john.adult()).isTrue();
     }
 
+    @Test
+    void additionalConstructor() {
+        var john = new Person4(1L);
+        assertThat(john).isEqualTo(new Person4(1L, "John"));
+    }
+
+    private record Person(Long id, String name) {
+    }
+
+    private record Person2(Long id, String name) {
+        public static Person2 create(Long id, String name) {
+            return new Person2(id, name.toUpperCase());
+        }
+    }
+
     private record Person3(Long id, String name, Integer age) {
         public boolean adult() {
             return age >= 18;
+        }
+    }
+
+    private record Person4(Long id, String name) {
+        public Person4(Long id) {
+            this(id, "John");
         }
     }
 }

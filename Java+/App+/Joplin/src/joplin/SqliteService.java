@@ -1,15 +1,21 @@
 package joplin;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static java.lang.String.format;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class SqliteService implements AutoCloseable {
+    private static final Logger log = LoggerFactory.getLogger(SqliteService.class);
     private static final String NOTES_TABLE = "notes";
     private static final String ID_COLUMN = "id";
     private static final String TITLE_COLUMN = "title";
@@ -18,8 +24,14 @@ public class SqliteService implements AutoCloseable {
     private static final String MARKUP_LANGUAGE_COLUMN = "markup_language";
     private static final String UPDATED_TIME_COLUMN = "updated_time";
     private final Connection connection;
+    private final boolean dryRun;
 
     public SqliteService(String sqliteDbFile) {
+        this(sqliteDbFile, false);
+    }
+
+    public SqliteService(String sqliteDbFile, boolean dryRun) {
+        this.dryRun = dryRun;
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:" + sqliteDbFile);
         } catch (SQLException e) {
@@ -57,7 +69,7 @@ public class SqliteService implements AutoCloseable {
     public void updateNote(NoteEntity note) {
         var title = note.title().replaceAll("'", "''");
         var body = note.body().replaceAll("'", "''");
-        var updatedTime = note.updatedTime() + 1;
+        var updatedTime = Instant.ofEpochMilli(note.updatedTime()).plus(1, DAYS).toEpochMilli();
         try (var statement = connection.createStatement()) {
             var updateQuery = format("UPDATE %s SET %s='%s', %s='%s', %s=%d, %s=%d WHERE %s='%s'", NOTES_TABLE,
                     TITLE_COLUMN, title,
@@ -65,9 +77,13 @@ public class SqliteService implements AutoCloseable {
                     MARKUP_LANGUAGE_COLUMN, note.markupLanguage().getCode(),
                     UPDATED_TIME_COLUMN, updatedTime,
                     ID_COLUMN, note.id().id());
-            var updated = statement.executeUpdate(updateQuery);
-            if (updated != 1) {
-                throw new IllegalStateException("Wrong updated row number: expected=1, actual=" + updated);
+            if (!dryRun) {
+                var updated = statement.executeUpdate(updateQuery);
+                if (updated != 1) {
+                    throw new IllegalStateException("Wrong updated row number: expected=1, actual=" + updated);
+                }
+            } else {
+                log.warn("Dry run. Ignore update query: '{}'", updateQuery);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

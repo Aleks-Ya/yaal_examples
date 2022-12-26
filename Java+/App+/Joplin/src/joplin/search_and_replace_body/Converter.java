@@ -1,6 +1,6 @@
 package joplin.search_and_replace_body;
 
-import joplin.NoteBodyUpdater;
+import joplin.NoteBodyReplacer;
 import joplin.Replacement;
 import joplin.SqliteService;
 import org.slf4j.Logger;
@@ -15,14 +15,14 @@ class Converter {
     }
 
     void convert() {
-        var noteUpdater = new NoteBodyUpdater(sqliteService);
+        var noteUpdater = new NoteBodyReplacer(sqliteService);
         var oldText = "\nheight=";
         var newText = " height=";
         var allNotes = sqliteService.fetchAllNotes();
         var updated = allNotes.stream()
                 .filter(note -> note.body().contains(oldText))
                 .map(note -> new Replacement(note.id(), oldText, newText))
-                .peek(noteUpdater::updateNote)
+                .peek(noteUpdater::updateNoteBody)
                 .toList().size();
         log.info("Finished (updated {} notes, total {} notes)", updated, allNotes.size());
     }

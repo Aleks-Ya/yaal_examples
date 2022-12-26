@@ -130,3 +130,5 @@ INSERT INTO "notes" ("id","parent_id","title","body","created_time","updated_tim
 {width=100
 height=200}
   ',1398929637000,1670335098337,0,0,0,0,'','',0,0,0,'joplin-desktop','net.cozic.joplin-desktop','',1669470821852,1398929637000,1471150622000,'',0,1,0,'','','');
+INSERT INTO "notes" ("id","parent_id","title","body","created_time","updated_time","is_conflict","latitude","longitude","altitude","author","source_url","is_todo","todo_due","todo_completed","source","source_application","application_data","order","user_created_time","user_updated_time","encryption_cipher_text","encryption_applied","markup_language","is_shared","share_id","conflict_original_id","master_key_id") VALUES ('373b03cd772f451db9a96972d81ac6f6','67bc56efd5544524b7a22e17ce3273d9','Title with date 27.08.16',
+'The body of the note with a date in title',1471742195000,1669349290001,0,0,0,0,'aleks_ya','',0,0,0,'evernote','net.cozic.joplin-desktop','',0,1471742195000,1669349290000,'',0,1,0,'','','');

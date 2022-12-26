@@ -1,7 +1,7 @@
 package joplin.search_and_replace_link;
 
 import joplin.LinkParser;
-import joplin.NoteBodyUpdater;
+import joplin.NoteBodyReplacer;
 import joplin.SqliteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +19,13 @@ class Converter {
     void convert() {
         var linkParser = new LinkParser();
         var linkReplacer = new LinkReplacer();
-        var noteUpdater = new NoteBodyUpdater(sqliteService);
+        var noteUpdater = new NoteBodyReplacer(sqliteService);
         var allNotes = sqliteService.fetchAllNotes();
         var updatedNumber = allNotes.stream()
                 .map(linkParser::parseLinks)
                 .flatMap(Collection::stream)
                 .map(linkReplacer::replace)
-                .map(noteUpdater::updateNote)
+                .map(noteUpdater::updateNoteBody)
                 .filter(updated -> updated)
                 .count();
         log.info("Finished (updated {} notes, total {} notes)", updatedNumber, allNotes.size());

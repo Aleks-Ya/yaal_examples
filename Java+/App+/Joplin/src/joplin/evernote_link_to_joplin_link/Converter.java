@@ -2,7 +2,7 @@ package joplin.evernote_link_to_joplin_link;
 
 import joplin.LinkParser;
 import joplin.LinkType;
-import joplin.NoteBodyUpdater;
+import joplin.NoteBodyReplacer;
 import joplin.SqliteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ class Converter {
     void convert() {
         var linkParser = new LinkParser();
         var joplinLinkCreator = new JoplinLinkCreator();
-        var noteUpdater = new NoteBodyUpdater(sqliteService);
+        var noteUpdater = new NoteBodyReplacer(sqliteService);
         var allNotes = sqliteService.fetchAllNotes();
         var evernoteLinks = allNotes.stream()
                 .map(linkParser::parseLinks)
@@ -35,7 +35,7 @@ class Converter {
                 .map(Optional::get)
                 .toList();
         log.info("JoplinLink number: {}", joplinLinks.size());
-        var updatedLinkNumber = joplinLinks.stream().peek(noteUpdater::updateNote).toList().size();
+        var updatedLinkNumber = joplinLinks.stream().peek(noteUpdater::updateNoteBody).toList().size();
         var skippedLinkNumber = evernoteLinks.size() - updatedLinkNumber;
         log.info("Finished (updated {} links, skipped {} links)", updatedLinkNumber, skippedLinkNumber);
     }

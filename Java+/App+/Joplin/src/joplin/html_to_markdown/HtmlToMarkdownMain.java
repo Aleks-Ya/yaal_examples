@@ -1,5 +1,6 @@
 package joplin.html_to_markdown;
 
+import joplin.SqliteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,8 +14,10 @@ public class HtmlToMarkdownMain {
         log.info("Started");
         var sqliteDbFile = "/home/aleks/.config/joplin-desktop/database.sqlite";
         var notebookId = "444bb0837d7d4f67afc21c0b12916425";
-        var converter = new Converter();
-        converter.convert(sqliteDbFile, notebookId);
-        log.info("Finished");
+        try (var sqliteService = new SqliteService(sqliteDbFile)) {
+            var converter = new Converter(sqliteService);
+            converter.convert(notebookId);
+            log.info("Finished");
+        }
     }
 }
