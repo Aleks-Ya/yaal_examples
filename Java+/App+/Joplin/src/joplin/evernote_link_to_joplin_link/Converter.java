@@ -2,6 +2,7 @@ package joplin.evernote_link_to_joplin_link;
 
 import joplin.LinkParser;
 import joplin.LinkType;
+import joplin.NoteBodyUpdater;
 import joplin.SqliteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ class Converter {
     void convert() {
         var linkParser = new LinkParser();
         var joplinLinkCreator = new JoplinLinkCreator();
-        var noteUpdater = new NoteUpdater(sqliteService);
+        var noteUpdater = new NoteBodyUpdater(sqliteService);
         var allNotes = sqliteService.fetchAllNotes();
         var evernoteLinks = allNotes.stream()
                 .map(linkParser::parseLinks)

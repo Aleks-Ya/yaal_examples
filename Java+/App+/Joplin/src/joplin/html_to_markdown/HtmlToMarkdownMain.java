@@ -13,7 +13,7 @@ public class HtmlToMarkdownMain {
         log.info("Started");
         var sqliteDbFile = "/home/aleks/.config/joplin-desktop/database.sqlite";
         var notebookId = "444bb0837d7d4f67afc21c0b12916425";
-        var converter = new HtmlToMdConverter();
+        var converter = new Converter();
         converter.convert(sqliteDbFile, notebookId);
         log.info("Finished");
     }

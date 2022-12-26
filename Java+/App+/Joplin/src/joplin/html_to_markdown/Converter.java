@@ -6,8 +6,8 @@ import joplin.SqliteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class HtmlToMdConverter {
-    private static final Logger log = LoggerFactory.getLogger(HtmlToMdConverter.class);
+class Converter {
+    private static final Logger log = LoggerFactory.getLogger(Converter.class);
 
     public void convert(String sqliteDbFile, String notebookId) throws Exception {
         try (var databaseService = new SqliteService(sqliteDbFile)) {

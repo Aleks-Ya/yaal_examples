@@ -2,6 +2,7 @@ package joplin.evernote_link_to_joplin_link;
 
 import joplin.Link;
 import joplin.NoteEntity;
+import joplin.Replacement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,7 @@ class JoplinLinkCreator {
                 .trim();
     }
 
-    Optional<JoplinLink> createJoplinLink(Link evernoteLink, List<NoteEntity> allNoteEntities) {
+    Optional<Replacement> createJoplinLink(Link evernoteLink, List<NoteEntity> allNoteEntities) {
         var searchTitle = searchTitle(evernoteLink.text());
         var newTitle = newTitle(evernoteLink.text());
         var linkTargets = allNoteEntities.stream()
@@ -39,7 +40,7 @@ class JoplinLinkCreator {
             return Optional.empty();
         } else if (linkTargets.size() == 1) {
             var matchedTextReplacement = format("[%s](:/%s)", newTitle, linkTargets.get(0).id().id());
-            return Optional.of(new JoplinLink(evernoteLink, matchedTextReplacement));
+            return Optional.of(new Replacement(evernoteLink.noteId(), evernoteLink.element(), matchedTextReplacement));
         } else {
             log.warn("Many target notes found: evernoteLink={}, targets={}", evernoteLink, linkTargets);
             return Optional.empty();

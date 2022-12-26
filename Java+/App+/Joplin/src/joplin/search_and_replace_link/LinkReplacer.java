@@ -1,13 +1,16 @@
 package joplin.search_and_replace_link;
 
 import joplin.Link;
+import joplin.Replacement;
+
+import static java.lang.String.format;
 
 class LinkReplacer {
-    LinkReplacement replace(Link link) {
-        var newTitle = link.text()
+    Replacement replace(Link link) {
+        var newText = link.text()
                 .replaceAll("\n", " ")
                 .replaceAll("\\s{2,}", " ")
                 .trim();
-        return new LinkReplacement(link, newTitle, link.url());
+        return new Replacement(link.noteId(), link.element(), format("[%s](%s)", newText, link.url()));
     }
 }

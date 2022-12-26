@@ -2,6 +2,7 @@ package joplin.evernote_link_to_joplin_link;
 
 import joplin.LinkParser;
 import joplin.NoteId;
+import joplin.Replacement;
 import joplin.SqliteService;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +27,7 @@ class JoplinLinkCreatorTest {
                     .filter(Optional::isPresent)
                     .toList();
             assertThat(joplinLinks).map(Optional::orElseThrow)
-                    .extracting(JoplinLink::matchedTextReplacement)
+                    .extracting(Replacement::newText)
                     .containsExactlyInAnyOrder("[Meal\\'s \\\"shopping\\\" list](:/e6900575a9724851bdd8b02d2411967d)");
         }
     }

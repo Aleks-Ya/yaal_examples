@@ -1,35 +1,29 @@
-package joplin.evernote_link_to_joplin_link;
+package joplin;
 
-import joplin.LinkParser;
+import joplin.NoteBodyUpdater;
 import joplin.NoteId;
+import joplin.Replacement;
 import joplin.SqliteService;
 import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
 
 import static joplin.MarkupLanguage.MD;
 import static joplin.SqliteUtils.populateDatabase;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class NoteUpdaterTest {
+class NoteBodyUpdaterTest {
 
     @Test
     void updateNote() {
         var dbFile = populateDatabase();
         try (var sqliteService = new SqliteService(dbFile)) {
-            var wrapper = new LinkParser();
-            var joplinLinkCreator = new JoplinLinkCreator();
-            var allNotes = sqliteService.fetchAllNotes();
             var note = sqliteService.fetchNoteById(new NoteId("a2d7d7efe84a47bf8ffde18121477efd")).orElseThrow();
-            var evernoteLinks = wrapper.parseLinks(note);
-            var joplinLinks = evernoteLinks.stream()
-                    .map(evernoteLink -> joplinLinkCreator.createJoplinLink(evernoteLink, allNotes))
-                    .filter(Optional::isPresent)
-                    .toList();
-            var joplinLink = joplinLinks.get(0).orElseThrow();
+            var replacement = new Replacement(note.id(),
+                    "[Meal\\'s \\\"shopping\\\"\n" +
+                            "list](evernote:///view/48821034/s241/f6970881-a927-49dc-a73b-a7cc5c9348b3/f6970881-a927-49dc-a73b-a7cc5c9348b3/)",
+                    "[Meal\\'s \\\"shopping\\\" list](:/e6900575a9724851bdd8b02d2411967d)");
 
-            var noteUpdater = new NoteUpdater(sqliteService);
-            noteUpdater.updateNote(joplinLink);
+            var noteUpdater = new NoteBodyUpdater(sqliteService);
+            noteUpdater.updateNote(replacement);
             var newNote = sqliteService.fetchNoteById(new NoteId("a2d7d7efe84a47bf8ffde18121477efd")).orElseThrow();
             assertThat(newNote).satisfies(note1 -> {
                         assertThat(note1.id().id()).isEqualTo("a2d7d7efe84a47bf8ffde18121477efd");
