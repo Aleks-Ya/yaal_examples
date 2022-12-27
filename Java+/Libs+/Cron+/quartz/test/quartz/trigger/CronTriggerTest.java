@@ -1,20 +1,23 @@
 package quartz.trigger;
 
 import org.junit.jupiter.api.Test;
-import org.quartz.Job;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import org.quartz.SchedulerException;
+import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 import quartz.EmptyJob;
 import quartz.MultiResultListener;
+import quartz.NowResultJob;
 import quartz.ResultsJob;
 import quartz.SingleResultListener;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.newJob;
@@ -63,25 +66,24 @@ class CronTriggerTest {
     @Test
     void startTime() throws SchedulerException {
         var jobDetail = newJob(NowResultJob.class).build();
-        var startAt = Date.from(Instant.now().plus(1, ChronoUnit.SECONDS));
-        System.out.println("Start at: " + startAt);
-        var trigger = newTrigger()
-                .withSchedule(cronSchedule("0/2 * * * * ?"))
-                .startAt(startAt)
-                .build();
+        var triggerNum = 10;
+        var triggers = IntStream.range(1, triggerNum).boxed().map(i -> newTrigger()
+                        .withIdentity("Trigger" + i)
+                        .withSchedule(cronSchedule("0 * * * * ?"))
+                        .startAt(Date.from(Instant.now().plusSeconds(i * 5L)))
+                        .build())
+                .collect(toSet());
+        var simpleDateFormat = new SimpleDateFormat("hh:mm:ss.S");
+        System.out.println("Trigger start times:\n" + triggers.stream()
+                .sorted(Comparator.comparing(Trigger::getStartTime))
+                .map(t -> simpleDateFormat.format(t.getStartTime()) + "-" + t.getKey())
+                .collect(Collectors.joining("\n")));
         var scheduler = StdSchedulerFactory.getDefaultScheduler();
         scheduler.start();
-        scheduler.scheduleJob(jobDetail, trigger);
-        var results = MultiResultListener.<String>assign(scheduler, jobDetail).waitForResults(3);
-        System.out.println("Result: " + results);
+        scheduler.scheduleJob(jobDetail, triggers, false);
+        var results = MultiResultListener.<String>assign(scheduler, jobDetail).waitForResults(triggerNum * 2);
+        System.out.println("Result: " + String.join("\n", results));
         scheduler.shutdown(true);
-    }
-
-    public static class NowResultJob implements Job {
-        @Override
-        public void execute(JobExecutionContext context) throws JobExecutionException {
-            context.setResult(Instant.now());
-        }
     }
 
 }

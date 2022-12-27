@@ -9,7 +9,7 @@ import static com.cronutils.model.CronType.QUARTZ;
 import static com.cronutils.model.CronType.UNIX;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ConvertTest {
+class ConvertFormatTest {
 
     @Test
     void fromQuartzToUnix() {
