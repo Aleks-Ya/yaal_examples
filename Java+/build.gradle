@@ -60,7 +60,7 @@ subprojects {
         eclipseLinkJpa2Dep = "org.eclipse.persistence:org.eclipse.persistence.jpa:$eclipseLink2Version"
         jsonAssertDep = 'org.skyscreamer:jsonassert:1.5.1'
         bouncyCustleDep = 'org.bouncycastle:bcpkix-jdk15on:1.68'
-        testContainersVersion = '1.17.5'
+        testContainersVersion = '1.17.6'
         testContainersDep = "org.testcontainers:testcontainers:$testContainersVersion"
         testContainersJunitDep = "org.testcontainers:junit-jupiter:$testContainersVersion"
         testContainersPostgresDep = "org.testcontainers:postgresql:$testContainersVersion"

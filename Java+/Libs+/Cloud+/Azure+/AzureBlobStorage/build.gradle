@@ -1,4 +1,7 @@
 dependencies {
-    implementation 'com.azure:azure-storage-blob:12.17.1', slf4jSimpleDep
+    //Cannot upgrade to 12.20.1 because of "InvalidHeaderValue x-ms-version 2021-10-04" error (run AzuriteTestContainersTest to reproduce)
+    implementation 'com.azure:azure-storage-blob:12.17.1'
+    
+    implementation slf4jSimpleDep
     testImplementation testContainersDep, testContainersJunitDep
 }
