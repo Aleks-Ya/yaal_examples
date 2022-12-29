@@ -1,4 +1,4 @@
-package joplin;
+package joplin.common.note;
 
 import java.util.Objects;
 

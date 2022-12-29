@@ -1,4 +1,6 @@
-package joplin;
+package joplin.common.date;
+
+import joplin.common.note.NoteId;
 
 import java.time.LocalDate;
 

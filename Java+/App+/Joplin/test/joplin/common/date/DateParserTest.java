@@ -1,5 +1,6 @@
-package joplin;
+package joplin.common.date;
 
+import joplin.common.note.NoteId;
 import org.junit.jupiter.api.Test;
 
 import static java.time.LocalDate.parse;

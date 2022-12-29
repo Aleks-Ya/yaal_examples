@@ -1,6 +1,6 @@
 package joplin.evernote_link_to_joplin_link;
 
-import joplin.SqliteService;
+import joplin.common.db.SqliteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

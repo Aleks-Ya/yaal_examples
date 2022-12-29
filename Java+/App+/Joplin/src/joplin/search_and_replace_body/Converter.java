@@ -1,8 +1,8 @@
 package joplin.search_and_replace_body;
 
-import joplin.NoteBodyReplacer;
-import joplin.Replacement;
-import joplin.SqliteService;
+import joplin.common.db.SqliteService;
+import joplin.common.note.NoteBodyReplacer;
+import joplin.common.note.Replacement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

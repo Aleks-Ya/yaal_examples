@@ -1,6 +1,6 @@
 package joplin.search_and_replace_body;
 
-import joplin.SqliteService;
+import joplin.common.db.SqliteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

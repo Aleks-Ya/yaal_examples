@@ -1,5 +1,6 @@
-package joplin;
+package joplin.common.note;
 
+import joplin.common.db.SqliteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,15 +34,15 @@ public class NoteBodyReplacer {
         return true;
     }
 
-    private NoteEntity newTitle(NoteEntity note, String oldText, String newText) {
+    private Note newTitle(Note note, String oldText, String newText) {
         var newTitle = note.title().replace(oldText, newText);
         log.info("Update note title: id={}, title='{}', oldText='{}', newText='{}'", note.id(), note.title(), oldText, newText);
-        return new NoteEntity(note.id(), newTitle, note.body(), note.markupLanguage(), note.updatedTime());
+        return note.withTitle(newTitle);
     }
 
-    private NoteEntity newBody(NoteEntity note, String oldText, String newText) {
+    private Note newBody(Note note, String oldText, String newText) {
         var newBody = note.body().replace(oldText, newText);
         log.info("Update note body: id={}, title='{}', oldText='{}', newText='{}'", note.id(), note.title(), oldText, newText);
-        return new NoteEntity(note.id(), note.title(), newBody, note.markupLanguage(), note.updatedTime());
+        return note.withBody(newBody);
     }
 }

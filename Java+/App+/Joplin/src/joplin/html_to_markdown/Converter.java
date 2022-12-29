@@ -1,12 +1,13 @@
 package joplin.html_to_markdown;
 
-import joplin.MarkupLanguage;
-import joplin.NoteEntity;
-import joplin.SqliteService;
+import joplin.common.db.SqliteService;
+import joplin.common.note.MarkupLanguage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+
+import static joplin.common.note.MarkupLanguage.MD;
 
 class Converter {
     private static final Logger log = LoggerFactory.getLogger(Converter.class);
@@ -36,7 +37,7 @@ class Converter {
                     mdBody = htmlNote.body();
                     notUpdatedBodyCounter += 1;
                 }
-                var mdNote = new NoteEntity(htmlNote.id(), htmlNote.title(), mdBody, MarkupLanguage.MD, htmlNote.updatedTime());
+                var mdNote = htmlNote.withBody(mdBody).withMarkupLanguage(MD);
                 sqliteService.updateNote(mdNote);
                 log.info("Note updated: {} \"{}\"", htmlNote.id(), htmlNote.title());
             }

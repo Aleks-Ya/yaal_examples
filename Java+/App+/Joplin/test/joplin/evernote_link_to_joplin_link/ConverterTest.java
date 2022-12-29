@@ -1,12 +1,12 @@
 package joplin.evernote_link_to_joplin_link;
 
-import joplin.NoteId;
-import joplin.SqliteService;
+import joplin.common.db.SqliteService;
+import joplin.common.note.NoteId;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static joplin.SqliteUtils.populateDatabase;
+import static joplin.Utils.populateDatabase;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ConverterTest {

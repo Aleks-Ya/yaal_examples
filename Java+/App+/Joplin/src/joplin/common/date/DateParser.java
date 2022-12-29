@@ -1,5 +1,6 @@
-package joplin;
+package joplin.common.date;
 
+import joplin.common.note.NoteId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

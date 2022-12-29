@@ -42,6 +42,16 @@ class MapTest {
     }
 
     @Test
+    void modifyValues() {
+        var map = Map.of("length", 10, "width", 20);
+        var actMap = map.entrySet().stream()
+                .map(entry -> Map.entry(entry.getKey(), entry.getValue() * 2))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        var expMap = Map.of("length", 20, "width", 40);
+        assertThat(actMap).isEqualTo(expMap);
+    }
+
+    @Test
     void streamOfMapToMap() {
         var map1 = Map.of("a", 10, "b", 20);
         var map2 = Map.of("y", 100, "z", 200);

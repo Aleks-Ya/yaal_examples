@@ -1,14 +1,13 @@
 package joplin.evernote_link_to_joplin_link;
 
-import joplin.LinkParser;
-import joplin.LinkType;
-import joplin.NoteBodyReplacer;
-import joplin.SqliteService;
+import joplin.common.db.SqliteService;
+import joplin.common.link.LinkService;
+import joplin.common.link.LinkType;
+import joplin.common.note.NoteBodyReplacer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
-import java.util.Optional;
 
 class Converter {
     private static final Logger log = LoggerFactory.getLogger(Converter.class);
@@ -19,24 +18,19 @@ class Converter {
     }
 
     void convert() {
-        var linkParser = new LinkParser();
-        var joplinLinkCreator = new JoplinLinkCreator();
+        var linkService = new LinkService();
+        var joplinLinkCreator = new JoplinLinkCreator(sqliteService);
         var noteUpdater = new NoteBodyReplacer(sqliteService);
         var allNotes = sqliteService.fetchAllNotes();
-        var evernoteLinks = allNotes.stream()
-                .map(linkParser::parseLinks)
+        var evernoteLinkNotes = linkService.parseLinks(allNotes, LinkType.EVERNOTE);
+        log.info("EvernoteLink number: {}", evernoteLinkNotes.size());
+        var joplinLinks = evernoteLinkNotes.stream()
+                .map(joplinLinkCreator::convertEvernoteLinksToJoplin)
                 .flatMap(Collection::stream)
-                .filter(link -> link.type() == LinkType.EVERNOTE)
-                .toList();
-        log.info("EvernoteLink number: {}", evernoteLinks.size());
-        var joplinLinks = evernoteLinks.stream()
-                .map(evernoteLink -> joplinLinkCreator.createJoplinLink(evernoteLink, allNotes))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
                 .toList();
         log.info("JoplinLink number: {}", joplinLinks.size());
         var updatedLinkNumber = joplinLinks.stream().peek(noteUpdater::updateNoteBody).toList().size();
-        var skippedLinkNumber = evernoteLinks.size() - updatedLinkNumber;
+        var skippedLinkNumber = evernoteLinkNotes.size() - updatedLinkNumber;
         log.info("Finished (updated {} links, skipped {} links)", updatedLinkNumber, skippedLinkNumber);
     }
 }

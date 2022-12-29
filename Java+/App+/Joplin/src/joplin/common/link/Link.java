@@ -1,6 +1,8 @@
-package joplin;
+package joplin.common.link;
 
-public record Link(NoteId noteId, String element, String text, String url) {
+import joplin.common.resource.Resource;
+
+public record Link(String element, String text, String url, Resource resource) {
     public LinkType type() {
         if (url == null) {
             return LinkType.GENERAL;
@@ -12,5 +14,9 @@ public record Link(NoteId noteId, String element, String text, String url) {
             return LinkType.JOPLIN;
         }
         return LinkType.GENERAL;
+    }
+
+    public Link withResource(Resource resource) {
+        return new Link(element, text, url, resource);
     }
 }

@@ -5,7 +5,9 @@ import util.ResourceUtil;
 
 import java.sql.DriverManager;
 
-public class SqliteUtils {
+import static util.ResourceUtil.resourceToFile;
+
+public class Utils {
     public static String populateDatabase() {
         try {
             var dbFile = FileUtil.createAbsentTempFile(".sqlite");
@@ -24,5 +26,10 @@ public class SqliteUtils {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String getJoplinDir() {
+        return resourceToFile(Utils.class, "common/resource/resources/00b0cb57260c885342e9a5cda5efd5eb.txt")
+                .getParentFile().getParent();
     }
 }

@@ -1,34 +1,28 @@
 package joplin.evernote_link_to_joplin_link;
 
-import joplin.LinkParser;
-import joplin.NoteId;
-import joplin.Replacement;
-import joplin.SqliteService;
+import joplin.common.db.SqliteService;
+import joplin.common.link.LinkService;
+import joplin.common.note.NoteId;
+import joplin.common.note.Replacement;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
-import static joplin.SqliteUtils.populateDatabase;
+import static joplin.Utils.populateDatabase;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class JoplinLinkCreatorTest {
 
     @Test
-    void createJoplinLink() {
+    void convertEvernoteLinksToJoplin() {
         var dbFile = populateDatabase();
         try (var sqliteService = new SqliteService(dbFile)) {
-            var wrapper = new LinkParser();
-            var joplinLinkCreator = new JoplinLinkCreator();
-            var allNotes = sqliteService.fetchAllNotes();
+            var linkService = new LinkService();
+            var joplinLinkCreator = new JoplinLinkCreator(sqliteService);
             var note = sqliteService.fetchNoteById(new NoteId("a2d7d7efe84a47bf8ffde18121477efd")).orElseThrow();
-            var evernoteLinks = wrapper.parseLinks(note);
-            var joplinLinks = evernoteLinks.stream()
-                    .map(evernoteLink -> joplinLinkCreator.createJoplinLink(evernoteLink, allNotes))
-                    .filter(Optional::isPresent)
-                    .toList();
-            assertThat(joplinLinks).map(Optional::orElseThrow)
+            var linkNote = linkService.parseLinks(note);
+            var joplinLinks = joplinLinkCreator.convertEvernoteLinksToJoplin(linkNote);
+            assertThat(joplinLinks).singleElement()
                     .extracting(Replacement::newText)
-                    .containsExactlyInAnyOrder("[Meal\\'s \\\"shopping\\\" list](:/e6900575a9724851bdd8b02d2411967d)");
+                    .isEqualTo("[Meal\\'s \\\"shopping\\\" list](:/e6900575a9724851bdd8b02d2411967d)");
         }
     }
 }

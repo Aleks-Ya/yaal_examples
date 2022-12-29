@@ -1,11 +1,12 @@
-package joplin;
+package joplin.common.note;
 
+import joplin.common.db.SqliteService;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
-import static joplin.MarkupLanguage.MD;
-import static joplin.SqliteUtils.populateDatabase;
+import static joplin.Utils.populateDatabase;
+import static joplin.common.note.MarkupLanguage.MD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;

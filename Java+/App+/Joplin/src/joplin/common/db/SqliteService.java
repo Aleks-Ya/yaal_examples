@@ -1,5 +1,8 @@
-package joplin;
+package joplin.common.db;
 
+import joplin.common.note.MarkupLanguage;
+import joplin.common.note.Note;
+import joplin.common.note.NoteId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,23 +42,27 @@ public class SqliteService implements AutoCloseable {
         }
     }
 
-    public List<NoteEntity> fetchNotes(String notebookId, MarkupLanguage markupLanguage) {
-        var query = format("SELECT %s, %s, %s, %s, %s FROM %s WHERE %s='%s' AND %s=%d",
-                ID_COLUMN, TITLE_COLUMN, BODY_COLUMN, MARKUP_LANGUAGE_COLUMN, UPDATED_TIME_COLUMN, NOTES_TABLE,
+    private static String escapeQuotes(String text) {
+        return text.replaceAll("'", "''");
+    }
+
+    public List<Note> fetchNotes(String notebookId, MarkupLanguage markupLanguage) {
+        var query = format("WHERE %s='%s' AND %s=%d",
                 NOTEBOOK_COLUMN, notebookId, MARKUP_LANGUAGE_COLUMN, markupLanguage.getCode());
         return queryToNoteEntityList(query);
     }
 
-    public List<NoteEntity> fetchAllNotes() {
-        var query = format("SELECT %s, %s, %s, %s, %s FROM %s",
-                ID_COLUMN, TITLE_COLUMN, BODY_COLUMN, MARKUP_LANGUAGE_COLUMN, UPDATED_TIME_COLUMN, NOTES_TABLE);
+    public List<Note> fetchNotesByTitle(String title) {
+        var query = format("WHERE %s LIKE '%s'", TITLE_COLUMN, escapeQuotes(title));
         return queryToNoteEntityList(query);
     }
 
-    public Optional<NoteEntity> fetchNoteById(NoteId id) {
-        var query = format("SELECT %s, %s, %s, %s, %s FROM %s WHERE %s='%s'",
-                ID_COLUMN, TITLE_COLUMN, BODY_COLUMN, MARKUP_LANGUAGE_COLUMN, UPDATED_TIME_COLUMN, NOTES_TABLE,
-                ID_COLUMN, id.id());
+    public List<Note> fetchAllNotes() {
+        return queryToNoteEntityList("");
+    }
+
+    public Optional<Note> fetchNoteById(NoteId id) {
+        var query = format("WHERE %s='%s'", ID_COLUMN, id.id());
         var noteList = queryToNoteEntityList(query);
         if (noteList.isEmpty()) {
             return Optional.empty();
@@ -66,9 +73,9 @@ public class SqliteService implements AutoCloseable {
         }
     }
 
-    public void updateNote(NoteEntity note) {
-        var title = note.title().replaceAll("'", "''");
-        var body = note.body().replaceAll("'", "''");
+    public void updateNote(Note note) {
+        var title = escapeQuotes(note.title());
+        var body = escapeQuotes(note.body());
         var updatedTime = Instant.ofEpochMilli(note.updatedTime()).plus(1, DAYS).toEpochMilli();
         try (var statement = connection.createStatement()) {
             var updateQuery = format("UPDATE %s SET %s='%s', %s='%s', %s=%d, %s=%d WHERE %s='%s'", NOTES_TABLE,
@@ -99,17 +106,19 @@ public class SqliteService implements AutoCloseable {
         }
     }
 
-    private List<NoteEntity> queryToNoteEntityList(String query) {
+    private List<Note> queryToNoteEntityList(String where) {
+        var query = format("SELECT %s, %s, %s, %s, %s FROM %s %s",
+                ID_COLUMN, TITLE_COLUMN, BODY_COLUMN, MARKUP_LANGUAGE_COLUMN, UPDATED_TIME_COLUMN, NOTES_TABLE, where);
         try (var statement = connection.createStatement();
              var resultSet = statement.executeQuery(query)) {
-            var result = new ArrayList<NoteEntity>();
+            var result = new ArrayList<Note>();
             while (resultSet.next()) {
                 var id = new NoteId(resultSet.getString(ID_COLUMN));
                 var title = resultSet.getString(TITLE_COLUMN);
                 var body = resultSet.getString(BODY_COLUMN);
                 var language = MarkupLanguage.parseCode(resultSet.getInt(MARKUP_LANGUAGE_COLUMN));
                 var updatedTime = resultSet.getLong(UPDATED_TIME_COLUMN);
-                var htmlNote = new NoteEntity(id, title, body, language, updatedTime);
+                var htmlNote = new Note(id, title, body, language, updatedTime, null);
                 result.add(htmlNote);
             }
             return result;

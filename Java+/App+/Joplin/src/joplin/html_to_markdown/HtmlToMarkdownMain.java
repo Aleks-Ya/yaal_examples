@@ -1,6 +1,6 @@
 package joplin.html_to_markdown;
 
-import joplin.SqliteService;
+import joplin.common.db.SqliteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

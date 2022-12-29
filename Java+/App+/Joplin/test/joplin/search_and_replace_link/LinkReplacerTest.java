@@ -1,12 +1,12 @@
 package joplin.search_and_replace_link;
 
-import joplin.LinkParser;
-import joplin.NoteId;
-import joplin.Replacement;
-import joplin.SqliteService;
+import joplin.common.db.SqliteService;
+import joplin.common.link.LinkService;
+import joplin.common.note.NoteId;
+import joplin.common.note.Replacement;
 import org.junit.jupiter.api.Test;
 
-import static joplin.SqliteUtils.populateDatabase;
+import static joplin.Utils.populateDatabase;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class LinkReplacerTest {
@@ -16,10 +16,10 @@ class LinkReplacerTest {
         var dbFile = populateDatabase();
         try (var sqliteService = new SqliteService(dbFile)) {
             var note = sqliteService.fetchNoteById(new NoteId("3ce4eb6d45d741718772f16c343b8ddd")).orElseThrow();
-            var linkParser = new LinkParser();
+            var linkService = new LinkService();
             var linkReplacer = new LinkReplacer();
-            var links = linkParser.parseLinks(note);
-            var replacements = links.stream().map(linkReplacer::replace).toList();
+            var linkNote = linkService.parseLinks(note);
+            var replacements = linkReplacer.replace(linkNote);
             var id = note.id();
             assertThat(replacements).containsExactlyInAnyOrder(
                     new Replacement(id,

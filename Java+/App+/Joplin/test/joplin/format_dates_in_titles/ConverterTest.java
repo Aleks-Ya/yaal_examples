@@ -1,13 +1,13 @@
 package joplin.format_dates_in_titles;
 
-import joplin.NoteEntity;
-import joplin.NoteId;
-import joplin.SqliteService;
+import joplin.common.db.SqliteService;
+import joplin.common.note.Note;
+import joplin.common.note.NoteId;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static joplin.SqliteUtils.populateDatabase;
+import static joplin.Utils.populateDatabase;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ConverterTest {
@@ -36,13 +36,13 @@ class ConverterTest {
             var changedNotes = allNotes.stream().filter(note -> changedNoteIds.contains(note.id())).toList();
 
             assertThat(sqliteService.fetchNoteById(noteId1).orElseThrow())
-                    .extracting(NoteEntity::title, NoteEntity::body)
+                    .extracting(Note::title, Note::body)
                     .containsExactly(oldTitle1, oldBody1);
             assertThat(sqliteService.fetchNoteById(noteId2).orElseThrow())
-                    .extracting(NoteEntity::title, NoteEntity::body)
+                    .extracting(Note::title, Note::body)
                     .containsExactly(oldTitle2, oldBody2);
             assertThat(sqliteService.fetchNoteById(noteId3).orElseThrow())
-                    .extracting(NoteEntity::title, NoteEntity::body)
+                    .extracting(Note::title, Note::body)
                     .containsExactly(oldTitle3, oldBody3);
 
             var converter = new Converter(sqliteService);
@@ -51,13 +51,13 @@ class ConverterTest {
             assertThat(sqliteService.fetchAllNotes()).hasSize(noteNumber).doesNotContainAnyElementsOf(changedNotes);
 
             assertThat(sqliteService.fetchNoteById(noteId1).orElseThrow())
-                    .extracting(NoteEntity::title, NoteEntity::body)
+                    .extracting(Note::title, Note::body)
                     .containsExactly(newTitle1, oldBody1);
             assertThat(sqliteService.fetchNoteById(noteId2).orElseThrow())
-                    .extracting(NoteEntity::title, NoteEntity::body)
+                    .extracting(Note::title, Note::body)
                     .containsExactly(newTitle2, oldBody2);
             assertThat(sqliteService.fetchNoteById(noteId3).orElseThrow())
-                    .extracting(NoteEntity::title, NoteEntity::body)
+                    .extracting(Note::title, Note::body)
                     .containsExactly(newTitle3, oldBody3);
         }
     }
