@@ -1,0 +1,62 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+allowmixing
+folder resources
+database Sqlite
+package joplin {
+    package common {
+        class Facade
+        package db {
+            class SqliteService
+        }
+        package resource {
+            class ResourceService
+        }
+        package link {
+            class LinkService
+        }
+        package date {
+            class DateParser
+        }
+        package note {
+            class NoteService
+            class NoteBodyReplacer
+        }
+    }
+    package apps {
+        package evernote_link_to_joplin_link {
+            class EvernoteLinkToJoplinLinkMain
+        }
+        package find_big_notes {
+            class FindBigNotesMain
+        }
+        package format_dates_in_titles {
+        }
+        package html_to_markdown {
+        }
+        package search_and_replace_body {
+        }
+        package search_and_replace_link {
+            class SearchAndReplaceLinkMain
+            class "Converter" as Converter1
+            class LinkReplacer
+            SearchAndReplaceLinkMain --> Converter1
+            Converter1 --> NoteService
+        }
+    }
+}
+
+SqliteService --> Sqlite
+FindBigNotesMain --> Facade
+Facade --> NoteService
+Facade --> ResourceService
+Facade --> LinkService
+Facade --> DateParser
+NoteService --> LinkService
+NoteService --> ResourceService
+NoteService --> SqliteService
+ResourceService --> resources
+NoteBodyReplacer --> SqliteService
+JoplinLinkCreator --> NoteService
+@enduml

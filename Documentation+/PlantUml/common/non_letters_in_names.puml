@@ -1,0 +1,5 @@
+@startuml
+
+class "Data Storage" as DataStorage
+
+@enduml

@@ -1,18 +1,14 @@
 package joplin.common.note;
 
-import joplin.common.db.SqliteService;
+import joplin.Utils;
 import joplin.common.link.Link;
-import joplin.common.link.LinkService;
 import joplin.common.resource.Resource;
 import joplin.common.resource.ResourceId;
-import joplin.common.resource.ResourceService;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.List;
 
-import static joplin.Utils.getJoplinDir;
-import static joplin.Utils.populateDatabase;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
@@ -20,12 +16,8 @@ class NoteServiceTest {
 
     @Test
     void findBiggestNotes() {
-        var resourceService = new ResourceService(getJoplinDir());
-        var linkService = new LinkService();
-        var dbFile = populateDatabase();
-        try (var sqliteService = new SqliteService(dbFile)) {
-            var noteService = new NoteService(sqliteService, linkService, resourceService);
-            var biggestNotes = noteService.findBiggestNotes(2);
+        try (var facade = Utils.createFacadeFake()) {
+            var biggestNotes = facade.findBiggestNotes(2);
             assertThat(biggestNotes).extracting(note -> note.id().id(), Note::links)
                     .containsExactly(tuple("3ce4eb6d45d741718772f16c343b8ddd", List.of(
                             new Link("[Joplin link    1   ](:/db65929324925ccbfa789f95cdd293ba)",

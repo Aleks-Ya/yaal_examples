@@ -1,15 +1,15 @@
 package joplin.common.note;
 
-import joplin.common.db.SqliteService;
+import joplin.common.Facade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class NoteBodyReplacer {
     private static final Logger log = LoggerFactory.getLogger(NoteBodyReplacer.class);
-    private final SqliteService sqliteService;
+    private final Facade facade;
 
-    public NoteBodyReplacer(SqliteService sqliteService) {
-        this.sqliteService = sqliteService;
+    public NoteBodyReplacer(Facade facade) {
+        this.facade = facade;
     }
 
     public boolean updateNoteBody(Replacement replacement) {
@@ -24,13 +24,13 @@ public class NoteBodyReplacer {
         var oldText = replacement.oldText();
         var newText = replacement.newText();
         var id = replacement.noteId();
-        var note = sqliteService.fetchNoteById(id).orElseThrow();
+        var note = facade.fetchNoteByIdWithResources(id).orElseThrow();
         if (oldText.equals(newText)) {
             log.info("Skip update the same text: id={}, title='{}', text='{}'", id.id(), note.title(), oldText);
             return false;
         }
         var newNote = updateBody ? newBody(note, oldText, newText) : newTitle(note, oldText, newText);
-        sqliteService.updateNote(newNote);
+        facade.getNoteService().updateNote(newNote);
         return true;
     }
 

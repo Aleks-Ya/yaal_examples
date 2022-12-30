@@ -1,15 +1,15 @@
 package joplin.common.resource;
 
-import joplin.common.db.SqliteService;
+import joplin.Utils;
 import joplin.common.link.Link;
-import joplin.common.link.LinkService;
 import joplin.common.note.NoteId;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.List;
 
 import static joplin.Utils.getJoplinDir;
-import static joplin.Utils.populateDatabase;
+import static joplin.common.link.LinkType.JOPLIN;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ResourceServiceTest {
@@ -26,17 +26,35 @@ class ResourceServiceTest {
 
     @Test
     void getNoteBiggestResource() {
-        var resourceService = new ResourceService(getJoplinDir());
-        var linkService = new LinkService();
-        var dbFile = populateDatabase();
-        try (var sqliteService = new SqliteService(dbFile)) {
-            var note = sqliteService.fetchNoteById(new NoteId("3ce4eb6d45d741718772f16c343b8ddd")).orElseThrow();
-            note = linkService.parseLinks(note);
-            note = resourceService.addLinkResources(note);
+        try (var facade = Utils.createFacadeFake()) {
+            var resourceService = facade.getResourceService();
+            var note = facade.fetchNoteByIdWithResources(new NoteId("3ce4eb6d45d741718772f16c343b8ddd")).orElseThrow();
             var biggestResourceOpt = resourceService.biggestResource(note);
             assertThat(biggestResourceOpt).hasValue(new Resource(
                     new ResourceId("db65929324925ccbfa789f95cdd293ba"),
                     new File("/home/aleks/pr/home/yaal_examples/Java+/App+/Joplin/build/resources/main/joplin/common/resource/resources/db65929324925ccbfa789f95cdd293ba.pdf")));
+        }
+    }
+
+    @Test
+    void getNoteBiggestResource_filterByExtension() {
+        try (var facade = Utils.createFacadeFake()) {
+            var resourceService = facade.getResourceService();
+            var note = facade.fetchNoteByIdWithResources(new NoteId("3ce4eb6d45d741718772f16c343b8ddd")).orElseThrow();
+            var biggestResourceOpt = resourceService.biggestResource(note, List.of("jpg", "txt"));
+            assertThat(biggestResourceOpt).hasValue(new Resource(
+                    new ResourceId("da4added37344f07a5ff2b9b2e1fdef3"),
+                    new File("/home/aleks/pr/home/yaal_examples/Java+/App+/Joplin/build/resources/main/joplin/common/resource/resources/da4added37344f07a5ff2b9b2e1fdef3.txt")));
+        }
+    }
+
+    @Test
+    void noteResourceNumber() {
+        try (var facade = Utils.createFacadeFake()) {
+            var resourceService = facade.getResourceService();
+            var note = facade.fetchNoteByIdWithResources(new NoteId("3ce4eb6d45d741718772f16c343b8ddd")).orElseThrow();
+            var resourceNumber = resourceService.noteResourceNumber(note, JOPLIN);
+            assertThat(resourceNumber).isEqualTo(3);
         }
     }
 }
