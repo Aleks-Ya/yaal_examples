@@ -2,7 +2,6 @@ package joplin.apps.format_dates_in_titles;
 
 import joplin.common.Facade;
 import joplin.common.date.DateParser;
-import joplin.common.note.NoteBodyReplacer;
 import joplin.common.note.Replacement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,13 +32,12 @@ class Converter {
 
     void convert() {
         var dateParser = new DateParser();
-        var noteUpdater = new NoteBodyReplacer(facade);
         var allNotes = facade.fetchAllNotes();
         var updatedNumber = allNotes.stream()
-                .map(note -> dateParser.parseDates(note.title(), note.id()))
+                .map(note -> dateParser.parseDates(note.title(), note.noteId()))
                 .flatMap(Collection::stream)
                 .map(date -> new Replacement(date.noteId(), date.element(), formatDate(date.localDate())))
-                .map(noteUpdater::updateNoteTitle)
+                .map(facade::updateNoteTitle)
                 .filter(updated -> updated)
                 .count();
         log.info("Finished (updated {} notes, total {} notes)", updatedNumber, allNotes.size());

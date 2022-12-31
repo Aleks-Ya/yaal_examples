@@ -1,11 +1,10 @@
 package joplin.apps.search_and_replace_link;
 
 import joplin.Utils;
-import joplin.common.link.LinkService;
-import joplin.common.note.NoteId;
 import joplin.common.note.Replacement;
 import org.junit.jupiter.api.Test;
 
+import static joplin.Notes.NOTE_1;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class LinkReplacerTest {
@@ -13,13 +12,10 @@ class LinkReplacerTest {
     @Test
     void replace() {
         try (var facade = Utils.createFacadeFake()) {
-            var noteService = facade.getNoteService();
-            var note = facade.fetchNoteByIdWithResources(new NoteId("3ce4eb6d45d741718772f16c343b8ddd")).orElseThrow();
-            var linkService = new LinkService();
+            var note = facade.fetchNoteById(NOTE_1.noteId()).orElseThrow();
             var linkReplacer = new LinkReplacer();
-            var linkNote = linkService.parseLinks(note);
-            var replacements = linkReplacer.replace(linkNote);
-            var id = note.id();
+            var replacements = linkReplacer.replace(note);
+            var id = note.noteId();
             assertThat(replacements).containsExactlyInAnyOrder(
                     new Replacement(id,
                             "[Joplin link    1   ](:/db65929324925ccbfa789f95cdd293ba)",

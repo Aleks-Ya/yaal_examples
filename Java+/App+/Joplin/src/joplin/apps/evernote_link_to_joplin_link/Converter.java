@@ -1,9 +1,7 @@
 package joplin.apps.evernote_link_to_joplin_link;
 
 import joplin.common.Facade;
-import joplin.common.link.LinkService;
 import joplin.common.link.LinkType;
-import joplin.common.note.NoteBodyReplacer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,18 +16,17 @@ class Converter {
     }
 
     void convert() {
-        var linkService = new LinkService();
         var joplinLinkCreator = new JoplinLinkCreator(facade);
-        var noteUpdater = new NoteBodyReplacer(facade);
-        var allNotes = facade.fetchAllNotes();
-        var evernoteLinkNotes = linkService.parseLinks(allNotes, LinkType.EVERNOTE);
+        var evernoteLinkNotes = facade.fetchAllNotes().stream()
+                .filter(note -> note.links().stream().anyMatch(link -> link.type() == LinkType.EVERNOTE))
+                .toList();
         log.info("EvernoteLink number: {}", evernoteLinkNotes.size());
         var joplinLinks = evernoteLinkNotes.stream()
                 .map(joplinLinkCreator::convertEvernoteLinksToJoplin)
                 .flatMap(Collection::stream)
                 .toList();
         log.info("JoplinLink number: {}", joplinLinks.size());
-        var updatedLinkNumber = joplinLinks.stream().peek(noteUpdater::updateNoteBody).toList().size();
+        var updatedLinkNumber = joplinLinks.stream().peek(facade::updateNoteBody).toList().size();
         var skippedLinkNumber = evernoteLinkNotes.size() - updatedLinkNumber;
         log.info("Finished (updated {} links, skipped {} links)", updatedLinkNumber, skippedLinkNumber);
     }

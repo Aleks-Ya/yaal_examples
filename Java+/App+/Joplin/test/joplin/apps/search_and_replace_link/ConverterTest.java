@@ -6,14 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static joplin.Notes.NOTE_1;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ConverterTest {
     @Test
     void convert() {
         try (var facade = Utils.createFacadeFake()) {
-            var noteService = facade.getNoteService();
-            var noteId1 = new NoteId("3ce4eb6d45d741718772f16c343b8ddd");
+            var noteId1 = NOTE_1.noteId();
             var noteId2 = new NoteId("63551b448cf64362a1d747561b737c83");
             var noteId3 = new NoteId("a2d7d7efe84a47bf8ffde18121477efd");
             var noteId4 = new NoteId("ba9bdb7bc5444d5b85bdabfd9a211337");
@@ -24,25 +24,25 @@ class ConverterTest {
             var changedNoteIds = List.of(noteId1, noteId2, noteId3, noteId4);
 
             var noteNumber = 9;
-            var allNotes = noteService.fetchAllNotes();
+            var allNotes = facade.fetchAllNotes();
             assertThat(allNotes).hasSize(noteNumber);
-            var unchangedNotes = allNotes.stream().filter(note -> !changedNoteIds.contains(note.id())).toList();
-            var changedNotes = allNotes.stream().filter(note -> changedNoteIds.contains(note.id())).toList();
+            var unchangedNotes = allNotes.stream().filter(note -> !changedNoteIds.contains(note.noteId())).toList();
+            var changedNotes = allNotes.stream().filter(note -> changedNoteIds.contains(note.noteId())).toList();
 
-            assertThat(facade.fetchNoteByIdWithResources(noteId1).orElseThrow().body()).doesNotContain(link1);
-            assertThat(facade.fetchNoteByIdWithResources(noteId2).orElseThrow().body()).doesNotContain(link2);
-            assertThat(facade.fetchNoteByIdWithResources(noteId3).orElseThrow().body()).doesNotContain(link3);
-            assertThat(facade.fetchNoteByIdWithResources(noteId4).orElseThrow().body()).doesNotContain(link4);
+            assertThat(facade.fetchNoteById(noteId1).orElseThrow().body()).doesNotContain(link1);
+            assertThat(facade.fetchNoteById(noteId2).orElseThrow().body()).doesNotContain(link2);
+            assertThat(facade.fetchNoteById(noteId3).orElseThrow().body()).doesNotContain(link3);
+            assertThat(facade.fetchNoteById(noteId4).orElseThrow().body()).doesNotContain(link4);
 
             var converter = new Converter(facade);
             converter.convert();
-            assertThat(facade.getNoteService().fetchAllNotes()).hasSize(noteNumber).containsAll(unchangedNotes);
-            assertThat(facade.getNoteService().fetchAllNotes()).hasSize(noteNumber).doesNotContainAnyElementsOf(changedNotes);
+            assertThat(facade.fetchAllNotes()).hasSize(noteNumber).containsAll(unchangedNotes);
+            assertThat(facade.fetchAllNotes()).hasSize(noteNumber).doesNotContainAnyElementsOf(changedNotes);
 
-            assertThat(facade.fetchNoteByIdWithResources(noteId1).orElseThrow().body()).contains(link1);
-            assertThat(facade.fetchNoteByIdWithResources(noteId2).orElseThrow().body()).contains(link2);
-            assertThat(facade.fetchNoteByIdWithResources(noteId3).orElseThrow().body()).contains(link3);
-            assertThat(facade.fetchNoteByIdWithResources(noteId4).orElseThrow().body()).contains(link4);
+            assertThat(facade.fetchNoteById(noteId1).orElseThrow().body()).contains(link1);
+            assertThat(facade.fetchNoteById(noteId2).orElseThrow().body()).contains(link2);
+            assertThat(facade.fetchNoteById(noteId3).orElseThrow().body()).contains(link3);
+            assertThat(facade.fetchNoteById(noteId4).orElseThrow().body()).contains(link4);
         }
     }
 }

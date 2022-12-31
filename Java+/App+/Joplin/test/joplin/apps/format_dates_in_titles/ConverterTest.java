@@ -22,24 +22,24 @@ class ConverterTest {
             var noteId3 = new NoteId("6ded77a0daca4ff3828a9241dd0ae0ed");
             var oldTitle3 = "2016-09-26 email";
             var newTitle3 = "2016-09-26MO email";
-            var oldBody1 = facade.fetchNoteByIdWithResources(noteId1).orElseThrow().body();
-            var oldBody2 = facade.fetchNoteByIdWithResources(noteId2).orElseThrow().body();
-            var oldBody3 = facade.fetchNoteByIdWithResources(noteId3).orElseThrow().body();
+            var oldBody1 = facade.fetchNoteById(noteId1).orElseThrow().body();
+            var oldBody2 = facade.fetchNoteById(noteId2).orElseThrow().body();
+            var oldBody3 = facade.fetchNoteById(noteId3).orElseThrow().body();
             var changedNoteIds = List.of(noteId1, noteId2, noteId3);
 
             var noteNumber = 9;
             var allNotes = facade.fetchAllNotes();
             assertThat(allNotes).hasSize(noteNumber);
-            var unchangedNotes = allNotes.stream().filter(note -> !changedNoteIds.contains(note.id())).toList();
-            var changedNotes = allNotes.stream().filter(note -> changedNoteIds.contains(note.id())).toList();
+            var unchangedNotes = allNotes.stream().filter(note -> !changedNoteIds.contains(note.noteId())).toList();
+            var changedNotes = allNotes.stream().filter(note -> changedNoteIds.contains(note.noteId())).toList();
 
-            assertThat(facade.fetchNoteByIdWithResources(noteId1).orElseThrow())
+            assertThat(facade.fetchNoteById(noteId1).orElseThrow())
                     .extracting(Note::title, Note::body)
                     .containsExactly(oldTitle1, oldBody1);
-            assertThat(facade.fetchNoteByIdWithResources(noteId2).orElseThrow())
+            assertThat(facade.fetchNoteById(noteId2).orElseThrow())
                     .extracting(Note::title, Note::body)
                     .containsExactly(oldTitle2, oldBody2);
-            assertThat(facade.fetchNoteByIdWithResources(noteId3).orElseThrow())
+            assertThat(facade.fetchNoteById(noteId3).orElseThrow())
                     .extracting(Note::title, Note::body)
                     .containsExactly(oldTitle3, oldBody3);
 
@@ -48,13 +48,13 @@ class ConverterTest {
             assertThat(facade.fetchAllNotes()).hasSize(noteNumber).containsAll(unchangedNotes);
             assertThat(facade.fetchAllNotes()).hasSize(noteNumber).doesNotContainAnyElementsOf(changedNotes);
 
-            assertThat(facade.fetchNoteByIdWithResources(noteId1).orElseThrow())
+            assertThat(facade.fetchNoteById(noteId1).orElseThrow())
                     .extracting(Note::title, Note::body)
                     .containsExactly(newTitle1, oldBody1);
-            assertThat(facade.fetchNoteByIdWithResources(noteId2).orElseThrow())
+            assertThat(facade.fetchNoteById(noteId2).orElseThrow())
                     .extracting(Note::title, Note::body)
                     .containsExactly(newTitle2, oldBody2);
-            assertThat(facade.fetchNoteByIdWithResources(noteId3).orElseThrow())
+            assertThat(facade.fetchNoteById(noteId3).orElseThrow())
                     .extracting(Note::title, Note::body)
                     .containsExactly(newTitle3, oldBody3);
         }

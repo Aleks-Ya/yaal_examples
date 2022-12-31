@@ -1,12 +1,13 @@
 package joplin.apps.html_to_markdown;
 
 import joplin.common.Facade;
-import joplin.common.note.MarkupLanguage;
+import joplin.common.note.NotebookId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+import static joplin.common.note.MarkupLanguage.HTML;
 import static joplin.common.note.MarkupLanguage.MD;
 
 class Converter {
@@ -17,11 +18,13 @@ class Converter {
         this.facade = facade;
     }
 
-    public void convert(String notebookId) {
+    public void convert(NotebookId notebookId) {
         try {
-            var xmlService = new XmlService();
             var pandocService = new PandocService();
-            var htmlNotes = facade.getNoteService().fetchNotes(notebookId, MarkupLanguage.HTML);
+            var htmlNotes = facade.fetchAllNotes().stream()
+                    .filter(note -> notebookId.equals(note.notebookId()))
+                    .filter(note -> note.markupLanguage() == HTML)
+                    .toList();
             log.info("Fetched notes: {}", htmlNotes.size());
             var updatedBodyCounter = 0;
             var notUpdatedBodyCounter = 0;
@@ -29,17 +32,16 @@ class Converter {
                 var hasTables = htmlNote.body().contains("<table");
                 String mdBody;
                 if (!hasTables) {
-                    var normalHtmlBody = xmlService.normalizeCodeBlocks(htmlNote.body());
-                    mdBody = pandocService.convertHtmlToMarkdown(normalHtmlBody);
+                    mdBody = pandocService.convertHtmlToMarkdown(htmlNote.body());
                     updatedBodyCounter += 1;
                 } else {
-                    log.info("Skip converting body of a note with tables: {} \"{}\"", htmlNote.id(), htmlNote.title());
+                    log.info("Skip converting body of a note with tables: {} \"{}\"", htmlNote.noteId(), htmlNote.title());
                     mdBody = htmlNote.body();
                     notUpdatedBodyCounter += 1;
                 }
                 var mdNote = htmlNote.withBody(mdBody).withMarkupLanguage(MD);
-                facade.getNoteService().updateNote(mdNote);
-                log.info("Note updated: {} \"{}\"", htmlNote.id(), htmlNote.title());
+                facade.updateNote(mdNote);
+                log.info("Note updated: {} \"{}\"", htmlNote.noteId(), htmlNote.title());
             }
             log.info("Finished");
             log.info("Fetched notes: {}", htmlNotes.size());

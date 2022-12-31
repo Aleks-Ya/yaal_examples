@@ -1,6 +1,7 @@
 package joplin.apps.html_to_markdown;
 
 import joplin.common.Factory;
+import joplin.common.note.NotebookId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +13,7 @@ public class HtmlToMarkdownMain {
 
     public static void main(String[] args) {
         log.info("Started");
-        var notebookId = "444bb0837d7d4f67afc21c0b12916425";
+        var notebookId = new NotebookId("444bb0837d7d4f67afc21c0b12916425");
         try (var facade = Factory.createFacadeProd(false)) {
             var converter = new Converter(facade);
             converter.convert(notebookId);

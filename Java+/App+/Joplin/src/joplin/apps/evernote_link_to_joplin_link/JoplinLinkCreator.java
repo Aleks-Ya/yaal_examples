@@ -1,7 +1,7 @@
 package joplin.apps.evernote_link_to_joplin_link;
 
 import joplin.common.Facade;
-import joplin.common.link.Link;
+import joplin.common.link.LinkType;
 import joplin.common.note.Note;
 import joplin.common.note.Replacement;
 import org.slf4j.Logger;
@@ -36,18 +36,22 @@ class JoplinLinkCreator {
 
     List<Replacement> convertEvernoteLinksToJoplin(Note note) {
         var result = new ArrayList<Replacement>();
-        for (Link evernoteLink : note.links()) {
-            var searchTitle = searchTitle(evernoteLink.text());
-            var newTitle = newTitle(evernoteLink.text());
-            var linkTargets = facade.getNoteService().findNotesByTitle(searchTitle);
-            if (linkTargets.size() == 0) {
-                log.warn("Target note was not found for: originalTitle='{}', newTitle='{}', matchedText='{}'",
-                        evernoteLink.text(), newTitle, evernoteLink.element());
-            } else if (linkTargets.size() == 1) {
-                var matchedTextReplacement = format("[%s](:/%s)", newTitle, linkTargets.get(0).id().id());
-                result.add(new Replacement(note.id(), evernoteLink.element(), matchedTextReplacement));
-            } else {
-                log.warn("Many target notes found: evernoteLink={}, targets={}", evernoteLink, linkTargets);
+        for (var link : note.links()) {
+            if (link.type() == LinkType.EVERNOTE) {
+                var searchTitle = searchTitle(link.text());
+                var newTitle = newTitle(link.text());
+                var linkTargets = facade.fetchAllNotes().stream()
+                        .filter(note1 -> note1.title().contains(searchTitle))
+                        .toList();
+                if (linkTargets.size() == 0) {
+                    log.warn("Target note was not found for: originalTitle='{}', newTitle='{}', matchedText='{}'",
+                            link.text(), newTitle, link.element());
+                } else if (linkTargets.size() == 1) {
+                    var matchedTextReplacement = format("[%s](:/%s)", newTitle, linkTargets.get(0).noteId().id());
+                    result.add(new Replacement(note.noteId(), link.element(), matchedTextReplacement));
+                } else {
+                    log.warn("Many target notes found: link={}, targets={}", link, linkTargets);
+                }
             }
         }
         return result;

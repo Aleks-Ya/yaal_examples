@@ -3,6 +3,7 @@ package joplin.common.link;
 import joplin.common.note.Note;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -18,6 +19,7 @@ public class LinkService {
             var url = matcher.group(2);
             links.add(new Link(matchedText, title, url, null));
         }
+        links.sort(Comparator.comparing(Link::element));
         return note.withLinks(links);
     }
 

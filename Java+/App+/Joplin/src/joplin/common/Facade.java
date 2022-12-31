@@ -5,6 +5,8 @@ import joplin.common.link.LinkType;
 import joplin.common.note.Note;
 import joplin.common.note.NoteId;
 import joplin.common.note.NoteService;
+import joplin.common.note.Replacement;
+import joplin.common.resource.Resource;
 import joplin.common.resource.ResourceService;
 
 import java.util.List;
@@ -25,23 +27,11 @@ public class Facade implements AutoCloseable {
         this.resourceService = resourceService;
     }
 
-    public NoteService getNoteService() {
-        return noteService;
-    }
-
-    public LinkService getLinkService() {
-        return linkService;
-    }
-
-    public ResourceService getResourceService() {
-        return resourceService;
-    }
-
     public List<Note> fetchAllNotes() {
         return resourceService.addLinkResources(linkService.parseLinks(noteService.fetchAllNotes()));
     }
 
-    public Optional<Note> fetchNoteByIdWithResources(NoteId id) {
+    public Optional<Note> fetchNoteById(NoteId id) {
         return noteService.fetchNoteById(id)
                 .map(linkService::parseLinks)
                 .map(resourceService::addLinkResources);
@@ -49,13 +39,20 @@ public class Facade implements AutoCloseable {
 
     public List<Note> findBiggestNotes(int noteNumber) {
         var allNotes = noteService.fetchAllNotes();
-        var linkNotes = linkService.parseLinks(allNotes, LinkType.JOPLIN);
+        var linkNotes = linkService.parseLinks(allNotes);
         var resourceNotes = resourceService.addLinkResources(linkNotes);
         return resourceNotes.stream()
-                .sorted((note1, note2) -> resourceService.noteSizeWithResources(note2)
-                        .compareTo(resourceService.noteSizeWithResources(note1)))
+                .sorted((note1, note2) -> noteSizeWithResources(note2)
+                        .compareTo(noteSizeWithResources(note1)))
                 .limit(noteNumber)
                 .toList();
+    }
+
+    public Long noteResourceNumber(Note note, LinkType linkType) {
+        return note.links().stream()
+                .filter(link -> link.resource() != null)
+                .filter(link -> link.type() == linkType)
+                .count();
     }
 
     public List<Note> findNotesWithBiggestSingleResource(int noteNumber) {
@@ -70,6 +67,35 @@ public class Facade implements AutoCloseable {
                 .limit(noteNumber)
                 .map(Map.Entry::getKey)
                 .toList();
+    }
+
+    public Long noteSizeWithResources(Note note) {
+        var bodySize = note.body().length();
+        var resourceSize = note.links().stream()
+                .filter(link -> link.resource() != null)
+                .mapToLong(link -> link.resource().resourceFile().length())
+                .sum();
+        return bodySize + resourceSize;
+    }
+
+    public void updateNote(Note note) {
+        noteService.updateNote(note);
+    }
+
+    public Optional<Resource> biggestResource(Note note) {
+        return resourceService.biggestResource(note);
+    }
+
+    public Optional<Resource> biggestResource(Note note, List<String> extensions) {
+        return resourceService.biggestResource(note, extensions);
+    }
+
+    public boolean updateNoteBody(Replacement replacement) {
+        return noteService.updateNoteBody(replacement);
+    }
+
+    public boolean updateNoteTitle(Replacement replacement) {
+        return noteService.updateNoteTitle(replacement);
     }
 
     @Override

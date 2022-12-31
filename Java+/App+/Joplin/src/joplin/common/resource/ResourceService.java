@@ -35,7 +35,7 @@ public class ResourceService {
             return Optional.empty();
         }
         if (files.length > 1) {
-            throw new IllegalStateException("Found " + files.length + " resources with id " + resourceId);
+            throw new IllegalStateException("Found " + files.length + " resources with resourceId " + resourceId);
         }
         return Optional.of(new Resource(new ResourceId(resourceId), files[0]));
     }
@@ -52,21 +52,6 @@ public class ResourceService {
 
     public List<Note> addLinkResources(List<Note> notes) {
         return notes.stream().map(this::addLinkResources).toList();
-    }
-
-    public Long noteSizeWithResources(Note note) {
-        var bodySize = note.body().length();
-        var resourceSize = note.links().stream()
-                .filter(link -> link.resource() != null)
-                .mapToLong(link -> link.resource().resourceFile().length())
-                .sum();
-        return bodySize + resourceSize;
-    }
-
-    public Long noteResourceNumber(Note note, LinkType linkType) {
-        return note.links().stream()
-                .filter(link -> link.type() == linkType)
-                .count();
     }
 
     public Optional<Resource> biggestResource(Note note) {

@@ -3,6 +3,7 @@ package joplin.common.db;
 import joplin.common.note.MarkupLanguage;
 import joplin.common.note.Note;
 import joplin.common.note.NoteId;
+import joplin.common.note.NotebookId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,10 +18,11 @@ import java.util.Optional;
 import static java.lang.String.format;
 import static java.time.temporal.ChronoUnit.DAYS;
 
-public class SqliteService implements AutoCloseable {
-    private static final Logger log = LoggerFactory.getLogger(SqliteService.class);
+public class SqliteRepo implements AutoCloseable {
+    private static final Logger log = LoggerFactory.getLogger(SqliteRepo.class);
     private static final String NOTES_TABLE = "notes";
     private static final String ID_COLUMN = "id";
+    private static final String PARENT_ID_COLUMN = "parent_id";
     private static final String TITLE_COLUMN = "title";
     private static final String NOTEBOOK_COLUMN = "parent_id";
     private static final String BODY_COLUMN = "body";
@@ -29,11 +31,11 @@ public class SqliteService implements AutoCloseable {
     private final Connection connection;
     private final boolean dryRun;
 
-    public SqliteService(String sqliteDbFile) {
+    public SqliteRepo(String sqliteDbFile) {
         this(sqliteDbFile, false);
     }
 
-    public SqliteService(String sqliteDbFile, boolean dryRun) {
+    public SqliteRepo(String sqliteDbFile, boolean dryRun) {
         this.dryRun = dryRun;
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:" + sqliteDbFile);
@@ -44,17 +46,6 @@ public class SqliteService implements AutoCloseable {
 
     private static String escapeQuotes(String text) {
         return text.replaceAll("'", "''");
-    }
-
-    public List<Note> fetchNotes(String notebookId, MarkupLanguage markupLanguage) {
-        var query = format("WHERE %s='%s' AND %s=%d",
-                NOTEBOOK_COLUMN, notebookId, MARKUP_LANGUAGE_COLUMN, markupLanguage.getCode());
-        return queryToNoteEntityList(query);
-    }
-
-    public List<Note> fetchNotesByTitle(String title) {
-        var query = format("WHERE %s LIKE '%s'", TITLE_COLUMN, escapeQuotes(title));
-        return queryToNoteEntityList(query);
     }
 
     public List<Note> fetchAllNotes() {
@@ -69,7 +60,7 @@ public class SqliteService implements AutoCloseable {
         } else if (noteList.size() == 1) {
             return Optional.of(noteList.get(0));
         } else {
-            throw new IllegalStateException("More than 1 note with id: " + id);
+            throw new IllegalStateException("More than 1 note with noteId: " + id);
         }
     }
 
@@ -83,7 +74,7 @@ public class SqliteService implements AutoCloseable {
                     BODY_COLUMN, body,
                     MARKUP_LANGUAGE_COLUMN, note.markupLanguage().getCode(),
                     UPDATED_TIME_COLUMN, updatedTime,
-                    ID_COLUMN, note.id().id());
+                    ID_COLUMN, note.noteId().id());
             if (!dryRun) {
                 var updated = statement.executeUpdate(updateQuery);
                 if (updated != 1) {
@@ -107,18 +98,19 @@ public class SqliteService implements AutoCloseable {
     }
 
     private List<Note> queryToNoteEntityList(String where) {
-        var query = format("SELECT %s, %s, %s, %s, %s FROM %s %s",
-                ID_COLUMN, TITLE_COLUMN, BODY_COLUMN, MARKUP_LANGUAGE_COLUMN, UPDATED_TIME_COLUMN, NOTES_TABLE, where);
+        var query = format("SELECT %s, %s, %s, %s, %s, %s FROM %s %s",
+                ID_COLUMN, PARENT_ID_COLUMN, TITLE_COLUMN, BODY_COLUMN, MARKUP_LANGUAGE_COLUMN, UPDATED_TIME_COLUMN, NOTES_TABLE, where);
         try (var statement = connection.createStatement();
              var resultSet = statement.executeQuery(query)) {
             var result = new ArrayList<Note>();
             while (resultSet.next()) {
-                var id = new NoteId(resultSet.getString(ID_COLUMN));
+                var noteId = new NoteId(resultSet.getString(ID_COLUMN));
+                var notebookId = new NotebookId(resultSet.getString(PARENT_ID_COLUMN));
                 var title = resultSet.getString(TITLE_COLUMN);
                 var body = resultSet.getString(BODY_COLUMN);
                 var language = MarkupLanguage.parseCode(resultSet.getInt(MARKUP_LANGUAGE_COLUMN));
                 var updatedTime = resultSet.getLong(UPDATED_TIME_COLUMN);
-                var htmlNote = new Note(id, title, body, language, updatedTime, null);
+                var htmlNote = new Note(noteId, notebookId, title, body, language, updatedTime, null);
                 result.add(htmlNote);
             }
             return result;

@@ -4,11 +4,12 @@
 allowmixing
 folder resources
 database Sqlite
+file "pandoc CLI" as PandocCli
 package joplin {
     package common {
         class Facade
         package db {
-            class SqliteService
+            class SqliteRepo
         }
         package resource {
             class ResourceService
@@ -21,42 +22,60 @@ package joplin {
         }
         package note {
             class NoteService
-            class NoteBodyReplacer
         }
     }
     package apps {
         package evernote_link_to_joplin_link {
             class EvernoteLinkToJoplinLinkMain
+            class JoplinLinkCreator
+            class "Converter" as Converter2
+            EvernoteLinkToJoplinLinkMain --> Converter2
+            Converter2 --> JoplinLinkCreator
+            Converter2 --> Facade
         }
         package find_big_notes {
             class FindBigNotesMain
+            FindBigNotesMain --> Facade
         }
         package format_dates_in_titles {
+            class FormatDatesInTitlesMain
+            class "Converter" as Converter3
+            FormatDatesInTitlesMain --> Converter3
+            Converter3 --> Facade
         }
         package html_to_markdown {
+            class HtmlToMarkdownMain
+            class "Converter" as Converter4
+            class PandocService
+            HtmlToMarkdownMain --> Converter4
+            Converter4 --> Facade
+            Converter4 --> PandocService
+            PandocService --> PandocCli
         }
         package search_and_replace_body {
+            class SearchAndReplaceBodyMain
+            class "Converter" as Converter5
+            SearchAndReplaceBodyMain --> Converter5
+            Converter5 --> Facade
         }
         package search_and_replace_link {
             class SearchAndReplaceLinkMain
             class "Converter" as Converter1
             class LinkReplacer
             SearchAndReplaceLinkMain --> Converter1
-            Converter1 --> NoteService
+            Converter1 --> Facade
+            Converter1 --> LinkReplacer
         }
     }
 }
 
-SqliteService --> Sqlite
-FindBigNotesMain --> Facade
 Facade --> NoteService
 Facade --> ResourceService
 Facade --> LinkService
 Facade --> DateParser
-NoteService --> LinkService
-NoteService --> ResourceService
-NoteService --> SqliteService
+NoteService --> SqliteRepo
+SqliteRepo --> Sqlite
 ResourceService --> resources
-NoteBodyReplacer --> SqliteService
-JoplinLinkCreator --> NoteService
+JoplinLinkCreator --> Facade
+SqliteRepo -[hidden]- resources
 @enduml

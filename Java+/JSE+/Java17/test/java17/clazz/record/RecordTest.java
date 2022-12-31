@@ -1,4 +1,4 @@
-package java17.clazz;
+package java17.clazz.record;
 
 import org.junit.jupiter.api.Test;
 

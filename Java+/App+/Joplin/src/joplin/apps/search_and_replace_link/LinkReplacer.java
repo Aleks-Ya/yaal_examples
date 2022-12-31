@@ -9,7 +9,7 @@ import static java.lang.String.format;
 
 class LinkReplacer {
     List<Replacement> replace(Note note) {
-        return note.links().stream().map(link -> new Replacement(note.id(), link.element(), format("[%s](%s)", link.text()
+        return note.links().stream().map(link -> new Replacement(note.noteId(), link.element(), format("[%s](%s)", link.text()
                 .replaceAll("\n", " ")
                 .replaceAll("\\s{2,}", " ")
                 .trim(), link.url()))).toList();

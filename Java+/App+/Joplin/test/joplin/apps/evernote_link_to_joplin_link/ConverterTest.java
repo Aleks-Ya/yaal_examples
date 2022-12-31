@@ -21,19 +21,19 @@ class ConverterTest {
             var noteNumber = 9;
             var allNotes = facade.fetchAllNotes();
             assertThat(allNotes).hasSize(noteNumber);
-            var unchangedNotes = allNotes.stream().filter(note -> !changedNoteIds.contains(note.id())).toList();
-            var changedNotes = allNotes.stream().filter(note -> changedNoteIds.contains(note.id())).toList();
+            var unchangedNotes = allNotes.stream().filter(note -> !changedNoteIds.contains(note.noteId())).toList();
+            var changedNotes = allNotes.stream().filter(note -> changedNoteIds.contains(note.noteId())).toList();
 
-            assertThat(facade.fetchNoteByIdWithResources(noteId1).orElseThrow().body()).doesNotContain(link1);
-            assertThat(facade.fetchNoteByIdWithResources(noteId2).orElseThrow().body()).doesNotContain(link2);
+            assertThat(facade.fetchNoteById(noteId1).orElseThrow().body()).doesNotContain(link1);
+            assertThat(facade.fetchNoteById(noteId2).orElseThrow().body()).doesNotContain(link2);
 
             var converter = new Converter(facade);
             converter.convert();
             assertThat(facade.fetchAllNotes()).hasSize(noteNumber).containsAll(unchangedNotes);
             assertThat(facade.fetchAllNotes()).hasSize(noteNumber).doesNotContainAnyElementsOf(changedNotes);
 
-            assertThat(facade.fetchNoteByIdWithResources(noteId1).orElseThrow().body()).contains(link1);
-            assertThat(facade.fetchNoteByIdWithResources(noteId2).orElseThrow().body()).contains(link2);
+            assertThat(facade.fetchNoteById(noteId1).orElseThrow().body()).contains(link1);
+            assertThat(facade.fetchNoteById(noteId2).orElseThrow().body()).contains(link2);
         }
     }
 }

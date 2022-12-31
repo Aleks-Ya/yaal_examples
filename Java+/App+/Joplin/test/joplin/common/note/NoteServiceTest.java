@@ -1,43 +1,65 @@
 package joplin.common.note;
 
 import joplin.Utils;
-import joplin.common.link.Link;
-import joplin.common.resource.Resource;
-import joplin.common.resource.ResourceId;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.util.List;
+import java.time.Duration;
 
+import static joplin.Notes.NOTE_1;
+import static joplin.Notes.NOTE_2;
+import static joplin.common.note.MarkupLanguage.MD;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
 
 class NoteServiceTest {
-
     @Test
     void findBiggestNotes() {
         try (var facade = Utils.createFacadeFake()) {
             var biggestNotes = facade.findBiggestNotes(2);
-            assertThat(biggestNotes).extracting(note -> note.id().id(), Note::links)
-                    .containsExactly(tuple("3ce4eb6d45d741718772f16c343b8ddd", List.of(
-                            new Link("[Joplin link    1   ](:/db65929324925ccbfa789f95cdd293ba)",
-                                    "Joplin link    1   ", ":/db65929324925ccbfa789f95cdd293ba",
-                                    new Resource(new ResourceId("db65929324925ccbfa789f95cdd293ba"),
-                                            new File("/home/aleks/pr/home/yaal_examples/Java+/App+/Joplin/build/resources/main/joplin/common/resource/resources/db65929324925ccbfa789f95cdd293ba.pdf"))),
-                            new Link("[Русская ссылка 1](:/ddc9f19456f64ade383ecdd76cf5b90d)",
-                                    "Русская ссылка 1", ":/ddc9f19456f64ade383ecdd76cf5b90d", null),
-                            new Link("[WinSCP](:/da4added37344f07a5ff2b9b2e1fdef3)", "WinSCP",
-                                    ":/da4added37344f07a5ff2b9b2e1fdef3",
-                                    new Resource(new ResourceId("da4added37344f07a5ff2b9b2e1fdef3"),
-                                            new File("/home/aleks/pr/home/yaal_examples/Java+/App+/Joplin/build/resources/main/joplin/common/resource/resources/da4added37344f07a5ff2b9b2e1fdef3.txt")))
-                    )), tuple("bf941399ecf6497b98693f618d2798bd", List.of(new Link(
-                            "[Word Document](:/014ad7b70d5ba80ff06b897cb3dd8db5)",
-                            "Word Document", ":/014ad7b70d5ba80ff06b897cb3dd8db5",
-                            new Resource(
-                                    new ResourceId("014ad7b70d5ba80ff06b897cb3dd8db5"),
-                                    new File("/home/aleks/pr/home/yaal_examples/Java+/App+/Joplin/build/resources/main/joplin/common/resource/resources/014ad7b70d5ba80ff06b897cb3dd8db5.docx")
-                            ))
-                    )));
+            assertThat(biggestNotes).containsExactlyInAnyOrder(NOTE_1, NOTE_2);
+        }
+    }
+
+    @Test
+    void updateNote() {
+        try (var facade = Utils.createFacadeFake()) {
+            var noteId = new NoteId("a2d7d7efe84a47bf8ffde18121477efd");
+            var replacement = new Replacement(noteId,
+                    "[Meal\\'s \\\"shopping\\\"\n" +
+                            "list](evernote:///view/48821034/s241/f6970881-a927-49dc-a73b-a7cc5c9348b3/f6970881-a927-49dc-a73b-a7cc5c9348b3/)",
+                    "[Meal\\'s \\\"shopping\\\" list](:/e6900575a9724851bdd8b02d2411967d)");
+
+            var updated = facade.updateNoteBody(replacement);
+            assertThat(updated).isTrue();
+            var newNote = facade.fetchNoteById(noteId).orElseThrow();
+            assertThat(newNote).satisfies(note1 -> {
+                        assertThat(note1.noteId().id()).isEqualTo("a2d7d7efe84a47bf8ffde18121477efd");
+                        assertThat(note1.title()).isEqualTo("Discourse marker list");
+                        assertThat(note1.body())
+                                .contains("[Meal\\'s \\\"shopping\\\" list](:/e6900575a9724851bdd8b02d2411967d)")
+                                .doesNotContain("[Meal shopping\nlist](evernote:///view/48821034/s241/f6970881-a927-49dc-a73b-a7cc5c9348b3/f6970881-a927-49dc-a73b-a7cc5c9348b3/)");
+                        assertThat(note1.markupLanguage()).isEqualTo(MD);
+                        assertThat(note1.updatedTime()).isEqualTo(1670158519744L + Duration.ofDays(1).toMillis());
+                    }
+            );
+        }
+    }
+
+    @Test
+    void skipSameNewText() {
+        try (var facade = Utils.createFacadeFake()) {
+            var noteId = new NoteId("a2d7d7efe84a47bf8ffde18121477efd");
+            var oldNote = facade.fetchNoteById(noteId).orElseThrow();
+
+            var text = "aaa";
+            var replacement1 = new Replacement(noteId, text, text);
+            var updated1 = facade.updateNoteBody(replacement1);
+            assertThat(updated1).isFalse();
+            assertThat(facade.fetchNoteById(noteId).orElseThrow()).isEqualTo(oldNote);
+
+            var replacement2 = new Replacement(noteId, text, "bbb");
+            var updated2 = facade.updateNoteBody(replacement2);
+            assertThat(updated2).isTrue();
+            assertThat(facade.fetchNoteById(noteId).orElseThrow()).isNotEqualTo(oldNote);
         }
     }
 }
