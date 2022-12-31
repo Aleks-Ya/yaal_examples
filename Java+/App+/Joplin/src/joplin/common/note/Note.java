@@ -1,8 +1,12 @@
 package joplin.common.note;
 
 import joplin.common.link.Link;
+import joplin.common.resource.Resource;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public record Note(NoteId noteId,
                    NotebookId notebookId,
@@ -26,5 +30,37 @@ public record Note(NoteId noteId,
 
     public Note withMarkupLanguage(MarkupLanguage markupLanguage) {
         return new Note(noteId, notebookId, title, body, markupLanguage, updatedTime, links);
+    }
+
+    public long getNoteSize() {
+        var bodySize = body().length();
+        var resourceSize = links().stream()
+                .filter(link -> link.resource() != null)
+                .mapToLong(link -> link.resource().resourceFile().length())
+                .sum();
+        return bodySize + resourceSize;
+    }
+
+    public long getResourceNumber() {
+        if (links == null) {
+            return 0;
+        }
+        return links.stream().map(Link::resource).filter(Objects::nonNull).count();
+    }
+
+    public Optional<Resource> getBiggestResource() {
+        return links.stream()
+                .map(Link::resource)
+                .filter(Objects::nonNull)
+                .max(Comparator.comparing(Resource::getSize));
+    }
+
+    public Optional<Resource> getBiggestResource(List<String> extensions) {
+        var lowerCaseExtensions = extensions.stream().map(String::toLowerCase).toList();
+        return links().stream()
+                .map(Link::resource)
+                .filter(Objects::nonNull)
+                .filter(resource -> lowerCaseExtensions.contains(resource.getExtension().toLowerCase()))
+                .max(Comparator.comparing(Resource::getSize));
     }
 }

@@ -6,7 +6,6 @@ import joplin.common.note.Note;
 
 import java.io.File;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public class ResourceService {
@@ -16,16 +15,7 @@ public class ResourceService {
         this.resourcesDir = new File(joplinDir, "resources");
     }
 
-    private static boolean isExtensionInList(Resource resource, List<String> extensions) {
-        if (resource == null || resource.resourceFile() == null) {
-            return false;
-        }
-        return extensions.stream()
-                .anyMatch(extension -> resource.resourceFile().getName().toLowerCase()
-                        .endsWith("." + extension.toLowerCase()));
-    }
-
-    public Optional<Resource> getDecryptedJoplinResource(Link link) {
+    private Optional<Resource> getDecryptedJoplinResource(Link link) {
         if (link == null || link.type() != LinkType.JOPLIN) {
             return Optional.empty();
         }
@@ -54,24 +44,4 @@ public class ResourceService {
         return notes.stream().map(this::addLinkResources).toList();
     }
 
-    public Optional<Resource> biggestResource(Note note) {
-        if (note.links() == null) {
-            return Optional.empty();
-        }
-        return note.links().stream()
-                .map(Link::resource)
-                .filter(Objects::nonNull)
-                .min((r1, r2) -> Long.compare(r2.resourceFile().length(), r1.resourceFile().length()));
-    }
-
-    public Optional<Resource> biggestResource(Note note, List<String> extensions) {
-        if (note.links() == null) {
-            return Optional.empty();
-        }
-        return note.links().stream()
-                .map(Link::resource)
-                .filter(Objects::nonNull)
-                .filter(resource -> isExtensionInList(resource, extensions))
-                .min((r1, r2) -> Long.compare(r2.resourceFile().length(), r1.resourceFile().length()));
-    }
 }

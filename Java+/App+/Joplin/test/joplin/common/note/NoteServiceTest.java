@@ -14,7 +14,7 @@ class NoteServiceTest {
     @Test
     void findBiggestNotes() {
         try (var facade = Utils.createFacadeFake()) {
-            var biggestNotes = facade.findBiggestNotes(2);
+            var biggestNotes = facade.fetchBiggestNotes(2);
             assertThat(biggestNotes).containsExactlyInAnyOrder(NOTE_1, NOTE_2);
         }
     }

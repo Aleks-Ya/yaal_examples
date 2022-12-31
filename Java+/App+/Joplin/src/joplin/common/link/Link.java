@@ -19,4 +19,8 @@ public record Link(String element, String text, String url, Resource resource) {
     public Link withResource(Resource resource) {
         return new Link(element, text, url, resource);
     }
+
+    public long getResourceSize() {
+        return resource != null ? resource.resourceFile().length() : 0;
+    }
 }

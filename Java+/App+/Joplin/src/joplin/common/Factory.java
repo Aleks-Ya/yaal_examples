@@ -13,10 +13,10 @@ public class Factory {
     }
 
     public static Facade createFacade(String prodJoplinDir, String sqliteDbFile, boolean dryRun) {
-        var resourceService = new ResourceService(prodJoplinDir);
-        var linkService = new LinkService();
         var sqliteService = new SqliteRepo(sqliteDbFile, dryRun);
         var noteService = new NoteService(sqliteService);
+        var linkService = new LinkService();
+        var resourceService = new ResourceService(prodJoplinDir);
         return new Facade(noteService, linkService, resourceService);
     }
 

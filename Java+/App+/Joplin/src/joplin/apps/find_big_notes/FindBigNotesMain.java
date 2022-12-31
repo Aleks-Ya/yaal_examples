@@ -1,9 +1,11 @@
 package joplin.apps.find_big_notes;
 
 import joplin.common.Factory;
-import joplin.common.link.LinkType;
+import joplin.common.resource.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * Prints the biggest notes including attachment sizes.
@@ -15,26 +17,36 @@ public class FindBigNotesMain {
         log.info("Started");
         try (var facade = Factory.createFacadeProd(true)) {
             System.out.println("\nBIGGEST NOTES");
-            facade.findBiggestNotes(100).stream()
+            facade.fetchBiggestNotes(10).stream()
                     .map(note -> String.format("noteId='%s', title='%s', size=%,d, resourceNum=%d, biggestResourceSize=%,d)",
                             note.noteId().id(), note.title(),
-                            facade.noteSizeWithResources(note),
-                            facade.noteResourceNumber(note, LinkType.JOPLIN),
-                            facade.biggestResource(note)
-                                    .map(resource -> resource.resourceFile().length()).orElse(0L)))
+                            note.getNoteSize(),
+                            note.getResourceNumber(),
+                            note.getBiggestResource().map(Resource::getSize).orElse(0L)))
                     .forEach(System.out::println);
+
             System.out.println("\n\nNOTES WITH BIGGEST SINGLE RESOURCE (IMAGES ONLY)");
-            facade.findNotesWithBiggestSingleResource(100).stream()
-                    .map(note -> {
-                        var biggestResource = facade.biggestResource(note);
+            facade.fetchNotesWithBiggestSingleResource(10, List.of("jpg", "jpeg")).stream()
+                    .map(tuple -> {
+                        var note = tuple.getLeft();
+                        var biggestResource = tuple.getRight();
                         return String.format("noteId='%s', title='%s', noteSize=%,d, resourceNum=%d, " +
                                         "biggestResourceSize=%,d, biggestResourceFilename='%s')",
                                 note.noteId().id(), note.title(),
-                                facade.noteSizeWithResources(note),
-                                facade.noteResourceNumber(note, LinkType.JOPLIN),
-                                biggestResource.map(resource -> resource.resourceFile().length()).orElse(0L),
-                                biggestResource.map(resource -> resource.resourceFile().getName()).orElse("-")
+                                note.getNoteSize(),
+                                note.getResourceNumber(),
+                                biggestResource.getSize(),
+                                biggestResource.resourceFile().getName()
                         );
+                    })
+                    .forEach(System.out::println);
+
+            System.out.println("\n\nNOTES WITH BIGGEST SINGLE RESOURCE (IMAGES ONLY) FOR COPYING");
+            facade.fetchNotesWithBiggestSingleResource(10, List.of("jpg", "jpeg")).stream()
+                    .map(tuple -> {
+                        var biggestResource = tuple.getRight();
+                        return String.format("cp '%s' /home/aleks/JoplinAttacheResourcesForReplace/",
+                                biggestResource.resourceFile().getAbsolutePath());
                     })
                     .forEach(System.out::println);
         }

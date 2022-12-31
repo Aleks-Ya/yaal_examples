@@ -1,47 +1,52 @@
 package joplin.common;
 
 import joplin.Utils;
-import joplin.common.resource.Resource;
-import joplin.common.resource.ResourceId;
+import joplin.common.link.Link;
 import org.junit.jupiter.api.Test;
+import util.Tuple2;
 
-import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 import static joplin.Notes.NOTE_1;
-import static joplin.common.link.LinkType.JOPLIN;
+import static joplin.Notes.NOTE_2;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class FacadeTest {
 
     @Test
-    void noteResourceNumber() {
+    void fetchAllNotes() {
         try (var facade = Utils.createFacadeFake()) {
-            var note = facade.fetchNoteById(NOTE_1.noteId()).orElseThrow();
-            var resourceNumber = facade.noteResourceNumber(note, JOPLIN);
-            assertThat(resourceNumber).isEqualTo(2);
+            assertThat(facade.fetchAllNotes()).hasSize(9);
         }
     }
 
     @Test
-    void biggestResource() {
+    void fetchNoteById() {
         try (var facade = Utils.createFacadeFake()) {
-            var note = facade.fetchNoteById(NOTE_1.noteId()).orElseThrow();
-            var biggestResourceOpt = facade.biggestResource(note);
-            assertThat(biggestResourceOpt).hasValue(new Resource(
-                    new ResourceId("db65929324925ccbfa789f95cdd293ba"),
-                    new File("/home/aleks/pr/home/yaal_examples/Java+/App+/Joplin/build/resources/main/joplin/common/resource/resources/db65929324925ccbfa789f95cdd293ba.pdf")));
+            assertThat(facade.fetchNoteById(NOTE_1.noteId())).hasValue(NOTE_1);
         }
     }
 
     @Test
-    void biggestResource_filterByExtension() {
+    void fetchBiggestNotes() {
         try (var facade = Utils.createFacadeFake()) {
-            var note = facade.fetchNoteById(NOTE_1.noteId()).orElseThrow();
-            var biggestResourceOpt = facade.biggestResource(note, List.of("jpg", "txt"));
-            assertThat(biggestResourceOpt).hasValue(new Resource(
-                    new ResourceId("da4added37344f07a5ff2b9b2e1fdef3"),
-                    new File("/home/aleks/pr/home/yaal_examples/Java+/App+/Joplin/build/resources/main/joplin/common/resource/resources/da4added37344f07a5ff2b9b2e1fdef3.txt")));
+            assertThat(facade.fetchBiggestNotes(2)).containsExactly(NOTE_1, NOTE_2);
         }
     }
+
+    @Test
+    void fetchNotesWithBiggestSingleResource() {
+        try (var facade = Utils.createFacadeFake()) {
+            var expResource1 = NOTE_1.links().stream().map(Link::resource)
+                    .filter(Objects::nonNull)
+                    .filter(resource -> resource.resourceId().id().equals("db65929324925ccbfa789f95cdd293ba"))
+                    .findFirst().orElseThrow();
+            var expResource2 = NOTE_2.links().stream().map(Link::resource).findFirst().orElseThrow();
+            assertThat(expResource1.getSize()).isGreaterThan(expResource2.getSize());
+            assertThat(facade.fetchNotesWithBiggestSingleResource(2, List.of("pdf", "docx")))
+                    .containsExactly(Tuple2.of(NOTE_1, expResource1), Tuple2.of(NOTE_2, expResource2));
+        }
+    }
+
 }
