@@ -5,8 +5,10 @@ import joplin.common.link.LinkType;
 import joplin.common.note.Note;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 public class ResourceService {
     private final File resourcesDir;
@@ -42,6 +44,11 @@ public class ResourceService {
 
     public List<Note> addLinkResources(List<Note> notes) {
         return notes.stream().map(this::addLinkResources).toList();
+    }
+
+    public List<File> findAllFilesInResourceDir() {
+        var files = resourcesDir.listFiles();
+        return files != null ? Arrays.stream(files).toList() : List.of();
     }
 
 }

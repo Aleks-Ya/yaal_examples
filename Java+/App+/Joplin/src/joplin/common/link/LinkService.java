@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class LinkService {
-    private static final Pattern PATTERN = Pattern.compile("\\[([-.:?@#\\w\\s\\nЁёА-я\"()'\\\\/]*)]\\(([\\w/:.-]*)\\)");
+    private static final Pattern PATTERN =
+            Pattern.compile("\\[([-.,:?@#\\w\\s\\nЁёА-я\"()'\\\\/<>]*)]\\(([\\w/:&=_?.-]*)( \".*\")?\\)");
 
     public Note parseLinks(Note note) {
         var links = new ArrayList<Link>();

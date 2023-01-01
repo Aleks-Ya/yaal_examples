@@ -22,6 +22,13 @@ class FacadeTest {
     }
 
     @Test
+    void fetchAllResources() {
+        try (var facade = Utils.createFacadeFake()) {
+            assertThat(facade.fetchAllResources()).hasSize(4);
+        }
+    }
+
+    @Test
     void fetchNoteById() {
         try (var facade = Utils.createFacadeFake()) {
             assertThat(facade.fetchNoteById(NOTE_1.noteId())).hasValue(NOTE_1);
@@ -46,6 +53,13 @@ class FacadeTest {
             assertThat(expResource1.getSize()).isGreaterThan(expResource2.getSize());
             assertThat(facade.fetchNotesWithBiggestSingleResource(2, List.of("pdf", "docx")))
                     .containsExactly(Tuple2.of(NOTE_1, expResource1), Tuple2.of(NOTE_2, expResource2));
+        }
+    }
+
+    @Test
+    void findAllFilesInResourceDir() {
+        try (var facade = Utils.createFacadeFake()) {
+            assertThat(facade.findAllFilesInResourceDir()).hasSize(6);
         }
     }
 

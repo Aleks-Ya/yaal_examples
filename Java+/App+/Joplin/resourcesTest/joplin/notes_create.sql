@@ -96,12 +96,16 @@ VALUES ('ba9bdb7bc5444d5b85bdabfd9a211337','0d0acacf67a540bd83d5eb3428f2b3a7','�
 текст 1
 
 [Русское название
-статьи 2](evernote:///view/48821034/s241/87b5042e-7d6e-40bc-b434-2f4daf68722a/87b5042e-7d6e-40bc-b434-2f4daf68722a/)
-
+статьи 2, запятая](evernote:///view/48821034/s241/87b5042e-7d6e-40bc-b434-2f4daf68722a/87b5042e-7d6e-40bc-b434-2f4daf68722a/)
+[Android
+app](https://play.google.com/store/apps/details?id=net.cubux.android_v2&hl=ru&gl=US)
+[web
+version](https://app.pomodoneapp.com "https://app.pomodoneapp.com")
+[ticket is in<br>progress](https://github.com/laurent22/joplin/issues/375)
   ',1547501767000,1547501955001,0,0,0,0,'aleks_ya','',0,0,0,'evernote','net.cozic.joplin-desktop','',0,1547501767000,1547501955000,'',0,1,0,'','','');
 
 INSERT INTO "notes" ("id","parent_id","title","body","created_time","updated_time","is_conflict","latitude","longitude","altitude","author","source_url","is_todo","todo_due","todo_completed","source","source_application","application_data","order","user_created_time","user_updated_time","encryption_cipher_text","encryption_applied","markup_language","is_shared","share_id","conflict_original_id","master_key_id")
-VALUES ('bf941399ecf6497b98693f618d2798bd','dbe1644c85c34e8092b2779e5f78e99e','Русское название статьи 2','Русский
+VALUES ('bf941399ecf6497b98693f618d2798bd','dbe1644c85c34e8092b2779e5f78e99e','Русское название статьи 2, запятая','Русский
 текст 2
 {width=100
 height=200}

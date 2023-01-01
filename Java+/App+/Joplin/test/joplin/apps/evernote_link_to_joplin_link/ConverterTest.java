@@ -14,7 +14,7 @@ class ConverterTest {
         try (var facade = Utils.createFacadeFake()) {
             var noteId1 = new NoteId("ba9bdb7bc5444d5b85bdabfd9a211337");
             var noteId2 = new NoteId("a2d7d7efe84a47bf8ffde18121477efd");
-            var link1 = "[Русское название статьи 2](:/bf941399ecf6497b98693f618d2798bd)";
+            var link1 = "[Русское название статьи 2, запятая](:/bf941399ecf6497b98693f618d2798bd)";
             var link2 = "[Meal\\'s \\\"shopping\\\" list](:/e6900575a9724851bdd8b02d2411967d)";
             var changedNoteIds = List.of(noteId1, noteId2);
 

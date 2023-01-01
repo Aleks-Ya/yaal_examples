@@ -35,8 +35,7 @@ public record Note(NoteId noteId,
     public long getNoteSize() {
         var bodySize = body().length();
         var resourceSize = links().stream()
-                .filter(link -> link.resource() != null)
-                .mapToLong(link -> link.resource().resourceFile().length())
+                .mapToLong(Link::getResourceSize)
                 .sum();
         return bodySize + resourceSize;
     }
@@ -56,11 +55,10 @@ public record Note(NoteId noteId,
     }
 
     public Optional<Resource> getBiggestResource(List<String> extensions) {
-        var lowerCaseExtensions = extensions.stream().map(String::toLowerCase).toList();
         return links().stream()
                 .map(Link::resource)
                 .filter(Objects::nonNull)
-                .filter(resource -> lowerCaseExtensions.contains(resource.getExtension().toLowerCase()))
+                .filter(resource -> resource.hasExtension(extensions))
                 .max(Comparator.comparing(Resource::getSize));
     }
 }
