@@ -17,6 +17,7 @@ import java.util.Optional;
 
 import static java.lang.String.format;
 import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 public class SqliteRepo implements AutoCloseable {
     private static final Logger log = LoggerFactory.getLogger(SqliteRepo.class);
@@ -24,10 +25,10 @@ public class SqliteRepo implements AutoCloseable {
     private static final String ID_COLUMN = "id";
     private static final String PARENT_ID_COLUMN = "parent_id";
     private static final String TITLE_COLUMN = "title";
-    private static final String NOTEBOOK_COLUMN = "parent_id";
     private static final String BODY_COLUMN = "body";
     private static final String MARKUP_LANGUAGE_COLUMN = "markup_language";
     private static final String UPDATED_TIME_COLUMN = "updated_time";
+    private static final String USER_UPDATED_TIME_COLUMN = "user_updated_time";
     private final Connection connection;
     private final boolean dryRun;
 
@@ -67,13 +68,14 @@ public class SqliteRepo implements AutoCloseable {
     public void updateNote(Note note) {
         var title = escapeQuotes(note.title());
         var body = escapeQuotes(note.body());
-        var updatedTime = Instant.ofEpochMilli(note.updatedTime()).plus(1, DAYS).toEpochMilli();
+        var updatedTime = Instant.ofEpochMilli(note.updatedTime()).plus(1, MINUTES).toEpochMilli();
         try (var statement = connection.createStatement()) {
-            var updateQuery = format("UPDATE %s SET %s='%s', %s='%s', %s=%d, %s=%d WHERE %s='%s'", NOTES_TABLE,
+            var updateQuery = format("UPDATE %s SET %s='%s', %s='%s', %s=%d, %s=%d, %s=%d WHERE %s='%s'", NOTES_TABLE,
                     TITLE_COLUMN, title,
                     BODY_COLUMN, body,
                     MARKUP_LANGUAGE_COLUMN, note.markupLanguage().getCode(),
                     UPDATED_TIME_COLUMN, updatedTime,
+                    USER_UPDATED_TIME_COLUMN, updatedTime,
                     ID_COLUMN, note.noteId().id());
             if (!dryRun) {
                 var updated = statement.executeUpdate(updateQuery);
@@ -98,8 +100,10 @@ public class SqliteRepo implements AutoCloseable {
     }
 
     private List<Note> queryToNoteEntityList(String where) {
-        var query = format("SELECT %s, %s, %s, %s, %s, %s FROM %s %s",
-                ID_COLUMN, PARENT_ID_COLUMN, TITLE_COLUMN, BODY_COLUMN, MARKUP_LANGUAGE_COLUMN, UPDATED_TIME_COLUMN, NOTES_TABLE, where);
+        var query = format("SELECT %s, %s, %s, %s, %s, %s, %s FROM %s %s",
+                ID_COLUMN, PARENT_ID_COLUMN, TITLE_COLUMN, BODY_COLUMN, MARKUP_LANGUAGE_COLUMN,
+                UPDATED_TIME_COLUMN, USER_UPDATED_TIME_COLUMN,
+                NOTES_TABLE, where);
         try (var statement = connection.createStatement();
              var resultSet = statement.executeQuery(query)) {
             var result = new ArrayList<Note>();
@@ -110,7 +114,8 @@ public class SqliteRepo implements AutoCloseable {
                 var body = resultSet.getString(BODY_COLUMN);
                 var language = MarkupLanguage.parseCode(resultSet.getInt(MARKUP_LANGUAGE_COLUMN));
                 var updatedTime = resultSet.getLong(UPDATED_TIME_COLUMN);
-                var htmlNote = new Note(noteId, notebookId, title, body, language, updatedTime, null);
+                var userUpdatedTime = resultSet.getLong(USER_UPDATED_TIME_COLUMN);
+                var htmlNote = new Note(noteId, notebookId, title, body, language, updatedTime, userUpdatedTime, null);
                 result.add(htmlNote);
             }
             return result;

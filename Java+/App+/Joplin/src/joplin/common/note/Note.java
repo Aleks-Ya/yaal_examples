@@ -14,22 +14,23 @@ public record Note(NoteId noteId,
                    String body,
                    MarkupLanguage markupLanguage,
                    Long updatedTime,
+                   Long userUpdatedTime,
                    List<Link> links) {
 
     public Note withLinks(List<Link> links) {
-        return new Note(noteId, notebookId, title, body, markupLanguage, updatedTime, links);
+        return new Note(noteId, notebookId, title, body, markupLanguage, updatedTime, userUpdatedTime, links);
     }
 
     public Note withTitle(String title) {
-        return new Note(noteId, notebookId, title, body, markupLanguage, updatedTime, links);
+        return new Note(noteId, notebookId, title, body, markupLanguage, updatedTime, userUpdatedTime, links);
     }
 
     public Note withBody(String body) {
-        return new Note(noteId, notebookId, title, body, markupLanguage, updatedTime, links);
+        return new Note(noteId, notebookId, title, body, markupLanguage, updatedTime, userUpdatedTime, links);
     }
 
     public Note withMarkupLanguage(MarkupLanguage markupLanguage) {
-        return new Note(noteId, notebookId, title, body, markupLanguage, updatedTime, links);
+        return new Note(noteId, notebookId, title, body, markupLanguage, updatedTime, userUpdatedTime, links);
     }
 
     public long getNoteSize() {

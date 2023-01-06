@@ -27,15 +27,4 @@ public class LinkService {
     public List<Note> parseLinks(List<Note> notes) {
         return notes.stream().map(this::parseLinks).toList();
     }
-
-    public List<Note> parseLinks(List<Note> notes, LinkType linkType) {
-        return filterLinksByType(notes.stream().map(this::parseLinks).toList(), linkType);
-    }
-
-    public List<Note> filterLinksByType(List<Note> notes, LinkType type) {
-        return notes.stream()
-                .map(note -> note.withLinks(note.links().stream().filter(link -> link.type() == type).toList()))
-                .toList();
-    }
-
 }

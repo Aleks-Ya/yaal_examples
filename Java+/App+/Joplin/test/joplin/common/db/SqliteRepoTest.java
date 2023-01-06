@@ -35,7 +35,7 @@ class SqliteRepoTest {
             assertThat(noteOpt).hasValue(new Note(new NoteId("6ded77a0daca4ff3828a9241dd0ae0ed"),
                     new NotebookId("4b2503c75de64099b68262878dc240b8"), "2016-09-26 email",
                     "<en-note><div> <p STYLE=\"margin-bottom: 0in; line-height: 100%\">Hello John,</p> <p STYLE=\"margin-bottom: 0in; line-height: 100%\"><br CLEAR=\"none\"/> </p> <p STYLE=\"margin-bottom: 0in; line-height: 100%\">Bye John</p> <p STYLE=\"margin-bottom: 0in; line-height: 100%\">Paragraph #2</p> <p STYLE=\"margin-bottom: 0in; line-height: 100%\"> Another paragraph </p> <br CLEAR=\"none\"/></div></en-note>", HTML,
-                    1669478641200L, null));
+                    1669478641200L, 1669478641200L, null));
         }
     }
 
@@ -50,7 +50,7 @@ class SqliteRepoTest {
             var newBody = "The new note body";
             var newMarkupLanguage = HTML;
             var newUpdatedTime = oldNote.updatedTime() + 10;
-            var newNote = new Note(noteId, newNotebookId, newTitle, newBody, newMarkupLanguage, newUpdatedTime, null);
+            var newNote = new Note(noteId, newNotebookId, newTitle, newBody, newMarkupLanguage, newUpdatedTime, newUpdatedTime, null);
             sqliteService.updateNote(newNote);
             var actNote = sqliteService.fetchNoteById(noteId).orElseThrow();
             assertThat(actNote).satisfies(note -> {
@@ -58,7 +58,9 @@ class SqliteRepoTest {
                 assertThat(note.title()).isEqualTo(newTitle);
                 assertThat(note.body()).isEqualTo(newBody);
                 assertThat(note.markupLanguage()).isEqualTo(newMarkupLanguage);
-                assertThat(note.updatedTime()).isEqualTo(newUpdatedTime + Duration.ofDays(1).toMillis());
+                var expUpdatedTime = newUpdatedTime + Duration.ofMinutes(1).toMillis();
+                assertThat(note.updatedTime()).isEqualTo(expUpdatedTime);
+                assertThat(note.userUpdatedTime()).isEqualTo(expUpdatedTime);
             });
         }
     }

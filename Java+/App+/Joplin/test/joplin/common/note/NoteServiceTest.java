@@ -38,7 +38,9 @@ class NoteServiceTest {
                                 .contains("[Meal\\'s \\\"shopping\\\" list](:/e6900575a9724851bdd8b02d2411967d)")
                                 .doesNotContain("[Meal shopping\nlist](evernote:///view/48821034/s241/f6970881-a927-49dc-a73b-a7cc5c9348b3/f6970881-a927-49dc-a73b-a7cc5c9348b3/)");
                         assertThat(note1.markupLanguage()).isEqualTo(MD);
-                        assertThat(note1.updatedTime()).isEqualTo(1670158519744L + Duration.ofDays(1).toMillis());
+                        var expUpdatedTime = 1670158519744L + Duration.ofMinutes(1).toMillis();
+                        assertThat(note1.updatedTime()).isEqualTo(expUpdatedTime);
+                        assertThat(note1.userUpdatedTime()).isEqualTo(expUpdatedTime);
                     }
             );
         }
