@@ -10,19 +10,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE;
 
 /**
- * Configure Quartz in application.yaml
+ * Configure Quartz with properties from ApplicationContext.
+ * Quartz will use properties overwritten in ApplicationContext.
  */
-@SpringBootTest(webEnvironment = NONE, classes = QuartzConfig.class, properties = {
-        "spring.config.location=classpath:config/custom/application_yaml/application.yaml",
-        "org.quartz.properties=absent.properties"})
-class QuartzConfigInApplicationYamlTest {
-
+@SpringBootTest(webEnvironment = NONE, classes = FromApplicationContextConfig.class,
+        properties = "spring.config.location=classpath:config/custom/application_yaml/from_application_context.yaml")
+class QuartzConfigFromApplicationContextTest {
     @Autowired
     private Scheduler scheduler;
 
     @Test
     void test() throws SchedulerException {
-        var name = scheduler.getSchedulerName();
-        assertThat(name).isEqualTo("instance-application-yaml");
+        assertThat(scheduler.getSchedulerName()).isEqualTo("from-application-context-scheduler");
     }
 }

@@ -9,6 +9,7 @@ Debug (with shell): `docker run -it gcr.io/distroless/static-debian11:debug bash
 Build: `docker build -t distorless-java11 java11`
 Run: `docker run -p 8085:8085 -t distorless-java11`
 Check: `curl http://localhost:8085/index.html`
+Connect with SH: impossible (Bash is not installed)
 
 ## Java 11 + Debug
 Build: `docker build -t distorless-java11-debug java11-debug`

@@ -1,9 +1,11 @@
 public interface HelloMBean {
-    public void sayHello();
-    public int add(int x, int y);
+    void sayHello();
 
-    public String getName();
+    int add(int x, int y);
 
-    public int getCacheSize();
-    public void setCacheSize(int size);
+    String getName();
+
+    int getCacheSize();
+
+    void setCacheSize(int size);
 }

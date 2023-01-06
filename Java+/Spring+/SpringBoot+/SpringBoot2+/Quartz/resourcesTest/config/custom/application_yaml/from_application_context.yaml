@@ -4,4 +4,4 @@ spring:
     properties:
       org.quartz.threadPool.threadCount: 10
       org.quartz.plugin.jobHistory.class: org.quartz.plugins.history.LoggingJobHistoryPlugin
-      org.quartz.scheduler.instanceName: instance-application-yaml
+      org.quartz.scheduler.instanceName: from-application-context-scheduler

@@ -1,4 +1,7 @@
-public class Hello implements HelloMBean {
+class Hello implements HelloMBean {
+    private static final int DEFAULT_CACHE_SIZE = 200;
+    private int cacheSize = DEFAULT_CACHE_SIZE;
+
     public void sayHello() {
         System.out.println("hello, world");
     }
@@ -8,7 +11,7 @@ public class Hello implements HelloMBean {
     }
 
     public String getName() {
-        return this.name;
+        return "Reginald";
     }
 
     public int getCacheSize() {
@@ -19,9 +22,4 @@ public class Hello implements HelloMBean {
         this.cacheSize = size;
         System.out.println("Cache size now " + this.cacheSize);
     }
-
-    private final String name = "Reginald";
-    private int cacheSize = DEFAULT_CACHE_SIZE;
-    private static final int
-            DEFAULT_CACHE_SIZE = 200;
 }
