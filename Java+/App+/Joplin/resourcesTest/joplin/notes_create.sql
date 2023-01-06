@@ -102,6 +102,7 @@ app](https://play.google.com/store/apps/details?id=net.cubux.android_v2&hl=ru&gl
 [web
 version](https://app.pomodoneapp.com "https://app.pomodoneapp.com")
 [ticket is in<br>progress](https://github.com/laurent22/joplin/issues/375)
+[Список аккредитованных<br>УЦ](https://digital.gov.ru/ru/activity/govservices/2/#section-list-of-accredited-organizations)
   ',1547501767000,1547501955001,0,0,0,0,'aleks_ya','',0,0,0,'evernote','net.cozic.joplin-desktop','',0,1547501767000,1547501955000,'',0,1,0,'','','');
 
 INSERT INTO "notes" ("id","parent_id","title","body","created_time","updated_time","is_conflict","latitude","longitude","altitude","author","source_url","is_todo","todo_due","todo_completed","source","source_application","application_data","order","user_created_time","user_updated_time","encryption_cipher_text","encryption_applied","markup_language","is_shared","share_id","conflict_original_id","master_key_id")

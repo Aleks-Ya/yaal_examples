@@ -67,21 +67,20 @@ public class Notes {
             "Русский\nтекст 1\n\n[Русское название\nстатьи 2](evernote:///view/48821034/s241/87b5042e-7d6e-40bc-b434-2f4daf68722a/87b5042e-7d6e-40bc-b434-2f4daf68722a/)\n\n  ",
             MarkupLanguage.MD,
             1547501955001L,
-            List.of(new Link(
-                            "[Русское название\nстатьи 2, запятая](evernote:///view/48821034/s241/87b5042e-7d6e-40bc-b434-2f4daf68722a/87b5042e-7d6e-40bc-b434-2f4daf68722a/)",
+            List.of(new Link("[Русское название\nстатьи 2, запятая](evernote:///view/48821034/s241/87b5042e-7d6e-40bc-b434-2f4daf68722a/87b5042e-7d6e-40bc-b434-2f4daf68722a/)",
                             "Русское название\nстатьи 2, запятая", "evernote:///view/48821034/s241/87b5042e-7d6e-40bc-b434-2f4daf68722a/87b5042e-7d6e-40bc-b434-2f4daf68722a/",
                             null),
-                    new Link(
-                            "[Android\napp](https://play.google.com/store/apps/details?id=net.cubux.android_v2&hl=ru&gl=US)",
+                    new Link("[Android\napp](https://play.google.com/store/apps/details?id=net.cubux.android_v2&hl=ru&gl=US)",
                             "Android\napp", "https://play.google.com/store/apps/details?id=net.cubux.android_v2&hl=ru&gl=US",
                             null),
-                    new Link(
-                            "[web\nversion](https://app.pomodoneapp.com \"https://app.pomodoneapp.com\")",
+                    new Link("[web\nversion](https://app.pomodoneapp.com \"https://app.pomodoneapp.com\")",
                             "web\nversion", "https://app.pomodoneapp.com",
                             null),
-                    new Link(
-                            "[ticket is in<br>progress](https://github.com/laurent22/joplin/issues/375)",
+                    new Link("[ticket is in<br>progress](https://github.com/laurent22/joplin/issues/375)",
                             "ticket is in<br>progress", "https://github.com/laurent22/joplin/issues/375",
+                            null),
+                    new Link("[Список аккредитованных<br>УЦ](https://digital.gov.ru/ru/activity/govservices/2/#section-list-of-accredited-organizations)",
+                            "Список аккредитованных<br>УЦ", "https://digital.gov.ru/ru/activity/govservices/2/#section-list-of-accredited-organizations",
                             null)
             ));
 }

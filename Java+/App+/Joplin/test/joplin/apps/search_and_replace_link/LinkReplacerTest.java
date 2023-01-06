@@ -51,7 +51,10 @@ class LinkReplacerTest {
                             "[web version](https://app.pomodoneapp.com)"),
                     new Replacement(noteId2,
                             "[ticket is in<br>progress](https://github.com/laurent22/joplin/issues/375)",
-                            "[ticket is in progress](https://github.com/laurent22/joplin/issues/375)")
+                            "[ticket is in progress](https://github.com/laurent22/joplin/issues/375)"),
+                    new Replacement(noteId2,
+                            "[Список аккредитованных<br>УЦ](https://digital.gov.ru/ru/activity/govservices/2/#section-list-of-accredited-organizations)",
+                            "[Список аккредитованных УЦ](https://digital.gov.ru/ru/activity/govservices/2/#section-list-of-accredited-organizations)")
             );
         }
     }
