@@ -84,6 +84,9 @@ public class Notes {
                             null),
                     new Link("[Список аккредитованных<br>УЦ](https://digital.gov.ru/ru/activity/govservices/2/#section-list-of-accredited-organizations)",
                             "Список аккредитованных<br>УЦ", "https://digital.gov.ru/ru/activity/govservices/2/#section-list-of-accredited-organizations",
+                            null),
+                    new Link("[Удаленная работа --- это не\n«фриланс»](http://habrahabr.ru/post/199114/)",
+                            "Удаленная работа --- это не\n«фриланс»", "http://habrahabr.ru/post/199114/",
                             null)
             ));
 }
