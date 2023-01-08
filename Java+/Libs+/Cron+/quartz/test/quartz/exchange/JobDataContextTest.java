@@ -6,8 +6,7 @@ import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.SchedulerException;
-import org.quartz.impl.StdSchedulerFactory;
-import quartz.SingleResultListener;
+import quartz.Factory;
 
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,24 +22,25 @@ class JobDataContextTest {
 
     @Test
     void jobData() throws SchedulerException {
-        //Put an Object
-        var map = new JobDataMap();
-        map.put(PERSON_KEY, new Person(1L, "John"));
-        var jobDetail = newJob(GreetingJob.class)
-                .usingJobData(map)
-                .build();
-        //Put a primitive
-        var trigger = newTrigger()
-                .usingJobData(LOCATION_KEY, "Spain")
-                .startNow()
-                .build();
-
-        var scheduler = StdSchedulerFactory.getDefaultScheduler();
-        var listener = SingleResultListener.<String>assign(scheduler, jobDetail);
-        scheduler.start();
-        scheduler.scheduleJob(jobDetail, trigger);
-        assertThat(listener.waitForResult()).isEqualTo("Hello from Spain, John!");
-        scheduler.shutdown(true);
+        try (var factory = new Factory()) {
+            var scheduler = factory.newScheduler();
+            //Put an Object
+            var map = new JobDataMap();
+            map.put(PERSON_KEY, new Person(1L, "John"));
+            var jobDetail = newJob(GreetingJob.class)
+                    .usingJobData(map)
+                    .build();
+            //Put a primitive
+            var trigger = newTrigger()
+                    .usingJobData(LOCATION_KEY, "Spain")
+                    .startNow()
+                    .build();
+            scheduler.scheduleJob(jobDetail, trigger);
+            factory.assertJobExecutedWithoutExceptions(jobDetail, 1);
+            var jobsListener = factory.getJobsListener();
+            var result = jobsListener.getWasExecutedJobs().get(0).getLeft().getResult();
+            assertThat(result).isEqualTo("Hello from Spain, John!");
+        }
     }
 
     public static class GreetingJob implements Job {

@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.quartz.JobKey;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
-import org.quartz.impl.StdSchedulerFactory;
-import quartz.EmptyJob;
+import quartz.Factory;
+import quartz.UniversalJob;
 
 import java.sql.Date;
 import java.time.Instant;
@@ -19,40 +19,37 @@ class GetJobDetailsTest {
 
     @Test
     void byName() throws SchedulerException {
-        var jobName = "jobDetail1";
-        var jobGroup = "group1";
+        try (var factory = new Factory()) {
+            var scheduler = factory.newScheduler();
+            var jobName = "jobDetail1";
+            var jobGroup = "group1";
 
-        var expJobDetail = newJob(EmptyJob.class)
-                .withIdentity(jobName, jobGroup)
-                .build();
-        var expTrigger = newTrigger()
-                .withIdentity("trigger1", "group1")
-                .startAt(Date.from(Instant.now().plusMillis(1000)))
-                .build();
+            var expJobDetail = newJob(UniversalJob.class)
+                    .withIdentity(jobName, jobGroup)
+                    .build();
+            var expTrigger = newTrigger()
+                    .withIdentity("trigger1", "group1")
+                    .startAt(Date.from(Instant.now().plusMillis(1000)))
+                    .build();
 
-        var scheduler = StdSchedulerFactory.getDefaultScheduler();
-        scheduler.start();
-        scheduler.scheduleJob(expJobDetail, expTrigger);
+            scheduler.scheduleJob(expJobDetail, expTrigger);
 
-        var jobKey = JobKey.jobKey(jobName, jobGroup);
-        var actJobDetails = scheduler.getJobDetail(jobKey);
-        var actTriggers = scheduler.getTriggersOfJob(jobKey);
-        assertThat(actJobDetails).isEqualTo(expJobDetail);
-        assertThat(actTriggers).asInstanceOf(list(Trigger.class)).containsExactly(expTrigger);
-
-        scheduler.shutdown(true);
+            var jobKey = JobKey.jobKey(jobName, jobGroup);
+            var actJobDetails = scheduler.getJobDetail(jobKey);
+            var actTriggers = scheduler.getTriggersOfJob(jobKey);
+            assertThat(actJobDetails).isEqualTo(expJobDetail);
+            assertThat(actTriggers).asInstanceOf(list(Trigger.class)).containsExactly(expTrigger);
+        }
     }
 
     @Test
     void jobAbsent() throws SchedulerException {
-        var scheduler = StdSchedulerFactory.getDefaultScheduler();
-        scheduler.start();
-
-        var jobKey = JobKey.jobKey("AbsentName", "AbsentGroup");
-        var jobDetail = scheduler.getJobDetail(jobKey);
-        assertThat(jobDetail).isNull();
-
-        scheduler.shutdown(true);
+        try (var factory = new Factory()) {
+            var scheduler = factory.newScheduler();
+            var jobKey = JobKey.jobKey("AbsentName", "AbsentGroup");
+            var jobDetail = scheduler.getJobDetail(jobKey);
+            assertThat(jobDetail).isNull();
+        }
     }
 
 }

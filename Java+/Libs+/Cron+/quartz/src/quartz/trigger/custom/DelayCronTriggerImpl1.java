@@ -5,10 +5,10 @@ import org.quartz.impl.triggers.CronTriggerImpl;
 import java.time.Duration;
 import java.util.Date;
 
-class DelayCronTriggerImpl extends CronTriggerImpl {
+class DelayCronTriggerImpl1 extends CronTriggerImpl {
     private final Duration delay;
 
-    public DelayCronTriggerImpl(Duration delay) {
+    public DelayCronTriggerImpl1(Duration delay) {
         this.delay = delay;
     }
 

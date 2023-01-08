@@ -3,8 +3,8 @@ package quartz.trigger;
 import org.junit.jupiter.api.Test;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
-import org.quartz.impl.StdSchedulerFactory;
-import quartz.EmptyJob;
+import quartz.Factory;
+import quartz.UniversalJob;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -22,37 +22,38 @@ import static org.quartz.TriggerBuilder.newTrigger;
  */
 class NextFireTimeTest {
     private static void printSeveralNextFireTimes(Trigger trigger) throws SchedulerException {
-        var formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-        var scheduler = StdSchedulerFactory.getDefaultScheduler();
-        scheduler.start();
-        var jobDetail = newJob(EmptyJob.class).build();
-        scheduler.scheduleJob(jobDetail, trigger);
-        var startTime = new Date();
-        System.out.println("  Now:        " + formatter.format(startTime));
-        System.out.println("  Start time: " + formatter.format(trigger.getStartTime()));
+        try (var factory = new Factory()) {
+            var scheduler = factory.newScheduler();
+            var formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+            var jobDetail = newJob(UniversalJob.class).build();
+            scheduler.scheduleJob(jobDetail, trigger);
+            var startTime = new Date();
+            System.out.println("  Now:        " + formatter.format(startTime));
+            System.out.println("  Start time: " + formatter.format(trigger.getStartTime()));
 
-        var fireNumber = 10;
-        for (int i = 0; i < fireNumber; i++) {
-            var fireTime = trigger.getFireTimeAfter(startTime);
-            System.out.printf("%2d Fire time: %s\n", i + 1, formatter.format(fireTime));
-            startTime = fireTime;
+            var fireNumber = 10;
+            for (int i = 0; i < fireNumber; i++) {
+                var fireTime = trigger.getFireTimeAfter(startTime);
+                System.out.printf("%2d Fire time: %s\n", i + 1, formatter.format(fireTime));
+                startTime = fireTime;
+            }
         }
     }
 
     @Test
     void nextFireTime() throws SchedulerException {
-        var jobDetail = newJob(EmptyJob.class).build();
-        var startDate = Date.from(Instant.now().plusSeconds(1000));
-        var trigger = newTrigger().startAt(startDate).build();
+        try (var factory = new Factory()) {
+            var scheduler = factory.newScheduler();
+            var jobDetail = newJob(UniversalJob.class).build();
+            var startDate = Date.from(Instant.now().plusSeconds(1000));
+            var trigger = newTrigger().startAt(startDate).build();
 
-        assertThat(trigger.getNextFireTime()).isNull();
-        var scheduler = StdSchedulerFactory.getDefaultScheduler();
-        assertThat(trigger.getNextFireTime()).isNull();
-        scheduler.start();
-        assertThat(trigger.getNextFireTime()).isNull();
-        scheduler.scheduleJob(jobDetail, trigger);
-        assertThat(trigger.getNextFireTime()).isEqualTo(startDate);
-        scheduler.shutdown(true);
+            assertThat(trigger.getNextFireTime()).isNull();
+            assertThat(trigger.getNextFireTime()).isNull();
+            assertThat(trigger.getNextFireTime()).isNull();
+            scheduler.scheduleJob(jobDetail, trigger);
+            assertThat(trigger.getNextFireTime()).isEqualTo(startDate);
+        }
     }
 
     @Test

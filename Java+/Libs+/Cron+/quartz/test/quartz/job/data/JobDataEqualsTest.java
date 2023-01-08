@@ -2,7 +2,7 @@ package quartz.job.data;
 
 import org.junit.jupiter.api.Test;
 import org.quartz.JobDataMap;
-import quartz.EmptyJob;
+import quartz.UniversalJob;
 
 import java.util.Map;
 
@@ -41,11 +41,11 @@ class JobDataEqualsTest {
 
     @Test
     void string() {
-        var jobDetail1 = newJob(EmptyJob.class)
+        var jobDetail1 = newJob(UniversalJob.class)
                 .withIdentity(JOB_NAME, JOB_GROUP)
                 .usingJobData(KEY1, VALUE1)
                 .build();
-        var jobDetail2 = newJob(EmptyJob.class)
+        var jobDetail2 = newJob(UniversalJob.class)
                 .withIdentity(JOB_NAME, JOB_GROUP)
                 .usingJobData(KEY1, VALUE1)
                 .build();

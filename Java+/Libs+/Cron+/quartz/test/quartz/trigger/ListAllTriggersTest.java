@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.quartz.JobDetail;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
-import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.impl.matchers.GroupMatcher;
-import quartz.EmptyJob;
+import quartz.Factory;
+import quartz.UniversalJob;
 
 import java.sql.Date;
 import java.time.Instant;
@@ -29,7 +29,7 @@ class ListAllTriggersTest {
             var jobGroupName = "jobGroup" + groupIndex;
             var triggerGroupName = "triggerGroup" + groupIndex;
             for (var i = 0; i < jobInGroupCount; i++) {
-                var jobDetail = newJob(EmptyJob.class)
+                var jobDetail = newJob(UniversalJob.class)
                         .withIdentity("jobDetail" + i, jobGroupName)
                         .build();
                 var trigger1 = newTrigger()
@@ -46,21 +46,20 @@ class ListAllTriggersTest {
             }
         }
 
-        var scheduler = StdSchedulerFactory.getDefaultScheduler();
-        scheduler.start();
-        scheduler.scheduleJobs(jobMap, true);
+        try (var factory = new Factory()) {
+            var scheduler = factory.newScheduler();
+            scheduler.scheduleJobs(jobMap, true);
 
-        var allTriggers = new ArrayList<Trigger>();
-        var groupNames = scheduler.getJobGroupNames();
-        for (var groupName : groupNames) {
-            var jobKeys = scheduler.getJobKeys(GroupMatcher.groupEquals(groupName));
-            for (var jobKey : jobKeys) {
-                var jobTriggers = scheduler.getTriggersOfJob(jobKey);
-                allTriggers.addAll(jobTriggers);
+            var allTriggers = new ArrayList<Trigger>();
+            var groupNames = scheduler.getJobGroupNames();
+            for (var groupName : groupNames) {
+                var jobKeys = scheduler.getJobKeys(GroupMatcher.groupEquals(groupName));
+                for (var jobKey : jobKeys) {
+                    var jobTriggers = scheduler.getTriggersOfJob(jobKey);
+                    allTriggers.addAll(jobTriggers);
+                }
             }
+            assertThat(allTriggers).containsExactlyInAnyOrderElementsOf(expAllTriggers);
         }
-        assertThat(allTriggers).containsExactlyInAnyOrderElementsOf(expAllTriggers);
-
-        scheduler.shutdown(true);
     }
 }

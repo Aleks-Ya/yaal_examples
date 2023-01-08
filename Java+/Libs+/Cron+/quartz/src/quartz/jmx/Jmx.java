@@ -3,7 +3,7 @@ package quartz.jmx;
 import org.quartz.SchedulerException;
 import org.quartz.SimpleScheduleBuilder;
 import org.quartz.impl.StdSchedulerFactory;
-import quartz.EmptyJob;
+import quartz.UniversalJob;
 
 import java.lang.management.ManagementFactory;
 import java.util.Properties;
@@ -26,7 +26,7 @@ public class Jmx {
         var scheduler = factory.getScheduler();
         scheduler.start();
 
-        var jobDetail = newJob(EmptyJob.class).withIdentity("jobDetail1", "JobGroup1").build();
+        var jobDetail = newJob(UniversalJob.class).withIdentity("jobDetail1", "JobGroup1").build();
         var trigger = newTrigger()
                 .withIdentity("trigger1", "TriggerGroup1")
                 .withSchedule(SimpleScheduleBuilder.repeatHourlyForever())

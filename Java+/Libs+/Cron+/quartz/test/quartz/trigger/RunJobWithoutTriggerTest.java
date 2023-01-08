@@ -2,9 +2,8 @@ package quartz.trigger;
 
 import org.junit.jupiter.api.Test;
 import org.quartz.SchedulerException;
-import org.quartz.impl.StdSchedulerFactory;
-import quartz.EmptyJob;
-import quartz.SingleResultListener;
+import quartz.Factory;
+import quartz.UniversalJob;
 
 import static org.quartz.JobBuilder.newJob;
 
@@ -14,12 +13,12 @@ import static org.quartz.JobBuilder.newJob;
 class RunJobWithoutTriggerTest {
     @Test
     void trigger() throws SchedulerException {
-        var jobDetail = newJob(EmptyJob.class).storeDurably().build();
-        var scheduler = StdSchedulerFactory.getDefaultScheduler();
-        scheduler.start();
-        scheduler.addJob(jobDetail, true);
-        scheduler.triggerJob(jobDetail.getKey());
-        SingleResultListener.<String>assign(scheduler, jobDetail).waitForFinish();
-        scheduler.shutdown(true);
+        try (var factory = new Factory()) {
+            var scheduler = factory.newScheduler();
+            var jobDetail = newJob(UniversalJob.class).storeDurably().build();
+            scheduler.addJob(jobDetail, true);
+            scheduler.triggerJob(jobDetail.getKey());
+            factory.assertJobExecutedWithoutExceptions(jobDetail, 1);
+        }
     }
 }

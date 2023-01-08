@@ -5,8 +5,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.SchedulerException;
-import org.quartz.impl.StdSchedulerFactory;
-import quartz.SingleResultListener;
+import quartz.Factory;
 
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,20 +19,21 @@ class JobDataSettersTest {
 
     @Test
     void jobData() throws SchedulerException {
-        var jobDetail = newJob(GreetingJob.class)
-                .usingJobData("person", "John")
-                .build();
-        var trigger = newTrigger()
-                .usingJobData("location", "Spain")
-                .startNow()
-                .build();
-
-        var scheduler = StdSchedulerFactory.getDefaultScheduler();
-        scheduler.start();
-        scheduler.scheduleJob(jobDetail, trigger);
-        var listener = SingleResultListener.<String>assign(scheduler, jobDetail);
-        assertThat(listener.waitForResult()).isEqualTo("Hello from Spain, John!");
-        scheduler.shutdown(true);
+        try (var factory = new Factory()) {
+            var scheduler = factory.newScheduler();
+            var jobDetail = newJob(GreetingJob.class)
+                    .usingJobData("person", "John")
+                    .build();
+            var trigger = newTrigger()
+                    .usingJobData("location", "Spain")
+                    .startNow()
+                    .build();
+            scheduler.scheduleJob(jobDetail, trigger);
+            factory.assertJobExecutedWithoutExceptions(jobDetail, 1);
+            var jobsListener = factory.getJobsListener();
+            var result = jobsListener.getWasExecutedJobs().get(0).getLeft().getResult();
+            assertThat(result).isEqualTo("Hello from Spain, John!");
+        }
     }
 
     public static class GreetingJob implements Job {

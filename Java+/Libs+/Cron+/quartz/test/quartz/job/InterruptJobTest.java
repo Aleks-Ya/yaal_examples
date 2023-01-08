@@ -6,7 +6,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.SchedulerException;
 import org.quartz.UnableToInterruptJobException;
-import org.quartz.impl.StdSchedulerFactory;
+import quartz.Factory;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,25 +21,25 @@ class InterruptJobTest {
 
     @Test
     void interruptJob() throws SchedulerException {
-        var jobDetail = newJob(WaitJob.class)
-                .withIdentity("jobDetail1", "group1")
-                .build();
-        var trigger = newTrigger()
-                .withIdentity("trigger1", "group1")
-                .startNow()
-                .build();
+        try (var factory = new Factory()) {
+            var scheduler = factory.newScheduler();
+            var jobDetail = newJob(WaitJob.class)
+                    .withIdentity("jobDetail1", "group1")
+                    .build();
+            var trigger = newTrigger()
+                    .withIdentity("trigger1", "group1")
+                    .startNow()
+                    .build();
 
-        var scheduler = StdSchedulerFactory.getDefaultScheduler();
-        scheduler.start();
-        assertThat(scheduler.checkExists(jobDetail.getKey())).isFalse();
-        scheduler.scheduleJob(jobDetail, trigger);
-        assertThat(scheduler.checkExists(jobDetail.getKey())).isTrue();
-        await().timeout(30, SECONDS).until(() -> WaitJob.started);
-        var result = scheduler.interrupt(jobDetail.getKey());
-        assertThat(result).isTrue();
-        await().timeout(30, SECONDS).until(() -> WaitJob.done);
-        assertThat(scheduler.checkExists(jobDetail.getKey())).isFalse();
-        scheduler.shutdown(true);
+            assertThat(scheduler.checkExists(jobDetail.getKey())).isFalse();
+            scheduler.scheduleJob(jobDetail, trigger);
+            assertThat(scheduler.checkExists(jobDetail.getKey())).isTrue();
+            await().timeout(30, SECONDS).until(() -> WaitJob.started);
+            var result = scheduler.interrupt(jobDetail.getKey());
+            assertThat(result).isTrue();
+            await().timeout(30, SECONDS).until(() -> WaitJob.done);
+            assertThat(scheduler.checkExists(jobDetail.getKey())).isFalse();
+        }
     }
 
     public static class WaitJob implements InterruptableJob {
