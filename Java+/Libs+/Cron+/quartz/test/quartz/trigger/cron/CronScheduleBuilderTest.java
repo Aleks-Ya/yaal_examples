@@ -1,4 +1,4 @@
-package quartz.trigger;
+package quartz.trigger.cron;
 
 import org.junit.jupiter.api.Test;
 import org.quartz.CronExpression;

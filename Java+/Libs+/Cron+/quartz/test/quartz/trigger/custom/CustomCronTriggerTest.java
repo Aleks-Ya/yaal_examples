@@ -1,4 +1,4 @@
-package quartz.trigger;
+package quartz.trigger.custom;
 
 import org.junit.jupiter.api.Test;
 import org.quartz.SchedulerException;

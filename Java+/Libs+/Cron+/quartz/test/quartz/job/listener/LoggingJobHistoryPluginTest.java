@@ -1,4 +1,4 @@
-package quartz.listener;
+package quartz.job.listener;
 
 import org.junit.jupiter.api.Test;
 import org.quartz.SchedulerException;

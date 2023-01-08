@@ -1,4 +1,4 @@
-package quartz.trigger;
+package quartz.trigger.custom;
 
 import org.quartz.impl.triggers.CronTriggerImpl;
 

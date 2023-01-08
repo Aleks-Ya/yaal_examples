@@ -1,6 +1,5 @@
 package quartz.jmx;
 
-import org.junit.jupiter.api.Test;
 import org.quartz.SchedulerException;
 import org.quartz.SimpleScheduleBuilder;
 import org.quartz.impl.StdSchedulerFactory;
@@ -17,9 +16,8 @@ import static org.quartz.impl.StdSchedulerFactory.PROP_SCHED_JMX_EXPORT;
  * Control Quartz scheduler with JMX.
  * JMX bean JavaDoc: http://www.quartz-scheduler.org/api/2.3.0/org/quartz/core/jmx/QuartzSchedulerMBean.html
  */
-class JmxTest {
-    @Test
-    void jmx() throws SchedulerException, InterruptedException {
+public class Jmx {
+    public static void main(String[] args) throws SchedulerException, InterruptedException {
         var schedulerProperties = new Properties();
         schedulerProperties.setProperty("org.quartz.threadPool.threadCount", "1");
         schedulerProperties.setProperty(PROP_SCHED_JMX_EXPORT, "true");
