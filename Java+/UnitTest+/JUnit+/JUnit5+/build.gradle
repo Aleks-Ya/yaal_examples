@@ -1,5 +1,0 @@
-subprojects {
-    ext {
-        junit5Version = '5.7.1'
-    }
-}
