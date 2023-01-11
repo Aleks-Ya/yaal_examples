@@ -7,7 +7,7 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <!-- Create composite primary key during table creation -->
-    <changeSet id="1" author="bob">
+    <changeSet id="compositePrimaryKey-example-1" author="bob">
         <createTable tableName="person">
             <column name="first_name" type="VARCHAR(50)">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="person_pk"/>
@@ -25,7 +25,7 @@
     </changeSet>
 
     <!-- Create composite primary key in separated command -->
-    <changeSet id="2" author="bob">
+    <changeSet id="compositePrimaryKey-example-2" author="bob">
         <createTable tableName="person2">
             <column name="first_name" type="VARCHAR(50)"/>
             <column name="second_name" type="VARCHAR(50)"/>

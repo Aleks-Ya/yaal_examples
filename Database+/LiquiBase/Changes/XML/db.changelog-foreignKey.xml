@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="foreignKey-example" author="bob">
+        <createTable tableName="person3">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="person3_pk"/>
+            </column>
+            <column name="nickname" type="VARCHAR(50)"/>
+        </createTable>
+         <createTable tableName="account3">
+            <column name="id" type="BIGINT"/>
+            <column name="personId" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="person-fk" references="person3(id)"/>
+            </column>
+            <column name="money" type="BIGINT"/>
+        </createTable>
+        <insert tableName="person3">
+            <column name="id" type="BIGINT" value="1"/>
+            <column name="nickname" type="VARCHAR(50)" value="John"/>
+        </insert>
+        <insert tableName="account3">
+            <column name="id" type="BIGINT" value="10"/>
+            <column name="personId" type="BIGINT" value="1"/>
+            <column name="money" type="BIGINT" value="500"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
