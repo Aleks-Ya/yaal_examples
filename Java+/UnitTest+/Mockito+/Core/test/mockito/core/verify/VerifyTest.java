@@ -1,5 +1,6 @@
 package mockito.core.verify;
 
+import mockito.core.FakeInterface;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -20,6 +21,19 @@ class VerifyTest {
         var time = 1L;
         mock.setTime(time);
         verify(mock).setTime(time);
+    }
+
+    @Test
+    void invocationDifferentMethods() {
+        var mock = mock(FakeInterface.class);
+        mock.method1();
+        mock.method2();
+        mock.method3("a");
+        mock.method3("b");
+        verify(mock).method3("b");
+        verify(mock).method3("a");
+        verify(mock).method2();
+        verify(mock).method1();
     }
 
     @Test

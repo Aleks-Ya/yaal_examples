@@ -16,6 +16,7 @@ import java.util.stream.IntStream;
 import static java.time.Duration.ofMinutes;
 import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
@@ -78,6 +79,21 @@ class CronTriggerTest {
                     .collect(Collectors.joining("\n")));
             scheduler.scheduleJob(jobDetail, triggers, false);
             factory.assertJobExecutedWithoutExceptions(jobDetail, actTimes -> actTimes >= triggerNum * 2, ofMinutes(1));
+        }
+    }
+
+    @Test
+    void never() {
+        try (var factory = new Factory()) {
+            var scheduler = factory.newScheduler();
+            var jobDetail = newJob(UniversalJob.class).build();
+            var trigger = newTrigger()
+                    .withIdentity("trigger1")
+                    .withSchedule(cronSchedule("0 * * * * ? 1980"))
+                    .build();
+            assertThatThrownBy(() -> scheduler.scheduleJob(jobDetail, trigger))
+                    .isInstanceOf(SchedulerException.class)
+                    .hasMessage("Based on configured schedule, the given trigger 'DEFAULT.trigger1' will never fire.");
         }
     }
 
