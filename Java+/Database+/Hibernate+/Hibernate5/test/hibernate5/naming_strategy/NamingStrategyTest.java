@@ -4,10 +4,7 @@ import hibernate5.HibernateSessionFactory5;
 import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
 import org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl;
 import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
-import org.hibernate.cfg.DefaultComponentSafeNamingStrategy;
 import org.junit.jupiter.api.Test;
-
-import java.util.Map;
 
 import static hibernate5.PhysicalNameHelper.getPhysicalColumnNames;
 import static hibernate5.PhysicalNameHelper.getPhysicalNamingStrategyProperty;
@@ -35,8 +32,11 @@ class NamingStrategyTest {
 
     @Test
     void camelCaseToUnderscoresNamingStrategy() {
-        try (var sessionFactory = HibernateSessionFactory5.makeFactory(
-                Map.of(), new CamelCaseToUnderscoresNamingStrategy(), CityEntity.class, PersonEntity.class)) {
+        try (var sessionFactory = HibernateSessionFactory5.makeFactory((configuration) -> {
+            configuration.setPhysicalNamingStrategy(new CamelCaseToUnderscoresNamingStrategy());
+            configuration.addAnnotatedClass(CityEntity.class);
+            configuration.addAnnotatedClass(PersonEntity.class);
+        })) {
             assertThat(sessionFactory.getImplicitNamingStrategy()).isInstanceOf(ImplicitNamingStrategyJpaCompliantImpl.class);
             assertThat(sessionFactory.getPhysicalNamingStrategy()).isInstanceOf(CamelCaseToUnderscoresNamingStrategy.class);
             assertThat(getPhysicalNamingStrategyProperty(sessionFactory)).isNull();

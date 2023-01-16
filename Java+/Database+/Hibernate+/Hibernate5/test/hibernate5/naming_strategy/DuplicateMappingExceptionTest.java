@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Map;
 
 import static hibernate5.PhysicalNameHelper.getPhysicalColumnNames;
 import static hibernate5.PhysicalNameHelper.getPhysicalTableName;
@@ -19,16 +18,20 @@ class DuplicateMappingExceptionTest {
 
     @Test
     void duplicateMappingException() {
-        assertThatThrownBy(() -> HibernateSessionFactory5.makeFactory(
-                Map.of(), new CamelCaseToUnderscoresNamingStrategy(), WrongEntity.class))
+        assertThatThrownBy(() -> HibernateSessionFactory5.makeFactory((configuration) -> {
+            configuration.setPhysicalNamingStrategy(new CamelCaseToUnderscoresNamingStrategy());
+            configuration.addAnnotatedClass(WrongEntity.class);
+        }))
                 .isInstanceOf(DuplicateMappingException.class)
                 .hasMessage("Table [duplicate_mapping_exception_test$wrong_entity] contains physical column name [city_name] referred to by multiple logical column names: [city_name], [cityName]");
     }
 
     @Test
     void fixedDuplicateMappingException() {
-        try (var sessionFactory = HibernateSessionFactory5.makeFactory(
-                Map.of(), new CamelCaseToUnderscoresNamingStrategy(), CorrectEntity.class)) {
+        try (var sessionFactory = HibernateSessionFactory5.makeFactory((configuration) -> {
+            configuration.setPhysicalNamingStrategy(new CamelCaseToUnderscoresNamingStrategy());
+            configuration.addAnnotatedClass(CorrectEntity.class);
+        })) {
             assertThat(getPhysicalTableName(sessionFactory, CorrectEntity.class)).contains("duplicate_mapping_exception_test$correct_entity");
             assertThat(getPhysicalColumnNames(sessionFactory, CorrectEntity.class)).contains("city_name_1", "city_name_2");
         }
