@@ -16,7 +16,7 @@ import static org.quartz.impl.StdSchedulerFactory.PROP_SCHED_JMX_EXPORT;
  * Control Quartz scheduler with JMX.
  * JMX bean JavaDoc: http://www.quartz-scheduler.org/api/2.3.0/org/quartz/core/jmx/QuartzSchedulerMBean.html
  */
-public class Jmx {
+public class JmxMain {
     public static void main(String[] args) throws SchedulerException, InterruptedException {
         var schedulerProperties = new Properties();
         schedulerProperties.setProperty("org.quartz.threadPool.threadCount", "1");

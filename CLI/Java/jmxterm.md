@@ -2,6 +2,7 @@
 
 Download: `wget -O jmxterm.jar https://github.com/jiaqi/jmxterm/releases/download/v1.0.2/jmxterm-1.0.2-uber.jar`
 Run console: `java -jar jmxterm.jar`
+Alias: `alias jmxterm='sudo java -jar /home/aleks/installed/jmxterm/jmxterm-1.0.2-uber.jar'` (`sudo` is requered for `jvms` command)
 
 ## Console commands
 Help: `help`
