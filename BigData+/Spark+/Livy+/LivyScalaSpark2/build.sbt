@@ -11,7 +11,7 @@ lazy val root = (project in file(".")).
       scalaVersion := scalaVer,
       version := "1"
     )),
-    name := "LivyScala",
+    name := "LivyScalaSpark2",
     libraryDependencies ++= allDeps,
     javaOptions ++= Seq("-Xms512M", "-Xmx2048M", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled"),
     parallelExecution in Test := false,
