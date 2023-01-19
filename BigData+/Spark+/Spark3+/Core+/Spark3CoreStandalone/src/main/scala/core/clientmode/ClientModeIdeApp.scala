@@ -7,7 +7,7 @@ object ClientModeIdeApp {
 
   def main(args: Array[String]): Unit = {
     println("Start")
-    val jars = Seq("target/scala-2.12/spark2corestandalone_2.12-1.jar")
+    val jars = Seq("target/scala-2.12/spark3corestandalone_2.12-1.jar")
     val conf = new SparkConf()
       .setAppName(getClass.getSimpleName)
       .setMaster("spark://spark-standalone-cluster-master:7077")

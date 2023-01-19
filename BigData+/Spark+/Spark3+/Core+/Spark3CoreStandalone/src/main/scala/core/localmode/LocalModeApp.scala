@@ -15,6 +15,7 @@ object LocalModeApp {
     val length = action.calcLength(words)
     sc.stop()
     assert(length == 13)
+    println("Finish")
   }
 
 }

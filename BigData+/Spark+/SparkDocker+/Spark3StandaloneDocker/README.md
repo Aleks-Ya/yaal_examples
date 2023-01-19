@@ -4,7 +4,7 @@
 `./build.sh`
 
 ## Start cluster
-1. Start: `docker-compose up`
+1. Start: `./run_cluster.sh`
 2. Publis hosts: `sudo ./update_hosts.sh`
 3. Open: http://spark-standalone-cluster-master:8080
 

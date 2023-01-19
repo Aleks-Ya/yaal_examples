@@ -1,4 +1,4 @@
-# Spark2CoreStandalone
+# spark3corestandalone
 
 Submit:
 
@@ -20,9 +20,9 @@ Submit:
             --executor-memory 512M \
             --conf "spark.eventLog.enabled=true" \
             --conf "spark.eventLog.dir=file:///media/aleks/ADATA/dataset/spark-events" \
-            target/scala-2.12/spark2corestandalone_2.12-1.jar
+            target/scala-2.12/spark3corestandalone_2.12-1.jar
        ```
-    4. Cluster mode (with `spark-submit`)
+    3. Cluster mode (with `spark-submit`)
         1. Build: `./build_jar.sh`
         2. Execute `unset JAVA_HOME` to prevent error:
            ```
@@ -41,12 +41,30 @@ Submit:
              --num-executors 2 \
              --conf "spark.eventLog.enabled=true" \
              --conf "spark.eventLog.dir=file:///datasets/spark-events" \
-             file:///datasets/spark2corestandalone_2.12-1.jar
+             file:///datasets/spark3corestandalone_2.12-1.jar
         ```
 4. Application in the Spark UI: http://spark-standalone-cluster-master:8080
 5. Run "Six Examples"
     1. Build: `./build_jar.sh`
     2. Run in cluster mode: `./src/main/scala/app/sixexercises/submit_cluster_mode.sh app.sixexercises.WarmUp1App`
-6. Run "IMBD"
+6. Run "IMDB"
     1. Build: `./build_jar.sh`
     2. Run in cluster mode: `./src/main/scala/app/imdb/submit_cluster_mode.sh app.imdb.Exercise1App`
+7. Run in "Hadoop3Cluster"
+   1. Run Hadoop cluster `BigData+/Hadoop+/HadoopDocker+/Hadoop3+/Hadoop3Cluster`
+       1. Client mode
+          1. Build JAR: `sbt clean package`
+          2. Client mode (from IDE): run class `core.clientmode.ClientModeIdeApp`
+          3. Client mode (with `spark-submit`):
+           ```
+           spark-submit \
+                --class core.clientmode.ClientModeSparkSubmitApp \
+                --master spark://master-service:7077 \
+                --deploy-mode client \
+                --total-executor-cores 2 \
+                --executor-cores 1 \
+                --executor-memory 512M \
+                --conf "spark.eventLog.enabled=true" \
+                --conf "spark.eventLog.dir=file:///media/aleks/ADATA/dataset/spark-events" \
+                target/scala-2.12/spark3corestandalone_2.12-1.jar
+           ```
