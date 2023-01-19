@@ -14,19 +14,19 @@ Check ditributive files: `docker run --rm livy-distr-tmp ls /livy-distr`
 ## Start cluster
 1. Start: `docker-compose up`
 2. Publis hosts: `sudo ./update_hosts.sh`
-3. Open: http://spark-standalone-cluster-master:8080
+3. Open: http://spark2-standalone-livy-cluster-master:8080
 
 ## Web
-1. Spark UI: http://spark-standalone-cluster-master:8080
-2. Spark History Server: http://spark-standalone-cluster-master:18080
-3. Livy UI: http://spark-standalone-cluster-livy:8998/ui
+1. Spark UI: http://spark2-standalone-livy-cluster-master:8080
+2. Spark History Server: http://spark2-standalone-livy-cluster-master:18080
+3. Livy UI: http://spark2-standalone-livy-cluster-livy:8998/ui
 
 ## Troubleshooting
-1. Livy logs: `docker exec spark-standalone-cluster-livy less /opt/livy/logs/livy-livy-server.out`
-2. Livy status (differs for each user): `docker exec spark-standalone-cluster-livy su livy bin/livy-server status`
+1. Livy logs: `docker exec spark2-standalone-livy-cluster-livy less /opt/livy/logs/livy-livy-server.out`
+2. Livy status (differs for each user): `docker exec spark2-standalone-livy-cluster-livy su livy bin/livy-server status`
 
 ## Connect by Spark Shell
-1. Run Spark Shell: `spark-shell --master spark://spark-standalone-cluster-master:7077`
+1. Run Spark Shell: `spark-shell --master spark://spark2-standalone-livy-cluster-master:7077`
 2. Execute app: `sc.parallelize(Seq(1, 2, 3)).collect()`
 
 ## Stop cluster

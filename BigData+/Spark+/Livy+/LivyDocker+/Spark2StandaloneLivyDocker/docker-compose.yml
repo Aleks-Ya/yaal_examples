@@ -7,8 +7,8 @@ services:
       args:
         HADOOP_BUILD_VERSION: $HADOOP_BUILD_VERSION
         SPARK_VERSION: $SPARK_VERSION
-    container_name: spark-standalone-cluster-master
-    hostname: spark-standalone-cluster-master
+    container_name: spark2-standalone-livy-cluster-master
+    hostname: spark2-standalone-livy-cluster-master
     entrypoint: ./entrypoint_master.sh
     volumes:
       - livy_shared:/shared
@@ -19,8 +19,8 @@ services:
       args:
         HADOOP_BUILD_VERSION: $HADOOP_BUILD_VERSION
         SPARK_VERSION: $SPARK_VERSION
-    container_name: spark-standalone-cluster-slave-1
-    hostname: spark-standalone-cluster-slave-1
+    container_name: spark2-standalone-livy-cluster-slave-1
+    hostname: spark2-standalone-livy-cluster-slave-1
     entrypoint: ./entrypoint_slave_1.sh
     depends_on:
       - master
@@ -33,8 +33,8 @@ services:
       args:
         HADOOP_BUILD_VERSION: $HADOOP_BUILD_VERSION
         SPARK_VERSION: $SPARK_VERSION
-    container_name: spark-standalone-cluster-slave-2
-    hostname: spark-standalone-cluster-slave-2
+    container_name: spark2-standalone-livy-cluster-slave-2
+    hostname: spark2-standalone-livy-cluster-slave-2
     entrypoint: ./entrypoint_slave_2.sh
     depends_on:
       - master
@@ -48,8 +48,8 @@ services:
         HADOOP_BUILD_VERSION: $HADOOP_BUILD_VERSION
         SPARK_VERSION: $SPARK_VERSION
         LIVY_VERSION: $LIVY_VERSION
-    container_name: spark-standalone-cluster-livy
-    hostname: spark-standalone-cluster-livy
+    container_name: spark2-standalone-livy-cluster-livy
+    hostname: spark2-standalone-livy-cluster-livy
     entrypoint: ./entrypoint.sh
     depends_on:
       - master
@@ -57,7 +57,7 @@ services:
       - livy_shared:/shared
 networks:
   default:
-    name: spark-standalone-cluster-network
+    name: spark2-standalone-livy-cluster-network
 volumes:
   livy_shared:
     driver: local

@@ -8,7 +8,7 @@ fi
 unset JAVA_HOME
 /home/aleks/installed/spark-2.4.8-bin-hadoop2.7/bin/spark-submit \
      --class $1 \
-     --master spark://spark-standalone-cluster-master:7077 \
+     --master spark://spark2-standalone-livy-cluster-master:7077 \
      --deploy-mode cluster \
      --driver-cores 1 \
      --driver-memory 512M \

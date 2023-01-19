@@ -7,7 +7,7 @@ object ClusterModeApp {
     println(s"Main method args: ${args.mkString(",")}")
     val conf = new SparkConf()
       .setAppName(getClass.getSimpleName)
-      .setMaster("spark://spark-standalone-cluster-master:7077")
+      .setMaster("spark://spark2-standalone-livy-cluster-master:7077")
     val sc = new SparkContext(conf)
     sc.setLogLevel("DEBUG")
     val words = args.toSeq
