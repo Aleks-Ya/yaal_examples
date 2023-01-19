@@ -2,7 +2,7 @@
 
 Submit a Livy Scala app on a Standalone Spark cluster.
 
-1. Run a Spark cluster with Livy: `BigData+/Spark+/Livy+/LivyDocker+/SparkStandaloneLivyDocker`.
+1. Run a Spark cluster with Livy: `BigData+/Spark+/Livy+/LivyDocker+/Spark2StandaloneLivyDocker`.
 2. Build
     1. Choose Java 1: `sdk use java 11.0.12-open`
     2. Choose Scala 2.12: `sdk use scala 2.12.17`
