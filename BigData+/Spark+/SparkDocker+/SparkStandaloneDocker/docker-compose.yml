@@ -7,6 +7,7 @@ services:
     entrypoint: ./entrypoint_master.sh
     volumes:
       - datasets:/datasets
+      - shared:/shared
   slave-1:
     container_name: spark-standalone-cluster-slave-1
     image: spark-standalone
@@ -16,6 +17,7 @@ services:
       - master
     volumes:
       - datasets:/datasets
+      - shared:/shared
   slave-2:
     container_name: spark-standalone-cluster-slave-2
     image: spark-standalone
@@ -25,6 +27,7 @@ services:
       - master
     volumes:
       - datasets:/datasets
+      - shared:/shared
 networks:
   default:
     name: spark-standalone-cluster-network
@@ -35,3 +38,9 @@ volumes:
       o: bind
       type: none
       device: /media/aleks/ADATA/dataset
+  shared:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /tmp/spark-standalone-cluster-shared
