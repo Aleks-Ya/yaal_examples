@@ -17,7 +17,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class LocalSubmitTest {
-    private static final URI baseUri = URI.create("http://spark-standalone-cluster-livy:8998");
+    private static final URI baseUri = URI.create("http://spark3-standalone-livy-cluster-livy:8998");
 
     @Test
     void getBatches() throws IOException, InterruptedException {
@@ -33,7 +33,7 @@ class LocalSubmitTest {
         var gson = new GsonBuilder().create();
         var sessionName = "session-" + RandomUtil.randomIntPositive();
         var body = gson.toJson(Map.of(
-                "file", "file:///shared/livy-scala.jar",
+                "file", "file:///shared/livy-scala-spark3.jar",
                 "className", "livy.ClusterModeApp",
                 "name", sessionName,
                 "conf", Map.of(
