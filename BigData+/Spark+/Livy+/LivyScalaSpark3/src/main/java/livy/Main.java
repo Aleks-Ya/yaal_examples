@@ -11,13 +11,14 @@ import java.util.concurrent.ExecutionException;
 public class Main {
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
         LivyClient client = new LivyClientBuilder()
-                .setURI(URI.create("http://spark-standalone-cluster-livy:8998"))
+                .setURI(URI.create("http://spark3-standalone-livy-cluster-livy:8998"))
                 .build();
 
         try {
-            String piJar = "target/scala-2.11/livyscala_2.11-1.jar";
-            System.err.printf("Uploading %s to the Spark context...\n", piJar);
-            client.uploadJar(new File(piJar).getAbsoluteFile()).get();
+            File piJar = new File("target/scala-2.12/livyscalaspark3_2.12-1.jar");
+            System.err.printf("Uploading %s to the Spark context...\n", piJar.getAbsolutePath());
+            assert piJar.exists();
+            client.uploadJar(piJar.getAbsoluteFile()).get();
 
             int samples = 5;
             System.err.printf("Running PiJob with %d samples...\n", samples);

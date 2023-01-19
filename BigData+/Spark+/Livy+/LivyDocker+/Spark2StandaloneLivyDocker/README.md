@@ -15,6 +15,7 @@ Check ditributive files: `docker run --rm livy-distr-tmp ls /livy-distr`
 1. Start: `docker-compose up`
 2. Publis hosts: `sudo ./update_hosts.sh`
 3. Open: http://spark2-standalone-livy-cluster-master:8080
+4. Test: `curl http://spark2-standalone-livy-cluster-livy:8998/sessions`
 
 ## Web
 1. Spark UI: http://spark2-standalone-livy-cluster-master:8080
