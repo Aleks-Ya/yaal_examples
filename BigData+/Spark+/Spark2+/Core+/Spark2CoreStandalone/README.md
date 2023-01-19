@@ -2,7 +2,7 @@
 
 Submit:
 
-1. Run Spark Standalone cluster from `BigData+/Spark+/SparkDocker+/SparkStandaloneDocker`
+1. Run Spark Standalone cluster from `BigData+/Spark+/SparkDocker+/Spark3StandaloneDocker`
 2. Choose Java 8: `sdk use java 8.0.302-open`
 3. Run the application
     1. Local mode: run class `core.localmode.LocalModeApp`
