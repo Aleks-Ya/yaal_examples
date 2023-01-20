@@ -15,3 +15,6 @@ echo "abc
 efg
 xyz"
 ```
+
+## Redirect to echo
+`date | xargs echo`

@@ -1,6 +1,3 @@
 # yum CLI
 
-List all available packages:
-```
-yum list
-```
+List all available packages: `yum list`

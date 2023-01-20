@@ -1,0 +1,10 @@
+services:
+  memory-service:
+    container_name: memory-container
+    image: almalinux-updated:latest
+    command: sh -c 'while true; do cat /sys/fs/cgroup/memory/memory.usage_in_bytes | numfmt --to=iec | xargs echo ; sleep 3 ; done'
+    tty: true
+    deploy:
+      resources:
+        limits:
+          memory: 1G

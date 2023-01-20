@@ -1,11 +1,3 @@
-Docker CLI: inspect
-
-Show IP of a container: 
-```
-docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container_name>
-```
-
-
 Docker CLI: network
 List all networks: 
 ```
@@ -79,19 +71,6 @@ docker rmi $(docker images -q) # Remove all images from this machine
 volume
 ```
 docker volume ls #List all volumes
-```
-
-info
-
-```
-docker info -f '{{json .}}' | python -m json.tool # Print all available fields
-docker info -f '{{.DockerRootDir}}'               # Print local repository location
-```
-
-cp
-
-```
-docker cp hdfs-master:/tmp/client.keytab /tmp/client.keytab # Copy single file from container to host
 ```
 
 system

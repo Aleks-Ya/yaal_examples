@@ -1,0 +1,10 @@
+services:
+  cpu-service:
+    container_name: cpu-container
+    image: almalinux-updated:latest
+    command: sh -c 'while true; do cat /sys/fs/cgroup/cpu/cpuacct.stat ; sleep 3 ; done'
+    tty: true
+    deploy:
+      resources:
+        limits:
+           cpus: '2.50'

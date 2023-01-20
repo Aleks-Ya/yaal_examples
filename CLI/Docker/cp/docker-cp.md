@@ -1,4 +1,4 @@
-# "docker cp" command
+# docker-cp
 
 Docs: https://docs.docker.com/engine/reference/commandline/cp/
 
@@ -35,3 +35,4 @@ ls /tmp/ssl_cptest
 rm -r /tmp/ssl_cptest
 docker stop cptest
 ```
+
