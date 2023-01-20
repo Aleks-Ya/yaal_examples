@@ -19,6 +19,9 @@ Choose Hadoop and Spark versions in `.env` file.
 sudo ./update_hosts.sh
 ```
 
+## Copy Hadoop configs from container to host
+`docker cp hadoop3-cluster-master:/opt/hadoop/etc/hadoop /tmp/hadoop3-cluster-configs`
+
 ## Hadoop CLI
 Run Bash with Hadoop CLI available: `./run_cli.sh`
 

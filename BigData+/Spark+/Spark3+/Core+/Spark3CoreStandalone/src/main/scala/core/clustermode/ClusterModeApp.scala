@@ -5,9 +5,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 object ClusterModeApp {
   def main(args: Array[String]): Unit = {
-    val conf = new SparkConf()
-      .setAppName(getClass.getSimpleName)
-      .setMaster("spark://spark-standalone-cluster-master:7077")
+    val conf = new SparkConf().setAppName(getClass.getSimpleName)
     val sc = new SparkContext(conf)
     sc.setLogLevel("DEBUG")
     val words = Seq("Hello, ", "World", "!")
