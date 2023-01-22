@@ -105,6 +105,8 @@ version](https://app.pomodoneapp.com "https://app.pomodoneapp.com")
 [Список аккредитованных<br>УЦ](https://digital.gov.ru/ru/activity/govservices/2/#section-list-of-accredited-organizations)
 [Удаленная работа --- это не
 «фриланс»](http://habrahabr.ru/post/199114/)
+["Cross Country"<br>(Эстосадок)](https://cross-country.ru/%d0%bd%d0%b0%d1%87%d0%b0%d1%82%d1%8c/)
+[Gulp - Hydrate & track<br>water](https://play.google.com/store/apps/details?id=info.andrewdahm.gulp)
   ',1547501767000,1547501955001,0,0,0,0,'aleks_ya','',0,0,0,'evernote','net.cozic.joplin-desktop','',0,1547501767000,1547501955000,'',0,1,0,'','','');
 
 INSERT INTO "notes" ("id","parent_id","title","body","created_time","updated_time","is_conflict","latitude","longitude","altitude","author","source_url","is_todo","todo_due","todo_completed","source","source_application","application_data","order","user_created_time","user_updated_time","encryption_cipher_text","encryption_applied","markup_language","is_shared","share_id","conflict_original_id","master_key_id")

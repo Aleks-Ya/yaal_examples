@@ -87,6 +87,12 @@ public class Notes {
                             null),
                     new Link("[Удаленная работа --- это не\n«фриланс»](http://habrahabr.ru/post/199114/)",
                             "Удаленная работа --- это не\n«фриланс»", "http://habrahabr.ru/post/199114/",
+                            null),
+                    new Link("[\"Cross Country\"<br>(Эстосадок)](https://cross-country.ru/%d0%bd%d0%b0%d1%87%d0%b0%d1%82%d1%8c/)",
+                            "\"Cross Country\"<br>(Эстосадок)", "https://cross-country.ru/%d0%bd%d0%b0%d1%87%d0%b0%d1%82%d1%8c/",
+                            null),
+                    new Link("[Gulp - Hydrate & track<br>water](https://play.google.com/store/apps/details?id=info.andrewdahm.gulp)",
+                            "Gulp - Hydrate & track<br>water", "https://play.google.com/store/apps/details?id=info.andrewdahm.gulp",
                             null)
             ));
 }

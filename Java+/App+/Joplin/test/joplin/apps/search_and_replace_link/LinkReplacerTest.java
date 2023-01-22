@@ -57,7 +57,13 @@ class LinkReplacerTest {
                             "[Список аккредитованных УЦ](https://digital.gov.ru/ru/activity/govservices/2/#section-list-of-accredited-organizations)"),
                     new Replacement(noteId2,
                             "[Удаленная работа --- это не\n«фриланс»](http://habrahabr.ru/post/199114/)",
-                            "[Удаленная работа --- это не «фриланс»](http://habrahabr.ru/post/199114/)")
+                            "[Удаленная работа --- это не «фриланс»](http://habrahabr.ru/post/199114/)"),
+                    new Replacement(noteId2,
+                            "[\"Cross Country\"<br>(Эстосадок)](https://cross-country.ru/%d0%bd%d0%b0%d1%87%d0%b0%d1%82%d1%8c/)",
+                            "[\"Cross Country\" (Эстосадок)](https://cross-country.ru/%d0%bd%d0%b0%d1%87%d0%b0%d1%82%d1%8c/)"),
+                    new Replacement(noteId2,
+                            "[Gulp - Hydrate & track<br>water](https://play.google.com/store/apps/details?id=info.andrewdahm.gulp)",
+                            "[Gulp - Hydrate & track water](https://play.google.com/store/apps/details?id=info.andrewdahm.gulp)")
             );
         }
     }
