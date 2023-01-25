@@ -64,3 +64,12 @@ Change the author of the last commit: `git commit --amend --author="Mark <mark@a
 
 ## Credentials
 Use storage credential helper: `git config --global credential.helper store`
+
+## Stash
+Clear stash: `git stash clear`
+List previous 5 entries: `git stash list -5`
+List modified files in specific entry: `git stash show stash@{0}`
+Apply latest entry: `git stash apply`
+Apply specific entry: `git stash apply stash@{0}`
+Save local changes to an entry: `git stash push` = `git stash` (`git save` is deprecated)
+Delete an entry: `git stash drop stash@{0}`

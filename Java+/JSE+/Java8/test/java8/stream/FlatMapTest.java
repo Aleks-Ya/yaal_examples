@@ -33,4 +33,12 @@ class FlatMapTest {
         var flatList = arrays.stream().flatMap(Arrays::stream).toList();
         assertThat(flatList).containsExactly("a", "b", "c", "d");
     }
+
+    @Test
+    void listCrossList() {
+        var list1 = List.of("a", "b");
+        var list2 = List.of("1", "2");
+        var result = list1.stream().flatMap(symbol -> list2.stream().map(number -> symbol + number)).toList();
+        assertThat(result).containsExactly("a1", "a2", "b1", "b2");
+    }
 }
