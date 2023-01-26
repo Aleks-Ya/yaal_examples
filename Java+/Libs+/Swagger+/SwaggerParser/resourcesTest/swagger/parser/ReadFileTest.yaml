@@ -1,0 +1,18 @@
+openapi: 3.0.3
+info:
+  title: HomeMessanger API
+  version: 1.0.1
+  description: Test API for HomeMessanger
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /person:
+    summary: Operation over persons
+    put:
+      summary: Create new person
+      description: ''
+      operationId: create-person
+      responses:
+        default:
+          description: Default error sample response

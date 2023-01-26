@@ -13,6 +13,7 @@ alias yd-status='yandex-disk status --dir=~/yandex-disk/'
 ```
 
 Help: `yandex-disk -h`
+Version: `yandex-disk -v`
 Login: `yandex-disk token aleks-iablokov`
 Sync everything and exit: `yandex-disk sync --dir=~/yandex-disk/ --exclude-dirs=learn,backup`
 Show status: `yandex-disk status --dir=~/yandex-disk/`
