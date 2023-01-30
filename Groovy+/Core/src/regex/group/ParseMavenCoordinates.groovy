@@ -1,6 +1,6 @@
 package regex.group
 
-String coordinates = 'ru.yaal:maven:jar:jar-with-dependencies:1-SNAPSHOT'
+def coordinates = 'ru.yaal:maven:jar:jar-with-dependencies:1-SNAPSHOT'
 def pattern = ~"^([\\w.]+):([\\w.]+):([\\w.]+):([\\w.]+):([\\w.-]+)\$"
 def matcher = pattern.matcher(coordinates)
 while (matcher.find()) {

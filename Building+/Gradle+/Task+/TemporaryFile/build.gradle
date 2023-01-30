@@ -1,0 +1,17 @@
+import java.nio.file.Files
+
+defaultTasks('printTmpFile') 
+
+task printTmpFile {
+    def taskTmpDir = getTemporaryDir()
+    println("Task temporary dir: '$taskTmpDir', exists: ${taskTmpDir.exists()}, directory: ${taskTmpDir.isDirectory()}") 
+
+    def fileInTaskTmpDir = new File(taskTmpDir, 'my_data.txt')
+    println("File in the task temporary dir: '$fileInTaskTmpDir', exists: ${fileInTaskTmpDir.exists()}, directory: ${fileInTaskTmpDir.isDirectory()}")
+
+    def fileInSysTmpDir = File.createTempFile('my_', '.tmp')
+    println("File in system temporary dir: '$fileInSysTmpDir', exists: ${fileInSysTmpDir.exists()}, directory: ${fileInSysTmpDir.isDirectory()}")
+
+    def dirInSysTmpDir = Files.createTempDirectory('dir_').toFile()
+    println("Dir in system temporary dir: '$dirInSysTmpDir', exists: ${dirInSysTmpDir.exists()}, directory: ${dirInSysTmpDir.isDirectory()}")
+}

@@ -2,7 +2,7 @@ package io.resource
 
 println(getClass().getResource('resource.txt'))
 
-String content = getClass().getResource('resource.txt').text
+def content = getClass().getResource('resource.txt').text
 println(content)
 
 //Не работает!

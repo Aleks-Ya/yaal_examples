@@ -1,3 +1,6 @@
+/*
+Calculate weight loss pace.
+*/
 import java.nio.file.Files
 import java.nio.file.StandardOpenOption
 import java.text.DecimalFormat
@@ -31,11 +34,11 @@ if (args.length == 2) {
 
     lines = Files.readAllLines(file.toPath()).reverse()
     previousWeight = lines.stream()
-            .map {line -> line.split(" ")}
-            .map {array -> new Tuple2<LocalDate, Double>(LocalDate.parse(array[0]), Double.parseDouble(array[1]))}
-            .filter {tuple -> (tuple.first() == dayBeforeDate) }
-            .map {tuple -> tuple.second}
-            .findAny().orElseThrow{new IllegalStateException("Can't find weight for date: $dayBeforeDate in file ${file.absolutePath}.")}
+            .map { line -> line.split(" ") }
+            .map { array -> new Tuple2<LocalDate, Double>(LocalDate.parse(array[0]), Double.parseDouble(array[1])) }
+            .filter { tuple -> (tuple.first() == dayBeforeDate) }
+            .map { tuple -> tuple.second }
+            .findAny().orElseThrow { new IllegalStateException("Can't find weight for date: $dayBeforeDate in file ${file.absolutePath}.") }
 } else {
     throw new IllegalArgumentException("Expected one or two arguments. But got: ${args}")
 }
@@ -62,7 +65,7 @@ currentDateText = currentDate.format(formatter)
 percentFormat = NumberFormat.getPercentInstance(ruRu)
 percentFormat.setMaximumFractionDigits(1)
 percentFormat.setMinimumFractionDigits(1)
-daysPastPercetTxt=percentFormat.format(daysPastPersent)
+daysPastPercetTxt = percentFormat.format(daysPastPersent)
 wightPersentTxt = percentFormat.format(wightPersent)
 
 decimalFormat1 = new DecimalFormat("##0.0", DecimalFormatSymbols.getInstance(ruRu))

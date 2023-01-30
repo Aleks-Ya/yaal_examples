@@ -6,6 +6,7 @@ import org.custommonkey.xmlunit.DetailedDiff
 import org.custommonkey.xmlunit.Diff
 import org.custommonkey.xmlunit.XMLUnit
 import org.junit.jupiter.api.Test
+
 import static org.junit.jupiter.api.Assertions.assertTrue
 
 /**
@@ -40,7 +41,7 @@ class ModifyXml {
 
         XMLUnit.setIgnoreWhitespace(true)
 
-        DetailedDiff diff = new DetailedDiff(new Diff(expectedDoc, actualDoc))
+        def diff = new DetailedDiff(new Diff(expectedDoc, actualDoc))
         assertTrue(diff.similar(), diff.toString())
         println plan
     }

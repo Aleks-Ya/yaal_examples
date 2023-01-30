@@ -1,5 +1,3 @@
-//Run: gradle
-
 defaultTasks('renameFiles') 
 
 def currentFile = File.createTempFile("RenameFile_",".tmp")

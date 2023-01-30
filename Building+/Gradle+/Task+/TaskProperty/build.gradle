@@ -1,0 +1,17 @@
+// NOT WORK
+
+defaultTasks('hi') 
+
+task hi {
+    doFirst {
+        setProperty('person', 'John')
+        // persion = 'John'
+    }
+    doLast {
+        def person = getProperty('person')
+        //def person = this.person
+        // def p = "$person"
+        assert 'John'.equals(person)
+    }
+}
+// hi.person = 'John'

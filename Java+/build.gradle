@@ -2,8 +2,8 @@ subprojects {
     apply plugin: 'java'
     sourceSets.main.java.srcDir 'src'
     sourceSets.main.resources.srcDir 'resources'
-    sourceSets.main.resources.srcDir 'resourcesTest'
     sourceSets.test.java.srcDir 'test'
+    sourceSets.test.resources.srcDir 'resourcesTest'
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
     defaultTasks('test')

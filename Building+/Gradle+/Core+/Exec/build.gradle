@@ -1,4 +1,3 @@
-//Run: gradle
 exec({commandLine = ["echo", "hello"]})
 exec({
     commandLine = ["ls", "-l"]

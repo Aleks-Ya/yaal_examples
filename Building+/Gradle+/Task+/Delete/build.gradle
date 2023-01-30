@@ -1,0 +1,34 @@
+import java.nio.file.Files
+
+defaultTasks('deleteMyFile', 'deleteMyDir')
+
+def tmpFile1 = File.createTempFile('my_', '.tmp')
+task deleteMyFile(type: Delete) {
+    doFirst {
+        println("tmpFile1 1: '$tmpFile1', exists=${tmpFile1.exists()}")
+        assert tmpFile1.exists()
+    }
+    delete tmpFile1
+    doLast {
+        println("tmpFile1 2: '$tmpFile1', exists=${tmpFile1.exists()}")
+        assert !tmpFile1.exists()
+    }
+}
+
+def tmpDir2 = Files.createTempDirectory('dir_').toFile()
+def tmpFile2 = File.createTempFile('my_', '.tmp', tmpDir2)
+task deleteMyDir(type: Delete) {
+    doFirst {
+        println("tmpDir2 dir 1: '$tmpDir2', exists=${tmpDir2.exists()}")
+        println("tmpFile2 file 1: '$tmpFile2', exists=${tmpFile2.exists()}")
+        assert tmpDir2.exists()
+        assert tmpFile2.exists()
+    }
+    delete tmpDir2
+    doLast {
+        println("tmpDir2 dir 1: '$tmpDir2', exists=${tmpDir2.exists()}")
+        println("tmpFile2 file 2: '$tmpFile2', exists=${tmpFile2.exists()}")
+        assert !tmpDir2.exists()
+        assert !tmpFile2.exists()
+    }
+}

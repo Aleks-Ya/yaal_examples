@@ -1,6 +1,6 @@
 package regex.group
 
-String string = '''
+def string = '''
     abc=100
     xyz=300
 '''

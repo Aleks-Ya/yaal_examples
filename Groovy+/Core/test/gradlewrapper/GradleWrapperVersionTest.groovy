@@ -1,4 +1,4 @@
-package app.gradlewrapper
+package gradlewrapper
 
 import org.junit.jupiter.api.Test
 
@@ -60,11 +60,13 @@ class GradleWrapperVersionTest {
      * @return Gradle version if found.
      */
     private static Optional<String> parseGradleWrapperVersion(String projectRootDir) {
-        def file = Paths.get(projectRootDir, "gradle", "wrapper", "gradle-wrapper.properties")
-        if (Files.exists(file)) {
-            def match = file.text =~ /.*gradle-(.*)-bin.zip/
-            if (match.find()) {
-                return Optional.of(match.group(1))
+        if (projectRootDir != null) {
+            def file = Paths.get(projectRootDir, "gradle", "wrapper", "gradle-wrapper.properties")
+            if (Files.exists(file)) {
+                def match = file.text =~ /.*gradle-(.*)-bin.zip/
+                if (match.find()) {
+                    return Optional.of(match.group(1))
+                }
             }
         }
         return Optional.empty()

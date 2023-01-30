@@ -13,13 +13,13 @@ class CrystalPluginConfig {
 
     @Test
     void parse() {
-        File file  = Files.createTempFile('CrystalPluginConfig', '.tmp').toFile()
+        def file = Files.createTempFile('CrystalPluginConfig', '.tmp').toFile()
         file.deleteOnExit()
 
-        File configFile = new File(CrystalPluginConfig.class.getResource('goods-weight-config.xml').file.replace('%5e', '^').replace('%5E', '^'))
+        def configFile = new File(CrystalPluginConfig.class.getResource('goods-weight-config.xml').file.replace('%5e', '^').replace('%5E', '^'))
         file.write(configFile.text)
-        String key = 'minWeight'
-        String value = 10
+        def key = 'minWeight'
+        def value = '10'
         changePluginConfigProperty(configFile.absolutePath, key, value)
         println file.text
     }
@@ -28,7 +28,7 @@ class CrystalPluginConfig {
      * В конфигурационном файле плагина заменяет/добавляет элемент <property> с заданными атрибутами key и value.
      */
     private void changePluginConfigProperty(String configFile, String key, String value) {
-        File weightConfig = new File(configFile)
+        def weightConfig = new File(configFile)
         if (!weightConfig.exists()) {
             throw new RuntimeException("Not exists: ${weightConfig.absolutePath}")
         }
@@ -43,7 +43,7 @@ class CrystalPluginConfig {
         } else {
             properties[0].@value = value
         }
-        PrintWriter writer = new PrintWriter(weightConfig)
+        def writer = new PrintWriter(weightConfig)
         new XmlNodePrinter(writer).print(moduleConfig)
         writer.close()
         xmlPrinter.print(moduleConfig)
