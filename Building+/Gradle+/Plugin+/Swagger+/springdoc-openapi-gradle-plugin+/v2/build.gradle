@@ -1,0 +1,27 @@
+buildscript{
+    ext {
+        springBootVersion = '3.0.2'
+    }   
+}
+
+plugins {
+    id 'application'
+    id 'org.springframework.boot' version "$springBootVersion"
+    id 'org.springdoc.openapi-gradle-plugin' version '1.6.0'
+}
+
+sourceSets.main.java.srcDir 'src'
+sourceSets.test.java.srcDir 'test'
+mainClassName = "springdoc.SpringDocApp"
+
+dependencies {
+    runtimeOnly 'org.springdoc:springdoc-openapi-starter-webmvc-api:2.0.2'
+    implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+}
+test {
+    useJUnitPlatform()
+}
+repositories {
+    mavenCentral()
+}

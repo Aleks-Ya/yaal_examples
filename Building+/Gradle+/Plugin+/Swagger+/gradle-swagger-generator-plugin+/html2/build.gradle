@@ -2,20 +2,20 @@ plugins {
   id 'org.hidetake.swagger.generator' version '2.19.2'
 }
 
-repositories {
-  mavenCentral()
-}
-
 dependencies {
   //swaggerCodegen 'io.swagger:swagger-codegen-cli:2.4.29'             // Swagger Codegen V2
   swaggerCodegen 'io.swagger.codegen.v3:swagger-codegen-cli:3.0.40'  // or Swagger Codegen V3
 }
 
 swaggerSources {
-  petstore {
-    inputFile = file('resources/openapi.json')
+  my {
+    inputFile = file('openapi.json')
     code {
       language = 'html2'
     }
   }
+}
+
+repositories {
+  mavenCentral()
 }

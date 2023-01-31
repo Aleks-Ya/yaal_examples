@@ -11,6 +11,36 @@
     }
   ],
   "paths": {
+    "/upperCase/{str}": {
+      "get": {
+        "tags": [
+          "custom-controller"
+        ],
+        "operationId": "upperCase",
+        "parameters": [
+          {
+            "name": "str",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/custom": {
       "get": {
         "tags": [

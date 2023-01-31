@@ -1,0 +1,25 @@
+plugins {
+  id 'org.hidetake.swagger.generator' version '2.19.2'
+}
+
+delete("$buildDir")
+
+dependencies {
+  swaggerUI 'org.webjars:swagger-ui:4.15.5'
+}
+
+swaggerSources {
+  my {
+    inputFile = file('openapi.json')
+    ui {
+      doLast{
+        def f = file("$outputDir/index.html")
+        f.text = f.text.replace("docExpansion: 'full'", "docExpansion: 'none'") //Don't expand by default
+      }
+    }
+  }
+}
+
+repositories {
+  mavenCentral()
+}

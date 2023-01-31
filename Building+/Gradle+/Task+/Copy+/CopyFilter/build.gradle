@@ -1,0 +1,20 @@
+defaultTasks('copyFiles') 
+
+def fromFile = file("$projectDir/from.txt")
+def toDir = file("$projectDir/build")
+def toFile = new File(toDir, 'from.txt')
+println("From file: $fromFile")
+println("To file: $toFile")
+delete(toFile)
+assert !toFile.exists()
+
+task copyFiles(type: Copy) {
+    from fromFile
+    into toDir
+    filter { line -> line.replaceAll('bbb', 'xxx') }
+    doLast {
+        def actContent = toFile.text
+        println("Content:\n$actContent")
+        assert 'aaa\nxxx\nccc'.equals(actContent)
+    }
+}

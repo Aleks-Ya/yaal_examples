@@ -1,0 +1,11 @@
+defaultTasks('hi') 
+
+task hi {
+    println "Hi!"
+}
+
+task bye {
+    println "Bye!"
+}
+
+hi.finalizedBy bye

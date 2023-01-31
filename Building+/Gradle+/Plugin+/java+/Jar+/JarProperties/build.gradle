@@ -1,6 +1,6 @@
-//Run: gradle
-
-apply plugin: 'java'
+plugins {
+	id 'java'
+}
 sourceSets.main.java.srcDir 'src'
 defaultTasks('jar')
 
@@ -8,4 +8,5 @@ group = "ru.yaal.project"
 version = "1.0-SNAPSHOT"
 
 println("jar.archiveName=$jar.archiveName")
+println("jar.archiveFileName=$jar.archiveFileName")
 println("jar.archivePath: $jar.archivePath")

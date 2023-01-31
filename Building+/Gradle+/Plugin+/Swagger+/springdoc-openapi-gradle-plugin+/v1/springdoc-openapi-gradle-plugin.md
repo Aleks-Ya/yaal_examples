@@ -1,7 +1,10 @@
-# Generate "OpenAPI definition" with SpringDoc openapi-gradle-plugin
+# Generate "OpenAPI definition" with SpringDoc openapi-gradle-plugin (SpringBoot2)
 
 Docs: https://springdoc.org/v2/#gradle-plugin
 GitHub: https://github.com/springdoc/springdoc-openapi-gradle-plugin
+
+## Java version
+Java 8
 
 ## Unit tests
 `gradle clean test`
@@ -9,7 +12,8 @@ GitHub: https://github.com/springdoc/springdoc-openapi-gradle-plugin
 ## Run Spring app
 1. `gradle run`
 2. Open http://localhost:8080/custom in browser
-3. Open http://localhost:8080/v3/api-docs in browser
+3. Open http://localhost:8080/upperCase/abc in browser
+4. Open http://localhost:8080/v3/api-docs in browser
 
 ## Generate OpenAPI definition
 1. `gradle clean generateOpenApiDocs`

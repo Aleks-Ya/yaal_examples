@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+}
+
+defaultTasks('hi', 'bye', 'hello', 'jar') 
+
+//Define inside the task
+task hi {
+    doFirst {
+        println('Hi doFirst')
+    }
+    println "Hi configuration"
+    doLast {
+        println('Hi doLast')
+    }
+}
+
+//Define outside the task
+task bye {
+    println "Bye configuration"
+}
+bye.doFirst {
+     println('Bye doFirst')
+}
+bye.doLast {
+    println('Hi doLast')
+}
+
+//Can attach several handlers
+task hello {
+    println "Hello configuration"
+}
+hello.doFirst {
+     println('Hello doFirst #1')
+}
+hello.doLast {
+    println('Hello doLast #1')
+}
+hello.doFirst {
+     println('Hello doFirst #2')
+}
+hello.doLast {
+    println('Hello doLast #2')
+}
+
+//Attach to the task from a plugin
+jar.doFirst {
+    println('Jar doFirst')
+}
+jar.doLast {
+    println('Jar doLast')
+}

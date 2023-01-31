@@ -1,0 +1,17 @@
+plugins {
+  id 'org.hidetake.swagger.generator' version '2.19.2'
+}
+
+swaggerSources {
+  my {
+    inputFile = file('openapi.json')
+    reDoc {
+      scriptSrc = 'https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js' //latest v2.x.x
+      //scriptSrc = 'https://rebilly.github.io/ReDoc/releases/latest/redoc.min.js' //latest v1.x.x
+    }
+  }
+}
+
+repositories {
+  mavenCentral()
+}
