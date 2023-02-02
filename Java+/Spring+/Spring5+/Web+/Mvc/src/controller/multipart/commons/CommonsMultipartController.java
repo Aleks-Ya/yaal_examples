@@ -26,7 +26,7 @@ class CommonsMultipartController {
             @RequestParam(PARAM_NAME) String param,
             @RequestParam(value = DATA_PART_NAME) List<MultipartFile> files) {
 
-        String multipartStr = files.stream().map(file -> {
+        var multipartStr = files.stream().map(file -> {
             try {
                 return new String(file.getBytes());
             } catch (IOException e) {

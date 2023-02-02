@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import static view.implementation.custom.PrintTextView.MODEL_ATTR_NAME;
 import static view.implementation.custom.PrintTextView.VIEW_NAME;
@@ -17,7 +16,7 @@ class CustomViewController {
 
     @RequestMapping(value = ENDPOINT)
     public ModelAndView show(@RequestParam String message) {
-        Map<String, Object> model = new HashMap<>();
+        var model = new HashMap<String, Object>();
         model.put(MODEL_ATTR_NAME, message);
         return new ModelAndView(VIEW_NAME, model);
     }

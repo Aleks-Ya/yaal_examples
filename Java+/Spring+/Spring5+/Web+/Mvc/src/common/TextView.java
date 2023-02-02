@@ -5,7 +5,6 @@ import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 import java.util.Map;
 
 /**
@@ -27,7 +26,7 @@ public class TextView implements View {
 
     @Override
     public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        PrintWriter writer = response.getWriter();
+        var writer = response.getWriter();
         writer.write(text);
         writer.flush();
     }

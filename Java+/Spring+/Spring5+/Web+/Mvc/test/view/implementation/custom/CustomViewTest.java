@@ -20,7 +20,7 @@ class CustomViewTest extends BaseTest {
 
     @Test
     void requestParam() throws Exception {
-        String message = "hello";
+        var message = "hello";
         mvc.perform(get(CustomViewController.ENDPOINT).param("message", message))
                 .andExpect(status().isOk())
                 .andExpect(content().string(message));

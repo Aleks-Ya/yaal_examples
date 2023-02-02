@@ -19,9 +19,9 @@ public class UserPDFView extends AbstractPdfView {
                                     HttpServletResponse response) throws Exception {
 
         @SuppressWarnings("unchecked")
-        Map<String, String> userData = (Map<String, String>) model.get("userData");
+        var userData = (Map<String, String>) model.get("userData");
 
-        Paragraph paragraph = new Paragraph(userData.get("message"));
+        var paragraph = new Paragraph(userData.get("message"));
         document.add(paragraph);
     }
 }

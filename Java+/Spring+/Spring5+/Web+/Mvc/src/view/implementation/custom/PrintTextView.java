@@ -6,7 +6,6 @@ import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 import java.util.Map;
 
 import static view.implementation.custom.PrintTextView.VIEW_NAME;
@@ -26,9 +25,9 @@ class PrintTextView implements View {
 
     @Override
     public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Object value = model != null ? model.get(MODEL_ATTR_NAME) : null;
-        String text = value != null ? value.toString() : "text is null";
-        PrintWriter writer = response.getWriter();
+        var value = model != null ? model.get(MODEL_ATTR_NAME) : null;
+        var text = value != null ? value.toString() : "text is null";
+        var writer = response.getWriter();
         writer.write(text);
         writer.flush();
     }

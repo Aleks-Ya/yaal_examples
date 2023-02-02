@@ -7,7 +7,6 @@ import org.springframework.web.servlet.view.AbstractView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
 abstract class AbstractITextPdfView extends AbstractView {
@@ -30,9 +29,9 @@ abstract class AbstractITextPdfView extends AbstractView {
                                            HttpServletRequest request,
                                            HttpServletResponse response) throws Exception {
 
-        ByteArrayOutputStream out = createTemporaryOutputStream();
-        Document document = new Document(PageSize.A4);
-        PdfWriter writer = PdfWriter.getInstance(document, out);
+        var out = createTemporaryOutputStream();
+        var document = new Document(PageSize.A4);
+        var writer = PdfWriter.getInstance(document, out);
         writer.setViewerPreferences(PdfWriter.ALLOW_PRINTING | PdfWriter.PageLayoutSinglePage);
         buildPdfMetadata(model, document, request);
 

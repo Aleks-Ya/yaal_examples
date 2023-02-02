@@ -5,5 +5,5 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @EnableWebMvc
 @Configuration
-public class Config {
+class Config {
 }

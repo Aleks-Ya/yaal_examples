@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Override DefaultHandlerExceptionResolver for custom processing Standard Spring MVC exceptions.
@@ -39,9 +38,7 @@ class AllExceptionController {
     }
 
     @RequestMapping(MISSING_SERVLET_PARAM_EXCEPTION)
-    public void missingServletRequestParameterException(
-            @SuppressWarnings("unused") @RequestParam("abc") String param
-    ) {
+    public void missingServletRequestParameterException(@SuppressWarnings("unused") @RequestParam("abc") String param) {
     }
 
     @Bean
@@ -52,12 +49,12 @@ class AllExceptionController {
     public static class MyDefaultHandlerExceptionResolver extends DefaultHandlerExceptionResolver {
         @Override
         protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-            MappingJackson2JsonView view = new MappingJackson2JsonView();
+            var view = new MappingJackson2JsonView();
 
-            Map<String, String> model = new HashMap<>();
+            var model = new HashMap<String, String>();
             model.put("exception", ex.toString());
 
-            ModelAndView mav = new ModelAndView(view, model);
+            var mav = new ModelAndView(view, model);
             mav.setStatus(HttpStatus.CONFLICT);
             return mav;
         }

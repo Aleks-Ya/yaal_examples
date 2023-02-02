@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 class TheController {
-
     static final String ENDPOINT = "/error";
     static final String EXCEPTION_MESSAGE = "the error!";
 

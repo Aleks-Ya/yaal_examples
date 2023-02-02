@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice("exception.controller_advice")
 class ControllerAdviceComponent {
-
-
     @ExceptionHandler(Exception.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)

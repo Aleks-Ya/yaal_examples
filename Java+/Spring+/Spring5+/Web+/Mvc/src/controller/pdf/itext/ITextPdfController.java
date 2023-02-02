@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 class ITextPdfController {
@@ -17,7 +16,7 @@ class ITextPdfController {
     @SuppressWarnings("unused")
     @RequestMapping(path = ITextPdfController.ENDPOINT, produces = MediaType.APPLICATION_PDF_VALUE)
     ModelAndView getPdf() {
-        Map<String, String> model = new HashMap<>();
+        var model = new HashMap<String, String>();
         model.put("message", MESSAGE);
         return new ModelAndView(new ITextPdfView(), "userData", model);
     }
