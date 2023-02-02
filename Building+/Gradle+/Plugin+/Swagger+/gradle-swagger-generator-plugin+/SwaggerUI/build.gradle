@@ -20,6 +20,14 @@ swaggerSources {
   }
 }
 
+task pack(type: Zip) {
+    from file("${swaggerSources.my.ui.outputDir}")
+    destinationDirectory = file("$buildDir")
+    archiveFileName = "swagger.zip"
+}
+
+generateSwaggerUI.finalizedBy pack
+
 repositories {
   mavenCentral()
 }

@@ -6,4 +6,6 @@ Configuration: https://github.com/swagger-api/swagger-ui/blob/master/docs/usage/
 
 ## Generate SwaggerUI documentation
 1. `gradle generateSwaggerUI`
-2. Result: `build/swagger-ui-my/index.html`
+2. Result:
+	1. Uncompressed: `build/swagger-ui-my/index.html`
+	2. Zip: `build/swagger.zip`

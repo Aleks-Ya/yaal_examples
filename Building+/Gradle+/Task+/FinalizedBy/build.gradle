@@ -1,11 +1,30 @@
-defaultTasks('hi') 
+defaultTasks('hi', 'where', 'who') 
 
+//Eager task creation
 task hi {
-    println "Hi!"
+    println 'Hi!'
 }
-
 task bye {
-    println "Bye!"
+    println 'Bye!'
+}
+hi.finalizedBy bye
+
+
+//Lazy task creation #1
+tasks.register('there') {
+    println 'There!'
+}
+tasks.register('where') {
+    println 'Where?'
+    finalizedBy 'there'
 }
 
-hi.finalizedBy bye
+
+//Lazy task creation #2
+tasks.register('who') {
+    println 'Who?'
+}
+tasks.register('you') {
+    println 'You!'
+}
+who.configure { finalizedBy you }
