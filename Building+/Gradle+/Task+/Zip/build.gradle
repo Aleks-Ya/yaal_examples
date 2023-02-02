@@ -1,0 +1,8 @@
+defaultTasks('compress')
+delete("$buildDir")
+
+task compress(type: Zip) {
+    from file("source")
+    destinationDirectory = file("$buildDir")
+    archiveFileName = "files.zip"
+}
