@@ -1,3 +1,5 @@
+import java.time.format.DateTimeFormatter;
+
 plugins {
   id 'org.hidetake.swagger.generator' version '2.19.2'
 }
@@ -23,7 +25,8 @@ swaggerSources {
 task pack(type: Zip) {
     from file("${swaggerSources.my.ui.outputDir}")
     destinationDirectory = file("$buildDir")
-    archiveFileName = "swagger.zip"
+    def date = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss").format(LocalDateTime.now())
+    archiveFileName = "swagger_${date}.zip"
 }
 
 generateSwaggerUI.finalizedBy pack
