@@ -13,7 +13,7 @@ class VtbAllReportsFinishedWaitTest {
         var clients = new VtbBrokerClientList(auth);
         var agreementData = clients.clientList();
 
-        for (String agreement : agreementData.getAgreements()) {
+        for (var agreement : agreementData.getAgreements()) {
             var waiter = new VtbAllReportsFinishedWait(auth, agreement);
             waiter.waitUntilFinished();
         }

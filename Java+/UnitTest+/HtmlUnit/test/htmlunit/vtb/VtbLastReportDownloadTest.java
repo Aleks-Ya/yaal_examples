@@ -18,7 +18,7 @@ class VtbLastReportDownloadTest {
         var agreementData = clients.clientList();
 
         var outDir = Files.createTempDirectory(getClass().getSimpleName() + "_");
-        for (String agreement : agreementData.getAgreements()) {
+        for (var agreement : agreementData.getAgreements()) {
             var waiter = new VtbLastReportDownload(auth, agreement);
             var reportFile = waiter.downloadLastReport();
             var outputFile = outDir.resolve(reportFile.getFilename()).toFile();
