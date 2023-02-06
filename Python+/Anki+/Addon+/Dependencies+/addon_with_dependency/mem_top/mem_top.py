@@ -26,24 +26,23 @@ Copyright (C) 2014-2018 by Denis Ryzhkov <denisr@denisr.com>
 MIT License, see http://opensource.org/licenses/MIT
 """
 
-#### import
-
+import gc
+import sys
+# import
 from collections import defaultdict
-import gc, sys
 
-#### mem_top
 
+# mem_top
 def mem_top(
-    limit=10,                           # limit of top lines per section
-    width=100,                          # width of each line in chars
-    sep='\n',                           # char to separate lines with
-    refs_format='{num}\t{type} {obj}',  # format of line in "references" section
-    bytes_format='{num}\t {obj}',       # format of line in "bytes" section
-    types_format='{num}\t {obj}',       # format of line in "types" section
-    verbose_types=None,                 # list of types to get their values sorted by repr length
-    verbose_file_name='/tmp/mem_top',   # name of file to store "verbose_types" in
+        limit=10,  # limit of top lines per section
+        width=100,  # width of each line in chars
+        sep='\n',  # char to separate lines with
+        refs_format='{num}\t{type} {obj}',  # format of line in "references" section
+        bytes_format='{num}\t {obj}',  # format of line in "bytes" section
+        types_format='{num}\t {obj}',  # format of line in "types" section
+        verbose_types=None,  # list of types to get their values sorted by repr length
+        verbose_file_name='/tmp/mem_top',  # name of file to store "verbose_types" in
 ):
-
     gc.collect()
     objs = gc.get_objects()
 
@@ -87,23 +86,23 @@ def mem_top(
         '',
     ))
 
-#### _top
 
+# _top
 def _top(limit, width, sep, format, nums_and_objs):
     return sep.join(
         format.format(num=num, type=type(obj), obj=_repr(obj)[:width])
         for num, obj in sorted(nums_and_objs, key=lambda num_obj: -num_obj[0])[:limit]
     )
 
-#### _repr
 
+# _repr
 def _repr(obj):
     try:
         return repr(obj)
     except Exception:
         return '(broken __repr__, type={})'.format(type(obj))
 
-#### tests
 
+# tests
 if __name__ == '__main__':
     print(mem_top())

@@ -33,7 +33,7 @@ cling|clung|clung|clinging|clings
 clothe|clad/clothed|clad/clothed|clothing|clothes
 come|came|come|coming|comes
 cost|cost|cost|costing|costs
-countersink|countersank, countersunk|countersunk|countersinking|countersinks
+countersink|countersank/countersunk|countersunk|countersinking|countersinks
 creep|crept|crept|creeping|creeps
 cut|cut|cut|cutting|cuts
 dare|dared/durst|dared|daring|dares
