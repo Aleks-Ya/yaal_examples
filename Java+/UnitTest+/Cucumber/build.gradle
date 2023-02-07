@@ -1,0 +1,9 @@
+dependencies {
+    def cucumberVersion = '7.11.1'
+    testImplementation "io.cucumber:cucumber-java:$cucumberVersion",
+            "io.cucumber:cucumber-junit-platform-engine:$cucumberVersion"
+}
+tasks.test {
+    useJUnitPlatform()
+    systemProperty("cucumber.junit-platform.naming-strategy", "long")
+}
