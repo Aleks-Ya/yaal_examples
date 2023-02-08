@@ -1,0 +1,4 @@
+dependencies {
+    implementation springBootStarterWebDep
+    testImplementation "io.cucumber:cucumber-java:$cucumberVersion", "io.cucumber:cucumber-spring:$cucumberVersion"
+}
