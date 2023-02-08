@@ -1,5 +1,7 @@
 # curl CLI
 
+Help: `curl -h`
+Version: `curl --version`
 Download to specific file: `curl -o output.zip http://data.com/file.zip`
 Send POST request with JSON body:
 ```
