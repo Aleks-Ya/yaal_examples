@@ -1,4 +1,4 @@
-Feature: Cucumber Expressions
+Feature: Regular Expressions
   Everybody wants to know when it's Friday
 
   Scenario: Handle a String parameter
