@@ -6,7 +6,7 @@ import io.cucumber.java.en.When;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CucumberExpressions {
+public class CucumberExpressionsStepdefs {
     private String person;
     private String message;
 
