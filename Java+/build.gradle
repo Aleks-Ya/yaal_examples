@@ -11,27 +11,27 @@ subprojects {
         mavenCentral()
     }
     ext {
-        h2Dep = 'com.h2database:h2:1.4.200'
+        h2Dep = 'com.h2database:h2:2.1.214'
         postgresDep = 'org.postgresql:postgresql:42.2.8'
         derbyDep = 'org.apache.derby:derby:10.13.1.1'
         hsqldbDep = 'org.hsqldb:hsqldb:2.3.4'
-        slf4jSimpleDep = 'org.slf4j:slf4j-simple:1.8.0-beta4'
+        slf4jSimpleDep = 'org.slf4j:slf4j-simple:2.0.6'
         def okHttpVersion = '4.10.0'
         okHttpDep = "com.squareup.okhttp3:okhttp:$okHttpVersion"
         mockWebServerDep = "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
         jettyServlet10Dep = 'org.eclipse.jetty:jetty-servlet:10.0.0'
         jettyServlet11Dep = 'org.eclipse.jetty:jetty-servlet:11.0.0'
         servlet4Dep = 'javax.servlet:javax.servlet-api:4.0.1'
-        jacksonVersion = '2.13.3'
+        jacksonVersion = '2.14.2'
         jacksonDataBindDep = "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         jacksonDatatypeJsr310Dep = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
-        jsonUnitDep = 'net.javacrumbs.json-unit:json-unit:2.36.0'
+        jsonUnitDep = 'net.javacrumbs.json-unit:json-unit:2.36.1'
         mockitoVersion = '4.11.0'
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
         mockitoJunitJupiterDep = "org.mockito:mockito-junit-jupiter:$mockitoVersion"
         log4jCoreDep = 'org.apache.logging.log4j:log4j-core:2.14.1'
         logbackClassicDep = 'ch.qos.logback:logback-classic:1.2.11'
-        gsonDep = 'com.google.code.gson:gson:2.9.0'
+        gsonDep = 'com.google.code.gson:gson:2.10.1'
         commonsLangDep = 'org.apache.commons:commons-lang3:3.12.0'
         wireMockDep = 'com.github.tomakehurst:wiremock:2.27.2'
         jaxbApiDep = 'javax.xml.bind:jaxb-api:2.3.1'
@@ -39,7 +39,7 @@ subprojects {
         junit5PlatformVersion = '1.9.2'
         junit5Version = '5.9.2'
         cucumberVersion = '7.11.1'
-        spring5Version = '5.3.24'
+        spring5Version = '5.3.25'
         spring4Version = '4.3.30.RELEASE'
         spring3Version = '3.2.18.RELEASE'
         spring5TestDep = "org.springframework:spring-test:$spring5Version"

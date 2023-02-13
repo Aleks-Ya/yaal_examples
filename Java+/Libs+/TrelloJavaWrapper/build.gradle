@@ -1,0 +1,3 @@
+dependencies {
+    implementation 'com.taskadapter:trello-java-wrapper:0.14', slf4jSimpleDep
+}
