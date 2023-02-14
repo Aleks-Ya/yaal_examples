@@ -1,6 +1,7 @@
 package feign.httpbin.basicauth;
 
 import feign.auth.BasicAuthRequestInterceptor;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,8 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.annotation.PostConstruct;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
