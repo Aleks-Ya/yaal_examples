@@ -5,9 +5,9 @@ import org.hibernate.DuplicateMappingException;
 import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 import static hibernate5.PhysicalNameHelper.getPhysicalColumnNames;
 import static hibernate5.PhysicalNameHelper.getPhysicalTableName;

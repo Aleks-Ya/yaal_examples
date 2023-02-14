@@ -1,6 +1,6 @@
 package jpa.eclipselink.inheritance.strategy.single_table;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 import java.util.Objects;
 
 @Entity

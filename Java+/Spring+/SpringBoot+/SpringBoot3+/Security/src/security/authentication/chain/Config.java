@@ -18,7 +18,7 @@ class Config {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests((auth) -> auth
-                        .antMatchers("/insecure/**").permitAll()
+//                        .antMatchers("/insecure/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())

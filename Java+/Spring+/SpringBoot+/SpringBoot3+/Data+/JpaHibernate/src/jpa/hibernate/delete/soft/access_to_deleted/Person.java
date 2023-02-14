@@ -5,10 +5,10 @@ import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 import org.hibernate.annotations.SQLDelete;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.util.Objects;
 
 import static jpa.hibernate.delete.soft.access_to_deleted.Person.FILTER;
@@ -16,7 +16,7 @@ import static jpa.hibernate.delete.soft.access_to_deleted.Person.FILTER;
 @Entity(name = "PersonDeleteSoft")
 @Table(name = "persons_delete_soft")
 @SQLDelete(sql = "UPDATE persons_delete_soft SET deleted = true WHERE id=?")
-@FilterDef(name = FILTER, parameters = @ParamDef(name = Person.IS_DELETED_PARAM, type = "boolean"))
+@FilterDef(name = FILTER, parameters = @ParamDef(name = Person.IS_DELETED_PARAM, type = Boolean.class))
 @Filter(name = FILTER, condition = "deleted = :" + Person.IS_DELETED_PARAM)
 class Person {
     public static final String FILTER = "deletedPersonFilter";

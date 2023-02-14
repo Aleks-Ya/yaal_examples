@@ -3,8 +3,8 @@ package redisspringboot.embedded;
 import org.springframework.context.annotation.Import;
 import redis.embedded.RedisServer;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 @Import({RedisConfiguration.class, RedisProperties.class})
 class TestRedisConfiguration {

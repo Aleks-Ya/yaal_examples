@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 import static hibernate5.PhysicalNameHelper.getPhysicalColumnNames;
 import static hibernate5.PhysicalNameHelper.getPhysicalNamingStrategyProperty;

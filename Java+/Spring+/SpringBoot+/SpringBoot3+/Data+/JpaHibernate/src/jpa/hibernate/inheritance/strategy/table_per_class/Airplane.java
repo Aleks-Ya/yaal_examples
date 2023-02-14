@@ -1,6 +1,6 @@
 package jpa.hibernate.inheritance.strategy.table_per_class;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 import java.util.Objects;
 
 @Entity

@@ -1,6 +1,6 @@
 package jpa.hibernate.inheritance.strategy.joined;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 import java.util.Objects;
 
 @Entity

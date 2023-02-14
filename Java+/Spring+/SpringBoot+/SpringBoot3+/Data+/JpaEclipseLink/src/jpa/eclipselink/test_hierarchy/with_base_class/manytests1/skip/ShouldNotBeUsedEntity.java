@@ -1,7 +1,7 @@
 package jpa.eclipselink.test_hierarchy.with_base_class.manytests1.skip;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 class ShouldNotBeUsedEntity {
