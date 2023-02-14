@@ -12,25 +12,25 @@ subprojects {
     }
     ext {
         h2Dep = 'com.h2database:h2:2.1.214'
-        postgresDep = 'org.postgresql:postgresql:42.2.8'
-        derbyDep = 'org.apache.derby:derby:10.13.1.1'
-        hsqldbDep = 'org.hsqldb:hsqldb:2.3.4'
+        postgresDep = 'org.postgresql:postgresql:42.5.3'
+        derbyDep = 'org.apache.derby:derby:10.16.1.1'
+        hsqldbDep = 'org.hsqldb:hsqldb:2.7.1'
         slf4jSimpleDep = 'org.slf4j:slf4j-simple:2.0.6'
         def okHttpVersion = '4.10.0'
         okHttpDep = "com.squareup.okhttp3:okhttp:$okHttpVersion"
         mockWebServerDep = "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
-        jettyServlet10Dep = 'org.eclipse.jetty:jetty-servlet:10.0.0'
-        jettyServlet11Dep = 'org.eclipse.jetty:jetty-servlet:11.0.0'
+        jettyServlet10Dep = 'org.eclipse.jetty:jetty-servlet:10.0.13'
+        jettyServlet11Dep = 'org.eclipse.jetty:jetty-servlet:11.0.13'
         servlet4Dep = 'javax.servlet:javax.servlet-api:4.0.1'
         jacksonVersion = '2.14.2'
         jacksonDataBindDep = "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         jacksonDatatypeJsr310Dep = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
         jsonUnitDep = 'net.javacrumbs.json-unit:json-unit:2.36.1'
-        mockitoVersion = '4.11.0'
+        mockitoVersion = '5.1.1'
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
         mockitoJunitJupiterDep = "org.mockito:mockito-junit-jupiter:$mockitoVersion"
-        log4jCoreDep = 'org.apache.logging.log4j:log4j-core:2.14.1'
-        logbackClassicDep = 'ch.qos.logback:logback-classic:1.2.11'
+        log4jCoreDep = 'org.apache.logging.log4j:log4j-core:2.19.0'
+        logbackClassicDep = 'ch.qos.logback:logback-classic:1.4.5'
         gsonDep = 'com.google.code.gson:gson:2.10.1'
         commonsLangDep = 'org.apache.commons:commons-lang3:3.12.0'
         wireMockDep = 'com.github.tomakehurst:wiremock:2.27.2'
@@ -54,25 +54,25 @@ subprojects {
         hadoop2Version = '2.10.1'
         hadoop3Version = '3.3.3'
         fabric8ioVersion = '5.6.0'
-        feignVersion = '11.6'
-        mongoDbDriverDep = 'org.mongodb:mongodb-driver:3.12.10'
-        hibernate5Version = '5.6.12.Final'
+        feignVersion = '12.1'
+        mongoDbDriverDep = 'org.mongodb:mongodb-driver:3.12.12'
+        hibernate5Version = '5.6.15.Final'
         hibernate5EntityManagerDep = "org.hibernate:hibernate-entitymanager:$hibernate5Version"
         eclipseLink2Version = '2.7.11'
         eclipseLink2Dep = "org.eclipse.persistence:eclipselink:$eclipseLink2Version"
         eclipseLinkJpa2Dep = "org.eclipse.persistence:org.eclipse.persistence.jpa:$eclipseLink2Version"
         jsonAssertDep = 'org.skyscreamer:jsonassert:1.5.1'
-        bouncyCustleDep = 'org.bouncycastle:bcpkix-jdk15on:1.68'
+        bouncyCustleDep = 'org.bouncycastle:bcpkix-jdk15on:1.70'
         testContainersVersion = '1.17.6'
         testContainersDep = "org.testcontainers:testcontainers:$testContainersVersion"
         testContainersJunitDep = "org.testcontainers:junit-jupiter:$testContainersVersion"
         testContainersPostgresDep = "org.testcontainers:postgresql:$testContainersVersion"
-        redissonDep = 'org.redisson:redisson:3.17.4'
-        lettuceDep = 'io.lettuce:lettuce-core:6.2.0.RELEASE'
-        jedisDep = 'redis.clients:jedis:4.2.3'
+        redissonDep = 'org.redisson:redisson:3.19.3'
+        lettuceDep = 'io.lettuce:lettuce-core:6.2.2.RELEASE'
+        jedisDep = 'redis.clients:jedis:4.3.1'
         embeddedRedisOzimov = 'it.ozimov:embedded-redis:0.7.3'
         hikariCPDep = 'com.zaxxer:HikariCP:5.0.1'
-        sqliteJdbcDep = 'org.xerial:sqlite-jdbc:3.40.0.0'
+        sqliteJdbcDep = 'org.xerial:sqlite-jdbc:3.40.1.0'
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
