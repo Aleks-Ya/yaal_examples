@@ -1,6 +1,6 @@
 subprojects {
     dependencies {
-        implementation "org.springframework.security:spring-security-config:$springSecurityVersion"
-        testImplementation "org.springframework.security:spring-security-test:$springSecurityVersion"
+        implementation "org.springframework.security:spring-security-config:$springSecurity5Version"
+        testImplementation "org.springframework.security:spring-security-test:$springSecurity5Version"
     }
 }
