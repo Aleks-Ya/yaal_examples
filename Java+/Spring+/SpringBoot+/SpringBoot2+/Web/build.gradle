@@ -1,5 +1,5 @@
 dependencies {
-    implementation springBootStarterWebDep
+    implementation springBoot2StarterWebDep
 
     //OkHttp SSE client
     implementation 'com.launchdarkly:okhttp-eventsource:2.5.0'

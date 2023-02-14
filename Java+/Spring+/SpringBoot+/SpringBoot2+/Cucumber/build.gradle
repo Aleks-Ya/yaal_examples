@@ -1,4 +1,4 @@
 dependencies {
-    implementation springBootStarterWebDep
+    implementation springBoot2StarterWebDep
     testImplementation "io.cucumber:cucumber-java:$cucumberVersion", "io.cucumber:cucumber-spring:$cucumberVersion"
 }

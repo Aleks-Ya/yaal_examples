@@ -1,4 +1,4 @@
 dependencies {
     //For DataSourceHealthIndicator*Test
-    implementation springBootStarterJdbcDep, h2Dep
+    implementation "org.springframework.boot:spring-boot-starter-jdbc:$springBoot2Version", h2Dep
 }

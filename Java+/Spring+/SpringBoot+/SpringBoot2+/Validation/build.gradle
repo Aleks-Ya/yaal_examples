@@ -1,4 +1,4 @@
 dependencies {
-    implementation "org.springframework.boot:spring-boot-starter-validation:$springBootVersion",
-            springBootStarterWebDep, jaxbApiDep
+    implementation "org.springframework.boot:spring-boot-starter-validation:$springBoot2Version",
+            springBoot2StarterWebDep, jaxbApiDep
 }

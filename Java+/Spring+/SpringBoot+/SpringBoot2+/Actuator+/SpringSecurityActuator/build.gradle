@@ -1,3 +1,3 @@
 dependencies {
-    implementation springBootStarterSecurityDep
+    implementation "org.springframework.boot:spring-boot-starter-security:$springBoot2Version"
 }

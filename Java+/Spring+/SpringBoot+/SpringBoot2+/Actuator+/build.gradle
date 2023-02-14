@@ -1,5 +1,5 @@
 subprojects {
     dependencies {
-        implementation "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion", springBootStarterWebDep
+        implementation "org.springframework.boot:spring-boot-starter-actuator:$springBoot2Version", springBoot2StarterWebDep
     }
 }

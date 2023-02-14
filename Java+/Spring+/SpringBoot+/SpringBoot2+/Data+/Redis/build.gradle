@@ -1,4 +1,4 @@
 dependencies {
-    implementation "org.springframework.boot:spring-boot-starter-data-redis:$springBootVersion", slf4jSimpleDep
+    implementation "org.springframework.boot:spring-boot-starter-data-redis:$springBoot2Version", slf4jSimpleDep
     testImplementation embeddedRedisOzimov
 }

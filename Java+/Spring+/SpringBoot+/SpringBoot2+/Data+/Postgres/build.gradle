@@ -1,4 +1,4 @@
 dependencies {
-    implementation springBootStarterDataJpaDep, postgresDep
+    implementation springBoot2StarterDataJpaDep, postgresDep
     testImplementation testContainersPostgresDep, testContainersJunitDep, slf4jSimpleDep
 }
