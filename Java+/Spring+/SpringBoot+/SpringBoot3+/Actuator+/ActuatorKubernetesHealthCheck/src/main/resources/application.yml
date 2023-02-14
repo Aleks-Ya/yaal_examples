@@ -1,0 +1,5 @@
+# HTTP port (default is 8080)
+server.port: 8080
+
+# Actuator port (default is 8080)
+management.server.port: 9999

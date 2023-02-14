@@ -1,0 +1,13 @@
+info:
+  person:
+    name: John
+    age: 30
+    gender: MALE
+    web-site: https://john.com/me
+    animals:
+      DOG_ANIMAL:
+        - Charlie
+        - Buddy
+      CAT_ANIMAL:
+        - Milo
+        - Simba

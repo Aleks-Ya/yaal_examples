@@ -1,0 +1,10 @@
+spring.cloud.discovery.client.simple:
+  instances:
+    money:
+      - uri: http://money.com
+        metadata:
+          management.context-path: /actuator
+    people:
+      - uri: http://people.com
+        metadata:
+          management.context-path: /actuator

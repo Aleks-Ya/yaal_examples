@@ -1,0 +1,5 @@
+subprojects {
+    dependencies {
+        implementation "org.springframework.boot:spring-boot-starter-actuator:$springBoot3Version", springBoot3StarterWebDep
+    }
+}

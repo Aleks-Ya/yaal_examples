@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    azure:
+      storage:
+        blob:
+          enabled: true
+          endpoint: https://yaaltest.blob.core.windows.net

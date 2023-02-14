@@ -1,0 +1,3 @@
+dependencies {
+    implementation springBoot3StarterWebDep, 'io.springfox:springfox-boot-starter:3.0.0'
+}

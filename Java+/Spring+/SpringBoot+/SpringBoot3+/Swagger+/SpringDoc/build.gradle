@@ -1,0 +1,4 @@
+dependencies {
+    implementation springBoot3StarterWebDep, 'org.springdoc:springdoc-openapi-ui:1.6.14',
+            'io.swagger.core.v3:swagger-annotations:2.2.8'
+}

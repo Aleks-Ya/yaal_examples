@@ -1,0 +1,3 @@
+dependencies {
+    implementation springBoot3StarterDataJpaDep, h2Dep, project(':Database+:Hibernate+:Hibernate5Util')
+}

@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: actuator-health-check-kubernetes-service
+  labels:
+    app: actuator-health-check-kubernetes-service
+spec:
+  type: NodePort
+  ports:
+    - name: actuator
+      nodePort: 32099
+      port: 9999
+      protocol: TCP
+      targetPort: 9999
+    - name: http
+      nodePort: 32080
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: actuator-health-check-kubernetes
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: actuator-health-check-kubernetes-deployment
+  labels:
+    app: actuator-health-check-kubernetes
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: actuator-health-check-kubernetes
+  template:
+    metadata:
+      labels:
+        app: actuator-health-check-kubernetes
+    spec:
+      containers:
+        - name: actuator-health-check-kubernetes
+          image: actuator-health-check-kubernetes:1
+          ports:
+            - containerPort: 9999
+          readinessProbe:
+            tcpSocket:
+              port: 9999
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              port: 9999
+              path: /actuator/health
+            initialDelaySeconds: 10
+            periodSeconds: 3

@@ -1,0 +1,7 @@
+spring:
+  quartz:
+    start-delay-sec: 5
+    properties:
+      org.quartz.threadPool.threadCount: 10
+      org.quartz.plugin.jobHistory.class: org.quartz.plugins.history.LoggingJobHistoryPlugin
+      org.quartz.scheduler.instanceName: instance-application-yaml-both

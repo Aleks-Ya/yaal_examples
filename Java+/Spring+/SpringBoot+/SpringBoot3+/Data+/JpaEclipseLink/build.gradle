@@ -1,0 +1,10 @@
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+dependencies {
+    implementation(springBoot3StarterDataJpaDep) {
+        exclude group: 'org.hibernate', module: 'hibernate-entitymanager'
+        exclude group: 'org.hibernate', module: 'hibernate-core'
+        exclude group: 'org.hibernate.common', module: 'common-annotations'
+    }
+    implementation h2Dep, eclipseLinkJpa2Dep
+}

@@ -1,0 +1,4 @@
+dependencies {
+    implementation "org.springframework.cloud:spring-cloud-starter-loadbalancer:$springCloudVersion"
+    testImplementation wireMockDep, "org.springframework:spring-web:$spring5Version"
+}
