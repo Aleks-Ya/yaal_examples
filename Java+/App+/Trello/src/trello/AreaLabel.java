@@ -1,27 +1,33 @@
 package trello;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 enum AreaLabel {
-    HEALTH("A: Health", CoverColor.BLUE),
-    FINANCES("A: Finances", CoverColor.GREEN),
-    WORK("A: Work", CoverColor.BLACK),
-    RELATIONSHIPS("A: Relationships", CoverColor.PURPLE),
-    EMOTIONS("A: Emotions", CoverColor.RED),
-    COMMUNITY("A: Community", CoverColor.ORANGE),
-    SELF_IMPROVEMENT("A: Self-Improvement", CoverColor.YELLOW);
-    private final String name;
-    private final CoverColor coverColor;
+    HEALTH("A: Health", Color.BLUE),
+    FINANCES("A: Finances", Color.GREEN),
+    WORK("A: Work", Color.BLACK),
+    RELATIONSHIPS("A: Relationships", Color.PURPLE),
+    EMOTIONS("A: Emotions", Color.RED),
+    COMMUNITY("A: Community", Color.ORANGE),
+    SELF_IMPROVEMENT("A: Self-Improvement", Color.YELLOW);
+    private final String title;
+    private final Color color;
 
-    AreaLabel(String name, CoverColor coverColor) {
-        this.name = name;
-        this.coverColor = coverColor;
+    AreaLabel(String title, Color color) {
+        this.title = title;
+        this.color = color;
     }
 
-
-    public String getName() {
-        return name;
+    public static Optional<AreaLabel> byName(String name) {
+        return Arrays.stream(values()).filter(areaLabel -> name.equals(areaLabel.getTitle())).findFirst();
     }
 
-    public CoverColor getCoverColor() {
-        return coverColor;
+    public String getTitle() {
+        return title;
+    }
+
+    public Color getCoverColor() {
+        return color;
     }
 }

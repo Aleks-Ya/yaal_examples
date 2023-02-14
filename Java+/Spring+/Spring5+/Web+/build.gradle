@@ -1,6 +1,6 @@
 subprojects {
     dependencies {
         implementation "org.springframework:spring-web:$spring5Version", jacksonDataBindDep, slf4jSimpleDep
-        testImplementation 'com.jayway.jsonpath:json-path-assert:2.6.0'
+        testImplementation "com.jayway.jsonpath:json-path-assert:$jsonPathVersion"
     }
 }

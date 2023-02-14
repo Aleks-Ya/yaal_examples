@@ -73,6 +73,7 @@ subprojects {
         embeddedRedisOzimov = 'it.ozimov:embedded-redis:0.7.3'
         hikariCPDep = 'com.zaxxer:HikariCP:5.0.1'
         sqliteJdbcDep = 'org.xerial:sqlite-jdbc:3.40.1.0'
+        jsonPathVersion = '2.7.0'
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'

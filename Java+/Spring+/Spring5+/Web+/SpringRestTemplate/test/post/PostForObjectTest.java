@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.springframework.test.web.client.ExpectedCount.once;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.header;
@@ -18,11 +20,10 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 class PostForObjectTest {
+    private final RestTemplate restTemplate = new RestTemplate();
 
     @Test
     void customHeader() {
-        var restTemplate = new RestTemplate();
-
         var headerName = "myheader";
         var headerValue = "abc";
         var url = "/localhost/path2";
@@ -43,8 +44,6 @@ class PostForObjectTest {
 
     @Test
     void bodyTest() {
-        final var restTemplate = new RestTemplate();
-
         var headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -62,5 +61,25 @@ class PostForObjectTest {
         System.out.println(quote);
 
         server.verify();
+    }
+
+    @Test
+    void jsonBodyTest() {
+        var persons = List.of(new Person("John", 30), new Person("Mary", 25));
+        var URL = "/localhost/path";
+        var server = MockRestServiceServer.bindTo(restTemplate).build();
+        server.expect(once(), requestTo(URL)).andExpect(method(HttpMethod.POST))
+                .andExpect(jsonPath("$.[0].name", equalTo("John")))
+                .andExpect(jsonPath("$.[0].age", equalTo(30)))
+                .andExpect(header("content-type", equalTo(MediaType.APPLICATION_JSON_VALUE)))
+                .andRespond(withSuccess("{}", MediaType.APPLICATION_JSON));
+
+        var quote = restTemplate.postForObject(URL, persons, Quote.class);
+        System.out.println(quote);
+
+        server.verify();
+    }
+
+    record Person(String name, Integer age) {
     }
 }

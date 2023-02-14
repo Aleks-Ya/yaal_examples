@@ -1,6 +1,6 @@
 package trello;
 
-enum CoverColor {
+enum Color {
     PINK("pink"),
     YELLOW("yellow"),
     LIME("lime"),
@@ -13,7 +13,7 @@ enum CoverColor {
     GREEN("green");
     private final String color;
 
-    CoverColor(String color) {
+    Color(String color) {
         this.color = color;
     }
 
