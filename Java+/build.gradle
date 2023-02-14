@@ -42,7 +42,6 @@ subprojects {
         spring5Version = '5.3.25'
         spring4Version = '4.3.30.RELEASE'
         spring3Version = '3.2.18.RELEASE'
-        spring5TestDep = "org.springframework:spring-test:$spring5Version"
         springBoot2Version = '2.7.8'
         springBoot2StarterWebDep = "org.springframework.boot:spring-boot-starter-web:$springBoot2Version"
         springBoot2StarterDataJpaDep = "org.springframework.boot:spring-boot-starter-data-jpa:$springBoot2Version"

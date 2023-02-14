@@ -2,6 +2,6 @@ subprojects {
     dependencies {
         implementation "org.springframework:spring-context:$spring5Version",
                 'javax.annotation:javax.annotation-api:1.3.2'
-        testImplementation spring5TestDep
+        testImplementation "org.springframework:spring-test:$spring5Version"
     }
 }
