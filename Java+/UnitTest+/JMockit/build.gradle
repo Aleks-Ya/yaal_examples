@@ -1,0 +1,3 @@
+dependencies {
+    testImplementation 'org.jmockit:jmockit:1.49'
+}

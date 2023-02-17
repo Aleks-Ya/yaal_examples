@@ -2,8 +2,10 @@ package mockito.inline;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
+import org.mockito.exceptions.base.MockitoException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mockStatic;
 
 class MockStaticMethodTest {
@@ -30,6 +32,16 @@ class MockStaticMethodTest {
             mocked.verify(() -> Service.toUpperCase("abc"));
         }
         assertThat(Service.toUpperCase("abc")).isEqualTo("ABC");
+    }
+
+    /**
+     * Does not work.
+     */
+    @Test
+    void systemStaticMethod() {
+        assertThatThrownBy(() -> mockStatic(System.class))
+                .isInstanceOf(MockitoException.class)
+                .hasMessage("It is not possible to mock static methods of java.lang.System to avoid interfering with class loading what leads to infinite loops");
     }
 
     static class Service {
