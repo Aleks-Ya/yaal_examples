@@ -1,10 +1,10 @@
-package ru.yaal.examples.pattern.mvc.numberformatter.model;
+package pattern.mvc.numberformatter.model;
 
 /**
  * Событие "Ошибка".
  */
 public class ErrorEvent {
-    private String message;
+    private final String message;
 
     public ErrorEvent(String message) {
         this.message = message;

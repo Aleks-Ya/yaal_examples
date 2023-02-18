@@ -1,4 +1,4 @@
-package ru.yaal.examples.pattern.mvc.numberformatter.view;
+package pattern.mvc.numberformatter.view;
 
 /**
  * Представление числа в виде десятичного.

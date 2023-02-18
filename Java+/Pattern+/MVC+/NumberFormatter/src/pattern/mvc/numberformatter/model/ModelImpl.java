@@ -1,4 +1,4 @@
-package ru.yaal.examples.pattern.mvc.numberformatter.model;
+package pattern.mvc.numberformatter.model;
 
 import java.util.ArrayList;
 import java.util.List;

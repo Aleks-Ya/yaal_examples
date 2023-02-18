@@ -11,3 +11,4 @@
 2.1. Целое число
 2.2. Дробное число
 */
+package pattern.mvc.numberformatter;

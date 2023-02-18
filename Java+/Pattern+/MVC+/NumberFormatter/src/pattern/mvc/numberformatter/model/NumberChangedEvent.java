@@ -1,10 +1,10 @@
-package ru.yaal.examples.pattern.mvc.numberformatter.model;
+package pattern.mvc.numberformatter.model;
 
 /**
  * Событие модели.
  */
 public class NumberChangedEvent {
-    private double number;
+    private final double number;
 
     public NumberChangedEvent(double number) {
         this.number = number;

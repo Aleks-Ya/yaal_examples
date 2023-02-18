@@ -1,4 +1,4 @@
-package ru.yaal.examples.pattern.mvc.numberformatter.controller;
+package pattern.mvc.numberformatter.controller;
 
 /**
  * Интерфейс контроллеров.

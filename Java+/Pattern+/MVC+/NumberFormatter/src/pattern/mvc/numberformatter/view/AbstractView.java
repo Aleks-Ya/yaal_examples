@@ -1,7 +1,7 @@
-package ru.yaal.examples.pattern.mvc.numberformatter.view;
+package pattern.mvc.numberformatter.view;
 
-import ru.yaal.examples.pattern.mvc.numberformatter.model.ErrorEvent;
-import ru.yaal.examples.pattern.mvc.numberformatter.model.NumberChangedEvent;
+import pattern.mvc.numberformatter.model.ErrorEvent;
+import pattern.mvc.numberformatter.model.NumberChangedEvent;
 
 /**
  * Общие методы представлений.

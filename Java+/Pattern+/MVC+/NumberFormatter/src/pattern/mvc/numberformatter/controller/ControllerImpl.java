@@ -1,6 +1,6 @@
-package ru.yaal.examples.pattern.mvc.numberformatter.controller;
+package pattern.mvc.numberformatter.controller;
 
-import ru.yaal.examples.pattern.mvc.numberformatter.model.IModel;
+import pattern.mvc.numberformatter.model.IModel;
 
 import java.io.Console;
 
@@ -9,7 +9,7 @@ import java.io.Console;
  */
 public class ControllerImpl implements IController {
     private static final String EXIT_STRING = "q";
-    private IModel model;
+    private final IModel model;
 
     public ControllerImpl(IModel model) {
         this.model = model;

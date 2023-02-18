@@ -1,4 +1,4 @@
-package ru.yaal.examples.pattern.mvc.numberformatter.view;
+package pattern.mvc.numberformatter.view;
 
 /**
  * Представление числа в виде целого.
@@ -6,6 +6,6 @@ package ru.yaal.examples.pattern.mvc.numberformatter.view;
 public class IntegerView extends AbstractView {
     @Override
     protected String formatNumber(double number) {
-        return String.valueOf(new Double(number).intValue());
+        return String.valueOf(Double.valueOf(number).intValue());
     }
 }
