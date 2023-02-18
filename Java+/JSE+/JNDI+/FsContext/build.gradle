@@ -1,6 +1,3 @@
-apply plugin: "java"
-sourceSets.main.java.srcDir 'src'
-
 dependencies {
     implementation files('lib/fscontext.jar')
 }
