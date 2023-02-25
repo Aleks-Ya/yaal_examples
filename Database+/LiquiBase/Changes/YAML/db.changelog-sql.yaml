@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id:  sql-person
+      author:  Alex
+      comment: Modify table using a custom SQL query
+      changes:
+      -  sql:
+          sql:  "INSERT INTO person (id, name, age) VALUES (3, 'Nick', 20)"
+      rollback:
+      - delete:
+          schemaName: public
+          tableName:  person
+          where:      id=3

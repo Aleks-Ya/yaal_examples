@@ -8,6 +8,9 @@
 
     <changeSet author="liquibase-docs" id="renameTable-example">
         <renameTable oldTableName="department" newTableName="departments" />
+        <rollback>
+            <renameTable oldTableName="departments" newTableName="department" />
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

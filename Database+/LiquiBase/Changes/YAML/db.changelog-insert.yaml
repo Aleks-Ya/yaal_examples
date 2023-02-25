@@ -22,3 +22,26 @@ databaseChangeLog:
           schemaName: public
           tableName:  person
           where:      id=1
+  - changeSet:
+      id:  insert-into-person-valueComputed
+      author:  Alex
+      comment: Generate inserted value using "valueComputed" attribute
+      changes:
+      -  insert:
+          schemaName: public
+          tableName:  person
+          columns:
+          -  column:
+              name:  id
+              valueComputed: "(SELECT MAX(id)+1 FROM public.person)"
+          -  column:
+              name:  name
+              valueComputed: "(SELECT concat('User', ' ', 'Mary'))"
+          -  column:
+              name:  age
+              valueComputed: "(SELECT MIN(age)-1 FROM public.person)"
+      rollback:
+      - delete:
+          schemaName: public
+          tableName:  person
+          where:      "name LIKE 'User %'"
