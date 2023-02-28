@@ -25,7 +25,14 @@ import static springdoc.TagNames.BASIC;
         ),
         tags = {
                 @Tag(name = BASIC, description = "Basic features", externalDocs = @ExternalDocumentation(description = "docs desc")),
-                @Tag(name = "Tag 2", description = "desc 2", externalDocs = @ExternalDocumentation(description = "docs desc 2")),
+                @Tag(name = "Tag 2",
+                        description = "Line 1: Very long tag description for trying multi-line text visualization. " +
+                                "Very long tag description for trying multi-line text visualization." +
+                                "Very long tag description for trying multi-line text visualization.\n\n" +
+                                "Line 2: Very long tag description for trying multi-line text visualization.\n\n" +
+                                "Line 3: Very long tag description for trying multi-line text visualization.\n\n" +
+                                "Line 4: Very long tag description for trying multi-line text visualization.",
+                        externalDocs = @ExternalDocumentation(description = "docs desc 2")),
                 @Tag(name = "Tag 3")
         },
         externalDocs = @ExternalDocumentation(description = "definition docs desc"),
