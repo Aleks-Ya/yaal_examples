@@ -1,4 +1,4 @@
-package jpa.entity.id;
+package jpa.entity.id.composite;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;

@@ -6,5 +6,5 @@ dependencies {
         exclude group: 'org.hibernate', module: 'hibernate-core'
         exclude group: 'org.hibernate.common', module: 'common-annotations'
     }
-    implementation h2Dep, eclipseLinkJpa2Dep
+    implementation h2Dep, "org.eclipse.persistence:org.eclipse.persistence.jpa:$eclipseLink4Version"
 }

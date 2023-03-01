@@ -20,7 +20,7 @@ class ConverterTest {
             em.getTransaction().commit();
             var columnMap = getColumnMetaData(em.getEntityManagerFactory(), Person5Entity.class.getSimpleName());
             var occupationColumn = columnMap.get("OCCUPATION");
-            assertThat(occupationColumn.typeName()).isEqualTo("VARCHAR");
+            assertThat(occupationColumn.typeName()).isEqualTo("CHARACTER VARYING");
         }, List.of(Person5Entity.class), configuration -> {
             configuration.addAttributeConverter(Occupation5.Occupation5Converter.class);
             return configuration;

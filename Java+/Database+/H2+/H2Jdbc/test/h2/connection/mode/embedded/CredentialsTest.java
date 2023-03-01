@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CredentialsTest {
-
     /**
      * User you are connecting is created automatically.
      */
@@ -18,7 +17,7 @@ class CredentialsTest {
             var st = conn.createStatement();
             var rs = st.executeQuery("SELECT * FROM INFORMATION_SCHEMA.USERS");
             if (rs.next()) {
-                assertThat(rs.getString("NAME")).isEqualTo("MY_USER");
+                assertThat(rs.getString(1)).isEqualTo("MY_USER");
             }
         }
     }

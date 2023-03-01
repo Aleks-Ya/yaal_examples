@@ -35,7 +35,7 @@ class EnumeratedTest {
             em.getTransaction().commit();
             var columnMap = getColumnMetaData(em.getEntityManagerFactory(), Person3Entity.class.getSimpleName());
             var occupationColumn = columnMap.get("OCCUPATION");
-            assertThat(occupationColumn.typeName()).isEqualTo("VARCHAR");
+            assertThat(occupationColumn.typeName()).isEqualTo("CHARACTER VARYING");
         }, List.of(Person3Entity.class));
     }
 }

@@ -1,11 +1,11 @@
-package jpa.entity.id;
+package jpa.entity.id.composite;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static jpa.JpaHelper.withEntityManager;
-import static jpa.entity.id.Person2Entity.Gender.MALE;
+import static jpa.entity.id.composite.Person2Entity.Gender.MALE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ClassIdTest {

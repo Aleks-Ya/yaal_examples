@@ -1,8 +1,7 @@
-package jpa.entity.id;
+package jpa.entity.id.composite;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import java.util.Objects;
 
 @Entity
