@@ -32,13 +32,14 @@ class TuneLabels {
         var noLabelsCard = new ArrayList<Card>();
         var boards = trelloService.getInvolvedBoards();
         for (var board : boards) {
-            var boardLabels = trelloService.getInvolvedLabelsOnBoard(board);
+            var boardLabels = trelloService.getInvolvedLabelsOnBoard(board).stream()
+                    .map(Label::name).toList();
             var cards = trelloService.getAllCardsOnBoard(board);
             for (var card : cards) {
                 var labels = card.labels();
                 var labelCounter = 0;
                 for (var label : labels) {
-                    if (boardLabels.contains(label)) {
+                    if (boardLabels.contains(label.name())) {
                         labelCounter++;
                     }
                 }
