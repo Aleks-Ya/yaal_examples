@@ -1,3 +1,4 @@
 dependencies {
-    implementation h2Dep, hibernate5EntityManagerDep, "org.hibernate:hibernate-ehcache:$hibernate5Version"
+    implementation h2Dep, hibernate5EntityManagerDep, "org.hibernate:hibernate-ehcache:$hibernate5Version",
+            project(':Database+:JDBC')
 }

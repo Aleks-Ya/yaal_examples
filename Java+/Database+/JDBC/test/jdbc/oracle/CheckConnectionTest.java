@@ -1,5 +1,6 @@
 package jdbc.oracle;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.sql.DriverManager;
@@ -10,6 +11,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * Get all available tables via JDBC.
  */
+@Disabled("Required local Oracle")
 class CheckConnectionTest {
 
     @Test

@@ -55,8 +55,8 @@ class GetColumnsTest {
                 }
             }
             assertThat(lines).containsExactlyInAnyOrder(
-                    "UNNAMED-PUBLIC-PERSONS-ID-4-INTEGER-10-4",
-                    "UNNAMED-PUBLIC-PERSONS-NAME-12-VARCHAR-2147483647-12");
+                    "UNNAMED-PUBLIC-PERSONS-ID-4-INTEGER-32-0",
+                    "UNNAMED-PUBLIC-PERSONS-NAME-12-CHARACTER VARYING-1000000000-0");
         }
     }
 
@@ -75,7 +75,7 @@ class GetColumnsTest {
                     lines.add(formatColumn(columns));
                 }
             }
-            assertThat(lines).contains("UNNAMED-PUBLIC-PERSONS-ID-4-INTEGER-10-4");
+            assertThat(lines).contains("UNNAMED-PUBLIC-PERSONS-ID-4-INTEGER-32-0");
         }
     }
 
@@ -96,7 +96,7 @@ class GetColumnsTest {
                     lines.add(formatColumn(columns));
                 }
             }
-            assertThat(lines).contains("UNNAMED-DATA-PERSONS-ID-4-INTEGER-10-4");
+            assertThat(lines).contains("UNNAMED-DATA-PERSONS-ID-4-INTEGER-32-0");
         }
     }
 }

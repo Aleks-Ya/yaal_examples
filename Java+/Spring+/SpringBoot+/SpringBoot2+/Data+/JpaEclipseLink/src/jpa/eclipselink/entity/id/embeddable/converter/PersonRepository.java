@@ -1,4 +1,4 @@
-package jpa.eclipselink.entity.id;
+package jpa.eclipselink.entity.id.embeddable.converter;
 
 import org.springframework.data.repository.CrudRepository;
 

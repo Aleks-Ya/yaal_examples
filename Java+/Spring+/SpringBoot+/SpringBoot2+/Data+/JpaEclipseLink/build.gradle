@@ -7,4 +7,5 @@ dependencies {
         exclude group: 'org.hibernate.common', module: 'common-annotations'
     }
     implementation h2Dep, "org.eclipse.persistence:org.eclipse.persistence.jpa:$eclipseLink2Version"
+    testImplementation project(':Database+:JDBC')
 }

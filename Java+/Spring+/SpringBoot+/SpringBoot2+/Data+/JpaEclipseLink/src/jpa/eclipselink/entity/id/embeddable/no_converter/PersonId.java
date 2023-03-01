@@ -1,4 +1,4 @@
-package jpa.eclipselink.entity.id;
+package jpa.eclipselink.entity.id.embeddable.no_converter;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;

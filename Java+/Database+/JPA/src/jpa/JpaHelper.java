@@ -1,5 +1,6 @@
 package jpa;
 
+import jdbc.JdbcUtil;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -7,10 +8,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -77,43 +75,12 @@ public class JpaHelper {
 
     public static Integer h2RowCount(EntityManagerFactory emFactory, String tableName) {
         var h2Url = emFactory.getProperties().get("hibernate.connection.url").toString();
-        try (var connection = DriverManager.getConnection(h2Url);
-             var statement = connection.createStatement()) {
-            var resultSet = statement.executeQuery("SELECT count(*) FROM " + tableName);
-            resultSet.next();
-            return resultSet.getInt(1);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return JdbcUtil.rowCount(h2Url, tableName);
     }
 
-    public static Map<String, Column> getColumnMetaData(EntityManagerFactory emFactory, String tableName) {
+    public static Map<String, JdbcUtil.Column> getColumnMetaData(EntityManagerFactory emFactory, String tableName) {
         var h2Url = emFactory.getProperties().get("hibernate.connection.url").toString();
-        try (var connection = DriverManager.getConnection(h2Url)) {
-            var metadata = connection.getMetaData();
-            try (var columnsRs = metadata.getColumns(null, null, tableName.toUpperCase(), null)) {
-                var result = new HashMap<String, Column>();
-                while (columnsRs.next()) {
-                    var columnName = columnsRs.getString("COLUMN_NAME");
-                    result.put(columnName, new Column(
-                            columnsRs.getString("TABLE_CAT"),
-                            columnsRs.getString("TABLE_SCHEM"),
-                            columnsRs.getString("TABLE_NAME"),
-                            columnName,
-                            columnsRs.getInt("DATA_TYPE"),
-                            columnsRs.getString("TYPE_NAME"),
-                            columnsRs.getInt("COLUMN_SIZE"),
-                            columnsRs.getInt("SQL_DATA_TYPE")
-                    ));
-                }
-                return result;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return JdbcUtil.getColumnMetaData(h2Url, tableName);
     }
 
-    public record Column(String catalog, String schema, String tableName, String columnName, Integer dataType,
-                         String typeName, Integer columnSize, Integer sqlDataType) {
-    }
 }
