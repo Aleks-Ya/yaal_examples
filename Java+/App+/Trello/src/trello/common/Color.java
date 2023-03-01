@@ -1,6 +1,6 @@
-package trello;
+package trello.common;
 
-enum Color {
+public enum Color {
     PINK("pink"),
     YELLOW("yellow"),
     LIME("lime"),

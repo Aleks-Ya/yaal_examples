@@ -1,4 +1,4 @@
-package trello;
+package trello.common;
 
 
 import jakarta.annotation.PostConstruct;
@@ -33,6 +33,40 @@ class TrelloClient {
         baseUrl = trelloProperties.baseUrl();
         secretParams.put("key", List.of(trelloProperties.key()));
         secretParams.put("token", List.of(trelloProperties.token()));
+    }
+
+    public Optional<Board> getBoardByName(String boardName) {
+        return getAllBoards().stream().filter(board -> boardName.equals(board.name())).findFirst();
+    }
+
+    public List<TList> getListsOnBoard(Board board) {
+        var uri = UriComponentsBuilder.fromUriString(baseUrl)
+                .pathSegment("boards", board.id(), "lists")
+                .queryParams(secretParams)
+                .build()
+                .toUri();
+        var cards = restTemplate.getForObject(uri, TList[].class);
+        if (cards == null) {
+            return List.of();
+        }
+        return Arrays.asList(cards);
+    }
+
+    public List<Card> getCardsInList(TList list) {
+        var uri = UriComponentsBuilder.fromUriString(baseUrl)
+                .pathSegment("lists", list.id(), "cards")
+                .queryParams(secretParams)
+                .build()
+                .toUri();
+        var cards = restTemplate.getForObject(uri, Card[].class);
+        if (cards == null) {
+            return List.of();
+        }
+        return Arrays.asList(cards);
+    }
+
+    public Optional<TList> getListByName(Board board, String listName) {
+        return getListsOnBoard(board).stream().filter(list -> listName.equals(list.name())).findFirst();
     }
 
     public List<Card> getAllCardsOnBoard(Board board) {

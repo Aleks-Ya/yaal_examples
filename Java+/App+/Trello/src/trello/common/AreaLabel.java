@@ -1,9 +1,9 @@
-package trello;
+package trello.common;
 
 import java.util.Arrays;
 import java.util.Optional;
 
-enum AreaLabel {
+public enum AreaLabel {
     HEALTH("A: Health", Color.BLUE),
     FINANCES("A: Finances", Color.GREEN),
     WORK("A: Work", Color.BLACK),

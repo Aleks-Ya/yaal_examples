@@ -1,4 +1,4 @@
-package trello;
+package trello.common;
 
 
 import org.slf4j.Logger;
@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-class TrelloService {
+public class TrelloService {
     private static final Logger log = LoggerFactory.getLogger(TrelloService.class);
     @Autowired
     private TrelloClient trelloClient;
@@ -65,5 +65,17 @@ class TrelloService {
 
     public void setCardCoverColor(Card card, Color coverColor) {
         trelloClient.setCardCoverColor(card, coverColor);
+    }
+
+    public Board getBoard(KaizenBoard kaizenBoard) {
+        return trelloClient.getBoardByName(kaizenBoard.getName()).orElseThrow();
+    }
+
+    public TList getListByName(Board board, KaizenList kaizenList) {
+        return trelloClient.getListByName(board, kaizenList.name()).orElseThrow();
+    }
+
+    public List<Card> getCardsInList(TList list) {
+        return trelloClient.getCardsInList(list);
     }
 }

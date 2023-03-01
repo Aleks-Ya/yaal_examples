@@ -5,6 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+import trello.common.AreaLabel;
+import trello.common.Card;
+import trello.common.Label;
+import trello.common.TrelloService;
 
 import java.util.ArrayList;
 

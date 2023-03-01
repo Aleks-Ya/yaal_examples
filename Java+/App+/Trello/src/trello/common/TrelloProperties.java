@@ -1,4 +1,4 @@
-package trello;
+package trello.common;
 
 import java.util.List;
 
