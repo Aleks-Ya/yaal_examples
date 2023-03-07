@@ -9,3 +9,4 @@ Find for an application: `brew search swagger`
 Show details about an app: `brew info swagger-codegen`
 Upgrade all apps: `brew upgrade`
 List outdated apps: `brew outdated`
+Remove an application: `brew uninstall minikube`

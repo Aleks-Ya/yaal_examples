@@ -2,6 +2,11 @@
 
 Docs: [Running Kubernetes Locally via Minikube](https://kubernetes.io/docs/setup/minikube/)
 
+## Install
+1. `brew install minikube`
+2. Close the terminal
+3. Check: `minikube version`
+
 ## Cluster
 - Run cluster: `minikube start --driver=docker`
 - Run specific version of Kubernates cluster:  `minikube start --kubernetes-version v1.7.3`

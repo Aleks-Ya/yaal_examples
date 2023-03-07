@@ -1,5 +1,8 @@
 # tar CLI
 
+## Info
+Help: `tar --help`
+
 ## View
 List archive content: `tar -tf configs.tar.gz`
 
@@ -9,12 +12,12 @@ Pack a directory (with top directory): `tar -cf out.tar my_dir` (`my_dir` folder
 Pack a directory (without top directory): `tar -cf out.tar -C my_dir .` (`my_dir` folder is NOT present in the archive)
 
 ## Unpack
-Unpack tar.gz file:
+Unpack `tar.gz` file:
 ```
 mkdir  /tmp/dest_dir/
 tar -zxvf /tmp/hadoop.tar.gz -C /tmp/dest_dir/
 ```
-Unpack tag.xz file:
+Unpack `tag.xz` file:
 ```
 mkdir out
 tar -xf crc-linux-amd64.tar.xz -C out

@@ -1,5 +1,5 @@
 set -e
-dir=~/yandex-disk
+dir=/media/aleks/ADATA/yandex-disk
 if [ ! -z "$(ls -A $dir)" ]; then
 	size=$(du -sb $dir | cut -f1)
 	echo "Target dir '$dir' size is $size bytes"
@@ -8,7 +8,7 @@ if [ ! -z "$(ls -A $dir)" ]; then
 		exit 1
 	fi		
 	echo "Running Yandex Disk sync..."
-	yandex-disk sync --dir=$dir --exclude-dirs=Lubov,no_sync
+	yandex-disk sync --dir=$dir --exclude-dirs=Lubov,no_sync/Lubov_2021-07-16
 	echo "Yandex Disk synced." 
 else 
 	echo "Target dir '$dir' is not mounted (empty)"
