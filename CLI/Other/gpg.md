@@ -1,11 +1,11 @@
 # gpg CLI
 
 ## Import
-Show fingerprint of *.asc file (PGP digital signatures):
+Show fingerprint of `*.asc` file (PGP digital signatures):
 ```
 gpg --dry-run -q --import --import-options import-show VeraCrypt_PGP_public_key.asc
 ```
-Import keys from *.asc file:
+Import keys from `*.asc` file:
 ```
 gpg --import VeraCrypt_PGP_public_key.asc
 ```
@@ -27,7 +27,7 @@ List secret keys: `gpg --list-secret-keys`
 
 ## Export
 Show key details: `gpg  --export "John Dow <john@protonmail.com>" | hokey lint`
-Export "CryptomatorVaultBackup" public key to a file:
+Export `CryptomatorVaultBackup` public key to a file:
 ```
 gpg --output /tmp/public.pgp --armor --export CryptomatorVaultBackup
 ```
@@ -61,4 +61,5 @@ Decrypt: `gpg my.txt.gpg` -> `my.txt`
 `find . -iname "*.txt" -exec gpg --batch --passphrase "12345" -c {} \;`
 
 ### Check file integrity
-`gpg --decrypt --output /dev/null my.gpg`
+1. If it doens't ask for passphrase: `echo RELOADAGENT | gpg-connect-agent`
+2 `gpg --decrypt --output /dev/null my.gpg`
