@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-optional-secret
+type: Opaque
+data:
+  password: bXlfcGFzc3dvcmQ=
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secret-optional-pod
+spec:
+  containers:
+  - name: secret-optional-container
+    image: alpine
+    command: [ "sh", "-c", "echo Password-Exists: $(cat /etc/creds/user/password.txt); echo Password-Absent: $(cat /etc/creds/user/absent.txt); while true; do echo 'Hello, World!'; sleep 5; done" ]
+    volumeMounts:
+    - name: credentials
+      mountPath: "/etc/creds"
+      readOnly: true
+  volumes:
+  - name: credentials
+    secret:
+      secretName: secret-optional-secret
+      optional: true
+      items:
+      - key: password
+        path: user/password.txt
+  - name: credentials-absent
+    secret:
+      secretName: secret-optional-secret-absent
+      optional: true
+      items:
+      - key: password
+        path: user/absent.txt
+  restartPolicy: OnFailure
