@@ -10,6 +10,7 @@ Docs: [Running Kubernetes Locally via Minikube](https://kubernetes.io/docs/setup
 ## Cluster
 - Run cluster: `minikube start --driver=docker`
 - Run specific version of Kubernates cluster:  `minikube start --kubernetes-version v1.7.3`
+- Connect to `kubectl`: just use host `kubectl` (autoconfigured to work with MiniKube)
 - Delete cluster (including VirtualBox VM): `minikube delete`
 - Stop cluster: `minikube stop`
 

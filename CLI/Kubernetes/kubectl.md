@@ -9,6 +9,10 @@ Docs: [kubectl Command Reference](https://kubernetes.io/docs/reference/generated
 - ReplicaSet = `rs`
 - Namespace = `ns`
 
+## Help
+- Show help: `kubectl -h`
+- Show help about specific command: `kubectl exec --help`
+
 ## Cluster
 - Show cluster info: `kubectl cluster-info`
 - List all objects: `kubectl get all`
@@ -19,8 +23,14 @@ Docs: [kubectl Command Reference](https://kubernetes.io/docs/reference/generated
 - Describe specific node: `kubectl describe nodes my-node`
 
 ## Namespace
+- Show current namespace: `kubectl config view -o jsonpath={.contexts.context.namespace}`
 - List all namespaces: `kubectl get ns`
 - List namespaces with labels: `kubectl get ns --show-labels`
+- Create a namespace: `kubectl create ns my-namespace`
+- Delete a namespace: `kubectl delete ns my-namespace`
+- List pods in a namespace: `kubectl get -n my-namespace pod`
+- List pods in all namespaces: `kubectl get -A pod`
+- Set current namespace: `kubectl config set-context --current --namespace=my-namespace`
 
 ## Deployment
 - Show all deployments: `kubectl get deployment`
@@ -100,10 +110,6 @@ Docs: [kubectl Command Reference](https://kubernetes.io/docs/reference/generated
 ## Credentials
 - List all roles: `kubectl get role`
 - List all cluster roles: `kubectl get clusterrole`
-
-## Other
-- Show help: `kubectl -h`
-- Show help about specific command: `kubectl exec --help`
 
 ## CronJob
 - List all CronJobs: `kubectl get cronjob`

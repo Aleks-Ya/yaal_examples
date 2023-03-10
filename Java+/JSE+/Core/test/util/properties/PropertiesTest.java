@@ -1,13 +1,13 @@
 package util.properties;
 
 import org.junit.jupiter.api.Test;
-import util.ResourceUtil;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static util.ResourceUtil.resourceToInputStream;
 
 /**
  * Using {@link java.util.Properties}.
@@ -32,9 +32,18 @@ class PropertiesTest {
     @Test
     void multilineValues() throws IOException {
         var actual = new Properties();
-        actual.load(ResourceUtil.resourceToInputStream("util/properties/multiline.properties"));
+        actual.load(resourceToInputStream("util/properties/multiline.properties"));
         assertThat(actual).containsEntry("single.line.value", "Hello, Properties!");
         assertThat(actual).containsEntry("multi.line.value", "Hello, Properties!");
+    }
+
+    @Test
+    void loadOverride() throws IOException {
+        var properties = new Properties();
+        properties.load(resourceToInputStream("util/properties/load_override_1.properties"));
+        properties.load(resourceToInputStream("util/properties/load_override_2.properties"));
+        assertThat(properties).containsEntry("person.name", "Mary");
+        assertThat(properties).containsEntry("person.age", "30");
     }
 
     @Test
@@ -56,6 +65,14 @@ class PropertiesTest {
         props.forEach((k, v) -> writer.write(k + "=" + v + "\n"));
         var actContent = writer.toString();
         assertThat(actContent).isEqualTo("a=host:1234\nb=http://abc.com\n");
+    }
+
+    @Test
+    void propertiesToString() {
+        var properties = new Properties();
+        properties.put("abc", "123");
+        properties.put("xyz", "987");
+        assertThat(properties).hasToString("{abc=123, xyz=987}");
     }
 
 }

@@ -5,6 +5,9 @@ import org.springframework.lang.NonNull;
 
 import java.util.Map;
 
+/**
+ * @see org.springframework.core.env.MapPropertySource
+ */
 class MapPropertySource extends PropertySource<Object> {
     private final Map<String, Object> properties;
 
