@@ -1,6 +1,7 @@
 # nordvpn CLI
 
 Help: `nordvpn -h`
+See account info: `nordvpn account`
 Login: `nordvpn login`
 Connect: `nordvpn connect`
 List countries: `nordvpn countries`
