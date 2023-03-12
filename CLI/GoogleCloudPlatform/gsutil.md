@@ -7,6 +7,7 @@
 ### Help
 Help: `gsutil help`
 Help about a command: `gsutil help ls`
+Help about command options: `gsutil help options`
 ### LS
 List all buckets: `gsutil ls`
 List objects in a bucket: `gsutil ls gs://yaal-archive-1/`

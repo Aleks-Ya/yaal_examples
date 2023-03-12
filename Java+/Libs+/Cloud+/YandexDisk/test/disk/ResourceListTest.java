@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-class ResourceList {
+class ResourceListTest {
     @Test
     void getVideoFiles() throws IOException, ServerIOException {
         var client = ClientFactory.getInstance();

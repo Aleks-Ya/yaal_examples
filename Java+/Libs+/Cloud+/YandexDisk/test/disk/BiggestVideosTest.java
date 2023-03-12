@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-class BiggestVideos {
+class BiggestVideosTest {
 
     @Test
     void findBiggestVideos() throws IOException, ServerIOException {

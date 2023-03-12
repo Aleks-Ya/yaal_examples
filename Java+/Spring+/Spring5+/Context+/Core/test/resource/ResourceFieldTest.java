@@ -16,31 +16,38 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = ResourceFieldTest.class)
 class ResourceFieldTest {
-
     @Value("file:resourcesTest/resource/person.txt")
     private Resource fileResource;
-
+    @Value("file:absent.txt")
+    private Resource absentFileResource;
     @Value("classpath:resource/city.txt")
     private Resource classpathResource;
-
     @Value("https://httpbin.org/base64/SFRUUEJJTiBpcyBhd2Vzb21l")
     private Resource urlResource;
 
     @Test
     void fileResource() throws IOException {
+        assertThat(fileResource.exists()).isTrue();
         var content = StreamUtils.copyToString(fileResource.getInputStream(), UTF_8);
         assertThat(content).isEqualTo("John");
     }
 
     @Test
     void classpathResource() throws IOException {
+        assertThat(classpathResource.exists()).isTrue();
         var content = StreamUtils.copyToString(classpathResource.getInputStream(), UTF_8);
         assertThat(content).isEqualTo("London");
     }
 
     @Test
     void urlResource() throws IOException {
+        assertThat(urlResource.exists()).isTrue();
         var content = StreamUtils.copyToString(urlResource.getInputStream(), UTF_8);
         assertThat(content).isEqualTo("HTTPBIN is awesome");
+    }
+
+    @Test
+    void absentFileResource() {
+        assertThat(absentFileResource.exists()).isFalse();
     }
 }

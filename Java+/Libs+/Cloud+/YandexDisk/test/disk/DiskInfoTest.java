@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-class DiskInfo {
-
+class DiskInfoTest {
     @Test
     void getDiskInfo() throws IOException, ServerIOException {
         var client = ClientFactory.getInstance();
