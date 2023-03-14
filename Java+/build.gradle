@@ -73,6 +73,7 @@ subprojects {
         hikariCPDep = 'com.zaxxer:HikariCP:5.0.1'
         sqliteJdbcDep = 'org.xerial:sqlite-jdbc:3.40.1.0'
         jsonPathVersion = '2.7.0'
+        sardineDep = 'com.github.lookfirst:sardine:5.10'
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'

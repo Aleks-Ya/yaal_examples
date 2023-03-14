@@ -1,6 +1,7 @@
 package sardine;
 
 import com.github.sardine.Sardine;
+import com.github.sardine.SardineFactory;
 
 import java.io.File;
 import java.io.FileReader;
@@ -15,7 +16,7 @@ public class SFactory {
             properties.load(new FileReader(propertiesFile));
             var username = properties.getProperty("username");
             var password = properties.getProperty("password");
-            return com.github.sardine.SardineFactory.begin(username, password);
+            return SardineFactory.begin(username, password);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -3,15 +3,13 @@ package util.properties;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static util.ResourceUtil.resourceToInputStream;
 
-/**
- * Using {@link java.util.Properties}.
- */
 class PropertiesTest {
 
     @Test
@@ -73,6 +71,21 @@ class PropertiesTest {
         properties.put("abc", "123");
         properties.put("xyz", "987");
         assertThat(properties).hasToString("{abc=123, xyz=987}");
+    }
+
+    @Test
+    void spaces() throws IOException {
+        var props = new Properties();
+        var key = "a b";
+        var value = "123 456";
+        props.setProperty(key, value);
+        var writer = new StringWriter();
+        props.store(writer, null);
+        var content = writer.toString();
+        assertThat(content).containsSubsequence("a\\ b=123 456");
+        var actProps = new Properties();
+        actProps.load(new StringReader(content));
+        assertThat(actProps).containsEntry(key, value);
     }
 
 }
