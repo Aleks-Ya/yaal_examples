@@ -7,9 +7,10 @@ Remove the client: `sudo dpkg -r opswatclient`
 Help: `opswat-client -h`
 Show found problems: `opswat-client -r`
 
-## Service (absent at my notebook)
+## Service
 Stop: `sudo service opswatclient stop`
 Start: `sudo service opswatclient start`
+Process name: `daxz`
 
 ## Errors
 ### `OPSWAT status: Not Found`

@@ -1,5 +1,7 @@
 # gpg CLI
 
+Default home directory: `~/.gnupg`
+
 ## Import
 Show fingerprint of `*.asc` file (PGP digital signatures):
 ```
