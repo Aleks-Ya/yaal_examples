@@ -12,6 +12,7 @@ Docs: [Running Kubernetes Locally via Minikube](https://kubernetes.io/docs/setup
 - Run specific version of Kubernates cluster:  `minikube start --kubernetes-version v1.7.3`
 - Connect to `kubectl`: just use host `kubectl` (autoconfigured to work with MiniKube)
 - Delete cluster (including VirtualBox VM): `minikube delete`
+- Delete cluster (entire `~/.minikube` dir): `minikube delete --purge`
 - Stop cluster: `minikube stop`
 
 ## Service
