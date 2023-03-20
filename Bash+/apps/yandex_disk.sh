@@ -11,7 +11,7 @@ if [ ! -z "$(ls -A $dir)" ]; then
 		exit 1
 	fi		
 	echo "Running Yandex Disk..."
-	yandex-disk $cmd --dir=$dir --exclude-dirs=Lubov
+	yandex-disk $cmd --dir=$dir --exclude-dirs="Lubov,no_sync/Lubov_2021-07-16"
 	echo "Yandex Disk has finished." 
 else 
 	echo "Target dir '$dir' is not mounted (empty)"
