@@ -1,0 +1,3 @@
+dependencies {
+    implementation 'io.mikael:urlbuilder:2.0.9'
+}

@@ -19,7 +19,7 @@ class ValidateUrlTest {
 
     @Test
     void noProtocol() {
-        var e = assertThatThrownBy(() -> new URL("www.ya.ru"))
+        assertThatThrownBy(() -> new URL("www.ya.ru"))
                 .isInstanceOf(MalformedURLException.class).hasMessage("no protocol: www.ya.ru");
     }
 

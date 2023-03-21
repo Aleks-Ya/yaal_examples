@@ -30,7 +30,7 @@ subprojects {
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
         mockitoJunitJupiterDep = "org.mockito:mockito-junit-jupiter:$mockitoVersion"
         log4jCoreDep = 'org.apache.logging.log4j:log4j-core:2.19.0'
-        logbackClassicDep = 'ch.qos.logback:logback-classic:1.4.5'
+        logbackClassicDep = 'ch.qos.logback:logback-classic:1.4.6'
         gsonDep = 'com.google.code.gson:gson:2.10.1'
         commonsLangDep = 'org.apache.commons:commons-lang3:3.12.0'
         wireMockDep = 'com.github.tomakehurst:wiremock:2.27.2'
@@ -74,6 +74,7 @@ subprojects {
         sqliteJdbcDep = 'org.xerial:sqlite-jdbc:3.40.1.0'
         jsonPathVersion = '2.7.0'
         sardineDep = 'com.github.lookfirst:sardine:5.10'
+        resilience4jVer = '2.0.2'
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'

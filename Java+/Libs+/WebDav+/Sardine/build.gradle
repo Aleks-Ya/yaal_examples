@@ -1,3 +1,4 @@
 dependencies {
-    implementation sardineDep
+    implementation sardineDep, logbackClassicDep, "io.github.resilience4j:resilience4j-retry:$resilience4jVer"
+    testImplementation testContainersDep, testContainersJunitDep
 }

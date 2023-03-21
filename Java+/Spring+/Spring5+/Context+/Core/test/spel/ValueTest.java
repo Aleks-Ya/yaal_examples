@@ -44,8 +44,10 @@ class ValueTest {
     }
 
     @Test
-    void defaultValue() {
-        assertThat(data.car).isEqualTo("BMW");
+    void defaultValueNotEmpty() {
+        assertThat(data.defaultNotEmpty).isEqualTo("BMW");
+        assertThat(data.defaultEmpty).isEmpty();
+        assertThat(data.defaultNull).isNull();
     }
 
     @Component
@@ -61,6 +63,10 @@ class ValueTest {
         @Value("#{ 'host:port'.split(':')[0] }")
         public String splitString;
         @Value("${car:BMW}")
-        public String car;
+        public String defaultNotEmpty;
+        @Value("${task:}")
+        public String defaultEmpty;
+        @Value("${size:#{null}}")
+        public String defaultNull;
     }
 }

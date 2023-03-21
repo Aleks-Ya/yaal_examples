@@ -2,13 +2,7 @@ package java8.time;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.YearMonth;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
@@ -67,7 +61,7 @@ class ParsingTest {
         var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
         var localDateTime = LocalDateTime.parse(date, formatter);
         assertThat(localDateTime.get(ChronoField.MICRO_OF_SECOND)).isEqualTo(234778);
-        assertThat(localDateTime.toString()).isEqualTo("2019-01-30T15:31:05.234778");
+        assertThat(localDateTime).hasToString("2019-01-30T15:31:05.234778");
     }
 
     @Test
@@ -79,7 +73,7 @@ class ParsingTest {
                 .toFormatter();
         var localDateTime = LocalDateTime.parse(date, formatter);
         assertThat(localDateTime.get(ChronoField.MICRO_OF_SECOND)).isEqualTo(234778);
-        assertThat(localDateTime.toString()).isEqualTo("2019-01-30T15:31:05.234778");
+        assertThat(localDateTime).hasToString("2019-01-30T15:31:05.234778");
     }
 
     @Test

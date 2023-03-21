@@ -1,4 +1,4 @@
-package sardine;
+package sardine.yandexdisk;
 
 import com.github.sardine.DavResource;
 import com.github.sardine.Sardine;

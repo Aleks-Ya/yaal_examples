@@ -29,4 +29,11 @@ class UriTest {
         assertThat(URI.create(URI.create("https://ya.ru/search") + "/tail")).hasToString("https://ya.ru/search/tail");
     }
 
+    @Test
+    void toASCIIString() {
+        var uri = URI.create("https://www.ya.ru/abc/123");
+        var ascii = uri.toASCIIString();
+        assertThat(ascii).isEqualTo("https://www.ya.ru/abc/123");
+    }
+
 }

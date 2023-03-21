@@ -30,7 +30,7 @@ class FormatTest {
     void dateTimeDefault() {
         var str = "2015-03-25T10:15:30";
         var dateTime = LocalDateTime.parse(str);
-        assertThat(dateTime.toString()).isEqualTo(str);
+        assertThat(dateTime).hasToString(str);
     }
 
     @Test

@@ -1,0 +1,3 @@
+dependencies {
+    implementation "io.github.resilience4j:resilience4j-timelimiter:$resilience4jVer", slf4jSimpleDep
+}
