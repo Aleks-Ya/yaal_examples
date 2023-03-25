@@ -56,9 +56,11 @@ Initialize empty home directory (will be initialized while listing keys): `gpg -
 #### Encrypt
 With compression: `gpg -c my.txt` -> `my.txt.gpg`
 Without compression: `gpg --compress-algo none -c my.txt`
+Specify output file: `gpg -c -o out.txt.gpg my.txt`
 Specify passpharase as a text: `gpg --batch --passphrase 12345 my.txt`
 #### Decrypt
 Decrypt: `gpg my.txt.gpg` -> `my.txt`
+Specify output file: `gpg -d -o out.txt my.txt.gpg`
 ### All files in a folder
 `find . -iname "*.txt" -exec gpg --batch --passphrase "12345" -c {} \;`
 

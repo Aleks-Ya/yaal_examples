@@ -4,12 +4,12 @@ import java.net.ConnectException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class RepetitionsUnstableLogic<T> implements Callable<T> {
+public class RepetitionsUnstableCallable<T> implements Callable<T> {
     private final AtomicInteger counter = new AtomicInteger();
     private final T result;
     private final int failedRepetitions;
 
-    public RepetitionsUnstableLogic(T result, int failedRepetitions) {
+    public RepetitionsUnstableCallable(T result, int failedRepetitions) {
         this.result = result;
         this.failedRepetitions = failedRepetitions;
     }

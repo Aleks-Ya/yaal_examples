@@ -1,9 +1,10 @@
-package failsafe;
+package failsafe.retry;
 
 import dev.failsafe.Failsafe;
 import dev.failsafe.FailsafeException;
 import dev.failsafe.RetryPolicy;
 import dev.failsafe.RetryPolicyBuilder;
+import failsafe.ListUnstableCallable;
 import org.junit.jupiter.api.Test;
 
 import java.net.ConnectException;
@@ -39,7 +40,7 @@ class EventListenerTest {
     void onSuccess() {
         var resultExp = "abc";
         var exceptions = List.of(new ConnectException("ex1"), new ArithmeticException("ex2"));
-        Callable<String> callable = new ListUnstableLogic<>(exceptions, resultExp);
+        Callable<String> callable = new ListUnstableCallable<>(exceptions, resultExp);
         var retryBuilder = RetryPolicy.builder()
                 .handle(ConnectException.class, ArithmeticException.class)
                 .withDelay(Duration.ofMillis(500))
@@ -66,7 +67,7 @@ class EventListenerTest {
     void onFailure() {
         var resultExp = "abc";
         var exceptions = List.of(new ConnectException("ex1"), new ConnectException("ex2"), new ConnectException("ex3"));
-        Callable<String> callable = new ListUnstableLogic<>(exceptions, resultExp);
+        Callable<String> callable = new ListUnstableCallable<>(exceptions, resultExp);
         var retryBuilder = RetryPolicy.builder()
                 .handle(ConnectException.class)
                 .withDelay(Duration.ofMillis(500))

@@ -1,10 +1,25 @@
 # tar CLI
 
+## Parameters
+- `-t`, `--list`							list the contents of an archive
+- `-x`, `--extract`, `--get`				extract files from an archive
+- `-v`, `--verbose`							verbosely list files processed
+- `-f`, `--file`							use archive file
+- `-z`, `--gzip`, `--gunzip`, `--ungzip`	filter the archive through gzip
+- `-c`, `--create`							create a new archive
+- `-d`, `--diff`, `--compare`				find differences between archive and file system
+
 ## Info
 Help: `tar --help`
 
 ## View
 List archive content: `tar -tf configs.tar.gz`
+
+## Verify integrity
+By verbose list: `tar -tvf archive.tar > /dev/null`
+By unpacking: `tar -tf my_tar.tar > /dev/null`
+By diff (specific directory): `tar -df archive.tar /original/dir`
+By diff (current directory): `tar -df archive.tar`
 
 ## Pack
 Pack several files: `tar -cf out.tar a.txt b.txt`

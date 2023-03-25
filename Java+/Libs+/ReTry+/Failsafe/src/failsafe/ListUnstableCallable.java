@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ListUnstableLogic<T> implements Callable<T> {
+public class ListUnstableCallable<T> implements Callable<T> {
     private final List<? extends Exception> exceptions;
     private final T result;
     private final AtomicInteger counter = new AtomicInteger();
 
-    public ListUnstableLogic(List<? extends Exception> exceptions, T result) {
+    public ListUnstableCallable(List<? extends Exception> exceptions, T result) {
         this.result = result;
         this.exceptions = exceptions;
     }

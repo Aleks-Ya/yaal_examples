@@ -1,7 +1,8 @@
-package failsafe;
+package failsafe.retry;
 
 import dev.failsafe.Failsafe;
 import dev.failsafe.RetryPolicy;
+import failsafe.ListUnstableCallable;
 import org.junit.jupiter.api.Test;
 
 import java.net.ConnectException;
@@ -16,9 +17,9 @@ class ExecutorTest {
     void oneExecutorForMultipleCallable() {
         var expResult1 = "abc";
         var expResult2 = "xyz";
-        Callable<String> callable1 = new ListUnstableLogic<>(
+        Callable<String> callable1 = new ListUnstableCallable<>(
                 List.of(new ConnectException("ex1"), new ArithmeticException("ex2")), expResult1);
-        Callable<String> callable2 = new ListUnstableLogic<>(
+        Callable<String> callable2 = new ListUnstableCallable<>(
                 List.of(new ArithmeticException("ex3"), new ConnectException("ex4")), expResult2);
         var retryPolicy = RetryPolicy.builder()
                 .handle(ConnectException.class, ArithmeticException.class)
