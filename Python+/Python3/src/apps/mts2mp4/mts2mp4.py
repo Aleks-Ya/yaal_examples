@@ -93,10 +93,10 @@ def convert_file(file_data: FileData, file_size_percent: float, finished_percent
     percent: str = format_size_percent(file_size_percent)
     finished_percent_str: str = format_size_percent(finished_percent)
     print(f"Converting '{src_file}' to '{dest_file}' ({percent}, total done {finished_percent_str})...")
-    command = ['ffmpeg', '-i', str(src_file), '-vcodec', 'copy']
+    command = ['ffmpeg', '-i', str(src_file), '-c:v', 'copy']
     if preserve_audio:
         command.append('-c:a')
-        command.append('copy')
+        command.append('aac')
     else:
         command.append('-an')
     command.append(str(dest_file))

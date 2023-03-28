@@ -1,6 +1,7 @@
 # ffmpeg CLI
 
 ## Info
+Help: `ffmpeg -h`
 Show info about video:
 ```
 ffprobe -hide_banner video.mp4
@@ -32,6 +33,7 @@ export FILES=/home/aleks/tmp/2021-07-20/*.MOV
 for filename in $FILES; do ffmpeg -i "$filename" -c:v copy -c:a copy "$filename".mp4; done
 ```
 Change FPS to 30: `ffmpeg -i in.mp4 -filter:v fps=fps=30 out.mp4`
+Convert MP4 with AC3 audio to MP4 with AAC audio: `ffmpeg -i input.mp4 -c:v copy -c:a aac output.mp4`
 
 ## Audio
 Convert M4A to MP3: `ffmpeg -i music.m4a music.mp3`
