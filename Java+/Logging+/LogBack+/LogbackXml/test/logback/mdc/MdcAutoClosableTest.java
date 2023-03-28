@@ -1,22 +1,29 @@
 package logback.mdc;
 
+import logback.BaseLogbackTest;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 import java.util.Map;
 
-class MdcAutoClosableTest {
+import static org.assertj.core.api.Assertions.assertThat;
+
+class MdcAutoClosableTest extends BaseLogbackTest {
     @Test
     void mdc() {
-        System.setProperty("logback.configurationFile", "logback/mdc/SimpleMdcTest.xml");
-        var logger = LoggerFactory.getLogger(MdcAutoClosableTest.class);
+        var stdOut = reinitialize("logback/mdc/SimpleMdcTest.xml");
+        var log = LoggerFactory.getLogger(MdcAutoClosableTest.class);
         try (var ignored = new MdcAutoClosable(Map.of("first", "John"))) {
-            logger.info("MDC works 1");
+            log.info("MDC works 1");
         }
         try (var ignored = new MdcAutoClosable(Map.of("last", "Smith"))) {
-            logger.info("MDC works 2");
+            log.info("MDC works 2");
         }
+        assertThat(stdOut).hasToString("""
+                John  - MDC works 1
+                 Smith - MDC works 2
+                """);
     }
 
     static class MdcAutoClosable implements AutoCloseable {

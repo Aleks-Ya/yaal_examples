@@ -1,7 +1,7 @@
 package logback.mdc;
 
+import logback.BaseLogbackTest;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
@@ -13,16 +13,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Example from https://logback.qos.ch/manual/mdc.html
  */
-class ManyThreadsTest {
-    private static final Logger log;
-
-    static {
-        System.setProperty("logback.configurationFile", "logback/mdc/ManyThreadsTest.xml");
-        log = LoggerFactory.getLogger(ManyThreadsTest.class);
-    }
-
+class ManyThreadsTest extends BaseLogbackTest {
     @Test
     void mdc() throws InterruptedException {
+        var stdOut = reinitialize("logback/mdc/ManyThreadsTest.xml");
         var executor = Executors.newFixedThreadPool(3);
         executor.submit(new ClientHandler("John"));
         executor.submit(new ClientHandler("Mark"));
@@ -30,6 +24,11 @@ class ManyThreadsTest {
         executor.shutdown();
         var finishedSuccessfully = executor.awaitTermination(5, TimeUnit.SECONDS);
         assertThat(finishedSuccessfully).isTrue();
+        assertThat(stdOut.toString()).contains(
+                "Mark - Calling to client Mark",
+                "John - Calling to client John",
+                "Mary - Calling to client Mary"
+        );
     }
 
     static class ClientHandler implements Runnable {
@@ -41,6 +40,7 @@ class ManyThreadsTest {
 
         @Override
         public void run() {
+            var log = LoggerFactory.getLogger(ClientHandler.class);
             MDC.put("client", clientName);
             log.info("Calling to client " + clientName);
             MDC.clear();

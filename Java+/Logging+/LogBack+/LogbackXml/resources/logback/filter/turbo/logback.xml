@@ -1,0 +1,14 @@
+<configuration>
+    <turboFilter class="logback.filter.turbo.MyTurboFilter">
+        <Marker>sample</Marker>
+    </turboFilter>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-5level %logger %msg</pattern>
+        </encoder>
+    </appender>
+    <root>
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
+

@@ -2,6 +2,7 @@ package logback.appender.rollingfile;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.rolling.RollingFileAppender;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Конфигурирование и вывод в RollingFileAppender.
  */
+@Disabled("Run individually")
 class RollingFileAppenderTest {
     private static final Logger log;
 

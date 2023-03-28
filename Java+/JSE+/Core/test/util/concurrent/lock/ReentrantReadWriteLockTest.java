@@ -9,12 +9,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class ReentrantReadWriteLockTest {
 
     /**
-     * Can't unlock a lock that your thread didn't locked
+     * Can't unlock a lock that your thread didn't lock.
      */
     @Test
     void unlockNotLocked() {
         assertThatThrownBy(() -> {
-            ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+            var lock = new ReentrantReadWriteLock();
             lock.readLock().unlock();
         }).isInstanceOf(IllegalMonitorStateException.class);
     }

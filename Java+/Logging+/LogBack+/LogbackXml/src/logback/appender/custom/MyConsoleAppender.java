@@ -19,6 +19,6 @@ public class MyConsoleAppender extends AppenderBase<ILoggingEvent> {
 
     @Override
     protected void append(ILoggingEvent event) {
-        System.out.println(getPrefix() + "MyConsoleAppender:" + event.getFormattedMessage());
+        System.out.println(getPrefix() + "MyConsoleAppender: " + event.getFormattedMessage());
     }
 }
