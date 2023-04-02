@@ -1,6 +1,7 @@
 requests
 psutil
 PyQt5
+PyQt6
 phoenixdb
 lockfile
 cachecontrol
