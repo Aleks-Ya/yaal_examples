@@ -6,6 +6,7 @@ import de.vandermeer.asciitable.CWC_LongestWord;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class TableTest {
 
@@ -99,5 +100,15 @@ class TableTest {
                 │col│2  │
                 │1  │2  │
                 └───┴───┘""");
+    }
+
+    @Test
+    void columnSpan_OneAllColumnsSpan() {
+        var at = new AsciiTable();
+        at.addRule();
+        at.addRow(null, null, null, null, "span all 5 columns");
+        assertThatThrownBy(at::render)
+                .isInstanceOf(IndexOutOfBoundsException.class)
+                .hasMessage("Index 80 out of bounds for length 80");
     }
 }
