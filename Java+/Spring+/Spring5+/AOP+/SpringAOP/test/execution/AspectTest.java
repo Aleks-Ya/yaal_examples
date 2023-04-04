@@ -6,15 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ContextConfiguration(classes = {Config.class})
-@ExtendWith(SpringExtension.class)
-class AspectTest {
+import static org.assertj.core.api.Assertions.assertThat;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = Config.class)
+class AspectTest {
     @Autowired
-    MessageWriter writer;
+    private MessageCreator writer;
 
     @Test
-    void test() {
-        writer.writeMessage();
+    void execute() {
+        assertThat(new MessageCreator().createMessage()).isEqualTo("World");
+        assertThat(writer.createMessage()).isEqualTo("Hello, World!");
     }
 }

@@ -1,5 +1,5 @@
 package logging;
 
-public interface IWork {
+interface IWork {
     String doSomething(int number);
 }

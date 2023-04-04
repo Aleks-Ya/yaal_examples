@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.aop.framework.ProxyFactory;
 
 class HelloWorldTest {
-
     @Test
     void test() {
         var target = new MessageWriter();

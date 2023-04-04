@@ -6,7 +6,6 @@ import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 
 class LoggingTest {
-
     @Test
     void test() {
         IWork work1 = new Work1();

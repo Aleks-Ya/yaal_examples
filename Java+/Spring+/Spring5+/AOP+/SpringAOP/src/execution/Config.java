@@ -5,14 +5,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class Config {
-
+class Config {
     @Bean
-    MessageWriter messageWriter() {
-        MessageWriter target = new MessageWriter();
-        ProxyFactory pf = new ProxyFactory();
+    MessageCreator messageWriter() {
+        var target = new MessageCreator();
+        var pf = new ProxyFactory();
         pf.addAdvice(new MessageDecorator());
         pf.setTarget(target);
-        return (MessageWriter) pf.getProxy();
+        return (MessageCreator) pf.getProxy();
     }
 }

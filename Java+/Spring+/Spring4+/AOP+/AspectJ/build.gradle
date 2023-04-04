@@ -1,7 +1,3 @@
-/**
- * Ипользование АОП Spring на аннотациях AspectJ.
- */
-def aspectVersion = '1.8.8'
 dependencies {
-    implementation "org.aspectj:aspectjrt:${aspectVersion}", "org.aspectj:aspectjtools:${aspectVersion}"
+    implementation "org.aspectj:aspectjrt:${aspectJVersion}", "org.aspectj:aspectjtools:${aspectJVersion}"
 }

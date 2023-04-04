@@ -1,9 +1,5 @@
 # az CLI
 
-## Install
-Command: `curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash`
-Docs: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux
-
 ## Info
 Help: `az -h`
 Version (human): `az --version`

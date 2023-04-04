@@ -1,6 +1,5 @@
-package method_execution_time.builtin;
+package method_execution_time.builtin.static_logger;
 
-import org.aopalliance.aop.Advice;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
@@ -15,13 +14,11 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @Configuration
 @EnableAspectJAutoProxy
 class ProfilerConfig {
-
     @Bean
-    public Advisor performanceMonitorAdvisor(@Value("${pointcut}") String pointcutExpression) {
-        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+    Advisor performanceMonitorAdvisor(@Value("${pointcut}") String pointcutExpression) {
+        var pointcut = new AspectJExpressionPointcut();
         pointcut.setExpression(pointcutExpression);
-        Advice advice = new PerformanceMonitorInterceptor(true);
+        var advice = new PerformanceMonitorInterceptor(false);
         return new DefaultPointcutAdvisor(pointcut, advice);
     }
-
 }

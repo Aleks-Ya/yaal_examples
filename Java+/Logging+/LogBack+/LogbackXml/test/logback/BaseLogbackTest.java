@@ -4,10 +4,10 @@ import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
 import org.slf4j.LoggerFactory;
+import util.InputStreamUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 
 public abstract class BaseLogbackTest {
     public ByteArrayOutputStream reinitialize(String resource) {
@@ -17,16 +17,9 @@ public abstract class BaseLogbackTest {
             var configurator = new JoranConfigurator();
             configurator.setContext(loggerContext);
             configurator.doConfigure(is);
-            return redirectStdOut();
+            return InputStreamUtil.redirectStdOut();
         } catch (JoranException | IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private static ByteArrayOutputStream redirectStdOut() {
-        var byteOS = new ByteArrayOutputStream();
-        var printStream = new PrintStream(byteOS);
-        System.setOut(printStream);
-        return byteOS;
     }
 }

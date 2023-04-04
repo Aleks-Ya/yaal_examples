@@ -1,8 +1,8 @@
-package method_execution_time.builtin;
+package method_execution_time.builtin.dynamic_logger;
 
 class Person {
-    private String lastName;
-    private String firstName;
+    private final String lastName;
+    private final String firstName;
 
     Person(String lastName, String firstName) {
         this.lastName = lastName;
