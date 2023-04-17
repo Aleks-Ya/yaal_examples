@@ -1,4 +1,4 @@
-package micrometer;
+package micrometer.registry;
 
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.composite.CompositeMeterRegistry;

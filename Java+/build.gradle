@@ -76,6 +76,8 @@ subprojects {
         sardineDep = 'com.github.lookfirst:sardine:5.10'
         resilience4jVer = '2.0.2'
         aspectJVersion = '1.9.19'
+        micrometerVersion = '1.10.5'
+        prometheusVersion = '0.15.0'
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
