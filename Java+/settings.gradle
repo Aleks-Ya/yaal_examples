@@ -286,6 +286,7 @@ include 'Spring+:Spring3+:AnnotationConfig+:Configuration',
         'Spring+:SpringKafka',
 
         'Spring+:SpringBoot+:SpringBoot2+:Actuator+:Endpoint',
+        'Spring+:SpringBoot+:SpringBoot2+:Actuator+:MicrometerPrometheus',
         'Spring+:SpringBoot+:SpringBoot2+:Actuator+:SpringKafkaActuator',
         'Spring+:SpringBoot+:SpringBoot2+:Actuator+:SpringSecurityActuator',
         'Spring+:SpringBoot+:SpringBoot2+:AzureBlobStorage',
