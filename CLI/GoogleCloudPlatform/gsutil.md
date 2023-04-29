@@ -1,7 +1,7 @@
 # gsutil CLI
 
 ## Install
-`snap install google-cloud-cli --classic`
+`sudo snap install google-cloud-cli --classic`
 
 ## Commands
 ### Help

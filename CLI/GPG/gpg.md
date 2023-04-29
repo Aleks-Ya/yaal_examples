@@ -25,7 +25,10 @@ Generate new key: `gpg --gen-key`
 ## List
 List public keys (all): `gpg --list-keys`
 List public keys (by substring from e.g. `John Dow <john@protonmail.com>`): `gpg --list-keys john@protonmail.com`
-List secret keys: `gpg --list-secret-keys`
+List secret keys (from `/home/aleks/.gnupg/private-keys-v1.d` folder): `gpg --list-secret-keys`
+List keys from specific key ring: `gpg --keyring /home/aleks/.gnupg/pubring.kbx --list-keys`
+List secret keys with KeyGrips: `gpg --list-secret-keys --with-keygrip`
+List secret keys with sub-keys: `gpg --list-secret-keys --with-subkey-fingerprints`
 
 ## Export
 Show key details: `gpg  --export "John Dow <john@protonmail.com>" | hokey lint`
