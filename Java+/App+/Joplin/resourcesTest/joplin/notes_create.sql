@@ -120,3 +120,10 @@ height=200}
 INSERT INTO "notes" ("id","parent_id","title","body","created_time","updated_time","is_conflict","latitude","longitude","altitude","author","source_url","is_todo","todo_due","todo_completed","source","source_application","application_data","order","user_created_time","user_updated_time","encryption_cipher_text","encryption_applied","markup_language","is_shared","share_id","conflict_original_id","master_key_id")
 VALUES ('373b03cd772f451db9a96972d81ac6f6','67bc56efd5544524b7a22e17ce3273d9','Title with date 27.08.16',
 'The body of the note with a date in title',1471742195000,1669349290001,0,0,0,0,'aleks_ya','',0,0,0,'evernote','net.cozic.joplin-desktop','',0,1471742195000,1669349290000,'',0,1,0,'','','');
+
+INSERT INTO "main"."notes" ("id", "parent_id", "title", "body", "created_time", "updated_time", "is_conflict", "latitude", "longitude", "altitude", "author", "source_url", "is_todo", "todo_due", "todo_completed", "source", "source_application", "application_data", "order", "user_created_time", "user_updated_time", "encryption_cipher_text", "encryption_applied", "markup_language", "is_shared", "share_id", "conflict_original_id", "master_key_id")
+VALUES ('fb1d8d649980448389a4ba3749eb6856', '67bc56efd5544524b7a22e17ce3273d9', 'Raise 2', '|     |     |     |     |
+| --- | --- | --- | --- |
+| Normal attributes order<br><img src=":/681c0cd67b3d44378f47acc06a5e234e" alt="013bb9bbbc51b7d2145153b7640e7fdc.png" width="324" height="243" class="jop-noMdConv"> | Different attributes order<br><img alt="f7316cd7bda69f9f9649ce5c750eee2e.png" width="284" height="179" class="jop-noMdConv" src=":/fe3aac71c1e44393a4e54666e697dfc8"> | One more IMG resource link<br><img src=":/c0e8303145e04dfe8d5b908a88945f0c" alt="A picture" width="233" height="233" class="jop-noMdConv"> | Not a IMG resource link<br><img src="https://images.com/abc" width="304" height="171" class="jop-noMdConv"> |
+
+', '1683573269404', '1683673648885', '0', '41.0082376', '28.9783589', '0', '', '', '0', '0', '0', 'joplin-desktop', 'net.cozic.joplin-desktop', '', '0', '1683573269404', '1683673648885', '', '0', '1', '0', '', '', '');

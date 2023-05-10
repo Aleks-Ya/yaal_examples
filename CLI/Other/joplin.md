@@ -2,7 +2,13 @@
 
 Doc: https://joplinapp.org/terminal
 
-Install: `sudo snap install joplin`
+## Install
+`sudo snap install joplin`
+
+## Commands
+### Info
+Help: `joplin help`
+Help about a command: `joplin help e2ee`
 Status: `joplin status`
 Display note content: `joplin cat "060 Что делает команда git add?"`
 Create new note (in current notebook): `joplin mknote "Created by terminal"`

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.time.Duration;
 
 import static joplin.Utils.populateDatabase;
+import static joplin.Notes.NOTE_NUMBER;
 import static joplin.common.note.MarkupLanguage.HTML;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,7 +18,7 @@ class SqliteRepoTest {
         var dbFile = populateDatabase();
         try (var sqliteService = new SqliteRepo(dbFile)) {
             var notes = sqliteService.fetchAllNotes();
-            assertThat(notes).hasSize(9).allSatisfy(note -> {
+            assertThat(notes).hasSize(NOTE_NUMBER).allSatisfy(note -> {
                 assertThat(note.noteId().id()).isNotEmpty();
                 assertThat(note.title()).isNotEmpty();
                 assertThat(note.body()).isNotEmpty();

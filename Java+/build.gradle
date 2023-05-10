@@ -78,6 +78,7 @@ subprojects {
         aspectJVersion = '1.9.19'
         micrometerVersion = '1.10.5'
         prometheusVersion = '0.15.0'
+        jsoupDep = 'org.jsoup:jsoup:1.15.3'
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'

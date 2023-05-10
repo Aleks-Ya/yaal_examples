@@ -19,7 +19,7 @@ class NoteTest {
             var biggestResourceOpt = note.getBiggestResource(List.of("jpg", "txt"));
             assertThat(biggestResourceOpt).hasValue(new Resource(
                     new ResourceId("da4added37344f07a5ff2b9b2e1fdef3"),
-                    new File("/home/aleks/pr/home/yaal_examples/Java+/App+/Joplin/build/resources/main/joplin/common/resource/resources/da4added37344f07a5ff2b9b2e1fdef3.txt")));
+                    new File("/home/aleks/pr/home/yaal_examples/Java+/App+/Joplin/build/resources/test/joplin/common/resource/resources/da4added37344f07a5ff2b9b2e1fdef3.txt")));
         }
     }
 }

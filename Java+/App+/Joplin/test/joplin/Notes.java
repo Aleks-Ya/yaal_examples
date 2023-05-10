@@ -24,13 +24,13 @@ public class Notes {
                             "Joplin link    1   ", ":/db65929324925ccbfa789f95cdd293ba",
                             new Resource(
                                     new ResourceId("db65929324925ccbfa789f95cdd293ba"),
-                                    new File("/home/aleks/pr/home/yaal_examples/Java+/App+/Joplin/build/resources/main/joplin/common/resource/resources/db65929324925ccbfa789f95cdd293ba.pdf"))
+                                    new File("/home/aleks/pr/home/yaal_examples/Java+/App+/Joplin/build/resources/test/joplin/common/resource/resources/db65929324925ccbfa789f95cdd293ba.pdf"))
                     ),
                     new Link("[WinSCP](:/da4added37344f07a5ff2b9b2e1fdef3)", "WinSCP",
                             ":/da4added37344f07a5ff2b9b2e1fdef3",
                             new Resource(
                                     new ResourceId("da4added37344f07a5ff2b9b2e1fdef3"),
-                                    new File("/home/aleks/pr/home/yaal_examples/Java+/App+/Joplin/build/resources/main/joplin/common/resource/resources/da4added37344f07a5ff2b9b2e1fdef3.txt"))
+                                    new File("/home/aleks/pr/home/yaal_examples/Java+/App+/Joplin/build/resources/test/joplin/common/resource/resources/da4added37344f07a5ff2b9b2e1fdef3.txt"))
                     ),
                     new Link("[](evernote:///view/48821034/s241/5aa9d098-6c4c-4367-8358-77815b98774d/5aa9d098-6c4c-4367-8358-77815b98774d/)",
                             "",
@@ -59,7 +59,7 @@ public class Notes {
                     "Word Document", ":/014ad7b70d5ba80ff06b897cb3dd8db5",
                     new Resource(
                             new ResourceId("014ad7b70d5ba80ff06b897cb3dd8db5"),
-                            new File("/home/aleks/pr/home/yaal_examples/Java+/App+/Joplin/build/resources/main/joplin/common/resource/resources/014ad7b70d5ba80ff06b897cb3dd8db5.docx")
+                            new File("/home/aleks/pr/home/yaal_examples/Java+/App+/Joplin/build/resources/test/joplin/common/resource/resources/014ad7b70d5ba80ff06b897cb3dd8db5.docx")
                     ))
             ));
 
@@ -95,4 +95,5 @@ public class Notes {
                             "Gulp - Hydrate & track<br>water", "https://play.google.com/store/apps/details?id=info.andrewdahm.gulp",
                             null)
             ));
+    public static final int NOTE_NUMBER = 10;
 }

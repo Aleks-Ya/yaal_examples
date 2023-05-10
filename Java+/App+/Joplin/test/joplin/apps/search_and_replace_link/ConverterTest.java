@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static joplin.Notes.NOTE_1;
+import static joplin.Notes.NOTE_NUMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ConverterTest {
@@ -23,9 +24,8 @@ class ConverterTest {
             var link4 = "[Русское название статьи 2, запятая](evernote:///view/48821034/s241/87b5042e-7d6e-40bc-b434-2f4daf68722a/87b5042e-7d6e-40bc-b434-2f4daf68722a/)";
             var changedNoteIds = List.of(noteId1, noteId2, noteId3, noteId4);
 
-            var noteNumber = 9;
             var allNotes = facade.fetchAllNotes();
-            assertThat(allNotes).hasSize(noteNumber);
+            assertThat(allNotes).hasSize(NOTE_NUMBER);
             var unchangedNotes = allNotes.stream().filter(note -> !changedNoteIds.contains(note.noteId())).toList();
             var changedNotes = allNotes.stream().filter(note -> changedNoteIds.contains(note.noteId())).toList();
 
@@ -36,8 +36,8 @@ class ConverterTest {
 
             var converter = new Converter(facade);
             converter.convert();
-            assertThat(facade.fetchAllNotes()).hasSize(noteNumber).containsAll(unchangedNotes);
-            assertThat(facade.fetchAllNotes()).hasSize(noteNumber).doesNotContainAnyElementsOf(changedNotes);
+            assertThat(facade.fetchAllNotes()).hasSize(NOTE_NUMBER).containsAll(unchangedNotes);
+            assertThat(facade.fetchAllNotes()).hasSize(NOTE_NUMBER).doesNotContainAnyElementsOf(changedNotes);
 
             assertThat(facade.fetchNoteById(noteId1).orElseThrow().body()).contains(link1);
             assertThat(facade.fetchNoteById(noteId2).orElseThrow().body()).contains(link2);

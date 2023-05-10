@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import static joplin.Notes.NOTE_1;
 import static joplin.Notes.NOTE_2;
+import static joplin.Notes.NOTE_NUMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class FacadeTest {
@@ -17,7 +18,7 @@ class FacadeTest {
     @Test
     void fetchAllNotes() {
         try (var facade = Utils.createFacadeFake()) {
-            assertThat(facade.fetchAllNotes()).hasSize(9);
+            assertThat(facade.fetchAllNotes()).hasSize(NOTE_NUMBER);
         }
     }
 

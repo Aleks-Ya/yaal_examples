@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static joplin.Notes.NOTE_NUMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ConverterTest {
@@ -16,9 +17,8 @@ class ConverterTest {
             var newText = "{width=100 height=200}";
             var changedNoteIds = List.of(noteId1);
 
-            var noteNumber = 9;
             var allNotes = facade.fetchAllNotes();
-            assertThat(allNotes).hasSize(noteNumber);
+            assertThat(allNotes).hasSize(NOTE_NUMBER);
             var unchangedNotes = allNotes.stream().filter(note -> !changedNoteIds.contains(note.noteId())).toList();
             var changedNotes = allNotes.stream().filter(note -> changedNoteIds.contains(note.noteId())).toList();
 
@@ -26,8 +26,8 @@ class ConverterTest {
 
             var converter = new Converter(facade);
             converter.convert();
-            assertThat(facade.fetchAllNotes()).hasSize(noteNumber).containsAll(unchangedNotes);
-            assertThat(facade.fetchAllNotes()).hasSize(noteNumber).doesNotContainAnyElementsOf(changedNotes);
+            assertThat(facade.fetchAllNotes()).hasSize(NOTE_NUMBER).containsAll(unchangedNotes);
+            assertThat(facade.fetchAllNotes()).hasSize(NOTE_NUMBER).doesNotContainAnyElementsOf(changedNotes);
 
             assertThat(facade.fetchNoteById(noteId1).orElseThrow().body()).contains(newText);
         }
