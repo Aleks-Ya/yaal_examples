@@ -44,30 +44,28 @@ class PropertyNamingStrategyTest {
     }
 
     private static ObjectMapper initMapper() {
-        var mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-        mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
-        var outputFormat = new SimpleDateFormat("dd MMM yyyy");
-        mapper.setDateFormat(outputFormat);
-        mapper.setPropertyNamingStrategy(new PropertyNamingStrategy() {
-            private static final long serialVersionUID = 1L;
+        return new ObjectMapper()
+                .configure(SerializationFeature.INDENT_OUTPUT, true)
+                .configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
+                .setDateFormat(new SimpleDateFormat("dd MMM yyyy"))
+                .setSerializationInclusion(Include.NON_EMPTY)
+                .setPropertyNamingStrategy(new PropertyNamingStrategy() {
+                    private static final long serialVersionUID = 1L;
 
-            @Override
-            public String nameForField(MapperConfig<?> config, AnnotatedField field, String defaultName) {
-                if (field.getFullName().equals("com.studytrails.json.jackson.Artist#name"))
-                    return "Artist-Name";
-                return super.nameForField(config, field, defaultName);
-            }
+                    @Override
+                    public String nameForField(MapperConfig<?> config, AnnotatedField field, String defaultName) {
+                        if (field.getFullName().equals("com.studytrails.json.jackson.Artist#name"))
+                            return "Artist-Name";
+                        return super.nameForField(config, field, defaultName);
+                    }
 
-            @Override
-            public String nameForGetterMethod(MapperConfig<?> config, AnnotatedMethod method, String defaultName) {
-                if (method.getAnnotated().getDeclaringClass().equals(Album.class) && defaultName.equals("title"))
-                    return "Album-Title";
-                return super.nameForGetterMethod(config, method, defaultName);
-            }
-        });
-        mapper.setSerializationInclusion(Include.NON_EMPTY);
-        return mapper;
+                    @Override
+                    public String nameForGetterMethod(MapperConfig<?> config, AnnotatedMethod method, String defaultName) {
+                        if (method.getAnnotated().getDeclaringClass().equals(Album.class) && defaultName.equals("title"))
+                            return "Album-Title";
+                        return super.nameForGetterMethod(config, method, defaultName);
+                    }
+                });
     }
 
     private static Album makeAlbum(Artist artist) {

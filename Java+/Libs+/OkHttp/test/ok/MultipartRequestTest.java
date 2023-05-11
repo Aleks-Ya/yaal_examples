@@ -34,11 +34,12 @@ class MultipartRequestTest {
                     .build();
 
             var client = new OkHttpClient().newBuilder().build();
-            var response = client.newCall(request).execute();
-            assertThat(response.code()).isEqualTo(200);
-            var actBody = response.body();
-            assertThat(actBody).isNotNull();
-            assertThat(actBody.string()).isEqualTo(expBody);
+            try (var response = client.newCall(request).execute()) {
+                assertThat(response.code()).isEqualTo(200);
+                var actBody = response.body();
+                assertThat(actBody).isNotNull();
+                assertThat(actBody.string()).isEqualTo(expBody);
+            }
         }
     }
 

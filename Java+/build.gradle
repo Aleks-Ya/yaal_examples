@@ -16,13 +16,13 @@ subprojects {
         derbyDep = 'org.apache.derby:derby:10.16.1.1'
         hsqldbDep = 'org.hsqldb:hsqldb:2.7.1'
         slf4jSimpleDep = 'org.slf4j:slf4j-simple:2.0.7'
-        def okHttpVersion = '4.10.0'
+        def okHttpVersion = '4.11.0'
         okHttpDep = "com.squareup.okhttp3:okhttp:$okHttpVersion"
         mockWebServerDep = "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
         jettyServlet10Dep = 'org.eclipse.jetty:jetty-servlet:10.0.15'
         jettyServlet11Dep = 'org.eclipse.jetty:jetty-servlet:11.0.15'
         servlet4Dep = 'javax.servlet:javax.servlet-api:4.0.1'
-        jacksonVersion = '2.14.2'
+        jacksonVersion = '2.15.0'
         jacksonDataBindDep = "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         jacksonDatatypeJsr310Dep = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
         jsonUnitDep = 'net.javacrumbs.json-unit:json-unit:2.36.1'
@@ -37,7 +37,7 @@ subprojects {
         jaxbApiDep = 'javax.xml.bind:jaxb-api:2.3.1'
         elasticSearchVersion = '7.12.0'
         junit5PlatformVersion = '1.9.2'
-        junit5Version = '5.9.2'
+        junit5Version = '5.9.3'
         cucumberVersion = '7.11.1'
         spring5Version = '5.3.27'
         spring4Version = '4.3.30.RELEASE'
@@ -79,6 +79,11 @@ subprojects {
         micrometerVersion = '1.10.5'
         prometheusVersion = '0.15.0'
         jsoupDep = 'org.jsoup:jsoup:1.15.3'
+        retrofitVersion = '2.9.0'
+        retrofitDep = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+        retrofitGsonDep = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+        retrofitJacksonDep = "com.squareup.retrofit2:converter-jackson:$retrofitVersion"
+        retrofitMoshiDep = "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'

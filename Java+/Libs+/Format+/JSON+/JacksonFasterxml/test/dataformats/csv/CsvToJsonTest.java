@@ -23,8 +23,8 @@ class CsvToJsonTest {
         var list = mappingIterator.readAll();
 
         var baos = new ByteArrayOutputStream();
-        var objectMapper = new ObjectMapper();
-        objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true).writeValue(baos, list);
+        var objectMapper = new ObjectMapper().configure(SerializationFeature.INDENT_OUTPUT, true);
+        objectMapper.writeValue(baos, list);
         var actJson = baos.toString();
         var expJson = "[{'name':'John','age':'30'},{'name':'Mary','age':'25'}]";
         JsonAssert.assertJsonEquals(expJson, actJson);

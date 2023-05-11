@@ -32,13 +32,14 @@ class TimeoutTest {
             var client = new OkHttpClient().newBuilder()
                     .callTimeout(Duration.ofSeconds(timeoutSec))
                     .build();
-            var response = client.newCall(request).execute();
-            var e = assertThrows(InterruptedIOException.class, () -> {
-                var body = response.body();
-                assertThat(body).isNotNull();
-                body.string();
-            });
-            assertThat(e.getMessage()).isEqualTo("timeout");
+            try (var response = client.newCall(request).execute()) {
+                var e = assertThrows(InterruptedIOException.class, () -> {
+                    var body = response.body();
+                    assertThat(body).isNotNull();
+                    body.string();
+                });
+                assertThat(e.getMessage()).isEqualTo("timeout");
+            }
         }
     }
 
@@ -61,11 +62,12 @@ class TimeoutTest {
             var client = new OkHttpClient().newBuilder()
                     .readTimeout(Duration.ofSeconds(timeoutSec))
                     .build();
-            var response = client.newCall(request).execute();
-            assertThat(response.code()).isEqualTo(200);
-            var actBody = response.body();
-            assertThat(actBody).isNotNull();
-            assertThat(actBody.string()).isEqualTo(body);
+            try (var response = client.newCall(request).execute()) {
+                assertThat(response.code()).isEqualTo(200);
+                var actBody = response.body();
+                assertThat(actBody).isNotNull();
+                assertThat(actBody.string()).isEqualTo(body);
+            }
 
         }
     }
