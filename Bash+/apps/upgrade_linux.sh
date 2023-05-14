@@ -24,3 +24,7 @@ echo
 echo "Updating PIP3..."
 pip3 install --upgrade pip
 echo
+
+echo "Updating SdkMan..."
+sdk update
+echo
