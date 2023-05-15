@@ -17,7 +17,7 @@
 2. Execute app: `sc.parallelize(Seq(1, 2, 3)).collect()`
 
 ## Stop cluster
-`docker-compose stop`
+`docker compose stop`
 
 ## Delete cluster
-`docker-compose down`
+`docker compose down`

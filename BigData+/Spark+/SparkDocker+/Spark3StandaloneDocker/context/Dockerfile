@@ -1,6 +1,6 @@
 FROM almalinux-updated
 
-RUN yum install -y java python38
+RUN yum install -y java python311
 
 ARG SPARK_VERSION
 ENV SPARK_DIR=/opt/spark
