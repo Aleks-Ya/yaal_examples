@@ -3,13 +3,15 @@
 Submit:
 
 1. Run Spark Standalone cluster from `BigData+/Spark+/SparkDocker+/Spark3StandaloneDocker`
-2. Choose Java 8: `sdk use java 11.0.12-open`
-3. Run the application
-    1. Local mode: run class `core.localmode.LocalModeApp`
+2. Choose Java 8 for SBT: `sdk use java 11.0.12-open`
+3. Choose Java 8 in IntelliJ Idea project
+4. Run the application
+    1. Local mode: run main class `core.localmode.LocalModeApp`
     2. Client mode
-        1. Build JAR: `sbt clean package`
-        2. Client mode (from IDE): run class `core.clientmode.ClientModeIdeApp`
-        3. Client mode (with `spark-submit`):
+        1. Turn off the firewall: `sudo ufw disable` 
+        2. Build JAR: `sbt clean package`
+        3. Client mode (from IDE): run class `core.clientmode.ClientModeIdeApp`
+        4. Client mode (with `spark-submit`):
            ```
            spark-submit \
            --class core.clientmode.ClientModeSparkSubmitApp \
@@ -40,32 +42,32 @@ Submit:
              --conf "spark.eventLog.dir=file:///datasets/spark-events" \
              file:///datasets/spark3corestandalone_2.12-1.jar
         ```
-4. Application in the Spark UI: http://spark-standalone-cluster-master:8080
-5. Run "Six Examples"
+5. Application in the Spark UI: http://spark-standalone-cluster-master:8080
+6. Run "Six Examples"
     1. Build: `./build_jar.sh`
     2. Run in cluster mode: `./src/main/scala/app/sixexercises/submit_cluster_mode.sh app.sixexercises.WarmUp1App`
-6. Run "IMDB"
+7. Run "IMDB"
     1. Build: `./build_jar.sh`
     2. Run in cluster mode: `./src/main/scala/app/imdb/submit_cluster_mode.sh app.imdb.Exercise1App`
-7. Run in "Hadoop3Cluster"
-   1. Run Hadoop cluster `BigData+/Hadoop+/HadoopDocker+/Hadoop3+/Hadoop3Cluster`
-   2. Copy Hadoop configs to host: see `BigData+/Hadoop+/HadoopDocker+/Hadoop3+/Hadoop3Cluster/README.md`
-   3. Set env variable `HADOOP_CONF_DIR`=`/tmp/hadoop3-cluster-configs`
-       1. Client mode
-          1. Build JAR: `sbt clean package`
-          2. Client mode (from IDE): run class `core.clientmode.ClientModeIdeApp`
-          3. Client mode (with `spark-submit`):
-          ```
-          sudo su
-          export HADOOP_CONF_DIR=/tmp/hadoop3-cluster-configs
-          spark-submit \
-               --class core.clientmode.ClientModeSparkSubmitApp \
-               --master yarn \
-               --deploy-mode client \
-               --total-executor-cores 2 \
-               --executor-cores 1 \
-               --executor-memory 512M \
-               --conf "spark.eventLog.enabled=true" \
-               --conf "spark.eventLog.dir=file:///media/aleks/ADATA/dataset/spark-events" \
-               target/scala-2.12/spark3corestandalone_2.12-1.jar
-          ```
+8. Run in "Hadoop3Cluster"
+    1. Run Hadoop cluster `BigData+/Hadoop+/HadoopDocker+/Hadoop3+/Hadoop3Cluster`
+    2. Copy Hadoop configs to host: see `BigData+/Hadoop+/HadoopDocker+/Hadoop3+/Hadoop3Cluster/README.md`
+    3. Set env variable `HADOOP_CONF_DIR`=`/tmp/hadoop3-cluster-configs`
+        1. Client mode
+            1. Build JAR: `sbt clean package`
+            2. Client mode (from IDE): run class `core.clientmode.ClientModeIdeApp`
+            3. Client mode (with `spark-submit`):
+           ```
+           sudo su
+           export HADOOP_CONF_DIR=/tmp/hadoop3-cluster-configs
+           spark-submit \
+                --class core.clientmode.ClientModeSparkSubmitApp \
+                --master yarn \
+                --deploy-mode client \
+                --total-executor-cores 2 \
+                --executor-cores 1 \
+                --executor-memory 512M \
+                --conf "spark.eventLog.enabled=true" \
+                --conf "spark.eventLog.dir=file:///media/aleks/ADATA/dataset/spark-events" \
+                target/scala-2.12/spark3corestandalone_2.12-1.jar
+           ```

@@ -13,4 +13,8 @@ Upgrade to latest version: `pip install pyspark -U`
 ## Commands
 Help: `spark-shell -h`
 Show version: `spark-shell --version`
+Run in local mode: `spark-shell --master local[2]`
 Connect to existing Master: `spark-shell --master spark://spark-standalone-cluster-master:7077`
+
+## Test calculations in Shell
+Test: `sc.parallelize(Seq(1, 2, 3)).collect()`

@@ -15,7 +15,7 @@ su spark -c "start-master.sh"
 echo "Spark Master started."
 
 echo "Starting Spark History Server..."
-su spark -c "mkdir -p /datasets/spark-events"
+su spark -c "mkdir -p /shared/spark-events"
 su spark -c "start-history-server.sh"
 echo "Spark History Server started."
 

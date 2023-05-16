@@ -1,4 +1,4 @@
-package livy
+package databricks
 
 import org.apache.spark.SparkContext
 

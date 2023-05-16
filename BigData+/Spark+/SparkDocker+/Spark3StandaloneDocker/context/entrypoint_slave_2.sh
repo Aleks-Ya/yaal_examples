@@ -14,6 +14,9 @@ chown -R spark:root /opt/spark/
 su spark -c "start-worker.sh spark://spark-standalone-cluster-master:7077"
 echo "Spark Worker started."
 
+echo "Creating dir for Spark History Server..."
+su spark -c "mkdir -p /shared/spark-events"
+
 SIGINT=2
 SIGTERM=15
 stop()

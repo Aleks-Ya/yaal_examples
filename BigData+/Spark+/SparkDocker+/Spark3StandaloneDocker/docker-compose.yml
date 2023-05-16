@@ -5,6 +5,11 @@ services:
     image: spark-standalone
     hostname: spark-standalone-cluster-master
     entrypoint: ./entrypoint_master.sh
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
     volumes:
       - datasets:/datasets
       - shared:/shared
@@ -13,6 +18,11 @@ services:
     image: spark-standalone
     hostname: spark-standalone-cluster-slave-1
     entrypoint: ./entrypoint_slave_1.sh
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 3G
     depends_on:
       - master
     volumes:
@@ -23,6 +33,11 @@ services:
     image: spark-standalone
     hostname: spark-standalone-cluster-slave-2
     entrypoint: ./entrypoint_slave_2.sh
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 3G
     depends_on:
       - master
     volumes:

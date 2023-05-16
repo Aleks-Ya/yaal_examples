@@ -6,9 +6,9 @@ then
   exit 1
 fi
 unset JAVA_HOME
-/home/aleks/installed/spark-3.3.1-bin-hadoop3/bin/spark-submit \
+/home/aleks/installed/spark-3.3.2-bin-hadoop3/bin/spark-submit \
      --class $1 \
-     --master spark://spark3-standalone-livy-cluster-master:7077 \
+     --master spark://spark-standalone-cluster-master:7077 \
      --deploy-mode cluster \
      --driver-cores 1 \
      --driver-memory 512M \
@@ -19,5 +19,5 @@ unset JAVA_HOME
      --conf "spark.sql.autoBroadcastJoinThreshold=-1" \
      --conf "spark.eventLog.enabled=true" \
      --conf "spark.eventLog.dir=file:///shared/spark-events" \
-     file:///shared/livy-scala-spark3.jar \
+     file:///shared/databricks-scala-spark3.jar \
      Hello World !

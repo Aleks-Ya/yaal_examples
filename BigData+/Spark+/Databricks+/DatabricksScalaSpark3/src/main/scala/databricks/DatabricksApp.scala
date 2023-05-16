@@ -1,14 +1,11 @@
-package livy
+package databricks
 
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.SparkContext
 
-object ClusterModeApp {
+object DatabricksApp {
   def main(args: Array[String]): Unit = {
     println(s"Main method args: ${args.mkString(",")}")
-    val conf = new SparkConf()
-      .setAppName(getClass.getSimpleName)
-      .setMaster("spark://spark3-standalone-livy-cluster-master:7077")
-    val sc = new SparkContext(conf)
+    val sc = SparkContext.getOrCreate()
     sc.setLogLevel("DEBUG")
     val words = args.toSeq
     println(s"Words: $words")

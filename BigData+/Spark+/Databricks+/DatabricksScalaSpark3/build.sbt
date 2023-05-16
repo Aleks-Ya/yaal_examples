@@ -2,26 +2,26 @@
  * Connecting to a Standalone Spark Master.
  */
 
-import Dependencies._
+import Dependencies.*
 
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
-      organization := "ru.yaal.examples.bigdata.spark.livy",
+      organization := "ru.yaal.examples.bigdata.spark.databricks",
       scalaVersion := scalaVer,
       version := "1"
     )),
-    name := "LivyScalaSpark3",
+    name := "DatabricksScalaSpark3",
     libraryDependencies ++= allDeps,
     javaOptions ++= Seq("-Xms512M", "-Xmx2048M", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled"),
-    parallelExecution in Test := false,
-    assemblyJarName in assembly := "livy-scala-fat.jar",
-    assemblyMergeStrategy in assembly := {
+    Test / parallelExecution := false,
+    assembly / assemblyJarName := "databricks-scala-fat.jar",
+    assembly / assemblyMergeStrategy := {
       case x if x.startsWith("META-INF") => MergeStrategy.discard
       case _ => MergeStrategy.deduplicate
     },
-    assemblyExcludedJars in assembly := {
-      val cp = (fullClasspath in assembly).value
+    assembly / assemblyExcludedJars := {
+      val cp = (assembly / fullClasspath).value
       cp filter {
         !_.data.getName.matches("spark*.")
       }

@@ -1,18 +1,3 @@
-Docker CLI: network
-List all networks: 
-```
-docker network ls
-```
-Show network details:
-```
-docker network inspect bridge
-```
-Create network: 
-```
-docker network create --driver bridge --subnet 192.168.100.0/24 --ip-range 192.168.100.0/24 my-bridge-network
-```
-
-
 Docker CLI: any
 
 ps [docs](https://docs.docker.com/engine/reference/commandline/ps/)

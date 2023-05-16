@@ -1,6 +1,3 @@
-ARG VERSION
-FROM alpine:$VERSION
-
-RUN apk --update add bash
-
+FROM alpine
+RUN apk --update add bash curl
 WORKDIR /root
