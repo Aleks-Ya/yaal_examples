@@ -6,15 +6,15 @@ Submit:
 2. Choose Java 8 for SBT: `sdk use java 11.0.12-open`
 3. Choose Java 8 in IntelliJ Idea project
 4. Run the application
-    1. Local mode: run main class `core.localmode.LocalModeApp`
+    1. Local mode: run main class `mode.localmode.LocalModeApp`
     2. Client mode
         1. Turn off the firewall: `sudo ufw disable` 
         2. Build JAR: `sbt clean package`
-        3. Client mode (from IDE): run class `core.clientmode.ClientModeIdeApp`
+        3. Client mode (from IDE): run class `mode.clientmode.ClientModeIdeApp`
         4. Client mode (with `spark-submit`):
            ```
            spark-submit \
-           --class core.clientmode.ClientModeSparkSubmitApp \
+           --class mode.clientmode.ClientModeSparkSubmitApp \
            --master spark://spark-standalone-cluster-master:7077 \
            --deploy-mode client \
            --conf "spark.eventLog.enabled=true" \
@@ -32,7 +32,7 @@ Submit:
         3. Run:
         ```
         spark-submit \
-             --class core.clustermode.ClusterModeApp \
+             --class mode.clustermode.ClusterModeApp \
              --master spark://spark-standalone-cluster-master:7077 \
              --deploy-mode cluster \
              --total-executor-cores 2 \
@@ -55,13 +55,13 @@ Submit:
     3. Set env variable `HADOOP_CONF_DIR`=`/tmp/hadoop3-cluster-configs`
         1. Client mode
             1. Build JAR: `sbt clean package`
-            2. Client mode (from IDE): run class `core.clientmode.ClientModeIdeApp`
+            2. Client mode (from IDE): run class `mode.clientmode.ClientModeIdeApp`
             3. Client mode (with `spark-submit`):
            ```
            sudo su
            export HADOOP_CONF_DIR=/tmp/hadoop3-cluster-configs
            spark-submit \
-                --class core.clientmode.ClientModeSparkSubmitApp \
+                --class mode.clientmode.ClientModeSparkSubmitApp \
                 --master yarn \
                 --deploy-mode client \
                 --total-executor-cores 2 \

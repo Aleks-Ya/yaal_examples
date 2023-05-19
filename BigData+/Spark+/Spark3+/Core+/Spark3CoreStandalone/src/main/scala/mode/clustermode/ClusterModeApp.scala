@@ -1,21 +1,18 @@
-package core.clientmode
+package mode.clustermode
 
-import core.StringLengthAction
+import mode.StringLengthAction
 import org.apache.spark.{SparkConf, SparkContext}
 
-object ClientModeSparkSubmitApp {
-
+object ClusterModeApp {
   def main(args: Array[String]): Unit = {
-    println("Start")
     val conf = new SparkConf().setAppName(getClass.getSimpleName)
     val sc = new SparkContext(conf)
+    sc.setLogLevel("DEBUG")
     val words = Seq("Hello, ", "World", "!")
     val action = new StringLengthAction(sc)
     val length = action.calcLength(words)
     println("Length: " + length)
     sc.stop()
     assert(length == 13)
-    println("Finish")
   }
-
 }

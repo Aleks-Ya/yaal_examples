@@ -1,6 +1,6 @@
-package core.clientmode
+package mode.clientmode
 
-import core.StringLengthAction
+import mode.StringLengthAction
 import org.apache.spark.{SparkConf, SparkContext}
 
 object ClientModeIdeApp {

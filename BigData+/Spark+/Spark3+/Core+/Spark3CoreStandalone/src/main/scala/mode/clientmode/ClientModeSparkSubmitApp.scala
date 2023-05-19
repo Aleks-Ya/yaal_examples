@@ -1,18 +1,18 @@
-package core.localmode
+package mode.clientmode
 
-import core.StringLengthAction
+import mode.StringLengthAction
 import org.apache.spark.{SparkConf, SparkContext}
 
-object LocalModeApp {
+object ClientModeSparkSubmitApp {
 
   def main(args: Array[String]): Unit = {
-    val conf = new SparkConf()
-      .setAppName(getClass.getSimpleName)
-      .setMaster("local[2]")
+    println("Start")
+    val conf = new SparkConf().setAppName(getClass.getSimpleName)
     val sc = new SparkContext(conf)
     val words = Seq("Hello, ", "World", "!")
     val action = new StringLengthAction(sc)
     val length = action.calcLength(words)
+    println("Length: " + length)
     sc.stop()
     assert(length == 13)
     println("Finish")

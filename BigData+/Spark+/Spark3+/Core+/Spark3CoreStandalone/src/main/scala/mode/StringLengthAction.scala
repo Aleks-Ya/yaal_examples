@@ -1,4 +1,4 @@
-package core
+package mode
 
 import org.apache.spark.SparkContext
 
