@@ -43,13 +43,16 @@ Submit:
              file:///datasets/spark3corestandalone_2.12-1.jar
         ```
 5. Application in the Spark UI: http://spark-standalone-cluster-master:8080
-6. Run "Six Examples"
+6. Logging
+   1. Log on executor
+      1. Local mode (from IDE): run main class `log.executor.LogLocalModeApp`
+7. Run "Six Examples"
     1. Build: `./build_jar.sh`
     2. Run in cluster mode: `./src/main/scala/app/sixexercises/submit_cluster_mode.sh app.sixexercises.WarmUp1App`
-7. Run "IMDB"
+8. Run "IMDB"
     1. Build: `./build_jar.sh`
     2. Run in cluster mode: `./src/main/scala/app/imdb/submit_cluster_mode.sh app.imdb.Exercise1App`
-8. Run in "Hadoop3Cluster"
+9. Run in "Hadoop3Cluster"
     1. Run Hadoop cluster `BigData+/Hadoop+/HadoopDocker+/Hadoop3+/Hadoop3Cluster`
     2. Copy Hadoop configs to host: see `BigData+/Hadoop+/HadoopDocker+/Hadoop3+/Hadoop3Cluster/README.md`
     3. Set env variable `HADOOP_CONF_DIR`=`/tmp/hadoop3-cluster-configs`

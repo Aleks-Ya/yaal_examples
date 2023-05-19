@@ -3,16 +3,13 @@ package pack;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
- * Документация: http://logging.apache.org/log4j/2.x/manual/configuration.html#AutomaticConfiguration
- */
 public class AutomaticConfiguration {
 
     public static void main(String[] args) {
-        Logger root = LogManager.getRootLogger();
+        var root = LogManager.getRootLogger();
         printLogger(root);
 
-        Logger currClass = LogManager.getLogger();
+        var currClass = LogManager.getLogger();
         printLogger(currClass);
     }
 
