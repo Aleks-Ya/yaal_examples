@@ -3,7 +3,7 @@ package mode.clientmode
 import mode.StringLengthAction
 import org.apache.spark.{SparkConf, SparkContext}
 
-object ClientModeSparkSubmitApp {
+object ClientModeSubmitApp {
 
   def main(args: Array[String]): Unit = {
     println("Start")

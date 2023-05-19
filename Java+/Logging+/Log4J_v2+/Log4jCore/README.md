@@ -1,0 +1,1 @@
+# Core Log4J features

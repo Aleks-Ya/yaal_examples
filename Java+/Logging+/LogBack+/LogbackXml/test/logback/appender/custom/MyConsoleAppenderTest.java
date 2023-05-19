@@ -9,9 +9,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class MyConsoleAppenderTest extends BaseLogbackTest {
     @Test
     void test() {
-        var stdOut = reinitialize("logback/appender/custom/logback.xml");
-        var log = LoggerFactory.getLogger(MyConsoleAppenderTest.class);
-        log.info("Hi");
-        assertThat(stdOut).hasToString("PREFIX_MyConsoleAppender: Hi\n");
+        try (var stdOut = reinitialize("logback/appender/custom/logback.xml")) {
+            var log = LoggerFactory.getLogger(MyConsoleAppenderTest.class);
+            log.info("Hi");
+            assertThat(stdOut).hasToString("PREFIX_MyConsoleAppender: Hi\n");
+        }
     }
 }

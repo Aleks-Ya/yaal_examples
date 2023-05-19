@@ -12,18 +12,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 class MdcAutoClosableTest extends BaseLogbackTest {
     @Test
     void mdc() {
-        var stdOut = reinitialize("logback/mdc/SimpleMdcTest.xml");
-        var log = LoggerFactory.getLogger(MdcAutoClosableTest.class);
-        try (var ignored = new MdcAutoClosable(Map.of("first", "John"))) {
-            log.info("MDC works 1");
+        try (var stdOut = reinitialize("logback/mdc/SimpleMdcTest.xml")) {
+            var log = LoggerFactory.getLogger(MdcAutoClosableTest.class);
+            try (var ignored = new MdcAutoClosable(Map.of("first", "John"))) {
+                log.info("MDC works 1");
+            }
+            try (var ignored = new MdcAutoClosable(Map.of("last", "Smith"))) {
+                log.info("MDC works 2");
+            }
+            assertThat(stdOut).hasToString("""
+                    John  - MDC works 1
+                     Smith - MDC works 2
+                    """);
         }
-        try (var ignored = new MdcAutoClosable(Map.of("last", "Smith"))) {
-            log.info("MDC works 2");
-        }
-        assertThat(stdOut).hasToString("""
-                John  - MDC works 1
-                 Smith - MDC works 2
-                """);
     }
 
     static class MdcAutoClosable implements AutoCloseable {

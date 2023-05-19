@@ -18,9 +18,10 @@ class FileAppenderTest extends BaseLogbackTest {
         var logFile = new File("/tmp/FileAppenderTest.log");
         FileUtil.deleteFileSilent(logFile);
         assertThat(logFile).doesNotExist();
-        reinitialize("logback/appender/file/logback.xml");
-        var log = LoggerFactory.getLogger(FileAppenderTest.class);
-        log.info("Hi!");
-        assertThat(logFile).hasContent("File: Hi!");
+        try (var ignore = reinitialize("logback/appender/file/logback.xml")) {
+            var log = LoggerFactory.getLogger(FileAppenderTest.class);
+            log.info("Hi!");
+            assertThat(logFile).hasContent("File: Hi!");
+        }
     }
 }

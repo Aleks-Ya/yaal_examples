@@ -11,24 +11,25 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Example from https://logback.qos.ch/manual/mdc.html
+ * Example from <a href="https://logback.qos.ch/manual/mdc.html">manual</a>
  */
 class ManyThreadsTest extends BaseLogbackTest {
     @Test
     void mdc() throws InterruptedException {
-        var stdOut = reinitialize("logback/mdc/ManyThreadsTest.xml");
-        var executor = Executors.newFixedThreadPool(3);
-        executor.submit(new ClientHandler("John"));
-        executor.submit(new ClientHandler("Mark"));
-        executor.submit(new ClientHandler("Mary"));
-        executor.shutdown();
-        var finishedSuccessfully = executor.awaitTermination(5, TimeUnit.SECONDS);
-        assertThat(finishedSuccessfully).isTrue();
-        assertThat(stdOut.toString()).contains(
-                "Mark - Calling to client Mark",
-                "John - Calling to client John",
-                "Mary - Calling to client Mary"
-        );
+        try (var stdOut = reinitialize("logback/mdc/ManyThreadsTest.xml")) {
+            var executor = Executors.newFixedThreadPool(3);
+            executor.submit(new ClientHandler("John"));
+            executor.submit(new ClientHandler("Mark"));
+            executor.submit(new ClientHandler("Mary"));
+            executor.shutdown();
+            var finishedSuccessfully = executor.awaitTermination(5, TimeUnit.SECONDS);
+            assertThat(finishedSuccessfully).isTrue();
+            assertThat(stdOut.toString()).contains(
+                    "Mark - Calling to client Mark",
+                    "John - Calling to client John",
+                    "Mary - Calling to client Mary"
+            );
+        }
     }
 
     static class ClientHandler implements Runnable {

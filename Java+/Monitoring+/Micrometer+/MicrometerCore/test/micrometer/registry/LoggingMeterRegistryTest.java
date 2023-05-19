@@ -16,24 +16,25 @@ import static org.awaitility.Awaitility.await;
 class LoggingMeterRegistryTest {
     @Test
     void logging() {
-        var stdErr = InputStreamUtil.redirectStdErr();
-        var config = new LoggingRegistryConfig() {
-            @Override
-            public String get(@Nullable String key) {
-                return null;
-            }
+        try (var stdErr = InputStreamUtil.redirectStdErr()) {
+            var config = new LoggingRegistryConfig() {
+                @Override
+                public String get(@Nullable String key) {
+                    return null;
+                }
 
-            @Override
-            @NonNull
-            public Duration step() {
-                return Duration.ofSeconds(1);
-            }
-        };
-        var registry = new LoggingMeterRegistry(config, Clock.SYSTEM);
-        var counter = registry.counter("events");
-        counter.increment();
-        counter.increment(2);
-        await().untilAsserted(() -> assertThat(stdErr.toString()).contains("events{} throughput=3/s"));
-        System.out.println(stdErr);
+                @Override
+                @NonNull
+                public Duration step() {
+                    return Duration.ofSeconds(1);
+                }
+            };
+            var registry = new LoggingMeterRegistry(config, Clock.SYSTEM);
+            var counter = registry.counter("events");
+            counter.increment();
+            counter.increment(2);
+            await().untilAsserted(() -> assertThat(stdErr.toString()).contains("events{} throughput=3/s"));
+            System.out.println(stdErr);
+        }
     }
 }

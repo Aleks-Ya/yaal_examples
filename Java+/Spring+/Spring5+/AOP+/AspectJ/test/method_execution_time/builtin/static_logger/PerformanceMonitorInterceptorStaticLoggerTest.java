@@ -27,13 +27,14 @@ class PerformanceMonitorInterceptorStaticLoggerTest {
 
     @Test
     void test() throws InterruptedException {
-        var out = InputStreamUtil.redirectStdErr();
-        assertThat(LoggerFactory.getLogger(staticLoggerName).isTraceEnabled()).isTrue();
-        var person = new Person("John", "Mark");
-        var fullName = personService.getFullName(person);
-        assertThat(fullName).isEqualTo("John Mark");
-        assertThat(out.toString())
-                .contains("[Test worker] TRACE org.springframework.aop.interceptor.PerformanceMonitorInterceptor - " +
-                        "StopWatch 'method_execution_time.builtin.static_logger.PersonService.getFullName': running time =");
+        try (var out = InputStreamUtil.redirectStdErr()) {
+            assertThat(LoggerFactory.getLogger(staticLoggerName).isTraceEnabled()).isTrue();
+            var person = new Person("John", "Mark");
+            var fullName = personService.getFullName(person);
+            assertThat(fullName).isEqualTo("John Mark");
+            assertThat(out.toString())
+                    .contains("[Test worker] TRACE org.springframework.aop.interceptor.PerformanceMonitorInterceptor - " +
+                            "StopWatch 'method_execution_time.builtin.static_logger.PersonService.getFullName': running time =");
+        }
     }
 }

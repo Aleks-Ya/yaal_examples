@@ -12,16 +12,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ReInitializeTest extends BaseLogbackTest {
     @Test
     void reinitialize() {
-        var stdOut1 = reinitialize("logback/context/ReInitializeTest_old.xml");
-        var oldLog = LoggerFactory.getLogger(ReInitializeTest.class);
-        oldLog.info("Hi OLD");
-        assertThat(stdOut1).hasToString("OLD CONFIG: Hi OLD\n");
+        try (var stdOut1 = reinitialize("logback/context/ReInitializeTest_old.xml")) {
+            var oldLog = LoggerFactory.getLogger(ReInitializeTest.class);
+            oldLog.info("Hi OLD");
+            assertThat(stdOut1).hasToString("OLD CONFIG: Hi OLD\n");
 
-        var stdOut2 = reinitialize("logback/context/ReInitializeTest_new.xml");
+            var stdOut2 = reinitialize("logback/context/ReInitializeTest_new.xml");
 
-        var newLog = LoggerFactory.getLogger(ReInitializeTest.class);
-        newLog.info("Hi NEW");
-        assertThat(stdOut2).hasToString("NEW CONFIG: Hi NEW\n");
+            var newLog = LoggerFactory.getLogger(ReInitializeTest.class);
+            newLog.info("Hi NEW");
+            assertThat(stdOut2).hasToString("NEW CONFIG: Hi NEW\n");
+        }
     }
 
 //    @SuppressWarnings("SameParameterValue")
