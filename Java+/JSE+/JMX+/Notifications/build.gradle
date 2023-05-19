@@ -1,7 +1,0 @@
-/**
- * Example from JSE Tutorial
- * http://docs.oracle.com/javase/tutorial/jmx/notifs/index.html
- *
- * JMX server: java NotificationsMain
- * JMX client: jconsole
- */

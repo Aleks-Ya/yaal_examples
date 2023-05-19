@@ -1,3 +1,5 @@
+package lang.management.jmx.helloworld;
+
 class Hello implements HelloMBean {
     private static final int DEFAULT_CACHE_SIZE = 200;
     private int cacheSize = DEFAULT_CACHE_SIZE;

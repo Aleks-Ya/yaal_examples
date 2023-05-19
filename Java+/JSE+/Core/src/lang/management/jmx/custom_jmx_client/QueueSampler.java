@@ -4,12 +4,12 @@
  * QueueSamplerMXBean interface, with the appropriate behavior for each one.
  */
 
-package com.example;
+package lang.management.jmx.custom_jmx_client;
 
 import java.util.Date;
 import java.util.Queue;
 
-public class QueueSampler implements com.example.QueueSamplerMXBean {
+public class QueueSampler implements QueueSamplerMXBean {
 
     private Queue<String> queue;
 

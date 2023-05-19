@@ -4,9 +4,12 @@
  * with the appropriate behavior for each one.
  */
 
-package com.example;
+package lang.management.jmx.custom_jmx_client;
 
-import javax.management.*;
+import javax.management.AttributeChangeNotification;
+import javax.management.MBeanNotificationInfo;
+import javax.management.Notification;
+import javax.management.NotificationBroadcasterSupport;
 
 public class Hello
 	extends NotificationBroadcasterSupport implements HelloMBean {

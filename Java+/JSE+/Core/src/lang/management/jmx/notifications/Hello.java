@@ -1,3 +1,5 @@
+package lang.management.jmx.notifications;
+
 import javax.management.AttributeChangeNotification;
 import javax.management.MBeanNotificationInfo;
 import javax.management.Notification;

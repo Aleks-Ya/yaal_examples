@@ -1,3 +1,5 @@
+package lang.management.jmx.helloworld;
+
 public interface HelloMBean {
     void sayHello();
 

@@ -4,7 +4,7 @@
  * "sayHello" and "add", and two attributes, "Name" and "CacheSize".
  */
 
-package com.example;
+package lang.management.jmx.custom_jmx_client;
 
 public interface HelloMBean {
     //-----------

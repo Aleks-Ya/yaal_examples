@@ -4,15 +4,15 @@
  * MBean server, then wait forever (or until the program is interrupted).
  */
 
-package com.example;
+package lang.management.jmx.custom_jmx_client;
 
+import javax.management.ObjectName;
 import java.lang.management.ManagementFactory;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
 
 /**
+ * Example from <a href="http://docs.oracle.com/javase/tutorial/jmx/remote/custom.html">JSE Tutorial</a>.<br/>
  * Run:
  * java -Dcom.sun.management.jmxremote.port=9999 \
  * -Dcom.sun.management.jmxremote.authenticate=false \
@@ -24,26 +24,26 @@ public class Main {
        Real programs will usually want finer-grained exception handling. */
     public static void main(String[] args) throws Exception {
         // Get the Platform MBean Server
-        MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+        var mbs = ManagementFactory.getPlatformMBeanServer();
 
-	// Construct the ObjectName for the Hello MBean we will register
-	ObjectName mbeanName = new ObjectName("com.example:type=Hello");
+        // Construct the ObjectName for the Hello MBean we will register
+        var mbeanName = new ObjectName("com.example:type=Hello");
 
-	// Create the Hello World MBean
-	Hello mbean = new Hello();
+        // Create the Hello World MBean
+        var mbean = new Hello();
 
-	// Register the Hello World MBean
-	mbs.registerMBean(mbean, mbeanName);
+        // Register the Hello World MBean
+        mbs.registerMBean(mbean, mbeanName);
 
         // Construct the ObjectName for the QueueSampler MXBean we will register
-        ObjectName mxbeanName = new ObjectName("com.example:type=QueueSampler");
+        var mxbeanName = new ObjectName("com.example:type=QueueSampler");
 
         // Create the Queue Sampler MXBean
         Queue<String> queue = new ArrayBlockingQueue<String>(10);
         queue.add("Request-1");
         queue.add("Request-2");
         queue.add("Request-3");
-        QueueSampler mxbean = new QueueSampler(queue);
+        var mxbean = new QueueSampler(queue);
 
         // Register the Queue Sampler MXBean
         mbs.registerMBean(mxbean, mxbeanName);

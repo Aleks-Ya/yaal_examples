@@ -4,7 +4,7 @@
  * size and the queue head.
  */
 
-package com.example;
+package lang.management.jmx.custom_jmx_client;
 
 import java.beans.ConstructorProperties;
 import java.util.Date;

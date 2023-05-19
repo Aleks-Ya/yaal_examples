@@ -4,7 +4,7 @@
  * there is a read-only attribute "QueueSample" and an operation "clearQueue".
  */
 
-package com.example;
+package lang.management.jmx.custom_jmx_client;
 
 public interface QueueSamplerMXBean {
     public QueueSample getQueueSample();

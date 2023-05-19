@@ -4,23 +4,19 @@
  * MXBean example. It also listens for Hello MBean notifications.
  */
 
-package com.example;
+package lang.management.jmx.custom_jmx_client;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
 import javax.management.AttributeChangeNotification;
 import javax.management.JMX;
-import javax.management.MBeanServerConnection;
 import javax.management.Notification;
-import javax.management.NotificationEmitter;
 import javax.management.NotificationListener;
 import javax.management.ObjectName;
-import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Run: java com.example.Client
@@ -31,16 +27,13 @@ public class Client {
      * Inner class that will handle the notifications.
      */
     public static class ClientListener implements NotificationListener {
-        public void handleNotification(Notification notification,
-                                       Object handback) {
+        public void handleNotification(Notification notification, Object handback) {
             echo("\nReceived notification:");
             echo("\tClassName: " + notification.getClass().getName());
             echo("\tSource: " + notification.getSource());
             echo("\tType: " + notification.getType());
             echo("\tMessage: " + notification.getMessage());
-            if (notification instanceof AttributeChangeNotification) {
-                AttributeChangeNotification acn =
-                    (AttributeChangeNotification) notification;
+            if (notification instanceof AttributeChangeNotification acn) {
                 echo("\tAttributeName: " + acn.getAttributeName());
                 echo("\tAttributeType: " + acn.getAttributeType());
                 echo("\tNewValue: " + acn.getNewValue());
@@ -56,19 +49,19 @@ public class Client {
         // connect it to the RMI connector server
         //
         echo("\nCreate an RMI connector client and " +
-             "connect it to the RMI connector server");
-        JMXServiceURL url =
-            new JMXServiceURL("service:jmx:rmi:///jndi/rmi://:9999/jmxrmi");
-        JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
+                "connect it to the RMI connector server");
+        var url =
+                new JMXServiceURL("service:jmx:rmi:///jndi/rmi://:9999/jmxrmi");
+        var jmxc = JMXConnectorFactory.connect(url, null);
 
         // Create listener
         //
-        ClientListener listener = new ClientListener();
+        var listener = new ClientListener();
 
         // Get an MBeanServerConnection
         //
         echo("\nGet an MBeanServerConnection");
-        MBeanServerConnection mbsc = jmxc.getMBeanServerConnection();
+        var mbsc = jmxc.getMBeanServerConnection();
         waitForEnterPressed();
 
         // Get domains from MBeanServer
@@ -76,7 +69,7 @@ public class Client {
         echo("\nDomains:");
         String domains[] = mbsc.getDomains();
         Arrays.sort(domains);
-        for (String domain : domains) {
+        for (var domain : domains) {
             echo("\tDomain = " + domain);
         }
         waitForEnterPressed();
@@ -93,8 +86,8 @@ public class Client {
         //
         echo("\nQuery MBeanServer MBeans:");
         Set<ObjectName> names =
-            new TreeSet<ObjectName>(mbsc.queryNames(null, null));
-        for (ObjectName name : names) {
+                new TreeSet<ObjectName>(mbsc.queryNames(null, null));
+        for (var name : names) {
             echo("\tObjectName = " + name);
         }
         waitForEnterPressed();
@@ -107,18 +100,18 @@ public class Client {
 
         // Construct the ObjectName for the Hello MBean
         //
-        ObjectName mbeanName = new ObjectName("com.example:type=Hello");
+        var mbeanName = new ObjectName("com.example:type=Hello");
 
         // Create a dedicated proxy for the MBean instead of
         // going directly through the MBean server connection
         //
-        HelloMBean mbeanProxy =
-            JMX.newMBeanProxy(mbsc, mbeanName, HelloMBean.class, true);
+        var mbeanProxy =
+                JMX.newMBeanProxy(mbsc, mbeanName, HelloMBean.class, true);
 
         // Add notification listener on Hello MBean
         //
         echo("\nAdd notification listener...");
-	mbsc.addNotificationListener(mbeanName, listener, null, null);
+        mbsc.addNotificationListener(mbeanName, listener, null, null);
 
         // Get CacheSize attribute in Hello MBean
         //
@@ -160,18 +153,18 @@ public class Client {
 
         // Construct the ObjectName for the QueueSampler MXBean
         //
-        ObjectName mxbeanName =
-            new ObjectName("com.example:type=QueueSampler");
+        var mxbeanName =
+                new ObjectName("com.example:type=QueueSampler");
 
         // Create a dedicated proxy for the MXBean instead of
         // going directly through the MBean server connection
         //
-        QueueSamplerMXBean mxbeanProxy =
-            JMX.newMXBeanProxy(mbsc, mxbeanName, QueueSamplerMXBean.class);
+        var mxbeanProxy =
+                JMX.newMXBeanProxy(mbsc, mxbeanName, QueueSamplerMXBean.class);
 
         // Get QueueSample attribute in QueueSampler MXBean
         //
-        QueueSample queue1 = mxbeanProxy.getQueueSample();
+        var queue1 = mxbeanProxy.getQueueSample();
         echo("\nQueueSample.Date = " + queue1.getDate());
         echo("QueueSample.Head = " + queue1.getHead());
         echo("QueueSample.Size = " + queue1.getSize());
@@ -183,7 +176,7 @@ public class Client {
 
         // Get QueueSample attribute in QueueSampler MXBean
         //
-        QueueSample queue2 = mxbeanProxy.getQueueSample();
+        var queue2 = mxbeanProxy.getQueueSample();
         echo("\nQueueSample.Date = " + queue2.getDate());
         echo("QueueSample.Head = " + queue2.getHead());
         echo("QueueSample.Size = " + queue2.getSize());
