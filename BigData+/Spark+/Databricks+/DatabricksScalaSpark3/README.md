@@ -10,6 +10,6 @@ Submit a Scala app on a Standalone Spark cluster.
 3. Submit with spark-submit: `./submit_cluster_mode.sh databricks.ClusterModeApp`
 4. Run in Databricks:
    1. Type: `JAR`
-   2. Main class: `databricks.DatabricksApp`
+   2. Main class: `databricks.DatabricksClusterModeApp`
    3. JAR: `target/scala-2.12/databricksscalaspark3_2.12-1.jar`
    4. Parameters: `["a b c"]`
