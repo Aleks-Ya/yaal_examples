@@ -24,6 +24,14 @@ List secret scopes: `databricks secrets list-scopes`
 Create a secret scope: `databricks secrets create-scope --scope my-scope`
 List secrets in a scope: `databricks secrets list --scope my-scope`
 Create a text-based secret: `databricks secrets put --scope my-scope --key my-secret --string-value my-value`
+List ACLs for a scope: `databricks secrets list-acls --scope my-scope`
+Create an ACL for a scope: `databricks secrets put-acl --scope my-scope --principal aleksei.iablokov@sap.com --permission READ`
+View ACLs in a scope: `databricks secrets list-acls --scope iablokov-tmp`
+View principal's ACL: `databricks secrets get-acl --scope iablokov-tmp --principal aleksei.iablokov@sap.com`
+
+## Groups
+List all groups: `databricks groups list`
+List users in a group: `databricks groups list-members --group-name admins`
 
 ### Other
 List files in a directory: `databricks fs ls dbfs:/cluster-logs-anna/driver`

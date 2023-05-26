@@ -7,6 +7,7 @@ Version (JSON): `az version`
 
 ## Login
 Login (using web-browser): `az login`
+Login (using device code): `az login --use-device-code`
 Display current user: `az account show`
 
 ## Storage
