@@ -47,7 +47,7 @@ subprojects {
         springBoot2StarterDataJpaDep = "org.springframework.boot:spring-boot-starter-data-jpa:$springBoot2Version"
         springCloud3Version = '3.1.5'
         springCloud4Version = '4.0.1'
-        springSecurity5Version = '5.8.1'
+        springSecurity5Version = '5.8.3'
         springBoot3Version = '3.1.0'
         springBoot3StarterWebDep = "org.springframework.boot:spring-boot-starter-web:$springBoot3Version"
         springBoot3StarterDataJpaDep = "org.springframework.boot:spring-boot-starter-data-jpa:$springBoot3Version"
