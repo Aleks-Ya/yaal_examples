@@ -42,13 +42,13 @@ subprojects {
         spring5Version = '5.3.27'
         spring4Version = '4.3.30.RELEASE'
         spring3Version = '3.2.18.RELEASE'
-        springBoot2Version = '2.7.10'
+        springBoot2Version = '2.7.12'
         springBoot2StarterWebDep = "org.springframework.boot:spring-boot-starter-web:$springBoot2Version"
         springBoot2StarterDataJpaDep = "org.springframework.boot:spring-boot-starter-data-jpa:$springBoot2Version"
         springCloud3Version = '3.1.5'
         springCloud4Version = '4.0.1'
         springSecurity5Version = '5.8.1'
-        springBoot3Version = '3.0.2'
+        springBoot3Version = '3.1.0'
         springBoot3StarterWebDep = "org.springframework.boot:spring-boot-starter-web:$springBoot3Version"
         springBoot3StarterDataJpaDep = "org.springframework.boot:spring-boot-starter-data-jpa:$springBoot3Version"
         hadoop2Version = '2.10.1'
