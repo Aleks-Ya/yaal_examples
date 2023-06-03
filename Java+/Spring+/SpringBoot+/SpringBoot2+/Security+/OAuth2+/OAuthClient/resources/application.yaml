@@ -1,0 +1,25 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak-authorization-code:
+            client-id: myclient5
+            client-secret: ${client_secret}
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid, profile
+          keycloak-client-credentials:
+            client-id: myclient5
+            client-secret: ${client_secret}
+            authorization-grant-type: client_credentials
+        provider:
+          keycloak-authorization-code:
+            issuer-uri: http://localhost:8080/realms/myrealm5
+          keycloak-client-credentials:
+            token-uri: http://localhost:8080/realms/myrealm5/protocol/openid-connect/token
+server:
+  port: 8081
+logging:
+  level:
+    org.springframework.security.oauth2.client: DEBUG
