@@ -1,0 +1,27 @@
+---
+@startuml
+title Start with an action
+(*)  --> "check input"
+if "input is verbose" then
+    --> [Yes] "turn on verbosity"
+    --> "run command" as run
+else
+    --> [No] do something
+    --> run
+endif
+-->(*)
+@enduml
+
+---
+@startuml
+title Start with an if
+(*)  --> if "input is verbose" then
+    --> [Yes] "turn on verbosity"
+    --> "run command" as run
+else
+    --> [No] do something
+    --> run
+endif
+
+-->(*)
+@enduml
