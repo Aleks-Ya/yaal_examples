@@ -1,0 +1,20 @@
+plugins {
+	id 'java'
+	id 'com.github.ben-manes.versions' version '0.47.0'
+}
+sourceSets.main.java.srcDir 'src'
+defaultTasks('jar')
+
+group = 'ru.yaal.project'
+version = '1.0-SNAPSHOT'
+
+dependencies {
+    implementation 'org.slf4j:slf4j-simple:2.0.3'
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+}
+repositories {
+    mavenCentral()
+}
+
+dependencyUpdates.gradleReleaseChannel='current' //Show only stable Gradle versions
+dependencyUpdates.revision='release'

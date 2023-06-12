@@ -1,0 +1,1 @@
+# Сборка простейшего war с помощью Gradle War Plugin
