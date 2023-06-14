@@ -79,4 +79,6 @@
         2. Get local resource (private tab): http://localhost:8081/authorizationCode/localResource
         3. Get resource from the Resource Server (private tab): http://localhost:8081/authorizationCode/resourceServer
     3. Test "Client Credentials" flow
-        1. Get resource from the Resource Server (private tab): http://localhost:8081/clientCredentials/resourceServer
+        1. Get resource from the Resource Server
+           1. Using`@RegisteredOAuth2AuthorizedClient`: `curl http://localhost:8081/clientCredentials/resourceServer/autowire`
+           2. Manually: `curl http://localhost:8081/clientCredentials/resourceServer/manual`

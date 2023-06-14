@@ -1,3 +1,4 @@
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-security:$springBoot2Version", springBoot2StarterWebDep
+    testImplementation "org.springframework.security:spring-security-test:$springSecurity5Version"
 }
