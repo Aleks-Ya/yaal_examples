@@ -10,7 +10,15 @@ Login (using web-browser): `az login`
 Login (using device code): `az login --use-device-code`
 Display current user: `az account show`
 
+## Set Account in envs
+Instead of specifying `--account-name` and `--account-key` in each request it's possible to use env vars:
+```
+export AZURE_STORAGE_ACCOUNT=...
+export AZURE_STORAGE_KEY=...
+```
+
 ## Storage
 List storage accounts: `az storage account list`
 List containers in an account: `az storage container list --account-name yaaltest`
 List blobs in a container: `az storage blob list --account-name yaaltest --container-name container1`
+Upload local file to storage: `az storage blob upload --account-name <storage-account-name> --account-key <account-key> --name <blob-name> --type block --file <local-file-path> --container-name <container-name>`
