@@ -1,19 +1,15 @@
-package entity;
-
-import org.hibernate.annotations.GenericGenerator;
+package hibernate.h2.config.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Cashier {
-
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     private String firstName;
     private String lastName;
     private int age;
@@ -27,7 +23,6 @@ public class Cashier {
     }
 
     public Cashier(String firstName, String lastName, int age) {
-
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;

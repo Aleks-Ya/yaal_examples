@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-into-person
+      author: Alex
+      comment: Insert a row into 'persons' table
+      changes:
+        - insert:
+            schemaName: public
+            tableName: person
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: John
+              - column:
+                  name: age
+                  value: 30
+              - column:
+                  name: created
+                  value: "2023-06-22T12:30:50Z"
+              - column:
+                  name: updated
+                  value: "2023-07-23T13:31:51"
+        - insert:
+            schemaName: public
+            tableName: person
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: Mary
+              - column:
+                  name: age
+                  value: 25
+              - column:
+                  name: created
+                  value: "2022-05-11T11:20:40Z"
+              - column:
+                  name: updated
+                  value: "2022-06-24T15:33:45"
+      rollback:
+        - delete:
+            schemaName: public
+            tableName: person
+            where: id=1
+        - delete:
+            schemaName: public
+            tableName: person
+            where: id=2

@@ -22,15 +22,15 @@ subprojects {
         jettyServlet10Dep = 'org.eclipse.jetty:jetty-servlet:10.0.15'
         jettyServlet11Dep = 'org.eclipse.jetty:jetty-servlet:11.0.15'
         servlet4Dep = 'javax.servlet:javax.servlet-api:4.0.1'
-        jacksonVersion = '2.15.0'
+        jacksonVersion = '2.15.2'
         jacksonDataBindDep = "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         jacksonDatatypeJsr310Dep = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
-        jsonUnitDep = 'net.javacrumbs.json-unit:json-unit:2.36.1'
-        mockitoVersion = '5.1.1'
+        jsonUnitDep = 'net.javacrumbs.json-unit:json-unit:2.38.0'
+        mockitoVersion = '5.2.0'
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
         mockitoJunitJupiterDep = "org.mockito:mockito-junit-jupiter:$mockitoVersion"
-        log4jCoreDep = 'org.apache.logging.log4j:log4j-core:2.19.0'
-        logbackClassicDep = 'ch.qos.logback:logback-classic:1.4.6'
+        log4jCoreDep = 'org.apache.logging.log4j:log4j-core:2.20.0'
+        logbackClassicDep = 'ch.qos.logback:logback-classic:1.4.8'
         gsonDep = 'com.google.code.gson:gson:2.10.1'
         commonsLangDep = 'org.apache.commons:commons-lang3:3.12.0'
         wireMockDep = 'com.github.tomakehurst:wiremock:2.27.2'
@@ -84,6 +84,8 @@ subprojects {
         retrofitGsonDep = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
         retrofitJacksonDep = "com.squareup.retrofit2:converter-jackson:$retrofitVersion"
         retrofitMoshiDep = "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+        liquibaseCoreDep = 'org.liquibase:liquibase-core:4.22.0'
+        apacheCommonsIoDep = 'commons-io:commons-io:2.13.0'
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
@@ -96,7 +98,7 @@ subprojects {
 configure(subprojects - project('UnitTest+:JUnit+:JUnit4').subprojects - project('UnitTest+:TestNG+').subprojects) {
     dependencies {
         testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version", 'org.hamcrest:hamcrest:2.2',
-                'org.awaitility:awaitility:4.2.0', 'commons-io:commons-io:2.11.0', 'org.assertj:assertj-core:3.24.1'
+                'org.awaitility:awaitility:4.2.0', apacheCommonsIoDep, 'org.assertj:assertj-core:3.24.1'
         testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
     }
     test {

@@ -1,0 +1,5 @@
+spring:
+  liquibase:
+    enabled: true
+    change-log: classpath:liquibase/entity/datatype/changelog/db.changelog-master.yaml
+    drop-first: true

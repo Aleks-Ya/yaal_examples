@@ -1,24 +1,19 @@
-package entity;
-
-import org.hibernate.annotations.GenericGenerator;
+package hibernate.h2.config.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.util.Date;
 
 @Entity
 public class Shift {
-
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     @OneToOne
     private Cashier cashier;
-
     private Date createDate;
     private Date openDate;
     private Date closeDate;

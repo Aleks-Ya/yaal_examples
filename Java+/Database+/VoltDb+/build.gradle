@@ -1,5 +1,5 @@
 subprojects {
     dependencies {
-        implementation 'org.voltdb:voltdbclient:5.1', 'commons-io:commons-io:2.6'
+        implementation 'org.voltdb:voltdbclient:5.1', apacheCommonsIoDep
     }
 }

@@ -1,16 +1,20 @@
-package config;
+package hibernate.h2.config;
 
-import entity.Cashier;
-import entity.Shift;
+import hibernate.h2.config.WorkWithDb;
+import hibernate.h2.config.entity.Cashier;
+import hibernate.h2.config.entity.Shift;
 import org.hibernate.cfg.Configuration;
+import org.junit.jupiter.api.Test;
 
-/**
- * Конфигурирование Hibernate в java-коде.
- */
-public class JavaConfig extends AbstractConfig {
+class JavaConfigTest {
+    @Test
+    void javaConfig() {
+        var configuration = getConfiguration();
+        WorkWithDb.workWithDb(configuration);
+    }
 
-    protected Configuration getConfiguration() {
-        Configuration configuration = new Configuration();
+    private static Configuration getConfiguration() {
+        var configuration = new Configuration();
         configuration.setProperty("hibernate.connection.driver_class", "org.h2.Driver");
         configuration.setProperty("hibernate.connection.url", "jdbc:h2:mem:");
         configuration.setProperty("hibernate.connection.username", "");
