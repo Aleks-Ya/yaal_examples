@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+title Break a "repeat" loop
+start
+repeat
+floating note: Break on a repeat loop
+  :Test something;
+    if (Something went wrong?) then (no)
+      #palegreen:OK;
+      break
+    endif
+    ->NOK;
+    :Alert "Error with long text";
+repeat while (Something went wrong with long text?) is (yes) not (no)
+->//merged step//;
+:Alert "Success";
+stop
+
+@enduml

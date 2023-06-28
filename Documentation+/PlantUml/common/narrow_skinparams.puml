@@ -1,0 +1,22 @@
+@startuml
+
+skinparam ArrowColor red
+skinparam ArrowFontColor blue
+skinparam ArrowFontName Helvetica
+skinparam ArrowFontSize 14
+skinparam ArrowFontStyle bold
+skinparam ArrowThickness 2
+
+class Class1 {
+    -attribute1 : int
+    +method1() : void
+}
+
+class Class2 {
+    -attribute2 : int
+    +method2() : void
+}
+
+Class1 --> Class2
+
+@enduml

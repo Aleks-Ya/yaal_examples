@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+title "goto" and "label"
+
+start
+if (Test Question?) then (yes)
+    'space label only for alignment
+    label sp_lab0
+    label sp_lab1
+    'real label
+    label lab
+    :shared;
+    else (no)
+    if (Second Test Question?) then (yes)
+        label sp_lab2
+        goto sp_lab1
+    else
+        :nonShared;
+    endif
+endif
+:merge;
+
+@enduml

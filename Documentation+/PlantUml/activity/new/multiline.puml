@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+title "if-else" condition
+start
+:Using a line separator\nescape symbol;
+:Use plain
+line separator;
+stop
+
+@enduml

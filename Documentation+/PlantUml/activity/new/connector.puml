@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+title Connectors
+
+start
+:Action 1;
+if (A > B) then (yes)
+    :Action 2;
+    (A)
+    detach
+elseif (C > D) then (yes)
+    :Action 3;
+    (B)
+    detach
+else (no)
+    :Action 4;
+    (A)
+    detach
+endif
+(A)
+:Success;
+stop
+(B)
+:Fail;
+stop
+
+@enduml

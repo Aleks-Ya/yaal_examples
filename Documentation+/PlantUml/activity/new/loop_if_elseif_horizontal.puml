@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+title "if-else-if" condition
+start
+if (condition 1?) then (yes1)
+  :Action 1-1;
+  :Action 1-2;
+(no1) elseif (condition 2?) then (yes2)
+  :Action 2-1;
+  :Action 2-2;
+(no2) elseif (condition 3?) then (yes3)
+  :Action 3-1;
+  :Action 3-2;
+else (no)
+  :Action 4-1;
+  :Action 4-2;
+endif
+stop
+
+@enduml

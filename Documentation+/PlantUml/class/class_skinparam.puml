@@ -1,0 +1,26 @@
+@startuml
+
+skinparam ClassAttributeFontColor red
+skinparam ClassAttributeFontName Helvetica
+skinparam ClassAttributeFontSize 12
+skinparam ClassAttributeFontStyle bold
+skinparam ClassAttributeIconSize 8
+skinparam ClassBackgroundColor lightblue
+skinparam ClassBorderColor black
+skinparam ClassBorderThickness 2
+skinparam ClassFontColor green
+skinparam ClassFontName Courier
+skinparam ClassFontSize 14
+skinparam ClassFontStyle italic
+skinparam ClassHeaderBackgroundColor lightgrey
+skinparam ClassStereotypeFontColor blue
+skinparam ClassStereotypeFontName Times
+skinparam ClassStereotypeFontSize 16
+skinparam ClassStereotypeFontStyle plain
+
+class MyClass {
+    -privateAttribute1 : int
+    +publicMethod1() : void
+}
+
+@enduml
