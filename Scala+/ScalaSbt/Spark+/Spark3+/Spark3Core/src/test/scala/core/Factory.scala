@@ -7,6 +7,7 @@ object Factory {
   lazy val sc: SparkContext = {
     val conf = new SparkConf()
       .setAppName(getClass.getSimpleName)
+      .set("spark.driver.host", "localhost")
       .setMaster("local")
     setEventLogDir(conf)
     new SparkContext(conf)

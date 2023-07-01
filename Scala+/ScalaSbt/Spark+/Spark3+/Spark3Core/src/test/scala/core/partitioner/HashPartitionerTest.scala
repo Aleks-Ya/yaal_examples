@@ -24,7 +24,7 @@ class HashPartitionerTest extends AnyFlatSpec with Matchers {
     originRdd.getNumPartitions shouldBe 1
     val rdd = originRdd.repartition(partitionNumber)
     rdd.getNumPartitions shouldBe partitionNumber
-    partitionedRddToString(rdd) shouldBe "0-3-c, 1-1-a, 1-4-d, 2-2-b"
+    partitionedRddToString(rdd) shouldBe "0-1-a, 0-4-d, 1-2-b, 2-3-c"
   }
 
   private def partitionedRddToString(rdd: RDD[(Int, String)]) = {

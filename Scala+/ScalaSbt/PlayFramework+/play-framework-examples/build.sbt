@@ -3,7 +3,7 @@ import Dependencies.{jettyServletDep, jsonUnitDep, scalaTestPlusPlayDep}
 lazy val playFrameworkExamples = (project in file(".")).
   settings(
     name := "play-framework-examples",
-    connectInput in run := true,
+    run / connectInput := true,
     libraryDependencies ++= Seq(guice, scalaTestPlusPlayDep, jettyServletDep, jsonUnitDep)
   ).enablePlugins(PlayScala)
 

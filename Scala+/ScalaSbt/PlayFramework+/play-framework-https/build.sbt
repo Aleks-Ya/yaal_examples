@@ -3,8 +3,8 @@ import Dependencies.scalaTestPlusPlayDep
 lazy val playFrameworkHttps = (project in file(".")).
   settings(
     name := "play-framework-https",
-    connectInput in run := true,
+    run / connectInput := true,
     libraryDependencies ++= Seq(guice, scalaTestPlusPlayDep),
-    cancelable in Global := true,
-    fork in run := true
+    Global / cancelable := true,
+    run / fork := true
   ).enablePlugins(PlayScala)

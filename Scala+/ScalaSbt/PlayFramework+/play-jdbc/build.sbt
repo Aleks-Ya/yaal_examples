@@ -1,8 +1,8 @@
-import Dependencies._
+import Dependencies.{scalaTestPlusPlayDep, h2Dep, playJdbcDep}
 
 lazy val playJdbc = (project in file(".")).
   settings(
     name := "play-jdbc",
-    connectInput in run := true,
+    run / connectInput := true,
     libraryDependencies ++= Seq(guice, scalaTestPlusPlayDep, h2Dep, playJdbcDep)
   ).enablePlugins(PlayScala)

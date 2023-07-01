@@ -1,11 +1,11 @@
 // Run Scala application with "sbt run" command and reload modified classes
 
-import Dependencies._
+import Dependencies.scalaTestDep
 
 lazy val ScalaRun = (project in file(".")).settings(
   libraryDependencies ++= Seq(scalaTestDep),
-  mainClass in assembly := Some("run.ReloadMain"),
-  cancelable in Global := true,
-  fork in run := true
+  assembly / mainClass := Some("run.ReloadMain"),
+  Global / cancelable := true,
+  run / fork := true
 )
 

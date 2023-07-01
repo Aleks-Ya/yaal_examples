@@ -1,5 +1,8 @@
 # sbt CLI
 
+## Project
+List projects: `sbt projects`
+
 ## Run
 
 Run app: `sbt run`
