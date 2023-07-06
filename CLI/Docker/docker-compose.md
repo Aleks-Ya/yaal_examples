@@ -4,6 +4,7 @@ Docs: [Docker Compose CLI reference](https://docs.docker.com/compose/reference/)
 
 ## Actual (using Docker Desktop for Linux)
 Show version: `docker compose version`
+Run with custom compose file: `docker-compose -f my.yml`
 
 ## Obsolete
 ### Build, start, stop
