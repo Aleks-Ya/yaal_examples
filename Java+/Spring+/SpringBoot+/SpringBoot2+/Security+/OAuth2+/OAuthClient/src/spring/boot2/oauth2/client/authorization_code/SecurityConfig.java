@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @EnableWebSecurity
-@PropertySource("file:/tmp/oauth-client.properties")
+@PropertySource(value = "file:/tmp/oauth-client.properties", ignoreResourceNotFound = true)
 class SecurityConfig {
 
     @Bean
