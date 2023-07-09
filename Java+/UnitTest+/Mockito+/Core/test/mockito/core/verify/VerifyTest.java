@@ -2,16 +2,15 @@ package mockito.core.verify;
 
 import mockito.core.FakeInterface;
 import org.junit.jupiter.api.Test;
+import org.mockito.exceptions.verification.NoInteractionsWanted;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.*;
 
 class VerifyTest {
 
@@ -60,5 +59,29 @@ class VerifyTest {
 
         verify(pathMock).toFile();
         verify(file).getAbsolutePath();
+    }
+
+    @Test
+    void verifyNoMoreInteractions_success() {
+        var mock = mock(File.class);
+
+        assertThat(mock.canRead()).isFalse();
+        assertThat(mock.setExecutable(true)).isFalse();
+        verify(mock).canRead();
+        verify(mock).setExecutable(true);
+        verifyNoMoreInteractions(mock);
+
+        assertThat(mock.delete()).isFalse();
+        verify(mock).delete();
+        verifyNoMoreInteractions(mock);
+    }
+
+    @Test
+    void verifyNoMoreInteractions_fail() {
+        var mock = mock(File.class);
+        assertThat(mock.canRead()).isFalse();
+        assertThat(mock.delete()).isFalse();
+        verify(mock).canRead();
+        assertThatThrownBy(() -> verifyNoMoreInteractions(mock)).isInstanceOf(NoInteractionsWanted.class);
     }
 }

@@ -1,7 +1,6 @@
 package mockito.inline;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
 import org.mockito.exceptions.base.MockitoException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,7 +14,7 @@ class MockStaticMethodTest {
     @Test
     void staticMethod() {
         assertThat(Service.getName()).isEqualTo(ORIGINAL_NAME);
-        try (MockedStatic<Service> mocked = mockStatic(Service.class)) {
+        try (var mocked = mockStatic(Service.class)) {
             mocked.when(Service::getName).thenReturn(MOCKED_NAME);
             assertThat(Service.getName()).isEqualTo(MOCKED_NAME);
             mocked.verify(Service::getName);
@@ -26,7 +25,7 @@ class MockStaticMethodTest {
     @Test
     void staticMethodWithArgument() {
         assertThat(Service.toUpperCase("abc")).isEqualTo("ABC");
-        try (MockedStatic<Service> mocked = mockStatic(Service.class)) {
+        try (var mocked = mockStatic(Service.class)) {
             mocked.when(() -> Service.toUpperCase("abc")).thenReturn("XYZ");
             assertThat(Service.toUpperCase("abc")).isEqualTo("XYZ");
             mocked.verify(() -> Service.toUpperCase("abc"));
