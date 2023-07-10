@@ -74,6 +74,8 @@ class VerifyTest {
         assertThat(mock.delete()).isFalse();
         verify(mock).delete();
         verifyNoMoreInteractions(mock);
+        verify(mock).canRead();
+        verify(mock).canRead();
     }
 
     @Test

@@ -19,7 +19,7 @@ databaseChangeLog:
                   type: java.sql.Types.SMALLINT
               - column:
                   name: created
-                  type: java.sql.Types.TIMESTAMP
+                  type: java.sql.Types.TIMESTAMP_WITH_TIMEZONE
               - column:
                   name: updated
                   type: java.sql.Types.TIMESTAMP

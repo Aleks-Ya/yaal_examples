@@ -1,5 +1,6 @@
 # globalprotect CLI
 
+Help: `man globalprotect`
 Connect: `globalprotect connect --portal vpn-eu-nix.epam.com`
 Disconnect: `globalprotect disconnect`
 Reconnect: `globalprotect rediscover-network`
