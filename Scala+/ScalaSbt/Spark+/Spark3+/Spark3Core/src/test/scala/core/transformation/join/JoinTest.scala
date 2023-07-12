@@ -4,7 +4,7 @@ import core.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class JoinTransformation extends AnyFlatSpec with Matchers {
+class JoinTest extends AnyFlatSpec with Matchers {
 
   it should "join two RDDs" in {
     val names = Factory.sc.parallelize(Seq((1L, "John"), (2L, "Mary")))

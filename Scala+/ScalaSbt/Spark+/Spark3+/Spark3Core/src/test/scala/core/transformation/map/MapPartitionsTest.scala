@@ -4,7 +4,7 @@ import core.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class MapPartitionsTransformation extends AnyFlatSpec with Matchers {
+class MapPartitionsTest extends AnyFlatSpec with Matchers {
 
   it should "use mapPartitions to initialize executor" in {
     def initExecutor(): Unit = {
@@ -25,9 +25,7 @@ class MapPartitionsTransformation extends AnyFlatSpec with Matchers {
       cleanupExecutor()
       list.iterator
     })
-      .foreach(element => {
-        println(element)
-      })
+      .foreach(element => println(element))
   }
 
 }

@@ -4,7 +4,7 @@ import core.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class MapValuesTransformation extends AnyFlatSpec with Matchers {
+class MapValuesTest extends AnyFlatSpec with Matchers {
 
   "mapValues" should "map only values" in {
     val str = Factory.sc.parallelize(Seq((1, "a"), (2, "b")))

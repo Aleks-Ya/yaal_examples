@@ -19,7 +19,7 @@ class SparkFilesTest extends AnyFlatSpec with Matchers {
     val filename = path.getFileName.toString
     Factory.sc.addFile(path.toString)
     val actContent = Factory.sc.parallelize(Array(1, 2, 3))
-      .map(x => x + Files.readString(Paths.get(SparkFiles.get(filename))))
+      .map(x => x + new String(Files.readAllBytes(Paths.get(SparkFiles.get(filename)))))
       .reduce((s1, s2) => s1 + s2)
     actContent shouldEqual "1abc2abc3abc"
   }

@@ -7,18 +7,22 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 class HashPartitionerTest extends AnyFlatSpec with Matchers {
-  val data = Seq((1, "a"), (2, "b"), (3, "c"), (4, "d"))
-  val partitionNumber = 3
+  private val data = Seq((1, "a"), (2, "b"), (3, "c"), (4, "d"))
+  private val partitionNumber = 3
 
   it should "Use HashPartitioner explicitly (instance of HashPartitioner class)" in {
     val partitioner = new HashPartitioner(partitionNumber)
-    val rdd = Factory.sc.parallelize(data).partitionBy(partitioner)
+    val originRdd = Factory.sc.parallelize(data)
+    originRdd.getNumPartitions shouldBe 1
+    val rdd = originRdd.partitionBy(partitioner)
     rdd.getNumPartitions shouldBe partitionNumber
     partitionedRddToString(rdd) shouldBe "0-3-c, 1-1-a, 1-4-d, 2-2-b"
   }
 
   it should "Use HashPartitioner implicitly (RDD#repartition)" in {
-    val rdd = Factory.sc.parallelize(data).repartition(partitionNumber)
+    val originRdd = Factory.sc.parallelize(data)
+    originRdd.getNumPartitions shouldBe 1
+    val rdd = originRdd.repartition(partitionNumber)
     rdd.getNumPartitions shouldBe partitionNumber
     partitionedRddToString(rdd) shouldBe "0-3-c, 1-1-a, 1-4-d, 2-2-b"
   }
