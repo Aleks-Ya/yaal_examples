@@ -29,6 +29,7 @@ Log in: `gcloud auth login`
 Show current login: `gcloud auth list`
 Log out of all accounts: `gcloud auth revoke --all`
 Authenticate as a service account: `gcloud auth activate-service-account --key-file=/home/aleks/.gcloud/key.json`
+Choose active account: `gcloud config set account aleks.yablokov@gmail.com`
 
 ## AIM
 List service accounts: `gcloud iam service-accounts list`

@@ -3,7 +3,7 @@
 ## Info
 Show version: `duplicity --version`
 Show help: `duplicity -h`
-Log level (0-9): `duplicity -v 9 ...`
+Log level (0-9): `duplicity -v 9 ...` or whithout space `duplicity -v9 ...`
 Specify passphrase: `PASSPHRASE="my-pass-phrase" duplicity file:///tmp/data /tmp/data-restore`
 Show progress: `duplicity full --progress --no-encryption /tmp/data file:///tmp/backup`
 
