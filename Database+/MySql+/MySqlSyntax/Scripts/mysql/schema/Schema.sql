@@ -1,0 +1,2 @@
+CREATE SCHEMA `sales`;
+DROP SCHEMA `sales`;
