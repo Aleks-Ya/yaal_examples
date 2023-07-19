@@ -1,4 +1,4 @@
-package util.collection.queue.blocking;
+package util.concurrent.collection;
 
 import org.junit.jupiter.api.Test;
 
@@ -7,9 +7,9 @@ import java.util.concurrent.BlockingQueue;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class BlockingQueueTest {
+class ArrayBlockingQueueTest {
     @Test
-    void test() throws InterruptedException {
+    void put() throws InterruptedException {
         BlockingQueue<Integer> q = new ArrayBlockingQueue<>(2);
         q.put(1);
         q.put(2);

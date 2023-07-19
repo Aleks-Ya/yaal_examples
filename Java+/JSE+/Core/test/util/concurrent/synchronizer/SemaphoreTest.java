@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.util.concurrent.Semaphore;
 import java.util.stream.IntStream;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 class SemaphoreTest {
     private static final int PERMITS = 2;
     private static final Semaphore SEMAPHORE = new Semaphore(PERMITS);
@@ -24,8 +26,10 @@ class SemaphoreTest {
     @Test
     void releaseWithoutAcquire() {
         var semaphore = new Semaphore(5);
+        assertThat(semaphore.availablePermits()).isEqualTo(5);
         semaphore.release();
         semaphore.release();
+        assertThat(semaphore.availablePermits()).isEqualTo(7);
     }
 
     private static class Worker extends Thread {

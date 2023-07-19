@@ -1,4 +1,4 @@
-package util.collection.queue.blocking;
+package util.concurrent.collection;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
