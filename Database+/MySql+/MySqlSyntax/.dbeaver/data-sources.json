@@ -12,7 +12,8 @@
 				"url": "jdbc:mysql://localhost:3306/",
 				"configurationType": "MANUAL",
 				"type": "dev",
-				"auth-model": "native"
+				"auth-model": "native",
+				"events": {}
 			}
 		}
 	},
