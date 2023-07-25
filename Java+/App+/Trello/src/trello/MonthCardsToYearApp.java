@@ -11,6 +11,7 @@ public class MonthCardsToYearApp {
         var tuneLabels = ctx.getBean(TuneLabels.class);
         tuneLabels.createAbsentLabels();
         tuneLabels.findCardsHavingManyLabels();
+        tuneLabels.findDuplicatingLabels();
         tuneLabels.tune();
         ctx.stop();
     }

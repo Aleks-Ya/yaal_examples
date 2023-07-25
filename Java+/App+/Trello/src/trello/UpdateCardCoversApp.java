@@ -7,11 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class UpdateCardCoversApp {
     public static void main(String[] args) {
         System.setProperty("logging.level.org.springframework.web.client.RestTemplate", "INFO");
-        var ctx = SpringApplication.run(UpdateCardCoversApp.class, args);
-        var tuneLabels = ctx.getBean(TuneLabels.class);
-        tuneLabels.createAbsentLabels();
-        tuneLabels.findCardsHavingManyLabels();
-        tuneLabels.tune();
-        ctx.stop();
+        try (var ctx = SpringApplication.run(UpdateCardCoversApp.class, args)) {
+            var tuneLabels = ctx.getBean(TuneLabels.class);
+            tuneLabels.createAbsentLabels();
+            tuneLabels.findCardsHavingManyLabels();
+            tuneLabels.findDuplicatingLabels();
+            tuneLabels.tune();
+        }
     }
 }

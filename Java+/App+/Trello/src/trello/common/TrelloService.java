@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class TrelloService {
@@ -54,6 +56,14 @@ public class TrelloService {
         return Arrays.stream(AreaLabel.values()).map(areaLabel -> getLabelOnBoard(board, areaLabel)).toList();
     }
 
+    public Map<String, List<Label>> getLabelsWithDuplicatingNameOnBoard(Board board) {
+        return trelloClient.getAllLabelsOnBoard(board).stream()
+                .collect(Collectors.groupingBy(Label::name))
+                .entrySet().stream()
+                .filter(entry -> entry.getValue().size() > 1)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
     public Label getLabelOnBoard(Board board, AreaLabel areaLabel) {
         return trelloClient.getAllLabelsOnBoard(board).stream()
                 .filter(label -> {
@@ -78,4 +88,18 @@ public class TrelloService {
     public List<Card> getCardsInList(TList list) {
         return trelloClient.getCardsInList(list);
     }
+
+    public Label getLabelById(String labelId) {
+        return trelloClient.getLabelById(labelId);
+    }
+
+    public void replaceLabelOnCard(Card card, Label oldLabel, Label newLabel) {
+        if (!card.labels().contains(newLabel)) {
+            trelloClient.addLabelToCard(card, newLabel);
+        }
+        if (card.labels().contains(oldLabel)) {
+            trelloClient.removeLabelFromCard(card, oldLabel);
+        }
+    }
+
 }

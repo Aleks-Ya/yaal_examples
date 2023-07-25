@@ -18,6 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.web.client.HttpClientErrorException.BadRequest;
+
 @Service
 class TrelloClient {
     private static final Logger log = LoggerFactory.getLogger(TrelloService.class);
@@ -145,4 +147,44 @@ class TrelloClient {
         restTemplate.put(uri, entity);
         log.info("Updated card color: cardName='{}', coverColor={}", card.name(), coverColor);
     }
+
+    /**
+     * @throws BadRequest if card has the label already.
+     */
+    public void addLabelToCard(Card card, Label label) {
+        var uri = UriComponentsBuilder.fromUriString(baseUrl)
+                .pathSegment("cards")
+                .pathSegment(card.id())
+                .pathSegment("idLabels")
+                .queryParams(secretParams)
+                .queryParam("value", label.id())
+                .build()
+                .toUri();
+        restTemplate.postForObject(uri, null, Object.class);
+        log.info("Added label to card: cardName='{}', labelId={}", card.name(), label.name());
+    }
+
+    public void removeLabelFromCard(Card card, Label label) {
+        var uri = UriComponentsBuilder.fromUriString(baseUrl)
+                .pathSegment("cards")
+                .pathSegment(card.id())
+                .pathSegment("idLabels")
+                .pathSegment(label.id())
+                .queryParams(secretParams)
+                .build()
+                .toUri();
+        restTemplate.delete(uri);
+        log.info("Removed label from card: cardName='{}', labelId={}", card.name(), label.id());
+    }
+
+    public Label getLabelById(String labelId) {
+        var uri = UriComponentsBuilder.fromUriString(baseUrl)
+                .pathSegment("labels")
+                .pathSegment(labelId)
+                .queryParams(secretParams)
+                .build()
+                .toUri();
+        return restTemplate.getForObject(uri, Label.class);
+    }
+
 }

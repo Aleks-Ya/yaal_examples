@@ -67,6 +67,27 @@ class TuneLabels {
         }
     }
 
+    void findDuplicatingLabels() {
+        var duplicatesFound = false;
+        var boards = trelloService.getInvolvedBoards();
+        for (var board : boards) {
+            var duplicatingNameLabels = trelloService.getLabelsWithDuplicatingNameOnBoard(board);
+            duplicatingNameLabels.forEach((labelName, labels) -> {
+                log.error("Found {} labels with duplicating name \"{}\" on board \"{}\":\n{}",
+                        labels.size(), labelName, board.name(), labels);
+                labels.forEach(label -> log.error("Number of cards with label \"{}\": {}",
+                        label.id(), trelloService.getCardsOnBoardWithLabel(board, label).size())
+                );
+            });
+            if (!duplicatingNameLabels.isEmpty()) {
+                duplicatesFound = true;
+            }
+        }
+        if (duplicatesFound) {
+            throw new IllegalStateException();
+        }
+    }
+
     void tune() {
         var boards = trelloService.getInvolvedBoards();
         for (var board : boards) {
