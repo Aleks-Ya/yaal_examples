@@ -26,5 +26,7 @@ pip3 install --upgrade pip
 echo
 
 echo "Updating SdkMan..."
+source "$SDKMAN_DIR/bin/sdkman-init.sh"
+sdk selfupdate
 sdk update
 echo
