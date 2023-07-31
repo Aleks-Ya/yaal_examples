@@ -1,6 +1,8 @@
 # Convert MTS video files to MP4 with "ffmpeg" tool.
-# Run (remove audio): "python3 mts2mp4.py /media/JVCCAM_SD /home/aleks/tmp"
+# Run (remove audio - default): "python3 mts2mp4.py /media/JVCCAM_SD /home/aleks/tmp"
 # Run (preserve audio): "python3 mts2mp4.py /media/JVCCAM_SD /home/aleks/tmp --preserve-audio"
+# Run (do not delete source files - default): "python3 mts2mp4.py /media/JVCCAM_SD /home/aleks/tmp"
+# Run (delete source files): "python3 mts2mp4.py /media/JVCCAM_SD /home/aleks/tmp --delete-source-files"
 import datetime
 import os
 import shutil
@@ -178,10 +180,35 @@ def calc_exp_finish_date_time(performance: Optional[int], files_data_: FilesData
         return None
 
 
+def delete_source_files_if_needed():
+    folders_to_empty: Dict[str, str] = {'PRIVATE/AVCHD/BDMV/CLIPINF/': '.CPI',
+                                        'PRIVATE/AVCHD/BDMV/PLAYLIST/': '.MPL',
+                                        'PRIVATE/AVCHD/BDMV/STREAM/': '.MTS',
+                                        'PRIVATE/JVC/CLPEXT/': '.CED',
+                                        'PRIVATE/JVC/MARKER/': '.JSN'}
+    if delete_source_files:
+        print('Deleting source files...')
+        deleted_files_counter: int = 0
+        for folder, extension in folders_to_empty.items():
+            folder_to_empty = base_dir.joinpath(folder)
+            for file_to_delete in folder_to_empty.iterdir():
+                if file_to_delete.is_file() and file_to_delete.name.endswith(extension):
+                    print(f'Deleting file: {file_to_delete}')
+                    file_to_delete.unlink()
+                    deleted_files_counter = deleted_files_counter + 1
+        print(f'Source files were deleted: {deleted_files_counter} files')
+    else:
+        print('Skip deleting source files')
+
+
 start_date_time: datetime.datetime = datetime.datetime.now()
 print("Start time: ", format_date_time(start_date_time))
 
-src_dir: Path = Path(sys.argv[1])
+base_dir: Path = Path(sys.argv[1])
+print(f"Base directory: {base_dir}")
+check_dir_exits(base_dir)
+
+src_dir: Path = base_dir.joinpath('PRIVATE/AVCHD/BDMV/STREAM')
 print(f"Source directory: {src_dir}")
 check_dir_exits(src_dir)
 
@@ -190,6 +217,9 @@ print(f"Destination directory: {dest_dir}")
 
 preserve_audio: bool = '--preserve-audio' in sys.argv
 print(f"Preserve audio: {preserve_audio}")
+
+delete_source_files: bool = '--delete-source-files' in sys.argv
+print(f"Delete source files: {delete_source_files}")
 
 check_ffmpeg_availability()
 
@@ -207,11 +237,16 @@ check_enough_disk_space(files_data, dest_dir)
 
 convert_files(files_data)
 
+delete_source_files_if_needed()
+
 print("Done.")
 end_date_time: datetime.datetime = datetime.datetime.now()
 print("Finish time: ", format_date_time(end_date_time))
 
 act_duration_sec: int = (end_date_time - start_date_time).seconds
-act_performance: int = int(files_data.src_file_size_total / act_duration_sec)
-print(f"Actual performance: {act_performance} bytes/sec")
-write_last_performance(act_performance, last_performance_file)
+if act_duration_sec > 0:
+    act_performance: int = int(files_data.src_file_size_total / act_duration_sec)
+    print(f"Actual performance: {act_performance} bytes/sec")
+    write_last_performance(act_performance, last_performance_file)
+else:
+    print(f"Actual performance: -")

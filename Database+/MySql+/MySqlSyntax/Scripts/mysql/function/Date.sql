@@ -12,3 +12,6 @@ SELECT CURDATE();
 
 -- Get parts of a date
 SELECT YEAR('2020-06-01'), MONTH('2020-06-01');
+
+-- Format
+SELECT DATE_FORMAT('2020-06-01', '%Y-%m');

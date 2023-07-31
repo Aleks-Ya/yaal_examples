@@ -18,3 +18,6 @@ SELECT UPPER('AbcD'), LOWER('AbcD'), UCASE('AbcD'), LCASE('AbcD');
 
 -- Concatenation
 SELECT CONCAT('aa', 'bb', 'cc');
+
+-- Fill string with a symbol until the string reaches desired length
+SELECT LPAD('hi', 6, '='), LPAD(123, 6, 0); 
