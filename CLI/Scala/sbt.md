@@ -1,5 +1,9 @@
 # sbt CLI
 
+## Info
+Help: `sbt -h`
+Version: `sbt --version`
+
 ## Project
 List projects: `sbt projects`
 
