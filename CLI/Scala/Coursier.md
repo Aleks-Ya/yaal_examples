@@ -2,5 +2,5 @@
 
 Install: https://get-coursier.io/docs/cli-installation#linux
 
-Help: `cs`
+Help: `cs help`
 Version: `cs version`

@@ -8,6 +8,11 @@ subprojects {
     targetCompatibility = JavaVersion.VERSION_17
     defaultTasks('test')
     repositories {
+		if (project.hasProperty('maven_central_mirror')) {
+			maven {
+				url project.maven_central_mirror
+			}
+		}
         mavenCentral()
     }
     ext {

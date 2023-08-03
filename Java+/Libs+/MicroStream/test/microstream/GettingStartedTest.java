@@ -1,6 +1,6 @@
 package microstream;
 
-import one.microstream.storage.types.EmbeddedStorage;
+import one.microstream.storage.embedded.types.EmbeddedStorage;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Paths;

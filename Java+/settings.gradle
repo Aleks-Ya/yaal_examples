@@ -1,3 +1,13 @@
+pluginManagement {
+	repositories {
+		if (settings.hasProperty('gradle_plugin_repo_mirror')) {
+			maven {
+			  url settings.gradle_plugin_repo_mirror
+			}
+		}
+	}
+}
+
 /**
  * Java
  */
@@ -338,4 +348,3 @@ include 'Spring+:Spring3+:AnnotationConfig+:Configuration',
         'Spring+:SpringBoot+:SpringBoot3+:Web',
         'Spring+:SpringBoot+:SpringBoot3+:Swagger+:SpringFox',
         'Spring+:SpringBoot+:SpringBoot3+:Swagger+:SpringDoc'
-
