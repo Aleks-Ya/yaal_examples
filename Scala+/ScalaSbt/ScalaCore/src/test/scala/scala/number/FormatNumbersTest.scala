@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 import java.math.BigDecimal
 import java.text.NumberFormat
 
-class FormatNumbers extends AnyFlatSpec with Matchers {
+class FormatNumbersTest extends AnyFlatSpec with Matchers {
 
   it should "format Integer with a Locale" in {
     val locale = new java.util.Locale("ru", "RU")
