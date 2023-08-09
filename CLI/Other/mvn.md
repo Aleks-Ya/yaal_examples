@@ -1,5 +1,10 @@
 # mvn CLI (Maven)
 
+## Info
+Help: `mvn -h`
+Version: `mvn -v`
+
+## Dependencies
 Print the dependency tree to a file:
 ```
 mvn dependency:tree -DoutputFile=target/tree.txt
@@ -20,6 +25,7 @@ Download sources: `mvn dependency:sources`
 Download JavaDoc: `mvn dependency:resolve -Dclassifier=javadoc`
 Go offline: `mvn dependency:go-offline`
 Debug, verbose: `mvn -X compile`
+
 ## Tests
 Compile tests: `mvn test-compile`
 Skip tests: `mvn -DskipTests package`
