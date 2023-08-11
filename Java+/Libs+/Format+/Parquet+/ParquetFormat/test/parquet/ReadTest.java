@@ -1,26 +1,26 @@
 package parquet;
 
-import org.apache.avro.SchemaBuilder;
-import org.apache.avro.generic.GenericRecord;
-import org.apache.avro.generic.GenericRecordBuilder;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.parquet.avro.AvroParquetWriter;
 import org.apache.parquet.column.ColumnReadStore;
 import org.apache.parquet.column.ColumnReader;
 import org.apache.parquet.column.impl.ColumnReadStoreImpl;
 import org.apache.parquet.column.page.PageReadStore;
+import org.apache.parquet.example.data.simple.SimpleGroupFactory;
 import org.apache.parquet.example.data.simple.convert.GroupRecordConverter;
 import org.apache.parquet.hadoop.ParquetFileReader;
+import org.apache.parquet.hadoop.example.ExampleParquetWriter;
 import org.apache.parquet.hadoop.util.HadoopInputFile;
-import org.apache.parquet.hadoop.util.HadoopOutputFile;
 import org.apache.parquet.schema.PrimitiveType;
+import org.apache.parquet.schema.Types;
 import org.junit.jupiter.api.Test;
 import util.FileUtil;
 
 import java.io.IOException;
 import java.util.Arrays;
 
+import static org.apache.parquet.schema.LogicalTypeAnnotation.stringType;
+import static org.apache.parquet.schema.PrimitiveType.PrimitiveTypeName.BINARY;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -30,35 +30,30 @@ class ReadTest {
     void read() throws IOException {
         var conf = new Configuration();
 
-        var myStringField = "mystring";
-        var expString = "the string";
+        var field = "mystring";
+        var value = "the string";
 
-        var path = writeParquetFile(conf, myStringField, expString);
-        readParquetFile(conf, path, myStringField, expString);
+        var path = writeParquetFile(conf, field, value);
+        readParquetFile(conf, path, field, value);
     }
 
     private Path writeParquetFile(Configuration conf, String myStringField, String expString) throws IOException {
         var path = new Path(FileUtil.createAbsentTempFileDeleteOnExit(".parquet").getPath());
 
-        // Write Parquet file
-        var schema1 = SchemaBuilder.record("myrecord")
-                .fields()
-                .name(myStringField).type().stringType().noDefault()
-                .endRecord();
-        var expRecord = new GenericRecordBuilder(schema1).set(myStringField, expString).build();
-        var outputFile = HadoopOutputFile.fromPath(path, conf);
-        var writer = AvroParquetWriter
-                .<GenericRecord>builder(outputFile)
-                .withSchema(schema1)
-                .withConf(conf)
-                .build();
-        writer.write(expRecord);
-        writer.close();
+        var schema = Types.buildMessage()
+                .required(BINARY).as(stringType()).named(myStringField)
+                .named("myrecord");
+        var factory = new SimpleGroupFactory(schema);
+        try (var writer = ExampleParquetWriter.builder(path).withConf(conf).withType(schema).build()) {
+            var group = factory.newGroup().append(myStringField, expString);
+            writer.write(group);
+        }
+
         return path;
     }
 
     private void readParquetFile(Configuration conf, Path path, String myStringField, String expString) throws IOException {
-        var rows = 0;
+        var rows = 0L;
         var inputFile = HadoopInputFile.fromPath(path, conf);
         try (var r = ParquetFileReader.open(inputFile)) {
             var readFooter = r.getFooter();
@@ -98,6 +93,6 @@ class ReadTest {
             assertThat(actString).isEqualTo(expString);
             assertThat(numRowGroups).isEqualTo(1);
         }
-        System.out.println("Total number of rows: " + rows);
+        assertThat(rows).isEqualTo(1);
     }
 }
