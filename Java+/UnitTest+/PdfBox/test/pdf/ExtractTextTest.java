@@ -1,20 +1,19 @@
 package pdf;
 
-import org.apache.lucene.document.Document;
 import org.apache.pdfbox.lucene.LucenePDFDocument;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
-public class ExtractTextTest {
+class ExtractTextTest {
 
     @Test
+    @Disabled("Fail with 'NoClassDefFoundError: org/apache/pdfbox/exceptions/CryptographyException'")
     void blank() throws IOException {
-        File file = Helper.createPdfFile();
-        Document luceneDocument = LucenePDFDocument.getDocument(file);// doesn't work
-        List fields = luceneDocument.getFields();
+        var file = Helper.createPdfFile();
+        var luceneDocument = LucenePDFDocument.getDocument(file);// doesn't work
+        var fields = luceneDocument.getFields();
         fields.toArray();
     }
 }

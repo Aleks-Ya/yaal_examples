@@ -50,7 +50,7 @@ subprojects {
         springBoot2Version = '2.7.13'
         springBoot2StarterWebDep = "org.springframework.boot:spring-boot-starter-web:$springBoot2Version"
         springBoot2StarterDataJpaDep = "org.springframework.boot:spring-boot-starter-data-jpa:$springBoot2Version"
-        springCloud3Version = '3.1.7'
+        springCloud3Version = '3.1.6'
         springCloud4Version = '4.0.3'
         springSecurity5Version = '5.8.4'
         springBoot3Version = '3.1.0'
@@ -91,6 +91,7 @@ subprojects {
         retrofitMoshiDep = "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
         liquibaseCoreDep = 'org.liquibase:liquibase-core:4.22.0'
         apacheCommonsIoDep = 'commons-io:commons-io:2.13.0'
+        luceneVersion = '9.7.0'
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
