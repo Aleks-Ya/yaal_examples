@@ -1,5 +1,9 @@
 # aws CLI
 
+## Install
+[Guide](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html)
+
+## Commands
 [Command reference](https://docs.aws.amazon.com/cli/latest/reference/#available-services)
 Default config file location: ~/.aws/config
 
@@ -7,18 +11,14 @@ Version: `aws --version`
 Check credential: `aws sts get-caller-identity`
 Choose output format (`text`, `table`, `json`, etc.): `aws s3api --output table list-buckets`
 
-## help
-Help:
-```
-aws help
-aws ec2 help
-```
+### help
+Help: `aws help`
+Help for a command: `aws ec2 help`
 
-## configure
+### configure
 Configure most used parameters: `aws configure`
 
-## s3api
-
+### s3api
 List S3 buckets: `aws s3api list-buckets`
 List objects in a S3 bucket: `aws s3api list-objects --bucket qwasceitnsuryw7`
 List objects by S3 URL: `aws s3 ls s3://yaal-backup/duplicity-backup-docs-vault/`
@@ -31,26 +31,16 @@ aws s3api put-object --bucket yaal-test-bucket --key my_texts/bye.txt --body /tm
 #Link to the object: https://yaal-test-bucket.s3.eu-central-1.amazonaws.com/my_texts/bye.txt
 ```
 
-## lambda
-
+### lambda
 List Lambda Functions: `aws lambda list-functions`
-List versions of a Function:
-```
-aws lambda list-versions-by-function --function-name my-function
-```
+List versions of a Function: `aws lambda list-versions-by-function --function-name my-function`
 Upload ZIP to a Function:
 ```
 aws lambda update-function-code --function-name my-function --zip-file fileb://my-function.zip --publish
 ```
-Show Function configuration:
-```
-aws lambda get-function-configuration --function-name my-function
-```
+Show Function configuration: `aws lambda get-function-configuration --function-name my-function`
 Change Function Handler:
 ```
 aws lambda update-function-configuration --function-name my-function --handler example.Handler::handleRequest
 ```
-Change Function Timeout in sec (900 sec is max):
-```
-aws lambda update-function-configuration --function-name my-function --timeout 900
-```
+Change Function Timeout in sec (900 sec is max): `aws lambda update-function-configuration --function-name my-function --timeout 900`

@@ -11,7 +11,8 @@ pluginManagement {
 /**
  * Java
  */
-include 'BigData+:Hadoop+:Hadoop2+:Common2',
+include 'BigData+:ElasticSearch+:TransportClient',
+		'BigData+:Hadoop+:Hadoop2+:Common2',
         'BigData+:Hadoop+:Hadoop2+:MapReduce2',
         'BigData+:Hadoop+:Hadoop3+:Common3',
         'BigData+:Hadoop+:Hadoop3+:MapReduce3',

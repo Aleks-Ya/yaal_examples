@@ -40,7 +40,7 @@ subprojects {
         commonsLangDep = 'org.apache.commons:commons-lang3:3.12.0'
         wireMockDep = 'com.github.tomakehurst:wiremock:2.27.2'
         jaxbApiDep = 'javax.xml.bind:jaxb-api:2.3.1'
-        elasticSearchVersion = '7.12.0'
+        elasticSearchVersion = '7.17.12'
         junit5PlatformVersion = '1.9.2'
         junit5Version = '5.9.3'
         cucumberVersion = '7.11.1'

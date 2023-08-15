@@ -13,3 +13,8 @@ Set detaulf user: `wsl --set-default-user aleks`
 
 ## Inside a distribution
 Exit: `exit`
+
+## Create a new user (don't work)
+1. Create a user: `sudo adduser john`
+2. Add the user to SUDO: `sudo usermod -aG sudo john`
+3. Set as default user: ???
