@@ -1,7 +1,11 @@
 # aws CLI
 
 ## Install
-[Guide](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html)
+Latest version: 
+	1. Install `sudo apt install -y unzip`
+	2. Follow [Guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+	3. Close WSL window
+PIP (outdated version 1): `pip3 install awscli`
 
 ## Commands
 [Command reference](https://docs.aws.amazon.com/cli/latest/reference/#available-services)
