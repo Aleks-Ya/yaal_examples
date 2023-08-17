@@ -7,7 +7,7 @@ Run:
 2. Open Kibana UI: http://localhost:5601
 
 ## Errors
-### max virtual memory areas is too low
+### Max virtual memory areas is too low (WSL)
 Message:
 ```
 [2023-08-15T10:08:34,175][ERROR][o.e.b.Bootstrap          ] [elk] node validation exception
@@ -17,3 +17,18 @@ Message:
 Fix:
 1. Add into `/etc/sysctl.conf` line `vm.max_map_count=262144`
 2. Activate chages: `sudo sysctl -p`
+
+### ES can't start without errors (CMD)
+Message:
+```
+waiting for Elasticsearch to be up (29/30)
+waiting for Elasticsearch to be up (30/30)
+Couldn't start Elasticsearch. Exiting.
+Elasticsearch log follows below.
+```
+
+Reason: 
+It's not enough time for ElasticSearch to start normally. 
+Source: https://elk-docker.readthedocs.io/#es-not-starting-timeout
+
+Fix: increment timetout by adding Docker env var `-e ES_CONNECT_RETRY=600`
