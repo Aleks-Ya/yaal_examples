@@ -24,10 +24,16 @@ class InstantiateTest {
     @Test
     void local() {
         var localDate = LocalDate.now();
-        var localTime = LocalTime.now();
         var localDateTime = LocalDateTime.now();
         var monthDay = MonthDay.now();
         var instant = Instant.now();
+    }
+
+    @Test
+    void localTime() {
+        assertThat(LocalTime.now()).isNotNull();
+        assertThat(LocalTime.ofNanoOfDay(42380275845049L))
+                .isEqualTo(LocalTime.of(11, 46, 20, 275845049));
     }
 
     @Test

@@ -1,4 +1,4 @@
-package lucene;
+package lucene9.searching.query;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -10,25 +10,22 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.TermQuery;
-import org.apache.lucene.store.MMapDirectory;
+import org.apache.lucene.store.ByteBuffersDirectory;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class SmallTest {
-
+class TermQueryTest {
     @Test
-    void testDemo() throws IOException {
+    void test() throws IOException {
         var fieldName = "fieldname";
         var text = "Some of the query types provided by Elasticsearch support Apache Lucene query parser syntax.";
         var doc = new Document();
         doc.add(new TextField(fieldName, text, Field.Store.YES));
 
-        var tmpDir = Files.createTempDirectory(SmallTest.class.getSimpleName());
-        try (var directory = new MMapDirectory(tmpDir);
+        try (var directory = new ByteBuffersDirectory();
              var analyzer = new StandardAnalyzer()) {
             var config = new IndexWriterConfig(analyzer);
             try (var writer = new IndexWriter(directory, config)) {
@@ -39,6 +36,9 @@ class SmallTest {
                 var query = new TermQuery(new Term(fieldName, "lucene"));
                 var hits = searcher.search(query, 1);
                 assertThat(hits.totalHits.value).isEqualTo(1);
+                var docId = hits.scoreDocs[0].doc;
+                var actDoc = searcher.storedFields().document(docId);
+                assertThat(actDoc).hasToString(doc.toString());
             }
         }
     }

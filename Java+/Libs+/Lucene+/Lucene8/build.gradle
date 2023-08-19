@@ -1,0 +1,4 @@
+dependencies {
+    implementation "org.apache.lucene:lucene-core:$lucene8Version"
+    testImplementation "org.apache.lucene:lucene-test-framework:$lucene8Version"
+}

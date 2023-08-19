@@ -1,4 +1,0 @@
-dependencies {
-    implementation "org.apache.lucene:lucene-core:$luceneVersion", "org.apache.lucene:lucene-queryparser:$luceneVersion"
-    testImplementation "org.apache.lucene:lucene-test-framework:$luceneVersion"
-}

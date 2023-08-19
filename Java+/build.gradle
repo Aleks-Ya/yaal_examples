@@ -91,7 +91,8 @@ subprojects {
         retrofitMoshiDep = "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
         liquibaseCoreDep = 'org.liquibase:liquibase-core:4.22.0'
         apacheCommonsIoDep = 'commons-io:commons-io:2.13.0'
-        luceneVersion = '9.7.0'
+        lucene8Version = '8.11.1'
+        lucene9Version = '9.7.0'
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'

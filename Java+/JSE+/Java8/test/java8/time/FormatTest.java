@@ -6,6 +6,7 @@ import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,6 +48,14 @@ class FormatTest {
         var formatter = DateTimeFormatter.ofPattern("dd.MM.yyyyEEE");
         var str = localDate.format(formatter);
         assertThat(str).isEqualTo("25.03.2015Wed");
+    }
+
+    @Test
+    void localTime() {
+        var localTime = LocalTime.parse("10:35");
+        var formatter = DateTimeFormatter.ofPattern("HH:mm:ss,S");
+        var str = localTime.format(formatter);
+        assertThat(str).isEqualTo("10:35:00,0");
     }
 
     @Test

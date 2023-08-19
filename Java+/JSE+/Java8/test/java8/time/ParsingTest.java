@@ -2,7 +2,14 @@ package java8.time;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.*;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
@@ -16,6 +23,15 @@ class ParsingTest {
     @Test
     void date() {
         assertThat(LocalDate.parse("2015-03-25")).isNotNull();
+    }
+
+    @Test
+    void time() {
+        assertThat(LocalTime.parse("10:15:30")).isEqualTo(LocalTime.of(10, 15, 30));
+
+        var formatter = DateTimeFormatter.ofPattern("HH:mm:ss,SSS");
+        assertThat(LocalTime.parse("01:52:30,080", formatter))
+                .isEqualTo(LocalTime.of(1, 52, 30, 80_000_000));
     }
 
     @Test
