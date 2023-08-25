@@ -1,17 +1,12 @@
 package lucene9.analysis.tokenfilter;
 
+import lucene9.IndexAssistant;
 import org.apache.lucene.analysis.StopwordAnalyzerBase;
 import org.apache.lucene.analysis.TokenFilter;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.PayloadAttribute;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.document.TextField;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.store.ByteBuffersDirectory;
 import org.apache.lucene.util.BytesRef;
 import org.junit.jupiter.api.Test;
 
@@ -20,29 +15,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static lucene9.LuceneHelper.directoryToTermList;
-import static lucene9.LuceneHelper.directoryToTermToPayloadsMap;
+import static lucene9.IndexAssistant.newDoc;
+import static lucene9.SearchHelper.directoryToTermList;
+import static lucene9.SearchHelper.directoryToTermToPayloadsMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AddPayloadTest {
     @Test
-    void payload() throws IOException {
+    void payload() {
         var fieldName = "text";
-        var doc1 = new Document();
-        doc1.add(new TextField(fieldName, "John is 30", Field.Store.YES));
-        var doc2 = new Document();
-        doc1.add(new TextField(fieldName, "Mary is 25", Field.Store.YES));
-
-        try (var directory = new ByteBuffersDirectory();
-             var analyzer = new PayloadAnalyzer()) {
-            var config = new IndexWriterConfig(analyzer);
-            try (var writer = new IndexWriter(directory, config)) {
-                writer.addDocument(doc1);
-                writer.addDocument(doc2);
-            }
+        var doc1 = newDoc(fieldName, "John is 30");
+        var doc2 = newDoc(fieldName, "Mary is 25");
+        try (var assistant = IndexAssistant.create().setAnalyzer(new PayloadAnalyzer()).addDoc(doc1, doc2)) {
+            var directory = assistant.getDirectory();
             assertThat(directoryToTermList(directory, fieldName))
                     .containsExactlyInAnyOrder("John", "is", "30", "25", "Mary");
-
             assertThat(directoryToTermToPayloadsMap(directory, fieldName)).containsExactlyInAnyOrderEntriesOf(Map.of(
                     "25", List.of("Upper=25, Counter=6"),
                     "30", List.of("Upper=30, Counter=3"),

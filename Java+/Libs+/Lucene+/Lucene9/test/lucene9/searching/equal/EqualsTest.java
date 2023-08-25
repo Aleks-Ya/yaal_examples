@@ -1,12 +1,11 @@
 package lucene9.searching.equal;
 
+import lucene9.IndexAssistant;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.TermQuery;
@@ -15,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static lucene9.IndexAssistant.newDoc;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class EqualsTest {
@@ -26,6 +26,7 @@ class EqualsTest {
         var doc2 = new Document();
         doc2.add(new TextField("textField", "John drinks water.", Field.Store.YES));
         assertThat(doc1).isNotEqualTo(doc2);
+        assertThat(doc1.toString()).isEqualTo(doc2.toString());
     }
 
     @Test
@@ -33,6 +34,7 @@ class EqualsTest {
         var textField1 = new TextField("textField", "John drinks water.", Field.Store.YES);
         var textField2 = new TextField("textField", "John drinks water.", Field.Store.YES);
         assertThat(textField1).isNotEqualTo(textField2);
+        assertThat(textField1.toString()).isEqualTo(textField2.toString());
     }
 
     @Test
@@ -67,17 +69,10 @@ class EqualsTest {
 
     @Test
     void topDocs() throws IOException {
-        var fieldName = "fieldname";
-        var text = "Some of the query types provided by Elasticsearch support Apache Lucene query parser syntax.";
-        var doc = new Document();
-        doc.add(new TextField(fieldName, text, Field.Store.YES));
-
-        try (var directory = new ByteBuffersDirectory();
-             var analyzer = new StandardAnalyzer()) {
-            var config = new IndexWriterConfig(analyzer);
-            try (var writer = new IndexWriter(directory, config)) {
-                writer.addDocument(doc);
-            }
+        var fieldName = "text";
+        var doc = newDoc(fieldName, "Some of the query types provided by Elasticsearch support Apache Lucene query parser syntax.");
+        try (var assistant = IndexAssistant.create(doc)) {
+            var directory = assistant.getDirectory();
             try (var reader = DirectoryReader.open(directory)) {
                 var searcher = new IndexSearcher(reader);
                 var query = new TermQuery(new Term(fieldName, "lucene"));
@@ -90,17 +85,10 @@ class EqualsTest {
 
     @Test
     void scoreDoc() throws IOException {
-        var fieldName = "fieldname";
-        var text = "Some of the query types provided by Elasticsearch support Apache Lucene query parser syntax.";
-        var doc = new Document();
-        doc.add(new TextField(fieldName, text, Field.Store.YES));
-
-        try (var directory = new ByteBuffersDirectory();
-             var analyzer = new StandardAnalyzer()) {
-            var config = new IndexWriterConfig(analyzer);
-            try (var writer = new IndexWriter(directory, config)) {
-                writer.addDocument(doc);
-            }
+        var fieldName = "text";
+        var doc = newDoc(fieldName, "Some of the query types provided by Elasticsearch support Apache Lucene query parser syntax.");
+        try (var assistant = IndexAssistant.create(doc)) {
+            var directory = assistant.getDirectory();
             try (var reader = DirectoryReader.open(directory)) {
                 var searcher = new IndexSearcher(reader);
                 var query = new TermQuery(new Term(fieldName, "lucene"));

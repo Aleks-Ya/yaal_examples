@@ -1,7 +1,10 @@
 package lucene9;
 
+import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.PostingsEnum;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.util.BytesRef;
 
@@ -11,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LuceneHelper {
+public class SearchHelper {
     public static List<String> directoryToTermList(Directory directory, String fieldName) {
         try {
             var actTermList = new ArrayList<String>();
@@ -65,6 +68,20 @@ public class LuceneHelper {
                 }
             }
             return termPayloadMap;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static List<Document> topDocsToDocuments(TopDocs topDocs, IndexSearcher indexSearcher) {
+        try {
+            var result = new ArrayList<Document>();
+            for (var scoreDoc : topDocs.scoreDocs) {
+                var docId = scoreDoc.doc;
+                var actDoc = indexSearcher.storedFields().document(docId);
+                result.add(actDoc);
+            }
+            return result;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

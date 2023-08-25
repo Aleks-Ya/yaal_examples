@@ -1,4 +1,4 @@
-package assertj.soft_assertions;
+package assertj.builtin.soft_assertions;
 
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.error.AssertJMultipleFailuresError;

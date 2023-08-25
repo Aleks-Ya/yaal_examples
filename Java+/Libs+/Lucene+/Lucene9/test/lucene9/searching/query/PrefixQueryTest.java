@@ -4,7 +4,7 @@ import lucene9.IndexAssistant;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.TermQuery;
+import org.apache.lucene.search.PrefixQuery;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -13,20 +13,22 @@ import static lucene9.IndexAssistant.newDoc;
 import static lucene9.SearchHelper.topDocsToDocuments;
 import static lucene9.TopDocsAssert.assertThat;
 
-class TermQueryTest {
+class PrefixQueryTest {
     @Test
     void test() throws IOException {
         var fieldName = "text";
-        var doc1 = newDoc(fieldName, "User uses Lucene often.");
-        var doc2 = newDoc(fieldName, "Flowers bloom in the summer.");
-        try (var assistant = IndexAssistant.create(doc1, doc2)) {
+        var doc1 = newDoc(fieldName, "A river flows to a sea.");
+        var doc2 = newDoc(fieldName, "A river flows from a sea.");
+        var doc3 = newDoc(fieldName, "A ship floats on the water.");
+        var doc4 = newDoc(fieldName, "Birds fly high.");
+        try (var assistant = IndexAssistant.create(doc1, doc2, doc3, doc4)) {
             var directory = assistant.getDirectory();
             try (var reader = DirectoryReader.open(directory)) {
                 var searcher = new IndexSearcher(reader);
-                var query = new TermQuery(new Term(fieldName, "lucene"));
-                var topDocs = searcher.search(query, 1);
+                var query = new PrefixQuery(new Term(fieldName, "flo"));
+                var topDocs = searcher.search(query, 10);
                 var actDoc = topDocsToDocuments(topDocs, searcher);
-                assertThat(actDoc).isNotEmpty().contains(doc1).doesNotContain(doc2);
+                assertThat(actDoc).isNotEmpty().contains(doc1, doc2, doc3).doesNotContain(doc4);
             }
         }
     }

@@ -1,8 +1,11 @@
 package lucene9.searching.query;
 
 import lucene9.IndexAssistant;
+import lucene9.TopDocsAssert;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.search.BooleanClause;
+import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.TermQuery;
 import org.junit.jupiter.api.Test;
@@ -11,22 +14,26 @@ import java.io.IOException;
 
 import static lucene9.IndexAssistant.newDoc;
 import static lucene9.SearchHelper.topDocsToDocuments;
-import static lucene9.TopDocsAssert.assertThat;
 
-class TermQueryTest {
+class BooleanQueryTest {
     @Test
     void test() throws IOException {
-        var fieldName = "text";
-        var doc1 = newDoc(fieldName, "User uses Lucene often.");
-        var doc2 = newDoc(fieldName, "Flowers bloom in the summer.");
+        var fieldName = "fieldname";
+        var doc1 = newDoc(fieldName, "A river flows to a sea.");
+        var doc2 = newDoc(fieldName, "A river flows to an ocean.");
         try (var assistant = IndexAssistant.create(doc1, doc2)) {
             var directory = assistant.getDirectory();
             try (var reader = DirectoryReader.open(directory)) {
                 var searcher = new IndexSearcher(reader);
-                var query = new TermQuery(new Term(fieldName, "lucene"));
+                var query1 = new TermQuery(new Term(fieldName, "river"));
+                var query2 = new TermQuery(new Term(fieldName, "sea"));
+                var query = new BooleanQuery.Builder()
+                        .add(query1, BooleanClause.Occur.MUST)
+                        .add(query2, BooleanClause.Occur.MUST)
+                        .build();
                 var topDocs = searcher.search(query, 1);
                 var actDoc = topDocsToDocuments(topDocs, searcher);
-                assertThat(actDoc).isNotEmpty().contains(doc1).doesNotContain(doc2);
+                TopDocsAssert.assertThat(actDoc).isNotEmpty().contains(doc1).doesNotContain(doc2);
             }
         }
     }

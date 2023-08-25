@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static lucene9.LuceneHelper.directoryToTermList;
+import static lucene9.SearchHelper.directoryToTermList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class EnglishAnalyzerTest {

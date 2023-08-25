@@ -1,4 +1,4 @@
-package assertj;
+package assertj.builtin;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package assertj;
+package assertj.builtin;
 
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;

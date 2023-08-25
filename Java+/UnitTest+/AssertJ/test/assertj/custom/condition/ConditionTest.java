@@ -1,4 +1,4 @@
-package assertj;
+package assertj.custom.condition;
 
 import org.assertj.core.api.Condition;
 import org.junit.jupiter.api.Test;
