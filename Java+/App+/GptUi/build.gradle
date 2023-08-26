@@ -4,9 +4,12 @@ plugins {
 }
 javafx {
     version = javaFxVersion
-    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web']
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 repositories {
     mavenCentral()
 }
-mainClassName = 'javafx.HelloFX'
+mainClassName = 'gptui.GptUiMain'
+dependencies {
+    implementation gsonDep
+}

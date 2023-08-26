@@ -76,7 +76,7 @@ subprojects {
         jedisDep = 'redis.clients:jedis:4.3.1'
         embeddedRedisOzimov = 'it.ozimov:embedded-redis:0.7.3'
         hikariCPDep = 'com.zaxxer:HikariCP:5.0.1'
-        sqliteJdbcDep = 'org.xerial:sqlite-jdbc:3.40.1.0'
+        sqliteJdbcDep = 'org.xerial:sqlite-jdbc:3.42.0.1'
         jsonPathVersion = '2.7.0'
         sardineDep = 'com.github.lookfirst:sardine:5.10'
         resilience4jVer = '2.0.2'
@@ -93,6 +93,8 @@ subprojects {
         apacheCommonsIoDep = 'commons-io:commons-io:2.13.0'
         lucene8Version = '8.11.1'
         lucene9Version = '9.7.0'
+        javaFxVersion = '17.0.8'
+        javaFxPluginVersion = '0.0.14'
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
