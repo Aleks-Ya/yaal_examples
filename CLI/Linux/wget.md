@@ -1,5 +1,8 @@
 # wget CLI
 
+Help: `wget -h`
+Debug logs: `wget -d http://10.3.50.157:8080/emiss-etl-dag.zip`
+
 Download file from Nexus with basic authentication:
 ```
 wget --http-user=<user> --http-passwd=<pass>  http://10.3.50.157:8080/emiss-etl-dag.zip
