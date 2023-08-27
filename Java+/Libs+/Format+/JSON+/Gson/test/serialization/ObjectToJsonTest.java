@@ -54,7 +54,7 @@ class ObjectToJsonTest {
         Integer sum = 18;
     }
 
-    class MyObject {
+    static class MyObject {
         int number = 4;
         String text = "abc";
         transient boolean excluded = true;

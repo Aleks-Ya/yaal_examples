@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 /**
  * Setup jul-over-slf4j programmatically.
  */
-public class JulProgrammatically {
-    private static final Logger julLogger = Logger.getLogger(JulProgrammatically.class.getName());
+class JulProgrammaticallyTest {
+    private static final Logger julLogger = Logger.getLogger(JulProgrammaticallyTest.class.getName());
 
     @Test
     void log() {

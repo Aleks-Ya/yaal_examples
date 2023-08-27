@@ -8,11 +8,11 @@ subprojects {
     targetCompatibility = JavaVersion.VERSION_17
     defaultTasks('test')
     repositories {
-		if (project.hasProperty('maven_central_mirror')) {
-			maven {
-				url project.maven_central_mirror
-			}
-		}
+        if (project.hasProperty('maven_central_mirror')) {
+            maven {
+                url project.maven_central_mirror
+            }
+        }
         mavenCentral()
     }
     ext {
@@ -20,7 +20,8 @@ subprojects {
         postgresDep = 'org.postgresql:postgresql:42.6.0'
         derbyDep = 'org.apache.derby:derby:10.16.1.1'
         hsqldbDep = 'org.hsqldb:hsqldb:2.7.1'
-        slf4jSimpleDep = 'org.slf4j:slf4j-simple:2.0.7'
+        slf4jVersion = '2.0.7'
+        slf4jSimpleDep = "org.slf4j:slf4j-simple:$slf4jVersion"
         def okHttpVersion = '4.11.0'
         okHttpDep = "com.squareup.okhttp3:okhttp:$okHttpVersion"
         mockWebServerDep = "com.squareup.okhttp3:mockwebserver:$okHttpVersion"

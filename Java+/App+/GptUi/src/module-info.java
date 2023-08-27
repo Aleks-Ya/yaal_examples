@@ -5,9 +5,11 @@ module GptUi {
     requires com.google.gson;
     requires java.net.http;
     requires javafx.web;
+    requires org.slf4j;
     opens gptui to javafx.fxml;
     exports gptui to javafx.graphics;
     exports gptui.ui to javafx.graphics;
+    exports gptui.storage to com.google.gson;
     opens gptui.ui to javafx.fxml;
     opens gptui.gpt to com.google.gson;
 

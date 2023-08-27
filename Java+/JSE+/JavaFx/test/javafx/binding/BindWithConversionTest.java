@@ -5,13 +5,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import org.junit.jupiter.api.Test;
 
-class PropertiesBindingTest {
+class BindWithConversionTest {
     @Test
     void bindStringWithConversion() {
         StringProperty propertyA = new SimpleStringProperty();
         StringProperty propertyB = new SimpleStringProperty();
 
-        // Create a binding such that propertyB will have the reversed value of propertyA
         propertyB.bind(Bindings.createStringBinding(() -> {
             if (propertyA.get() != null) {
                 return new StringBuilder(propertyA.get()).reverse().toString();
@@ -19,13 +18,12 @@ class PropertiesBindingTest {
             return "";
         }, propertyA));
 
-        // Test the binding
         propertyA.set("hello");
-        System.out.println("propertyA: " + propertyA.get());  // Outputs: hello
-        System.out.println("propertyB: " + propertyB.get());  // Outputs: olleh
+        System.out.println("propertyA: " + propertyA.get());
+        System.out.println("propertyB: " + propertyB.get());
 
         propertyA.set("world");
-        System.out.println("propertyA: " + propertyA.get());  // Outputs: world
-        System.out.println("propertyB: " + propertyB.get());  // Outputs: dlrow
+        System.out.println("propertyA: " + propertyA.get());
+        System.out.println("propertyB: " + propertyB.get());
     }
 }

@@ -3,8 +3,6 @@ package jul;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.Objects;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -12,13 +10,13 @@ import java.util.logging.Logger;
 /**
  * Setup jul-over-slf4j with a property file (default is $JAVA_HOME/conf/logging.properties).
  */
-public class JulPropertiesFile {
-    private static final Logger julLogger = Logger.getLogger(JulPropertiesFile.class.getName());
+class JulPropertiesFileTest {
+    private static final Logger julLogger = Logger.getLogger(JulPropertiesFileTest.class.getName());
 
     @Test
     void viaSystemProperty() throws IOException {
-        URL configUrl = JulPropertiesFile.class.getClassLoader().getResource("logging.properties");
-        String configPath = Objects.requireNonNull(configUrl).getFile();
+        var configUrl = JulPropertiesFileTest.class.getClassLoader().getResource("logging.properties");
+        var configPath = Objects.requireNonNull(configUrl).getFile();
         System.setProperty("java.util.logging.config.file", configPath);
         LogManager.getLogManager().readConfiguration();
 
@@ -27,7 +25,7 @@ public class JulPropertiesFile {
 
     @Test
     void viaInputStream() throws IOException {
-        InputStream configIs = JulPropertiesFile.class.getClassLoader().getResourceAsStream("logging.properties");
+        var configIs = JulPropertiesFileTest.class.getClassLoader().getResourceAsStream("logging.properties");
         LogManager.getLogManager().readConfiguration(configIs);
 
         julLogger.warning("Test logging.properties (InputStream)");

@@ -9,4 +9,9 @@ javafx {
 repositories {
     mavenCentral()
 }
-mainClassName = 'javafx.HelloFX'
+application {
+    mainClassName = 'javafx.HelloFX'
+}
+dependencies {
+    implementation 'org.fxmisc.richtext:richtextfx:0.11.1'
+}

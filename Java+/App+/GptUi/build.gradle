@@ -14,7 +14,7 @@ application {
     mainClass = 'gptui.GptUiMain'
 }
 dependencies {
-    implementation gsonDep, "com.vladsch.flexmark:flexmark:$flexMarkVersion"
+    implementation gsonDep, "com.vladsch.flexmark:flexmark:$flexMarkVersion", slf4jSimpleDep
 }
 extraJavaModuleInfo {
     automaticModule("com.vladsch.flexmark:flexmark", "flexmark")
@@ -28,4 +28,13 @@ extraJavaModuleInfo {
     automaticModule("com.vladsch.flexmark:flexmark-util-data", "flexmark.util.data")
     automaticModule("com.vladsch.flexmark:flexmark-util-misc", "flexmark.util.misc")
     automaticModule("com.vladsch.flexmark:flexmark-util-visitor", "flexmark.util.visitor")
+}
+installDist {
+    dependsOn 'copyIconToStartScriptsDir'
+    into System.properties['user.home'] + '/installed/GptUI'
+}
+tasks.register('copyIconToStartScriptsDir', Copy) {
+    dependsOn 'startScripts'
+    from "${projectDir}/resources/gptui/icon.png"
+    into "${projectDir}/build/scripts"
 }
