@@ -9,4 +9,5 @@ module Java.JSE.JavaFx.main {
     exports javafx.other to javafx.graphics;
     exports javafx.mvvm to javafx.graphics;
     exports javafx.concurrency to javafx.graphics;
+    exports javafx.binding to javafx.graphics;
 }
