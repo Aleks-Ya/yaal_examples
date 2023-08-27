@@ -95,6 +95,7 @@ subprojects {
         lucene9Version = '9.7.0'
         javaFxVersion = '17.0.8'
         javaFxPluginVersion = '0.0.14'
+        flexMarkVersion = '0.64.8'
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
