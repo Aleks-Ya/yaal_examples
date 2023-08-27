@@ -4,10 +4,10 @@ import org.assertj.core.api.Assertions;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.plugins.Plugin;
 import org.elasticsearch.test.InternalTestCluster;
 import org.elasticsearch.test.NodeConfigurationSource;
+import org.elasticsearch.xcontent.XContentType;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 

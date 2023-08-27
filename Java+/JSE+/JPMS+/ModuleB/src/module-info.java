@@ -1,16 +1,5 @@
-module GptUi {
-    requires javafx.controls;
-    requires javafx.fxml;
-    requires javafx.graphics;
-    requires com.google.gson;
-    requires java.net.http;
-    requires javafx.web;
-    opens gptui to javafx.fxml;
-    exports gptui to javafx.graphics;
-    exports gptui.ui to javafx.graphics;
-    opens gptui.ui to javafx.fxml;
-    opens gptui.gpt to com.google.gson;
-
+module Java.JSE.JPMS.ModuleB.main {
+    requires Java.JSE.JPMS.ModuleA.main;
     requires flexmark;
     requires flexmark.util.ast;
     requires flexmark.util.format;

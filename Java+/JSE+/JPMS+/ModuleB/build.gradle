@@ -1,20 +1,8 @@
 plugins {
-    id 'application'
-    id 'org.openjfx.javafxplugin' version "$javaFxPluginVersion"
     id 'org.gradlex.extra-java-module-info' version "$extraJavaModuleInfoVersion"
 }
-javafx {
-    version = javaFxVersion
-    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web']
-}
-repositories {
-    mavenCentral()
-}
-application {
-    mainClass = 'gptui.GptUiMain'
-}
 dependencies {
-    implementation gsonDep, "com.vladsch.flexmark:flexmark:$flexMarkVersion"
+    implementation project(':JSE+:JPMS+:ModuleA'), "com.vladsch.flexmark:flexmark:$flexMarkVersion"
 }
 extraJavaModuleInfo {
     automaticModule("com.vladsch.flexmark:flexmark", "flexmark")
