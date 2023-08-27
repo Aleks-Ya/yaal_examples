@@ -10,6 +10,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
 
 public class GptView extends VBox {
     private final GptViewModel viewModel = new GptViewModel();
@@ -17,7 +18,7 @@ public class GptView extends VBox {
     private final TextArea questionTextArea = new TextArea();
     private final TextArea questionCorrectnessTextArea = new TextArea();
     private final TextArea shortAnswerTextArea = new TextArea();
-    private final TextArea longAnswerTextArea = new TextArea();
+    private final WebView longAnswerTextArea = new WebView();
 
     public GptView() {
         createView();
@@ -40,7 +41,9 @@ public class GptView extends VBox {
         questionTextArea.textProperty().bindBidirectional(viewModel.questionProperty());
         questionCorrectnessTextArea.textProperty().bindBidirectional(viewModel.questionCorrectnessProperty());
         shortAnswerTextArea.textProperty().bindBidirectional(viewModel.shortAnswerProperty());
-        longAnswerTextArea.textProperty().bindBidirectional(viewModel.longAnswerProperty());
+        viewModel.longAnswerProperty().addListener((observable, oldValue, newValue) -> {
+            longAnswerTextArea.getEngine().loadContent(newValue);
+        });
     }
 
     private static HBox getQuestionHistoryHBox() {
@@ -92,13 +95,13 @@ public class GptView extends VBox {
 
     private HBox getLongAnswerHBox() {
         var label = new Label("Long answer");
-        longAnswerTextArea.setEditable(false);
+//        longAnswerTextArea.setEditable(false);
         var copy = new Button("Copy");
         copy.setMinWidth(70);
         copy.setOnAction(e -> {
             var clipboard = Clipboard.getSystemClipboard();
             var content = new ClipboardContent();
-            content.putString(longAnswerTextArea.getText());
+            content.putHtml((String) longAnswerTextArea.getEngine().executeScript("document.documentElement.outerHTML"));
             clipboard.setContent(content);
         });
         return new HBox(label, longAnswerTextArea, copy);

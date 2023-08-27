@@ -4,12 +4,12 @@ plugins {
 }
 javafx {
     version = javaFxVersion
-    modules = ['javafx.controls', 'javafx.fxml']
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web']
 }
 repositories {
     mavenCentral()
 }
 mainClassName = 'gptui.GptUiMain'
 dependencies {
-    implementation gsonDep
+    implementation gsonDep, "com.vladsch.flexmark:flexmark-all:$flexMarkVersion"
 }

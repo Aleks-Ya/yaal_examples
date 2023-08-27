@@ -1,5 +1,7 @@
 package gptui.ui;
 
+import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.parser.Parser;
 import gptui.gpt.GptApi;
 
 import java.util.concurrent.ExecutorService;
@@ -9,6 +11,8 @@ class GptModel {
     private final GptApi gptApi = new GptApi();
     private final GptViewModel viewModel;
     private final ExecutorService executorService = Executors.newFixedThreadPool(3);
+    private final Parser parser = Parser.builder().build();
+    private final HtmlRenderer renderer = HtmlRenderer.builder().build();
 
     GptModel(GptViewModel viewModel) {
         this.viewModel = viewModel;
@@ -22,8 +26,10 @@ class GptModel {
                     Give more details about it.
                     The question is `%s`
                     """, gptRequest.theme(), gptRequest.question());
-            var longAnswer = gptApi.send(longQuestionText);
-            viewModel.setLongAnswer(longAnswer);
+            var longAnswerMd = gptApi.send(longQuestionText);
+            var mdDoc = parser.parse(longAnswerMd);
+            var longAnswerHtml = renderer.render(mdDoc);
+            viewModel.setLongAnswer(longAnswerHtml);
         });
         executorService.submit(() -> {
             var shortQuestionText = String.format("""
