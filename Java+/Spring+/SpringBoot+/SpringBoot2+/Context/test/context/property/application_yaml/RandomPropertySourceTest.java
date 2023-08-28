@@ -11,7 +11,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE;
-import static util.UuidAsserts.UUID_STRING;
+import static utilt.UuidAsserts.UUID_STRING;
 
 /**
  * application.yaml uses properties defined in a @PropertySource.

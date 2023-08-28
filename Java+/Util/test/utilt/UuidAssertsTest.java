@@ -1,9 +1,9 @@
-package util;
+package utilt;
 
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static util.UuidAsserts.UUID_STRING;
+import static utilt.UuidAsserts.UUID_STRING;
 
 class UuidAssertsTest {
     @Test

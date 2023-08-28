@@ -3,7 +3,7 @@ package handler.abstract_;
 import org.eclipse.jetty.server.NetworkConnector;
 import org.eclipse.jetty.server.Server;
 
-import static util.NetAsserts.assertUrlContent;
+import static utilt.NetAsserts.assertUrlContent;
 
 /**
  * See HelloWorld on http://localhost:8080/

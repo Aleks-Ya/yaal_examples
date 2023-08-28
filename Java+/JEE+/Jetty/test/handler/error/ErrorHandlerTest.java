@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.ByteBuffer;
 
-import static util.NetAsserts.assertUrlContent;
+import static utilt.NetAsserts.assertUrlContent;
 
 /**
  *

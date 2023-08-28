@@ -5,7 +5,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.junit.jupiter.api.Test;
 
-import static util.NetAsserts.assertUrlContent;
+import static utilt.NetAsserts.assertUrlContent;
 
 /**
  * Asynchronous servlet execution.

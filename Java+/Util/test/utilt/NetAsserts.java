@@ -1,4 +1,6 @@
-package util;
+package utilt;
+
+import util.NetUtil;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;

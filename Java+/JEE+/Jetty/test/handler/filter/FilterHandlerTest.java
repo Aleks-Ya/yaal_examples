@@ -4,7 +4,7 @@ import org.eclipse.jetty.server.NetworkConnector;
 import org.eclipse.jetty.server.Server;
 import org.junit.jupiter.api.Test;
 
-import static util.NetAsserts.assertUrlContent;
+import static utilt.NetAsserts.assertUrlContent;
 
 public class FilterHandlerTest {
 

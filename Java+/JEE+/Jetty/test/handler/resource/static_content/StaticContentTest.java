@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static util.NetAsserts.assertUrlContent;
+import static utilt.NetAsserts.assertUrlContent;
 
 /**
  * Jetty provides static content from disk.
