@@ -49,3 +49,7 @@ Change Function Handler:
 aws lambda update-function-configuration --function-name my-function --handler example.Handler::handleRequest
 ```
 Change Function Timeout in sec (900 sec is max): `aws lambda update-function-configuration --function-name my-function --timeout 900`
+
+### OpenSearch
+Help: `aws opensearch help`
+List domains: `aws opensearch list-domain-names`

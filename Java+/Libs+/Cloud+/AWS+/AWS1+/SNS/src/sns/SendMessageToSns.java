@@ -1,21 +1,13 @@
 package sns;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sns.AmazonSNSClientBuilder;
 import com.amazonaws.services.sns.model.PublishRequest;
 
-import static java.util.Objects.requireNonNull;
-
 public class SendMessageToSns {
     public static void main(String[] args) {
-        var accessKey = requireNonNull(System.getProperty("aws.key.access"));
-        var secretKey = requireNonNull(System.getProperty("aws.key.secret"));
-        AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
-        AWSCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(credentials);
+        var credentialsProvider = new ProfileCredentialsProvider();
         var snsClient = AmazonSNSClientBuilder.standard()
                 .withCredentials(credentialsProvider)
                 .withRegion(Regions.EU_CENTRAL_1)

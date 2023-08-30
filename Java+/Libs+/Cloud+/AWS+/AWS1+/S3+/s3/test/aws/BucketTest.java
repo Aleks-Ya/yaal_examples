@@ -15,6 +15,7 @@ class BucketTest extends BaseS3Test {
     @Test
     void listBuckets() {
         var buckets = s3.listBuckets();
+        System.out.println("Buckets: " + buckets);
         assertThat(buckets).isNotEmpty();
     }
 
@@ -29,6 +30,5 @@ class BucketTest extends BaseS3Test {
 
         s3.deleteBucket(bucketName);
         assertThat(s3.doesBucketExistV2(bucketName)).isFalse();
-
     }
 }

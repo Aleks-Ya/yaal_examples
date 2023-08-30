@@ -13,7 +13,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Upload, download and list objects in a bucket.
- * Requires aws.key.access and aws.key.secret Java properties.
  */
 class ObjectTest extends BaseS3Test {
 
