@@ -3,8 +3,8 @@ package elastic.document;
 import org.assertj.core.api.Assertions;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.test.ESIntegTestCase;
+import org.elasticsearch.xcontent.XContentType;
 import org.junit.Test;
 
 import static elastic.EsHelper.createRandomIndexName;
@@ -12,7 +12,7 @@ import static elastic.EsHelper.createRandomIndexName;
 public class IndexRequestTest extends ESIntegTestCase {
 
     @Test
-    void indexDocument() {
+    public void indexDocument() {
         var indexName = createRandomIndexName();
         createIndex(indexName);
 

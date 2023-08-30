@@ -1,10 +1,5 @@
-#  Nodes info
+# Nodes info
 
 ## Get noted info
-```
-# All info
-curl -XGET $ES_URL/_nodes?pretty
-
-# Installed plugins
-curl -XGET $ES_URL/_nodes/plugins?pretty
-```
+All info: `curl -XGET $ES_URL/_nodes?pretty`
+Installed plugins: `curl -XGET $ES_URL/_nodes/plugins?pretty`

@@ -1,7 +1,6 @@
 package org.elasticsearch.bootstrap;
 
-import org.elasticsearch.common.SuppressForbidden;
-import org.elasticsearch.common.io.PathUtils;
+import org.elasticsearch.core.PathUtils;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,7 +24,7 @@ public class JarHell {
         return parseClassPath(System.getProperty("java.class.path"));
     }
 
-    @SuppressForbidden(reason = "resolves against CWD because that is how classpaths work")
+    //    @SuppressForbidden(reason = "resolves against CWD because that is how classpaths work")
     static Set<URL> parseClassPath(String classPath) {
         String pathSeparator = System.getProperty("path.separator");
         String fileSeparator = System.getProperty("file.separator");
@@ -58,7 +57,7 @@ public class JarHell {
             }
             // now just parse as ordinary file
             try {
-                if (element .equals("/")) {
+                if (element.equals("/")) {
                     // Eclipse adds this to the classpath when running unit tests...
                     continue;
                 }

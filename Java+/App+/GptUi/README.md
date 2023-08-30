@@ -8,6 +8,12 @@
 4. Configure `jul-to-slf4j` to process HttpClient logs
 5. Use `org.beryx.jlink` Gradle plugin to build a DEB distribution
 6. Add versioning
+7. Add `Cancel` button
+8. Do not overwrite question when answers from GPT are received
+9. Add `Delete` button to each item of the interaction history list
+10. Sort the Theme list in reverse order (latest Themes on the top)
+11. Do not create new HttpClient instance for each request
+12. Add MarkDown table extension for FlexMark
 
 ## Install on Ubuntu
 
