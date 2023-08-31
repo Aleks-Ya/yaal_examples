@@ -1,5 +1,10 @@
 # curl CLI
 
+## Install
+Version 7: `sudo apt install curl`
+Version 8: `sudo snap install curl`
+
+## Commands
 Help: `curl -h`
 Version: `curl --version`
 Download to specific file: `curl -o output.zip http://data.com/file.zip`

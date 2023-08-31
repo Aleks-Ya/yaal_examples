@@ -14,6 +14,8 @@
 10. Sort the Theme list in reverse order (latest Themes on the top)
 11. Do not create new HttpClient instance for each request
 12. Add MarkDown table extension for FlexMark
+13. Expand MarkDown code blocs (```markdown) before convertion to HTML
+14. Add an answer from Bard
 
 ## Install on Ubuntu
 

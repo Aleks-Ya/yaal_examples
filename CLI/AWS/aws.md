@@ -53,3 +53,11 @@ Change Function Timeout in sec (900 sec is max): `aws lambda update-function-con
 ### OpenSearch
 Help: `aws opensearch help`
 List domains: `aws opensearch list-domain-names`
+List packages: `aws opensearch describe-packages`
+
+### EC2
+List all EC2 instances: `aws ec2 describe-instances`
+
+### ec2-instance-connect
+Help: `aws ec2-instance-connect help`
+Connect to an EC2 instance by SSH without using keys: `aws ec2-instance-connect ssh --instance-id i-09a653b87321a3744`
