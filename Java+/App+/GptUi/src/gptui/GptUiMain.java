@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.DataInputStream;
+import java.nio.charset.StandardCharsets;
+
 import static java.util.Objects.requireNonNull;
 
 public class GptUiMain extends Application {
@@ -16,15 +19,29 @@ public class GptUiMain extends Application {
     @Override
     public void start(Stage stage) {
         log.info("Begin the start method");
+        var version = readVersion();
         var view = new GptView();
         var scene = new Scene(view, 640, 900);
         stage.setScene(scene);
-        stage.setTitle("GPT-4 Question Client");
+        stage.setTitle("GPT-4 Question Client v" + version);
         stage.setMaximized(true);
         var applicationIcon = new Image(requireNonNull(getClass().getResourceAsStream("icon.png")));
         stage.getIcons().add(applicationIcon);
         stage.show();
         log.info("Finished the start method");
+    }
+
+    private String readVersion() {
+        try {
+            var is = requireNonNull(getClass().getResourceAsStream("version.txt"));
+            try (var dataInputStream = new DataInputStream(is)) {
+                var bytes = new byte[is.available()];
+                dataInputStream.readFully(bytes);
+                return new String(bytes, StandardCharsets.UTF_8);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void main(String[] args) {

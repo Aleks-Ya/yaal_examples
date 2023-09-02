@@ -42,6 +42,6 @@ installDist {
 }
 tasks.register('copyIconToStartScriptsDir', Copy) {
     dependsOn 'startScripts'
-    from "${projectDir}/resources/gptui/icon.png"
+    from "${projectDir}/resources/gptui"
     into "${projectDir}/build/scripts"
 }

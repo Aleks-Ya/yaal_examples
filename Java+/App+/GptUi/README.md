@@ -6,16 +6,15 @@
 2. Add TestFX unit-tests
 3. Configure `jul-to-slf4j` to process HttpClient logs
 4. Use `org.beryx.jlink` Gradle plugin to build a DEB distribution
-5. Add versioning
-6. Add `Cancel` button
-7. Do not overwrite question when answers from GPT are received
-8. Add `Delete` button to each item of the interaction history list
-9. Sort the Theme list in reverse order (latest Themes on the top)
-10. Do not create new HttpClient instance for each request
-11. Add an answer from Bard
-12. Add a button to check grammar only
-13. Add a button to check is a sentence factually correct
-14. "Copy" buttons don't work for Interactions loaded from the History
+5. Add `Cancel` button
+6. Do not overwrite question when answers from GPT are received
+7. Add `Delete` button to each item of the interaction history list
+8. Sort the Theme list in reverse order (latest Themes on the top)
+9. Do not create new HttpClient instance for each request
+10. Add an answer from Bard
+11. Add a button to check grammar only
+12. Add a button to check is a sentence factually correct
+13. "Copy" buttons don't work for Interactions loaded from the History
 
 ## Install on Ubuntu
 
