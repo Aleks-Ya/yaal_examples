@@ -13,8 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TablesExtensionTest {
     @Test
     void extension() {
-        var options = new MutableDataSet();
-        options.set(Parser.EXTENSIONS, List.of(TablesExtension.create()));
+        var options = new MutableDataSet().set(Parser.EXTENSIONS, List.of(TablesExtension.create()));
         var parser = Parser.builder(options).build();
         var renderer = HtmlRenderer.builder(options).build();
         var text = """

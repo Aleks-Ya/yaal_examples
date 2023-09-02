@@ -14,7 +14,8 @@ application {
     mainClass = 'gptui.GptUiMain'
 }
 dependencies {
-    implementation gsonDep, "com.vladsch.flexmark:flexmark:$flexMarkVersion", slf4jSimpleDep
+    implementation gsonDep, "com.vladsch.flexmark:flexmark-ext-tables:$flexMarkVersion", slf4jSimpleDep
+    testImplementation "org.assertj:assertj-core:$assertJVersion"
 }
 extraJavaModuleInfo {
     automaticModule("com.vladsch.flexmark:flexmark", "flexmark")
@@ -28,6 +29,12 @@ extraJavaModuleInfo {
     automaticModule("com.vladsch.flexmark:flexmark-util-data", "flexmark.util.data")
     automaticModule("com.vladsch.flexmark:flexmark-util-misc", "flexmark.util.misc")
     automaticModule("com.vladsch.flexmark:flexmark-util-visitor", "flexmark.util.visitor")
+    automaticModule("com.vladsch.flexmark:flexmark-ext-tables", "flexmark.ext.tables")
+    automaticModule("com.vladsch.flexmark:flexmark-util", "flexmark.util")
+    automaticModule("com.vladsch.flexmark:flexmark-util-options", "flexmark.util.options")
+    automaticModule("org.assertj:assertj-core", "org.assertj.core")
+    automaticModule("org.assertj:assertj-core", "org.assertj.core")
+    automaticModule("org.awaitility:awaitility", "org.awaitility")
 }
 installDist {
     dependsOn 'copyIconToStartScriptsDir'

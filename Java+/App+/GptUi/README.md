@@ -12,11 +12,10 @@
 8. Add `Delete` button to each item of the interaction history list
 9. Sort the Theme list in reverse order (latest Themes on the top)
 10. Do not create new HttpClient instance for each request
-11. Add MarkDown table extension for FlexMark
-12. Expand MarkDown code blocs (```markdown) before conversion to HTML
-13. Add an answer from Bard
-14. Add a button to check grammar only
-15. Add a button to check is a sentence factually correct
+11. Expand MarkDown code blocs (```markdown) before conversion to HTML
+12. Add an answer from Bard
+13. Add a button to check grammar only
+14. Add a button to check is a sentence factually correct
 
 ## Install on Ubuntu
 

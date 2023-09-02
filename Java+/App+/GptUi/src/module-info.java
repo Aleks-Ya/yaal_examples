@@ -1,4 +1,4 @@
-module GptUi {
+module GptUi.main {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
@@ -12,6 +12,7 @@ module GptUi {
     exports gptui.storage to com.google.gson;
     opens gptui.ui to javafx.fxml;
     opens gptui.gpt to com.google.gson;
+    exports gptui.format;
 
     requires flexmark;
     requires flexmark.util.ast;
@@ -24,4 +25,5 @@ module GptUi {
     requires flexmark.util.data;
     requires flexmark.util.misc;
     requires flexmark.util.visitor;
+    requires flexmark.ext.tables;
 }
