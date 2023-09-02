@@ -98,6 +98,7 @@ subprojects {
         javaFxPluginVersion = '0.0.14'
         flexMarkVersion = '0.64.8'
         extraJavaModuleInfoVersion = '1.4.1'
+        assertJVersion = '3.24.1'
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
@@ -110,7 +111,7 @@ subprojects {
 configure(subprojects - project('UnitTest+:JUnit+:JUnit4').subprojects - project('UnitTest+:TestNG+').subprojects) {
     dependencies {
         testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version", 'org.hamcrest:hamcrest:2.2',
-                'org.awaitility:awaitility:4.2.0', apacheCommonsIoDep, 'org.assertj:assertj-core:3.24.1'
+                'org.awaitility:awaitility:4.2.0', apacheCommonsIoDep, "org.assertj:assertj-core:$assertJVersion"
         testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
     }
     test {
@@ -120,11 +121,15 @@ configure(subprojects - project('UnitTest+:JUnit+:JUnit4').subprojects - project
 }
 
 /**
- * Add Util project to all projects.
+ * Add Util projects to all projects.
  */
-configure(subprojects - project(':Util')) {
+configure(subprojects - project(':Util+:UtilSrc')) {
     dependencies {
-        implementation project(':Util')
-        testImplementation project(path: ':Util', configuration: 'tests')
+        implementation project(':Util+:UtilSrc')
+    }
+}
+configure(subprojects - project(':Util+:UtilTest')) {
+    dependencies {
+        testImplementation project(':Util+:UtilTest')
     }
 }

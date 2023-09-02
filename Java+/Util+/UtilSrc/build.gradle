@@ -1,0 +1,6 @@
+/**
+ * Util classes for all other projects.
+ */
+//Java 11 for EclipseLink
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11

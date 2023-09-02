@@ -230,7 +230,8 @@ include 'BigData+:ElasticSearch+:TransportClient',
         'App+:Trello',
         'App+:SubtitlesAnalyzer',
         'Git+:JGit',
-        'Util'
+        'Util+:UtilSrc',
+        'Util+:UtilTest'
 /**
  * JavaEE+
  */

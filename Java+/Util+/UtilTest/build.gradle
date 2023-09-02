@@ -1,0 +1,9 @@
+/**
+ * Testing util classes for all other projects.
+ */
+//Java 11 for EclipseLink
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+dependencies {
+    implementation "org.junit.jupiter:junit-jupiter-api:$junit5Version", "org.assertj:assertj-core:$assertJVersion"
+}
