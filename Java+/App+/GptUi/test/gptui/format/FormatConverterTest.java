@@ -41,4 +41,40 @@ class FormatConverterTest {
                 </table>
                   """);
     }
+
+    @Test
+    void expandNestedMarkDownBlocks() {
+        var md = """
+                Data:
+                ```markdown
+                1. AAA
+                2. BBB
+                ```
+                                
+                Should skip:
+                ```plaintext
+                Hi, FlexMark
+                ```
+                                
+                New Data:
+                ```markdown
+                # Head 1
+                *Important*
+                ```
+                """;
+        var html = formatConverter.markdownToHtml(md);
+        assertThat(html).isEqualTo("""
+                <p>Data:</p>
+                <ol>
+                <li>AAA</li>
+                <li>BBB</li>
+                </ol>
+                <p>Should skip:</p>
+                <pre><code class="language-plaintext">Hi, FlexMark
+                </code></pre>
+                <p>New Data:</p>
+                <h1>Head 1</h1>
+                <p><em>Important</em></p>
+                """);
+    }
 }

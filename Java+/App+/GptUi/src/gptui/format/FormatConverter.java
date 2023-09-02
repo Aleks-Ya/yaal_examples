@@ -1,8 +1,12 @@
 package gptui.format;
 
+import com.vladsch.flexmark.ast.FencedCodeBlock;
 import com.vladsch.flexmark.ext.tables.TablesExtension;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.ast.Node;
+import com.vladsch.flexmark.util.ast.NodeVisitor;
+import com.vladsch.flexmark.util.ast.VisitHandler;
 import com.vladsch.flexmark.util.data.MutableDataSet;
 
 import static com.vladsch.flexmark.parser.Parser.EXTENSIONS;
@@ -21,6 +25,33 @@ public class FormatConverter {
 
     public String markdownToHtml(String markdown) {
         var mdDoc = parser.parse(markdown);
+        var visitor = new ExpandNestedMarkDownFencedBlocks(parser);
+        visitor.visit(mdDoc);
         return renderer.render(mdDoc);
+    }
+
+    private static class ExpandNestedMarkDownFencedBlocks {
+        private final Parser parser;
+        private final NodeVisitor visitor = new NodeVisitor(
+                new VisitHandler<>(FencedCodeBlock.class, this::visitFencedCodeBlock)
+        );
+
+        private ExpandNestedMarkDownFencedBlocks(Parser parser) {
+            this.parser = parser;
+        }
+
+        public void visit(Node node) {
+            visitor.visit(node);
+        }
+
+        private void visitFencedCodeBlock(FencedCodeBlock fencedCodeBlock) {
+            var info = fencedCodeBlock.getInfo();
+            if (info != null && "markdown".equalsIgnoreCase(info.toString())) {
+                var mdSeq = fencedCodeBlock.getContentChars();
+                var replacement = parser.parse(mdSeq);
+                fencedCodeBlock.insertAfter(replacement);
+                fencedCodeBlock.unlink();
+            }
+        }
     }
 }
