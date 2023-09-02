@@ -2,15 +2,18 @@ package java9.http;
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 import static java.lang.String.format;
 import static java.net.http.HttpResponse.BodyHandlers.ofString;
@@ -98,6 +101,32 @@ class GetAsyncTest {
 
             var actBody2 = responseFuture2.join();
             assertThat(actBody2).isEqualTo(body.toLowerCase());
+        }
+    }
+
+    @Test
+    @Disabled("Not finished")
+    void cancel() throws IOException, InterruptedException {
+        try (var server = new MockWebServer()) {
+            var body = "hello, world!";
+            server.enqueue(new MockResponse().setBody(body).setBodyDelay(1, TimeUnit.MINUTES));
+            server.start();
+            var baseUrl = server.url("/");
+
+            var request = HttpRequest.newBuilder().uri(baseUrl.uri()).GET().build();
+
+            var httpClient = HttpClient.newHttpClient();
+            var responseFuture = httpClient.sendAsync(request, ofString());
+            Thread.sleep(1000);
+            var result = responseFuture.cancel(false);
+            System.out.println("Result: " + result);
+
+            var response = responseFuture.join();
+            assertThat(response.statusCode()).isEqualTo(200);
+            assertThat(response.body()).isEqualTo(body);
+
+            var recordedRequest = server.takeRequest();
+            assertThat(recordedRequest.getBody().readString(Charset.defaultCharset())).isEqualTo(body);
         }
     }
 

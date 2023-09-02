@@ -2,20 +2,21 @@
 
 ## TODO
 
-1. Switch from legacy `completions` OpenAI endpoint to `chat/completions`
-2. Fix layout
-3. Add JavaFX unit-tests
-4. Configure `jul-to-slf4j` to process HttpClient logs
-5. Use `org.beryx.jlink` Gradle plugin to build a DEB distribution
-6. Add versioning
-7. Add `Cancel` button
-8. Do not overwrite question when answers from GPT are received
-9. Add `Delete` button to each item of the interaction history list
-10. Sort the Theme list in reverse order (latest Themes on the top)
-11. Do not create new HttpClient instance for each request
-12. Add MarkDown table extension for FlexMark
-13. Expand MarkDown code blocs (```markdown) before convertion to HTML
-14. Add an answer from Bard
+1. Fix layout
+2. Add TestFX unit-tests
+3. Configure `jul-to-slf4j` to process HttpClient logs
+4. Use `org.beryx.jlink` Gradle plugin to build a DEB distribution
+5. Add versioning
+6. Add `Cancel` button
+7. Do not overwrite question when answers from GPT are received
+8. Add `Delete` button to each item of the interaction history list
+9. Sort the Theme list in reverse order (latest Themes on the top)
+10. Do not create new HttpClient instance for each request
+11. Add MarkDown table extension for FlexMark
+12. Expand MarkDown code blocs (```markdown) before conversion to HTML
+13. Add an answer from Bard
+14. Add a button to check grammar only
+15. Add a button to check is a sentence factually correct
 
 ## Install on Ubuntu
 
