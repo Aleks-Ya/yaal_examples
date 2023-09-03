@@ -15,6 +15,9 @@
 11. Add a button to check grammar only
 12. Add a button to check is a sentence factually correct
 13. "Copy" buttons don't work for Interactions loaded from the History
+14. Add "Answer", "Definition", "Grammar" buttons instead of "Send"
+15. Output logs into file when running standalone
+16. Rename `question` to `prompt` in sources
 
 ## Install on Ubuntu
 
