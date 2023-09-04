@@ -16,8 +16,7 @@
 12. Add a button to check is a sentence factually correct
 13. "Copy" buttons don't work for Interactions loaded from the History
 14. Add "Answer", "Definition", "Grammar" buttons instead of "Send"
-15. Output logs into file when running standalone
-16. Rename `question` to `prompt` in sources
+15. Rename `question` to `prompt` in sources
 
 ## Install on Ubuntu
 
@@ -26,3 +25,5 @@
 3. Add a menu icon by MenuLibre
     1. Path to exec: `/home/aleks/installed/GptUI/bin/GptUi`
     2. Path to icon: `/home/aleks/installed/GptUI/bin/icon.png`
+4. Token file: `${user.home}/.gpt/token.txt`
+5. Log file: `${user.home}/.gpt/console.log`

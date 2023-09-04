@@ -1,13 +1,10 @@
-<configuration scan="true" scanPeriod="30 seconds">
+<configuration>
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>Logger2: %msg%n</pattern>
         </encoder>
     </appender>
-    <logger name="jupiter.logger" level="DEBUG" additivity="false">
-        <appender-ref ref="stdout"/>
-    </logger>
     <root level="debug">
-        <appender-ref ref="stdout_long"/>
+        <appender-ref ref="stdout"/>
     </root>
 </configuration>

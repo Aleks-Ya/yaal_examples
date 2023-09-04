@@ -20,7 +20,7 @@ subprojects {
         postgresDep = 'org.postgresql:postgresql:42.6.0'
         derbyDep = 'org.apache.derby:derby:10.16.1.1'
         hsqldbDep = 'org.hsqldb:hsqldb:2.7.1'
-        slf4jVersion = '2.0.7'
+        slf4jVersion = '2.0.9'
         slf4jSimpleDep = "org.slf4j:slf4j-simple:$slf4jVersion"
         def okHttpVersion = '4.11.0'
         okHttpDep = "com.squareup.okhttp3:okhttp:$okHttpVersion"
@@ -36,7 +36,7 @@ subprojects {
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
         mockitoJunitJupiterDep = "org.mockito:mockito-junit-jupiter:$mockitoVersion"
         log4jCoreDep = 'org.apache.logging.log4j:log4j-core:2.20.0'
-        logbackClassicDep = 'ch.qos.logback:logback-classic:1.4.8'
+        logbackClassicDep = 'ch.qos.logback:logback-classic:1.4.11'
         gsonDep = 'com.google.code.gson:gson:2.10.1'
         commonsLangDep = 'org.apache.commons:commons-lang3:3.12.0'
         wireMockDep = 'com.github.tomakehurst:wiremock:2.27.2'

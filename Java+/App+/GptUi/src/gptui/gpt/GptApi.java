@@ -1,6 +1,7 @@
 package gptui.gpt;
 
 import com.google.gson.Gson;
+import gptui.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +32,8 @@ public class GptApi {
 
     public GptApi() {
         try {
-            token = Files.readString(Path.of(System.getProperty("user.home"), ".gpt/token.txt"));
+            var config = Configuration.getInstance();
+            token = Files.readString(Path.of(config.getAppDir().toString(), "token.txt"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
