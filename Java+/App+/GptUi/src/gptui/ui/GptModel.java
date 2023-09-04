@@ -15,6 +15,7 @@ import java.util.function.Function;
 
 import static java.util.Comparator.comparing;
 import static java.util.Map.entry;
+import static java.util.concurrent.CompletableFuture.supplyAsync;
 import static java.util.stream.Collectors.groupingBy;
 
 class GptModel {
@@ -53,7 +54,7 @@ class GptModel {
                         The question is `%s`.
                         """.stripIndent().replace("\n", " "),
                 theme, question);
-        gptApi.send(askForLongAnswer).thenAccept(longAnswerMd -> {
+        supplyAsync(() -> gptApi.send(askForLongAnswer)).thenAccept(longAnswerMd -> {
             var longAnswerHtml = formatConverter.markdownToHtml(longAnswerMd);
             viewModel.setLongAnswer(longAnswerHtml);
             updateInteraction(interactionId, interaction -> interaction
@@ -71,7 +72,7 @@ class GptModel {
                         The question is `%s`.
                         """.stripIndent().replace("\n", " "),
                 theme, question);
-        gptApi.send(askForShortAnswer).thenAccept(shortAnswerMd -> {
+        supplyAsync(() -> gptApi.send(askForShortAnswer)).thenAccept(shortAnswerMd -> {
             var shortAnswerHtml = formatConverter.markdownToHtml(shortAnswerMd);
             viewModel.setShortAnswer(shortAnswerMd);
             updateInteraction(interactionId, interaction -> interaction
@@ -88,7 +89,7 @@ class GptModel {
                         It is not a mistake if the sentence starts with "How to".
                         The sentence is `%s`.""".stripIndent().replace("\n", " "),
                 question);
-        gptApi.send(askForQuestionCorrectness).thenAccept(questionCorrectnessAnswer -> {
+        supplyAsync(() -> gptApi.send(askForQuestionCorrectness)).thenAccept(questionCorrectnessAnswer -> {
             viewModel.setQuestionCorrectnessAnswer(questionCorrectnessAnswer);
             updateInteraction(interactionId, interaction -> interaction
                     .withAskForQuestionCorrectness(askForQuestionCorrectness)
