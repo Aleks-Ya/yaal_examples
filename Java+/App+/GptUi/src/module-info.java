@@ -26,4 +26,5 @@ module GptUi.main {
     requires flexmark.util.misc;
     requires flexmark.util.visitor;
     requires flexmark.ext.tables;
+    requires jul.to.slf4j;
 }

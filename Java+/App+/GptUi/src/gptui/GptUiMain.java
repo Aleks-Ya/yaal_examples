@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import java.io.DataInputStream;
 import java.nio.charset.StandardCharsets;
@@ -20,6 +21,7 @@ public class GptUiMain extends Application {
     public void start(Stage stage) {
         log.info("Begin the start method");
         var version = readVersion();
+        log.info("App version: " + version);
         var view = new GptView();
         var scene = new Scene(view, 640, 900);
         stage.setScene(scene);
@@ -45,7 +47,13 @@ public class GptUiMain extends Application {
     }
 
     public static void main(String[] args) {
-        System.setProperty("jdk.httpclient.HttpClient.log", "ALL");
+        configureJavaUtilLogging();
         launch();
+    }
+
+    private static void configureJavaUtilLogging() {
+        System.setProperty("jdk.httpclient.HttpClient.log", "ALL");
+        SLF4JBridgeHandler.removeHandlersForRootLogger();
+        SLF4JBridgeHandler.install();
     }
 }

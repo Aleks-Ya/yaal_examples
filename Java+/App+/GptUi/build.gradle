@@ -14,7 +14,8 @@ application {
     mainClass = 'gptui.GptUiMain'
 }
 dependencies {
-    implementation gsonDep, "com.vladsch.flexmark:flexmark-ext-tables:$flexMarkVersion", logbackClassicDep
+    implementation gsonDep, "com.vladsch.flexmark:flexmark-ext-tables:$flexMarkVersion", logbackClassicDep,
+            "org.slf4j:jul-to-slf4j:$slf4jVersion"
     testImplementation "org.assertj:assertj-core:$assertJVersion"
 }
 extraJavaModuleInfo {
