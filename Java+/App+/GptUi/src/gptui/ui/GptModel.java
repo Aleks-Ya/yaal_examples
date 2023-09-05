@@ -1,5 +1,6 @@
 package gptui.ui;
 
+import gptui.Mdc;
 import gptui.format.FormatConverter;
 import gptui.gpt.GptApi;
 import gptui.storage.GptStorage;
@@ -38,64 +39,69 @@ class GptModel {
     }
 
     public void sendQuestion(String theme, String question) {
-        log.info("Sending question: theme=\"{}\", question=\"{}\"", theme, question);
-        viewModel.setQuestionCorrectnessAnswer("");
-        viewModel.setShortAnswer("");
-        viewModel.setLongAnswer("");
         var interactionId = gptStorage.newInteractionId();
-        updateInteraction(interactionId, interaction -> interaction
-                .withTheme(theme)
-                .withQuestion(question));
-        log.info("Sending request for a long answer...");
-        var askForLongAnswer = String.format("""
-                        I will ask you a question about "%s".
-                        You should answer with a detailed response.
-                        Format your answer into Markdown.
-                        The question is `%s`.
-                        """.stripIndent().replace("\n", " "),
-                theme, question);
-        supplyAsync(() -> gptApi.send(askForLongAnswer)).thenAccept(longAnswerMd -> {
-            var longAnswerHtml = formatConverter.markdownToHtml(longAnswerMd);
-            viewModel.setLongAnswer(longAnswerHtml);
+        Mdc.run(() -> {
+            log.info("Sending question: theme=\"{}\", question=\"{}\"", theme, question);
+            viewModel.setQuestionCorrectnessAnswer("");
+            viewModel.setShortAnswer("");
+            viewModel.setLongAnswer("");
             updateInteraction(interactionId, interaction -> interaction
-                    .withAskForLongAnswer(askForLongAnswer)
-                    .withLongAnswerMd(longAnswerMd)
-                    .withLongAnswerHtml(longAnswerHtml));
-            log.info("The long answer request finished.");
-        });
+                    .withTheme(theme)
+                    .withQuestion(question));
+            log.info("Sending request for a long answer...");
+            var askForLongAnswer = String.format("""
+                            I will ask you a question about "%s".
+                            You should answer with a detailed response.
+                            Format your answer into Markdown.
+                            The question is `%s`.
+                            """.stripIndent().replace("\n", " "),
+                    theme, question);
+            supplyAsync(() -> Mdc.call(() -> gptApi.send(askForLongAnswer), interactionId))
+                    .thenAccept(longAnswerMd -> Mdc.run(() -> {
+                        var longAnswerHtml = formatConverter.markdownToHtml(longAnswerMd);
+                        viewModel.setLongAnswer(longAnswerHtml);
+                        updateInteraction(interactionId, interaction -> interaction
+                                .withAskForLongAnswer(askForLongAnswer)
+                                .withLongAnswerMd(longAnswerMd)
+                                .withLongAnswerHtml(longAnswerHtml));
+                        log.info("The long answer request finished.");
+                    }, interactionId));
 
-        log.info("Sending request for a shot answer...");
-        var askForShortAnswer = String.format("""
-                        I will ask you a question about "%s".
-                        You should answer with a short response.
-                        Format your answer into Markdown.
-                        The question is `%s`.
-                        """.stripIndent().replace("\n", " "),
-                theme, question);
-        supplyAsync(() -> gptApi.send(askForShortAnswer)).thenAccept(shortAnswerMd -> {
-            var shortAnswerHtml = formatConverter.markdownToHtml(shortAnswerMd);
-            viewModel.setShortAnswer(shortAnswerMd);
-            updateInteraction(interactionId, interaction -> interaction
-                    .withAskForShortAnswer(askForShortAnswer)
-                    .withShortAnswerMd(shortAnswerMd)
-                    .withShortAnswerHtml(shortAnswerHtml));
-            log.info("The short answer request finished.");
-        });
+            log.info("Sending request for a shot answer...");
+            var askForShortAnswer = String.format("""
+                            I will ask you a question about "%s".
+                            You should answer with a short response.
+                            Format your answer into Markdown.
+                            The question is `%s`.
+                            """.stripIndent().replace("\n", " "),
+                    theme, question);
+            supplyAsync(() -> Mdc.call(() -> gptApi.send(askForShortAnswer), interactionId))
+                    .thenAccept(shortAnswerMd -> Mdc.run(() -> {
+                        var shortAnswerHtml = formatConverter.markdownToHtml(shortAnswerMd);
+                        viewModel.setShortAnswer(shortAnswerMd);
+                        updateInteraction(interactionId, interaction -> interaction
+                                .withAskForShortAnswer(askForShortAnswer)
+                                .withShortAnswerMd(shortAnswerMd)
+                                .withShortAnswerHtml(shortAnswerHtml));
+                        log.info("The short answer request finished.");
+                    }, interactionId));
 
-        log.info("Sending request for a question correctness...");
-        var askForQuestionCorrectness = String.format("""
-                        I will give you a sentence.
-                        Check if the sentence has grammatical mistakes.
-                        It is not a mistake if the sentence starts with "How to".
-                        The sentence is `%s`.""".stripIndent().replace("\n", " "),
-                question);
-        supplyAsync(() -> gptApi.send(askForQuestionCorrectness)).thenAccept(questionCorrectnessAnswer -> {
-            viewModel.setQuestionCorrectnessAnswer(questionCorrectnessAnswer);
-            updateInteraction(interactionId, interaction -> interaction
-                    .withAskForQuestionCorrectness(askForQuestionCorrectness)
-                    .withQuestionCorrectnessAnswer(questionCorrectnessAnswer));
-            log.info("The question correctness answer request finished.");
-        });
+            log.info("Sending request for a question correctness...");
+            var askForQuestionCorrectness = String.format("""
+                            I will give you a sentence.
+                            Check if the sentence has grammatical mistakes.
+                            It is not a mistake if the sentence starts with "How to".
+                            The sentence is `%s`.""".stripIndent().replace("\n", " "),
+                    question);
+            supplyAsync(() -> Mdc.call(() -> gptApi.send(askForQuestionCorrectness), interactionId))
+                    .thenAccept(questionCorrectnessAnswer -> Mdc.run(() -> {
+                        viewModel.setQuestionCorrectnessAnswer(questionCorrectnessAnswer);
+                        updateInteraction(interactionId, interaction -> interaction
+                                .withAskForQuestionCorrectness(askForQuestionCorrectness)
+                                .withQuestionCorrectnessAnswer(questionCorrectnessAnswer));
+                        log.info("The question correctness answer request finished.");
+                    }, interactionId));
+        }, interactionId);
     }
 
     private List<String> readThemeList() {

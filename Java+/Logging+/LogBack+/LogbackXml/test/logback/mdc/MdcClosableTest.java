@@ -5,36 +5,23 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
-import java.util.Map;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MdcAutoClosableTest extends BaseLogbackTest {
+class MdcClosableTest extends BaseLogbackTest {
     @Test
     void mdc() {
         try (var stdOut = reinitialize("logback/mdc/SimpleMdcTest.xml")) {
-            var log = LoggerFactory.getLogger(MdcAutoClosableTest.class);
-            try (var ignored = new MdcAutoClosable(Map.of("first", "John"))) {
+            var log = LoggerFactory.getLogger(MdcClosableTest.class);
+            try (var ignored = MDC.putCloseable("first", "John")) {
                 log.info("MDC works 1");
             }
-            try (var ignored = new MdcAutoClosable(Map.of("last", "Smith"))) {
+            try (var ignored = MDC.putCloseable("last", "Smith")) {
                 log.info("MDC works 2");
             }
             assertThat(stdOut).hasToString("""
                     John  - MDC works 1
                      Smith - MDC works 2
                     """);
-        }
-    }
-
-    static class MdcAutoClosable implements AutoCloseable {
-        public MdcAutoClosable(Map<String, String> map) {
-            map.forEach(MDC::put);
-        }
-
-        @Override
-        public void close() {
-            MDC.clear();
         }
     }
 }

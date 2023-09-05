@@ -21,6 +21,7 @@ Help for a command: `aws ec2 help`
 
 ### configure
 Configure most used parameters: `aws configure`
+Show default region: `aws configure get region`
 Set default region: `aws configure set region eu-north-1`
 
 ### s3api
