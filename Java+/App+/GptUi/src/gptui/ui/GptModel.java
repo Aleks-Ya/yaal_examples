@@ -2,6 +2,7 @@ package gptui.ui;
 
 import gptui.Mdc;
 import gptui.format.FormatConverter;
+import gptui.format.ThemeHelper;
 import gptui.gpt.GptApi;
 import gptui.storage.GptStorage;
 import gptui.storage.Interaction;
@@ -9,20 +10,16 @@ import gptui.storage.InteractionId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 
-import static java.util.Comparator.comparing;
-import static java.util.Map.entry;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
-import static java.util.stream.Collectors.groupingBy;
 
 class GptModel {
     private static final Logger log = LoggerFactory.getLogger(GptModel.class);
     private final GptApi gptApi = new GptApi();
     private final FormatConverter formatConverter = new FormatConverter();
+    private final ThemeHelper themeHelper = new ThemeHelper();
     private final GptViewModel viewModel;
     private final GptStorage gptStorage = new GptStorage();
 
@@ -36,6 +33,7 @@ class GptModel {
         gptStorage.updateInteraction(interactionId, update);
         var currentInteraction = gptStorage.readInteraction(interactionId).orElseThrow();
         viewModel.interactionHistoryUpdated(gptStorage.readAllInteractions(), currentInteraction);
+        viewModel.themeListUpdated(readThemeList());
     }
 
     public void sendQuestion(String theme, String question) {
@@ -105,16 +103,6 @@ class GptModel {
     }
 
     private List<String> readThemeList() {
-        return gptStorage.readAllInteractions().stream()
-                .collect(groupingBy(Interaction::theme)).entrySet().stream().map(entry -> {
-                    var theme = entry.getKey();
-                    var latestInteraction = entry.getValue().stream()
-                            .max(comparing(interaction -> interaction.id().id()))
-                            .orElseThrow();
-                    return entry(theme, latestInteraction);
-                })
-                .sorted(Comparator.<Map.Entry<String, Interaction>, Long>comparing(entry -> entry.getValue().id().id()).reversed())
-                .map(Map.Entry::getKey)
-                .toList();
+        return themeHelper.interactionsToThemeList(gptStorage.readAllInteractions());
     }
 }

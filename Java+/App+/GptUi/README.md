@@ -8,17 +8,16 @@
 4. Add `Cancel` button
 5. Do not overwrite question when answers from GPT are received
 6. Add `Delete` button to each item of the interaction history list
-7. Sort the Theme list in reverse order (latest Themes on the top)
-8. Do not create new HttpClient instance for each request
-9. Add an answer from Bard
-10. Add a button to check grammar only
-11. Add a button to check is a sentence factually correct
-12. "Copy" buttons don't work for Interactions loaded from the History
-13. Add "Answer", "Definition", "Grammar" buttons instead of "Send"
-14. Rename `question` to `prompt` in sources
-15. Show a 5-words definition
-16. Add button for checking a statement for truth
-17. Add search throughout the Interaction History
+7. Do not create new HttpClient instance for each request
+8. Add an answer from Bard
+9. Add a button to check grammar only
+10. Add a button to check is a sentence factually correct
+11. "Copy" buttons don't work for Interactions loaded from the History
+12. Add "Answer", "Definition", "Grammar" buttons instead of "Send"
+13. Rename `question` to `prompt` in sources
+14. Show a 5-words definition
+15. Add button for checking a statement for truth
+16. Add search throughout the Interaction History
 
 ## Install on Ubuntu
 
