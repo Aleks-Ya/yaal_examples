@@ -25,10 +25,10 @@ class GptViewModel {
 
     public GptViewModel() {
         interactionHistoryValueProperty.addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                showInteraction(newValue);
-            } else {
+            if (newValue == null) {
                 interactionHistoryValueProperty.setValue(null);
+            } else if (oldValue == null || !oldValue.id().equals(newValue.id())) {
+                showInteraction(newValue);
             }
         });
         model = new GptModel(this);
