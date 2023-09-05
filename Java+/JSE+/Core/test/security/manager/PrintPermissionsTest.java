@@ -3,13 +3,13 @@ package security.manager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import util.ResourceUtil;
 
 import java.security.Permission;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import static security.manager.SecurityManagerHelper.SECURITY_POLICY_PROPERTY;
-import static util.ResourceUtil.resourceToPath;
 
 @Disabled("need fix exception")
 class PrintPermissionsTest {
@@ -24,7 +24,7 @@ class PrintPermissionsTest {
 
     @Test
     void printCheckedPermissions() {
-        var policyFile = resourceToPath(getClass(), "PrintPermissions.policy");
+        var policyFile = ResourceUtil.resourceToStrPath(getClass(), "PrintPermissions.policy");
         System.setProperty(SECURITY_POLICY_PROPERTY, policyFile);
         System.setSecurityManager(securityManager);
     }

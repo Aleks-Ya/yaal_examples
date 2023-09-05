@@ -1,20 +1,20 @@
 package h2.connection.init;
 
 import org.junit.jupiter.api.Test;
+import util.ResourceUtil;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
-import static util.ResourceUtil.resourceToPath;
 
 class MultiInitScriptTest {
 
     @Test
     void asResource() throws SQLException {
-        var schemaInitScript = resourceToPath(MultiInitScriptTest.class, "multi_init_script_schema.sql");
-        var dataInitScript = resourceToPath(MultiInitScriptTest.class, "multi_init_script_data.sql");
+        var schemaInitScript = ResourceUtil.resourceToStrPath(MultiInitScriptTest.class, "multi_init_script_schema.sql");
+        var dataInitScript = ResourceUtil.resourceToStrPath(MultiInitScriptTest.class, "multi_init_script_data.sql");
         var jdbcUrl = format("jdbc:h2:mem:;INIT=RUNSCRIPT FROM '%s'\\;RUNSCRIPT FROM '%s'", schemaInitScript, dataInitScript);
         try (var conn = DriverManager.getConnection(jdbcUrl);
              var st = conn.createStatement();

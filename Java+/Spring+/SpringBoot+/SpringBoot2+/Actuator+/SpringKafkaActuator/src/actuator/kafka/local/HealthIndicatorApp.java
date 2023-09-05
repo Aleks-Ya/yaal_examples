@@ -3,8 +3,7 @@ package actuator.kafka.local;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import util.RandomUtil;
-
-import static util.ResourceUtil.resourceToPath;
+import util.ResourceUtil;
 
 /**
  * Using {@link org.springframework.boot.actuate.health.ApplicationHealthIndicator}.<br/>
@@ -13,7 +12,7 @@ import static util.ResourceUtil.resourceToPath;
 @SpringBootApplication
 class HealthIndicatorApp {
     public static void main(String[] args) {
-        System.setProperty("spring.config.location", resourceToPath(HealthIndicatorApp.class, "application.yaml"));
+        System.setProperty("spring.config.location", ResourceUtil.resourceToStrPath(HealthIndicatorApp.class, "application.yaml"));
         var groupId = "my_group1";
         System.setProperty("kafka.bootstrapAddress", "localhost:9092");
         System.setProperty("topic", "topic-" + RandomUtil.randomIntPositive());

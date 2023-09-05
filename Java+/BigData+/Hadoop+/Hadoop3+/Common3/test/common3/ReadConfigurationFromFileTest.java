@@ -31,7 +31,7 @@ class ReadConfigurationFromFileTest {
 
     @Test
     void fromPath() {
-        var pathString = ResourceUtil.resourceToPath(getClass(), "core-site.xml");
+        var pathString = ResourceUtil.resourceToStrPath(getClass(), "core-site.xml");
         var path = new Path(pathString);
         configuration.addResource(path);
         configuration.reloadConfiguration();

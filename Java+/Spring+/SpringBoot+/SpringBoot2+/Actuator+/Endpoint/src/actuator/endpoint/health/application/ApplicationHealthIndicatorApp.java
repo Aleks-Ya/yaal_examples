@@ -2,8 +2,7 @@ package actuator.endpoint.health.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import static util.ResourceUtil.resourceToPath;
+import util.ResourceUtil;
 
 /**
  * Using {@link org.springframework.boot.actuate.health.ApplicationHealthIndicator}.<br/>
@@ -13,7 +12,7 @@ import static util.ResourceUtil.resourceToPath;
 class ApplicationHealthIndicatorApp {
     public static void main(String[] args) {
         System.setProperty("spring.config.location",
-                resourceToPath(ApplicationHealthIndicatorApp.class, "application.yaml"));
+                ResourceUtil.resourceToStrPath(ApplicationHealthIndicatorApp.class, "application.yaml"));
         SpringApplication.run(ApplicationHealthIndicatorApp.class, args);
     }
 }

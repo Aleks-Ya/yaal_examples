@@ -5,10 +5,9 @@ import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import util.ResourceUtil;
 
 import javax.sql.DataSource;
-
-import static util.ResourceUtil.resourceToPath;
 
 /**
  * Using {@link DataSourceHealthIndicator}.
@@ -22,7 +21,7 @@ import static util.ResourceUtil.resourceToPath;
 class DataSourceHealthIndicatorManuallyApp {
     public static void main(String[] args) {
         System.setProperty("spring.config.location",
-                resourceToPath(DataSourceHealthIndicatorManuallyApp.class, "application.yaml"));
+                ResourceUtil.resourceToStrPath(DataSourceHealthIndicatorManuallyApp.class, "application.yaml"));
         SpringApplication.run(DataSourceHealthIndicatorManuallyApp.class, args);
     }
 

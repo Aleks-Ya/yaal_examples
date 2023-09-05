@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ReadFileTest {
     @Test
     void read() {
-        var file = ResourceUtil.resourceToPath(ReadFileTest.class, "ReadFileTest.yaml");
+        var file = ResourceUtil.resourceToStrPath(ReadFileTest.class, "ReadFileTest.yaml");
         var result = new OpenAPIParser().readLocation(file, null, null);
         assertThat(result.getMessages()).isEmpty();
         var openAPI = result.getOpenAPI();

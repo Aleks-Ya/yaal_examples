@@ -3,8 +3,7 @@ package actuator.endpoint.health.custom;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.system.DiskSpaceHealthIndicator;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import static util.ResourceUtil.resourceToPath;
+import util.ResourceUtil;
 
 /**
  * Using {@link DiskSpaceHealthIndicator}.
@@ -18,7 +17,7 @@ import static util.ResourceUtil.resourceToPath;
 class CustomHealthIndicatorApp {
     public static void main(String[] args) {
         System.setProperty("spring.config.location",
-                resourceToPath(CustomHealthIndicatorApp.class, "application.yaml"));
+                ResourceUtil.resourceToStrPath(CustomHealthIndicatorApp.class, "application.yaml"));
         SpringApplication.run(CustomHealthIndicatorApp.class, args);
     }
 }

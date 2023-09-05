@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
+import util.ResourceUtil;
 
 import javax.annotation.PostConstruct;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static util.ResourceUtil.resourceToPath;
 
 /**
  * Spring Boot app which initializes H2 database by Liquibase and selects rows from it.
@@ -20,7 +19,7 @@ import static util.ResourceUtil.resourceToPath;
 public class LiquibaseDriverManagerApp {
 
     public static void main(String[] args) {
-        System.setProperty("spring.config.location", resourceToPath(LiquibaseDriverManagerApp.class, "application.yaml"));
+        System.setProperty("spring.config.location", ResourceUtil.resourceToStrPath(LiquibaseDriverManagerApp.class, "application.yaml"));
         SpringApplication.run(LiquibaseDriverManagerApp.class, args);
     }
 

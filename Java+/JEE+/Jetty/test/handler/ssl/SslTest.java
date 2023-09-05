@@ -96,7 +96,7 @@ class SslTest {
         httpConfig.addCustomizer(new SecureRequestCustomizer());
         var http11 = new HttpConnectionFactory(httpConfig);
 
-        var keystorePath = ResourceUtil.resourceToPath(SslTest.class, "server_keystore.jks");
+        var keystorePath = ResourceUtil.resourceToStrPath(SslTest.class, "server_keystore.jks");
         var keystorePassword = "098765";
         var sslContextFactory = new SslContextFactory.Server();
         sslContextFactory.setKeyStorePath(keystorePath);

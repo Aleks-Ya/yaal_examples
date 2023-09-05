@@ -7,9 +7,9 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Objects;
 
 import static java.lang.String.format;
+import static java.util.Objects.requireNonNull;
 
 public class ResourceUtil {
 
@@ -18,7 +18,7 @@ public class ResourceUtil {
 
     public static String resourceToString(Class<?> clazz, String resourceName) {
         try {
-            var resourceUrl = Objects.requireNonNull(clazz.getResource(resourceName));
+            var resourceUrl = requireNonNull(clazz.getResource(resourceName));
             var path = new File(resourceUrl.getFile()).toPath();
             return new String(Files.readAllBytes(path));
         } catch (IOException e) {
@@ -69,7 +69,7 @@ public class ResourceUtil {
     }
 
     public static File resourceToFile(Class<?> clazz, String resourceName) {
-        var resourceUrl = Objects.requireNonNull(clazz.getResource(resourceName));
+        var resourceUrl = requireNonNull(clazz.getResource(resourceName));
         return new File(resourceUrl.getFile());
     }
 
@@ -77,9 +77,8 @@ public class ResourceUtil {
         return new File(resourceToUrl(resourceName).getFile());
     }
 
-    public static String resourceToPath(Class<?> clazz, String resourceName) {
-        var resourceUrl = Objects.requireNonNull(clazz.getResource(resourceName));
-        return resourceUrl.getFile();
+    public static String resourceToStrPath(Class<?> clazz, String resourceName) {
+        return requireNonNull(clazz.getResource(resourceName)).getFile();
     }
 
     public static Path resourceToPath(String resourceName) {

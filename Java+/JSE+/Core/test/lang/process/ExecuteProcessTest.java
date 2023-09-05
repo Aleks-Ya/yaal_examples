@@ -2,17 +2,17 @@ package lang.process;
 
 import org.junit.jupiter.api.Test;
 import util.InputStreamUtil;
+import util.ResourceUtil;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static util.ResourceUtil.resourceToPath;
 
 class ExecuteProcessTest {
     private static final int SUCCESS_EXIT_CODE = 0;
-    private static final String paramsToStdOutSh = resourceToPath(ExecuteProcessTest.class, "parameters_to_stdout.sh");
-    private static final String envVarToStdOutSh = resourceToPath(ExecuteProcessTest.class, "environment_variable_to_stdout.sh");
-    private static final String customExitValueSh = resourceToPath(ExecuteProcessTest.class, "custom_exit_value.sh");
+    private static final String paramsToStdOutSh = ResourceUtil.resourceToStrPath(ExecuteProcessTest.class, "parameters_to_stdout.sh");
+    private static final String envVarToStdOutSh = ResourceUtil.resourceToStrPath(ExecuteProcessTest.class, "environment_variable_to_stdout.sh");
+    private static final String customExitValueSh = ResourceUtil.resourceToStrPath(ExecuteProcessTest.class, "custom_exit_value.sh");
 
     @Test
     void environmentVariables() throws IOException, InterruptedException {

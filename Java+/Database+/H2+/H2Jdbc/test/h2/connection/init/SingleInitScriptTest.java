@@ -12,7 +12,7 @@ class SingleInitScriptTest {
 
     @Test
     void asResource() throws SQLException {
-        var initSqlScript = ResourceUtil.resourceToPath(SingleInitScriptTest.class, "single_init_script.sql");
+        var initSqlScript = ResourceUtil.resourceToStrPath(SingleInitScriptTest.class, "single_init_script.sql");
         var jdbcUrl = String.format("jdbc:h2:mem:;INIT=RUNSCRIPT FROM '%s'", initSqlScript);
         try (var conn = DriverManager.getConnection(jdbcUrl);
              var st = conn.createStatement();

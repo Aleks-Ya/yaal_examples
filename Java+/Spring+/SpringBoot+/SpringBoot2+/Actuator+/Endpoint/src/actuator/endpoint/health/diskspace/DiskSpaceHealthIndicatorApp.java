@@ -5,10 +5,9 @@ import org.springframework.boot.actuate.system.DiskSpaceHealthIndicator;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.unit.DataSize;
+import util.ResourceUtil;
 
 import java.io.File;
-
-import static util.ResourceUtil.resourceToPath;
 
 /**
  * Using {@link DiskSpaceHealthIndicator}.
@@ -22,7 +21,7 @@ import static util.ResourceUtil.resourceToPath;
 class DiskSpaceHealthIndicatorApp {
     public static void main(String[] args) {
         System.setProperty("spring.config.location",
-                resourceToPath(DiskSpaceHealthIndicatorApp.class, "application.yaml"));
+                ResourceUtil.resourceToStrPath(DiskSpaceHealthIndicatorApp.class, "application.yaml"));
         SpringApplication.run(DiskSpaceHealthIndicatorApp.class, args);
     }
 
