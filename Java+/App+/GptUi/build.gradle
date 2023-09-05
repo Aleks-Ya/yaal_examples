@@ -37,6 +37,9 @@ extraJavaModuleInfo {
     automaticModule("org.assertj:assertj-core", "org.assertj.core")
     automaticModule("org.awaitility:awaitility", "org.awaitility")
 }
+jar {
+    dependsOn test
+}
 installDist {
     dependsOn 'copyIconToStartScriptsDir'
     into System.properties['user.home'] + '/installed/GptUI'
