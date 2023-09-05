@@ -85,6 +85,10 @@ public class ResourceUtil {
         return resourceToFile(resourceName).toPath();
     }
 
+    public static Path resourceToPath(Class<?> clazz, String resourceName) {
+        return resourceToFile(clazz, resourceName).toPath();
+    }
+
     public static InputStream resourceToInputStream(Class<?> clazz, String resourceName) {
         return clazz.getResourceAsStream(resourceName);
     }

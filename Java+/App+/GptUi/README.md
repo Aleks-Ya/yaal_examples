@@ -16,6 +16,10 @@
 12. "Copy" buttons don't work for Interactions loaded from the History
 13. Add "Answer", "Definition", "Grammar" buttons instead of "Send"
 14. Rename `question` to `prompt` in sources
+15. Show a 5-words definition
+16. Add button for checking a statement for truth
+17. Add MDC in logs
+18. Add search throughout the Interaction History
 
 ## Install on Ubuntu
 
