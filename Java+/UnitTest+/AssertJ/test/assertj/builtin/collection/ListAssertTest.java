@@ -1,4 +1,4 @@
-package assertj.builtin;
+package assertj.builtin.collection;
 
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.Test;
@@ -6,14 +6,13 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * See also https://github.com/joel-costigliola/assertj-examples/blob/master/assertions-examples/src/test/java/org/assertj/examples/IterableAssertionsExamples.java
+ * <a href="https://github.com/joel-costigliola/assertj-examples/blob/master/assertions-examples/src/test/java/org/assertj/examples/IterableAssertionsExamples.java">See also</a>
  */
-class CollectionAssertTest {
-    private static final List<String> list = asList("a", "b", "c");
+class ListAssertTest {
+    private static final List<String> list = List.of("a", "b", "c");
 
     @Test
     void chain() {
@@ -51,7 +50,7 @@ class CollectionAssertTest {
     void genericsWildcard1() {
         var e1 = new RuntimeException();
         var e2 = new IOException();
-        List<? extends Exception> list = asList(e1, e2);
+        List<? extends Exception> list = List.of(e1, e2);
         assertThat(list).asList().contains(e1, e2);
     }
 
@@ -59,14 +58,14 @@ class CollectionAssertTest {
     void genericsWildcard2() {
         var e1 = new RuntimeException();
         var e2 = new IOException();
-        List<? extends Exception> list = asList(e1, e2);
+        List<? extends Exception> list = List.of(e1, e2);
         //noinspection unchecked,CastCanBeRemovedNarrowingVariableType
         assertThat((List<Exception>) list).contains(e1, e2);
     }
 
     @Test
     void untyped() {
-        List list = asList("a", "b", "c");
+        List list = List.of("a", "b", "c");
         assertThat(list).asList().contains("a", "b", "c");
         assertThat(list).asInstanceOf(InstanceOfAssertFactories.list(String.class)).asList().contains("a", "b", "c");
     }

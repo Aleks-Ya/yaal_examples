@@ -86,4 +86,18 @@ public class SearchHelper {
             throw new RuntimeException(e);
         }
     }
+
+    public static Map<Integer, Document> topDocsToIdToDocumentMap(TopDocs topDocs, IndexSearcher indexSearcher) {
+        try {
+            var result = new HashMap<Integer, Document>();
+            for (var scoreDoc : topDocs.scoreDocs) {
+                var docId = scoreDoc.doc;
+                var actDoc = indexSearcher.storedFields().document(docId);
+                result.put(docId, actDoc);
+            }
+            return result;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

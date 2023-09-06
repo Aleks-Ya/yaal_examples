@@ -17,6 +17,7 @@
 13. Show a 5-words definition
 14. Add button for checking a statement for truth
 15. Add search throughout the Interaction History
+16. Display current InteractionId in the main window
 
 ## Install on Ubuntu
 
