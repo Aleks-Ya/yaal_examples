@@ -76,7 +76,7 @@ class GptModel {
             supplyAsync(() -> Mdc.call(() -> gptApi.send(askForShortAnswer), interactionId))
                     .thenAccept(shortAnswerMd -> Mdc.run(() -> {
                         var shortAnswerHtml = formatConverter.markdownToHtml(shortAnswerMd);
-                        viewModel.setShortAnswer(shortAnswerMd);
+                        viewModel.setShortAnswer(shortAnswerHtml);
                         updateInteraction(interactionId, interaction -> interaction
                                 .withAskForShortAnswer(askForShortAnswer)
                                 .withShortAnswerMd(shortAnswerMd)
