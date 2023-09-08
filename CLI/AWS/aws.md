@@ -62,3 +62,7 @@ List all EC2 instances: `aws ec2 describe-instances`
 ### ec2-instance-connect
 Help: `aws ec2-instance-connect help`
 Connect to an EC2 instance by SSH without using keys: `aws ec2-instance-connect ssh --instance-id i-09a653b87321a3744`
+
+### MSK (Kafka)
+Help: `aws kafka help`
+List clusters: `aws kafka list-clusters`

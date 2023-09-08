@@ -18,6 +18,9 @@
 14. Add button for checking a statement for truth
 15. Add search throughout the Interaction History
 16. Display current InteractionId in the main window
+17. Add an indicator of request status
+18. Add "Regenerate" buttons for short and long answers 
+19. Add auto-completion for the Theme combo box
 
 ## Install on Ubuntu
 

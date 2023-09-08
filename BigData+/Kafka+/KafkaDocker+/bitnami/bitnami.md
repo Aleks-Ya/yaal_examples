@@ -3,12 +3,10 @@
 ## Sources
 Docker Hub: https://hub.docker.com/r/bitnami/kafka
 
-## Run with `docker run`
-`docker run -d --name bitnami-kafka -e ALLOW_PLAINTEXT_LISTENER=yes --network=host docker.io/bitnami/kafka`
+## Run Kafka v3
+Kafka only: `docker compose -f docker-compose-v35.yml up`
+Test: `/home/aleks/installed/kafka_2.12-3.5.1/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list`
 
-## Run with Docker Compose
-Kafka only: `docker compose -f docker-compose_kafka-only.yml up`
-Kafka and Zookeeper: `docker compose -f docker-compose_kafka-zookeeper.yml up`
-
-## Test
-List topics: `kafka-topics.sh --bootstrap-server localhost:9092 --list`
+## Run Kafka v2
+Kafka only: `docker compose -f docker-compose-v28.yml up`
+Test: `/home/aleks/installed/kafka_2.12-2.8.1/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list`

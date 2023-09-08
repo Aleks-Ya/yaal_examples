@@ -20,6 +20,15 @@ kafka-console-consumer \
 ```
 2. Stop Console consumer: Ctrl-C
 
+### Consume the latest message only
+```
+kafka-console-consumer \
+	--bootstrap-server=localhost:9092 \
+	--topic=my-topic \
+	--from-beginning \
+	--max-messages 1"
+```
+
 
 ## Set consumer group
 `kafka-console-consumer.sh --bootstrap-server=$(broker-list.sh) --topic=my-topic --from-beginning --group my-group`
