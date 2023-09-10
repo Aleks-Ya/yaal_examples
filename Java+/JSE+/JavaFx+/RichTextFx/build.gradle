@@ -1,0 +1,14 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version "$javaFxPluginVersion"
+}
+javafx {
+    version = javaFxVersion
+    modules = ['javafx.controls']
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation 'org.fxmisc.richtext:richtextfx:0.11.1'
+}

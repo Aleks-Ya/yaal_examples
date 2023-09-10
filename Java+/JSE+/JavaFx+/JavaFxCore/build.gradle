@@ -1,0 +1,14 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version "$javaFxPluginVersion"
+}
+javafx {
+    version = javaFxVersion
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web']
+}
+repositories {
+    mavenCentral()
+}
+application {
+    mainClassName = 'javafx.HelloFX'
+}

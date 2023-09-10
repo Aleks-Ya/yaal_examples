@@ -1,6 +1,8 @@
 # apt CLI
 
 ## apt
+Help: `apt`
+Version: `apt --version`
 Search a package: `apt search my-package`
 List all version of a package: `apt list -a my-package`
 List history of installed packages: `grep "install " /var/log/dpkg.log`

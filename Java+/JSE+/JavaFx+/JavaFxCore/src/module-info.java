@@ -3,7 +3,6 @@ module Java.JSE.JavaFx.main {
     requires javafx.fxml;
     requires javafx.graphics;
     requires javafx.web;
-    requires org.fxmisc.richtext;
     opens javafx to javafx.fxml;
     exports javafx.controls to javafx.graphics;
     exports javafx.layout to javafx.graphics;

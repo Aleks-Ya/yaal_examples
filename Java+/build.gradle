@@ -95,9 +95,9 @@ subprojects {
         lucene8Version = '8.11.1'
         lucene9Version = '9.7.0'
         javaFxVersion = '17.0.8'
-        javaFxPluginVersion = '0.0.14'
+        javaFxPluginVersion = '0.1.0'
         flexMarkVersion = '0.64.8'
-        extraJavaModuleInfoVersion = '1.4.1'
+        extraJavaModuleInfoVersion = '1.4.2'
         assertJVersion = '3.24.1'
     }
     tasks.withType(JavaCompile) {

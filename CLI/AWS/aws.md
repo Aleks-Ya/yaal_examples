@@ -20,11 +20,20 @@ Help: `aws help`
 Help for a command: `aws ec2 help`
 
 ### configure
+Show current configuration data: `aws configure list`
 Configure most used parameters: `aws configure`
 Show default region: `aws configure get region`
 Set default region: `aws configure set region eu-north-1`
+Set default output format: `aws configure set default.output json`
+Show default output format: `aws configure get default.output`
 
-### s3api
+### s3 (high-level)
+List S3 buckets: `aws s3 ls`
+Create a bucket: `aws s3 mb s3://iablokov471923643`
+Upload a file to S3: `aws s3 cp my.txt s3://mybucket1/dir1/my.txt`
+Delete a not-empty bucket: `aws s3 rb s3://iablokov471923643 --force`
+
+### s3api (low-level)
 List S3 buckets: `aws s3api list-buckets`
 List objects in a S3 bucket: `aws s3api list-objects --bucket qwasceitnsuryw7`
 List objects by S3 URL: `aws s3 ls s3://yaal-backup/duplicity-backup-docs-vault/`

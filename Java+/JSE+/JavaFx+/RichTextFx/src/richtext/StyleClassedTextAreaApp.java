@@ -1,4 +1,4 @@
-package javafx.controls;
+package richtext;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
