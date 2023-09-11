@@ -10,6 +10,8 @@ services:
       - "kafka_data_v2:/bitnami"
     environment:
       # KRaft settings
+      - KAFKA_ENABLE_KRAFT=true
+      - KAFKA_CFG_BROKER_ID=0
       - KAFKA_CFG_NODE_ID=0
       - KAFKA_CFG_PROCESS_ROLES=controller,broker
       - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@localhost:9093
@@ -21,5 +23,5 @@ services:
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
 volumes:
-  kafka_data:
+  kafka_data_v2:
     driver: local

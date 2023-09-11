@@ -20,5 +20,5 @@ services:
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
 volumes:
-  kafka_data:
+  kafka_data_v3:
     driver: local

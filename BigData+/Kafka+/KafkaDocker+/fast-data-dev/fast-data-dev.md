@@ -12,14 +12,11 @@ Docker Hub: https://hub.docker.com/r/landoop/fast-data-dev
 3. Logs: `http://localhost:3030/logs/`
 
 ### Commands
-Connect to the container by Bash:
-`docker run --rm -it --net=host --entrypoint bash lensesio/fast-data-dev`
+Connect to the container by Bash: `docker run --rm -it --net=host --entrypoint bash lensesio/fast-data-dev`
 
 #### kafka-topics
-List topics:
-`kafka-topics --bootstrap-server localhost:9092 --list`
-Describe topic:
-`kafka-topics --bootstrap-server localhost:9092 --describe --topic my-topic`
+List topics: `kafka-topics --bootstrap-server localhost:9092 --list`
+Describe topic: `kafka-topics --bootstrap-server localhost:9092 --describe --topic my-topic`
 Create topic:
 ```
 kafka-topics --bootstrap-server localhost:9092 \
@@ -28,12 +25,10 @@ kafka-topics --bootstrap-server localhost:9092 \
     --replication-factor 1 \
     --topic my-topic
 ```
-Delete topic:
-`kafka-topics --bootstrap-server localhost:9092 --delete --topic my-topic`
+Delete topic: `kafka-topics --bootstrap-server localhost:9092 --delete --topic my-topic`
 
 #### kafka-configs
-Describe topic config:
-`kafka-configs --zookeeper localhost:2181 --describe --entity-type topics --entity-name my-topic`
+Describe topic config: `kafka-configs --zookeeper localhost:2181 --describe --entity-type topics --entity-name my-topic`
 Change `max.message.bytes` topic property:
 ```
 kafka-configs --zookeeper localhost:2181 \
@@ -43,12 +38,10 @@ kafka-configs --zookeeper localhost:2181 \
 ```
 
 #### kafka-console-producer
-Produce to a topic:
-`kafka-console-producer --broker-list localhost:9092 --topic my-topic`
+Produce to a topic: `kafka-console-producer --broker-list localhost:9092 --topic my-topic`
 
 #### kafka-console-consumer
-Consume from the beginning:
-`kafka-console-consumer --bootstrap-server localhost:9092 --from-beginning --topic my-topic`
+Consume from the beginning: `kafka-console-consumer --bootstrap-server localhost:9092 --from-beginning --topic my-topic`
 
 ---------------------------------------------------------------------------------------------
 
@@ -71,8 +64,7 @@ Consume from the beginning:
     1. Print certs in JKS: `keytool -list -v -keystore clientA.jks -storepass fastdata`
 
 ### Commands
-Connect to the container by Bash:
-`docker run --rm -it --net=host --entrypoint bash lensesio/fast-data-dev`
+Connect to the container by Bash: `docker run --rm -it --net=host --entrypoint bash lensesio/fast-data-dev`
 Download keystores:
 ```
 wget http://localhost:3030/certs/clientA.jks -P /
@@ -91,16 +83,14 @@ ssl.key.password=fastdata
 ssl.truststore.location=truststore.jks
 ssl.truststore.password=fastdata" > /command.properties
 ```
-List topics:
-`kafka-topics --bootstrap-server localhost:9093 --command-config /command.properties --list`
+List topics: `kafka-topics --bootstrap-server localhost:9093 --command-config /command.properties --list`
 Create topic:
 ```
 kafka-topics --bootstrap-server localhost:9093 --create \
     --command-config command.properties \
     --replication-factor 1 --partitions 1 --topic testSSL
 ```
-Delete topic:
-`kafka-topics --bootstrap-server localhost:9093 --command-config command.properties --delete --topic testSSL`
+Delete topic: `kafka-topics --bootstrap-server localhost:9093 --command-config command.properties --delete --topic testSSL`
 
 #### kafka-console-producer
 Produce to a topic (use property file):
