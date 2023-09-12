@@ -75,3 +75,8 @@ Connect to an EC2 instance by SSH without using keys: `aws ec2-instance-connect 
 ### MSK (Kafka)
 Help: `aws kafka help`
 List clusters: `aws kafka list-clusters`
+
+### Systems Manager - Parameter Store
+List all parameters: `aws ssm describe-parameters`
+Show single parameter: `aws ssm get-parameter --name param1 --with-decryption`
+Show single parameter value: `aws ssm get-parameter --name param1 --with-decryption --query "Parameter.Value" --output text`
