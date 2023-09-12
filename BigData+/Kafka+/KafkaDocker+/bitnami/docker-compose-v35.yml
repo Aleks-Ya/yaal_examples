@@ -4,8 +4,6 @@ services:
   kafka:
     image: docker.io/bitnami/kafka:3.5
     network_mode: "host"
-    ports:
-      - "9092:9092"
     volumes:
       - "kafka_data_v3:/bitnami"
     environment:
