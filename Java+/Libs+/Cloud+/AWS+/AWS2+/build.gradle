@@ -1,0 +1,5 @@
+subprojects {
+    ext {
+        aws2Version = '2.20.146'
+    }
+}

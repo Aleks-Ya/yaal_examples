@@ -6,10 +6,12 @@ Show status: `wsl --status`
 Update WSL: `wsl --update`
 
 ## Distributions
+List installed distributions: `wsl -l`
 List distributions available to install: `wsl --list -o`
 Set default distribution: `wsl -s Ubuntu`
 Delete a distribution: `wsl --unregister Ubuntu`
 Set detaulf user: `wsl --set-default-user aleks`
+Run specific distribution: `wsl -d Ubuntu`
 
 ## Inside a distribution
 Exit: `exit`

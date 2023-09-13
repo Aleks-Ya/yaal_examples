@@ -27,4 +27,28 @@ class OptionTest extends AnyFlatSpec with Matchers {
     }
     result shouldEqual expValue
   }
+
+  it should "handle Option one-line" in {
+    val expValue = "abc"
+    val option: Option[String] = Some(expValue)
+    val result = option.getOrElse("no value")
+    result shouldEqual expValue
+  }
+
+  it should "return value from Option" in {
+    val value = "abc"
+    val option: Option[String] = Some(value)
+    val result = option match {
+      case Some(value) => s"$value modified"
+      case None => "no value"
+    }
+    result shouldEqual "abc modified"
+  }
+
+  it should "return value from Option (one line)" in {
+    val value = "abc"
+    val option: Option[String] = Some(value)
+    val result = option.map(v => s"$v modified").getOrElse("no value")
+    result shouldEqual "abc modified"
+  }
 }
