@@ -1,4 +1,4 @@
-package aws;
+package aws1;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.model.Bucket;

@@ -2,4 +2,7 @@ subprojects {
     ext {
         aws2Version = '2.20.146'
     }
+    dependencies {
+        implementation slf4jSimpleDep
+    }
 }

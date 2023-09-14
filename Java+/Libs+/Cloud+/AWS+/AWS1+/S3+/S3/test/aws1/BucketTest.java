@@ -1,4 +1,4 @@
-package aws;
+package aws1;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Create, list, delete S3 buckets.
- * Requires aws.key.access and aws.key.secret Java properties.
+ * Requires aws1.key.access and aws1.key.secret Java properties.
  */
 class BucketTest extends BaseS3Test {
 

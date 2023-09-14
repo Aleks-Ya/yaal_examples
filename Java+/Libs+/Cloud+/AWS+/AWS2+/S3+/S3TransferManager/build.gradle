@@ -1,0 +1,3 @@
+dependencies {
+    implementation "software.amazon.awssdk:s3-transfer-manager:$aws2Version"
+}

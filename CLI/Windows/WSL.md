@@ -12,6 +12,7 @@ Set default distribution: `wsl -s Ubuntu`
 Delete a distribution: `wsl --unregister Ubuntu`
 Set detaulf user: `wsl --set-default-user aleks`
 Run specific distribution: `wsl -d Ubuntu`
+Execute single command in a distribution: `wsl -d Ubuntu ls /`
 
 ## Inside a distribution
 Exit: `exit`

@@ -1,3 +1,3 @@
 dependencies {
-    implementation "com.amazonaws:aws-java-sdk-elasticsearch:$aws1Version"
+    implementation "com.amazonaws:aws2-java-sdk-elasticsearch:$aws1Version"
 }

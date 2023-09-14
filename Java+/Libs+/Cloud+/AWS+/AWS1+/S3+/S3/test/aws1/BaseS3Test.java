@@ -1,4 +1,4 @@
-package aws;
+package aws1;
 
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Regions;
