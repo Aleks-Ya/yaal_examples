@@ -43,8 +43,8 @@ class AddPayloadTest {
         @Override
         protected TokenStreamComponents createComponents(String fieldName) {
             var tokenizer = new StandardTokenizer();
-            var tokenStream = new PayloadFilter(tokenizer);
-            return new TokenStreamComponents(tokenizer, tokenStream);
+            var filter = new PayloadFilter(tokenizer);
+            return new TokenStreamComponents(tokenizer, filter);
         }
     }
 

@@ -25,7 +25,6 @@ class CustomTokenFilterTest {
             var directory = assistant.getDirectory();
             assertThat(directoryToTermList(directory, fieldName))
                     .containsExactlyInAnyOrder("JOHN", "IS", "30", "25", "MARY");
-
         }
     }
 
