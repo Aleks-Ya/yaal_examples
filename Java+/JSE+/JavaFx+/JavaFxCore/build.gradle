@@ -12,3 +12,6 @@ repositories {
 application {
     mainClassName = 'javafx.HelloFX'
 }
+dependencies {
+    implementation project(':Util+:UtilSrc')
+}

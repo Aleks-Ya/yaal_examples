@@ -22,7 +22,6 @@
 18. Add "Regenerate" buttons for short and long answers 
 19. Add auto-completion for the Theme combo box
 20. Search for a definition in Wikipedia also
-21. Play sound when answer is received
 
 ## Install on Ubuntu
 

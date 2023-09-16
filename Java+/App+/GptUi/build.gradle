@@ -5,7 +5,7 @@ plugins {
 }
 javafx {
     version = javaFxVersion
-    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web']
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web', 'javafx.media']
 }
 repositories {
     mavenCentral()
@@ -33,7 +33,6 @@ extraJavaModuleInfo {
     automaticModule("com.vladsch.flexmark:flexmark-ext-tables", "flexmark.ext.tables")
     automaticModule("com.vladsch.flexmark:flexmark-util", "flexmark.util")
     automaticModule("com.vladsch.flexmark:flexmark-util-options", "flexmark.util.options")
-    automaticModule("org.assertj:assertj-core", "org.assertj.core")
     automaticModule("org.assertj:assertj-core", "org.assertj.core")
     automaticModule("org.awaitility:awaitility", "org.awaitility")
 }

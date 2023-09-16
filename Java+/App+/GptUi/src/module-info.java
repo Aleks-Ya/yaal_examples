@@ -2,17 +2,13 @@ module GptUi.main {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
+    requires javafx.web;
+    requires javafx.media;
+
     requires com.google.gson;
     requires java.net.http;
-    requires javafx.web;
     requires org.slf4j;
-    opens gptui to javafx.fxml;
-    exports gptui to javafx.graphics;
-    exports gptui.ui to javafx.graphics;
-    exports gptui.storage to com.google.gson;
-    opens gptui.ui to javafx.fxml;
-    opens gptui.gpt to com.google.gson;
-    exports gptui.format;
+    requires jul.to.slf4j;
 
     requires flexmark;
     requires flexmark.util.ast;
@@ -26,5 +22,13 @@ module GptUi.main {
     requires flexmark.util.misc;
     requires flexmark.util.visitor;
     requires flexmark.ext.tables;
-    requires jul.to.slf4j;
+
+    opens gptui to javafx.fxml;
+    opens gptui.ui to javafx.fxml;
+    opens gptui.gpt to com.google.gson;
+
+    exports gptui to javafx.graphics;
+    exports gptui.ui to javafx.graphics;
+    exports gptui.storage to com.google.gson;
+    exports gptui.format;
 }

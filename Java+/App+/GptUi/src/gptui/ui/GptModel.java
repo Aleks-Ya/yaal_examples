@@ -4,6 +4,7 @@ import gptui.Mdc;
 import gptui.format.FormatConverter;
 import gptui.format.ThemeHelper;
 import gptui.gpt.GptApi;
+import gptui.media.SoundService;
 import gptui.storage.GptStorage;
 import gptui.storage.Interaction;
 import gptui.storage.InteractionId;
@@ -22,6 +23,7 @@ class GptModel {
     private final ThemeHelper themeHelper = new ThemeHelper();
     private final GptViewModel viewModel;
     private final GptStorage gptStorage = new GptStorage();
+    private final SoundService soundService = new SoundService();
 
     GptModel(GptViewModel viewModel) {
         this.viewModel = viewModel;
@@ -62,6 +64,7 @@ class GptModel {
                                 .withAskForLongAnswer(askForLongAnswer)
                                 .withLongAnswerMd(longAnswerMd)
                                 .withLongAnswerHtml(longAnswerHtml));
+                        soundService.beep3();
                         log.info("The long answer request finished.");
                     }, interactionId));
 
@@ -81,6 +84,7 @@ class GptModel {
                                 .withAskForShortAnswer(askForShortAnswer)
                                 .withShortAnswerMd(shortAnswerMd)
                                 .withShortAnswerHtml(shortAnswerHtml));
+                        soundService.beep2();
                         log.info("The short answer request finished.");
                     }, interactionId));
 
@@ -97,6 +101,7 @@ class GptModel {
                         updateInteraction(interactionId, interaction -> interaction
                                 .withAskForQuestionCorrectness(askForQuestionCorrectness)
                                 .withQuestionCorrectnessAnswer(questionCorrectnessAnswer));
+                        soundService.beep1();
                         log.info("The question correctness answer request finished.");
                     }, interactionId));
         }, interactionId);

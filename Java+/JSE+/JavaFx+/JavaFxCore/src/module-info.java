@@ -3,6 +3,8 @@ module Java.JSE.JavaFx.main {
     requires javafx.fxml;
     requires javafx.graphics;
     requires javafx.web;
+    requires javafx.media;
+    requires Java.Util.main;
     opens javafx to javafx.fxml;
     exports javafx.controls to javafx.graphics;
     exports javafx.layout to javafx.graphics;
@@ -11,4 +13,5 @@ module Java.JSE.JavaFx.main {
     exports javafx.concurrency to javafx.graphics;
     exports javafx.binding.unidirectional to javafx.graphics;
     exports javafx.binding.bidirectional to javafx.graphics;
+    exports javafx.media to javafx.graphics;
 }

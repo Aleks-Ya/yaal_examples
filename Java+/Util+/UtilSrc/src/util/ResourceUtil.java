@@ -51,6 +51,10 @@ public class ResourceUtil {
         }
     }
 
+    public static String resourceToStrUrl(String resourceName) {
+        return resourceToUrl(resourceName).toString();
+    }
+
     public static String resourceToString(String resourceName) {
         try {
             var path = new File(resourceToUrl(resourceName).getFile()).toPath();
@@ -75,6 +79,10 @@ public class ResourceUtil {
 
     public static File resourceToFile(String resourceName) {
         return new File(resourceToUrl(resourceName).getFile());
+    }
+
+    public static String resourceToStrPath(String resourceName) {
+        return requireNonNull(ResourceUtil.class.getClassLoader().getResource(resourceName)).getFile();
     }
 
     public static String resourceToStrPath(Class<?> clazz, String resourceName) {
