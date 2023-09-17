@@ -2,7 +2,7 @@ plugins {
     id 'org.gradlex.extra-java-module-info' version "$extraJavaModuleInfoVersion"
 }
 dependencies {
-    implementation project(':JSE+:JPMS+:ModuleA'), "com.vladsch.flexmark:flexmark:$flexMarkVersion"
+    implementation project(':JSE+:JPMS+:UseModules:ModuleA'), "com.vladsch.flexmark:flexmark:$flexMarkVersion"
 }
 extraJavaModuleInfo {
     automaticModule("com.vladsch.flexmark:flexmark", "flexmark")
