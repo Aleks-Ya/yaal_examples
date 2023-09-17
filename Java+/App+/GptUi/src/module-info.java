@@ -9,6 +9,9 @@ module GptUi.main {
     requires java.net.http;
     requires org.slf4j;
     requires jul.to.slf4j;
+    requires ch.qos.logback.classic;
+    requires java.naming;
+    requires jdk.crypto.ec;
 
     requires flexmark;
     requires flexmark.util.ast;
@@ -30,5 +33,4 @@ module GptUi.main {
     exports gptui to javafx.graphics;
     exports gptui.ui to javafx.graphics;
     exports gptui.storage to com.google.gson;
-    exports gptui.format;
 }

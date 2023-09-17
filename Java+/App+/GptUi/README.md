@@ -4,28 +4,27 @@
 
 1. Fix layout
 2. Add TestFX unit-tests
-3. Use `org.beryx.jlink` Gradle plugin to build a DEB distribution
-4. Add `Cancel` button
-5. Add `Delete` button to each item of the interaction history list
-6. Do not create new HttpClient instance for each request
-7. Add an answer from Bard
-8. Add a button to check grammar only
-9. Add a button to check is a sentence factually correct
-10. "Copy" buttons don't work for Interactions loaded from the History
-11. Add "Answer", "Definition", "Grammar" buttons instead of "Send"
-12. Rename `question` to `prompt` in sources
-13. Show a 5-words definition
-14. Add button for checking a statement for truth
-15. Add search throughout the Interaction History
-16. Display current InteractionId in the main window
-17. Add an indicator of request status
-18. Add "Regenerate" buttons for short and long answers 
-19. Add auto-completion for the Theme combo box
-20. Search for a definition in Wikipedia also
+3. Add `Cancel` button
+4. Add `Delete` button to each item of the interaction history list
+5. Do not create new HttpClient instance for each request
+6. Add an answer from Bard
+7. Add a button to check grammar only
+8. Add a button to check is a sentence factually correct
+9. "Copy" buttons don't work for Interactions loaded from the History
+10. Add "Answer", "Definition", "Grammar" buttons instead of "Send"
+11. Rename `question` to `prompt` in sources
+12. Show a 5-words definition
+13. Add button for checking a statement for truth
+14. Add search throughout the Interaction History
+15. Display current InteractionId in the main window
+16. Add an indicator of request status
+17. Add "Regenerate" buttons for short and long answers
+18. Add auto-completion for the Theme combo box
+19. Search for a definition in Wikipedia also
 
 ## Install on Ubuntu
 
-1. Build distribution and deploy to `~/installed/GptUI`: `gradle App+:GptUi:installDist`
+1. Build distribution and deploy to `~/installed/GptUI`: `gradle :App+:GptUi:installLocally`
 2. Add to `PATH` in `~/.bashrc`: `export PATH=$PATH:/home/aleks/installed/GptUI/bin`
 3. Add a menu icon by MenuLibre
     1. Path to exec: `/home/aleks/installed/GptUI/bin/GptUi`

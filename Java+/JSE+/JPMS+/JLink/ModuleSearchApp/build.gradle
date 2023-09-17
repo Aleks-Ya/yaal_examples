@@ -1,0 +1,20 @@
+plugins {
+    id 'org.beryx.jlink' version '2.26.0'
+}
+application {
+    mainClass = 'jlink.app.SearchApp'
+    mainModule = 'Java.JSE.JPMS.JLink.ModuleSearchApp.main'
+}
+dependencies {
+    implementation project(':JSE+:JPMS+:JLink:ModuleLibrary')
+}
+jlink {
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'searchapp'
+        jvmArgs = ['-m', 'Java.JSE.JPMS.JLink.ModuleSearchApp.main/jlink.app.SearchApp', 'London', 'don']
+    }
+    jpackage {
+        installerType = 'deb'
+    }
+}
