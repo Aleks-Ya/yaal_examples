@@ -25,7 +25,7 @@ public class SoundApp extends Application {
         var sound = new Media(uri);
         var mediaPlayer = new MediaPlayer(sound);
         var button = new Button(title);
-        button.setOnAction((evt) -> {
+        button.setOnAction(evt -> {
             mediaPlayer.seek(mediaPlayer.getStartTime());
             mediaPlayer.play();
         });

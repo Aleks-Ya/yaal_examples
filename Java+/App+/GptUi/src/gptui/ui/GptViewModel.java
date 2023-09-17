@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.scene.paint.Paint;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ class GptViewModel {
     private final StringProperty questionCorrectnessProperty = new SimpleStringProperty();
     private final StringProperty shortAnswerProperty = new SimpleStringProperty();
     private final StringProperty longAnswerProperty = new SimpleStringProperty();
+    private final ObjectProperty<Paint> shortAnswerStatusCircleProperty = new SimpleObjectProperty<>();
+    private final ObjectProperty<Paint> longAnswerStatusCircleProperty = new SimpleObjectProperty<>();
 
     public GptViewModel() {
         interactionHistoryValueProperty.addListener((observable, oldValue, newValue) -> {
@@ -60,6 +63,14 @@ class GptViewModel {
 
     public StringProperty shortAnswerProperty() {
         return shortAnswerProperty;
+    }
+
+    public ObjectProperty<Paint> shortAnswerStatusCircleProperty() {
+        return shortAnswerStatusCircleProperty;
+    }
+
+    public ObjectProperty<Paint> longAnswerStatusCircleProperty() {
+        return longAnswerStatusCircleProperty;
     }
 
     public StringProperty longAnswerProperty() {

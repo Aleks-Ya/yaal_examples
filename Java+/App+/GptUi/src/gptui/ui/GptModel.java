@@ -8,6 +8,7 @@ import gptui.media.SoundService;
 import gptui.storage.GptStorage;
 import gptui.storage.Interaction;
 import gptui.storage.InteractionId;
+import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,6 +49,7 @@ class GptModel {
             updateInteraction(interactionId, interaction -> interaction
                     .withTheme(theme)
                     .withQuestion(question));
+
             log.info("Sending request for a long answer...");
             var askForLongAnswer = String.format("""
                             I will ask you a question about "%s".
@@ -56,6 +58,7 @@ class GptModel {
                             The question is `%s`.
                             """.stripIndent().replace("\n", " "),
                     theme, question);
+            viewModel.longAnswerStatusCircleProperty().setValue(Color.BLUE);
             supplyAsync(() -> Mdc.call(() -> gptApi.send(askForLongAnswer), interactionId))
                     .thenAccept(longAnswerMd -> Mdc.run(() -> {
                         var longAnswerHtml = formatConverter.markdownToHtml(longAnswerMd);
@@ -65,8 +68,16 @@ class GptModel {
                                 .withLongAnswerMd(longAnswerMd)
                                 .withLongAnswerHtml(longAnswerHtml));
                         soundService.beep3();
+                        viewModel.longAnswerStatusCircleProperty().setValue(Color.GREEN);
                         log.info("The long answer request finished.");
-                    }, interactionId));
+                    }, interactionId)).handle((res, e) -> {
+                        if (e != null) {
+                            viewModel.longAnswerStatusCircleProperty().setValue(Color.RED);
+                            return e;
+                        } else {
+                            return res;
+                        }
+                    });
 
             log.info("Sending request for a shot answer...");
             var askForShortAnswer = String.format("""
@@ -76,6 +87,7 @@ class GptModel {
                             The question is `%s`.
                             """.stripIndent().replace("\n", " "),
                     theme, question);
+            viewModel.shortAnswerStatusCircleProperty().setValue(Color.BLUE);
             supplyAsync(() -> Mdc.call(() -> gptApi.send(askForShortAnswer), interactionId))
                     .thenAccept(shortAnswerMd -> Mdc.run(() -> {
                         var shortAnswerHtml = formatConverter.markdownToHtml(shortAnswerMd);
@@ -85,8 +97,16 @@ class GptModel {
                                 .withShortAnswerMd(shortAnswerMd)
                                 .withShortAnswerHtml(shortAnswerHtml));
                         soundService.beep2();
+                        viewModel.shortAnswerStatusCircleProperty().setValue(Color.GREEN);
                         log.info("The short answer request finished.");
-                    }, interactionId));
+                    }, interactionId)).handle((res, e) -> {
+                        if (e != null) {
+                            viewModel.shortAnswerStatusCircleProperty().setValue(Color.RED);
+                            return e;
+                        } else {
+                            return res;
+                        }
+                    });
 
             log.info("Sending request for a question correctness...");
             var askForQuestionCorrectness = String.format("""

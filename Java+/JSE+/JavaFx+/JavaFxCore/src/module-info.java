@@ -14,4 +14,5 @@ module Java.JSE.JavaFx.main {
     exports javafx.binding.unidirectional to javafx.graphics;
     exports javafx.binding.bidirectional to javafx.graphics;
     exports javafx.media to javafx.graphics;
+    exports javafx.shape to javafx.graphics;
 }

@@ -10,7 +10,7 @@ public class ButtonApp extends Application {
     @Override
     public void start(Stage stage) {
         var button = new Button("Print to console");
-        button.setOnAction((evt) -> System.out.println("Button was clicked"));
+        button.setOnAction(evt -> System.out.println("Button was clicked"));
         var scene = new Scene(new StackPane(button), 640, 480);
         stage.setScene(scene);
         stage.show();

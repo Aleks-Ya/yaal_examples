@@ -13,6 +13,8 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.web.WebView;
 
 import static javafx.geometry.Orientation.VERTICAL;
@@ -24,7 +26,9 @@ public class GptView extends VBox {
     private final TextArea questionTextArea = new TextArea();
     private final TextArea questionCorrectnessTextArea = new TextArea();
     private final WebView shortAnswerWebView = new WebView();
+    private final Circle shortAnswerStatusCircle = new Circle();
     private final WebView longAnswerWebView = new WebView();
+    private final Circle longAnswerStatusCircle = new Circle();
 
     public GptView() {
         createView();
@@ -62,6 +66,8 @@ public class GptView extends VBox {
                 Platform.runLater(() -> shortAnswerWebView.getEngine().loadContent(newValue)));
         viewModel.longAnswerProperty().addListener((observable, oldValue, newValue) ->
                 Platform.runLater(() -> longAnswerWebView.getEngine().loadContent(newValue)));
+        shortAnswerStatusCircle.fillProperty().bindBidirectional(viewModel.shortAnswerStatusCircleProperty());
+        longAnswerStatusCircle.fillProperty().bindBidirectional(viewModel.longAnswerStatusCircleProperty());
     }
 
     private HBox createInteractionHistoryHBox() {
@@ -114,7 +120,9 @@ public class GptView extends VBox {
             content.putHtml((String) shortAnswerWebView.getEngine().executeScript("document.documentElement.outerHTML"));
             clipboard.setContent(content);
         });
-        var hBox = new HBox(label, new Separator(), shortAnswerWebView, new Separator(), copy);
+        shortAnswerStatusCircle.setRadius(10);
+        shortAnswerStatusCircle.setFill(Color.WHITE);
+        var hBox = new HBox(label, new Separator(), shortAnswerWebView, new Separator(), copy, shortAnswerStatusCircle);
         HBox.setHgrow(shortAnswerWebView, Priority.ALWAYS);
         return hBox;
     }
@@ -129,7 +137,9 @@ public class GptView extends VBox {
             content.putHtml((String) longAnswerWebView.getEngine().executeScript("document.documentElement.outerHTML"));
             clipboard.setContent(content);
         });
-        var hBox = new HBox(label, new Separator(), longAnswerWebView, new Separator(), copy);
+        longAnswerStatusCircle.setRadius(10);
+        longAnswerStatusCircle.setFill(Color.WHITE);
+        var hBox = new HBox(label, new Separator(), longAnswerWebView, new Separator(), copy, longAnswerStatusCircle);
         HBox.setHgrow(longAnswerWebView, Priority.ALWAYS);
         return hBox;
     }
