@@ -3,4 +3,4 @@
 Install: part of JDK 14
 
 Help: `jlink -h`
-Version: `jlink -v`
+Version: `jlink --version`

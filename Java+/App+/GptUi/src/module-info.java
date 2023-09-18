@@ -33,4 +33,6 @@ module GptUi.main {
     exports gptui to javafx.graphics;
     exports gptui.ui to javafx.graphics;
     exports gptui.storage to com.google.gson;
+    exports gptui.ui.view to javafx.graphics;
+    opens gptui.ui.view to javafx.fxml;
 }

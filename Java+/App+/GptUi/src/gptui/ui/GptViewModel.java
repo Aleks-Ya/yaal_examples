@@ -13,7 +13,7 @@ import javafx.scene.paint.Paint;
 
 import java.util.List;
 
-class GptViewModel {
+public class GptViewModel {
     private final GptModel model;
     private final ObjectProperty<Interaction> interactionHistoryValueProperty = new SimpleObjectProperty<>();
     private final ListProperty<Interaction> interactionHistoryItemsProperty = new SimpleListProperty<>(FXCollections.observableArrayList());

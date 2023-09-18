@@ -1,6 +1,6 @@
 package gptui;
 
-import gptui.ui.GptView;
+import gptui.ui.view.GptView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
