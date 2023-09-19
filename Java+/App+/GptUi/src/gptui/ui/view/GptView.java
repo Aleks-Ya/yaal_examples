@@ -1,6 +1,5 @@
 package gptui.ui.view;
 
-import gptui.ui.GptViewModel;
 import javafx.application.Platform;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.VBox;

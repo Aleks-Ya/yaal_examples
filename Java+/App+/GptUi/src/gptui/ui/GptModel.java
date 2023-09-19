@@ -8,6 +8,7 @@ import gptui.media.SoundService;
 import gptui.storage.GptStorage;
 import gptui.storage.Interaction;
 import gptui.storage.InteractionId;
+import gptui.ui.view.GptViewModel;
 import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ import java.util.function.Function;
 
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
-class GptModel {
+public class GptModel {
     private static final Logger log = LoggerFactory.getLogger(GptModel.class);
     private final GptApi gptApi = new GptApi();
     private final FormatConverter formatConverter = new FormatConverter();
@@ -26,7 +27,7 @@ class GptModel {
     private final GptStorage gptStorage = new GptStorage();
     private final SoundService soundService = new SoundService();
 
-    GptModel(GptViewModel viewModel) {
+    public GptModel(GptViewModel viewModel) {
         this.viewModel = viewModel;
         viewModel.themeListUpdated(readThemeList());
         viewModel.interactionHistoryUpdated(gptStorage.readAllInteractions(), null);
@@ -58,7 +59,7 @@ class GptModel {
                             The question is `%s`.
                             """.stripIndent().replace("\n", " "),
                     theme, question);
-            viewModel.longAnswerStatusCircleProperty().setValue(Color.BLUE);
+            viewModel.setLongAnswerStatusCircleColor(Color.BLUE);
             supplyAsync(() -> Mdc.call(() -> gptApi.send(askForLongAnswer), interactionId))
                     .thenAccept(longAnswerMd -> Mdc.run(() -> {
                         var longAnswerHtml = formatConverter.markdownToHtml(longAnswerMd);
@@ -68,11 +69,11 @@ class GptModel {
                                 .withLongAnswerMd(longAnswerMd)
                                 .withLongAnswerHtml(longAnswerHtml));
                         soundService.beep3();
-                        viewModel.longAnswerStatusCircleProperty().setValue(Color.GREEN);
+                        viewModel.setLongAnswerStatusCircleColor(Color.GREEN);
                         log.info("The long answer request finished.");
                     }, interactionId)).handle((res, e) -> {
                         if (e != null) {
-                            viewModel.longAnswerStatusCircleProperty().setValue(Color.RED);
+                            viewModel.setLongAnswerStatusCircleColor(Color.RED);
                             return e;
                         } else {
                             return res;
@@ -87,7 +88,7 @@ class GptModel {
                             The question is `%s`.
                             """.stripIndent().replace("\n", " "),
                     theme, question);
-            viewModel.shortAnswerStatusCircleProperty().setValue(Color.BLUE);
+            viewModel.setShortAnswerStatusCircleColor(Color.BLUE);
             supplyAsync(() -> Mdc.call(() -> gptApi.send(askForShortAnswer), interactionId))
                     .thenAccept(shortAnswerMd -> Mdc.run(() -> {
                         var shortAnswerHtml = formatConverter.markdownToHtml(shortAnswerMd);
@@ -97,11 +98,11 @@ class GptModel {
                                 .withShortAnswerMd(shortAnswerMd)
                                 .withShortAnswerHtml(shortAnswerHtml));
                         soundService.beep2();
-                        viewModel.shortAnswerStatusCircleProperty().setValue(Color.GREEN);
+                        viewModel.setShortAnswerStatusCircleColor(Color.GREEN);
                         log.info("The short answer request finished.");
                     }, interactionId)).handle((res, e) -> {
                         if (e != null) {
-                            viewModel.shortAnswerStatusCircleProperty().setValue(Color.RED);
+                            viewModel.setShortAnswerStatusCircleColor(Color.RED);
                             return e;
                         } else {
                             return res;

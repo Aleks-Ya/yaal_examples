@@ -1,6 +1,7 @@
-package gptui.ui;
+package gptui.ui.view;
 
 import gptui.storage.Interaction;
+import gptui.ui.GptModel;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -9,6 +10,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.List;
@@ -37,43 +39,43 @@ public class GptViewModel {
         model = new GptModel(this);
     }
 
-    public ObjectProperty<Interaction> interactionHistoryValueProperty() {
+    ObjectProperty<Interaction> interactionHistoryValueProperty() {
         return interactionHistoryValueProperty;
     }
 
-    public ListProperty<Interaction> interactionHistoryItemsProperty() {
+    ListProperty<Interaction> interactionHistoryItemsProperty() {
         return interactionHistoryItemsProperty;
     }
 
-    public StringProperty themeValueProperty() {
+    StringProperty themeValueProperty() {
         return themeValueProperty;
     }
 
-    public ListProperty<String> themeItemsProperty() {
+    ListProperty<String> themeItemsProperty() {
         return themeItemsProperty;
     }
 
-    public StringProperty questionProperty() {
+    StringProperty questionProperty() {
         return questionProperty;
     }
 
-    public StringProperty questionCorrectnessProperty() {
+    StringProperty questionCorrectnessProperty() {
         return questionCorrectnessProperty;
     }
 
-    public StringProperty shortAnswerProperty() {
+    StringProperty shortAnswerProperty() {
         return shortAnswerProperty;
     }
 
-    public ObjectProperty<Paint> shortAnswerStatusCircleProperty() {
+    ObjectProperty<Paint> shortAnswerStatusCircleProperty() {
         return shortAnswerStatusCircleProperty;
     }
 
-    public ObjectProperty<Paint> longAnswerStatusCircleProperty() {
+    ObjectProperty<Paint> longAnswerStatusCircleProperty() {
         return longAnswerStatusCircleProperty;
     }
 
-    public StringProperty longAnswerProperty() {
+    StringProperty longAnswerProperty() {
         return longAnswerProperty;
     }
 
@@ -121,6 +123,14 @@ public class GptViewModel {
         } else if (!newThemeList.isEmpty()) {
             themeValueProperty.setValue(newThemeList.get(0));
         }
+    }
+
+    public void setShortAnswerStatusCircleColor(Color color) {
+        shortAnswerStatusCircleProperty.setValue(color);
+    }
+
+    public void setLongAnswerStatusCircleColor(Color color) {
+        longAnswerStatusCircleProperty.setValue(color);
     }
 
     private void showInteraction(Interaction interaction) {
