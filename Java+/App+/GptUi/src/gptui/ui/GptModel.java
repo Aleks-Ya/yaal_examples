@@ -21,7 +21,7 @@ import java.util.function.Function;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.QUESTION_CORRECTNESS;
 import static gptui.storage.AnswerType.SHORT;
-import static java.util.concurrent.CompletableFuture.supplyAsync;
+import static java.util.concurrent.CompletableFuture.runAsync;
 
 public class GptModel {
     private static final Logger log = LoggerFactory.getLogger(GptModel.class);
@@ -58,60 +58,60 @@ public class GptModel {
     private void requestQuestionCorrectness(String question, InteractionId interactionId) {
         log.info("Sending request for a question correctness...");
         var prompt = promptFactory.getPrompt(null, question, QUESTION_CORRECTNESS);
-        supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(prompt)))
-                .thenAccept(answerMd -> Mdc.run(interactionId, () -> {
-                    viewModel.setAnswer(QUESTION_CORRECTNESS, answerMd);
-                    updateInteraction(interactionId, interaction -> interaction
-                            .withAnswer(new Answer(QUESTION_CORRECTNESS, prompt, answerMd, answerMd)));
-                    soundService.beenOnAnswer(QUESTION_CORRECTNESS);
-                    log.info("The question correctness answer request finished.");
-                }));
+        runAsync(() -> Mdc.run(interactionId, () -> {
+            var answerMd = gptApi.send(prompt);
+            viewModel.setAnswer(QUESTION_CORRECTNESS, answerMd);
+            updateInteraction(interactionId, interaction -> interaction
+                    .withAnswer(new Answer(QUESTION_CORRECTNESS, prompt, answerMd, answerMd)));
+            soundService.beenOnAnswer(QUESTION_CORRECTNESS);
+            log.info("The question correctness answer request finished.");
+        }));
     }
 
     private void requestShortAnswer(String theme, String question, InteractionId interactionId) {
         log.info("Sending request for a shot answer...");
         var prompt = promptFactory.getPrompt(theme, question, SHORT);
         viewModel.setAnswerStatusCircleColor(SHORT, Color.BLUE);
-        supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(prompt)))
-                .thenAccept(answerMd -> Mdc.run(interactionId, () -> {
-                    var answerHtml = formatConverter.markdownToHtml(answerMd);
-                    viewModel.setAnswer(SHORT, answerHtml);
-                    updateInteraction(interactionId, interaction -> interaction
-                            .withAnswer(new Answer(SHORT, prompt, answerMd, answerHtml)));
-                    soundService.beenOnAnswer(SHORT);
-                    viewModel.setAnswerStatusCircleColor(SHORT, Color.GREEN);
-                    log.info("The short answer request finished.");
-                })).handle((res, e) -> {
-                    if (e != null) {
-                        Mdc.run(interactionId, () -> viewModel.setAnswerStatusCircleColor(SHORT, Color.RED));
-                        return e;
-                    } else {
-                        return res;
-                    }
-                });
+        runAsync(() -> Mdc.run(interactionId, () -> {
+            var answerMd = gptApi.send(prompt);
+            var answerHtml = formatConverter.markdownToHtml(answerMd);
+            viewModel.setAnswer(SHORT, answerHtml);
+            updateInteraction(interactionId, interaction -> interaction
+                    .withAnswer(new Answer(SHORT, prompt, answerMd, answerHtml)));
+            soundService.beenOnAnswer(SHORT);
+            viewModel.setAnswerStatusCircleColor(SHORT, Color.GREEN);
+            log.info("The short answer request finished.");
+        })).handle((res, e) -> {
+            if (e != null) {
+                Mdc.run(interactionId, () -> viewModel.setAnswerStatusCircleColor(SHORT, Color.RED));
+                return e;
+            } else {
+                return res;
+            }
+        });
     }
 
     private void requestLongAnswer(String theme, String question, InteractionId interactionId) {
         log.info("Sending request for a long answer...");
         var prompt = promptFactory.getPrompt(theme, question, LONG);
         viewModel.setAnswerStatusCircleColor(LONG, Color.BLUE);
-        supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(prompt)))
-                .thenAccept(answerMd -> Mdc.run(interactionId, () -> {
-                    var answerHtml = formatConverter.markdownToHtml(answerMd);
-                    viewModel.setAnswer(LONG, answerHtml);
-                    updateInteraction(interactionId, interaction -> interaction
-                            .withAnswer(new Answer(LONG, prompt, answerMd, answerHtml)));
-                    soundService.beenOnAnswer(LONG);
-                    viewModel.setAnswerStatusCircleColor(LONG, Color.GREEN);
-                    log.info("The long answer request finished.");
-                })).handle((res, e) -> {
-                    if (e != null) {
-                        Mdc.run(interactionId, () -> viewModel.setAnswerStatusCircleColor(LONG, Color.RED));
-                        return e;
-                    } else {
-                        return res;
-                    }
-                });
+        runAsync(() -> Mdc.run(interactionId, () -> {
+            var answerMd = gptApi.send(prompt);
+            var answerHtml = formatConverter.markdownToHtml(answerMd);
+            viewModel.setAnswer(LONG, answerHtml);
+            updateInteraction(interactionId, interaction -> interaction
+                    .withAnswer(new Answer(LONG, prompt, answerMd, answerHtml)));
+            soundService.beenOnAnswer(LONG);
+            viewModel.setAnswerStatusCircleColor(LONG, Color.GREEN);
+            log.info("The long answer request finished.");
+        })).handle((res, e) -> {
+            if (e != null) {
+                Mdc.run(interactionId, () -> viewModel.setAnswerStatusCircleColor(LONG, Color.RED));
+                return e;
+            } else {
+                return res;
+            }
+        });
     }
 
     private void updateInteraction(InteractionId interactionId, Function<Interaction, Interaction> update) {
