@@ -60,9 +60,10 @@ public class GptModel {
         var prompt = promptFactory.getPrompt(null, question, QUESTION_CORRECTNESS);
         runAsync(() -> Mdc.run(interactionId, () -> {
             var answerMd = gptApi.send(prompt);
-            viewModel.setAnswer(QUESTION_CORRECTNESS, answerMd);
+            var answerHtml = formatConverter.markdownToHtml(answerMd);
+            viewModel.setAnswer(QUESTION_CORRECTNESS, answerHtml);
             updateInteraction(interactionId, interaction -> interaction
-                    .withAnswer(new Answer(QUESTION_CORRECTNESS, prompt, answerMd, answerMd)));
+                    .withAnswer(new Answer(QUESTION_CORRECTNESS, prompt, answerMd, answerHtml)));
             soundService.beenOnAnswer(QUESTION_CORRECTNESS);
             log.info("The question correctness answer request finished.");
         }));

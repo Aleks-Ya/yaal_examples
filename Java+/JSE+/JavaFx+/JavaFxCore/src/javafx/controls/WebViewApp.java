@@ -3,6 +3,7 @@ package javafx.controls;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Separator;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.HBox;
@@ -16,7 +17,9 @@ public class WebViewApp extends Application {
         var webView1 = fullHtmlDocument();
         var webView2 = partialHtmlDocument();
         var element = copyHtmlButton();
-        var scene = new Scene(new VBox(webView1, webView2, element), 640, 480);
+        var size = webViewSize();
+        var vBox = new VBox(webView1, new Separator(), webView2, new Separator(), element, new Separator(), size);
+        var scene = new Scene(vBox, 1024, 768);
         stage.setScene(scene);
         stage.show();
     }
@@ -56,6 +59,18 @@ public class WebViewApp extends Application {
             clipboard.setContent(clipboardContent);
         });
         return new HBox(webView, button);
+    }
+
+    private static WebView webViewSize() {
+        int minHeight = 50;
+        int maxHeight = 200;
+        var content = String.format("<p>Min height: %d<p/>"
+                + "<p>Max height: %d</p>", minHeight, maxHeight);
+        var webView = new WebView();
+        webView.setMinHeight(minHeight);
+        webView.setMaxHeight(maxHeight);
+        webView.getEngine().loadContent(content);
+        return webView;
     }
 
     public static void main(String[] args) {

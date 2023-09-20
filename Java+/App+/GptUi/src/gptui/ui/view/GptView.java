@@ -40,7 +40,8 @@ public class GptView extends VBox {
             }
         });
         questionPane.getTextProperty().bindBidirectional(viewModel.questionProperty());
-        questionCorrectnessPane.getTextProperty().bindBidirectional(viewModel.questionCorrectnessProperty());
+        viewModel.questionCorrectnessProperty().addListener((observable, oldValue, newValue) ->
+                Platform.runLater(() -> questionCorrectnessPane.setContent(newValue)));
         viewModel.shortAnswerProperty().addListener((observable, oldValue, newValue) ->
                 Platform.runLater(() -> shortAnswerPane.setContent(newValue)));
         viewModel.longAnswerProperty().addListener((observable, oldValue, newValue) ->

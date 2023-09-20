@@ -1,7 +1,7 @@
 package gptui.ui.view;
 
 import javafx.scene.Scene;
-import javafx.scene.control.TextArea;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -26,7 +26,7 @@ class QuestionCorrectnessPaneTest extends ApplicationTest {
 
     @Test
     void shouldContainTextArea() {
-        var text = lookup(".text-area").queryAs(TextArea.class).getText();
-        assertThat(text).isEmpty();
+        var document = lookup(".web-view").queryAs(WebView.class).getEngine().getDocument();
+        assertThat(document).isNull();
     }
 }
