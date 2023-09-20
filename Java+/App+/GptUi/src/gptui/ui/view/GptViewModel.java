@@ -1,6 +1,7 @@
 package gptui.ui.view;
 
 import gptui.storage.Answer;
+import gptui.storage.AnswerType;
 import gptui.storage.Interaction;
 import gptui.ui.GptModel;
 import javafx.application.Platform;
@@ -98,16 +99,12 @@ public class GptViewModel {
         questionProperty.setValue(question);
     }
 
-    public void setQuestionCorrectnessAnswer(String answer) {
-        questionCorrectnessProperty.set(answer);
-    }
-
-    public void setShortAnswer(String answer) {
-        shortAnswerProperty.set(answer);
-    }
-
-    public void setLongAnswer(String answer) {
-        longAnswerProperty.set(answer);
+    public void setAnswer(AnswerType answerType, String answer) {
+        switch (answerType) {
+            case QUESTION_CORRECTNESS -> questionCorrectnessProperty.set(answer);
+            case SHORT -> shortAnswerProperty.set(answer);
+            case LONG -> longAnswerProperty.set(answer);
+        }
     }
 
     public void interactionHistoryUpdated(List<Interaction> newInteractionHistoryList, Interaction currentInteraction) {
@@ -130,24 +127,23 @@ public class GptViewModel {
         }
     }
 
-    public void setShortAnswerStatusCircleColor(Color color) {
-        shortAnswerStatusCircleProperty.setValue(color);
-    }
-
-    public void setLongAnswerStatusCircleColor(Color color) {
-        longAnswerStatusCircleProperty.setValue(color);
+    public void setAnswerStatusCircleColor(AnswerType answerType, Color color) {
+        switch (answerType) {
+            case SHORT -> shortAnswerStatusCircleProperty.setValue(color);
+            case LONG -> longAnswerStatusCircleProperty.setValue(color);
+        }
     }
 
     private void showInteraction(Interaction interaction) {
         setTheme(interaction.theme());
         setQuestion(interaction.question());
-        setQuestionCorrectnessAnswer(interaction.getAnswer(QUESTION_CORRECTNESS)
+        setAnswer(QUESTION_CORRECTNESS, interaction.getAnswer(QUESTION_CORRECTNESS)
                 .orElse(new Answer(QUESTION_CORRECTNESS, "", "", ""))
                 .answerHtml());
-        setShortAnswer(interaction.getAnswer(SHORT)
+        setAnswer(SHORT, interaction.getAnswer(SHORT)
                 .orElse(new Answer(SHORT, "", "", ""))
                 .answerHtml());
-        setLongAnswer(interaction.getAnswer(LONG)
+        setAnswer(LONG, interaction.getAnswer(LONG)
                 .orElse(new Answer(LONG, "", "", ""))
                 .answerHtml());
     }

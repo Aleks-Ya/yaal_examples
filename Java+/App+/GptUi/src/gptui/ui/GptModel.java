@@ -43,9 +43,9 @@ public class GptModel {
         var interactionId = gptStorage.newInteractionId();
         Mdc.run(interactionId, () -> {
             log.info("Sending question: theme=\"{}\", question=\"{}\"", theme, question);
-            viewModel.setQuestionCorrectnessAnswer("");
-            viewModel.setShortAnswer("");
-            viewModel.setLongAnswer("");
+            viewModel.setAnswer(QUESTION_CORRECTNESS, "");
+            viewModel.setAnswer(SHORT, "");
+            viewModel.setAnswer(LONG, "");
             updateInteraction(interactionId, interaction -> interaction
                     .withTheme(theme)
                     .withQuestion(question));
@@ -60,10 +60,10 @@ public class GptModel {
         var prompt = promptFactory.getPrompt(null, question, QUESTION_CORRECTNESS);
         supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(prompt)))
                 .thenAccept(answerMd -> Mdc.run(interactionId, () -> {
-                    viewModel.setQuestionCorrectnessAnswer(answerMd);
+                    viewModel.setAnswer(QUESTION_CORRECTNESS, answerMd);
                     updateInteraction(interactionId, interaction -> interaction
                             .withAnswer(new Answer(QUESTION_CORRECTNESS, prompt, answerMd, answerMd)));
-                    soundService.beep1();
+                    soundService.beenOnAnswer(QUESTION_CORRECTNESS);
                     log.info("The question correctness answer request finished.");
                 }));
     }
@@ -71,19 +71,19 @@ public class GptModel {
     private void requestShortAnswer(String theme, String question, InteractionId interactionId) {
         log.info("Sending request for a shot answer...");
         var prompt = promptFactory.getPrompt(theme, question, SHORT);
-        viewModel.setShortAnswerStatusCircleColor(Color.BLUE);
+        viewModel.setAnswerStatusCircleColor(SHORT, Color.BLUE);
         supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(prompt)))
                 .thenAccept(answerMd -> Mdc.run(interactionId, () -> {
                     var answerHtml = formatConverter.markdownToHtml(answerMd);
-                    viewModel.setShortAnswer(answerHtml);
+                    viewModel.setAnswer(SHORT, answerHtml);
                     updateInteraction(interactionId, interaction -> interaction
                             .withAnswer(new Answer(SHORT, prompt, answerMd, answerHtml)));
-                    soundService.beep2();
-                    viewModel.setShortAnswerStatusCircleColor(Color.GREEN);
+                    soundService.beenOnAnswer(SHORT);
+                    viewModel.setAnswerStatusCircleColor(SHORT, Color.GREEN);
                     log.info("The short answer request finished.");
                 })).handle((res, e) -> {
                     if (e != null) {
-                        Mdc.run(interactionId, () -> viewModel.setShortAnswerStatusCircleColor(Color.RED));
+                        Mdc.run(interactionId, () -> viewModel.setAnswerStatusCircleColor(SHORT, Color.RED));
                         return e;
                     } else {
                         return res;
@@ -94,19 +94,19 @@ public class GptModel {
     private void requestLongAnswer(String theme, String question, InteractionId interactionId) {
         log.info("Sending request for a long answer...");
         var prompt = promptFactory.getPrompt(theme, question, LONG);
-        viewModel.setLongAnswerStatusCircleColor(Color.BLUE);
+        viewModel.setAnswerStatusCircleColor(LONG, Color.BLUE);
         supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(prompt)))
                 .thenAccept(answerMd -> Mdc.run(interactionId, () -> {
                     var answerHtml = formatConverter.markdownToHtml(answerMd);
-                    viewModel.setLongAnswer(answerHtml);
+                    viewModel.setAnswer(LONG, answerHtml);
                     updateInteraction(interactionId, interaction -> interaction
                             .withAnswer(new Answer(LONG, prompt, answerMd, answerHtml)));
-                    soundService.beep3();
-                    viewModel.setLongAnswerStatusCircleColor(Color.GREEN);
+                    soundService.beenOnAnswer(LONG);
+                    viewModel.setAnswerStatusCircleColor(LONG, Color.GREEN);
                     log.info("The long answer request finished.");
                 })).handle((res, e) -> {
                     if (e != null) {
-                        Mdc.run(interactionId, () -> viewModel.setLongAnswerStatusCircleColor(Color.RED));
+                        Mdc.run(interactionId, () -> viewModel.setAnswerStatusCircleColor(LONG, Color.RED));
                         return e;
                     } else {
                         return res;

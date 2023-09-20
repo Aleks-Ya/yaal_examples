@@ -1,5 +1,6 @@
 package gptui.media;
 
+import gptui.storage.AnswerType;
 import javafx.scene.media.AudioClip;
 
 import static java.util.Objects.requireNonNull;
@@ -16,15 +17,11 @@ public class SoundService {
         beep3 = new AudioClip(requireNonNull(getClass().getResource("beep-3.mp3")).toString());
     }
 
-    public synchronized void beep1() {
-        beep1.play(volume);
-    }
-
-    public synchronized void beep2() {
-        beep2.play(volume);
-    }
-
-    public synchronized void beep3() {
-        beep3.play(volume);
+    public synchronized void beenOnAnswer(AnswerType answerType) {
+        switch (answerType) {
+            case QUESTION_CORRECTNESS -> beep1.play(volume);
+            case SHORT -> beep2.play(volume);
+            case LONG -> beep3.play(volume);
+        }
     }
 }
