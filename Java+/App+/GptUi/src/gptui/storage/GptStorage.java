@@ -24,10 +24,7 @@ public class GptStorage {
         var interactionOpt = readInteraction(interactionId);
         Interaction interaction;
         if (interactionOpt.isEmpty()) {
-            interaction = new Interaction(interactionId,
-                    null, null, null, null,
-                    null, null, null, null,
-                    null, null);
+            interaction = new Interaction(interactionId, null, null, Map.of());
             if (interactions.containsKey(interactionId)) {
                 throw new IllegalStateException("Interaction already exists: " + interaction);
             }

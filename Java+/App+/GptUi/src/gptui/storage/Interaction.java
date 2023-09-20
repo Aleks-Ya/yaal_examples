@@ -1,65 +1,33 @@
 package gptui.storage;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 public record Interaction(InteractionId id,
                           String theme,
                           String question,
-                          String questionCorrectnessPrompt,
-                          String questionCorrectnessAnswer,
-                          String shortAnswerPrompt,
-                          String shortAnswerMd,
-                          String shortAnswerHtml,
-                          String longAnswerPrompt,
-                          String longAnswerMd,
-                          String longAnswerHtml) {
+                          Map<AnswerType, Answer> answers) {
+
+    public Optional<Answer> getAnswer(AnswerType answerType) {
+        return Optional.ofNullable(answers.get(answerType));
+    }
 
     public Interaction withTheme(String theme) {
-        return new Interaction(id, theme, question, questionCorrectnessPrompt, questionCorrectnessAnswer,
-                shortAnswerPrompt, shortAnswerMd, shortAnswerHtml, longAnswerPrompt, longAnswerMd, longAnswerHtml);
+        return new Interaction(id, theme, question, answers);
     }
 
     public Interaction withQuestion(String question) {
-        return new Interaction(id, theme, question, questionCorrectnessPrompt, questionCorrectnessAnswer,
-                shortAnswerPrompt, shortAnswerMd, shortAnswerHtml, longAnswerPrompt, longAnswerMd, longAnswerHtml);
+        return new Interaction(id, theme, question, answers);
     }
 
-    public Interaction withLongAnswerPrompt(String longAnswerPrompt) {
-        return new Interaction(id, theme, question, questionCorrectnessPrompt, questionCorrectnessAnswer,
-                shortAnswerPrompt, shortAnswerMd, shortAnswerHtml, longAnswerPrompt, longAnswerMd, longAnswerHtml);
-    }
-
-    public Interaction withLongAnswerHtml(String longAnswerHtml) {
-        return new Interaction(id, theme, question, questionCorrectnessPrompt, questionCorrectnessAnswer,
-                shortAnswerPrompt, shortAnswerMd, shortAnswerHtml, longAnswerPrompt, longAnswerMd, longAnswerHtml);
-    }
-
-    public Interaction withLongAnswerMd(String longAnswerMd) {
-        return new Interaction(id, theme, question, questionCorrectnessPrompt, questionCorrectnessAnswer,
-                shortAnswerPrompt, shortAnswerMd, shortAnswerHtml, longAnswerPrompt, longAnswerMd, longAnswerHtml);
-    }
-
-    public Interaction withShortAnswerPrompt(String shortAnswerPrompt) {
-        return new Interaction(id, theme, question, questionCorrectnessPrompt, questionCorrectnessAnswer,
-                shortAnswerPrompt, shortAnswerMd, shortAnswerHtml, longAnswerPrompt, longAnswerMd, longAnswerHtml);
-    }
-
-    public Interaction withShortAnswerHtml(String shortAnswerHtml) {
-        return new Interaction(id, theme, question, questionCorrectnessPrompt, questionCorrectnessAnswer,
-                shortAnswerPrompt, shortAnswerMd, shortAnswerHtml, longAnswerPrompt, longAnswerMd, longAnswerHtml);
-    }
-
-    public Interaction withShortAnswerMd(String shortAnswerMd) {
-        return new Interaction(id, theme, question, questionCorrectnessPrompt, questionCorrectnessAnswer,
-                shortAnswerPrompt, shortAnswerMd, shortAnswerHtml, longAnswerPrompt, longAnswerMd, longAnswerHtml);
-    }
-
-    public Interaction withQuestionCorrectnessPrompt(String questionCorrectnessPrompt) {
-        return new Interaction(id, theme, question, questionCorrectnessPrompt, questionCorrectnessAnswer,
-                shortAnswerPrompt, shortAnswerMd, shortAnswerHtml, longAnswerPrompt, longAnswerMd, longAnswerHtml);
-    }
-
-    public Interaction withQuestionCorrectnessAnswer(String questionCorrectnessAnswer) {
-        return new Interaction(id, theme, question, questionCorrectnessPrompt, questionCorrectnessAnswer,
-                shortAnswerPrompt, shortAnswerMd, shortAnswerHtml, longAnswerPrompt, longAnswerMd, longAnswerHtml);
+    public Interaction withAnswer(Answer answer) {
+        var map = new HashMap<AnswerType, Answer>();
+        if (answers != null) {
+            map.putAll(answers);
+        }
+        map.put(answer.answerType(), answer);
+        return new Interaction(id, theme, question, map);
     }
 
     @Override

@@ -5,6 +5,7 @@ import gptui.format.FormatConverter;
 import gptui.format.ThemeHelper;
 import gptui.gpt.GptApi;
 import gptui.media.SoundService;
+import gptui.storage.Answer;
 import gptui.storage.GptStorage;
 import gptui.storage.Interaction;
 import gptui.storage.InteractionId;
@@ -16,6 +17,9 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.function.Function;
 
+import static gptui.storage.AnswerType.LONG;
+import static gptui.storage.AnswerType.QUESTION_CORRECTNESS;
+import static gptui.storage.AnswerType.SHORT;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 public class GptModel {
@@ -58,11 +62,10 @@ public class GptModel {
                         The sentence is `%s`.""".stripIndent().replace("\n", " "),
                 question);
         supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(prompt)))
-                .thenAccept(questionCorrectnessAnswer -> Mdc.run(interactionId, () -> {
-                    viewModel.setQuestionCorrectnessAnswer(questionCorrectnessAnswer);
+                .thenAccept(answerMd -> Mdc.run(interactionId, () -> {
+                    viewModel.setQuestionCorrectnessAnswer(answerMd);
                     updateInteraction(interactionId, interaction -> interaction
-                            .withQuestionCorrectnessPrompt(prompt)
-                            .withQuestionCorrectnessAnswer(questionCorrectnessAnswer));
+                            .withAnswer(new Answer(QUESTION_CORRECTNESS, prompt, answerMd, answerMd)));
                     soundService.beep1();
                     log.info("The question correctness answer request finished.");
                 }));
@@ -79,13 +82,11 @@ public class GptModel {
                 theme, question);
         viewModel.setShortAnswerStatusCircleColor(Color.BLUE);
         supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(prompt)))
-                .thenAccept(shortAnswerMd -> Mdc.run(interactionId, () -> {
-                    var shortAnswerHtml = formatConverter.markdownToHtml(shortAnswerMd);
-                    viewModel.setShortAnswer(shortAnswerHtml);
+                .thenAccept(answerMd -> Mdc.run(interactionId, () -> {
+                    var answerHtml = formatConverter.markdownToHtml(answerMd);
+                    viewModel.setShortAnswer(answerHtml);
                     updateInteraction(interactionId, interaction -> interaction
-                            .withShortAnswerPrompt(prompt)
-                            .withShortAnswerMd(shortAnswerMd)
-                            .withShortAnswerHtml(shortAnswerHtml));
+                            .withAnswer(new Answer(SHORT, prompt, answerMd, answerHtml)));
                     soundService.beep2();
                     viewModel.setShortAnswerStatusCircleColor(Color.GREEN);
                     log.info("The short answer request finished.");
@@ -110,13 +111,11 @@ public class GptModel {
                 theme, question);
         viewModel.setLongAnswerStatusCircleColor(Color.BLUE);
         supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(prompt)))
-                .thenAccept(longAnswerMd -> Mdc.run(interactionId, () -> {
-                    var longAnswerHtml = formatConverter.markdownToHtml(longAnswerMd);
-                    viewModel.setLongAnswer(longAnswerHtml);
+                .thenAccept(answerMd -> Mdc.run(interactionId, () -> {
+                    var answerHtml = formatConverter.markdownToHtml(answerMd);
+                    viewModel.setLongAnswer(answerHtml);
                     updateInteraction(interactionId, interaction -> interaction
-                            .withLongAnswerPrompt(prompt)
-                            .withLongAnswerMd(longAnswerMd)
-                            .withLongAnswerHtml(longAnswerHtml));
+                            .withAnswer(new Answer(LONG, prompt, answerMd, answerHtml)));
                     soundService.beep3();
                     viewModel.setLongAnswerStatusCircleColor(Color.GREEN);
                     log.info("The long answer request finished.");

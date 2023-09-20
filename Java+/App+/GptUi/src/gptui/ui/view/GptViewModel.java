@@ -1,5 +1,6 @@
 package gptui.ui.view;
 
+import gptui.storage.Answer;
 import gptui.storage.Interaction;
 import gptui.ui.GptModel;
 import javafx.application.Platform;
@@ -14,6 +15,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.List;
+
+import static gptui.storage.AnswerType.LONG;
+import static gptui.storage.AnswerType.QUESTION_CORRECTNESS;
+import static gptui.storage.AnswerType.SHORT;
 
 public class GptViewModel {
     private final GptModel model;
@@ -136,8 +141,14 @@ public class GptViewModel {
     private void showInteraction(Interaction interaction) {
         setTheme(interaction.theme());
         setQuestion(interaction.question());
-        setQuestionCorrectnessAnswer(interaction.questionCorrectnessAnswer());
-        setShortAnswer(interaction.shortAnswerHtml());
-        setLongAnswer(interaction.longAnswerHtml());
+        setQuestionCorrectnessAnswer(interaction.getAnswer(QUESTION_CORRECTNESS)
+                .orElse(new Answer(QUESTION_CORRECTNESS, "", "", ""))
+                .answerHtml());
+        setShortAnswer(interaction.getAnswer(SHORT)
+                .orElse(new Answer(SHORT, "", "", ""))
+                .answerHtml());
+        setLongAnswer(interaction.getAnswer(LONG)
+                .orElse(new Answer(LONG, "", "", ""))
+                .answerHtml());
     }
 }
