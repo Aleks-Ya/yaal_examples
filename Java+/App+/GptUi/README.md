@@ -10,16 +10,14 @@
 6. Add an answer from Bard
 7. Add a button to check grammar only
 8. Add a button to check is a sentence factually correct
-9. "Copy" buttons don't work for Interactions loaded from the History
-10. Add "Answer", "Definition", "Grammar" buttons instead of "Send"
-11. Rename `question` to `prompt` in sources
-12. Show a 5-words definition
-13. Add button for checking a statement for truth
-14. Add search throughout the Interaction History
-15. Display current InteractionId in the main window
-16. Add "Regenerate" buttons for short and long answers
-17. Add auto-completion for the Theme combo box
-18. Search for a definition in Wikipedia also
+9. Add "Answer", "Definition", "Grammar" buttons instead of "Send"
+10. Show a 5-words definition
+11. Add button for checking a statement for truth
+12. Add search throughout the Interaction History
+13. Display current InteractionId in the main window
+14. Add "Regenerate" buttons for short and long answers
+15. Add auto-completion for the Theme combo box
+16. Search for a definition in Wikipedia also
 
 ## Install on Ubuntu
 

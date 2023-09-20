@@ -51,17 +51,17 @@ public class GptModel {
 
     private void requestQuestionCorrectness(String question, InteractionId interactionId) {
         log.info("Sending request for a question correctness...");
-        var askForQuestionCorrectness = String.format("""
+        var prompt = String.format("""
                         I will give you a sentence.
                         Check if the sentence has grammatical mistakes.
                         It is not a mistake if the sentence starts with "How to".
                         The sentence is `%s`.""".stripIndent().replace("\n", " "),
                 question);
-        supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(askForQuestionCorrectness)))
+        supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(prompt)))
                 .thenAccept(questionCorrectnessAnswer -> Mdc.run(interactionId, () -> {
                     viewModel.setQuestionCorrectnessAnswer(questionCorrectnessAnswer);
                     updateInteraction(interactionId, interaction -> interaction
-                            .withAskForQuestionCorrectness(askForQuestionCorrectness)
+                            .withQuestionCorrectnessPrompt(prompt)
                             .withQuestionCorrectnessAnswer(questionCorrectnessAnswer));
                     soundService.beep1();
                     log.info("The question correctness answer request finished.");
@@ -70,7 +70,7 @@ public class GptModel {
 
     private void requestShortAnswer(String theme, String question, InteractionId interactionId) {
         log.info("Sending request for a shot answer...");
-        var askForShortAnswer = String.format("""
+        var prompt = String.format("""
                         I will ask you a question about "%s".
                         You should answer with a short response.
                         Format your answer into Markdown.
@@ -78,12 +78,12 @@ public class GptModel {
                         """.stripIndent().replace("\n", " "),
                 theme, question);
         viewModel.setShortAnswerStatusCircleColor(Color.BLUE);
-        supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(askForShortAnswer)))
+        supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(prompt)))
                 .thenAccept(shortAnswerMd -> Mdc.run(interactionId, () -> {
                     var shortAnswerHtml = formatConverter.markdownToHtml(shortAnswerMd);
                     viewModel.setShortAnswer(shortAnswerHtml);
                     updateInteraction(interactionId, interaction -> interaction
-                            .withAskForShortAnswer(askForShortAnswer)
+                            .withShortAnswerPrompt(prompt)
                             .withShortAnswerMd(shortAnswerMd)
                             .withShortAnswerHtml(shortAnswerHtml));
                     soundService.beep2();
@@ -101,7 +101,7 @@ public class GptModel {
 
     private void requestLongAnswer(String theme, String question, InteractionId interactionId) {
         log.info("Sending request for a long answer...");
-        var askForLongAnswer = String.format("""
+        var prompt = String.format("""
                         I will ask you a question about "%s".
                         You should answer with a detailed response.
                         Format your answer into Markdown.
@@ -109,12 +109,12 @@ public class GptModel {
                         """.stripIndent().replace("\n", " "),
                 theme, question);
         viewModel.setLongAnswerStatusCircleColor(Color.BLUE);
-        supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(askForLongAnswer)))
+        supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(prompt)))
                 .thenAccept(longAnswerMd -> Mdc.run(interactionId, () -> {
                     var longAnswerHtml = formatConverter.markdownToHtml(longAnswerMd);
                     viewModel.setLongAnswer(longAnswerHtml);
                     updateInteraction(interactionId, interaction -> interaction
-                            .withAskForLongAnswer(askForLongAnswer)
+                            .withLongAnswerPrompt(prompt)
                             .withLongAnswerMd(longAnswerMd)
                             .withLongAnswerHtml(longAnswerHtml));
                     soundService.beep3();
