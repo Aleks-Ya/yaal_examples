@@ -7,11 +7,11 @@ import gptui.format.ThemeHelper;
 import gptui.gpt.GptApi;
 import gptui.media.SoundService;
 import gptui.storage.Answer;
+import gptui.storage.AnswerType;
 import gptui.storage.GptStorage;
 import gptui.storage.Interaction;
 import gptui.storage.InteractionId;
 import gptui.ui.view.GptViewModel;
-import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +22,9 @@ import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.QUESTION_CORRECTNESS;
 import static gptui.storage.AnswerType.SHORT;
 import static java.util.concurrent.CompletableFuture.runAsync;
+import static javafx.scene.paint.Color.BLUE;
+import static javafx.scene.paint.Color.GREEN;
+import static javafx.scene.paint.Color.RED;
 
 public class GptModel {
     private static final Logger log = LoggerFactory.getLogger(GptModel.class);
@@ -49,65 +52,28 @@ public class GptModel {
             updateInteraction(interactionId, interaction -> interaction
                     .withTheme(theme)
                     .withQuestion(question));
-            requestLongAnswer(theme, question, interactionId);
-            requestShortAnswer(theme, question, interactionId);
-            requestQuestionCorrectness(question, interactionId);
+            requestAnswer(theme, question, interactionId, LONG);
+            requestAnswer(theme, question, interactionId, SHORT);
+            requestAnswer(theme, question, interactionId, QUESTION_CORRECTNESS);
         });
     }
 
-    private void requestQuestionCorrectness(String question, InteractionId interactionId) {
-        log.info("Sending request for a question correctness...");
-        var prompt = promptFactory.getPrompt(null, question, QUESTION_CORRECTNESS);
+    private void requestAnswer(String theme, String question, InteractionId interactionId, AnswerType answerType) {
+        log.info("Sending request for {}...", answerType);
+        var prompt = promptFactory.getPrompt(theme, question, answerType);
+        viewModel.setAnswerStatusCircleColor(answerType, BLUE);
         runAsync(() -> Mdc.run(interactionId, () -> {
             var answerMd = gptApi.send(prompt);
             var answerHtml = formatConverter.markdownToHtml(answerMd);
-            viewModel.setAnswer(QUESTION_CORRECTNESS, answerHtml);
+            viewModel.setAnswer(answerType, answerHtml);
             updateInteraction(interactionId, interaction -> interaction
-                    .withAnswer(new Answer(QUESTION_CORRECTNESS, prompt, answerMd, answerHtml)));
-            soundService.beenOnAnswer(QUESTION_CORRECTNESS);
-            log.info("The question correctness answer request finished.");
-        }));
-    }
-
-    private void requestShortAnswer(String theme, String question, InteractionId interactionId) {
-        log.info("Sending request for a shot answer...");
-        var prompt = promptFactory.getPrompt(theme, question, SHORT);
-        viewModel.setAnswerStatusCircleColor(SHORT, Color.BLUE);
-        runAsync(() -> Mdc.run(interactionId, () -> {
-            var answerMd = gptApi.send(prompt);
-            var answerHtml = formatConverter.markdownToHtml(answerMd);
-            viewModel.setAnswer(SHORT, answerHtml);
-            updateInteraction(interactionId, interaction -> interaction
-                    .withAnswer(new Answer(SHORT, prompt, answerMd, answerHtml)));
-            soundService.beenOnAnswer(SHORT);
-            viewModel.setAnswerStatusCircleColor(SHORT, Color.GREEN);
+                    .withAnswer(new Answer(answerType, prompt, answerMd, answerHtml)));
+            soundService.beenOnAnswer(answerType);
+            viewModel.setAnswerStatusCircleColor(answerType, GREEN);
             log.info("The short answer request finished.");
         })).handle((res, e) -> {
             if (e != null) {
-                Mdc.run(interactionId, () -> viewModel.setAnswerStatusCircleColor(SHORT, Color.RED));
-                return e;
-            } else {
-                return res;
-            }
-        });
-    }
-
-    private void requestLongAnswer(String theme, String question, InteractionId interactionId) {
-        log.info("Sending request for a long answer...");
-        var prompt = promptFactory.getPrompt(theme, question, LONG);
-        viewModel.setAnswerStatusCircleColor(LONG, Color.BLUE);
-        runAsync(() -> Mdc.run(interactionId, () -> {
-            var answerMd = gptApi.send(prompt);
-            var answerHtml = formatConverter.markdownToHtml(answerMd);
-            viewModel.setAnswer(LONG, answerHtml);
-            updateInteraction(interactionId, interaction -> interaction
-                    .withAnswer(new Answer(LONG, prompt, answerMd, answerHtml)));
-            soundService.beenOnAnswer(LONG);
-            viewModel.setAnswerStatusCircleColor(LONG, Color.GREEN);
-            log.info("The long answer request finished.");
-        })).handle((res, e) -> {
-            if (e != null) {
-                Mdc.run(interactionId, () -> viewModel.setAnswerStatusCircleColor(LONG, Color.RED));
+                Mdc.run(interactionId, () -> viewModel.setAnswerStatusCircleColor(answerType, RED));
                 return e;
             } else {
                 return res;
