@@ -2,6 +2,7 @@ package gptui.ui;
 
 import gptui.Mdc;
 import gptui.format.FormatConverter;
+import gptui.format.PromptFactory;
 import gptui.format.ThemeHelper;
 import gptui.gpt.GptApi;
 import gptui.media.SoundService;
@@ -30,6 +31,7 @@ public class GptModel {
     private final GptViewModel viewModel;
     private final GptStorage gptStorage = new GptStorage();
     private final SoundService soundService = new SoundService();
+    private final PromptFactory promptFactory = new PromptFactory();
 
     public GptModel(GptViewModel viewModel) {
         this.viewModel = viewModel;
@@ -55,12 +57,7 @@ public class GptModel {
 
     private void requestQuestionCorrectness(String question, InteractionId interactionId) {
         log.info("Sending request for a question correctness...");
-        var prompt = String.format("""
-                        I will give you a sentence.
-                        Check if the sentence has grammatical mistakes.
-                        It is not a mistake if the sentence starts with "How to".
-                        The sentence is `%s`.""".stripIndent().replace("\n", " "),
-                question);
+        var prompt = promptFactory.getPrompt(null, question, QUESTION_CORRECTNESS);
         supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(prompt)))
                 .thenAccept(answerMd -> Mdc.run(interactionId, () -> {
                     viewModel.setQuestionCorrectnessAnswer(answerMd);
@@ -73,13 +70,7 @@ public class GptModel {
 
     private void requestShortAnswer(String theme, String question, InteractionId interactionId) {
         log.info("Sending request for a shot answer...");
-        var prompt = String.format("""
-                        I will ask you a question about "%s".
-                        You should answer with a short response.
-                        Format your answer into Markdown.
-                        The question is `%s`.
-                        """.stripIndent().replace("\n", " "),
-                theme, question);
+        var prompt = promptFactory.getPrompt(theme, question, SHORT);
         viewModel.setShortAnswerStatusCircleColor(Color.BLUE);
         supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(prompt)))
                 .thenAccept(answerMd -> Mdc.run(interactionId, () -> {
@@ -102,13 +93,7 @@ public class GptModel {
 
     private void requestLongAnswer(String theme, String question, InteractionId interactionId) {
         log.info("Sending request for a long answer...");
-        var prompt = String.format("""
-                        I will ask you a question about "%s".
-                        You should answer with a detailed response.
-                        Format your answer into Markdown.
-                        The question is `%s`.
-                        """.stripIndent().replace("\n", " "),
-                theme, question);
+        var prompt = promptFactory.getPrompt(theme, question, LONG);
         viewModel.setLongAnswerStatusCircleColor(Color.BLUE);
         supplyAsync(() -> Mdc.call(interactionId, () -> gptApi.send(prompt)))
                 .thenAccept(answerMd -> Mdc.run(interactionId, () -> {
