@@ -11,7 +11,7 @@ public class TextFieldBindApp extends Application {
     public void start(Stage stage) {
         var textField1 = new TextField();
         var textField2 = new TextField();
-        textField2.textProperty().bind(textField1.textProperty());
+        textField2.textProperty().bind(textField1.textProperty()); //textField2 updates textField1
         var scene = new Scene(new VBox(textField1, textField2), 640, 480);
         stage.setScene(scene);
         stage.show();
