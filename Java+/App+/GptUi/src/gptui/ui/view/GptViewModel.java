@@ -1,6 +1,7 @@
 package gptui.ui.view;
 
 import gptui.storage.Answer;
+import gptui.storage.AnswerState;
 import gptui.storage.AnswerType;
 import gptui.storage.Interaction;
 import gptui.ui.GptModel;
@@ -21,6 +22,10 @@ import static gptui.storage.AnswerState.NEW;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.QUESTION_CORRECTNESS;
 import static gptui.storage.AnswerType.SHORT;
+import static javafx.scene.paint.Color.BLUE;
+import static javafx.scene.paint.Color.GREEN;
+import static javafx.scene.paint.Color.RED;
+import static javafx.scene.paint.Color.WHITE;
 
 public class GptViewModel {
     private final GptModel model;
@@ -44,6 +49,8 @@ public class GptViewModel {
             }
         });
         model = new GptModel(this);
+        shortAnswerStatusCircleProperty.set(WHITE);
+        longAnswerStatusCircleProperty.set(WHITE);
     }
 
     ObjectProperty<Interaction> interactionHistoryValueProperty() {
@@ -86,18 +93,10 @@ public class GptViewModel {
         return longAnswerProperty;
     }
 
-    public void sendQuestion() {
+    void sendQuestion() {
         var theme = themeValueProperty.getValue();
         var question = questionProperty.get();
         model.sendQuestion(theme, question);
-    }
-
-    public void setTheme(String theme) {
-        themeValueProperty.setValue(theme);
-    }
-
-    public void setQuestion(String question) {
-        questionProperty.setValue(question);
     }
 
     public void setAnswer(AnswerType answerType, String answer) {
@@ -128,16 +127,27 @@ public class GptViewModel {
         }
     }
 
-    public void setAnswerStatusCircleColor(AnswerType answerType, Color color) {
-        switch (answerType) {
-            case SHORT -> shortAnswerStatusCircleProperty.setValue(color);
-            case LONG -> longAnswerStatusCircleProperty.setValue(color);
+    public void setAnswerStatusCircleColor(Interaction interaction) {
+        if (interaction.answers().containsKey(SHORT)) {
+            shortAnswerStatusCircleProperty.setValue(answerStateToColor(interaction.getAnswer(SHORT).orElseThrow().answerState()));
+        }
+        if (interaction.answers().containsKey(LONG)) {
+            longAnswerStatusCircleProperty.setValue(answerStateToColor(interaction.getAnswer(LONG).orElseThrow().answerState()));
         }
     }
 
+    private Color answerStateToColor(AnswerState answerState) {
+        return switch (answerState) {
+            case NEW -> WHITE;
+            case SENT -> BLUE;
+            case SUCCESS -> GREEN;
+            case FAIL -> RED;
+        };
+    }
+
     private void showInteraction(Interaction interaction) {
-        setTheme(interaction.theme());
-        setQuestion(interaction.question());
+        themeValueProperty.setValue(interaction.theme());
+        questionProperty.setValue(interaction.question());
         setAnswer(QUESTION_CORRECTNESS, interaction.getAnswer(QUESTION_CORRECTNESS)
                 .orElse(new Answer(QUESTION_CORRECTNESS, "", "", "", NEW))
                 .answerHtml());
@@ -147,5 +157,6 @@ public class GptViewModel {
         setAnswer(LONG, interaction.getAnswer(LONG)
                 .orElse(new Answer(LONG, "", "", "", NEW))
                 .answerHtml());
+        setAnswerStatusCircleColor(interaction);
     }
 }

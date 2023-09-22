@@ -24,9 +24,6 @@ import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.QUESTION_CORRECTNESS;
 import static gptui.storage.AnswerType.SHORT;
 import static java.util.concurrent.CompletableFuture.runAsync;
-import static javafx.scene.paint.Color.BLUE;
-import static javafx.scene.paint.Color.GREEN;
-import static javafx.scene.paint.Color.RED;
 
 public class GptModel {
     private static final Logger log = LoggerFactory.getLogger(GptModel.class);
@@ -66,14 +63,12 @@ public class GptModel {
             var prompt = promptFactory.getPrompt(theme, question, answerType);
             updateInteraction(interactionId, interaction ->
                     interaction.withAnswer(answerType, answer -> answer.withPrompt(prompt).withState(SENT)));
-            viewModel.setAnswerStatusCircleColor(answerType, BLUE);
             var answerMd = gptApi.send(prompt);
             var answerHtml = formatConverter.markdownToHtml(answerMd);
             viewModel.setAnswer(answerType, answerHtml);
             updateInteraction(interactionId, interaction -> interaction.withAnswer(answerType, answer ->
                     answer.withAnswerMd(answerMd).withAnswerHtml(answerHtml).withState(SUCCESS)));
             soundService.beenOnAnswer(answerType);
-            viewModel.setAnswerStatusCircleColor(answerType, GREEN);
             log.info("The short answer request finished.");
         })).handle((res, e) -> {
             if (e != null) {
@@ -81,7 +76,6 @@ public class GptModel {
                     var message = e.getCause().getMessage();
                     updateInteraction(interactionId, interaction -> interaction.withAnswer(answerType,
                             answer -> answer.withAnswerMd(message).withAnswerHtml(message).withState(FAIL)));
-                    viewModel.setAnswerStatusCircleColor(answerType, RED);
                     viewModel.setAnswer(answerType, message);
                     soundService.beenOnAnswer(answerType);
                 });
@@ -97,6 +91,7 @@ public class GptModel {
         var currentInteraction = gptStorage.readInteraction(interactionId).orElseThrow();
         viewModel.interactionHistoryUpdated(gptStorage.readAllInteractions(), currentInteraction);
         viewModel.themeListUpdated(readThemeList());
+        viewModel.setAnswerStatusCircleColor(currentInteraction);
     }
 
     private List<String> readThemeList() {
