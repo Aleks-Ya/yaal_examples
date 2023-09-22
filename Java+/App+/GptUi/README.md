@@ -18,7 +18,6 @@
 14. Add "Regenerate" buttons for short and long answers
 15. Add auto-completion for the Theme combo box
 16. Search for a definition in Wikipedia also
-17. Handle error in GPT API response (status `429`, body `{"error":{"message":"You exceeded your current quota, please check your plan and billing details.","type":"insufficient_quota","param":null,"code":"insufficient_quota"}}`)
 
 ## Install on Ubuntu
 

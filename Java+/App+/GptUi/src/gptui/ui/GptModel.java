@@ -73,7 +73,11 @@ public class GptModel {
             log.info("The short answer request finished.");
         })).handle((res, e) -> {
             if (e != null) {
-                Mdc.run(interactionId, () -> viewModel.setAnswerStatusCircleColor(answerType, RED));
+                Mdc.run(interactionId, () -> {
+                    viewModel.setAnswerStatusCircleColor(answerType, RED);
+                    viewModel.setAnswer(answerType, e.getCause().getMessage());
+                    soundService.beenOnAnswer(answerType);
+                });
                 return e;
             } else {
                 return res;
