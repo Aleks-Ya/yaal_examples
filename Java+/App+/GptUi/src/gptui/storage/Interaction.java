@@ -9,6 +9,13 @@ public record Interaction(InteractionId id,
                           String question,
                           Map<AnswerType, Answer> answers) {
 
+    public Interaction(InteractionId id, String theme, String question, Map<AnswerType, Answer> answers) {
+        this.id = id;
+        this.theme = theme;
+        this.question = question;
+        this.answers = answers != null ? answers : new HashMap<>();
+    }
+
     public Optional<Answer> getAnswer(AnswerType answerType) {
         return Optional.ofNullable(answers.get(answerType));
     }
@@ -22,12 +29,9 @@ public record Interaction(InteractionId id,
     }
 
     public Interaction withAnswer(Answer answer) {
-        var map = new HashMap<AnswerType, Answer>();
-        if (answers != null) {
-            map.putAll(answers);
-        }
+        var map = new HashMap<>(answers);
         map.put(answer.answerType(), answer);
-        return new Interaction(id, theme, question, map);
+        return new Interaction(id, theme, question, Map.copyOf(map));
     }
 
     @Override

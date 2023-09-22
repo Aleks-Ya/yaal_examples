@@ -5,7 +5,6 @@ import gptui.storage.InteractionId;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -47,6 +46,6 @@ class ThemeHelperTest {
     }
 
     private static Interaction newInteraction(long id, String theme) {
-        return new Interaction(new InteractionId(id), theme, null, Map.of());
+        return new Interaction(new InteractionId(id), theme, null, null);
     }
 }
