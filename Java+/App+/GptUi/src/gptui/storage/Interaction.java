@@ -3,6 +3,7 @@ package gptui.storage;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 
 public record Interaction(InteractionId id,
                           String theme,
@@ -32,6 +33,13 @@ public record Interaction(InteractionId id,
         var map = new HashMap<>(answers);
         map.put(answer.answerType(), answer);
         return new Interaction(id, theme, question, Map.copyOf(map));
+    }
+
+    public Interaction withAnswer(AnswerType answerType, Function<Answer, Answer> update) {
+        var currentAnswer = answers.getOrDefault(answerType,
+                new Answer(answerType, null, null, null, null));
+        var newAnswer = update.apply(currentAnswer);
+        return withAnswer(newAnswer);
     }
 
     @Override

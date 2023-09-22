@@ -17,6 +17,7 @@ import javafx.scene.paint.Paint;
 
 import java.util.List;
 
+import static gptui.storage.AnswerState.NEW;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.QUESTION_CORRECTNESS;
 import static gptui.storage.AnswerType.SHORT;
@@ -138,13 +139,13 @@ public class GptViewModel {
         setTheme(interaction.theme());
         setQuestion(interaction.question());
         setAnswer(QUESTION_CORRECTNESS, interaction.getAnswer(QUESTION_CORRECTNESS)
-                .orElse(new Answer(QUESTION_CORRECTNESS, "", "", ""))
+                .orElse(new Answer(QUESTION_CORRECTNESS, "", "", "", NEW))
                 .answerHtml());
         setAnswer(SHORT, interaction.getAnswer(SHORT)
-                .orElse(new Answer(SHORT, "", "", ""))
+                .orElse(new Answer(SHORT, "", "", "", NEW))
                 .answerHtml());
         setAnswer(LONG, interaction.getAnswer(LONG)
-                .orElse(new Answer(LONG, "", "", ""))
+                .orElse(new Answer(LONG, "", "", "", NEW))
                 .answerHtml());
     }
 }

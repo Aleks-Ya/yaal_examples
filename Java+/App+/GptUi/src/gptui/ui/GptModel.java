@@ -6,7 +6,6 @@ import gptui.format.PromptFactory;
 import gptui.format.ThemeHelper;
 import gptui.gpt.GptApi;
 import gptui.media.SoundService;
-import gptui.storage.Answer;
 import gptui.storage.AnswerType;
 import gptui.storage.GptStorage;
 import gptui.storage.Interaction;
@@ -18,6 +17,9 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.function.Function;
 
+import static gptui.storage.AnswerState.FAIL;
+import static gptui.storage.AnswerState.SENT;
+import static gptui.storage.AnswerState.SUCCESS;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.QUESTION_CORRECTNESS;
 import static gptui.storage.AnswerType.SHORT;
@@ -60,22 +62,27 @@ public class GptModel {
 
     private void requestAnswer(String theme, String question, InteractionId interactionId, AnswerType answerType) {
         log.info("Sending request for {}...", answerType);
-        var prompt = promptFactory.getPrompt(theme, question, answerType);
-        viewModel.setAnswerStatusCircleColor(answerType, BLUE);
         runAsync(() -> Mdc.run(interactionId, () -> {
+            var prompt = promptFactory.getPrompt(theme, question, answerType);
+            updateInteraction(interactionId, interaction ->
+                    interaction.withAnswer(answerType, answer -> answer.withPrompt(prompt).withState(SENT)));
+            viewModel.setAnswerStatusCircleColor(answerType, BLUE);
             var answerMd = gptApi.send(prompt);
             var answerHtml = formatConverter.markdownToHtml(answerMd);
             viewModel.setAnswer(answerType, answerHtml);
-            updateInteraction(interactionId, interaction -> interaction
-                    .withAnswer(new Answer(answerType, prompt, answerMd, answerHtml)));
+            updateInteraction(interactionId, interaction -> interaction.withAnswer(answerType, answer ->
+                    answer.withAnswerMd(answerMd).withAnswerHtml(answerHtml).withState(SUCCESS)));
             soundService.beenOnAnswer(answerType);
             viewModel.setAnswerStatusCircleColor(answerType, GREEN);
             log.info("The short answer request finished.");
         })).handle((res, e) -> {
             if (e != null) {
                 Mdc.run(interactionId, () -> {
+                    var message = e.getCause().getMessage();
+                    updateInteraction(interactionId, interaction -> interaction.withAnswer(answerType,
+                            answer -> answer.withAnswerMd(message).withAnswerHtml(message).withState(FAIL)));
                     viewModel.setAnswerStatusCircleColor(answerType, RED);
-                    viewModel.setAnswer(answerType, e.getCause().getMessage());
+                    viewModel.setAnswer(answerType, message);
                     soundService.beenOnAnswer(answerType);
                 });
                 return e;
@@ -85,7 +92,7 @@ public class GptModel {
         });
     }
 
-    private void updateInteraction(InteractionId interactionId, Function<Interaction, Interaction> update) {
+    private synchronized void updateInteraction(InteractionId interactionId, Function<Interaction, Interaction> update) {
         gptStorage.updateInteraction(interactionId, update);
         var currentInteraction = gptStorage.readInteraction(interactionId).orElseThrow();
         viewModel.interactionHistoryUpdated(gptStorage.readAllInteractions(), currentInteraction);
