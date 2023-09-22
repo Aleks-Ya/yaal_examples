@@ -1,7 +1,6 @@
 package gptui.ui.view;
 
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -26,7 +25,7 @@ class ThemePaneTest extends ApplicationTest {
 
     @Test
     void shouldContainComboBox() {
-        var items = lookup(".combo-box").queryAs(ComboBox.class).getItems();
+        var items = lookup(".combo-box").queryComboBox().getItems();
         assertThat(items).isEmpty();
     }
 }

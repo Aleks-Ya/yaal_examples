@@ -1,6 +1,10 @@
 package gptui;
 
+import gptui.storage.GptStorage;
+import gptui.storage.GptStorageFilesystem;
+import gptui.ui.GptModel;
 import gptui.ui.view.GptView;
+import gptui.ui.view.GptViewModel;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -11,6 +15,7 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import java.io.DataInputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
 
 import static java.util.Objects.requireNonNull;
 
@@ -22,7 +27,12 @@ public class GptUiMain extends Application {
         log.info("Begin the start method");
         var version = readVersion();
         log.info("App version: " + version);
-        var view = new GptView();
+        var storageFileSystem = new GptStorageFilesystem(FileSystems.getDefault());
+        var storage = new GptStorage(storageFileSystem);
+        var model = new GptModel(storage);
+        var viewModel = new GptViewModel(model);
+        model.setViewModel(viewModel);
+        var view = new GptView(viewModel);
         var scene = new Scene(view, 640, 900);
         stage.setScene(scene);
         stage.setTitle("GPT-4 Question Client v" + version);

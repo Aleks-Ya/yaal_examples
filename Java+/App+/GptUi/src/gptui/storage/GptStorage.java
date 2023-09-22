@@ -10,9 +10,10 @@ import java.util.function.Function;
 
 public class GptStorage {
     private final Map<InteractionId, Interaction> interactions = new HashMap<>();
-    private final GptStorageFilesystem gptStorage = new GptStorageFilesystem();
+    private final GptStorageFilesystem gptStorage;
 
-    public GptStorage() {
+    public GptStorage(GptStorageFilesystem gptStorage) {
+        this.gptStorage = gptStorage;
         gptStorage.readAllInteractions().forEach(interaction -> interactions.put(interaction.id(), interaction));
     }
 

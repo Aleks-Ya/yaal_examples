@@ -12,16 +12,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 class JimfsTest {
     @Test
     void test() throws IOException {
-        var fs = Jimfs.newFileSystem(Configuration.unix());
-        var foo = fs.getPath("/foo");
-        Files.createDirectory(foo);
+        try (var fs = Jimfs.newFileSystem(Configuration.unix())) {
+            var foo = fs.getPath("/foo");
+            Files.createDirectory(foo);
 
-        var hello = foo.resolve("hello.txt");
-        var expContent = "hello world";
-        Files.write(hello, ImmutableList.of(expContent), StandardCharsets.UTF_8);
+            var hello = foo.resolve("hello.txt");
+            var expContent = "hello world";
+            Files.write(hello, ImmutableList.of(expContent), StandardCharsets.UTF_8);
 
-        var actContent = Files.readString(hello);
-        assertThat(actContent).isEqualTo(expContent + "\n");
+            var actContent = Files.readString(hello);
+            assertThat(actContent).isEqualTo(expContent + "\n");
+        }
     }
-
 }

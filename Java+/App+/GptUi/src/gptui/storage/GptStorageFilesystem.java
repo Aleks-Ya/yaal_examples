@@ -5,24 +5,28 @@ import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.FileSystem;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-class GptStorageFilesystem {
+public class GptStorageFilesystem {
     private static final Logger log = LoggerFactory.getLogger(GptStorageFilesystem.class);
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private final File storageDir;
+    private final FileSystem fileSystem;
+    private final Path storageDir;
 
-    public GptStorageFilesystem() {
-        storageDir = new File(System.getProperty("user.home"), ".gpt/storage");
-        if (!storageDir.exists()) {
-            if (!storageDir.mkdirs()) {
-                throw new IllegalStateException("Cannot create dir: " + storageDir.getAbsolutePath());
+    public GptStorageFilesystem(FileSystem fileSystem) {
+        try {
+            this.fileSystem = fileSystem;
+            storageDir = fileSystem.getPath(System.getProperty("user.home"), ".gpt/storage");
+            if (Files.notExists(storageDir)) {
+                Files.createDirectories(storageDir);
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -30,24 +34,23 @@ class GptStorageFilesystem {
         try {
             var file = getInteractionFile(interaction.id());
             var json = gson.toJson(interaction);
-            Files.writeString(file.toPath(), json);
-            log.info("Interaction was saved to file: {}", file.getAbsolutePath());
+            Files.writeString(file, json);
+            log.info("Interaction was saved to file: {}", file);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private File getInteractionFile(InteractionId interactionId) {
-        return new File(storageDir, interactionId.id() + ".json");
+    private Path getInteractionFile(InteractionId interactionId) {
+        return fileSystem.getPath(storageDir.toString(), interactionId.id() + ".json");
     }
 
     public synchronized List<Interaction> readAllInteractions() {
         try {
             var result = new ArrayList<Interaction>();
-            var files = storageDir.listFiles();
-            if (files != null) {
-                for (var file : files) {
-                    var interaction = gson.fromJson(new FileReader(file), Interaction.class);
+            try (var files = Files.list(storageDir)) {
+                for (var file : files.toList()) {
+                    var interaction = gson.fromJson(Files.readString(file), Interaction.class);
                     result.add(interaction);
                 }
             }

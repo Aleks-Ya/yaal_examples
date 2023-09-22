@@ -30,12 +30,16 @@ public class GptModel {
     private final GptApi gptApi = new GptApi();
     private final FormatConverter formatConverter = new FormatConverter();
     private final ThemeHelper themeHelper = new ThemeHelper();
-    private final GptViewModel viewModel;
-    private final GptStorage gptStorage = new GptStorage();
+    private GptViewModel viewModel;
+    private final GptStorage gptStorage;
     private final SoundService soundService = new SoundService();
     private final PromptFactory promptFactory = new PromptFactory();
 
-    public GptModel(GptViewModel viewModel) {
+    public GptModel(GptStorage gptStorage) {
+        this.gptStorage = gptStorage;
+    }
+
+    public void setViewModel(GptViewModel viewModel) {
         this.viewModel = viewModel;
         viewModel.themeListUpdated(readThemeList());
         viewModel.interactionHistoryUpdated(gptStorage.readAllInteractions(), null);

@@ -40,7 +40,7 @@ public class GptViewModel {
     private final ObjectProperty<Paint> shortAnswerStatusCircleProperty = new SimpleObjectProperty<>();
     private final ObjectProperty<Paint> longAnswerStatusCircleProperty = new SimpleObjectProperty<>();
 
-    public GptViewModel() {
+    public GptViewModel(GptModel gptModel) {
         interactionHistoryValueProperty.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 interactionHistoryValueProperty.setValue(null);
@@ -48,7 +48,7 @@ public class GptViewModel {
                 showInteraction(newValue);
             }
         });
-        model = new GptModel(this);
+        model = gptModel;
         shortAnswerStatusCircleProperty.set(WHITE);
         longAnswerStatusCircleProperty.set(WHITE);
     }

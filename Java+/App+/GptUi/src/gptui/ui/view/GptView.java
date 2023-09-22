@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 import static javafx.geometry.Orientation.VERTICAL;
 
 public class GptView extends VBox {
-    private final GptViewModel viewModel = new GptViewModel();
+    private final GptViewModel viewModel;
     private final InteractionHistoryPane interactionHistoryPane = new InteractionHistoryPane();
     private final ThemePane themePane = new ThemePane();
     private final QuestionPane questionPane = new QuestionPane(this::sendQuestion);
@@ -15,7 +15,8 @@ public class GptView extends VBox {
     private final AnswerPane shortAnswerPane = new AnswerPane("Short\nanswer:");
     private final AnswerPane longAnswerPane = new AnswerPane("Long\nanswer:");
 
-    public GptView() {
+    public GptView(GptViewModel viewModel) {
+        this.viewModel = viewModel;
         createView();
         bindViewModel();
     }

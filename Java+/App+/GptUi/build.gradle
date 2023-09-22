@@ -18,7 +18,7 @@ application {
 dependencies {
     implementation gsonDep, "com.vladsch.flexmark:flexmark-ext-tables:$flexMarkVersion", logbackClassicDep,
             "org.slf4j:jul-to-slf4j:$slf4jVersion"
-    testImplementation "org.assertj:assertj-core:$assertJVersion", testFxDep
+    testImplementation "org.assertj:assertj-core:$assertJVersion", testFxDep, jimfsDep
 }
 extraJavaModuleInfo {
     automaticModule("com.vladsch.flexmark:flexmark", "flexmark")
@@ -40,6 +40,9 @@ extraJavaModuleInfo {
     automaticModule("org.testfx:testfx-core", "testfx.core")
     automaticModule("org.testfx:testfx-junit5", "testfx.junit5")
     automaticModule("org.osgi:org.osgi.core", "osgi.core")
+    automaticModule("com.google.j2objc:j2objc-annotations", "j2objc.annotations")
+    automaticModule("com.google.code.findbugs:jsr305", "jsr305")
+    automaticModule("com.google.guava:failureaccess", "failureaccess")
 }
 jlink {
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
