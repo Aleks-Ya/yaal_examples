@@ -11,7 +11,7 @@ import static org.testfx.matcher.control.LabeledMatchers.hasText;
 /**
  * <a href="https://github.com/TestFX/TestFX/wiki/Getting-Started#simple-testfx-application-test">Source</a>
  */
-class ClickApplicationTest extends ApplicationTest {
+class ClickApplicationInheritanceTest extends ApplicationTest {
     @Override
     public void start(Stage stage) {
         var sceneRoot = new ClickApplication.ClickPane();

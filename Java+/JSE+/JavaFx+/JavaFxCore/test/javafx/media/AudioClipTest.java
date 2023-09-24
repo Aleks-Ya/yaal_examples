@@ -3,14 +3,15 @@ package javafx.media;
 import javafx.application.Platform;
 import javafx.scene.media.AudioClip;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 import util.ResourceUtil;
 
-class AudioClipTest {
+class AudioClipTest extends ApplicationTest {
     private static final String uri = ResourceUtil.resourceToStrUrl("javafx/media/sound.mp3");
 
     @Test
     void play() throws InterruptedException {
-        Platform.startup(() -> {
+        Platform.runLater(() -> {
             var audioClip = new AudioClip(uri);
             audioClip.play();
         });
@@ -19,7 +20,7 @@ class AudioClipTest {
 
     @Test
     void volume() throws InterruptedException {
-        Platform.startup(() -> {
+        Platform.runLater(() -> {
             var audioClip = new AudioClip(uri);
             audioClip.play(0.1);
         });

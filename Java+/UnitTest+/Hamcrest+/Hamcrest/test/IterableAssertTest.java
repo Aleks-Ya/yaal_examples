@@ -23,7 +23,7 @@ import static org.hamcrest.Matchers.not;
 /**
  * Asserting {@link Iterable}.
  */
-public class IterableAssert {
+class IterableAssertTest {
 
     @Test
     void matchers() {

@@ -2,8 +2,10 @@
 
 DockerHub: https://hub.docker.com/r/sebp/elk
 
-Run: 
-1. `docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --name elk-711 sebp/elk:711`
+## Run
+1. Run container
+	1. Without persistance: `docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --rm --name elk-711 sebp/elk:711`
+	2. With persistance: `docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --rm --name elk-711 -v elk-data:/var/lib/elasticsearch sebp/elk:711`
 2. Open Kibana UI: http://localhost:5601
 
 ## Errors

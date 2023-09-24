@@ -1,4 +1,3 @@
-import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
 
 import static java.util.Arrays.asList;
@@ -15,11 +14,11 @@ import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.Matchers.startsWith;
 import static org.hamcrest.Matchers.stringContainsInOrder;
 
-public class StringAssert {
+class StringAssertTest {
 
     @Test
     void strings() {
-        final String str = "Людовико Эйнауди - Tu Sei";
+        final var str = "Людовико Эйнауди - Tu Sei";
         assertThat(str, containsString("Эйнауди"));
         assertThat(str, startsWith("Люд"));
         assertThat(str, endsWith("Tu Sei"));
@@ -45,7 +44,7 @@ public class StringAssert {
      */
     @Test
     void anySubstring() {
-        Matcher<String> matcher = matchesPattern("^Hello, \\w+!$");
+        var matcher = matchesPattern("^Hello, \\w+!$");
         assertThat("Hello, John!", matcher);
         assertThat("Hello, Mary!", matcher);
     }

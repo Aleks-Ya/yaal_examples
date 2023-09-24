@@ -4,10 +4,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.greaterThan;
 
-public class NumberAssert {
+class NumberAssertTest {
     @Test
     void doubleNumbers() {
-        double d = 1.5;
+        var d = 1.5;
         assertThat(d, greaterThan(1D));
     }
 

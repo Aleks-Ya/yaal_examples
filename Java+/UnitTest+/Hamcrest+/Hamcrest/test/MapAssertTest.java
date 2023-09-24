@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.aMapWithSize;
@@ -14,14 +13,14 @@ import static org.hamcrest.Matchers.hasValue;
 /**
  * Проверка карт.
  */
-public class MapAssert {
+class MapAssertTest {
     @Test
     void testName() {
-        final Map<Integer, String> actual = new HashMap<>();
+        var actual = new HashMap<Integer, String>();
         actual.put(100, "Dollars");
         actual.put(200, "Rouble");
 
-        final Map<Integer, String> expected = new HashMap<>();
+        var expected = new HashMap<Integer, String>();
         expected.put(200, "Rouble");
         expected.put(100, "Dollars");
 

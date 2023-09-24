@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Проверка коллекций.
  */
-public class CollectionAssert {
+class CollectionAssertTest {
     private final Collection<Integer> coll = asList(1, 2, 3);
 
     @Test

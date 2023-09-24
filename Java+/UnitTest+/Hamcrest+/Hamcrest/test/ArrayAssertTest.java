@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.hasItemInArray;
 /**
  * Проверка массивов.
  */
-public class ArrayAssert {
+class ArrayAssertTest {
 
     @Test
     void equal() {

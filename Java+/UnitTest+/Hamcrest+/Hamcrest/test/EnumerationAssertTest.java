@@ -9,8 +9,7 @@ import static org.hamcrest.Matchers.empty;
 /**
  * Проверка объектов {@link Enumeration}.
  */
-public class EnumerationAssert {
-
+class EnumerationAssertTest {
     @Test
     void test() {
         Enumeration<String> enumeration = Collections.emptyEnumeration();

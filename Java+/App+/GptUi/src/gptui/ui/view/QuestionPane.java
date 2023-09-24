@@ -14,9 +14,12 @@ class QuestionPane extends HBox {
 
     public QuestionPane(Runnable sendMessageAction) {
         var label = new Label("Question:");
+        label.setId("QuestionPaneLabel");
         var button = new Button("Send");
+        button.setId("QuestionPaneButton");
         button.setMinWidth(70);
         button.setOnAction(event -> sendMessageAction.run());
+        textArea.setId("QuestionPaneTextArea");
         textArea.setTextFormatter(new TextFormatter<>(change -> {
             if (change.isAdded() && change.getText().equals("\n")) {
                 sendMessageAction.run();

@@ -8,8 +8,7 @@ import static org.hamcrest.Matchers.closeTo;
 /**
  * Проверка файлов.
  */
-public class BigDecimalAssert {
-
+class BigDecimalAssertTest {
     /**
      * Сравнение нуля с разным количеством знаков после запятой.
      */

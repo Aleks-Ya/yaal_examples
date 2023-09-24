@@ -12,7 +12,9 @@ class ThemePane extends HBox {
 
     public ThemePane() {
         var label = new Label("Theme:");
+        label.setId("ThemeLabel");
         var sep = new Separator();
+        comboBox.setId("ThemeComboBox");
         comboBox.setEditable(true);
         getChildren().addAll(label, sep, comboBox);
     }

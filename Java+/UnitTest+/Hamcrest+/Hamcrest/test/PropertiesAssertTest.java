@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.not;
 /**
  * Test {@link Properties} (= {@link java.util.Map}).
  */
-public class PropertiesAssert {
+class PropertiesAssertTest {
 
     @Test
     void emptyProperties() {
@@ -24,9 +24,9 @@ public class PropertiesAssert {
 
     @Test
     void properties() {
-        Properties props = new Properties();
-        String key = "key";
-        String value = "value";
+        var props = new Properties();
+        var key = "key";
+        var value = "value";
         props.put(key, value);
 
         assertThat(props, not(anEmptyMap()));

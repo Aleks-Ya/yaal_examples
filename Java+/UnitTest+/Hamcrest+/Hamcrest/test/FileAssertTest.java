@@ -1,7 +1,6 @@
 import org.hamcrest.io.FileMatchers;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
@@ -11,17 +10,17 @@ import static org.hamcrest.Matchers.endsWith;
 /**
  * Проверка файлов.
  */
-public class FileAssert {
+class FileAssertTest {
     @Test
     void existingFile() throws IOException {
-        File f = Files.createTempFile("pref", "suffix").toFile();
+        var f = Files.createTempFile("pref", "suffix").toFile();
         f.deleteOnExit();
         assertThat(f, FileMatchers.anExistingFile());
     }
 
     @Test
     void canonicalPath() throws IOException {
-        File f = Files.createTempFile("pref", "suffix").toFile();
+        var f = Files.createTempFile("pref", "suffix").toFile();
         f.deleteOnExit();
         assertThat(f, FileMatchers.aFileWithCanonicalPath(endsWith("suffix")));
     }

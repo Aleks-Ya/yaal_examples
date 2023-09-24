@@ -13,7 +13,9 @@ class InteractionHistoryPane extends HBox {
 
     public InteractionHistoryPane() {
         var label = new Label("Question history:");
+        label.setId("#InteractionHistoryLabel");
         var sep = new Separator();
+        comboBox.setId("InteractionHistoryComboBox");
         getChildren().addAll(label, sep, comboBox);
     }
 
