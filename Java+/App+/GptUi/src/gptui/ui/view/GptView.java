@@ -2,9 +2,18 @@ package gptui.ui.view;
 
 import javafx.application.Platform;
 import javafx.scene.control.Separator;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
 
+import java.util.Map;
+
+import static gptui.storage.AnswerType.LONG;
+import static gptui.storage.AnswerType.SHORT;
 import static javafx.geometry.Orientation.VERTICAL;
+import static javafx.scene.input.KeyCode.DIGIT1;
+import static javafx.scene.input.KeyCode.DIGIT2;
+import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
 public class GptView extends VBox {
     private final GptViewModel viewModel;
@@ -19,6 +28,12 @@ public class GptView extends VBox {
         this.viewModel = viewModel;
         createView();
         bindViewModel();
+    }
+
+    public Map<KeyCombination, Runnable> getAccelerators() {
+        return Map.of(
+                new KeyCodeCombination(DIGIT1, CONTROL_DOWN), () -> viewModel.copyAnswerToClipboard(SHORT),
+                new KeyCodeCombination(DIGIT2, CONTROL_DOWN), () -> viewModel.copyAnswerToClipboard(LONG));
     }
 
     private void createView() {

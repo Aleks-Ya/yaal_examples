@@ -67,6 +67,8 @@ List packages: `aws opensearch describe-packages`
 
 ### EC2
 List all EC2 instances: `aws ec2 describe-instances`
+List all regions: `aws ec2 describe-regions --all-regions`
+List all region names: `aws ec2 describe-regions --all-regions --query "Regions[].{Name:RegionName}"`
 
 ### ec2-instance-connect
 Help: `aws ec2-instance-connect help`

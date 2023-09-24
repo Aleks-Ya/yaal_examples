@@ -4,14 +4,14 @@ import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.web.WebView;
+
+import static gptui.format.ClipboardHelper.putHtmlToClipboard;
 
 class AnswerPane extends HBox {
     static final String STATUS_CIRCLE_ID = "status-circle";
@@ -22,17 +22,16 @@ class AnswerPane extends HBox {
         var label = new Label(header);
         var copy = new Button("Copy");
         copy.setMinWidth(70);
-        copy.setOnAction(e -> {
-            var clipboard = Clipboard.getSystemClipboard();
-            var content = new ClipboardContent();
-            content.putHtml((String) webView.getEngine().executeScript("document.documentElement.outerHTML"));
-            clipboard.setContent(content);
-        });
+        copy.setOnAction(e -> putHtmlToClipboard(getHtmlContent()));
         statusCircle.setRadius(10);
         statusCircle.setFill(Color.WHITE);
         statusCircle.setId(STATUS_CIRCLE_ID);
         getChildren().addAll(label, new Separator(), webView, new Separator(), copy, statusCircle);
         setHgrow(webView, Priority.ALWAYS);
+    }
+
+    private String getHtmlContent() {
+        return (String) webView.getEngine().executeScript("document.documentElement.outerHTML");
     }
 
     public void setContent(String content) {

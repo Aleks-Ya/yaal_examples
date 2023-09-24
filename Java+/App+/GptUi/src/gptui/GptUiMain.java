@@ -37,6 +37,7 @@ public class GptUiMain extends Application {
         stage.setScene(scene);
         stage.setTitle("GPT-4 Question Client v" + version);
         stage.setMaximized(true);
+        scene.getAccelerators().putAll(view.getAccelerators());
         var applicationIcon = new Image(requireNonNull(getClass().getResourceAsStream("icon.png")));
         stage.getIcons().add(applicationIcon);
         stage.show();

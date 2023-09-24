@@ -18,6 +18,7 @@ import javafx.scene.paint.Paint;
 
 import java.util.List;
 
+import static gptui.format.ClipboardHelper.putHtmlToClipboard;
 import static gptui.storage.AnswerState.NEW;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.QUESTION_CORRECTNESS;
@@ -97,6 +98,15 @@ public class GptViewModel {
         var theme = themeValueProperty.getValue();
         var question = questionProperty.get();
         model.sendQuestion(theme, question);
+    }
+
+    void copyAnswerToClipboard(AnswerType answerType) {
+        var content = switch (answerType) {
+            case QUESTION_CORRECTNESS -> questionCorrectnessProperty.getValue();
+            case SHORT -> shortAnswerProperty.getValue();
+            case LONG -> longAnswerProperty.getValue();
+        };
+        putHtmlToClipboard(content);
     }
 
     public void setAnswer(AnswerType answerType, String answer) {
