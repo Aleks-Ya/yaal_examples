@@ -13,18 +13,29 @@ import scala.collection.mutable
 class UdfTest extends AnyFlatSpec with Matchers {
 
   it should "init dataset" in {
-    val sqlContext = Factory.ss.sqlContext
-    import sqlContext.implicits._
-    val ds = Factory.ss.createDataset(Seq("a", "b"))
-    ds.show
+    import Factory.ss.implicits._
     val upper: String => String = _.toUpperCase
-    val upperUDF = udf(upper)
-    ds.withColumn("upper", upperUDF('value)).show
+    val upperUdf = udf(upper)
+    val df = Factory.ss
+      .createDataset(Seq("a", "b"))
+      .withColumn("upper", upperUdf('value))
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"value":"a","upper":"A"}""",
+      """{"value":"b","upper":"B"}"""
+    )
+  }
+
+  it should "two arguments UDF" in {
+    import Factory.ss.implicits._
+    val ds = Factory.peopleDf
+    ds.show
+    val upper: (String, Int) => String = (name: String, age: Int) => s"${name.toUpperCase}-$age"
+    val upperUdf = udf(upper: (String, Int) => String)
+    ds.withColumn("upper", upperUdf($"name", $"age")).show
   }
 
   it should "put sum of an array to new column" in {
-    val sqlContext = Factory.ss.sqlContext
-    import sqlContext.implicits._
+    import Factory.ss.implicits._
     val ds = Factory.ss.createDataset(Seq(Array(1, 2, 3), Array(4, 5, 6)))
     ds.show
     val sum: Seq[Int] => Int = _.sum
@@ -38,12 +49,32 @@ class UdfTest extends AnyFlatSpec with Matchers {
   }
 
   it should "pass additional params to UDF" in {
-    val sqlContext = Factory.ss.sqlContext
-    import sqlContext.implicits._
-    val ds = Factory.ss.createDataset(Seq("a", "b"))
-    ds.show
+    import Factory.ss.implicits._
     val upperSuffix: String => String => String = suffix => string => (string + suffix).toUpperCase
-    val upperUDF = udf(upperSuffix("_suf"))
-    ds.withColumn("upper", upperUDF('value)).show
+    val upperUdf = udf(upperSuffix("_suf"))
+    val df = Factory.ss
+      .createDataset(Seq("a", "b"))
+      .withColumn("upper", upperUdf('value))
+    df.show()
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"value":"a","upper":"A_SUF"}""",
+      """{"value":"b","upper":"B_SUF"}"""
+    )
+  }
+
+  it should "one UDF column uses another UDF column" in {
+    import Factory.ss.implicits._
+    val addSuffix: String => String = _ + "_suf"
+    val addSuffixUdf = udf(addSuffix)
+    val upper: String => String = _.toUpperCase
+    val upperUdf = udf(upper)
+    val df = Factory.ss
+      .createDataset(Seq("a", "b"))
+      .withColumn("suffix", addSuffixUdf('value))
+      .withColumn("upper", upperUdf('suffix))
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"value":"a","suffix":"a_suf","upper":"A_SUF"}""",
+      """{"value":"b","suffix":"b_suf","upper":"B_SUF"}"""
+    )
   }
 }
