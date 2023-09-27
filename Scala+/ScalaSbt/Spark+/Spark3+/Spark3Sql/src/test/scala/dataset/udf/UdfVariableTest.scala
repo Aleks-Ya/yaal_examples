@@ -1,4 +1,4 @@
-package dataset
+package dataset.udf
 
 import factory.Factory
 import org.apache.spark.sql.Dataset
@@ -9,8 +9,10 @@ import org.scalatest.matchers.should.Matchers
 import scala.collection.JavaConverters._
 import scala.collection.mutable
 
-
-class UdfTest extends AnyFlatSpec with Matchers {
+/**
+ * UDF as a variable.
+ */
+class UdfVariableTest extends AnyFlatSpec with Matchers {
 
   it should "init dataset" in {
     import Factory.ss.implicits._
@@ -27,11 +29,14 @@ class UdfTest extends AnyFlatSpec with Matchers {
 
   it should "two arguments UDF" in {
     import Factory.ss.implicits._
-    val ds = Factory.peopleDf
-    ds.show
     val upper: (String, Int) => String = (name: String, age: Int) => s"${name.toUpperCase}-$age"
     val upperUdf = udf(upper: (String, Int) => String)
-    ds.withColumn("upper", upperUdf($"name", $"age")).show
+    val df = Factory.peopleDf.withColumn("upper", upperUdf($"name", $"age"))
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","age":25,"gender":"M","upper":"JOHN-25"}""",
+      """{"name":"Peter","age":35,"gender":"M","upper":"PETER-35"}""",
+      """{"name":"Mary","age":20,"gender":"F","upper":"MARY-20"}"""
+    )
   }
 
   it should "put sum of an array to new column" in {
@@ -77,4 +82,5 @@ class UdfTest extends AnyFlatSpec with Matchers {
       """{"value":"b","suffix":"b_suf","upper":"B_SUF"}"""
     )
   }
+
 }

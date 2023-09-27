@@ -3,7 +3,7 @@ package scalatest.matcher
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class NullTest extends AnyFlatSpec with Matchers {
+class NullMatchersTest extends AnyFlatSpec with Matchers {
 
   "Not null" should "pass" in {
     "abc" should not be null

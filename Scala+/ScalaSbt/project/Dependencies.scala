@@ -1,16 +1,16 @@
 import sbt.*
 
 object Dependencies {
-  val scalaTestDep = "org.scalatest" %% "scalatest" % "3.2.15" % Test
+  val scalaTestDep = "org.scalatest" %% "scalatest" % "3.2.17" % Test
   val scalaMockDep = "org.scalamock" %% "scalamock" % "5.2.0" % Test
-  val h2Dep = "com.h2database" % "h2" % "2.1.214"
-  val logbackClassicDep = "ch.qos.logback" % "logback-classic" % "1.4.7"
+  val h2Dep = "com.h2database" % "h2" % "2.2.224"
+  val logbackClassicDep = "ch.qos.logback" % "logback-classic" % "1.4.11"
   val scoptDep = "com.github.scopt" %% "scopt" % "4.1.0"
   val json4sNativeDep = "org.json4s" %% "json4s-native" % "4.0.6"
   val sprayJsonDep = "io.spray" %% "spray-json" % "1.3.6"
   val jettyServletDep = "org.eclipse.jetty" % "jetty-servlet" % "11.0.14" % Test
 
-  private val slf4jVersion = "2.0.5"
+  private val slf4jVersion = "2.0.9"
   val slf4jNopDep = "org.slf4j" % "slf4j-nop" % slf4jVersion
   val slf4jSimpleDep = "org.slf4j" % "slf4j-simple" % slf4jVersion
 
@@ -31,16 +31,16 @@ object Dependencies {
 
   val typesafeConfigDep = "com.typesafe" % "config" % "1.4.2"
 
-  val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "2.36.1" % Test
+  val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "2.38.0" % Test
 
-  private val spark3Version = "3.4.1"
+  private val spark3Version = "3.5.0"
   val spark3CoreDep = "org.apache.spark" %% "spark-core" % spark3Version
   val spark3SqlDep = "org.apache.spark" %% "spark-sql" % spark3Version
   val spark3StreamingDep = "org.apache.spark" %% "spark-streaming" % spark3Version
 
-  val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "4.10.0" % Test
+  val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "4.11.0" % Test
 
-  private val kafkaVersion = "3.4.0"
+  private val kafkaVersion = "3.5.1"
   val embeddedKafkaDep = "io.github.embeddedkafka" %% "embedded-kafka" % kafkaVersion % Test
   val sparkStreamingKafkaDep = "org.apache.spark" %% "spark-streaming-kafka-0-10-assembly" % spark3Version
   val kafkaClientsDep = "org.apache.kafka" % "kafka-clients" % kafkaVersion % Provided

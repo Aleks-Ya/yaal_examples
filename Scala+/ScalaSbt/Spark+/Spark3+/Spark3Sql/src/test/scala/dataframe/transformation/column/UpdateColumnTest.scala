@@ -2,7 +2,7 @@ package dataframe.transformation.column
 
 import factory.Factory
 import org.apache.spark.sql.Row
-import org.apache.spark.sql.catalyst.encoders.{ExpressionEncoder, RowEncoder}
+import org.apache.spark.sql.catalyst.encoders.{AgnosticEncoder, ExpressionEncoder, RowEncoder}
 import org.apache.spark.sql.functions._
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -19,7 +19,7 @@ class UpdateColumnTest extends AnyFlatSpec with Matchers {
   }
 
   it should "update a column using map transformation" in {
-    implicit val encoder: ExpressionEncoder[Row] = RowEncoder.apply(Factory.peopleDf.schema)
+    implicit val encoder: AgnosticEncoder[Row] = RowEncoder.encoderFor(Factory.peopleDf.schema)
     val df = Factory.peopleDf.map(row => {
       val nameIndex = row.fieldIndex("name")
       val oldValue = row.getString(nameIndex)
