@@ -24,4 +24,12 @@ class TryCatchFinallyTest extends AnyFlatSpec with Matchers {
     exception shouldBe a[IllegalArgumentException]
     finallyResult shouldBe true
   }
+
+  it should "ignore exception variable in catch block" in {
+    try {
+      throw new IllegalArgumentException
+    } catch {
+      case _: Throwable => println("ignore")
+    }
+  }
 }
