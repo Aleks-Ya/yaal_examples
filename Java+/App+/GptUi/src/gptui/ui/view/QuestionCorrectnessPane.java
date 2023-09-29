@@ -6,6 +6,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.web.WebView;
 
+import static javafx.scene.input.KeyEvent.KEY_PRESSED;
+
 class QuestionCorrectnessPane extends HBox {
     private final WebView webView = new WebView();
 
@@ -14,6 +16,7 @@ class QuestionCorrectnessPane extends HBox {
         var sep = new Separator();
         getChildren().addAll(label, sep, webView);
         webView.setPrefHeight(200);
+        webView.addEventFilter(KEY_PRESSED, new PropagateCtrlVToParent());
         HBox.setHgrow(webView, Priority.ALWAYS);
     }
 

@@ -16,4 +16,5 @@ module Java.JSE.JavaFx.main {
     exports javafx.media to javafx.graphics;
     exports javafx.shape to javafx.graphics;
     exports javafx.shortcut to javafx.graphics;
+    exports javafx.events to javafx.graphics;
 }

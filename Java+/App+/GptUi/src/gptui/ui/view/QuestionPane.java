@@ -34,4 +34,11 @@ class QuestionPane extends HBox {
     public StringProperty getTextProperty() {
         return textArea.textProperty();
     }
+
+    public void setFocusOnTextArea() {
+        textArea.requestFocus();
+        var text = textArea.getText();
+        var lastPosition = text != null ? text.length() : 0;
+        textArea.positionCaret(lastPosition);
+    }
 }

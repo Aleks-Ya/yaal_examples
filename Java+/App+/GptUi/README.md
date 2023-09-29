@@ -18,7 +18,6 @@
 14. Add "Regenerate" buttons for short and long answers
 15. Add auto-completion for the Theme combo box
 16. Search for a definition in Wikipedia also
-17. Ctrl-V pastes clipboard content into the Question from anywhere  
 
 ## Install on Ubuntu
 

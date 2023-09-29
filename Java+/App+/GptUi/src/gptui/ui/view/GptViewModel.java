@@ -18,6 +18,7 @@ import javafx.scene.paint.Paint;
 
 import java.util.List;
 
+import static gptui.format.ClipboardHelper.getTextFromClipboard;
 import static gptui.format.ClipboardHelper.putHtmlToClipboard;
 import static gptui.storage.AnswerState.NEW;
 import static gptui.storage.AnswerType.LONG;

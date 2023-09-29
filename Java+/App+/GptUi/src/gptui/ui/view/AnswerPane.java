@@ -12,6 +12,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.web.WebView;
 
 import static gptui.format.ClipboardHelper.putHtmlToClipboard;
+import static javafx.scene.input.KeyEvent.KEY_PRESSED;
 
 class AnswerPane extends HBox {
     static final String STATUS_CIRCLE_ID = "status-circle";
@@ -26,6 +27,7 @@ class AnswerPane extends HBox {
         statusCircle.setRadius(10);
         statusCircle.setFill(Color.WHITE);
         statusCircle.setId(STATUS_CIRCLE_ID);
+        webView.addEventFilter(KEY_PRESSED, new PropagateCtrlVToParent());
         getChildren().addAll(label, new Separator(), webView, new Separator(), copy, statusCircle);
         setHgrow(webView, Priority.ALWAYS);
     }
