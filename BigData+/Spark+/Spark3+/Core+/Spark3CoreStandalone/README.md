@@ -3,13 +3,13 @@
 Submit:
 
 1. Run Spark Standalone cluster from `BigData+/Spark+/SparkDocker+/Spark3StandaloneDocker`
-2. Choose Java 8 for SBT: `sdk use java 11.0.12-open`
-3. Choose Java 8 in IntelliJ Idea project
-4. Prevent `Cannot run program "/home/aleks/.sdkman/candidates/java/11.0.12-open/bin/java"`: `unset JAVA_HOME`
+2. Choose Java 11 for SBT: `sdk use java 11.0.20-zulu`
+3. Choose Java 11 in IntelliJ Idea project
+4. Prevent `Cannot run program "/home/aleks/.sdkman/candidates/java/11.0.20-zulu/bin/java"`: `unset JAVA_HOME`
 5. Run the application
     1. Local mode: run main class `mode.localmode.LocalModeApp`
     2. Client mode
-        1. Turn off the firewall: `sudo ufw disable`
+        1. Disable firewall: `sudo ufw disable`
         2. Build JAR: `sbt clean package`
         3. Client mode (from IDE): run class `mode.clientmode.ClientModeIdeApp`
         4. Client mode (with `spark-submit`):
@@ -98,3 +98,5 @@ Submit:
                 --conf "spark.eventLog.dir=file:///media/aleks/ADATA/dataset/spark-events" \
                 target/scala-2.12/spark3corestandalone_2.12-1.jar
            ```
+11. Stop the application
+    1. Enable firewall: `sudo ufw enable`

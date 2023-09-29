@@ -1,5 +1,6 @@
 # pass CLI
 
+Install: `sudo apt install -y pass`
 Storeage location: `~/.password-store`
 
 ## Commands
