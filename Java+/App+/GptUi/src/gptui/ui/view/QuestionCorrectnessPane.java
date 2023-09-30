@@ -15,6 +15,7 @@ class QuestionCorrectnessPane extends HBox {
         var label = new Label("Question\ncorrectness:");
         var sep = new Separator();
         getChildren().addAll(label, sep, webView);
+        webView.setId("QuestionCorrectnessWebView");
         webView.setPrefHeight(200);
         webView.addEventFilter(KEY_PRESSED, new PropagateCtrlVToParent());
         HBox.setHgrow(webView, Priority.ALWAYS);

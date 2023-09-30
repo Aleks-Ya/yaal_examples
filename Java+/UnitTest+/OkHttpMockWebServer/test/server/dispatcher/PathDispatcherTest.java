@@ -1,8 +1,9 @@
-package server;
+package server.dispatcher;
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.Test;
+import server.PathDispatcher;
 import util.NetUtil;
 
 import java.io.FileNotFoundException;
@@ -11,6 +12,9 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * Return different responses depending on request path.
+ */
 class PathDispatcherTest {
 
     @Test

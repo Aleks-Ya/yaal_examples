@@ -19,7 +19,7 @@ class AnswerPane extends HBox {
     private final WebView webView = new WebView();
     private final Circle statusCircle = new Circle();
 
-    public AnswerPane(String header) {
+    public AnswerPane(String header, String id) {
         var label = new Label(header);
         var copy = new Button("Copy");
         copy.setMinWidth(70);
@@ -30,6 +30,7 @@ class AnswerPane extends HBox {
         webView.addEventFilter(KEY_PRESSED, new PropagateCtrlVToParent());
         getChildren().addAll(label, new Separator(), webView, new Separator(), copy, statusCircle);
         setHgrow(webView, Priority.ALWAYS);
+        setId(id);
     }
 
     private String getHtmlContent() {

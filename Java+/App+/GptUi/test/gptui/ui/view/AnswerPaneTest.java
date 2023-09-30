@@ -19,7 +19,7 @@ class AnswerPaneTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) {
-        var sceneRoot = new AnswerPane(header);
+        var sceneRoot = new AnswerPane(header, "AnswerPane");
         var scene = new Scene(sceneRoot, 100, 100);
         stage.setScene(scene);
         stage.show();

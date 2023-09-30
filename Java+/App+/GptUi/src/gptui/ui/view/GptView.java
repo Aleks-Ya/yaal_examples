@@ -26,8 +26,8 @@ public class GptView extends VBox {
     private final ThemePane themePane = new ThemePane();
     private final QuestionPane questionPane = new QuestionPane(this::sendQuestion);
     private final QuestionCorrectnessPane questionCorrectnessPane = new QuestionCorrectnessPane();
-    private final AnswerPane shortAnswerPane = new AnswerPane("Short\nanswer:");
-    private final AnswerPane longAnswerPane = new AnswerPane("Long\nanswer:");
+    private final AnswerPane shortAnswerPane = new AnswerPane("Short\nanswer:", "ShortAnswerPane");
+    private final AnswerPane longAnswerPane = new AnswerPane("Long\nanswer:", "LongAnswerPane");
 
     public GptView(GptViewModel viewModel) {
         this.viewModel = viewModel;

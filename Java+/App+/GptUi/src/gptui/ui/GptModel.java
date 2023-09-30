@@ -27,7 +27,7 @@ import static java.util.concurrent.CompletableFuture.runAsync;
 
 public class GptModel {
     private static final Logger log = LoggerFactory.getLogger(GptModel.class);
-    private final GptApi gptApi = new GptApi();
+    private final GptApi gptApi;
     private final FormatConverter formatConverter = new FormatConverter();
     private final ThemeHelper themeHelper = new ThemeHelper();
     private GptViewModel viewModel;
@@ -35,8 +35,9 @@ public class GptModel {
     private final SoundService soundService = new SoundService();
     private final PromptFactory promptFactory = new PromptFactory();
 
-    public GptModel(GptStorage gptStorage) {
+    public GptModel(GptStorage gptStorage, GptApi gptApi) {
         this.gptStorage = gptStorage;
+        this.gptApi = gptApi;
     }
 
     public void setViewModel(GptViewModel viewModel) {

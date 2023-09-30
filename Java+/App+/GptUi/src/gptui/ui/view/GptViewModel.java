@@ -15,10 +15,11 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static gptui.format.ClipboardHelper.getTextFromClipboard;
 import static gptui.format.ClipboardHelper.putHtmlToClipboard;
 import static gptui.storage.AnswerState.NEW;
 import static gptui.storage.AnswerType.LONG;
@@ -30,6 +31,7 @@ import static javafx.scene.paint.Color.RED;
 import static javafx.scene.paint.Color.WHITE;
 
 public class GptViewModel {
+    private static final Logger log = LoggerFactory.getLogger(GptViewModel.class);
     private final GptModel model;
     private final ObjectProperty<Interaction> interactionHistoryValueProperty = new SimpleObjectProperty<>();
     private final ListProperty<Interaction> interactionHistoryItemsProperty = new SimpleListProperty<>(FXCollections.observableArrayList());
@@ -44,10 +46,11 @@ public class GptViewModel {
 
     public GptViewModel(GptModel gptModel) {
         interactionHistoryValueProperty.addListener((observable, oldValue, newValue) -> {
-            if (newValue == null) {
-                interactionHistoryValueProperty.setValue(null);
-            } else if (oldValue == null || !oldValue.id().equals(newValue.id())) {
-                showInteraction(newValue);
+            log.debug("InteractionHistoryValueProperty event: oldValue='{}', newValue='{}'", oldValue, newValue);
+            if (newValue != null) {
+                if (oldValue == null || !oldValue.id().equals(newValue.id())) {
+                    showInteraction(newValue);
+                }
             }
         });
         model = gptModel;
@@ -129,6 +132,7 @@ public class GptViewModel {
     }
 
     public void themeListUpdated(List<String> newThemeList) {
+        log.debug("themeListUpdated: {}", newThemeList);
         themeItemsProperty.setAll(newThemeList);
         var currentThemeValue = themeValueProperty.getValue();
         if (newThemeList.contains(currentThemeValue)) {
@@ -156,7 +160,8 @@ public class GptViewModel {
         };
     }
 
-    private void showInteraction(Interaction interaction) {
+    private synchronized void showInteraction(Interaction interaction) {
+        log.debug("Show interaction: {}", interaction);
         themeValueProperty.setValue(interaction.theme());
         questionProperty.setValue(interaction.question());
         setAnswer(QUESTION_CORRECTNESS, interaction.getAnswer(QUESTION_CORRECTNESS)

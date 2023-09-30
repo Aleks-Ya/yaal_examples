@@ -2,14 +2,14 @@ package gptui.storage;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
 public class GptStorage {
-    private final Map<InteractionId, Interaction> interactions = new HashMap<>();
+    private final Map<InteractionId, Interaction> interactions = new LinkedHashMap<>();
     private final GptStorageFilesystem gptStorage;
 
     public GptStorage(GptStorageFilesystem gptStorage) {
