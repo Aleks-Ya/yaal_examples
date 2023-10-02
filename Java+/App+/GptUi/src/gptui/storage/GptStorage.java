@@ -1,52 +1,17 @@
 package gptui.storage;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class GptStorage {
-    private final Map<InteractionId, Interaction> interactions = new LinkedHashMap<>();
-    private final GptStorageFilesystem gptStorage;
+public interface GptStorage {
+    InteractionId newInteractionId();
 
-    public GptStorage(GptStorageFilesystem gptStorage) {
-        this.gptStorage = gptStorage;
-        gptStorage.readAllInteractions().forEach(interaction -> interactions.put(interaction.id(), interaction));
-    }
+    void updateInteraction(InteractionId interactionId, Function<Interaction, Interaction> update);
 
-    public synchronized InteractionId newInteractionId() {
-        return new InteractionId(Instant.now().getEpochSecond());
-    }
+    void saveInteraction(Interaction interaction);
 
-    public synchronized void updateInteraction(InteractionId interactionId, Function<Interaction, Interaction> update) {
-        var interactionOpt = readInteraction(interactionId);
-        Interaction interaction;
-        if (interactionOpt.isEmpty()) {
-            interaction = new Interaction(interactionId, null, null, null);
-            if (interactions.containsKey(interactionId)) {
-                throw new IllegalStateException("Interaction already exists: " + interaction);
-            }
-        } else {
-            interaction = interactionOpt.get();
-        }
-        var updatedInteraction = update.apply(interaction);
-        saveInteraction(updatedInteraction);
-    }
+    Optional<Interaction> readInteraction(InteractionId interactionId);
 
-    public synchronized void saveInteraction(Interaction interaction) {
-        interactions.put(interaction.id(), interaction);
-        gptStorage.saveInteraction(interaction);
-    }
-
-    public synchronized Optional<Interaction> readInteraction(InteractionId interactionId) {
-        return Optional.ofNullable(interactions.get(interactionId));
-    }
-
-    public synchronized List<Interaction> readAllInteractions() {
-        return new ArrayList<>(interactions.values());
-    }
-
+    List<Interaction> readAllInteractions();
 }

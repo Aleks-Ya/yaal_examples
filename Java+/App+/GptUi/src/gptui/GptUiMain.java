@@ -1,8 +1,8 @@
 package gptui;
 
 import gptui.gpt.GptApiImpl;
-import gptui.storage.GptStorage;
 import gptui.storage.GptStorageFilesystem;
+import gptui.storage.GptStorageImpl;
 import gptui.ui.GptModel;
 import gptui.ui.view.GptView;
 import gptui.ui.view.GptViewModel;
@@ -29,7 +29,7 @@ public class GptUiMain extends Application {
         var version = readVersion();
         log.info("App version: " + version);
         var storageFileSystem = new GptStorageFilesystem(FileSystems.getDefault());
-        var storage = new GptStorage(storageFileSystem);
+        var storage = new GptStorageImpl(storageFileSystem);
         var gptApi = new GptApiImpl();
         var model = new GptModel(storage, gptApi);
         var viewModel = new GptViewModel(model);

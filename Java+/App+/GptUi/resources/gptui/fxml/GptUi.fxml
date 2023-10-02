@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gptui.fxml.GptUiController">
+   <children>
+      <HBox fx:id="questionHistoryHBox" prefHeight="29.0" prefWidth="1920.0">
+         <children>
+            <Label fx:id="InteractionHistoryLabel" text="Question history:" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+            <ComboBox fx:id="questionHistoryComboBox" prefWidth="150.0" />
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" visible="false" />
+      <HBox prefHeight="31.0" prefWidth="1920.0">
+         <children>
+            <Label text="Theme:" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+            <ComboBox fx:id="ThemeComboBox" editable="true" prefWidth="150.0" />
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" visible="false" />
+      <HBox fx:id="QuestionHBox" prefHeight="64.0" prefWidth="1280.0">
+         <children>
+            <Label fx:id="QuestionPaneLabel" text="Question:" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+            <TextArea prefHeight="68.0" prefWidth="1154.0" HBox.hgrow="ALWAYS" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+            <Button fx:id="sendButtonClick" mnemonicParsing="false" onAction="#sendQuestion" text="Send" />
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" visible="false" />
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Question&#10;correctness:" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+            <WebView prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" visible="false" />
+      <fx:include fx:id="ShortAnswerPane" source="AnswerPane.fxml" VBox.vgrow="ALWAYS" />
+      <Separator prefWidth="200.0" visible="false" />
+      <fx:include fx:id="LongAnswerPane" source="AnswerPane.fxml" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>

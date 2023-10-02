@@ -8,7 +8,7 @@ dependencies {
                      'javax.faces:javax.faces-api:2.2',
                      'javax.servlet:javax.servlet-api:3.1.0',
                      'jstl:jstl:1.2',
-                     'javax.inject:javax.inject:1'
+                     javaxInjectDep
 }
 
 repositories {

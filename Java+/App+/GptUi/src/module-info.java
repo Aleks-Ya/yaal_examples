@@ -31,8 +31,14 @@ module GptUi.main {
     opens gptui.gpt to com.google.gson;
 
     exports gptui to javafx.graphics;
-    exports gptui.ui to javafx.graphics;
+    exports gptui.ui;
+    exports gptui.fxml;
     exports gptui.storage to com.google.gson;
     exports gptui.ui.view to javafx.graphics;
     opens gptui.ui.view to javafx.fxml;
+    opens gptui.fxml to javafx.fxml, com.google.guice;
+
+    requires javax.inject;
+    requires com.google.guice;
+    requires ignite.guice;
 }

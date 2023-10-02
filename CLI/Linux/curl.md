@@ -22,3 +22,4 @@ Ignore certificate errors: `curl --insecure https://google.com`
 Don't show progress: `curl -s http://ya.ru`
 Connect timeout (sec): `curl -m 60 http://localhost:80/internal/v1/tenant/info/ALL`
 Connection timeout (sec): `curl --connect-timeout 60 http://localhost:80/internal/v1/tenant/info/ALL`
+Follow redirection: `curl -L http://ya.ru`

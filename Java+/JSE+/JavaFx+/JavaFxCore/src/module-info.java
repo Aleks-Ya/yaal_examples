@@ -6,6 +6,9 @@ module Java.JSE.JavaFx.main {
     requires javafx.media;
     requires Java.Util.main;
     opens javafx to javafx.fxml;
+    opens javafx.fxml_ to javafx.fxml;
+    opens javafx.fxml_.reusable to javafx.fxml;
+    opens javafx.fxml_.mvvm to javafx.fxml;
     exports javafx.controls to javafx.graphics;
     exports javafx.layout to javafx.graphics;
     exports javafx.other to javafx.graphics;
@@ -17,4 +20,7 @@ module Java.JSE.JavaFx.main {
     exports javafx.shape to javafx.graphics;
     exports javafx.shortcut to javafx.graphics;
     exports javafx.events to javafx.graphics;
+    exports javafx.fxml_ to javafx.graphics, javafx.fxml;
+    exports javafx.fxml_.reusable to javafx.graphics, javafx.fxml;
+    exports javafx.fxml_.mvvm to javafx.graphics, javafx.fxml;
 }

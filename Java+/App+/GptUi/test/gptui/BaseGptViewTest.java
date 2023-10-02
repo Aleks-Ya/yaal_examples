@@ -3,6 +3,7 @@ package gptui;
 import com.google.common.jimfs.Jimfs;
 import gptui.storage.GptStorage;
 import gptui.storage.GptStorageFilesystem;
+import gptui.storage.GptStorageImpl;
 import gptui.ui.GptModel;
 import gptui.ui.view.GptView;
 import gptui.ui.view.GptViewModel;
@@ -24,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 abstract class BaseGptViewTest extends ApplicationTest {
     protected final MockGptApi gptApi = new MockGptApi();
-    protected final GptStorage storage = new GptStorage(new GptStorageFilesystem(Jimfs.newFileSystem(unix())));
+    protected final GptStorage storage = new GptStorageImpl(new GptStorageFilesystem(Jimfs.newFileSystem(unix())));
 
     @Override
     public void start(Stage stage) {

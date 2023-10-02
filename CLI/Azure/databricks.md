@@ -24,6 +24,7 @@ Check authentication: `databricks fs ls dbfs:/`
 List files in the root dir: `databricks fs ls dbfs:/`
 Create a folder: `databricks fs mkdirs dbfs:/Users/aleksei.iablokov@sap.com`
 Upload a file into DBFS: `databricks fs cp /local/file.txt dbfs:/remote/directory`
+Download file from DBFS: `databricks fs cp dbfs:/remote/directory/file.txt /local/`
 
 ## Secrets
 List secret scopes: `databricks secrets list-scopes`

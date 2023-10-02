@@ -1,5 +1,0 @@
-subprojects {
-    ext {
-        guiceVersion = '5.0.1'
-    }
-}
