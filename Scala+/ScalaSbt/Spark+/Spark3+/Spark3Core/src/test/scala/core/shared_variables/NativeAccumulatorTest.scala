@@ -7,7 +7,7 @@ import org.scalatest.matchers.should.Matchers
 /**
   * Use native accumulators.
   */
-class AccumulatorTest extends AnyFlatSpec with Matchers {
+class NativeAccumulatorTest extends AnyFlatSpec with Matchers {
 
   it should "use a Double accumulator" in {
     val accum = Factory.sc.doubleAccumulator("My Double Accumulator")
