@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox fx:id="questionHistoryHBox" prefHeight="29.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gptui.fxml.controller.InteractionHistoryController">
+   <children>
+      <Label fx:id="interactionHistoryLabel" text="Question history:" />
+      <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+      <ComboBox fx:id="interactionHistoryComboBox" onAction="#interactionHistoryComboBoxAction" />
+   </children>
+</HBox>

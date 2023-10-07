@@ -1,13 +1,14 @@
 package gptui.storage;
 
+import javax.inject.Singleton;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
+@Singleton
 public class GptStorageImpl implements GptStorage {
     private final Map<InteractionId, Interaction> interactions = new LinkedHashMap<>();
     private final GptStorageFilesystem gptStorage;
@@ -51,7 +52,9 @@ public class GptStorageImpl implements GptStorage {
 
     @Override
     public synchronized List<Interaction> readAllInteractions() {
-        return new ArrayList<>(interactions.values());
+        return interactions.values().stream()
+                .sorted((i1, i2) -> i2.id().id().compareTo(i1.id().id()))
+                .toList();
     }
 
 }

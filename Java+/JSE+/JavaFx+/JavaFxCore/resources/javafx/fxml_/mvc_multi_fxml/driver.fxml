@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+
+
+<HBox xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.fxml_.mvc_multi_fxml.DriverController">
+   <children>
+      <Label text="Driver name:" />
+      <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+      <TextField fx:id="driverNameField" onAction="#changedDriverName" onKeyTyped="#driverNameKeyTyped" />
+   </children>
+</HBox>

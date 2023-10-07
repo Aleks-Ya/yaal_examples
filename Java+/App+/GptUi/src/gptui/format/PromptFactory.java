@@ -2,6 +2,9 @@ package gptui.format;
 
 import gptui.storage.AnswerType;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class PromptFactory {
     public String getPrompt(String theme, String question, AnswerType answerType) {
         return switch (answerType) {

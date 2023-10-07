@@ -9,9 +9,12 @@ import com.vladsch.flexmark.util.ast.NodeVisitor;
 import com.vladsch.flexmark.util.ast.VisitHandler;
 import com.vladsch.flexmark.util.data.MutableDataSet;
 
+import javax.inject.Singleton;
+
 import static com.vladsch.flexmark.parser.Parser.EXTENSIONS;
 import static java.util.List.of;
 
+@Singleton
 public class FormatConverter {
     private final Parser parser;
     private final HtmlRenderer renderer;

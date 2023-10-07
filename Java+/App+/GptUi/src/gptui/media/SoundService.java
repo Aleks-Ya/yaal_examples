@@ -3,8 +3,11 @@ package gptui.media;
 import gptui.storage.AnswerType;
 import javafx.scene.media.AudioClip;
 
+import javax.inject.Singleton;
+
 import static java.util.Objects.requireNonNull;
 
+@Singleton
 public class SoundService {
     private static final Double volume = 0.1;
     private final AudioClip beep1;

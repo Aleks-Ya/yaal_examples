@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+
+
+<HBox xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.fxml_.mvc_multi_fxml.CarController">
+   <children>
+      <Label text="Brand:" />
+      <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+      <ComboBox fx:id="brandComboBox" onAction="#chosenBrand" prefWidth="150.0" />
+   </children>
+</HBox>

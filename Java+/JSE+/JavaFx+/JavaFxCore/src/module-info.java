@@ -9,6 +9,8 @@ module Java.JSE.JavaFx.main {
     opens javafx.fxml_ to javafx.fxml;
     opens javafx.fxml_.reusable to javafx.fxml;
     opens javafx.fxml_.mvvm to javafx.fxml;
+    opens javafx.fxml_.mvc to javafx.fxml;
+    opens javafx.fxml_.mvc_multi_fxml to javafx.fxml;
     exports javafx.controls to javafx.graphics;
     exports javafx.layout to javafx.graphics;
     exports javafx.other to javafx.graphics;
@@ -23,4 +25,6 @@ module Java.JSE.JavaFx.main {
     exports javafx.fxml_ to javafx.graphics, javafx.fxml;
     exports javafx.fxml_.reusable to javafx.graphics, javafx.fxml;
     exports javafx.fxml_.mvvm to javafx.graphics, javafx.fxml;
+    exports javafx.fxml_.mvc to javafx.graphics, javafx.fxml;
+    exports javafx.fxml_.mvc_multi_fxml to javafx.graphics, javafx.fxml;
 }

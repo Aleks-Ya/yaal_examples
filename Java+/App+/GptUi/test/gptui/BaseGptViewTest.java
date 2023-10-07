@@ -75,11 +75,11 @@ abstract class BaseGptViewTest extends ApplicationTest {
     }
 
     protected Circle getShortAnswerCircle() {
-        return lookup("#ShortAnswerPane #status-circle").queryAs(Circle.class);
+        return lookup("#ShortAnswerPane #statusCircle").queryAs(Circle.class);
     }
 
     protected Circle getLongAnswerCircle() {
-        return lookup("#LongAnswerPane #status-circle").queryAs(Circle.class);
+        return lookup("#LongAnswerPane #statusCircle").queryAs(Circle.class);
     }
 
     protected WebView getLongAnswerWebView() {

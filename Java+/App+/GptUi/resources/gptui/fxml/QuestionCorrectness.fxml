@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.web.WebView?>
+
+<HBox prefHeight="100.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gptui.fxml.controller.QuestionCorrectnessController">
+   <children>
+      <Label fx:id="questionCorrectnessLabel" text="Question&#10;correctness:" />
+      <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+      <WebView fx:id="questionCorrectnessWebView" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+   </children>
+</HBox>

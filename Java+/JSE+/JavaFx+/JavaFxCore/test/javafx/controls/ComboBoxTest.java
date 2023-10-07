@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import static javafx.scene.input.KeyCode.A;
+import static javafx.scene.input.KeyCode.ALT;
 import static javafx.scene.input.KeyCode.CONTROL;
+import static javafx.scene.input.KeyCode.DOWN;
 import static javafx.scene.input.KeyCode.ENTER;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.ComboBoxMatchers.containsExactlyItems;
@@ -26,8 +28,8 @@ class ComboBoxTest extends ApplicationTest {
         stage.show();
     }
 
-    private static ComboBox<Object> editableComboBox() {
-        var comboBox = new ComboBox<>();
+    private static ComboBox<String> editableComboBox() {
+        var comboBox = new ComboBox<String>();
         var defaultOption = "Option 1";
         comboBox.getItems().addAll(defaultOption, "Option 2", "Option 3");
         comboBox.setEditable(true);
@@ -37,20 +39,30 @@ class ComboBoxTest extends ApplicationTest {
 
     @Test
     void shouldContainComboBox() {
-        verifyThat(lookup(".combo-box").queryComboBox(), hasSelectedItem("Option 1"));
-        verifyThat(lookup(".combo-box").queryComboBox(), hasItems(3));
-        verifyThat(lookup(".combo-box").queryComboBox(), hasItems(3));
-        verifyThat(lookup(".combo-box").queryComboBox(), containsExactlyItemsInOrder("Option 1", "Option 2", "Option 3"));
-        verifyThat(lookup(".combo-box").queryComboBox(), containsItems("Option 3", "Option 2"));
-        verifyThat(lookup(".combo-box").queryComboBox(), containsExactlyItems("Option 3", "Option 2", "Option 1"));
+        var comboBox = lookup(".combo-box").queryComboBox();
+        verifyThat(comboBox, hasSelectedItem("Option 1"));
+        verifyThat(comboBox, hasItems(3));
+        verifyThat(comboBox, hasItems(3));
+        verifyThat(comboBox, containsExactlyItemsInOrder("Option 1", "Option 2", "Option 3"));
+        verifyThat(comboBox, containsItems("Option 3", "Option 2"));
+        verifyThat(comboBox, containsExactlyItems("Option 3", "Option 2", "Option 1"));
     }
 
     @Test
     void shouldWriteToComboBox() {
-        clickOn(".combo-box");
+        var comboBox = lookup(".combo-box").queryComboBox();
+        clickOn(comboBox);
         press(CONTROL).press(A).release(A).release(CONTROL);
         write("Option 4").press(ENTER);
-        verifyThat(lookup(".combo-box").queryComboBox(), hasSelectedItem("Option 1"));
-        verifyThat(lookup(".combo-box").queryComboBox(), containsExactlyItemsInOrder("Option 1", "Option 2", "Option 3"));
+        verifyThat(comboBox, hasSelectedItem("Option 1"));
+        verifyThat(comboBox, containsExactlyItemsInOrder("Option 1", "Option 2", "Option 3"));
+    }
+
+    @Test
+    void shouldChooseAnotherItemInComboBox() {
+        var comboBox = lookup(".combo-box").queryComboBox();
+        clickOn(comboBox).press(ALT, DOWN).clickOn("Option 2");
+        verifyThat(comboBox, hasSelectedItem("Option 2"));
+        verifyThat(comboBox, containsExactlyItemsInOrder("Option 1", "Option 2", "Option 3"));
     }
 }

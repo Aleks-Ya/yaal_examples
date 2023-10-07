@@ -2,6 +2,7 @@ package gptui.format;
 
 import gptui.storage.Interaction;
 
+import javax.inject.Singleton;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import static java.util.Comparator.comparing;
 import static java.util.Map.entry;
 import static java.util.stream.Collectors.groupingBy;
 
+@Singleton
 public class ThemeHelper {
     public List<String> interactionsToThemeList(List<Interaction> interactions) {
         return interactions.stream()
