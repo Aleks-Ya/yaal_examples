@@ -49,8 +49,9 @@ class HotKeysTest extends BaseGptUiTest {
 
     @Test
     void insertQuestionFromClipboard() {
+        var clipboardHelper = new ClipboardHelper();
         assertThat(getQuestionTextArea().getText()).isEqualTo("Question 1");
-        executeSyncInFxThread(() -> ClipboardHelper.putHtmlToClipboard("From clipboard"));
+        executeSyncInFxThread(() -> clipboardHelper.putHtmlToClipboard("From clipboard"));
         press(KeyCode.CONTROL, KeyCode.ALT, KeyCode.V);
         assertThat(getQuestionTextArea().getText()).isEqualTo("From clipboard");
     }

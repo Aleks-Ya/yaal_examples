@@ -53,6 +53,8 @@ class QuestionController extends BaseController {
     private FormatConverter formatConverter;
     @Inject
     private ThemeHelper themeHelper;
+    @Inject
+    private ClipboardHelper clipboardHelper;
     @FXML
     private TextArea questionTextArea;
 
@@ -145,7 +147,7 @@ class QuestionController extends BaseController {
     public void stageWasShowed(Model model, EventSource source) {
         model.addAccelerator(new KeyCodeCombination(V, CONTROL_DOWN, ALT_DOWN), () -> {
             log.debug("pasteQuestionFromClipboardAndFocus");
-            var question = ClipboardHelper.getTextFromClipboard();
+            var question = clipboardHelper.getTextFromClipboard();
             questionTextArea.setText(question);
             questionTextArea.requestFocus();
             questionTextArea.positionCaret(questionTextArea.getText().length());

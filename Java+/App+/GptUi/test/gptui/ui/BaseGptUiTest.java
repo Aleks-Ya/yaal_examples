@@ -28,6 +28,7 @@ abstract class BaseGptUiTest extends ApplicationTest {
     protected final Model model = new Model();
     protected final MockGptApi gptApi = new MockGptApi();
     protected final GptStorage storage = new GptStorageImpl(new GptStorageFilesystem(Jimfs.newFileSystem(unix())));
+    protected final ClipboardHelper clipboardHelper = new ClipboardHelper();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -116,7 +117,7 @@ abstract class BaseGptUiTest extends ApplicationTest {
     }
 
     protected void verifyHtmlClipboardContent(String expContent) {
-        interact(() -> assertThat(ClipboardHelper.getTextFromClipboard())
+        interact(() -> assertThat(clipboardHelper.getTextFromClipboard())
                 .isEqualTo("<html><head></head><body>" + expContent + "</body></html>"));
     }
 

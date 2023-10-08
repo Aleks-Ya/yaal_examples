@@ -6,10 +6,13 @@ import javafx.scene.input.DataFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class ClipboardHelper {
     private static final Logger log = LoggerFactory.getLogger(ClipboardHelper.class);
 
-    public static void putHtmlToClipboard(String html) {
+    public void putHtmlToClipboard(String html) {
         var clipboard = Clipboard.getSystemClipboard();
         var content = new ClipboardContent();
         content.putString(html);
@@ -21,7 +24,7 @@ public class ClipboardHelper {
         log.debug("Copied to clipboard {} characters", html.length());
     }
 
-    public static String getTextFromClipboard() {
+    public String getTextFromClipboard() {
         var clipboard = Clipboard.getSystemClipboard();
         var content = (String) clipboard.getContent(DataFormat.PLAIN_TEXT);
         log.debug("Copied from clipboard {} characters", content != null ? content.length() : 0);

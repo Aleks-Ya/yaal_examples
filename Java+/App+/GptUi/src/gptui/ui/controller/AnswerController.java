@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.web.WebView;
 
+import javax.inject.Inject;
 import java.util.Map;
 import java.util.Optional;
 
@@ -41,6 +42,8 @@ class AnswerController extends BaseController {
     @FXML
     private WebView webView;
     private AnswerType answerType;
+    @Inject
+    private ClipboardHelper clipboardHelper;
 
     @FXML
     void clickCopyButton(ActionEvent ignoredEvent) {
@@ -55,19 +58,21 @@ class AnswerController extends BaseController {
 
     private void copyWebViewContentToClipboard() {
         var content = (String) webView.getEngine().executeScript("document.documentElement.outerHTML");
-        ClipboardHelper.putHtmlToClipboard(content);
+        clipboardHelper.putHtmlToClipboard(content);
     }
 
     @Override
     public void modelChanged(Model model, EventSource source) {
         Optional.ofNullable(model.getCurrentInteraction())
                 .map(interaction -> interaction.getAnswer(answerType))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .ifPresent(answer -> Platform.runLater(() -> {
-                    webView.getEngine().loadContent(answer.answerHtml());
-                    statusCircle.setFill(answerStateToColor(answer.answerState()));
-                }));
+                .ifPresent(answerOpt -> {
+                    var html = answerOpt.isPresent() ? answerOpt.get().answerHtml() : "";
+                    var state = answerOpt.isPresent() ? answerOpt.get().answerState() : AnswerState.NEW;
+                    Platform.runLater(() -> {
+                        webView.getEngine().loadContent(html);
+                        statusCircle.setFill(answerStateToColor(state));
+                    });
+                });
     }
 
     public void setAnswerType(AnswerType answerType) {

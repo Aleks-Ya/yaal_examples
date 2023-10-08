@@ -9,18 +9,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ModelTest extends BaseGptUiTest {
     @Test
-    void test() {
-        typeTheme();
-        typeQuestion();
-    }
-
-    private void typeQuestion() {
+    void typeQuestion() {
         assertThat(model.getEditedQuestion()).isNull();
         clickOn(getQuestionTextArea()).type(A, B, C);
         assertThat(model.getEditedQuestion()).isEqualTo("abc");
     }
 
-    private void typeTheme() {
+    @Test
+    void typeTheme() {
         assertThat(model.getEditedTheme()).isNull();
         clickOn(getThemeComboBox()).type(A, B, C);
         assertThat(model.getEditedTheme()).isEqualTo("abc");

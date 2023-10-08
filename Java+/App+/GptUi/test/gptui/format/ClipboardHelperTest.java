@@ -13,12 +13,14 @@ import java.util.concurrent.CountDownLatch;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ClipboardHelperTest extends ApplicationTest {
+
     @Test
     void putHtmlToClipboard() throws IOException, UnsupportedFlavorException, InterruptedException {
+        var clipboardHelper = new ClipboardHelper();
         var html = "<h1>Header</h1>";
         var latch = new CountDownLatch(1);
         Platform.runLater(() -> {
-            ClipboardHelper.putHtmlToClipboard(html);
+            clipboardHelper.putHtmlToClipboard(html);
             latch.countDown();
         });
         latch.await();
