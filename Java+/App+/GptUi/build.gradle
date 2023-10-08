@@ -2,7 +2,7 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version "$javaFxPluginVersion"
     id 'org.gradlex.extra-java-module-info' version "$extraJavaModuleInfoVersion"
-    id 'org.beryx.jlink' version '2.26.0'
+    id 'org.beryx.jlink' version '3.0.0'
 }
 javafx {
     version = javaFxVersion
@@ -60,6 +60,7 @@ jlink {
     launcher {
         name = 'GptUi'
     }
+    addExtraDependencies("javafx")
 }
 tasks.jlink.dependsOn tasks.test
 tasks.jlink.mustRunAfter tasks.clean, tasks.test
@@ -67,7 +68,7 @@ tasks.jlink.mustRunAfter tasks.clean, tasks.test
 def installDir = System.properties['user.home'] + '/installed/GptUI'
 tasks.register('addIconToImage', Copy) {
     mustRunAfter tasks.jlink
-    from layout.projectDirectory.dir('resources/gptui').file('icon.png')
+    from layout.projectDirectory.dir('resources/gptui/ui').file('icon.png')
     into layout.projectDirectory.dir('build/image/bin')
 }
 tasks.register('deleteInstalledApp', Delete) {

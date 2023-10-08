@@ -26,22 +26,18 @@ module GptUi.main {
     requires flexmark.util.visitor;
     requires flexmark.ext.tables;
 
-    opens gptui to javafx.fxml;
-    opens gptui.ui to javafx.fxml;
     opens gptui.gpt to com.google.gson;
 
-    exports gptui to javafx.graphics;
     exports gptui.ui;
     exports gptui.format;
-    exports gptui.fxml;
     exports gptui.gpt;
     exports gptui.media;
     exports gptui.storage to com.google.gson;
-    exports gptui.ui.view to javafx.graphics;
-    opens gptui.ui.view to javafx.fxml;
-    opens gptui.fxml to javafx.fxml, com.google.guice;
-    exports gptui.fxml.controller;
-    opens gptui.fxml.controller to com.google.guice, javafx.fxml;
+    exports gptui.ui.controller;
+    opens gptui.ui.controller to com.google.guice, javafx.fxml;
+    exports gptui;
+    opens gptui to com.google.guice, javafx.fxml;
+    opens gptui.ui to com.google.guice, javafx.fxml;
 
     requires javax.inject;
     requires com.google.guice;

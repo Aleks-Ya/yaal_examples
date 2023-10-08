@@ -2,6 +2,7 @@
 
 ## Info
 Help: `gradle -h`
+Version: `gradle -v`
 Log level:
 - `gradle --warn`, `gradle -w`
 - `gradle --info`, `gradle -i`
