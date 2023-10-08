@@ -35,6 +35,6 @@ class GptUiController extends BaseController {
         model.setThemeList(themeList);
         model.setCurrentInteraction(!interactionHistory.isEmpty() ? interactionHistory.get(0) : null);
         model.setCurrentTheme(!themeList.isEmpty() ? themeList.get(0) : null);
-        model.fireInteractionChosenFromHistory();
+        model.fireInteractionChosenFromHistory(this);
     }
 }

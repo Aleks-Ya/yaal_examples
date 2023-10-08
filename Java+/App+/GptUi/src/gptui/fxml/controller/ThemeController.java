@@ -1,5 +1,6 @@
 package gptui.fxml.controller;
 
+import gptui.fxml.EventSource;
 import gptui.fxml.Model;
 import gptui.storage.Interaction;
 import javafx.collections.FXCollections;
@@ -21,7 +22,7 @@ class ThemeController extends BaseController {
     }
 
     @Override
-    public void modelChanged(Model model) {
+    public void modelChanged(Model model, EventSource source) {
         setItems(model);
         var currentModelValue = model.getEditedTheme();
         var currentComboBoxValue = themeComboBox.getValue();
@@ -31,7 +32,7 @@ class ThemeController extends BaseController {
     }
 
     @Override
-    public void interactionChosenFromHistory(Model model) {
+    public void interactionChosenFromHistory(Model model, EventSource source) {
         setItems(model);
         var currentComboBoxValue = themeComboBox.getValue();
         Optional.ofNullable(model.getCurrentInteraction())
@@ -46,7 +47,7 @@ class ThemeController extends BaseController {
         var currentModelValue = model.getEditedTheme();
         if (!Objects.equals(currentComboBoxValue, currentModelValue)) {
             model.setCurrentTheme(currentComboBoxValue);
-            model.fireModelChanged();
+            model.fireModelChanged(this);
         }
     }
 

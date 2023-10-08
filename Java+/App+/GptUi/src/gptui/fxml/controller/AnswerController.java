@@ -1,6 +1,7 @@
 package gptui.fxml.controller;
 
 import gptui.format.ClipboardHelper;
+import gptui.fxml.EventSource;
 import gptui.fxml.Model;
 import gptui.storage.AnswerState;
 import gptui.storage.AnswerType;
@@ -33,7 +34,7 @@ class AnswerController extends BaseController {
     }
 
     @Override
-    public void stageWasShowed(Model model) {
+    public void stageWasShowed(Model model, EventSource source) {
         model.addAccelerator(keyCodeCombination, this::copyWebViewContentToClipboard);
     }
 
@@ -43,7 +44,7 @@ class AnswerController extends BaseController {
     }
 
     @Override
-    public void modelChanged(Model model) {
+    public void modelChanged(Model model, EventSource source) {
         Platform.runLater(() -> Optional.ofNullable(model.getCurrentInteraction())
                 .map(interaction -> interaction.getAnswer(answerType))
                 .filter(Optional::isPresent)

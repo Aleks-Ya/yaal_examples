@@ -1,5 +1,6 @@
 package gptui.fxml.controller;
 
+import gptui.fxml.EventSource;
 import gptui.fxml.Model;
 import gptui.storage.Answer;
 import javafx.application.Platform;
@@ -15,7 +16,7 @@ class QuestionCorrectnessController extends BaseController {
     private WebView questionCorrectnessWebView;
 
     @Override
-    public void modelChanged(Model model) {
+    public void modelChanged(Model model, EventSource source) {
         Platform.runLater(() -> Optional.ofNullable(model.getCurrentInteraction())
                 .map(interaction -> interaction.getAnswer(QUESTION_CORRECTNESS))
                 .filter(Optional::isPresent)

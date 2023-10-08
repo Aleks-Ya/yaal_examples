@@ -1,5 +1,6 @@
 package gptui.fxml.controller;
 
+import gptui.fxml.EventSource;
 import gptui.fxml.Model;
 import gptui.storage.Interaction;
 import javafx.application.Platform;
@@ -15,7 +16,7 @@ public class InteractionHistoryController extends BaseController {
     private ComboBox<Interaction> interactionHistoryComboBox;
 
     @Override
-    public void modelChanged(Model model) {
+    public void modelChanged(Model model, EventSource source) {
         Platform.runLater(() -> {
             var modelItems = FXCollections.observableArrayList(model.getInteractionHistory());
             var comboBoxItems = interactionHistoryComboBox.getItems();
@@ -36,7 +37,7 @@ public class InteractionHistoryController extends BaseController {
         var comboBoxCurrentInteraction = interactionHistoryComboBox.getSelectionModel().getSelectedItem();
         if (!Objects.equals(modelCurrentInteraction, comboBoxCurrentInteraction) && comboBoxCurrentInteraction != null) {
             model.setCurrentInteraction(comboBoxCurrentInteraction);
-            model.fireInteractionChosenFromHistory();
+            model.fireInteractionChosenFromHistory(this);
         }
     }
 }

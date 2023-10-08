@@ -20,7 +20,7 @@ import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
-public class GptUiFXML extends Application {
+public class GptUiFXML extends Application implements EventSource {
     private static final Logger log = LoggerFactory.getLogger(GptUiFXML.class);
     private final GuiceContext context;
     @Inject
@@ -51,7 +51,7 @@ public class GptUiFXML extends Application {
         stage.getIcons().add(applicationIcon);
         stage.show();
         model.setScene(scene);
-        model.fireStageShowed();
+        model.fireStageShowed(this);
     }
 
     public static void main(String[] args) {

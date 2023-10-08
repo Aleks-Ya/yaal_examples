@@ -28,19 +28,33 @@ public class Model {
         listeners.add(listener);
     }
 
-    public void fireModelChanged() {
-        log.debug("Firing model changed to {} listeners...", listeners.size());
-        listeners.forEach(listener -> listener.modelChanged(this));
+    public void fireModelChanged(EventSource source) {
+        var selfListeners = getSelfListeners(source);
+        var notSelfListeners = getNotSelfListeners(source);
+        log.debug("Firing model changed to {} listeners (skip {} self-listeners)...", notSelfListeners.size(), selfListeners.size());
+        notSelfListeners.forEach(listener -> listener.modelChanged(this, source));
     }
 
-    public void fireStageShowed() {
-        log.debug("Firing stage was showed to {} listeners...", listeners.size());
-        listeners.forEach(listener -> listener.stageWasShowed(this));
+    public void fireStageShowed(EventSource source) {
+        var selfListeners = getSelfListeners(source);
+        var notSelfListeners = getNotSelfListeners(source);
+        log.debug("Firing stage was showed to {} listeners (skip {} self-listeners)...", notSelfListeners.size(), selfListeners.size());
+        notSelfListeners.forEach(listener -> listener.stageWasShowed(this, source));
     }
 
-    public void fireInteractionChosenFromHistory() {
-        log.debug("Firing interaction chosen from history to {} listeners...", listeners.size());
-        listeners.forEach(listener -> listener.interactionChosenFromHistory(this));
+    public void fireInteractionChosenFromHistory(EventSource source) {
+        var selfListeners = getSelfListeners(source);
+        var notSelfListeners = getNotSelfListeners(source);
+        log.debug("Firing interaction chosen from history to {} listeners (skip {} self-listeners)...", notSelfListeners.size(), selfListeners.size());
+        notSelfListeners.forEach(listener -> listener.interactionChosenFromHistory(this, source));
+    }
+
+    private List<ModelListener> getNotSelfListeners(EventSource source) {
+        return listeners.stream().filter(listener -> listener != source).toList();
+    }
+
+    private List<ModelListener> getSelfListeners(EventSource source) {
+        return listeners.stream().filter(listener -> listener == source).toList();
     }
 
     public List<Interaction> getInteractionHistory() {

@@ -4,6 +4,7 @@ import gptui.Mdc;
 import gptui.format.FormatConverter;
 import gptui.format.PromptFactory;
 import gptui.format.ThemeHelper;
+import gptui.fxml.EventSource;
 import gptui.fxml.Model;
 import gptui.gpt.GptApi;
 import gptui.media.SoundService;
@@ -106,11 +107,11 @@ class QuestionController extends BaseController {
         model.setInteractionHistory(interactionHistory);
         model.setCurrentInteraction(currentInteraction);
         model.setThemeList(themeHelper.interactionsToThemeList(interactionHistory));
-        model.fireModelChanged();
+        model.fireModelChanged(this);
     }
 
     @Override
-    public void interactionChosenFromHistory(Model model) {
+    public void interactionChosenFromHistory(Model model, EventSource source) {
         Optional.ofNullable(model.getCurrentInteraction())
                 .map(Interaction::question)
                 .filter(question -> !question.equals(questionTextArea.getText()))
