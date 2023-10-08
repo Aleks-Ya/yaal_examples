@@ -4,8 +4,8 @@ subprojects {
     sourceSets.main.resources.srcDir 'resources'
     sourceSets.test.java.srcDir 'test'
     sourceSets.test.resources.srcDir 'resourcesTest'
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
     defaultTasks('test')
     repositories {
         if (project.hasProperty('maven_central_mirror')) {
@@ -94,7 +94,7 @@ subprojects {
         apacheCommonsIoDep = 'commons-io:commons-io:2.13.0'
         lucene8Version = '8.11.1'
         lucene9Version = '9.7.0'
-        javaFxVersion = '17.0.8'
+        javaFxVersion = '21'
         javaFxPluginVersion = '0.1.0'
         testFxDep = 'org.testfx:testfx-junit5:4.0.17'
         flexMarkVersion = '0.64.8'

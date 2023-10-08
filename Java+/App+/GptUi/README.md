@@ -3,21 +3,20 @@
 ## TODO
 
 1. Fix layout
-2. Add TestFX unit-tests
-3. Add `Cancel` button
-4. Add `Delete` button for the interaction history
-5. Do not create new HttpClient instance for each request
-6. Add an answer from Bard
-7. Add a button to check grammar only
-8. Add a button to check is a sentence factually correct
-9. Add "Answer", "Definition", "Grammar" buttons instead of "Send"
-10. Show a 5-words definition
-11. Add button for checking a statement for truth
-12. Add search throughout the Interaction History
-13. Display current InteractionId in the main window
-14. Add "Regenerate" buttons for short and long answers
-15. Add auto-completion for the Theme combo box
-16. Search for a definition in Wikipedia also
+2. Add `Cancel` button
+3. Add `Delete` button for the interaction history
+4. Do not create new HttpClient instance for each request
+5. Add an answer from Bard
+6. Add a button to check grammar only
+7. Add a button to check is a sentence factually correct
+8. Add "Answer", "Definition", "Grammar" buttons instead of "Send"
+9. Show a 5-words definition
+10. Add button for checking a statement for truth
+11. Add search throughout the Interaction History
+12. Display current InteractionId in the main window
+13. Add "Regenerate" buttons for short and long answers
+14. Add auto-completion for the Theme combo box
+15. Search for a definition in Wikipedia also
 
 ## Install on Ubuntu
 

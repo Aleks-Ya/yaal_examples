@@ -37,6 +37,7 @@ public class GptUiApplication extends Application implements EventSource {
 
     @Override
     public void start(Stage stage) throws Exception {
+        log.info("Java version: {}", Runtime.version());
         context.init();
         var gptUiFxml = getClass().getResource("GptUi.fxml");
         log.info("GptUi.fxml: {}", gptUiFxml);
