@@ -26,11 +26,11 @@ class StartEmptyStorageTest extends BaseGptUiTest {
         verifyThat(getQuestionCorrectnessLabel(), hasText("Question\ncorrectness:"));
         verifyWebViewBody(getQuestionCorrectnessWebView(), "");
 
-        verifyThat(getShortAnswerLabel(), hasText("Label"));
+        verifyThat(getShortAnswerLabel(), hasText("Short\nanswer:"));
         verifyThat(getShortAnswerCopyButton().getText(), equalTo("Copy"));
         assertThat(getShortAnswerCircle().getFill()).isEqualTo(WHITE);
 
-        verifyThat(getLongAnswerLabel(), hasText("Label"));
+        verifyThat(getLongAnswerLabel(), hasText("Long\nanswer:"));
         verifyWebViewBody(getLongAnswerWebView(), "");
         verifyThat(getLongAnswerCopyButton().getText(), equalTo("Copy"));
         assertThat(getLongAnswerCircle().getFill()).isEqualTo(WHITE);

@@ -54,6 +54,9 @@ class GptUiFXMLTest extends BaseGptUiTest {
                 .put("a short response", "Short answer 1", ofMillis(1000))
                 .put("a detailed response", "Long answer 1", ofMillis(1500));
         clickOn(getQuestionSendButton());
+        verifyWebViewBody(getQuestionCorrectnessWebView(), "");
+        verifyWebViewBody(getShortAnswerWebView(), "");
+        verifyWebViewBody(getLongAnswerWebView(), "");
         sleep(3000);
         verifyWebViewBody(getQuestionCorrectnessWebView(), EXP_CORRECTNESS_HTML_BODY_1);
         verifyWebViewBody(getShortAnswerWebView(), EXP_SHORT_HTML_BODY_1);
@@ -88,6 +91,9 @@ class GptUiFXMLTest extends BaseGptUiTest {
         verifyWebViewBody(getShortAnswerWebView(), EXP_SHORT_HTML_BODY_1);
         verifyWebViewBody(getLongAnswerWebView(), EXP_LONG_HTML_BODY_1);
         clickOn(getQuestionSendButton());
+        verifyWebViewBody(getQuestionCorrectnessWebView(), "");
+        verifyWebViewBody(getShortAnswerWebView(), "");
+        verifyWebViewBody(getLongAnswerWebView(), "");
         sleep(3000);
         verifyWebViewBody(getQuestionCorrectnessWebView(), "<p>Correctness answer 2</p>\n");
         var expShortHtmlBody2 = "<p>Short answer 2</p>\n";
@@ -107,6 +113,8 @@ class GptUiFXMLTest extends BaseGptUiTest {
     }
 
     private void choosePreviousInteraction() {
+        verifyThat(getThemeComboBox(), hasSelectedItem(THEME_2));
+        verifyThat(getThemeComboBox(), containsExactlyItems(THEME_1, THEME_2));
         clickOn(getInteractionHistoryComboBox()).clickOn(String.format("%s: %s", THEME_1, QUESTION_1));
         verifyThat(getThemeComboBox(), hasSelectedItem(THEME_1));
         verifyThat(getThemeComboBox(), containsExactlyItems(THEME_1, THEME_2));

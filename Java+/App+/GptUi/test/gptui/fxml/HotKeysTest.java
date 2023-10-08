@@ -1,5 +1,6 @@
 package gptui.fxml;
 
+import gptui.format.ClipboardHelper;
 import gptui.storage.Answer;
 import gptui.storage.Interaction;
 import gptui.storage.InteractionId;
@@ -12,6 +13,7 @@ import static gptui.storage.AnswerState.SUCCESS;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.QUESTION_CORRECTNESS;
 import static gptui.storage.AnswerType.SHORT;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.testfx.api.FxAssert.verifyThat;
 
@@ -30,16 +32,26 @@ class HotKeysTest extends BaseGptUiTest {
     }
 
     @Test
-    void copyAnswersToClipboardByShortcuts() {
+    void copyShortAnswer() {
         verifyWebViewBody(getShortAnswerWebView(), "Short answer HTML 1");
         verifyThat(getShortAnswerCopyButton().getText(), equalTo("Copy"));
         press(KeyCode.CONTROL, KeyCode.DIGIT1);
         verifyHtmlClipboardContent("Short answer HTML 1");
+    }
 
+    @Test
+    void copyLongAnswer() {
         verifyWebViewBody(getLongAnswerWebView(), "Long answer HTML 1");
         verifyThat(getLongAnswerCopyButton().getText(), equalTo("Copy"));
         press(KeyCode.CONTROL, KeyCode.DIGIT2);
         verifyHtmlClipboardContent("Long answer HTML 1");
     }
 
+    @Test
+    void insertQuestionFromClipboard() {
+        assertThat(getQuestionTextArea().getText()).isEqualTo("Question 1");
+        executeSyncInFxThread(() -> ClipboardHelper.putHtmlToClipboard("From clipboard"));
+        press(KeyCode.CONTROL, KeyCode.ALT, KeyCode.V);
+        assertThat(getQuestionTextArea().getText()).isEqualTo("From clipboard");
+    }
 }

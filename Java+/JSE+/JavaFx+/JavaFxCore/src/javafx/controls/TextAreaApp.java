@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -14,8 +16,11 @@ public class TextAreaApp extends Application {
         var textArea2 = bigTextArea();
         var textArea3 = readOnlyTextArea();
         var textArea4 = wrapTextArea();
-        var textArea5 = eventHandler();
-        var scene = new Scene(new VBox(textArea1, textArea2, textArea3, textArea4, textArea5), 640, 480);
+        var textArea5 = eventHandlerByTextFormatter();
+        var textArea6 = eventHandlerByEventDispatcher();
+        var textArea7 = eventHandlerByEventFilter();
+        var scene = new Scene(new VBox(textArea1, textArea2, textArea3, textArea4, textArea5, textArea6, textArea7),
+                640, 800);
         stage.setScene(scene);
         stage.show();
     }
@@ -46,16 +51,43 @@ public class TextAreaApp extends Application {
         return textArea;
     }
 
-    private static TextArea eventHandler() {
-        var data = "Press Enter and look at the stdout";
+    private static TextArea eventHandlerByTextFormatter() {
+        var data = "Press Enter and look at the stdout (TextFormatter)";
         var textArea = new TextArea(data);
         textArea.setTextFormatter(new TextFormatter<>(change -> {
             if (change.isAdded() && change.getText().equals("\n")) {
-                System.out.println("Enter key pressed!");
+                System.out.println("ENTER was pressed (TextFormatter)");
                 return null;
             }
             return change;
         }));
+        return textArea;
+    }
+
+    private static TextArea eventHandlerByEventDispatcher() {
+        var data = "Press Enter and look at the stdout (EventDispatcher)";
+        var textArea = new TextArea(data);
+        textArea.setEventDispatcher((event, tail) -> {
+            if (event instanceof KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.ENTER && keyEvent.getEventType() == KeyEvent.KEY_RELEASED) {
+                    System.out.println("ENTER was pressed (EventDispatcher)");
+                    return null;
+                }
+            }
+            return tail.dispatchEvent(event);
+        });
+        return textArea;
+    }
+
+    private static TextArea eventHandlerByEventFilter() {
+        var data = "Press Enter and look at the stdout (EventFilter)";
+        var textArea = new TextArea(data);
+        textArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                System.out.println("ENTER was pressed (EventFilter)");
+                event.consume();
+            }
+        });
         return textArea;
     }
 

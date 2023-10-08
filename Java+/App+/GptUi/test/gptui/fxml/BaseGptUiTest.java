@@ -15,6 +15,9 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
+
+import java.util.concurrent.ExecutionException;
 
 import static com.google.common.jimfs.Configuration.unix;
 import static javafx.scene.input.KeyCode.A;
@@ -84,7 +87,7 @@ abstract class BaseGptUiTest extends ApplicationTest {
     }
 
     protected Label getLongAnswerLabel() {
-        return lookup("#shortAnswer #answerLabel").queryAs(Label.class);
+        return lookup("#longAnswer #answerLabel").queryAs(Label.class);
     }
 
     protected WebView getLongAnswerWebView() {
@@ -115,5 +118,13 @@ abstract class BaseGptUiTest extends ApplicationTest {
     protected void verifyHtmlClipboardContent(String expContent) {
         interact(() -> assertThat(ClipboardHelper.getTextFromClipboard())
                 .isEqualTo("<html><head></head><body>" + expContent + "</body></html>"));
+    }
+
+    protected void executeSyncInFxThread(Runnable runnable) {
+        try {
+            WaitForAsyncUtils.asyncFx(runnable).get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

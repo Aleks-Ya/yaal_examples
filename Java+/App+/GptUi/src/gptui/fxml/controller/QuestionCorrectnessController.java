@@ -17,12 +17,12 @@ class QuestionCorrectnessController extends BaseController {
 
     @Override
     public void modelChanged(Model model, EventSource source) {
-        Platform.runLater(() -> Optional.ofNullable(model.getCurrentInteraction())
+        Optional.ofNullable(model.getCurrentInteraction())
                 .map(interaction -> interaction.getAnswer(QUESTION_CORRECTNESS))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .map(Answer::answerHtml)
-                .ifPresent(html -> questionCorrectnessWebView.getEngine().loadContent(html)));
+                .ifPresent(html -> Platform.runLater(() -> questionCorrectnessWebView.getEngine().loadContent(html)));
     }
 }
 

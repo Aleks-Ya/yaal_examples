@@ -17,18 +17,16 @@ public class InteractionHistoryController extends BaseController {
 
     @Override
     public void modelChanged(Model model, EventSource source) {
-        Platform.runLater(() -> {
-            var modelItems = FXCollections.observableArrayList(model.getInteractionHistory());
-            var comboBoxItems = interactionHistoryComboBox.getItems();
-            if (!Objects.equals(modelItems, comboBoxItems)) {
-                interactionHistoryComboBox.setItems(modelItems);
-            }
-            var modelCurrentValue = model.getCurrentInteraction();
-            var comboBoxCurrentValue = interactionHistoryComboBox.getSelectionModel().getSelectedItem();
-            if (!Objects.equals(modelCurrentValue, comboBoxCurrentValue)) {
-                interactionHistoryComboBox.getSelectionModel().select(modelCurrentValue);
-            }
-        });
+        var modelItems = FXCollections.observableArrayList(model.getInteractionHistory());
+        var comboBoxItems = interactionHistoryComboBox.getItems();
+        if (!Objects.equals(modelItems, comboBoxItems)) {
+            Platform.runLater(() -> interactionHistoryComboBox.setItems(modelItems));
+        }
+        var modelCurrentValue = model.getCurrentInteraction();
+        var comboBoxCurrentValue = interactionHistoryComboBox.getSelectionModel().getSelectedItem();
+        if (!Objects.equals(modelCurrentValue, comboBoxCurrentValue)) {
+            Platform.runLater(() -> interactionHistoryComboBox.getSelectionModel().select(modelCurrentValue));
+        }
     }
 
     @FXML

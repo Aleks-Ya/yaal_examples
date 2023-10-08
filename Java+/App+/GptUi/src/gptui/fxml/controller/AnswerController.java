@@ -8,25 +8,39 @@ import gptui.storage.AnswerType;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.web.WebView;
 
+import java.util.Map;
 import java.util.Optional;
 
+import static gptui.storage.AnswerType.LONG;
+import static gptui.storage.AnswerType.SHORT;
+import static javafx.scene.input.KeyCode.DIGIT1;
+import static javafx.scene.input.KeyCode.DIGIT2;
+import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 import static javafx.scene.paint.Color.WHITE;
 
 class AnswerController extends BaseController {
+    private static final Map<AnswerType, KeyCodeCombination> keyCodeCombinationMap = Map.of(
+            SHORT, new KeyCodeCombination(DIGIT1, CONTROL_DOWN),
+            LONG, new KeyCodeCombination(DIGIT2, CONTROL_DOWN));
+    private static final Map<AnswerType, String> labelTextMap = Map.of(
+            SHORT, "Short\nanswer:",
+            LONG, "Long\nanswer:");
+    @FXML
+    private Label answerLabel;
     @FXML
     private Circle statusCircle;
     @FXML
     private WebView webView;
     private AnswerType answerType;
-    private KeyCodeCombination keyCodeCombination;
 
     @FXML
     void clickCopyButton(ActionEvent ignoredEvent) {
@@ -35,7 +49,8 @@ class AnswerController extends BaseController {
 
     @Override
     public void stageWasShowed(Model model, EventSource source) {
-        model.addAccelerator(keyCodeCombination, this::copyWebViewContentToClipboard);
+        answerLabel.setText(labelTextMap.get(answerType));
+        model.addAccelerator(keyCodeCombinationMap.get(answerType), this::copyWebViewContentToClipboard);
     }
 
     private void copyWebViewContentToClipboard() {
@@ -45,11 +60,11 @@ class AnswerController extends BaseController {
 
     @Override
     public void modelChanged(Model model, EventSource source) {
-        Platform.runLater(() -> Optional.ofNullable(model.getCurrentInteraction())
+        Optional.ofNullable(model.getCurrentInteraction())
                 .map(interaction -> interaction.getAnswer(answerType))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .ifPresent(answer -> {
+                .ifPresent(answer -> Platform.runLater(() -> {
                     webView.getEngine().loadContent(answer.answerHtml());
                     statusCircle.setFill(answerStateToColor(answer.answerState()));
                 }));
@@ -57,10 +72,6 @@ class AnswerController extends BaseController {
 
     public void setAnswerType(AnswerType answerType) {
         this.answerType = answerType;
-    }
-
-    public void setCopyAccelerator(KeyCodeCombination keyCodeCombination) {
-        this.keyCodeCombination = keyCodeCombination;
     }
 
     private Color answerStateToColor(AnswerState answerState) {
