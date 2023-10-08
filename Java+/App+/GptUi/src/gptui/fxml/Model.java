@@ -64,10 +64,11 @@ public class Model {
     }
 
     public void setCurrentInteraction(Interaction currentInteraction) {
+        log.debug("setCurrentInteraction: {}", currentInteraction);
         this.currentInteraction = currentInteraction;
     }
 
-    public String getCurrentTheme() {
+    public String getEditedTheme() {
         return currentTheme;
     }
 
@@ -75,7 +76,7 @@ public class Model {
         this.currentTheme = currentTheme;
     }
 
-    public String getQuestion() {
+    public String getEditedQuestion() {
         return question;
     }
 

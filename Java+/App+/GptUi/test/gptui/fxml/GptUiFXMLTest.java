@@ -2,6 +2,7 @@ package gptui.fxml;
 
 import org.junit.jupiter.api.Test;
 
+import static java.time.Duration.ofMillis;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.WHITE;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,11 +50,11 @@ class GptUiFXMLTest extends BaseGptUiTest {
         verifyThat(getThemeComboBox(), hasItems(0));
 
         gptApi
-                .put("has grammatical mistakes", "Correctness answer 1")
-                .put("a short response", "Short answer 1")
-                .put("a detailed response", "Long answer 1");
+                .put("has grammatical mistakes", "Correctness answer 1", ofMillis(500))
+                .put("a short response", "Short answer 1", ofMillis(1000))
+                .put("a detailed response", "Long answer 1", ofMillis(1500));
         clickOn(getQuestionSendButton());
-        sleep(1000);
+        sleep(3000);
         verifyWebViewBody(getQuestionCorrectnessWebView(), EXP_CORRECTNESS_HTML_BODY_1);
         verifyWebViewBody(getShortAnswerWebView(), EXP_SHORT_HTML_BODY_1);
         verifyWebViewBody(getLongAnswerWebView(), EXP_LONG_HTML_BODY_1);
@@ -80,11 +81,14 @@ class GptUiFXMLTest extends BaseGptUiTest {
         verifyThat(getThemeComboBox(), containsExactlyItems(THEME_1));
 
         gptApi
-                .put("has grammatical mistakes", "Correctness answer 2")
-                .put("a short response", "Short answer 2")
-                .put("a detailed response", "Long answer 2");
+                .put("has grammatical mistakes", "Correctness answer 2", ofMillis(500))
+                .put("a short response", "Short answer 2", ofMillis(1000))
+                .put("a detailed response", "Long answer 2", ofMillis(1500));
+        verifyWebViewBody(getQuestionCorrectnessWebView(), EXP_CORRECTNESS_HTML_BODY_1);
+        verifyWebViewBody(getShortAnswerWebView(), EXP_SHORT_HTML_BODY_1);
+        verifyWebViewBody(getLongAnswerWebView(), EXP_LONG_HTML_BODY_1);
         clickOn(getQuestionSendButton());
-        sleep(1000);
+        sleep(3000);
         verifyWebViewBody(getQuestionCorrectnessWebView(), "<p>Correctness answer 2</p>\n");
         var expShortHtmlBody2 = "<p>Short answer 2</p>\n";
         verifyWebViewBody(getShortAnswerWebView(), expShortHtmlBody2);

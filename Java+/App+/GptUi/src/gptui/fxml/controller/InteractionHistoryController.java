@@ -23,9 +23,9 @@ public class InteractionHistoryController extends BaseController {
                 interactionHistoryComboBox.setItems(modelItems);
             }
             var modelCurrentValue = model.getCurrentInteraction();
-            var comboBoxCurrentValue = this.interactionHistoryComboBox.getValue();
+            var comboBoxCurrentValue = interactionHistoryComboBox.getSelectionModel().getSelectedItem();
             if (!Objects.equals(modelCurrentValue, comboBoxCurrentValue)) {
-                interactionHistoryComboBox.setValue(modelCurrentValue);
+                interactionHistoryComboBox.getSelectionModel().select(modelCurrentValue);
             }
         });
     }
@@ -33,8 +33,8 @@ public class InteractionHistoryController extends BaseController {
     @FXML
     void interactionHistoryComboBoxAction(ActionEvent ignoredEvent) {
         var modelCurrentInteraction = model.getCurrentInteraction();
-        var comboBoxCurrentInteraction = interactionHistoryComboBox.getValue();
-        if (!Objects.equals(modelCurrentInteraction, comboBoxCurrentInteraction)) {
+        var comboBoxCurrentInteraction = interactionHistoryComboBox.getSelectionModel().getSelectedItem();
+        if (!Objects.equals(modelCurrentInteraction, comboBoxCurrentInteraction) && comboBoxCurrentInteraction != null) {
             model.setCurrentInteraction(comboBoxCurrentInteraction);
             model.fireInteractionChosenFromHistory();
         }

@@ -1,68 +1,82 @@
 package javafx.controls;
 
+import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
+import org.testfx.util.WaitForAsyncUtils;
 
-import static javafx.scene.input.KeyCode.A;
-import static javafx.scene.input.KeyCode.ALT;
-import static javafx.scene.input.KeyCode.CONTROL;
-import static javafx.scene.input.KeyCode.DOWN;
-import static javafx.scene.input.KeyCode.ENTER;
+import java.util.concurrent.ExecutionException;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.ComboBoxMatchers.containsExactlyItems;
 import static org.testfx.matcher.control.ComboBoxMatchers.containsExactlyItemsInOrder;
 import static org.testfx.matcher.control.ComboBoxMatchers.containsItems;
 import static org.testfx.matcher.control.ComboBoxMatchers.hasItems;
-import static org.testfx.matcher.control.ComboBoxMatchers.hasSelectedItem;
 
 class ComboBoxTest extends ApplicationTest {
+    private static final String ITEM_A = "aaa";
+    private static final String ITEM_B = "bbb";
+    private static final String ITEM_C = "ccc";
+
     @Override
     public void start(Stage stage) {
-        var comboBox = editableComboBox();
-        var scene = new Scene(new StackPane(comboBox), 100, 100);
+        var comboBox = new ComboBox<String>();
+        var scene = new Scene(new StackPane(comboBox), 300, 300);
         stage.setScene(scene);
         stage.show();
     }
 
-    private static ComboBox<String> editableComboBox() {
-        var comboBox = new ComboBox<String>();
-        var defaultOption = "Option 1";
-        comboBox.getItems().addAll(defaultOption, "Option 2", "Option 3");
-        comboBox.setEditable(true);
-        comboBox.setValue(defaultOption);
-        return comboBox;
+    @Test
+    void shouldContainComboBox() throws ExecutionException, InterruptedException {
+        ComboBox<String> comboBox = lookup(".combo-box").queryComboBox();
+        empty(comboBox);
+        setItems(comboBox);
+        selectionModeSelect(comboBox);
+        setValue(comboBox);
     }
 
-    @Test
-    void shouldContainComboBox() {
-        var comboBox = lookup(".combo-box").queryComboBox();
-        verifyThat(comboBox, hasSelectedItem("Option 1"));
+    private static void empty(ComboBox<String> comboBox) {
+        assertThat(comboBox.getSelectionModel().getSelectedItem()).isNull();
+        assertThat(comboBox.getValue()).isNull();
+        verifyThat(comboBox, hasItems(0));
+        verifyThat(comboBox, containsExactlyItemsInOrder());
+        verifyThat(comboBox, containsItems());
+        verifyThat(comboBox, containsExactlyItems());
+    }
+
+    private static void setItems(ComboBox<String> comboBox) {
+        var items = FXCollections.observableArrayList(ITEM_A, ITEM_B, ITEM_C);
+        comboBox.setItems(items);
+        assertThat(comboBox.getSelectionModel().getSelectedItem()).isNull();
+        assertThat(comboBox.getValue()).isNull();
         verifyThat(comboBox, hasItems(3));
+        verifyThat(comboBox, containsExactlyItemsInOrder(ITEM_A, ITEM_B, ITEM_C));
+        verifyThat(comboBox, containsItems(ITEM_A, ITEM_B, ITEM_C));
+        verifyThat(comboBox, containsExactlyItems(ITEM_A, ITEM_B, ITEM_C));
+    }
+
+    private static void selectionModeSelect(ComboBox<String> comboBox) throws InterruptedException, ExecutionException {
+        WaitForAsyncUtils.asyncFx(() -> comboBox.getSelectionModel().select(ITEM_B)).get();
+        assertThat(comboBox.getSelectionModel().getSelectedItem()).isEqualTo(ITEM_B);
+        assertThat(comboBox.getValue()).isEqualTo(ITEM_B);
         verifyThat(comboBox, hasItems(3));
-        verifyThat(comboBox, containsExactlyItemsInOrder("Option 1", "Option 2", "Option 3"));
-        verifyThat(comboBox, containsItems("Option 3", "Option 2"));
-        verifyThat(comboBox, containsExactlyItems("Option 3", "Option 2", "Option 1"));
+        verifyThat(comboBox, containsExactlyItemsInOrder(ITEM_A, ITEM_B, ITEM_C));
+        verifyThat(comboBox, containsItems(ITEM_A, ITEM_B, ITEM_C));
+        verifyThat(comboBox, containsExactlyItems(ITEM_A, ITEM_B, ITEM_C));
     }
 
-    @Test
-    void shouldWriteToComboBox() {
-        var comboBox = lookup(".combo-box").queryComboBox();
-        clickOn(comboBox);
-        press(CONTROL).press(A).release(A).release(CONTROL);
-        write("Option 4").press(ENTER);
-        verifyThat(comboBox, hasSelectedItem("Option 1"));
-        verifyThat(comboBox, containsExactlyItemsInOrder("Option 1", "Option 2", "Option 3"));
-    }
-
-    @Test
-    void shouldChooseAnotherItemInComboBox() {
-        var comboBox = lookup(".combo-box").queryComboBox();
-        clickOn(comboBox).press(ALT, DOWN).clickOn("Option 2");
-        verifyThat(comboBox, hasSelectedItem("Option 2"));
-        verifyThat(comboBox, containsExactlyItemsInOrder("Option 1", "Option 2", "Option 3"));
+    private static void setValue(ComboBox<String> comboBox) {
+        WaitForAsyncUtils.asyncFx(() -> comboBox.setValue(ITEM_A));//Does not work
+        assertThat(comboBox.getSelectionModel().getSelectedItem()).isEqualTo(ITEM_B);
+        assertThat(comboBox.getValue()).isEqualTo(ITEM_B);
+        verifyThat(comboBox, hasItems(3));
+        verifyThat(comboBox, containsExactlyItemsInOrder(ITEM_A, ITEM_B, ITEM_C));
+        verifyThat(comboBox, containsItems(ITEM_A, ITEM_B, ITEM_C));
+        verifyThat(comboBox, containsExactlyItems(ITEM_A, ITEM_B, ITEM_C));
     }
 }

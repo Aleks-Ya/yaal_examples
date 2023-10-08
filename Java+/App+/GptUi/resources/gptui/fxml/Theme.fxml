@@ -9,6 +9,6 @@
    <children>
       <Label fx:id="themeLabel" text="Theme:" />
       <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
-      <ComboBox fx:id="themeComboBox" editable="true" onAction="#themeComboBoxAction" />
+      <ComboBox fx:id="themeComboBox" editable="true" onAction="#themeComboBoxAction" onKeyReleased="#themeComboBoxKeyReleased" />
    </children>
 </HBox>

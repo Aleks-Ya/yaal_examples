@@ -49,8 +49,8 @@ class QuestionController extends BaseController {
 
     @FXML
     void sendQuestion(ActionEvent ignoredEvent) {
-        var theme = model.getCurrentTheme();
-        var question = model.getQuestion();
+        var theme = model.getEditedTheme();
+        var question = model.getEditedQuestion();
         sendQuestion(theme, question);
     }
 

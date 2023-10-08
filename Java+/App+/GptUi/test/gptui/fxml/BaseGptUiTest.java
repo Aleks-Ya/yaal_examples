@@ -22,12 +22,13 @@ import static javafx.scene.input.KeyCode.CONTROL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 abstract class BaseGptUiTest extends ApplicationTest {
+    protected final Model model = new Model();
     protected final MockGptApi gptApi = new MockGptApi();
     protected final GptStorage storage = new GptStorageImpl(new GptStorageFilesystem(Jimfs.newFileSystem(unix())));
 
     @Override
     public void start(Stage stage) throws Exception {
-        new GptUiFXML(new TestGuiceModule(gptApi, storage)).start(stage);
+        new GptUiFXML(new TestGuiceModule(model, gptApi, storage)).start(stage);
     }
 
     protected Label getInteractionHistoryLabel() {
