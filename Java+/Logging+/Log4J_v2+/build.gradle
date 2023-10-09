@@ -1,5 +1,5 @@
 subprojects {
     dependencies {
-        implementation log4jCoreDep
+        implementation log4j2CoreDep
     }
 }

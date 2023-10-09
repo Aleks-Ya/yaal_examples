@@ -1,9 +1,13 @@
-package pack;
+package log4j2.xml;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class AutomaticConfiguration {
+/**
+ * @see LogXmlFileConfigTest
+ */
+@SuppressWarnings("JavadocReference")
+public class LogXmlFileConfigMain {
 
     public static void main(String[] args) {
         var root = LogManager.getRootLogger();

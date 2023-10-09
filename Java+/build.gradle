@@ -35,7 +35,7 @@ subprojects {
         mockitoVersion = '5.2.0'//MockitoInline has a lagging version
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
         mockitoJunitJupiterDep = "org.mockito:mockito-junit-jupiter:$mockitoVersion"
-        log4jCoreDep = 'org.apache.logging.log4j:log4j-core:2.20.0'
+        log4j2CoreDep = 'org.apache.logging.log4j:log4j-core:2.20.0'
         logbackClassicDep = 'ch.qos.logback:logback-classic:1.4.11'
         gsonDep = 'com.google.code.gson:gson:2.10.1'
         commonsLangDep = 'org.apache.commons:commons-lang3:3.12.0'
@@ -104,6 +104,7 @@ subprojects {
         javaxInjectDep = 'javax.inject:javax.inject:1'
         guiceVersion = '5.0.1'
         igniteGuiceDep = 'com.gluonhq:ignite-guice:1.2.2'
+        systemStubsVersion = '2.1.3'
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'

@@ -1,0 +1,3 @@
+dependencies {
+    implementation "uk.org.webcompere:system-stubs-core:$systemStubsVersion"
+}

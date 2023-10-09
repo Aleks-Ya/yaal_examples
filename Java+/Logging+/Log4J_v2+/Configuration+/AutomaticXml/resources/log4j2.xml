@@ -2,11 +2,11 @@
 <Configuration status="WARN">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <PatternLayout pattern="FROM XML FILE CONFIG: %msg%n"/>
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="pack.AutomaticConfiguration" level="trace"/>
+        <Logger name="log4j2.xml.LogXmlFileConfigMain" level="trace"/>
         <Root level="error">
             <AppenderRef ref="Console"/>
         </Root>

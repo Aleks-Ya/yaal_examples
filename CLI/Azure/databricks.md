@@ -25,6 +25,9 @@ List files in the root dir: `databricks fs ls dbfs:/`
 Create a folder: `databricks fs mkdirs dbfs:/Users/aleksei.iablokov@sap.com`
 Upload a file into DBFS: `databricks fs cp /local/file.txt dbfs:/remote/directory`
 Download file from DBFS: `databricks fs cp dbfs:/remote/directory/file.txt /local/`
+Delete a file: `databricks fs rm dbfs:/remote/directory/file.txt`
+List files in a directory: `databricks fs ls dbfs:/cluster-logs-anna/driver`
+Show file content: `databricks fs cat dbfs:/cluster-logs-anna/driver/log4j-active.log`
 
 ## Secrets
 List secret scopes: `databricks secrets list-scopes`
@@ -50,6 +53,11 @@ Install a JAR library to a cluster:
 	- From DBFS: `databricks libraries install --debug --cluster-id 0614-065657-yjnh9djz --jar "dbfs:/Users/aleksei.iablokov@sap.com/data-platform-spark-fake-1.4.jar"`
 Mark library for uninstall (need cluster restart): `databricks libraries uninstall --debug --cluster-id 0614-065657-yjnh9djz --jar "abfss://program-cic-rm-dev-rm-dev3@insightstoragedev.dfs.core.windows.net/databricks/jars/data-platform-spark-fake-1.0.jar"`
 
-### Other
-List files in a directory: `databricks fs ls dbfs:/cluster-logs-anna/driver`
-Show file content: `databricks fs cat dbfs:/cluster-logs-anna/driver/log4j-active.log`
+## Jobs
+List all jobs: `databricks jobs list`
+List jobs with name: `databricks jobs list --name my-job-name`
+Show job details: `databricks jobs get --job-id 1234567890` (Job Id is displayed by the List jobs command)
+
+## Job runs
+List all job runs: `databricks runs list`
+List job runs for a Job: `databricks runs list --job-id 1234567890`
