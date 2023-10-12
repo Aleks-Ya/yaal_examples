@@ -12,7 +12,7 @@ import javafx.scene.input.KeyEvent;
 import java.util.Objects;
 import java.util.Optional;
 
-class ThemeController extends BaseController {
+public class ThemeController extends BaseController {
     @FXML
     private ComboBox<String> themeComboBox;
 

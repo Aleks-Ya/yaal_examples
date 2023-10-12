@@ -11,6 +11,7 @@ import gptui.storage.AnswerType;
 import gptui.storage.GptStorage;
 import gptui.storage.Interaction;
 import gptui.storage.InteractionId;
+import gptui.storage.InteractionType;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
 import javafx.event.ActionEvent;
@@ -29,9 +30,11 @@ import static gptui.storage.AnswerState.FAIL;
 import static gptui.storage.AnswerState.NEW;
 import static gptui.storage.AnswerState.SENT;
 import static gptui.storage.AnswerState.SUCCESS;
+import static gptui.storage.AnswerType.GRAMMAR;
 import static gptui.storage.AnswerType.LONG;
-import static gptui.storage.AnswerType.QUESTION_CORRECTNESS;
 import static gptui.storage.AnswerType.SHORT;
+import static gptui.storage.InteractionType.DEFINITION;
+import static gptui.storage.InteractionType.QUESTION;
 import static java.util.concurrent.CompletableFuture.runAsync;
 import static javafx.scene.input.KeyCode.ENTER;
 import static javafx.scene.input.KeyCode.V;
@@ -39,7 +42,7 @@ import static javafx.scene.input.KeyCombination.ALT_DOWN;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 import static javafx.scene.input.KeyEvent.KEY_PRESSED;
 
-class QuestionController extends BaseController {
+public class QuestionController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(QuestionController.class);
     @Inject
     private GptStorage gptStorage;
@@ -64,7 +67,7 @@ class QuestionController extends BaseController {
             if (event.getCode() == ENTER) {
                 log.debug("Send question by Enter");
                 event.consume();
-                sendQuestion();
+                sendQuestion(QUESTION);
             }
         });
     }
@@ -72,15 +75,21 @@ class QuestionController extends BaseController {
     @FXML
     void sendQuestion(ActionEvent ignoredEvent) {
         log.debug("Send question by Send button");
-        sendQuestion();
+        sendQuestion(QUESTION);
+    }
+
+    @FXML
+    void sendDefinition(ActionEvent ignoredEvent) {
+        log.debug("Send definition by Send button");
+        sendQuestion(DEFINITION);
     }
 
     @FXML
     void keyTypedQuestionTextArea(KeyEvent ignoredEvent) {
-        model.setQuestion(questionTextArea.getText());
+        model.setEditedQuestion(questionTextArea.getText());
     }
 
-    private void sendQuestion() {
+    private void sendQuestion(InteractionType interactionType) {
         var theme = model.getEditedTheme();
         var question = model.getEditedQuestion();
         var interactionId = gptStorage.newInteractionId();
@@ -89,19 +98,20 @@ class QuestionController extends BaseController {
             updateInteraction(interactionId, interaction -> interaction
                     .withTheme(theme)
                     .withQuestion(question)
-                    .withAnswer(QUESTION_CORRECTNESS, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW))
+                    .withAnswer(GRAMMAR, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW))
                     .withAnswer(SHORT, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW))
                     .withAnswer(LONG, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW)));
-            requestAnswer(theme, question, interactionId, LONG);
-            requestAnswer(theme, question, interactionId, SHORT);
-            requestAnswer(theme, question, interactionId, QUESTION_CORRECTNESS);
+            requestAnswer(theme, question, interactionId, interactionType, LONG);
+            requestAnswer(theme, question, interactionId, interactionType, SHORT);
+            requestAnswer(theme, question, interactionId, interactionType, GRAMMAR);
         });
     }
 
-    private void requestAnswer(String theme, String question, InteractionId interactionId, AnswerType answerType) {
+    private void requestAnswer(String theme, String question, InteractionId interactionId, InteractionType interactionType,
+                               AnswerType answerType) {
         log.info("Sending request for {}...", answerType);
         runAsync(() -> Mdc.run(interactionId, () -> {
-            var prompt = promptFactory.getPrompt(theme, question, answerType);
+            var prompt = promptFactory.getPrompt(interactionType, theme, question, answerType);
             updateInteraction(interactionId, interaction ->
                     interaction.withAnswer(answerType, answer -> answer.withPrompt(prompt).withState(SENT)));
             var answerMd = gptApi.send(prompt);
@@ -140,7 +150,10 @@ class QuestionController extends BaseController {
         Optional.ofNullable(model.getCurrentInteraction())
                 .map(Interaction::question)
                 .filter(question -> !question.equals(questionTextArea.getText()))
-                .ifPresent(question -> questionTextArea.setText(question));
+                .ifPresent(question -> {
+                    questionTextArea.setText(question);
+                    model.setEditedQuestion(question);
+                });
     }
 
     @Override
@@ -151,7 +164,7 @@ class QuestionController extends BaseController {
             questionTextArea.setText(question);
             questionTextArea.requestFocus();
             questionTextArea.positionCaret(questionTextArea.getText().length());
-            model.setQuestion(question);
+            model.setEditedQuestion(question);
         });
     }
 }

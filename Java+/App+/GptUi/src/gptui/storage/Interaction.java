@@ -6,12 +6,15 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public record Interaction(InteractionId id,
+                          InteractionType type,
                           String theme,
                           String question,
                           Map<AnswerType, Answer> answers) {
 
-    public Interaction(InteractionId id, String theme, String question, Map<AnswerType, Answer> answers) {
+    public Interaction(InteractionId id, InteractionType type, String theme, String question,
+                       Map<AnswerType, Answer> answers) {
         this.id = id;
+        this.type = type;
         this.theme = theme;
         this.question = question;
         this.answers = answers != null ? answers : new HashMap<>();
@@ -21,18 +24,22 @@ public record Interaction(InteractionId id,
         return Optional.ofNullable(answers.get(answerType));
     }
 
+    public Interaction withType(InteractionType interactionType) {
+        return new Interaction(id, interactionType, theme, question, answers);
+    }
+
     public Interaction withTheme(String theme) {
-        return new Interaction(id, theme, question, answers);
+        return new Interaction(id, type, theme, question, answers);
     }
 
     public Interaction withQuestion(String question) {
-        return new Interaction(id, theme, question, answers);
+        return new Interaction(id, type, theme, question, answers);
     }
 
     public Interaction withAnswer(Answer answer) {
         var map = new HashMap<>(answers);
         map.put(answer.answerType(), answer);
-        return new Interaction(id, theme, question, Map.copyOf(map));
+        return new Interaction(id, type, theme, question, Map.copyOf(map));
     }
 
     public Interaction withAnswer(AnswerType answerType, Function<Answer, Answer> update) {
@@ -40,6 +47,12 @@ public record Interaction(InteractionId id,
                 new Answer(answerType, null, null, null, null));
         var newAnswer = update.apply(currentAnswer);
         return withAnswer(newAnswer);
+    }
+
+    public Interaction withAnswerDeleted(AnswerType answerType) {
+        var map = new HashMap<>(answers);
+        map.remove(answerType);
+        return new Interaction(id, type, theme, question, Map.copyOf(map));
     }
 
     @Override

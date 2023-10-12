@@ -2,19 +2,20 @@
 
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.VBox?>
-
-<VBox fx:id="rootVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gptui.ui.controller.GptUiController">
-   <children>
-      <fx:include fx:id="interactionHistory" source="InteractionHistory.fxml" />
-      <Separator prefWidth="200.0" visible="false" />
-      <fx:include fx:id="theme" source="Theme.fxml" />
-      <Separator prefWidth="200.0" visible="false" />
-      <fx:include fx:id="question" source="Question.fxml" />
-      <Separator prefWidth="200.0" visible="false" />
-      <fx:include fx:id="questionCorrectness" source="QuestionCorrectness.fxml" />
-      <Separator prefWidth="200.0" visible="false" />
-      <fx:include fx:id="shortAnswer" source="Answer.fxml" VBox.vgrow="ALWAYS" />
-      <Separator prefWidth="200.0" visible="false" />
-      <fx:include fx:id="longAnswer" source="Answer.fxml" VBox.vgrow="ALWAYS" />
-   </children>
+<VBox fx:id="rootVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="gptui.ui.controller.GptUiController">
+    <children>
+        <fx:include fx:id="interactionHistory" source="InteractionHistory.fxml"/>
+        <Separator prefWidth="200.0" visible="false"/>
+        <fx:include fx:id="theme" source="Theme.fxml"/>
+        <Separator prefWidth="200.0" visible="false"/>
+        <fx:include fx:id="question" source="Question.fxml"/>
+        <Separator prefWidth="200.0" visible="false"/>
+        <fx:include fx:id="grammar" source="Grammar.fxml"/>
+        <Separator prefWidth="200.0" visible="false"/>
+        <fx:include fx:id="shortAnswer" source="Answer.fxml" VBox.vgrow="ALWAYS"/>
+        <Separator prefWidth="200.0" visible="false"/>
+        <fx:include fx:id="longAnswer" source="Answer.fxml" VBox.vgrow="ALWAYS"/>
+    </children>
 </VBox>

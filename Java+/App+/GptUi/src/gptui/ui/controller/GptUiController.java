@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.SHORT;
 
-class GptUiController extends BaseController {
+public class GptUiController extends BaseController {
     @Inject
     private GptStorage storage;
     @Inject

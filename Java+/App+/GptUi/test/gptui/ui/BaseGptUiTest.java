@@ -60,15 +60,19 @@ abstract class BaseGptUiTest extends ApplicationTest {
     }
 
     protected Button getQuestionSendButton() {
-        return lookup("#sendQuestionButton").queryButton();
+        return lookup("#questionButton").queryButton();
     }
 
-    protected Label getQuestionCorrectnessLabel() {
-        return lookup("#questionCorrectnessLabel").queryAs(Label.class);
+    protected Button getDefinitionSendButton() {
+        return lookup("#definitionButton").queryButton();
     }
 
-    protected WebView getQuestionCorrectnessWebView() {
-        return lookup("#questionCorrectnessWebView").queryAs(WebView.class);
+    protected Label getGrammarLabel() {
+        return lookup("#grammarLabel").queryAs(Label.class);
+    }
+
+    protected WebView getgrammarWebView() {
+        return lookup("#grammarWebView").queryAs(WebView.class);
     }
 
     protected Label getShortAnswerLabel() {

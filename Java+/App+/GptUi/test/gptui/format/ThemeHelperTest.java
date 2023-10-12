@@ -46,6 +46,6 @@ class ThemeHelperTest {
     }
 
     private static Interaction newInteraction(long id, String theme) {
-        return new Interaction(new InteractionId(id), theme, null, null);
+        return new Interaction(new InteractionId(id), null, theme, null, null);
     }
 }

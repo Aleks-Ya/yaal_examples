@@ -20,7 +20,7 @@ public class Model {
     private Interaction currentInteraction;
     private List<String> themeList;
     private String currentTheme;
-    private String question;
+    private String editedQuestion;
     private Scene scene;
 
     public void subscribe(ModelListener listener) {
@@ -91,11 +91,11 @@ public class Model {
     }
 
     public String getEditedQuestion() {
-        return question;
+        return editedQuestion;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setEditedQuestion(String question) {
+        this.editedQuestion = question;
     }
 
     public void setScene(Scene scene) {

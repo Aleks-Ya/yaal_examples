@@ -28,7 +28,7 @@ import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 import static javafx.scene.paint.Color.WHITE;
 
-class AnswerController extends BaseController {
+public class AnswerController extends BaseController {
     private static final Map<AnswerType, KeyCodeCombination> keyCodeCombinationMap = Map.of(
             SHORT, new KeyCodeCombination(DIGIT1, CONTROL_DOWN),
             LONG, new KeyCodeCombination(DIGIT2, CONTROL_DOWN));

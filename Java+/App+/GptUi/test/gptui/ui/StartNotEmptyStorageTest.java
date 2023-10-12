@@ -9,9 +9,10 @@ import java.util.Map;
 
 import static gptui.storage.AnswerState.FAIL;
 import static gptui.storage.AnswerState.SUCCESS;
+import static gptui.storage.AnswerType.GRAMMAR;
 import static gptui.storage.AnswerType.LONG;
-import static gptui.storage.AnswerType.QUESTION_CORRECTNESS;
 import static gptui.storage.AnswerType.SHORT;
+import static gptui.storage.InteractionType.QUESTION;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,17 +25,17 @@ class StartNotEmptyStorageTest extends BaseGptUiTest {
 
     @Override
     public void init() {
-        var interaction1 = new Interaction(new InteractionId(1L), "Theme 1", "Question 1", Map.of(
-                QUESTION_CORRECTNESS,
-                new Answer(QUESTION_CORRECTNESS, "QC prompt 1", "QC answer MD 1", "QC answer HTML 1", SUCCESS),
+        var interaction1 = new Interaction(new InteractionId(1L), QUESTION, "Theme 1", "Question 1", Map.of(
+                GRAMMAR,
+                new Answer(GRAMMAR, "QC prompt 1", "QC answer MD 1", "QC answer HTML 1", SUCCESS),
                 SHORT,
                 new Answer(SHORT, "Short prompt 1", "Short answer MD 1", "Short answer HTML 1", SUCCESS),
                 LONG,
                 new Answer(LONG, "Long prompt 1", "Long answer MD 1", "Long answer HTML 1", SUCCESS)
         ));
-        var interaction2 = new Interaction(new InteractionId(2L), "Theme 2", "Question 2", Map.of(
-                QUESTION_CORRECTNESS,
-                new Answer(QUESTION_CORRECTNESS, "QC prompt 2", "QC answer MD 2", "QC answer HTML 2", SUCCESS),
+        var interaction2 = new Interaction(new InteractionId(2L), QUESTION, "Theme 2", "Question 2", Map.of(
+                GRAMMAR,
+                new Answer(GRAMMAR, "QC prompt 2", "QC answer MD 2", "QC answer HTML 2", SUCCESS),
                 SHORT,
                 new Answer(SHORT, "Short prompt 2", "Short answer MD 2", "Short answer HTML 2", SUCCESS),
                 LONG,
@@ -54,10 +55,12 @@ class StartNotEmptyStorageTest extends BaseGptUiTest {
 
         verifyThat(getQuestionLabel(), hasText("Question:"));
         assertThat(getQuestionTextArea().getText()).isEqualTo("Question 2");
-        verifyThat(getQuestionSendButton().getText(), equalTo("Send"));
+        verifyThat(getQuestionSendButton().getText(), equalTo("Question"));
+        verifyThat(getDefinitionSendButton().getText(), equalTo("Definition"));
+        assertThat(model.getEditedQuestion()).isEqualTo("Question 2");
 
-        verifyThat(getQuestionCorrectnessLabel(), hasText("Question\ncorrectness:"));
-        verifyWebViewBody(getQuestionCorrectnessWebView(), "QC answer HTML 2");
+        verifyThat(getGrammarLabel(), hasText("Grammar:"));
+        verifyWebViewBody(getgrammarWebView(), "QC answer HTML 2");
 
         verifyThat(getShortAnswerLabel(), hasText("Short\nanswer:"));
         verifyWebViewBody(getShortAnswerWebView(), "Short answer HTML 2");

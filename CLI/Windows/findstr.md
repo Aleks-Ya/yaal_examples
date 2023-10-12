@@ -1,0 +1,3 @@
+# findstr CLI
+
+Help: `findstr /?`

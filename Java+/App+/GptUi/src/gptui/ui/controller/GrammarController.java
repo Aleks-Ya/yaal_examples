@@ -8,19 +8,19 @@ import javafx.scene.web.WebView;
 
 import java.util.Optional;
 
-import static gptui.storage.AnswerType.QUESTION_CORRECTNESS;
+import static gptui.storage.AnswerType.GRAMMAR;
 
-class QuestionCorrectnessController extends BaseController {
+public class GrammarController extends BaseController {
     @FXML
-    private WebView questionCorrectnessWebView;
+    private WebView grammarWebView;
 
     @Override
     public void modelChanged(Model model, EventSource source) {
         Optional.ofNullable(model.getCurrentInteraction())
-                .map(interaction -> interaction.getAnswer(QUESTION_CORRECTNESS))
+                .map(interaction -> interaction.getAnswer(GRAMMAR))
                 .ifPresent(answerOpt -> {
                     var html = answerOpt.isPresent() ? answerOpt.get().answerHtml() : "";
-                    Platform.runLater(() -> questionCorrectnessWebView.getEngine().loadContent(html));
+                    Platform.runLater(() -> grammarWebView.getEngine().loadContent(html));
                 });
     }
 }

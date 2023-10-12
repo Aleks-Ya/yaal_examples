@@ -54,7 +54,8 @@ Install a JAR library to a cluster:
 Mark library for uninstall (need cluster restart): `databricks libraries uninstall --debug --cluster-id 0614-065657-yjnh9djz --jar "abfss://program-cic-rm-dev-rm-dev3@insightstoragedev.dfs.core.windows.net/databricks/jars/data-platform-spark-fake-1.0.jar"`
 
 ## Jobs
-List all jobs: `databricks jobs list`
+List all jobs (default limit 20): `databricks jobs list`
+List all jobs (limit 100): `databricks jobs list --limit 10`
 List jobs with name: `databricks jobs list --name my-job-name`
 Show job details: `databricks jobs get --job-id 1234567890` (Job Id is displayed by the List jobs command)
 

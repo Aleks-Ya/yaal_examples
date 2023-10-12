@@ -9,7 +9,7 @@
 5. Add an answer from Bard
 6. Add a button to check grammar only
 7. Add a button to check is a sentence factually correct
-8. Add "Answer", "Definition", "Grammar" buttons instead of "Send"
+8. Add "Grammar" button
 9. Show a 5-words definition
 10. Add button for checking a statement for truth
 11. Add search throughout the Interaction History

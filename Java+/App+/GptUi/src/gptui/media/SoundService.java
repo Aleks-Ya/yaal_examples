@@ -22,7 +22,7 @@ public class SoundService {
 
     public synchronized void beenOnAnswer(AnswerType answerType) {
         switch (answerType) {
-            case QUESTION_CORRECTNESS -> beep1.play(volume);
+            case GRAMMAR -> beep1.play(volume);
             case SHORT -> beep2.play(volume);
             case LONG -> beep3.play(volume);
         }

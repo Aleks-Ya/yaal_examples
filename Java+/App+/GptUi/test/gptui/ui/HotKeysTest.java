@@ -10,9 +10,10 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 import static gptui.storage.AnswerState.SUCCESS;
+import static gptui.storage.AnswerType.GRAMMAR;
 import static gptui.storage.AnswerType.LONG;
-import static gptui.storage.AnswerType.QUESTION_CORRECTNESS;
 import static gptui.storage.AnswerType.SHORT;
+import static gptui.storage.InteractionType.QUESTION;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.testfx.api.FxAssert.verifyThat;
@@ -21,9 +22,9 @@ class HotKeysTest extends BaseGptUiTest {
 
     @Override
     public void init() {
-        storage.saveInteraction(new Interaction(new InteractionId(1L), "Theme 1", "Question 1", Map.of(
-                QUESTION_CORRECTNESS,
-                new Answer(QUESTION_CORRECTNESS, "QC prompt 1", "QC answer MD 1", "QC answer HTML 1", SUCCESS),
+        storage.saveInteraction(new Interaction(new InteractionId(1L), QUESTION, "Theme 1", "Question 1", Map.of(
+                GRAMMAR,
+                new Answer(GRAMMAR, "QC prompt 1", "QC answer MD 1", "QC answer HTML 1", SUCCESS),
                 SHORT,
                 new Answer(SHORT, "Short prompt 1", "Short answer MD 1", "Short answer HTML 1", SUCCESS),
                 LONG,

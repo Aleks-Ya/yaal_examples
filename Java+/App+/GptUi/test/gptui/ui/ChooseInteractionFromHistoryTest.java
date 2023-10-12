@@ -8,9 +8,10 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 import static gptui.storage.AnswerState.SUCCESS;
+import static gptui.storage.AnswerType.GRAMMAR;
 import static gptui.storage.AnswerType.LONG;
-import static gptui.storage.AnswerType.QUESTION_CORRECTNESS;
 import static gptui.storage.AnswerType.SHORT;
+import static gptui.storage.InteractionType.QUESTION;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.WHITE;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,10 +25,10 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
 
     @Override
     public void init() {
-        var interaction1 = new Interaction(interactionId1, "Theme 1", "Question 1", Map.of());
-        var interaction2 = new Interaction(interactionId2, "Theme 2", "Question 2", Map.of(
-                QUESTION_CORRECTNESS,
-                new Answer(QUESTION_CORRECTNESS, "QC prompt 2", "QC answer MD 2", "QC answer HTML 2", SUCCESS),
+        var interaction1 = new Interaction(interactionId1, QUESTION, "Theme 1", "Question 1", Map.of());
+        var interaction2 = new Interaction(interactionId2, QUESTION, "Theme 2", "Question 2", Map.of(
+                GRAMMAR,
+                new Answer(GRAMMAR, "QC prompt 2", "QC answer MD 2", "QC answer HTML 2", SUCCESS),
                 SHORT,
                 new Answer(SHORT, "Short prompt 2", "Short answer MD 2", "Short answer HTML 2", SUCCESS),
                 LONG,
@@ -49,7 +50,7 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
         verifyThat(getThemeComboBox(), hasItems(2));
         verifyThat(getThemeComboBox(), hasSelectedItem("Theme 2"));
         assertThat(getQuestionTextArea().getText()).isEqualTo("Question 2");
-        verifyWebViewBody(getQuestionCorrectnessWebView(), "QC answer HTML 2");
+        verifyWebViewBody(getgrammarWebView(), "QC answer HTML 2");
         verifyWebViewBody(getShortAnswerWebView(), "Short answer HTML 2");
         assertThat(getShortAnswerCircle().getFill()).isEqualTo(GREEN);
         verifyWebViewBody(getLongAnswerWebView(), "Long answer HTML 2");
@@ -63,7 +64,7 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
         verifyThat(getThemeComboBox(), hasItems(2));
         verifyThat(getThemeComboBox(), hasSelectedItem("Theme 1"));
         assertThat(getQuestionTextArea().getText()).isEqualTo("Question 1");
-        verifyWebViewBody(getQuestionCorrectnessWebView(), "");
+        verifyWebViewBody(getgrammarWebView(), "");
         verifyWebViewBody(getShortAnswerWebView(), "");
         assertThat(getShortAnswerCircle().getFill()).isEqualTo(WHITE);
         verifyWebViewBody(getLongAnswerWebView(), "");
