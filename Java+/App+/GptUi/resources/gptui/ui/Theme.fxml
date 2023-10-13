@@ -6,10 +6,8 @@
 <?import javafx.scene.layout.HBox?>
 <HBox prefHeight="31.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="gptui.ui.controller.ThemeController">
-    <children>
-        <Label fx:id="themeLabel" text="Theme:"/>
-        <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>
-        <ComboBox fx:id="themeComboBox" editable="true" onAction="#themeComboBoxAction"
-                  onKeyReleased="#themeComboBoxKeyReleased"/>
-    </children>
+    <Label fx:id="themeLabel" text="Theme:"/>
+    <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>
+    <ComboBox fx:id="themeComboBox" editable="true" onAction="#themeComboBoxAction"
+              onKeyReleased="#themeComboBoxKeyReleased"/>
 </HBox>

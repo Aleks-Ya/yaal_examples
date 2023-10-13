@@ -38,7 +38,7 @@ class DeleteInteractionMiddleTest extends BaseGptUiTest {
         assertThat(getQuestionTextArea().getText()).isEqualTo("Question 3");
         assertThat(model.getEditedQuestion()).isEqualTo("Question 3");
 
-        verifyWebViewBody(getGrammarWebView(), "Grammar answer HTML 3");
+        verifyWebViewBody(getGrammarAnswerWebView(), "Grammar answer HTML 3");
 
         verifyWebViewBody(getShortAnswerWebView(), "Short answer HTML 3");
         assertThat(getShortAnswerCircle().getFill()).isEqualTo(GREEN);
@@ -56,7 +56,7 @@ class DeleteInteractionMiddleTest extends BaseGptUiTest {
         assertThat(getQuestionTextArea().getText()).isEqualTo("Question 3");
         assertThat(model.getEditedQuestion()).isEqualTo("Question 3");
 
-        verifyWebViewBody(getGrammarWebView(), "Grammar answer HTML 3");
+        verifyWebViewBody(getGrammarAnswerWebView(), "Grammar answer HTML 3");
 
         verifyWebViewBody(getShortAnswerWebView(), "Short answer HTML 3");
         assertThat(getShortAnswerCircle().getFill()).isEqualTo(GREEN);

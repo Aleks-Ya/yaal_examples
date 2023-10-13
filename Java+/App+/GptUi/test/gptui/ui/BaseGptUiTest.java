@@ -75,12 +75,20 @@ abstract class BaseGptUiTest extends ApplicationTest {
         return lookup("#grammarButton").queryButton();
     }
 
-    protected Label getGrammarLabel() {
-        return lookup("#grammarLabel").queryAs(Label.class);
+    protected Label getGrammarAnswerLabel() {
+        return lookup("#grammarAnswer #answerLabel").queryAs(Label.class);
     }
 
-    protected WebView getGrammarWebView() {
-        return lookup("#grammarWebView").queryAs(WebView.class);
+    protected Button getGrammarAnswerCopyButton() {
+        return lookup("#grammarAnswer #copyButton").queryButton();
+    }
+
+    protected WebView getGrammarAnswerWebView() {
+        return lookup("#grammarAnswer #webView").queryAs(WebView.class);
+    }
+
+    protected Circle getGrammarAnswerCircle() {
+        return lookup("#grammarAnswer #statusCircle").queryAs(Circle.class);
     }
 
     protected Label getShortAnswerLabel() {
@@ -119,6 +127,7 @@ abstract class BaseGptUiTest extends ApplicationTest {
         return (String) webView.getEngine().executeScript("document.documentElement.outerHTML");
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     protected FxRobot overWrite(String text) {
         return press(CONTROL, A).release(A, CONTROL).write(text);
     }

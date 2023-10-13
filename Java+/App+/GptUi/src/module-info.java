@@ -8,22 +8,10 @@ module GptUi.main {
     requires com.google.gson;
     requires java.net.http;
     requires org.slf4j;
-    requires jul.to.slf4j;
-    requires ch.qos.logback.classic;
-    requires java.naming;
-    requires jdk.crypto.ec;
 
     requires flexmark;
     requires flexmark.util.ast;
-    requires flexmark.util.format;
-    requires flexmark.util.builder;
-    requires flexmark.util.dependency;
-    requires flexmark.util.html;
-    requires flexmark.util.sequence;
-    requires flexmark.util.collection;
     requires flexmark.util.data;
-    requires flexmark.util.misc;
-    requires flexmark.util.visitor;
     requires flexmark.ext.tables;
 
     opens gptui.gpt to com.google.gson;

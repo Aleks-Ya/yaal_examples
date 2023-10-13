@@ -6,8 +6,7 @@ import javafx.fxml.FXML;
 
 import javax.inject.Inject;
 
-import static gptui.storage.AnswerType.LONG;
-import static gptui.storage.AnswerType.SHORT;
+import static gptui.storage.AnswerType.*;
 
 public class GptUiController extends BaseController {
     @Inject
@@ -15,12 +14,18 @@ public class GptUiController extends BaseController {
     @Inject
     private ThemeHelper themeHelper;
     @FXML
+    @SuppressWarnings("unused")
+    private AnswerController grammarAnswerController;
+    @FXML
+    @SuppressWarnings("unused")
     private AnswerController longAnswerController;
     @FXML
+    @SuppressWarnings("unused")
     private AnswerController shortAnswerController;
 
     @Override
     protected void initializeChild() {
+        grammarAnswerController.setAnswerType(GRAMMAR);
         shortAnswerController.setAnswerType(SHORT);
         longAnswerController.setAnswerType(LONG);
         var interactionHistory = storage.readAllInteractions();

@@ -38,7 +38,7 @@ class SendGrammarTest extends BaseGptUiTest {
         assertThat(getQuestionTextArea().getText()).isEqualTo("Question 3");
         assertThat(model.getEditedQuestion()).isEqualTo("Question 3");
 
-        verifyWebViewBody(getGrammarWebView(), "Grammar answer HTML 3");
+        verifyWebViewBody(getGrammarAnswerWebView(), "Grammar answer HTML 3");
 
         verifyWebViewBody(getShortAnswerWebView(), "Short answer HTML 3");
         assertThat(getShortAnswerCircle().getFill()).isEqualTo(GREEN);
@@ -56,7 +56,7 @@ class SendGrammarTest extends BaseGptUiTest {
         assertThat(getQuestionTextArea().getText()).isEqualTo("Question 4");
         assertThat(model.getEditedQuestion()).isEqualTo("Question 4");
 
-        verifyWebViewBody(getGrammarWebView(), "<p>Grammar answer 4</p>\n");
+        verifyWebViewBody(getGrammarAnswerWebView(), "<p>Grammar answer 4</p>\n");
 
         verifyWebViewBody(getShortAnswerWebView(), "");
         assertThat(getShortAnswerCircle().getFill()).isEqualTo(WHITE);

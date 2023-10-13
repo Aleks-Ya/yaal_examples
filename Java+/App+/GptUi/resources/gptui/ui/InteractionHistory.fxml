@@ -6,12 +6,12 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox fx:id="questionHistoryHBox" fillHeight="false" prefHeight="26.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gptui.ui.controller.InteractionHistoryController">
-    <children>
-        <Label fx:id="interactionHistoryLabel" text="Question history:" />
-        <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
-        <ComboBox fx:id="interactionHistoryComboBox" onAction="#interactionHistoryComboBoxAction" />
-      <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
-      <Button fx:id="deleteInteractionButton" mnemonicParsing="false" onAction="#clickDeleteInteractionButton" text="Delete" />
-    </children>
+<HBox fx:id="questionHistoryHBox" fillHeight="false" prefHeight="26.0" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="gptui.ui.controller.InteractionHistoryController">
+    <Label fx:id="interactionHistoryLabel" text="Question history:"/>
+    <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>
+    <ComboBox fx:id="interactionHistoryComboBox" onAction="#interactionHistoryComboBoxAction"/>
+    <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>
+    <Button fx:id="deleteInteractionButton" mnemonicParsing="false" onAction="#clickDeleteInteractionButton"
+            text="Delete"/>
 </HBox>

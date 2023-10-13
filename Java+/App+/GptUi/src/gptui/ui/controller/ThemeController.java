@@ -7,12 +7,15 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 
 import java.util.Objects;
 import java.util.Optional;
 
 public class ThemeController extends BaseController {
+    @FXML
+    public Label themeLabel;
     @FXML
     private ComboBox<String> themeComboBox;
 

@@ -30,7 +30,7 @@ class GptUiApplicationTest extends BaseGptUiTest {
         verifyThat(getInteractionHistoryComboBox(), hasItems(0));
         verifyThat(getThemeComboBox(), hasItems(0));
         verifyThat(getQuestionTextArea().getText(), emptyString());
-        verifyWebViewBody(getGrammarWebView(), "");
+        verifyWebViewBody(getGrammarAnswerWebView(), "");
         verifyWebViewBody(getShortAnswerWebView(), "");
         assertThat(getShortAnswerCircle().getFill()).isEqualTo(WHITE);
         verifyWebViewBody(getLongAnswerWebView(), "");
@@ -52,11 +52,11 @@ class GptUiApplicationTest extends BaseGptUiTest {
                 .put("a short response", "Short answer 1", ofMillis(1000))
                 .put("a detailed response", "Long answer 1", ofMillis(1500));
         clickOn(getQuestionSendButton());
-        verifyWebViewBody(getGrammarWebView(), "");
+        verifyWebViewBody(getGrammarAnswerWebView(), "");
         verifyWebViewBody(getShortAnswerWebView(), "");
         verifyWebViewBody(getLongAnswerWebView(), "");
         sleep(3000);
-        verifyWebViewBody(getGrammarWebView(), EXP_GRAMMAR_HTML_BODY_1);
+        verifyWebViewBody(getGrammarAnswerWebView(), EXP_GRAMMAR_HTML_BODY_1);
         verifyWebViewBody(getShortAnswerWebView(), EXP_SHORT_HTML_BODY_1);
         verifyWebViewBody(getLongAnswerWebView(), EXP_LONG_HTML_BODY_1);
         var allInteractions = storage.readAllInteractions();
@@ -85,15 +85,15 @@ class GptUiApplicationTest extends BaseGptUiTest {
                 .put("has grammatical mistakes", "Grammar answer 2", ofMillis(500))
                 .put("a short response", "Short answer 2", ofMillis(1000))
                 .put("a detailed response", "Long answer 2", ofMillis(1500));
-        verifyWebViewBody(getGrammarWebView(), EXP_GRAMMAR_HTML_BODY_1);
+        verifyWebViewBody(getGrammarAnswerWebView(), EXP_GRAMMAR_HTML_BODY_1);
         verifyWebViewBody(getShortAnswerWebView(), EXP_SHORT_HTML_BODY_1);
         verifyWebViewBody(getLongAnswerWebView(), EXP_LONG_HTML_BODY_1);
         clickOn(getQuestionSendButton());
-        verifyWebViewBody(getGrammarWebView(), "");
+        verifyWebViewBody(getGrammarAnswerWebView(), "");
         verifyWebViewBody(getShortAnswerWebView(), "");
         verifyWebViewBody(getLongAnswerWebView(), "");
         sleep(3000);
-        verifyWebViewBody(getGrammarWebView(), "<p>Grammar answer 2</p>\n");
+        verifyWebViewBody(getGrammarAnswerWebView(), "<p>Grammar answer 2</p>\n");
         var expShortHtmlBody2 = "<p>Short answer 2</p>\n";
         verifyWebViewBody(getShortAnswerWebView(), expShortHtmlBody2);
         var expLongHtmlBody2 = "<p>Long answer 2</p>\n";
@@ -117,7 +117,7 @@ class GptUiApplicationTest extends BaseGptUiTest {
         verifyThat(getThemeComboBox(), hasSelectedItem(THEME_1));
         verifyThat(getThemeComboBox(), containsExactlyItems(THEME_1, THEME_2));
         assertThat(getQuestionTextArea().getText()).isEqualTo(QUESTION_1);
-        verifyWebViewBody(getGrammarWebView(), EXP_GRAMMAR_HTML_BODY_1);
+        verifyWebViewBody(getGrammarAnswerWebView(), EXP_GRAMMAR_HTML_BODY_1);
         verifyWebViewBody(getShortAnswerWebView(), EXP_SHORT_HTML_BODY_1);
         verifyWebViewBody(getLongAnswerWebView(), EXP_LONG_HTML_BODY_1);
         var allInteractions = storage.readAllInteractions();

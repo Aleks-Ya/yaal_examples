@@ -8,6 +8,7 @@ import gptui.ui.Model;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.paint.Color;
@@ -18,29 +19,32 @@ import javax.inject.Inject;
 import java.util.Map;
 import java.util.Optional;
 
-import static gptui.storage.AnswerType.LONG;
-import static gptui.storage.AnswerType.SHORT;
+import static gptui.storage.AnswerType.*;
 import static javafx.scene.input.KeyCode.DIGIT1;
 import static javafx.scene.input.KeyCode.DIGIT2;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
-import static javafx.scene.paint.Color.BLUE;
-import static javafx.scene.paint.Color.GREEN;
-import static javafx.scene.paint.Color.RED;
-import static javafx.scene.paint.Color.WHITE;
+import static javafx.scene.paint.Color.*;
 
 public class AnswerController extends BaseController {
     private static final Map<AnswerType, KeyCodeCombination> keyCodeCombinationMap = Map.of(
             SHORT, new KeyCodeCombination(DIGIT1, CONTROL_DOWN),
             LONG, new KeyCodeCombination(DIGIT2, CONTROL_DOWN));
     private static final Map<AnswerType, String> labelTextMap = Map.of(
+            GRAMMAR, "Grammar\nanswer:",
             SHORT, "Short\nanswer:",
             LONG, "Long\nanswer:");
+    private static final Map<AnswerType, Boolean> isCopyButtonDisabledMap = Map.of(
+            GRAMMAR, true,
+            SHORT, false,
+            LONG, false);
     @FXML
     private Label answerLabel;
     @FXML
     private Circle statusCircle;
     @FXML
     private WebView webView;
+    @FXML
+    private Button copyButton;
     private AnswerType answerType;
     @Inject
     private ClipboardHelper clipboardHelper;
@@ -53,7 +57,9 @@ public class AnswerController extends BaseController {
     @Override
     public void stageWasShowed(Model model, EventSource source) {
         answerLabel.setText(labelTextMap.get(answerType));
-        model.addAccelerator(keyCodeCombinationMap.get(answerType), this::copyWebViewContentToClipboard);
+        copyButton.setDisable(isCopyButtonDisabledMap.get(answerType));
+        Optional.ofNullable(keyCodeCombinationMap.get(answerType))
+                .ifPresent(keyCodeCombination -> model.addAccelerator(keyCodeCombination, this::copyWebViewContentToClipboard));
     }
 
     private void copyWebViewContentToClipboard() {

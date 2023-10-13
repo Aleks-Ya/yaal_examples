@@ -44,8 +44,8 @@ public class GptApiImpl implements GptApi {
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .timeout(Duration.ofMinutes(1))
                 .build();
-        try {
-            response = HttpClient.newBuilder().build().send(request, HttpResponse.BodyHandlers.ofString());
+        try (var client = HttpClient.newHttpClient()) {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw new RuntimeException(e);

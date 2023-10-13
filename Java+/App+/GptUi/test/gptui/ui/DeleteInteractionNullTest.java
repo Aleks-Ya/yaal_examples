@@ -19,7 +19,7 @@ class DeleteInteractionNullTest extends BaseGptUiTest {
         assertThat(getQuestionTextArea().getText()).isEmpty();
         assertThat(model.getEditedQuestion()).isNull();
 
-        verifyWebViewBody(getGrammarWebView(), "");
+        verifyWebViewBody(getGrammarAnswerWebView(), "");
 
         verifyWebViewBody(getShortAnswerWebView(), "");
         assertThat(getShortAnswerCircle().getFill()).isEqualTo(WHITE);

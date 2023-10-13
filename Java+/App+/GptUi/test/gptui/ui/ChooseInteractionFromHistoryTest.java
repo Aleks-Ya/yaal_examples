@@ -37,7 +37,7 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
         verifyThat(getThemeComboBox(), hasItems(2));
         verifyThat(getThemeComboBox(), hasSelectedItem("Theme 2"));
         assertThat(getQuestionTextArea().getText()).isEqualTo("Question 2");
-        verifyWebViewBody(getGrammarWebView(), "Grammar answer HTML 2");
+        verifyWebViewBody(getGrammarAnswerWebView(), "Grammar answer HTML 2");
         verifyWebViewBody(getShortAnswerWebView(), "Short answer HTML 2");
         assertThat(getShortAnswerCircle().getFill()).isEqualTo(GREEN);
         verifyWebViewBody(getLongAnswerWebView(), "Long answer HTML 2");
@@ -51,7 +51,7 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
         verifyThat(getThemeComboBox(), hasItems(2));
         verifyThat(getThemeComboBox(), hasSelectedItem("Theme 1"));
         assertThat(getQuestionTextArea().getText()).isEqualTo("Question 1");
-        verifyWebViewBody(getGrammarWebView(), "");
+        verifyWebViewBody(getGrammarAnswerWebView(), "");
         verifyWebViewBody(getShortAnswerWebView(), "");
         assertThat(getShortAnswerCircle().getFill()).isEqualTo(WHITE);
         verifyWebViewBody(getLongAnswerWebView(), "");

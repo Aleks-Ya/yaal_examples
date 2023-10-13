@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static gptui.ui.TestingData.INTERACTION_1;
 import static gptui.ui.TestingData.INTERACTION_2;
-import static javafx.scene.paint.Color.GREEN;
-import static javafx.scene.paint.Color.RED;
+import static javafx.scene.paint.Color.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -38,17 +37,22 @@ class StartNotEmptyStorageTest extends BaseGptUiTest {
         verifyThat(getGrammarSendButton().getText(), equalTo("Grammar"));
         assertThat(model.getEditedQuestion()).isEqualTo("Question 2");
 
-        verifyThat(getGrammarLabel(), hasText("Grammar:"));
-        verifyWebViewBody(getGrammarWebView(), "Grammar answer HTML 2");
+        verifyThat(getGrammarAnswerLabel(), hasText("Grammar\nanswer:"));
+        verifyWebViewBody(getGrammarAnswerWebView(), "Grammar answer HTML 2");
+        verifyThat(getGrammarAnswerCopyButton().getText(), equalTo("Copy"));
+        verifyThat(getGrammarAnswerCopyButton().isDisabled(), is(true));
+        assertThat(getGrammarAnswerCircle().getFill()).isEqualTo(GREEN);
 
         verifyThat(getShortAnswerLabel(), hasText("Short\nanswer:"));
         verifyWebViewBody(getShortAnswerWebView(), "Short answer HTML 2");
         verifyThat(getShortAnswerCopyButton().getText(), equalTo("Copy"));
+        verifyThat(getShortAnswerCopyButton().isDisabled(), is(false));
         assertThat(getShortAnswerCircle().getFill()).isEqualTo(GREEN);
 
         verifyThat(getLongAnswerLabel(), hasText("Long\nanswer:"));
         verifyWebViewBody(getLongAnswerWebView(), "Long answer HTML 2");
         verifyThat(getLongAnswerCopyButton().getText(), equalTo("Copy"));
+        verifyThat(getLongAnswerCopyButton().isDisabled(), is(false));
         assertThat(getLongAnswerCircle().getFill()).isEqualTo(RED);
     }
 
