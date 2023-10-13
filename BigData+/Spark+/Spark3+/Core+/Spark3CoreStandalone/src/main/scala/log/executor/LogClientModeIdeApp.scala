@@ -1,16 +1,17 @@
 package log.executor
 
-import org.apache.log4j.LogManager
 import org.apache.spark.SparkConf
 
 import java.lang.management.ManagementFactory
 
 object LogClientModeIdeApp {
-  @transient private lazy val log = LogManager.getLogger(this.getClass)
+  @transient private lazy val log4j1 = org.apache.log4j.LogManager.getLogger(getClass)
+  @transient private lazy val log4j2 = org.apache.logging.log4j.LogManager.getLogger(getClass)
 
   def main(args: Array[String]): Unit = {
     printf("[printf][%s][%s] Start\n", ManagementFactory.getRuntimeMXBean.getName, Thread.currentThread().getName)
-    log.error(s"[Log4J][${ManagementFactory.getRuntimeMXBean.getName}][${Thread.currentThread().getName}] Start")
+    log4j1.error(s"[Log4J1][${ManagementFactory.getRuntimeMXBean.getName}][${Thread.currentThread().getName}] Start")
+    log4j2.error(s"[Log4J2][${ManagementFactory.getRuntimeMXBean.getName}][${Thread.currentThread().getName}] Start")
 
     val jars = Seq("target/scala-2.12/spark3corestandalone_2.12-1.jar")
     val conf = new SparkConf()
@@ -24,10 +25,11 @@ object LogClientModeIdeApp {
       .set("spark.eventLog.dir", "file:///media/aleks/ADATA/dataset/spark-events")
       .setJars(jars)
 
-    Logic.doWork(conf)
+    DriverLogic.doWork(conf)
 
     printf("[printf][%s][%s] Finish\n", ManagementFactory.getRuntimeMXBean.getName, Thread.currentThread().getName)
-    log.info(s"[Log4J][${ManagementFactory.getRuntimeMXBean.getName}][${Thread.currentThread().getName}] Finish")
+    log4j1.info(s"[Log4J1][${ManagementFactory.getRuntimeMXBean.getName}][${Thread.currentThread().getName}] Finish")
+    log4j2.info(s"[Log4J2][${ManagementFactory.getRuntimeMXBean.getName}][${Thread.currentThread().getName}] Finish")
   }
 
 }
