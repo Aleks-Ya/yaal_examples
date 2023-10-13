@@ -18,10 +18,10 @@ public class GrammarController extends BaseController {
     public void modelChanged(Model model, EventSource source) {
         Optional.ofNullable(model.getCurrentInteraction())
                 .map(interaction -> interaction.getAnswer(GRAMMAR))
-                .ifPresent(answerOpt -> {
+                .ifPresentOrElse(answerOpt -> {
                     var html = answerOpt.isPresent() ? answerOpt.get().answerHtml() : "";
                     Platform.runLater(() -> grammarWebView.getEngine().loadContent(html));
-                });
+                }, () -> Platform.runLater(() -> grammarWebView.getEngine().loadContent("")));
     }
 }
 

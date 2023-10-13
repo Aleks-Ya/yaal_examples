@@ -6,6 +6,7 @@ import static javafx.scene.paint.Color.WHITE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.ComboBoxMatchers.hasItems;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
@@ -15,6 +16,8 @@ class StartEmptyStorageTest extends BaseGptUiTest {
     void startWithEmptyStorage() {
         verifyThat(getInteractionHistoryLabel(), hasText("Question history:"));
         verifyThat(getInteractionHistoryComboBox(), hasItems(0));
+        verifyThat(getInteractionHistoryDeleteButton().getText(), equalTo("Delete"));
+        verifyThat(getInteractionHistoryDeleteButton().isDisabled(), is(true));
 
         verifyThat(getThemeLabel(), hasText("Theme:"));
         verifyThat(getThemeComboBox(), hasItems(0));
@@ -25,7 +28,7 @@ class StartEmptyStorageTest extends BaseGptUiTest {
         verifyThat(getDefinitionSendButton().getText(), equalTo("Definition"));
 
         verifyThat(getGrammarLabel(), hasText("Grammar:"));
-        verifyWebViewBody(getgrammarWebView(), "");
+        verifyWebViewBody(getGrammarWebView(), "");
 
         verifyThat(getShortAnswerLabel(), hasText("Short\nanswer:"));
         verifyThat(getShortAnswerCopyButton().getText(), equalTo("Copy"));

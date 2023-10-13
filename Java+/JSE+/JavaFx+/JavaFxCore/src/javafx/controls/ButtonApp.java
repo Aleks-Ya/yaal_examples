@@ -16,7 +16,8 @@ public class ButtonApp extends Application {
         var button1 = onActionButton();
         var button2 = setOnActionPropertyButton();
         var button3 = bindOnActionPropertyButton();
-        var vBox = new VBox(button1, new Separator(), button2, new Separator(), button3);
+        var button4 = disabledButton();
+        var vBox = new VBox(button1, new Separator(), button2, new Separator(), button3, new Separator(), button4);
         var scene = new Scene(vBox, 640, 480);
         stage.setScene(scene);
         stage.show();
@@ -41,6 +42,15 @@ public class ButtonApp extends Application {
             public EventHandler<ActionEvent> getValue() {
                 return event -> System.out.println("Button was clicked (bind onActionProperty)");
             }
+        });
+        return button;
+    }
+
+    private static Button disabledButton() {
+        var button = new Button("Disabled");
+        button.setDisable(true);
+        button.setOnAction(event -> {
+            throw new AssertionError("Button is disabled");
         });
         return button;
     }

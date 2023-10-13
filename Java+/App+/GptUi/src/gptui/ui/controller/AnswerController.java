@@ -65,14 +65,17 @@ public class AnswerController extends BaseController {
     public void modelChanged(Model model, EventSource source) {
         Optional.ofNullable(model.getCurrentInteraction())
                 .map(interaction -> interaction.getAnswer(answerType))
-                .ifPresent(answerOpt -> {
+                .ifPresentOrElse(answerOpt -> {
                     var html = answerOpt.isPresent() ? answerOpt.get().answerHtml() : "";
                     var state = answerOpt.isPresent() ? answerOpt.get().answerState() : AnswerState.NEW;
                     Platform.runLater(() -> {
                         webView.getEngine().loadContent(html);
                         statusCircle.setFill(answerStateToColor(state));
                     });
-                });
+                }, () -> Platform.runLater(() -> {
+                    webView.getEngine().loadContent("");
+                    statusCircle.setFill(WHITE);
+                }));
     }
 
     public void setAnswerType(AnswerType answerType) {

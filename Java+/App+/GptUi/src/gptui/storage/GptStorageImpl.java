@@ -57,4 +57,10 @@ public class GptStorageImpl implements GptStorage {
                 .toList();
     }
 
+    @Override
+    public void deleteInteraction(InteractionId interactionId) {
+        gptStorage.deleteInteraction(interactionId);
+        interactions.remove(interactionId);
+    }
+
 }

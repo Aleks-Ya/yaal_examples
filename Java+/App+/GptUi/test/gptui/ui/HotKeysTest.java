@@ -24,7 +24,7 @@ class HotKeysTest extends BaseGptUiTest {
     public void init() {
         storage.saveInteraction(new Interaction(new InteractionId(1L), QUESTION, "Theme 1", "Question 1", Map.of(
                 GRAMMAR,
-                new Answer(GRAMMAR, "QC prompt 1", "QC answer MD 1", "QC answer HTML 1", SUCCESS),
+                new Answer(GRAMMAR, "QC prompt 1", "Grammar answer MD 1", "Grammar answer HTML 1", SUCCESS),
                 SHORT,
                 new Answer(SHORT, "Short prompt 1", "Short answer MD 1", "Short answer HTML 1", SUCCESS),
                 LONG,

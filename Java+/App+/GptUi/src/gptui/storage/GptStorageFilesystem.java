@@ -60,4 +60,12 @@ public class GptStorageFilesystem {
         }
     }
 
+    public synchronized void deleteInteraction(InteractionId interactionId) {
+        try {
+            Files.delete(getInteractionFile(interactionId));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

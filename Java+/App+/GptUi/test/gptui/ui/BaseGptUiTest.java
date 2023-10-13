@@ -43,6 +43,10 @@ abstract class BaseGptUiTest extends ApplicationTest {
         return lookup("#interactionHistoryComboBox").queryComboBox();
     }
 
+    protected Button getInteractionHistoryDeleteButton() {
+        return lookup("#deleteInteractionButton").queryButton();
+    }
+
     protected Label getThemeLabel() {
         return lookup("#themeLabel").queryAs(Label.class);
     }
@@ -71,7 +75,7 @@ abstract class BaseGptUiTest extends ApplicationTest {
         return lookup("#grammarLabel").queryAs(Label.class);
     }
 
-    protected WebView getgrammarWebView() {
+    protected WebView getGrammarWebView() {
         return lookup("#grammarWebView").queryAs(WebView.class);
     }
 

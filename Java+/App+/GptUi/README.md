@@ -4,7 +4,7 @@
 
 1. Fix layout
 2. Add `Cancel` button
-3. Add `Delete` button for the interaction history
+3. Add `Delete` button for the Themes
 4. Do not create new HttpClient instance for each request
 5. Add an answer from Bard
 6. Add a button to check grammar only

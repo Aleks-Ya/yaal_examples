@@ -14,4 +14,6 @@ public interface GptStorage {
     Optional<Interaction> readInteraction(InteractionId interactionId);
 
     List<Interaction> readAllInteractions();
+
+    void deleteInteraction(InteractionId interactionId);
 }
