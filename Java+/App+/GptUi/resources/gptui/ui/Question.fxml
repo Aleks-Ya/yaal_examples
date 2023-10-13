@@ -18,6 +18,8 @@
                 <Button fx:id="questionButton" mnemonicParsing="false" onAction="#sendQuestion" text="Question" />
                 <Separator prefWidth="200.0" visible="false" />
                 <Button fx:id="definitionButton" mnemonicParsing="false" onAction="#sendDefinition" text="Definition" />
+            <Separator prefWidth="200.0" visible="false" />
+            <Button fx:id="grammarButton" mnemonicParsing="false" onAction="#sendGrammar" text="Grammar" />
             </children>
         </VBox>
     </children>

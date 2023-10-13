@@ -37,6 +37,11 @@ public class MockGptApi implements GptApi {
         return this;
     }
 
+    public MockGptApi clear() {
+        contentSubstringToResponseMap.clear();
+        return this;
+    }
+
     record ResponseInfo(String content, Duration timeout) {
     }
 }

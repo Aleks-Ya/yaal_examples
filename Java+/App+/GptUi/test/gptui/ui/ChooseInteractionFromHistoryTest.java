@@ -1,19 +1,14 @@
 package gptui.ui;
 
-import gptui.storage.Answer;
 import gptui.storage.Interaction;
 import gptui.storage.InteractionId;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static gptui.storage.AnswerState.SUCCESS;
-import static gptui.storage.AnswerType.GRAMMAR;
-import static gptui.storage.AnswerType.LONG;
-import static gptui.storage.AnswerType.SHORT;
 import static gptui.storage.InteractionType.QUESTION;
-import static javafx.scene.paint.Color.GREEN;
-import static javafx.scene.paint.Color.WHITE;
+import static gptui.ui.TestingData.INTERACTION_2;
+import static javafx.scene.paint.Color.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.ComboBoxMatchers.hasItems;
@@ -26,16 +21,8 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
     @Override
     public void init() {
         var interaction1 = new Interaction(interactionId1, QUESTION, "Theme 1", "Question 1", Map.of());
-        var interaction2 = new Interaction(interactionId2, QUESTION, "Theme 2", "Question 2", Map.of(
-                GRAMMAR,
-                new Answer(GRAMMAR, "QC prompt 2", "Grammar answer MD 2", "Grammar answer HTML 2", SUCCESS),
-                SHORT,
-                new Answer(SHORT, "Short prompt 2", "Short answer MD 2", "Short answer HTML 2", SUCCESS),
-                LONG,
-                new Answer(LONG, "Long prompt 2", "Long answer MD 2", "Long answer HTML 2", SUCCESS)
-        ));
         storage.saveInteraction(interaction1);
-        storage.saveInteraction(interaction2);
+        storage.saveInteraction(INTERACTION_2);
     }
 
     @Test
@@ -54,7 +41,7 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
         verifyWebViewBody(getShortAnswerWebView(), "Short answer HTML 2");
         assertThat(getShortAnswerCircle().getFill()).isEqualTo(GREEN);
         verifyWebViewBody(getLongAnswerWebView(), "Long answer HTML 2");
-        assertThat(getLongAnswerCircle().getFill()).isEqualTo(GREEN);
+        assertThat(getLongAnswerCircle().getFill()).isEqualTo(RED);
     }
 
     private void chooseInteraction1() {

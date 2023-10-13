@@ -26,6 +26,7 @@ class StartEmptyStorageTest extends BaseGptUiTest {
         verifyThat(getQuestionTextArea().getText(), emptyString());
         verifyThat(getQuestionSendButton().getText(), equalTo("Question"));
         verifyThat(getDefinitionSendButton().getText(), equalTo("Definition"));
+        verifyThat(getGrammarSendButton().getText(), equalTo("Grammar"));
 
         verifyThat(getGrammarLabel(), hasText("Grammar:"));
         verifyWebViewBody(getGrammarWebView(), "");

@@ -8,9 +8,7 @@ import static javafx.scene.paint.Color.WHITE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.emptyString;
 import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.control.ComboBoxMatchers.containsExactlyItems;
-import static org.testfx.matcher.control.ComboBoxMatchers.hasItems;
-import static org.testfx.matcher.control.ComboBoxMatchers.hasSelectedItem;
+import static org.testfx.matcher.control.ComboBoxMatchers.*;
 
 class GptUiApplicationTest extends BaseGptUiTest {
     private static final String THEME_1 = "Theme 1";
@@ -49,7 +47,10 @@ class GptUiApplicationTest extends BaseGptUiTest {
         verifyThat(getThemeComboBox(), hasSelectedItem(THEME_1));
         verifyThat(getThemeComboBox(), hasItems(0));
 
-        gptApi.put("has grammatical mistakes", "Grammar answer 1", ofMillis(500)).put("a short response", "Short answer 1", ofMillis(1000)).put("a detailed response", "Long answer 1", ofMillis(1500));
+        gptApi
+                .put("has grammatical mistakes", "Grammar answer 1", ofMillis(500))
+                .put("a short response", "Short answer 1", ofMillis(1000))
+                .put("a detailed response", "Long answer 1", ofMillis(1500));
         clickOn(getQuestionSendButton());
         verifyWebViewBody(getGrammarWebView(), "");
         verifyWebViewBody(getShortAnswerWebView(), "");
@@ -80,7 +81,10 @@ class GptUiApplicationTest extends BaseGptUiTest {
         verifyThat(getThemeComboBox(), hasSelectedItem(THEME_2));
         verifyThat(getThemeComboBox(), containsExactlyItems(THEME_1));
 
-        gptApi.put("has grammatical mistakes", "Grammar answer 2", ofMillis(500)).put("a short response", "Short answer 2", ofMillis(1000)).put("a detailed response", "Long answer 2", ofMillis(1500));
+        gptApi
+                .put("has grammatical mistakes", "Grammar answer 2", ofMillis(500))
+                .put("a short response", "Short answer 2", ofMillis(1000))
+                .put("a detailed response", "Long answer 2", ofMillis(1500));
         verifyWebViewBody(getGrammarWebView(), EXP_GRAMMAR_HTML_BODY_1);
         verifyWebViewBody(getShortAnswerWebView(), EXP_SHORT_HTML_BODY_1);
         verifyWebViewBody(getLongAnswerWebView(), EXP_LONG_HTML_BODY_1);

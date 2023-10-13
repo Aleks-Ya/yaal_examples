@@ -9,14 +9,13 @@
 5. Add an answer from Bard
 6. Add a button to check grammar only
 7. Add a button to check is a sentence factually correct
-8. Add "Grammar" button
-9. Show a 5-words definition
-10. Add button for checking a statement for truth
-11. Add search throughout the Interaction History
-12. Display current InteractionId in the main window
-13. Add "Regenerate" buttons for short and long answers
-14. Add auto-completion for the Theme combo box
-15. Search for a definition in Wikipedia also
+8. Show a 5-words definition
+9. Add button for checking a statement for truth
+10. Add search throughout the Interaction History
+11. Display current InteractionId in the main window
+12. Add "Regenerate" buttons for short and long answers
+13. Add auto-completion for the Theme combo box
+14. Search for a definition in Wikipedia also
 
 ## Install on Ubuntu
 

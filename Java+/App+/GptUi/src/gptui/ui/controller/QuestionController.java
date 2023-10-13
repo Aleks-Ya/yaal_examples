@@ -7,11 +7,7 @@ import gptui.format.PromptFactory;
 import gptui.format.ThemeHelper;
 import gptui.gpt.GptApi;
 import gptui.media.SoundService;
-import gptui.storage.AnswerType;
-import gptui.storage.GptStorage;
-import gptui.storage.Interaction;
-import gptui.storage.InteractionId;
-import gptui.storage.InteractionType;
+import gptui.storage.*;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
 import javafx.event.ActionEvent;
@@ -26,18 +22,12 @@ import javax.inject.Inject;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static gptui.storage.AnswerState.FAIL;
-import static gptui.storage.AnswerState.NEW;
-import static gptui.storage.AnswerState.SENT;
-import static gptui.storage.AnswerState.SUCCESS;
-import static gptui.storage.AnswerType.GRAMMAR;
-import static gptui.storage.AnswerType.LONG;
-import static gptui.storage.AnswerType.SHORT;
+import static gptui.storage.AnswerState.*;
+import static gptui.storage.AnswerType.*;
 import static gptui.storage.InteractionType.DEFINITION;
 import static gptui.storage.InteractionType.QUESTION;
 import static java.util.concurrent.CompletableFuture.runAsync;
-import static javafx.scene.input.KeyCode.ENTER;
-import static javafx.scene.input.KeyCode.V;
+import static javafx.scene.input.KeyCode.*;
 import static javafx.scene.input.KeyCombination.ALT_DOWN;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 import static javafx.scene.input.KeyEvent.KEY_PRESSED;
@@ -85,6 +75,12 @@ public class QuestionController extends BaseController {
     }
 
     @FXML
+    void sendGrammar(ActionEvent ignoredEvent) {
+        log.debug("Send grammar by Send button");
+        sendQuestion(InteractionType.GRAMMAR);
+    }
+
+    @FXML
     void keyTypedQuestionTextArea(KeyEvent ignoredEvent) {
         model.setEditedQuestion(questionTextArea.getText());
     }
@@ -98,6 +94,7 @@ public class QuestionController extends BaseController {
             updateInteraction(interactionId, interaction -> interaction
                     .withTheme(theme)
                     .withQuestion(question)
+                    .withType(interactionType)
                     .withAnswer(GRAMMAR, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW))
                     .withAnswer(SHORT, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW))
                     .withAnswer(LONG, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW)));
@@ -111,15 +108,20 @@ public class QuestionController extends BaseController {
                                AnswerType answerType) {
         log.info("Sending request for {}...", answerType);
         runAsync(() -> Mdc.run(interactionId, () -> {
-            var prompt = promptFactory.getPrompt(interactionType, theme, question, answerType);
-            updateInteraction(interactionId, interaction ->
-                    interaction.withAnswer(answerType, answer -> answer.withPrompt(prompt).withState(SENT)));
-            var answerMd = gptApi.send(prompt);
-            var answerHtml = formatConverter.markdownToHtml(answerMd);
-            updateInteraction(interactionId, interaction -> interaction.withAnswer(answerType, answer ->
-                    answer.withAnswerMd(answerMd).withAnswerHtml(answerHtml).withState(SUCCESS)));
-            soundService.beenOnAnswer(answerType);
-            log.info("The short answer request finished.");
+            var promptOpt = promptFactory.getPrompt(interactionType, theme, question, answerType);
+            if (promptOpt.isPresent()) {
+                var prompt = promptOpt.get();
+                updateInteraction(interactionId, interaction ->
+                        interaction.withAnswer(answerType, answer -> answer.withPrompt(prompt).withState(SENT)));
+                var answerMd = gptApi.send(prompt);
+                var answerHtml = formatConverter.markdownToHtml(answerMd);
+                updateInteraction(interactionId, interaction -> interaction.withAnswer(answerType, answer ->
+                        answer.withAnswerMd(answerMd).withAnswerHtml(answerHtml).withState(SUCCESS)));
+                soundService.beenOnAnswer(answerType);
+                log.info("The short answer request finished.");
+            } else {
+                log.info("The short answer was skipped.");
+            }
         })).handle((res, e) -> {
             if (e != null) {
                 Mdc.run(interactionId, () -> {
@@ -166,6 +168,9 @@ public class QuestionController extends BaseController {
             questionTextArea.positionCaret(questionTextArea.getText().length());
             model.setEditedQuestion(question);
         });
+        model.addAccelerator(new KeyCodeCombination(Q, CONTROL_DOWN), () -> sendQuestion(QUESTION));
+        model.addAccelerator(new KeyCodeCombination(D, CONTROL_DOWN), () -> sendQuestion(DEFINITION));
+        model.addAccelerator(new KeyCodeCombination(G, CONTROL_DOWN), () -> sendQuestion(InteractionType.GRAMMAR));
     }
 }
 

@@ -71,6 +71,10 @@ abstract class BaseGptUiTest extends ApplicationTest {
         return lookup("#definitionButton").queryButton();
     }
 
+    protected Button getGrammarSendButton() {
+        return lookup("#grammarButton").queryButton();
+    }
+
     protected Label getGrammarLabel() {
         return lookup("#grammarLabel").queryAs(Label.class);
     }
