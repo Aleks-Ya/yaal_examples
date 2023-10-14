@@ -23,9 +23,9 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import static gptui.storage.AnswerState.*;
+import static gptui.storage.AnswerType.GRAMMAR;
 import static gptui.storage.AnswerType.*;
-import static gptui.storage.InteractionType.DEFINITION;
-import static gptui.storage.InteractionType.QUESTION;
+import static gptui.storage.InteractionType.*;
 import static java.util.concurrent.CompletableFuture.runAsync;
 import static javafx.scene.input.KeyCode.*;
 import static javafx.scene.input.KeyCombination.ALT_DOWN;
@@ -78,6 +78,12 @@ public class QuestionController extends BaseController {
     void sendGrammar(ActionEvent ignoredEvent) {
         log.debug("Send grammar by Send button");
         sendQuestion(InteractionType.GRAMMAR);
+    }
+
+    @FXML
+    public void sendFact(ActionEvent ignoredEvent) {
+        log.debug("Send fact by Send button");
+        sendQuestion(FACT);
     }
 
     @FXML
@@ -171,6 +177,7 @@ public class QuestionController extends BaseController {
         model.addAccelerator(new KeyCodeCombination(Q, CONTROL_DOWN), () -> sendQuestion(QUESTION));
         model.addAccelerator(new KeyCodeCombination(D, CONTROL_DOWN), () -> sendQuestion(DEFINITION));
         model.addAccelerator(new KeyCodeCombination(G, CONTROL_DOWN), () -> sendQuestion(InteractionType.GRAMMAR));
+        model.addAccelerator(new KeyCodeCombination(F, CONTROL_DOWN), () -> sendQuestion(FACT));
     }
 }
 

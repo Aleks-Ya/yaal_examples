@@ -55,7 +55,7 @@ class GptUiApplicationTest extends BaseGptUiTest {
         verifyWebViewBody(getGrammarAnswerWebView(), "");
         verifyWebViewBody(getShortAnswerWebView(), "");
         verifyWebViewBody(getLongAnswerWebView(), "");
-        sleep(3000);
+        sleep(2000);
         verifyWebViewBody(getGrammarAnswerWebView(), EXP_GRAMMAR_HTML_BODY_1);
         verifyWebViewBody(getShortAnswerWebView(), EXP_SHORT_HTML_BODY_1);
         verifyWebViewBody(getLongAnswerWebView(), EXP_LONG_HTML_BODY_1);
@@ -92,7 +92,7 @@ class GptUiApplicationTest extends BaseGptUiTest {
         verifyWebViewBody(getGrammarAnswerWebView(), "");
         verifyWebViewBody(getShortAnswerWebView(), "");
         verifyWebViewBody(getLongAnswerWebView(), "");
-        sleep(3000);
+        sleep(2000);
         verifyWebViewBody(getGrammarAnswerWebView(), "<p>Grammar answer 2</p>\n");
         var expShortHtmlBody2 = "<p>Short answer 2</p>\n";
         verifyWebViewBody(getShortAnswerWebView(), expShortHtmlBody2);

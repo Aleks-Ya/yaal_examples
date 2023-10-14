@@ -23,7 +23,6 @@ class DeleteInteractionBottomTest extends BaseGptUiTest {
         initialState();
         clickOn(getInteractionHistoryComboBox()).clickOn(String.format("%s: %s", "Theme 1", "Question 1"));
         clickOn(getInteractionHistoryDeleteButton());
-        sleep(1000);
         afterDeletionState();
     }
 

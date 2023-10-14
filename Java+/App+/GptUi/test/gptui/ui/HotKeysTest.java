@@ -62,4 +62,11 @@ class HotKeysTest extends BaseGptUiTest {
         assertThat(model.getInteractionHistory()).hasSize(2)
                 .element(0).extracting(Interaction::type).isEqualTo(GRAMMAR);
     }
+
+    @Test
+    void sendFactByCtrlF() {
+        press(CONTROL, F).release(F, CONTROL);
+        assertThat(model.getInteractionHistory()).hasSize(2)
+                .element(0).extracting(Interaction::type).isEqualTo(FACT);
+    }
 }

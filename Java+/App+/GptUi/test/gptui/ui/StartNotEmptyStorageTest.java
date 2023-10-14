@@ -35,6 +35,7 @@ class StartNotEmptyStorageTest extends BaseGptUiTest {
         verifyThat(getQuestionSendButton().getText(), equalTo("Question"));
         verifyThat(getDefinitionSendButton().getText(), equalTo("Definition"));
         verifyThat(getGrammarSendButton().getText(), equalTo("Grammar"));
+        verifyThat(getFactSendButton().getText(), equalTo("Fact"));
         assertThat(model.getEditedQuestion()).isEqualTo("Question 2");
 
         verifyThat(getGrammarAnswerLabel(), hasText("Grammar\nanswer:"));

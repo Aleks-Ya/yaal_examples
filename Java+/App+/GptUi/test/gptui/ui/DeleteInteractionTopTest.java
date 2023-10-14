@@ -22,7 +22,6 @@ class DeleteInteractionTopTest extends BaseGptUiTest {
     void currentInteractionIsAtTop() {
         initialState();
         clickOn(getInteractionHistoryDeleteButton());
-        sleep(1000);
         afterDeletionState();
     }
 

@@ -2,17 +2,15 @@ package gptui.ui;
 
 import org.junit.jupiter.api.Test;
 
-import static gptui.ui.TestingData.INTERACTION_1;
-import static gptui.ui.TestingData.INTERACTION_2;
-import static gptui.ui.TestingData.INTERACTION_3;
-import static javafx.scene.paint.Color.GREEN;
-import static javafx.scene.paint.Color.RED;
+import static gptui.ui.TestingData.*;
+import static java.time.Duration.ofMillis;
+import static javafx.scene.paint.Color.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.ComboBoxMatchers.hasItems;
 
-class DeleteInteractionMiddleTest extends BaseGptUiTest {
+class SendFactTest extends BaseGptUiTest {
     @Override
     public void init() {
         storage.saveInteraction(INTERACTION_1);
@@ -23,9 +21,12 @@ class DeleteInteractionMiddleTest extends BaseGptUiTest {
     @Test
     void currentInteractionIsInMiddle() {
         initialState();
-        clickOn(getInteractionHistoryComboBox()).clickOn(String.format("%s: %s", "Theme 2", "Question 2"));
-        clickOn(getInteractionHistoryDeleteButton());
-        afterDeletionState();
+        gptApi.clear().put("factually correct", "Fact answer 4", ofMillis(500));
+        clickOn(getQuestionTextArea());
+        overWrite("Question 4");
+        clickOn(getFactSendButton());
+        sleep(1000);
+        afterState();
     }
 
     private void initialState() {
@@ -46,21 +47,21 @@ class DeleteInteractionMiddleTest extends BaseGptUiTest {
         assertThat(getLongAnswerCircle().getFill()).isEqualTo(RED);
     }
 
-    void afterDeletionState() {
-        verifyThat(getInteractionHistoryComboBox(), hasItems(2));
+    void afterState() {
+        verifyThat(getInteractionHistoryComboBox(), hasItems(4));
         verifyThat(getInteractionHistoryDeleteButton().isDisabled(), is(false));
 
-        verifyThat(getThemeComboBox(), hasItems(2));
+        verifyThat(getThemeComboBox(), hasItems(3));
 
-        assertThat(getQuestionTextArea().getText()).isEqualTo("Question 3");
-        assertThat(model.getEditedQuestion()).isEqualTo("Question 3");
+        assertThat(getQuestionTextArea().getText()).isEqualTo("Question 4");
+        assertThat(model.getEditedQuestion()).isEqualTo("Question 4");
 
-        verifyWebViewBody(getGrammarAnswerWebView(), "Grammar answer HTML 3");
+        verifyWebViewBody(getGrammarAnswerWebView(), "<p>Fact answer 4</p>\n");
 
-        verifyWebViewBody(getShortAnswerWebView(), "Short answer HTML 3");
-        assertThat(getShortAnswerCircle().getFill()).isEqualTo(GREEN);
+        verifyWebViewBody(getShortAnswerWebView(), "");
+        assertThat(getShortAnswerCircle().getFill()).isEqualTo(WHITE);
 
-        verifyWebViewBody(getLongAnswerWebView(), "Long answer HTML 3");
-        assertThat(getLongAnswerCircle().getFill()).isEqualTo(RED);
+        verifyWebViewBody(getLongAnswerWebView(), "");
+        assertThat(getLongAnswerCircle().getFill()).isEqualTo(WHITE);
     }
 }

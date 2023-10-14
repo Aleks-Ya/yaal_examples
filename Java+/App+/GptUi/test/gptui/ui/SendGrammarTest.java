@@ -26,7 +26,7 @@ class SendGrammarTest extends BaseGptUiTest {
         overWrite("Question 4");
         clickOn(getGrammarSendButton());
         sleep(1000);
-        afterGrammarState();
+        afterState();
     }
 
     private void initialState() {
@@ -47,7 +47,7 @@ class SendGrammarTest extends BaseGptUiTest {
         assertThat(getLongAnswerCircle().getFill()).isEqualTo(RED);
     }
 
-    void afterGrammarState() {
+    void afterState() {
         verifyThat(getInteractionHistoryComboBox(), hasItems(4));
         verifyThat(getInteractionHistoryDeleteButton().isDisabled(), is(false));
 

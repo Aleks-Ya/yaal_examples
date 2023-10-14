@@ -1,5 +1,5 @@
 package gptui.storage;
 
 public enum InteractionType {
-    QUESTION, DEFINITION, GRAMMAR
+    QUESTION, DEFINITION, GRAMMAR, FACT
 }

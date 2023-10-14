@@ -20,7 +20,6 @@ class DeleteInteractionOnlyTest extends BaseGptUiTest {
     void currentInteractionIsTheOnly() {
         initialState();
         clickOn(getInteractionHistoryDeleteButton());
-        sleep(1000);
         afterDeletionState();
     }
 

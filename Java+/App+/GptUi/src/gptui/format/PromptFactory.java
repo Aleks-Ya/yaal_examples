@@ -44,6 +44,14 @@ public class PromptFactory {
                 case GRAMMAR -> grammarPrompt(question);
                 case SHORT, LONG -> Optional.empty();
             };
+            case FACT -> switch (answerType) {
+                case GRAMMAR -> Optional.of(String.format("""
+                                Check is this sentence factually correct in context of `%s`: `%s`?
+                                Format your answer into Markdown.
+                                """.stripIndent().replace("\n", " "),
+                        theme, question));
+                case SHORT, LONG -> Optional.empty();
+            };
         };
     }
 
