@@ -6,10 +6,6 @@ import static gptui.ui.TestingData.INTERACTION_1;
 import static gptui.ui.TestingData.INTERACTION_2;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.control.ComboBoxMatchers.hasItems;
 
 class DeleteInteractionBottomTest extends BaseGptUiTest {
     @Override
@@ -20,45 +16,39 @@ class DeleteInteractionBottomTest extends BaseGptUiTest {
 
     @Test
     void currentInteractionIsAtBottom() {
-        initialState();
-        clickOn(getInteractionHistoryComboBox()).clickOn(String.format("%s: %s", "Theme 1", "Question 1"));
-        clickOn(getInteractionHistoryDeleteButton());
-        afterDeletionState();
-    }
+        assertion()
+                .historySize(2)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(INTERACTION_2)
+                .historyItems(INTERACTION_2, INTERACTION_1)
+                .themeSize(2)
+                .themeSelectedItem("Theme 2")
+                .themeItems("Theme 2", "Theme 1")
+                .questionText("Question 2")
+                .modelEditedQuestion("Question 2")
+                .answerGrammarText("Grammar answer HTML 2")
+                .answerShortText("Short answer HTML 2")
+                .answerLongText("Long answer HTML 2")
+                .answerCircleColors(GREEN, GREEN, RED)
+                .assertApp();
 
-    private void initialState() {
-        verifyThat(getInteractionHistoryComboBox(), hasItems(2));
-        verifyThat(getInteractionHistoryDeleteButton().isDisabled(), is(false));
+        clickOn(getHistoryComboBox()).clickOn(String.format("%s: %s", "Theme 1", "Question 1"));
+        clickOn(getHistoryDeleteButton());
 
-        verifyThat(getThemeComboBox(), hasItems(2));
-
-        assertThat(getQuestionTextArea().getText()).isEqualTo("Question 2");
-        assertThat(model.getEditedQuestion()).isEqualTo("Question 2");
-
-        verifyWebViewBody(getGrammarAnswerWebView(), "Grammar answer HTML 2");
-
-        verifyWebViewBody(getShortAnswerWebView(), "Short answer HTML 2");
-        assertThat(getShortAnswerCircle().getFill()).isEqualTo(GREEN);
-
-        verifyWebViewBody(getLongAnswerWebView(), "Long answer HTML 2");
-        assertThat(getLongAnswerCircle().getFill()).isEqualTo(RED);
-    }
-
-    void afterDeletionState() {
-        verifyThat(getInteractionHistoryComboBox(), hasItems(1));
-        verifyThat(getInteractionHistoryDeleteButton().isDisabled(), is(false));
-
-        verifyThat(getThemeComboBox(), hasItems(1));
-
-        assertThat(getQuestionTextArea().getText()).isEqualTo("Question 2");
-        assertThat(model.getEditedQuestion()).isEqualTo("Question 2");
-
-        verifyWebViewBody(getGrammarAnswerWebView(), "Grammar answer HTML 2");
-
-        verifyWebViewBody(getShortAnswerWebView(), "Short answer HTML 2");
-        assertThat(getShortAnswerCircle().getFill()).isEqualTo(GREEN);
-
-        verifyWebViewBody(getLongAnswerWebView(), "Long answer HTML 2");
-        assertThat(getLongAnswerCircle().getFill()).isEqualTo(RED);
+        assertion()
+                .historySize(1)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(INTERACTION_2)
+                .historyItems(INTERACTION_2)
+                .themeSize(1)
+                .themeSelectedItem("Theme 2")
+                .themeItems("Theme 2")
+                .questionText("Question 2")
+                .modelEditedQuestion("Question 2")
+                .answerGrammarText("Grammar answer HTML 2")
+                .answerShortText("Short answer HTML 2")
+                .answerLongText("Long answer HTML 2")
+                .answerCircleColors(GREEN, GREEN, RED)
+                .assertApp();
     }
 }

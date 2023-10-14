@@ -5,10 +5,6 @@ import org.junit.jupiter.api.Test;
 import static gptui.ui.TestingData.*;
 import static java.time.Duration.ofMillis;
 import static javafx.scene.paint.Color.*;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.control.ComboBoxMatchers.hasItems;
 
 class SendGrammarTest extends BaseGptUiTest {
     @Override
@@ -20,48 +16,42 @@ class SendGrammarTest extends BaseGptUiTest {
 
     @Test
     void currentInteractionIsInMiddle() {
-        initialState();
+        assertion()
+                .historySize(3)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(INTERACTION_3)
+                .historyItems(INTERACTION_3, INTERACTION_2, INTERACTION_1)
+                .themeSize(3)
+                .themeSelectedItem("Theme 3")
+                .themeItems("Theme 3", "Theme 2", "Theme 1")
+                .questionText("Question 3")
+                .modelEditedQuestion("Question 3")
+                .answerGrammarText("Grammar answer HTML 3")
+                .answerShortText("Short answer HTML 3")
+                .answerLongText("Long answer HTML 3")
+                .answerCircleColors(GREEN, GREEN, RED)
+                .assertApp();
+
         gptApi.clear().put("has grammatical mistakes", "Grammar answer 4", ofMillis(500));
         clickOn(getQuestionTextArea());
         overWrite("Question 4");
         clickOn(getGrammarSendButton());
         sleep(1000);
-        afterState();
-    }
 
-    private void initialState() {
-        verifyThat(getInteractionHistoryComboBox(), hasItems(3));
-        verifyThat(getInteractionHistoryDeleteButton().isDisabled(), is(false));
-
-        verifyThat(getThemeComboBox(), hasItems(3));
-
-        assertThat(getQuestionTextArea().getText()).isEqualTo("Question 3");
-        assertThat(model.getEditedQuestion()).isEqualTo("Question 3");
-
-        verifyWebViewBody(getGrammarAnswerWebView(), "Grammar answer HTML 3");
-
-        verifyWebViewBody(getShortAnswerWebView(), "Short answer HTML 3");
-        assertThat(getShortAnswerCircle().getFill()).isEqualTo(GREEN);
-
-        verifyWebViewBody(getLongAnswerWebView(), "Long answer HTML 3");
-        assertThat(getLongAnswerCircle().getFill()).isEqualTo(RED);
-    }
-
-    void afterState() {
-        verifyThat(getInteractionHistoryComboBox(), hasItems(4));
-        verifyThat(getInteractionHistoryDeleteButton().isDisabled(), is(false));
-
-        verifyThat(getThemeComboBox(), hasItems(3));
-
-        assertThat(getQuestionTextArea().getText()).isEqualTo("Question 4");
-        assertThat(model.getEditedQuestion()).isEqualTo("Question 4");
-
-        verifyWebViewBody(getGrammarAnswerWebView(), "<p>Grammar answer 4</p>\n");
-
-        verifyWebViewBody(getShortAnswerWebView(), "");
-        assertThat(getShortAnswerCircle().getFill()).isEqualTo(WHITE);
-
-        verifyWebViewBody(getLongAnswerWebView(), "");
-        assertThat(getLongAnswerCircle().getFill()).isEqualTo(WHITE);
+        assertion()
+                .historySize(4)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().getFirst())
+                .historyItems(storage.readAllInteractions())
+                .themeSize(3)
+                .themeSelectedItem("Theme 3")
+                .themeItems("Theme 3", "Theme 2", "Theme 1")
+                .questionText("Question 4")
+                .modelEditedQuestion("Question 4")
+                .answerGrammarText("<p>Grammar answer 4</p>\n")
+                .answerShortText("")
+                .answerLongText("")
+                .answerCircleColors(GREEN, WHITE, WHITE)
+                .assertApp();
     }
 }

@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public class ThemeController extends BaseController {
     @FXML
-    public Label themeLabel;
+    private Label themeLabel;
     @FXML
     private ComboBox<String> themeComboBox;
 
@@ -32,6 +32,11 @@ public class ThemeController extends BaseController {
         if (!Objects.equals(currentModelValue, currentComboBoxValue)) {
             themeComboBox.setValue(currentModelValue);
         }
+    }
+
+    @Override
+    public void stageWasShowed(Model model, EventSource source) {
+        setLabel(model);
     }
 
     @Override
@@ -59,6 +64,11 @@ public class ThemeController extends BaseController {
         var currentComboBoxItems = themeComboBox.getItems();
         if (!Objects.equals(currentModelItems, currentComboBoxItems)) {
             themeComboBox.setItems(currentModelItems);
+            setLabel(model);
         }
+    }
+
+    private void setLabel(Model model) {
+        themeLabel.setText(String.format("Theme (%d):", model.getThemeList().size()));
     }
 }

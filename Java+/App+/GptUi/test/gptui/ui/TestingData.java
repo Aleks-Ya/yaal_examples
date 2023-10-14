@@ -8,9 +8,7 @@ import java.util.Map;
 
 import static gptui.storage.AnswerState.FAIL;
 import static gptui.storage.AnswerState.SUCCESS;
-import static gptui.storage.AnswerType.GRAMMAR;
-import static gptui.storage.AnswerType.LONG;
-import static gptui.storage.AnswerType.SHORT;
+import static gptui.storage.AnswerType.*;
 import static gptui.storage.InteractionType.QUESTION;
 
 public class TestingData {

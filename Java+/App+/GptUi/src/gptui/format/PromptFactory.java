@@ -28,7 +28,12 @@ public class PromptFactory {
                         theme, question));
             };
             case DEFINITION -> switch (answerType) {
-                case GRAMMAR -> grammarPrompt(question);
+                case GRAMMAR -> Optional.of(String.format("""
+                                I will give you a phrase related to `%s`.
+                                Check if the phrase has grammatical mistakes.
+                                It is not a mistake if the phrase starts with "How to".
+                                The phrase is `%s`.""".stripIndent().replace("\n", " "),
+                        theme, question));
                 case SHORT -> Optional.of(String.format("""
                                 Provide a single-sentence definition of '%s' in the context of '%s', as short as possible.
                                 Format your answer into Markdown.

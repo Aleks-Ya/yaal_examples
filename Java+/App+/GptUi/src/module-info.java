@@ -8,6 +8,14 @@ module GptUi.main {
     requires com.google.gson;
     requires java.net.http;
     requires org.slf4j;
+    //noinspection Java9RedundantRequiresStatement
+    requires jul.to.slf4j;
+    //noinspection Java9RedundantRequiresStatement
+    requires ch.qos.logback.classic;
+    //noinspection Java9RedundantRequiresStatement
+    requires java.naming;
+    //noinspection Java9RedundantRequiresStatement
+    requires jdk.crypto.ec;
 
     requires flexmark;
     requires flexmark.util.ast;

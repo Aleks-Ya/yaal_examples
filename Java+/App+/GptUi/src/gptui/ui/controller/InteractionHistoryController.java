@@ -12,18 +12,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 
 import javax.inject.Inject;
 import java.util.Objects;
+
+import static java.lang.String.format;
 
 public class InteractionHistoryController extends BaseController {
     @Inject
     private GptStorage storage;
     @FXML
-    public HBox questionHistoryHBox;
-    @FXML
-    public Label interactionHistoryLabel;
+    private Label interactionHistoryLabel;
     @FXML
     private ComboBox<Interaction> interactionHistoryComboBox;
     @FXML
@@ -36,7 +35,10 @@ public class InteractionHistoryController extends BaseController {
         var modelItems = FXCollections.observableArrayList(model.getInteractionHistory());
         var comboBoxItems = interactionHistoryComboBox.getItems();
         if (!Objects.equals(modelItems, comboBoxItems)) {
-            Platform.runLater(() -> interactionHistoryComboBox.setItems(modelItems));
+            Platform.runLater(() -> {
+                interactionHistoryComboBox.setItems(modelItems);
+                setLabel(model);
+            });
         }
         var modelCurrentValue = model.getCurrentInteraction();
         var comboBoxCurrentValue = interactionHistoryComboBox.getSelectionModel().getSelectedItem();
@@ -48,6 +50,15 @@ public class InteractionHistoryController extends BaseController {
             }
         }
         deleteInteractionButton.setDisable(model.getCurrentInteraction() == null);
+    }
+
+    @Override
+    public void stageWasShowed(Model model, EventSource source) {
+        Platform.runLater(() -> setLabel(model));
+    }
+
+    private void setLabel(Model model) {
+        interactionHistoryLabel.setText(format("Question history (%d):", model.getInteractionHistory().size()));
     }
 
     @FXML

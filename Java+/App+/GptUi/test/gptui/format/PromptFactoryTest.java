@@ -33,10 +33,10 @@ class PromptFactoryTest {
     @Test
     void definition() {
         assertThat(factory.getPrompt(DEFINITION, "Theme A", "Question A", GRAMMAR))
-                .contains("I will give you a sentence. " +
-                        "Check if the sentence has grammatical mistakes. " +
-                        "It is not a mistake if the sentence starts with \"How to\". " +
-                        "The sentence is `Question A`.");
+                .contains("I will give you a phrase related to `Theme A`. " +
+                        "Check if the phrase has grammatical mistakes. " +
+                        "It is not a mistake if the phrase starts with \"How to\". " +
+                        "The phrase is `Question A`.");
         assertThat(factory.getPrompt(DEFINITION, "Theme A", "Question A", SHORT))
                 .contains("Provide a single-sentence definition of 'Question A' in the context of 'Theme A', as short as possible. " +
                         "Format your answer into Markdown. ");

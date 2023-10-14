@@ -19,16 +19,16 @@ class HotKeysTest extends BaseGptUiTest {
 
     @Test
     void copyShortAnswerByCtrl1() {
-        verifyWebViewBody(getShortAnswerWebView(), "Short answer HTML 1");
-        verifyThat(getShortAnswerCopyButton().getText(), equalTo("Copy"));
+        verifyWebViewBody(getAnswerShortWebView(), "Short answer HTML 1");
+        verifyThat(getAnswerShortCopyButton().getText(), equalTo("Copy"));
         press(CONTROL, DIGIT1).release(DIGIT1, CONTROL);
         verifyHtmlClipboardContent("Short answer HTML 1");
     }
 
     @Test
     void copyLongAnswerByCtrl2() {
-        verifyWebViewBody(getLongAnswerWebView(), "Long answer HTML 1");
-        verifyThat(getLongAnswerCopyButton().getText(), equalTo("Copy"));
+        verifyWebViewBody(getAnswerLongWebView(), "Long answer HTML 1");
+        verifyThat(getAnswerLongCopyButton().getText(), equalTo("Copy"));
         press(CONTROL, DIGIT2).release(DIGIT2, CONTROL);
         verifyHtmlClipboardContent("Long answer HTML 1");
     }

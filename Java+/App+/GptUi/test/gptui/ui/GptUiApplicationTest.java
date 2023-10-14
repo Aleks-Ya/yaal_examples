@@ -1,14 +1,12 @@
 package gptui.ui;
 
 import org.junit.jupiter.api.Test;
+import org.testfx.util.WaitForAsyncUtils;
+
+import java.util.List;
 
 import static java.time.Duration.ofMillis;
-import static javafx.scene.paint.Color.GREEN;
-import static javafx.scene.paint.Color.WHITE;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.emptyString;
-import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.control.ComboBoxMatchers.*;
+import static javafx.scene.paint.Color.*;
 
 class GptUiApplicationTest extends BaseGptUiTest {
     private static final String THEME_1 = "Theme 1";
@@ -27,47 +25,87 @@ class GptUiApplicationTest extends BaseGptUiTest {
     }
 
     private void initialState() {
-        verifyThat(getInteractionHistoryComboBox(), hasItems(0));
-        verifyThat(getThemeComboBox(), hasItems(0));
-        verifyThat(getQuestionTextArea().getText(), emptyString());
-        verifyWebViewBody(getGrammarAnswerWebView(), "");
-        verifyWebViewBody(getShortAnswerWebView(), "");
-        assertThat(getShortAnswerCircle().getFill()).isEqualTo(WHITE);
-        verifyWebViewBody(getLongAnswerWebView(), "");
-        assertThat(getLongAnswerCircle().getFill()).isEqualTo(WHITE);
+        assertion()
+                .historySize(0)
+                .historyDeleteButtonDisabled(true)
+                .historySelectedItem(null)
+                .historyItems(List.of())
+                .themeSize(0)
+                .themeSelectedItem(null)
+                .themeItems()
+                .questionText("")
+                .modelEditedQuestion(null)
+                .answerGrammarText("")
+                .answerShortText("")
+                .answerLongText("")
+                .answerCircleColors(WHITE, WHITE, WHITE)
+                .assertApp();
     }
 
     private void sendFirstQuestion() {
         clickOn(getThemeComboBox());
         overWrite(THEME_1);
         clickOn(getQuestionTextArea());
-
         overWrite(QUESTION_1);
-        assertThat(getQuestionTextArea().getText()).isEqualTo(QUESTION_1);
-        verifyThat(getThemeComboBox(), hasSelectedItem(THEME_1));
-        verifyThat(getThemeComboBox(), hasItems(0));
+        assertion()
+                .historySize(0)
+                .historyDeleteButtonDisabled(true)
+                .historySelectedItem(null)
+                .historyItems(List.of())
+                .themeSize(0)
+                .themeSelectedItem(THEME_1)
+                .themeItems()
+                .questionText(QUESTION_1)
+                .modelEditedQuestion(QUESTION_1)
+                .answerGrammarText("")
+                .answerShortText("")
+                .answerLongText("")
+                .answerCircleColors(WHITE, WHITE, WHITE)
+                .assertApp();
 
-        gptApi
-                .put("has grammatical mistakes", "Grammar answer 1", ofMillis(500))
-                .put("a short response", "Short answer 1", ofMillis(1000))
-                .put("a detailed response", "Long answer 1", ofMillis(1500));
+        gptApi.clear()
+                .put("has grammatical mistakes", "Grammar answer 1", ofMillis(1000))
+                .put("a short response", "Short answer 1", ofMillis(1500))
+                .put("a detailed response", "Long answer 1", ofMillis(2000));
+
         clickOn(getQuestionSendButton());
-        verifyWebViewBody(getGrammarAnswerWebView(), "");
-        verifyWebViewBody(getShortAnswerWebView(), "");
-        verifyWebViewBody(getLongAnswerWebView(), "");
+        assertion()
+                .historySize(1)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().getFirst())
+                .historyItems(storage.readAllInteractions())
+                .themeSize(1)
+                .themeSelectedItem(THEME_1)
+                .themeItems(THEME_1)
+                .questionText(QUESTION_1)
+                .modelEditedQuestion(QUESTION_1)
+                .answerGrammarText("")
+                .answerShortText("")
+                .answerLongText("")
+                .answerCircleColors(BLUE, BLUE, BLUE)
+                .assertApp();
+
         sleep(2000);
-        verifyWebViewBody(getGrammarAnswerWebView(), EXP_GRAMMAR_HTML_BODY_1);
-        verifyWebViewBody(getShortAnswerWebView(), EXP_SHORT_HTML_BODY_1);
-        verifyWebViewBody(getLongAnswerWebView(), EXP_LONG_HTML_BODY_1);
-        var allInteractions = storage.readAllInteractions();
-        var currentInteraction = allInteractions.get(0);
-        verifyThat(getInteractionHistoryComboBox(), containsExactlyItems(allInteractions.toArray()));
-        verifyThat(getInteractionHistoryComboBox(), hasSelectedItem(currentInteraction));
-        assertThat(getShortAnswerCircle().getFill()).isEqualTo(GREEN);
-        assertThat(getLongAnswerCircle().getFill()).isEqualTo(GREEN);
-        clickOn(getShortAnswerCopyButton());
+        assertion()
+                .historySize(1)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().getFirst())
+                .historyItems(storage.readAllInteractions())
+                .themeSize(1)
+                .themeSelectedItem(THEME_1)
+                .themeItems(THEME_1)
+                .questionText(QUESTION_1)
+                .modelEditedQuestion(QUESTION_1)
+                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_1)
+                .answerShortText(EXP_SHORT_HTML_BODY_1)
+                .answerLongText(EXP_LONG_HTML_BODY_1)
+                .answerCircleColors(GREEN, GREEN, GREEN)
+                .assertApp();
+
+        clickOn(getAnswerShortCopyButton());
         verifyHtmlClipboardContent(EXP_SHORT_HTML_BODY_1);
-        clickOn(getLongAnswerCopyButton());
+
+        clickOn(getAnswerLongCopyButton());
         verifyHtmlClipboardContent(EXP_LONG_HTML_BODY_1);
     }
 
@@ -77,58 +115,110 @@ class GptUiApplicationTest extends BaseGptUiTest {
         clickOn(getQuestionTextArea());
         var question2 = "The question 2";
         overWrite(question2);
-        assertThat(getQuestionTextArea().getText()).isEqualTo(question2);
-        verifyThat(getThemeComboBox(), hasSelectedItem(THEME_2));
-        verifyThat(getThemeComboBox(), containsExactlyItems(THEME_1));
+        assertion()
+                .historySize(1)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().getFirst())
+                .historyItems(storage.readAllInteractions())
+                .themeSize(1)
+                .themeSelectedItem(THEME_2)
+                .themeItems(THEME_1)
+                .themeItems(THEME_1)
+                .questionText(question2)
+                .modelEditedQuestion(question2)
+                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_1)
+                .answerShortText(EXP_SHORT_HTML_BODY_1)
+                .answerLongText(EXP_LONG_HTML_BODY_1)
+                .answerCircleColors(GREEN, GREEN, GREEN)
+                .assertApp();
 
-        gptApi
-                .put("has grammatical mistakes", "Grammar answer 2", ofMillis(500))
-                .put("a short response", "Short answer 2", ofMillis(1000))
-                .put("a detailed response", "Long answer 2", ofMillis(1500));
-        verifyWebViewBody(getGrammarAnswerWebView(), EXP_GRAMMAR_HTML_BODY_1);
-        verifyWebViewBody(getShortAnswerWebView(), EXP_SHORT_HTML_BODY_1);
-        verifyWebViewBody(getLongAnswerWebView(), EXP_LONG_HTML_BODY_1);
+        gptApi.clear()
+                .put("has grammatical mistakes", "Grammar answer 2", ofMillis(1000))
+                .put("a short response", "Short answer 2", ofMillis(1500))
+                .put("a detailed response", "Long answer 2", ofMillis(2000));
         clickOn(getQuestionSendButton());
-        verifyWebViewBody(getGrammarAnswerWebView(), "");
-        verifyWebViewBody(getShortAnswerWebView(), "");
-        verifyWebViewBody(getLongAnswerWebView(), "");
+        WaitForAsyncUtils.waitForFxEvents();
+        assertion()
+                .historySize(2)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().getFirst())
+                .historyItems(storage.readAllInteractions())
+                .themeSize(2)
+                .themeSelectedItem(THEME_2)
+                .themeItems(THEME_2, THEME_1)
+                .questionText(question2)
+                .modelEditedQuestion(question2)
+                .answerGrammarText("")
+                .answerShortText("")
+                .answerLongText("")
+                .answerCircleColors(BLUE, BLUE, BLUE)
+                .assertApp();
+
+
         sleep(2000);
-        verifyWebViewBody(getGrammarAnswerWebView(), "<p>Grammar answer 2</p>\n");
         var expShortHtmlBody2 = "<p>Short answer 2</p>\n";
-        verifyWebViewBody(getShortAnswerWebView(), expShortHtmlBody2);
         var expLongHtmlBody2 = "<p>Long answer 2</p>\n";
-        verifyWebViewBody(getLongAnswerWebView(), expLongHtmlBody2);
-        var allInteractions = storage.readAllInteractions();
-        var currentInteraction = allInteractions.get(0);
-        verifyThat(getInteractionHistoryComboBox(), containsExactlyItems(allInteractions.toArray()));
-        verifyThat(getInteractionHistoryComboBox(), hasSelectedItem(currentInteraction));
-        assertThat(getShortAnswerCircle().getFill()).isEqualTo(GREEN);
-        assertThat(getLongAnswerCircle().getFill()).isEqualTo(GREEN);
-        clickOn(getShortAnswerCopyButton());
+        assertion()
+                .historySize(2)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().getFirst())
+                .historyItems(storage.readAllInteractions())
+                .themeSize(2)
+                .themeSelectedItem(THEME_2)
+                .themeItems(THEME_2, THEME_1)
+                .questionText(question2)
+                .modelEditedQuestion(question2)
+                .answerGrammarText("<p>Grammar answer 2</p>\n")
+                .answerShortText(expShortHtmlBody2)
+                .answerLongText(expLongHtmlBody2)
+                .answerCircleColors(GREEN, GREEN, GREEN)
+                .assertApp();
+
+        clickOn(getAnswerShortCopyButton());
         verifyHtmlClipboardContent(expShortHtmlBody2);
-        clickOn(getLongAnswerCopyButton());
+
+        clickOn(getAnswerLongCopyButton());
         verifyHtmlClipboardContent(expLongHtmlBody2);
     }
 
     private void choosePreviousInteraction() {
-        verifyThat(getThemeComboBox(), hasSelectedItem(THEME_2));
-        verifyThat(getThemeComboBox(), containsExactlyItems(THEME_1, THEME_2));
-        clickOn(getInteractionHistoryComboBox()).clickOn(String.format("%s: %s", THEME_1, QUESTION_1));
-        verifyThat(getThemeComboBox(), hasSelectedItem(THEME_1));
-        verifyThat(getThemeComboBox(), containsExactlyItems(THEME_1, THEME_2));
-        assertThat(getQuestionTextArea().getText()).isEqualTo(QUESTION_1);
-        verifyWebViewBody(getGrammarAnswerWebView(), EXP_GRAMMAR_HTML_BODY_1);
-        verifyWebViewBody(getShortAnswerWebView(), EXP_SHORT_HTML_BODY_1);
-        verifyWebViewBody(getLongAnswerWebView(), EXP_LONG_HTML_BODY_1);
-        var allInteractions = storage.readAllInteractions();
-        var currentInteraction = allInteractions.get(1);
-        verifyThat(getInteractionHistoryComboBox(), containsExactlyItems(allInteractions.toArray()));
-        verifyThat(getInteractionHistoryComboBox(), hasSelectedItem(currentInteraction));
-        assertThat(getShortAnswerCircle().getFill()).isEqualTo(GREEN);
-        assertThat(getLongAnswerCircle().getFill()).isEqualTo(GREEN);
-        clickOn(getShortAnswerCopyButton());
+        assertion()
+                .historySize(2)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().getFirst())
+                .historyItems(storage.readAllInteractions())
+                .themeSize(2)
+                .themeSelectedItem(THEME_2)
+                .themeItems(THEME_2, THEME_1)
+                .questionText("The question 2")
+                .modelEditedQuestion("The question 2")
+                .answerGrammarText("<p>Grammar answer 2</p>\n")
+                .answerShortText("<p>Short answer 2</p>\n")
+                .answerLongText("<p>Long answer 2</p>\n")
+                .answerCircleColors(GREEN, GREEN, GREEN)
+                .assertApp();
+
+        clickOn(getHistoryComboBox()).clickOn(String.format("%s: %s", THEME_1, QUESTION_1));
+        assertion()
+                .historySize(2)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().get(1))
+                .historyItems(storage.readAllInteractions())
+                .themeSize(2)
+                .themeSelectedItem(THEME_1)
+                .themeItems(THEME_2, THEME_1)
+                .questionText(QUESTION_1)
+                .modelEditedQuestion(QUESTION_1)
+                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_1)
+                .answerShortText(EXP_SHORT_HTML_BODY_1)
+                .answerLongText(EXP_LONG_HTML_BODY_1)
+                .answerCircleColors(GREEN, GREEN, GREEN)
+                .assertApp();
+
+        clickOn(getAnswerShortCopyButton());
         verifyHtmlClipboardContent(EXP_SHORT_HTML_BODY_1);
-        clickOn(getLongAnswerCopyButton());
+
+        clickOn(getAnswerLongCopyButton());
         verifyHtmlClipboardContent(EXP_LONG_HTML_BODY_1);
     }
 

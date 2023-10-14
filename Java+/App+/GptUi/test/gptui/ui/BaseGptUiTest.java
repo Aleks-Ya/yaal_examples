@@ -6,6 +6,7 @@ import gptui.gpt.MockGptApi;
 import gptui.storage.GptStorage;
 import gptui.storage.GptStorageFilesystem;
 import gptui.storage.GptStorageImpl;
+import gptui.storage.Interaction;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -35,15 +36,15 @@ abstract class BaseGptUiTest extends ApplicationTest {
         new GptUiApplication(new TestGuiceModule(model, gptApi, storage)).start(stage);
     }
 
-    protected Label getInteractionHistoryLabel() {
+    protected Label getHistoryLabel() {
         return lookup("#interactionHistoryLabel").queryAs(Label.class);
     }
 
-    protected ComboBox<String> getInteractionHistoryComboBox() {
+    protected ComboBox<Interaction> getHistoryComboBox() {
         return lookup("#interactionHistoryComboBox").queryComboBox();
     }
 
-    protected Button getInteractionHistoryDeleteButton() {
+    protected Button getHistoryDeleteButton() {
         return lookup("#deleteInteractionButton").queryButton();
     }
 
@@ -79,55 +80,55 @@ abstract class BaseGptUiTest extends ApplicationTest {
         return lookup("#factButton").queryButton();
     }
 
-    protected Label getGrammarAnswerLabel() {
+    protected Label getAnswerGrammarLabel() {
         return lookup("#grammarAnswer #answerLabel").queryAs(Label.class);
     }
 
-    protected Button getGrammarAnswerCopyButton() {
+    protected Button getAnswerGrammarCopyButton() {
         return lookup("#grammarAnswer #copyButton").queryButton();
     }
 
-    protected WebView getGrammarAnswerWebView() {
+    protected WebView getAnswerGrammarWebView() {
         return lookup("#grammarAnswer #webView").queryAs(WebView.class);
     }
 
-    protected Circle getGrammarAnswerCircle() {
+    protected Circle getAnswerGrammarCircle() {
         return lookup("#grammarAnswer #statusCircle").queryAs(Circle.class);
     }
 
-    protected Label getShortAnswerLabel() {
+    protected Label getAnswerShortLabel() {
         return lookup("#shortAnswer #answerLabel").queryAs(Label.class);
     }
 
-    protected WebView getShortAnswerWebView() {
+    protected WebView getAnswerShortWebView() {
         return lookup("#shortAnswer #webView").queryAs(WebView.class);
     }
 
-    protected Button getShortAnswerCopyButton() {
+    protected Button getAnswerShortCopyButton() {
         return lookup("#shortAnswer #copyButton").queryButton();
     }
 
-    protected Circle getShortAnswerCircle() {
+    protected Circle getAnswerShortCircle() {
         return lookup("#shortAnswer #statusCircle").queryAs(Circle.class);
     }
 
-    protected Label getLongAnswerLabel() {
+    protected Label getAnswerLongLabel() {
         return lookup("#longAnswer #answerLabel").queryAs(Label.class);
     }
 
-    protected WebView getLongAnswerWebView() {
+    protected WebView getAnswerLongWebView() {
         return lookup("#longAnswer #webView").queryAs(WebView.class);
     }
 
-    protected Button getLongAnswerCopyButton() {
+    protected Button getAnswerLongCopyButton() {
         return lookup("#longAnswer #copyButton").queryButton();
     }
 
-    protected Circle getLongAnswerCircle() {
+    protected Circle getAnswerLongCircle() {
         return lookup("#longAnswer #statusCircle").queryAs(Circle.class);
     }
 
-    protected String getWebViewContent(WebView webView) {
+    private String extractWebViewContent(WebView webView) {
         return (String) webView.getEngine().executeScript("document.documentElement.outerHTML");
     }
 
@@ -137,7 +138,7 @@ abstract class BaseGptUiTest extends ApplicationTest {
     }
 
     protected void verifyWebViewBody(WebView webView, String expContent) {
-        interact(() -> assertThat(getWebViewContent(webView))
+        interact(() -> assertThat(extractWebViewContent(webView))
                 .isEqualTo("<html><head></head><body>" + expContent + "</body></html>"));
     }
 
@@ -152,5 +153,9 @@ abstract class BaseGptUiTest extends ApplicationTest {
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    protected WindowAssertion assertion() {
+        return WindowAssertion.builder().app(this);
     }
 }

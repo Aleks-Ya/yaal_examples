@@ -3,18 +3,19 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="rootVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="gptui.ui.controller.GptUiController">
-    <fx:include fx:id="interactionHistory" source="InteractionHistory.fxml" VBox.vgrow="NEVER"/>
-    <Separator prefWidth="200.0" visible="false"/>
-    <fx:include fx:id="theme" source="Theme.fxml" VBox.vgrow="NEVER"/>
-    <Separator prefWidth="200.0" visible="false"/>
-    <fx:include fx:id="question" source="Question.fxml"/>
-    <Separator prefWidth="200.0" visible="false"/>
-    <fx:include fx:id="grammarAnswer" source="Answer.fxml"/>
-    <Separator prefWidth="200.0" visible="false"/>
-    <fx:include fx:id="shortAnswer" source="Answer.fxml" VBox.vgrow="ALWAYS"/>
-    <Separator prefWidth="200.0" visible="false"/>
-    <fx:include fx:id="longAnswer" source="Answer.fxml" VBox.vgrow="ALWAYS"/>
+<!--suppress JavaFxUnresolvedFxIdReference -->
+
+<VBox fx:id="rootVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gptui.ui.controller.GptUiController">
+   <Separator prefWidth="200.0" visible="false" />
+    <fx:include fx:id="interactionHistory" source="InteractionHistory.fxml" VBox.vgrow="NEVER" />
+    <Separator prefWidth="200.0" visible="false" />
+    <fx:include fx:id="theme" source="Theme.fxml" VBox.vgrow="NEVER" />
+    <Separator prefWidth="200.0" visible="false" />
+    <fx:include fx:id="question" source="Question.fxml" />
+    <Separator prefWidth="200.0" visible="false" />
+    <fx:include fx:id="grammarAnswer" maxHeight="70.0" source="Answer.fxml" VBox.vgrow="SOMETIMES" />
+    <Separator prefWidth="200.0" visible="false" />
+    <fx:include fx:id="shortAnswer" source="Answer.fxml" VBox.vgrow="ALWAYS" />
+    <Separator prefWidth="200.0" visible="false" />
+    <fx:include fx:id="longAnswer" source="Answer.fxml" VBox.vgrow="ALWAYS" />
 </VBox>

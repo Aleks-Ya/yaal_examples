@@ -2,8 +2,11 @@
 
 [Source](https://www.thegeekstuff.com/2010/02/unix-less-command-10-tips-for-effective-navigation)
 
+## Commands
+Disable line-wraps: `less -S files.txt`
 
-1. Search Navigation
+## UI commands 
+### Search Navigation
 
 Forward Search 
 -  / – search for a pattern which will take you to the next occurrence.
@@ -20,8 +23,7 @@ Backward Search
 
 Display only the matching lines, not all: &pattern
 
-
-2. Screen Navigation
+### Screen Navigation
 
 Use the following screen navigation commands while viewing large log files.
 -  CTRL+F – forward one window
@@ -29,17 +31,15 @@ Use the following screen navigation commands while viewing large log files.
 -  CTRL+D – forward half window
 -  CTRL+U – backward half window
 
-4.  Other Navigations
+### Other Navigations
 
 The following are other navigation operations that you can use inside the less pager.
 -  G – go to the end of file
 -  g – go to the start of file
 -  q or ZZ – exit the less pager
 
-5. Simulate tail -f inside less pager – Press F
+### Simulate tail -f inside less pager – Press F
 
-
-6. Less Command – Count magic
-
+### Less Command – Count magic
 CTRL+G – show the current file name along with line, byte and percentage statistics.
 
