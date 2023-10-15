@@ -32,7 +32,7 @@ class DeleteInteractionMiddleTest extends BaseGptUiTest {
                 .answerCircleColors(GREEN, GREEN, RED)
                 .assertApp();
 
-        clickOn(getHistoryComboBox()).clickOn(String.format("%s: %s", "Theme 2", "Question 2"));
+        clickOn(getHistoryComboBox()).clickOn(String.format("[Q] %s: %s", "Theme 2", "Question 2"));
         clickOn(getHistoryDeleteButton());
 
         assertion()

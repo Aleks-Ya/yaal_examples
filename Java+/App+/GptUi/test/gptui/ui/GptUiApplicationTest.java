@@ -198,7 +198,7 @@ class GptUiApplicationTest extends BaseGptUiTest {
                 .answerCircleColors(GREEN, GREEN, GREEN)
                 .assertApp();
 
-        clickOn(getHistoryComboBox()).clickOn(String.format("%s: %s", THEME_1, QUESTION_1));
+        clickOn(getHistoryComboBox()).clickOn(String.format("[Q] %s: %s", THEME_1, QUESTION_1));
         assertion()
                 .historySize(2)
                 .historyDeleteButtonDisabled(false)

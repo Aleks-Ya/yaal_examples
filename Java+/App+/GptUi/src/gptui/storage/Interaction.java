@@ -49,6 +49,7 @@ public record Interaction(InteractionId id,
         return withAnswer(newAnswer);
     }
 
+    @SuppressWarnings("unused")
     public Interaction withAnswerDeleted(AnswerType answerType) {
         var map = new HashMap<>(answers);
         map.remove(answerType);
@@ -57,6 +58,16 @@ public record Interaction(InteractionId id,
 
     @Override
     public String toString() {
-        return String.format("%s: %s", theme, question);
+        var typeStr = "";
+        if (type != null) {
+            var typeSymbol = switch (type) {
+                case QUESTION -> "Q";
+                case DEFINITION -> "D";
+                case GRAMMAR -> "G";
+                case FACT -> "F";
+            };
+            typeStr = String.format("[%s] ", typeSymbol);
+        }
+        return String.format("%s%s: %s", typeStr, theme, question);
     }
 }

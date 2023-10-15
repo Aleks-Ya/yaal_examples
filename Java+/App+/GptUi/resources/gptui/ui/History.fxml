@@ -7,12 +7,11 @@
 <?import javafx.scene.layout.HBox?>
 
 <!--suppress JavaFxUnresolvedFxIdReference -->
-<HBox fx:id="historyHBox" fillHeight="false" prefHeight="26.0" xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="gptui.ui.controller.HistoryController">
-    <Label fx:id="historyLabel" text="Question history (42):"/>
-    <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>
-    <ComboBox fx:id="historyComboBox" onAction="#historyComboBoxAction"/>
-    <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>
-    <Button fx:id="historyDeleteButton" mnemonicParsing="false" onAction="#clickHistoryDeleteButton"
-            text="Delete"/>
+
+<HBox fx:id="historyHBox" alignment="CENTER_LEFT" fillHeight="false" prefHeight="26.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gptui.ui.controller.HistoryController">
+    <Label fx:id="historyLabel" text="Question history (42):" />
+    <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+    <ComboBox fx:id="historyComboBox" onAction="#historyComboBoxAction" />
+    <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+    <Button fx:id="historyDeleteButton" mnemonicParsing="false" onAction="#clickHistoryDeleteButton" text="Delete" />
 </HBox>

@@ -33,7 +33,7 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
                 .answerCircleColors(GREEN, GREEN, RED)
                 .assertApp();
 
-        clickOn(getHistoryComboBox()).clickOn("Theme 1: Question 1");
+        clickOn(getHistoryComboBox()).clickOn(String.format("[Q] %s: %s", "Theme 1", "Question 1"));
 
         assertion()
                 .historySize(2)
