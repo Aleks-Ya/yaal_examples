@@ -11,11 +11,11 @@ import java.util.function.Function;
 @Singleton
 public class GptStorageImpl implements GptStorage {
     private final Map<InteractionId, Interaction> interactions = new LinkedHashMap<>();
-    private final GptStorageFilesystem gptStorage;
+    private final GptStorageFilesystem storageFilesystem;
 
-    public GptStorageImpl(GptStorageFilesystem gptStorage) {
-        this.gptStorage = gptStorage;
-        gptStorage.readAllInteractions().forEach(interaction -> interactions.put(interaction.id(), interaction));
+    public GptStorageImpl(GptStorageFilesystem storageFilesystem) {
+        this.storageFilesystem = storageFilesystem;
+        storageFilesystem.readAllInteractions().forEach(interaction -> interactions.put(interaction.id(), interaction));
     }
 
     @Override
@@ -42,7 +42,7 @@ public class GptStorageImpl implements GptStorage {
     @Override
     public synchronized void saveInteraction(Interaction interaction) {
         interactions.put(interaction.id(), interaction);
-        gptStorage.saveInteraction(interaction);
+        storageFilesystem.saveInteraction(interaction);
     }
 
     @Override
@@ -58,8 +58,8 @@ public class GptStorageImpl implements GptStorage {
     }
 
     @Override
-    public void deleteInteraction(InteractionId interactionId) {
-        gptStorage.deleteInteraction(interactionId);
+    public synchronized void deleteInteraction(InteractionId interactionId) {
+        storageFilesystem.deleteInteraction(interactionId);
         interactions.remove(interactionId);
     }
 

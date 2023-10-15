@@ -8,7 +8,7 @@ import java.util.List;
 import static java.time.Duration.ofMillis;
 import static javafx.scene.paint.Color.*;
 
-class GptUiApplicationTest extends BaseGptUiTest {
+class SequentialRequestsTest extends BaseGptUiTest {
     private static final String THEME_1 = "Theme 1";
     private static final String THEME_2 = "Theme 2";
     private static final String QUESTION_1 = "The question 1";
@@ -122,7 +122,6 @@ class GptUiApplicationTest extends BaseGptUiTest {
                 .historyItems(storage.readAllInteractions())
                 .themeSize(1)
                 .themeSelectedItem(THEME_2)
-                .themeItems(THEME_1)
                 .themeItems(THEME_1)
                 .questionText(question2)
                 .modelEditedQuestion(question2)

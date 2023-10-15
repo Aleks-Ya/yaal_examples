@@ -52,7 +52,7 @@ public class GptApiImpl implements GptApi {
         }
         if (response.statusCode() == 200) {
             var responseBody = gson.fromJson(response.body(), GptResponseBody.class);
-            return responseBody.choices().get(0).message().content();
+            return responseBody.choices().getFirst().message().content();
         } else {
             log.error("GPT API error status {}: {}", response.statusCode(), response.body());
             throw new RuntimeException(response.body());

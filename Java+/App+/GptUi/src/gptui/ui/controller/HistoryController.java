@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.Objects;
@@ -19,6 +21,7 @@ import java.util.Objects;
 import static java.lang.String.format;
 
 public class HistoryController extends BaseController {
+    private static final Logger log = LoggerFactory.getLogger(HistoryController.class);
     @Inject
     private GptStorage storage;
     @FXML
@@ -32,6 +35,7 @@ public class HistoryController extends BaseController {
 
     @Override
     public void modelChanged(Model model, EventSource source) {
+        log.trace("modelChanged");
         var modelItems = FXCollections.observableArrayList(model.getHistory());
         var comboBoxItems = historyComboBox.getItems();
         if (!Objects.equals(modelItems, comboBoxItems)) {
@@ -54,18 +58,16 @@ public class HistoryController extends BaseController {
 
     @Override
     public void stageWasShowed(Model model, EventSource source) {
+        log.trace("stageWasShowed");
         Platform.runLater(() -> setLabel(model));
-    }
-
-    private void setLabel(Model model) {
-        historyLabel.setText(format("Question history (%d):", model.getHistory().size()));
     }
 
     @FXML
     void historyComboBoxAction(ActionEvent ignoredEvent) {
+        log.trace("historyComboBoxAction");
         var modelCurrentInteraction = model.getCurrentInteraction();
         var comboBoxCurrentInteraction = historyComboBox.getSelectionModel().getSelectedItem();
-        if (!Objects.equals(modelCurrentInteraction, comboBoxCurrentInteraction) && comboBoxCurrentInteraction != null) {
+        if (comboBoxCurrentInteraction != null && !Objects.equals(modelCurrentInteraction, comboBoxCurrentInteraction)) {
             model.setCurrentInteraction(comboBoxCurrentInteraction);
             model.fireInteractionChosenFromHistory(this);
         }
@@ -73,6 +75,7 @@ public class HistoryController extends BaseController {
 
     @FXML
     void clickHistoryDeleteButton(ActionEvent ignoredEvent) {
+        log.trace("clickHistoryDeleteButton");
         var oldHistory = model.getHistory();
         var oldCurrentInteraction = model.getCurrentInteraction();
         var oldCurrentInteractionIndex = oldHistory.indexOf(oldCurrentInteraction);
@@ -99,6 +102,10 @@ public class HistoryController extends BaseController {
 
         modelChanged(model, this);
         model.fireInteractionChosenFromHistory(this);
+    }
+
+    private void setLabel(Model model) {
+        historyLabel.setText(format("Question history (%d):", model.getHistory().size()));
     }
 }
 

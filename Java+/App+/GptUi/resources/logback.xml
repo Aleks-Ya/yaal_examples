@@ -2,17 +2,18 @@
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>${user.home}/.gpt/console.log</file>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %X{interactionId}%logger{0} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %X{interactionId}%logger{0}%X{answerType} - %msg%n</pattern>
         </encoder>
     </appender>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %X{interactionId}%logger{0} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %X{interactionId}%logger{0}%X{answerType} - %msg%n</pattern>
         </encoder>
     </appender>
     <root level="debug">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </root>
+    <logger name="gptui" level="TRACE"/>
     <logger name="jdk.httpclient.HttpClient" level="WARN"/>
 </configuration>

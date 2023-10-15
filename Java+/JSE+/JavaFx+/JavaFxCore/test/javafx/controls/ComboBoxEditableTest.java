@@ -7,17 +7,9 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import static javafx.scene.input.KeyCode.A;
-import static javafx.scene.input.KeyCode.ALT;
-import static javafx.scene.input.KeyCode.CONTROL;
-import static javafx.scene.input.KeyCode.DOWN;
-import static javafx.scene.input.KeyCode.ENTER;
+import static javafx.scene.input.KeyCode.*;
 import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.control.ComboBoxMatchers.containsExactlyItems;
-import static org.testfx.matcher.control.ComboBoxMatchers.containsExactlyItemsInOrder;
-import static org.testfx.matcher.control.ComboBoxMatchers.containsItems;
-import static org.testfx.matcher.control.ComboBoxMatchers.hasItems;
-import static org.testfx.matcher.control.ComboBoxMatchers.hasSelectedItem;
+import static org.testfx.matcher.control.ComboBoxMatchers.*;
 
 class ComboBoxEditableTest extends ApplicationTest {
     @Override

@@ -46,6 +46,11 @@ class GptStorageTest {
     }
 
     @Test
+    void readNullInteraction() {
+        assertThat(storage.readInteraction(null)).isEmpty();
+    }
+
+    @Test
     void readAllInteractions() {
         assertThat(storage.readAllInteractions()).isEmpty();
         var interaction1 = new Interaction(new InteractionId(1L), QUESTION, "theme1", "question1", null);

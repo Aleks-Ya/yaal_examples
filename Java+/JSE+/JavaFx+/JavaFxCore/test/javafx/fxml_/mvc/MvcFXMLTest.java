@@ -1,15 +1,12 @@
 package javafx.fxml_.mvc;
 
 import javafx.scene.control.TextArea;
-import javafx.scene.input.KeyCode;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import static javafx.scene.input.KeyCode.A;
-import static javafx.scene.input.KeyCode.B;
-import static javafx.scene.input.KeyCode.C;
+import static javafx.scene.input.KeyCode.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;

@@ -3,12 +3,15 @@ package gptui.ui.controller;
 import gptui.format.ThemeHelper;
 import gptui.storage.GptStorage;
 import javafx.fxml.FXML;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 
 import static gptui.storage.AnswerType.*;
 
 public class GptUiController extends BaseController {
+    private static final Logger log = LoggerFactory.getLogger(HistoryController.class);
     @Inject
     private GptStorage storage;
     @Inject
@@ -25,6 +28,7 @@ public class GptUiController extends BaseController {
 
     @Override
     protected void initializeChild() {
+        log.trace("initializeChild");
         grammarAnswerController.setAnswerType(GRAMMAR);
         shortAnswerController.setAnswerType(SHORT);
         longAnswerController.setAnswerType(LONG);

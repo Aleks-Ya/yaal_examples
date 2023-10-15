@@ -9,11 +9,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 import java.util.Optional;
 
 public class ThemeController extends BaseController {
+    private static final Logger log = LoggerFactory.getLogger(ThemeController.class);
     @FXML
     private Label themeLabel;
     @FXML
@@ -26,6 +29,7 @@ public class ThemeController extends BaseController {
 
     @Override
     public void modelChanged(Model model, EventSource source) {
+        log.trace("modelChanged");
         setItems(model);
         var currentModelValue = model.getEditedTheme();
         var currentComboBoxValue = themeComboBox.getValue();
@@ -36,11 +40,13 @@ public class ThemeController extends BaseController {
 
     @Override
     public void stageWasShowed(Model model, EventSource source) {
+        log.trace("stageWasShowed");
         setLabel(model);
     }
 
     @Override
     public void interactionChosenFromHistory(Model model, EventSource source) {
+        log.trace("interactionChosenFromHistory");
         setItems(model);
         var currentComboBoxValue = themeComboBox.getValue();
         Optional.ofNullable(model.getCurrentInteraction())
@@ -51,6 +57,7 @@ public class ThemeController extends BaseController {
 
     @FXML
     void themeComboBoxAction(ActionEvent ignoredEvent) {
+        log.trace("themeComboBoxAction");
         var currentComboBoxValue = themeComboBox.getValue();
         var currentModelValue = model.getEditedTheme();
         if (!Objects.equals(currentComboBoxValue, currentModelValue)) {

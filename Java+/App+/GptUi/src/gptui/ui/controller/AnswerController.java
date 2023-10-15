@@ -1,5 +1,6 @@
 package gptui.ui.controller;
 
+import gptui.Mdc;
 import gptui.format.ClipboardHelper;
 import gptui.storage.AnswerState;
 import gptui.storage.AnswerType;
@@ -14,11 +15,14 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.web.WebView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.Map;
 import java.util.Optional;
 
+import static gptui.storage.AnswerState.NEW;
 import static gptui.storage.AnswerType.*;
 import static javafx.scene.input.KeyCode.DIGIT1;
 import static javafx.scene.input.KeyCode.DIGIT2;
@@ -26,6 +30,7 @@ import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 import static javafx.scene.paint.Color.*;
 
 public class AnswerController extends BaseController {
+    private static final Logger log = LoggerFactory.getLogger(AnswerController.class);
     private static final Map<AnswerType, KeyCodeCombination> keyCodeCombinationMap = Map.of(
             SHORT, new KeyCodeCombination(DIGIT1, CONTROL_DOWN),
             LONG, new KeyCodeCombination(DIGIT2, CONTROL_DOWN));
@@ -51,41 +56,50 @@ public class AnswerController extends BaseController {
 
     @FXML
     void clickCopyButton(ActionEvent ignoredEvent) {
-        copyWebViewContentToClipboard();
+        Mdc.run(answerType, () -> {
+            log.trace("clickCopyButton");
+            copyWebViewContentToClipboard();
+        });
     }
 
     @Override
     public void stageWasShowed(Model model, EventSource source) {
-        answerLabel.setText(labelTextMap.get(answerType));
-        copyButton.setDisable(isCopyButtonDisabledMap.get(answerType));
-        Optional.ofNullable(keyCodeCombinationMap.get(answerType))
-                .ifPresent(keyCodeCombination -> model.addAccelerator(keyCodeCombination, this::copyWebViewContentToClipboard));
+        Mdc.run(answerType, () -> {
+            log.trace("stageWasShowed");
+            answerLabel.setText(labelTextMap.get(answerType));
+            copyButton.setDisable(isCopyButtonDisabledMap.get(answerType));
+            Optional.ofNullable(keyCodeCombinationMap.get(answerType))
+                    .ifPresent(keyCodeCombination -> model.addAccelerator(keyCodeCombination, this::copyWebViewContentToClipboard));
+        });
+    }
+
+    @Override
+    public void modelChanged(Model model, EventSource source) {
+        Mdc.run(answerType, () -> {
+            log.trace("modelChanged later");
+            Optional.ofNullable(model.getCurrentInteraction())
+                    .map(interaction -> interaction.getAnswer(answerType))
+                    .ifPresentOrElse(answerOpt -> {
+                        var html = answerOpt.isPresent() ? answerOpt.get().answerHtml() : "";
+                        var state = answerOpt.isPresent() ? answerOpt.get().answerState() : NEW;
+                        Platform.runLater(() -> Mdc.run(answerType, () -> {
+                            webView.getEngine().loadContent(html);
+                            statusCircle.setFill(answerStateToColor(state));
+                        }));
+                    }, () -> Platform.runLater(() -> Mdc.run(answerType, () -> {
+                        webView.getEngine().loadContent("");
+                        statusCircle.setFill(WHITE);
+                    })));
+        });
+    }
+
+    public void setAnswerType(AnswerType answerType) {
+        this.answerType = answerType;
     }
 
     private void copyWebViewContentToClipboard() {
         var content = (String) webView.getEngine().executeScript("document.documentElement.outerHTML");
         clipboardHelper.putHtmlToClipboard(content);
-    }
-
-    @Override
-    public void modelChanged(Model model, EventSource source) {
-        Optional.ofNullable(model.getCurrentInteraction())
-                .map(interaction -> interaction.getAnswer(answerType))
-                .ifPresentOrElse(answerOpt -> {
-                    var html = answerOpt.isPresent() ? answerOpt.get().answerHtml() : "";
-                    var state = answerOpt.isPresent() ? answerOpt.get().answerState() : AnswerState.NEW;
-                    Platform.runLater(() -> {
-                        webView.getEngine().loadContent(html);
-                        statusCircle.setFill(answerStateToColor(state));
-                    });
-                }, () -> Platform.runLater(() -> {
-                    webView.getEngine().loadContent("");
-                    statusCircle.setFill(WHITE);
-                }));
-    }
-
-    public void setAnswerType(AnswerType answerType) {
-        this.answerType = answerType;
     }
 
     private Color answerStateToColor(AnswerState answerState) {

@@ -35,7 +35,7 @@ import static javafx.scene.input.KeyEvent.KEY_PRESSED;
 public class QuestionController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(QuestionController.class);
     @Inject
-    private GptStorage gptStorage;
+    private GptStorage storage;
     @Inject
     private PromptFactory promptFactory;
     @Inject
@@ -94,7 +94,7 @@ public class QuestionController extends BaseController {
     private void sendQuestion(InteractionType interactionType) {
         var theme = model.getEditedTheme();
         var question = model.getEditedQuestion();
-        var interactionId = gptStorage.newInteractionId();
+        var interactionId = storage.newInteractionId();
         Mdc.run(interactionId, () -> {
             log.info("Sending question: theme=\"{}\", question=\"{}\"", theme, question);
             updateInteraction(interactionId, interaction -> interaction
@@ -143,18 +143,9 @@ public class QuestionController extends BaseController {
         });
     }
 
-    private synchronized void updateInteraction(InteractionId interactionId, Function<Interaction, Interaction> update) {
-        gptStorage.updateInteraction(interactionId, update);
-        var currentInteraction = gptStorage.readInteraction(interactionId).orElseThrow();
-        var history = gptStorage.readAllInteractions();
-        model.setHistory(history);
-        model.setCurrentInteraction(currentInteraction);
-        model.setThemeList(themeHelper.interactionsToThemeList(history));
-        model.fireModelChanged(this);
-    }
-
     @Override
     public void interactionChosenFromHistory(Model model, EventSource source) {
+        log.trace("interactionChosenFromHistory");
         Optional.ofNullable(model.getCurrentInteraction())
                 .map(Interaction::question)
                 .filter(question -> !question.equals(questionTextArea.getText()))
@@ -166,6 +157,7 @@ public class QuestionController extends BaseController {
 
     @Override
     public void stageWasShowed(Model model, EventSource source) {
+        log.trace("stageWasShowed");
         model.addAccelerator(new KeyCodeCombination(V, CONTROL_DOWN, ALT_DOWN), () -> {
             log.debug("pasteQuestionFromClipboardAndFocus");
             var question = clipboardHelper.getTextFromClipboard();
@@ -178,6 +170,16 @@ public class QuestionController extends BaseController {
         model.addAccelerator(new KeyCodeCombination(D, CONTROL_DOWN), () -> sendQuestion(DEFINITION));
         model.addAccelerator(new KeyCodeCombination(G, CONTROL_DOWN), () -> sendQuestion(InteractionType.GRAMMAR));
         model.addAccelerator(new KeyCodeCombination(F, CONTROL_DOWN), () -> sendQuestion(FACT));
+    }
+
+    private synchronized void updateInteraction(InteractionId interactionId, Function<Interaction, Interaction> update) {
+        storage.updateInteraction(interactionId, update);
+        var currentInteraction = storage.readInteraction(interactionId).orElseThrow();
+        var history = storage.readAllInteractions();
+        model.setHistory(history);
+        model.setCurrentInteraction(currentInteraction);
+        model.setThemeList(themeHelper.interactionsToThemeList(history));
+        model.fireModelChanged(this);
     }
 }
 

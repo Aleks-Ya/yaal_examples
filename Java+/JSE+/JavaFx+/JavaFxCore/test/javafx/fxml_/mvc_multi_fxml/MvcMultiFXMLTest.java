@@ -5,12 +5,8 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import static javafx.fxml_.mvc_multi_fxml.Brand.AUDI;
-import static javafx.fxml_.mvc_multi_fxml.Brand.BMW;
-import static javafx.fxml_.mvc_multi_fxml.Brand.MERCEDES;
-import static javafx.scene.input.KeyCode.A;
-import static javafx.scene.input.KeyCode.B;
-import static javafx.scene.input.KeyCode.C;
+import static javafx.fxml_.mvc_multi_fxml.Brand.*;
+import static javafx.scene.input.KeyCode.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MvcMultiFXMLTest extends ApplicationTest {
