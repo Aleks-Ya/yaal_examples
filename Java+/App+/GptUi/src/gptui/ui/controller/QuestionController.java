@@ -146,10 +146,10 @@ public class QuestionController extends BaseController {
     private synchronized void updateInteraction(InteractionId interactionId, Function<Interaction, Interaction> update) {
         gptStorage.updateInteraction(interactionId, update);
         var currentInteraction = gptStorage.readInteraction(interactionId).orElseThrow();
-        var interactionHistory = gptStorage.readAllInteractions();
-        model.setInteractionHistory(interactionHistory);
+        var history = gptStorage.readAllInteractions();
+        model.setHistory(history);
         model.setCurrentInteraction(currentInteraction);
-        model.setThemeList(themeHelper.interactionsToThemeList(interactionHistory));
+        model.setThemeList(themeHelper.interactionsToThemeList(history));
         model.fireModelChanged(this);
     }
 

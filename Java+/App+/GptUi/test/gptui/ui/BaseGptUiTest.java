@@ -37,15 +37,15 @@ abstract class BaseGptUiTest extends ApplicationTest {
     }
 
     protected Label getHistoryLabel() {
-        return lookup("#interactionHistoryLabel").queryAs(Label.class);
+        return lookup("#historyLabel").queryAs(Label.class);
     }
 
     protected ComboBox<Interaction> getHistoryComboBox() {
-        return lookup("#interactionHistoryComboBox").queryComboBox();
+        return lookup("#historyComboBox").queryComboBox();
     }
 
     protected Button getHistoryDeleteButton() {
-        return lookup("#deleteInteractionButton").queryButton();
+        return lookup("#historyDeleteButton").queryButton();
     }
 
     protected Label getThemeLabel() {

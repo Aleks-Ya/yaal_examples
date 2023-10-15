@@ -45,28 +45,28 @@ class HotKeysTest extends BaseGptUiTest {
     @Test
     void sendQuestionByCtrlQ() {
         press(CONTROL, Q).release(Q, CONTROL);
-        assertThat(model.getInteractionHistory()).hasSize(2)
+        assertThat(model.getHistory()).hasSize(2)
                 .element(0).extracting(Interaction::type).isEqualTo(QUESTION);
     }
 
     @Test
     void sendDefinitionByCtrlD() {
         press(CONTROL, D).release(D, CONTROL);
-        assertThat(model.getInteractionHistory()).hasSize(2)
+        assertThat(model.getHistory()).hasSize(2)
                 .element(0).extracting(Interaction::type).isEqualTo(DEFINITION);
     }
 
     @Test
     void sendGrammarByCtrlG() {
         press(CONTROL, G).release(G, CONTROL);
-        assertThat(model.getInteractionHistory()).hasSize(2)
+        assertThat(model.getHistory()).hasSize(2)
                 .element(0).extracting(Interaction::type).isEqualTo(GRAMMAR);
     }
 
     @Test
     void sendFactByCtrlF() {
         press(CONTROL, F).release(F, CONTROL);
-        assertThat(model.getInteractionHistory()).hasSize(2)
+        assertThat(model.getHistory()).hasSize(2)
                 .element(0).extracting(Interaction::type).isEqualTo(FACT);
     }
 }

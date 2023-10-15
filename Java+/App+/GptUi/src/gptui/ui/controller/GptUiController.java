@@ -28,11 +28,11 @@ public class GptUiController extends BaseController {
         grammarAnswerController.setAnswerType(GRAMMAR);
         shortAnswerController.setAnswerType(SHORT);
         longAnswerController.setAnswerType(LONG);
-        var interactionHistory = storage.readAllInteractions();
-        var themeList = themeHelper.interactionsToThemeList(interactionHistory);
-        model.setInteractionHistory(interactionHistory);
+        var history = storage.readAllInteractions();
+        var themeList = themeHelper.interactionsToThemeList(history);
+        model.setHistory(history);
         model.setThemeList(themeList);
-        model.setCurrentInteraction(!interactionHistory.isEmpty() ? interactionHistory.get(0) : null);
+        model.setCurrentInteraction(!history.isEmpty() ? history.get(0) : null);
         model.setCurrentTheme(!themeList.isEmpty() ? themeList.get(0) : null);
         model.fireInteractionChosenFromHistory(this);
     }

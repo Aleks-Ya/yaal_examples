@@ -120,7 +120,7 @@ class WindowAssertion {
         assertThat(app.getHistoryComboBox().getSelectionModel().getSelectedItem()).isEqualTo(historySelectedItem);
         assertThat(app.getHistoryComboBox().getItems()).containsExactlyElementsOf(historyItems);
         assertThat(app.model.getCurrentInteraction()).isEqualTo(historySelectedItem);
-        assertThat(app.model.getInteractionHistory()).isEqualTo(historyItems);
+        assertThat(app.model.getHistory()).isEqualTo(historyItems);
 
         verifyThat(app.getThemeLabel(), hasText("Theme (" + themeItems.size() + "):"));
         verifyThat(app.getThemeComboBox(), hasItems(themeSize));

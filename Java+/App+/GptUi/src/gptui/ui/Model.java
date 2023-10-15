@@ -16,7 +16,7 @@ import java.util.Set;
 public class Model {
     private static final Logger log = LoggerFactory.getLogger(Model.class);
     private final Set<ModelListener> listeners = new HashSet<>();
-    private List<Interaction> interactionHistory = new ArrayList<>();
+    private List<Interaction> history = new ArrayList<>();
     private Interaction currentInteraction;
     private List<String> themeList;
     private String currentTheme;
@@ -57,12 +57,12 @@ public class Model {
         return listeners.stream().filter(listener -> listener == source).toList();
     }
 
-    public List<Interaction> getInteractionHistory() {
-        return interactionHistory;
+    public List<Interaction> getHistory() {
+        return history;
     }
 
-    public void setInteractionHistory(List<Interaction> interactionHistory) {
-        this.interactionHistory = interactionHistory;
+    public void setHistory(List<Interaction> history) {
+        this.history = history;
     }
 
     public List<String> getThemeList() {
