@@ -3,7 +3,7 @@ package log4j2.java;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class AutomaticConfiguration {
+public class JavaAutomaticConfigMain {
     private static final Logger LOG = LogManager.getLogger();
 
     public static void main(String[] args) {

@@ -68,8 +68,24 @@ Submit:
            --deploy-mode cluster \
            --conf "spark.eventLog.enabled=true" \
            --conf "spark.eventLog.dir=file:///shared/spark-events" \
+           --conf "spark.driver.extraJavaOptions=-Dlogger.level.log.executor=TRACE" \
+           --conf "spark.executor.extraJavaOptions=-Dlogger.level.log.executor=TRACE" \
            file:///shared/spark3corestandalone.jar
            ```
+   2. Log from UDF
+      1. Local mode (from IDE): run main class `log.udf.UdfLogLocalModeApp`
+      2. Cluster mode:
+        ```
+        spark-submit \
+        --class log.udf.UdfLogClientOrClusterModeSubmitApp \
+        --master spark://spark-standalone-cluster-master:7077 \
+        --deploy-mode cluster \
+        --conf "spark.eventLog.enabled=true" \
+        --conf "spark.eventLog.dir=file:///shared/spark-events" \
+        --conf "spark.driver.extraJavaOptions=-Dlogger.level.log.udf=TRACE" \
+        --conf "spark.executor.extraJavaOptions=-Dlogger.level.log.udf=TRACE" \
+        file:///shared/spark3corestandalone.jar
+        ```
 8. Run "Six Examples"
     1. Build: `./build_jar.sh`
     2. Run in cluster mode: `./src/main/scala/app/sixexercises/submit_cluster_mode.sh app.sixexercises.WarmUp1App`

@@ -17,7 +17,7 @@ class LogPropertiesFileConfigTest {
             var log = LogManager.getLogger(LogPropertiesFileConfigTest.class);
             var message = "abc";
             log.error(message);
-            assertThat(out.toString()).isEqualTo("FROM PROPERTIES FILE CONFIG: abc\n");
+            assertThat(out.toString()).isEqualTo("DEFAULT PATTERN: abc\n");
         }
     }
 }

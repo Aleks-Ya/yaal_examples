@@ -1,4 +1,4 @@
-package log4j.core;
+package log4j2.core;
 
 import org.apache.logging.log4j.LogManager;
 import util.InputStreamUtil;
