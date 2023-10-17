@@ -9,6 +9,7 @@ Upgrade all installed packages:
 
 ## Commands
 Help: `pip -h`
+Help about a command: `pip search -h`
 Version: `pip --version`
 Downgrade package to older version: `pip install 'pyspark==2.1.2' --force-reinstall`
 Install dependencies from requirements.txt: `pip install -r requirements.txt`

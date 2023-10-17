@@ -2,7 +2,9 @@
 
 Docs: https://learn.microsoft.com/en-us/azure/databricks/dev-tools/cli/
 
-Install: `pip install databricks-cli`
+## Install
+Latest version: `brew tap databricks/tap && brew install databricks`
+Outdated version: `pip install databricks-cli`
 
 ## Commands
 ### Info
