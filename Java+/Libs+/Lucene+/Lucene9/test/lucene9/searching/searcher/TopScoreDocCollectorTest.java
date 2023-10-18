@@ -20,17 +20,16 @@ class TopScoreDocCollectorTest {
         var fieldName = "text";
         var doc1 = newDoc(fieldName, "A river flows to a sea.");
         var doc2 = newDoc(fieldName, "A river flows from a mountain.");
-        var assistant = IndexAssistant.create(doc1, doc2);
-        try (var directory = assistant.getDirectory()) {
-            try (var reader = DirectoryReader.open(directory)) {
-                var searcher = new IndexSearcher(reader);
-                var query = new TermQuery(new Term(fieldName, "sea"));
-                var collector = TopScoreDocCollector.create(10, 100);
-                searcher.search(query, collector);
-                var topDocs = collector.topDocs();
-                var actDoc = topDocsToDocuments(topDocs, searcher);
-                assertThat(actDoc).isNotEmpty().contains(doc1).doesNotContain(doc2);
-            }
+        try (var assistant = IndexAssistant.create(doc1, doc2);
+             var directory = assistant.getDirectory();
+             var reader = DirectoryReader.open(directory)) {
+            var searcher = new IndexSearcher(reader);
+            var query = new TermQuery(new Term(fieldName, "sea"));
+            var collector = TopScoreDocCollector.create(10, 100);
+            searcher.search(query, collector);
+            var topDocs = collector.topDocs();
+            var actDoc = topDocsToDocuments(topDocs, searcher);
+            assertThat(actDoc).isNotEmpty().contains(doc1).doesNotContain(doc2);
         }
     }
 }

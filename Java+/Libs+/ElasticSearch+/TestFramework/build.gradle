@@ -1,7 +1,0 @@
-dependencies {
-    testImplementation "org.elasticsearch.test:framework:$elasticSearchVersion", log4j2CoreDep,
-            "org.junit.vintage:junit-vintage-engine:$junit5Version"
-}
-test {
-    systemProperty "tests.security.manager", "false"
-}

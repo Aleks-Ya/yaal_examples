@@ -13,6 +13,7 @@
 9. Add auto-completion for the Theme combo box
 10. Search for a definition in Wikipedia
 11. Add a filter (search) field for History
+12. Replace Ctrl-XXX hotkeys with Alt-XXX
 
 ## Install on Ubuntu
 

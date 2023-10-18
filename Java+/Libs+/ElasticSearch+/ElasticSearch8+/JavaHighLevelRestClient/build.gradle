@@ -1,0 +1,3 @@
+dependencies {
+    implementation "co.elastic.clients:elasticsearch-java:$elasticSearch8Version", log4j2CoreDep
+}

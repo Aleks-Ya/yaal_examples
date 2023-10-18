@@ -21,20 +21,19 @@ class BooleanQueryTest {
         var fieldName = "fieldname";
         var doc1 = newDoc(fieldName, "A river flows to a sea.");
         var doc2 = newDoc(fieldName, "A river flows to an ocean.");
-        try (var assistant = IndexAssistant.create(doc1, doc2)) {
-            var directory = assistant.getDirectory();
-            try (var reader = DirectoryReader.open(directory)) {
-                var searcher = new IndexSearcher(reader);
-                var query1 = new TermQuery(new Term(fieldName, "river"));
-                var query2 = new TermQuery(new Term(fieldName, "sea"));
-                var query = new BooleanQuery.Builder()
-                        .add(query1, BooleanClause.Occur.MUST)
-                        .add(query2, BooleanClause.Occur.MUST)
-                        .build();
-                var topDocs = searcher.search(query, 1);
-                var actDoc = topDocsToDocuments(topDocs, searcher);
-                TopDocsAssert.assertThat(actDoc).isNotEmpty().contains(doc1).doesNotContain(doc2);
-            }
+        try (var assistant = IndexAssistant.create(doc1, doc2);
+             var directory = assistant.getDirectory();
+             var reader = DirectoryReader.open(directory)) {
+            var searcher = new IndexSearcher(reader);
+            var query1 = new TermQuery(new Term(fieldName, "river"));
+            var query2 = new TermQuery(new Term(fieldName, "sea"));
+            var query = new BooleanQuery.Builder()
+                    .add(query1, BooleanClause.Occur.MUST)
+                    .add(query2, BooleanClause.Occur.MUST)
+                    .build();
+            var topDocs = searcher.search(query, 1);
+            var actDoc = topDocsToDocuments(topDocs, searcher);
+            TopDocsAssert.assertThat(actDoc).isNotEmpty().contains(doc1).doesNotContain(doc2);
         }
     }
 }

@@ -8,6 +8,9 @@ import static gptui.storage.InteractionType.FACT;
 import static gptui.storage.InteractionType.GRAMMAR;
 import static gptui.storage.InteractionType.QUESTION;
 import static gptui.ui.TestingData.INTERACTION_1;
+import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_QUESTION;
+import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
 import static javafx.scene.input.KeyCode.ALT;
 import static javafx.scene.input.KeyCode.CONTROL;
 import static javafx.scene.input.KeyCode.D;
@@ -29,24 +32,24 @@ class HotKeysTest extends BaseGptUiTest {
 
     @Test
     void copyShortAnswerByCtrl1() {
-        verifyWebViewBody(getAnswerShortWebView(), "Short answer HTML 1");
+        verifyWebViewBody(getAnswerShortWebView(), INTERACTION_1_SHORT_HTML);
         verifyThat(getAnswerShortCopyButton().getText(), equalTo("Copy"));
         press(CONTROL, DIGIT1).release(DIGIT1, CONTROL);
-        verifyHtmlClipboardContent("Short answer HTML 1");
+        verifyHtmlClipboardContent(INTERACTION_1_SHORT_HTML);
     }
 
     @Test
     void copyLongAnswerByCtrl2() {
-        verifyWebViewBody(getAnswerLongWebView(), "Long answer HTML 1");
+        verifyWebViewBody(getAnswerLongWebView(), INTERACTION_1_LONG_HTML);
         verifyThat(getAnswerLongCopyButton().getText(), equalTo("Copy"));
         press(CONTROL, DIGIT2).release(DIGIT2, CONTROL);
-        verifyHtmlClipboardContent("Long answer HTML 1");
+        verifyHtmlClipboardContent(INTERACTION_1_LONG_HTML);
     }
 
     @Test
     void insertQuestionFromClipboardByCtrlAltV() {
         var clipboardHelper = new ClipboardHelper();
-        assertThat(getQuestionTextArea().getText()).isEqualTo("Question 1");
+        assertThat(getQuestionTextArea().getText()).isEqualTo(INTERACTION_1_QUESTION);
         executeSyncInFxThread(() -> clipboardHelper.putHtmlToClipboard("From clipboard"));
         press(CONTROL, ALT, V).release(V, ALT, CONTROL);
         assertThat(getQuestionTextArea().getText()).isEqualTo("From clipboard");

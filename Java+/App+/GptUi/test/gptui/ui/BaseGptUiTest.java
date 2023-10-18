@@ -162,4 +162,8 @@ abstract class BaseGptUiTest extends ApplicationTest {
     protected WindowAssertion assertion() {
         return WindowAssertion.builder().app(this);
     }
+
+    protected static String wrapExpectedWebViewContent(String text) {
+        return "<p>" + text + "</p>\n";
+    }
 }

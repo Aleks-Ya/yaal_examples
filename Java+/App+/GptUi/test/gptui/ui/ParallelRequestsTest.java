@@ -5,19 +5,25 @@ import org.testfx.util.WaitForAsyncUtils;
 
 import java.util.List;
 
+import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_QUESTION;
+import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_THEME;
+import static gptui.ui.TestingData.INTERACTION_2_GRAMMAR_HTML;
+import static gptui.ui.TestingData.INTERACTION_2_LONG_HTML;
+import static gptui.ui.TestingData.INTERACTION_2_QUESTION;
+import static gptui.ui.TestingData.INTERACTION_2_SHORT_HTML;
+import static gptui.ui.TestingData.INTERACTION_2_THEME;
 import static java.time.Duration.ofMillis;
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.WHITE;
 
 class ParallelRequestsTest extends BaseGptUiTest {
-    private static final String THEME_1 = "Theme 1";
-    private static final String THEME_2 = "Theme 2";
-    private static final String QUESTION_1 = "The question 1";
-    private static final String QUESTION_2 = "The question 2";
-    private static final String EXP_GRAMMAR_HTML_BODY_2 = "<p>Grammar answer 2</p>\n";
-    private static final String EXP_SHORT_HTML_BODY_2 = "<p>Short answer 2</p>\n";
-    private static final String EXP_LONG_HTML_BODY_2 = "<p>Long answer 2</p>\n";
+    private static final String EXP_GRAMMAR_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_GRAMMAR_HTML);
+    private static final String EXP_SHORT_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_SHORT_HTML);
+    private static final String EXP_LONG_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_LONG_HTML);
 
     @Test
     void shouldSendQuestion() {
@@ -47,19 +53,19 @@ class ParallelRequestsTest extends BaseGptUiTest {
 
     private void sendFirstQuestion() {
         clickOn(getThemeComboBox());
-        overWrite(THEME_1);
+        overWrite(INTERACTION_1_THEME);
         clickOn(getQuestionTextArea());
-        overWrite(QUESTION_1);
+        overWrite(INTERACTION_1_QUESTION);
         assertion()
                 .historySize(0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(null)
                 .historyItems(List.of())
                 .themeSize(0)
-                .themeSelectedItem(THEME_1)
+                .themeSelectedItem(INTERACTION_1_THEME)
                 .themeItems()
-                .questionText(QUESTION_1)
-                .modelEditedQuestion(QUESTION_1)
+                .questionText(INTERACTION_1_QUESTION)
+                .modelEditedQuestion(INTERACTION_1_QUESTION)
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
@@ -67,9 +73,9 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .assertApp();
 
         gptApi.clear()
-                .putGrammarResponse("Grammar answer 1", ofMillis(6000))
-                .putShortResponse("Short answer 1", ofMillis(6500))
-                .putLongResponse("Long answer 1", ofMillis(7000));
+                .putGrammarResponse(INTERACTION_1_GRAMMAR_HTML, ofMillis(6000))
+                .putShortResponse(INTERACTION_1_SHORT_HTML, ofMillis(6500))
+                .putLongResponse(INTERACTION_1_LONG_HTML, ofMillis(7000));
 
         clickOn(getQuestionSendButton());
         assertion()
@@ -78,10 +84,10 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
                 .themeSize(1)
-                .themeSelectedItem(THEME_1)
-                .themeItems(THEME_1)
-                .questionText(QUESTION_1)
-                .modelEditedQuestion(QUESTION_1)
+                .themeSelectedItem(INTERACTION_1_THEME)
+                .themeItems(INTERACTION_1_THEME)
+                .questionText(INTERACTION_1_QUESTION)
+                .modelEditedQuestion(INTERACTION_1_QUESTION)
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
@@ -91,19 +97,19 @@ class ParallelRequestsTest extends BaseGptUiTest {
 
     private void sendSecondQuestion() {
         clickOn(getThemeComboBox());
-        overWrite(THEME_2);
+        overWrite(INTERACTION_2_THEME);
         clickOn(getQuestionTextArea());
-        overWrite(QUESTION_2);
+        overWrite(INTERACTION_2_QUESTION);
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
                 .themeSize(1)
-                .themeSelectedItem(THEME_2)
-                .themeItems(THEME_1)
-                .questionText(QUESTION_2)
-                .modelEditedQuestion(QUESTION_2)
+                .themeSelectedItem(INTERACTION_2_THEME)
+                .themeItems(INTERACTION_1_THEME)
+                .questionText(INTERACTION_2_QUESTION)
+                .modelEditedQuestion(INTERACTION_2_QUESTION)
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
@@ -111,9 +117,9 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .assertApp();
 
         gptApi.clear()
-                .putGrammarResponse("Grammar answer 2", ofMillis(1000))
-                .putShortResponse("Short answer 2", ofMillis(1500))
-                .putLongResponse("Long answer 2", ofMillis(2000));
+                .putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ofMillis(1000))
+                .putShortResponse(INTERACTION_2_SHORT_HTML, ofMillis(1500))
+                .putLongResponse(INTERACTION_2_LONG_HTML, ofMillis(2000));
         clickOn(getQuestionSendButton());
         sleep(500);
         WaitForAsyncUtils.waitForFxEvents();
@@ -123,10 +129,10 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
                 .themeSize(2)
-                .themeSelectedItem(THEME_2)
-                .themeItems(THEME_2, THEME_1)
-                .questionText(QUESTION_2)
-                .modelEditedQuestion(QUESTION_2)
+                .themeSelectedItem(INTERACTION_2_THEME)
+                .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
+                .questionText(INTERACTION_2_QUESTION)
+                .modelEditedQuestion(INTERACTION_2_QUESTION)
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
@@ -141,10 +147,10 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
                 .themeSize(2)
-                .themeSelectedItem(THEME_2)
-                .themeItems(THEME_2, THEME_1)
-                .questionText(QUESTION_2)
-                .modelEditedQuestion(QUESTION_2)
+                .themeSelectedItem(INTERACTION_2_THEME)
+                .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
+                .questionText(INTERACTION_2_QUESTION)
+                .modelEditedQuestion(INTERACTION_2_QUESTION)
                 .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
                 .answerShortText(EXP_SHORT_HTML_BODY_2)
                 .answerLongText(EXP_LONG_HTML_BODY_2)
@@ -160,10 +166,10 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
                 .themeSize(2)
-                .themeSelectedItem(THEME_2)
-                .themeItems(THEME_2, THEME_1)
-                .questionText(QUESTION_2)
-                .modelEditedQuestion(QUESTION_2)
+                .themeSelectedItem(INTERACTION_2_THEME)
+                .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
+                .questionText(INTERACTION_2_QUESTION)
+                .modelEditedQuestion(INTERACTION_2_QUESTION)
                 .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
                 .answerShortText(EXP_SHORT_HTML_BODY_2)
                 .answerLongText(EXP_LONG_HTML_BODY_2)

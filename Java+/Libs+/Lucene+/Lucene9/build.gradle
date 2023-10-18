@@ -1,6 +1,7 @@
 dependencies {
     implementation "org.apache.lucene:lucene-core:$lucene9Version",
             "org.apache.lucene:lucene-analysis-common:$lucene9Version",
-            "org.apache.lucene:lucene-suggest:$lucene9Version"
+            "org.apache.lucene:lucene-suggest:$lucene9Version",
+            "org.apache.lucene:lucene-queryparser:$lucene9Version"
     testImplementation "org.apache.lucene:lucene-test-framework:$lucene9Version"
 }

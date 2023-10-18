@@ -23,7 +23,7 @@ class StandardAnalyzerTest {
         var doc1 = new Document();
         doc1.add(new TextField(fieldName, "John bought a pen.", Field.Store.YES));
         var doc2 = new Document();
-        doc1.add(new TextField(fieldName, "Mary broke the pen.", Field.Store.YES));
+        doc2.add(new TextField(fieldName, "Mary broke the pen.", Field.Store.YES));
 
         try (var directory = new ByteBuffersDirectory();
              var analyzer = new StandardAnalyzer()) {
@@ -45,7 +45,7 @@ class StandardAnalyzerTest {
         var doc1 = new Document();
         doc1.add(new TextField(fieldName, "John bought a pen.", Field.Store.YES));
         var doc2 = new Document();
-        doc1.add(new TextField(fieldName, "Mary broke the pen.", Field.Store.YES));
+        doc2.add(new TextField(fieldName, "Mary broke the pen.", Field.Store.YES));
 
         try (var directory = new ByteBuffersDirectory();
              var analyzer = new StandardAnalyzer(englishStopWords)) {

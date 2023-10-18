@@ -1,0 +1,4 @@
+dependencies {
+    implementation "org.elasticsearch.client:elasticsearch-rest-high-level-client:$elasticSearch7Version",
+            log4j2CoreDep
+}

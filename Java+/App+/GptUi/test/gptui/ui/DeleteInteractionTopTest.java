@@ -3,7 +3,17 @@ package gptui.ui;
 import org.junit.jupiter.api.Test;
 
 import static gptui.ui.TestingData.INTERACTION_1;
+import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_QUESTION;
+import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_THEME;
 import static gptui.ui.TestingData.INTERACTION_2;
+import static gptui.ui.TestingData.INTERACTION_2_GRAMMAR_HTML;
+import static gptui.ui.TestingData.INTERACTION_2_LONG_HTML;
+import static gptui.ui.TestingData.INTERACTION_2_QUESTION;
+import static gptui.ui.TestingData.INTERACTION_2_SHORT_HTML;
+import static gptui.ui.TestingData.INTERACTION_2_THEME;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 
@@ -22,13 +32,13 @@ class DeleteInteractionTopTest extends BaseGptUiTest {
                 .historySelectedItem(INTERACTION_2)
                 .historyItems(INTERACTION_2, INTERACTION_1)
                 .themeSize(2)
-                .themeSelectedItem("Theme 2")
-                .themeItems("Theme 2", "Theme 1")
-                .questionText("Question 2")
-                .modelEditedQuestion("Question 2")
-                .answerGrammarText("Grammar answer HTML 2")
-                .answerShortText("Short answer HTML 2")
-                .answerLongText("Long answer HTML 2")
+                .themeSelectedItem(INTERACTION_2_THEME)
+                .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
+                .questionText(INTERACTION_2_QUESTION)
+                .modelEditedQuestion(INTERACTION_2_QUESTION)
+                .answerGrammarText(INTERACTION_2_GRAMMAR_HTML)
+                .answerShortText(INTERACTION_2_SHORT_HTML)
+                .answerLongText(INTERACTION_2_LONG_HTML)
                 .answerCircleColors(GREEN, GREEN, RED)
                 .assertApp();
 
@@ -40,13 +50,13 @@ class DeleteInteractionTopTest extends BaseGptUiTest {
                 .historySelectedItem(INTERACTION_1)
                 .historyItems(INTERACTION_1)
                 .themeSize(1)
-                .themeSelectedItem("Theme 1")
-                .themeItems("Theme 1")
-                .questionText("Question 1")
-                .modelEditedQuestion("Question 1")
-                .answerGrammarText("Grammar answer HTML 1")
-                .answerShortText("Short answer HTML 1")
-                .answerLongText("Long answer HTML 1")
+                .themeSelectedItem(INTERACTION_1_THEME)
+                .themeItems(INTERACTION_1_THEME)
+                .questionText(INTERACTION_1_QUESTION)
+                .modelEditedQuestion(INTERACTION_1_QUESTION)
+                .answerGrammarText(INTERACTION_1_GRAMMAR_HTML)
+                .answerShortText(INTERACTION_1_SHORT_HTML)
+                .answerLongText(INTERACTION_1_LONG_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN)
                 .assertApp();
     }

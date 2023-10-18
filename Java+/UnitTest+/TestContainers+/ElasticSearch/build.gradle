@@ -1,4 +1,4 @@
 dependencies {
-    implementation "org.elasticsearch.client:elasticsearch-rest-client:$elasticSearchVersion"
+    implementation "org.elasticsearch.client:elasticsearch-rest-client:$elasticSearch8Version"
     testImplementation "org.testcontainers:elasticsearch:$testContainersVersion"
 }

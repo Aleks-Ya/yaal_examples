@@ -37,6 +37,7 @@ public class TopDocsAssert extends AbstractAssert<TopDocsAssert, Collection<Docu
         return this;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public TopDocsAssert doesNotContain(Document... docs) {
         return doesNotContain(Arrays.asList(docs));
     }
@@ -44,6 +45,13 @@ public class TopDocsAssert extends AbstractAssert<TopDocsAssert, Collection<Docu
     public TopDocsAssert isNotEmpty() {
         isNotNull();
         Assertions.assertThat(actual).isNotEmpty();
+        return this;
+    }
+
+    @SuppressWarnings("UnusedReturnValue")
+    public TopDocsAssert isEmpty() {
+        isNotNull();
+        Assertions.assertThat(actual).isEmpty();
         return this;
     }
 }

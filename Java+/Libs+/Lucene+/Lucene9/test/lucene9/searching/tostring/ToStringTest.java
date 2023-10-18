@@ -69,14 +69,13 @@ class ToStringTest {
     void topDocs() throws IOException {
         var fieldName = "text";
         var doc = newDoc(fieldName, "Some of the query types provided by Elasticsearch support Apache Lucene query parser syntax.");
-        try (var assistant = IndexAssistant.create(doc)) {
-            var directory = assistant.getDirectory();
-            try (var reader = DirectoryReader.open(directory)) {
-                var searcher = new IndexSearcher(reader);
-                var query = new TermQuery(new Term(fieldName, "lucene"));
-                var topDocs = searcher.search(query, 5);
-                assertThat(topDocs.toString()).containsPattern("org.apache.lucene.search.TopDocs@\\w+");
-            }
+        try (var assistant = IndexAssistant.create(doc);
+             var directory = assistant.getDirectory();
+             var reader = DirectoryReader.open(directory)) {
+            var searcher = new IndexSearcher(reader);
+            var query = new TermQuery(new Term(fieldName, "lucene"));
+            var topDocs = searcher.search(query, 5);
+            assertThat(topDocs.toString()).containsPattern("org.apache.lucene.search.TopDocs@\\w+");
         }
     }
 
@@ -84,15 +83,14 @@ class ToStringTest {
     void scoreDoc() throws IOException {
         var fieldName = "text";
         var doc = newDoc(fieldName, "Some of the query types provided by Elasticsearch support Apache Lucene query parser syntax.");
-        try (var assistant = IndexAssistant.create(doc)) {
-            var directory = assistant.getDirectory();
-            try (var reader = DirectoryReader.open(directory)) {
-                var searcher = new IndexSearcher(reader);
-                var query = new TermQuery(new Term(fieldName, "lucene"));
-                var topDocs = searcher.search(query, 5);
-                var scoreDoc = topDocs.scoreDocs[0];
-                assertThat(scoreDoc).hasToString("doc=0 score=0.13076457 shardIndex=-1");
-            }
+        try (var assistant = IndexAssistant.create(doc);
+             var directory = assistant.getDirectory();
+             var reader = DirectoryReader.open(directory)) {
+            var searcher = new IndexSearcher(reader);
+            var query = new TermQuery(new Term(fieldName, "lucene"));
+            var topDocs = searcher.search(query, 5);
+            var scoreDoc = topDocs.scoreDocs[0];
+            assertThat(scoreDoc).hasToString("doc=0 score=0.13076457 shardIndex=-1");
         }
     }
 }

@@ -1,18 +1,17 @@
 pluginManagement {
-	repositories {
-		if (settings.hasProperty('gradle_plugin_repo_mirror')) {
-			maven {
-			  url settings.gradle_plugin_repo_mirror
-			}
-		}
-	}
+    repositories {
+        if (settings.hasProperty('gradle_plugin_repo_mirror')) {
+            maven {
+                url settings.gradle_plugin_repo_mirror
+            }
+        }
+    }
 }
 
 /**
  * Java
  */
-include 'BigData+:ElasticSearch+:TransportClient',
-		'BigData+:Hadoop+:Hadoop2+:Common2',
+include 'BigData+:Hadoop+:Hadoop2+:Common2',
         'BigData+:Hadoop+:Hadoop2+:MapReduce2',
         'BigData+:Hadoop+:Hadoop3+:Common3',
         'BigData+:Hadoop+:Hadoop3+:MapReduce3',
@@ -69,10 +68,10 @@ include 'BigData+:ElasticSearch+:TransportClient',
         'DevOps+:Kubernetes+:KubernetesClientJava',
         'DevOps+:OpenShift+:Fabric8ioOpenShiftClient',
         'DevOps+:OpenShift+:RemoteDebug',
-		'Logging+:Log4J1+:BasicConfiguration',
-		'Logging+:Log4J2+:Configuration+:AutomaticJava',
-		'Logging+:Log4J2+:Configuration+:AutomaticXml',
-		'Logging+:Log4J2+:Configuration+:AutomaticProperties',
+        'Logging+:Log4J1+:BasicConfiguration',
+        'Logging+:Log4J2+:Configuration+:AutomaticJava',
+        'Logging+:Log4J2+:Configuration+:AutomaticXml',
+        'Logging+:Log4J2+:Configuration+:AutomaticProperties',
         'Logging+:Log4J2+:Log4J2Core',
         'Logging+:SLF4J+:Slf4jSimpleLogger',
         'Logging+:SLF4J+:sysout-over-slf4j',
@@ -137,9 +136,13 @@ include 'BigData+:ElasticSearch+:TransportClient',
         'Libs+:AsciiTable',
         'Libs+:AspectJ',
         'Libs+:Benchmark+:JHM+',
-        'Libs+:ElasticSearch+:JavaHighLevelRestClient',
-        'Libs+:ElasticSearch+:JavaLowLevelRestClient',
-        'Libs+:ElasticSearch+:TestFramework',
+        'Libs+:ElasticSearch+:ElasticSearch7+:TransportClient',
+        'Libs+:ElasticSearch+:ElasticSearch7+:JavaHighLevelRestClient',
+        'Libs+:ElasticSearch+:ElasticSearch7+:JavaLowLevelRestClient',
+        'Libs+:ElasticSearch+:ElasticSearch7+:TestFramework',
+        'Libs+:ElasticSearch+:ElasticSearch8+:JavaHighLevelRestClient',
+        'Libs+:ElasticSearch+:ElasticSearch8+:JavaLowLevelRestClient',
+        'Libs+:ElasticSearch+:ElasticSearch8+:TestFramework',
         'Libs+:Evernote',
         'Libs+:Feign',
         'Libs+:Plexus+:PlexusArchiver',
@@ -223,8 +226,8 @@ include 'BigData+:ElasticSearch+:TransportClient',
         'Libs+:Cloud+:AWS+:AWS1+:S3+:S3UnitTest+:AdobeS3MockJUnit4',
         'Libs+:Cloud+:AWS+:AWS1+:SNS',
         'Libs+:Cloud+:AWS+:AWS1+:SSM',
-		'Libs+:Cloud+:AWS+:AWS2+:S3+:S3',
-		'Libs+:Cloud+:AWS+:AWS2+:S3+:S3TransferManager',
+        'Libs+:Cloud+:AWS+:AWS2+:S3+:S3',
+        'Libs+:Cloud+:AWS+:AWS2+:S3+:S3TransferManager',
         'Libs+:Cloud+:AWS+:AWS2+:SecretsManager',
         'Libs+:Cloud+:AWS+:AWS2+:SSM',
         'Libs+:Cloud+:Azure+:MSAL',

@@ -3,8 +3,15 @@ package gptui.ui;
 import org.junit.jupiter.api.Test;
 
 import static gptui.ui.TestingData.INTERACTION_1;
+import static gptui.ui.TestingData.INTERACTION_1_THEME;
 import static gptui.ui.TestingData.INTERACTION_2;
+import static gptui.ui.TestingData.INTERACTION_2_THEME;
 import static gptui.ui.TestingData.INTERACTION_3;
+import static gptui.ui.TestingData.INTERACTION_3_GRAMMAR_HTML;
+import static gptui.ui.TestingData.INTERACTION_3_LONG_HTML;
+import static gptui.ui.TestingData.INTERACTION_3_QUESTION;
+import static gptui.ui.TestingData.INTERACTION_3_SHORT_HTML;
+import static gptui.ui.TestingData.INTERACTION_3_THEME;
 import static java.time.Duration.ofMillis;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
@@ -26,13 +33,13 @@ class SendGrammarTest extends BaseGptUiTest {
                 .historySelectedItem(INTERACTION_3)
                 .historyItems(INTERACTION_3, INTERACTION_2, INTERACTION_1)
                 .themeSize(3)
-                .themeSelectedItem("Theme 3")
-                .themeItems("Theme 3", "Theme 2", "Theme 1")
-                .questionText("Question 3")
-                .modelEditedQuestion("Question 3")
-                .answerGrammarText("Grammar answer HTML 3")
-                .answerShortText("Short answer HTML 3")
-                .answerLongText("Long answer HTML 3")
+                .themeSelectedItem(INTERACTION_3_THEME)
+                .themeItems(INTERACTION_3_THEME, INTERACTION_2_THEME, INTERACTION_1_THEME)
+                .questionText(INTERACTION_3_QUESTION)
+                .modelEditedQuestion(INTERACTION_3_QUESTION)
+                .answerGrammarText(INTERACTION_3_GRAMMAR_HTML)
+                .answerShortText(INTERACTION_3_SHORT_HTML)
+                .answerLongText(INTERACTION_3_LONG_HTML)
                 .answerCircleColors(GREEN, GREEN, RED)
                 .assertApp();
 
@@ -48,8 +55,8 @@ class SendGrammarTest extends BaseGptUiTest {
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
                 .themeSize(3)
-                .themeSelectedItem("Theme 3")
-                .themeItems("Theme 3", "Theme 2", "Theme 1")
+                .themeSelectedItem(INTERACTION_3_THEME)
+                .themeItems(INTERACTION_3_THEME, INTERACTION_2_THEME, INTERACTION_1_THEME)
                 .questionText("Question 4")
                 .modelEditedQuestion("Question 4")
                 .answerGrammarText("<p>Grammar answer 4</p>\n")

@@ -35,13 +35,14 @@ subprojects {
         mockitoVersion = '5.2.0'//MockitoInline has a lagging version
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
         mockitoJunitJupiterDep = "org.mockito:mockito-junit-jupiter:$mockitoVersion"
-        log4j2CoreDep = 'org.apache.logging.log4j:log4j-core:2.20.0'
+        log4j2CoreDep = 'org.apache.logging.log4j:log4j-core:2.21.0'
         logbackClassicDep = 'ch.qos.logback:logback-classic:1.4.11'
         gsonDep = 'com.google.code.gson:gson:2.10.1'
         commonsLangDep = 'org.apache.commons:commons-lang3:3.12.0'
         wireMockDep = 'com.github.tomakehurst:wiremock:2.27.2'
         jaxbApiDep = 'javax.xml.bind:jaxb-api:2.3.1'
-        elasticSearchVersion = '7.17.12'
+        elasticSearch7Version = '7.17.14'
+        elasticSearch8Version = '8.10.4'
         junit5PlatformVersion = '1.10.0'
         junit5Version = '5.10.0'
         cucumberVersion = '7.11.1'
@@ -68,7 +69,7 @@ subprojects {
         eclipseLink4Version = '4.0.1'
         jsonAssertDep = 'org.skyscreamer:jsonassert:1.5.1'
         bouncyCustleDep = 'org.bouncycastle:bcpkix-jdk15on:1.70'
-        testContainersVersion = '1.17.6'
+        testContainersVersion = '1.19.1'
         testContainersDep = "org.testcontainers:testcontainers:$testContainersVersion"
         testContainersJunitDep = "org.testcontainers:junit-jupiter:$testContainersVersion"
         testContainersPostgresDep = "org.testcontainers:postgresql:$testContainersVersion"
@@ -93,7 +94,7 @@ subprojects {
         liquibaseCoreDep = 'org.liquibase:liquibase-core:4.22.0'
         apacheCommonsIoDep = 'commons-io:commons-io:2.13.0'
         lucene8Version = '8.11.1'
-        lucene9Version = '9.7.0'
+        lucene9Version = '9.8.0'
         javaFxVersion = '21'
         javaFxPluginVersion = '0.1.0'
         testFxDep = 'org.testfx:testfx-junit5:4.0.17'
@@ -106,8 +107,10 @@ subprojects {
         igniteGuiceDep = 'com.gluonhq:ignite-guice:1.2.2'
         systemStubsVersion = '2.1.3'
     }
-    tasks.withType(JavaCompile) {
-        options.encoding = 'UTF-8'
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.encoding = 'UTF-8'
+        }
     }
 }
 

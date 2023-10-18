@@ -38,4 +38,7 @@ module GptUi.main {
     requires javax.inject;
     requires com.google.guice;
     requires ignite.guice;
+    requires org.apache.lucene.core;
+    requires org.apache.lucene.analysis.common;
+    requires org.apache.lucene.queryparser;
 }

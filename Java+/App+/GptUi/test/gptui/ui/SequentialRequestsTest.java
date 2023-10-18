@@ -5,18 +5,28 @@ import org.testfx.util.WaitForAsyncUtils;
 
 import java.util.List;
 
+import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_QUESTION;
+import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_THEME;
+import static gptui.ui.TestingData.INTERACTION_2_GRAMMAR_HTML;
+import static gptui.ui.TestingData.INTERACTION_2_LONG_HTML;
+import static gptui.ui.TestingData.INTERACTION_2_QUESTION;
+import static gptui.ui.TestingData.INTERACTION_2_SHORT_HTML;
+import static gptui.ui.TestingData.INTERACTION_2_THEME;
 import static java.time.Duration.ofMillis;
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.WHITE;
 
 class SequentialRequestsTest extends BaseGptUiTest {
-    private static final String THEME_1 = "Theme 1";
-    private static final String THEME_2 = "Theme 2";
-    private static final String QUESTION_1 = "The question 1";
-    private static final String EXP_GRAMMAR_HTML_BODY_1 = "<p>Grammar answer 1</p>\n";
-    private static final String EXP_SHORT_HTML_BODY_1 = "<p>Short answer 1</p>\n";
-    private static final String EXP_LONG_HTML_BODY_1 = "<p>Long answer 1</p>\n";
+    private static final String EXP_GRAMMAR_HTML_BODY_1 = wrapExpectedWebViewContent(INTERACTION_1_GRAMMAR_HTML);
+    private static final String EXP_SHORT_HTML_BODY_1 = wrapExpectedWebViewContent(INTERACTION_1_SHORT_HTML);
+    private static final String EXP_LONG_HTML_BODY_1 = wrapExpectedWebViewContent(INTERACTION_1_LONG_HTML);
+    private static final String EXP_GRAMMAR_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_GRAMMAR_HTML);
+    private static final String EXP_SHORT_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_SHORT_HTML);
+    private static final String EXP_LONG_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_LONG_HTML);
 
     @Test
     void shouldSendQuestion() {
@@ -46,19 +56,19 @@ class SequentialRequestsTest extends BaseGptUiTest {
 
     private void sendFirstQuestion() {
         clickOn(getThemeComboBox());
-        overWrite(THEME_1);
+        overWrite(INTERACTION_1_THEME);
         clickOn(getQuestionTextArea());
-        overWrite(QUESTION_1);
+        overWrite(INTERACTION_1_QUESTION);
         assertion()
                 .historySize(0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(null)
                 .historyItems(List.of())
                 .themeSize(0)
-                .themeSelectedItem(THEME_1)
+                .themeSelectedItem(INTERACTION_1_THEME)
                 .themeItems()
-                .questionText(QUESTION_1)
-                .modelEditedQuestion(QUESTION_1)
+                .questionText(INTERACTION_1_QUESTION)
+                .modelEditedQuestion(INTERACTION_1_QUESTION)
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
@@ -66,9 +76,9 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .assertApp();
 
         gptApi.clear()
-                .putGrammarResponse("Grammar answer 1", ofMillis(1000))
-                .putShortResponse("Short answer 1", ofMillis(1500))
-                .putLongResponse("Long answer 1", ofMillis(2000));
+                .putGrammarResponse(INTERACTION_1_GRAMMAR_HTML, ofMillis(1000))
+                .putShortResponse(INTERACTION_1_SHORT_HTML, ofMillis(1500))
+                .putLongResponse(INTERACTION_1_LONG_HTML, ofMillis(2000));
 
         clickOn(getQuestionSendButton());
         assertion()
@@ -77,10 +87,10 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
                 .themeSize(1)
-                .themeSelectedItem(THEME_1)
-                .themeItems(THEME_1)
-                .questionText(QUESTION_1)
-                .modelEditedQuestion(QUESTION_1)
+                .themeSelectedItem(INTERACTION_1_THEME)
+                .themeItems(INTERACTION_1_THEME)
+                .questionText(INTERACTION_1_QUESTION)
+                .modelEditedQuestion(INTERACTION_1_QUESTION)
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
@@ -94,10 +104,10 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
                 .themeSize(1)
-                .themeSelectedItem(THEME_1)
-                .themeItems(THEME_1)
-                .questionText(QUESTION_1)
-                .modelEditedQuestion(QUESTION_1)
+                .themeSelectedItem(INTERACTION_1_THEME)
+                .themeItems(INTERACTION_1_THEME)
+                .questionText(INTERACTION_1_QUESTION)
+                .modelEditedQuestion(INTERACTION_1_QUESTION)
                 .answerGrammarText(EXP_GRAMMAR_HTML_BODY_1)
                 .answerShortText(EXP_SHORT_HTML_BODY_1)
                 .answerLongText(EXP_LONG_HTML_BODY_1)
@@ -113,20 +123,19 @@ class SequentialRequestsTest extends BaseGptUiTest {
 
     private void sendSecondQuestion() {
         clickOn(getThemeComboBox());
-        overWrite(THEME_2);
+        overWrite(INTERACTION_2_THEME);
         clickOn(getQuestionTextArea());
-        var question2 = "The question 2";
-        overWrite(question2);
+        overWrite(INTERACTION_2_QUESTION);
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
                 .themeSize(1)
-                .themeSelectedItem(THEME_2)
-                .themeItems(THEME_1)
-                .questionText(question2)
-                .modelEditedQuestion(question2)
+                .themeSelectedItem(INTERACTION_2_THEME)
+                .themeItems(INTERACTION_1_THEME)
+                .questionText(INTERACTION_2_QUESTION)
+                .modelEditedQuestion(INTERACTION_2_QUESTION)
                 .answerGrammarText(EXP_GRAMMAR_HTML_BODY_1)
                 .answerShortText(EXP_SHORT_HTML_BODY_1)
                 .answerLongText(EXP_LONG_HTML_BODY_1)
@@ -134,9 +143,9 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .assertApp();
 
         gptApi.clear()
-                .putGrammarResponse("Grammar answer 2", ofMillis(1000))
-                .putShortResponse("Short answer 2", ofMillis(1500))
-                .putLongResponse("Long answer 2", ofMillis(2000));
+                .putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ofMillis(1000))
+                .putShortResponse(INTERACTION_2_SHORT_HTML, ofMillis(1500))
+                .putLongResponse(INTERACTION_2_LONG_HTML, ofMillis(2000));
         clickOn(getQuestionSendButton());
         WaitForAsyncUtils.waitForFxEvents();
         assertion()
@@ -145,10 +154,10 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
                 .themeSize(2)
-                .themeSelectedItem(THEME_2)
-                .themeItems(THEME_2, THEME_1)
-                .questionText(question2)
-                .modelEditedQuestion(question2)
+                .themeSelectedItem(INTERACTION_2_THEME)
+                .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
+                .questionText(INTERACTION_2_QUESTION)
+                .modelEditedQuestion(INTERACTION_2_QUESTION)
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
@@ -157,29 +166,27 @@ class SequentialRequestsTest extends BaseGptUiTest {
 
 
         sleep(2000);
-        var expShortHtmlBody2 = "<p>Short answer 2</p>\n";
-        var expLongHtmlBody2 = "<p>Long answer 2</p>\n";
         assertion()
                 .historySize(2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
                 .themeSize(2)
-                .themeSelectedItem(THEME_2)
-                .themeItems(THEME_2, THEME_1)
-                .questionText(question2)
-                .modelEditedQuestion(question2)
-                .answerGrammarText("<p>Grammar answer 2</p>\n")
-                .answerShortText(expShortHtmlBody2)
-                .answerLongText(expLongHtmlBody2)
+                .themeSelectedItem(INTERACTION_2_THEME)
+                .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
+                .questionText(INTERACTION_2_QUESTION)
+                .modelEditedQuestion(INTERACTION_2_QUESTION)
+                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
+                .answerShortText(EXP_SHORT_HTML_BODY_2)
+                .answerLongText(EXP_LONG_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN)
                 .assertApp();
 
         clickOn(getAnswerShortCopyButton());
-        verifyHtmlClipboardContent(expShortHtmlBody2);
+        verifyHtmlClipboardContent(EXP_SHORT_HTML_BODY_2);
 
         clickOn(getAnswerLongCopyButton());
-        verifyHtmlClipboardContent(expLongHtmlBody2);
+        verifyHtmlClipboardContent(EXP_LONG_HTML_BODY_2);
     }
 
     private void choosePreviousInteraction() {
@@ -189,27 +196,27 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
                 .themeSize(2)
-                .themeSelectedItem(THEME_2)
-                .themeItems(THEME_2, THEME_1)
-                .questionText("The question 2")
-                .modelEditedQuestion("The question 2")
-                .answerGrammarText("<p>Grammar answer 2</p>\n")
-                .answerShortText("<p>Short answer 2</p>\n")
-                .answerLongText("<p>Long answer 2</p>\n")
+                .themeSelectedItem(INTERACTION_2_THEME)
+                .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
+                .questionText(INTERACTION_2_QUESTION)
+                .modelEditedQuestion(INTERACTION_2_QUESTION)
+                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
+                .answerShortText(EXP_SHORT_HTML_BODY_2)
+                .answerLongText(EXP_LONG_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN)
                 .assertApp();
 
-        clickOn(getHistoryComboBox()).clickOn(String.format("[Q] %s: %s", THEME_1, QUESTION_1));
+        clickOn(getHistoryComboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_1_THEME, INTERACTION_1_QUESTION));
         assertion()
                 .historySize(2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().get(1))
                 .historyItems(storage.readAllInteractions())
                 .themeSize(2)
-                .themeSelectedItem(THEME_1)
-                .themeItems(THEME_2, THEME_1)
-                .questionText(QUESTION_1)
-                .modelEditedQuestion(QUESTION_1)
+                .themeSelectedItem(INTERACTION_1_THEME)
+                .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
+                .questionText(INTERACTION_1_QUESTION)
+                .modelEditedQuestion(INTERACTION_1_QUESTION)
                 .answerGrammarText(EXP_GRAMMAR_HTML_BODY_1)
                 .answerShortText(EXP_SHORT_HTML_BODY_1)
                 .answerLongText(EXP_LONG_HTML_BODY_1)

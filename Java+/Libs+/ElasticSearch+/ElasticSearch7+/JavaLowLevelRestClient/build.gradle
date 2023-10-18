@@ -1,0 +1,3 @@
+dependencies {
+    implementation "org.elasticsearch.client:elasticsearch-rest-client:$elasticSearch7Version"
+}

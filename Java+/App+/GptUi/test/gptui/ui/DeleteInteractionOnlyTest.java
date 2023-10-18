@@ -3,6 +3,11 @@ package gptui.ui;
 import org.junit.jupiter.api.Test;
 
 import static gptui.ui.TestingData.INTERACTION_1;
+import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_QUESTION;
+import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_THEME;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.WHITE;
 
@@ -20,13 +25,13 @@ class DeleteInteractionOnlyTest extends BaseGptUiTest {
                 .historySelectedItem(INTERACTION_1)
                 .historyItems(INTERACTION_1)
                 .themeSize(1)
-                .themeSelectedItem("Theme 1")
-                .themeItems("Theme 1")
-                .questionText("Question 1")
-                .modelEditedQuestion("Question 1")
-                .answerGrammarText("Grammar answer HTML 1")
-                .answerShortText("Short answer HTML 1")
-                .answerLongText("Long answer HTML 1")
+                .themeSelectedItem(INTERACTION_1_THEME)
+                .themeItems(INTERACTION_1_THEME)
+                .questionText(INTERACTION_1_QUESTION)
+                .modelEditedQuestion(INTERACTION_1_QUESTION)
+                .answerGrammarText(INTERACTION_1_GRAMMAR_HTML)
+                .answerShortText(INTERACTION_1_SHORT_HTML)
+                .answerLongText(INTERACTION_1_LONG_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN)
                 .assertApp();
 
@@ -40,8 +45,8 @@ class DeleteInteractionOnlyTest extends BaseGptUiTest {
                 .themeSize(0)
                 .themeSelectedItem(null)
                 .themeItems()
-                .questionText("Question 1")
-                .modelEditedQuestion("Question 1")
+                .questionText(INTERACTION_1_QUESTION)
+                .modelEditedQuestion(INTERACTION_1_QUESTION)
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
