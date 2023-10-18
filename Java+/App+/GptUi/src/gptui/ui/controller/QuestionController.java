@@ -4,10 +4,14 @@ import gptui.Mdc;
 import gptui.format.ClipboardHelper;
 import gptui.format.FormatConverter;
 import gptui.format.PromptFactory;
-import gptui.format.ThemeHelper;
 import gptui.gpt.GptApi;
 import gptui.media.SoundService;
-import gptui.storage.*;
+import gptui.storage.Answer;
+import gptui.storage.AnswerType;
+import gptui.storage.GptStorage;
+import gptui.storage.Interaction;
+import gptui.storage.InteractionId;
+import gptui.storage.InteractionType;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
 import javafx.application.Platform;
@@ -23,12 +27,23 @@ import javax.inject.Inject;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static gptui.storage.AnswerState.*;
+import static gptui.storage.AnswerState.FAIL;
+import static gptui.storage.AnswerState.NEW;
+import static gptui.storage.AnswerState.SENT;
+import static gptui.storage.AnswerState.SUCCESS;
 import static gptui.storage.AnswerType.GRAMMAR;
-import static gptui.storage.AnswerType.*;
-import static gptui.storage.InteractionType.*;
+import static gptui.storage.AnswerType.LONG;
+import static gptui.storage.AnswerType.SHORT;
+import static gptui.storage.InteractionType.DEFINITION;
+import static gptui.storage.InteractionType.FACT;
+import static gptui.storage.InteractionType.QUESTION;
 import static java.util.concurrent.CompletableFuture.runAsync;
-import static javafx.scene.input.KeyCode.*;
+import static javafx.scene.input.KeyCode.D;
+import static javafx.scene.input.KeyCode.ENTER;
+import static javafx.scene.input.KeyCode.F;
+import static javafx.scene.input.KeyCode.G;
+import static javafx.scene.input.KeyCode.Q;
+import static javafx.scene.input.KeyCode.V;
 import static javafx.scene.input.KeyCombination.ALT_DOWN;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 import static javafx.scene.input.KeyEvent.KEY_PRESSED;
@@ -45,8 +60,6 @@ public class QuestionController extends BaseController {
     private SoundService soundService;
     @Inject
     private FormatConverter formatConverter;
-    @Inject
-    private ThemeHelper themeHelper;
     @Inject
     private ClipboardHelper clipboardHelper;
     @FXML
@@ -119,12 +132,11 @@ public class QuestionController extends BaseController {
             var promptOpt = promptFactory.getPrompt(interactionType, theme, question, answerType);
             if (promptOpt.isPresent()) {
                 var prompt = promptOpt.get();
-                updateInteraction(interactionId, interaction ->
-                        interaction.withAnswer(answerType, answer -> answer.withPrompt(prompt).withState(SENT)));
+                updateAnswer(interactionId, answerType, answer -> answer.withPrompt(prompt).withState(SENT));
                 var answerMd = gptApi.send(prompt);
                 var answerHtml = formatConverter.markdownToHtml(answerMd);
-                updateInteraction(interactionId, interaction -> interaction.withAnswer(answerType, answer ->
-                        answer.withAnswerMd(answerMd).withAnswerHtml(answerHtml).withState(SUCCESS)));
+                updateAnswer(interactionId, answerType, answer ->
+                        answer.withAnswerMd(answerMd).withAnswerHtml(answerHtml).withState(SUCCESS));
                 soundService.beenOnAnswer(answerType);
                 log.info("The short answer request finished.");
             } else {
@@ -135,8 +147,8 @@ public class QuestionController extends BaseController {
                 log.error("Sending question exception", e);
                 Mdc.run(interactionId, () -> {
                     var message = e.getCause().getMessage();
-                    updateInteraction(interactionId, interaction -> interaction.withAnswer(answerType,
-                            answer -> answer.withAnswerMd(message).withAnswerHtml(message).withState(FAIL)));
+                    updateAnswer(interactionId, answerType, answer ->
+                            answer.withAnswerMd(message).withAnswerHtml(message).withState(FAIL));
                     soundService.beenOnAnswer(answerType);
                 });
                 return e;
@@ -149,7 +161,9 @@ public class QuestionController extends BaseController {
     @Override
     public void interactionChosenFromHistory(Model model, EventSource source) {
         log.trace("interactionChosenFromHistory");
-        Optional.ofNullable(model.getCurrentInteraction())
+        Optional.ofNullable(model.getCurrentInteractionId())
+                .map(storage::readInteraction)
+                .map(Optional::orElseThrow)
                 .map(Interaction::question)
                 .filter(question -> !question.equals(questionTextArea.getText()))
                 .ifPresent(question -> {
@@ -178,11 +192,16 @@ public class QuestionController extends BaseController {
     private synchronized void updateInteraction(InteractionId interactionId, Function<Interaction, Interaction> update) {
         log.trace("updateInteraction {}", interactionId);
         storage.updateInteraction(interactionId, update);
-        var currentInteraction = storage.readInteraction(interactionId).orElseThrow();
         var history = storage.readAllInteractions();
         model.setHistory(history);
-        model.setCurrentInteraction(currentInteraction);
-        model.setThemeList(themeHelper.interactionsToThemeList(history));
+        model.setCurrentInteractionId(interactionId);
+        Platform.runLater(() -> model.fireModelChanged(this));
+    }
+
+    private synchronized void updateAnswer(InteractionId interactionId, AnswerType answerType, Function<Answer, Answer> update) {
+        log.trace("updateAnswer: interactionId={}. answerType={}", interactionId, answerType);
+        storage.updateInteraction(interactionId, interaction ->
+                interaction.withAnswer(update.apply(interaction.getAnswer(answerType).orElseThrow())));
         Platform.runLater(() -> model.fireModelChanged(this));
     }
 }

@@ -4,6 +4,7 @@ import gptui.Mdc;
 import gptui.format.ClipboardHelper;
 import gptui.storage.AnswerState;
 import gptui.storage.AnswerType;
+import gptui.storage.GptStorage;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
 import javafx.event.ActionEvent;
@@ -22,11 +23,16 @@ import java.util.Map;
 import java.util.Optional;
 
 import static gptui.storage.AnswerState.NEW;
-import static gptui.storage.AnswerType.*;
+import static gptui.storage.AnswerType.GRAMMAR;
+import static gptui.storage.AnswerType.LONG;
+import static gptui.storage.AnswerType.SHORT;
 import static javafx.scene.input.KeyCode.DIGIT1;
 import static javafx.scene.input.KeyCode.DIGIT2;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
-import static javafx.scene.paint.Color.*;
+import static javafx.scene.paint.Color.BLUE;
+import static javafx.scene.paint.Color.GREEN;
+import static javafx.scene.paint.Color.RED;
+import static javafx.scene.paint.Color.WHITE;
 
 public class AnswerController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(AnswerController.class);
@@ -52,6 +58,8 @@ public class AnswerController extends BaseController {
     private AnswerType answerType;
     @Inject
     private ClipboardHelper clipboardHelper;
+    @Inject
+    private GptStorage storage;
 
     @FXML
     void clickCopyButton(ActionEvent ignoredEvent) {
@@ -76,7 +84,9 @@ public class AnswerController extends BaseController {
     public void modelChanged(Model model, EventSource source) {
         Mdc.run(answerType, () -> {
             log.trace("modelChanged later");
-            Optional.ofNullable(model.getCurrentInteraction())
+            Optional.ofNullable(model.getCurrentInteractionId())
+                    .map(storage::readInteraction)
+                    .map(Optional::orElseThrow)
                     .map(interaction -> interaction.getAnswer(answerType))
                     .ifPresentOrElse(answerOpt -> {
                         var html = answerOpt.isPresent() ? answerOpt.get().answerHtml() : "";

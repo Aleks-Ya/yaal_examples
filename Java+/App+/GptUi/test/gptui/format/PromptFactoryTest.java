@@ -4,8 +4,11 @@ import gptui.storage.InteractionType;
 import org.junit.jupiter.api.Test;
 
 import static gptui.storage.AnswerType.GRAMMAR;
-import static gptui.storage.AnswerType.*;
-import static gptui.storage.InteractionType.*;
+import static gptui.storage.AnswerType.LONG;
+import static gptui.storage.AnswerType.SHORT;
+import static gptui.storage.InteractionType.DEFINITION;
+import static gptui.storage.InteractionType.FACT;
+import static gptui.storage.InteractionType.QUESTION;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PromptFactoryTest {

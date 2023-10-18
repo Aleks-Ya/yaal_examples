@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 
-import static gptui.storage.AnswerType.*;
+import static gptui.storage.AnswerType.GRAMMAR;
+import static gptui.storage.AnswerType.LONG;
+import static gptui.storage.AnswerType.SHORT;
 
 public class GptUiController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(HistoryController.class);
@@ -35,8 +37,7 @@ public class GptUiController extends BaseController {
         var history = storage.readAllInteractions();
         var themeList = themeHelper.interactionsToThemeList(history);
         model.setHistory(history);
-        model.setThemeList(themeList);
-        model.setCurrentInteraction(!history.isEmpty() ? history.getFirst() : null);
+        model.setCurrentInteractionId(!history.isEmpty() ? history.getFirst().id() : null);
         model.setCurrentTheme(!themeList.isEmpty() ? themeList.getFirst() : null);
         model.fireInteractionChosenFromHistory(this);
     }

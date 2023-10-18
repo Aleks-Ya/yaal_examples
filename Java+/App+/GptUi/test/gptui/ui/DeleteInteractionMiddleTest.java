@@ -2,7 +2,9 @@ package gptui.ui;
 
 import org.junit.jupiter.api.Test;
 
-import static gptui.ui.TestingData.*;
+import static gptui.ui.TestingData.INTERACTION_1;
+import static gptui.ui.TestingData.INTERACTION_2;
+import static gptui.ui.TestingData.INTERACTION_3;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 

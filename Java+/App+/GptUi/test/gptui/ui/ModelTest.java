@@ -2,7 +2,9 @@ package gptui.ui;
 
 import org.junit.jupiter.api.Test;
 
-import static javafx.scene.input.KeyCode.*;
+import static javafx.scene.input.KeyCode.A;
+import static javafx.scene.input.KeyCode.B;
+import static javafx.scene.input.KeyCode.C;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ModelTest extends BaseGptUiTest {

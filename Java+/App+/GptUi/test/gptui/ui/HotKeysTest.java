@@ -1,12 +1,22 @@
 package gptui.ui;
 
 import gptui.format.ClipboardHelper;
-import gptui.storage.Interaction;
 import org.junit.jupiter.api.Test;
 
-import static gptui.storage.InteractionType.*;
+import static gptui.storage.InteractionType.DEFINITION;
+import static gptui.storage.InteractionType.FACT;
+import static gptui.storage.InteractionType.GRAMMAR;
+import static gptui.storage.InteractionType.QUESTION;
 import static gptui.ui.TestingData.INTERACTION_1;
-import static javafx.scene.input.KeyCode.*;
+import static javafx.scene.input.KeyCode.ALT;
+import static javafx.scene.input.KeyCode.CONTROL;
+import static javafx.scene.input.KeyCode.D;
+import static javafx.scene.input.KeyCode.DIGIT1;
+import static javafx.scene.input.KeyCode.DIGIT2;
+import static javafx.scene.input.KeyCode.F;
+import static javafx.scene.input.KeyCode.G;
+import static javafx.scene.input.KeyCode.Q;
+import static javafx.scene.input.KeyCode.V;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.testfx.api.FxAssert.verifyThat;
@@ -46,27 +56,35 @@ class HotKeysTest extends BaseGptUiTest {
     void sendQuestionByCtrlQ() {
         press(CONTROL, Q).release(Q, CONTROL);
         assertThat(model.getHistory()).hasSize(2)
-                .element(0).extracting(Interaction::type).isEqualTo(QUESTION);
+                .element(0)
+                .extracting(interactionId -> storage.readInteraction(interactionId).orElseThrow().type())
+                .isEqualTo(QUESTION);
     }
 
     @Test
     void sendDefinitionByCtrlD() {
         press(CONTROL, D).release(D, CONTROL);
         assertThat(model.getHistory()).hasSize(2)
-                .element(0).extracting(Interaction::type).isEqualTo(DEFINITION);
+                .element(0)
+                .extracting(interactionId -> storage.readInteraction(interactionId).orElseThrow().type())
+                .isEqualTo(DEFINITION);
     }
 
     @Test
     void sendGrammarByCtrlG() {
         press(CONTROL, G).release(G, CONTROL);
         assertThat(model.getHistory()).hasSize(2)
-                .element(0).extracting(Interaction::type).isEqualTo(GRAMMAR);
+                .element(0)
+                .extracting(interactionId -> storage.readInteraction(interactionId).orElseThrow().type())
+                .isEqualTo(GRAMMAR);
     }
 
     @Test
     void sendFactByCtrlF() {
         press(CONTROL, F).release(F, CONTROL);
         assertThat(model.getHistory()).hasSize(2)
-                .element(0).extracting(Interaction::type).isEqualTo(FACT);
+                .element(0)
+                .extracting(interactionId -> storage.readInteraction(interactionId).orElseThrow().type())
+                .isEqualTo(FACT);
     }
 }

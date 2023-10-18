@@ -121,15 +121,20 @@ class WindowAssertion {
         verifyThat(app.getHistoryDeleteButton().isDisabled(), is(historyDeleteButtonDisabled));
         assertThat(app.getHistoryComboBox().getSelectionModel().getSelectedItem()).isEqualTo(historySelectedItem);
         assertThat(app.getHistoryComboBox().getItems()).containsExactlyElementsOf(historyItems);
-        assertThat(app.model.getCurrentInteraction()).isEqualTo(historySelectedItem);
-        assertThat(app.model.getHistory()).isEqualTo(historyItems);
+        if (app.model.getCurrentInteractionId() != null) {
+            assertThat(app.model.getCurrentInteractionId()).isEqualTo(historySelectedItem.id());
+        } else {
+            assertThat(historySelectedItem).isNull();
+        }
+        assertThat(app.model.getHistory().stream()
+                .map(interactionId -> app.storage.readInteraction(interactionId).orElseThrow()).toList())
+                .isEqualTo(historyItems);
 
         verifyThat(app.getThemeLabel(), hasText("Theme (" + themeItems.size() + "):"));
         verifyThat(app.getThemeComboBox(), hasItems(themeSize));
         assertThat(app.getThemeComboBox().getSelectionModel().getSelectedItem()).isEqualTo(themeSelectedItem);
         assertThat(app.getThemeComboBox().getItems()).containsExactlyElementsOf(themeItems);
         assertThat(app.model.getEditedTheme()).isEqualTo(themeSelectedItem);
-        assertThat(app.model.getThemeList()).isEqualTo(themeItems);
 
         verifyThat(app.getQuestionLabel(), hasText("Question:"));
         verifyThat(app.getQuestionSendButton().getText(), equalTo("Question"));

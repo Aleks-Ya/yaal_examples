@@ -64,6 +64,13 @@ Change the author of the last commit: `git commit --amend --author="Mark <mark@a
 
 ## Credentials
 Use storage credential helper: `git config --global credential.helper store`
+Remove expired credentials:
+1. Run `git credential reject`
+2. Enter:
+```
+protocol=https
+host=bitbucket.prd.company.net
+```
 
 ## Stash
 Clear stash: `git stash clear`

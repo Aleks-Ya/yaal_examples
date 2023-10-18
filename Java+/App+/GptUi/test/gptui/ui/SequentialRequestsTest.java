@@ -6,7 +6,9 @@ import org.testfx.util.WaitForAsyncUtils;
 import java.util.List;
 
 import static java.time.Duration.ofMillis;
-import static javafx.scene.paint.Color.*;
+import static javafx.scene.paint.Color.BLUE;
+import static javafx.scene.paint.Color.GREEN;
+import static javafx.scene.paint.Color.WHITE;
 
 class SequentialRequestsTest extends BaseGptUiTest {
     private static final String THEME_1 = "Theme 1";

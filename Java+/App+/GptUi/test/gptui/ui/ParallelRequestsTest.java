@@ -1,28 +1,25 @@
 package gptui.ui;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
 
 import java.util.List;
 
 import static java.time.Duration.ofMillis;
-import static javafx.scene.paint.Color.*;
+import static javafx.scene.paint.Color.BLUE;
+import static javafx.scene.paint.Color.GREEN;
+import static javafx.scene.paint.Color.WHITE;
 
 class ParallelRequestsTest extends BaseGptUiTest {
     private static final String THEME_1 = "Theme 1";
     private static final String THEME_2 = "Theme 2";
     private static final String QUESTION_1 = "The question 1";
     private static final String QUESTION_2 = "The question 2";
-    private static final String EXP_GRAMMAR_HTML_BODY_1 = "<p>Grammar answer 1</p>\n";
-    private static final String EXP_SHORT_HTML_BODY_1 = "<p>Short answer 1</p>\n";
-    private static final String EXP_LONG_HTML_BODY_1 = "<p>Long answer 1</p>\n";
     private static final String EXP_GRAMMAR_HTML_BODY_2 = "<p>Grammar answer 2</p>\n";
     private static final String EXP_SHORT_HTML_BODY_2 = "<p>Short answer 2</p>\n";
     private static final String EXP_LONG_HTML_BODY_2 = "<p>Long answer 2</p>\n";
 
     @Test
-    @Disabled("Not finished")
     void shouldSendQuestion() {
         initialState();
         sendFirstQuestion();
@@ -70,9 +67,9 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .assertApp();
 
         gptApi.clear()
-                .put("has grammatical mistakes", "Grammar answer 1", ofMillis(10000))
-                .put("a short response", "Short answer 1", ofMillis(10500))
-                .put("a detailed response", "Long answer 1", ofMillis(11000));
+                .put("has grammatical mistakes", "Grammar answer 1", ofMillis(6000))
+                .put("a short response", "Short answer 1", ofMillis(6500))
+                .put("a detailed response", "Long answer 1", ofMillis(7000));
 
         clickOn(getQuestionSendButton());
         assertion()
@@ -156,7 +153,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
     }
 
     private void firstRequestFinished() {
-        sleep(11000);
+        sleep(5000);
         assertion()
                 .historySize(2)
                 .historyDeleteButtonDisabled(false)
@@ -164,7 +161,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .historyItems(storage.readAllInteractions())
                 .themeSize(2)
                 .themeSelectedItem(THEME_2)
-                .themeItems(THEME_2)
+                .themeItems(THEME_2, THEME_1)
                 .questionText(QUESTION_2)
                 .modelEditedQuestion(QUESTION_2)
                 .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)

@@ -2,9 +2,13 @@ package gptui.ui;
 
 import org.junit.jupiter.api.Test;
 
-import static gptui.ui.TestingData.*;
+import static gptui.ui.TestingData.INTERACTION_1;
+import static gptui.ui.TestingData.INTERACTION_2;
+import static gptui.ui.TestingData.INTERACTION_3;
 import static java.time.Duration.ofMillis;
-import static javafx.scene.paint.Color.*;
+import static javafx.scene.paint.Color.GREEN;
+import static javafx.scene.paint.Color.RED;
+import static javafx.scene.paint.Color.WHITE;
 
 class SendFactTest extends BaseGptUiTest {
     @Override

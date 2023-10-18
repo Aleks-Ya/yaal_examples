@@ -1,6 +1,5 @@
 package gptui.ui.controller;
 
-import gptui.format.ThemeHelper;
 import gptui.storage.GptStorage;
 import gptui.storage.Interaction;
 import gptui.ui.EventSource;
@@ -30,23 +29,24 @@ public class HistoryController extends BaseController {
     private ComboBox<Interaction> historyComboBox;
     @FXML
     private Button historyDeleteButton;
-    @Inject
-    private ThemeHelper themeHelper;
 
     @Override
     public void modelChanged(Model model, EventSource source) {
         log.trace("modelChanged");
-        var modelItems = FXCollections.observableArrayList(model.getHistory());
+        var modelItems = FXCollections.observableArrayList(model.getHistory().stream()
+                .map(interactionId -> storage.readInteraction(interactionId).orElseThrow())
+                .toList());
         var comboBoxItems = historyComboBox.getItems();
         if (!Objects.equals(modelItems, comboBoxItems)) {
             log.debug("Set items");
             updateSilently(historyComboBox, comboBox -> comboBox.setItems(modelItems));
             setLabel(model);
         }
-        var modelCurrentValue = model.getCurrentInteraction();
+        var modelCurrentValueOpt = storage.readInteraction(model.getCurrentInteractionId());
         var comboBoxCurrentValue = historyComboBox.getSelectionModel().getSelectedItem();
-        if (!Objects.equals(modelCurrentValue, comboBoxCurrentValue)) {
-            if (modelCurrentValue != null) {
+        if (!Objects.equals(modelCurrentValueOpt.orElse(null), comboBoxCurrentValue)) {
+            if (modelCurrentValueOpt.isPresent()) {
+                var modelCurrentValue = modelCurrentValueOpt.get();
                 log.debug("Select interaction: {}", modelCurrentValue);
                 updateSilently(historyComboBox, comboBox -> comboBox.getSelectionModel().select(modelCurrentValue));
             } else {
@@ -54,9 +54,9 @@ public class HistoryController extends BaseController {
                 updateSilently(historyComboBox, comboBox -> comboBox.getSelectionModel().clearSelection());
             }
         } else {
-            log.debug("Selection is unchanged: {}", modelCurrentValue);
+            log.debug("Selection is unchanged: {}", modelCurrentValueOpt);
         }
-        historyDeleteButton.setDisable(model.getCurrentInteraction() == null);
+        historyDeleteButton.setDisable(model.getCurrentInteractionId() == null);
     }
 
     @Override
@@ -68,11 +68,11 @@ public class HistoryController extends BaseController {
     @FXML
     void historyComboBoxAction(ActionEvent ignoredEvent) {
         log.trace("historyComboBoxAction");
-        var modelCurrentInteraction = model.getCurrentInteraction();
+        var modelCurrentInteraction = storage.readInteraction(model.getCurrentInteractionId()).orElseThrow();
         var comboBoxCurrentInteraction = historyComboBox.getSelectionModel().getSelectedItem();
         if (comboBoxCurrentInteraction != null && !Objects.equals(modelCurrentInteraction, comboBoxCurrentInteraction)) {
             log.debug("setCurrentInteraction from historyComboBox: {}", comboBoxCurrentInteraction);
-            model.setCurrentInteraction(comboBoxCurrentInteraction);
+            model.setCurrentInteractionId(comboBoxCurrentInteraction.id());
             model.fireInteractionChosenFromHistory(this);
         }
     }
@@ -81,12 +81,11 @@ public class HistoryController extends BaseController {
     void clickHistoryDeleteButton(ActionEvent ignoredEvent) {
         log.trace("clickHistoryDeleteButton");
         var oldCurrentInteractionIndex = historyComboBox.getSelectionModel().getSelectedIndex();
-        storage.deleteInteraction(model.getCurrentInteraction().id());
+        storage.deleteInteraction(model.getCurrentInteractionId());
 
 
         var newHistory = storage.readAllInteractions();
         model.setHistory(newHistory);
-        model.setThemeList(themeHelper.interactionsToThemeList(newHistory));
 
         if (!newHistory.isEmpty()) {
             var newCurrentInteractionIndex = oldCurrentInteractionIndex - 1;
@@ -96,11 +95,12 @@ public class HistoryController extends BaseController {
             } else {
                 newCurrentInteraction = newHistory.get(newHistory.size() - 1);
             }
-            model.setCurrentInteraction(newCurrentInteraction);
+            model.setCurrentInteractionId(newCurrentInteraction.id());
         } else {
-            model.setCurrentInteraction(null);
+            model.setCurrentInteractionId(null);
         }
-        model.setCurrentTheme(model.getCurrentInteraction() != null ? model.getCurrentInteraction().theme() : null);
+        model.setCurrentTheme(model.getCurrentInteractionId() != null
+                ? storage.readInteraction(model.getCurrentInteractionId()).orElseThrow().theme() : null);
 
         modelChanged(model, this);
         model.fireInteractionChosenFromHistory(this);

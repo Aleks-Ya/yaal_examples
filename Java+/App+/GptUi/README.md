@@ -3,17 +3,17 @@
 ## TODO
 
 1. Fix layout
-2. Add `Cancel` button
-3. Add `Delete` button for the Themes
-4. Do not create new HttpClient instance for each request
-5. Add an answer from Bard
-6. Show a 5-words definition
-7. Add button for checking a statement for truth
-8. Add search throughout the Interaction History
-9. Display current InteractionId in the main window
-10. Add "Regenerate" buttons for short and long answers
-11. Add auto-completion for the Theme combo box
-12. Search for a definition in Wikipedia also
+2. Add `Delete` button for the Themes
+3. Do not create new HttpClient instance for each request
+4. Add an answer from Bard
+5. Show a 5-words definition
+6. Add search throughout the Interaction History
+7. Display current InteractionId in the main window
+8. Add "Regenerate" buttons for answers
+9. Add "Regenerate" button for Question
+10. Add auto-completion for the Theme combo box
+11. Search for a definition in Wikipedia
+12. Add a filter (search) field for History
 
 ## Install on Ubuntu
 

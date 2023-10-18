@@ -1,5 +1,7 @@
 package gptui.ui.controller;
 
+import gptui.format.ThemeHelper;
+import gptui.storage.GptStorage;
 import gptui.storage.Interaction;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
@@ -12,6 +14,7 @@ import javafx.scene.input.KeyEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -21,6 +24,10 @@ public class ThemeController extends BaseController {
     private Label themeLabel;
     @FXML
     private ComboBox<String> themeComboBox;
+    @Inject
+    private GptStorage storage;
+    @Inject
+    private ThemeHelper themeHelper;
 
     @FXML
     void themeComboBoxKeyReleased(KeyEvent ignoredEvent) {
@@ -41,7 +48,9 @@ public class ThemeController extends BaseController {
     @Override
     public void stageWasShowed(Model model, EventSource source) {
         log.trace("stageWasShowed");
-        setLabel(model);
+        var history = model.getHistory().stream().map(storage::readInteraction).map(Optional::orElseThrow).toList();
+        var themeList = themeHelper.interactionsToThemeList(history);
+        setLabel(themeList.size());
     }
 
     @Override
@@ -49,7 +58,9 @@ public class ThemeController extends BaseController {
         log.trace("interactionChosenFromHistory");
         setItems(model);
         var currentComboBoxValue = themeComboBox.getValue();
-        Optional.ofNullable(model.getCurrentInteraction())
+        Optional.ofNullable(model.getCurrentInteractionId())
+                .map(storage::readInteraction)
+                .map(Optional::orElseThrow)
                 .map(Interaction::theme)
                 .filter(theme -> !theme.equals(currentComboBoxValue))
                 .ifPresent(theme -> themeComboBox.setValue(theme));
@@ -67,15 +78,17 @@ public class ThemeController extends BaseController {
     }
 
     private void setItems(Model model) {
-        var currentModelItems = FXCollections.observableArrayList(model.getThemeList());
+        var history = model.getHistory().stream().map(storage::readInteraction).map(Optional::orElseThrow).toList();
+        var themeList = themeHelper.interactionsToThemeList(history);
+        var currentModelItems = FXCollections.observableArrayList(themeList);
         var currentComboBoxItems = themeComboBox.getItems();
         if (!Objects.equals(currentModelItems, currentComboBoxItems)) {
             themeComboBox.setItems(currentModelItems);
-            setLabel(model);
+            setLabel(themeList.size());
         }
     }
 
-    private void setLabel(Model model) {
-        themeLabel.setText(String.format("Theme (%d):", model.getThemeList().size()));
+    private void setLabel(int size) {
+        themeLabel.setText(String.format("Theme (%d):", size));
     }
 }
