@@ -2,6 +2,7 @@ package gptui.ui;
 
 import gptui.storage.Interaction;
 import javafx.scene.paint.Color;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -113,6 +114,7 @@ class WindowAssertion {
     }
 
     void assertApp() {
+        WaitForAsyncUtils.waitForFxEvents();
         verifyThat(app.getHistoryLabel(), hasText("Question history (" + historyItems.size() + "):"));
         verifyThat(app.getHistoryDeleteButton().getText(), equalTo("Delete"));
         verifyThat(app.getHistoryComboBox(), hasItems(historySize));

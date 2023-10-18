@@ -10,6 +10,7 @@ import gptui.media.SoundService;
 import gptui.storage.*;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -96,7 +97,7 @@ public class QuestionController extends BaseController {
         var question = model.getEditedQuestion();
         var interactionId = storage.newInteractionId();
         Mdc.run(interactionId, () -> {
-            log.info("Sending question: theme=\"{}\", question=\"{}\"", theme, question);
+            log.info("Sending question: interactionType=\"{}\", theme=\"{}\", question=\"{}\"", interactionType, theme, question);
             updateInteraction(interactionId, interaction -> interaction
                     .withTheme(theme)
                     .withQuestion(question)
@@ -114,6 +115,7 @@ public class QuestionController extends BaseController {
                                AnswerType answerType) {
         log.info("Sending request for {}...", answerType);
         runAsync(() -> Mdc.run(interactionId, () -> {
+            log.trace("requestAnswer async");
             var promptOpt = promptFactory.getPrompt(interactionType, theme, question, answerType);
             if (promptOpt.isPresent()) {
                 var prompt = promptOpt.get();
@@ -130,6 +132,7 @@ public class QuestionController extends BaseController {
             }
         })).handle((res, e) -> {
             if (e != null) {
+                log.error("Sending question exception", e);
                 Mdc.run(interactionId, () -> {
                     var message = e.getCause().getMessage();
                     updateInteraction(interactionId, interaction -> interaction.withAnswer(answerType,
@@ -173,13 +176,14 @@ public class QuestionController extends BaseController {
     }
 
     private synchronized void updateInteraction(InteractionId interactionId, Function<Interaction, Interaction> update) {
+        log.trace("updateInteraction {}", interactionId);
         storage.updateInteraction(interactionId, update);
         var currentInteraction = storage.readInteraction(interactionId).orElseThrow();
         var history = storage.readAllInteractions();
         model.setHistory(history);
         model.setCurrentInteraction(currentInteraction);
         model.setThemeList(themeHelper.interactionsToThemeList(history));
-        model.fireModelChanged(this);
+        Platform.runLater(() -> model.fireModelChanged(this));
     }
 }
 

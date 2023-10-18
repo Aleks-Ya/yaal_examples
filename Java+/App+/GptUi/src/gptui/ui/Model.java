@@ -1,6 +1,7 @@
 package gptui.ui;
 
 import gptui.storage.Interaction;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCodeCombination;
 import org.slf4j.Logger;
@@ -29,6 +30,7 @@ public class Model {
     }
 
     public void fireModelChanged(EventSource source) {
+        checkJavaFxThread();
         var selfListeners = getSelfListeners(source);
         var notSelfListeners = getNotSelfListeners(source);
         log.debug("Firing model changed to {} listeners (skip {} self-listeners)...", notSelfListeners.size(), selfListeners.size());
@@ -36,6 +38,7 @@ public class Model {
     }
 
     public void fireStageShowed(EventSource source) {
+        checkJavaFxThread();
         var selfListeners = getSelfListeners(source);
         var notSelfListeners = getNotSelfListeners(source);
         log.debug("Firing stage was showed to {} listeners (skip {} self-listeners)...", notSelfListeners.size(), selfListeners.size());
@@ -43,10 +46,19 @@ public class Model {
     }
 
     public void fireInteractionChosenFromHistory(EventSource source) {
+        checkJavaFxThread();
         var selfListeners = getSelfListeners(source);
         var notSelfListeners = getNotSelfListeners(source);
-        log.debug("Firing interaction chosen from history to {} listeners (skip {} self-listeners)...", notSelfListeners.size(), selfListeners.size());
+        log.debug("Firing interaction chosen from history to {} listeners (skip {} self-listeners of {})...",
+                notSelfListeners.size(), selfListeners.size(), source.getClass().getSimpleName());
         notSelfListeners.forEach(listener -> listener.interactionChosenFromHistory(this, source));
+    }
+
+    private void checkJavaFxThread() {
+        if (!Platform.isFxApplicationThread()) {
+            throw new IllegalStateException("Must be JavaFX Application Thread, but actual thread is " +
+                    Thread.currentThread().getName());
+        }
     }
 
     private List<ModelListener> getNotSelfListeners(EventSource source) {
@@ -57,44 +69,44 @@ public class Model {
         return listeners.stream().filter(listener -> listener == source).toList();
     }
 
-    public List<Interaction> getHistory() {
+    public synchronized List<Interaction> getHistory() {
         return history;
     }
 
-    public void setHistory(List<Interaction> history) {
+    public synchronized void setHistory(List<Interaction> history) {
         this.history = history;
     }
 
-    public List<String> getThemeList() {
+    public synchronized List<String> getThemeList() {
         return themeList;
     }
 
-    public void setThemeList(List<String> themeList) {
+    public synchronized void setThemeList(List<String> themeList) {
         this.themeList = themeList;
     }
 
-    public Interaction getCurrentInteraction() {
+    public synchronized Interaction getCurrentInteraction() {
         return currentInteraction;
     }
 
-    public void setCurrentInteraction(Interaction currentInteraction) {
+    public synchronized void setCurrentInteraction(Interaction currentInteraction) {
         log.debug("setCurrentInteraction: {}", currentInteraction);
         this.currentInteraction = currentInteraction;
     }
 
-    public String getEditedTheme() {
+    public synchronized String getEditedTheme() {
         return currentTheme;
     }
 
-    public void setCurrentTheme(String currentTheme) {
+    public synchronized void setCurrentTheme(String currentTheme) {
         this.currentTheme = currentTheme;
     }
 
-    public String getEditedQuestion() {
+    public synchronized String getEditedQuestion() {
         return editedQuestion;
     }
 
-    public void setEditedQuestion(String question) {
+    public synchronized void setEditedQuestion(String question) {
         this.editedQuestion = question;
     }
 

@@ -6,7 +6,6 @@ import gptui.storage.AnswerState;
 import gptui.storage.AnswerType;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -82,14 +81,12 @@ public class AnswerController extends BaseController {
                     .ifPresentOrElse(answerOpt -> {
                         var html = answerOpt.isPresent() ? answerOpt.get().answerHtml() : "";
                         var state = answerOpt.isPresent() ? answerOpt.get().answerState() : NEW;
-                        Platform.runLater(() -> Mdc.run(answerType, () -> {
-                            webView.getEngine().loadContent(html);
-                            statusCircle.setFill(answerStateToColor(state));
-                        }));
-                    }, () -> Platform.runLater(() -> Mdc.run(answerType, () -> {
+                        webView.getEngine().loadContent(html);
+                        statusCircle.setFill(answerStateToColor(state));
+                    }, () -> {
                         webView.getEngine().loadContent("");
                         statusCircle.setFill(WHITE);
-                    })));
+                    });
         });
     }
 

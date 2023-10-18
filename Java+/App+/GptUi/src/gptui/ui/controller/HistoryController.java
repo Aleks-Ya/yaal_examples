@@ -5,7 +5,6 @@ import gptui.storage.GptStorage;
 import gptui.storage.Interaction;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.util.Objects;
 
+import static gptui.ui.controller.ComboBoxUpdater.updateSilently;
 import static java.lang.String.format;
 
 public class HistoryController extends BaseController {
@@ -39,19 +39,22 @@ public class HistoryController extends BaseController {
         var modelItems = FXCollections.observableArrayList(model.getHistory());
         var comboBoxItems = historyComboBox.getItems();
         if (!Objects.equals(modelItems, comboBoxItems)) {
-            Platform.runLater(() -> {
-                historyComboBox.setItems(modelItems);
-                setLabel(model);
-            });
+            log.debug("Set items");
+            updateSilently(historyComboBox, comboBox -> comboBox.setItems(modelItems));
+            setLabel(model);
         }
         var modelCurrentValue = model.getCurrentInteraction();
         var comboBoxCurrentValue = historyComboBox.getSelectionModel().getSelectedItem();
         if (!Objects.equals(modelCurrentValue, comboBoxCurrentValue)) {
             if (modelCurrentValue != null) {
-                Platform.runLater(() -> historyComboBox.getSelectionModel().select(modelCurrentValue));
+                log.debug("Select interaction: {}", modelCurrentValue);
+                updateSilently(historyComboBox, comboBox -> comboBox.getSelectionModel().select(modelCurrentValue));
             } else {
-                Platform.runLater(() -> historyComboBox.getSelectionModel().clearSelection());
+                log.debug("Clear selection");
+                updateSilently(historyComboBox, comboBox -> comboBox.getSelectionModel().clearSelection());
             }
+        } else {
+            log.debug("Selection is unchanged: {}", modelCurrentValue);
         }
         historyDeleteButton.setDisable(model.getCurrentInteraction() == null);
     }
@@ -59,7 +62,7 @@ public class HistoryController extends BaseController {
     @Override
     public void stageWasShowed(Model model, EventSource source) {
         log.trace("stageWasShowed");
-        Platform.runLater(() -> setLabel(model));
+        setLabel(model);
     }
 
     @FXML
@@ -68,6 +71,7 @@ public class HistoryController extends BaseController {
         var modelCurrentInteraction = model.getCurrentInteraction();
         var comboBoxCurrentInteraction = historyComboBox.getSelectionModel().getSelectedItem();
         if (comboBoxCurrentInteraction != null && !Objects.equals(modelCurrentInteraction, comboBoxCurrentInteraction)) {
+            log.debug("setCurrentInteraction from historyComboBox: {}", comboBoxCurrentInteraction);
             model.setCurrentInteraction(comboBoxCurrentInteraction);
             model.fireInteractionChosenFromHistory(this);
         }
@@ -76,11 +80,9 @@ public class HistoryController extends BaseController {
     @FXML
     void clickHistoryDeleteButton(ActionEvent ignoredEvent) {
         log.trace("clickHistoryDeleteButton");
-        var oldHistory = model.getHistory();
-        var oldCurrentInteraction = model.getCurrentInteraction();
-        var oldCurrentInteractionIndex = oldHistory.indexOf(oldCurrentInteraction);
+        var oldCurrentInteractionIndex = historyComboBox.getSelectionModel().getSelectedIndex();
+        storage.deleteInteraction(model.getCurrentInteraction().id());
 
-        storage.deleteInteraction(oldCurrentInteraction.id());
 
         var newHistory = storage.readAllInteractions();
         model.setHistory(newHistory);
