@@ -119,7 +119,12 @@ class WindowAssertion {
         verifyThat(app.getHistoryDeleteButton().getText(), equalTo("Delete"));
         verifyThat(app.getHistoryComboBox(), hasItems(historySize));
         verifyThat(app.getHistoryDeleteButton().isDisabled(), is(historyDeleteButtonDisabled));
-        assertThat(app.getHistoryComboBox().getSelectionModel().getSelectedItem()).isEqualTo(historySelectedItem);
+        if (historySelectedItem != null) {
+            assertThat(app.getHistoryComboBox().getSelectionModel().getSelectedItem())
+                    .isEqualTo(app.storage.readInteraction(historySelectedItem.id()).orElseThrow());
+        } else {
+            assertThat(app.getHistoryComboBox().getSelectionModel().getSelectedItem()).isNull();
+        }
         assertThat(app.getHistoryComboBox().getItems()).containsExactlyElementsOf(historyItems);
         if (app.model.getCurrentInteractionId() != null) {
             assertThat(app.model.getCurrentInteractionId()).isEqualTo(historySelectedItem.id());

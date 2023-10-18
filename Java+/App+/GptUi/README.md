@@ -10,10 +10,9 @@
 6. Add search throughout the Interaction History
 7. Display current InteractionId in the main window
 8. Add "Regenerate" buttons for answers
-9. Add "Regenerate" button for Question
-10. Add auto-completion for the Theme combo box
-11. Search for a definition in Wikipedia
-12. Add a filter (search) field for History
+9. Add auto-completion for the Theme combo box
+10. Search for a definition in Wikipedia
+11. Add a filter (search) field for History
 
 ## Install on Ubuntu
 

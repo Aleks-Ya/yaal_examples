@@ -36,7 +36,7 @@ class SendFactTest extends BaseGptUiTest {
                 .answerCircleColors(GREEN, GREEN, RED)
                 .assertApp();
 
-        gptApi.clear().put("factually correct", "Fact answer 4", ofMillis(500));
+        gptApi.clear().putFactResponse("Fact answer 4", ofMillis(500));
         clickOn(getQuestionTextArea());
         overWrite("Question 4");
         clickOn(getFactSendButton());

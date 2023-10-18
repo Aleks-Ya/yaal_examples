@@ -36,7 +36,7 @@ class SendGrammarTest extends BaseGptUiTest {
                 .answerCircleColors(GREEN, GREEN, RED)
                 .assertApp();
 
-        gptApi.clear().put("has grammatical mistakes", "Grammar answer 4", ofMillis(500));
+        gptApi.clear().putGrammarResponse("Grammar answer 4", ofMillis(500));
         clickOn(getQuestionTextArea());
         overWrite("Question 4");
         clickOn(getGrammarSendButton());

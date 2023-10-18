@@ -101,6 +101,22 @@ public class QuestionController extends BaseController {
     }
 
     @FXML
+    void onRegenerateButtonClick(ActionEvent ignoredEvent) {
+        var interactionId = model.getCurrentInteractionId();
+        Mdc.run(interactionId, () -> {
+            var interaction = storage.readInteraction(interactionId).orElseThrow();
+            var theme = interaction.theme();
+            var question = interaction.question();
+            var interactionType = interaction.type();
+            log.info("Regenerate question: interactionId=\"{}\", interactionType=\"{}\", theme=\"{}\", question=\"{}\"",
+                    interactionId, interactionType, theme, question);
+            requestAnswer(theme, question, interactionId, interactionType, LONG);
+            requestAnswer(theme, question, interactionId, interactionType, SHORT);
+            requestAnswer(theme, question, interactionId, interactionType, GRAMMAR);
+        });
+    }
+
+    @FXML
     void keyTypedQuestionTextArea(KeyEvent ignoredEvent) {
         model.setEditedQuestion(questionTextArea.getText());
     }

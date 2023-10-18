@@ -66,9 +66,9 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .assertApp();
 
         gptApi.clear()
-                .put("has grammatical mistakes", "Grammar answer 1", ofMillis(1000))
-                .put("a short response", "Short answer 1", ofMillis(1500))
-                .put("a detailed response", "Long answer 1", ofMillis(2000));
+                .putGrammarResponse("Grammar answer 1", ofMillis(1000))
+                .putShortResponse("Short answer 1", ofMillis(1500))
+                .putLongResponse("Long answer 1", ofMillis(2000));
 
         clickOn(getQuestionSendButton());
         assertion()
@@ -134,9 +134,9 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .assertApp();
 
         gptApi.clear()
-                .put("has grammatical mistakes", "Grammar answer 2", ofMillis(1000))
-                .put("a short response", "Short answer 2", ofMillis(1500))
-                .put("a detailed response", "Long answer 2", ofMillis(2000));
+                .putGrammarResponse("Grammar answer 2", ofMillis(1000))
+                .putShortResponse("Short answer 2", ofMillis(1500))
+                .putLongResponse("Long answer 2", ofMillis(2000));
         clickOn(getQuestionSendButton());
         WaitForAsyncUtils.waitForFxEvents();
         assertion()

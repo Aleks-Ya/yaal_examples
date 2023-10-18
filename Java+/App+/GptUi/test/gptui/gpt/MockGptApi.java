@@ -27,12 +27,25 @@ public class MockGptApi implements GptApi {
         return info.content();
     }
 
-    public MockGptApi put(String contentSubstring, String response) {
-        contentSubstringToResponseMap.put(contentSubstring, new ResponseInfo(response, Duration.ZERO));
-        return this;
+    public MockGptApi putGrammarResponse(String response, Duration timeout) {
+        return put("has grammatical mistakes", response, timeout);
     }
 
-    public MockGptApi put(String contentSubstring, String response, Duration timeout) {
+    public MockGptApi putShortResponse(String response, Duration timeout) {
+        return put("a short response", response, timeout);
+    }
+
+    @SuppressWarnings("UnusedReturnValue")
+    public MockGptApi putLongResponse(String response, Duration timeout) {
+        return put("a detailed response", response, timeout);
+    }
+
+    @SuppressWarnings("UnusedReturnValue")
+    public MockGptApi putFactResponse(String response, Duration timeout) {
+        return put("factually correct", response, timeout);
+    }
+
+    private MockGptApi put(String contentSubstring, String response, Duration timeout) {
         contentSubstringToResponseMap.put(contentSubstring, new ResponseInfo(response, timeout));
         return this;
     }
