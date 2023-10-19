@@ -95,6 +95,10 @@ abstract class BaseGptUiTest extends ApplicationTest {
         return lookup("#grammarAnswer #copyButton").queryButton();
     }
 
+    protected Button getAnswerGrammarRegenerateButton() {
+        return lookup("#grammarAnswer #regenerateButton").queryButton();
+    }
+
     protected WebView getAnswerGrammarWebView() {
         return lookup("#grammarAnswer #webView").queryAs(WebView.class);
     }
@@ -115,6 +119,10 @@ abstract class BaseGptUiTest extends ApplicationTest {
         return lookup("#shortAnswer #copyButton").queryButton();
     }
 
+    protected Button getAnswerShortRegenerateButton() {
+        return lookup("#shortAnswer #regenerateButton").queryButton();
+    }
+
     protected Circle getAnswerShortCircle() {
         return lookup("#shortAnswer #statusCircle").queryAs(Circle.class);
     }
@@ -129,6 +137,10 @@ abstract class BaseGptUiTest extends ApplicationTest {
 
     protected Button getAnswerLongCopyButton() {
         return lookup("#longAnswer #copyButton").queryButton();
+    }
+
+    protected Button getAnswerLongRegenerateButton() {
+        return lookup("#longAnswer #regenerateButton").queryButton();
     }
 
     protected Circle getAnswerLongCircle() {

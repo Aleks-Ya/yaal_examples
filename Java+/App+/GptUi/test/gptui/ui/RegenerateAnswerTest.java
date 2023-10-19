@@ -1,0 +1,112 @@
+package gptui.ui;
+
+import org.junit.jupiter.api.Test;
+
+import static gptui.ui.TestingData.INTERACTION_1;
+import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_QUESTION;
+import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_THEME;
+import static gptui.ui.TestingData.INTERACTION_2_GRAMMAR_HTML;
+import static gptui.ui.TestingData.INTERACTION_2_LONG_HTML;
+import static gptui.ui.TestingData.INTERACTION_2_SHORT_HTML;
+import static java.time.Duration.ofMillis;
+import static javafx.scene.paint.Color.GREEN;
+
+class RegenerateAnswerTest extends BaseGptUiTest {
+    private static final String EXP_GRAMMAR_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_GRAMMAR_HTML);
+    private static final String EXP_SHORT_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_SHORT_HTML);
+    private static final String EXP_LONG_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_LONG_HTML);
+
+    @Override
+    public void init() {
+        storage.saveInteraction(INTERACTION_1);
+    }
+
+    @Test
+    void currentInteractionIsTheOnly() {
+        assertion()
+                .historySize(1)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(INTERACTION_1)
+                .historyItems(INTERACTION_1)
+                .themeSize(1)
+                .themeSelectedItem(INTERACTION_1_THEME)
+                .themeItems(INTERACTION_1_THEME)
+                .questionText(INTERACTION_1_QUESTION)
+                .modelEditedQuestion(INTERACTION_1_QUESTION)
+                .answerGrammarText(INTERACTION_1_GRAMMAR_HTML)
+                .answerShortText(INTERACTION_1_SHORT_HTML)
+                .answerLongText(INTERACTION_1_LONG_HTML)
+                .answerCircleColors(GREEN, GREEN, GREEN)
+                .assertApp();
+
+        regenerateGrammarAnswer();
+        regenerateShortAnswer();
+        regenerateLongAnswer();
+    }
+
+    private void regenerateGrammarAnswer() {
+        gptApi.clear().putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ofMillis(500));
+        clickOn(getAnswerGrammarRegenerateButton());
+        sleep(1000);
+        assertion()
+                .historySize(1)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readInteraction(INTERACTION_1.id()).orElseThrow())
+                .historyItems(storage.readInteraction(INTERACTION_1.id()).orElseThrow())
+                .themeSize(1)
+                .themeSelectedItem(INTERACTION_1_THEME)
+                .themeItems(INTERACTION_1_THEME)
+                .questionText(INTERACTION_1_QUESTION)
+                .modelEditedQuestion(INTERACTION_1_QUESTION)
+                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
+                .answerShortText(INTERACTION_1_SHORT_HTML)
+                .answerLongText(INTERACTION_1_LONG_HTML)
+                .answerCircleColors(GREEN, GREEN, GREEN)
+                .assertApp();
+    }
+
+    private void regenerateShortAnswer() {
+        gptApi.clear().putShortResponse(INTERACTION_2_SHORT_HTML, ofMillis(500));
+        clickOn(getAnswerShortRegenerateButton());
+        sleep(1000);
+        assertion()
+                .historySize(1)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readInteraction(INTERACTION_1.id()).orElseThrow())
+                .historyItems(storage.readInteraction(INTERACTION_1.id()).orElseThrow())
+                .themeSize(1)
+                .themeSelectedItem(INTERACTION_1_THEME)
+                .themeItems(INTERACTION_1_THEME)
+                .questionText(INTERACTION_1_QUESTION)
+                .modelEditedQuestion(INTERACTION_1_QUESTION)
+                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
+                .answerShortText(EXP_SHORT_HTML_BODY_2)
+                .answerLongText(INTERACTION_1_LONG_HTML)
+                .answerCircleColors(GREEN, GREEN, GREEN)
+                .assertApp();
+    }
+
+    private void regenerateLongAnswer() {
+        gptApi.clear().putLongResponse(INTERACTION_2_LONG_HTML, ofMillis(500));
+        clickOn(getAnswerLongRegenerateButton());
+        sleep(1000);
+        assertion()
+                .historySize(1)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readInteraction(INTERACTION_1.id()).orElseThrow())
+                .historyItems(storage.readInteraction(INTERACTION_1.id()).orElseThrow())
+                .themeSize(1)
+                .themeSelectedItem(INTERACTION_1_THEME)
+                .themeItems(INTERACTION_1_THEME)
+                .questionText(INTERACTION_1_QUESTION)
+                .modelEditedQuestion(INTERACTION_1_QUESTION)
+                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
+                .answerShortText(EXP_SHORT_HTML_BODY_2)
+                .answerLongText(EXP_LONG_HTML_BODY_2)
+                .answerCircleColors(GREEN, GREEN, GREEN)
+                .assertApp();
+    }
+}

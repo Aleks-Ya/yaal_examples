@@ -2,6 +2,7 @@ package gptui.ui.controller;
 
 import gptui.Mdc;
 import gptui.format.ClipboardHelper;
+import gptui.gpt.QuestionApi;
 import gptui.storage.AnswerState;
 import gptui.storage.AnswerType;
 import gptui.storage.GptStorage;
@@ -60,6 +61,8 @@ public class AnswerController extends BaseController {
     private ClipboardHelper clipboardHelper;
     @Inject
     private GptStorage storage;
+    @Inject
+    private QuestionApi questionApi;
 
     @FXML
     void clickCopyButton(ActionEvent ignoredEvent) {
@@ -67,6 +70,12 @@ public class AnswerController extends BaseController {
             log.trace("clickCopyButton");
             copyWebViewContentToClipboard();
         });
+    }
+
+    @FXML
+    void onRegenerateButtonClick(ActionEvent ignoredEvent) {
+        log.trace("onRegenerateButtonClick");
+        questionApi.requestAnswer(model.getCurrentInteractionId(), answerType);
     }
 
     @Override
