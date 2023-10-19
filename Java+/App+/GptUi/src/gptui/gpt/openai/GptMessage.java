@@ -1,4 +1,4 @@
-package gptui.gpt;
+package gptui.gpt.openai;
 
 record GptMessage(String role, String content) {
 }

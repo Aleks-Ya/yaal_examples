@@ -1,4 +1,4 @@
-package gptui.gpt;
+package gptui.gpt.openai;
 
 import java.util.List;
 

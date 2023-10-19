@@ -1,7 +1,4 @@
-package gptui;
-
-import gptui.storage.GptStorageFilesystem;
-import gptui.storage.GptStorageImpl;
+package gptui.storage;
 
 import java.nio.file.FileSystems;
 import java.util.concurrent.atomic.AtomicInteger;

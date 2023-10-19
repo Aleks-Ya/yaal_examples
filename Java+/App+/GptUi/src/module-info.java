@@ -22,18 +22,22 @@ module GptUi.main {
     requires flexmark.util.data;
     requires flexmark.ext.tables;
 
-    opens gptui.gpt to com.google.gson, com.google.guice;
 
     exports gptui.ui;
     exports gptui.format;
     exports gptui.gpt;
     exports gptui.media;
-    exports gptui.storage to com.google.gson;
+    exports gptui.storage;
     exports gptui.ui.controller;
-    opens gptui.ui.controller to com.google.guice, javafx.fxml;
+    exports gptui.gpt.openai;
     exports gptui;
+
+    opens gptui.gpt to com.google.gson, com.google.guice;
+    opens gptui.storage to com.google.guice;
+    opens gptui.ui.controller to com.google.guice, javafx.fxml;
     opens gptui to com.google.guice, javafx.fxml;
     opens gptui.ui to com.google.guice, javafx.fxml;
+    opens gptui.gpt.openai to com.google.gson, com.google.guice;
 
     requires javax.inject;
     requires com.google.guice;

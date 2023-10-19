@@ -2,10 +2,11 @@ package gptui.gpt;
 
 import javafx.application.Platform;
 
+import javax.inject.Singleton;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
-
+@Singleton
 public class MockGptApi implements GptApi {
     private final Map<String, ResponseInfo> contentSubstringToResponseMap = new HashMap<>();
 

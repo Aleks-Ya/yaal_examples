@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
@@ -12,12 +14,14 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+@Singleton
 public class GptStorageFilesystem {
     private static final Logger log = LoggerFactory.getLogger(GptStorageFilesystem.class);
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final FileSystem fileSystem;
     private final Path storageDir;
 
+    @Inject
     public GptStorageFilesystem(FileSystem fileSystem) {
         try {
             this.fileSystem = fileSystem;

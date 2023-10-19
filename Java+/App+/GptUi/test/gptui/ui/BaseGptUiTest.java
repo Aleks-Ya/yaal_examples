@@ -1,13 +1,9 @@
 package gptui.ui;
 
-import com.google.common.jimfs.Jimfs;
+import com.google.inject.util.Modules;
 import gptui.format.ClipboardHelper;
 import gptui.gpt.MockGptApi;
-import gptui.gpt.QuestionApi;
-import gptui.gpt.QuestionApiImpl;
 import gptui.storage.GptStorage;
-import gptui.storage.GptStorageFilesystem;
-import gptui.storage.GptStorageImpl;
 import gptui.storage.Interaction;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -22,21 +18,20 @@ import org.testfx.util.WaitForAsyncUtils;
 
 import java.util.concurrent.ExecutionException;
 
-import static com.google.common.jimfs.Configuration.unix;
 import static javafx.scene.input.KeyCode.A;
 import static javafx.scene.input.KeyCode.CONTROL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 abstract class BaseGptUiTest extends ApplicationTest {
-    protected final Model model = new Model();
-    protected final MockGptApi gptApi = new MockGptApi();
-    protected final GptStorage storage = new GptStorageImpl(new GptStorageFilesystem(Jimfs.newFileSystem(unix())));
-    protected final QuestionApi questionApi = new QuestionApiImpl();
-    protected final ClipboardHelper clipboardHelper = new ClipboardHelper();
+    private final GptUiApplication app = new GptUiApplication(Modules.override(new GuiceModule()).with(new TestGuiceModule()));
+    protected final Model model = app.getGuiceContext().getInstance(Model.class);
+    protected final MockGptApi gptApi = app.getGuiceContext().getInstance(MockGptApi.class);
+    protected final GptStorage storage = app.getGuiceContext().getInstance(GptStorage.class);
+    protected final ClipboardHelper clipboardHelper = app.getGuiceContext().getInstance(ClipboardHelper.class);
 
     @Override
     public void start(Stage stage) throws Exception {
-        new GptUiApplication(new TestGuiceModule(model, gptApi, storage, questionApi)).start(stage);
+        app.start(stage);
     }
 
     protected Label getHistoryLabel() {

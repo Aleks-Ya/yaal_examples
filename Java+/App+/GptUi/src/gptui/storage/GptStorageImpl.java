@@ -1,5 +1,6 @@
 package gptui.storage;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.time.Instant;
 import java.util.LinkedHashMap;
@@ -9,10 +10,11 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Singleton
-public class GptStorageImpl implements GptStorage {
+class GptStorageImpl implements GptStorage {
     private final Map<InteractionId, Interaction> interactions = new LinkedHashMap<>();
     private final GptStorageFilesystem storageFilesystem;
 
+    @Inject
     public GptStorageImpl(GptStorageFilesystem storageFilesystem) {
         this.storageFilesystem = storageFilesystem;
         storageFilesystem.readAllInteractions().forEach(interaction -> interactions.put(interaction.id(), interaction));

@@ -1,7 +1,8 @@
-package gptui.gpt;
+package gptui.gpt.openai;
 
 import com.google.gson.Gson;
 import gptui.Configuration;
+import gptui.gpt.GptApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,7 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.util.List;
 
-public class GptApiImpl implements GptApi {
+class GptApiImpl implements GptApi {
     private static final Logger log = LoggerFactory.getLogger(GptApiImpl.class);
     private static final String MODEL = "gpt-4";
     private static final Gson gson = new Gson();

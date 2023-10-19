@@ -33,12 +33,12 @@ public class GptUiApplication extends Application implements EventSource {
 
     public GptUiApplication(Module module) {
         context = new GuiceContext(this, () -> List.of(module));
+        context.init();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         log.info("Java version: {}", Runtime.version());
-        context.init();
         var gptUiFxml = getClass().getResource("GptUi.fxml");
         log.info("GptUi.fxml: {}", gptUiFxml);
         fxmlLoader.setLocation(requireNonNull(gptUiFxml));
@@ -53,6 +53,10 @@ public class GptUiApplication extends Application implements EventSource {
         stage.show();
         model.setScene(scene);
         model.fireStageShowed(this);
+    }
+
+    public GuiceContext getGuiceContext() {
+        return context;
     }
 
     private Image readApplicationIcon() {
