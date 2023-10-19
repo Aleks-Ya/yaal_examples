@@ -22,7 +22,7 @@ module GptUi.main {
     requires flexmark.util.data;
     requires flexmark.ext.tables;
 
-    opens gptui.gpt to com.google.gson;
+    opens gptui.gpt to com.google.gson, com.google.guice;
 
     exports gptui.ui;
     exports gptui.format;

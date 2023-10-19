@@ -3,6 +3,8 @@ package gptui.ui;
 import com.google.common.jimfs.Jimfs;
 import gptui.format.ClipboardHelper;
 import gptui.gpt.MockGptApi;
+import gptui.gpt.QuestionApi;
+import gptui.gpt.QuestionApiImpl;
 import gptui.storage.GptStorage;
 import gptui.storage.GptStorageFilesystem;
 import gptui.storage.GptStorageImpl;
@@ -29,11 +31,12 @@ abstract class BaseGptUiTest extends ApplicationTest {
     protected final Model model = new Model();
     protected final MockGptApi gptApi = new MockGptApi();
     protected final GptStorage storage = new GptStorageImpl(new GptStorageFilesystem(Jimfs.newFileSystem(unix())));
+    protected final QuestionApi questionApi = new QuestionApiImpl();
     protected final ClipboardHelper clipboardHelper = new ClipboardHelper();
 
     @Override
     public void start(Stage stage) throws Exception {
-        new GptUiApplication(new TestGuiceModule(model, gptApi, storage)).start(stage);
+        new GptUiApplication(new TestGuiceModule(model, gptApi, storage, questionApi)).start(stage);
     }
 
     protected Label getHistoryLabel() {
