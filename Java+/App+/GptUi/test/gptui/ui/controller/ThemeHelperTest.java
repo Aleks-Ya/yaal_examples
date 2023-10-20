@@ -1,4 +1,4 @@
-package gptui.format;
+package gptui.ui.controller;
 
 import gptui.storage.Interaction;
 import gptui.storage.InteractionId;

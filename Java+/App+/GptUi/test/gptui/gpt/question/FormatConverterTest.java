@@ -1,4 +1,4 @@
-package gptui.format;
+package gptui.gpt.question;
 
 import org.junit.jupiter.api.Test;
 

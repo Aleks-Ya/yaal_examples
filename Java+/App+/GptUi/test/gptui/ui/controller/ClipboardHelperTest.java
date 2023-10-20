@@ -1,4 +1,4 @@
-package gptui.format;
+package gptui.ui.controller;
 
 import javafx.application.Platform;
 import org.junit.jupiter.api.Test;

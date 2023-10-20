@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
-public class GptStorageFilesystem {
+class GptStorageFilesystem {
     private static final Logger log = LoggerFactory.getLogger(GptStorageFilesystem.class);
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final FileSystem fileSystem;

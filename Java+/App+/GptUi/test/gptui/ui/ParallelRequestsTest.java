@@ -1,7 +1,6 @@
 package gptui.ui;
 
 import org.junit.jupiter.api.Test;
-import org.testfx.util.WaitForAsyncUtils;
 
 import java.util.List;
 
@@ -122,7 +121,6 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .putLongResponse(INTERACTION_2_LONG_HTML, ofMillis(2000));
         clickOn(getQuestionSendButton());
         sleep(500);
-        WaitForAsyncUtils.waitForFxEvents();
         assertion()
                 .historySize(2)
                 .historyDeleteButtonDisabled(false)

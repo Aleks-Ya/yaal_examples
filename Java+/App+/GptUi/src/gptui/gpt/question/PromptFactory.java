@@ -1,4 +1,4 @@
-package gptui.format;
+package gptui.gpt.question;
 
 import gptui.storage.AnswerType;
 import gptui.storage.InteractionType;
@@ -7,7 +7,7 @@ import javax.inject.Singleton;
 import java.util.Optional;
 
 @Singleton
-public class PromptFactory {
+class PromptFactory {
     public Optional<String> getPrompt(InteractionType interactionType, String theme, String question, AnswerType answerType) {
         return switch (interactionType) {
             case QUESTION -> switch (answerType) {

@@ -1,4 +1,4 @@
-package gptui.format;
+package gptui.gpt.question;
 
 import gptui.storage.InteractionType;
 import org.junit.jupiter.api.Test;

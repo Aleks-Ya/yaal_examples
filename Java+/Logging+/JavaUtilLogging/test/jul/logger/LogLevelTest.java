@@ -6,9 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static jul.Helper.loadConfig;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.nullValue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class LogLevelTest {
 
@@ -16,21 +14,32 @@ public class LogLevelTest {
     void defaultLogLevel() {
         loadConfig("jul/logger/LogLevelTest.properties");
 
-        Logger rootLog = Logger.getLogger("");
-        assertThat(rootLog.getLevel(), equalTo(Level.SEVERE));
+        var rootLog = Logger.getLogger("");
+        assertThat(rootLog.getLevel()).isEqualTo(Level.SEVERE);
 
-        Logger log = Logger.getLogger("any.logger");
-        assertThat(log.getLevel(), nullValue());//Level is inherited from parent
-        Logger parent = log.getParent();
-        assertThat(parent, equalTo(rootLog));
+        var log = Logger.getLogger("any.logger");
+        assertThat(log.getLevel()).isNull();//Level is inherited from parent
+        var parent = log.getParent();
+        assertThat(parent).isEqualTo(rootLog);
     }
 
     @Test
     void specificLoggerLevel() {
         loadConfig("jul/logger/LogLevelTest.properties");
 
-        Logger log = Logger.getLogger("a.b.c");
-        assertThat(log.getLevel(), equalTo(Level.FINEST));
+        var log = Logger.getLogger("a.b.c");
+        assertThat(log.getLevel()).isEqualTo(Level.FINEST);
+    }
+
+    @Test
+    void setLogLevelViaSystemProperties() {
+        System.setProperty("java.util.logging.my.logger.level", "FINEST");
+        System.setProperty("my.logger.level", "FINEST");
+        System.setProperty("java.util.logging.ConsoleHandler.level", "FINEST");
+        var log = Logger.getLogger("my.logger");
+        log.warning("WARN!!!!!!!!!!!");
+        log.finest("FINEST!!!!!!!!!!!");
+        assertThat(log.getLevel()).isNull();//DOES NOT WORK
     }
 
 }

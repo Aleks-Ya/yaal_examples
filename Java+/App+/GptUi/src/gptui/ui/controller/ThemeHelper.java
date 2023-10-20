@@ -1,4 +1,4 @@
-package gptui.format;
+package gptui.ui.controller;
 
 import gptui.storage.Interaction;
 
@@ -12,7 +12,7 @@ import static java.util.Map.entry;
 import static java.util.stream.Collectors.groupingBy;
 
 @Singleton
-public class ThemeHelper {
+class ThemeHelper {
     public List<String> interactionsToThemeList(List<Interaction> interactions) {
         return interactions.stream()
                 .collect(groupingBy(Interaction::theme)).entrySet().stream().map(entry -> {

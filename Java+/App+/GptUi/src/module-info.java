@@ -5,8 +5,9 @@ module GptUi.main {
     requires javafx.web;
     requires javafx.media;
 
-    requires com.google.gson;
     requires java.net.http;
+    requires javax.inject;
+
     requires org.slf4j;
     //noinspection Java9RedundantRequiresStatement
     requires jul.to.slf4j;
@@ -16,33 +17,33 @@ module GptUi.main {
     requires java.naming;
     //noinspection Java9RedundantRequiresStatement
     requires jdk.crypto.ec;
-
+    requires com.google.gson;
     requires flexmark;
     requires flexmark.util.ast;
     requires flexmark.util.data;
     requires flexmark.ext.tables;
 
-
-    exports gptui.ui;
-    exports gptui.format;
-    exports gptui.gpt;
-    exports gptui.media;
-    exports gptui.storage;
-    exports gptui.ui.controller;
-    exports gptui.gpt.openai;
-    exports gptui;
-
-    opens gptui.gpt to com.google.gson, com.google.guice;
-    opens gptui.storage to com.google.guice;
-    opens gptui.ui.controller to com.google.guice, javafx.fxml;
-    opens gptui to com.google.guice, javafx.fxml;
-    opens gptui.ui to com.google.guice, javafx.fxml;
-    opens gptui.gpt.openai to com.google.gson, com.google.guice;
-
-    requires javax.inject;
     requires com.google.guice;
     requires ignite.guice;
     requires org.apache.lucene.core;
     requires org.apache.lucene.analysis.common;
     requires org.apache.lucene.queryparser;
+
+    exports gptui;
+    exports gptui.storage;
+    exports gptui.ui;
+    exports gptui.ui.controller;
+    exports gptui.gpt;
+    exports gptui.gpt.openai;
+    exports gptui.gpt.question;
+    exports gptui.config;
+
+    opens gptui to com.google.guice, javafx.fxml;
+    opens gptui.storage to com.google.guice;
+    opens gptui.ui to com.google.guice, javafx.fxml;
+    opens gptui.ui.controller to com.google.guice, javafx.fxml;
+    opens gptui.gpt to com.google.gson, com.google.guice;
+    opens gptui.gpt.openai to com.google.gson, com.google.guice;
+    opens gptui.gpt.question to com.google.gson, com.google.guice;
+    opens gptui.config to com.google.guice, javafx.fxml;
 }

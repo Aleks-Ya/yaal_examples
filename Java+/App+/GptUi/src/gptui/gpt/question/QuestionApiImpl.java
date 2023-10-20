@@ -1,9 +1,8 @@
-package gptui.gpt;
+package gptui.gpt.question;
 
 import gptui.Mdc;
-import gptui.format.FormatConverter;
-import gptui.format.PromptFactory;
-import gptui.media.SoundService;
+import gptui.gpt.QuestionApi;
+import gptui.gpt.openai.GptApi;
 import gptui.storage.Answer;
 import gptui.storage.AnswerType;
 import gptui.storage.GptStorage;
@@ -17,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.function.Function;
 
 import static gptui.storage.AnswerState.FAIL;
@@ -28,7 +28,8 @@ import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.SHORT;
 import static java.util.concurrent.CompletableFuture.runAsync;
 
-public class QuestionApiImpl implements QuestionApi, EventSource {
+@Singleton
+class QuestionApiImpl implements QuestionApi, EventSource {
     private static final Logger log = LoggerFactory.getLogger(QuestionApiImpl.class);
     @Inject
     private Model model;

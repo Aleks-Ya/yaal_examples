@@ -1,6 +1,5 @@
 package gptui.ui.controller;
 
-import gptui.format.ThemeHelper;
 import gptui.storage.GptStorage;
 import javafx.fxml.FXML;
 import org.slf4j.Logger;

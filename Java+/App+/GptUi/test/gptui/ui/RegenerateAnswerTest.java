@@ -11,7 +11,7 @@ import static gptui.ui.TestingData.INTERACTION_1_THEME;
 import static gptui.ui.TestingData.INTERACTION_2_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_SHORT_HTML;
-import static java.time.Duration.ofMillis;
+import static java.time.Duration.ZERO;
 import static javafx.scene.paint.Color.GREEN;
 
 class RegenerateAnswerTest extends BaseGptUiTest {
@@ -48,9 +48,8 @@ class RegenerateAnswerTest extends BaseGptUiTest {
     }
 
     private void regenerateGrammarAnswer() {
-        gptApi.clear().putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ofMillis(500));
+        gptApi.clear().putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ZERO);
         clickOn(getAnswerGrammarRegenerateButton());
-        sleep(1000);
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
@@ -69,9 +68,8 @@ class RegenerateAnswerTest extends BaseGptUiTest {
     }
 
     private void regenerateShortAnswer() {
-        gptApi.clear().putShortResponse(INTERACTION_2_SHORT_HTML, ofMillis(500));
+        gptApi.clear().putShortResponse(INTERACTION_2_SHORT_HTML, ZERO);
         clickOn(getAnswerShortRegenerateButton());
-        sleep(1000);
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
@@ -90,9 +88,8 @@ class RegenerateAnswerTest extends BaseGptUiTest {
     }
 
     private void regenerateLongAnswer() {
-        gptApi.clear().putLongResponse(INTERACTION_2_LONG_HTML, ofMillis(500));
+        gptApi.clear().putLongResponse(INTERACTION_2_LONG_HTML, ZERO);
         clickOn(getAnswerLongRegenerateButton());
-        sleep(1000);
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)

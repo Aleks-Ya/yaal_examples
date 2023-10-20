@@ -14,7 +14,7 @@ import static gptui.ui.TestingData.INTERACTION_1_THEME;
 import static gptui.ui.TestingData.INTERACTION_2_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_SHORT_HTML;
-import static java.time.Duration.ofMillis;
+import static java.time.Duration.ZERO;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 
@@ -50,12 +50,11 @@ class RegenerateQuestionTest extends BaseGptUiTest {
                 .assertApp();
 
         gptApi.clear()
-                .putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ofMillis(500))
-                .putShortResponse(INTERACTION_2_SHORT_HTML, ofMillis(1000))
-                .putLongResponse(INTERACTION_2_LONG_HTML, ofMillis(1500));
+                .putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ZERO)
+                .putShortResponse(INTERACTION_2_SHORT_HTML, ZERO)
+                .putLongResponse(INTERACTION_2_LONG_HTML, ZERO);
         clickOn(getRegenerateButton());
 
-        sleep(2000);
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)

@@ -1,7 +1,11 @@
 # Elasticsearch, Logstash, Kibana (ELK) Docker image
 
+## Info
 DockerHub: https://hub.docker.com/r/sebp/elk
 Docs: https://elk-docker.readthedocs.io/
+
+## REST API
+See Postman `ElasticSearch7` collection
 
 ## Run
 ### ELK 7

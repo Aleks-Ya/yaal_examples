@@ -3,8 +3,6 @@ package jul.manager;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.Objects;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -14,9 +12,9 @@ public class ConfigFromPropertiesFileTest {
 
     @Test
     void viaSystemProperty() throws IOException {
-        URL configUrl = ConfigFromPropertiesFileTest.class.getClassLoader()
+        var configUrl = ConfigFromPropertiesFileTest.class.getClassLoader()
                 .getResource("jul/manager/ConfigFromPropertiesFileTest.properties");
-        String configPath = Objects.requireNonNull(configUrl).getFile();
+        var configPath = Objects.requireNonNull(configUrl).getFile();
         System.setProperty("java.util.logging.config.file", configPath);
         LogManager.getLogManager().readConfiguration();
 
@@ -25,7 +23,7 @@ public class ConfigFromPropertiesFileTest {
 
     @Test
     void viaInputStream() throws IOException {
-        InputStream configIs = ConfigFromPropertiesFileTest.class.getClassLoader()
+        var configIs = ConfigFromPropertiesFileTest.class.getClassLoader()
                 .getResourceAsStream("jul/manager/ConfigFromPropertiesFileTest.properties");
         LogManager.getLogManager().readConfiguration(configIs);
 

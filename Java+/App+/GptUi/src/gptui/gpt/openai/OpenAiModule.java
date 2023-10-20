@@ -1,7 +1,6 @@
 package gptui.gpt.openai;
 
 import com.google.inject.AbstractModule;
-import gptui.gpt.GptApi;
 
 public class OpenAiModule extends AbstractModule {
     @Override

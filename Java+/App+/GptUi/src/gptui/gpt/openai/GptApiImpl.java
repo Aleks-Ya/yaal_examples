@@ -1,21 +1,20 @@
 package gptui.gpt.openai;
 
 import com.google.gson.Gson;
-import gptui.Configuration;
-import gptui.gpt.GptApi;
+import gptui.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.time.Duration;
 import java.util.List;
 
+@Singleton
 class GptApiImpl implements GptApi {
     private static final Logger log = LoggerFactory.getLogger(GptApiImpl.class);
     private static final String MODEL = "gpt-4";
@@ -23,13 +22,9 @@ class GptApiImpl implements GptApi {
     private static final URI endpoint = URI.create("https://api.openai.com/v1/chat/completions");
     private final String token;
 
-    public GptApiImpl() {
-        try {
-            var config = Configuration.getInstance();
-            token = Files.readString(Path.of(config.getAppDir().toString(), "token.txt"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    @Inject
+    public GptApiImpl(Configuration configuration) {
+        token = configuration.getProperty("openai.token");
     }
 
     @Override

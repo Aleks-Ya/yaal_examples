@@ -1,4 +1,4 @@
-package gptui.format;
+package gptui.gpt.question;
 
 import com.vladsch.flexmark.ast.FencedCodeBlock;
 import com.vladsch.flexmark.ext.tables.TablesExtension;
@@ -15,7 +15,7 @@ import static com.vladsch.flexmark.parser.Parser.EXTENSIONS;
 import static java.util.List.of;
 
 @Singleton
-public class FormatConverter {
+class FormatConverter {
     private final Parser parser;
     private final HtmlRenderer renderer;
 

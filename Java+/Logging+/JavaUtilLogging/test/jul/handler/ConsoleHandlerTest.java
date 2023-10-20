@@ -15,10 +15,10 @@ public class ConsoleHandlerTest {
     void handler() {
         loadConfig("jul/handler/ConsoleHandlerTest.properties");
 
-        Logger rootLog = Logger.getLogger("");
+        var rootLog = Logger.getLogger("");
         assertThat(rootLog.getHandlers(), arrayWithSize(1));
 
-        Logger log = Logger.getLogger(ConsoleHandlerTest.class.getName());
+        var log = Logger.getLogger(ConsoleHandlerTest.class.getName());
         assertThat(log.getHandlers(), emptyArray());
 
         log.warning("Hello, Логгер!");

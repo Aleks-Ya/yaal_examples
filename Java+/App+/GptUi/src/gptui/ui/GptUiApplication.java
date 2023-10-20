@@ -28,7 +28,7 @@ public class GptUiApplication extends Application implements EventSource {
     private Model model;
 
     public GptUiApplication() {
-        this(new GuiceModule());
+        this(new RootModule());
     }
 
     public GptUiApplication(Module module) {

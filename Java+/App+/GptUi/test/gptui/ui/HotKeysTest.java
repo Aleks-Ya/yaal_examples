@@ -1,6 +1,6 @@
 package gptui.ui;
 
-import gptui.format.ClipboardHelper;
+import gptui.ui.controller.ClipboardHelper;
 import org.junit.jupiter.api.Test;
 
 import static gptui.storage.InteractionType.DEFINITION;

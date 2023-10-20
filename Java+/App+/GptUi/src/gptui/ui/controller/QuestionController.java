@@ -1,7 +1,6 @@
 package gptui.ui.controller;
 
 import gptui.Mdc;
-import gptui.format.ClipboardHelper;
 import gptui.gpt.QuestionApi;
 import gptui.storage.GptStorage;
 import gptui.storage.Interaction;

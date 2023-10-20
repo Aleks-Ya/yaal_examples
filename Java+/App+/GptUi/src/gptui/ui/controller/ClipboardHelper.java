@@ -1,4 +1,4 @@
-package gptui.format;
+package gptui.ui.controller;
 
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;

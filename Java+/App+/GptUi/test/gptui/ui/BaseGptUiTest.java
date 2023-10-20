@@ -1,10 +1,10 @@
 package gptui.ui;
 
 import com.google.inject.util.Modules;
-import gptui.format.ClipboardHelper;
-import gptui.gpt.MockGptApi;
+import gptui.gpt.openai.MockGptApi;
 import gptui.storage.GptStorage;
 import gptui.storage.Interaction;
+import gptui.ui.controller.ClipboardHelper;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -23,7 +23,7 @@ import static javafx.scene.input.KeyCode.CONTROL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 abstract class BaseGptUiTest extends ApplicationTest {
-    private final GptUiApplication app = new GptUiApplication(Modules.override(new GuiceModule()).with(new TestGuiceModule()));
+    private final GptUiApplication app = new GptUiApplication(Modules.override(new RootModule()).with(new TestRootModule()));
     protected final Model model = app.getGuiceContext().getInstance(Model.class);
     protected final MockGptApi gptApi = app.getGuiceContext().getInstance(MockGptApi.class);
     protected final GptStorage storage = app.getGuiceContext().getInstance(GptStorage.class);

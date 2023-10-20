@@ -12,7 +12,7 @@ import static gptui.ui.TestingData.INTERACTION_3_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_3_QUESTION;
 import static gptui.ui.TestingData.INTERACTION_3_SHORT_HTML;
 import static gptui.ui.TestingData.INTERACTION_3_THEME;
-import static java.time.Duration.ofMillis;
+import static java.time.Duration.ZERO;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 import static javafx.scene.paint.Color.WHITE;
@@ -43,11 +43,10 @@ class SendGrammarTest extends BaseGptUiTest {
                 .answerCircleColors(GREEN, GREEN, RED)
                 .assertApp();
 
-        gptApi.clear().putGrammarResponse("Grammar answer 4", ofMillis(500));
+        gptApi.clear().putGrammarResponse("Grammar answer 4", ZERO);
         clickOn(getQuestionTextArea());
         overWrite("Question 4");
         clickOn(getGrammarSendButton());
-        sleep(1000);
 
         assertion()
                 .historySize(4)
