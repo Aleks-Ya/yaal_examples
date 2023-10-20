@@ -23,11 +23,13 @@ import java.util.Map;
 import java.util.Optional;
 
 import static gptui.storage.AnswerState.NEW;
+import static gptui.storage.AnswerType.GCP;
 import static gptui.storage.AnswerType.GRAMMAR;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.SHORT;
 import static javafx.scene.input.KeyCode.DIGIT1;
 import static javafx.scene.input.KeyCode.DIGIT2;
+import static javafx.scene.input.KeyCode.DIGIT3;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.GREEN;
@@ -38,15 +40,18 @@ public class AnswerController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(AnswerController.class);
     private static final Map<AnswerType, KeyCodeCombination> keyCodeCombinationMap = Map.of(
             SHORT, new KeyCodeCombination(DIGIT1, CONTROL_DOWN),
-            LONG, new KeyCodeCombination(DIGIT2, CONTROL_DOWN));
+            LONG, new KeyCodeCombination(DIGIT2, CONTROL_DOWN),
+            GCP, new KeyCodeCombination(DIGIT3, CONTROL_DOWN));
     private static final Map<AnswerType, String> labelTextMap = Map.of(
             GRAMMAR, "Grammar\nanswer:",
             SHORT, "Short\nanswer:",
-            LONG, "Long\nanswer:");
+            LONG, "Long\nanswer:",
+            GCP, "Bard\nanswer:");
     private static final Map<AnswerType, Boolean> isCopyButtonDisabledMap = Map.of(
             GRAMMAR, true,
             SHORT, false,
-            LONG, false);
+            LONG, false,
+            GCP, false);
     @FXML
     private Label answerLabel;
     @FXML

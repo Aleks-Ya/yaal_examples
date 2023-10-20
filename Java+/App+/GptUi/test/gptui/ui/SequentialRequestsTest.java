@@ -1,15 +1,16 @@
 package gptui.ui;
 
 import org.junit.jupiter.api.Test;
-import org.testfx.util.WaitForAsyncUtils;
 
 import java.util.List;
 
+import static gptui.ui.TestingData.INTERACTION_1_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_QUESTION;
 import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_THEME;
+import static gptui.ui.TestingData.INTERACTION_2_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_QUESTION;
@@ -24,9 +25,11 @@ class SequentialRequestsTest extends BaseGptUiTest {
     private static final String EXP_GRAMMAR_HTML_BODY_1 = wrapExpectedWebViewContent(INTERACTION_1_GRAMMAR_HTML);
     private static final String EXP_SHORT_HTML_BODY_1 = wrapExpectedWebViewContent(INTERACTION_1_SHORT_HTML);
     private static final String EXP_LONG_HTML_BODY_1 = wrapExpectedWebViewContent(INTERACTION_1_LONG_HTML);
+    private static final String EXP_GCP_HTML_BODY_1 = wrapExpectedWebViewContent(INTERACTION_1_GCP_HTML);
     private static final String EXP_GRAMMAR_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_GRAMMAR_HTML);
     private static final String EXP_SHORT_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_SHORT_HTML);
     private static final String EXP_LONG_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_LONG_HTML);
+    private static final String EXP_GCP_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_GCP_HTML);
 
     @Test
     void shouldSendQuestion() {
@@ -50,7 +53,8 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
-                .answerCircleColors(WHITE, WHITE, WHITE)
+                .answerGcpText("")
+                .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
                 .assertApp();
     }
 
@@ -72,13 +76,15 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
-                .answerCircleColors(WHITE, WHITE, WHITE)
+                .answerGcpText("")
+                .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
                 .assertApp();
 
         gptApi.clear()
                 .putGrammarResponse(INTERACTION_1_GRAMMAR_HTML, ofMillis(1000))
                 .putShortResponse(INTERACTION_1_SHORT_HTML, ofMillis(1500))
-                .putLongResponse(INTERACTION_1_LONG_HTML, ofMillis(2000));
+                .putLongResponse(INTERACTION_1_LONG_HTML, ofMillis(2000))
+                .putGcpResponse(INTERACTION_1_GCP_HTML, ofMillis(2500));
 
         clickOn(getQuestionSendButton());
         assertion()
@@ -94,7 +100,8 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
-                .answerCircleColors(BLUE, BLUE, BLUE)
+                .answerGcpText("")
+                .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
                 .assertApp();
 
         sleep(2000);
@@ -111,7 +118,8 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .answerGrammarText(EXP_GRAMMAR_HTML_BODY_1)
                 .answerShortText(EXP_SHORT_HTML_BODY_1)
                 .answerLongText(EXP_LONG_HTML_BODY_1)
-                .answerCircleColors(GREEN, GREEN, GREEN)
+                .answerGcpText(EXP_GCP_HTML_BODY_1)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .assertApp();
 
         clickOn(getAnswerShortCopyButton());
@@ -119,6 +127,9 @@ class SequentialRequestsTest extends BaseGptUiTest {
 
         clickOn(getAnswerLongCopyButton());
         verifyHtmlClipboardContent(EXP_LONG_HTML_BODY_1);
+
+        clickOn(getAnswerGcpCopyButton());
+        verifyHtmlClipboardContent(EXP_GCP_HTML_BODY_1);
     }
 
     private void sendSecondQuestion() {
@@ -139,15 +150,16 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .answerGrammarText(EXP_GRAMMAR_HTML_BODY_1)
                 .answerShortText(EXP_SHORT_HTML_BODY_1)
                 .answerLongText(EXP_LONG_HTML_BODY_1)
-                .answerCircleColors(GREEN, GREEN, GREEN)
+                .answerGcpText(EXP_GCP_HTML_BODY_1)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .assertApp();
 
         gptApi.clear()
                 .putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ofMillis(1000))
                 .putShortResponse(INTERACTION_2_SHORT_HTML, ofMillis(1500))
-                .putLongResponse(INTERACTION_2_LONG_HTML, ofMillis(2000));
+                .putLongResponse(INTERACTION_2_LONG_HTML, ofMillis(2000))
+                .putGcpResponse(INTERACTION_2_GCP_HTML, ofMillis(2500));
         clickOn(getQuestionSendButton());
-        WaitForAsyncUtils.waitForFxEvents();
         assertion()
                 .historySize(2)
                 .historyDeleteButtonDisabled(false)
@@ -161,7 +173,8 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
-                .answerCircleColors(BLUE, BLUE, BLUE)
+                .answerGcpText("")
+                .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
                 .assertApp();
 
 
@@ -179,7 +192,8 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
                 .answerShortText(EXP_SHORT_HTML_BODY_2)
                 .answerLongText(EXP_LONG_HTML_BODY_2)
-                .answerCircleColors(GREEN, GREEN, GREEN)
+                .answerGcpText(EXP_GCP_HTML_BODY_2)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .assertApp();
 
         clickOn(getAnswerShortCopyButton());
@@ -187,6 +201,9 @@ class SequentialRequestsTest extends BaseGptUiTest {
 
         clickOn(getAnswerLongCopyButton());
         verifyHtmlClipboardContent(EXP_LONG_HTML_BODY_2);
+
+        clickOn(getAnswerGcpCopyButton());
+        verifyHtmlClipboardContent(EXP_GCP_HTML_BODY_2);
     }
 
     private void choosePreviousInteraction() {
@@ -203,7 +220,8 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
                 .answerShortText(EXP_SHORT_HTML_BODY_2)
                 .answerLongText(EXP_LONG_HTML_BODY_2)
-                .answerCircleColors(GREEN, GREEN, GREEN)
+                .answerGcpText(EXP_GCP_HTML_BODY_2)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .assertApp();
 
         clickOn(getHistoryComboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_1_THEME, INTERACTION_1_QUESTION));
@@ -220,7 +238,8 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .answerGrammarText(EXP_GRAMMAR_HTML_BODY_1)
                 .answerShortText(EXP_SHORT_HTML_BODY_1)
                 .answerLongText(EXP_LONG_HTML_BODY_1)
-                .answerCircleColors(GREEN, GREEN, GREEN)
+                .answerGcpText(EXP_GCP_HTML_BODY_1)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .assertApp();
 
         clickOn(getAnswerShortCopyButton());
@@ -228,6 +247,8 @@ class SequentialRequestsTest extends BaseGptUiTest {
 
         clickOn(getAnswerLongCopyButton());
         verifyHtmlClipboardContent(EXP_LONG_HTML_BODY_1);
-    }
 
+        clickOn(getAnswerGcpCopyButton());
+        verifyHtmlClipboardContent(EXP_GCP_HTML_BODY_1);
+    }
 }

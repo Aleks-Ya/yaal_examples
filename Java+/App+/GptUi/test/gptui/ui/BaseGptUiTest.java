@@ -126,20 +126,39 @@ abstract class BaseGptUiTest extends ApplicationTest {
         return lookup("#longAnswer #answerLabel").queryAs(Label.class);
     }
 
+    protected Label getAnswerGcpLabel() {
+        return lookup("#gcpAnswer #answerLabel").queryAs(Label.class);
+    }
+
     protected WebView getAnswerLongWebView() {
         return lookup("#longAnswer #webView").queryAs(WebView.class);
+    }
+
+    protected WebView getAnswerGcpWebView() {
+        return lookup("#gcpAnswer #webView").queryAs(WebView.class);
     }
 
     protected Button getAnswerLongCopyButton() {
         return lookup("#longAnswer #copyButton").queryButton();
     }
 
+    protected Button getAnswerGcpCopyButton() {
+        return lookup("#gcpAnswer #copyButton").queryButton();
+    }
+
     protected Button getAnswerLongRegenerateButton() {
         return lookup("#longAnswer #regenerateButton").queryButton();
     }
 
+    protected Button getAnswerGcpRegenerateButton() {
+        return lookup("#gcpAnswer #regenerateButton").queryButton();
+    }
+
     protected Circle getAnswerLongCircle() {
         return lookup("#longAnswer #statusCircle").queryAs(Circle.class);
+    }
+    protected Circle getAnswerGcpCircle() {
+        return lookup("#gcpAnswer #statusCircle").queryAs(Circle.class);
     }
 
     private String extractWebViewContent(WebView webView) {

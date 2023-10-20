@@ -5,15 +5,14 @@
 1. Fix layout
 2. Add `Delete` button for the Themes
 3. Do not create new HttpClient instance for each request
-4. Add an answer from Bard
-5. Show a 5-words definition
-6. Add search throughout the Interaction History
-7. Display current InteractionId in the main window
-8. Add auto-completion for the Theme combo box
-9. Search for a definition in Wikipedia
-10. Add a filter (search) field for History
-11. Replace Ctrl-XXX hotkeys with Alt-XXX
-12. Add a temperature slider
+4. Show a 5-words definition
+5. Add search throughout the Interaction History
+6. Display current InteractionId in the main window
+7. Add auto-completion for the Theme combo box
+8. Search for a definition in Wikipedia
+9. Add a filter (search) field for History
+10. Replace Ctrl-XXX hotkeys with Alt-XXX
+11. Add a temperature slider
 
 ## Install on Ubuntu
 

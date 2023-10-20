@@ -2,6 +2,7 @@ package gptui.gpt.question;
 
 import gptui.Mdc;
 import gptui.gpt.QuestionApi;
+import gptui.gpt.gcp.GcpApi;
 import gptui.gpt.openai.GptApi;
 import gptui.storage.Answer;
 import gptui.storage.AnswerType;
@@ -23,6 +24,7 @@ import static gptui.storage.AnswerState.FAIL;
 import static gptui.storage.AnswerState.NEW;
 import static gptui.storage.AnswerState.SENT;
 import static gptui.storage.AnswerState.SUCCESS;
+import static gptui.storage.AnswerType.GCP;
 import static gptui.storage.AnswerType.GRAMMAR;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.SHORT;
@@ -39,6 +41,8 @@ class QuestionApiImpl implements QuestionApi, EventSource {
     private PromptFactory promptFactory;
     @Inject
     private GptApi gptApi;
+    @Inject
+    private GcpApi gcpApi;
     @Inject
     private SoundService soundService;
     @Inject
@@ -57,7 +61,9 @@ class QuestionApiImpl implements QuestionApi, EventSource {
                     .withType(interactionType)
                     .withAnswer(GRAMMAR, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW))
                     .withAnswer(SHORT, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW))
-                    .withAnswer(LONG, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW)));
+                    .withAnswer(LONG, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW))
+                    .withAnswer(GCP, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW)));
+            requestAnswer(interactionId, GCP);
             requestAnswer(interactionId, LONG);
             requestAnswer(interactionId, SHORT);
             requestAnswer(interactionId, GRAMMAR);
@@ -74,7 +80,7 @@ class QuestionApiImpl implements QuestionApi, EventSource {
             if (promptOpt.isPresent()) {
                 var prompt = promptOpt.get();
                 updateAnswer(interactionId, answerType, answer -> answer.withPrompt(prompt).withState(SENT));
-                var answerMd = gptApi.send(prompt);
+                var answerMd = answerType != GCP ? gptApi.send(prompt) : gcpApi.send(prompt);
                 var answerHtml = formatConverter.markdownToHtml(answerMd);
                 updateAnswer(interactionId, answerType, answer ->
                         answer.withAnswerMd(answerMd).withAnswerHtml(answerHtml).withState(SUCCESS));

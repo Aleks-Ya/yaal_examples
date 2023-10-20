@@ -3,12 +3,14 @@ package gptui.ui;
 import org.junit.jupiter.api.Test;
 
 import static gptui.ui.TestingData.INTERACTION_1;
+import static gptui.ui.TestingData.INTERACTION_1_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_QUESTION;
 import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_THEME;
 import static gptui.ui.TestingData.INTERACTION_2;
+import static gptui.ui.TestingData.INTERACTION_2_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_QUESTION;
@@ -39,7 +41,8 @@ class DeleteInteractionTopTest extends BaseGptUiTest {
                 .answerGrammarText(INTERACTION_2_GRAMMAR_HTML)
                 .answerShortText(INTERACTION_2_SHORT_HTML)
                 .answerLongText(INTERACTION_2_LONG_HTML)
-                .answerCircleColors(GREEN, GREEN, RED)
+                .answerGcpText(INTERACTION_2_GCP_HTML)
+                .answerCircleColors(GREEN, GREEN, RED, GREEN)
                 .assertApp();
 
         clickOn(getHistoryDeleteButton());
@@ -57,7 +60,8 @@ class DeleteInteractionTopTest extends BaseGptUiTest {
                 .answerGrammarText(INTERACTION_1_GRAMMAR_HTML)
                 .answerShortText(INTERACTION_1_SHORT_HTML)
                 .answerLongText(INTERACTION_1_LONG_HTML)
-                .answerCircleColors(GREEN, GREEN, GREEN)
+                .answerGcpText(INTERACTION_1_GCP_HTML)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .assertApp();
     }
 }

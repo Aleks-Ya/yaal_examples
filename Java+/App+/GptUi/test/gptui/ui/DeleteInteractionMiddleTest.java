@@ -8,6 +8,7 @@ import static gptui.ui.TestingData.INTERACTION_2;
 import static gptui.ui.TestingData.INTERACTION_2_QUESTION;
 import static gptui.ui.TestingData.INTERACTION_2_THEME;
 import static gptui.ui.TestingData.INTERACTION_3;
+import static gptui.ui.TestingData.INTERACTION_3_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_3_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_3_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_3_QUESTION;
@@ -39,7 +40,8 @@ class DeleteInteractionMiddleTest extends BaseGptUiTest {
                 .answerGrammarText(INTERACTION_3_GRAMMAR_HTML)
                 .answerShortText(INTERACTION_3_SHORT_HTML)
                 .answerLongText(INTERACTION_3_LONG_HTML)
-                .answerCircleColors(GREEN, GREEN, RED)
+                .answerGcpText(INTERACTION_3_GCP_HTML)
+                .answerCircleColors(GREEN, GREEN, RED, GREEN)
                 .assertApp();
 
         clickOn(getHistoryComboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_2_THEME, INTERACTION_2_QUESTION));
@@ -58,7 +60,8 @@ class DeleteInteractionMiddleTest extends BaseGptUiTest {
                 .answerGrammarText(INTERACTION_3_GRAMMAR_HTML)
                 .answerShortText(INTERACTION_3_SHORT_HTML)
                 .answerLongText(INTERACTION_3_LONG_HTML)
-                .answerCircleColors(GREEN, GREEN, RED)
+                .answerGcpText(INTERACTION_3_GCP_HTML)
+                .answerCircleColors(GREEN, GREEN, RED, GREEN)
                 .assertApp();
     }
 }

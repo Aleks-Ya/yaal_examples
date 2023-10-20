@@ -4,11 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static gptui.ui.TestingData.INTERACTION_1_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_QUESTION;
 import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_THEME;
+import static gptui.ui.TestingData.INTERACTION_2_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_QUESTION;
@@ -23,6 +25,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
     private static final String EXP_GRAMMAR_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_GRAMMAR_HTML);
     private static final String EXP_SHORT_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_SHORT_HTML);
     private static final String EXP_LONG_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_LONG_HTML);
+    private static final String EXP_GCP_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_GCP_HTML);
 
     @Test
     void shouldSendQuestion() {
@@ -46,7 +49,8 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
-                .answerCircleColors(WHITE, WHITE, WHITE)
+                .answerGcpText("")
+                .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
                 .assertApp();
     }
 
@@ -68,13 +72,15 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
-                .answerCircleColors(WHITE, WHITE, WHITE)
+                .answerGcpText("")
+                .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
                 .assertApp();
 
         gptApi.clear()
                 .putGrammarResponse(INTERACTION_1_GRAMMAR_HTML, ofMillis(6000))
                 .putShortResponse(INTERACTION_1_SHORT_HTML, ofMillis(6500))
-                .putLongResponse(INTERACTION_1_LONG_HTML, ofMillis(7000));
+                .putLongResponse(INTERACTION_1_LONG_HTML, ofMillis(7000))
+                .putGcpResponse(INTERACTION_1_GCP_HTML, ofMillis(7500));
 
         clickOn(getQuestionSendButton());
         assertion()
@@ -90,7 +96,8 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
-                .answerCircleColors(BLUE, BLUE, BLUE)
+                .answerGcpText("")
+                .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
                 .assertApp();
     }
 
@@ -112,15 +119,16 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
-                .answerCircleColors(BLUE, BLUE, BLUE)
+                .answerGcpText("")
+                .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
                 .assertApp();
 
         gptApi.clear()
                 .putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ofMillis(1000))
                 .putShortResponse(INTERACTION_2_SHORT_HTML, ofMillis(1500))
-                .putLongResponse(INTERACTION_2_LONG_HTML, ofMillis(2000));
+                .putLongResponse(INTERACTION_2_LONG_HTML, ofMillis(2000))
+                .putGcpResponse(INTERACTION_2_GCP_HTML, ofMillis(2500));
         clickOn(getQuestionSendButton());
-        sleep(500);
         assertion()
                 .historySize(2)
                 .historyDeleteButtonDisabled(false)
@@ -134,11 +142,12 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
-                .answerCircleColors(BLUE, BLUE, BLUE)
+                .answerGcpText("")
+                .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
                 .assertApp();
 
 
-        sleep(2000);
+        sleep(4000);
         assertion()
                 .historySize(2)
                 .historyDeleteButtonDisabled(false)
@@ -152,7 +161,8 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
                 .answerShortText(EXP_SHORT_HTML_BODY_2)
                 .answerLongText(EXP_LONG_HTML_BODY_2)
-                .answerCircleColors(GREEN, GREEN, GREEN)
+                .answerGcpText(EXP_GCP_HTML_BODY_2)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .assertApp();
     }
 
@@ -171,8 +181,8 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
                 .answerShortText(EXP_SHORT_HTML_BODY_2)
                 .answerLongText(EXP_LONG_HTML_BODY_2)
-                .answerCircleColors(GREEN, GREEN, GREEN)
+                .answerGcpText(EXP_GCP_HTML_BODY_2)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .assertApp();
     }
-
 }

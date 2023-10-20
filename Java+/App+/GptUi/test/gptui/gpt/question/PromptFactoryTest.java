@@ -3,6 +3,7 @@ package gptui.gpt.question;
 import gptui.storage.InteractionType;
 import org.junit.jupiter.api.Test;
 
+import static gptui.storage.AnswerType.GCP;
 import static gptui.storage.AnswerType.GRAMMAR;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.SHORT;
@@ -31,6 +32,8 @@ class PromptFactoryTest {
                         "You should answer with a detailed response. " +
                         "Format your answer into Markdown. " +
                         "The question is `Question A`. ");
+        assertThat(factory.getPrompt(QUESTION, "Theme A", "Question A", GCP))
+                .contains("Answer question about `Theme A`: `Question A` ");
     }
 
     @Test
@@ -46,6 +49,8 @@ class PromptFactoryTest {
         assertThat(factory.getPrompt(DEFINITION, "Theme A", "Question A", LONG))
                 .contains("Provide a detailed, single-sentence definition of 'Question A' in the context of 'Theme A'. " +
                         "Format your answer into Markdown. ");
+        assertThat(factory.getPrompt(DEFINITION, "Theme A", "Question A", GCP))
+                .contains("Provide a single-sentence definition of 'Question A' in the context of 'Theme A'. ");
     }
 
     @Test
@@ -57,6 +62,7 @@ class PromptFactoryTest {
                         "The sentence is `Question A`.");
         assertThat(factory.getPrompt(InteractionType.GRAMMAR, "Theme A", "Question A", SHORT)).isEmpty();
         assertThat(factory.getPrompt(InteractionType.GRAMMAR, "Theme A", "Question A", LONG)).isEmpty();
+        assertThat(factory.getPrompt(InteractionType.GRAMMAR, "Theme A", "Question A", GCP)).isEmpty();
     }
 
     @Test
@@ -66,5 +72,6 @@ class PromptFactoryTest {
                         "Format your answer into Markdown. ");
         assertThat(factory.getPrompt(InteractionType.GRAMMAR, "Theme A", "Question A", SHORT)).isEmpty();
         assertThat(factory.getPrompt(InteractionType.GRAMMAR, "Theme A", "Question A", LONG)).isEmpty();
+        assertThat(factory.getPrompt(InteractionType.GRAMMAR, "Theme A", "Question A", GCP)).isEmpty();
     }
 }

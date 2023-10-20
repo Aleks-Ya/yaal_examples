@@ -7,6 +7,7 @@ import static gptui.ui.TestingData.INTERACTION_1_THEME;
 import static gptui.ui.TestingData.INTERACTION_2;
 import static gptui.ui.TestingData.INTERACTION_2_THEME;
 import static gptui.ui.TestingData.INTERACTION_3;
+import static gptui.ui.TestingData.INTERACTION_3_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_3_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_3_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_3_QUESTION;
@@ -40,7 +41,8 @@ class SendFactTest extends BaseGptUiTest {
                 .answerGrammarText(INTERACTION_3_GRAMMAR_HTML)
                 .answerShortText(INTERACTION_3_SHORT_HTML)
                 .answerLongText(INTERACTION_3_LONG_HTML)
-                .answerCircleColors(GREEN, GREEN, RED)
+                .answerGcpText(INTERACTION_3_GCP_HTML)
+                .answerCircleColors(GREEN, GREEN, RED, GREEN)
                 .assertApp();
 
         gptApi.clear().putFactResponse("Fact answer 4", ZERO);
@@ -61,7 +63,8 @@ class SendFactTest extends BaseGptUiTest {
                 .answerGrammarText("<p>Fact answer 4</p>\n")
                 .answerShortText("")
                 .answerLongText("")
-                .answerCircleColors(GREEN, WHITE, WHITE)
+                .answerGcpText("")
+                .answerCircleColors(GREEN, WHITE, WHITE, WHITE)
                 .assertApp();
     }
 }

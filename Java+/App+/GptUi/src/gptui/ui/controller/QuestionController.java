@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.util.Optional;
 
+import static gptui.storage.AnswerType.GCP;
 import static gptui.storage.AnswerType.GRAMMAR;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.SHORT;
@@ -88,6 +89,7 @@ public class QuestionController extends BaseController {
             questionApi.requestAnswer(interactionId, LONG);
             questionApi.requestAnswer(interactionId, SHORT);
             questionApi.requestAnswer(interactionId, GRAMMAR);
+            questionApi.requestAnswer(interactionId, GCP);
         });
     }
 

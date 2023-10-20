@@ -1,5 +1,6 @@
 package gptui.gpt.openai;
 
+import gptui.gpt.gcp.GcpApi;
 import javafx.application.Platform;
 
 import javax.inject.Singleton;
@@ -8,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Singleton
-public class MockGptApi implements GptApi {
+public class MockGptApi implements GptApi, GcpApi {
     private final Map<String, ResponseInfo> contentSubstringToResponseMap = new HashMap<>();
 
     @Override
@@ -40,6 +41,11 @@ public class MockGptApi implements GptApi {
     @SuppressWarnings("UnusedReturnValue")
     public MockGptApi putLongResponse(String response, Duration timeout) {
         return put("a detailed response", response, timeout);
+    }
+
+    @SuppressWarnings("UnusedReturnValue")
+    public MockGptApi putGcpResponse(String response, Duration timeout) {
+        return put("Answer question about", response, timeout);
     }
 
     @SuppressWarnings("UnusedReturnValue")

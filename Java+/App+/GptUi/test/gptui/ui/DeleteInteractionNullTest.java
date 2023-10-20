@@ -20,7 +20,8 @@ class DeleteInteractionNullTest extends BaseGptUiTest {
                 .answerGrammarText("")
                 .answerShortText("")
                 .answerLongText("")
-                .answerCircleColors(WHITE, WHITE, WHITE)
+                .answerGcpText("")
+                .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
                 .assertApp();
     }
 }

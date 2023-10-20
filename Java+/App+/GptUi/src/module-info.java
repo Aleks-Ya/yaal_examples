@@ -35,6 +35,7 @@ module GptUi.main {
     exports gptui.ui.controller;
     exports gptui.gpt;
     exports gptui.gpt.openai;
+    exports gptui.gpt.gcp;
     exports gptui.gpt.question;
     exports gptui.config;
 
@@ -44,6 +45,7 @@ module GptUi.main {
     opens gptui.ui.controller to com.google.guice, javafx.fxml;
     opens gptui.gpt to com.google.gson, com.google.guice;
     opens gptui.gpt.openai to com.google.gson, com.google.guice;
+    opens gptui.gpt.gcp to com.google.gson, com.google.guice;
     opens gptui.gpt.question to com.google.gson, com.google.guice;
     opens gptui.config to com.google.guice, javafx.fxml;
 }

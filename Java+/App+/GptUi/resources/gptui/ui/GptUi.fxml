@@ -18,4 +18,6 @@
     <fx:include fx:id="shortAnswer" source="Answer.fxml" VBox.vgrow="ALWAYS" />
     <Separator prefWidth="200.0" visible="false" />
     <fx:include fx:id="longAnswer" source="Answer.fxml" VBox.vgrow="ALWAYS" />
+   <Separator prefWidth="200.0" visible="false" />
+   <fx:include fx:id="gcpAnswer" source="Answer.fxml" VBox.vgrow="ALWAYS" />
 </VBox>

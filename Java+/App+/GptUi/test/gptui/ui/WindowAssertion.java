@@ -28,9 +28,11 @@ class WindowAssertion {
     private String answerGrammarText;
     private String answerShortText;
     private String answerLongText;
+    private String answerGcpText;
     private Color answerGrammarCircleColor;
     private Color answerShortCircleColor;
     private Color answerLongCircleColor;
+    private Color answerGcpCircleColor;
 
     public static WindowAssertion builder() {
         return new WindowAssertion();
@@ -106,10 +108,17 @@ class WindowAssertion {
         return this;
     }
 
-    public WindowAssertion answerCircleColors(Color grammarCircleColor, Color shortCircleColor, Color longCircleColor) {
+    public WindowAssertion answerGcpText(String answerGcpText) {
+        this.answerGcpText = answerGcpText;
+        return this;
+    }
+
+    public WindowAssertion answerCircleColors(Color grammarCircleColor, Color shortCircleColor,
+                                              Color longCircleColor, Color answerBardCircleColor) {
         this.answerGrammarCircleColor = grammarCircleColor;
         this.answerShortCircleColor = shortCircleColor;
         this.answerLongCircleColor = longCircleColor;
+        this.answerGcpCircleColor = answerBardCircleColor;
         return this;
     }
 
@@ -170,6 +179,13 @@ class WindowAssertion {
         app.verifyWebViewBody(app.getAnswerLongWebView(), answerLongText);
         assertThat(app.getAnswerLongCircle().getFill()).isEqualTo(answerLongCircleColor);
         assertThat(app.getAnswerLongCopyButton().isDisabled()).isFalse();
+
+        verifyThat(app.getAnswerGcpLabel(), hasText("Bard\nanswer:"));
+        verifyThat(app.getAnswerGcpCopyButton().getText(), equalTo("Copy"));
+        verifyThat(app.getAnswerGcpRegenerateButton().getText(), equalTo("⟳"));
+        app.verifyWebViewBody(app.getAnswerGcpWebView(), answerGcpText);
+        assertThat(app.getAnswerGcpCircle().getFill()).isEqualTo(answerGcpCircleColor);
+        assertThat(app.getAnswerGcpCopyButton().isDisabled()).isFalse();
     }
 }
 

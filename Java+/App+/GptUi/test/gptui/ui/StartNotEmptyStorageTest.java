@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static gptui.ui.TestingData.INTERACTION_1;
 import static gptui.ui.TestingData.INTERACTION_1_THEME;
 import static gptui.ui.TestingData.INTERACTION_2;
+import static gptui.ui.TestingData.INTERACTION_2_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_QUESTION;
@@ -36,7 +37,8 @@ class StartNotEmptyStorageTest extends BaseGptUiTest {
                 .answerGrammarText(INTERACTION_2_GRAMMAR_HTML)
                 .answerShortText(INTERACTION_2_SHORT_HTML)
                 .answerLongText(INTERACTION_2_LONG_HTML)
-                .answerCircleColors(GREEN, GREEN, RED)
+                .answerGcpText(INTERACTION_2_GCP_HTML)
+                .answerCircleColors(GREEN, GREEN, RED, GREEN)
                 .assertApp();
     }
 }

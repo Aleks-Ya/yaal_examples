@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 
+import static gptui.storage.AnswerType.GCP;
 import static gptui.storage.AnswerType.GRAMMAR;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.SHORT;
@@ -26,6 +27,9 @@ public class GptUiController extends BaseController {
     @FXML
     @SuppressWarnings("unused")
     private AnswerController shortAnswerController;
+    @FXML
+    @SuppressWarnings("unused")
+    private AnswerController gcpAnswerController;
 
     @Override
     protected void initializeChild() {
@@ -33,6 +37,7 @@ public class GptUiController extends BaseController {
         grammarAnswerController.setAnswerType(GRAMMAR);
         shortAnswerController.setAnswerType(SHORT);
         longAnswerController.setAnswerType(LONG);
+        gcpAnswerController.setAnswerType(GCP);
         var history = storage.readAllInteractions();
         var themeList = themeHelper.interactionsToThemeList(history);
         model.setHistory(history);

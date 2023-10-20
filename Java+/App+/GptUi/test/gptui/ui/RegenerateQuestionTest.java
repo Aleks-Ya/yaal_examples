@@ -1,16 +1,20 @@
 package gptui.ui;
 
-import gptui.storage.AnswerType;
 import gptui.storage.Interaction;
 import org.junit.jupiter.api.Test;
 
 import static gptui.storage.AnswerState.FAIL;
+import static gptui.storage.AnswerType.GCP;
+import static gptui.storage.AnswerType.LONG;
+import static gptui.storage.AnswerType.SHORT;
 import static gptui.ui.TestingData.INTERACTION_1;
+import static gptui.ui.TestingData.INTERACTION_1_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_QUESTION;
 import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_THEME;
+import static gptui.ui.TestingData.INTERACTION_2_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_2_SHORT_HTML;
@@ -22,9 +26,11 @@ class RegenerateQuestionTest extends BaseGptUiTest {
     private static final String EXP_GRAMMAR_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_GRAMMAR_HTML);
     private static final String EXP_SHORT_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_SHORT_HTML);
     private static final String EXP_LONG_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_LONG_HTML);
+    private static final String EXP_GCP_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_GCP_HTML);
     private final Interaction interaction1 = INTERACTION_1
-            .withAnswer(AnswerType.SHORT, answer -> answer.withState(FAIL))
-            .withAnswer(AnswerType.LONG, answer -> answer.withState(FAIL));
+            .withAnswer(SHORT, answer -> answer.withState(FAIL))
+            .withAnswer(LONG, answer -> answer.withState(FAIL))
+            .withAnswer(GCP, answer -> answer.withState(FAIL));
 
     @Override
     public void init() {
@@ -46,13 +52,15 @@ class RegenerateQuestionTest extends BaseGptUiTest {
                 .answerGrammarText(INTERACTION_1_GRAMMAR_HTML)
                 .answerShortText(INTERACTION_1_SHORT_HTML)
                 .answerLongText(INTERACTION_1_LONG_HTML)
-                .answerCircleColors(GREEN, RED, RED)
+                .answerGcpText(INTERACTION_1_GCP_HTML)
+                .answerCircleColors(GREEN, RED, RED, RED)
                 .assertApp();
 
         gptApi.clear()
                 .putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ZERO)
                 .putShortResponse(INTERACTION_2_SHORT_HTML, ZERO)
-                .putLongResponse(INTERACTION_2_LONG_HTML, ZERO);
+                .putLongResponse(INTERACTION_2_LONG_HTML, ZERO)
+                .putGcpResponse(INTERACTION_2_GCP_HTML, ZERO);
         clickOn(getRegenerateButton());
 
         assertion()
@@ -68,7 +76,8 @@ class RegenerateQuestionTest extends BaseGptUiTest {
                 .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
                 .answerShortText(EXP_SHORT_HTML_BODY_2)
                 .answerLongText(EXP_LONG_HTML_BODY_2)
-                .answerCircleColors(GREEN, GREEN, GREEN)
+                .answerGcpText(EXP_GCP_HTML_BODY_2)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .assertApp();
     }
 }

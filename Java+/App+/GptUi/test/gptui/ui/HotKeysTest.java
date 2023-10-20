@@ -8,6 +8,7 @@ import static gptui.storage.InteractionType.FACT;
 import static gptui.storage.InteractionType.GRAMMAR;
 import static gptui.storage.InteractionType.QUESTION;
 import static gptui.ui.TestingData.INTERACTION_1;
+import static gptui.ui.TestingData.INTERACTION_1_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_QUESTION;
 import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
@@ -16,6 +17,7 @@ import static javafx.scene.input.KeyCode.CONTROL;
 import static javafx.scene.input.KeyCode.D;
 import static javafx.scene.input.KeyCode.DIGIT1;
 import static javafx.scene.input.KeyCode.DIGIT2;
+import static javafx.scene.input.KeyCode.DIGIT3;
 import static javafx.scene.input.KeyCode.F;
 import static javafx.scene.input.KeyCode.G;
 import static javafx.scene.input.KeyCode.Q;
@@ -44,6 +46,14 @@ class HotKeysTest extends BaseGptUiTest {
         verifyThat(getAnswerLongCopyButton().getText(), equalTo("Copy"));
         press(CONTROL, DIGIT2).release(DIGIT2, CONTROL);
         verifyHtmlClipboardContent(INTERACTION_1_LONG_HTML);
+    }
+
+    @Test
+    void copyGcpAnswerByCtrl3() {
+        verifyWebViewBody(getAnswerGcpWebView(), INTERACTION_1_GCP_HTML);
+        verifyThat(getAnswerGcpCopyButton().getText(), equalTo("Copy"));
+        press(CONTROL, DIGIT3).release(DIGIT3, CONTROL);
+        verifyHtmlClipboardContent(INTERACTION_1_GCP_HTML);
     }
 
     @Test

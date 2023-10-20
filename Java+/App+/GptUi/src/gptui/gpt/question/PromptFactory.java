@@ -26,6 +26,10 @@ class PromptFactory {
                                 The question is `%s`.
                                 """.stripIndent().replace("\n", " "),
                         theme, question));
+                case GCP -> Optional.of(String.format("""
+                                Answer question about `%s`: `%s`
+                                """.stripIndent().replace("\n", " "),
+                        theme, question));
             };
             case DEFINITION -> switch (answerType) {
                 case GRAMMAR -> Optional.of(String.format("""
@@ -44,10 +48,14 @@ class PromptFactory {
                                 Format your answer into Markdown.
                                 """.stripIndent().replace("\n", " "),
                         question, theme, question));
+                case GCP -> Optional.of(String.format("""
+                                Provide a single-sentence definition of '%s' in the context of '%s'.
+                                """.stripIndent().replace("\n", " "),
+                        question, theme, question));
             };
             case GRAMMAR -> switch (answerType) {
                 case GRAMMAR -> grammarPrompt(question);
-                case SHORT, LONG -> Optional.empty();
+                case SHORT, LONG, GCP -> Optional.empty();
             };
             case FACT -> switch (answerType) {
                 case GRAMMAR -> Optional.of(String.format("""
@@ -55,7 +63,7 @@ class PromptFactory {
                                 Format your answer into Markdown.
                                 """.stripIndent().replace("\n", " "),
                         theme, question));
-                case SHORT, LONG -> Optional.empty();
+                case SHORT, LONG, GCP -> Optional.empty();
             };
         };
     }
