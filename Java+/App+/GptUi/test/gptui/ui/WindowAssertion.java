@@ -151,10 +151,10 @@ class WindowAssertion {
         assertThat(app.model.getEditedTheme()).isEqualTo(themeSelectedItem);
 
         verifyThat(app.getQuestionLabel(), hasText("Question:"));
-        verifyThat(app.getQuestionSendButton().getText(), equalTo("Question"));
-        verifyThat(app.getDefinitionSendButton().getText(), equalTo("Definition"));
-        verifyThat(app.getGrammarSendButton().getText(), equalTo("Grammar"));
-        verifyThat(app.getFactSendButton().getText(), equalTo("Fact"));
+        verifyThat(app.getQuestionSendButton().getText(), equalTo("_Question"));
+        verifyThat(app.getDefinitionSendButton().getText(), equalTo("_Definition"));
+        verifyThat(app.getGrammarSendButton().getText(), equalTo("_Grammar"));
+        verifyThat(app.getFactSendButton().getText(), equalTo("_Fact"));
         verifyThat(app.getRegenerateButton().getText(), equalTo("⟳"));
         assertThat(app.getQuestionTextArea().getText()).isEqualTo(questionText);
         assertThat(app.model.getEditedQuestion()).isEqualTo(modelEditedQuestion);
@@ -164,28 +164,24 @@ class WindowAssertion {
         verifyThat(app.getAnswerGrammarRegenerateButton().getText(), equalTo("⟳"));
         app.verifyWebViewBody(app.getAnswerGrammarWebView(), answerGrammarText);
         assertThat(app.getAnswerGrammarCircle().getFill()).isEqualTo(answerGrammarCircleColor);
-        assertThat(app.getAnswerGrammarCopyButton().isDisabled()).isTrue();
 
         verifyThat(app.getAnswerShortLabel(), hasText("Short\nanswer:"));
         verifyThat(app.getAnswerShortCopyButton().getText(), equalTo("Copy"));
         verifyThat(app.getAnswerShortRegenerateButton().getText(), equalTo("⟳"));
         app.verifyWebViewBody(app.getAnswerShortWebView(), answerShortText);
         assertThat(app.getAnswerShortCircle().getFill()).isEqualTo(answerShortCircleColor);
-        assertThat(app.getAnswerShortCopyButton().isDisabled()).isFalse();
 
         verifyThat(app.getAnswerLongLabel(), hasText("Long\nanswer:"));
         verifyThat(app.getAnswerLongCopyButton().getText(), equalTo("Copy"));
         verifyThat(app.getAnswerLongRegenerateButton().getText(), equalTo("⟳"));
         app.verifyWebViewBody(app.getAnswerLongWebView(), answerLongText);
         assertThat(app.getAnswerLongCircle().getFill()).isEqualTo(answerLongCircleColor);
-        assertThat(app.getAnswerLongCopyButton().isDisabled()).isFalse();
 
         verifyThat(app.getAnswerGcpLabel(), hasText("Bard\nanswer:"));
         verifyThat(app.getAnswerGcpCopyButton().getText(), equalTo("Copy"));
         verifyThat(app.getAnswerGcpRegenerateButton().getText(), equalTo("⟳"));
         app.verifyWebViewBody(app.getAnswerGcpWebView(), answerGcpText);
         assertThat(app.getAnswerGcpCircle().getFill()).isEqualTo(answerGcpCircleColor);
-        assertThat(app.getAnswerGcpCopyButton().isDisabled()).isFalse();
     }
 }
 

@@ -25,11 +25,7 @@ import static gptui.storage.AnswerType.SHORT;
 import static gptui.storage.InteractionType.DEFINITION;
 import static gptui.storage.InteractionType.FACT;
 import static gptui.storage.InteractionType.QUESTION;
-import static javafx.scene.input.KeyCode.D;
 import static javafx.scene.input.KeyCode.ENTER;
-import static javafx.scene.input.KeyCode.F;
-import static javafx.scene.input.KeyCode.G;
-import static javafx.scene.input.KeyCode.Q;
 import static javafx.scene.input.KeyCode.V;
 import static javafx.scene.input.KeyCombination.ALT_DOWN;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
@@ -124,10 +120,6 @@ public class QuestionController extends BaseController {
             questionTextArea.positionCaret(questionTextArea.getText().length());
             model.setEditedQuestion(question);
         });
-        model.addAccelerator(new KeyCodeCombination(Q, CONTROL_DOWN), () -> questionApi.sendQuestion(QUESTION));
-        model.addAccelerator(new KeyCodeCombination(D, CONTROL_DOWN), () -> questionApi.sendQuestion(DEFINITION));
-        model.addAccelerator(new KeyCodeCombination(G, CONTROL_DOWN), () -> questionApi.sendQuestion(InteractionType.GRAMMAR));
-        model.addAccelerator(new KeyCodeCombination(F, CONTROL_DOWN), () -> questionApi.sendQuestion(FACT));
     }
 }
 

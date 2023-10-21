@@ -6,13 +6,16 @@
 2. Add `Delete` button for the Themes
 3. Do not create new HttpClient instance for each request
 4. Show a 5-words definition
-5. Add search throughout the Interaction History
-6. Display current InteractionId in the main window
-7. Add auto-completion for the Theme combo box
-8. Search for a definition in Wikipedia
-9. Add a filter (search) field for History
-10. Replace Ctrl-XXX hotkeys with Alt-XXX
-11. Add a temperature slider
+5. Add auto-completion for the Theme combo box
+6. Add a filter (search) field for History
+7. Add a "Filter" check-box for filtering the History by current Theme
+8. Display current InteractionId in the main window
+9. Search for a definition in Wikipedia
+10. Add a temperature slider to the Answer pane
+11. Add a beep for Bard
+12. Optimize getting list of InterationIds from the Storage
+13. Add shortcuts for moving up and down in the History (Ctrl-Alt-Down and Ctrl-Alt-Up)
+14. Add a shortcut for focusing on the Question text area (Esc)
 
 ## Install on Ubuntu
 

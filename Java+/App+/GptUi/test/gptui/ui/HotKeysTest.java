@@ -9,6 +9,7 @@ import static gptui.storage.InteractionType.GRAMMAR;
 import static gptui.storage.InteractionType.QUESTION;
 import static gptui.ui.TestingData.INTERACTION_1;
 import static gptui.ui.TestingData.INTERACTION_1_GCP_HTML;
+import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_QUESTION;
 import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
@@ -18,6 +19,7 @@ import static javafx.scene.input.KeyCode.D;
 import static javafx.scene.input.KeyCode.DIGIT1;
 import static javafx.scene.input.KeyCode.DIGIT2;
 import static javafx.scene.input.KeyCode.DIGIT3;
+import static javafx.scene.input.KeyCode.DIGIT4;
 import static javafx.scene.input.KeyCode.F;
 import static javafx.scene.input.KeyCode.G;
 import static javafx.scene.input.KeyCode.Q;
@@ -33,26 +35,34 @@ class HotKeysTest extends BaseGptUiTest {
     }
 
     @Test
-    void copyShortAnswerByCtrl1() {
+    void copyGrammarAnswerByAlt1() {
+        verifyWebViewBody(getAnswerGrammarWebView(), INTERACTION_1_GRAMMAR_HTML);
+        verifyThat(getAnswerGrammarCopyButton().getText(), equalTo("Copy"));
+        press(ALT, DIGIT1).release(DIGIT1, ALT);
+        verifyHtmlClipboardContent(INTERACTION_1_GRAMMAR_HTML);
+    }
+
+    @Test
+    void copyShortAnswerByAlt2() {
         verifyWebViewBody(getAnswerShortWebView(), INTERACTION_1_SHORT_HTML);
         verifyThat(getAnswerShortCopyButton().getText(), equalTo("Copy"));
-        press(CONTROL, DIGIT1).release(DIGIT1, CONTROL);
+        press(ALT, DIGIT2).release(DIGIT2, ALT);
         verifyHtmlClipboardContent(INTERACTION_1_SHORT_HTML);
     }
 
     @Test
-    void copyLongAnswerByCtrl2() {
+    void copyLongAnswerByAlt3() {
         verifyWebViewBody(getAnswerLongWebView(), INTERACTION_1_LONG_HTML);
         verifyThat(getAnswerLongCopyButton().getText(), equalTo("Copy"));
-        press(CONTROL, DIGIT2).release(DIGIT2, CONTROL);
+        press(ALT, DIGIT3).release(DIGIT3, ALT);
         verifyHtmlClipboardContent(INTERACTION_1_LONG_HTML);
     }
 
     @Test
-    void copyGcpAnswerByCtrl3() {
+    void copyGcpAnswerByAlt4() {
         verifyWebViewBody(getAnswerGcpWebView(), INTERACTION_1_GCP_HTML);
         verifyThat(getAnswerGcpCopyButton().getText(), equalTo("Copy"));
-        press(CONTROL, DIGIT3).release(DIGIT3, CONTROL);
+        press(ALT, DIGIT4).release(DIGIT4, ALT);
         verifyHtmlClipboardContent(INTERACTION_1_GCP_HTML);
     }
 
@@ -66,8 +76,8 @@ class HotKeysTest extends BaseGptUiTest {
     }
 
     @Test
-    void sendQuestionByCtrlQ() {
-        press(CONTROL, Q).release(Q, CONTROL);
+    void sendQuestionByAltQ() {
+        press(ALT, Q).release(Q, ALT);
         assertThat(model.getHistory()).hasSize(2)
                 .element(0)
                 .extracting(interactionId -> storage.readInteraction(interactionId).orElseThrow().type())
@@ -75,8 +85,8 @@ class HotKeysTest extends BaseGptUiTest {
     }
 
     @Test
-    void sendDefinitionByCtrlD() {
-        press(CONTROL, D).release(D, CONTROL);
+    void sendDefinitionByAltD() {
+        press(ALT, D).release(D, ALT);
         assertThat(model.getHistory()).hasSize(2)
                 .element(0)
                 .extracting(interactionId -> storage.readInteraction(interactionId).orElseThrow().type())
@@ -84,8 +94,8 @@ class HotKeysTest extends BaseGptUiTest {
     }
 
     @Test
-    void sendGrammarByCtrlG() {
-        press(CONTROL, G).release(G, CONTROL);
+    void sendGrammarByAltG() {
+        press(ALT, G).release(G, ALT);
         assertThat(model.getHistory()).hasSize(2)
                 .element(0)
                 .extracting(interactionId -> storage.readInteraction(interactionId).orElseThrow().type())
@@ -93,8 +103,8 @@ class HotKeysTest extends BaseGptUiTest {
     }
 
     @Test
-    void sendFactByCtrlF() {
-        press(CONTROL, F).release(F, CONTROL);
+    void sendFactByAltF() {
+        press(ALT, F).release(F, ALT);
         assertThat(model.getHistory()).hasSize(2)
                 .element(0)
                 .extracting(interactionId -> storage.readInteraction(interactionId).orElseThrow().type())
