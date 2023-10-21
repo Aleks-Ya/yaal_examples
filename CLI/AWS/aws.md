@@ -82,3 +82,19 @@ List clusters: `aws kafka list-clusters`
 List all parameters: `aws ssm describe-parameters`
 Show single parameter: `aws ssm get-parameter --name param1 --with-decryption`
 Show single parameter value: `aws ssm get-parameter --name param1 --with-decryption --query "Parameter.Value" --output text`
+
+### API Gateway
+List all APIs: `aws apigatewayv2 get-apis`
+Show API details: `aws apigatewayv2 get-api --api-id 58150tndk9`
+List API routes: `aws apigatewayv2 get-routes --api-id 58150tndk9`
+Show API route details: `aws apigatewayv2 get-route --api-id 58150tndk9 --route-id zzbuukm`
+Invoke an API route: `curl <ApiEndpoint>/<Route>` (e.g. `curl https://58150tndk9.execute-api.us-east-1.amazonaws.com/api-handler`)
+CORS Preflight Request: `curl -i -X OPTIONS https://2qydkfnxua.execute-api.us-east-1.amazonaws.com -H "Origin: http://website-8210834172.s3-website-us-east-1.amazonaws.com" -H "Access-Control-Request-Headers: content-type" -H "Access-Control-Request-Method: POST" -H "Access-Control-Request-Headers: content-type"`
+
+### SNS
+Send SMS to phone: `aws sns publish --phone-number "+12345678901" --message "Your message here"`
+List Sandbox destination phone numbers: `aws sns list-sms-sandbox-phone-numbers`
+
+### DynamoDB
+List tables: `aws dynamodb list-tables`
+

@@ -13,9 +13,10 @@
 9. Search for a definition in Wikipedia
 10. Add a temperature slider to the Answer pane
 11. Add a beep for Bard
-12. Optimize getting list of InterationIds from the Storage
-13. Add shortcuts for moving up and down in the History (Ctrl-Alt-Down and Ctrl-Alt-Up)
-14. Add a shortcut for focusing on the Question text area (Esc)
+12. Add hotkeys for moving up and down in the History (Ctrl-Alt-Down and Ctrl-Alt-Up)
+13. Add a hotkey for focusing on the Question text area (Esc)
+14. Show hot keys on "Copy" buttons
+15. Allow multi-line in "Question" text area
 
 ## Install on Ubuntu
 

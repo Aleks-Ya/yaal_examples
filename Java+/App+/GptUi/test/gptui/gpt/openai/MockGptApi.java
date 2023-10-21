@@ -5,15 +5,20 @@ import javafx.application.Platform;
 
 import javax.inject.Singleton;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Singleton
 public class MockGptApi implements GptApi, GcpApi {
     private final Map<String, ResponseInfo> contentSubstringToResponseMap = new HashMap<>();
 
+    private final List<String> sendHistory = new ArrayList<>();
+
     @Override
     public String send(String content) {
+        sendHistory.add(content);
         if (Platform.isFxApplicationThread()) {
             throw new IllegalStateException("Should not run in the JavaFX Application Thread");
         }
@@ -28,6 +33,10 @@ public class MockGptApi implements GptApi, GcpApi {
             throw new RuntimeException(e);
         }
         return info.content();
+    }
+
+    public List<String> getSendHistory() {
+        return sendHistory;
     }
 
     public MockGptApi putGrammarResponse(String response, Duration timeout) {
@@ -60,6 +69,7 @@ public class MockGptApi implements GptApi, GcpApi {
 
     public MockGptApi clear() {
         contentSubstringToResponseMap.clear();
+        sendHistory.clear();
         return this;
     }
 

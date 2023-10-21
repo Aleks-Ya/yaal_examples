@@ -16,8 +16,6 @@ public class GptUiController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(HistoryController.class);
     @Inject
     private GptStorage storage;
-    @Inject
-    private ThemeHelper themeHelper;
     @FXML
     @SuppressWarnings("unused")
     private AnswerController grammarAnswerController;
@@ -39,10 +37,9 @@ public class GptUiController extends BaseController {
         longAnswerController.setAnswerType(LONG);
         gcpAnswerController.setAnswerType(GCP);
         var history = storage.readAllInteractions();
-        var themeList = themeHelper.interactionsToThemeList(history);
         model.setHistory(history);
         model.setCurrentInteractionId(!history.isEmpty() ? history.getFirst().id() : null);
-        model.setCurrentTheme(!themeList.isEmpty() ? themeList.getFirst() : null);
+        model.setCurrentTheme(!storage.getThemes().isEmpty() ? storage.getThemes().getFirst() : null);
         model.fireInteractionChosenFromHistory(this);
     }
 }

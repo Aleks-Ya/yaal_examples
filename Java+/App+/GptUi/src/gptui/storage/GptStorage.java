@@ -16,4 +16,6 @@ public interface GptStorage {
     List<Interaction> readAllInteractions();
 
     void deleteInteraction(InteractionId interactionId);
+
+    List<String> getThemes();
 }

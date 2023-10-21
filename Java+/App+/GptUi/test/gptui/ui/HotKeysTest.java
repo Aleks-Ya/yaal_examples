@@ -23,6 +23,7 @@ import static javafx.scene.input.KeyCode.DIGIT4;
 import static javafx.scene.input.KeyCode.F;
 import static javafx.scene.input.KeyCode.G;
 import static javafx.scene.input.KeyCode.Q;
+import static javafx.scene.input.KeyCode.R;
 import static javafx.scene.input.KeyCode.V;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -109,5 +110,13 @@ class HotKeysTest extends BaseGptUiTest {
                 .element(0)
                 .extracting(interactionId -> storage.readInteraction(interactionId).orElseThrow().type())
                 .isEqualTo(FACT);
+    }
+
+    @Test
+    void resendByAltR() {
+        gptApi.clear();
+        assertThat(gptApi.getSendHistory()).isEmpty();
+        press(ALT, R).release(R, ALT);
+        assertThat(gptApi.getSendHistory()).hasSize(4);
     }
 }

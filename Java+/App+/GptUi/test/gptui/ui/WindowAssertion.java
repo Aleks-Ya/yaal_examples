@@ -155,7 +155,7 @@ class WindowAssertion {
         verifyThat(app.getDefinitionSendButton().getText(), equalTo("_Definition"));
         verifyThat(app.getGrammarSendButton().getText(), equalTo("_Grammar"));
         verifyThat(app.getFactSendButton().getText(), equalTo("_Fact"));
-        verifyThat(app.getRegenerateButton().getText(), equalTo("⟳"));
+        verifyThat(app.getRegenerateButton().getText(), equalTo("_Resend"));
         assertThat(app.getQuestionTextArea().getText()).isEqualTo(questionText);
         assertThat(app.model.getEditedQuestion()).isEqualTo(modelEditedQuestion);
 

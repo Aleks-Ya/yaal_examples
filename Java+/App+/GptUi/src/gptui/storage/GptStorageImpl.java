@@ -3,21 +3,34 @@ package gptui.storage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
+import static java.util.Comparator.comparing;
+import static java.util.Map.entry;
+import static java.util.stream.Collectors.groupingBy;
+
 @Singleton
 class GptStorageImpl implements GptStorage {
     private final Map<InteractionId, Interaction> interactions = new LinkedHashMap<>();
+    private final List<String> themes = new ArrayList<>();
     private final GptStorageFilesystem storageFilesystem;
 
     @Inject
     public GptStorageImpl(GptStorageFilesystem storageFilesystem) {
         this.storageFilesystem = storageFilesystem;
         storageFilesystem.readAllInteractions().forEach(interaction -> interactions.put(interaction.id(), interaction));
+        readThemesFromInteractions();
+    }
+
+    private void readThemesFromInteractions() {
+        themes.clear();
+        themes.addAll(interactionsToThemes(readAllInteractions()));
     }
 
     @Override
@@ -44,6 +57,8 @@ class GptStorageImpl implements GptStorage {
     @Override
     public synchronized void saveInteraction(Interaction interaction) {
         interactions.put(interaction.id(), interaction);
+        themes.remove(interaction.theme());
+        themes.addFirst(interaction.theme());
         storageFilesystem.saveInteraction(interaction);
     }
 
@@ -63,6 +78,26 @@ class GptStorageImpl implements GptStorage {
     public synchronized void deleteInteraction(InteractionId interactionId) {
         storageFilesystem.deleteInteraction(interactionId);
         interactions.remove(interactionId);
+        readThemesFromInteractions();
+    }
+
+    @Override
+    public synchronized List<String> getThemes() {
+        return themes;
+    }
+
+    private List<String> interactionsToThemes(List<Interaction> interactions) {
+        return interactions.stream()
+                .collect(groupingBy(Interaction::theme)).entrySet().stream().map(entry -> {
+                    var theme = entry.getKey();
+                    var latestInteraction = entry.getValue().stream()
+                            .max(comparing(interaction -> interaction.id().id()))
+                            .orElseThrow();
+                    return entry(theme, latestInteraction);
+                })
+                .sorted(Comparator.<Map.Entry<String, Interaction>, Long>comparing(entry -> entry.getValue().id().id()).reversed())
+                .map(Map.Entry::getKey)
+                .toList();
     }
 
 }
