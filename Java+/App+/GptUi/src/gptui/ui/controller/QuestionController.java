@@ -26,10 +26,10 @@ import static gptui.storage.InteractionType.DEFINITION;
 import static gptui.storage.InteractionType.FACT;
 import static gptui.storage.InteractionType.QUESTION;
 import static javafx.scene.input.KeyCode.ENTER;
+import static javafx.scene.input.KeyCode.ESCAPE;
 import static javafx.scene.input.KeyCode.V;
 import static javafx.scene.input.KeyCombination.ALT_DOWN;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
-import static javafx.scene.input.KeyEvent.KEY_PRESSED;
 
 public class QuestionController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(QuestionController.class);
@@ -41,17 +41,6 @@ public class QuestionController extends BaseController {
     private ClipboardHelper clipboardHelper;
     @FXML
     private TextArea questionTextArea;
-
-    @Override
-    public void initializeChild() {
-        questionTextArea.addEventFilter(KEY_PRESSED, event -> {
-            if (event.getCode() == ENTER) {
-                log.debug("Send question by Enter");
-                event.consume();
-                questionApi.sendQuestion(QUESTION);
-            }
-        });
-    }
 
     @FXML
     void sendQuestion(ActionEvent ignoredEvent) {
@@ -119,6 +108,15 @@ public class QuestionController extends BaseController {
             questionTextArea.requestFocus();
             questionTextArea.positionCaret(questionTextArea.getText().length());
             model.setEditedQuestion(question);
+        });
+        model.addAccelerator(new KeyCodeCombination(ESCAPE), () -> {
+            log.debug("focusOnQuestion");
+            questionTextArea.requestFocus();
+            questionTextArea.selectAll();
+        });
+        model.addAccelerator(new KeyCodeCombination(ENTER, CONTROL_DOWN), () -> {
+            log.debug("Send question by Ctrl-Enter");
+            questionApi.sendQuestion(QUESTION);
         });
     }
 }

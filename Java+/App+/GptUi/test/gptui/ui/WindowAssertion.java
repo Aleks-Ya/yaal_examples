@@ -160,25 +160,25 @@ class WindowAssertion {
         assertThat(app.model.getEditedQuestion()).isEqualTo(modelEditedQuestion);
 
         verifyThat(app.getAnswerGrammarLabel(), hasText("Grammar\nanswer:"));
-        verifyThat(app.getAnswerGrammarCopyButton().getText(), equalTo("Copy"));
+        verifyThat(app.getAnswerGrammarCopyButton().getText(), equalTo("Copy _1"));
         verifyThat(app.getAnswerGrammarRegenerateButton().getText(), equalTo("⟳"));
         app.verifyWebViewBody(app.getAnswerGrammarWebView(), answerGrammarText);
         assertThat(app.getAnswerGrammarCircle().getFill()).isEqualTo(answerGrammarCircleColor);
 
         verifyThat(app.getAnswerShortLabel(), hasText("Short\nanswer:"));
-        verifyThat(app.getAnswerShortCopyButton().getText(), equalTo("Copy"));
+        verifyThat(app.getAnswerShortCopyButton().getText(), equalTo("Copy _2"));
         verifyThat(app.getAnswerShortRegenerateButton().getText(), equalTo("⟳"));
         app.verifyWebViewBody(app.getAnswerShortWebView(), answerShortText);
         assertThat(app.getAnswerShortCircle().getFill()).isEqualTo(answerShortCircleColor);
 
         verifyThat(app.getAnswerLongLabel(), hasText("Long\nanswer:"));
-        verifyThat(app.getAnswerLongCopyButton().getText(), equalTo("Copy"));
+        verifyThat(app.getAnswerLongCopyButton().getText(), equalTo("Copy _3"));
         verifyThat(app.getAnswerLongRegenerateButton().getText(), equalTo("⟳"));
         app.verifyWebViewBody(app.getAnswerLongWebView(), answerLongText);
         assertThat(app.getAnswerLongCircle().getFill()).isEqualTo(answerLongCircleColor);
 
         verifyThat(app.getAnswerGcpLabel(), hasText("Bard\nanswer:"));
-        verifyThat(app.getAnswerGcpCopyButton().getText(), equalTo("Copy"));
+        verifyThat(app.getAnswerGcpCopyButton().getText(), equalTo("Copy _4"));
         verifyThat(app.getAnswerGcpRegenerateButton().getText(), equalTo("⟳"));
         app.verifyWebViewBody(app.getAnswerGcpWebView(), answerGcpText);
         assertThat(app.getAnswerGcpCircle().getFill()).isEqualTo(answerGcpCircleColor);

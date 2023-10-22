@@ -2,6 +2,10 @@ package gptui.ui;
 
 import org.junit.jupiter.api.Test;
 
+import static gptui.ui.TestingData.EXP_GCP_HTML_BODY_2;
+import static gptui.ui.TestingData.EXP_GRAMMAR_HTML_BODY_2;
+import static gptui.ui.TestingData.EXP_LONG_HTML_BODY_2;
+import static gptui.ui.TestingData.EXP_SHORT_HTML_BODY_2;
 import static gptui.ui.TestingData.INTERACTION_1;
 import static gptui.ui.TestingData.INTERACTION_1_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
@@ -17,12 +21,6 @@ import static java.time.Duration.ZERO;
 import static javafx.scene.paint.Color.GREEN;
 
 class RegenerateAnswerTest extends BaseGptUiTest {
-    private static final String EXP_GRAMMAR_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_GRAMMAR_HTML);
-    private static final String EXP_SHORT_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_SHORT_HTML);
-    private static final String EXP_LONG_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_LONG_HTML);
-    private static final String EXP_GCP_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_GCP_HTML);
-
-    @Override
     public void init() {
         storage.saveInteraction(INTERACTION_1);
     }

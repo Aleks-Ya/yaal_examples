@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCodeCombination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +19,10 @@ import java.util.Objects;
 
 import static gptui.ui.controller.ComboBoxUpdater.updateSilently;
 import static java.lang.String.format;
+import static javafx.scene.input.KeyCode.DOWN;
+import static javafx.scene.input.KeyCode.UP;
+import static javafx.scene.input.KeyCombination.ALT_DOWN;
+import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
 public class HistoryController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(HistoryController.class);
@@ -63,6 +68,14 @@ public class HistoryController extends BaseController {
     public void stageWasShowed(Model model, EventSource source) {
         log.trace("stageWasShowed");
         setLabel(model);
+        model.addAccelerator(new KeyCodeCombination(UP, CONTROL_DOWN, ALT_DOWN), () -> {
+            log.debug("select next Interaction from history");
+            historyComboBox.getSelectionModel().selectPrevious();
+        });
+        model.addAccelerator(new KeyCodeCombination(DOWN, CONTROL_DOWN, ALT_DOWN), () -> {
+            log.debug("select previous Interaction from history");
+            historyComboBox.getSelectionModel().selectNext();
+        });
     }
 
     @FXML

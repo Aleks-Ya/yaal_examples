@@ -21,6 +21,10 @@ public class TestingData {
     public static final String INTERACTION_1_SHORT_HTML = "Short answer HTML 1";
     public static final String INTERACTION_1_LONG_HTML = "Long answer HTML 1";
     public static final String INTERACTION_1_GCP_HTML = "GCP answer HTML 1";
+    public static final String EXP_GRAMMAR_HTML_BODY_1 = wrapExpectedWebViewContent(INTERACTION_1_GRAMMAR_HTML);
+    public static final String EXP_SHORT_HTML_BODY_1 = wrapExpectedWebViewContent(INTERACTION_1_SHORT_HTML);
+    public static final String EXP_LONG_HTML_BODY_1 = wrapExpectedWebViewContent(INTERACTION_1_LONG_HTML);
+    public static final String EXP_GCP_HTML_BODY_1 = wrapExpectedWebViewContent(INTERACTION_1_GCP_HTML);
     public static final Interaction INTERACTION_1 = new Interaction(
             new InteractionId(1L), QUESTION, INTERACTION_1_THEME, INTERACTION_1_QUESTION, Map.of(
             GRAMMAR,
@@ -39,6 +43,10 @@ public class TestingData {
     public static final String INTERACTION_2_SHORT_HTML = "Short answer HTML 2";
     public static final String INTERACTION_2_LONG_HTML = "Long answer HTML 2";
     public static final String INTERACTION_2_GCP_HTML = "GCP answer HTML 2";
+    public static final String EXP_GRAMMAR_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_GRAMMAR_HTML);
+    public static final String EXP_SHORT_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_SHORT_HTML);
+    public static final String EXP_LONG_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_LONG_HTML);
+    public static final String EXP_GCP_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_GCP_HTML);
     public static final Interaction INTERACTION_2 = new Interaction(
             new InteractionId(2L), QUESTION, INTERACTION_2_THEME, INTERACTION_2_QUESTION, Map.of(
             GRAMMAR,
@@ -57,6 +65,7 @@ public class TestingData {
     public static final String INTERACTION_3_SHORT_HTML = "Short answer HTML 3";
     public static final String INTERACTION_3_LONG_HTML = "Long answer HTML 3";
     public static final String INTERACTION_3_GCP_HTML = "GCP answer HTML 3";
+
     public static final Interaction INTERACTION_3 = new Interaction(
             new InteractionId(3L), QUESTION, INTERACTION_3_THEME, INTERACTION_3_QUESTION, Map.of(
             GRAMMAR,
@@ -68,4 +77,8 @@ public class TestingData {
             GCP,
             new Answer(GCP, "GCP prompt 3", "GCP answer MD 3", INTERACTION_3_GCP_HTML, SUCCESS)
     ));
+
+    private static String wrapExpectedWebViewContent(String text) {
+        return "<p>" + text + "</p>\n";
+    }
 }

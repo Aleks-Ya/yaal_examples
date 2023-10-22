@@ -9,8 +9,8 @@ import gptui.ui.EventSource;
 import gptui.ui.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.web.WebView;
@@ -26,11 +26,6 @@ import static gptui.storage.AnswerType.GCP;
 import static gptui.storage.AnswerType.GRAMMAR;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.SHORT;
-import static javafx.scene.input.KeyCode.DIGIT1;
-import static javafx.scene.input.KeyCode.DIGIT2;
-import static javafx.scene.input.KeyCode.DIGIT3;
-import static javafx.scene.input.KeyCode.DIGIT4;
-import static javafx.scene.input.KeyCombination.ALT_DOWN;
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
@@ -38,11 +33,8 @@ import static javafx.scene.paint.Color.WHITE;
 
 public class AnswerController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(AnswerController.class);
-    private static final Map<AnswerType, KeyCodeCombination> keyCodeCombinationMap = Map.of(
-            GRAMMAR, new KeyCodeCombination(DIGIT1, ALT_DOWN),
-            SHORT, new KeyCodeCombination(DIGIT2, ALT_DOWN),
-            LONG, new KeyCodeCombination(DIGIT3, ALT_DOWN),
-            GCP, new KeyCodeCombination(DIGIT4, ALT_DOWN));
+    private static final Map<AnswerType, Integer> hotkeyDigitMap =
+            Map.of(GRAMMAR, 1, SHORT, 2, LONG, 3, GCP, 4);
     private static final Map<AnswerType, String> labelTextMap = Map.of(
             GRAMMAR, "Grammar\nanswer:",
             SHORT, "Short\nanswer:",
@@ -54,6 +46,8 @@ public class AnswerController extends BaseController {
     private Circle statusCircle;
     @FXML
     private WebView webView;
+    @FXML
+    private Button copyButton;
     private AnswerType answerType;
     @Inject
     private ClipboardHelper clipboardHelper;
@@ -81,8 +75,7 @@ public class AnswerController extends BaseController {
         Mdc.run(answerType, () -> {
             log.trace("stageWasShowed");
             answerLabel.setText(labelTextMap.get(answerType));
-            Optional.ofNullable(keyCodeCombinationMap.get(answerType))
-                    .ifPresent(keyCodeCombination -> model.addAccelerator(keyCodeCombination, this::copyWebViewContentToClipboard));
+            copyButton.setText(copyButton.getText() + " _" + hotkeyDigitMap.get(answerType));
         });
     }
 

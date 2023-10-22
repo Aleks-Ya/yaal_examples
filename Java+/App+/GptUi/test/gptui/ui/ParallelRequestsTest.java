@@ -4,6 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static gptui.ui.TestingData.EXP_GCP_HTML_BODY_2;
+import static gptui.ui.TestingData.EXP_GRAMMAR_HTML_BODY_2;
+import static gptui.ui.TestingData.EXP_LONG_HTML_BODY_2;
+import static gptui.ui.TestingData.EXP_SHORT_HTML_BODY_2;
 import static gptui.ui.TestingData.INTERACTION_1_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
@@ -22,11 +26,6 @@ import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.WHITE;
 
 class ParallelRequestsTest extends BaseGptUiTest {
-    private static final String EXP_GRAMMAR_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_GRAMMAR_HTML);
-    private static final String EXP_SHORT_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_SHORT_HTML);
-    private static final String EXP_LONG_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_LONG_HTML);
-    private static final String EXP_GCP_HTML_BODY_2 = wrapExpectedWebViewContent(INTERACTION_2_GCP_HTML);
-
     @Test
     void shouldSendQuestion() {
         initialState();

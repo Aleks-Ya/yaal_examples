@@ -157,6 +157,7 @@ abstract class BaseGptUiTest extends ApplicationTest {
     protected Circle getAnswerLongCircle() {
         return lookup("#longAnswer #statusCircle").queryAs(Circle.class);
     }
+
     protected Circle getAnswerGcpCircle() {
         return lookup("#gcpAnswer #statusCircle").queryAs(Circle.class);
     }
@@ -192,7 +193,4 @@ abstract class BaseGptUiTest extends ApplicationTest {
         return WindowAssertion.builder().app(this);
     }
 
-    protected static String wrapExpectedWebViewContent(String text) {
-        return "<p>" + text + "</p>\n";
-    }
 }
