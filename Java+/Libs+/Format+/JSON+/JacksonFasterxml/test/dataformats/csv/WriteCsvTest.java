@@ -10,7 +10,6 @@ import java.util.Objects;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class WriteCsvTest {
-
     @Test
     void writePojo() throws IOException {
         var mapper = new CsvMapper();
@@ -20,9 +19,10 @@ class WriteCsvTest {
         var schema = mapper.schemaFor(PersonPojo.class);
         var csv = mapper.writer(schema).writeValueAsString(expValue);
 
-        MappingIterator<PersonPojo> it = mapper.readerFor(PersonPojo.class).with(schema).readValues(csv);
-        var all = it.readAll();
-        assertThat(all).contains(expValue);
+        try (MappingIterator<PersonPojo> it = mapper.readerFor(PersonPojo.class).with(schema).readValues(csv)) {
+            var all = it.readAll();
+            assertThat(all).contains(expValue);
+        }
     }
 
     @SuppressWarnings("unused")
@@ -55,7 +55,7 @@ class WriteCsvTest {
             if (o == null || getClass() != o.getClass()) return false;
             var that = (PersonPojo) o;
             return age == that.age &&
-                    Objects.equals(name, that.name);
+                   Objects.equals(name, that.name);
         }
 
         @Override

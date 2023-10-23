@@ -9,9 +9,9 @@
 <!--suppress JavaFxUnresolvedFxIdReference -->
 
 <HBox fx:id="historyHBox" alignment="CENTER_LEFT" fillHeight="false" prefHeight="26.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gptui.ui.controller.HistoryController">
-    <Label fx:id="historyLabel" text="Question history (42):" />
+    <Label fx:id="historyLabel" text="Question history (42):" HBox.hgrow="NEVER" />
     <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
-    <ComboBox fx:id="historyComboBox" onAction="#historyComboBoxAction" />
+    <ComboBox fx:id="historyComboBox" maxWidth="1500.0" onAction="#historyComboBoxAction" HBox.hgrow="NEVER" />
     <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
-    <Button fx:id="historyDeleteButton" mnemonicParsing="false" onAction="#clickHistoryDeleteButton" text="Delete" />
+    <Button fx:id="historyDeleteButton" mnemonicParsing="false" onAction="#clickHistoryDeleteButton" text="Delete" HBox.hgrow="NEVER" />
 </HBox>

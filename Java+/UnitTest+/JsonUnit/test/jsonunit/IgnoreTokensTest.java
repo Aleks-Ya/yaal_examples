@@ -6,7 +6,7 @@ import static net.javacrumbs.jsonunit.JsonAssert.assertJsonEquals;
 import static net.javacrumbs.jsonunit.JsonAssert.whenIgnoringPaths;
 
 /**
- * Ignore specified JSON tokens from comparision.
+ * Ignore specified JSON tokens from comparison.
  */
 class IgnoreTokensTest {
 

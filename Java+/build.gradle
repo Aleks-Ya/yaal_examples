@@ -28,10 +28,10 @@ subprojects {
         jettyServlet10Dep = 'org.eclipse.jetty:jetty-servlet:10.0.15'
         jettyServlet11Dep = 'org.eclipse.jetty:jetty-servlet:11.0.15'
         servlet4Dep = 'javax.servlet:javax.servlet-api:4.0.1'
-        jacksonVersion = '2.15.2'
+        jacksonVersion = '2.15.3'
         jacksonDataBindDep = "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         jacksonDatatypeJsr310Dep = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
-        jsonUnitDep = 'net.javacrumbs.json-unit:json-unit:2.38.0'
+        jsonUnitDep = 'net.javacrumbs.json-unit:json-unit:3.2.2'
         mockitoVersion = '5.2.0'//MockitoInline has a lagging version
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
         mockitoJunitJupiterDep = "org.mockito:mockito-junit-jupiter:$mockitoVersion"
@@ -79,7 +79,7 @@ subprojects {
         embeddedRedisOzimov = 'it.ozimov:embedded-redis:0.7.3'
         hikariCPDep = 'com.zaxxer:HikariCP:5.0.1'
         sqliteJdbcDep = 'org.xerial:sqlite-jdbc:3.42.0.1'
-        jsonPathVersion = '2.7.0'
+        jsonPathVersion = '2.8.0'
         sardineDep = 'com.github.lookfirst:sardine:5.10'
         resilience4jVer = '2.0.2'
         aspectJVersion = '1.9.19'
