@@ -4,6 +4,7 @@ import gptui.gpt.gcp.GcpApi;
 import javafx.application.Platform;
 
 import javax.inject.Singleton;
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ public class MockGptApi implements GptApi, GcpApi {
     private final List<String> sendHistory = new ArrayList<>();
 
     @Override
-    public String send(String content) {
+    public String send(String content, BigDecimal temperature) {
         sendHistory.add(content);
         if (Platform.isFxApplicationThread()) {
             throw new IllegalStateException("Should not run in the JavaFX Application Thread");

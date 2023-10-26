@@ -20,6 +20,10 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.function.Function;
 
+import static gptui.gpt.Temperature.GCP_TEMPERATURE_DEFAULT;
+import static gptui.gpt.Temperature.GRAMMAR_TEMPERATURE_DEFAULT;
+import static gptui.gpt.Temperature.LONG_TEMPERATURE_DEFAULT;
+import static gptui.gpt.Temperature.SHORT_TEMPERATURE_DEFAULT;
 import static gptui.storage.AnswerState.FAIL;
 import static gptui.storage.AnswerState.NEW;
 import static gptui.storage.AnswerState.SENT;
@@ -59,10 +63,30 @@ class QuestionApiImpl implements QuestionApi, EventSource {
                     .withTheme(theme)
                     .withQuestion(question)
                     .withType(interactionType)
-                    .withAnswer(GRAMMAR, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW))
-                    .withAnswer(SHORT, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW))
-                    .withAnswer(LONG, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW))
-                    .withAnswer(GCP, answer -> answer.withPrompt("").withAnswerMd("").withAnswerHtml("").withState(NEW)));
+                    .withAnswer(GRAMMAR, answer -> answer
+                            .withPrompt("")
+                            .withTemperature(GRAMMAR_TEMPERATURE_DEFAULT)
+                            .withAnswerMd("")
+                            .withAnswerHtml("")
+                            .withState(NEW))
+                    .withAnswer(SHORT, answer -> answer
+                            .withPrompt("")
+                            .withTemperature(SHORT_TEMPERATURE_DEFAULT)
+                            .withAnswerMd("")
+                            .withAnswerHtml("")
+                            .withState(NEW))
+                    .withAnswer(LONG, answer -> answer
+                            .withPrompt("")
+                            .withTemperature(LONG_TEMPERATURE_DEFAULT)
+                            .withAnswerMd("")
+                            .withAnswerHtml("")
+                            .withState(NEW))
+                    .withAnswer(GCP, answer -> answer
+                            .withPrompt("")
+                            .withTemperature(GCP_TEMPERATURE_DEFAULT)
+                            .withAnswerMd("")
+                            .withAnswerHtml("")
+                            .withState(NEW)));
             requestAnswer(interactionId, GCP);
             requestAnswer(interactionId, LONG);
             requestAnswer(interactionId, SHORT);
@@ -80,7 +104,8 @@ class QuestionApiImpl implements QuestionApi, EventSource {
             if (promptOpt.isPresent()) {
                 var prompt = promptOpt.get();
                 updateAnswer(interactionId, answerType, answer -> answer.withPrompt(prompt).withState(SENT));
-                var answerMd = answerType != GCP ? gptApi.send(prompt) : gcpApi.send(prompt);
+                var temperature = storage.readInteraction(interactionId).orElseThrow().getAnswer(answerType).orElseThrow().temperature();
+                var answerMd = answerType != GCP ? gptApi.send(prompt, temperature) : gcpApi.send(prompt, temperature);
                 var answerHtml = formatConverter.markdownToHtml(answerMd);
                 updateAnswer(interactionId, answerType, answer ->
                         answer.withAnswerMd(answerMd).withAnswerHtml(answerHtml).withState(SUCCESS));

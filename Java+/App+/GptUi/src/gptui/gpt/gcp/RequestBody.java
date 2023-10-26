@@ -1,4 +1,6 @@
 package gptui.gpt.gcp;
 
-record RequestBody(RequestPrompt prompt, Double temperature, Integer candidateCount) {
+import java.math.BigDecimal;
+
+record RequestBody(RequestPrompt prompt, BigDecimal temperature, Integer candidateCount) {
 }

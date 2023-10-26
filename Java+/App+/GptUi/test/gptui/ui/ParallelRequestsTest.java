@@ -2,8 +2,13 @@ package gptui.ui;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import static gptui.gpt.Temperature.GCP_TEMPERATURE_DEFAULT;
+import static gptui.gpt.Temperature.GRAMMAR_TEMPERATURE_DEFAULT;
+import static gptui.gpt.Temperature.LONG_TEMPERATURE_DEFAULT;
+import static gptui.gpt.Temperature.SHORT_TEMPERATURE_DEFAULT;
 import static gptui.ui.TestingData.EXP_GCP_HTML_BODY_2;
 import static gptui.ui.TestingData.EXP_GRAMMAR_HTML_BODY_2;
 import static gptui.ui.TestingData.EXP_LONG_HTML_BODY_2;
@@ -50,6 +55,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .answerLongText("")
                 .answerGcpText("")
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
+                .answerTemperatures((BigDecimal) null, null, null, null)
                 .assertApp();
     }
 
@@ -73,6 +79,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .answerLongText("")
                 .answerGcpText("")
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
+                .answerTemperatures((BigDecimal) null, null, null, null)
                 .assertApp();
 
         gptApi.clear()
@@ -97,6 +104,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .answerLongText("")
                 .answerGcpText("")
                 .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
+                .answerTemperatures(GRAMMAR_TEMPERATURE_DEFAULT, SHORT_TEMPERATURE_DEFAULT, LONG_TEMPERATURE_DEFAULT, GCP_TEMPERATURE_DEFAULT)
                 .assertApp();
     }
 
@@ -120,6 +128,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .answerLongText("")
                 .answerGcpText("")
                 .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
+                .answerTemperatures(GRAMMAR_TEMPERATURE_DEFAULT, SHORT_TEMPERATURE_DEFAULT, LONG_TEMPERATURE_DEFAULT, GCP_TEMPERATURE_DEFAULT)
                 .assertApp();
 
         gptApi.clear()
@@ -143,6 +152,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .answerLongText("")
                 .answerGcpText("")
                 .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
+                .answerTemperatures(GRAMMAR_TEMPERATURE_DEFAULT, SHORT_TEMPERATURE_DEFAULT, LONG_TEMPERATURE_DEFAULT, GCP_TEMPERATURE_DEFAULT)
                 .assertApp();
 
 
@@ -162,6 +172,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .answerLongText(EXP_LONG_HTML_BODY_2)
                 .answerGcpText(EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .answerTemperatures(GRAMMAR_TEMPERATURE_DEFAULT, SHORT_TEMPERATURE_DEFAULT, LONG_TEMPERATURE_DEFAULT, GCP_TEMPERATURE_DEFAULT)
                 .assertApp();
     }
 
@@ -182,6 +193,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .answerLongText(EXP_LONG_HTML_BODY_2)
                 .answerGcpText(EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .answerTemperatures(GRAMMAR_TEMPERATURE_DEFAULT, SHORT_TEMPERATURE_DEFAULT, LONG_TEMPERATURE_DEFAULT, GCP_TEMPERATURE_DEFAULT)
                 .assertApp();
     }
 }

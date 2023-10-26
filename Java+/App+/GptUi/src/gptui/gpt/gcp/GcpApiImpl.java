@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -26,9 +27,9 @@ class GcpApiImpl implements GcpApi {
     }
 
     @Override
-    public String send(String content) {
+    public String send(String content, BigDecimal temperature) {
         log.info("Sending question: {}", content);
-        var body = new RequestBody(new RequestPrompt(content), 0.7, 1);
+        var body = new RequestBody(new RequestPrompt(content), temperature, 1);
         var json = gson.toJson(body);
         HttpResponse<String> response;
         var request = HttpRequest.newBuilder()

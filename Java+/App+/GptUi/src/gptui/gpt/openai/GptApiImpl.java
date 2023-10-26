@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -28,9 +29,9 @@ class GptApiImpl implements GptApi {
     }
 
     @Override
-    public String send(String content) {
+    public String send(String content, BigDecimal temperature) {
         log.info("Sending question: {}", content);
-        var body = new GptRequestBody(MODEL, List.of(new GptMessage("user", content)), 0.7);
+        var body = new GptRequestBody(MODEL, List.of(new GptMessage("user", content)), temperature);
         var json = gson.toJson(body);
         HttpResponse<String> response;
         var request = HttpRequest.newBuilder()

@@ -1,6 +1,7 @@
 package gptui.gpt.openai;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-record GptRequestBody(String model, List<GptMessage> messages, Double temperature) {
+record GptRequestBody(String model, List<GptMessage> messages, BigDecimal temperature) {
 }

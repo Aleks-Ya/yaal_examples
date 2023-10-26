@@ -43,6 +43,7 @@ class DeleteInteractionTopTest extends BaseGptUiTest {
                 .answerLongText(INTERACTION_2_LONG_HTML)
                 .answerGcpText(INTERACTION_2_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, RED, GREEN)
+                .answerTemperatures(0.5, 0.6, 0.7, 0.8)
                 .assertApp();
 
         clickOn(getHistoryDeleteButton());
@@ -62,6 +63,7 @@ class DeleteInteractionTopTest extends BaseGptUiTest {
                 .answerLongText(INTERACTION_1_LONG_HTML)
                 .answerGcpText(INTERACTION_1_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .answerTemperatures(0.5, 0.6, 0.7, 0.8)
                 .assertApp();
     }
 }

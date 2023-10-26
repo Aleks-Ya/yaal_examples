@@ -2,6 +2,8 @@ package gptui.ui;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static javafx.scene.paint.Color.WHITE;
 
 class DeleteInteractionNullTest extends BaseGptUiTest {
@@ -22,6 +24,7 @@ class DeleteInteractionNullTest extends BaseGptUiTest {
                 .answerLongText("")
                 .answerGcpText("")
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
+                .answerTemperatures((BigDecimal) null, null, null, null)
                 .assertApp();
     }
 }

@@ -2,6 +2,10 @@ package gptui.ui;
 
 import org.junit.jupiter.api.Test;
 
+import static gptui.gpt.Temperature.GCP_TEMPERATURE_DEFAULT;
+import static gptui.gpt.Temperature.GRAMMAR_TEMPERATURE_DEFAULT;
+import static gptui.gpt.Temperature.LONG_TEMPERATURE_DEFAULT;
+import static gptui.gpt.Temperature.SHORT_TEMPERATURE_DEFAULT;
 import static gptui.ui.TestingData.INTERACTION_1;
 import static gptui.ui.TestingData.INTERACTION_1_THEME;
 import static gptui.ui.TestingData.INTERACTION_2;
@@ -43,6 +47,7 @@ class SendGrammarTest extends BaseGptUiTest {
                 .answerLongText(INTERACTION_3_LONG_HTML)
                 .answerGcpText(INTERACTION_3_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, RED, GREEN)
+                .answerTemperatures(0.5, 0.6, 0.7, 0.8)
                 .assertApp();
 
         gptApi.clear().putGrammarResponse("Grammar answer 4", ZERO);
@@ -65,6 +70,7 @@ class SendGrammarTest extends BaseGptUiTest {
                 .answerLongText("")
                 .answerGcpText("")
                 .answerCircleColors(GREEN, WHITE, WHITE, WHITE)
+                .answerTemperatures(GRAMMAR_TEMPERATURE_DEFAULT, SHORT_TEMPERATURE_DEFAULT, LONG_TEMPERATURE_DEFAULT, GCP_TEMPERATURE_DEFAULT)
                 .assertApp();
     }
 }
