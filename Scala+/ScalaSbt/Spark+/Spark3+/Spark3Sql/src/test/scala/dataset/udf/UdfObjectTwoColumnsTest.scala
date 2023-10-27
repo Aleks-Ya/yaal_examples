@@ -17,7 +17,12 @@ class UdfObjectTwoColumnsTest extends AnyFlatSpec with Matchers {
     ds.show
     val upper: (String, Int) => String = (name: String, age: Int) => s"${name.toUpperCase}-$age"
     val upperUdf = udf(upper: (String, Int) => String)
-    ds.withColumn("upper", upperUdf($"name", $"age")).show
+    val df = ds.withColumn("upper", upperUdf($"name", $"age"))
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","age":25,"gender":"M","upper":"JOHN-25"}""",
+      """{"name":"Peter","age":35,"gender":"M","upper":"PETER-35"}""",
+      """{"name":"Mary","age":20,"gender":"F","upper":"MARY-20"}"""
+    )
   }
 
   object UpperUdfInline extends Serializable {
