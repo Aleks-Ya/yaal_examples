@@ -1,4 +1,4 @@
-package subtitles.anki;
+package anki.connect;
 
 import java.util.List;
 import java.util.Map;

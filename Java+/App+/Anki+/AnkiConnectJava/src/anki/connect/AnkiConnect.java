@@ -1,4 +1,4 @@
-package subtitles.anki;
+package anki.connect;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

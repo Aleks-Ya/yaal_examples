@@ -1,5 +1,0 @@
-dependencies {
-    implementation "org.apache.lucene:lucene-core:$lucene9Version",
-            "org.apache.lucene:lucene-analysis-common:$lucene9Version",
-            gsonDep
-}

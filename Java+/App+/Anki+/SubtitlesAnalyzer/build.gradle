@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(':App+:Anki+:AnkiConnectJava'),
+            "org.apache.lucene:lucene-core:$lucene9Version",
+            "org.apache.lucene:lucene-analysis-common:$lucene9Version"
+}
