@@ -24,11 +24,13 @@ class BatchParseTest {
         var header2 = "Title";
         var header3 = "Age";
 
+        var format = CSVFormat.DEFAULT.builder()
+                .setHeader()
+                .setSkipHeaderRecord(true)
+                .setRecordSeparator(System.lineSeparator())
+                .build();
         try (Reader reader = spy(new FileReader(file));
-             var parser = CSVFormat.DEFAULT
-                     .withFirstRecordAsHeader()
-                     .withSystemRecordSeparator()
-                     .parse(reader)) {
+             var parser = format.parse(reader)) {
 
             var headerNames = parser.getHeaderNames();
             assertThat(headerNames).containsExactly(header1, header2, header3);

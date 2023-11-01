@@ -24,8 +24,13 @@ class ProductionCalendarTest {
     private static Map<Integer, Year> parseCalendar() throws IOException {
         var years = new HashMap<Integer, Year>();
         var file = ResourceUtil.resourceToFile(ProductionCalendarTest.class, "production_calendar.csv");
+        var format = CSVFormat.DEFAULT.builder()
+                .setHeader()
+                .setSkipHeaderRecord(true)
+                .setTrim(true)
+                .build();
         try (Reader in = new FileReader(file, StandardCharsets.UTF_8);
-             var parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().withTrim().parse(in)) {
+             var parser = format.parse(in)) {
             for (var record : parser) {
                 var year = Integer.parseInt(record.get("Год/Месяц"));
 

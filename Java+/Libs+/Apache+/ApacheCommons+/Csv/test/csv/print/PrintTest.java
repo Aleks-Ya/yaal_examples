@@ -14,11 +14,12 @@ class PrintTest {
     @Test
     void simpleValue() throws IOException {
         var baos = new ByteArrayOutputStream();
-        Appendable out = new OutputStreamWriter(baos);
-        try (var printer = CSVFormat.DEFAULT
-                .withHeader("H1", "H2")
-                .withRecordSeparator("\n")
-                .print(out)) {
+        var out = new OutputStreamWriter(baos);
+        var format = CSVFormat.DEFAULT.builder()
+                .setHeader("H1", "H2")
+                .setRecordSeparator("\n")
+                .build();
+        try (var printer = format.print(out)) {
             printer.printRecord("v1", "v2");
             printer.printRecord("v3", "v4");
         }
@@ -30,11 +31,12 @@ class PrintTest {
     @Test
     void valueContainsDelimiter() throws IOException {
         var baos = new ByteArrayOutputStream();
-        Appendable out = new OutputStreamWriter(baos);
-        try (var printer = CSVFormat.DEFAULT
-                .withHeader("H1", "H2")
-                .withRecordSeparator("\n")
-                .print(out)) {
+        var out = new OutputStreamWriter(baos);
+        var format = CSVFormat.DEFAULT.builder()
+                .setHeader("H1", "H2")
+                .setRecordSeparator("\n")
+                .build();
+        try (var printer = format.print(out)) {
             printer.printRecord("v1,v2", "v3");
             printer.printRecord("v4", "v5,v6");
         }
@@ -46,11 +48,12 @@ class PrintTest {
     @Test
     void valueContainsTab() throws IOException {
         var baos = new ByteArrayOutputStream();
-        Appendable out = new OutputStreamWriter(baos);
-        try (var printer = CSVFormat.DEFAULT
-                .withHeader("H1", "H2")
-                .withRecordSeparator("\n")
-                .print(out)) {
+        var out = new OutputStreamWriter(baos);
+        var format = CSVFormat.DEFAULT.builder()
+                .setHeader("H1", "H2")
+                .setRecordSeparator("\n")
+                .build();
+        try (var printer = format.print(out)) {
             printer.printRecord("v1\tv2", "v3");
             printer.printRecord("v4", "v5\tv6");
         }
@@ -62,11 +65,12 @@ class PrintTest {
     @Test
     void valueContainsLineTermination() throws IOException {
         var baos = new ByteArrayOutputStream();
-        Appendable out = new OutputStreamWriter(baos);
-        try (var printer = CSVFormat.DEFAULT
-                .withHeader("H1", "H2")
-                .withRecordSeparator("\n")
-                .print(out)) {
+        var out = new OutputStreamWriter(baos);
+        var format = CSVFormat.DEFAULT.builder()
+                .setHeader("H1", "H2")
+                .setRecordSeparator("\n")
+                .build();
+        try (var printer = format.print(out)) {
             printer.printRecord("v1\nv2", "v3");
             printer.printRecord("v4", "v5\nv6");
         }
@@ -78,13 +82,14 @@ class PrintTest {
     @Test
     void tabDelimiter() throws IOException {
         var baos = new ByteArrayOutputStream();
-        Appendable out = new OutputStreamWriter(baos);
+        var out = new OutputStreamWriter(baos);
         var delimiter = '\t';
-        try (var printer = CSVFormat.DEFAULT
-                .withHeader("H1", "H2")
-                .withDelimiter(delimiter)
-                .withRecordSeparator("\n")
-                .print(out)) {
+        var format = CSVFormat.DEFAULT.builder()
+                .setHeader("H1", "H2")
+                .setDelimiter(delimiter)
+                .setRecordSeparator("\n")
+                .build();
+        try (var printer = format.print(out)) {
             printer.printRecord("v1\tv2", "v3");
             printer.printRecord("v4", "v5\tv6");
         }

@@ -30,22 +30,25 @@ class PrintParseTest {
         var value7 = "v7\nv77";
         var value8 = "v8";
 
+        var format = CSVFormat.DEFAULT.builder()
+                .setHeader(header1, header2)
+                .setRecordSeparator(System.lineSeparator())
+                .build();
         try (var fileWriter = new FileWriter(file);
-             var printer = CSVFormat.DEFAULT
-                     .withHeader(header1, header2)
-                     .withSystemRecordSeparator()
-                     .print(fileWriter)) {
+             var printer = format.print(fileWriter)) {
             printer.printRecord(value1, value2);
             printer.printRecord(value3, value4);
             printer.printRecord(value5, value6);
             printer.printRecord(value7, value8);
         }
 
+        var format1 = CSVFormat.DEFAULT.builder()
+                .setHeader()
+                .setSkipHeaderRecord(true)
+                .setRecordSeparator(System.lineSeparator())
+                .build();
         try (Reader reader = new FileReader(file);
-             var parser = CSVFormat.DEFAULT
-                     .withFirstRecordAsHeader()
-                     .withSystemRecordSeparator()
-                     .parse(reader)) {
+             var parser = format1.parse(reader)) {
 
             var headerNames = parser.getHeaderNames();
             assertThat(headerNames).containsExactly(header1, header2);

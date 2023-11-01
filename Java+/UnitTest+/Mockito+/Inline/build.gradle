@@ -2,5 +2,5 @@ dependencies {
     testImplementation (mockitoJunitJupiterDep) {
         exclude group: 'org.mockito', module: 'mockito-core'
     }
-    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoInlineVersion"
 }

@@ -20,12 +20,14 @@ class ParseCsvTest {
         var header3 = "Age";
 
         var delimiter = '\t';
+        var format = CSVFormat.DEFAULT.builder()
+                .setHeader()
+                .setSkipHeaderRecord(true)
+                .setDelimiter(delimiter)
+                .setRecordSeparator(System.lineSeparator())
+                .build();
         try (Reader reader = new FileReader(file);
-             var parser = CSVFormat.DEFAULT
-                     .withFirstRecordAsHeader()
-                     .withDelimiter(delimiter)
-                     .withSystemRecordSeparator()
-                     .parse(reader)) {
+             var parser = format.parse(reader)) {
 
             var headerNames = parser.getHeaderNames();
             assertThat(headerNames).containsExactly(header1, header2, header3);
