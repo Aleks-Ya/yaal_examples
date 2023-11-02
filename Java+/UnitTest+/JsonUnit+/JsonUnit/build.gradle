@@ -1,0 +1,4 @@
+dependencies {
+    testImplementation jsonUnitDep,
+            gsonDep //Required by JsonUnit (or jacksonDataBindDep)
+}

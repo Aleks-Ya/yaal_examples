@@ -26,7 +26,6 @@ class ProductionCalendarTest {
         var file = ResourceUtil.resourceToFile(ProductionCalendarTest.class, "production_calendar.csv");
         var format = CSVFormat.DEFAULT.builder()
                 .setHeader()
-                .setSkipHeaderRecord(true)
                 .setTrim(true)
                 .build();
         try (Reader in = new FileReader(file, StandardCharsets.UTF_8);

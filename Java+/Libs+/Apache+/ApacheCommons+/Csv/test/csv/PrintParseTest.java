@@ -32,7 +32,6 @@ class PrintParseTest {
 
         var format = CSVFormat.DEFAULT.builder()
                 .setHeader(header1, header2)
-                .setRecordSeparator(System.lineSeparator())
                 .build();
         try (var fileWriter = new FileWriter(file);
              var printer = format.print(fileWriter)) {
@@ -44,8 +43,6 @@ class PrintParseTest {
 
         var format1 = CSVFormat.DEFAULT.builder()
                 .setHeader()
-                .setSkipHeaderRecord(true)
-                .setRecordSeparator(System.lineSeparator())
                 .build();
         try (Reader reader = new FileReader(file);
              var parser = format1.parse(reader)) {

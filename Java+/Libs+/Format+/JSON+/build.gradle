@@ -1,5 +1,5 @@
 subprojects {
     dependencies {
-        testImplementation jsonUnitDep
+        testImplementation jsonUnitAssertJDep
     }
 }

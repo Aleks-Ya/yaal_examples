@@ -26,8 +26,6 @@ class BatchParseTest {
 
         var format = CSVFormat.DEFAULT.builder()
                 .setHeader()
-                .setSkipHeaderRecord(true)
-                .setRecordSeparator(System.lineSeparator())
                 .build();
         try (Reader reader = spy(new FileReader(file));
              var parser = format.parse(reader)) {

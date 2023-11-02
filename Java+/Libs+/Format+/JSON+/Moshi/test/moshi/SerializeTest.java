@@ -1,8 +1,9 @@
 package moshi;
 
 import com.squareup.moshi.Moshi;
-import net.javacrumbs.jsonunit.JsonAssert;
 import org.junit.jupiter.api.Test;
+
+import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 
 class SerializeTest {
     @Test
@@ -11,9 +12,8 @@ class SerializeTest {
         var moshi = new Moshi.Builder().build();
         var adapter = moshi.adapter(Person.class);
         var actJson = adapter.toJson(person);
-        var expJson = """
-                {"name": "John", "age": 30}""";
-        JsonAssert.assertJsonEquals(expJson, actJson);
+        assertThatJson(actJson).isEqualTo("""
+                {"name": "John", "age": 30}""");
     }
 
     public record Person(String name, Integer age) {

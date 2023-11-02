@@ -1,0 +1,8 @@
+/**
+ * The new version of Jackson is FasterXML.
+ * The old one is Codehaus.
+ */
+dependencies {
+    implementation jacksonDataBindDep,
+            jacksonDatatypeJsr310Dep //for parsing dates of Java8
+}

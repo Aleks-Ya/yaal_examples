@@ -17,7 +17,7 @@ class PrintTest {
         var out = new OutputStreamWriter(baos);
         var format = CSVFormat.DEFAULT.builder()
                 .setHeader("H1", "H2")
-                .setRecordSeparator("\n")
+                .setRecordSeparator(System.lineSeparator())
                 .build();
         try (var printer = format.print(out)) {
             printer.printRecord("v1", "v2");
@@ -34,7 +34,7 @@ class PrintTest {
         var out = new OutputStreamWriter(baos);
         var format = CSVFormat.DEFAULT.builder()
                 .setHeader("H1", "H2")
-                .setRecordSeparator("\n")
+                .setRecordSeparator(System.lineSeparator())
                 .build();
         try (var printer = format.print(out)) {
             printer.printRecord("v1,v2", "v3");
@@ -51,7 +51,7 @@ class PrintTest {
         var out = new OutputStreamWriter(baos);
         var format = CSVFormat.DEFAULT.builder()
                 .setHeader("H1", "H2")
-                .setRecordSeparator("\n")
+                .setRecordSeparator(System.lineSeparator())
                 .build();
         try (var printer = format.print(out)) {
             printer.printRecord("v1\tv2", "v3");
@@ -68,7 +68,7 @@ class PrintTest {
         var out = new OutputStreamWriter(baos);
         var format = CSVFormat.DEFAULT.builder()
                 .setHeader("H1", "H2")
-                .setRecordSeparator("\n")
+                .setRecordSeparator(System.lineSeparator())
                 .build();
         try (var printer = format.print(out)) {
             printer.printRecord("v1\nv2", "v3");
@@ -87,7 +87,7 @@ class PrintTest {
         var format = CSVFormat.DEFAULT.builder()
                 .setHeader("H1", "H2")
                 .setDelimiter(delimiter)
-                .setRecordSeparator("\n")
+                .setRecordSeparator(System.lineSeparator())
                 .build();
         try (var printer = format.print(out)) {
             printer.printRecord("v1\tv2", "v3");
