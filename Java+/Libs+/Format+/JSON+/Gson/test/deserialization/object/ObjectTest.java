@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 
+import static java.time.LocalDateTime.parse;
+import static java.time.ZoneId.systemDefault;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -22,7 +24,8 @@ class ObjectTest {
         assertThat(obj.number).isEqualTo(4);
         assertThat(obj.text).isEqualTo("abc");
         assertThat(obj.excluded).isFalse();
-        assertThat(obj.inner.now).isEqualTo(new Date(1436326639000L));
+        var expDate = Date.from(parse("2015-07-08T06:37:19").atZone(systemDefault()).toInstant());
+        assertThat(obj.inner.now).isEqualTo(expDate);
         assertThat((int) obj.inner.sum).isEqualTo(18);
     }
 

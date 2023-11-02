@@ -5,12 +5,15 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 
+import static java.time.LocalDateTime.parse;
+import static java.time.ZoneId.systemDefault;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
  * Представление Java-объекта в виде JSON.
  */
+@SuppressWarnings("unused")
 class ObjectToJsonTest {
     /**
      * Компактный формат JSON.
@@ -24,7 +27,7 @@ class ObjectToJsonTest {
 
         var jsonStr = gson.toJson(obj);
         assertThat(jsonStr).isEqualTo(
-                "{\"number\":4,\"text\":\"abc\",\"inner\":{\"now\":\"Jul 8, 2015, 6:37:19 AM\",\"sum\":18}}");
+                "{\"number\":4,\"text\":\"abc\",\"inner\":{\"now\":\"Jul 8, 2015, 6:37:19 AM\",\"sum\":18}}");
         System.out.println(jsonStr);
     }
 
@@ -37,20 +40,21 @@ class ObjectToJsonTest {
         Object obj = new MyObject();
         var jsonStr = gson.toJson(obj);
         assertThat(jsonStr).isEqualTo(
-                "{\n" +
-                        "  \"number\": 4,\n" +
-                        "  \"text\": \"abc\",\n" +
-                        "  \"inner\": {\n" +
-                        "    \"now\": \"Jul 8, 2015, 6:37:19 AM\",\n" +
-                        "    \"sum\": 18\n" +
-                        "  }\n" +
-                        "}"
+                """
+                        {
+                          "number": 4,
+                          "text": "abc",
+                          "inner": {
+                            "now": "Jul 8, 2015, 6:37:19 AM",
+                            "sum": 18
+                          }
+                        }"""
         );
         System.out.println(jsonStr);
     }
 
     static class Inner {
-        Date now = new Date(1436326639819L);
+        Date now = Date.from(parse("2015-07-08T06:37:19").atZone(systemDefault()).toInstant());
         Integer sum = 18;
     }
 
