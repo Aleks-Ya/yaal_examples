@@ -7,5 +7,5 @@ except ArithmeticError as e:
 
 try:
     raise ArithmeticError('Still hate math')
-except ArithmeticError as e:
-    logging.exception(e)
+except ArithmeticError:
+    logging.exception("Message for Still hate math")

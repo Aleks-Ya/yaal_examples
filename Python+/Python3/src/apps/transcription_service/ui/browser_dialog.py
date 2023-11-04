@@ -1,8 +1,8 @@
 import sys
 
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import QSize, QRect
-from PyQt5.QtWidgets import QMainWindow, QLabel, QGridLayout, QWidget, QComboBox, QCheckBox, QPushButton
+from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtCore import QSize, QRect
+from PyQt6.QtWidgets import QMainWindow, QLabel, QGridLayout, QWidget, QComboBox, QCheckBox, QPushButton
 
 from apps.transcription_service.ui.controller import Controller
 
@@ -27,7 +27,7 @@ class BrowserDialogWindow(QMainWindow):
 
         # text field
         text_field_label = QLabel("Text field:", self)
-        text_field_label.setAlignment(QtCore.Qt.AlignRight)
+        text_field_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
 
         self.text_field_combo_box = QComboBox(central_widget)
         self.text_field_combo_box.setGeometry(QRect(40, 40, 491, 31))
@@ -36,7 +36,7 @@ class BrowserDialogWindow(QMainWindow):
 
         # transcription field
         transcription_field_label = QLabel("Transcription field:", self)
-        transcription_field_label.setAlignment(QtCore.Qt.AlignRight)
+        transcription_field_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
 
         self.transcription_field_combo_box = QComboBox(central_widget)
         self.transcription_field_combo_box.setGeometry(QRect(40, 40, 491, 31))
@@ -45,7 +45,7 @@ class BrowserDialogWindow(QMainWindow):
 
         # language field
         language_field_label = QLabel("Language:", self)
-        language_field_label.setAlignment(QtCore.Qt.AlignRight)
+        language_field_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight)
 
         languages = self._controller.get_languages(self)
         self.language_field_combo_box = QComboBox(central_widget)
@@ -104,4 +104,4 @@ if __name__ == "__main__":
     controller = Controller
     mainWin = BrowserDialogWindow(controller)
     mainWin.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
