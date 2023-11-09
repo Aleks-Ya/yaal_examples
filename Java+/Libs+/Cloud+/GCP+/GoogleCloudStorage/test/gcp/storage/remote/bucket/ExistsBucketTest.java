@@ -1,6 +1,6 @@
-package cloud.remote.bucket;
+package gcp.storage.remote.bucket;
 
-import cloud.remote.BaseRemoteTest;
+import gcp.storage.remote.BaseRemoteTest;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

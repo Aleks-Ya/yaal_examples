@@ -1,6 +1,6 @@
-package cloud.remote.object;
+package gcp.storage.remote.object;
 
-import cloud.remote.BaseRemoteTest;
+import gcp.storage.remote.BaseRemoteTest;
 import com.google.cloud.storage.BlobId;
 import org.junit.jupiter.api.Test;
 

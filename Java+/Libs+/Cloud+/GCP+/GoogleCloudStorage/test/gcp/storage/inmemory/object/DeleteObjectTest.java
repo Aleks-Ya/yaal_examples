@@ -1,6 +1,6 @@
-package cloud.inmemory.object;
+package gcp.storage.inmemory.object;
 
-import cloud.inmemory.BaseInMemoryTest;
+import gcp.storage.inmemory.BaseInMemoryTest;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import org.junit.jupiter.api.Test;

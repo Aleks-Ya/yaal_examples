@@ -1,9 +1,10 @@
-package cloud.inmemory.object;
+package gcp.storage.inmemory.object;
 
-import cloud.inmemory.BaseInMemoryTest;
+import gcp.storage.inmemory.BaseInMemoryTest;
 
 /**
  * In-memory storage doesn't support Storage#compose(), because FakeStorageRpc#compose() returns null.
  */
+@SuppressWarnings("unused")
 class ComposeObjectTest extends BaseInMemoryTest {
 }

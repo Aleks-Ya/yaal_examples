@@ -1,4 +1,4 @@
-package cloud.inmemory;
+package gcp.storage.inmemory;
 
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.contrib.nio.testing.LocalStorageHelper;

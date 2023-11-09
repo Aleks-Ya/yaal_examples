@@ -1,4 +1,4 @@
-package cloud.remote;
+package gcp.storage.remote;
 
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import com.google.cloud.storage.Storage;
