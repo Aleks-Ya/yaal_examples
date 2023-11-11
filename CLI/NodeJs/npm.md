@@ -1,5 +1,7 @@
 # npm CLI
 
+Install: `sudo apt install -y npm`
+
 Help: `npm help`
 Help for a command: `npm help adduser`
 Version (NPM only): `npm --version`

@@ -10,7 +10,7 @@ from aqt.utils import showInfo
 def show_note_details() -> None:
     note_id: NoteId = NoteId(1638679140645)
     note: Note = mw.col.get_note(note_id)
-    items_filtered: list[tuple[str, str]] = [item for item in note.items() if item[0] == "English_audio_generated"]
+    items_filtered: list[tuple[str, str]] = [item for item in note.items() if item[0] == "English-audio-generated"]
     item: tuple[str, str] = items_filtered[0]
     field_value: str = item[1]
     files: list[str] = mw.col.media.files_in_str(note.mid, field_value)
