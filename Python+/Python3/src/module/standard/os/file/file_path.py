@@ -10,6 +10,11 @@ absolute_path = '/tmp/abc/data.txt'
 dir_name = os.path.basename(absolute_path)
 assert dir_name == 'data.txt'
 
+# Extract parent dir name
+absolute_path = '/tmp/abc/data.txt'
+dir_name = os.path.basename(os.path.dirname(absolute_path))
+assert dir_name == 'abc'
+
 # Join directory path and filename
 dir_name = '/tmp/abc'
 file_name = 'data.txt'

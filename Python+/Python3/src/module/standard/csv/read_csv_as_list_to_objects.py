@@ -16,7 +16,7 @@ class Person:
 file = 'people.csv'
 
 with open(file, newline='') as csv_file:
-    reader = csv.reader(csv_file)
+    reader: csv.reader = csv.reader(csv_file)
     next(reader, None)  # Skip header
     persons: List[Person] = []
     for row in reader:

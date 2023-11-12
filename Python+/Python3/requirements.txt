@@ -22,3 +22,6 @@ freezegun
 jinja2
 pyyaml
 psycopg2-binary
+
+openai
+typing-extensions

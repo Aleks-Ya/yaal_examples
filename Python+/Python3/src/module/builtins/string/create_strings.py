@@ -1,4 +1,5 @@
 # Create strings
+import textwrap
 
 # single quotes
 a = 'a'
@@ -25,6 +26,18 @@ b
 """
 assert m == '\na\nb\n'
 
+
+# multi line strings without indent
+def get_string():
+    return textwrap.dedent("""
+                            a
+                            b
+                            """)
+
+
+assert get_string() == '\na\nb\n'
+
+# ?
 m = '''
 a
 b

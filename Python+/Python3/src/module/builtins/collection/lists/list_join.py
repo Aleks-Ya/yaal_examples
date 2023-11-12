@@ -6,5 +6,14 @@ assert joined == 'abcd,efg'
 
 num_list = '123'
 joined = "','".join(num_list)
-print(joined)
-assert joined == '123'
+assert joined == "1','2','3"
+
+# Join with transformation #1
+list3 = ['abcd', 'efg']
+joined3 = ",".join(element.upper() for element in list3)
+assert joined3 == 'ABCD,EFG'
+
+# Join with transformation #2
+list4 = ['ab', 'efg']
+joined4 = ",".join([element.upper() for element in list4])
+assert joined4 == 'AB,EFG'

@@ -1,5 +1,5 @@
-import csv
 import tempfile
+from csv import DictWriter, QUOTE_ALL
 from typing import List
 
 _, file = tempfile.mkstemp(suffix=".csv")
@@ -13,13 +13,13 @@ fieldnames: List[str] = [id_field, name_field, age_field]
 # New file
 mode: str = 'w'
 with open(file, mode, newline='') as csv_file:
-    writer = csv.DictWriter(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL, fieldnames=fieldnames)
+    writer: DictWriter = DictWriter(csv_file, delimiter=',', quotechar='"', quoting=QUOTE_ALL, fieldnames=fieldnames)
     writer.writeheader()
     writer.writerow({id_field: 1, name_field: 'John', age_field: 30})
     writer.writerow({id_field: 2, name_field: 'Mary', age_field: 25})
 
 with open(file) as f:
-    content = f.read()
+    content: str = f.read()
 assert content == '''"id","name","age"
 "1","John","30"
 "2","Mary","25"
@@ -28,12 +28,12 @@ assert content == '''"id","name","age"
 # Append
 mode: str = 'a'
 with open(file, mode, newline='') as csv_file:
-    writer = csv.DictWriter(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL, fieldnames=fieldnames)
+    writer: DictWriter = DictWriter(csv_file, delimiter=',', quotechar='"', quoting=QUOTE_ALL, fieldnames=fieldnames)
     writer.writerow({id_field: 3, name_field: 'Nick', age_field: 20})
     writer.writerow({id_field: 4, name_field: 'Ann', age_field: 15})
 
 with open(file) as f:
-    content = f.read()
+    content: str = f.read()
 assert content == '''"id","name","age"
 "1","John","30"
 "2","Mary","25"

@@ -12,7 +12,7 @@ _, file = tempfile.mkstemp(suffix=".csv")
 print(file)
 
 with open(file, 'w', newline='') as csv_file:
-    writer = csv.writer(csv_file)
+    writer: csv.writer = csv.writer(csv_file)
     if add_header:
         column_name_template = 'col{:0' + str(column_digit_capacity) + '}'
         writer.writerow([column_name_template.format(column) for column in range(column_number)])

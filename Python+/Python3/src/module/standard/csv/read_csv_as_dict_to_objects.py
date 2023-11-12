@@ -1,4 +1,4 @@
-import csv
+from csv import DictReader
 from typing import List
 
 
@@ -16,7 +16,7 @@ class Person:
 file = 'people.csv'
 
 with open(file, newline='') as csv_file:
-    reader = csv.DictReader(csv_file)
+    reader: DictReader = DictReader(csv_file)
     persons: List[Person] = []
     for row in reader:
         id: int = int(row['id'])
