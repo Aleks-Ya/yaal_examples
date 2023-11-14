@@ -1,13 +1,14 @@
 # Iterate all notes
 from typing import Sequence
 
+from PyQt6.QtWidgets import QMenu
 from anki.notes import NoteId, Note
 from aqt import mw
 from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
 
 
-def _iterate_all_notes() -> None:
+def _act() -> None:
     all_note_ids: Sequence[NoteId] = mw.col.find_notes("")
     total_fields_number: int = 0
     for note_id in all_note_ids:
@@ -17,7 +18,7 @@ def _iterate_all_notes() -> None:
     showInfo(f"Note number={len(all_note_ids)}, field number={total_fields_number}")
 
 
-def add_menu_item():
-    action = QAction("Iterate all notes", mw)
-    qconnect(action.triggered, _iterate_all_notes)
-    mw.form.menuTools.addAction(action)
+def add_menu_item(parent_menu: QMenu):
+    action: QAction = QAction("Iterate all notes", mw)
+    qconnect(action.triggered, _act)
+    parent_menu.addAction(action)

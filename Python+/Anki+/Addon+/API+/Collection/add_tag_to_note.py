@@ -1,4 +1,6 @@
-# Show Note details
+# Add tag to a note
+from typing import List
+
 from PyQt6.QtWidgets import QMenu
 from anki.notes import NoteId, Note
 from aqt import mw
@@ -9,11 +11,13 @@ from aqt.utils import showInfo
 def _act() -> None:
     note_id: NoteId = NoteId(1638679140645)
     note: Note = mw.col.get_note(note_id)
-    showInfo(f"Note={note}, id={note.id}, col={note.col}, data={note.data}, fields={note.fields}, "
-             f"items={note.items()}, values={note.values()}")
+    tags_before: List[str] = note.tags
+    note.tags.append("leech")
+    mw.col.update_note(note)
+    showInfo(f"Note tag added: nid={note.id}, tags before={tags_before}, tags after={note.tags}")
 
 
 def add_menu_item(parent_menu: QMenu):
-    action: QAction = QAction("Show Note details", mw)
+    action: QAction = QAction("Add tag to note", mw)
     qconnect(action.triggered, _act)
     parent_menu.addAction(action)

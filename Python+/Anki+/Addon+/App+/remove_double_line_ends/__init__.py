@@ -37,7 +37,8 @@ def _remove() -> None:
         r"<h5>近义词[:：]?</h5>": "<div>Synonyms:</div>",
         r"<h5>反义词[:：]?</h5>": "<div>Antonyms:</div>",
         r"<h5>联想词</h5>": "<div>Associated words:</div>",
-        r"<h5>解析[:：]?</h5>": "<div>Analysis:</div>"
+        r"<h5>解析[:：]?</h5>": "<div>Analysis:</div>",
+        r"&nbsp;": " "
     }
     field_names: List[str] = [
         'Examples2-generated',
@@ -45,6 +46,12 @@ def _remove() -> None:
         'Gpt4Short',
         'Gpt4Long',
         'Bard',
+        'Quote',
+        'Description-my',
+        'Synonym1',
+        'Synonyms',
+        'Antonyms',
+        'Answer',
         'Quote'
     ]
     scanned_notes_counter: int = 0
@@ -58,7 +65,7 @@ def _remove() -> None:
             old_value: str = note[field_name]
             new_value: str = old_value
             for regex, replacement in replacements.items():
-                new_value: str = re.sub(regex, replacement, new_value)
+                new_value: str = re.sub(regex, replacement, new_value).strip()
             if new_value != old_value:
                 log.info(f"Updating note: {note_id}")
                 log.info(f"old_value:\n{old_value}")

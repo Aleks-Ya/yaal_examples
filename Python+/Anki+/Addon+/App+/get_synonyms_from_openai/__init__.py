@@ -35,20 +35,25 @@ log.info(f"sys.path={sys.path}")
 from openai import OpenAI
 from openai.types.chat import ChatCompletion
 
-word_field_name: str = 'English'
+word_field: str = 'English'
 part_of_speech_field: str = 'PartOfSpeech-generated'
-synonym1_field_name: str = 'Synonym1'
-synonyms_field_name: str = 'Synonyms'
+synonym1_field: str = 'Synonym1'
+synonyms_field: str = 'Synonyms'
+absent_synonym1_tag: str = '~api::absent::synonym1'
+absent_synonyms_tag: str = '~api::absent::synonyms'
 
 
 def _fill() -> None:
-    note_ids: Sequence[NoteId] = mw.col.find_notes('(Synonym1: or Synonyms:) -tag:en::unit*')
+    query: str = (f'(({synonym1_field}: -tag:{absent_synonym1_tag}) OR ({synonyms_field}: -tag:{absent_synonyms_tag})) '
+                  f'-tag:en::unit*')
+    log.info(f"Query: '{query}'")
+    note_ids: Sequence[NoteId] = mw.col.find_notes(query)
     log.info(f"Found notes: {len(note_ids)}")
     notes_to_update: List[Note] = []
     for note_id in note_ids:
         note: Note = mw.col.get_note(note_id)
-        synonym1_old: str = note[synonym1_field_name]
-        synonyms_old: str = note[synonyms_field_name]
+        synonym1_old: str = note[synonym1_field]
+        synonyms_old: str = note[synonyms_field]
         need_update: bool = not synonym1_old or not synonyms_old
         if need_update:
             notes_to_update.append(note)
@@ -66,7 +71,7 @@ def _update_notes(notes_to_update):
     log.info(f"Notes to update (limited): {len(notes_to_update)}")
     lines: List[str] = []
     for note in notes_to_update:
-        word: str = note[word_field_name]
+        word: str = note[word_field]
         if not note[part_of_speech_field]:
             raise RuntimeError(f"Part of speech is missing: nid={note.id}")
         pos: str = note[part_of_speech_field]
@@ -119,14 +124,14 @@ def _update_notes(notes_to_update):
             log.debug(f"Row: {row}")
             nid_int: int = int(row[nid_column])
             note: Note = mw.col.get_note(NoteId(nid_int))
-            synonym1_old: str = note[synonym1_field_name]
-            synonyms_old: str = note[synonyms_field_name]
+            synonym1_old: str = note[synonym1_field]
+            synonyms_old: str = note[synonyms_field]
             is_synonym1_empty: bool = synonym1_old.strip() == ''
             is_synonyms_empty: bool = synonyms_old.strip() == ''
-            if note[word_field_name] != row[english_column]:
-                raise RuntimeError(f"Wrong English word: note={note[word_field_name]}, row={row[english_column]}")
+            if note[word_field] != row[english_column]:
+                raise RuntimeError(f"Wrong English word: note={note[word_field]}, row={row[english_column]}")
             if not is_synonym1_empty and not is_synonyms_empty:
-                raise RuntimeError(f"Fields {synonym1_field_name} and {synonyms_field_name} are both not empty: "
+                raise RuntimeError(f"Fields {synonym1_field} and {synonyms_field} are both not empty: "
                                    f"nid={note.id}, synonym1='{synonym1_old}, synonyms='{synonyms_old}'")
             full_synonyms: List[str] = [row[synonym_header] for synonym_header in synonym_headers
                                         if row[synonym_header]]
@@ -146,12 +151,24 @@ def _update_notes(notes_to_update):
                     synonyms_new: str = ", ".join(full_synonyms)
                 else:
                     synonyms_new: str = synonyms_old
-            log.info(f"Updating note: nid={note.id}, english='{note[word_field_name]}', "
+            note[synonym1_field] = synonym1_new
+            note[synonyms_field] = synonyms_new
+            tags_old: List[str] = list(note.tags)
+            if synonym1_new == '':
+                note.tags.append(absent_synonym1_tag)
+            else:
+                if absent_synonym1_tag in tags_old:
+                    note.tags.remove(absent_synonym1_tag)
+            if synonyms_new == '':
+                note.tags.append(absent_synonyms_tag)
+            else:
+                if absent_synonyms_tag in tags_old:
+                    note.tags.remove(absent_synonyms_tag)
+            log.info(f"Updating note: nid={note.id}, english='{note[word_field]}', "
                      f"pos='{note[part_of_speech_field]}', "
                      f"synonym1='{synonym1_old}'->'{synonym1_new}', "
-                     f"synonyms='{synonyms_old}'->'{synonyms_new}'")
-            note[synonym1_field_name] = synonym1_new
-            note[synonyms_field_name] = synonyms_new
+                     f"synonyms='{synonyms_old}'->'{synonyms_new}', "
+                     f"tags='{tags_old}'->'{note.tags}'")
             mw.col.update_note(note)
 
 

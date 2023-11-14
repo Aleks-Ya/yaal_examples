@@ -17,18 +17,18 @@ def hotkey_message():
 
 
 # Top-level menu item
-action1 = QAction("Top level menu item", mw)
+action1: QAction = QAction("Top level menu item", mw)
 qconnect(action1.triggered, show_message)
 mw.form.menuTools.addAction(action1)
 
 # Nested menu item
-parent_menu = QMenu("Parent Menu", mw)
+parent_menu: QMenu = QMenu("Parent Menu", mw)
 mw.form.menuTools.addMenu(parent_menu)
-child_action = QAction("Child Item", mw)
+child_action: QAction = QAction("Child Item", mw)
 qconnect(child_action.triggered, child_message)
 parent_menu.addAction(child_action)
 
 # Hotkey (&)
-action2 = QAction("Menu item with &hotkey", mw)
+action2: QAction = QAction("Menu item with &hotkey", mw)
 qconnect(action2.triggered, hotkey_message)
 mw.form.menuTools.addAction(action2)
