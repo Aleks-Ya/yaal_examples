@@ -7,8 +7,10 @@ import re
 from pathlib import Path
 from typing import Dict, Sequence, List
 
+from anki.collection import OpChanges, Collection, OpChangesWithCount
 from anki.notes import NoteId, Note
 from aqt import mw
+from aqt.operations import CollectionOp, ResultWithChanges
 from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
 
@@ -25,7 +27,16 @@ log.addHandler(handler)
 log.info(f'Logger is configured: file={log_file}')
 
 
-def _remove() -> None:
+def _remove_background_operation(col: Collection) -> ResultWithChanges:
+    changes = OpChangesWithCount()
+    finished: bool = False
+    while not finished:
+        finished = _remove(changes, col)
+    return changes
+
+
+def _remove(changes, col) -> bool:
+    log.info(f"Iteration start: changes={changes.count}")
     replacements: Dict[str, str] = {
         r"<br>\s*<div": "<div",
         r"</div>\s*<br>": "</div>",
@@ -54,28 +65,48 @@ def _remove() -> None:
         'Answer',
         'Quote'
     ]
-    scanned_notes_counter: int = 0
-    updated_notes_counter: int = 0
+    updated_count: int = 0
     for field_name in field_names:
-        note_ids: Sequence[NoteId] = mw.col.find_notes(f"{field_name}:_*")
+        note_ids: Sequence[NoteId] = col.find_notes(f"{field_name}:_*")
         log.info(f"Found notes: field={field_name}, notes={len(note_ids)}")
-        scanned_notes_counter = scanned_notes_counter + len(note_ids)
         for note_id in note_ids:
-            note: Note = mw.col.get_note(note_id)
+            note: Note = col.get_note(note_id)
             old_value: str = note[field_name]
             new_value: str = old_value
             for regex, replacement in replacements.items():
                 new_value: str = re.sub(regex, replacement, new_value).strip()
             if new_value != old_value:
                 log.info(f"Updating note: {note_id}")
-                log.info(f"old_value:\n{old_value}")
-                log.info(f"new_value:\n{new_value}")
+                log.info(f"Field {field_name} old value:\n{old_value}")
+                log.info(f"Field {field_name} new value:\n{new_value}")
                 note[field_name] = new_value
-                mw.col.update_note(note)
-                updated_notes_counter = updated_notes_counter + 1
-    showInfo(f"Finished: notes scanned={scanned_notes_counter}, notes updated={updated_notes_counter}")
+                col.update_note(note)
+                changes.count += 1
+                updated_count += 1
+            mw.taskman.run_on_main(
+                lambda: mw.progress.update(label=f"Updated: {changes.count}")
+            )
+            if mw.progress.want_cancel():
+                log.info(f"Cancelling")
+                return True
+    return updated_count == 0
+
+
+def on_success(changes: ResultWithChanges) -> None:
+    showInfo(f"Finished: updated {changes.count} notes")
+
+
+def on_failure(e: Exception) -> None:
+    showInfo(f"Failed: {e}")
+
+
+def _ui_action():
+    op: CollectionOp[OpChanges] = CollectionOp(parent=mw, op=lambda col: _remove_background_operation(col))
+    op.success(on_success)
+    op.failure(on_failure)
+    op.run_in_background()
 
 
 action = QAction('Clean generated fields', mw)
-qconnect(action.triggered, _remove)
+qconnect(action.triggered, _ui_action)
 mw.form.menuTools.addAction(action)

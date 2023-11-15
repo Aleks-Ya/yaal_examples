@@ -28,9 +28,10 @@ log.info(f'Logger is configured: file={log_file}')
 
 def _fill() -> None:
     tag_separator: str = '::'
-    base_tag: str = 'en::parts'
+    base_tag: str = f'en{tag_separator}parts{tag_separator}'
     all_tags: List[str] = mw.col.tags.all()
     parts_tags: List[str] = [tag for tag in all_tags if tag.startswith(base_tag)]
+    log.info(f"Part tags: {parts_tags}")
     tag_to_name: Dict[str, str] = {}
     for tag in parts_tags:
         split: List[str] = tag.split(tag_separator)
