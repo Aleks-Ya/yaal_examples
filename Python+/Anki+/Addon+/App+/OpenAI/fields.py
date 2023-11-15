@@ -1,0 +1,6 @@
+english_field: str = 'English'
+description_field: str = 'Description-my'
+part_of_speech_field: str = 'PartOfSpeech-generated'
+synonym1_field: str = 'Synonym1'
+synonyms_field: str = 'Synonyms'
+antonyms_field: str = 'Antonyms'

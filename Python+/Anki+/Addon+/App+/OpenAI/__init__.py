@@ -25,7 +25,9 @@ sys.path.insert(1, os.path.join(addon_dir, 'bundled_dependencies'))
 log.info(f"sys.path={sys.path}")
 
 from . import synonyms_antonyms
+from . import description
 
 parent_menu: QMenu = QMenu("OpenAI", mw)
 mw.form.menuTools.addMenu(parent_menu)
 parent_menu.addAction(synonyms_antonyms.menu_action())
+parent_menu.addAction(description.menu_action())

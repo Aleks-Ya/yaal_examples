@@ -10,28 +10,20 @@ from anki.notes import NoteId, Note
 from aqt import mw
 from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
-from openai import OpenAI
 from openai.types.chat import ChatCompletion
 
+from fields import english_field, part_of_speech_field, synonym1_field, synonyms_field, antonyms_field
+from tags import absent_synonym1_tag, absent_synonyms_tag, absent_antonyms_tag, unit_tag
 from . import openai_client
 
 log: logging.Logger = logging.getLogger(__name__)
-
-english_field: str = 'English'
-part_of_speech_field: str = 'PartOfSpeech-generated'
-synonym1_field: str = 'Synonym1'
-synonyms_field: str = 'Synonyms'
-antonyms_field: str = 'Antonyms'
-absent_synonym1_tag: str = '~api::absent::synonym1'
-absent_synonyms_tag: str = '~api::absent::synonyms'
-absent_antonyms_tag: str = '~api::absent::antonyms'
 
 
 def _fill() -> None:
     query: str = (f'(({synonym1_field}: -tag:{absent_synonym1_tag}) OR '
                   f'({synonyms_field}: -tag:{absent_synonyms_tag}) OR '
                   f'({antonyms_field}: -tag:{absent_antonyms_tag})) '
-                  f'-tag:en::unit*')
+                  f'-tag:{unit_tag}')
     log.info(f"Query: '{query}'")
     note_ids: Sequence[NoteId] = mw.col.find_notes(query)
     log.info(f"Found notes: {len(note_ids)}")
@@ -94,19 +86,7 @@ def _update_notes(notes_to_update: List[Note]):
         f'```\n'
     )
     log.debug(f"Prompt:\n{prompt}")
-    client: OpenAI = openai_client.init_openai_client()
-    timeout_sec: float = 120
-    log.info(f"Request timeout: {timeout_sec} sec")
-    chat_completion: ChatCompletion = client.chat.completions.create(
-        messages=[
-            {
-                "role": "user",
-                "content": prompt,
-            }
-        ],
-        model="gpt-4-1106-preview",
-        timeout=timeout_sec
-    )
+    chat_completion: ChatCompletion = openai_client.get_completion(prompt)
     message: str = chat_completion.choices[0].message.content
     log.debug(f"Message:\n{message}")
     message = message.replace('```\n', '').replace('\n```', '')
