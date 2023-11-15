@@ -1,7 +1,7 @@
 import logging
 
 # Get root logger
-root_logger: logging.RootLogger = logging.getLogger()
+root_logger: logging.Logger = logging.getLogger()
 
 # Get logger
 a_logger: logging.Logger = logging.getLogger('a')
@@ -15,3 +15,6 @@ assert child_logger == ab_logger
 manager: logging.Manager = logging.Logger.manager
 all_loggers = manager.loggerDict
 print(all_loggers)
+
+# Get logger for current file
+current_logger: logging.Logger = logging.getLogger(__name__)

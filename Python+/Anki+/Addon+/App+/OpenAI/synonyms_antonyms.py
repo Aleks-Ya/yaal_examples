@@ -1,41 +1,23 @@
 # Anki add-on.
-# 1. Adds "Clean generated fields" item in "Main menu"/"Tools".
+# 1. Adds "Fill synonyms and antonyms" item in "Main menu"/"Tools".
 # 2. On click, perform find by regex and replace in specified note fields.
 import logging
-import os
-import sys
 from csv import DictReader
 from io import StringIO
-from pathlib import Path
 from typing import Sequence, List
 
 from anki.notes import NoteId, Note
 from aqt import mw
 from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
-
-init_py_file: Path = Path(__file__)
-addon_dir: Path = init_py_file.parent
-addon_name: str = addon_dir.name
-log_file = os.path.join(addon_dir, f"{addon_name}.log")
-log: logging.Logger = logging.getLogger(addon_name)
-log.setLevel(logging.DEBUG)
-handler: logging.FileHandler = logging.FileHandler(log_file)
-handler.setLevel(logging.DEBUG)
-handler.setFormatter(logging.Formatter('%(asctime)s %(name)s %(funcName)s %(levelname)s %(message)s'))
-log.addHandler(handler)
-log.info(f'Logger is configured: file={log_file}')
-
-addon_dir = os.path.dirname(__file__)
-sys.path.insert(1, os.path.abspath(os.path.dirname(__file__)))
-sys.path.insert(1, os.path.join(addon_dir, 'bundled_dependencies'))
-
-log.info(f"sys.path={sys.path}")
-
 from openai import OpenAI
 from openai.types.chat import ChatCompletion
 
-word_field: str = 'English'
+from . import openai_client
+
+log: logging.Logger = logging.getLogger(__name__)
+
+english_field: str = 'English'
 part_of_speech_field: str = 'PartOfSpeech-generated'
 synonym1_field: str = 'Synonym1'
 synonyms_field: str = 'Synonyms'
@@ -77,7 +59,7 @@ def _update_notes(notes_to_update: List[Note]):
     log.info(f"Notes to update in slice: {len(notes_to_update)}")
     lines: List[str] = []
     for note in notes_to_update:
-        word: str = note[word_field]
+        word: str = note[english_field]
         if not note[part_of_speech_field]:
             raise RuntimeError(f"Part of speech is missing: nid={note.id}")
         pos: str = note[part_of_speech_field]
@@ -112,10 +94,7 @@ def _update_notes(notes_to_update: List[Note]):
         f'```\n'
     )
     log.debug(f"Prompt:\n{prompt}")
-    key_file: Path = Path.home().joinpath('.gpt/token.txt')
-    with open(key_file) as f:
-        key: str = f.read()
-    client: OpenAI = OpenAI(api_key=key)
+    client: OpenAI = openai_client.init_openai_client()
     timeout_sec: float = 120
     log.info(f"Request timeout: {timeout_sec} sec")
     chat_completion: ChatCompletion = client.chat.completions.create(
@@ -144,8 +123,8 @@ def _update_notes(notes_to_update: List[Note]):
             is_synonym1_empty: bool = synonym1_old.strip() == ''
             is_synonyms_empty: bool = synonyms_old.strip() == ''
             is_antonyms_empty: bool = antonyms_old.strip() == ''
-            if note[word_field] != row[english_column]:
-                raise RuntimeError(f"Wrong English word: note={note[word_field]}, row={row[english_column]}")
+            if note[english_field] != row[english_column]:
+                raise RuntimeError(f"Wrong English word: note={note[english_field]}, row={row[english_column]}")
             if not is_synonym1_empty and not is_synonyms_empty and not is_antonyms_empty:
                 raise RuntimeError(f"Fields {synonym1_field}, {synonyms_field} and {antonyms_field} are all not empty: "
                                    f"nid={note.id}, synonym1='{synonym1_old}', synonyms='{synonyms_old}', "
@@ -192,7 +171,7 @@ def _update_notes(notes_to_update: List[Note]):
                 if absent_antonyms_tag in tags_old:
                     note.tags.remove(absent_antonyms_tag)
 
-            log.info(f"Updating note: nid={note.id}, english='{note[word_field]}', "
+            log.info(f"Updating note: nid={note.id}, english='{note[english_field]}', "
                      f"pos='{note[part_of_speech_field]}', "
                      f"synonym1='{synonym1_old}'->'{synonym1_new}', "
                      f"synonyms='{synonyms_old}'->'{synonyms_new}', "
@@ -201,6 +180,7 @@ def _update_notes(notes_to_update: List[Note]):
             mw.col.update_note(note)
 
 
-action = QAction('Load synonyms and antonyms from OpenAI', mw)
-qconnect(action.triggered, _fill)
-mw.form.menuTools.addAction(action)
+def menu_action() -> QAction:
+    action = QAction('Fill synonyms and antonyms', mw)
+    qconnect(action.triggered, _fill)
+    return action
