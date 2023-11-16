@@ -51,7 +51,23 @@ def _remove(changes, col) -> bool:
         r"<h5>解析[:：]?</h5>": "<div>Analysis:</div>",
         r"&nbsp;": " ",
         r"<em><em>": "<em>",
-        r"</em></em>": "</em>"
+        r"</em></em>": "</em>",
+        r"[\u4e00-\u9fff\u3400-\u4dbf\u2e80-\u2eff\u3000-\u303f\uff00-\uffef]": "",  # Chinese characters
+        r'<br>\s*<br>\s*<i>': "<br><i>",
+        r'<br/>\s*<br/>\s*<i>': "<br/><i>",
+        r'<div\s*class="se_div">': '<div>',
+        r'<div\s*class="sentenceCon">': '<div>',
+        r'<div\s*id="sentenceSeg">': '<div>',
+        r'<div\s*class="se_li1">': '<div>',
+        r'<div\s*class="sen_cn">': '<div>',
+        r'<div\s*class="sen_en">': '<div>',
+        r"<div></div>": "",
+        r"“.*”": "",
+        r"‘.*’": "",
+        r"”.*“": "",
+        r"—": "",
+        r"<li>\s*<div>\s*<div>\d{1,2}\.": "<li><div><div>",
+        r"<br>\s*<br>\s*</div>": "<br></div>"
     }
     field_names: List[str] = [
         'Examples1-generated',
@@ -66,7 +82,6 @@ def _remove(changes, col) -> bool:
         'Synonyms',
         'Antonyms',
         'Answer',
-        'Quote',
         'Example-my'
     ]
     updated_count: int = 0
@@ -78,7 +93,7 @@ def _remove(changes, col) -> bool:
             old_value: str = note[field_name]
             new_value: str = old_value
             for regex, replacement in replacements.items():
-                new_value: str = re.sub(regex, replacement, new_value).strip()
+                new_value = re.sub(regex, replacement, new_value).strip()
             if new_value != old_value:
                 log.info(f"Updating note: {note_id}")
                 log.info(f"Field {field_name} old value:\n{old_value}")
