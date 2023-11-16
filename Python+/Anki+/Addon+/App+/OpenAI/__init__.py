@@ -26,8 +26,10 @@ log.info(f"sys.path={sys.path}")
 
 from . import synonyms_antonyms
 from . import description
+from . import chinese
 
 parent_menu: QMenu = QMenu("OpenAI", mw)
 mw.form.menuTools.addMenu(parent_menu)
 parent_menu.addAction(synonyms_antonyms.menu_action())
 parent_menu.addAction(description.menu_action())
+parent_menu.addAction(chinese.menu_action())

@@ -14,7 +14,7 @@ def _init_openai_client() -> OpenAI:
     return OpenAI(api_key=key)
 
 
-def get_completion(prompt: str, timeout_sec: float = 120):
+def get_completion(prompt: str, model: str = 'gpt-4-1106-preview', timeout_sec: float = 120):
     log.info(f"Request timeout: {timeout_sec} sec")
     client: OpenAI = _init_openai_client()
     chat_completion: ChatCompletion = client.chat.completions.create(
@@ -24,7 +24,7 @@ def get_completion(prompt: str, timeout_sec: float = 120):
                 "content": prompt,
             }
         ],
-        model="gpt-4-1106-preview",
+        model=model,
         timeout=timeout_sec
     )
     return chat_completion
