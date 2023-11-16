@@ -49,9 +49,12 @@ def _remove(changes, col) -> bool:
         r"<h5>反义词[:：]?</h5>": "<div>Antonyms:</div>",
         r"<h5>联想词</h5>": "<div>Associated words:</div>",
         r"<h5>解析[:：]?</h5>": "<div>Analysis:</div>",
-        r"&nbsp;": " "
+        r"&nbsp;": " ",
+        r"<em><em>": "<em>",
+        r"</em></em>": "</em>"
     }
     field_names: List[str] = [
+        'Examples1-generated',
         'Examples2-generated',
         'Synonyms-generated',
         'Gpt4Short',
@@ -63,7 +66,8 @@ def _remove(changes, col) -> bool:
         'Synonyms',
         'Antonyms',
         'Answer',
-        'Quote'
+        'Quote',
+        'Example-my'
     ]
     updated_count: int = 0
     for field_name in field_names:
