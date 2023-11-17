@@ -27,7 +27,7 @@ log.addHandler(handler)
 log.info(f'Logger is configured: file={log_file}')
 
 
-def _remove_background_operation(col: Collection) -> ResultWithChanges:
+def _background_operation(col: Collection) -> ResultWithChanges:
     changes = OpChangesWithCount()
     finished: bool = False
     while not finished:
@@ -52,21 +52,22 @@ def _remove(changes, col) -> bool:
         r"&nbsp;": " ",
         r"<em><em>": "<em>",
         r"</em></em>": "</em>",
+        r'<div\s*class="sen_cn">.*</div>': "",  # Chinese characters
         r"[\u4e00-\u9fff\u3400-\u4dbf\u2e80-\u2eff\u3000-\u303f\uff00-\uffef]": "",  # Chinese characters
         r'<br>\s*<br>\s*<i>': "<br><i>",
         r'<br/>\s*<br/>\s*<i>': "<br/><i>",
-        r'<div\s*class="se_div">': '<div>',
-        r'<div\s*class="sentenceCon">': '<div>',
-        r'<div\s*id="sentenceSeg">': '<div>',
-        r'<div\s*class="se_li1">': '<div>',
-        r'<div\s*class="sen_cn">': '<div>',
-        r'<div\s*class="sen_en">': '<div>',
+        # r'<div\s*class="se_div">': '<div>',
+        # r'<div\s*class="sentenceCon">': '<div>',
+        # r'<div\s*id="sentenceSeg">': '<div>',
+        # r'<div\s*class="se_li1">': '<div>',
+        # r'<div\s*class="sen_cn">': '<div>',
+        # r'<div\s*class="sen_en">': '<div>',
         r"<div></div>": "",
         r"“.*”": "",
         r"‘.*’": "",
         r"”.*“": "",
         r"—": "",
-        r"<li>\s*<div>\s*<div>\d{1,2}\.": "<li><div><div>",
+        r'<div\s*class="sen_en">\d{1,2}\.': '<div class="sen_en">',
         r"<br>\s*<br>\s*</div>": "<br></div>"
     }
     field_names: List[str] = [
@@ -82,7 +83,8 @@ def _remove(changes, col) -> bool:
         'Synonyms',
         'Antonyms',
         'Answer',
-        'Example-my'
+        'Example-my',
+        'Example-real-life'
     ]
     updated_count: int = 0
     for field_name in field_names:
@@ -120,7 +122,7 @@ def on_failure(e: Exception) -> None:
 
 
 def _ui_action():
-    op: CollectionOp[OpChanges] = CollectionOp(parent=mw, op=lambda col: _remove_background_operation(col))
+    op: CollectionOp[OpChanges] = CollectionOp(parent=mw, op=lambda col: _background_operation(col))
     op.success(on_success)
     op.failure(on_failure)
     op.run_in_background()

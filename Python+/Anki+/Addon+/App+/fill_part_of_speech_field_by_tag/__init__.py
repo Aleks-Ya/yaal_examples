@@ -36,7 +36,7 @@ def _fill() -> None:
     for tag in parts_tags:
         split: List[str] = tag.split(tag_separator)
         part_sub_tag: str = split[2]
-        part_tag: str = base_tag + tag_separator + part_sub_tag
+        part_tag: str = base_tag + part_sub_tag
         part_name: str = part_sub_tag.capitalize()
         tag_to_name[part_tag] = part_name
     log.info(f"Tag to Name map: {tag_to_name}")
