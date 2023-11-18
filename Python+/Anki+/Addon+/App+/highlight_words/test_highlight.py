@@ -1,100 +1,58 @@
 import unittest
 
-from highlight import highlight
+from highlight import highlight, remove_highlight
 
 
 class HighlightTestCase(unittest.TestCase):
-    def test_highlight(self):
-        result: str = highlight('beautiful', 'Hello, beautiful world!')
-        self.assertEqual('Hello, <b>beautiful</b> world!', result)
 
-    def test_highlight_several_words(self):
-        result: str = highlight('beautiful', 'Hello, beautiful world and beautiful day!')
-        self.assertEqual('Hello, <b>beautiful</b> world and <b>beautiful</b> day!', result)
+    def _tests(self, name: str, collocation: str, original: str, highlighted: str):
+        with self.subTest(f"{name} - highlight"):
+            self.assertEqual(highlighted, highlight(collocation, original))
+        with self.subTest(f"{name} - already highlighted"):
+            self.assertEqual(highlighted, highlight(collocation, highlighted))
+        with self.subTest(f"{name} - remove highlighting"):
+            self.assertEqual(original, remove_highlight(highlighted))
 
-    def test_case_insensitive(self):
-        result: str = highlight('beautiful', 'Hello, Beautiful world!')
-        self.assertEqual('Hello, <b>Beautiful</b> world!', result)
-
-    def test_ing_base(self):
-        result: str = highlight('abstain', "Abstaining from chocolate")
-        self.assertEqual('<b>Abstaining</b> from chocolate', result)
-
-    def test_ing_changing(self):
-        result: str = highlight('overtake', "A driver was overtaking a slower vehicle.")
-        self.assertEqual('A driver was <b>overtaking</b> a slower vehicle.', result)
-
-    def test_ing_changing_short(self):
-        result: str = highlight('lie', "A cat was lying on the floor.")
-        self.assertEqual('A cat was lying on the floor.', result)
-
-    def test_prefix_to(self):
-        result: str = highlight('to overtake', "A driver was overtaking a slower vehicle.")
-        self.assertEqual('A driver was <b>overtaking</b> a slower vehicle.', result)
-
-    def test_prefix_a(self):
-        result: str = highlight('a driver', "Driver was overtaking a slower vehicle.")
-        self.assertEqual('<b>Driver</b> was overtaking a slower vehicle.', result)
-
-    def test_prefix_an(self):
-        result: str = highlight('an automobile', "Automobile was overtaking a slower vehicle.")
-        self.assertEqual('<b>Automobile</b> was overtaking a slower vehicle.', result)
-
-    def test_collocation(self):
-        result: str = highlight('take forever', "Downloading a movie takes forever.")
-        self.assertEqual('Downloading a movie <b>takes forever</b>.', result)
-
-
-class AlreadyHighlightedTestCase(unittest.TestCase):
-    def test_highlight(self):
-        text: str = 'Hello, <b>beautiful</b> world!'
-        result: str = highlight('beautiful', text)
-        self.assertEqual(text, result)
-
-    def test_highlight_several_words(self):
-        text: str = 'Hello, <b>beautiful</b> world and <b>beautiful</b> day!'
-        result: str = highlight('beautiful', text)
-        self.assertEqual(text, result)
-
-    def test_case_insensitive(self):
-        text: str = 'Hello, <b>Beautiful</b> world!'
-        result: str = highlight('beautiful', text)
-        self.assertEqual(text, result)
-
-    def test_ing_base(self):
-        text: str = '<b>Abstaining</b> from chocolate'
-        result: str = highlight('abstain', text)
-        self.assertEqual(text, result)
-
-    def test_ing_changing(self):
-        text: str = 'A driver was <b>overtaking</b> a slower vehicle.'
-        result: str = highlight('overtake', text)
-        self.assertEqual(text, result)
-
-    def test_ing_changing_short(self):
-        text: str = 'A cat was lying on the floor.'
-        result: str = highlight('lie', text)
-        self.assertEqual(text, result)
-
-    def test_prefix_to(self):
-        text: str = 'A driver was <b>overtaking</b> a slower vehicle.'
-        result: str = highlight('to overtake', text)
-        self.assertEqual(text, result)
-
-    def test_prefix_a(self):
-        text: str = '<b>Driver</b> was overtaking a slower vehicle.'
-        result: str = highlight('a driver', text)
-        self.assertEqual(text, result)
-
-    def test_prefix_an(self):
-        text: str = '<b>Automobile</b> was overtaking a slower vehicle.'
-        result: str = highlight('an automobile', text)
-        self.assertEqual(text, result)
-
-    def test_collocation(self):
-        text: str = 'Downloading a movie <b>takes forever</b>.'
-        result: str = highlight('take forever', text)
-        self.assertEqual(text, result)
+    def test_all(self):
+        self._tests('normal', 'beautiful',
+                    'Hello, beautiful world!',
+                    'Hello, <b>beautiful</b> world!')
+        self._tests('highlight several words', 'beautiful',
+                    'Hello, beautiful world and beautiful day!',
+                    'Hello, <b>beautiful</b> world and <b>beautiful</b> day!')
+        self._tests('sub word', 'hip',
+                    'Her children is at her hip.',
+                    'Her children is at her <b>hip</b>.')
+        self._tests('case insensitive', 'beautiful',
+                    'Hello, Beautiful world!',
+                    'Hello, <b>Beautiful</b> world!')
+        self._tests('ing base', 'abstain',
+                    'Abstaining from chocolate',
+                    '<b>Abstaining</b> from chocolate')
+        self._tests('ing changing', 'overtake',
+                    'A driver was overtaking a slower vehicle.',
+                    'A driver was <b>overtaking</b> a slower vehicle.')
+        self._tests('ing changing short', 'lie',
+                    'A cat was lying on the floor.',
+                    'A cat was lying on the floor.')
+        self._tests('prefix to', 'to overtake',
+                    'Driver was overtaking a slower vehicle.',
+                    'Driver was <b>overtaking</b> a slower vehicle.')
+        self._tests('prefix a', 'a driver',
+                    'Driver was overtaking a slower vehicle.',
+                    '<b>Driver</b> was overtaking a slower vehicle.')
+        self._tests('prefix an', 'an automobile',
+                    'Automobile was overtaking a slower vehicle.',
+                    '<b>Automobile</b> was overtaking a slower vehicle.')
+        self._tests('collocation', 'take forever',
+                    'Downloading a movie takes forever.',
+                    'Downloading a movie <b>takes forever</b>.')
+        self._tests('tag li', 'lid',
+                    '<li>I opened the lid of the jar to get some jam.</li>',
+                    '<li>I opened the <b>lid</b> of the jar to get some jam.</li>')
+        self._tests('tag div', 'ivy',
+                    '<li><div>There is ivy trailing all over the wall.</div></li>',
+                    '<li><div>There is <b>ivy</b> trailing all over the wall.</div></li>')
 
 
 if __name__ == '__main__':

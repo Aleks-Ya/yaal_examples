@@ -26,6 +26,8 @@ handler.setFormatter(logging.Formatter('%(asctime)s %(name)s %(funcName)s %(leve
 log.addHandler(handler)
 log.info(f'Logger is configured: file={log_file}')
 
+dry_run: bool = False
+
 
 def _background_operation(col: Collection) -> ResultWithChanges:
     changes = OpChangesWithCount()
@@ -84,7 +86,7 @@ def _remove(changes, col) -> bool:
         'Antonyms',
         'Answer',
         'Example-my',
-        'Example-real-life'
+        'Transcription'
     ]
     updated_count: int = 0
     for field_name in field_names:
@@ -101,7 +103,10 @@ def _remove(changes, col) -> bool:
                 log.info(f"Field {field_name} old value:\n{old_value}")
                 log.info(f"Field {field_name} new value:\n{new_value}")
                 note[field_name] = new_value
-                col.update_note(note)
+                if not dry_run:
+                    col.update_note(note)
+                else:
+                    log.warning(f"Skipped update because dry_run={dry_run}")
                 changes.count += 1
                 updated_count += 1
             mw.taskman.run_on_main(
@@ -114,7 +119,8 @@ def _remove(changes, col) -> bool:
 
 
 def on_success(changes: ResultWithChanges) -> None:
-    showInfo(f"Finished: updated {changes.count} notes")
+    dry_run_str: str = " (DRY RUN)" if dry_run else ""
+    showInfo(f"Finished: updated {changes.count} notes{dry_run_str}")
 
 
 def on_failure(e: Exception) -> None:
