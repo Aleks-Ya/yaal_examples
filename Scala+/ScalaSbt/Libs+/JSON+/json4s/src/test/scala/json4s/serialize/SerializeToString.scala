@@ -2,10 +2,10 @@ package json4s.serialize
 
 import json4s.City
 import org.json4s.JsonDSL._
-import org.json4s.{NoTypeHints, _}
 import org.json4s.native.JsonMethods._
-import org.json4s.native.Serialization
 import org.json4s.native.Serialization.write
+import org.json4s.native.{JsonMethods, Serialization}
+import org.json4s.{NoTypeHints, _}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -40,6 +40,23 @@ class SerializeToString extends AnyFlatSpec with Matchers {
   it should "serialize null to json" in {
     val json = compact(render(null))
     json shouldEqual "null"
+  }
+
+  it should "compact json" in {
+    val value = JsonMethods.parse("""[{"John",30},{"Mary",24}]""")
+    val json = compact(render(value))
+    json shouldEqual """[{"John":30},{"Mary":24}]"""
+  }
+
+  it should "prettify json" in {
+    val value = JsonMethods.parse("""[{"John",30},{"Mary",24}]""")
+    val json = pretty(render(value))
+    json shouldEqual
+      """[{
+        |  "John":30
+        |},{
+        |  "Mary":24
+        |}]""".stripMargin
   }
 
 }
