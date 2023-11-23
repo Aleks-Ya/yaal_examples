@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Singleton
 public class MockGptApi implements GptApi, GcpApi {
-    private final Map<String, ResponseInfo> contentSubstringToResponseMap = new HashMap<>();
+    private final Map<RequestInfo, ResponseInfo> contentSubstringToResponseMap = new HashMap<>();
 
     private final List<String> sendHistory = new ArrayList<>();
 
@@ -24,7 +25,15 @@ public class MockGptApi implements GptApi, GcpApi {
             throw new IllegalStateException("Should not run in the JavaFX Application Thread");
         }
         var info = contentSubstringToResponseMap.entrySet().stream()
-                .filter(entry -> content.toLowerCase().contains(entry.getKey().toLowerCase()))
+                .filter(entry -> {
+                    var contains = entry.getKey().containsOpt
+                            .map(value -> content.toLowerCase().contains(value.toLowerCase()))
+                            .orElse(false);
+                    var notContains = entry.getKey().notContainOpt
+                            .map(value -> !content.toLowerCase().contains(value.toLowerCase()))
+                            .orElse(true);
+                    return contains && notContains;
+                })
                 .findFirst()
                 .orElseThrow()
                 .getValue();
@@ -41,30 +50,32 @@ public class MockGptApi implements GptApi, GcpApi {
     }
 
     public MockGptApi putGrammarResponse(String response, Duration timeout) {
-        return put("has grammatical mistakes", response, timeout);
+        return put("has grammatical mistakes", null, response, timeout);
     }
 
     public MockGptApi putShortResponse(String response, Duration timeout) {
-        return put("a short response", response, timeout);
+        return put("a short response", null, response, timeout);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public MockGptApi putLongResponse(String response, Duration timeout) {
-        return put("a detailed response", response, timeout);
+        return put("I will ask you a question about", "a short response", response, timeout);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public MockGptApi putGcpResponse(String response, Duration timeout) {
-        return put("Answer question about", response, timeout);
+        return put("Answer question about", null, response, timeout);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public MockGptApi putFactResponse(String response, Duration timeout) {
-        return put("factually correct", response, timeout);
+        return put("factually correct", null, response, timeout);
     }
 
-    private MockGptApi put(String contentSubstring, String response, Duration timeout) {
-        contentSubstringToResponseMap.put(contentSubstring, new ResponseInfo(response, timeout));
+    private MockGptApi put(String containsSubstring, String notContainSubstring, String response, Duration timeout) {
+        var requestInfo = new RequestInfo(Optional.ofNullable(containsSubstring), Optional.ofNullable(notContainSubstring));
+        var responseInfo = new ResponseInfo(response, timeout);
+        contentSubstringToResponseMap.put(requestInfo, responseInfo);
         return this;
     }
 
@@ -72,6 +83,9 @@ public class MockGptApi implements GptApi, GcpApi {
         contentSubstringToResponseMap.clear();
         sendHistory.clear();
         return this;
+    }
+
+    record RequestInfo(Optional<String> containsOpt, Optional<String> notContainOpt) {
     }
 
     record ResponseInfo(String content, Duration timeout) {

@@ -26,7 +26,6 @@ class PromptFactory {
                         theme, question));
                 case LONG -> Optional.of(format(
                         "I will ask you a question about \"%s\". " +
-                        "You should answer with a detailed response. " +
                         "Format your answer into Markdown. " +
                         "The question is:\n" +
                         "```\n" +
@@ -77,10 +76,12 @@ class PromptFactory {
 
     private static Optional<String> grammarPrompt(String question) {
         return Optional.of(format(
-                "I will give you a sentence. " +
-                "Check if the sentence has grammatical mistakes. " +
-                "It is not a mistake if the sentence starts with \"How to\". " +
-                "The sentence is:\n" +
+                "I will give you a sentence or phrase. " +
+                "Check if the sentence or phrase has grammatical mistakes. " +
+                "It is not a mistake if the sentence or phrase starts with \"How to\". " +
+                "If the given sentence or phrase is correct, just answer \"Correct\". " +
+                "If the sentence or phrase has mistakes, just answer with correct sentence. " +
+                "The sentence or phrase is:\n" +
                 "```\n" +
                 "%s\n" +
                 "```",
