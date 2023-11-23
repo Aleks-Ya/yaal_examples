@@ -58,19 +58,14 @@ def _remove(changes, col) -> bool:
         r"[\u4e00-\u9fff\u3400-\u4dbf\u2e80-\u2eff\u3000-\u303f\uff00-\uffef]": "",  # Chinese characters
         r'<br>\s*<br>\s*<i>': "<br><i>",
         r'<br/>\s*<br/>\s*<i>': "<br/><i>",
-        # r'<div\s*class="se_div">': '<div>',
-        # r'<div\s*class="sentenceCon">': '<div>',
-        # r'<div\s*id="sentenceSeg">': '<div>',
-        # r'<div\s*class="se_li1">': '<div>',
-        # r'<div\s*class="sen_cn">': '<div>',
-        # r'<div\s*class="sen_en">': '<div>',
         r"<div></div>": "",
         r"“.*”": "",
         r"‘.*’": "",
         r"”.*“": "",
         r"—": "",
         r'<div\s*class="sen_en">\d{1,2}\.': '<div class="sen_en">',
-        r"<br>\s*<br>\s*</div>": "<br></div>"
+        r"<br>\s*<br>\s*</div>": "<br></div>",
+        r"<div>\s*<br>\s*</div>": ""
     }
     field_names: List[str] = [
         'Examples1-generated',

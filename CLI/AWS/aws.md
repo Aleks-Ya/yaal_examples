@@ -21,6 +21,7 @@ Help for a command: `aws ec2 help`
 
 ### configure
 Show current configuration data: `aws configure list`
+List all properties: `aws configure list-profiles`
 Configure most used parameters: `aws configure`
 Show default region: `aws configure get region`
 Set default region: `aws configure set region eu-north-1`
@@ -94,7 +95,3 @@ CORS Preflight Request: `curl -i -X OPTIONS https://2qydkfnxua.execute-api.us-ea
 ### SNS
 Send SMS to phone: `aws sns publish --phone-number "+12345678901" --message "Your message here"`
 List Sandbox destination phone numbers: `aws sns list-sms-sandbox-phone-numbers`
-
-### DynamoDB
-List tables: `aws dynamodb list-tables`
-
