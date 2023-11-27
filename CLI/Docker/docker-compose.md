@@ -13,6 +13,7 @@ Build project: `docker-compose build`
 Start project: `docker-compose up`
 Start project with force rebuild: `docker-compose up --build`
 Stop project: `docker-compose down`
+Stop project and remove volumes: `docker-compose down -v`
 
 ### Logs
 
