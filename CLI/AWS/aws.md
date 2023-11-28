@@ -9,7 +9,7 @@ PIP (outdated version 1): `pip3 install awscli`
 
 ## Commands
 [Command reference](https://docs.aws.amazon.com/cli/latest/reference/#available-services)
-Default config file location: ~/.aws/config
+Default config file location: `~/.aws/config`
 
 Version: `aws --version`
 Check credential: `aws sts get-caller-identity`
@@ -18,15 +18,6 @@ Choose output format (`text`, `table`, `json`, etc.): `aws s3api --output table 
 ### help
 Help: `aws help`
 Help for a command: `aws ec2 help`
-
-### configure
-Show current configuration data: `aws configure list`
-List all properties: `aws configure list-profiles`
-Configure most used parameters: `aws configure`
-Show default region: `aws configure get region`
-Set default region: `aws configure set region eu-north-1`
-Set default output format: `aws configure set default.output json`
-Show default output format: `aws configure get default.output`
 
 ### s3 (high-level)
 List S3 buckets: `aws s3 ls`
