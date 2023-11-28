@@ -10,6 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import org.testfx.api.FxRobot;
@@ -102,6 +103,10 @@ abstract class BaseGptUiTest extends ApplicationTest {
         return lookup("#grammarAnswer #statusCircle").queryAs(Circle.class);
     }
 
+    protected Text getAnswerGrammarTemperatureText() {
+        return lookup("#grammarAnswer #temperatureText").queryText();
+    }
+
     protected Label getAnswerShortLabel() {
         return lookup("#shortAnswer #answerLabel").queryAs(Label.class);
     }
@@ -120,6 +125,10 @@ abstract class BaseGptUiTest extends ApplicationTest {
 
     protected Circle getAnswerShortCircle() {
         return lookup("#shortAnswer #statusCircle").queryAs(Circle.class);
+    }
+
+    protected Text getAnswerShortTemperatureText() {
+        return lookup("#shortAnswer #temperatureText").queryText();
     }
 
     protected Label getAnswerLongLabel() {
@@ -158,8 +167,16 @@ abstract class BaseGptUiTest extends ApplicationTest {
         return lookup("#longAnswer #statusCircle").queryAs(Circle.class);
     }
 
+    protected Text getAnswerLongTemperatureText() {
+        return lookup("#longAnswer #temperatureText").queryText();
+    }
+
     protected Circle getAnswerGcpCircle() {
         return lookup("#gcpAnswer #statusCircle").queryAs(Circle.class);
+    }
+
+    protected Text getAnswerGcpTemperatureText() {
+        return lookup("#gcpAnswer #temperatureText").queryText();
     }
 
     private String extractWebViewContent(WebView webView) {

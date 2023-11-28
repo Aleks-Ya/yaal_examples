@@ -20,7 +20,7 @@ class FormatBigDecimalTest {
     @Test
     void withLocale() {
         var num = BigDecimal.valueOf(10000000.236000000);
-        var locale = new Locale("ru", "RU");
+        var locale = Locale.of("ru", "RU");
         var df = DecimalFormat.getInstance(locale);
         var str = df.format(num);
         assertThat(str).isEqualTo("10 000 000,236");

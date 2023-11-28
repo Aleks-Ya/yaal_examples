@@ -1,19 +1,12 @@
 package gptui.ui;
 
-import gptui.storage.Answer;
-import gptui.storage.AnswerType;
 import gptui.storage.Interaction;
 import javafx.scene.paint.Color;
 import org.testfx.util.WaitForAsyncUtils;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
-import static gptui.storage.AnswerType.GCP;
-import static gptui.storage.AnswerType.GRAMMAR;
-import static gptui.storage.AnswerType.LONG;
-import static gptui.storage.AnswerType.SHORT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -40,10 +33,10 @@ class WindowAssertion {
     private Color answerShortCircleColor;
     private Color answerLongCircleColor;
     private Color answerGcpCircleColor;
-    private BigDecimal answerGrammarTemperature;
-    private BigDecimal answerShortTemperature;
-    private BigDecimal answerLongTemperature;
-    private BigDecimal answerGcpTemperature;
+    private String answerGrammarTemperature;
+    private String answerShortTemperature;
+    private String answerLongTemperature;
+    private String answerGcpTemperature;
 
     public static WindowAssertion builder() {
         return new WindowAssertion();
@@ -125,30 +118,29 @@ class WindowAssertion {
     }
 
     public WindowAssertion answerCircleColors(Color answerGrammarCircleColor, Color answerShortCircleColor,
-                                              Color answerLongCircleColor, Color answerBardCircleColor) {
+                                              Color answerLongCircleColor, Color answerGcpCircleColor) {
         this.answerGrammarCircleColor = answerGrammarCircleColor;
         this.answerShortCircleColor = answerShortCircleColor;
         this.answerLongCircleColor = answerLongCircleColor;
-        this.answerGcpCircleColor = answerBardCircleColor;
+        this.answerGcpCircleColor = answerGcpCircleColor;
         return this;
     }
 
-    public WindowAssertion answerTemperatures(Double grammarTemperature, Double shortTemperature,
-                                              Double longTemperature, Double gcpTemperature) {
-        this.answerGrammarTemperature = grammarTemperature != null ? BigDecimal.valueOf(grammarTemperature) : null;
-        this.answerShortTemperature = shortTemperature != null ? BigDecimal.valueOf(shortTemperature) : null;
-        this.answerLongTemperature = longTemperature != null ? BigDecimal.valueOf(longTemperature) : null;
-        this.answerGcpTemperature = gcpTemperature != null ? BigDecimal.valueOf(gcpTemperature) : null;
-        return this;
-    }
-
-    public WindowAssertion answerTemperatures(BigDecimal grammarTemperature, BigDecimal shortTemperature,
-                                              BigDecimal longTemperature, BigDecimal gcpTemperature) {
+    public WindowAssertion answerTemperatures(String grammarTemperature, String shortTemperature,
+                                              String longTemperature, String gcpTemperature) {
         this.answerGrammarTemperature = grammarTemperature;
         this.answerShortTemperature = shortTemperature;
         this.answerLongTemperature = longTemperature;
         this.answerGcpTemperature = gcpTemperature;
         return this;
+    }
+
+    public WindowAssertion answerTemperaturesAllEmpty() {
+        return answerTemperatures("", "", "", "");
+    }
+
+    public WindowAssertion answerTemperaturesDefault() {
+        return answerTemperatures("50°", "60°", "70°", "30°");
     }
 
     void assertApp() {
@@ -193,34 +185,28 @@ class WindowAssertion {
         verifyThat(app.getAnswerGrammarRegenerateButton().getText(), equalTo("⟳"));
         app.verifyWebViewBody(app.getAnswerGrammarWebView(), answerGrammarText);
         assertThat(app.getAnswerGrammarCircle().getFill()).isEqualTo(answerGrammarCircleColor);
-        assertThat(getTemperature(GRAMMAR)).isEqualTo(answerGrammarTemperature);
+        assertThat(app.getAnswerGrammarTemperatureText().getText()).isEqualTo(answerGrammarTemperature);
 
         verifyThat(app.getAnswerShortLabel(), hasText("Short\nanswer:"));
         verifyThat(app.getAnswerShortCopyButton().getText(), equalTo("Copy _2"));
         verifyThat(app.getAnswerShortRegenerateButton().getText(), equalTo("⟳"));
         app.verifyWebViewBody(app.getAnswerShortWebView(), answerShortText);
         assertThat(app.getAnswerShortCircle().getFill()).isEqualTo(answerShortCircleColor);
-        assertThat(getTemperature(SHORT)).isEqualTo(answerShortTemperature);
+        assertThat(app.getAnswerShortTemperatureText().getText()).isEqualTo(answerShortTemperature);
 
         verifyThat(app.getAnswerLongLabel(), hasText("Long\nanswer:"));
         verifyThat(app.getAnswerLongCopyButton().getText(), equalTo("Copy _3"));
         verifyThat(app.getAnswerLongRegenerateButton().getText(), equalTo("⟳"));
         app.verifyWebViewBody(app.getAnswerLongWebView(), answerLongText);
         assertThat(app.getAnswerLongCircle().getFill()).isEqualTo(answerLongCircleColor);
-        assertThat(getTemperature(LONG)).isEqualTo(answerLongTemperature);
+        assertThat(app.getAnswerLongTemperatureText().getText()).isEqualTo(answerLongTemperature);
 
         verifyThat(app.getAnswerGcpLabel(), hasText("Bard\nanswer:"));
         verifyThat(app.getAnswerGcpCopyButton().getText(), equalTo("Copy _4"));
         verifyThat(app.getAnswerGcpRegenerateButton().getText(), equalTo("⟳"));
         app.verifyWebViewBody(app.getAnswerGcpWebView(), answerGcpText);
         assertThat(app.getAnswerGcpCircle().getFill()).isEqualTo(answerGcpCircleColor);
-        assertThat(getTemperature(GCP)).isEqualTo(answerGcpTemperature);
-    }
-
-    private BigDecimal getTemperature(AnswerType answerType) {
-        return app.storage.readInteraction(app.model.getCurrentInteractionId())
-                .flatMap(interaction -> interaction.getAnswer(answerType).map(Answer::temperature))
-                .orElse(null);
+        assertThat(app.getAnswerGcpTemperatureText().getText()).isEqualTo(answerGcpTemperature);
     }
 }
 

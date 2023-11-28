@@ -13,11 +13,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Optional;
 
@@ -26,6 +28,7 @@ import static gptui.storage.AnswerType.GCP;
 import static gptui.storage.AnswerType.GRAMMAR;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.SHORT;
+import static java.math.RoundingMode.HALF_UP;
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
@@ -40,6 +43,7 @@ public class AnswerController extends BaseController {
             SHORT, "Short\nanswer:",
             LONG, "Long\nanswer:",
             GCP, "Bard\nanswer:");
+    private static final BigDecimal hundred = BigDecimal.valueOf(100);
     @FXML
     private Label answerLabel;
     @FXML
@@ -48,6 +52,8 @@ public class AnswerController extends BaseController {
     private WebView webView;
     @FXML
     private Button copyButton;
+    @FXML
+    private Text temperatureText;
     private AnswerType answerType;
     @Inject
     private ClipboardHelper clipboardHelper;
@@ -92,9 +98,14 @@ public class AnswerController extends BaseController {
                         var state = answerOpt.isPresent() ? answerOpt.get().answerState() : NEW;
                         webView.getEngine().loadContent(html);
                         statusCircle.setFill(answerStateToColor(state));
+                        var temperature = answerOpt.map(answer -> answer.temperature().multiply(hundred)
+                                                                          .setScale(0, HALF_UP) + "°")
+                                .orElse("");
+                        temperatureText.setText(temperature);
                     }, () -> {
                         webView.getEngine().loadContent("");
                         statusCircle.setFill(WHITE);
+                        temperatureText.setText("");
                     });
         });
     }

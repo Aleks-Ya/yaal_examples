@@ -44,7 +44,7 @@ public record Interaction(InteractionId id,
 
     public Interaction withAnswer(AnswerType answerType, Function<Answer, Answer> update) {
         var currentAnswer = answers.getOrDefault(answerType,
-                new Answer(answerType, null, null,null, null, null));
+                new Answer(answerType, null, null, null, null, null));
         var newAnswer = update.apply(currentAnswer);
         return withAnswer(newAnswer);
     }

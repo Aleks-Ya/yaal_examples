@@ -6,19 +6,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
-
-<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gptui.ui.controller.AnswerController">
-    <Label fx:id="answerLabel" text="Label" />
-    <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
-    <WebView fx:id="webView" prefHeight="218.0" prefWidth="477.0" HBox.hgrow="ALWAYS" />
-    <Separator orientation="VERTICAL" prefHeight="200.0" visible="false" />
+<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="gptui.ui.controller.AnswerController">
+    <Label fx:id="answerLabel" text="Label"/>
+    <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>
+    <WebView fx:id="webView" prefHeight="218.0" prefWidth="477.0" HBox.hgrow="ALWAYS"/>
+    <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>
     <VBox alignment="TOP_CENTER" prefWidth="70.0">
-        <Button fx:id="copyButton" onAction="#clickCopyButton" text="Copy" />
-        <Separator visible="false" />
+        <Button fx:id="copyButton" onAction="#clickCopyButton" text="Copy"/>
+        <Separator visible="false"/>
         <!--suppress JavaFxUnresolvedFxIdReference -->
-        <Button fx:id="regenerateButton" mnemonicParsing="false" onAction="#onRegenerateButtonClick" text="⟳" />
-        <Separator prefWidth="200.0" visible="false" />
-        <Circle fx:id="statusCircle" fill="WHITE" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+        <Button fx:id="regenerateButton" mnemonicParsing="false" onAction="#onRegenerateButtonClick" text="⟳"/>
+        <Separator prefWidth="200.0" visible="false"/>
+        <Circle fx:id="statusCircle" fill="WHITE" radius="12.0" stroke="BLACK" strokeType="INSIDE"/>
+        <Text fx:id="temperatureText" strokeType="OUTSIDE" strokeWidth="0.0" text="70°"/>
     </VBox>
 </HBox>

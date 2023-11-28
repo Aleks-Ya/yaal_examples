@@ -2,12 +2,6 @@ package gptui.ui;
 
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-
-import static gptui.gpt.Temperature.GCP_TEMPERATURE_DEFAULT;
-import static gptui.gpt.Temperature.GRAMMAR_TEMPERATURE_DEFAULT;
-import static gptui.gpt.Temperature.LONG_TEMPERATURE_DEFAULT;
-import static gptui.gpt.Temperature.SHORT_TEMPERATURE_DEFAULT;
 import static gptui.ui.TestingData.INTERACTION_1_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
@@ -36,7 +30,7 @@ class MultiLineQuestionTest extends BaseGptUiTest {
                 .answerLongText("")
                 .answerGcpText("")
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
-                .answerTemperatures((BigDecimal) null, null, null, null)
+                .answerTemperaturesAllEmpty()
                 .assertApp();
 
         clickOn(getThemeComboBox());
@@ -70,7 +64,7 @@ class MultiLineQuestionTest extends BaseGptUiTest {
                 .answerLongText(TestingData.EXP_LONG_HTML_BODY_1)
                 .answerGcpText(TestingData.EXP_GCP_HTML_BODY_1)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTemperatures(GRAMMAR_TEMPERATURE_DEFAULT, SHORT_TEMPERATURE_DEFAULT, LONG_TEMPERATURE_DEFAULT, GCP_TEMPERATURE_DEFAULT)
+                .answerTemperaturesDefault()
                 .assertApp();
     }
 }

@@ -54,7 +54,7 @@ class RegenerateQuestionTest extends BaseGptUiTest {
                 .answerLongText(INTERACTION_1_LONG_HTML)
                 .answerGcpText(INTERACTION_1_GCP_HTML)
                 .answerCircleColors(GREEN, RED, RED, RED)
-                .answerTemperatures(0.5, 0.6, 0.7, 0.8)
+                .answerTemperatures("50°", "60°", "70°", "80°")
                 .assertApp();
 
         gptApi.clear()
@@ -79,7 +79,7 @@ class RegenerateQuestionTest extends BaseGptUiTest {
                 .answerLongText(EXP_LONG_HTML_BODY_2)
                 .answerGcpText(EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTemperatures(0.5, 0.6, 0.7, 0.8)
+                .answerTemperatures("50°", "60°", "70°", "80°")
                 .assertApp();
     }
 }
