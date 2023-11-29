@@ -2,6 +2,8 @@ package gptui.gpt.openai;
 
 import gptui.gpt.gcp.GcpApi;
 import javafx.application.Platform;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Singleton;
 import java.math.BigDecimal;
@@ -11,12 +13,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static org.awaitility.Awaitility.await;
 
 @Singleton
 public class MockGptApi implements GptApi, GcpApi {
+    private static final Logger log = LoggerFactory.getLogger(MockGptApi.class);
     private final Map<RequestInfo, ResponseInfo> contentSubstringToResponseMap = new HashMap<>();
-
     private final List<String> sendHistory = new ArrayList<>();
+    private final AtomicInteger receivedCounter = new AtomicInteger();
 
     @Override
     public String send(String content, BigDecimal temperature) {
@@ -42,7 +48,14 @@ public class MockGptApi implements GptApi, GcpApi {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        receivedCounter.incrementAndGet();
         return info.content();
+    }
+
+    public void waitUntilSent(int counter) {
+        log.debug("Start waiting: receivedCounter=" + receivedCounter.get());
+        await().timeout(Duration.ofSeconds(15)).until(() -> receivedCounter.get() == counter);
+        log.debug("Finished waiting: receivedCounter=" + receivedCounter.get());
     }
 
     public List<String> getSendHistory() {
@@ -80,6 +93,7 @@ public class MockGptApi implements GptApi, GcpApi {
     }
 
     public MockGptApi clear() {
+        receivedCounter.set(0);
         contentSubstringToResponseMap.clear();
         sendHistory.clear();
         return this;

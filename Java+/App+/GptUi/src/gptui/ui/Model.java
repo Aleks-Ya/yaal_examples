@@ -1,5 +1,7 @@
 package gptui.ui;
 
+import gptui.gpt.Temperatures;
+import gptui.storage.AnswerType;
 import gptui.storage.Interaction;
 import gptui.storage.InteractionId;
 import javafx.scene.Scene;
@@ -8,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Singleton;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +25,7 @@ public class Model {
     private String currentTheme;
     private String editedQuestion;
     private Scene scene;
+    private final Temperatures temperatures = new Temperatures();
 
     public void subscribe(ModelListener listener) {
         log.debug("ModelListener subscribed: {}", listener);
@@ -92,6 +96,14 @@ public class Model {
 
     public void setScene(Scene scene) {
         this.scene = scene;
+    }
+
+    public Temperatures getTemperatures() {
+        return temperatures;
+    }
+
+    public void setTemperature(AnswerType answerType, BigDecimal temperature) {
+        temperatures.setTemperature(answerType, temperature);
     }
 
     public void addAccelerator(KeyCodeCombination keyCodeCombination, Runnable runnable) {

@@ -12,7 +12,7 @@ class ModelTest extends BaseGptUiTest {
     @Test
     void typeQuestion() {
         assertThat(model.getEditedQuestion()).isNull();
-        clickOn(getQuestionTextArea()).type(A, B, C);
+        clickOn(question().textArea()).type(A, B, C);
         WaitForAsyncUtils.waitForFxEvents();
         assertThat(model.getEditedQuestion()).isEqualTo("abc");
     }
@@ -20,7 +20,7 @@ class ModelTest extends BaseGptUiTest {
     @Test
     void typeTheme() {
         assertThat(model.getEditedTheme()).isNull();
-        clickOn(getThemeComboBox()).type(A, B, C);
+        clickOn(theme().comboBox()).type(A, B, C);
         WaitForAsyncUtils.waitForFxEvents();
         assertThat(model.getEditedTheme()).isEqualTo("abc");
     }

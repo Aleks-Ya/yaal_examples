@@ -37,12 +37,12 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_1_THEME)
                 .questionText(INTERACTION_1_QUESTION)
                 .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .answerGrammarText(INTERACTION_1_GRAMMAR_HTML)
-                .answerShortText(INTERACTION_1_SHORT_HTML)
-                .answerLongText(INTERACTION_1_LONG_HTML)
-                .answerGcpText(INTERACTION_1_GCP_HTML)
+                .grammarA().text(INTERACTION_1_GRAMMAR_HTML)
+                .shortA().text(INTERACTION_1_SHORT_HTML)
+                .longA().text(INTERACTION_1_LONG_HTML)
+                .gcpA().text(INTERACTION_1_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTemperatures("50°", "60°", "70°", "80°")
+                .answerTemperatureTexts(50, 60, 70, 80)
                 .assertApp();
 
         regenerateGrammarAnswer();
@@ -53,7 +53,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
 
     private void regenerateGrammarAnswer() {
         gptApi.clear().putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ZERO);
-        clickOn(getAnswerGrammarRegenerateButton());
+        clickOn(grammarAnswer().regenerateButton());
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
@@ -64,18 +64,18 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_1_THEME)
                 .questionText(INTERACTION_1_QUESTION)
                 .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
-                .answerShortText(INTERACTION_1_SHORT_HTML)
-                .answerLongText(INTERACTION_1_LONG_HTML)
-                .answerGcpText(INTERACTION_1_GCP_HTML)
+                .grammarA().text(EXP_GRAMMAR_HTML_BODY_2)
+                .shortA().text(INTERACTION_1_SHORT_HTML)
+                .longA().text(INTERACTION_1_LONG_HTML)
+                .gcpA().text(INTERACTION_1_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTemperatures("50°", "60°", "70°", "80°")
+                .answerTemperatureTexts(50, 60, 70, 80)
                 .assertApp();
     }
 
     private void regenerateShortAnswer() {
         gptApi.clear().putShortResponse(INTERACTION_2_SHORT_HTML, ZERO);
-        clickOn(getAnswerShortRegenerateButton());
+        clickOn(shortAnswer().regenerateButton());
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
@@ -86,18 +86,18 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_1_THEME)
                 .questionText(INTERACTION_1_QUESTION)
                 .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
-                .answerShortText(EXP_SHORT_HTML_BODY_2)
-                .answerLongText(INTERACTION_1_LONG_HTML)
-                .answerGcpText(INTERACTION_1_GCP_HTML)
+                .grammarA().text(EXP_GRAMMAR_HTML_BODY_2)
+                .shortA().text(EXP_SHORT_HTML_BODY_2)
+                .longA().text(INTERACTION_1_LONG_HTML)
+                .gcpA().text(INTERACTION_1_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTemperatures("50°", "60°", "70°", "80°")
+                .answerTemperatureTexts(50, 60, 70, 80)
                 .assertApp();
     }
 
     private void regenerateLongAnswer() {
         gptApi.clear().putLongResponse(INTERACTION_2_LONG_HTML, ZERO);
-        clickOn(getAnswerLongRegenerateButton());
+        clickOn(longAnswer().regenerateButton());
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
@@ -108,18 +108,18 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_1_THEME)
                 .questionText(INTERACTION_1_QUESTION)
                 .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
-                .answerShortText(EXP_SHORT_HTML_BODY_2)
-                .answerLongText(EXP_LONG_HTML_BODY_2)
-                .answerGcpText(INTERACTION_1_GCP_HTML)
+                .grammarA().text(EXP_GRAMMAR_HTML_BODY_2)
+                .shortA().text(EXP_SHORT_HTML_BODY_2)
+                .longA().text(EXP_LONG_HTML_BODY_2)
+                .gcpA().text(INTERACTION_1_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTemperatures("50°", "60°", "70°", "80°")
+                .answerTemperatureTexts(50, 60, 70, 80)
                 .assertApp();
     }
 
     private void regenerateGcpAnswer() {
         gptApi.clear().putGcpResponse(INTERACTION_2_GCP_HTML, ZERO);
-        clickOn(getAnswerGcpRegenerateButton());
+        clickOn(gcpAnswer().regenerateButton());
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
@@ -130,12 +130,12 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_1_THEME)
                 .questionText(INTERACTION_1_QUESTION)
                 .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
-                .answerShortText(EXP_SHORT_HTML_BODY_2)
-                .answerLongText(EXP_LONG_HTML_BODY_2)
-                .answerGcpText(EXP_GCP_HTML_BODY_2)
+                .grammarA().text(EXP_GRAMMAR_HTML_BODY_2)
+                .shortA().text(EXP_SHORT_HTML_BODY_2)
+                .longA().text(EXP_LONG_HTML_BODY_2)
+                .gcpA().text(EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTemperatures("50°", "60°", "70°", "80°")
+                .answerTemperatureTexts(50, 60, 70, 80)
                 .assertApp();
     }
 }

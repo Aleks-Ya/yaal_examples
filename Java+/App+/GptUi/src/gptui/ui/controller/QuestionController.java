@@ -45,25 +45,25 @@ public class QuestionController extends BaseController {
     @FXML
     void sendQuestion(ActionEvent ignoredEvent) {
         log.debug("Send question by Send button");
-        questionApi.sendQuestion(QUESTION);
+        questionApi.sendQuestion(QUESTION, model.getTemperatures());
     }
 
     @FXML
     void sendDefinition(ActionEvent ignoredEvent) {
         log.debug("Send definition by Send button");
-        questionApi.sendQuestion(DEFINITION);
+        questionApi.sendQuestion(DEFINITION, model.getTemperatures());
     }
 
     @FXML
     void sendGrammar(ActionEvent ignoredEvent) {
         log.debug("Send grammar by Send button");
-        questionApi.sendQuestion(InteractionType.GRAMMAR);
+        questionApi.sendQuestion(InteractionType.GRAMMAR, model.getTemperatures());
     }
 
     @FXML
     public void sendFact(ActionEvent ignoredEvent) {
         log.debug("Send fact by Send button");
-        questionApi.sendQuestion(FACT);
+        questionApi.sendQuestion(FACT, model.getTemperatures());
     }
 
     @FXML
@@ -116,7 +116,7 @@ public class QuestionController extends BaseController {
         });
         model.addAccelerator(new KeyCodeCombination(ENTER, CONTROL_DOWN), () -> {
             log.debug("Send question by Ctrl-Enter");
-            questionApi.sendQuestion(QUESTION);
+            questionApi.sendQuestion(QUESTION, model.getTemperatures());
         });
     }
 }

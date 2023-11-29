@@ -30,15 +30,15 @@ class DeleteInteractionOnlyTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_1_THEME)
                 .questionText(INTERACTION_1_QUESTION)
                 .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .answerGrammarText(INTERACTION_1_GRAMMAR_HTML)
-                .answerShortText(INTERACTION_1_SHORT_HTML)
-                .answerLongText(INTERACTION_1_LONG_HTML)
-                .answerGcpText(INTERACTION_1_GCP_HTML)
+                .grammarA().text(INTERACTION_1_GRAMMAR_HTML)
+                .shortA().text(INTERACTION_1_SHORT_HTML)
+                .longA().text(INTERACTION_1_LONG_HTML)
+                .gcpA().text(INTERACTION_1_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTemperatures("50°", "60°", "70°", "80°")
+                .answerTemperatureTexts(50, 60, 70, 80)
                 .assertApp();
 
-        clickOn(getHistoryDeleteButton());
+        clickOn(history().deleteButton());
 
         assertion()
                 .historySize(0)
@@ -50,10 +50,10 @@ class DeleteInteractionOnlyTest extends BaseGptUiTest {
                 .themeItems()
                 .questionText(INTERACTION_1_QUESTION)
                 .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .answerGrammarText("")
-                .answerShortText("")
-                .answerLongText("")
-                .answerGcpText("")
+                .grammarA().text("")
+                .shortA().text("")
+                .longA().text("")
+                .gcpA().text("")
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
                 .answerTemperaturesAllEmpty()
                 .assertApp();

@@ -25,18 +25,34 @@ class WindowAssertion {
     private List<String> themeItems;
     private String questionText;
     private String modelEditedQuestion;
-    private String answerGrammarText;
-    private String answerShortText;
-    private String answerLongText;
-    private String answerGcpText;
-    private Color answerGrammarCircleColor;
-    private Color answerShortCircleColor;
-    private Color answerLongCircleColor;
-    private Color answerGcpCircleColor;
-    private String answerGrammarTemperature;
-    private String answerShortTemperature;
-    private String answerLongTemperature;
-    private String answerGcpTemperature;
+    private final AnswerInfo grammarAnswer = new AnswerInfo();
+    private final AnswerInfo shortAnswer = new AnswerInfo();
+    private final AnswerInfo longAnswer = new AnswerInfo();
+    private final AnswerInfo gcpAnswer = new AnswerInfo();
+
+    class AnswerInfo {
+        private String text;
+        private Color circleColor;
+        private Integer temperatureText;
+        private Integer temperatureSpinner;
+
+        public WindowAssertion text(String text) {
+            this.text = text;
+            return WindowAssertion.this;
+        }
+
+        public void circleColor(Color circleColor) {
+            this.circleColor = circleColor;
+        }
+
+        public void temperatureText(Integer temperature) {
+            this.temperatureText = temperature;
+        }
+
+        public void temperatureSpinner(Integer temperature) {
+            this.temperatureSpinner = temperature;
+        }
+    }
 
     public static WindowAssertion builder() {
         return new WindowAssertion();
@@ -97,116 +113,156 @@ class WindowAssertion {
         return this;
     }
 
-    public WindowAssertion answerGrammarText(String answerGrammarText) {
-        this.answerGrammarText = answerGrammarText;
-        return this;
+    public AnswerInfo grammarA() {
+        return grammarAnswer;
     }
 
-    public WindowAssertion answerShortText(String answerShortText) {
-        this.answerShortText = answerShortText;
-        return this;
+    public AnswerInfo shortA() {
+        return shortAnswer;
     }
 
-    public WindowAssertion answerLongText(String answerLongText) {
-        this.answerLongText = answerLongText;
-        return this;
+    public AnswerInfo longA() {
+        return longAnswer;
     }
 
-    public WindowAssertion answerGcpText(String answerGcpText) {
-        this.answerGcpText = answerGcpText;
-        return this;
+    public AnswerInfo gcpA() {
+        return gcpAnswer;
     }
 
     public WindowAssertion answerCircleColors(Color answerGrammarCircleColor, Color answerShortCircleColor,
                                               Color answerLongCircleColor, Color answerGcpCircleColor) {
-        this.answerGrammarCircleColor = answerGrammarCircleColor;
-        this.answerShortCircleColor = answerShortCircleColor;
-        this.answerLongCircleColor = answerLongCircleColor;
-        this.answerGcpCircleColor = answerGcpCircleColor;
+        grammarA().circleColor(answerGrammarCircleColor);
+        shortA().circleColor(answerShortCircleColor);
+        longA().circleColor(answerLongCircleColor);
+        gcpA().circleColor(answerGcpCircleColor);
         return this;
     }
 
-    public WindowAssertion answerTemperatures(String grammarTemperature, String shortTemperature,
-                                              String longTemperature, String gcpTemperature) {
-        this.answerGrammarTemperature = grammarTemperature;
-        this.answerShortTemperature = shortTemperature;
-        this.answerLongTemperature = longTemperature;
-        this.answerGcpTemperature = gcpTemperature;
+    public WindowAssertion answerTemperatureTexts(Integer grammarTemperature, Integer shortTemperature,
+                                                  Integer longTemperature, Integer gcpTemperature) {
+        grammarA().temperatureText(grammarTemperature);
+        shortA().temperatureText(shortTemperature);
+        longA().temperatureText(longTemperature);
+        gcpA().temperatureText(gcpTemperature);
+        return this;
+    }
+
+    public WindowAssertion answerTemperatureSpinners(Integer grammarTemperature, Integer shortTemperature,
+                                                  Integer longTemperature, Integer gcpTemperature) {
+        grammarA().temperatureSpinner(grammarTemperature);
+        shortA().temperatureSpinner(shortTemperature);
+        longA().temperatureSpinner(longTemperature);
+        gcpA().temperatureSpinner(gcpTemperature);
         return this;
     }
 
     public WindowAssertion answerTemperaturesAllEmpty() {
-        return answerTemperatures("", "", "", "");
+        return answerTemperatureTexts(null,
+                null, null, null);
     }
 
     public WindowAssertion answerTemperaturesDefault() {
-        return answerTemperatures("50°", "60°", "70°", "30°");
+        return answerTemperatureTexts(50, 60, 70, 30);
     }
 
     void assertApp() {
         WaitForAsyncUtils.waitForFxEvents();
-        verifyThat(app.getHistoryLabel(), hasText("Question history (" + historyItems.size() + "):"));
-        verifyThat(app.getHistoryDeleteButton().getText(), equalTo("Delete"));
-        verifyThat(app.getHistoryComboBox(), hasItems(historySize));
-        verifyThat(app.getHistoryDeleteButton().isDisabled(), is(historyDeleteButtonDisabled));
-        if (historySelectedItem != null) {
-            assertThat(app.getHistoryComboBox().getSelectionModel().getSelectedItem())
-                    .isEqualTo(app.storage.readInteraction(historySelectedItem.id()).orElseThrow());
-        } else {
-            assertThat(app.getHistoryComboBox().getSelectionModel().getSelectedItem()).isNull();
+
+        {
+            var history = app.history();
+            verifyThat(history.label(), hasText("Question history (" + historyItems.size() + "):"));
+            verifyThat(history.deleteButton().getText(), equalTo("Delete"));
+            verifyThat(history.comboBox(), hasItems(historySize));
+            verifyThat(history.deleteButton().isDisabled(), is(historyDeleteButtonDisabled));
+            if (historySelectedItem != null) {
+                assertThat(history.comboBox().getSelectionModel().getSelectedItem())
+                        .isEqualTo(app.storage.readInteraction(historySelectedItem.id()).orElseThrow());
+            } else {
+                assertThat(history.comboBox().getSelectionModel().getSelectedItem()).isNull();
+            }
+            assertThat(history.comboBox().getItems()).containsExactlyElementsOf(historyItems);
+            if (app.model.getCurrentInteractionId() != null) {
+                assertThat(app.model.getCurrentInteractionId()).isEqualTo(historySelectedItem.id());
+            } else {
+                assertThat(historySelectedItem).isNull();
+            }
+            assertThat(app.model.getHistory().stream()
+                    .map(interactionId -> app.storage.readInteraction(interactionId).orElseThrow()).toList())
+                    .isEqualTo(historyItems);
         }
-        assertThat(app.getHistoryComboBox().getItems()).containsExactlyElementsOf(historyItems);
-        if (app.model.getCurrentInteractionId() != null) {
-            assertThat(app.model.getCurrentInteractionId()).isEqualTo(historySelectedItem.id());
-        } else {
-            assertThat(historySelectedItem).isNull();
+
+        {
+            var theme = app.theme();
+            verifyThat(theme.label(), hasText("Theme (" + themeItems.size() + "):"));
+            verifyThat(theme.comboBox(), hasItems(themeSize));
+            assertThat(theme.comboBox().getSelectionModel().getSelectedItem()).isEqualTo(themeSelectedItem);
+            assertThat(theme.comboBox().getItems()).containsExactlyElementsOf(themeItems);
+            assertThat(app.model.getEditedTheme()).isEqualTo(themeSelectedItem);
         }
-        assertThat(app.model.getHistory().stream()
-                .map(interactionId -> app.storage.readInteraction(interactionId).orElseThrow()).toList())
-                .isEqualTo(historyItems);
 
-        verifyThat(app.getThemeLabel(), hasText("Theme (" + themeItems.size() + "):"));
-        verifyThat(app.getThemeComboBox(), hasItems(themeSize));
-        assertThat(app.getThemeComboBox().getSelectionModel().getSelectedItem()).isEqualTo(themeSelectedItem);
-        assertThat(app.getThemeComboBox().getItems()).containsExactlyElementsOf(themeItems);
-        assertThat(app.model.getEditedTheme()).isEqualTo(themeSelectedItem);
+        {
+            var question = app.question();
+            verifyThat(question.label(), hasText("Question:"));
+            verifyThat(question.questionButton().getText(), equalTo("_Question"));
+            verifyThat(question.definitionButton().getText(), equalTo("_Definition"));
+            verifyThat(question.grammarButton().getText(), equalTo("_Grammar"));
+            verifyThat(question.factButton().getText(), equalTo("_Fact"));
+            verifyThat(question.regenerateButton().getText(), equalTo("_Resend"));
+            assertThat(question.textArea().getText()).isEqualTo(questionText);
+            assertThat(app.model.getEditedQuestion()).isEqualTo(modelEditedQuestion);
+        }
 
-        verifyThat(app.getQuestionLabel(), hasText("Question:"));
-        verifyThat(app.getQuestionSendButton().getText(), equalTo("_Question"));
-        verifyThat(app.getDefinitionSendButton().getText(), equalTo("_Definition"));
-        verifyThat(app.getGrammarSendButton().getText(), equalTo("_Grammar"));
-        verifyThat(app.getFactSendButton().getText(), equalTo("_Fact"));
-        verifyThat(app.getRegenerateButton().getText(), equalTo("_Resend"));
-        assertThat(app.getQuestionTextArea().getText()).isEqualTo(questionText);
-        assertThat(app.model.getEditedQuestion()).isEqualTo(modelEditedQuestion);
+        {
+            var answer = app.grammarAnswer();
+            verifyThat(answer.label(), hasText("Grammar\nanswer:"));
+            verifyThat(answer.copyButton().getText(), equalTo("Copy _1"));
+            verifyThat(answer.regenerateButton().getText(), equalTo("⟳"));
+            app.verifyWebViewBody(answer.webView(), grammarAnswer.text);
+            assertThat(answer.circle().getFill()).isEqualTo(grammarAnswer.circleColor);
+            assertThat(answer.temperatureText().getText()).isEqualTo(temperatureToString(grammarA().temperatureText));
+            assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(grammarA().temperatureText));
+        }
 
-        verifyThat(app.getAnswerGrammarLabel(), hasText("Grammar\nanswer:"));
-        verifyThat(app.getAnswerGrammarCopyButton().getText(), equalTo("Copy _1"));
-        verifyThat(app.getAnswerGrammarRegenerateButton().getText(), equalTo("⟳"));
-        app.verifyWebViewBody(app.getAnswerGrammarWebView(), answerGrammarText);
-        assertThat(app.getAnswerGrammarCircle().getFill()).isEqualTo(answerGrammarCircleColor);
-        assertThat(app.getAnswerGrammarTemperatureText().getText()).isEqualTo(answerGrammarTemperature);
+        {
+            var answer = app.shortAnswer();
+            verifyThat(answer.label(), hasText("Short\nanswer:"));
+            verifyThat(answer.copyButton().getText(), equalTo("Copy _2"));
+            verifyThat(answer.regenerateButton().getText(), equalTo("⟳"));
+            app.verifyWebViewBody(answer.webView(), shortA().text);
+            assertThat(answer.circle().getFill()).isEqualTo(shortA().circleColor);
+            assertThat(answer.temperatureText().getText()).isEqualTo(temperatureToString(shortA().temperatureText));
+            assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(shortA().temperatureText));
+        }
 
-        verifyThat(app.getAnswerShortLabel(), hasText("Short\nanswer:"));
-        verifyThat(app.getAnswerShortCopyButton().getText(), equalTo("Copy _2"));
-        verifyThat(app.getAnswerShortRegenerateButton().getText(), equalTo("⟳"));
-        app.verifyWebViewBody(app.getAnswerShortWebView(), answerShortText);
-        assertThat(app.getAnswerShortCircle().getFill()).isEqualTo(answerShortCircleColor);
-        assertThat(app.getAnswerShortTemperatureText().getText()).isEqualTo(answerShortTemperature);
+        {
+            var answer = app.longAnswer();
+            verifyThat(answer.label(), hasText("Long\nanswer:"));
+            verifyThat(answer.copyButton().getText(), equalTo("Copy _3"));
+            verifyThat(answer.regenerateButton().getText(), equalTo("⟳"));
+            app.verifyWebViewBody(answer.webView(), longA().text);
+            assertThat(answer.circle().getFill()).isEqualTo(longA().circleColor);
+            assertThat(answer.temperatureText().getText()).isEqualTo(temperatureToString(longA().temperatureText));
+            assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(longA().temperatureText));
+        }
 
-        verifyThat(app.getAnswerLongLabel(), hasText("Long\nanswer:"));
-        verifyThat(app.getAnswerLongCopyButton().getText(), equalTo("Copy _3"));
-        verifyThat(app.getAnswerLongRegenerateButton().getText(), equalTo("⟳"));
-        app.verifyWebViewBody(app.getAnswerLongWebView(), answerLongText);
-        assertThat(app.getAnswerLongCircle().getFill()).isEqualTo(answerLongCircleColor);
-        assertThat(app.getAnswerLongTemperatureText().getText()).isEqualTo(answerLongTemperature);
+        {
+            var answer = app.gcpAnswer();
+            verifyThat(answer.label(), hasText("Bard\nanswer:"));
+            verifyThat(answer.copyButton().getText(), equalTo("Copy _4"));
+            verifyThat(answer.regenerateButton().getText(), equalTo("⟳"));
+            app.verifyWebViewBody(answer.webView(), gcpA().text);
+            assertThat(answer.circle().getFill()).isEqualTo(gcpA().circleColor);
+            assertThat(answer.temperatureText().getText()).isEqualTo(temperatureToString(gcpA().temperatureText));
+            assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(gcpA().temperatureText));
+        }
+    }
 
-        verifyThat(app.getAnswerGcpLabel(), hasText("Bard\nanswer:"));
-        verifyThat(app.getAnswerGcpCopyButton().getText(), equalTo("Copy _4"));
-        verifyThat(app.getAnswerGcpRegenerateButton().getText(), equalTo("⟳"));
-        app.verifyWebViewBody(app.getAnswerGcpWebView(), answerGcpText);
-        assertThat(app.getAnswerGcpCircle().getFill()).isEqualTo(answerGcpCircleColor);
-        assertThat(app.getAnswerGcpTemperatureText().getText()).isEqualTo(answerGcpTemperature);
+    private String temperatureToString(Integer temperature) {
+        return temperature != null ? temperature + "°" : "";
+    }
+
+    private Integer temperatureToInteger(Integer temperature) {
+        return temperature != null ? temperature : 0;
     }
 }
 

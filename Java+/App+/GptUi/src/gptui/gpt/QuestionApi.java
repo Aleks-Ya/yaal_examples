@@ -5,7 +5,7 @@ import gptui.storage.InteractionId;
 import gptui.storage.InteractionType;
 
 public interface QuestionApi {
-    void sendQuestion(InteractionType interactionType);
+    void sendQuestion(InteractionType interactionType, Temperatures temperatures);
 
     void requestAnswer(InteractionId interactionId, AnswerType answerType);
 }

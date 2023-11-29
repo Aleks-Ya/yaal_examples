@@ -5,9 +5,11 @@ import gptui.gpt.openai.MockGptApi;
 import gptui.storage.GptStorage;
 import gptui.storage.Interaction;
 import gptui.ui.controller.ClipboardHelper;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -29,154 +31,45 @@ abstract class BaseGptUiTest extends ApplicationTest {
     protected final MockGptApi gptApi = app.getGuiceContext().getInstance(MockGptApi.class);
     protected final GptStorage storage = app.getGuiceContext().getInstance(GptStorage.class);
     protected final ClipboardHelper clipboardHelper = app.getGuiceContext().getInstance(ClipboardHelper.class);
+    private final HistoryInfo history = new HistoryInfo();
+    private final ThemeInfo theme = new ThemeInfo();
+    private final QuestionInfo question = new QuestionInfo();
+    private final AnswerInfo answerGrammar = new AnswerInfo("#grammarAnswer");
+    private final AnswerInfo answerShort = new AnswerInfo("#shortAnswer");
+    private final AnswerInfo answerLong = new AnswerInfo("#longAnswer");
+    private final AnswerInfo answerGcp = new AnswerInfo("#gcpAnswer");
 
     @Override
     public void start(Stage stage) throws Exception {
         app.start(stage);
     }
 
-    protected Label getHistoryLabel() {
-        return lookup("#historyLabel").queryAs(Label.class);
+    protected HistoryInfo history() {
+        return history;
     }
 
-    protected ComboBox<Interaction> getHistoryComboBox() {
-        return lookup("#historyComboBox").queryComboBox();
+    protected ThemeInfo theme() {
+        return theme;
     }
 
-    protected Button getHistoryDeleteButton() {
-        return lookup("#historyDeleteButton").queryButton();
+    protected QuestionInfo question() {
+        return question;
     }
 
-    protected Label getThemeLabel() {
-        return lookup("#themeLabel").queryAs(Label.class);
+    protected AnswerInfo grammarAnswer() {
+        return answerGrammar;
     }
 
-    protected ComboBox<String> getThemeComboBox() {
-        return lookup("#themeComboBox").queryComboBox();
+    protected AnswerInfo shortAnswer() {
+        return answerShort;
     }
 
-    protected Label getQuestionLabel() {
-        return lookup("#questionLabel").queryAs(Label.class);
+    protected AnswerInfo longAnswer() {
+        return answerLong;
     }
 
-    protected TextArea getQuestionTextArea() {
-        return lookup("#questionTextArea").queryAs(TextArea.class);
-    }
-
-    protected Button getQuestionSendButton() {
-        return lookup("#questionButton").queryButton();
-    }
-
-    protected Button getDefinitionSendButton() {
-        return lookup("#definitionButton").queryButton();
-    }
-
-    protected Button getGrammarSendButton() {
-        return lookup("#grammarButton").queryButton();
-    }
-
-    protected Button getFactSendButton() {
-        return lookup("#factButton").queryButton();
-    }
-
-    protected Button getRegenerateButton() {
-        return lookup("#regenerateButton").queryButton();
-    }
-
-    protected Label getAnswerGrammarLabel() {
-        return lookup("#grammarAnswer #answerLabel").queryAs(Label.class);
-    }
-
-    protected Button getAnswerGrammarCopyButton() {
-        return lookup("#grammarAnswer #copyButton").queryButton();
-    }
-
-    protected Button getAnswerGrammarRegenerateButton() {
-        return lookup("#grammarAnswer #regenerateButton").queryButton();
-    }
-
-    protected WebView getAnswerGrammarWebView() {
-        return lookup("#grammarAnswer #webView").queryAs(WebView.class);
-    }
-
-    protected Circle getAnswerGrammarCircle() {
-        return lookup("#grammarAnswer #statusCircle").queryAs(Circle.class);
-    }
-
-    protected Text getAnswerGrammarTemperatureText() {
-        return lookup("#grammarAnswer #temperatureText").queryText();
-    }
-
-    protected Label getAnswerShortLabel() {
-        return lookup("#shortAnswer #answerLabel").queryAs(Label.class);
-    }
-
-    protected WebView getAnswerShortWebView() {
-        return lookup("#shortAnswer #webView").queryAs(WebView.class);
-    }
-
-    protected Button getAnswerShortCopyButton() {
-        return lookup("#shortAnswer #copyButton").queryButton();
-    }
-
-    protected Button getAnswerShortRegenerateButton() {
-        return lookup("#shortAnswer #regenerateButton").queryButton();
-    }
-
-    protected Circle getAnswerShortCircle() {
-        return lookup("#shortAnswer #statusCircle").queryAs(Circle.class);
-    }
-
-    protected Text getAnswerShortTemperatureText() {
-        return lookup("#shortAnswer #temperatureText").queryText();
-    }
-
-    protected Label getAnswerLongLabel() {
-        return lookup("#longAnswer #answerLabel").queryAs(Label.class);
-    }
-
-    protected Label getAnswerGcpLabel() {
-        return lookup("#gcpAnswer #answerLabel").queryAs(Label.class);
-    }
-
-    protected WebView getAnswerLongWebView() {
-        return lookup("#longAnswer #webView").queryAs(WebView.class);
-    }
-
-    protected WebView getAnswerGcpWebView() {
-        return lookup("#gcpAnswer #webView").queryAs(WebView.class);
-    }
-
-    protected Button getAnswerLongCopyButton() {
-        return lookup("#longAnswer #copyButton").queryButton();
-    }
-
-    protected Button getAnswerGcpCopyButton() {
-        return lookup("#gcpAnswer #copyButton").queryButton();
-    }
-
-    protected Button getAnswerLongRegenerateButton() {
-        return lookup("#longAnswer #regenerateButton").queryButton();
-    }
-
-    protected Button getAnswerGcpRegenerateButton() {
-        return lookup("#gcpAnswer #regenerateButton").queryButton();
-    }
-
-    protected Circle getAnswerLongCircle() {
-        return lookup("#longAnswer #statusCircle").queryAs(Circle.class);
-    }
-
-    protected Text getAnswerLongTemperatureText() {
-        return lookup("#longAnswer #temperatureText").queryText();
-    }
-
-    protected Circle getAnswerGcpCircle() {
-        return lookup("#gcpAnswer #statusCircle").queryAs(Circle.class);
-    }
-
-    protected Text getAnswerGcpTemperatureText() {
-        return lookup("#gcpAnswer #temperatureText").queryText();
+    protected AnswerInfo gcpAnswer() {
+        return answerGcp;
     }
 
     private String extractWebViewContent(WebView webView) {
@@ -210,4 +103,101 @@ abstract class BaseGptUiTest extends ApplicationTest {
         return WindowAssertion.builder().app(this);
     }
 
+    protected class HistoryInfo {
+        protected Label label() {
+            return lookup("#historyLabel").queryAs(Label.class);
+        }
+
+        protected ComboBox<Interaction> comboBox() {
+            return lookup("#historyComboBox").queryComboBox();
+        }
+
+        protected Button deleteButton() {
+            return lookup("#historyDeleteButton").queryButton();
+        }
+    }
+
+    protected class ThemeInfo {
+        protected Label label() {
+            return lookup("#themeLabel").queryAs(Label.class);
+        }
+
+        protected ComboBox<String> comboBox() {
+            return lookup("#themeComboBox").queryComboBox();
+        }
+    }
+
+    protected class QuestionInfo {
+        protected Label label() {
+            return lookup("#questionLabel").queryAs(Label.class);
+        }
+
+        protected TextArea textArea() {
+            return lookup("#questionTextArea").queryAs(TextArea.class);
+        }
+
+        protected Button questionButton() {
+            return lookup("#questionButton").queryButton();
+        }
+
+        protected Button definitionButton() {
+            return lookup("#definitionButton").queryButton();
+        }
+
+        protected Button grammarButton() {
+            return lookup("#grammarButton").queryButton();
+        }
+
+        protected Button factButton() {
+            return lookup("#factButton").queryButton();
+        }
+
+        protected Button regenerateButton() {
+            return lookup("#regenerateButton").queryButton();
+        }
+    }
+
+    protected class AnswerInfo {
+        private final String tag;
+
+        protected AnswerInfo(String tag) {
+            this.tag = tag;
+        }
+
+        protected Label label() {
+            return lookup(tag + " #answerLabel").queryAs(Label.class);
+        }
+
+        protected Button copyButton() {
+            return lookup(tag + " #copyButton").queryButton();
+        }
+
+        protected Button regenerateButton() {
+            return lookup(tag + " #regenerateButton").queryButton();
+        }
+
+        protected WebView webView() {
+            return lookup(tag + " #webView").queryAs(WebView.class);
+        }
+
+        protected Circle circle() {
+            return lookup(tag + " #statusCircle").queryAs(Circle.class);
+        }
+
+        protected Text temperatureText() {
+            return lookup(tag + " #temperatureText").queryText();
+        }
+
+        protected Spinner<Integer> temperatureSpinner() {
+            return lookup(tag + " #temperatureSpinner").query();
+        }
+
+        protected Node temperatureIncrementButton() {
+            return lookup(tag + " #temperatureSpinner .increment-arrow-button").query();
+        }
+
+        protected Node temperatureDecrementButton() {
+            return lookup(tag + " #temperatureSpinner .decrement-arrow-button").query();
+        }
+    }
 }

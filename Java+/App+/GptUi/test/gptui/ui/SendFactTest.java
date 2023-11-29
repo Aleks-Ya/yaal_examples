@@ -38,18 +38,18 @@ class SendFactTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_3_THEME, INTERACTION_2_THEME, INTERACTION_1_THEME)
                 .questionText(INTERACTION_3_QUESTION)
                 .modelEditedQuestion(INTERACTION_3_QUESTION)
-                .answerGrammarText(INTERACTION_3_GRAMMAR_HTML)
-                .answerShortText(INTERACTION_3_SHORT_HTML)
-                .answerLongText(INTERACTION_3_LONG_HTML)
-                .answerGcpText(INTERACTION_3_GCP_HTML)
+                .grammarA().text(INTERACTION_3_GRAMMAR_HTML)
+                .shortA().text(INTERACTION_3_SHORT_HTML)
+                .longA().text(INTERACTION_3_LONG_HTML)
+                .gcpA().text(INTERACTION_3_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, RED, GREEN)
-                .answerTemperatures("50°", "60°", "70°", "80°")
+                .answerTemperatureTexts(50, 60, 70, 80)
                 .assertApp();
 
         gptApi.clear().putFactResponse("Fact answer 4", ZERO);
-        clickOn(getQuestionTextArea());
+        clickOn(question().textArea());
         overWrite("Question 4");
-        clickOn(getFactSendButton());
+        clickOn(question().factButton());
 
         assertion()
                 .historySize(4)
@@ -61,12 +61,12 @@ class SendFactTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_3_THEME, INTERACTION_2_THEME, INTERACTION_1_THEME)
                 .questionText("Question 4")
                 .modelEditedQuestion("Question 4")
-                .answerGrammarText("<p>Fact answer 4</p>\n")
-                .answerShortText("")
-                .answerLongText("")
-                .answerGcpText("")
+                .grammarA().text("<p>Fact answer 4</p>\n")
+                .shortA().text("")
+                .longA().text("")
+                .gcpA().text("")
                 .answerCircleColors(GREEN, WHITE, WHITE, WHITE)
-                .answerTemperaturesDefault()
+                .answerTemperatureTexts(50, 60, 70, 80)
                 .assertApp();
     }
 }

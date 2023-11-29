@@ -45,19 +45,19 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeItems()
                 .questionText("")
                 .modelEditedQuestion(null)
-                .answerGrammarText("")
-                .answerShortText("")
-                .answerLongText("")
-                .answerGcpText("")
+                .grammarA().text("")
+                .shortA().text("")
+                .longA().text("")
+                .gcpA().text("")
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
                 .answerTemperaturesAllEmpty()
                 .assertApp();
     }
 
     private void sendFirstQuestion() {
-        clickOn(getThemeComboBox());
+        clickOn(theme().comboBox());
         overWrite(INTERACTION_1_THEME);
-        clickOn(getQuestionTextArea());
+        clickOn(question().textArea());
         overWrite(INTERACTION_1_QUESTION);
         assertion()
                 .historySize(0)
@@ -69,10 +69,10 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeItems()
                 .questionText(INTERACTION_1_QUESTION)
                 .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .answerGrammarText("")
-                .answerShortText("")
-                .answerLongText("")
-                .answerGcpText("")
+                .grammarA().text("")
+                .shortA().text("")
+                .longA().text("")
+                .gcpA().text("")
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
                 .answerTemperaturesAllEmpty()
                 .assertApp();
@@ -83,7 +83,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .putLongResponse(INTERACTION_1_LONG_HTML, ofMillis(2000))
                 .putGcpResponse(INTERACTION_1_GCP_HTML, ofMillis(2500));
 
-        clickOn(getQuestionSendButton());
+        clickOn(question().questionButton());
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
@@ -94,15 +94,15 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_1_THEME)
                 .questionText(INTERACTION_1_QUESTION)
                 .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .answerGrammarText("")
-                .answerShortText("")
-                .answerLongText("")
-                .answerGcpText("")
+                .grammarA().text("")
+                .shortA().text("")
+                .longA().text("")
+                .gcpA().text("")
                 .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
                 .answerTemperaturesDefault()
                 .assertApp();
 
-        sleep(2000);
+        gptApi.waitUntilSent(4);
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
@@ -113,28 +113,28 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_1_THEME)
                 .questionText(INTERACTION_1_QUESTION)
                 .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_1)
-                .answerShortText(EXP_SHORT_HTML_BODY_1)
-                .answerLongText(EXP_LONG_HTML_BODY_1)
-                .answerGcpText(EXP_GCP_HTML_BODY_1)
+                .grammarA().text(EXP_GRAMMAR_HTML_BODY_1)
+                .shortA().text(EXP_SHORT_HTML_BODY_1)
+                .longA().text(EXP_LONG_HTML_BODY_1)
+                .gcpA().text(EXP_GCP_HTML_BODY_1)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTemperaturesDefault()
                 .assertApp();
 
-        clickOn(getAnswerShortCopyButton());
+        clickOn(shortAnswer().copyButton());
         verifyHtmlClipboardContent(EXP_SHORT_HTML_BODY_1);
 
-        clickOn(getAnswerLongCopyButton());
+        clickOn(longAnswer().copyButton());
         verifyHtmlClipboardContent(EXP_LONG_HTML_BODY_1);
 
-        clickOn(getAnswerGcpCopyButton());
+        clickOn(gcpAnswer().copyButton());
         verifyHtmlClipboardContent(EXP_GCP_HTML_BODY_1);
     }
 
     private void sendSecondQuestion() {
-        clickOn(getThemeComboBox());
+        clickOn(theme().comboBox());
         overWrite(INTERACTION_2_THEME);
-        clickOn(getQuestionTextArea());
+        clickOn(question().textArea());
         overWrite(INTERACTION_2_QUESTION);
         assertion()
                 .historySize(1)
@@ -146,10 +146,10 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_1_THEME)
                 .questionText(INTERACTION_2_QUESTION)
                 .modelEditedQuestion(INTERACTION_2_QUESTION)
-                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_1)
-                .answerShortText(EXP_SHORT_HTML_BODY_1)
-                .answerLongText(EXP_LONG_HTML_BODY_1)
-                .answerGcpText(EXP_GCP_HTML_BODY_1)
+                .grammarA().text(EXP_GRAMMAR_HTML_BODY_1)
+                .shortA().text(EXP_SHORT_HTML_BODY_1)
+                .longA().text(EXP_LONG_HTML_BODY_1)
+                .gcpA().text(EXP_GCP_HTML_BODY_1)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTemperaturesDefault()
                 .assertApp();
@@ -159,7 +159,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .putShortResponse(INTERACTION_2_SHORT_HTML, ofMillis(1500))
                 .putLongResponse(INTERACTION_2_LONG_HTML, ofMillis(2000))
                 .putGcpResponse(INTERACTION_2_GCP_HTML, ofMillis(2500));
-        clickOn(getQuestionSendButton());
+        clickOn(question().questionButton());
         assertion()
                 .historySize(2)
                 .historyDeleteButtonDisabled(false)
@@ -170,16 +170,16 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
                 .questionText(INTERACTION_2_QUESTION)
                 .modelEditedQuestion(INTERACTION_2_QUESTION)
-                .answerGrammarText("")
-                .answerShortText("")
-                .answerLongText("")
-                .answerGcpText("")
+                .grammarA().text("")
+                .shortA().text("")
+                .longA().text("")
+                .gcpA().text("")
                 .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
                 .answerTemperaturesDefault()
                 .assertApp();
 
 
-        sleep(2000);
+        gptApi.waitUntilSent(4);
         assertion()
                 .historySize(2)
                 .historyDeleteButtonDisabled(false)
@@ -190,21 +190,21 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
                 .questionText(INTERACTION_2_QUESTION)
                 .modelEditedQuestion(INTERACTION_2_QUESTION)
-                .answerGrammarText(TestingData.EXP_GRAMMAR_HTML_BODY_2)
-                .answerShortText(TestingData.EXP_SHORT_HTML_BODY_2)
-                .answerLongText(TestingData.EXP_LONG_HTML_BODY_2)
-                .answerGcpText(TestingData.EXP_GCP_HTML_BODY_2)
+                .grammarA().text(TestingData.EXP_GRAMMAR_HTML_BODY_2)
+                .shortA().text(TestingData.EXP_SHORT_HTML_BODY_2)
+                .longA().text(TestingData.EXP_LONG_HTML_BODY_2)
+                .gcpA().text(TestingData.EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTemperaturesDefault()
                 .assertApp();
 
-        clickOn(getAnswerShortCopyButton());
+        clickOn(shortAnswer().copyButton());
         verifyHtmlClipboardContent(TestingData.EXP_SHORT_HTML_BODY_2);
 
-        clickOn(getAnswerLongCopyButton());
+        clickOn(longAnswer().copyButton());
         verifyHtmlClipboardContent(TestingData.EXP_LONG_HTML_BODY_2);
 
-        clickOn(getAnswerGcpCopyButton());
+        clickOn(gcpAnswer().copyButton());
         verifyHtmlClipboardContent(TestingData.EXP_GCP_HTML_BODY_2);
     }
 
@@ -219,15 +219,15 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
                 .questionText(INTERACTION_2_QUESTION)
                 .modelEditedQuestion(INTERACTION_2_QUESTION)
-                .answerGrammarText(TestingData.EXP_GRAMMAR_HTML_BODY_2)
-                .answerShortText(TestingData.EXP_SHORT_HTML_BODY_2)
-                .answerLongText(TestingData.EXP_LONG_HTML_BODY_2)
-                .answerGcpText(TestingData.EXP_GCP_HTML_BODY_2)
+                .grammarA().text(TestingData.EXP_GRAMMAR_HTML_BODY_2)
+                .shortA().text(TestingData.EXP_SHORT_HTML_BODY_2)
+                .longA().text(TestingData.EXP_LONG_HTML_BODY_2)
+                .gcpA().text(TestingData.EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTemperaturesDefault()
                 .assertApp();
 
-        clickOn(getHistoryComboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_1_THEME, INTERACTION_1_QUESTION));
+        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_1_THEME, INTERACTION_1_QUESTION));
         assertion()
                 .historySize(2)
                 .historyDeleteButtonDisabled(false)
@@ -238,21 +238,21 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
                 .questionText(INTERACTION_1_QUESTION)
                 .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_1)
-                .answerShortText(EXP_SHORT_HTML_BODY_1)
-                .answerLongText(EXP_LONG_HTML_BODY_1)
-                .answerGcpText(EXP_GCP_HTML_BODY_1)
+                .grammarA().text(EXP_GRAMMAR_HTML_BODY_1)
+                .shortA().text(EXP_SHORT_HTML_BODY_1)
+                .longA().text(EXP_LONG_HTML_BODY_1)
+                .gcpA().text(EXP_GCP_HTML_BODY_1)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTemperaturesDefault()
                 .assertApp();
 
-        clickOn(getAnswerShortCopyButton());
+        clickOn(shortAnswer().copyButton());
         verifyHtmlClipboardContent(EXP_SHORT_HTML_BODY_1);
 
-        clickOn(getAnswerLongCopyButton());
+        clickOn(longAnswer().copyButton());
         verifyHtmlClipboardContent(EXP_LONG_HTML_BODY_1);
 
-        clickOn(getAnswerGcpCopyButton());
+        clickOn(gcpAnswer().copyButton());
         verifyHtmlClipboardContent(EXP_GCP_HTML_BODY_1);
     }
 }

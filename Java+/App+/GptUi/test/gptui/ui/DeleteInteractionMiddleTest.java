@@ -37,16 +37,16 @@ class DeleteInteractionMiddleTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_3_THEME, INTERACTION_2_THEME, INTERACTION_1_THEME)
                 .questionText(INTERACTION_3_QUESTION)
                 .modelEditedQuestion(INTERACTION_3_QUESTION)
-                .answerGrammarText(INTERACTION_3_GRAMMAR_HTML)
-                .answerShortText(INTERACTION_3_SHORT_HTML)
-                .answerLongText(INTERACTION_3_LONG_HTML)
-                .answerGcpText(INTERACTION_3_GCP_HTML)
+                .grammarA().text(INTERACTION_3_GRAMMAR_HTML)
+                .shortA().text(INTERACTION_3_SHORT_HTML)
+                .longA().text(INTERACTION_3_LONG_HTML)
+                .gcpA().text(INTERACTION_3_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, RED, GREEN)
-                .answerTemperatures("50°", "60°", "70°", "80°")
+                .answerTemperatureTexts(50, 60, 70, 80)
                 .assertApp();
 
-        clickOn(getHistoryComboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_2_THEME, INTERACTION_2_QUESTION));
-        clickOn(getHistoryDeleteButton());
+        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_2_THEME, INTERACTION_2_QUESTION));
+        clickOn(history().deleteButton());
 
         assertion()
                 .historySize(2)
@@ -58,12 +58,12 @@ class DeleteInteractionMiddleTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_3_THEME, INTERACTION_1_THEME)
                 .questionText(INTERACTION_3_QUESTION)
                 .modelEditedQuestion(INTERACTION_3_QUESTION)
-                .answerGrammarText(INTERACTION_3_GRAMMAR_HTML)
-                .answerShortText(INTERACTION_3_SHORT_HTML)
-                .answerLongText(INTERACTION_3_LONG_HTML)
-                .answerGcpText(INTERACTION_3_GCP_HTML)
+                .grammarA().text(INTERACTION_3_GRAMMAR_HTML)
+                .shortA().text(INTERACTION_3_SHORT_HTML)
+                .longA().text(INTERACTION_3_LONG_HTML)
+                .gcpA().text(INTERACTION_3_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, RED, GREEN)
-                .answerTemperatures("50°", "60°", "70°", "80°")
+                .answerTemperatureTexts(50, 60, 70, 80)
                 .assertApp();
     }
 }

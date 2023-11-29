@@ -25,17 +25,17 @@ class MultiLineQuestionTest extends BaseGptUiTest {
                 .themeItems()
                 .questionText("")
                 .modelEditedQuestion(null)
-                .answerGrammarText("")
-                .answerShortText("")
-                .answerLongText("")
-                .answerGcpText("")
+                .grammarA().text("")
+                .shortA().text("")
+                .longA().text("")
+                .gcpA().text("")
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
                 .answerTemperaturesAllEmpty()
                 .assertApp();
 
-        clickOn(getThemeComboBox());
+        clickOn(theme().comboBox());
         overWrite(INTERACTION_1_THEME);
-        clickOn(getQuestionTextArea());
+        clickOn(question().textArea());
         var questionLine1 = "Question line 1";
         var questionLine2 = "Question line 2";
         var questionLine3 = "Question line 3";
@@ -46,7 +46,7 @@ class MultiLineQuestionTest extends BaseGptUiTest {
                 .putShortResponse(INTERACTION_1_SHORT_HTML, ZERO)
                 .putLongResponse(INTERACTION_1_LONG_HTML, ZERO)
                 .putGcpResponse(INTERACTION_1_GCP_HTML, ZERO);
-        clickOn(getQuestionSendButton());
+        clickOn(question().questionButton());
 
         var questionText = questionLine1 + "\n" + questionLine2 + "\n" + questionLine3;
         assertion()
@@ -59,10 +59,10 @@ class MultiLineQuestionTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_1_THEME)
                 .questionText(questionText)
                 .modelEditedQuestion(questionText)
-                .answerGrammarText(TestingData.EXP_GRAMMAR_HTML_BODY_1)
-                .answerShortText(TestingData.EXP_SHORT_HTML_BODY_1)
-                .answerLongText(TestingData.EXP_LONG_HTML_BODY_1)
-                .answerGcpText(TestingData.EXP_GCP_HTML_BODY_1)
+                .grammarA().text(TestingData.EXP_GRAMMAR_HTML_BODY_1)
+                .shortA().text(TestingData.EXP_SHORT_HTML_BODY_1)
+                .longA().text(TestingData.EXP_LONG_HTML_BODY_1)
+                .gcpA().text(TestingData.EXP_GCP_HTML_BODY_1)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTemperaturesDefault()
                 .assertApp();

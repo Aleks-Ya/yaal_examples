@@ -47,28 +47,28 @@ class HotKeysTest extends BaseGptUiTest {
 
     @Test
     void copyGrammarAnswerByAlt1() {
-        verifyWebViewBody(getAnswerGrammarWebView(), INTERACTION_3_GRAMMAR_HTML);
+        verifyWebViewBody(grammarAnswer().webView(), INTERACTION_3_GRAMMAR_HTML);
         press(ALT, DIGIT1).release(DIGIT1, ALT);
         verifyHtmlClipboardContent(INTERACTION_3_GRAMMAR_HTML);
     }
 
     @Test
     void copyShortAnswerByAlt2() {
-        verifyWebViewBody(getAnswerShortWebView(), INTERACTION_3_SHORT_HTML);
+        verifyWebViewBody(shortAnswer().webView(), INTERACTION_3_SHORT_HTML);
         press(ALT, DIGIT2).release(DIGIT2, ALT);
         verifyHtmlClipboardContent(INTERACTION_3_SHORT_HTML);
     }
 
     @Test
     void copyLongAnswerByAlt3() {
-        verifyWebViewBody(getAnswerLongWebView(), INTERACTION_3_LONG_HTML);
+        verifyWebViewBody(longAnswer().webView(), INTERACTION_3_LONG_HTML);
         press(ALT, DIGIT3).release(DIGIT3, ALT);
         verifyHtmlClipboardContent(INTERACTION_3_LONG_HTML);
     }
 
     @Test
     void copyGcpAnswerByAlt4() {
-        verifyWebViewBody(getAnswerGcpWebView(), INTERACTION_3_GCP_HTML);
+        verifyWebViewBody(gcpAnswer().webView(), INTERACTION_3_GCP_HTML);
         press(ALT, DIGIT4).release(DIGIT4, ALT);
         verifyHtmlClipboardContent(INTERACTION_3_GCP_HTML);
     }
@@ -76,10 +76,10 @@ class HotKeysTest extends BaseGptUiTest {
     @Test
     void insertQuestionFromClipboardByCtrlAltV() {
         var clipboardHelper = new ClipboardHelper();
-        assertThat(getQuestionTextArea().getText()).isEqualTo(INTERACTION_3_QUESTION);
+        assertThat(question().textArea().getText()).isEqualTo(INTERACTION_3_QUESTION);
         executeSyncInFxThread(() -> clipboardHelper.putHtmlToClipboard("From clipboard"));
         press(CONTROL, ALT, V).release(V, ALT, CONTROL);
-        assertThat(getQuestionTextArea().getText()).isEqualTo("From clipboard");
+        assertThat(question().textArea().getText()).isEqualTo("From clipboard");
     }
 
     @Test
@@ -128,10 +128,10 @@ class HotKeysTest extends BaseGptUiTest {
 
     @Test
     void focusOnQuestionByEsc() {
-        assertThat(getQuestionTextArea().isFocused()).isFalse();
+        assertThat(question().textArea().isFocused()).isFalse();
         press(ESCAPE).release(ESCAPE);
         WaitForAsyncUtils.waitForFxEvents();
-        assertThat(getQuestionTextArea().isFocused()).isTrue();
+        assertThat(question().textArea().isFocused()).isTrue();
     }
 
     @Test
@@ -145,31 +145,31 @@ class HotKeysTest extends BaseGptUiTest {
 
     @Test
     void selectNextInteractionByCtrlAltUp() {
-        clickOn(getHistoryComboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_1_THEME, INTERACTION_1_QUESTION));
-        assertThat(getHistoryComboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_1);
+        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_1_THEME, INTERACTION_1_QUESTION));
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_1);
 
         press(CONTROL, ALT, UP).release(UP, ALT, CONTROL);
-        assertThat(getHistoryComboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_2);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_2);
 
         press(CONTROL, ALT, UP).release(UP, ALT, CONTROL);
-        assertThat(getHistoryComboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_3);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_3);
 
         press(CONTROL, ALT, UP).release(UP, ALT, CONTROL);
-        assertThat(getHistoryComboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_3);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_3);
     }
 
     @Test
     void selectPreviousInteractionByCtrlAltDown() {
-        clickOn(getHistoryComboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_3_THEME, INTERACTION_3_QUESTION));
-        assertThat(getHistoryComboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_3);
+        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_3_THEME, INTERACTION_3_QUESTION));
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_3);
 
         press(CONTROL, ALT, DOWN).release(DOWN, ALT, CONTROL);
-        assertThat(getHistoryComboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_2);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_2);
 
         press(CONTROL, ALT, DOWN).release(DOWN, ALT, CONTROL);
-        assertThat(getHistoryComboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_1);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_1);
 
         press(CONTROL, ALT, DOWN).release(DOWN, ALT, CONTROL);
-        assertThat(getHistoryComboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_1);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(INTERACTION_1);
     }
 }

@@ -2,6 +2,7 @@ package lucene9.analysis.analyzer;
 
 import org.apache.lucene.analysis.CharArraySet;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.TextField;
@@ -11,6 +12,7 @@ import org.apache.lucene.store.ByteBuffersDirectory;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static lucene9.SearchHelper.directoryToTermList;
@@ -58,5 +60,21 @@ class StandardAnalyzerTest {
                     .containsExactlyInAnyOrder("john", "bought", "pen", "mary", "broke")
                     .doesNotContainAnyElementsOf(stopWords);
         }
+    }
+
+    @Test
+    void analyzerOnly() throws IOException {
+        var tokens = new ArrayList<String>();
+        var text = "Example text_data to analyze using a StandardAnalyzer.";
+        try (var analyzer = new StandardAnalyzer();
+             var tokenStream = analyzer.tokenStream(null, text)) {
+            var attr = tokenStream.addAttribute(CharTermAttribute.class);
+            tokenStream.reset();
+            while (tokenStream.incrementToken()) {
+                tokens.add(attr.toString());
+            }
+            tokenStream.end();
+        }
+        assertThat(tokens).containsExactly("example", "text_data", "to", "analyze", "using", "a", "standardanalyzer");
     }
 }

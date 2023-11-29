@@ -49,12 +49,12 @@ class RegenerateQuestionTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_1_THEME)
                 .questionText(INTERACTION_1_QUESTION)
                 .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .answerGrammarText(INTERACTION_1_GRAMMAR_HTML)
-                .answerShortText(INTERACTION_1_SHORT_HTML)
-                .answerLongText(INTERACTION_1_LONG_HTML)
-                .answerGcpText(INTERACTION_1_GCP_HTML)
+                .grammarA().text(INTERACTION_1_GRAMMAR_HTML)
+                .shortA().text(INTERACTION_1_SHORT_HTML)
+                .longA().text(INTERACTION_1_LONG_HTML)
+                .gcpA().text(INTERACTION_1_GCP_HTML)
                 .answerCircleColors(GREEN, RED, RED, RED)
-                .answerTemperatures("50°", "60°", "70°", "80°")
+                .answerTemperatureTexts(50, 60, 70, 80)
                 .assertApp();
 
         gptApi.clear()
@@ -62,7 +62,7 @@ class RegenerateQuestionTest extends BaseGptUiTest {
                 .putShortResponse(INTERACTION_2_SHORT_HTML, ZERO)
                 .putLongResponse(INTERACTION_2_LONG_HTML, ZERO)
                 .putGcpResponse(INTERACTION_2_GCP_HTML, ZERO);
-        clickOn(getRegenerateButton());
+        clickOn(question().regenerateButton());
 
         assertion()
                 .historySize(1)
@@ -74,12 +74,12 @@ class RegenerateQuestionTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_1_THEME)
                 .questionText(INTERACTION_1_QUESTION)
                 .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .answerGrammarText(EXP_GRAMMAR_HTML_BODY_2)
-                .answerShortText(EXP_SHORT_HTML_BODY_2)
-                .answerLongText(EXP_LONG_HTML_BODY_2)
-                .answerGcpText(EXP_GCP_HTML_BODY_2)
+                .grammarA().text(EXP_GRAMMAR_HTML_BODY_2)
+                .shortA().text(EXP_SHORT_HTML_BODY_2)
+                .longA().text(EXP_LONG_HTML_BODY_2)
+                .gcpA().text(EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTemperatures("50°", "60°", "70°", "80°")
+                .answerTemperatureTexts(50, 60, 70, 80)
                 .assertApp();
     }
 }

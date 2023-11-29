@@ -2,6 +2,7 @@ package gptui.gpt.question;
 
 import gptui.Mdc;
 import gptui.gpt.QuestionApi;
+import gptui.gpt.Temperatures;
 import gptui.gpt.gcp.GcpApi;
 import gptui.gpt.openai.GptApi;
 import gptui.storage.Answer;
@@ -20,10 +21,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.function.Function;
 
-import static gptui.gpt.Temperature.GCP_TEMPERATURE_DEFAULT;
-import static gptui.gpt.Temperature.GRAMMAR_TEMPERATURE_DEFAULT;
-import static gptui.gpt.Temperature.LONG_TEMPERATURE_DEFAULT;
-import static gptui.gpt.Temperature.SHORT_TEMPERATURE_DEFAULT;
 import static gptui.storage.AnswerState.FAIL;
 import static gptui.storage.AnswerState.NEW;
 import static gptui.storage.AnswerState.SENT;
@@ -53,7 +50,7 @@ class QuestionApiImpl implements QuestionApi, EventSource {
     private FormatConverter formatConverter;
 
     @Override
-    public void sendQuestion(InteractionType interactionType) {
+    public void sendQuestion(InteractionType interactionType, Temperatures temperatures) {
         var theme = model.getEditedTheme();
         var question = model.getEditedQuestion();
         var interactionId = storage.newInteractionId();
@@ -65,25 +62,25 @@ class QuestionApiImpl implements QuestionApi, EventSource {
                     .withType(interactionType)
                     .withAnswer(GRAMMAR, answer -> answer
                             .withPrompt("")
-                            .withTemperature(GRAMMAR_TEMPERATURE_DEFAULT)
+                            .withTemperature(temperatures.getTemperature(GRAMMAR))
                             .withAnswerMd("")
                             .withAnswerHtml("")
                             .withState(NEW))
                     .withAnswer(SHORT, answer -> answer
                             .withPrompt("")
-                            .withTemperature(SHORT_TEMPERATURE_DEFAULT)
+                            .withTemperature(temperatures.getTemperature(SHORT))
                             .withAnswerMd("")
                             .withAnswerHtml("")
                             .withState(NEW))
                     .withAnswer(LONG, answer -> answer
                             .withPrompt("")
-                            .withTemperature(LONG_TEMPERATURE_DEFAULT)
+                            .withTemperature(temperatures.getTemperature(LONG))
                             .withAnswerMd("")
                             .withAnswerHtml("")
                             .withState(NEW))
                     .withAnswer(GCP, answer -> answer
                             .withPrompt("")
-                            .withTemperature(GCP_TEMPERATURE_DEFAULT)
+                            .withTemperature(temperatures.getTemperature(GCP))
                             .withAnswerMd("")
                             .withAnswerHtml("")
                             .withState(NEW)));
@@ -104,7 +101,9 @@ class QuestionApiImpl implements QuestionApi, EventSource {
             if (promptOpt.isPresent()) {
                 var prompt = promptOpt.get();
                 updateAnswer(interactionId, answerType, answer -> answer.withPrompt(prompt).withState(SENT));
-                var temperature = storage.readInteraction(interactionId).orElseThrow().getAnswer(answerType).orElseThrow().temperature();
+                var temperature = storage.readInteraction(interactionId)
+                        .orElseThrow().getAnswer(answerType)
+                        .orElseThrow().temperature();
                 var answerMd = answerType != GCP ? gptApi.send(prompt, temperature) : gcpApi.send(prompt, temperature);
                 var answerHtml = formatConverter.markdownToHtml(answerMd);
                 updateAnswer(interactionId, answerType, answer ->

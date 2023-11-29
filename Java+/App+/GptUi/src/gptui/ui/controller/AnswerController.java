@@ -11,10 +11,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
+import javafx.util.StringConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,6 +56,8 @@ public class AnswerController extends BaseController {
     private Button copyButton;
     @FXML
     private Text temperatureText;
+    @FXML
+    public Spinner<Integer> temperatureSpinner;
     private AnswerType answerType;
     @Inject
     private ClipboardHelper clipboardHelper;
@@ -61,6 +65,25 @@ public class AnswerController extends BaseController {
     private GptStorage storage;
     @Inject
     private QuestionApi questionApi;
+
+    @Override
+    protected void initializeChild() {
+        temperatureSpinner.getValueFactory().setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Integer number) {
+                return number + "°";
+            }
+
+            @Override
+            public Integer fromString(String string) {
+                return Integer.valueOf(string.replace("°", ""));
+            }
+        });
+        temperatureSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+            var temperature = BigDecimal.valueOf(newValue).setScale(1, HALF_UP).divide(hundred, HALF_UP);
+            model.setTemperature(answerType, temperature);
+        });
+    }
 
     @FXML
     void clickCopyButton(ActionEvent ignoredEvent) {
@@ -98,14 +121,20 @@ public class AnswerController extends BaseController {
                         var state = answerOpt.isPresent() ? answerOpt.get().answerState() : NEW;
                         webView.getEngine().loadContent(html);
                         statusCircle.setFill(answerStateToColor(state));
-                        var temperature = answerOpt.map(answer -> answer.temperature().multiply(hundred)
+                        var temperature = answerOpt.map(answer -> answer.temperature()
+                                                                          .multiply(hundred)
                                                                           .setScale(0, HALF_UP) + "°")
                                 .orElse("");
                         temperatureText.setText(temperature);
+                        answerOpt.ifPresent(answer -> temperatureSpinner.getValueFactory()
+                                .setValue(answer.temperature().multiply(hundred).intValue()));
+
                     }, () -> {
                         webView.getEngine().loadContent("");
                         statusCircle.setFill(WHITE);
                         temperatureText.setText("");
+                        temperatureSpinner.getValueFactory()
+                                .setValue(model.getTemperatures().getTemperature(answerType).intValue());
                     });
         });
     }

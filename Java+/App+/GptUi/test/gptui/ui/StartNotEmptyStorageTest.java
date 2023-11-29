@@ -34,12 +34,12 @@ class StartNotEmptyStorageTest extends BaseGptUiTest {
                 .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
                 .questionText(INTERACTION_2_QUESTION)
                 .modelEditedQuestion(INTERACTION_2_QUESTION)
-                .answerGrammarText(INTERACTION_2_GRAMMAR_HTML)
-                .answerShortText(INTERACTION_2_SHORT_HTML)
-                .answerLongText(INTERACTION_2_LONG_HTML)
-                .answerGcpText(INTERACTION_2_GCP_HTML)
+                .grammarA().text(INTERACTION_2_GRAMMAR_HTML)
+                .shortA().text(INTERACTION_2_SHORT_HTML)
+                .longA().text(INTERACTION_2_LONG_HTML)
+                .gcpA().text(INTERACTION_2_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, RED, GREEN)
-                .answerTemperatures("50°", "60°", "70°", "80°")
+                .answerTemperatureTexts(50, 60, 70, 80)
                 .assertApp();
     }
 }
