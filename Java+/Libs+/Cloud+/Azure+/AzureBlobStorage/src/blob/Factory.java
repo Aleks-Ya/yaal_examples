@@ -8,7 +8,6 @@ import com.azure.storage.common.StorageSharedKeyCredential;
 import util.FileUtil;
 import util.RandomUtil;
 
-import java.nio.file.Paths;
 import java.util.Locale;
 
 public class Factory {
@@ -35,8 +34,7 @@ public class Factory {
     }
 
     private static BlobServiceClient initRealClient() {
-        var path = Paths.get(System.getProperty("user.home"), ".azure-examples", "credentials.properties");
-        var properties = FileUtil.pathToProperties(path);
+        var properties = FileUtil.homeDirFileToProperties(".azure-examples", "credentials.properties");
         var accountName = properties.getProperty("blob.storage.account");
         var accountKey = properties.getProperty("blob.storage.access.key");
         var credential = new StorageSharedKeyCredential(accountName, accountKey);

@@ -19,25 +19,6 @@ Choose output format (`text`, `table`, `json`, etc.): `aws s3api --output table 
 Help: `aws help`
 Help for a command: `aws ec2 help`
 
-### s3 (high-level)
-List S3 buckets: `aws s3 ls`
-Create a bucket: `aws s3 mb s3://iablokov471923643`
-Upload a file to S3: `aws s3 cp my.txt s3://mybucket1/dir1/my.txt`
-Delete a not-empty bucket: `aws s3 rb s3://iablokov471923643 --force`
-
-### s3api (low-level)
-List S3 buckets: `aws s3api list-buckets`
-List objects in a S3 bucket: `aws s3api list-objects --bucket qwasceitnsuryw7`
-List objects by S3 URL: `aws s3 ls s3://yaal-backup/duplicity-backup-docs-vault/`
-Show object info: `aws s3api head-object --bucket qwasceitnsuryw7 --key my1/bye.txt`
-Download file from S3: `aws s3api get-object --bucket qwasceitnsuryw7 --key my1/bye.txt /tmp/bye.txt`
-Delete S3 object: `aws s3api delete-object --bucket qwasceitnsuryw7 --key my1/`
-Upload a file to S3:
-```
-aws s3api put-object --bucket yaal-test-bucket --key my_texts/bye.txt --body /tmp/bye.txt
-#Link to the object: https://yaal-test-bucket.s3.eu-central-1.amazonaws.com/my_texts/bye.txt
-```
-
 ### lambda
 List Lambda Functions: `aws lambda list-functions`
 List versions of a Function: `aws lambda list-versions-by-function --function-name my-function`

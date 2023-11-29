@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 public class FileUtil {
@@ -52,6 +53,10 @@ public class FileUtil {
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
+    }
+
+    public static Properties homeDirFileToProperties(String... pathInUserHomeDir) {
+        return pathToProperties(Paths.get(System.getProperty("user.home"), pathInUserHomeDir));
     }
 
     public static void deleteFileSilent(File file) {
