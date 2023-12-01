@@ -41,11 +41,11 @@ module GptUi.main {
 
     opens gptui to com.google.guice, javafx.fxml;
     opens gptui.storage to com.google.guice;
-    opens gptui.ui to com.google.guice, javafx.fxml;
     opens gptui.ui.controller to com.google.guice, javafx.fxml;
     opens gptui.gpt to com.google.gson, com.google.guice;
     opens gptui.gpt.openai to com.google.gson, com.google.guice;
     opens gptui.gpt.gcp to com.google.gson, com.google.guice;
     opens gptui.gpt.question to com.google.gson, com.google.guice;
     opens gptui.config to com.google.guice, javafx.fxml;
+    opens gptui.ui to com.google.gson, com.google.guice, javafx.fxml;
 }

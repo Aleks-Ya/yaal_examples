@@ -3,6 +3,7 @@ package gptui.gpt;
 import gptui.storage.AnswerType;
 import gptui.storage.InteractionId;
 import gptui.storage.InteractionType;
+import gptui.ui.Temperatures;
 
 public interface QuestionApi {
     void sendQuestion(InteractionType interactionType, Temperatures temperatures);

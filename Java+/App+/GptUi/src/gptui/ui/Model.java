@@ -1,6 +1,5 @@
 package gptui.ui;
 
-import gptui.gpt.Temperatures;
 import gptui.storage.AnswerType;
 import gptui.storage.Interaction;
 import gptui.storage.InteractionId;

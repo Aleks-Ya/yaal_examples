@@ -2,7 +2,6 @@ package gptui.gpt.question;
 
 import gptui.Mdc;
 import gptui.gpt.QuestionApi;
-import gptui.gpt.Temperatures;
 import gptui.gpt.gcp.GcpApi;
 import gptui.gpt.openai.GptApi;
 import gptui.storage.Answer;
@@ -13,6 +12,7 @@ import gptui.storage.InteractionId;
 import gptui.storage.InteractionType;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
+import gptui.ui.Temperatures;
 import javafx.application.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,10 +100,8 @@ class QuestionApiImpl implements QuestionApi, EventSource {
             var promptOpt = promptFactory.getPrompt(interaction.type(), interaction.theme(), interaction.question(), answerType);
             if (promptOpt.isPresent()) {
                 var prompt = promptOpt.get();
-                updateAnswer(interactionId, answerType, answer -> answer.withPrompt(prompt).withState(SENT));
-                var temperature = storage.readInteraction(interactionId)
-                        .orElseThrow().getAnswer(answerType)
-                        .orElseThrow().temperature();
+                var temperature = model.getTemperatures().getTemperature(answerType);
+                updateAnswer(interactionId, answerType, answer -> answer.withPrompt(prompt).withState(SENT).withTemperature(temperature));
                 var answerMd = answerType != GCP ? gptApi.send(prompt, temperature) : gcpApi.send(prompt, temperature);
                 var answerHtml = formatConverter.markdownToHtml(answerMd);
                 updateAnswer(interactionId, answerType, answer ->

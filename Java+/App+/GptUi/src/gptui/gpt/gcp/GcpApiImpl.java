@@ -34,6 +34,7 @@ class GcpApiImpl implements GcpApi {
         var bigDecimalTemperature = convertTemperature(temperature);
         var body = new RequestBody(new RequestPrompt(content), bigDecimalTemperature, 1);
         var json = gson.toJson(body);
+        log.trace("Request body: {}", json);
         HttpResponse<String> response;
         var request = HttpRequest.newBuilder()
                 .uri(endpoint)

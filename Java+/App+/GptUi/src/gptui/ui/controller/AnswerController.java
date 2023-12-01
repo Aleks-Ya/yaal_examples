@@ -76,9 +76,8 @@ public class AnswerController extends BaseController {
                 return Integer.valueOf(string.replace("°", ""));
             }
         });
-        temperatureSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
-            model.setTemperature(answerType, newValue);
-        });
+        temperatureSpinner.valueProperty().addListener((obs, oldValue, newValue) ->
+                model.setTemperature(answerType, newValue));
     }
 
     @FXML
@@ -101,6 +100,9 @@ public class AnswerController extends BaseController {
             log.trace("stageWasShowed");
             answerLabel.setText(labelTextMap.get(answerType));
             copyButton.setText(copyButton.getText() + " _" + hotkeyDigitMap.get(answerType));
+            if (model.getCurrentInteractionId() != null) {
+                temperatureSpinner.getValueFactory().setValue(model.getTemperatures().getTemperature(answerType));
+            }
         });
     }
 
@@ -119,15 +121,12 @@ public class AnswerController extends BaseController {
                         statusCircle.setFill(answerStateToColor(state));
                         var temperature = answerOpt.map(answer -> answer.temperature() + "°").orElse("");
                         temperatureText.setText(temperature);
-                        answerOpt.ifPresent(answer -> temperatureSpinner.getValueFactory()
-                                .setValue(answer.temperature()));
-
+                        temperatureSpinner.getValueFactory().setValue(model.getTemperatures().getTemperature(answerType));
                     }, () -> {
                         webView.getEngine().loadContent("");
                         statusCircle.setFill(WHITE);
                         temperatureText.setText("");
-                        temperatureSpinner.getValueFactory()
-                                .setValue(model.getTemperatures().getTemperature(answerType));
+                        temperatureSpinner.getValueFactory().setValue(model.getTemperatures().getTemperature(answerType));
                     });
         });
     }

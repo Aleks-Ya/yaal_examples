@@ -43,8 +43,8 @@ class SendGrammarTest extends BaseGptUiTest {
                 .longA().text(INTERACTION_3_LONG_HTML)
                 .gcpA().text(INTERACTION_3_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, RED, GREEN)
-                .answerTemperatureTexts(50, 60, 70, 80)
-                .answerTemperatureSpinners(50, 60, 70, 80)
+                .answerTextTemperatures(50, 60, 70, 80)
+                .answerSpinnerTemperatures(50, 60, 70, 80)
                 .assertApp();
 
         gptApi.clear().putGrammarResponse("Grammar answer 4", ZERO);
@@ -67,8 +67,8 @@ class SendGrammarTest extends BaseGptUiTest {
                 .longA().text("")
                 .gcpA().text("")
                 .answerCircleColors(GREEN, WHITE, WHITE, WHITE)
-                .answerTemperatureTexts(50, 60, 70, 80)
-                .answerTemperatureSpinners(50, 60, 70, 80)
+                .answerTextTemperatures(50, 60, 70, 80)
+                .answerSpinnerTemperatures(50, 60, 70, 80)
                 .assertApp();
     }
 }

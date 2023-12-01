@@ -44,8 +44,8 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
                 .longA().text(INTERACTION_2_LONG_HTML)
                 .gcpA().text(INTERACTION_2_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, RED, GREEN)
-                .answerTemperatureTexts(50, 60, 70, 80)
-                .answerTemperatureSpinners(50, 60, 70, 80)
+                .answerTextTemperatures(50, 60, 70, 80)
+                .answerSpinnerTemperatures(50, 60, 70, 80)
                 .assertApp();
 
         clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_1_THEME, INTERACTION_1_QUESTION));
@@ -65,8 +65,8 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
                 .longA().text(INTERACTION_1_LONG_HTML)
                 .gcpA().text(INTERACTION_1_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTemperatureTexts(50, 60, 70, 80)
-                .answerTemperatureSpinners(50, 60, 70, 80)
+                .answerTextTemperatures(50, 60, 70, 80)
+                .answerSpinnerTemperatures(50, 60, 70, 80)
                 .assertApp();
     }
 }

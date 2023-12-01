@@ -1,4 +1,4 @@
-package gptui.gpt;
+package gptui.ui;
 
 import gptui.storage.AnswerType;
 

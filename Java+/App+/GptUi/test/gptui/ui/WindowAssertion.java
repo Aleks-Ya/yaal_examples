@@ -138,7 +138,7 @@ class WindowAssertion {
         return this;
     }
 
-    public WindowAssertion answerTemperatureTexts(Integer grammarTemperature, Integer shortTemperature,
+    public WindowAssertion answerTextTemperatures(Integer grammarTemperature, Integer shortTemperature,
                                                   Integer longTemperature, Integer gcpTemperature) {
         grammarA().temperatureText(grammarTemperature);
         shortA().temperatureText(shortTemperature);
@@ -147,7 +147,7 @@ class WindowAssertion {
         return this;
     }
 
-    public WindowAssertion answerTemperatureSpinners(Integer grammarTemperature, Integer shortTemperature,
+    public WindowAssertion answerSpinnerTemperatures(Integer grammarTemperature, Integer shortTemperature,
                                                      Integer longTemperature, Integer gcpTemperature) {
         grammarA().temperatureSpinner(grammarTemperature);
         shortA().temperatureSpinner(shortTemperature);
@@ -157,16 +157,16 @@ class WindowAssertion {
     }
 
     public WindowAssertion answerTextTemperaturesAllEmpty() {
-        return answerTemperatureTexts(null,
+        return answerTextTemperatures(null,
                 null, null, null);
     }
 
     public WindowAssertion answerTextTemperaturesDefault() {
-        return answerTemperatureTexts(50, 60, 70, 30);
+        return answerTextTemperatures(50, 60, 70, 30);
     }
 
     public WindowAssertion answerSpinnerTemperaturesDefault() {
-        return answerTemperatureSpinners(50, 60, 70, 30);
+        return answerSpinnerTemperatures(50, 60, 70, 30);
     }
 
     void assertApp() {

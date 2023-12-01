@@ -36,6 +36,7 @@ class GptApiImpl implements GptApi {
         var bigDecimalTemperature = convertTemperature(temperature);
         var body = new GptRequestBody(MODEL, List.of(new GptMessage("user", content)), bigDecimalTemperature);
         var json = gson.toJson(body);
+        log.trace("Request body: {}", json);
         HttpResponse<String> response;
         var request = HttpRequest.newBuilder()
                 .uri(endpoint)

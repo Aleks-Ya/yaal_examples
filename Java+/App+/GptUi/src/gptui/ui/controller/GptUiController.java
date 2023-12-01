@@ -39,6 +39,13 @@ public class GptUiController extends BaseController {
         var history = storage.readAllInteractions();
         model.setHistory(history);
         model.setCurrentInteractionId(!history.isEmpty() ? history.getFirst().id() : null);
+        if (!history.isEmpty()) {
+            var currentInteraction = storage.readInteraction(model.getCurrentInteractionId()).orElseThrow();
+            currentInteraction.getAnswer(GRAMMAR).ifPresent(answer -> model.getTemperatures().setTemperature(GRAMMAR, answer.temperature()));
+            currentInteraction.getAnswer(SHORT).ifPresent(answer -> model.getTemperatures().setTemperature(SHORT, answer.temperature()));
+            currentInteraction.getAnswer(LONG).ifPresent(answer -> model.getTemperatures().setTemperature(LONG, answer.temperature()));
+            currentInteraction.getAnswer(GCP).ifPresent(answer -> model.getTemperatures().setTemperature(GCP, answer.temperature()));
+        }
         model.setCurrentTheme(!storage.getThemes().isEmpty() ? storage.getThemes().getFirst() : null);
         model.fireInteractionChosenFromHistory(this);
     }

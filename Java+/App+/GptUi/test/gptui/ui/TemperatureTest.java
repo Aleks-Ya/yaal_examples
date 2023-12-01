@@ -140,6 +140,11 @@ class TemperatureTest extends BaseGptUiTest {
         overWrite(INTERACTION_2_THEME);
         clickOn(question().textArea());
         overWrite(INTERACTION_2_QUESTION);
+        clickOn(grammarAnswer().temperatureIncrementButton());
+        clickOn(shortAnswer().temperatureIncrementButton());
+        clickOn(longAnswer().temperatureDecrementButton());
+        clickOn(longAnswer().temperatureDecrementButton());
+        clickOn(gcpAnswer().temperatureDecrementButton());
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
@@ -156,7 +161,7 @@ class TemperatureTest extends BaseGptUiTest {
                 .gcpA().text(EXP_GCP_HTML_BODY_1)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperaturesDefault()
-                .answerSpinnerTemperaturesDefault()
+                .answerSpinnerTemperatures(55, 65, 60, 25)
                 .assertApp();
 
         gptApi.clear()
@@ -180,8 +185,8 @@ class TemperatureTest extends BaseGptUiTest {
                 .longA().text("")
                 .gcpA().text("")
                 .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
-                .answerTextTemperaturesDefault()
-                .answerSpinnerTemperaturesDefault()
+                .answerTextTemperatures(55, 65, 60, 25)
+                .answerSpinnerTemperatures(55, 65, 60, 25)
                 .assertApp();
 
 
@@ -201,8 +206,8 @@ class TemperatureTest extends BaseGptUiTest {
                 .longA().text(TestingData.EXP_LONG_HTML_BODY_2)
                 .gcpA().text(TestingData.EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTextTemperaturesDefault()
-                .answerSpinnerTemperaturesDefault()
+                .answerTextTemperatures(55, 65, 60, 25)
+                .answerSpinnerTemperatures(55, 65, 60, 25)
                 .assertApp();
 
         clickOn(shortAnswer().copyButton());
@@ -231,8 +236,8 @@ class TemperatureTest extends BaseGptUiTest {
                 .longA().text(TestingData.EXP_LONG_HTML_BODY_2)
                 .gcpA().text(TestingData.EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTextTemperaturesDefault()
-                .answerSpinnerTemperaturesDefault()
+                .answerTextTemperatures(55, 65, 60, 25)
+                .answerSpinnerTemperatures(55, 65, 60, 25)
                 .assertApp();
 
         clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_1_THEME, INTERACTION_1_QUESTION));
@@ -252,7 +257,7 @@ class TemperatureTest extends BaseGptUiTest {
                 .gcpA().text(EXP_GCP_HTML_BODY_1)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperaturesDefault()
-                .answerSpinnerTemperaturesDefault()
+                .answerSpinnerTemperatures(55, 65, 60, 25)
                 .assertApp();
 
         clickOn(shortAnswer().copyButton());
