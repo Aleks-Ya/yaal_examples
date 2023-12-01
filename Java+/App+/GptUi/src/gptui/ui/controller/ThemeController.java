@@ -32,7 +32,7 @@ public class ThemeController extends BaseController {
     }
 
     @Override
-    public void modelChanged(Model model, EventSource source) {
+    public void modelChanged(Model model) {
         log.trace("modelChanged");
         setItems();
         var currentModelValue = model.getEditedTheme();
@@ -49,7 +49,7 @@ public class ThemeController extends BaseController {
     }
 
     @Override
-    public void interactionChosenFromHistory(Model model, EventSource source) {
+    public void interactionChosenFromHistory(Model model) {
         log.trace("interactionChosenFromHistory");
         setItems();
         var currentComboBoxValue = themeComboBox.getValue();

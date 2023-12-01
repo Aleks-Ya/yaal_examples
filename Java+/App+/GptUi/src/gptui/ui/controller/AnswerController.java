@@ -107,7 +107,7 @@ public class AnswerController extends BaseController {
     }
 
     @Override
-    public void modelChanged(Model model, EventSource source) {
+    public void modelChanged(Model model) {
         Mdc.run(answerType, () -> {
             log.trace("modelChanged later");
             Optional.ofNullable(model.getCurrentInteractionId())

@@ -36,7 +36,7 @@ public class HistoryController extends BaseController {
     private Button historyDeleteButton;
 
     @Override
-    public void modelChanged(Model model, EventSource source) {
+    public void modelChanged(Model model) {
         log.trace("modelChanged");
         var modelItems = FXCollections.observableArrayList(model.getHistory().stream()
                 .map(interactionId -> storage.readInteraction(interactionId).orElseThrow())
@@ -115,7 +115,7 @@ public class HistoryController extends BaseController {
         model.setCurrentTheme(model.getCurrentInteractionId() != null
                 ? storage.readInteraction(model.getCurrentInteractionId()).orElseThrow().theme() : null);
 
-        modelChanged(model, this);
+        modelChanged(model);
         model.fireInteractionChosenFromHistory(this);
     }
 

@@ -85,7 +85,7 @@ public class QuestionController extends BaseController {
 
 
     @Override
-    public void interactionChosenFromHistory(Model model, EventSource source) {
+    public void interactionChosenFromHistory(Model model) {
         log.trace("interactionChosenFromHistory");
         Optional.ofNullable(model.getCurrentInteractionId())
                 .map(storage::readInteraction)

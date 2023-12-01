@@ -34,7 +34,7 @@ public class Model {
         var selfListeners = getSelfListeners(source);
         var notSelfListeners = getNotSelfListeners(source);
         log.debug("Firing model changed to {} listeners (skip {} self-listeners)...", notSelfListeners.size(), selfListeners.size());
-        notSelfListeners.forEach(listener -> listener.modelChanged(this, source));
+        notSelfListeners.forEach(listener -> listener.modelChanged(this));
     }
 
     public void fireStageShowed(EventSource source) {
@@ -48,7 +48,7 @@ public class Model {
         var selfListeners = getSelfListeners(source);
         var notSelfListeners = getNotSelfListeners(source);
         log.debug("Firing interaction chosen from history to {} listeners (skip {} self-listeners)...", notSelfListeners.size(), selfListeners.size());
-        notSelfListeners.forEach(listener -> listener.interactionChosenFromHistory(this, source));
+        notSelfListeners.forEach(listener -> listener.interactionChosenFromHistory(this));
     }
 
     private List<ModelListener> getNotSelfListeners(EventSource source) {
