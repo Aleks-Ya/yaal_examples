@@ -30,7 +30,8 @@ class MultiLineQuestionTest extends BaseGptUiTest {
                 .longA().text("")
                 .gcpA().text("")
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
-                .answerTemperaturesAllEmpty()
+                .answerTextTemperaturesAllEmpty()
+                .answerSpinnerTemperaturesDefault()
                 .assertApp();
 
         clickOn(theme().comboBox());
@@ -64,7 +65,8 @@ class MultiLineQuestionTest extends BaseGptUiTest {
                 .longA().text(TestingData.EXP_LONG_HTML_BODY_1)
                 .gcpA().text(TestingData.EXP_GCP_HTML_BODY_1)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTemperaturesDefault()
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
                 .assertApp();
     }
 }

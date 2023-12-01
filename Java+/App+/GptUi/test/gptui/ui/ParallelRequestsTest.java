@@ -50,7 +50,8 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .longA().text("")
                 .gcpA().text("")
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
-                .answerTemperaturesAllEmpty()
+                .answerTextTemperaturesAllEmpty()
+                .answerSpinnerTemperaturesDefault()
                 .assertApp();
     }
 
@@ -74,7 +75,8 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .longA().text("")
                 .gcpA().text("")
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
-                .answerTemperaturesAllEmpty()
+                .answerTextTemperaturesAllEmpty()
+                .answerSpinnerTemperaturesDefault()
                 .assertApp();
 
         gptApi.clear()
@@ -99,7 +101,8 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .longA().text("")
                 .gcpA().text("")
                 .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
-                .answerTemperaturesDefault()
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
                 .assertApp();
     }
 
@@ -123,7 +126,8 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .longA().text("")
                 .gcpA().text("")
                 .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
-                .answerTemperaturesDefault()
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
                 .assertApp();
 
         gptApi.clear()
@@ -147,7 +151,8 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .longA().text("")
                 .gcpA().text("")
                 .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
-                .answerTemperaturesDefault()
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
                 .assertApp();
 
 
@@ -167,7 +172,8 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .longA().text(EXP_LONG_HTML_BODY_2)
                 .gcpA().text(EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTemperaturesDefault()
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
                 .assertApp();
     }
 
@@ -188,7 +194,8 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .longA().text(EXP_LONG_HTML_BODY_2)
                 .gcpA().text(EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTemperaturesDefault()
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
                 .assertApp();
     }
 }

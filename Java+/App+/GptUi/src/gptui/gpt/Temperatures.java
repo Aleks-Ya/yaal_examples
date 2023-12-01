@@ -2,7 +2,6 @@ package gptui.gpt;
 
 import gptui.storage.AnswerType;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,18 +11,18 @@ import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.SHORT;
 
 public class Temperatures {
-    private final Map<AnswerType, BigDecimal> temperatures = new HashMap<>(Map.of(
-            GRAMMAR, BigDecimal.valueOf(0.5),
-            SHORT, BigDecimal.valueOf(0.6),
-            LONG, BigDecimal.valueOf(0.7),
-            GCP, BigDecimal.valueOf(0.3)
+    private final Map<AnswerType, Integer> temperatures = new HashMap<>(Map.of(
+            GRAMMAR, 50,
+            SHORT, 60,
+            LONG, 70,
+            GCP, 30
     ));
 
-    public BigDecimal getTemperature(AnswerType answerType) {
+    public Integer getTemperature(AnswerType answerType) {
         return temperatures.get(answerType);
     }
 
-    public void setTemperature(AnswerType answerType, BigDecimal temperature) {
+    public void setTemperature(AnswerType answerType, Integer temperature) {
         temperatures.put(answerType, temperature);
     }
 }

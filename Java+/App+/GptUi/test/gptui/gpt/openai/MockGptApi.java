@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Singleton;
-import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +24,7 @@ public class MockGptApi implements GptApi, GcpApi {
     private final AtomicInteger receivedCounter = new AtomicInteger();
 
     @Override
-    public String send(String content, BigDecimal temperature) {
+    public String send(String content, Integer temperature) {
         sendHistory.add(content);
         if (Platform.isFxApplicationThread()) {
             throw new IllegalStateException("Should not run in the JavaFX Application Thread");

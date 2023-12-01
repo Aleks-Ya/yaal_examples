@@ -44,6 +44,7 @@ class SendFactTest extends BaseGptUiTest {
                 .gcpA().text(INTERACTION_3_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, RED, GREEN)
                 .answerTemperatureTexts(50, 60, 70, 80)
+                .answerTemperatureSpinners(50, 60, 70, 80)
                 .assertApp();
 
         gptApi.clear().putFactResponse("Fact answer 4", ZERO);
@@ -67,6 +68,7 @@ class SendFactTest extends BaseGptUiTest {
                 .gcpA().text("")
                 .answerCircleColors(GREEN, WHITE, WHITE, WHITE)
                 .answerTemperatureTexts(50, 60, 70, 80)
+                .answerTemperatureSpinners(50, 60, 70, 80)
                 .assertApp();
     }
 }

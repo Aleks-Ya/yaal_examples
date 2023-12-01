@@ -14,6 +14,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
+import static java.math.RoundingMode.HALF_UP;
+
 @Singleton
 class GcpApiImpl implements GcpApi {
     private static final Logger log = LoggerFactory.getLogger(GcpApiImpl.class);
@@ -27,9 +29,10 @@ class GcpApiImpl implements GcpApi {
     }
 
     @Override
-    public String send(String content, BigDecimal temperature) {
+    public String send(String content, Integer temperature) {
         log.info("Sending question: {}", content);
-        var body = new RequestBody(new RequestPrompt(content), temperature, 1);
+        var bigDecimalTemperature = convertTemperature(temperature);
+        var body = new RequestBody(new RequestPrompt(content), bigDecimalTemperature, 1);
         var json = gson.toJson(body);
         HttpResponse<String> response;
         var request = HttpRequest.newBuilder()
@@ -52,6 +55,9 @@ class GcpApiImpl implements GcpApi {
             log.error("GCP API error status {}: {}", response.statusCode(), response.body());
             throw new RuntimeException(response.body());
         }
+    }
 
+    private BigDecimal convertTemperature(Integer temperature) {
+        return BigDecimal.valueOf(temperature).setScale(1, HALF_UP).divide(BigDecimal.valueOf(100), HALF_UP);
     }
 }

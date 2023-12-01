@@ -40,6 +40,7 @@ class StartNotEmptyStorageTest extends BaseGptUiTest {
                 .gcpA().text(INTERACTION_2_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, RED, GREEN)
                 .answerTemperatureTexts(50, 60, 70, 80)
+                .answerTemperatureSpinners(50, 60, 70, 80)
                 .assertApp();
     }
 }

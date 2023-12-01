@@ -22,7 +22,8 @@ class StartEmptyStorageTest extends BaseGptUiTest {
                 .longA().text("")
                 .gcpA().text("")
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
-                .answerTemperaturesAllEmpty()
+                .answerTextTemperaturesAllEmpty()
+                .answerSpinnerTemperaturesDefault()
                 .assertApp();
     }
 }

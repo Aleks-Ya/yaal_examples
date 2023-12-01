@@ -148,7 +148,7 @@ class WindowAssertion {
     }
 
     public WindowAssertion answerTemperatureSpinners(Integer grammarTemperature, Integer shortTemperature,
-                                                  Integer longTemperature, Integer gcpTemperature) {
+                                                     Integer longTemperature, Integer gcpTemperature) {
         grammarA().temperatureSpinner(grammarTemperature);
         shortA().temperatureSpinner(shortTemperature);
         longA().temperatureSpinner(longTemperature);
@@ -156,13 +156,17 @@ class WindowAssertion {
         return this;
     }
 
-    public WindowAssertion answerTemperaturesAllEmpty() {
+    public WindowAssertion answerTextTemperaturesAllEmpty() {
         return answerTemperatureTexts(null,
                 null, null, null);
     }
 
-    public WindowAssertion answerTemperaturesDefault() {
+    public WindowAssertion answerTextTemperaturesDefault() {
         return answerTemperatureTexts(50, 60, 70, 30);
+    }
+
+    public WindowAssertion answerSpinnerTemperaturesDefault() {
+        return answerTemperatureSpinners(50, 60, 70, 30);
     }
 
     void assertApp() {
@@ -220,7 +224,7 @@ class WindowAssertion {
             app.verifyWebViewBody(answer.webView(), grammarAnswer.text);
             assertThat(answer.circle().getFill()).isEqualTo(grammarAnswer.circleColor);
             assertThat(answer.temperatureText().getText()).isEqualTo(temperatureToString(grammarA().temperatureText));
-            assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(grammarA().temperatureText));
+            assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(grammarA().temperatureSpinner));
         }
 
         {
@@ -231,7 +235,7 @@ class WindowAssertion {
             app.verifyWebViewBody(answer.webView(), shortA().text);
             assertThat(answer.circle().getFill()).isEqualTo(shortA().circleColor);
             assertThat(answer.temperatureText().getText()).isEqualTo(temperatureToString(shortA().temperatureText));
-            assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(shortA().temperatureText));
+            assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(shortA().temperatureSpinner));
         }
 
         {
@@ -242,7 +246,7 @@ class WindowAssertion {
             app.verifyWebViewBody(answer.webView(), longA().text);
             assertThat(answer.circle().getFill()).isEqualTo(longA().circleColor);
             assertThat(answer.temperatureText().getText()).isEqualTo(temperatureToString(longA().temperatureText));
-            assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(longA().temperatureText));
+            assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(longA().temperatureSpinner));
         }
 
         {
@@ -253,7 +257,7 @@ class WindowAssertion {
             app.verifyWebViewBody(answer.webView(), gcpA().text);
             assertThat(answer.circle().getFill()).isEqualTo(gcpA().circleColor);
             assertThat(answer.temperatureText().getText()).isEqualTo(temperatureToString(gcpA().temperatureText));
-            assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(gcpA().temperatureText));
+            assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(gcpA().temperatureSpinner));
         }
     }
 

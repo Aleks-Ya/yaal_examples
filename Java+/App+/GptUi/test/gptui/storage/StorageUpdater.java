@@ -1,6 +1,5 @@
 package gptui.storage;
 
-import java.math.BigDecimal;
 import java.nio.file.FileSystems;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -13,7 +12,7 @@ public class StorageUpdater {
     public static void main(String[] args) {
         var counter = new AtomicInteger();
         var storage = new GptStorageFilesystem(FileSystems.getDefault());
-        var temperature = BigDecimal.valueOf(0.7);
+        var temperature = 70;
         new GptStorageImpl(storage).readAllInteractions().stream()
                 .map(interaction -> {
                     counter.incrementAndGet();

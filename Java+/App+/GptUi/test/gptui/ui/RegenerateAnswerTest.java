@@ -43,6 +43,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .gcpA().text(INTERACTION_1_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTemperatureTexts(50, 60, 70, 80)
+                .answerTemperatureSpinners(50, 60, 70, 80)
                 .assertApp();
 
         regenerateGrammarAnswer();
@@ -70,6 +71,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .gcpA().text(INTERACTION_1_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTemperatureTexts(50, 60, 70, 80)
+                .answerTemperatureSpinners(50, 60, 70, 80)
                 .assertApp();
     }
 
@@ -92,6 +94,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .gcpA().text(INTERACTION_1_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTemperatureTexts(50, 60, 70, 80)
+                .answerTemperatureSpinners(50, 60, 70, 80)
                 .assertApp();
     }
 
@@ -114,6 +117,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .gcpA().text(INTERACTION_1_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTemperatureTexts(50, 60, 70, 80)
+                .answerTemperatureSpinners(50, 60, 70, 80)
                 .assertApp();
     }
 
@@ -136,6 +140,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .gcpA().text(EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTemperatureTexts(50, 60, 70, 80)
+                .answerTemperatureSpinners(50, 60, 70, 80)
                 .assertApp();
     }
 }

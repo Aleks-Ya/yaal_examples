@@ -1,15 +1,13 @@
 package gptui.storage;
 
-import java.math.BigDecimal;
-
-public record Answer(AnswerType answerType, String prompt, BigDecimal temperature,
+public record Answer(AnswerType answerType, String prompt, Integer temperature,
                      String answerMd, String answerHtml, AnswerState answerState) {
 
     public Answer withPrompt(String prompt) {
         return new Answer(answerType, prompt, temperature, answerMd, answerHtml, answerState);
     }
 
-    public Answer withTemperature(BigDecimal temperature) {
+    public Answer withTemperature(Integer temperature) {
         return new Answer(answerType, prompt, temperature, answerMd, answerHtml, answerState);
     }
 

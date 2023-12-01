@@ -15,6 +15,8 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.List;
 
+import static java.math.RoundingMode.HALF_UP;
+
 @Singleton
 class GptApiImpl implements GptApi {
     private static final Logger log = LoggerFactory.getLogger(GptApiImpl.class);
@@ -29,9 +31,10 @@ class GptApiImpl implements GptApi {
     }
 
     @Override
-    public String send(String content, BigDecimal temperature) {
+    public String send(String content, Integer temperature) {
         log.info("Sending question: {}", content);
-        var body = new GptRequestBody(MODEL, List.of(new GptMessage("user", content)), temperature);
+        var bigDecimalTemperature = convertTemperature(temperature);
+        var body = new GptRequestBody(MODEL, List.of(new GptMessage("user", content)), bigDecimalTemperature);
         var json = gson.toJson(body);
         HttpResponse<String> response;
         var request = HttpRequest.newBuilder()
@@ -54,5 +57,9 @@ class GptApiImpl implements GptApi {
             log.error("GPT API error status {}: {}", response.statusCode(), response.body());
             throw new RuntimeException(response.body());
         }
+    }
+
+    private BigDecimal convertTemperature(Integer temperature) {
+        return BigDecimal.valueOf(temperature).setScale(1, HALF_UP).divide(BigDecimal.valueOf(100), HALF_UP);
     }
 }

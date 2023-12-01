@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Singleton;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -102,7 +101,7 @@ public class Model {
         return temperatures;
     }
 
-    public void setTemperature(AnswerType answerType, BigDecimal temperature) {
+    public void setTemperature(AnswerType answerType, Integer temperature) {
         temperatures.setTemperature(answerType, temperature);
     }
 
