@@ -1,4 +1,4 @@
-package parquet;
+package parquet.avro;
 
 import org.apache.avro.SchemaBuilder;
 import org.apache.avro.generic.GenericRecord;

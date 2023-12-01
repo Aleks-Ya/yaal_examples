@@ -1,4 +1,4 @@
-package parquet;
+package parquet.avro;
 
 import org.apache.parquet.schema.LogicalTypeAnnotation;
 import org.apache.parquet.schema.MessageType;

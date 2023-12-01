@@ -1,4 +1,4 @@
 dependencies {
-    implementation "org.apache.parquet:parquet-avro:$parquetVersion", hadoop3CommonDep,
+    implementation "org.apache.parquet:parquet-hadoop:$parquetVersion", hadoop3CommonDep,
             "org.apache.hadoop:hadoop-mapreduce-client-core:$hadoop3Version"
 }

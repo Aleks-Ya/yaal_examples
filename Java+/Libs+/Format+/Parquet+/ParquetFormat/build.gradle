@@ -1,4 +1,0 @@
-dependencies {
-    implementation 'org.apache.parquet:parquet-hadoop-bundle:1.13.1', "org.apache.hadoop:hadoop-common:$hadoop2Version",
-            "org.apache.hadoop:hadoop-mapreduce-client-core:$hadoop2Version"
-}

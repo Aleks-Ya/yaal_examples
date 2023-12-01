@@ -1,4 +1,4 @@
-package parquet;
+package parquet.avro;
 
 import org.apache.avro.SchemaBuilder;
 import org.apache.avro.generic.GenericRecord;
@@ -19,7 +19,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-class ReadWriteTest {
+class WriteReadTest {
 
     @Test
     void writeRead() throws IOException {
