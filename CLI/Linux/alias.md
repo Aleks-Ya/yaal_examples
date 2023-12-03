@@ -13,3 +13,4 @@ alias vtb-report='
 	/home/aleks/.m2/repository/ru/yaal/vtb/vtb-broker-report/${VERSION}/vtb-broker-report-${VERSION}.jar)'
 ```
 
+Remove alias: see `CLI/Linux/unalias.md`

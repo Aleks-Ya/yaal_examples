@@ -35,4 +35,3 @@ ls /tmp/ssl_cptest
 rm -r /tmp/ssl_cptest
 docker stop cptest
 ```
-

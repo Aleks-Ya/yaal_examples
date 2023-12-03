@@ -53,11 +53,6 @@ docker rm $(docker ps -a -q)   # Remove all containers from this machine
 docker rmi <imagename>         # Remove the specified image from this machine
 docker rmi $(docker images -q) # Remove all images from this machine
 ```
-volume
-```
-docker volume ls #List all volumes
-```
-
 system
 
 ```
