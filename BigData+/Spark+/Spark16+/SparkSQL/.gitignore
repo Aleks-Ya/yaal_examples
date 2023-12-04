@@ -1,8 +1,0 @@
-target
-.project
-.classpath
-.cache-main
-.cache-tests
-.settings
-bin
-metastore_db
