@@ -7,6 +7,7 @@ import gptui.ui.Model;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
@@ -23,6 +24,8 @@ public class ThemeController extends BaseController {
     private Label themeLabel;
     @FXML
     private ComboBox<String> themeComboBox;
+    @FXML
+    private CheckBox filterHistoryCheckBox;
     @Inject
     private GptStorage storage;
 
@@ -35,7 +38,7 @@ public class ThemeController extends BaseController {
     public void modelChanged(Model model) {
         log.trace("modelChanged");
         setItems();
-        var currentModelValue = model.getEditedTheme();
+        var currentModelValue = model.getCurrentTheme();
         var currentComboBoxValue = themeComboBox.getValue();
         if (!Objects.equals(currentModelValue, currentComboBoxValue)) {
             themeComboBox.setValue(currentModelValue);
@@ -65,9 +68,18 @@ public class ThemeController extends BaseController {
     void themeComboBoxAction(ActionEvent ignoredEvent) {
         log.trace("themeComboBoxAction");
         var currentComboBoxValue = themeComboBox.getValue();
-        var currentModelValue = model.getEditedTheme();
+        var currentModelValue = model.getCurrentTheme();
         if (!Objects.equals(currentComboBoxValue, currentModelValue)) {
             model.setCurrentTheme(currentComboBoxValue);
+            model.fireModelChanged(this);
+        }
+    }
+
+    @FXML
+    void themeFilterHistoryCheckBoxClicked(ActionEvent ignore) {
+        if (filterHistoryCheckBox.isSelected() != model.getThemeFilterHistory()) {
+            model.setThemeFilterHistory(filterHistoryCheckBox.isSelected());
+            log.debug("ThemeFilterHistoryCheckBox is set to {}", model.getThemeFilterHistory());
             model.fireModelChanged(this);
         }
     }

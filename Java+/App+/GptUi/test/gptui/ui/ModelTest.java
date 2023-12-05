@@ -19,9 +19,9 @@ class ModelTest extends BaseGptUiTest {
 
     @Test
     void typeTheme() {
-        assertThat(model.getEditedTheme()).isNull();
+        assertThat(model.getCurrentTheme()).isNull();
         clickOn(theme().comboBox()).type(A, B, C);
         WaitForAsyncUtils.waitForFxEvents();
-        assertThat(model.getEditedTheme()).isEqualTo("abc");
+        assertThat(model.getCurrentTheme()).isEqualTo("abc");
     }
 }

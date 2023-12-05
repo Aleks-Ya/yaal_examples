@@ -39,6 +39,13 @@ class ExtractingTest {
         assertThat(persons).map(person -> person.getCar().getModel()).containsOnly("BMW", "Mercedes");
     }
 
+    @Test
+    void extractFunctionBoolean() {
+        var value = new Agree(true, Boolean.TRUE);
+        assertThat(value).extracting(Agree::isAgreePrimitive).isEqualTo(true);
+        assertThat(value).extracting(Agree::isAgreeWrapper).isEqualTo(true);
+    }
+
     static class Person {
         private final String name;
         private final Car car;
@@ -73,5 +80,8 @@ class ExtractingTest {
         public Integer getYear() {
             return year;
         }
+    }
+
+    record Agree(boolean isAgreePrimitive, Boolean isAgreeWrapper) {
     }
 }

@@ -40,6 +40,7 @@ public class HistoryController extends BaseController {
         log.trace("modelChanged");
         var modelItems = FXCollections.observableArrayList(model.getHistory().stream()
                 .map(interactionId -> storage.readInteraction(interactionId).orElseThrow())
+                .filter(interaction -> !model.getThemeFilterHistory() || model.getCurrentTheme().trim().equals(interaction.theme().trim()))
                 .toList());
         var comboBoxItems = historyComboBox.getItems();
         if (!Objects.equals(modelItems, comboBoxItems)) {

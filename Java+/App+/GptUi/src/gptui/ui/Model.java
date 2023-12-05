@@ -24,6 +24,7 @@ public class Model {
     private String editedQuestion;
     private Scene scene;
     private final Temperatures temperatures = new Temperatures();
+    private Boolean themeFilterHistory = false;
 
     public void subscribe(ModelListener listener) {
         log.debug("ModelListener subscribed: {}", listener);
@@ -76,7 +77,7 @@ public class Model {
         this.currentInteractionId = currentInteractionId;
     }
 
-    public synchronized String getEditedTheme() {
+    public synchronized String getCurrentTheme() {
         return currentTheme;
     }
 
@@ -106,5 +107,13 @@ public class Model {
 
     public void addAccelerator(KeyCodeCombination keyCodeCombination, Runnable runnable) {
         scene.getAccelerators().put(keyCodeCombination, runnable);
+    }
+
+    public Boolean getThemeFilterHistory() {
+        return themeFilterHistory;
+    }
+
+    public void setThemeFilterHistory(Boolean themeFilterHistory) {
+        this.themeFilterHistory = themeFilterHistory;
     }
 }

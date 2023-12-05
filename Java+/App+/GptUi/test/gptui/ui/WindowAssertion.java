@@ -201,7 +201,7 @@ class WindowAssertion {
             verifyThat(theme.comboBox(), hasItems(themeSize));
             assertThat(theme.comboBox().getSelectionModel().getSelectedItem()).isEqualTo(themeSelectedItem);
             assertThat(theme.comboBox().getItems()).containsExactlyElementsOf(themeItems);
-            assertThat(app.model.getEditedTheme()).isEqualTo(themeSelectedItem);
+            assertThat(app.model.getCurrentTheme()).isEqualTo(themeSelectedItem);
         }
 
         {

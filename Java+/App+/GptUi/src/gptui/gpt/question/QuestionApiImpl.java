@@ -51,7 +51,7 @@ class QuestionApiImpl implements QuestionApi, EventSource {
 
     @Override
     public void sendQuestion(InteractionType interactionType, Temperatures temperatures) {
-        var theme = model.getEditedTheme();
+        var theme = model.getCurrentTheme();
         var question = model.getEditedQuestion();
         var interactionId = storage.newInteractionId();
         Mdc.run(interactionId, () -> {
