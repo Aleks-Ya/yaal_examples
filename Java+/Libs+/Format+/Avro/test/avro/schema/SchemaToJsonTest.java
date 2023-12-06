@@ -14,18 +14,23 @@ class SchemaToJsonTest {
 
     @Test
     void toMinimizedJson() {
-        var expJson = "{\"type\":\"record\",\"name\":\"TheRecord\",\"fields\":[{\"name\":\"f1\",\"type\":\"string\"}]}";
-
-        var actJson1 = schema.toString();
-        assertThat(actJson1).isEqualTo(expJson);
-
-        var actJson2 = schema.toString(false);
-        assertThat(actJson2).isEqualTo(expJson);
+        var expJson = """
+                {"type":"record","name":"TheRecord","fields":[{"name":"f1","type":"string"}]}""";
+        assertThat(schema.toString()).isEqualTo(expJson);
+        assertThat(schema.toString(false)).isEqualTo(expJson);
     }
 
     @Test
     void toPrettyJson() {
-        var expJson = "{\n  \"type\" : \"record\",\n  \"name\" : \"TheRecord\",\n  \"fields\" : [ {\n    \"name\" : \"f1\",\n    \"type\" : \"string\"\n  } ]\n}";
+        var expJson = """
+                {
+                  "type" : "record",
+                  "name" : "TheRecord",
+                  "fields" : [ {
+                    "name" : "f1",
+                    "type" : "string"
+                  } ]
+                }""";
         var actJson = schema.toString(true);
         assertThat(actJson).isEqualTo(expJson);
     }

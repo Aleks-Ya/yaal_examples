@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
+import static util.ResourceUtil.resourceToFile;
 
 /**
  * Creating {@link Schema} with {@link SchemaBuilder}.
@@ -26,8 +26,8 @@ class SchemaBuilderTest {
                 .name("serverHash").type("MD5").noDefault()
                 .name("meta").type().nullable().map().values().bytesType().noDefault()
                 .endRecord();
-        var is = SchemaBuilderTest.class.getResourceAsStream("SchemaBuilderTest_buildSchema.avsc");
-        var exp = new Schema.Parser().parse(is);
+        var file = resourceToFile(getClass(), "SchemaBuilderTest_buildSchema.avsc");
+        var exp = new Schema.Parser().parse(file);
         assertThat(act).isEqualTo(exp);
     }
 
@@ -41,8 +41,8 @@ class SchemaBuilderTest {
                 .name("title").type().stringType().noDefault()
                 .name("population").type().unionOf().stringType().and().intType().endUnion().noDefault()
                 .endRecord();
-        var is = SchemaBuilderTest.class.getResourceAsStream("SchemaBuilderTest_buildSchemaUnion.avsc");
-        var exp = new Schema.Parser().parse(is);
+        var file = resourceToFile(getClass(), "SchemaBuilderTest_buildSchemaUnion.avsc");
+        var exp = new Schema.Parser().parse(file);
         assertThat(act).isEqualTo(exp);
     }
 }

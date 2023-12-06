@@ -11,7 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 
 
 class GenericRecordToJsonTest {
@@ -41,7 +41,7 @@ class GenericRecordToJsonTest {
         genericRecord.put(favoriteNumberField, 256);
 
         var actJson = convert(genericRecord);
-        var expJson = "{\"name\":\"John\",\"favorite_number\":256}";
-        assertThat(actJson).isEqualTo(expJson);
+        var expJson = "{name:'John',favorite_number:256}";
+        assertThatJson(actJson).isEqualTo(expJson);
     }
 }

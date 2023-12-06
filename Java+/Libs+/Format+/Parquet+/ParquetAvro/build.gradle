@@ -1,4 +1,5 @@
 dependencies {
     implementation "org.apache.parquet:parquet-avro:$parquetVersion", hadoop3CommonDep,
             "org.apache.hadoop:hadoop-mapreduce-client-core:$hadoop3Version"
+    testImplementation jsonUnitAssertJDep
 }
