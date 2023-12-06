@@ -1,0 +1,7 @@
+{
+   "type": "record",
+   "name": "BytesField", "namespace":"org.apache.avro.ipc",
+   "fields": [
+     {"name": "secret", "type": "bytes"}
+   ]
+ }

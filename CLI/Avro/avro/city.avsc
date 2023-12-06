@@ -1,0 +1,8 @@
+{
+   "type": "record",
+   "name": "City", "namespace":"org.apache.avro.ipc",
+   "fields": [
+     {"name": "title", "type": "string"},
+     {"name": "population", "type": "int"}
+   ]
+ }

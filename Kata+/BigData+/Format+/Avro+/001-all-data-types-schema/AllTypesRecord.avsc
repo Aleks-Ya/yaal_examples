@@ -1,0 +1,36 @@
+{
+  "type": "record",
+  "name": "AllTypesRecord",
+  "namespace": "com.example",
+  "fields": [
+    {"name": "nullField", "type": "null"},
+    {"name": "booleanField", "type": "boolean"},
+    {"name": "intField", "type": "int"},
+    {"name": "longField", "type": "long"},
+    {"name": "floatField", "type": "float"},
+    {"name": "doubleField", "type": "double"},
+    {"name": "bytesField", "type": "bytes"},
+    {"name": "stringField", "type": "string"},
+    {"name": "arrayField", "type": {"type": "array", "items": "string"}},
+    {"name": "mapField", "type": {"type": "map", "values": "long"}},
+    {"name": "enumField", "type": {
+      "type": "enum",
+      "name": "Suit",
+      "symbols": ["SPADES", "HEARTS", "DIAMONDS", "CLUBS"]
+    }},
+    {"name": "fixedField", "type": {
+      "type": "fixed",
+      "name": "MD5",
+      "size": 16
+    }},
+    {"name": "unionField", "type": ["null", "string", "int"]},
+    {"name": "recordField", "type": {
+      "type": "record",
+      "name": "NestedRecord",
+      "fields": [
+        {"name": "nestedIntField", "type": "int"},
+        {"name": "nestedStringField", "type": "string"}
+      ]
+    }}
+  ]
+}
