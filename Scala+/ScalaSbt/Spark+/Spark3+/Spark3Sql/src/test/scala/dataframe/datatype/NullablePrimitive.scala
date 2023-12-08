@@ -15,7 +15,7 @@ class NullablePrimitive extends AnyFlatSpec with Matchers {
   it should "use Row#getAs() for replacing nulls in a primitive column" in {
     import Factory.ss.sqlContext.implicits._
     val df = Factory.createDf(Map("name" -> StringType, "orders" -> IntegerType),
-      Row("USA", 10), Row("Canada", 20), Row("England", null))
+        Row("USA", 10), Row("Canada", 20), Row("England", null))
       .map(row => {
         val name = row.getString(row.fieldIndex("name"))
         val orders = row.getAs[Int](row.fieldIndex("orders"))
@@ -33,7 +33,7 @@ class NullablePrimitive extends AnyFlatSpec with Matchers {
   it should "use Row#get() for replacing nulls in a primitive column" in {
     import Factory.ss.sqlContext.implicits._
     val df = Factory.createDf(Map("name" -> StringType, "orders" -> IntegerType),
-      Row("USA", 10), Row("Canada", 20), Row("England", null))
+        Row("USA", 10), Row("Canada", 20), Row("England", null))
       .map(row => {
         val name = row.getString(row.fieldIndex("name"))
         val orders = row.get(row.fieldIndex("orders"))
@@ -53,7 +53,7 @@ class NullablePrimitive extends AnyFlatSpec with Matchers {
     val e = the[SparkException] thrownBy {
       import Factory.ss.sqlContext.implicits._
       Factory.createDf(Map("name" -> StringType, "orders" -> IntegerType),
-        Row("USA", 10), Row("Canada", 20), Row("England", null))
+          Row("USA", 10), Row("Canada", 20), Row("England", null))
         .map(row => {
           val name = row.getString(row.fieldIndex("name"))
           val orders = row.getInt(row.fieldIndex("orders"))
@@ -62,7 +62,8 @@ class NullablePrimitive extends AnyFlatSpec with Matchers {
         .show()
     }
     e.getMessage should include("Job aborted due to stage failure")
-    e.getCause shouldBe a[NullPointerException]
+    e.getCause shouldBe a[SparkException]
+    e.getCause.getMessage shouldBe "Value at index 1 is null."
   }
 
 }

@@ -55,8 +55,7 @@ object Factory {
       StructField("name", StringType) ::
         StructField("age", IntegerType) ::
         StructField("gender", StringType) :: Nil)
-    val rowRdd = ss.sparkContext.parallelize(Seq(Row("John", 25, "M"), Row("Peter", 35, "M"), Row("Mary", 20, "F")))
-    ss.sqlContext.createDataFrame(rowRdd, schema)
+    createDf(schema, Row("John", 25, "M"), Row("Peter", 35, "M"), Row("Mary", 20, "F"))
   }
 
   def createCityDs(cities: Seq[City]): Dataset[City] = {
@@ -66,6 +65,10 @@ object Factory {
 
   def createDf(fields: Map[String, DataType], rows: Row*): DataFrame = {
     val schema = StructType(fields.map { case (name, dataType) => StructField(name, dataType) }.toList)
+    ss.sqlContext.createDataFrame(ss.sparkContext.parallelize(rows), schema)
+  }
+
+  def createDf(schema: StructType, rows: Row*): DataFrame = {
     ss.sqlContext.createDataFrame(ss.sparkContext.parallelize(rows), schema)
   }
 

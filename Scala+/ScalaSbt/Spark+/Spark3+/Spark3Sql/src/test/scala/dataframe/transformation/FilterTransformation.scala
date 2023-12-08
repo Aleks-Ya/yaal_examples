@@ -1,10 +1,9 @@
 package dataframe.transformation
 
 import factory.Factory
-import factory.Factory.ss
 import org.apache.spark.sql.Row
-import org.apache.spark.sql.functions.{asc, col, desc}
-import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
+import org.apache.spark.sql.functions.{array_contains, col, lit, udf}
+import org.apache.spark.sql.types.{ArrayType, IntegerType, StringType}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -30,4 +29,43 @@ class FilterTransformation extends AnyFlatSpec with Matchers {
     )
   }
 
+  it should "filter by String equality (syntax 1)" in {
+    val df = Factory.peopleDf.filter("gender = 'M'")
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","age":25,"gender":"M"}""",
+      """{"name":"Peter","age":35,"gender":"M"}"""
+    )
+  }
+
+  it should "filter by String equality (syntax 2)" in {
+    val df = Factory.peopleDf.filter(col("gender") === "M")
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","age":25,"gender":"M"}""",
+      """{"name":"Peter","age":35,"gender":"M"}"""
+    )
+  }
+
+  it should "filter non null" in {
+    val df = Factory.createDf(Map("name" -> StringType, "age" -> IntegerType), Row("John", 30), Row("Mary", null))
+      .filter(col("age").isNotNull)
+    df.toJSON.collect() should contain only """{"name":"John","age":30}"""
+  }
+
+  it should "filter by array contains" in {
+    val df = Factory.createDf(Map("name" -> StringType, "orders" -> ArrayType(IntegerType)),
+      Row("USA", Array(10, 20)), Row("Canada", Array(30, 40)))
+    val df2 = df.filter(array_contains(col("orders"), 30))
+    df2.toJSON.collect() should contain only """{"name":"Canada","orders":[30,40]}"""
+  }
+
+  it should "filter by array contains a string element which contains a substring" in {
+    val arrayContainsSubstringUdf = udf((array: Seq[String], substr: String) =>
+      array != null && array.exists(str => str != null && str.contains(substr)))
+    val df = Factory.createDf(Map("country" -> StringType, "cities" -> ArrayType(StringType)),
+      Row("England", Array("London", "Birmingham")),
+      Row("France", Array("Paris", "Marseille", null)),
+      Row("Germany", null))
+    val df2 = df.filter(arrayContainsSubstringUdf(col("cities"), lit("ming")))
+    df2.toJSON.collect() should contain only """{"country":"England","cities":["London","Birmingham"]}"""
+  }
 }

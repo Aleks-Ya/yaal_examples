@@ -30,6 +30,7 @@ class WriteDsToParquet extends AnyFlatSpec with Matchers with BeforeAndAfterAll 
       .drop(col("rating"))
       .withColumn("age", col("age").cast("double"))
       .withColumn("city", lit("London"))
+      .as[Person]
 
     val expStrings = actDs.collect.map(person => person.name + "-" + person.age.toString + "-" + person.gender + "-" + person.rating)
     expStrings should contain allOf("John-30-true-0.95", "Mary-25-false-0.9")

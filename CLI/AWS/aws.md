@@ -19,20 +19,6 @@ Choose output format (`text`, `table`, `json`, etc.): `aws s3api --output table 
 Help: `aws help`
 Help for a command: `aws ec2 help`
 
-### lambda
-List Lambda Functions: `aws lambda list-functions`
-List versions of a Function: `aws lambda list-versions-by-function --function-name my-function`
-Upload ZIP to a Function:
-```
-aws lambda update-function-code --function-name my-function --zip-file fileb://my-function.zip --publish
-```
-Show Function configuration: `aws lambda get-function-configuration --function-name my-function`
-Change Function Handler:
-```
-aws lambda update-function-configuration --function-name my-function --handler example.Handler::handleRequest
-```
-Change Function Timeout in sec (900 sec is max): `aws lambda update-function-configuration --function-name my-function --timeout 900`
-
 ### OpenSearch
 Help: `aws opensearch help`
 List domains: `aws opensearch list-domain-names`
