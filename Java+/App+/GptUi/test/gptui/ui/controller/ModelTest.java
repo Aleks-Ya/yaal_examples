@@ -1,5 +1,6 @@
-package gptui.ui;
+package gptui.ui.controller;
 
+import gptui.ui.BaseGptUiTest;
 import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
 

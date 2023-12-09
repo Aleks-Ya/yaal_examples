@@ -14,7 +14,7 @@ import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.ComboBoxMatchers.hasItems;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
-class WindowAssertion {
+public class WindowAssertion {
     private BaseGptUiTest app;
     private int historySize;
     private boolean historyDeleteButtonDisabled;
@@ -31,7 +31,7 @@ class WindowAssertion {
     private final AnswerInfo longAnswer = new AnswerInfo();
     private final AnswerInfo gcpAnswer = new AnswerInfo();
 
-    class AnswerInfo {
+    public class AnswerInfo {
         private String text;
         private Color circleColor;
         private Integer temperatureText;
@@ -175,7 +175,7 @@ class WindowAssertion {
         return answerSpinnerTemperatures(50, 60, 70, 30);
     }
 
-    void assertApp() {
+    public void assertApp() {
         WaitForAsyncUtils.waitForFxEvents();
 
         {

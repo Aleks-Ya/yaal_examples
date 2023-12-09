@@ -1,5 +1,6 @@
-package gptui.ui;
+package gptui.ui.history;
 
+import gptui.ui.BaseGptUiTest;
 import org.junit.jupiter.api.Test;
 
 import static gptui.ui.TestingData.INTERACTION_1;

@@ -1,5 +1,6 @@
-package gptui.ui;
+package gptui.ui.answer;
 
+import gptui.ui.BaseGptUiTest;
 import org.junit.jupiter.api.Test;
 
 import static gptui.ui.TestingData.EXP_GCP_HTML_BODY_2;

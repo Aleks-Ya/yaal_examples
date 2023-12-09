@@ -1,13 +1,9 @@
-package gptui.ui;
+package gptui.ui.history;
 
+import gptui.ui.BaseGptUiTest;
 import org.junit.jupiter.api.Test;
 
 import static gptui.ui.TestingData.INTERACTION_1;
-import static gptui.ui.TestingData.INTERACTION_1_GCP_HTML;
-import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
-import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
-import static gptui.ui.TestingData.INTERACTION_1_QUESTION;
-import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_THEME;
 import static gptui.ui.TestingData.INTERACTION_2;
 import static gptui.ui.TestingData.INTERACTION_2_GCP_HTML;
@@ -19,7 +15,7 @@ import static gptui.ui.TestingData.INTERACTION_2_THEME;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 
-class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
+class StartNotEmptyStorageTest extends BaseGptUiTest {
 
     @Override
     public void init() {
@@ -28,7 +24,7 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
     }
 
     @Test
-    void shouldCleanAnswerWebViewIfChosenInteractionHasNoAnswer() {
+    void startWithNotEmptyStorage() {
         assertion()
                 .historySize(2)
                 .historyDeleteButtonDisabled(false)
@@ -45,28 +41,6 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
                 .longA().text(INTERACTION_2_LONG_HTML)
                 .gcpA().text(INTERACTION_2_GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, RED, GREEN)
-                .answerTextTemperatures(50, 60, 70, 80)
-                .answerSpinnerTemperatures(50, 60, 70, 80)
-                .assertApp();
-
-        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_1_THEME, INTERACTION_1_QUESTION));
-
-        assertion()
-                .historySize(2)
-                .historyDeleteButtonDisabled(false)
-                .historySelectedItem(INTERACTION_1)
-                .historyItems(INTERACTION_2, INTERACTION_1)
-                .themeSize(2)
-                .themeSelectedItem(INTERACTION_1_THEME)
-                .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
-                .themeFilterHistorySelected(false)
-                .questionText(INTERACTION_1_QUESTION)
-                .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .grammarA().text(INTERACTION_1_GRAMMAR_HTML)
-                .shortA().text(INTERACTION_1_SHORT_HTML)
-                .longA().text(INTERACTION_1_LONG_HTML)
-                .gcpA().text(INTERACTION_1_GCP_HTML)
-                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperatures(50, 60, 70, 80)
                 .answerSpinnerTemperatures(50, 60, 70, 80)
                 .assertApp();

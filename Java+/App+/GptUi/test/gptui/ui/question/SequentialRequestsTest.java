@@ -1,13 +1,15 @@
-package gptui.ui;
+package gptui.ui.question;
 
+import gptui.ui.BaseGptUiTest;
+import gptui.ui.TestingData;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static gptui.ui.TestingData.EXP_GCP_HTML_BODY_2;
-import static gptui.ui.TestingData.EXP_GRAMMAR_HTML_BODY_2;
-import static gptui.ui.TestingData.EXP_LONG_HTML_BODY_2;
-import static gptui.ui.TestingData.EXP_SHORT_HTML_BODY_2;
+import static gptui.ui.TestingData.EXP_GCP_HTML_BODY_1;
+import static gptui.ui.TestingData.EXP_GRAMMAR_HTML_BODY_1;
+import static gptui.ui.TestingData.EXP_LONG_HTML_BODY_1;
+import static gptui.ui.TestingData.EXP_SHORT_HTML_BODY_1;
 import static gptui.ui.TestingData.INTERACTION_1_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
@@ -25,13 +27,13 @@ import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.WHITE;
 
-class ParallelRequestsTest extends BaseGptUiTest {
+class SequentialRequestsTest extends BaseGptUiTest {
     @Test
     void shouldSendQuestion() {
         initialState();
         sendFirstQuestion();
         sendSecondQuestion();
-        firstRequestFinished();
+        choosePreviousInteraction();
     }
 
     private void initialState() {
@@ -82,10 +84,10 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .assertApp();
 
         gptApi.clear()
-                .putGrammarResponse(INTERACTION_1_GRAMMAR_HTML, ofMillis(6000))
-                .putShortResponse(INTERACTION_1_SHORT_HTML, ofMillis(6500))
-                .putLongResponse(INTERACTION_1_LONG_HTML, ofMillis(7000))
-                .putGcpResponse(INTERACTION_1_GCP_HTML, ofMillis(7500));
+                .putGrammarResponse(INTERACTION_1_GRAMMAR_HTML, ofMillis(1000))
+                .putShortResponse(INTERACTION_1_SHORT_HTML, ofMillis(1500))
+                .putLongResponse(INTERACTION_1_LONG_HTML, ofMillis(2000))
+                .putGcpResponse(INTERACTION_1_GCP_HTML, ofMillis(2500));
 
         clickOn(question().questionButton());
         assertion()
@@ -107,6 +109,36 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .answerTextTemperaturesDefault()
                 .answerSpinnerTemperaturesDefault()
                 .assertApp();
+
+        gptApi.waitUntilSent(4);
+        assertion()
+                .historySize(1)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().getFirst())
+                .historyItems(storage.readAllInteractions())
+                .themeSize(1)
+                .themeSelectedItem(INTERACTION_1_THEME)
+                .themeItems(INTERACTION_1_THEME)
+                .themeFilterHistorySelected(false)
+                .questionText(INTERACTION_1_QUESTION)
+                .modelEditedQuestion(INTERACTION_1_QUESTION)
+                .grammarA().text(EXP_GRAMMAR_HTML_BODY_1)
+                .shortA().text(EXP_SHORT_HTML_BODY_1)
+                .longA().text(EXP_LONG_HTML_BODY_1)
+                .gcpA().text(EXP_GCP_HTML_BODY_1)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
+                .assertApp();
+
+        clickOn(shortAnswer().copyButton());
+        verifyHtmlClipboardContent(EXP_SHORT_HTML_BODY_1);
+
+        clickOn(longAnswer().copyButton());
+        verifyHtmlClipboardContent(EXP_LONG_HTML_BODY_1);
+
+        clickOn(gcpAnswer().copyButton());
+        verifyHtmlClipboardContent(EXP_GCP_HTML_BODY_1);
     }
 
     private void sendSecondQuestion() {
@@ -125,11 +157,11 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .themeFilterHistorySelected(false)
                 .questionText(INTERACTION_2_QUESTION)
                 .modelEditedQuestion(INTERACTION_2_QUESTION)
-                .grammarA().text("")
-                .shortA().text("")
-                .longA().text("")
-                .gcpA().text("")
-                .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
+                .grammarA().text(EXP_GRAMMAR_HTML_BODY_1)
+                .shortA().text(EXP_SHORT_HTML_BODY_1)
+                .longA().text(EXP_LONG_HTML_BODY_1)
+                .gcpA().text(EXP_GCP_HTML_BODY_1)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperaturesDefault()
                 .answerSpinnerTemperaturesDefault()
                 .assertApp();
@@ -161,7 +193,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .assertApp();
 
 
-        gptApi.waitUntilSent(8);
+        gptApi.waitUntilSent(4);
         assertion()
                 .historySize(2)
                 .historyDeleteButtonDisabled(false)
@@ -169,22 +201,30 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .historyItems(storage.readAllInteractions())
                 .themeSize(2)
                 .themeSelectedItem(INTERACTION_2_THEME)
-                .themeItems(INTERACTION_1_THEME, INTERACTION_2_THEME)
+                .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(INTERACTION_2_QUESTION)
                 .modelEditedQuestion(INTERACTION_2_QUESTION)
-                .grammarA().text(EXP_GRAMMAR_HTML_BODY_2)
-                .shortA().text(EXP_SHORT_HTML_BODY_2)
-                .longA().text(EXP_LONG_HTML_BODY_2)
-                .gcpA().text(EXP_GCP_HTML_BODY_2)
+                .grammarA().text(TestingData.EXP_GRAMMAR_HTML_BODY_2)
+                .shortA().text(TestingData.EXP_SHORT_HTML_BODY_2)
+                .longA().text(TestingData.EXP_LONG_HTML_BODY_2)
+                .gcpA().text(TestingData.EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperaturesDefault()
                 .answerSpinnerTemperaturesDefault()
                 .assertApp();
+
+        clickOn(shortAnswer().copyButton());
+        verifyHtmlClipboardContent(TestingData.EXP_SHORT_HTML_BODY_2);
+
+        clickOn(longAnswer().copyButton());
+        verifyHtmlClipboardContent(TestingData.EXP_LONG_HTML_BODY_2);
+
+        clickOn(gcpAnswer().copyButton());
+        verifyHtmlClipboardContent(TestingData.EXP_GCP_HTML_BODY_2);
     }
 
-    private void firstRequestFinished() {
-        gptApi.waitUntilSent(8);
+    private void choosePreviousInteraction() {
         assertion()
                 .historySize(2)
                 .historyDeleteButtonDisabled(false)
@@ -192,17 +232,47 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .historyItems(storage.readAllInteractions())
                 .themeSize(2)
                 .themeSelectedItem(INTERACTION_2_THEME)
-                .themeItems(INTERACTION_1_THEME, INTERACTION_2_THEME)
+                .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(INTERACTION_2_QUESTION)
                 .modelEditedQuestion(INTERACTION_2_QUESTION)
-                .grammarA().text(EXP_GRAMMAR_HTML_BODY_2)
-                .shortA().text(EXP_SHORT_HTML_BODY_2)
-                .longA().text(EXP_LONG_HTML_BODY_2)
-                .gcpA().text(EXP_GCP_HTML_BODY_2)
+                .grammarA().text(TestingData.EXP_GRAMMAR_HTML_BODY_2)
+                .shortA().text(TestingData.EXP_SHORT_HTML_BODY_2)
+                .longA().text(TestingData.EXP_LONG_HTML_BODY_2)
+                .gcpA().text(TestingData.EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperaturesDefault()
                 .answerSpinnerTemperaturesDefault()
                 .assertApp();
+
+        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_1_THEME, INTERACTION_1_QUESTION));
+        assertion()
+                .historySize(2)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().get(1))
+                .historyItems(storage.readAllInteractions())
+                .themeSize(2)
+                .themeSelectedItem(INTERACTION_1_THEME)
+                .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
+                .themeFilterHistorySelected(false)
+                .questionText(INTERACTION_1_QUESTION)
+                .modelEditedQuestion(INTERACTION_1_QUESTION)
+                .grammarA().text(EXP_GRAMMAR_HTML_BODY_1)
+                .shortA().text(EXP_SHORT_HTML_BODY_1)
+                .longA().text(EXP_LONG_HTML_BODY_1)
+                .gcpA().text(EXP_GCP_HTML_BODY_1)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
+                .assertApp();
+
+        clickOn(shortAnswer().copyButton());
+        verifyHtmlClipboardContent(EXP_SHORT_HTML_BODY_1);
+
+        clickOn(longAnswer().copyButton());
+        verifyHtmlClipboardContent(EXP_LONG_HTML_BODY_1);
+
+        clickOn(gcpAnswer().copyButton());
+        verifyHtmlClipboardContent(EXP_GCP_HTML_BODY_1);
     }
 }

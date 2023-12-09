@@ -1,6 +1,7 @@
-package gptui.ui;
+package gptui.ui.question;
 
 import gptui.storage.Interaction;
+import gptui.ui.BaseGptUiTest;
 import org.junit.jupiter.api.Test;
 
 import static gptui.storage.AnswerState.FAIL;

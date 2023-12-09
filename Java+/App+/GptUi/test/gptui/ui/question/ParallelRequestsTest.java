@@ -1,13 +1,14 @@
-package gptui.ui;
+package gptui.ui.question;
 
+import gptui.ui.BaseGptUiTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static gptui.ui.TestingData.EXP_GCP_HTML_BODY_1;
-import static gptui.ui.TestingData.EXP_GRAMMAR_HTML_BODY_1;
-import static gptui.ui.TestingData.EXP_LONG_HTML_BODY_1;
-import static gptui.ui.TestingData.EXP_SHORT_HTML_BODY_1;
+import static gptui.ui.TestingData.EXP_GCP_HTML_BODY_2;
+import static gptui.ui.TestingData.EXP_GRAMMAR_HTML_BODY_2;
+import static gptui.ui.TestingData.EXP_LONG_HTML_BODY_2;
+import static gptui.ui.TestingData.EXP_SHORT_HTML_BODY_2;
 import static gptui.ui.TestingData.INTERACTION_1_GCP_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
 import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
@@ -25,13 +26,13 @@ import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.WHITE;
 
-class TemperatureTest extends BaseGptUiTest {
+class ParallelRequestsTest extends BaseGptUiTest {
     @Test
-    void temperature() {
+    void shouldSendQuestion() {
         initialState();
-        sendQuestionWithDefaultTemperatures();
-        sendQuestionWithOtherTemperatures();
-        choosePreviousInteraction();
+        sendFirstQuestion();
+        sendSecondQuestion();
+        firstRequestFinished();
     }
 
     private void initialState() {
@@ -56,7 +57,7 @@ class TemperatureTest extends BaseGptUiTest {
                 .assertApp();
     }
 
-    private void sendQuestionWithDefaultTemperatures() {
+    private void sendFirstQuestion() {
         clickOn(theme().comboBox());
         overWrite(INTERACTION_1_THEME);
         clickOn(question().textArea());
@@ -65,7 +66,7 @@ class TemperatureTest extends BaseGptUiTest {
                 .historySize(0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(null)
-                .historyItems(storage.readAllInteractions())
+                .historyItems(List.of())
                 .themeSize(0)
                 .themeSelectedItem(INTERACTION_1_THEME)
                 .themeItems()
@@ -82,10 +83,10 @@ class TemperatureTest extends BaseGptUiTest {
                 .assertApp();
 
         gptApi.clear()
-                .putGrammarResponse(INTERACTION_1_GRAMMAR_HTML, ofMillis(500))
-                .putShortResponse(INTERACTION_1_SHORT_HTML, ofMillis(500))
-                .putLongResponse(INTERACTION_1_LONG_HTML, ofMillis(500))
-                .putGcpResponse(INTERACTION_1_GCP_HTML, ofMillis(500));
+                .putGrammarResponse(INTERACTION_1_GRAMMAR_HTML, ofMillis(6000))
+                .putShortResponse(INTERACTION_1_SHORT_HTML, ofMillis(6500))
+                .putLongResponse(INTERACTION_1_LONG_HTML, ofMillis(7000))
+                .putGcpResponse(INTERACTION_1_GCP_HTML, ofMillis(7500));
 
         clickOn(question().questionButton());
         assertion()
@@ -107,48 +108,13 @@ class TemperatureTest extends BaseGptUiTest {
                 .answerTextTemperaturesDefault()
                 .answerSpinnerTemperaturesDefault()
                 .assertApp();
-
-        gptApi.waitUntilSent(4);
-        assertion()
-                .historySize(1)
-                .historyDeleteButtonDisabled(false)
-                .historySelectedItem(storage.readAllInteractions().getFirst())
-                .historyItems(storage.readAllInteractions())
-                .themeSize(1)
-                .themeSelectedItem(INTERACTION_1_THEME)
-                .themeItems(INTERACTION_1_THEME)
-                .themeFilterHistorySelected(false)
-                .questionText(INTERACTION_1_QUESTION)
-                .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .grammarA().text(EXP_GRAMMAR_HTML_BODY_1)
-                .shortA().text(EXP_SHORT_HTML_BODY_1)
-                .longA().text(EXP_LONG_HTML_BODY_1)
-                .gcpA().text(EXP_GCP_HTML_BODY_1)
-                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTextTemperaturesDefault()
-                .answerSpinnerTemperaturesDefault()
-                .assertApp();
-
-        clickOn(shortAnswer().copyButton());
-        verifyHtmlClipboardContent(EXP_SHORT_HTML_BODY_1);
-
-        clickOn(longAnswer().copyButton());
-        verifyHtmlClipboardContent(EXP_LONG_HTML_BODY_1);
-
-        clickOn(gcpAnswer().copyButton());
-        verifyHtmlClipboardContent(EXP_GCP_HTML_BODY_1);
     }
 
-    private void sendQuestionWithOtherTemperatures() {
+    private void sendSecondQuestion() {
         clickOn(theme().comboBox());
         overWrite(INTERACTION_2_THEME);
         clickOn(question().textArea());
         overWrite(INTERACTION_2_QUESTION);
-        clickOn(grammarAnswer().temperatureIncrementButton());
-        clickOn(shortAnswer().temperatureIncrementButton());
-        clickOn(longAnswer().temperatureDecrementButton());
-        clickOn(longAnswer().temperatureDecrementButton());
-        clickOn(gcpAnswer().temperatureDecrementButton());
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
@@ -160,20 +126,20 @@ class TemperatureTest extends BaseGptUiTest {
                 .themeFilterHistorySelected(false)
                 .questionText(INTERACTION_2_QUESTION)
                 .modelEditedQuestion(INTERACTION_2_QUESTION)
-                .grammarA().text(EXP_GRAMMAR_HTML_BODY_1)
-                .shortA().text(EXP_SHORT_HTML_BODY_1)
-                .longA().text(EXP_LONG_HTML_BODY_1)
-                .gcpA().text(EXP_GCP_HTML_BODY_1)
-                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .grammarA().text("")
+                .shortA().text("")
+                .longA().text("")
+                .gcpA().text("")
+                .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
                 .answerTextTemperaturesDefault()
-                .answerSpinnerTemperatures(55, 65, 60, 25)
+                .answerSpinnerTemperaturesDefault()
                 .assertApp();
 
         gptApi.clear()
-                .putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ofMillis(500))
-                .putShortResponse(INTERACTION_2_SHORT_HTML, ofMillis(500))
-                .putLongResponse(INTERACTION_2_LONG_HTML, ofMillis(500))
-                .putGcpResponse(INTERACTION_2_GCP_HTML, ofMillis(500));
+                .putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ofMillis(1000))
+                .putShortResponse(INTERACTION_2_SHORT_HTML, ofMillis(1500))
+                .putLongResponse(INTERACTION_2_LONG_HTML, ofMillis(2000))
+                .putGcpResponse(INTERACTION_2_GCP_HTML, ofMillis(2500));
         clickOn(question().questionButton());
         assertion()
                 .historySize(2)
@@ -191,12 +157,12 @@ class TemperatureTest extends BaseGptUiTest {
                 .longA().text("")
                 .gcpA().text("")
                 .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
-                .answerTextTemperatures(55, 65, 60, 25)
-                .answerSpinnerTemperatures(55, 65, 60, 25)
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
                 .assertApp();
 
 
-        gptApi.waitUntilSent(4);
+        gptApi.waitUntilSent(8);
         assertion()
                 .historySize(2)
                 .historyDeleteButtonDisabled(false)
@@ -204,78 +170,40 @@ class TemperatureTest extends BaseGptUiTest {
                 .historyItems(storage.readAllInteractions())
                 .themeSize(2)
                 .themeSelectedItem(INTERACTION_2_THEME)
-                .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
+                .themeItems(INTERACTION_1_THEME, INTERACTION_2_THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(INTERACTION_2_QUESTION)
                 .modelEditedQuestion(INTERACTION_2_QUESTION)
-                .grammarA().text(TestingData.EXP_GRAMMAR_HTML_BODY_2)
-                .shortA().text(TestingData.EXP_SHORT_HTML_BODY_2)
-                .longA().text(TestingData.EXP_LONG_HTML_BODY_2)
-                .gcpA().text(TestingData.EXP_GCP_HTML_BODY_2)
-                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTextTemperatures(55, 65, 60, 25)
-                .answerSpinnerTemperatures(55, 65, 60, 25)
-                .assertApp();
-
-        clickOn(shortAnswer().copyButton());
-        verifyHtmlClipboardContent(TestingData.EXP_SHORT_HTML_BODY_2);
-
-        clickOn(longAnswer().copyButton());
-        verifyHtmlClipboardContent(TestingData.EXP_LONG_HTML_BODY_2);
-
-        clickOn(gcpAnswer().copyButton());
-        verifyHtmlClipboardContent(TestingData.EXP_GCP_HTML_BODY_2);
-    }
-
-    private void choosePreviousInteraction() {
-        assertion()
-                .historySize(2)
-                .historyDeleteButtonDisabled(false)
-                .historySelectedItem(storage.readAllInteractions().getFirst())
-                .historyItems(storage.readAllInteractions())
-                .themeSize(2)
-                .themeSelectedItem(INTERACTION_2_THEME)
-                .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
-                .themeFilterHistorySelected(false)
-                .questionText(INTERACTION_2_QUESTION)
-                .modelEditedQuestion(INTERACTION_2_QUESTION)
-                .grammarA().text(TestingData.EXP_GRAMMAR_HTML_BODY_2)
-                .shortA().text(TestingData.EXP_SHORT_HTML_BODY_2)
-                .longA().text(TestingData.EXP_LONG_HTML_BODY_2)
-                .gcpA().text(TestingData.EXP_GCP_HTML_BODY_2)
-                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTextTemperatures(55, 65, 60, 25)
-                .answerSpinnerTemperatures(55, 65, 60, 25)
-                .assertApp();
-
-        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_1_THEME, INTERACTION_1_QUESTION));
-        assertion()
-                .historySize(2)
-                .historyDeleteButtonDisabled(false)
-                .historySelectedItem(storage.readAllInteractions().get(1))
-                .historyItems(storage.readAllInteractions())
-                .themeSize(2)
-                .themeSelectedItem(INTERACTION_1_THEME)
-                .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
-                .themeFilterHistorySelected(false)
-                .questionText(INTERACTION_1_QUESTION)
-                .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .grammarA().text(EXP_GRAMMAR_HTML_BODY_1)
-                .shortA().text(EXP_SHORT_HTML_BODY_1)
-                .longA().text(EXP_LONG_HTML_BODY_1)
-                .gcpA().text(EXP_GCP_HTML_BODY_1)
+                .grammarA().text(EXP_GRAMMAR_HTML_BODY_2)
+                .shortA().text(EXP_SHORT_HTML_BODY_2)
+                .longA().text(EXP_LONG_HTML_BODY_2)
+                .gcpA().text(EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperaturesDefault()
-                .answerSpinnerTemperatures(55, 65, 60, 25)
+                .answerSpinnerTemperaturesDefault()
                 .assertApp();
+    }
 
-        clickOn(shortAnswer().copyButton());
-        verifyHtmlClipboardContent(EXP_SHORT_HTML_BODY_1);
-
-        clickOn(longAnswer().copyButton());
-        verifyHtmlClipboardContent(EXP_LONG_HTML_BODY_1);
-
-        clickOn(gcpAnswer().copyButton());
-        verifyHtmlClipboardContent(EXP_GCP_HTML_BODY_1);
+    private void firstRequestFinished() {
+        gptApi.waitUntilSent(8);
+        assertion()
+                .historySize(2)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().getFirst())
+                .historyItems(storage.readAllInteractions())
+                .themeSize(2)
+                .themeSelectedItem(INTERACTION_2_THEME)
+                .themeItems(INTERACTION_1_THEME, INTERACTION_2_THEME)
+                .themeFilterHistorySelected(false)
+                .questionText(INTERACTION_2_QUESTION)
+                .modelEditedQuestion(INTERACTION_2_QUESTION)
+                .grammarA().text(EXP_GRAMMAR_HTML_BODY_2)
+                .shortA().text(EXP_SHORT_HTML_BODY_2)
+                .longA().text(EXP_LONG_HTML_BODY_2)
+                .gcpA().text(EXP_GCP_HTML_BODY_2)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
+                .assertApp();
     }
 }

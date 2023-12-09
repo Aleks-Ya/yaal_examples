@@ -26,7 +26,7 @@ import static javafx.scene.input.KeyCode.A;
 import static javafx.scene.input.KeyCode.CONTROL;
 import static org.assertj.core.api.Assertions.assertThat;
 
-abstract class BaseGptUiTest extends ApplicationTest {
+public abstract class BaseGptUiTest extends ApplicationTest {
     private final GptUiApplication app = new GptUiApplication(Modules.override(new RootModule()).with(new TestRootModule()));
     protected final Model model = app.getGuiceContext().getInstance(Model.class);
     protected final MockGptApi gptApi = app.getGuiceContext().getInstance(MockGptApi.class);
@@ -105,59 +105,59 @@ abstract class BaseGptUiTest extends ApplicationTest {
     }
 
     protected class HistoryInfo {
-        protected Label label() {
+        public Label label() {
             return lookup("#historyLabel").queryAs(Label.class);
         }
 
-        protected ComboBox<Interaction> comboBox() {
+        public ComboBox<Interaction> comboBox() {
             return lookup("#historyComboBox").queryComboBox();
         }
 
-        protected Button deleteButton() {
+        public Button deleteButton() {
             return lookup("#historyDeleteButton").queryButton();
         }
     }
 
     protected class ThemeInfo {
-        protected Label label() {
+        public Label label() {
             return lookup("#themeLabel").queryAs(Label.class);
         }
 
-        protected ComboBox<String> comboBox() {
+        public ComboBox<String> comboBox() {
             return lookup("#themeComboBox").queryComboBox();
         }
 
-        protected CheckBox filterHistoryCheckBox() {
+        public CheckBox filterHistoryCheckBox() {
             return lookup("#filterHistoryCheckBox").queryAs(CheckBox.class);
         }
     }
 
     protected class QuestionInfo {
-        protected Label label() {
+        public Label label() {
             return lookup("#questionLabel").queryAs(Label.class);
         }
 
-        protected TextArea textArea() {
+        public TextArea textArea() {
             return lookup("#questionTextArea").queryAs(TextArea.class);
         }
 
-        protected Button questionButton() {
+        public Button questionButton() {
             return lookup("#questionButton").queryButton();
         }
 
-        protected Button definitionButton() {
+        public Button definitionButton() {
             return lookup("#definitionButton").queryButton();
         }
 
-        protected Button grammarButton() {
+        public Button grammarButton() {
             return lookup("#grammarButton").queryButton();
         }
 
-        protected Button factButton() {
+        public Button factButton() {
             return lookup("#factButton").queryButton();
         }
 
-        protected Button regenerateButton() {
+        public Button regenerateButton() {
             return lookup("#regenerateButton").queryButton();
         }
     }
@@ -165,43 +165,43 @@ abstract class BaseGptUiTest extends ApplicationTest {
     protected class AnswerInfo {
         private final String tag;
 
-        protected AnswerInfo(String tag) {
+        public AnswerInfo(String tag) {
             this.tag = tag;
         }
 
-        protected Label label() {
+        public Label label() {
             return lookup(tag + " #answerLabel").queryAs(Label.class);
         }
 
-        protected Button copyButton() {
+        public Button copyButton() {
             return lookup(tag + " #copyButton").queryButton();
         }
 
-        protected Button regenerateButton() {
+        public Button regenerateButton() {
             return lookup(tag + " #regenerateButton").queryButton();
         }
 
-        protected WebView webView() {
+        public WebView webView() {
             return lookup(tag + " #webView").queryAs(WebView.class);
         }
 
-        protected Circle circle() {
+        public Circle circle() {
             return lookup(tag + " #statusCircle").queryAs(Circle.class);
         }
 
-        protected Text temperatureText() {
+        public Text temperatureText() {
             return lookup(tag + " #temperatureText").queryText();
         }
 
-        protected Spinner<Integer> temperatureSpinner() {
+        public Spinner<Integer> temperatureSpinner() {
             return lookup(tag + " #temperatureSpinner").query();
         }
 
-        protected Node temperatureIncrementButton() {
+        public Node temperatureIncrementButton() {
             return lookup(tag + " #temperatureSpinner .increment-arrow-button").query();
         }
 
-        protected Node temperatureDecrementButton() {
+        public Node temperatureDecrementButton() {
             return lookup(tag + " #temperatureSpinner .decrement-arrow-button").query();
         }
     }

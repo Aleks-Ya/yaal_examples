@@ -1,5 +1,7 @@
-package gptui.ui;
+package gptui.ui.answer;
 
+import gptui.ui.BaseGptUiTest;
+import gptui.ui.TestingData;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -25,12 +27,12 @@ import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.WHITE;
 
-class SequentialRequestsTest extends BaseGptUiTest {
+class TemperatureTest extends BaseGptUiTest {
     @Test
-    void shouldSendQuestion() {
+    void temperature() {
         initialState();
-        sendFirstQuestion();
-        sendSecondQuestion();
+        sendQuestionWithDefaultTemperatures();
+        sendQuestionWithOtherTemperatures();
         choosePreviousInteraction();
     }
 
@@ -56,7 +58,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .assertApp();
     }
 
-    private void sendFirstQuestion() {
+    private void sendQuestionWithDefaultTemperatures() {
         clickOn(theme().comboBox());
         overWrite(INTERACTION_1_THEME);
         clickOn(question().textArea());
@@ -65,7 +67,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .historySize(0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(null)
-                .historyItems(List.of())
+                .historyItems(storage.readAllInteractions())
                 .themeSize(0)
                 .themeSelectedItem(INTERACTION_1_THEME)
                 .themeItems()
@@ -82,10 +84,10 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .assertApp();
 
         gptApi.clear()
-                .putGrammarResponse(INTERACTION_1_GRAMMAR_HTML, ofMillis(1000))
-                .putShortResponse(INTERACTION_1_SHORT_HTML, ofMillis(1500))
-                .putLongResponse(INTERACTION_1_LONG_HTML, ofMillis(2000))
-                .putGcpResponse(INTERACTION_1_GCP_HTML, ofMillis(2500));
+                .putGrammarResponse(INTERACTION_1_GRAMMAR_HTML, ofMillis(500))
+                .putShortResponse(INTERACTION_1_SHORT_HTML, ofMillis(500))
+                .putLongResponse(INTERACTION_1_LONG_HTML, ofMillis(500))
+                .putGcpResponse(INTERACTION_1_GCP_HTML, ofMillis(500));
 
         clickOn(question().questionButton());
         assertion()
@@ -139,11 +141,16 @@ class SequentialRequestsTest extends BaseGptUiTest {
         verifyHtmlClipboardContent(EXP_GCP_HTML_BODY_1);
     }
 
-    private void sendSecondQuestion() {
+    private void sendQuestionWithOtherTemperatures() {
         clickOn(theme().comboBox());
         overWrite(INTERACTION_2_THEME);
         clickOn(question().textArea());
         overWrite(INTERACTION_2_QUESTION);
+        clickOn(grammarAnswer().temperatureIncrementButton());
+        clickOn(shortAnswer().temperatureIncrementButton());
+        clickOn(longAnswer().temperatureDecrementButton());
+        clickOn(longAnswer().temperatureDecrementButton());
+        clickOn(gcpAnswer().temperatureDecrementButton());
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
@@ -161,14 +168,14 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .gcpA().text(EXP_GCP_HTML_BODY_1)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperaturesDefault()
-                .answerSpinnerTemperaturesDefault()
+                .answerSpinnerTemperatures(55, 65, 60, 25)
                 .assertApp();
 
         gptApi.clear()
-                .putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ofMillis(1000))
-                .putShortResponse(INTERACTION_2_SHORT_HTML, ofMillis(1500))
-                .putLongResponse(INTERACTION_2_LONG_HTML, ofMillis(2000))
-                .putGcpResponse(INTERACTION_2_GCP_HTML, ofMillis(2500));
+                .putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ofMillis(500))
+                .putShortResponse(INTERACTION_2_SHORT_HTML, ofMillis(500))
+                .putLongResponse(INTERACTION_2_LONG_HTML, ofMillis(500))
+                .putGcpResponse(INTERACTION_2_GCP_HTML, ofMillis(500));
         clickOn(question().questionButton());
         assertion()
                 .historySize(2)
@@ -186,8 +193,8 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .longA().text("")
                 .gcpA().text("")
                 .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
-                .answerTextTemperaturesDefault()
-                .answerSpinnerTemperaturesDefault()
+                .answerTextTemperatures(55, 65, 60, 25)
+                .answerSpinnerTemperatures(55, 65, 60, 25)
                 .assertApp();
 
 
@@ -208,8 +215,8 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .longA().text(TestingData.EXP_LONG_HTML_BODY_2)
                 .gcpA().text(TestingData.EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTextTemperaturesDefault()
-                .answerSpinnerTemperaturesDefault()
+                .answerTextTemperatures(55, 65, 60, 25)
+                .answerSpinnerTemperatures(55, 65, 60, 25)
                 .assertApp();
 
         clickOn(shortAnswer().copyButton());
@@ -239,8 +246,8 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .longA().text(TestingData.EXP_LONG_HTML_BODY_2)
                 .gcpA().text(TestingData.EXP_GCP_HTML_BODY_2)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
-                .answerTextTemperaturesDefault()
-                .answerSpinnerTemperaturesDefault()
+                .answerTextTemperatures(55, 65, 60, 25)
+                .answerSpinnerTemperatures(55, 65, 60, 25)
                 .assertApp();
 
         clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", INTERACTION_1_THEME, INTERACTION_1_QUESTION));
@@ -261,7 +268,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .gcpA().text(EXP_GCP_HTML_BODY_1)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperaturesDefault()
-                .answerSpinnerTemperaturesDefault()
+                .answerSpinnerTemperatures(55, 65, 60, 25)
                 .assertApp();
 
         clickOn(shortAnswer().copyButton());

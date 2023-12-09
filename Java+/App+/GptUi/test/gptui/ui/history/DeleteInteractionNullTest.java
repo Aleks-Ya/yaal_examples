@@ -1,12 +1,13 @@
-package gptui.ui;
+package gptui.ui.history;
 
+import gptui.ui.BaseGptUiTest;
 import org.junit.jupiter.api.Test;
 
 import static javafx.scene.paint.Color.WHITE;
 
-class StartEmptyStorageTest extends BaseGptUiTest {
+class DeleteInteractionNullTest extends BaseGptUiTest {
     @Test
-    void startWithEmptyStorage() {
+    void currentInteractionIsNull() {
         assertion()
                 .historySize(0)
                 .historyDeleteButtonDisabled(true)
