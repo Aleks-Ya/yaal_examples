@@ -23,6 +23,7 @@ class WindowAssertion {
     private int themeSize;
     private String themeSelectedItem;
     private List<String> themeItems;
+    private Boolean filterHistorySelected;
     private String questionText;
     private String modelEditedQuestion;
     private final AnswerInfo grammarAnswer = new AnswerInfo();
@@ -100,6 +101,11 @@ class WindowAssertion {
 
     public WindowAssertion themeItems(String... themeItems) {
         this.themeItems = Arrays.asList(themeItems);
+        return this;
+    }
+
+    public WindowAssertion themeFilterHistorySelected(Boolean filterHistorySelected) {
+        this.filterHistorySelected = filterHistorySelected;
         return this;
     }
 
@@ -201,6 +207,7 @@ class WindowAssertion {
             verifyThat(theme.comboBox(), hasItems(themeSize));
             assertThat(theme.comboBox().getSelectionModel().getSelectedItem()).isEqualTo(themeSelectedItem);
             assertThat(theme.comboBox().getItems()).containsExactlyElementsOf(themeItems);
+            assertThat(theme.filterHistoryCheckBox().isSelected()).isEqualTo(filterHistorySelected);
             assertThat(app.model.getCurrentTheme()).isEqualTo(themeSelectedItem);
         }
 

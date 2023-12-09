@@ -32,6 +32,7 @@ class StartNotEmptyStorageTest extends BaseGptUiTest {
                 .themeSize(2)
                 .themeSelectedItem(INTERACTION_2_THEME)
                 .themeItems(INTERACTION_2_THEME, INTERACTION_1_THEME)
+                .themeFilterHistorySelected(false)
                 .questionText(INTERACTION_2_QUESTION)
                 .modelEditedQuestion(INTERACTION_2_QUESTION)
                 .grammarA().text(INTERACTION_2_GRAMMAR_HTML)

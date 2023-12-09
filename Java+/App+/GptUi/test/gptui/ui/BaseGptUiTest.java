@@ -7,6 +7,7 @@ import gptui.storage.Interaction;
 import gptui.ui.controller.ClipboardHelper;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -124,6 +125,10 @@ abstract class BaseGptUiTest extends ApplicationTest {
 
         protected ComboBox<String> comboBox() {
             return lookup("#themeComboBox").queryComboBox();
+        }
+
+        protected CheckBox filterHistoryCheckBox() {
+            return lookup("#filterHistoryCheckBox").queryAs(CheckBox.class);
         }
     }
 
