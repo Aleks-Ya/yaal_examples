@@ -16,6 +16,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import org.assertj.core.api.SoftAssertions;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
@@ -84,6 +85,11 @@ public abstract class BaseGptUiTest extends ApplicationTest {
 
     protected void verifyWebViewBody(WebView webView, String expContent) {
         interact(() -> assertThat(extractWebViewContent(webView))
+                .isEqualTo("<html><head></head><body>" + expContent + "</body></html>"));
+    }
+
+    protected void verifyWebViewBody(SoftAssertions soft, WebView webView, String expContent) {
+        interact(() -> soft.assertThat(extractWebViewContent(webView))
                 .isEqualTo("<html><head></head><body>" + expContent + "</body></html>"));
     }
 

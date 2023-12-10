@@ -63,6 +63,7 @@ public class AnswerController extends BaseController {
     private InteractionStorage storage;
     @Inject
     private QuestionApi questionApi;
+    private String currentWebViewContent = "";
 
     @Override
     protected void initializeChild() {
@@ -118,7 +119,10 @@ public class AnswerController extends BaseController {
                     .ifPresentOrElse(answerOpt -> {
                         var html = answerOpt.isPresent() ? answerOpt.get().answerHtml() : "";
                         var state = answerOpt.isPresent() ? answerOpt.get().answerState() : NEW;
-                        webView.getEngine().loadContent(html);
+                        if (!currentWebViewContent.equals(html)) {
+                            webView.getEngine().loadContent(html);
+                            currentWebViewContent = html;
+                        }
                         statusCircle.setFill(answerStateToColor(state));
                         var temperature = answerOpt.map(answer -> answer.temperature() + "°").orElse("");
                         temperatureText.setText(temperature);
