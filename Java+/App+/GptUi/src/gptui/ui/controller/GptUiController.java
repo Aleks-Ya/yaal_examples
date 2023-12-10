@@ -49,4 +49,9 @@ public class GptUiController extends BaseController {
         model.setCurrentTheme(!storage.getThemes().isEmpty() ? storage.getThemes().getFirst() : null);
         model.fireInteractionChosenFromHistory(this);
     }
+
+    @Override
+    public String getName() {
+        return getClass().getSimpleName();
+    }
 }

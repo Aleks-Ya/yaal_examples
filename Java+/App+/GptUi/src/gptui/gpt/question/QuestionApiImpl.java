@@ -142,4 +142,9 @@ class QuestionApiImpl implements QuestionApi, EventSource {
                 interaction.withAnswer(update.apply(interaction.getAnswer(answerType).orElseThrow())));
         Platform.runLater(() -> model.fireModelChanged(this));
     }
+
+    @Override
+    public String getName() {
+        return QuestionApi.class.getSimpleName();
+    }
 }

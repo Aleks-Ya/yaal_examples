@@ -29,6 +29,7 @@ import static gptui.storage.AnswerType.GCP;
 import static gptui.storage.AnswerType.GRAMMAR;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.SHORT;
+import static java.lang.String.format;
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
@@ -147,5 +148,10 @@ public class AnswerController extends BaseController {
             case SUCCESS -> GREEN;
             case FAIL -> RED;
         };
+    }
+
+    @Override
+    public String getName() {
+        return format("%s(%s)", getClass().getSimpleName(), answerType);
     }
 }

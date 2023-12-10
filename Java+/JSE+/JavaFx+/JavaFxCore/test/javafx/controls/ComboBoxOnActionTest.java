@@ -41,7 +41,7 @@ class ComboBoxOnActionTest extends ApplicationTest {
     }
 
     @Test
-    void shouldContainComboBox() throws ExecutionException, InterruptedException {
+    void test() throws ExecutionException, InterruptedException {
         ComboBox<String> comboBox = lookup(".combo-box").queryComboBox();
         itemsProperty.bindBidirectional(comboBox.itemsProperty());
         selectionModelProperty.bindBidirectional(comboBox.selectionModelProperty());

@@ -119,5 +119,10 @@ public class QuestionController extends BaseController {
             questionApi.sendQuestion(QUESTION, model.getTemperatures());
         });
     }
+
+    @Override
+    public String getName() {
+        return getClass().getSimpleName();
+    }
 }
 

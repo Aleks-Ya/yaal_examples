@@ -34,21 +34,24 @@ public class Model {
     public void fireModelChanged(EventSource source) {
         var selfListeners = getSelfListeners(source);
         var notSelfListeners = getNotSelfListeners(source);
-        log.debug("Firing model changed to {} listeners (skip {} self-listeners)...", notSelfListeners.size(), selfListeners.size());
+        log.debug("Firing model changed to {} listeners (skip {} self-listeners) by {}...",
+                notSelfListeners.size(), selfListeners.size(), source.getName());
         notSelfListeners.forEach(listener -> listener.modelChanged(this));
     }
 
     public void fireStageShowed(EventSource source) {
         var selfListeners = getSelfListeners(source);
         var notSelfListeners = getNotSelfListeners(source);
-        log.debug("Firing stage was showed to {} listeners (skip {} self-listeners)...", notSelfListeners.size(), selfListeners.size());
+        log.debug("Firing stage was showed to {} listeners (skip {} self-listeners) by {}...",
+                notSelfListeners.size(), selfListeners.size(), source.getName());
         notSelfListeners.forEach(listener -> listener.stageWasShowed(this, source));
     }
 
     public void fireInteractionChosenFromHistory(EventSource source) {
         var selfListeners = getSelfListeners(source);
         var notSelfListeners = getNotSelfListeners(source);
-        log.debug("Firing interaction chosen from history to {} listeners (skip {} self-listeners)...", notSelfListeners.size(), selfListeners.size());
+        log.debug("Firing interaction chosen from history to {} listeners (skip {} self-listeners) by {}...",
+                notSelfListeners.size(), selfListeners.size(), source.getName());
         notSelfListeners.forEach(listener -> listener.interactionChosenFromHistory(this));
     }
 
@@ -114,6 +117,7 @@ public class Model {
     }
 
     public void setThemeFilterHistory(Boolean themeFilterHistory) {
+        log.trace("setThemeFilterHistory: {}", themeFilterHistory);
         this.themeFilterHistory = themeFilterHistory;
     }
 }

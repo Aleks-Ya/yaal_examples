@@ -31,6 +31,7 @@ public class ThemeController extends BaseController {
 
     @FXML
     void themeComboBoxKeyReleased(KeyEvent ignoredEvent) {
+        log.trace("themeComboBoxKeyReleased");
         model.setCurrentTheme(themeComboBox.getEditor().getText());
     }
 
@@ -77,6 +78,7 @@ public class ThemeController extends BaseController {
 
     @FXML
     void themeFilterHistoryCheckBoxClicked(ActionEvent ignore) {
+        log.trace("FilterHistoryCheckBox was clicked");
         if (filterHistoryCheckBox.isSelected() != model.getThemeFilterHistory()) {
             model.setThemeFilterHistory(filterHistoryCheckBox.isSelected());
             log.debug("ThemeFilterHistoryCheckBox is set to {}", model.getThemeFilterHistory());
@@ -95,5 +97,10 @@ public class ThemeController extends BaseController {
 
     private void setLabel(int size) {
         themeLabel.setText(String.format("Theme (%d):", size));
+    }
+
+    @Override
+    public String getName() {
+        return getClass().getSimpleName();
     }
 }

@@ -12,7 +12,10 @@ import java.util.concurrent.ExecutionException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.control.ComboBoxMatchers.*;
+import static org.testfx.matcher.control.ComboBoxMatchers.containsExactlyItems;
+import static org.testfx.matcher.control.ComboBoxMatchers.containsExactlyItemsInOrder;
+import static org.testfx.matcher.control.ComboBoxMatchers.containsItems;
+import static org.testfx.matcher.control.ComboBoxMatchers.hasItems;
 import static org.testfx.util.WaitForAsyncUtils.asyncFx;
 
 class ComboBoxTest extends ApplicationTest {
@@ -35,6 +38,34 @@ class ComboBoxTest extends ApplicationTest {
         setItems(comboBox);
         selectionModeSelect(comboBox);
         setValue(comboBox);
+    }
+
+    @Test
+    void clickComboBoxNarrow() {
+        ComboBox<String> comboBox = lookup(".combo-box").queryComboBox();
+        comboBox.setItems(FXCollections.observableArrayList(ITEM_A, ITEM_B, ITEM_C));
+        assertThat(comboBox.getSelectionModel().getSelectedItem()).isNull();
+        assertThat(comboBox.isShowing()).isFalse();
+        clickOn(".combo-box .arrow-button");
+        assertThat(comboBox.getSelectionModel().getSelectedItem()).isNull();
+        assertThat(comboBox.isShowing()).isTrue();
+        clickOn(ITEM_B);
+        assertThat(comboBox.isShowing()).isFalse();
+        assertThat(comboBox.getSelectionModel().getSelectedItem()).isEqualTo(ITEM_B);
+    }
+
+    @Test
+    void clickComboBoxNarrowLookup() {
+        ComboBox<String> comboBox = lookup(".combo-box").queryComboBox();
+        comboBox.setItems(FXCollections.observableArrayList(ITEM_A, ITEM_B, ITEM_C));
+        assertThat(comboBox.getSelectionModel().getSelectedItem()).isNull();
+        assertThat(comboBox.isShowing()).isFalse();
+        clickOn(comboBox.lookup(".arrow-button"));
+        assertThat(comboBox.getSelectionModel().getSelectedItem()).isNull();
+        assertThat(comboBox.isShowing()).isTrue();
+        clickOn(ITEM_B);
+        assertThat(comboBox.isShowing()).isFalse();
+        assertThat(comboBox.getSelectionModel().getSelectedItem()).isEqualTo(ITEM_B);
     }
 
     private static void empty(ComboBox<String> comboBox) {

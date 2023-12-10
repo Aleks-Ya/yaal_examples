@@ -81,4 +81,9 @@ public class GptUiApplication extends Application implements EventSource {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public String getName() {
+        return getClass().getSimpleName();
+    }
 }

@@ -127,6 +127,10 @@ public abstract class BaseGptUiTest extends ApplicationTest {
             return lookup("#themeComboBox").queryComboBox();
         }
 
+        public Node comboBoxNarrow() {
+            return comboBox().lookup(".arrow-button");
+        }
+
         public CheckBox filterHistoryCheckBox() {
             return lookup("#filterHistoryCheckBox").queryAs(CheckBox.class);
         }

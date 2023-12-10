@@ -5,6 +5,7 @@ import gptui.storage.InteractionStorage;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -38,15 +39,22 @@ public class HistoryController extends BaseController {
     @Override
     public void modelChanged(Model model) {
         log.trace("modelChanged");
-        var modelItems = FXCollections.observableArrayList(model.getHistory().stream()
-                .map(interactionId -> storage.readInteraction(interactionId).orElseThrow())
-                .filter(interaction -> !model.getThemeFilterHistory() || model.getCurrentTheme().trim().equals(interaction.theme().trim()))
-                .toList());
+        var modelItems = getModelItems(model);
+        log.trace("modelItems: {}", modelItems.size());
         var comboBoxItems = historyComboBox.getItems();
+        log.trace("comboBoxItems: {}", comboBoxItems.size());
         if (!Objects.equals(modelItems, comboBoxItems)) {
-            log.debug("Set items");
+            log.debug("Set items: {}", modelItems.size());
             updateSilently(historyComboBox, comboBox -> comboBox.setItems(modelItems));
             setLabel(modelItems.size());
+            model.setHistory(modelItems);
+            if (!modelItems.isEmpty()) {
+                model.setCurrentInteractionId(modelItems.getFirst().id());
+            } else {
+                model.setCurrentInteractionId(null);
+            }
+            model.fireModelChanged(this);
+            model.fireInteractionChosenFromHistory(this);
         }
         var modelCurrentValueOpt = storage.readInteraction(model.getCurrentInteractionId());
         var comboBoxCurrentValue = historyComboBox.getSelectionModel().getSelectedItem();
@@ -63,6 +71,12 @@ public class HistoryController extends BaseController {
             log.debug("Selection is unchanged: {}", modelCurrentValueOpt);
         }
         historyDeleteButton.setDisable(model.getCurrentInteractionId() == null);
+    }
+
+    private ObservableList<Interaction> getModelItems(Model model) {
+        return FXCollections.observableArrayList(storage.readAllInteractions().stream()
+                .filter(interaction -> !model.getThemeFilterHistory() || model.getCurrentTheme().trim().equals(interaction.theme().trim()))
+                .toList());
     }
 
     @Override
@@ -97,8 +111,7 @@ public class HistoryController extends BaseController {
         var oldCurrentInteractionIndex = historyComboBox.getSelectionModel().getSelectedIndex();
         storage.deleteInteraction(model.getCurrentInteractionId());
 
-
-        var newHistory = storage.readAllInteractions();
+        var newHistory = getModelItems(model);
         model.setHistory(newHistory);
 
         if (!newHistory.isEmpty()) {
@@ -110,18 +123,24 @@ public class HistoryController extends BaseController {
                 newCurrentInteraction = newHistory.getLast();
             }
             model.setCurrentInteractionId(newCurrentInteraction.id());
+            model.setCurrentTheme(newCurrentInteraction.theme());
         } else {
             model.setCurrentInteractionId(null);
+            model.setCurrentTheme(null);
         }
-        model.setCurrentTheme(model.getCurrentInteractionId() != null
-                ? storage.readInteraction(model.getCurrentInteractionId()).orElseThrow().theme() : null);
-
         modelChanged(model);
         model.fireInteractionChosenFromHistory(this);
     }
 
     private void setLabel(int historySize) {
-        historyLabel.setText(format("Question history (%d/%d):", historySize, storage.readAllInteractions().size()));
+        var label = format("Question history (%d/%d):", historySize, storage.readAllInteractions().size());
+        log.trace("Set label: {}", label);
+        historyLabel.setText(label);
+    }
+
+    @Override
+    public String getName() {
+        return getClass().getSimpleName();
     }
 }
 
