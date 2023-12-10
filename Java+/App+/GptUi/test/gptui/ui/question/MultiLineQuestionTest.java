@@ -1,14 +1,9 @@
 package gptui.ui.question;
 
 import gptui.ui.BaseGptUiTest;
-import gptui.ui.TestingData;
+import gptui.ui.TestingData.I1;
 import org.junit.jupiter.api.Test;
 
-import static gptui.ui.TestingData.INTERACTION_1_GCP_HTML;
-import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
-import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
-import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
-import static gptui.ui.TestingData.INTERACTION_1_THEME;
 import static java.time.Duration.ZERO;
 import static javafx.scene.input.KeyCode.ENTER;
 import static javafx.scene.paint.Color.GREEN;
@@ -38,7 +33,7 @@ class MultiLineQuestionTest extends BaseGptUiTest {
                 .assertApp();
 
         clickOn(theme().comboBox());
-        overWrite(INTERACTION_1_THEME);
+        overWrite(I1.THEME);
         clickOn(question().textArea());
         var questionLine1 = "Question line 1";
         var questionLine2 = "Question line 2";
@@ -46,10 +41,10 @@ class MultiLineQuestionTest extends BaseGptUiTest {
         overWrite(questionLine1).type(ENTER).write(questionLine2).type(ENTER).write(questionLine3);
 
         gptApi.clear()
-                .putGrammarResponse(INTERACTION_1_GRAMMAR_HTML, ZERO)
-                .putShortResponse(INTERACTION_1_SHORT_HTML, ZERO)
-                .putLongResponse(INTERACTION_1_LONG_HTML, ZERO)
-                .putGcpResponse(INTERACTION_1_GCP_HTML, ZERO);
+                .putGrammarResponse(I1.GRAMMAR_HTML, ZERO)
+                .putShortResponse(I1.SHORT_HTML, ZERO)
+                .putLongResponse(I1.LONG_HTML, ZERO)
+                .putGcpResponse(I1.GCP_HTML, ZERO);
         clickOn(question().questionButton());
 
         var questionText = questionLine1 + "\n" + questionLine2 + "\n" + questionLine3;
@@ -59,15 +54,15 @@ class MultiLineQuestionTest extends BaseGptUiTest {
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
                 .themeSize(1)
-                .themeSelectedItem(INTERACTION_1_THEME)
-                .themeItems(INTERACTION_1_THEME)
+                .themeSelectedItem(I1.THEME)
+                .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(questionText)
                 .modelEditedQuestion(questionText)
-                .grammarA().text(TestingData.EXP_GRAMMAR_HTML_BODY_1)
-                .shortA().text(TestingData.EXP_SHORT_HTML_BODY_1)
-                .longA().text(TestingData.EXP_LONG_HTML_BODY_1)
-                .gcpA().text(TestingData.EXP_GCP_HTML_BODY_1)
+                .grammarA().text(I1.EXP_GRAMMAR_HTML_BODY)
+                .shortA().text(I1.EXP_SHORT_HTML_BODY)
+                .longA().text(I1.EXP_LONG_HTML_BODY)
+                .gcpA().text(I1.EXP_GCP_HTML_BODY)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperaturesDefault()
                 .answerSpinnerTemperaturesDefault()

@@ -2,8 +2,8 @@ package gptui.ui;
 
 import com.google.inject.util.Modules;
 import gptui.gpt.openai.MockGptApi;
-import gptui.storage.InteractionStorage;
 import gptui.storage.Interaction;
+import gptui.storage.InteractionStorage;
 import gptui.ui.controller.ClipboardHelper;
 import javafx.scene.Node;
 import javafx.scene.control.Button;

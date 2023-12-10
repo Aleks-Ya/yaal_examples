@@ -1,29 +1,16 @@
 package gptui.ui.answer;
 
 import gptui.ui.BaseGptUiTest;
+import gptui.ui.TestingData.I1;
+import gptui.ui.TestingData.I2;
 import org.junit.jupiter.api.Test;
 
-import static gptui.ui.TestingData.EXP_GCP_HTML_BODY_2;
-import static gptui.ui.TestingData.EXP_GRAMMAR_HTML_BODY_2;
-import static gptui.ui.TestingData.EXP_LONG_HTML_BODY_2;
-import static gptui.ui.TestingData.EXP_SHORT_HTML_BODY_2;
-import static gptui.ui.TestingData.INTERACTION_1;
-import static gptui.ui.TestingData.INTERACTION_1_GCP_HTML;
-import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
-import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
-import static gptui.ui.TestingData.INTERACTION_1_QUESTION;
-import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
-import static gptui.ui.TestingData.INTERACTION_1_THEME;
-import static gptui.ui.TestingData.INTERACTION_2_GCP_HTML;
-import static gptui.ui.TestingData.INTERACTION_2_GRAMMAR_HTML;
-import static gptui.ui.TestingData.INTERACTION_2_LONG_HTML;
-import static gptui.ui.TestingData.INTERACTION_2_SHORT_HTML;
 import static java.time.Duration.ZERO;
 import static javafx.scene.paint.Color.GREEN;
 
 class RegenerateAnswerTest extends BaseGptUiTest {
     public void init() {
-        storage.saveInteraction(INTERACTION_1);
+        storage.saveInteraction(I1.INTERACTION);
     }
 
     @Test
@@ -31,18 +18,18 @@ class RegenerateAnswerTest extends BaseGptUiTest {
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
-                .historySelectedItem(INTERACTION_1)
-                .historyItems(INTERACTION_1)
+                .historySelectedItem(I1.INTERACTION)
+                .historyItems(I1.INTERACTION)
                 .themeSize(1)
-                .themeSelectedItem(INTERACTION_1_THEME)
-                .themeItems(INTERACTION_1_THEME)
+                .themeSelectedItem(I1.THEME)
+                .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
-                .questionText(INTERACTION_1_QUESTION)
-                .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .grammarA().text(INTERACTION_1_GRAMMAR_HTML)
-                .shortA().text(INTERACTION_1_SHORT_HTML)
-                .longA().text(INTERACTION_1_LONG_HTML)
-                .gcpA().text(INTERACTION_1_GCP_HTML)
+                .questionText(I1.QUESTION)
+                .modelEditedQuestion(I1.QUESTION)
+                .grammarA().text(I1.GRAMMAR_HTML)
+                .shortA().text(I1.SHORT_HTML)
+                .longA().text(I1.LONG_HTML)
+                .gcpA().text(I1.GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperatures(50, 60, 70, 80)
                 .answerSpinnerTemperatures(50, 60, 70, 80)
@@ -55,23 +42,23 @@ class RegenerateAnswerTest extends BaseGptUiTest {
     }
 
     private void regenerateGrammarAnswer() {
-        gptApi.clear().putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ZERO);
+        gptApi.clear().putGrammarResponse(I2.GRAMMAR_HTML, ZERO);
         clickOn(grammarAnswer().temperatureIncrementButton());
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
-                .historySelectedItem(INTERACTION_1)
-                .historyItems(INTERACTION_1)
+                .historySelectedItem(I1.INTERACTION)
+                .historyItems(I1.INTERACTION)
                 .themeSize(1)
-                .themeSelectedItem(INTERACTION_1_THEME)
-                .themeItems(INTERACTION_1_THEME)
+                .themeSelectedItem(I1.THEME)
+                .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
-                .questionText(INTERACTION_1_QUESTION)
-                .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .grammarA().text(INTERACTION_1_GRAMMAR_HTML)
-                .shortA().text(INTERACTION_1_SHORT_HTML)
-                .longA().text(INTERACTION_1_LONG_HTML)
-                .gcpA().text(INTERACTION_1_GCP_HTML)
+                .questionText(I1.QUESTION)
+                .modelEditedQuestion(I1.QUESTION)
+                .grammarA().text(I1.GRAMMAR_HTML)
+                .shortA().text(I1.SHORT_HTML)
+                .longA().text(I1.LONG_HTML)
+                .gcpA().text(I1.GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperatures(50, 60, 70, 80)
                 .answerSpinnerTemperatures(55, 60, 70, 80)
@@ -82,18 +69,18 @@ class RegenerateAnswerTest extends BaseGptUiTest {
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
-                .historySelectedItem(storage.readInteraction(INTERACTION_1.id()).orElseThrow())
-                .historyItems(storage.readInteraction(INTERACTION_1.id()).orElseThrow())
+                .historySelectedItem(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
+                .historyItems(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
                 .themeSize(1)
-                .themeSelectedItem(INTERACTION_1_THEME)
-                .themeItems(INTERACTION_1_THEME)
+                .themeSelectedItem(I1.THEME)
+                .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
-                .questionText(INTERACTION_1_QUESTION)
-                .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .grammarA().text(EXP_GRAMMAR_HTML_BODY_2)
-                .shortA().text(INTERACTION_1_SHORT_HTML)
-                .longA().text(INTERACTION_1_LONG_HTML)
-                .gcpA().text(INTERACTION_1_GCP_HTML)
+                .questionText(I1.QUESTION)
+                .modelEditedQuestion(I1.QUESTION)
+                .grammarA().text(I2.EXP_HTML_BODY)
+                .shortA().text(I1.SHORT_HTML)
+                .longA().text(I1.LONG_HTML)
+                .gcpA().text(I1.GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperatures(55, 60, 70, 80)
                 .answerSpinnerTemperatures(55, 60, 70, 80)
@@ -101,24 +88,24 @@ class RegenerateAnswerTest extends BaseGptUiTest {
     }
 
     private void regenerateShortAnswer() {
-        gptApi.clear().putShortResponse(INTERACTION_2_SHORT_HTML, ZERO);
+        gptApi.clear().putShortResponse(I2.SHORT_HTML, ZERO);
         clickOn(shortAnswer().regenerateButton());
         gptApi.waitUntilSent(1);
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
-                .historySelectedItem(storage.readInteraction(INTERACTION_1.id()).orElseThrow())
-                .historyItems(storage.readInteraction(INTERACTION_1.id()).orElseThrow())
+                .historySelectedItem(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
+                .historyItems(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
                 .themeSize(1)
-                .themeSelectedItem(INTERACTION_1_THEME)
-                .themeItems(INTERACTION_1_THEME)
+                .themeSelectedItem(I1.THEME)
+                .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
-                .questionText(INTERACTION_1_QUESTION)
-                .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .grammarA().text(EXP_GRAMMAR_HTML_BODY_2)
-                .shortA().text(EXP_SHORT_HTML_BODY_2)
-                .longA().text(INTERACTION_1_LONG_HTML)
-                .gcpA().text(INTERACTION_1_GCP_HTML)
+                .questionText(I1.QUESTION)
+                .modelEditedQuestion(I1.QUESTION)
+                .grammarA().text(I2.EXP_HTML_BODY)
+                .shortA().text(I2.EXP_SHORT_HTML_BODY)
+                .longA().text(I1.LONG_HTML)
+                .gcpA().text(I1.GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperatures(55, 60, 70, 80)
                 .answerSpinnerTemperatures(55, 60, 70, 80)
@@ -126,24 +113,24 @@ class RegenerateAnswerTest extends BaseGptUiTest {
     }
 
     private void regenerateLongAnswer() {
-        gptApi.clear().putLongResponse(INTERACTION_2_LONG_HTML, ZERO);
+        gptApi.clear().putLongResponse(I2.LONG_HTML, ZERO);
         clickOn(longAnswer().regenerateButton());
         gptApi.waitUntilSent(1);
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
-                .historySelectedItem(storage.readInteraction(INTERACTION_1.id()).orElseThrow())
-                .historyItems(storage.readInteraction(INTERACTION_1.id()).orElseThrow())
+                .historySelectedItem(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
+                .historyItems(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
                 .themeSize(1)
-                .themeSelectedItem(INTERACTION_1_THEME)
-                .themeItems(INTERACTION_1_THEME)
+                .themeSelectedItem(I1.THEME)
+                .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
-                .questionText(INTERACTION_1_QUESTION)
-                .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .grammarA().text(EXP_GRAMMAR_HTML_BODY_2)
-                .shortA().text(EXP_SHORT_HTML_BODY_2)
-                .longA().text(EXP_LONG_HTML_BODY_2)
-                .gcpA().text(INTERACTION_1_GCP_HTML)
+                .questionText(I1.QUESTION)
+                .modelEditedQuestion(I1.QUESTION)
+                .grammarA().text(I2.EXP_HTML_BODY)
+                .shortA().text(I2.EXP_SHORT_HTML_BODY)
+                .longA().text(I2.EXP_LONG_HTML_BODY)
+                .gcpA().text(I1.GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperatures(55, 60, 70, 80)
                 .answerSpinnerTemperatures(55, 60, 70, 80)
@@ -151,24 +138,24 @@ class RegenerateAnswerTest extends BaseGptUiTest {
     }
 
     private void regenerateGcpAnswer() {
-        gptApi.clear().putGcpResponse(INTERACTION_2_GCP_HTML, ZERO);
+        gptApi.clear().putGcpResponse(I2.GCP_HTML, ZERO);
         clickOn(gcpAnswer().regenerateButton());
         gptApi.waitUntilSent(1);
         assertion()
                 .historySize(1)
                 .historyDeleteButtonDisabled(false)
-                .historySelectedItem(storage.readInteraction(INTERACTION_1.id()).orElseThrow())
-                .historyItems(storage.readInteraction(INTERACTION_1.id()).orElseThrow())
+                .historySelectedItem(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
+                .historyItems(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
                 .themeSize(1)
-                .themeSelectedItem(INTERACTION_1_THEME)
-                .themeItems(INTERACTION_1_THEME)
+                .themeSelectedItem(I1.THEME)
+                .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
-                .questionText(INTERACTION_1_QUESTION)
-                .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .grammarA().text(EXP_GRAMMAR_HTML_BODY_2)
-                .shortA().text(EXP_SHORT_HTML_BODY_2)
-                .longA().text(EXP_LONG_HTML_BODY_2)
-                .gcpA().text(EXP_GCP_HTML_BODY_2)
+                .questionText(I1.QUESTION)
+                .modelEditedQuestion(I1.QUESTION)
+                .grammarA().text(I2.EXP_HTML_BODY)
+                .shortA().text(I2.EXP_SHORT_HTML_BODY)
+                .longA().text(I2.EXP_LONG_HTML_BODY)
+                .gcpA().text(I2.EXP_GCP_HTML_BODY)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperatures(55, 60, 70, 80)
                 .answerSpinnerTemperatures(55, 60, 70, 80)

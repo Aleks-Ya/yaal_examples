@@ -1,7 +1,7 @@
 package gptui.ui.controller;
 
-import gptui.storage.InteractionStorage;
 import gptui.storage.Interaction;
+import gptui.storage.InteractionStorage;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
 import javafx.collections.FXCollections;

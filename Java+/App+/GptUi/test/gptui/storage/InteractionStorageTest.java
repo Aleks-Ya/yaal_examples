@@ -1,14 +1,14 @@
 package gptui.storage;
 
 import com.google.common.jimfs.Jimfs;
+import gptui.ui.TestingData.I1;
+import gptui.ui.TestingData.I2;
+import gptui.ui.TestingData.I3;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.FileSystem;
 
 import static com.google.common.jimfs.Configuration.unix;
-import static gptui.ui.TestingData.INTERACTION_1;
-import static gptui.ui.TestingData.INTERACTION_2;
-import static gptui.ui.TestingData.INTERACTION_3;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InteractionStorageTest {
@@ -22,27 +22,27 @@ class InteractionStorageTest {
 
     @Test
     void updateInteraction() {
-        assertThat(storage.readInteraction(INTERACTION_1.id())).isEmpty();
-        storage.saveInteraction(INTERACTION_1);
-        assertThat(storage.readInteraction(INTERACTION_1.id())).contains(INTERACTION_1);
-        storage.updateInteraction(INTERACTION_1.id(), i -> i.withTheme("theme2"));
-        assertThat(storage.readInteraction(INTERACTION_1.id())).contains(INTERACTION_1.withTheme("theme2"));
+        assertThat(storage.readInteraction(I1.INTERACTION.id())).isEmpty();
+        storage.saveInteraction(I1.INTERACTION);
+        assertThat(storage.readInteraction(I1.INTERACTION.id())).contains(I1.INTERACTION);
+        storage.updateInteraction(I1.INTERACTION.id(), i -> i.withTheme("theme2"));
+        assertThat(storage.readInteraction(I1.INTERACTION.id())).contains(I1.INTERACTION.withTheme("theme2"));
     }
 
     @Test
     void saveInteraction() {
         assertThat(storage.readAllInteractions()).isEmpty();
-        storage.saveInteraction(INTERACTION_1);
-        storage.saveInteraction(INTERACTION_2);
-        assertThat(storage.readAllInteractions()).containsExactlyInAnyOrder(INTERACTION_1, INTERACTION_2);
+        storage.saveInteraction(I1.INTERACTION);
+        storage.saveInteraction(I2.INTERACTION);
+        assertThat(storage.readAllInteractions()).containsExactlyInAnyOrder(I1.INTERACTION, I2.INTERACTION);
     }
 
     @Test
     void readInteraction() {
         var interactionId = new InteractionId(1L);
         assertThat(storage.readInteraction(interactionId)).isEmpty();
-        storage.saveInteraction(INTERACTION_1);
-        assertThat(storage.readInteraction(INTERACTION_1.id())).contains(INTERACTION_1);
+        storage.saveInteraction(I1.INTERACTION);
+        assertThat(storage.readInteraction(I1.INTERACTION.id())).contains(I1.INTERACTION);
     }
 
     @Test
@@ -53,21 +53,21 @@ class InteractionStorageTest {
     @Test
     void readAllInteractions() {
         assertThat(storage.readAllInteractions()).isEmpty();
-        storage.saveInteraction(INTERACTION_1);
-        storage.saveInteraction(INTERACTION_2);
-        storage.saveInteraction(INTERACTION_3);
-        assertThat(storage.readAllInteractions()).containsExactlyInAnyOrder(INTERACTION_1, INTERACTION_2, INTERACTION_3);
+        storage.saveInteraction(I1.INTERACTION);
+        storage.saveInteraction(I2.INTERACTION);
+        storage.saveInteraction(I3.INTERACTION);
+        assertThat(storage.readAllInteractions()).containsExactlyInAnyOrder(I1.INTERACTION, I2.INTERACTION, I3.INTERACTION);
     }
 
     @Test
     void deleteInteraction() {
         assertThat(storage.readAllInteractions()).isEmpty();
-        storage.saveInteraction(INTERACTION_1);
-        storage.saveInteraction(INTERACTION_2);
-        assertThat(storage.readAllInteractions()).containsExactlyInAnyOrder(INTERACTION_1, INTERACTION_2);
+        storage.saveInteraction(I1.INTERACTION);
+        storage.saveInteraction(I2.INTERACTION);
+        assertThat(storage.readAllInteractions()).containsExactlyInAnyOrder(I1.INTERACTION, I2.INTERACTION);
 
-        storage.deleteInteraction(INTERACTION_1.id());
-        assertThat(storage.readAllInteractions()).containsExactlyInAnyOrder(INTERACTION_2);
+        storage.deleteInteraction(I1.INTERACTION.id());
+        assertThat(storage.readAllInteractions()).containsExactlyInAnyOrder(I2.INTERACTION);
     }
 
     @Test

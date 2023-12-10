@@ -2,33 +2,20 @@ package gptui.ui.question;
 
 import gptui.storage.Interaction;
 import gptui.ui.BaseGptUiTest;
+import gptui.ui.TestingData.I1;
+import gptui.ui.TestingData.I2;
 import org.junit.jupiter.api.Test;
 
 import static gptui.storage.AnswerState.FAIL;
 import static gptui.storage.AnswerType.GCP;
 import static gptui.storage.AnswerType.LONG;
 import static gptui.storage.AnswerType.SHORT;
-import static gptui.ui.TestingData.EXP_GCP_HTML_BODY_2;
-import static gptui.ui.TestingData.EXP_GRAMMAR_HTML_BODY_2;
-import static gptui.ui.TestingData.EXP_LONG_HTML_BODY_2;
-import static gptui.ui.TestingData.EXP_SHORT_HTML_BODY_2;
-import static gptui.ui.TestingData.INTERACTION_1;
-import static gptui.ui.TestingData.INTERACTION_1_GCP_HTML;
-import static gptui.ui.TestingData.INTERACTION_1_GRAMMAR_HTML;
-import static gptui.ui.TestingData.INTERACTION_1_LONG_HTML;
-import static gptui.ui.TestingData.INTERACTION_1_QUESTION;
-import static gptui.ui.TestingData.INTERACTION_1_SHORT_HTML;
-import static gptui.ui.TestingData.INTERACTION_1_THEME;
-import static gptui.ui.TestingData.INTERACTION_2_GCP_HTML;
-import static gptui.ui.TestingData.INTERACTION_2_GRAMMAR_HTML;
-import static gptui.ui.TestingData.INTERACTION_2_LONG_HTML;
-import static gptui.ui.TestingData.INTERACTION_2_SHORT_HTML;
 import static java.time.Duration.ZERO;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 
 class RegenerateQuestionTest extends BaseGptUiTest {
-    private final Interaction interaction1 = INTERACTION_1
+    private final Interaction interaction1 = I1.INTERACTION
             .withAnswer(SHORT, answer -> answer.withState(FAIL))
             .withAnswer(LONG, answer -> answer.withState(FAIL))
             .withAnswer(GCP, answer -> answer.withState(FAIL));
@@ -46,25 +33,25 @@ class RegenerateQuestionTest extends BaseGptUiTest {
                 .historySelectedItem(interaction1)
                 .historyItems(interaction1)
                 .themeSize(1)
-                .themeSelectedItem(INTERACTION_1_THEME)
-                .themeItems(INTERACTION_1_THEME)
+                .themeSelectedItem(I1.THEME)
+                .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
-                .questionText(INTERACTION_1_QUESTION)
-                .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .grammarA().text(INTERACTION_1_GRAMMAR_HTML)
-                .shortA().text(INTERACTION_1_SHORT_HTML)
-                .longA().text(INTERACTION_1_LONG_HTML)
-                .gcpA().text(INTERACTION_1_GCP_HTML)
+                .questionText(I1.QUESTION)
+                .modelEditedQuestion(I1.QUESTION)
+                .grammarA().text(I1.GRAMMAR_HTML)
+                .shortA().text(I1.SHORT_HTML)
+                .longA().text(I1.LONG_HTML)
+                .gcpA().text(I1.GCP_HTML)
                 .answerCircleColors(GREEN, RED, RED, RED)
                 .answerTextTemperatures(50, 60, 70, 80)
                 .answerSpinnerTemperatures(50, 60, 70, 80)
                 .assertApp();
 
         gptApi.clear()
-                .putGrammarResponse(INTERACTION_2_GRAMMAR_HTML, ZERO)
-                .putShortResponse(INTERACTION_2_SHORT_HTML, ZERO)
-                .putLongResponse(INTERACTION_2_LONG_HTML, ZERO)
-                .putGcpResponse(INTERACTION_2_GCP_HTML, ZERO);
+                .putGrammarResponse(I2.GRAMMAR_HTML, ZERO)
+                .putShortResponse(I2.SHORT_HTML, ZERO)
+                .putLongResponse(I2.LONG_HTML, ZERO)
+                .putGcpResponse(I2.GCP_HTML, ZERO);
         clickOn(question().regenerateButton());
 
         assertion()
@@ -73,15 +60,15 @@ class RegenerateQuestionTest extends BaseGptUiTest {
                 .historySelectedItem(storage.readInteraction(interaction1.id()).orElseThrow())
                 .historyItems(storage.readInteraction(interaction1.id()).orElseThrow())
                 .themeSize(1)
-                .themeSelectedItem(INTERACTION_1_THEME)
-                .themeItems(INTERACTION_1_THEME)
+                .themeSelectedItem(I1.THEME)
+                .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
-                .questionText(INTERACTION_1_QUESTION)
-                .modelEditedQuestion(INTERACTION_1_QUESTION)
-                .grammarA().text(EXP_GRAMMAR_HTML_BODY_2)
-                .shortA().text(EXP_SHORT_HTML_BODY_2)
-                .longA().text(EXP_LONG_HTML_BODY_2)
-                .gcpA().text(EXP_GCP_HTML_BODY_2)
+                .questionText(I1.QUESTION)
+                .modelEditedQuestion(I1.QUESTION)
+                .grammarA().text(I2.EXP_HTML_BODY)
+                .shortA().text(I2.EXP_SHORT_HTML_BODY)
+                .longA().text(I2.EXP_LONG_HTML_BODY)
+                .gcpA().text(I2.EXP_GCP_HTML_BODY)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperatures(50, 60, 70, 80)
                 .answerSpinnerTemperatures(50, 60, 70, 80)

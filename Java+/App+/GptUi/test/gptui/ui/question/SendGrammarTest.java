@@ -1,19 +1,11 @@
 package gptui.ui.question;
 
 import gptui.ui.BaseGptUiTest;
+import gptui.ui.TestingData.I1;
+import gptui.ui.TestingData.I2;
+import gptui.ui.TestingData.I3;
 import org.junit.jupiter.api.Test;
 
-import static gptui.ui.TestingData.INTERACTION_1;
-import static gptui.ui.TestingData.INTERACTION_1_THEME;
-import static gptui.ui.TestingData.INTERACTION_2;
-import static gptui.ui.TestingData.INTERACTION_2_THEME;
-import static gptui.ui.TestingData.INTERACTION_3;
-import static gptui.ui.TestingData.INTERACTION_3_GCP_HTML;
-import static gptui.ui.TestingData.INTERACTION_3_GRAMMAR_HTML;
-import static gptui.ui.TestingData.INTERACTION_3_LONG_HTML;
-import static gptui.ui.TestingData.INTERACTION_3_QUESTION;
-import static gptui.ui.TestingData.INTERACTION_3_SHORT_HTML;
-import static gptui.ui.TestingData.INTERACTION_3_THEME;
 import static java.time.Duration.ZERO;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
@@ -22,9 +14,9 @@ import static javafx.scene.paint.Color.WHITE;
 class SendGrammarTest extends BaseGptUiTest {
     @Override
     public void init() {
-        storage.saveInteraction(INTERACTION_1);
-        storage.saveInteraction(INTERACTION_2);
-        storage.saveInteraction(INTERACTION_3);
+        storage.saveInteraction(I1.INTERACTION);
+        storage.saveInteraction(I2.INTERACTION);
+        storage.saveInteraction(I3.INTERACTION);
     }
 
     @Test
@@ -32,18 +24,18 @@ class SendGrammarTest extends BaseGptUiTest {
         assertion()
                 .historySize(3)
                 .historyDeleteButtonDisabled(false)
-                .historySelectedItem(INTERACTION_3)
-                .historyItems(INTERACTION_3, INTERACTION_2, INTERACTION_1)
+                .historySelectedItem(I3.INTERACTION)
+                .historyItems(I3.INTERACTION, I2.INTERACTION, I1.INTERACTION)
                 .themeSize(3)
-                .themeSelectedItem(INTERACTION_3_THEME)
-                .themeItems(INTERACTION_3_THEME, INTERACTION_2_THEME, INTERACTION_1_THEME)
+                .themeSelectedItem(I3.THEME)
+                .themeItems(I3.THEME, I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
-                .questionText(INTERACTION_3_QUESTION)
-                .modelEditedQuestion(INTERACTION_3_QUESTION)
-                .grammarA().text(INTERACTION_3_GRAMMAR_HTML)
-                .shortA().text(INTERACTION_3_SHORT_HTML)
-                .longA().text(INTERACTION_3_LONG_HTML)
-                .gcpA().text(INTERACTION_3_GCP_HTML)
+                .questionText(I3.QUESTION)
+                .modelEditedQuestion(I3.QUESTION)
+                .grammarA().text(I3.GRAMMAR_HTML)
+                .shortA().text(I3.SHORT_HTML)
+                .longA().text(I3.LONG_HTML)
+                .gcpA().text(I3.GCP_HTML)
                 .answerCircleColors(GREEN, GREEN, RED, GREEN)
                 .answerTextTemperatures(50, 60, 70, 80)
                 .answerSpinnerTemperatures(50, 60, 70, 80)
@@ -60,8 +52,8 @@ class SendGrammarTest extends BaseGptUiTest {
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
                 .themeSize(3)
-                .themeSelectedItem(INTERACTION_3_THEME)
-                .themeItems(INTERACTION_3_THEME, INTERACTION_2_THEME, INTERACTION_1_THEME)
+                .themeSelectedItem(I3.THEME)
+                .themeItems(I3.THEME, I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText("Question 4")
                 .modelEditedQuestion("Question 4")

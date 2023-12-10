@@ -1,12 +1,12 @@
 package gptui.search;
 
+import gptui.ui.TestingData.I1;
+import gptui.ui.TestingData.I2;
+import gptui.ui.TestingData.I3;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static gptui.ui.TestingData.INTERACTION_1;
-import static gptui.ui.TestingData.INTERACTION_2;
-import static gptui.ui.TestingData.INTERACTION_3;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class HistorySearchTest {
@@ -20,29 +20,29 @@ class HistorySearchTest {
     @Test
     void indexDocument() {
         assertThat(historySearch.search("theme")).isEmpty();
-        historySearch.indexDocument(INTERACTION_1);
-        assertThat(historySearch.search("theme")).containsExactly(INTERACTION_1.id());
+        historySearch.indexDocument(I1.INTERACTION);
+        assertThat(historySearch.search("theme")).containsExactly(I1.INTERACTION.id());
     }
 
     @Test
     void indexDocuments() {
         assertThat(historySearch.search("theme")).isEmpty();
-        historySearch.indexDocuments(List.of(INTERACTION_1, INTERACTION_2, INTERACTION_3));
+        historySearch.indexDocuments(List.of(I1.INTERACTION, I2.INTERACTION, I3.INTERACTION));
         assertThat(historySearch.search("theme"))
-                .containsExactly(INTERACTION_1.id(), INTERACTION_2.id(), INTERACTION_3.id());
+                .containsExactly(I1.INTERACTION.id(), I2.INTERACTION.id(), I3.INTERACTION.id());
     }
 
     @Test
     void search() {
-        historySearch.indexDocuments(List.of(INTERACTION_1, INTERACTION_2, INTERACTION_3));
+        historySearch.indexDocuments(List.of(I1.INTERACTION, I2.INTERACTION, I3.INTERACTION));
         assertThat(historySearch.search("absent")).isEmpty();
         assertThat(historySearch.search("theme"))
-                .containsExactly(INTERACTION_1.id(), INTERACTION_2.id(), INTERACTION_3.id());
+                .containsExactly(I1.INTERACTION.id(), I2.INTERACTION.id(), I3.INTERACTION.id());
         assertThat(historySearch.search("Themes"))
-                .containsExactly(INTERACTION_1.id(), INTERACTION_2.id(), INTERACTION_3.id());
+                .containsExactly(I1.INTERACTION.id(), I2.INTERACTION.id(), I3.INTERACTION.id());
         assertThat(historySearch.search("question"))
-                .containsExactly(INTERACTION_1.id(), INTERACTION_2.id(), INTERACTION_3.id());
+                .containsExactly(I1.INTERACTION.id(), I2.INTERACTION.id(), I3.INTERACTION.id());
         assertThat(historySearch.search("Questions"))
-                .containsExactly(INTERACTION_1.id(), INTERACTION_2.id(), INTERACTION_3.id());
+                .containsExactly(I1.INTERACTION.id(), I2.INTERACTION.id(), I3.INTERACTION.id());
     }
 }

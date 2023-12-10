@@ -2,8 +2,8 @@ package gptui.ui.controller;
 
 import gptui.Mdc;
 import gptui.gpt.QuestionApi;
-import gptui.storage.InteractionStorage;
 import gptui.storage.Interaction;
+import gptui.storage.InteractionStorage;
 import gptui.storage.InteractionType;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
