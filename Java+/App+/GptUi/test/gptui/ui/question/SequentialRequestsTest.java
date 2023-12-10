@@ -24,7 +24,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
 
     private void initialState() {
         assertion()
-                .historySize(0)
+                .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(null)
                 .historyItems(List.of())
@@ -50,7 +50,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
         clickOn(question().textArea());
         overWrite(I1.QUESTION);
         assertion()
-                .historySize(0)
+                .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(null)
                 .historyItems(List.of())
@@ -77,7 +77,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
 
         clickOn(question().questionButton());
         assertion()
-                .historySize(1)
+                .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
@@ -98,7 +98,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
 
         gptApi.waitUntilSent(4);
         assertion()
-                .historySize(1)
+                .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
@@ -133,7 +133,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
         clickOn(question().textArea());
         overWrite(I2.QUESTION);
         assertion()
-                .historySize(1)
+                .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
@@ -159,7 +159,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .putGcpResponse(I2.GCP_HTML, ofMillis(2500));
         clickOn(question().questionButton());
         assertion()
-                .historySize(2)
+                .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
@@ -181,7 +181,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
 
         gptApi.waitUntilSent(4);
         assertion()
-                .historySize(2)
+                .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
@@ -212,7 +212,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
 
     private void choosePreviousInteraction() {
         assertion()
-                .historySize(2)
+                .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
@@ -233,7 +233,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
 
         clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I1.THEME, I1.QUESTION));
         assertion()
-                .historySize(2)
+                .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().get(1))
                 .historyItems(storage.readAllInteractions())

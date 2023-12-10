@@ -16,7 +16,8 @@ import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
 public class WindowAssertion {
     private BaseGptUiTest app;
-    private int historySize;
+    private int historySizeFiltered;
+    private int historySizeFull;
     private boolean historyDeleteButtonDisabled;
     private Interaction historySelectedItem;
     private List<Interaction> historyItems;
@@ -64,8 +65,9 @@ public class WindowAssertion {
         return this;
     }
 
-    public WindowAssertion historySize(int historySize) {
-        this.historySize = historySize;
+    public WindowAssertion historySize(int historySizeFiltered, int historySizeFull) {
+        this.historySizeFiltered = historySizeFiltered;
+        this.historySizeFull = historySizeFull;
         return this;
     }
 
@@ -180,9 +182,9 @@ public class WindowAssertion {
 
         {
             var history = app.history();
-            verifyThat(history.label(), hasText("Question history (" + historyItems.size() + "):"));
+            verifyThat(history.label(), hasText("Question history (" + historySizeFiltered + "/" + historySizeFull + "):"));
             verifyThat(history.deleteButton().getText(), equalTo("Delete"));
-            verifyThat(history.comboBox(), hasItems(historySize));
+            verifyThat(history.comboBox(), hasItems(historySizeFiltered));
             verifyThat(history.deleteButton().isDisabled(), is(historyDeleteButtonDisabled));
             if (historySelectedItem != null) {
                 assertThat(history.comboBox().getSelectionModel().getSelectedItem())

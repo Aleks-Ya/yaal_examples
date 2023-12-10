@@ -46,7 +46,7 @@ public class HistoryController extends BaseController {
         if (!Objects.equals(modelItems, comboBoxItems)) {
             log.debug("Set items");
             updateSilently(historyComboBox, comboBox -> comboBox.setItems(modelItems));
-            setLabel(model);
+            setLabel(modelItems.size());
         }
         var modelCurrentValueOpt = storage.readInteraction(model.getCurrentInteractionId());
         var comboBoxCurrentValue = historyComboBox.getSelectionModel().getSelectedItem();
@@ -68,7 +68,7 @@ public class HistoryController extends BaseController {
     @Override
     public void stageWasShowed(Model model, EventSource source) {
         log.trace("stageWasShowed");
-        setLabel(model);
+        setLabel(model.getHistory().size());
         model.addAccelerator(new KeyCodeCombination(UP, CONTROL_DOWN, ALT_DOWN), () -> {
             log.debug("select next Interaction from history");
             historyComboBox.getSelectionModel().selectPrevious();
@@ -120,8 +120,8 @@ public class HistoryController extends BaseController {
         model.fireInteractionChosenFromHistory(this);
     }
 
-    private void setLabel(Model model) {
-        historyLabel.setText(format("Question history (%d):", model.getHistory().size()));
+    private void setLabel(int historySize) {
+        historyLabel.setText(format("Question history (%d/%d):", historySize, storage.readAllInteractions().size()));
     }
 }
 

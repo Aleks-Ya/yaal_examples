@@ -13,7 +13,7 @@ class MultiLineQuestionTest extends BaseGptUiTest {
     @Test
     void currentInteractionIsInMiddle() {
         assertion()
-                .historySize(0)
+                .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(null)
                 .historyItems()
@@ -49,7 +49,7 @@ class MultiLineQuestionTest extends BaseGptUiTest {
 
         var questionText = questionLine1 + "\n" + questionLine2 + "\n" + questionLine3;
         assertion()
-                .historySize(1)
+                .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())

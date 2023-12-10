@@ -19,7 +19,7 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
     @Test
     void shouldCleanAnswerWebViewIfChosenInteractionHasNoAnswer() {
         assertion()
-                .historySize(2)
+                .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I2.INTERACTION)
                 .historyItems(I2.INTERACTION, I1.INTERACTION)
@@ -41,7 +41,7 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
         clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I1.THEME, I1.QUESTION));
 
         assertion()
-                .historySize(2)
+                .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I1.INTERACTION)
                 .historyItems(I2.INTERACTION, I1.INTERACTION)

@@ -18,7 +18,7 @@ class DeleteInteractionTopTest extends BaseGptUiTest {
     @Test
     void currentInteractionIsAtTop() {
         assertion()
-                .historySize(2)
+                .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I2.INTERACTION)
                 .historyItems(I2.INTERACTION, I1.INTERACTION)
@@ -40,7 +40,7 @@ class DeleteInteractionTopTest extends BaseGptUiTest {
         clickOn(history().deleteButton());
 
         assertion()
-                .historySize(1)
+                .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I1.INTERACTION)
                 .historyItems(I1.INTERACTION)

@@ -16,7 +16,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
     @Test
     void currentInteractionIsTheOnly() {
         assertion()
-                .historySize(1)
+                .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I1.INTERACTION)
                 .historyItems(I1.INTERACTION)
@@ -45,7 +45,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
         gptApi.clear().putGrammarResponse(I2.GRAMMAR_HTML, ZERO);
         clickOn(grammarAnswer().temperatureIncrementButton());
         assertion()
-                .historySize(1)
+                .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I1.INTERACTION)
                 .historyItems(I1.INTERACTION)
@@ -67,7 +67,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
         clickOn(grammarAnswer().regenerateButton());
         gptApi.waitUntilSent(1);
         assertion()
-                .historySize(1)
+                .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
                 .historyItems(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
@@ -92,7 +92,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
         clickOn(shortAnswer().regenerateButton());
         gptApi.waitUntilSent(1);
         assertion()
-                .historySize(1)
+                .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
                 .historyItems(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
@@ -117,7 +117,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
         clickOn(longAnswer().regenerateButton());
         gptApi.waitUntilSent(1);
         assertion()
-                .historySize(1)
+                .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
                 .historyItems(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
@@ -142,7 +142,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
         clickOn(gcpAnswer().regenerateButton());
         gptApi.waitUntilSent(1);
         assertion()
-                .historySize(1)
+                .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
                 .historyItems(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())

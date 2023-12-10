@@ -28,7 +28,7 @@ class RegenerateQuestionTest extends BaseGptUiTest {
     @Test
     void currentInteractionIsTheOnly() {
         assertion()
-                .historySize(1)
+                .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(interaction1)
                 .historyItems(interaction1)
@@ -55,7 +55,7 @@ class RegenerateQuestionTest extends BaseGptUiTest {
         clickOn(question().regenerateButton());
 
         assertion()
-                .historySize(1)
+                .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readInteraction(interaction1.id()).orElseThrow())
                 .historyItems(storage.readInteraction(interaction1.id()).orElseThrow())

@@ -20,7 +20,7 @@ class DeleteInteractionMiddleTest extends BaseGptUiTest {
     @Test
     void currentInteractionIsInMiddle() {
         assertion()
-                .historySize(3)
+                .historySize(3, 3)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I3.INTERACTION)
                 .historyItems(I3.INTERACTION, I2.INTERACTION, I1.INTERACTION)
@@ -43,7 +43,7 @@ class DeleteInteractionMiddleTest extends BaseGptUiTest {
         clickOn(history().deleteButton());
 
         assertion()
-                .historySize(2)
+                .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I3.INTERACTION)
                 .historyItems(I3.INTERACTION, I1.INTERACTION)

@@ -23,7 +23,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
 
     private void initialState() {
         assertion()
-                .historySize(0)
+                .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(null)
                 .historyItems(List.of())
@@ -49,7 +49,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
         clickOn(question().textArea());
         overWrite(I1.QUESTION);
         assertion()
-                .historySize(0)
+                .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(null)
                 .historyItems(List.of())
@@ -76,7 +76,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
 
         clickOn(question().questionButton());
         assertion()
-                .historySize(1)
+                .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
@@ -102,7 +102,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
         clickOn(question().textArea());
         overWrite(I2.QUESTION);
         assertion()
-                .historySize(1)
+                .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
@@ -128,7 +128,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .putGcpResponse(I2.GCP_HTML, ofMillis(2500));
         clickOn(question().questionButton());
         assertion()
-                .historySize(2)
+                .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
@@ -150,7 +150,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
 
         gptApi.waitUntilSent(8);
         assertion()
-                .historySize(2)
+                .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
@@ -173,7 +173,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
     private void firstRequestFinished() {
         gptApi.waitUntilSent(8);
         assertion()
-                .historySize(2)
+                .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())

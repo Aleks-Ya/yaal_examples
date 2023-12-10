@@ -9,7 +9,7 @@ class DeleteInteractionNullTest extends BaseGptUiTest {
     @Test
     void currentInteractionIsNull() {
         assertion()
-                .historySize(0)
+                .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(null)
                 .historyItems()
