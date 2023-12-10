@@ -1,6 +1,6 @@
 package gptui.ui.controller;
 
-import gptui.storage.GptStorage;
+import gptui.storage.InteractionStorage;
 import gptui.storage.Interaction;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
@@ -27,7 +27,7 @@ public class ThemeController extends BaseController {
     @FXML
     private CheckBox filterHistoryCheckBox;
     @Inject
-    private GptStorage storage;
+    private InteractionStorage storage;
 
     @FXML
     void themeComboBoxKeyReleased(KeyEvent ignoredEvent) {

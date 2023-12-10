@@ -2,7 +2,7 @@ package gptui.ui;
 
 import com.google.inject.util.Modules;
 import gptui.gpt.openai.MockGptApi;
-import gptui.storage.GptStorage;
+import gptui.storage.InteractionStorage;
 import gptui.storage.Interaction;
 import gptui.ui.controller.ClipboardHelper;
 import javafx.scene.Node;
@@ -30,7 +30,7 @@ public abstract class BaseGptUiTest extends ApplicationTest {
     private final GptUiApplication app = new GptUiApplication(Modules.override(new RootModule()).with(new TestRootModule()));
     protected final Model model = app.getGuiceContext().getInstance(Model.class);
     protected final MockGptApi gptApi = app.getGuiceContext().getInstance(MockGptApi.class);
-    protected final GptStorage storage = app.getGuiceContext().getInstance(GptStorage.class);
+    protected final InteractionStorage storage = app.getGuiceContext().getInstance(InteractionStorage.class);
     protected final ClipboardHelper clipboardHelper = app.getGuiceContext().getInstance(ClipboardHelper.class);
     private final HistoryInfo history = new HistoryInfo();
     private final ThemeInfo theme = new ThemeInfo();

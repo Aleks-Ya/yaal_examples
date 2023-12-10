@@ -1,6 +1,6 @@
 package gptui.ui.controller;
 
-import gptui.storage.GptStorage;
+import gptui.storage.InteractionStorage;
 import javafx.fxml.FXML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ import static gptui.storage.AnswerType.SHORT;
 public class GptUiController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(HistoryController.class);
     @Inject
-    private GptStorage storage;
+    private InteractionStorage storage;
     @FXML
     @SuppressWarnings("unused")
     private AnswerController grammarAnswerController;

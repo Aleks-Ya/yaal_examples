@@ -7,8 +7,8 @@ import static com.google.common.jimfs.Configuration.unix;
 import static gptui.storage.InteractionType.QUESTION;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class GptStorageFilesystemTest {
-    private final GptStorageFilesystem storageFileSystem = new GptStorageFilesystem(Jimfs.newFileSystem(unix()));
+class InteractionStorageFilesystemTest {
+    private final InteractionStorageFilesystem storageFileSystem = new InteractionStorageFilesystem(Jimfs.newFileSystem(unix()));
 
     @Test
     void readAllInteractions() {

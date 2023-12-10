@@ -1,7 +1,7 @@
 package gptui.ui.controller;
 
-import gptui.storage.GptStorage;
 import gptui.storage.Interaction;
+import gptui.storage.InteractionStorage;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
 import javafx.collections.FXCollections;
@@ -27,7 +27,7 @@ import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 public class HistoryController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(HistoryController.class);
     @Inject
-    private GptStorage storage;
+    private InteractionStorage storage;
     @FXML
     private Label historyLabel;
     @FXML
@@ -107,7 +107,7 @@ public class HistoryController extends BaseController {
             if (newCurrentInteractionIndex >= 0 && newCurrentInteractionIndex < newHistory.size()) {
                 newCurrentInteraction = newHistory.get(newCurrentInteractionIndex);
             } else {
-                newCurrentInteraction = newHistory.get(newHistory.size() - 1);
+                newCurrentInteraction = newHistory.getLast();
             }
             model.setCurrentInteractionId(newCurrentInteraction.id());
         } else {

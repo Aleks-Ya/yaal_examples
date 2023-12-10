@@ -2,7 +2,7 @@ package gptui.ui.controller;
 
 import gptui.Mdc;
 import gptui.gpt.QuestionApi;
-import gptui.storage.GptStorage;
+import gptui.storage.InteractionStorage;
 import gptui.storage.Interaction;
 import gptui.storage.InteractionType;
 import gptui.ui.EventSource;
@@ -34,7 +34,7 @@ import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 public class QuestionController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(QuestionController.class);
     @Inject
-    private GptStorage storage;
+    private InteractionStorage storage;
     @Inject
     private QuestionApi questionApi;
     @Inject

@@ -11,9 +11,9 @@ import static gptui.ui.TestingData.INTERACTION_2;
 import static gptui.ui.TestingData.INTERACTION_3;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class GptStorageTest {
+class InteractionStorageTest {
     private final FileSystem fileSystem = Jimfs.newFileSystem(unix());
-    private final GptStorage storage = new GptStorageImpl(new GptStorageFilesystem(fileSystem));
+    private final InteractionStorage storage = new InteractionStorageImpl(new InteractionStorageFilesystem(fileSystem));
 
     @Test
     void newInteractionId() {
@@ -102,7 +102,7 @@ class GptStorageTest {
 
     @Test
     void getThemesSeveralStart() {
-        var storage1 = new GptStorageImpl(new GptStorageFilesystem(fileSystem));
+        var storage1 = new InteractionStorageImpl(new InteractionStorageFilesystem(fileSystem));
         var theme1 = "AAA";
         var theme2 = "BBB";
         var theme4 = "CCC";
@@ -117,17 +117,17 @@ class GptStorageTest {
         storage1.saveInteraction(newInteraction(id4, theme4));
         storage1.saveInteraction(newInteraction(id5, theme2));
 
-        var storage2 = new GptStorageImpl(new GptStorageFilesystem(fileSystem));
+        var storage2 = new InteractionStorageImpl(new InteractionStorageFilesystem(fileSystem));
         assertThat(storage2.getThemes()).containsExactly(theme4, theme2, theme1);
     }
 
     @Test
     void getThemesSingleStart() {
-        var storage1 = new GptStorageImpl(new GptStorageFilesystem(fileSystem));
+        var storage1 = new InteractionStorageImpl(new InteractionStorageFilesystem(fileSystem));
         var theme = "AAA";
         storage1.saveInteraction(newInteraction(1693929900L, theme));
 
-        var storage2 = new GptStorageImpl(new GptStorageFilesystem(fileSystem));
+        var storage2 = new InteractionStorageImpl(new InteractionStorageFilesystem(fileSystem));
         assertThat(storage2.getThemes()).containsExactly(theme);
     }
 

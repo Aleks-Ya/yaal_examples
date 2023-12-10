@@ -16,13 +16,13 @@ import static java.util.Map.entry;
 import static java.util.stream.Collectors.groupingBy;
 
 @Singleton
-class GptStorageImpl implements GptStorage {
+class InteractionStorageImpl implements InteractionStorage {
     private final Map<InteractionId, Interaction> interactions = new LinkedHashMap<>();
     private final List<String> themes = new ArrayList<>();
-    private final GptStorageFilesystem storageFilesystem;
+    private final InteractionStorageFilesystem storageFilesystem;
 
     @Inject
-    public GptStorageImpl(GptStorageFilesystem storageFilesystem) {
+    public InteractionStorageImpl(InteractionStorageFilesystem storageFilesystem) {
         this.storageFilesystem = storageFilesystem;
         storageFilesystem.readAllInteractions().forEach(interaction -> interactions.put(interaction.id(), interaction));
         readThemesFromInteractions();

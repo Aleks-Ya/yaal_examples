@@ -6,7 +6,7 @@ import gptui.gpt.gcp.GcpApi;
 import gptui.gpt.openai.GptApi;
 import gptui.storage.Answer;
 import gptui.storage.AnswerType;
-import gptui.storage.GptStorage;
+import gptui.storage.InteractionStorage;
 import gptui.storage.Interaction;
 import gptui.storage.InteractionId;
 import gptui.storage.InteractionType;
@@ -37,7 +37,7 @@ class QuestionApiImpl implements QuestionApi, EventSource {
     @Inject
     private Model model;
     @Inject
-    private GptStorage storage;
+    private InteractionStorage storage;
     @Inject
     private PromptFactory promptFactory;
     @Inject

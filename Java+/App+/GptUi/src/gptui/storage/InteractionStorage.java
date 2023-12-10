@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-public interface GptStorage {
+public interface InteractionStorage {
     InteractionId newInteractionId();
 
     void updateInteraction(InteractionId interactionId, Function<Interaction, Interaction> update);

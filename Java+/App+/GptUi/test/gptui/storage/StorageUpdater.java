@@ -11,9 +11,9 @@ import static gptui.storage.AnswerType.SHORT;
 public class StorageUpdater {
     public static void main(String[] args) {
         var counter = new AtomicInteger();
-        var storage = new GptStorageFilesystem(FileSystems.getDefault());
+        var storage = new InteractionStorageFilesystem(FileSystems.getDefault());
         var temperature = 70;
-        new GptStorageImpl(storage).readAllInteractions().stream()
+        new InteractionStorageImpl(storage).readAllInteractions().stream()
                 .map(interaction -> {
                     counter.incrementAndGet();
                     return interaction
@@ -22,7 +22,7 @@ public class StorageUpdater {
                             .withAnswer(LONG, answer -> answer.withTemperature(temperature))
                             .withAnswer(GCP, answer -> answer.withTemperature(temperature));
                 })
-                .forEach(new GptStorageImpl(storage)::saveInteraction);
+                .forEach(new InteractionStorageImpl(storage)::saveInteraction);
         System.out.println("Counter: " + counter.get());
     }
 }

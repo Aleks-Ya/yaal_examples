@@ -9,6 +9,6 @@ public class StorageModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(FileSystem.class).toInstance(FileSystems.getDefault());
-        bind(GptStorage.class).to(GptStorageImpl.class);
+        bind(InteractionStorage.class).to(InteractionStorageImpl.class);
     }
 }

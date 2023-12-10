@@ -15,14 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
-class GptStorageFilesystem {
-    private static final Logger log = LoggerFactory.getLogger(GptStorageFilesystem.class);
+class InteractionStorageFilesystem {
+    private static final Logger log = LoggerFactory.getLogger(InteractionStorageFilesystem.class);
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final FileSystem fileSystem;
     private final Path storageDir;
 
     @Inject
-    public GptStorageFilesystem(FileSystem fileSystem) {
+    public InteractionStorageFilesystem(FileSystem fileSystem) {
         try {
             this.fileSystem = fileSystem;
             storageDir = fileSystem.getPath(System.getProperty("user.home"), ".gpt/storage");

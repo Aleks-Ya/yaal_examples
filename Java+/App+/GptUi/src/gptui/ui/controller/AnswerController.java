@@ -4,7 +4,7 @@ import gptui.Mdc;
 import gptui.gpt.QuestionApi;
 import gptui.storage.AnswerState;
 import gptui.storage.AnswerType;
-import gptui.storage.GptStorage;
+import gptui.storage.InteractionStorage;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
 import javafx.event.ActionEvent;
@@ -59,7 +59,7 @@ public class AnswerController extends BaseController {
     @Inject
     private ClipboardHelper clipboardHelper;
     @Inject
-    private GptStorage storage;
+    private InteractionStorage storage;
     @Inject
     private QuestionApi questionApi;
 
