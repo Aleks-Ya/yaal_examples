@@ -3,7 +3,7 @@
 [Official Docker container](https://hub.docker.com/_/mysql/)
 
 ## Run
-`docker run -d --rm --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pass1 mysql`
+`docker run --rm --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pass1 mysql`
 
 ## Connect to MySQL CLI
 ```

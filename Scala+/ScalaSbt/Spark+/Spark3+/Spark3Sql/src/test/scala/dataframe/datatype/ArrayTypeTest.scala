@@ -2,6 +2,7 @@ package dataframe.datatype
 
 import factory.Factory
 import org.apache.spark.sql.Row
+import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.types.{ArrayType, DataTypes, IntegerType, StringType}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -60,4 +61,13 @@ class ArrayTypeTest extends AnyFlatSpec with Matchers {
     )
   }
 
+  it should "get 1st element of array" in {
+    val df = Factory.createDf(Map("name" -> StringType, "orders" -> ArrayType(IntegerType)),
+      Row("USA", Array(10, 20)), Row("Canada", Array()))
+    val df2 = df.withColumn("first_order", col("orders")(0))
+    df2.toJSON.collect() should contain inOrderOnly(
+      """{"name":"USA","orders":[10,20],"first_order":10}""",
+      """{"name":"Canada","orders":[],"first_order":null}"""
+    )
+  }
 }
