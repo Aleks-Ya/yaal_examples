@@ -1,0 +1,4 @@
+dependencies {
+    implementation platform(googleCloudBomDep), 'com.google.cloud:google-cloud-storage'
+    testImplementation 'com.google.cloud:google-cloud-nio'
+}

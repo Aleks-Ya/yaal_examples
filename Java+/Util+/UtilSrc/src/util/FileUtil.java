@@ -2,7 +2,9 @@ package util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -57,6 +59,14 @@ public class FileUtil {
 
     public static Properties homeDirFileToProperties(String... pathInUserHomeDir) {
         return pathToProperties(Paths.get(System.getProperty("user.home"), pathInUserHomeDir));
+    }
+
+    public static InputStream homeDirFileToIS(String... pathInUserHomeDir) {
+        try {
+            return new FileInputStream(Paths.get(System.getProperty("user.home"), pathInUserHomeDir).toFile());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void deleteFileSilent(File file) {

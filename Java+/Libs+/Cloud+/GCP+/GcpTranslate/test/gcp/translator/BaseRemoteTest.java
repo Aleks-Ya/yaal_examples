@@ -1,17 +1,17 @@
 package gcp.translator;
 
 import com.google.api.gax.core.FixedCredentialsProvider;
-import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.translate.v3.LocationName;
 import com.google.cloud.translate.v3.TranslationServiceClient;
 import com.google.cloud.translate.v3.TranslationServiceSettings;
 import org.junit.jupiter.api.AfterAll;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import static com.google.auth.oauth2.GoogleCredentials.fromStream;
+import static util.FileUtil.homeDirFileToIS;
 
 public abstract class BaseRemoteTest {
     protected static final TranslationServiceClient client = getClient();
@@ -19,8 +19,7 @@ public abstract class BaseRemoteTest {
 
     private static TranslationServiceClient getClient() {
         try {
-            var keyJsonFile = new File(System.getProperty("user.home"), ".gcp-client/translator-api.json");
-            var credentials = GoogleCredentials.fromStream(new FileInputStream(keyJsonFile));
+            var credentials = fromStream(homeDirFileToIS(".gcp-client", "translator-api.json"));
             var credentialsProvider = FixedCredentialsProvider.create(credentials);
             var serviceSettings = TranslationServiceSettings.newBuilder().setCredentialsProvider(credentialsProvider).build();
             return TranslationServiceClient.create(serviceSettings);

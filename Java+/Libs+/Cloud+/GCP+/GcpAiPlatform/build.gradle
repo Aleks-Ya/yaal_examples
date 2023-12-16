@@ -1,0 +1,3 @@
+dependencies {
+    implementation platform(googleCloudBomDep), 'com.google.cloud:google-cloud-aiplatform'
+}
