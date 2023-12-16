@@ -1,8 +1,8 @@
 package gptui.ui.controller;
 
 import gptui.storage.Interaction;
+import gptui.storage.InteractionId;
 import gptui.storage.InteractionStorage;
-import gptui.ui.EventSource;
 import gptui.ui.Model;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -35,36 +35,6 @@ public class ThemeController extends BaseController {
         model.setCurrentTheme(themeComboBox.getEditor().getText());
     }
 
-    @Override
-    public void modelChanged(Model model) {
-        log.trace("modelChanged");
-        setItems();
-        var currentModelValue = model.getCurrentTheme();
-        var currentComboBoxValue = themeComboBox.getValue();
-        if (!Objects.equals(currentModelValue, currentComboBoxValue)) {
-            themeComboBox.setValue(currentModelValue);
-        }
-    }
-
-    @Override
-    public void stageWasShowed(Model model, EventSource source) {
-        log.trace("stageWasShowed");
-        setLabel(storage.getThemes().size());
-    }
-
-    @Override
-    public void interactionChosenFromHistory(Model model) {
-        log.trace("interactionChosenFromHistory");
-        setItems();
-        var currentComboBoxValue = themeComboBox.getValue();
-        Optional.ofNullable(model.getCurrentInteractionId())
-                .map(storage::readInteraction)
-                .map(Optional::orElseThrow)
-                .map(Interaction::theme)
-                .filter(theme -> !theme.equals(currentComboBoxValue))
-                .ifPresent(theme -> themeComboBox.setValue(theme));
-    }
-
     @FXML
     void themeComboBoxAction(ActionEvent ignoredEvent) {
         log.trace("themeComboBoxAction");
@@ -72,21 +42,52 @@ public class ThemeController extends BaseController {
         var currentModelValue = model.getCurrentTheme();
         if (!Objects.equals(currentComboBoxValue, currentModelValue)) {
             model.setCurrentTheme(currentComboBoxValue);
-            model.fireModelChanged(this);
+            model.fire().themeWasChosen(this);
         }
     }
 
     @FXML
     void themeFilterHistoryCheckBoxClicked(ActionEvent ignore) {
-        log.trace("FilterHistoryCheckBox was clicked");
+        log.trace("themeFilterHistoryCheckBoxClicked");
         if (filterHistoryCheckBox.isSelected() != model.isThemeFilterHistory()) {
             model.setIsThemeFilterHistory(filterHistoryCheckBox.isSelected());
             log.debug("ThemeFilterHistoryCheckBox is set to {}", model.isThemeFilterHistory());
-            model.fireModelChanged(this);
+            model.fire().isThemeFilterHistoryChanged(this);
         }
     }
 
-    private void setItems() {
+    @Override
+    public void stageWasShowed(Model model) {
+        log.trace("stageWasShowed");
+        setLabel(storage.getThemes().size());
+    }
+
+    @Override
+    public void interactionChosenFromHistory(Model model) {
+        log.trace("interactionChosenFromHistory");
+        updateComboBoxCurrentValue(model.getCurrentInteractionId());
+    }
+
+    @Override
+    public void interactionsUpdated(Model model) {
+        log.trace("interactionsUpdated");
+        updateComboBoxItems();
+    }
+
+    @Override
+    public String getName() {
+        return getClass().getSimpleName();
+    }
+
+    private void updateComboBoxCurrentValue(InteractionId currentInteractionId) {
+        Optional.ofNullable(currentInteractionId)
+                .map(storage::readInteraction)
+                .map(Optional::orElseThrow)
+                .map(Interaction::theme)
+                .ifPresent(theme -> themeComboBox.setValue(theme));
+    }
+
+    private void updateComboBoxItems() {
         var currentModelItems = FXCollections.observableArrayList(storage.getThemes());
         var currentComboBoxItems = themeComboBox.getItems();
         if (!Objects.equals(currentModelItems, currentComboBoxItems)) {
@@ -97,10 +98,5 @@ public class ThemeController extends BaseController {
 
     private void setLabel(int size) {
         themeLabel.setText(String.format("Theme (%d):", size));
-    }
-
-    @Override
-    public String getName() {
-        return getClass().getSimpleName();
     }
 }

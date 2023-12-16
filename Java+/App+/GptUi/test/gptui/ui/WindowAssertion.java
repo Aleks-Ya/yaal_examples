@@ -20,6 +20,7 @@ public class WindowAssertion {
     private List<String> themeItems;
     private Boolean filterHistorySelected;
     private String questionText;
+    private Boolean isEnteringNewQuestion;
     private String modelEditedQuestion;
     private final AnswerInfo grammarAnswer = new AnswerInfo();
     private final AnswerInfo shortAnswer = new AnswerInfo();
@@ -115,6 +116,11 @@ public class WindowAssertion {
         return this;
     }
 
+    public WindowAssertion modelIsEnteringNewQuestion(Boolean isEnteringNewQuestion) {
+        this.isEnteringNewQuestion = isEnteringNewQuestion;
+        return this;
+    }
+
     public AnswerInfo grammarA() {
         return grammarAnswer;
     }
@@ -176,92 +182,100 @@ public class WindowAssertion {
         var soft = new SoftAssertions();
         {
             var history = app.history();
-            soft.assertThat(history.label().getText())
+            soft.assertThat(history.label().getText()).as("History/Label/Text")
                     .isEqualTo("Question history (" + historySizeFiltered + "/" + historySizeFull + "):");
-            soft.assertThat(history.deleteButton().getText()).isEqualTo("Delete");
-            soft.assertThat(history.comboBox().getItems()).hasSize(historySizeFiltered);
-            soft.assertThat(history.deleteButton().isDisabled()).isEqualTo(historyDeleteButtonDisabled);
+            soft.assertThat(history.deleteButton().getText()).as("History/DeleteButton/Text").isEqualTo("Delete");
+            soft.assertThat(history.comboBox().getItems()).as("History/ComboBox/Items").hasSize(historySizeFiltered);
+            soft.assertThat(history.deleteButton().isDisabled()).as("History/DeleteButton/Disabled").isEqualTo(historyDeleteButtonDisabled);
             if (historySelectedItem != null) {
-                soft.assertThat(history.comboBox().getSelectionModel().getSelectedItem())
+                soft.assertThat(history.comboBox().getSelectionModel().getSelectedItem()).as("History/ComboBox/SelectedItem")
                         .isEqualTo(app.storage.readInteraction(historySelectedItem.id()).orElseThrow());
             } else {
-                soft.assertThat(history.comboBox().getSelectionModel().getSelectedItem()).isNull();
+                soft.assertThat(history.comboBox().getSelectionModel().getSelectedItem())
+                        .as("History/ComboBox/SelectedItem").isNull();
             }
-            soft.assertThat(history.comboBox().getItems()).containsExactlyElementsOf(historyItems);
+            soft.assertThat(history.comboBox().getItems()).as("History/ComboBox/Items").containsExactlyElementsOf(historyItems);
             if (app.model.getCurrentInteractionId() != null) {
-                soft.assertThat(app.model.getCurrentInteractionId()).isEqualTo(historySelectedItem.id());
+                soft.assertThat(app.model.getCurrentInteractionId()).as("Model/CurrentInteractionId").isEqualTo(historySelectedItem.id());
             } else {
-                soft.assertThat(historySelectedItem).isNull();
+                soft.assertThat(historySelectedItem).as("History/ComboBox/SelectedItem").isNull();
             }
-            soft.assertThat(app.model.getHistory().stream()
-                            .map(interactionId -> app.storage.readInteraction(interactionId).orElseThrow()).toList())
-                    .isEqualTo(historyItems);
+            soft.assertThat(app.model.getFilteredHistory()).as("Model/History/Items").isEqualTo(historyItems);
         }
 
         {
             var theme = app.theme();
-            soft.assertThat(theme.label().getText()).isEqualTo("Theme (" + themeItems.size() + "):");
-            soft.assertThat(theme.comboBox().getItems()).hasSize(themeSize);
-            soft.assertThat(theme.comboBox().getSelectionModel().getSelectedItem()).isEqualTo(themeSelectedItem);
-            soft.assertThat(theme.comboBox().getItems()).containsExactlyElementsOf(themeItems);
-            soft.assertThat(theme.filterHistoryCheckBox().isSelected()).isEqualTo(filterHistorySelected);
-            soft.assertThat(app.model.getCurrentTheme()).isEqualTo(themeSelectedItem);
+            soft.assertThat(theme.label().getText()).as("Theme/Label/Text").isEqualTo("Theme (" + themeItems.size() + "):");
+            soft.assertThat(theme.comboBox().getItems()).as("Theme/ComboBox/ItemsSize").hasSize(themeSize);
+            soft.assertThat(theme.comboBox().getSelectionModel().getSelectedItem()).as("Theme/ComboBox/SelectedItem").isEqualTo(themeSelectedItem);
+            soft.assertThat(theme.comboBox().getItems()).as("Theme/ComboBox/Items").containsExactlyElementsOf(themeItems);
+            soft.assertThat(theme.filterHistoryCheckBox().isSelected()).as("Theme/Label/Text").isEqualTo(filterHistorySelected);
+            soft.assertThat(app.model.getCurrentTheme()).as("Theme/Model/CurrentTheme").isEqualTo(themeSelectedItem);
         }
 
         {
             var question = app.question();
-            soft.assertThat(question.label().getText()).as("Question Label").isEqualTo("Question:");
-            soft.assertThat(question.questionButton().getText()).as("Question Button Text").isEqualTo("_Question");
-            soft.assertThat(question.definitionButton().getText()).as("Definition Button Text").isEqualTo("_Definition");
-            soft.assertThat(question.grammarButton().getText()).as("Grammar Button Text").isEqualTo("_Grammar");
-            soft.assertThat(question.factButton().getText()).as("Fact Button Text").isEqualTo("_Fact");
-            soft.assertThat(question.regenerateButton().getText()).as("Regenerate Button Text").isEqualTo("_Resend");
-            soft.assertThat(question.textArea().getText()).as("Question TextArea Text").isEqualTo(questionText);
-            soft.assertThat(app.model.getEditedQuestion()).as("Question Model Text").isEqualTo(modelEditedQuestion);
+            soft.assertThat(question.label().getText()).as("Question/Label/Text").isEqualTo("Question:");
+            soft.assertThat(question.questionButton().getText()).as("Question/Button/Text").isEqualTo("_Question");
+            soft.assertThat(question.definitionButton().getText()).as("Definition/Button/Text").isEqualTo("_Definition");
+            soft.assertThat(question.grammarButton().getText()).as("Grammar/Button/Text").isEqualTo("_Grammar");
+            soft.assertThat(question.factButton().getText()).as("Fact/Button/Text").isEqualTo("_Fact");
+            soft.assertThat(question.regenerateButton().getText()).as("Regenerate/Button/Text").isEqualTo("_Resend");
+            soft.assertThat(question.textArea().getText()).as("Question/TextArea/Text").isEqualTo(questionText);
+            soft.assertThat(app.model.getEditedQuestion()).as("Question/Model/Text").isEqualTo(modelEditedQuestion);
+            soft.assertThat(app.model.isEnteringNewQuestion()).as("Question/Model/isEnteringNewQuestion").isEqualTo(isEnteringNewQuestion);
         }
 
         {
             var answer = app.grammarAnswer();
-            soft.assertThat(answer.label().getText()).isEqualTo("Grammar\nanswer:");
-            soft.assertThat(answer.copyButton().getText()).isEqualTo("Copy _1");
-            soft.assertThat(answer.regenerateButton().getText()).isEqualTo("⟳");
-            app.verifyWebViewBody(soft, answer.webView(), grammarAnswer.text);
-            soft.assertThat(answer.circle().getFill()).isEqualTo(grammarAnswer.circleColor);
-            soft.assertThat(answer.temperatureText().getText()).isEqualTo(temperatureToString(grammarA().temperatureText));
-            soft.assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(grammarA().temperatureSpinner));
+            soft.assertThat(answer.label().getText()).as("Answer/Grammar/Label/Text").isEqualTo("Grammar\nanswer:");
+            soft.assertThat(answer.copyButton().getText()).as("Answer/Grammar/CopyButton/Text").isEqualTo("Copy _1");
+            soft.assertThat(answer.regenerateButton().getText()).as("Answer/Grammar/RegenerateButton/Text").isEqualTo("⟳");
+            app.verifyWebViewBody(soft, "Answer/Grammar/WebView/Body", answer.webView(), grammarAnswer.text);
+            soft.assertThat(answer.circle().getFill()).as("Answer/Grammar/Circle/Fill").isEqualTo(grammarAnswer.circleColor);
+            soft.assertThat(answer.temperatureText().getText()).as("Answer/Grammar/Temperature/Text")
+                    .isEqualTo(temperatureToString(grammarA().temperatureText));
+            soft.assertThat(answer.temperatureSpinner().getValue()).as("Answer/Grammar/TemperatureSpinner/Value")
+                    .isEqualTo(temperatureToInteger(grammarA().temperatureSpinner));
         }
 
         {
             var answer = app.shortAnswer();
-            soft.assertThat(answer.label().getText()).isEqualTo("Short\nanswer:");
-            soft.assertThat(answer.copyButton().getText()).isEqualTo("Copy _2");
-            soft.assertThat(answer.regenerateButton().getText()).isEqualTo("⟳");
-            app.verifyWebViewBody(soft, answer.webView(), shortA().text);
-            soft.assertThat(answer.circle().getFill()).isEqualTo(shortA().circleColor);
-            soft.assertThat(answer.temperatureText().getText()).isEqualTo(temperatureToString(shortA().temperatureText));
-            soft.assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(shortA().temperatureSpinner));
+            soft.assertThat(answer.label().getText()).as("Answer/Short/Label/Text").isEqualTo("Short\nanswer:");
+            soft.assertThat(answer.copyButton().getText()).as("Answer/Short/CopyButton/Text").isEqualTo("Copy _2");
+            soft.assertThat(answer.regenerateButton().getText()).as("Answer/Short/RegenerateButton/Text").isEqualTo("⟳");
+            app.verifyWebViewBody(soft, "Answer/Short/WebView/Body", answer.webView(), shortA().text);
+            soft.assertThat(answer.circle().getFill()).as("Answer/Short/Circle/Fill").isEqualTo(shortA().circleColor);
+            soft.assertThat(answer.temperatureText().getText()).as("Answer/Short/Temperature/Text")
+                    .isEqualTo(temperatureToString(shortA().temperatureText));
+            soft.assertThat(answer.temperatureSpinner().getValue()).as("Answer/Short/TemperatureSpinner/Value")
+                    .isEqualTo(temperatureToInteger(shortA().temperatureSpinner));
         }
 
         {
             var answer = app.longAnswer();
-            soft.assertThat(answer.label().getText()).isEqualTo("Long\nanswer:");
-            soft.assertThat(answer.copyButton().getText()).isEqualTo("Copy _3");
-            soft.assertThat(answer.regenerateButton().getText()).isEqualTo("⟳");
-            app.verifyWebViewBody(soft, answer.webView(), longA().text);
-            soft.assertThat(answer.circle().getFill()).isEqualTo(longA().circleColor);
-            soft.assertThat(answer.temperatureText().getText()).isEqualTo(temperatureToString(longA().temperatureText));
-            soft.assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(longA().temperatureSpinner));
+            soft.assertThat(answer.label().getText()).as("Answer/Long/Label/Text").isEqualTo("Long\nanswer:");
+            soft.assertThat(answer.copyButton().getText()).as("Answer/Long/CopyButton/Text").isEqualTo("Copy _3");
+            soft.assertThat(answer.regenerateButton().getText()).as("Answer/Long/RegenerateButton/Text").isEqualTo("⟳");
+            app.verifyWebViewBody(soft, "Answer/Long/WebView/Body", answer.webView(), longA().text);
+            soft.assertThat(answer.circle().getFill()).as("Answer/Long/Circle/Fill").isEqualTo(longA().circleColor);
+            soft.assertThat(answer.temperatureText().getText()).as("Answer/Long/Temperature/Text")
+                    .isEqualTo(temperatureToString(longA().temperatureText));
+            soft.assertThat(answer.temperatureSpinner().getValue()).as("Answer/Long/TemperatureSpinner/Value")
+                    .isEqualTo(temperatureToInteger(longA().temperatureSpinner));
         }
 
         {
             var answer = app.gcpAnswer();
-            soft.assertThat(answer.label().getText()).isEqualTo("Bard\nanswer:");
-            soft.assertThat(answer.copyButton().getText()).isEqualTo("Copy _4");
-            soft.assertThat(answer.regenerateButton().getText()).isEqualTo("⟳");
-            app.verifyWebViewBody(soft, answer.webView(), gcpA().text);
-            soft.assertThat(answer.circle().getFill()).isEqualTo(gcpA().circleColor);
-            soft.assertThat(answer.temperatureText().getText()).isEqualTo(temperatureToString(gcpA().temperatureText));
-            soft.assertThat(answer.temperatureSpinner().getValue()).isEqualTo(temperatureToInteger(gcpA().temperatureSpinner));
+            soft.assertThat(answer.label().getText()).as("Answer/GCP/Label/Text").isEqualTo("Bard\nanswer:");
+            soft.assertThat(answer.copyButton().getText()).as("Answer/GCP/CopyButton/Text").isEqualTo("Copy _4");
+            soft.assertThat(answer.regenerateButton().getText()).as("Answer/GCP/RegenerateButton/Text").isEqualTo("⟳");
+            app.verifyWebViewBody(soft, "Answer/GCP/WebView/Body", answer.webView(), gcpA().text);
+            soft.assertThat(answer.circle().getFill()).as("Answer/GCP/Circle/Fill").isEqualTo(gcpA().circleColor);
+            soft.assertThat(answer.temperatureText().getText()).as("Answer/GCP/Temperature/Text")
+                    .isEqualTo(temperatureToString(gcpA().temperatureText));
+            soft.assertThat(answer.temperatureSpinner().getValue()).as("Answer/GCP/TemperatureSpinner/Value")
+                    .isEqualTo(temperatureToInteger(gcpA().temperatureSpinner));
         }
         soft.assertAll();
     }

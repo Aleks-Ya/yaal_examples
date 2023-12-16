@@ -3,72 +3,54 @@ package gptui.ui;
 import gptui.storage.AnswerType;
 import gptui.storage.Interaction;
 import gptui.storage.InteractionId;
+import gptui.storage.InteractionStorage;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCodeCombination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.function.Consumer;
 
 @Singleton
 public class Model {
     private static final Logger log = LoggerFactory.getLogger(Model.class);
-    private final Set<ModelListener> listeners = new HashSet<>();
-    private List<InteractionId> history = new ArrayList<>();
+    @Inject
+    private InteractionStorage storage;
     private InteractionId currentInteractionId;
     private String currentTheme;
     private String editedQuestion;
     private Scene scene;
     private final Temperatures temperatures = new Temperatures();
     private Boolean themeFilterHistory = false;
+    private final Fire fire = new Fire();
 
     public void subscribe(ModelListener listener) {
         log.debug("ModelListener subscribed: {}", listener);
-        listeners.add(listener);
+        fire.subscribe(listener);
     }
 
-    public void fireModelChanged(EventSource source) {
-        var selfListeners = getSelfListeners(source);
-        var notSelfListeners = getNotSelfListeners(source);
-        log.debug("Firing model changed to {} listeners (skip {} self-listeners) by {}...",
-                notSelfListeners.size(), selfListeners.size(), source.getName());
-        notSelfListeners.forEach(listener -> listener.modelChanged(this));
+    public synchronized boolean isEnteringNewQuestion() {
+        return storage.readInteraction(getCurrentInteractionId())
+//                .filter(ignore -> getEditedQuestion() != null)
+//                .filter(ignore -> !getEditedQuestion().isEmpty())
+                .map(interaction -> !Objects.equals(interaction.question(), getEditedQuestion()))
+                .orElse(false);
     }
 
-    public void fireStageShowed(EventSource source) {
-        var selfListeners = getSelfListeners(source);
-        var notSelfListeners = getNotSelfListeners(source);
-        log.debug("Firing stage was showed to {} listeners (skip {} self-listeners) by {}...",
-                notSelfListeners.size(), selfListeners.size(), source.getName());
-        notSelfListeners.forEach(listener -> listener.stageWasShowed(this, source));
+    public synchronized List<Interaction> getFullHistory() {
+        return storage.readAllInteractions();
     }
 
-    public void fireInteractionChosenFromHistory(EventSource source) {
-        var selfListeners = getSelfListeners(source);
-        var notSelfListeners = getNotSelfListeners(source);
-        log.debug("Firing interaction chosen from history to {} listeners (skip {} self-listeners) by {}...",
-                notSelfListeners.size(), selfListeners.size(), source.getName());
-        notSelfListeners.forEach(listener -> listener.interactionChosenFromHistory(this));
-    }
-
-    private List<ModelListener> getNotSelfListeners(EventSource source) {
-        return listeners.stream().filter(listener -> listener != source).toList();
-    }
-
-    private List<ModelListener> getSelfListeners(EventSource source) {
-        return listeners.stream().filter(listener -> listener == source).toList();
-    }
-
-    public synchronized List<InteractionId> getHistory() {
-        return history;
-    }
-
-    public synchronized void setHistory(List<Interaction> history) {
-        this.history = history.stream().map(Interaction::id).toList();
+    public synchronized List<Interaction> getFilteredHistory() {
+        return getFullHistory().stream()
+                .filter(interaction -> !isThemeFilterHistory() || getCurrentTheme().trim().equals(interaction.theme().trim()))
+                .toList();
     }
 
     public synchronized InteractionId getCurrentInteractionId() {
@@ -119,5 +101,59 @@ public class Model {
     public void setIsThemeFilterHistory(Boolean isThemeFilterHistory) {
         log.trace("setIsThemeFilterHistory: {}", isThemeFilterHistory);
         this.themeFilterHistory = isThemeFilterHistory;
+    }
+
+    public Fire fire() {
+        return fire;
+    }
+
+    public class Fire {
+        private final Set<ModelListener> listeners = new HashSet<>();
+
+        public void stageShowed(EventSource source) {
+            fire("StageShowed", source, listener -> listener.stageWasShowed(Model.this));
+        }
+
+        public void interactionChosenFromHistory(EventSource source) {
+            fire("InteractionChosenFromHistory", source,
+                    listener -> listener.interactionChosenFromHistory(Model.this));
+        }
+
+        public void themeWasChosen(EventSource source) {
+            fire("ThemeWasChosen", source, listener -> listener.themeWasChosen(Model.this));
+        }
+
+        public void isThemeFilterHistoryChanged(EventSource source) {
+            fire("IsThemeFilterHistoryChanged", source,
+                    listener -> listener.isThemeFilterHistoryChanged(Model.this));
+        }
+
+        public void interactionsUpdated(EventSource source) {
+            fire("InteractionsUpdated", source, listener -> listener.interactionsUpdated(Model.this));
+        }
+
+        public void answerUpdated(EventSource source) {
+            fire("AnswerUpdated", source, listener -> listener.answerUpdated(Model.this));
+        }
+
+        void subscribe(ModelListener listener) {
+            fire.listeners.add(listener);
+        }
+
+        private void fire(String eventName, EventSource source, Consumer<? super ModelListener> consumer) {
+            var selfListeners = getSelfListeners(source);
+            var notSelfListeners = getNotSelfListeners(source);
+            log.debug("Firing interaction '{}' to {} listeners (skip {} self-listeners) by {}...",
+                    eventName, notSelfListeners.size(), selfListeners.size(), source.getName());
+            notSelfListeners.forEach(consumer);
+        }
+
+        private List<ModelListener> getNotSelfListeners(EventSource source) {
+            return listeners.stream().filter(listener -> listener != source).toList();
+        }
+
+        private List<ModelListener> getSelfListeners(EventSource source) {
+            return listeners.stream().filter(listener -> listener == source).toList();
+        }
     }
 }

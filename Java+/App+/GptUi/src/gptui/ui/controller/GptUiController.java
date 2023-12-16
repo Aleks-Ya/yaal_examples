@@ -37,7 +37,6 @@ public class GptUiController extends BaseController {
         longAnswerController.setAnswerType(LONG);
         gcpAnswerController.setAnswerType(GCP);
         var history = storage.readAllInteractions();
-        model.setHistory(history);
         model.setCurrentInteractionId(!history.isEmpty() ? history.getFirst().id() : null);
         if (!history.isEmpty()) {
             var currentInteraction = storage.readInteraction(model.getCurrentInteractionId()).orElseThrow();
@@ -47,7 +46,8 @@ public class GptUiController extends BaseController {
             currentInteraction.getAnswer(GCP).ifPresent(answer -> model.getTemperatures().setTemperature(GCP, answer.temperature()));
         }
         model.setCurrentTheme(!storage.getThemes().isEmpty() ? storage.getThemes().getFirst() : null);
-        model.fireInteractionChosenFromHistory(this);
+        model.fire().interactionsUpdated(this);
+        model.fire().interactionChosenFromHistory(this);
     }
 
     @Override

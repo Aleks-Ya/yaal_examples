@@ -1,13 +1,22 @@
 package gptui.ui;
 
 public interface ModelListener {
-    default void modelChanged(Model model) {
-    }
-
     default void interactionChosenFromHistory(Model model) {
-        modelChanged(model);
     }
 
-    default void stageWasShowed(Model model, EventSource source) {
+    default void stageWasShowed(Model model) {
     }
+
+    default void themeWasChosen(Model model) {
+    }
+
+    default void isThemeFilterHistoryChanged(Model model) {
+    }
+
+    default void interactionsUpdated(Model model) {
+    }
+
+    default void answerUpdated(Model model) {
+    }
+
 }

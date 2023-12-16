@@ -1,5 +1,6 @@
 package gptui.ui.controller;
 
+import gptui.storage.Interaction;
 import gptui.ui.BaseGptUiTest;
 import gptui.ui.TestingData.I1;
 import gptui.ui.TestingData.I2;
@@ -77,37 +78,29 @@ class HotKeysTest extends BaseGptUiTest {
     @Test
     void sendQuestionByAltQ() {
         press(ALT, Q).release(Q, ALT);
-        assertThat(model.getHistory()).hasSize(4)
-                .element(0)
-                .extracting(interactionId -> storage.readInteraction(interactionId).orElseThrow().type())
-                .isEqualTo(QUESTION);
+        assertThat(model.getFullHistory()).hasSize(4)
+                .element(0).extracting(Interaction::type).isEqualTo(QUESTION);
     }
 
     @Test
     void sendDefinitionByAltD() {
         press(ALT, D).release(D, ALT);
-        assertThat(model.getHistory()).hasSize(4)
-                .element(0)
-                .extracting(interactionId -> storage.readInteraction(interactionId).orElseThrow().type())
-                .isEqualTo(DEFINITION);
+        assertThat(model.getFullHistory()).hasSize(4)
+                .element(0).extracting(Interaction::type).isEqualTo(DEFINITION);
     }
 
     @Test
     void sendGrammarByAltG() {
         press(ALT, G).release(G, ALT);
-        assertThat(model.getHistory()).hasSize(4)
-                .element(0)
-                .extracting(interactionId -> storage.readInteraction(interactionId).orElseThrow().type())
-                .isEqualTo(GRAMMAR);
+        assertThat(model.getFullHistory()).hasSize(4)
+                .element(0).extracting(Interaction::type).isEqualTo(GRAMMAR);
     }
 
     @Test
     void sendFactByAltF() {
         press(ALT, F).release(F, ALT);
-        assertThat(model.getHistory()).hasSize(4)
-                .element(0)
-                .extracting(interactionId -> storage.readInteraction(interactionId).orElseThrow().type())
-                .isEqualTo(FACT);
+        assertThat(model.getFullHistory()).hasSize(4)
+                .element(0).extracting(Interaction::type).isEqualTo(FACT);
     }
 
     @Test
@@ -129,10 +122,8 @@ class HotKeysTest extends BaseGptUiTest {
     @Test
     void sendQuestionByCtrlEnter() {
         press(CONTROL, ENTER).release(ENTER, CONTROL);
-        assertThat(model.getHistory()).hasSize(4)
-                .element(0)
-                .extracting(interactionId -> storage.readInteraction(interactionId).orElseThrow().type())
-                .isEqualTo(QUESTION);
+        assertThat(model.getFullHistory()).hasSize(4)
+                .element(0).extracting(Interaction::type).isEqualTo(QUESTION);
     }
 
     @Test

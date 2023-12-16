@@ -29,6 +29,7 @@ class StartNotEmptyStorageTest extends BaseGptUiTest {
                 .themeFilterHistorySelected(false)
                 .questionText(I2.QUESTION)
                 .modelEditedQuestion(I2.QUESTION)
+                .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I2.GRAMMAR_HTML)
                 .shortA().text(I2.SHORT_HTML)
                 .longA().text(I2.LONG_HTML)

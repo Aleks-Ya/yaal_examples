@@ -52,7 +52,7 @@ public class GptUiApplication extends Application implements EventSource {
         stage.getIcons().add(applicationIcon);
         stage.show();
         model.setScene(scene);
-        model.fireStageShowed(this);
+        model.fire().stageShowed(this);
     }
 
     public GuiceContext getGuiceContext() {

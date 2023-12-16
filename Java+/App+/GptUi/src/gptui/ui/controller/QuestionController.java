@@ -5,7 +5,6 @@ import gptui.gpt.QuestionApi;
 import gptui.storage.Interaction;
 import gptui.storage.InteractionStorage;
 import gptui.storage.InteractionType;
-import gptui.ui.EventSource;
 import gptui.ui.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,30 +43,31 @@ public class QuestionController extends BaseController {
 
     @FXML
     void sendQuestion(ActionEvent ignoredEvent) {
-        log.debug("Send question by Send button");
+        log.debug("sendQuestion");
         questionApi.sendQuestion(QUESTION, model.getTemperatures());
     }
 
     @FXML
     void sendDefinition(ActionEvent ignoredEvent) {
-        log.debug("Send definition by Send button");
+        log.debug("sendDefinition");
         questionApi.sendQuestion(DEFINITION, model.getTemperatures());
     }
 
     @FXML
     void sendGrammar(ActionEvent ignoredEvent) {
-        log.debug("Send grammar by Send button");
+        log.debug("sendGrammar");
         questionApi.sendQuestion(InteractionType.GRAMMAR, model.getTemperatures());
     }
 
     @FXML
     public void sendFact(ActionEvent ignoredEvent) {
-        log.debug("Send fact by Send button");
+        log.debug("sendFact");
         questionApi.sendQuestion(FACT, model.getTemperatures());
     }
 
     @FXML
     void onRegenerateButtonClick(ActionEvent ignoredEvent) {
+        log.trace("onRegenerateButtonClick");
         var interactionId = model.getCurrentInteractionId();
         Mdc.run(interactionId, () -> {
             log.info("Regenerate question: {}", interactionId);
@@ -80,6 +80,7 @@ public class QuestionController extends BaseController {
 
     @FXML
     void keyTypedQuestionTextArea(KeyEvent ignoredEvent) {
+        log.trace("keyTypedQuestionTextArea");
         model.setEditedQuestion(questionTextArea.getText());
     }
 
@@ -99,7 +100,7 @@ public class QuestionController extends BaseController {
     }
 
     @Override
-    public void stageWasShowed(Model model, EventSource source) {
+    public void stageWasShowed(Model model) {
         log.trace("stageWasShowed");
         model.addAccelerator(new KeyCodeCombination(V, CONTROL_DOWN, ALT_DOWN), () -> {
             log.debug("pasteQuestionFromClipboardAndFocus");

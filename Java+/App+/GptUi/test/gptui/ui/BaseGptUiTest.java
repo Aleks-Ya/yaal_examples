@@ -88,8 +88,8 @@ public abstract class BaseGptUiTest extends ApplicationTest {
                 .isEqualTo("<html><head></head><body>" + expContent + "</body></html>"));
     }
 
-    protected void verifyWebViewBody(SoftAssertions soft, WebView webView, String expContent) {
-        interact(() -> soft.assertThat(extractWebViewContent(webView))
+    protected void verifyWebViewBody(SoftAssertions soft, String as, WebView webView, String expContent) {
+        interact(() -> soft.assertThat(extractWebViewContent(webView)).as(as)
                 .isEqualTo("<html><head></head><body>" + expContent + "</body></html>"));
     }
 

@@ -19,6 +19,7 @@ class DeleteInteractionNullTest extends BaseGptUiTest {
                 .themeFilterHistorySelected(false)
                 .questionText("")
                 .modelEditedQuestion(null)
+                .modelIsEnteringNewQuestion(false)
                 .grammarA().text("")
                 .shortA().text("")
                 .longA().text("")

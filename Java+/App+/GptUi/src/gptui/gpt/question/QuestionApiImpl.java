@@ -56,7 +56,7 @@ class QuestionApiImpl implements QuestionApi, EventSource {
         var interactionId = storage.newInteractionId();
         Mdc.run(interactionId, () -> {
             log.info("Sending question: interactionType=\"{}\", theme=\"{}\", question=\"{}\"", interactionType, theme, question);
-            updateInteraction(interactionId, interaction -> interaction
+            createInteraction(interactionId, interaction -> interaction
                     .withTheme(theme)
                     .withQuestion(question)
                     .withType(interactionType)
@@ -127,20 +127,21 @@ class QuestionApiImpl implements QuestionApi, EventSource {
         });
     }
 
-    private synchronized void updateInteraction(InteractionId interactionId, Function<Interaction, Interaction> update) {
+    private synchronized void createInteraction(InteractionId interactionId, Function<Interaction, Interaction> update) {
         log.trace("updateInteraction {}", interactionId);
         storage.updateInteraction(interactionId, update);
-        var history = storage.readAllInteractions();
-        model.setHistory(history);
         model.setCurrentInteractionId(interactionId);
-        Platform.runLater(() -> model.fireModelChanged(this));
+        Platform.runLater(() -> {
+            model.fire().interactionsUpdated(this);
+            model.fire().interactionChosenFromHistory(this);
+        });
     }
 
     private synchronized void updateAnswer(InteractionId interactionId, AnswerType answerType, Function<Answer, Answer> update) {
         log.trace("updateAnswer: interactionId={}. answerType={}", interactionId, answerType);
         storage.updateInteraction(interactionId, interaction ->
                 interaction.withAnswer(update.apply(interaction.getAnswer(answerType).orElseThrow())));
-        Platform.runLater(() -> model.fireModelChanged(this));
+        Platform.runLater(() -> model.fire().answerUpdated(this));
     }
 
     @Override

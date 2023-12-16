@@ -5,7 +5,6 @@ import gptui.gpt.QuestionApi;
 import gptui.storage.AnswerState;
 import gptui.storage.AnswerType;
 import gptui.storage.InteractionStorage;
-import gptui.ui.EventSource;
 import gptui.ui.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,6 +66,7 @@ public class AnswerController extends BaseController {
 
     @Override
     protected void initializeChild() {
+        log.trace("initializeChild");
         temperatureSpinner.getValueFactory().setConverter(new StringConverter<>() {
             @Override
             public String toString(Integer number) {
@@ -97,7 +97,7 @@ public class AnswerController extends BaseController {
     }
 
     @Override
-    public void stageWasShowed(Model model, EventSource source) {
+    public void stageWasShowed(Model model) {
         Mdc.run(answerType, () -> {
             log.trace("stageWasShowed");
             answerLabel.setText(labelTextMap.get(answerType));
@@ -109,9 +109,18 @@ public class AnswerController extends BaseController {
     }
 
     @Override
-    public void modelChanged(Model model) {
+    public void answerUpdated(Model model) {
+        updateUI(model);
+    }
+
+    @Override
+    public void interactionChosenFromHistory(Model model) {
+        updateUI(model);
+    }
+
+    private void updateUI(Model model) {
         Mdc.run(answerType, () -> {
-            log.trace("modelChanged later");
+            log.trace("updateUI");
             Optional.ofNullable(model.getCurrentInteractionId())
                     .map(storage::readInteraction)
                     .map(Optional::orElseThrow)
