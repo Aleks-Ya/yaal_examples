@@ -210,14 +210,14 @@ public class WindowAssertion {
 
         {
             var question = app.question();
-            soft.assertThat(question.label().getText()).isEqualTo("Question:");
-            soft.assertThat(question.questionButton().getText()).isEqualTo("_Question");
-            soft.assertThat(question.definitionButton().getText()).isEqualTo("_Definition");
-            soft.assertThat(question.grammarButton().getText()).isEqualTo("_Grammar");
-            soft.assertThat(question.factButton().getText()).isEqualTo("_Fact");
-            soft.assertThat(question.regenerateButton().getText()).isEqualTo("_Resend");
-            soft.assertThat(question.textArea().getText()).isEqualTo(questionText);
-            soft.assertThat(app.model.getEditedQuestion()).isEqualTo(modelEditedQuestion);
+            soft.assertThat(question.label().getText()).as("Question Label").isEqualTo("Question:");
+            soft.assertThat(question.questionButton().getText()).as("Question Button Text").isEqualTo("_Question");
+            soft.assertThat(question.definitionButton().getText()).as("Definition Button Text").isEqualTo("_Definition");
+            soft.assertThat(question.grammarButton().getText()).as("Grammar Button Text").isEqualTo("_Grammar");
+            soft.assertThat(question.factButton().getText()).as("Fact Button Text").isEqualTo("_Fact");
+            soft.assertThat(question.regenerateButton().getText()).as("Regenerate Button Text").isEqualTo("_Resend");
+            soft.assertThat(question.textArea().getText()).as("Question TextArea Text").isEqualTo(questionText);
+            soft.assertThat(app.model.getEditedQuestion()).as("Question Model Text").isEqualTo(modelEditedQuestion);
         }
 
         {

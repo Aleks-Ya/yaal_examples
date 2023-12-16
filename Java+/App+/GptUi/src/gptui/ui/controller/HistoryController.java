@@ -54,7 +54,6 @@ public class HistoryController extends BaseController {
                 model.setCurrentInteractionId(null);
             }
             model.fireModelChanged(this);
-            model.fireInteractionChosenFromHistory(this);
         }
         var modelCurrentValueOpt = storage.readInteraction(model.getCurrentInteractionId());
         var comboBoxCurrentValue = historyComboBox.getSelectionModel().getSelectedItem();
@@ -75,7 +74,7 @@ public class HistoryController extends BaseController {
 
     private ObservableList<Interaction> getModelItems(Model model) {
         return FXCollections.observableArrayList(storage.readAllInteractions().stream()
-                .filter(interaction -> !model.getThemeFilterHistory() || model.getCurrentTheme().trim().equals(interaction.theme().trim()))
+                .filter(interaction -> !model.isThemeFilterHistory() || model.getCurrentTheme().trim().equals(interaction.theme().trim()))
                 .toList());
     }
 

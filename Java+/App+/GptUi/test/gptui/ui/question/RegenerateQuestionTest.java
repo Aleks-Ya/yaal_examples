@@ -65,7 +65,7 @@ class RegenerateQuestionTest extends BaseGptUiTest {
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
                 .modelEditedQuestion(I1.QUESTION)
-                .grammarA().text(I2.EXP_HTML_BODY)
+                .grammarA().text(I2.EXP_GRAMMAR_HTML_BODY)
                 .shortA().text(I2.EXP_SHORT_HTML_BODY)
                 .longA().text(I2.EXP_LONG_HTML_BODY)
                 .gcpA().text(I2.EXP_GCP_HTML_BODY)

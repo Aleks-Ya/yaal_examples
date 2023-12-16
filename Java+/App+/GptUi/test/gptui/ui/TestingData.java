@@ -20,12 +20,12 @@ public class TestingData {
         public static final String THEME = "Theme 1";
         public static final String QUESTION = "Question 1";
         public static final String GRAMMAR_HTML = "Grammar answer HTML 1";
-        public static final String EXP_GRAMMAR_HTML_BODY = wrapExpectedWebViewContent(GRAMMAR_HTML);
         public static final String SHORT_HTML = "Short answer HTML 1";
-        public static final String EXP_SHORT_HTML_BODY = wrapExpectedWebViewContent(SHORT_HTML);
         public static final String LONG_HTML = "Long answer HTML 1";
-        public static final String EXP_LONG_HTML_BODY = wrapExpectedWebViewContent(LONG_HTML);
         public static final String GCP_HTML = "GCP answer HTML 1";
+        public static final String EXP_GRAMMAR_HTML_BODY = wrapExpectedWebViewContent(GRAMMAR_HTML);
+        public static final String EXP_SHORT_HTML_BODY = wrapExpectedWebViewContent(SHORT_HTML);
+        public static final String EXP_LONG_HTML_BODY = wrapExpectedWebViewContent(LONG_HTML);
         public static final String EXP_GCP_HTML_BODY = wrapExpectedWebViewContent(GCP_HTML);
         public static final Interaction INTERACTION = new Interaction(new InteractionId(1L), InteractionType.QUESTION, THEME, QUESTION, Map.of(
                 GRAMMAR, new Answer(GRAMMAR, "QC prompt 1", 50, "Grammar answer MD 1", GRAMMAR_HTML, SUCCESS),
@@ -41,7 +41,7 @@ public class TestingData {
         public static final String SHORT_HTML = "Short answer HTML 2";
         public static final String LONG_HTML = "Long answer HTML 2";
         public static final String GCP_HTML = "GCP answer HTML 2";
-        public static final String EXP_HTML_BODY = wrapExpectedWebViewContent(I2.GRAMMAR_HTML);
+        public static final String EXP_GRAMMAR_HTML_BODY = wrapExpectedWebViewContent(I2.GRAMMAR_HTML);
         public static final String EXP_SHORT_HTML_BODY = wrapExpectedWebViewContent(I2.SHORT_HTML);
         public static final String EXP_LONG_HTML_BODY = wrapExpectedWebViewContent(I2.LONG_HTML);
         public static final String EXP_GCP_HTML_BODY = wrapExpectedWebViewContent(I2.GCP_HTML);

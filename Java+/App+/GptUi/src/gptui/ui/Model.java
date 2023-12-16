@@ -112,12 +112,12 @@ public class Model {
         scene.getAccelerators().put(keyCodeCombination, runnable);
     }
 
-    public Boolean getThemeFilterHistory() {
+    public Boolean isThemeFilterHistory() {
         return themeFilterHistory;
     }
 
-    public void setThemeFilterHistory(Boolean themeFilterHistory) {
-        log.trace("setThemeFilterHistory: {}", themeFilterHistory);
-        this.themeFilterHistory = themeFilterHistory;
+    public void setIsThemeFilterHistory(Boolean isThemeFilterHistory) {
+        log.trace("setIsThemeFilterHistory: {}", isThemeFilterHistory);
+        this.themeFilterHistory = isThemeFilterHistory;
     }
 }

@@ -79,9 +79,9 @@ public class ThemeController extends BaseController {
     @FXML
     void themeFilterHistoryCheckBoxClicked(ActionEvent ignore) {
         log.trace("FilterHistoryCheckBox was clicked");
-        if (filterHistoryCheckBox.isSelected() != model.getThemeFilterHistory()) {
-            model.setThemeFilterHistory(filterHistoryCheckBox.isSelected());
-            log.debug("ThemeFilterHistoryCheckBox is set to {}", model.getThemeFilterHistory());
+        if (filterHistoryCheckBox.isSelected() != model.isThemeFilterHistory()) {
+            model.setIsThemeFilterHistory(filterHistoryCheckBox.isSelected());
+            log.debug("ThemeFilterHistoryCheckBox is set to {}", model.isThemeFilterHistory());
             model.fireModelChanged(this);
         }
     }
