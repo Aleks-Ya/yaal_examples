@@ -67,7 +67,9 @@ def _remove(changes, col) -> bool:
         r"<br>\s*<br>\s*</div>": "<br></div>",
         r"<div>\s*<br>\s*</div>": "",
         r"<br>\s*<h2>": "<h2>",
-        r"</h2>\s*<br>": "</h2>"
+        r"</h2>\s*<br>": "</h2>",
+        r"<br>\s*<ul>": "<ul>",
+        r"</ul>\s*<br>": "</ul>"
     }
     field_names: List[str] = [
         'Examples1-generated',
