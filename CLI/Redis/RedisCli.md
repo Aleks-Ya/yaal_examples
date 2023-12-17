@@ -1,7 +1,8 @@
 # Redis CLI
 
 ## Install
-`sudo snap install redis`
+APT: `sudo apt install -y redis`
+Snap: `sudo snap install redis`
 
 ## Info
 Help: `redis-cli --help`

@@ -1,5 +1,0 @@
-subprojects {
-    ext {
-        aws1Version = '1.12.549'
-    }
-}

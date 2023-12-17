@@ -54,3 +54,11 @@ Printing certificate Serial Number: `openssl x509 -serial -noout -in my.crt`
 
 ## Verify
 Verify certificate chain: `openssl verify -CAfile ca.crt bob.crt`
+
+## Encrypt/Decrypt
+### Encrypt and decrypt in single line
+Through Binary: `echo -n "My Text" | openssl enc -e -aes256 -pbkdf2 -k MyKey | openssl enc -d -aes256 -pbkdf2 -k MyKey`
+Through Base64: `echo -n "My Text" | openssl enc -e -aes256 -pbkdf2 -k MyKey -base64 | openssl enc -d -aes256 -pbkdf2 -k MyKey -base64`
+### Encrypt and decrypt in seperately
+Encrypt: `echo -n "My Text" | openssl enc -e -aes256 -pbkdf2 -k MyKey -base64 > /tmp/encrypted.txt`
+Decrypt: `cat /tmp/encrypted.txt | openssl enc -d -aes256 -pbkdf2 -k MyKey -base64`
