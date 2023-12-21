@@ -33,18 +33,18 @@ Create an EC2 instance with a web-server. Make the server available from the Int
             1. Security group name: {generated}
             2. Description: {generated}
             3. Inbound Security Group Rules
-                1. SSH
-                    1. Type: `ssh`
-                    2. Source type: `Anywhere`
-                2. HTTP
+                1. HTTP
                     1. Type: `HTTP`
                     2. Source type: `Anywhere`
-3. Run web-server
-    1. Connect to `instance-1` with Instance Connect
-    2. Run server: `sudo python3 -m http.server 80`
-4. Test web-server
+    6. User data:
+        ```bash
+        #!/bin/bash
+        echo "Hello from EC2 instance!" > index.html
+        sudo python3 -m http.server 80 &
+        ```
+3. Test web-server
     1. Copy "Public IPv4 address" from `instance-1`
-    2. Test: `curl -i http://3.84.198.182`
+    2. Test: `curl http://3.84.198.182`
 
 ## Cleanup
 

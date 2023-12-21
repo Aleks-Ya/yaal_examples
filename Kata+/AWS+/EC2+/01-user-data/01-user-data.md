@@ -14,6 +14,7 @@ Create a EC2 instance with a web-server which should start automatically.
     4. User data:
         ```bash
         #!/bin/bash
+        echo "Hello from EC2 instance!" > index.html
         sudo python3 -m http.server 80 &
         ```
 2. Test web-server

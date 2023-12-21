@@ -39,12 +39,15 @@ Send an HTTP request from the client to the server.
 			1. Security group name: {generated}
 			2. Description: {generated}
             3. Inbound Security Group Rules
-                1. SSH
-                    1. Type: `ssh`
-                    2. Source type: `Anywhere`
-                2. HTTP
+                1. HTTP
                     1. Type: `HTTP`
                     2. Source type: `Anywhere`
+    	5. User data:
+        	```bash
+        	#!/bin/bash
+        	echo "Hello from EC2 instance!" > index.html
+        	sudo python3 -m http.server 80 &
+        	```
 3. Run web-server
     1. Connect to `instance-1` with Instance Connect
     2. Run server: `sudo python3 -m http.server 80`
