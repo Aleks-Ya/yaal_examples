@@ -3,9 +3,9 @@ package scala.string.regex
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class FindMatchesTest extends AnyFlatSpec with Matchers {
+class RegexGroupTest extends AnyFlatSpec with Matchers {
 
-  it should "find match" in {
+  it should "get one group" in {
     val text = "Hello John now!"
     val pattern = """Hello\s(\w+)\snow!""".r
     val matches = pattern.findFirstMatchIn(text)
@@ -13,13 +13,16 @@ class FindMatchesTest extends AnyFlatSpec with Matchers {
     name shouldEqual "John"
   }
 
-  it should "find match 2" in {
+  it should "get several groups" in {
     val titleLine = "2) Is employed: CATEGORICAL\r"
     val patternTitle = """^(\d+)\) (\w[\w\s]*): (\w+)$""".r
-    val titleMathches = patternTitle.findFirstMatchIn(titleLine).get
-    val id = titleMathches.group(1).toInt
-    val title = titleMathches.group(2)
-    val category = titleMathches.group(3)
+    val titleMatches = patternTitle.findFirstMatchIn(titleLine).get
+    val id = titleMatches.group(1).toInt
+    val title = titleMatches.group(2)
+    val category = titleMatches.group(3)
+    id shouldBe 2
+    title shouldBe "Is employed"
+    category shouldBe "CATEGORICAL"
   }
 
 }

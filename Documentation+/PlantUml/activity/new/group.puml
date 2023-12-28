@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta#772273da3919bcd1
+
+title Grouping
+
+@startuml
+start
+
+group #lightGreen Initialization
+    :read config file;
+    :init internal variable;
+end group
+
+group Running group
+    :wait for user interaction;
+    :print information;
+end group
+
+stop
+@enduml
