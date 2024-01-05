@@ -17,4 +17,13 @@ Run in local mode: `spark-shell --master local[2]`
 Connect to existing Master: `spark-shell --master spark://spark-standalone-cluster-master:7077`
 
 ## Test calculations in Shell
-Test: `sc.parallelize(Seq(1, 2, 3)).collect()`
+1. Test Spark Core: `sc.parallelize(Seq(1, 2, 3)).collect()`
+2. Test Spark SQL:
+```Scala
+import org.apache.spark.sql.Row
+import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
+val schema = StructType(StructField("name", StringType) :: StructField("age", IntegerType) :: Nil)
+val rdd = sc.parallelize(Seq(Row("Jhon", 25), Row("Peter", 35)))
+val peopleDf = spark.sqlContext.createDataFrame(rdd, schema)
+peopleDf.show
+```
