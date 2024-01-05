@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers
 
 import java.time.LocalDate
 
-class CaseClass extends AnyFlatSpec with Matchers {
+class CaseClassTest extends AnyFlatSpec with Matchers {
 
   it should "instantiate a case class" in {
     case class Book(isbn: String)
@@ -23,16 +23,18 @@ class CaseClass extends AnyFlatSpec with Matchers {
   }
 
   it should "copy a case class object with changed fields" in {
-    case class Book(isbn: String, author: String)
+    case class Book(isbn: String, author: String, year: Int)
     val isbn = "978-0486282114"
     val author1 = "King"
-    val origin = Book(isbn, author1)
+    val year = 2020
+    val origin = Book(isbn, author1, year)
     val author2 = "Petrov"
-    val copy = origin.copy(author = author2)
+    val copy = origin.copy(isbn = origin.isbn.replaceAll("-", ""), author = author2)
     origin.isbn shouldEqual isbn
     origin.author shouldEqual author1
-    copy.isbn shouldEqual isbn
-    copy.author shouldEqual author2
+    origin.year shouldEqual year
+    copy.isbn shouldEqual "9780486282114"
+    copy.year shouldEqual year
   }
 
   it should "use null in a case class" in {
