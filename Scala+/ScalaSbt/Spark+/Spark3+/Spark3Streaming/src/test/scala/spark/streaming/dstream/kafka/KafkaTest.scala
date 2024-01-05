@@ -2,7 +2,6 @@ package spark.streaming.dstream.kafka
 
 import io.github.embeddedkafka.EmbeddedKafka
 import org.apache.kafka.common.serialization.{StringDeserializer, StringSerializer}
-import org.apache.spark.SparkConf
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
 import org.apache.spark.streaming.kafka010.KafkaUtils
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
@@ -10,7 +9,7 @@ import org.apache.spark.streaming.scheduler.{StreamingListener, StreamingListene
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import spark.streaming.dstream.streaming.operation.stateful.UpdateStateByKeyTest
+import spark.streaming.dstream.factory.Factory
 
 import scala.collection.mutable
 
@@ -19,11 +18,8 @@ class KafkaTest extends AnyFlatSpec with EmbeddedKafka with Matchers {
 
   it should "consume records from Kafka topic" in {
     withRunningKafka {
-      val conf = new SparkConf()
-        .setAppName(classOf[UpdateStateByKeyTest].getSimpleName)
-        .setMaster("local[2]")
       val windowSec = 1
-      val ssc = new StreamingContext(conf, Seconds(windowSec))
+      val ssc = Factory.ssc(Seconds(windowSec))
 
       val topic = "topic1"
       implicit val serializer: StringSerializer = new StringSerializer()

@@ -1,13 +1,14 @@
 package spark.streaming.dstream.streaming.manual_clock
 
+import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
-import org.apache.spark.streaming.{ClockWrapperFull, _}
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.streaming._
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.concurrent.Eventually
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.{Millis, Span}
+import spark.streaming.dstream.factory.Factory
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
@@ -28,11 +29,7 @@ class ManualClockTest extends AnyFlatSpec
   )
 
   override def beforeAll(): Unit = {
-    val conf = new SparkConf()
-      .setAppName(appName)
-      .setMaster("local[2]")
-      .set("spark.streaming.clock", "org.apache.spark.util.ManualClock")
-    ssc = new StreamingContext(conf, batchDuration)
+    ssc = Factory.ssc(batchDuration, Seq(("spark.streaming.clock", "org.apache.spark.util.ManualClock")))
     sc = ssc.sparkContext
     ClockWrapperFull.setSparkStreamingContext(ssc)
   }
@@ -62,11 +59,11 @@ class ManualClockTest extends AnyFlatSpec
     ClockWrapperFull.advance(batchDuration.milliseconds / 2)
     eventually {
       try {
-//        val last = results.last.toList
-//        println("Last: " + last)
-//        val expected = Array("ccc", "ddd")
-//        last should equal(expected)
-//        last should contain inOrderOnly ("ccc", "ddd")
+        //        val last = results.last.toList
+        //        println("Last: " + last)
+        //        val expected = Array("ccc", "ddd")
+        //        last should equal(expected)
+        //        last should contain inOrderOnly ("ccc", "ddd")
         results should have size 2
       } catch {
         case e: IncompatibleClassChangeError => println("IncompatibleClassChangeError")

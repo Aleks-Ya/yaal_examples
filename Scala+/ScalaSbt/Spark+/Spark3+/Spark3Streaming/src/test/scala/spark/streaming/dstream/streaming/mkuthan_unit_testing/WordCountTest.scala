@@ -1,13 +1,14 @@
 package spark.streaming.dstream.streaming.mkuthan_unit_testing
 
+import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming._
-import org.apache.spark.{SparkConf, SparkContext}
 import org.scalatest.concurrent.Eventually
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.{Millis, Span}
 import org.scalatest.{BeforeAndAfterAll, GivenWhenThen}
+import spark.streaming.dstream.factory.Factory
 import spark.streaming.dstream.mkuthan_unit_testing.WordCount
 
 import java.nio.file.Files
@@ -26,17 +27,9 @@ class WordCountTest extends AnyFlatSpec with BeforeAndAfterAll with Matchers wit
   private var sc: SparkContext = _
 
   override def beforeAll(): Unit = {
-    val conf = new SparkConf()
-      .setAppName(appName)
-      .setMaster("local[2]")
-      .set("spark.streaming.clock", "org.apache.spark.util.ManualClock")
-    ssc = new StreamingContext(conf, batchDuration)
+    ssc = Factory.ssc(batchDuration, Seq(("spark.streaming.clock", "org.apache.spark.util.ManualClock")))
     ssc.checkpoint(checkpointDir)
     sc = ssc.sparkContext
-
-
-    //    ssc.start()
-    //    ssc.awaitTermination()
   }
 
   "Sample set" should "be counted" in {

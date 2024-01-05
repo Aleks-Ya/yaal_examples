@@ -1,13 +1,14 @@
 package spark.streaming.dstream.streaming.operation.stateful
 
-import org.apache.spark.SparkConf
-import org.apache.spark.streaming.{ClockWrapperFull, Seconds, StreamingContext}
+import org.apache.spark.streaming.{ClockWrapperFull, Seconds}
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.concurrent.Eventually
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.{Millis, Span}
+import spark.streaming.dstream.factory.Factory
 
+import java.nio.file.Files
 import scala.collection.mutable
 
 class UpdateStateByKeyWindowTest extends AnyFlatSpec with BeforeAndAfterAll with Eventually with Matchers {
@@ -17,13 +18,9 @@ class UpdateStateByKeyWindowTest extends AnyFlatSpec with BeforeAndAfterAll with
   )
 
   it should "use updateStateByKey operation" in {
-    val conf = new SparkConf()
-      .setAppName(classOf[UpdateStateByKeyWindowTest].getSimpleName)
-      .setMaster("local[2]")
-      .set("spark.streaming.clock", "org.apache.spark.util.ManualClock")
     val batchDuration = Seconds(1)
-    val ssc = new StreamingContext(conf, batchDuration)
-    ssc.checkpoint("c:\\tmp\\checkpoints")
+    val ssc = Factory.ssc(batchDuration, Seq(("spark.streaming.clock", "org.apache.spark.util.ManualClock")))
+    ssc.checkpoint(Files.createTempDirectory("checkpoints").toString)
     val sc = ssc.sparkContext
     ClockWrapperFull.setSparkStreamingContext(ssc)
     val queue = mutable.Queue(sc.parallelize(Seq("a b c", "b b b", "c")))

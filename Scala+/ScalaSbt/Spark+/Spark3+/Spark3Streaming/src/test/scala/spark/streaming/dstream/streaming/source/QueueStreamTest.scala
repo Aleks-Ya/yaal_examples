@@ -1,11 +1,10 @@
 package spark.streaming.dstream.streaming.source
 
-import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
-import org.apache.spark.streaming.{Seconds, StreamingContext}
+import org.apache.spark.streaming.StreamingContext
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import spark.streaming.dstream.streaming.operation.stateful.UpdateStateByKeyTest
+import spark.streaming.dstream.factory.Factory
 
 import java.util.concurrent.CountDownLatch
 import scala.collection.mutable
@@ -13,10 +12,7 @@ import scala.collection.mutable
 class QueueStreamTest extends AnyFlatSpec with Matchers {
 
   it should "create DStream from an immutable queue" in {
-    val conf = new SparkConf()
-      .setAppName(classOf[UpdateStateByKeyTest].getSimpleName)
-      .setMaster("local[2]")
-    val ssc = new StreamingContext(conf, Seconds(1))
+    val ssc = Factory.ssc()
     val sc = ssc.sparkContext
     val rdd1 = sc.parallelize(Seq("aaa", "bbb", "ccc"))
     val rdd2 = sc.parallelize(Seq("John", "Mary", "Rick"))
@@ -28,10 +24,7 @@ class QueueStreamTest extends AnyFlatSpec with Matchers {
   }
 
   it should "add elements to a queue in runtime" in {
-    val conf = new SparkConf()
-      .setAppName(classOf[UpdateStateByKeyTest].getSimpleName)
-      .setMaster("local[2]")
-    val ssc = new StreamingContext(conf, Seconds(1))
+    val ssc = Factory.ssc()
     val expRddCount = 5
     val rddQueue = startRddGeneratorThread(ssc, expRddCount)
     val latch = new CountDownLatch(expRddCount)

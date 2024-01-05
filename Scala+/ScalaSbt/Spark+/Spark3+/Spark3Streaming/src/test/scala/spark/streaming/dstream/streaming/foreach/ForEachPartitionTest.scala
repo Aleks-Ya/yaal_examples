@@ -1,15 +1,12 @@
 package spark.streaming.dstream.streaming.foreach
 
-import org.apache.spark.SparkConf
-import org.apache.spark.streaming.{Seconds, StreamingContext}
+import org.apache.spark.streaming.Seconds
 import org.scalatest.flatspec.AnyFlatSpec
+import spark.streaming.dstream.factory.Factory
 
 class ForEachPartitionTest extends AnyFlatSpec {
-
   "Process DStream with foreachRDD" should "process lines" in {
-    val conf = new SparkConf().setAppName(classOf[ForEachPartitionTest].getSimpleName).setMaster("local[2]")
-    val batchDuration = Seconds(5)
-    val ssc = new StreamingContext(conf, batchDuration)
+    val ssc = Factory.ssc(Seconds(5))
     val lines = ssc.socketTextStream("localhost", 9999)
     lines.foreachRDD { rdd =>
       rdd.foreachPartition { partitionOfRecords =>

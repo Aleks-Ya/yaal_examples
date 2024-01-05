@@ -1,12 +1,12 @@
 package spark.streaming.dstream.streaming.mkuthan_unit_testing
 
-import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming._
 import org.scalatest.concurrent.Eventually
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.{Millis, Span}
+import spark.streaming.dstream.factory.Factory
 
 import java.nio.file.Files
 import scala.collection.mutable
@@ -14,17 +14,11 @@ import scala.collection.mutable
 class UpperCaseTest extends AnyFlatSpec with Matchers with Eventually {
 
   it should "convert all names to upper case" in {
-    val appName = classOf[UpperCaseTest].getSimpleName
-    val checkpointDir = Files.createTempDirectory(appName).toString
-    val batchDuration = Seconds(1)
     implicit val patienceConfig: PatienceConfig = PatienceConfig(timeout = scaled(Span(10000, Millis)))
 
-    val conf = new SparkConf()
-      .setAppName(appName)
-      .setMaster("local[2]")
-      .set("spark.streaming.clock", "org.apache.spark.util.ManualClock")
-    val ssc = new StreamingContext(conf, batchDuration)
-    ssc.checkpoint(checkpointDir)
+    val batchDuration = Seconds(1)
+    val ssc = Factory.ssc(batchDuration, Seq(("spark.streaming.clock", "org.apache.spark.util.ManualClock")))
+    ssc.checkpoint(Files.createTempDirectory("checkpoints").toString)
     val sc = ssc.sparkContext
     ClockWrapperFull.setSparkStreamingContext(ssc)
 

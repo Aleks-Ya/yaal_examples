@@ -1,21 +1,17 @@
 package spark.streaming.dstream.streaming.compare
 
-import org.apache.spark.SparkConf
+import org.apache.spark.streaming.StreamingContext
 import org.apache.spark.streaming.scheduler.{StreamingListener, StreamingListenerBatchCompleted}
-import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import spark.streaming.dstream.streaming.operation.stateful.UpdateStateByKeyTest
+import spark.streaming.dstream.factory.Factory
 
 import scala.collection.mutable
 
 class AssertDStreamTest extends AnyFlatSpec with Matchers {
 
   it should "assert a DStream using StringBuilder" in {
-    val conf = new SparkConf()
-      .setAppName(classOf[UpdateStateByKeyTest].getSimpleName)
-      .setMaster("local[2]")
-    val ssc = new StreamingContext(conf, Seconds(1))
+    val ssc = Factory.ssc()
     val sc = ssc.sparkContext
     val rdd1 = sc.parallelize(Seq("aaa", "bbb", "ccc"))
     val rdd2 = sc.parallelize(Seq("John", "Mary", "Rick"))

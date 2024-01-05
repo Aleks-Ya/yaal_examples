@@ -1,16 +1,14 @@
 package spark.streaming.dstream.streaming.window
 
-import org.apache.spark.SparkConf
-import org.apache.spark.streaming.{Seconds, StreamingContext}
+import org.apache.spark.streaming.Seconds
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.flatspec.AnyFlatSpec
+import spark.streaming.dstream.factory.Factory
 
 
 class WindowFunctionTest extends AnyFlatSpec with BeforeAndAfterAll {
-
   "Visualize DF" should "print some info" in {
-    val conf = new SparkConf().setAppName(classOf[WindowFunctionTest].getSimpleName).setMaster("local[2]")
-    val ssc = new StreamingContext(conf, Seconds(5))
+    val ssc = Factory.ssc(Seconds(5))
     val lines = ssc.socketTextStream("localhost", 9999)
     val words = lines.flatMap(_.split(" "))
     val pairs = words.map(w => (w, 1))

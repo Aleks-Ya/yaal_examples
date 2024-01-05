@@ -1,20 +1,18 @@
 package spark.streaming.dstream.streaming.manual_clock
 
-import org.apache.spark.SparkConf
 import org.apache.spark.streaming._
 import org.scalatest.concurrent.Eventually
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import spark.streaming.dstream.factory.Factory
+
+import java.nio.file.Files
 
 class ChangeTimeTest extends AnyFlatSpec with Matchers with Eventually {
-
   it should "add time" in {
-    val conf = new SparkConf()
-      .setAppName(classOf[ChangeTimeTest].getSimpleName)
-      .setMaster("local[2]")
-      .set("spark.streaming.clock", "org.apache.spark.util.ManualClock")
     val batchDuration = Seconds(1)
-    val ssc = new StreamingContext(conf, batchDuration)
+    val ssc = Factory.ssc(batchDuration, Seq(("spark.streaming.clock", "org.apache.spark.util.ManualClock")))
+    ssc.checkpoint(Files.createTempDirectory("checkpoints").toString)
 
     ClockWrapperFull.setSparkStreamingContext(ssc)
 
