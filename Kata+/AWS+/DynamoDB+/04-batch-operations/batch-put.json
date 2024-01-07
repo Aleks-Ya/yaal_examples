@@ -1,0 +1,24 @@
+{
+    "batch-operations-table-1": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "id": {"S": "1"},
+                    "name": {"S": "Item 1"},
+                    "category": {"S": "Books"},
+                    "price": {"N": "19.99"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "id": {"S": "2"},
+                    "name": {"S": "Item 2"},
+                    "category": {"S": "Electronics"},
+                    "price": {"N": "299.99"}
+                }
+            }
+        }
+    ]
+}

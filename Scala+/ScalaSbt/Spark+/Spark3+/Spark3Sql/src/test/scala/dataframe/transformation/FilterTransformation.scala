@@ -68,4 +68,27 @@ class FilterTransformation extends AnyFlatSpec with Matchers {
     val df2 = df.filter(arrayContainsSubstringUdf(col("cities"), lit("ming")))
     df2.toJSON.collect() should contain only """{"country":"England","cities":["London","Birmingham"]}"""
   }
+
+  it should "filter by an OR expression" in {
+    val df = Factory.peopleDf.filter(col("age") === 25 || col("age") === 35)
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","age":25,"gender":"M"}""",
+      """{"name":"Peter","age":35,"gender":"M"}"""
+    )
+  }
+
+  it should "filter by an AND expression" in {
+    val df = Factory.peopleDf.filter(col("gender") === "M" && col("age") === 35)
+    df.toJSON.collect() should contain only """{"name":"Peter","age":35,"gender":"M"}"""
+  }
+
+  it should "filter by a NOT expression" in {
+    val df = Factory.peopleDf.filter(col("gender") === "M" && !(col("age") === 25))
+    df.toJSON.collect() should contain only """{"name":"Peter","age":35,"gender":"M"}"""
+  }
+
+  it should "filter by a NOT expression (syntax 2)" in {
+    val df = Factory.peopleDf.filter(col("gender") === "M" && col("age") =!= 25)
+    df.toJSON.collect() should contain only """{"name":"Peter","age":35,"gender":"M"}"""
+  }
 }

@@ -27,6 +27,7 @@ def lambda_handler(event, context):
 
 ### Cleanup
 1. Delete function `upper-case`
+2. Delete the policy `AWSLambdaBasicExecutionRole-xxxx`
 
 ## AWS CLI variant (NOT FINISHED)
 ### Setup

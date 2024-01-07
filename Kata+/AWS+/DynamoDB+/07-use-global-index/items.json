@@ -1,0 +1,34 @@
+{
+    "global-index-table-1": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "country": {"S": "France"},
+                    "company": {"S": "Michelin"},
+                    "director": {"S": "Louis"},
+                    "age": {"N": "40"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "country": {"S": "France"},
+                    "company": {"S": "LVMH"},
+                    "director": {"S": "Lyon"},
+                    "age": {"N": "35"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "country": {"S": "UK"},
+                    "company": {"S": "Michelin"},
+                    "director": {"S": "John"},
+                    "age": {"N": "30"}
+                }
+            }
+        }
+    ]
+}

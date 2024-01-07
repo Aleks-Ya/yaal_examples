@@ -30,3 +30,6 @@ Delete a table: `aws dynamodb delete-table --table-name MySampleTable`
 Create an item: `aws dynamodb put-item --table-name table-1 --item '{ "id": {"S": "john"}, "firstName": {"S": "John"}, "age": {"N": "30"} }'`
 List all items in a table: `aws dynamodb scan --table-name table-1`
 Get an item by primary key: `aws dynamodb get-item --table-name table-1 --key '{"id": {"S": "john"}}'`
+
+Batch write item: `aws dynamodb batch-write-item --request-items file://batch-write.json`
+Batch get item: `aws dynamodb batch-get-item --request-items file://batch-read.json`

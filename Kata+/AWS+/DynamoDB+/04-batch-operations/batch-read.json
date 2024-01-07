@@ -1,0 +1,12 @@
+{
+    "batch-operations-table-1": {
+        "Keys": [
+            {
+                "id": { "S": "1" }
+            },
+            {
+                "id": { "S": "2" }
+            }
+        ]
+    }
+}
