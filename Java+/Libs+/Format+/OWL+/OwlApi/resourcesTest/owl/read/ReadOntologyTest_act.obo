@@ -1,0 +1,6 @@
+format-version: 1.2
+ontology: http://example.com/ontologies/person.owl
+
+[Term]
+id: http://example.com/Student
+is_a: http://example.com/Person

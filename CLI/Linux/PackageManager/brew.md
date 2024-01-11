@@ -1,6 +1,6 @@
 # brew CLI
 
-Install: https://brew.sh
+Install: https://brew.sh (use VPN "US San Francisco")
 
 Help: `brew help`
 Install an application: `brew install argocd`

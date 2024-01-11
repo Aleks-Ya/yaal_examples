@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers
 
 import java.io.{ByteArrayInputStream, InputStream}
 
-class CastClass extends AnyFlatSpec with Matchers {
+class CastClassTest extends AnyFlatSpec with Matchers {
 
   it should "cast class" in {
     val is: InputStream = new ByteArrayInputStream(Array[Byte]())

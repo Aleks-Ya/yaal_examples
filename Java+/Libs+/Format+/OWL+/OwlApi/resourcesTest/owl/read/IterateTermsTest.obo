@@ -1,0 +1,14 @@
+format-version: 1.2
+ontology: http://example.com/ontologies/person.owl
+
+[Term]
+id: http://example.com/Student
+is_a: http://example.com/Person
+disjoint_from: http://example.com/Teacher
+property_value: admissionYear "2021" xsd:decimal
+
+[Term]
+id: http://example.com/Teacher
+is_a: http://example.com/Person
+property_value: employmentYear "2005" xsd:decimal
+
