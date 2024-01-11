@@ -15,10 +15,10 @@
 
 ## Install on Ubuntu
 
-1. Build distribution and deploy to `~/installed/GptUI`: `gradle :App+:GptUi:installLocally`
+1. Build distribution and deploy to `/home/aleks/installed/GptUI`: `gradle :App+:GptUi:installLocally`
 2. Add to `PATH` in `~/.bashrc`: `export PATH=$PATH:/home/aleks/installed/GptUI/bin`
-3. Add a menu icon by MenuLibre
-    1. Path to exec: `/home/aleks/installed/GptUI/bin/GptUi`
-    2. Path to icon: `/home/aleks/installed/GptUI/bin/icon.png`
-4. Token file: `${user.home}/.gpt/token.txt`
+3. Add a menu icon by `MenuLibre` application:
+    1. Command: `/home/aleks/installed/GptUI/bin/GptUi`
+    2. Icon: `/home/aleks/installed/GptUI/bin/icon.png`
+4. Tokens: `${user.home}/.gpt/config.properties`
 5. Log file: `${user.home}/.gpt/console.log`

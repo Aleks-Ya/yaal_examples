@@ -25,6 +25,7 @@ gradle my_project:my_subproject:dependencies
 gradle dependencies --configuration implementation
 gradle dependencies --configuration testImplementation
 ```
+Skip tests: `gradle -x test build`
 Show dependency insight report: `gradle -q dependencyInsight --dependency commons-codec --configuration scm`
 Publish artifact to Maven local repo: `gradle publishToMavenLocal`
 Print properties: `gradle properties`
