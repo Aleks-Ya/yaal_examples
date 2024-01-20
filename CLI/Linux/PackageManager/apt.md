@@ -11,6 +11,7 @@ List installed package: `apt list --installed`
 Show package details: `apt show firefox`
 Export a key to a file: `sudo apt-key export EE2C95AB58DC2B0138D16B4FEFC4571D7C90E5AF > yandex_disk.gpg`
 Delete a key: `sudo apt-key del EE2C95AB58DC2B0138D16B4FEFC4571D7C90E5AF`
+Install downloaded DEB: `sudo apt install -y ./docker-desktop.deb`
 
 ## apt-key
 List public keys: `apt-key list`

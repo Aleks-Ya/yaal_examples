@@ -1,5 +1,6 @@
 package owl.read;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.model.HasClassesInSignature;
 import org.semanticweb.owlapi.model.IRI;
@@ -8,10 +9,13 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.search.EntitySearcher;
 import owl.OwlFactory;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,7 +25,9 @@ class IterateClassesTest {
     private final IRI studentClassIri = IRI.create("http://example.com/Student");
     private final IRI teacherClassIri = IRI.create("http://example.com/Teacher");
     private final IRI personClassIri = IRI.create("http://example.com/Person");
-    private final IRI admissionYearIri = IRI.create("http://purl.obolibrary.org/obo/http://example.com/ontologies/person.owl#admissionYear");
+    private final IRI admissionYearIri = IRI.create("http://purl.obolibrary.org/obo/http://example.com/ontologies/person.obo#admissionYear");
+    private final IRI employmentYearIri = IRI.create("http://purl.obolibrary.org/obo/http://example.com/ontologies/person.obo#employmentYear");
+    private final IRI acceptApprovedIri = IRI.create("http://www.geneontology.org/formats/oboInOwl#acceptApproved");
 
     @Test
     void listClasses() {
@@ -31,7 +37,7 @@ class IterateClassesTest {
     }
 
     @Test
-    void getClassById() {
+    void getClassByIri() {
         var studentClass = factory.getOWLClass(studentClassIri);
         var containsClass = ontology.containsClassInSignature(studentClassIri);
         assertThat(containsClass).isTrue();
@@ -42,7 +48,7 @@ class IterateClassesTest {
     void getAxiomsByClass() {
         var studentClass = factory.getOWLClass(studentClassIri);
         var axioms = ontology.getAxioms(studentClass);
-        assertThat(axioms).map(OWLClassAxiom::toString).contains(
+        assertThat(axioms).map(OWLClassAxiom::toString).containsExactlyInAnyOrder(
                 "SubClassOf(<http://example.com/Student> <http://example.com/Person>)",
                 "DisjointClasses(<http://example.com/Student> <http://example.com/Teacher>)");
     }
@@ -51,56 +57,59 @@ class IterateClassesTest {
     void getSubClassAxiomsByClass() {
         var studentClass = factory.getOWLClass(studentClassIri);
         var axioms = ontology.getSubClassAxiomsForSubClass(studentClass);
-        assertThat(axioms).map(OWLClassAxiom::toString)
-                .contains("SubClassOf(<http://example.com/Student> <http://example.com/Person>)");
+        assertThat(axioms).map(OWLClassAxiom::toString).containsExactlyInAnyOrder(
+                "SubClassOf(<http://example.com/Student> <http://example.com/Person>)");
     }
 
     @Test
     void getDisjointAxiomsByClass() {
         var studentClass = factory.getOWLClass(studentClassIri);
         var axioms = ontology.getDisjointClassesAxioms(studentClass);
-        assertThat(axioms).map(OWLClassAxiom::toString)
-                .contains("DisjointClasses(<http://example.com/Student> <http://example.com/Teacher>)");
+        assertThat(axioms).map(OWLClassAxiom::toString).containsExactlyInAnyOrder(
+                "DisjointClasses(<http://example.com/Student> <http://example.com/Teacher>)");
     }
 
     @Test
     void getAnnotationPropertyByIri() {
         var annotationProperty = factory.getOWLAnnotationProperty(admissionYearIri);
-        assertThat(annotationProperty).extracting(OWLAnnotationProperty::getIRI).isEqualTo(admissionYearIri);
+        assertThat(annotationProperty).extracting(OWLAnnotationProperty::toStringID).isEqualTo(
+                "http://purl.obolibrary.org/obo/http://example.com/ontologies/person.obo#admissionYear");
     }
 
     @Test
     void listAnnotationProperties() {
         var annotationProperties = ontology.annotationPropertiesInSignature();
-        assertThat(annotationProperties).map(OWLAnnotationProperty::toString).containsExactlyInAnyOrder(
-                "<http://purl.obolibrary.org/obo/http://example.com/ontologies/person.owl#admissionYear>",
-                "<http://purl.obolibrary.org/obo/http://example.com/ontologies/person.owl#employmentYear>",
-                "<http://www.geneontology.org/formats/oboInOwl#hasOBOFormatVersion>",
-                "<http://www.geneontology.org/formats/oboInOwl#id>",
-                "rdfs:label");
+        assertThat(annotationProperties).map(OWLAnnotationProperty::toStringID).containsExactlyInAnyOrder(
+                "http://purl.obolibrary.org/obo/http://example.com/ontologies/person.obo#admissionYear",
+                "http://purl.obolibrary.org/obo/http://example.com/ontologies/person.obo#employmentYear",
+                "http://purl.obolibrary.org/obo/http://example.com/ontologies/person.obo#birthYear",
+                "http://www.geneontology.org/formats/oboInOwl#acceptApproved",
+                "http://www.geneontology.org/formats/oboInOwl#hasOBOFormatVersion",
+                "http://www.geneontology.org/formats/oboInOwl#id",
+                "http://www.w3.org/2000/01/rdf-schema#label");
     }
 
     @Test
-    void getAnnotationProperty() {
+    void getAnnotationOnClass() {
         var studentClass = factory.getOWLClass(studentClassIri);
         var annotationProperty = factory.getOWLAnnotationProperty(admissionYearIri);
         var annotations = EntitySearcher.getAnnotations(studentClass, ontology, annotationProperty).toList();
-        assertThat(annotations).map(OWLAnnotation::toString).contains(
-                "Annotation(<http://purl.obolibrary.org/obo/http://example.com/ontologies/person.owl#admissionYear> \"2021\"^^xsd:decimal)");
+        assertThat(annotations).map(OWLAnnotation::toString).containsExactlyInAnyOrder(
+                "Annotation(<http://purl.obolibrary.org/obo/http://example.com/ontologies/person.obo#admissionYear> \"2021\"^^xsd:decimal)");
     }
 
     @Test
-    void getAnnotationPropertyValue() {
+    void getAnnotationValue() {
         var studentClass = factory.getOWLClass(studentClassIri);
         var annotationProperty = factory.getOWLAnnotationProperty(admissionYearIri);
         var annotations = EntitySearcher.getAnnotations(studentClass, ontology, annotationProperty).toList();
-        assertThat(annotations).hasSize(1);
-        var annotation = annotations.getFirst();
-        var value1 = annotation.getValue().asLiteral().orElseThrow().getLiteral();
-        var value2 = annotation.literalValue().orElseThrow().getLiteral();
-        var expValue = "2021";
-        assertThat(value1).isEqualTo(expValue);
-        assertThat(value2).isEqualTo(expValue);
+        var values = annotations.stream()
+                .map(OWLAnnotation::literalValue)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(OWLLiteral::getLiteral)
+                .toList();
+        assertThat(values).containsExactlyInAnyOrder("2021");
     }
 
     @Test
@@ -113,10 +122,10 @@ class IterateClassesTest {
         var reasoner = reasonerFactory.createReasoner(ontology);
         var studentSuperClasses = reasoner.getSuperClasses(studentClass, true);
 
-        boolean isStudentSubClassOfPerson = studentSuperClasses.containsEntity(personClass);
+        var isStudentSubClassOfPerson = studentSuperClasses.containsEntity(personClass);
         assertThat(isStudentSubClassOfPerson).isTrue();
 
-        boolean isStudentSubClassOfTeacher = studentSuperClasses.containsEntity(teacherClass);
+        var isStudentSubClassOfTeacher = studentSuperClasses.containsEntity(teacherClass);
         assertThat(isStudentSubClassOfTeacher).isFalse();
     }
 
@@ -129,10 +138,65 @@ class IterateClassesTest {
                 .flatMap(HasClassesInSignature::classesInSignature)
                 .toList();
 
-        boolean isStudentSubClassOfPerson = studentSuperClasses.contains(personClass);
+        var isStudentSubClassOfPerson = studentSuperClasses.contains(personClass);
         assertThat(isStudentSubClassOfPerson).isTrue();
 
-        boolean isStudentSubClassOfTeacher = studentSuperClasses.contains(teacherClass);
+        var isStudentSubClassOfTeacher = studentSuperClasses.contains(teacherClass);
         assertThat(isStudentSubClassOfTeacher).isFalse();
+    }
+
+    @Test
+    void getNestedAnnotationValue() {
+        var clazz = factory.getOWLClass(teacherClassIri);
+        var classAnnotationAssertionAxioms = EntitySearcher.getAnnotationAssertionAxioms(clazz, ontology).toList();
+        assertThat(classAnnotationAssertionAxioms).hasSize(3);
+        var outerAnnotations = classAnnotationAssertionAxioms.stream()
+                .filter(a -> a.getProperty().getIRI().equals(employmentYearIri)).toList();
+        var nestedAnnotations = outerAnnotations.stream().flatMap(a -> a.getAnnotations().stream()).toList();
+        var nestedAnnotationsValues = nestedAnnotations.stream()
+                .map(OWLAnnotation::literalValue)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(OWLLiteral::getLiteral)
+                .toList();
+        assertThat(nestedAnnotationsValues).containsExactlyInAnyOrder("the office");
+    }
+
+    @Test
+    void getNestedAnnotationValue2() {
+        var clazz = factory.getOWLClass(teacherClassIri);
+        var classAnnotationAssertionAxioms = EntitySearcher.getAnnotationAssertionAxioms(clazz, ontology).toList();
+        assertThat(classAnnotationAssertionAxioms).hasSize(3);
+        var outerAnnotationProperty = factory.getOWLAnnotationProperty(employmentYearIri);
+        var outerAnnotations = classAnnotationAssertionAxioms.stream()
+                .filter(a -> a.getProperty().equals(outerAnnotationProperty)).toList();
+        var nestedAnnotations = outerAnnotations.stream().flatMap(a -> a.getAnnotations().stream()).toList();
+        var nestedAnnotationsValues = nestedAnnotations.stream()
+                .map(OWLAnnotation::literalValue)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(OWLLiteral::getLiteral)
+                .toList();
+        assertThat(nestedAnnotationsValues).containsExactlyInAnyOrder("the office");
+    }
+
+    @Test
+    @Disabled("not work")
+    void getNestedAnnotationValue3() {
+        var clazz = factory.getOWLClass(teacherClassIri);
+        var classAnnotations = EntitySearcher.getAnnotations(clazz, ontology).toList();
+        assertThat(classAnnotations).hasSize(5);
+        var nestedAnnotations1 = classAnnotations.stream()
+                .filter(a -> a.getProperty().getIRI().equals(acceptApprovedIri))
+                .toList();
+
+        var nestedAnnotations = classAnnotations.stream()
+                .filter(a -> a.getProperty().getIRI().equals(acceptApprovedIri))
+                .filter(a -> a.getProperty().getIRI().equals(employmentYearIri))
+                .flatMap(a -> a.getAnnotations().stream())
+                .toList();
+        var value = nestedAnnotations.stream().map(a -> a.getValue().asLiteral())
+                .filter(Optional::isPresent).map(Optional::get).map(OWLLiteral::getLiteral).toList();
+        assertThat(value).containsExactlyInAnyOrder("the office");
     }
 }

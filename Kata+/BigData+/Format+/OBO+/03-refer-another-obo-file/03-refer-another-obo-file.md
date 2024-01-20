@@ -1,4 +1,4 @@
-# 02-refer-another-obo-file
+# 03-refer-another-obo-file
 
 ## Task
 Refer to an OBO file from another OBO file.

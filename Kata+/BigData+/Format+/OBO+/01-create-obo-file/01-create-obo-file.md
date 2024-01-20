@@ -7,7 +7,6 @@ Create an ontology in an OBO file:
 	2. `ComputerScienceCourse` (extends `Course`)
 	3. `BiologyCourse` (extends `Course`)
 
-
 ## Setup
 Use Protege OWL editor
 1. Create new ontology:
@@ -17,3 +16,6 @@ Use Protege OWL editor
 	2. `ComputerScienceCourse`, SubClass of `Course`
 	3. `BiologyCourse`, SubClass of `Course`
 3. Save in file `courses.obo` in `OBO Format`
+
+## Cleanup
+1. Delete `courses.obo`
