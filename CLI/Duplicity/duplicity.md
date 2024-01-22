@@ -1,4 +1,5 @@
 # duplicity CLI
+Version should be 2.x.x or later.
 
 ## Info
 Show version: `duplicity --version`

@@ -1,12 +1,8 @@
 # klist CLI
 
-Install
+Install: `sudo apt install -y krb5-user`
 
-```
-sudo apt install -y krb5-user
-```
-
-Keytab
+## Keytab
 
 View Keytab file content:
 ```
@@ -14,7 +10,7 @@ klist -k my.keytab
 klist -kteK my.keytab #show all fields
 ```
 
-Credential Cache
+## Credential Cache
 
 Show cache content:
 ```
