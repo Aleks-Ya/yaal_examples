@@ -90,7 +90,7 @@ class IterateClassesTest {
     }
 
     @Test
-    void getAnnotationOnClass() {
+    void getAnnotationsOnClass() {
         var studentClass = factory.getOWLClass(studentClassIri);
         var annotationProperty = factory.getOWLAnnotationProperty(admissionYearIri);
         var annotations = EntitySearcher.getAnnotations(studentClass, ontology, annotationProperty).toList();
@@ -99,7 +99,7 @@ class IterateClassesTest {
     }
 
     @Test
-    void getAnnotationValue() {
+    void getAnnotationValues() {
         var studentClass = factory.getOWLClass(studentClassIri);
         var annotationProperty = factory.getOWLAnnotationProperty(admissionYearIri);
         var annotations = EntitySearcher.getAnnotations(studentClass, ontology, annotationProperty).toList();
@@ -146,7 +146,7 @@ class IterateClassesTest {
     }
 
     @Test
-    void getNestedAnnotationValue() {
+    void getNestedAnnotationValues() {
         var clazz = factory.getOWLClass(teacherClassIri);
         var classAnnotationAssertionAxioms = EntitySearcher.getAnnotationAssertionAxioms(clazz, ontology).toList();
         assertThat(classAnnotationAssertionAxioms).hasSize(3);
@@ -163,7 +163,7 @@ class IterateClassesTest {
     }
 
     @Test
-    void getNestedAnnotationValue2() {
+    void getNestedAnnotationValues2() {
         var clazz = factory.getOWLClass(teacherClassIri);
         var classAnnotationAssertionAxioms = EntitySearcher.getAnnotationAssertionAxioms(clazz, ontology).toList();
         assertThat(classAnnotationAssertionAxioms).hasSize(3);
@@ -182,7 +182,7 @@ class IterateClassesTest {
 
     @Test
     @Disabled("not work")
-    void getNestedAnnotationValue3() {
+    void getNestedAnnotationValues3() {
         var clazz = factory.getOWLClass(teacherClassIri);
         var classAnnotations = EntitySearcher.getAnnotations(clazz, ontology).toList();
         assertThat(classAnnotations).hasSize(5);
