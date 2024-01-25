@@ -12,3 +12,4 @@ id: http://example.com/Teacher
 is_a: http://example.com/Person
 property_value: birthYear "1990" xsd:integer {acceptApproved="the HR"}
 property_value: employmentYear "2005" xsd:decimal {acceptApproved="the office"}
+property_value: referenceLink http://example.com/Student

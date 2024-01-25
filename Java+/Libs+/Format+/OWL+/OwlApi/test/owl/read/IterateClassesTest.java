@@ -1,11 +1,11 @@
 package owl.read;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.model.HasClassesInSignature;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -27,7 +27,7 @@ class IterateClassesTest {
     private final IRI personClassIri = IRI.create("http://example.com/Person");
     private final IRI admissionYearIri = IRI.create("http://purl.obolibrary.org/obo/http://example.com/ontologies/person.obo#admissionYear");
     private final IRI employmentYearIri = IRI.create("http://purl.obolibrary.org/obo/http://example.com/ontologies/person.obo#employmentYear");
-    private final IRI acceptApprovedIri = IRI.create("http://www.geneontology.org/formats/oboInOwl#acceptApproved");
+    private final IRI referenceLinkIri = IRI.create("http://purl.obolibrary.org/obo/http://example.com/ontologies/person.obo#referenceLink");
 
     @Test
     void listClasses() {
@@ -83,6 +83,7 @@ class IterateClassesTest {
                 "http://purl.obolibrary.org/obo/http://example.com/ontologies/person.obo#admissionYear",
                 "http://purl.obolibrary.org/obo/http://example.com/ontologies/person.obo#employmentYear",
                 "http://purl.obolibrary.org/obo/http://example.com/ontologies/person.obo#birthYear",
+                "http://purl.obolibrary.org/obo/http://example.com/ontologies/person.obo#referenceLink",
                 "http://www.geneontology.org/formats/oboInOwl#acceptApproved",
                 "http://www.geneontology.org/formats/oboInOwl#hasOBOFormatVersion",
                 "http://www.geneontology.org/formats/oboInOwl#id",
@@ -149,7 +150,7 @@ class IterateClassesTest {
     void getNestedAnnotationValues() {
         var clazz = factory.getOWLClass(teacherClassIri);
         var classAnnotationAssertionAxioms = EntitySearcher.getAnnotationAssertionAxioms(clazz, ontology).toList();
-        assertThat(classAnnotationAssertionAxioms).hasSize(3);
+        assertThat(classAnnotationAssertionAxioms).hasSize(4);
         var outerAnnotations = classAnnotationAssertionAxioms.stream()
                 .filter(a -> a.getProperty().getIRI().equals(employmentYearIri)).toList();
         var nestedAnnotations = outerAnnotations.stream().flatMap(a -> a.getAnnotations().stream()).toList();
@@ -166,7 +167,7 @@ class IterateClassesTest {
     void getNestedAnnotationValues2() {
         var clazz = factory.getOWLClass(teacherClassIri);
         var classAnnotationAssertionAxioms = EntitySearcher.getAnnotationAssertionAxioms(clazz, ontology).toList();
-        assertThat(classAnnotationAssertionAxioms).hasSize(3);
+        assertThat(classAnnotationAssertionAxioms).hasSize(4);
         var outerAnnotationProperty = factory.getOWLAnnotationProperty(employmentYearIri);
         var outerAnnotations = classAnnotationAssertionAxioms.stream()
                 .filter(a -> a.getProperty().equals(outerAnnotationProperty)).toList();
@@ -181,22 +182,16 @@ class IterateClassesTest {
     }
 
     @Test
-    @Disabled("not work")
-    void getNestedAnnotationValues3() {
+    void getIdAnnotationValues() {
         var clazz = factory.getOWLClass(teacherClassIri);
-        var classAnnotations = EntitySearcher.getAnnotations(clazz, ontology).toList();
-        assertThat(classAnnotations).hasSize(5);
-        var nestedAnnotations1 = classAnnotations.stream()
-                .filter(a -> a.getProperty().getIRI().equals(acceptApprovedIri))
+        var annotationProperty = factory.getOWLAnnotationProperty(referenceLinkIri);
+        var annotations = EntitySearcher.getAnnotations(clazz, ontology, annotationProperty).toList();
+        var values = annotations.stream()
+                .map(OWLAnnotation::annotationValue)
+                .map(OWLAnnotationValue::asIRI)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .toList();
-
-        var nestedAnnotations = classAnnotations.stream()
-                .filter(a -> a.getProperty().getIRI().equals(acceptApprovedIri))
-                .filter(a -> a.getProperty().getIRI().equals(employmentYearIri))
-                .flatMap(a -> a.getAnnotations().stream())
-                .toList();
-        var value = nestedAnnotations.stream().map(a -> a.getValue().asLiteral())
-                .filter(Optional::isPresent).map(Optional::get).map(OWLLiteral::getLiteral).toList();
-        assertThat(value).containsExactlyInAnyOrder("the office");
+        assertThat(values).containsExactlyInAnyOrder(studentClassIri);
     }
 }
