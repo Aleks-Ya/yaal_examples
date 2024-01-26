@@ -10,4 +10,12 @@
 
 Message: `ModuleNotFoundError: No module named 'pydantic_core._pydantic_core'`
 Cause: `bundled_dependencies` was created with different Python version
-Solution: use `pyenv` to install the same Python version as Anki has and re-create `bundled_dependencies`
+Solution: use `pyenv` to install the same Python version as Anki has and re-create `bundled_dependencies`:
+1. Install `pyenv`: `brew install pyenv`
+2. Insatll Python 3.19.5: `pyenv install 3.9.15`
+3. Configure shell: `pyenv init`
+4. Re-open Bash
+5. Change to the Addon dir: `cd ~/pr/home/yaal_examples/Python+/Anki+/Addon+/App+/OpenAI`
+6. Choose Python 3.19.5 for this shell: `pyenv shell 3.9.15`
+7. Verify Python version: `python -V`
+8. Generate `bundled_dependencies` folder: `python -m pip install --target=./bundled_dependencies openai`
