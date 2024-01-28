@@ -6,7 +6,7 @@ import com.google.inject.Inject;
 import com.google.inject.multibindings.Multibinder;
 import org.junit.jupiter.api.Test;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;

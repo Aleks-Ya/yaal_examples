@@ -3,7 +3,7 @@ package gptui.gpt.question;
 import gptui.storage.AnswerType;
 import javafx.scene.media.AudioClip;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 import static java.util.Objects.requireNonNull;
 

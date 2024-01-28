@@ -3,7 +3,7 @@ package gptui.gpt.question;
 import gptui.storage.AnswerType;
 import gptui.storage.InteractionType;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import java.util.Optional;
 
 import static java.lang.String.format;

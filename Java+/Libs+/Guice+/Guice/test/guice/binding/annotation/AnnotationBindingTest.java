@@ -6,7 +6,7 @@ import com.google.inject.Inject;
 import com.google.inject.Key;
 import org.junit.jupiter.api.Test;
 
-import javax.inject.Qualifier;
+import jakarta.inject.Qualifier;
 import java.lang.annotation.Retention;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

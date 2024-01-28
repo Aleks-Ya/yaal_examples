@@ -5,7 +5,7 @@ import gptui.ui.Model;
 import gptui.ui.ModelListener;
 import javafx.fxml.FXML;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 abstract class BaseController implements ModelListener, EventSource {
     @Inject

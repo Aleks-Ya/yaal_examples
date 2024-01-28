@@ -6,7 +6,7 @@ module GptUi.main {
     requires javafx.media;
 
     requires java.net.http;
-    requires javax.inject;
+    requires jakarta.inject;
 
     requires org.slf4j;
     //noinspection Java9RedundantRequiresStatement

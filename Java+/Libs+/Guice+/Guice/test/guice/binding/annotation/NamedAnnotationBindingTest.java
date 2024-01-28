@@ -7,7 +7,7 @@ import com.google.inject.Provides;
 import com.google.inject.name.Names;
 import org.junit.jupiter.api.Test;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.io.DataInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -38,21 +38,26 @@ public class GptUiApplication extends Application implements EventSource {
 
     @Override
     public void start(Stage stage) throws Exception {
-        log.info("Java version: {}", Runtime.version());
-        var gptUiFxml = getClass().getResource("GptUi.fxml");
-        log.info("GptUi.fxml: {}", gptUiFxml);
-        fxmlLoader.setLocation(requireNonNull(gptUiFxml));
-        Parent root = fxmlLoader.load();
-        var scene = new Scene(root, Color.LIGHTYELLOW);
-        var version = readVersion();
-        stage.setTitle("GPT-4 Question Client v" + version);
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        var applicationIcon = readApplicationIcon();
-        stage.getIcons().add(applicationIcon);
-        stage.show();
-        model.setScene(scene);
-        model.fire().stageShowed(this);
+        try {
+            log.info("Java version: {}", Runtime.version());
+            var gptUiFxml = getClass().getResource("GptUi.fxml");
+            log.info("GptUi.fxml: {}", gptUiFxml);
+            fxmlLoader.setLocation(requireNonNull(gptUiFxml));
+            Parent root = fxmlLoader.load();
+            var scene = new Scene(root, Color.LIGHTYELLOW);
+            var version = readVersion();
+            stage.setTitle("GPT-4 Question Client v" + version);
+            stage.setScene(scene);
+            stage.setMaximized(true);
+            var applicationIcon = readApplicationIcon();
+            stage.getIcons().add(applicationIcon);
+            stage.show();
+            model.setScene(scene);
+            model.fire().stageShowed(this);
+        } catch (Exception e) {
+            log.error("Starting application error", e);
+            throw e;
+        }
     }
 
     public GuiceContext getGuiceContext() {

@@ -4,7 +4,7 @@ package guice.binding.install_modules;
 import guice.binding.install_modules.name.NameService;
 import guice.binding.install_modules.title.TitleService;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 class RootServiceImpl implements RootService {
     private final TitleService titleService;
