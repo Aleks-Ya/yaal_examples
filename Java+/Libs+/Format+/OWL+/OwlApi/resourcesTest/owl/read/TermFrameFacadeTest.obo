@@ -1,0 +1,17 @@
+format-version: 1.2
+ontology: http://example.com/ontologies/person.obo
+
+[Term]
+id: http://example.com/Student
+name: University Student
+is_a: http://example.com/Person
+disjoint_from: http://example.com/Teacher
+property_value: admissionYear "2015" xsd:decimal
+property_value: admissionYear "2021" xsd:decimal
+property_value: birthYear "2001" xsd:decimal
+
+[Term]
+id: http://example.com/Teacher
+is_a: http://example.com/Person
+property_value: birthYear "1990" xsd:integer {responsiblePerson="John", responsiblePerson="Mary", acceptApproved="the CEO", acceptApproved="the HR"}
+property_value: employmentYear "2005" xsd:decimal {responsiblePerson="Mark", responsiblePerson="Rick", acceptApproved="the office", acceptApproved="the president"}

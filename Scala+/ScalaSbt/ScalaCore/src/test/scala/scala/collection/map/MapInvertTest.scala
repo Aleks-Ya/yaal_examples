@@ -3,7 +3,7 @@ package scala.collection.map
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class MapInvert extends AnyFlatSpec with Matchers {
+class MapInvertTest extends AnyFlatSpec with Matchers {
 
   it should "swap map key and values" in {
     val map = Map("a" -> 1, "b" -> 2)
