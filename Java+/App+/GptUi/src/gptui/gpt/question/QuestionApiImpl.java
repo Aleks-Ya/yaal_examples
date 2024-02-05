@@ -13,12 +13,12 @@ import gptui.storage.InteractionType;
 import gptui.ui.EventSource;
 import gptui.ui.Model;
 import gptui.ui.Temperatures;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import javafx.application.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
 import java.util.function.Function;
 
 import static gptui.storage.AnswerState.FAIL;
@@ -94,37 +94,37 @@ class QuestionApiImpl implements QuestionApi, EventSource {
     @Override
     public void requestAnswer(InteractionId interactionId, AnswerType answerType) {
         log.info("Sending request for {}...", answerType);
-        runAsync(() -> Mdc.run(interactionId, () -> {
-            log.trace("requestAnswer async");
-            var interaction = storage.readInteraction(interactionId).orElseThrow();
-            var promptOpt = promptFactory.getPrompt(interaction.type(), interaction.theme(), interaction.question(), answerType);
-            if (promptOpt.isPresent()) {
-                var prompt = promptOpt.get();
-                var temperature = model.getTemperatures().getTemperature(answerType);
-                updateAnswer(interactionId, answerType, answer -> answer.withPrompt(prompt).withState(SENT).withTemperature(temperature));
+        var interaction = storage.readInteraction(interactionId).orElseThrow();
+        var promptOpt = promptFactory.getPrompt(interaction.type(), interaction.theme(), interaction.question(), answerType);
+        if (promptOpt.isPresent()) {
+            var prompt = promptOpt.get();
+            var temperature = model.getTemperatures().getTemperature(answerType);
+            updateAnswer(interactionId, answerType, answer -> answer.withPrompt(prompt).withState(SENT).withTemperature(temperature));
+            runAsync(() -> Mdc.run(interactionId, () -> {
+                log.trace("requestAnswer async");
                 var answerMd = answerType != GCP ? gptApi.send(prompt, temperature) : gcpApi.send(prompt, temperature);
                 var answerHtml = formatConverter.markdownToHtml(answerMd);
                 updateAnswer(interactionId, answerType, answer ->
                         answer.withAnswerMd(answerMd).withAnswerHtml(answerHtml).withState(SUCCESS));
                 soundService.beenOnAnswer(answerType);
                 log.info("The short answer request finished.");
-            } else {
-                log.info("The short answer was skipped.");
-            }
-        })).handle((res, e) -> {
-            if (e != null) {
-                log.error("Sending question exception", e);
-                Mdc.run(interactionId, () -> {
-                    var message = e.getCause().getMessage();
-                    updateAnswer(interactionId, answerType, answer ->
-                            answer.withAnswerMd(message).withAnswerHtml(message).withState(FAIL));
-                    soundService.beenOnAnswer(answerType);
-                });
-                return e;
-            } else {
-                return res;
-            }
-        });
+            })).handle((res, e) -> {
+                if (e != null) {
+                    log.error("Sending question exception", e);
+                    Mdc.run(interactionId, () -> {
+                        var message = e.getCause().getMessage();
+                        updateAnswer(interactionId, answerType, answer ->
+                                answer.withAnswerMd(message).withAnswerHtml(message).withState(FAIL));
+                        soundService.beenOnAnswer(answerType);
+                    });
+                    return e;
+                } else {
+                    return res;
+                }
+            });
+        } else {
+            log.info("The short answer was skipped.");
+        }
     }
 
     private synchronized void createInteraction(InteractionId interactionId, Function<Interaction, Interaction> update) {
