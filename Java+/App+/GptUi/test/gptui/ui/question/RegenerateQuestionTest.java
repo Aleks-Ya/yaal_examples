@@ -54,6 +54,7 @@ class RegenerateQuestionTest extends BaseGptUiTest {
                 .putLongResponse(I2.LONG_HTML, ZERO)
                 .putGcpResponse(I2.GCP_HTML, ZERO);
         clickOn(question().regenerateButton());
+        gptApi.waitUntilSent(4);
 
         assertion()
                 .historySize(1, 1)
