@@ -2,7 +2,7 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version "$javaFxPluginVersion"
     id 'org.gradlex.extra-java-module-info' version "$extraJavaModuleInfoVersion"
-    id 'org.beryx.jlink' version '3.0.0'
+    id 'org.beryx.jlink' version '3.0.1'
 }
 javafx {
     version = javaFxVersion
@@ -37,7 +37,6 @@ extraJavaModuleInfo {
     automaticModule("com.vladsch.flexmark:flexmark-ext-tables", "flexmark.ext.tables")
     automaticModule("com.vladsch.flexmark:flexmark-util", "flexmark.util")
     automaticModule("com.vladsch.flexmark:flexmark-util-options", "flexmark.util.options")
-    automaticModule("org.assertj:assertj-core", "org.assertj.core")
     automaticModule("org.awaitility:awaitility", "org.awaitility")
     automaticModule("org.testfx:testfx-core", "testfx.core")
     automaticModule("org.testfx:testfx-junit5", "testfx.junit5")
@@ -51,8 +50,6 @@ extraJavaModuleInfo {
     automaticModule("com.google.guava:failureaccess", "failureaccess")
     automaticModule("com.google.code.findbugs:jsr305", "jsr305")
     automaticModule("com.google.guava:listenablefuture", "listenablefuture")
-    automaticModule("org.checkerframework:checker-qual", "checker.qual")
-    automaticModule("com.google.errorprone:error_prone_annotations", "error_prone_annotations")
     automaticModule("com.google.j2objc:j2objc-annotations", "j2objc.annotations")
     automaticModule("org.codehaus.mojo:animal-sniffer-annotations", "animal.sniffer.annotations")
     automaticModule("javax.inject:javax.inject", "javax.inject")
