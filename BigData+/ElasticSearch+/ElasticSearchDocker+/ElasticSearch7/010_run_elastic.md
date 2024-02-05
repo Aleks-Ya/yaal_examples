@@ -9,10 +9,10 @@
 ### Run the original build
 
 ```
-export ELASTIC_VERSION=7.12.0
+export ELASTIC_VERSION=7.17.17
 export CONTAINER_NAME=elastic-${ELASTIC_VERSION}
 
-docker run -p 9200:9200 \
+docker run --rm -p 9200:9200 \
   -e "http.host=0.0.0.0"  \
   -e "transport.host=127.0.0.1" \
   --name ${CONTAINER_NAME} \
@@ -50,11 +50,7 @@ URL: http://localhost:9200
 Pass: elastic/changeme
 
 ## Connect to Docker container with Bash
-```
-docker exec -it elastic bash
-```
+`docker exec -it elastic bash`
 
 ## See logs
-```
-docker logs --follow elastic
-```
+`docker logs --follow elastic`
