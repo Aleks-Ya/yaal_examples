@@ -3,18 +3,9 @@
 Default home directory: `~/.gnupg`
 
 ## Import
-Show fingerprint of `*.asc` file (PGP digital signatures):
-```
-gpg --dry-run -q --import --import-options import-show VeraCrypt_PGP_public_key.asc
-```
-Import keys from `*.asc` file:
-```
-gpg --import VeraCrypt_PGP_public_key.asc
-```
-Import private key from a file:
-```
-gpg --import /tmp/CryptomatorVaultBackup-keys/CryptomatorVaultBackup-private.pgp
-```
+Show fingerprint of `*.asc` file (PGP digital signatures): `gpg --dry-run -q --import --import-options import-show VeraCrypt_PGP_public_key.asc`
+Import keys from `*.asc` file: `gpg --import VeraCrypt_PGP_public_key.asc`
+Import private key from a file: `gpg --import /tmp/CryptomatorVaultBackup-keys/CryptomatorVaultBackup-private.pgp`
 
 ## Verify signature
 Verify file with its signature: `gpg --verify veracrypt-1.24.deb.sig veracrypt-1.24.deb`
@@ -32,14 +23,8 @@ List secret keys with sub-keys: `gpg --list-secret-keys --with-subkey-fingerprin
 
 ## Export
 Show key details: `gpg  --export "John Dow <john@protonmail.com>" | hokey lint`
-Export `CryptomatorVaultBackup` public key to a file:
-```
-gpg --output /tmp/public.pgp --armor --export CryptomatorVaultBackup
-```
-Export a private key (ask passhprase):
-```
-gpg --output /tmp/private.pgp --armor --export-secret-key CryptomatorVaultBackup
-```
+Export `CryptomatorVaultBackup` public key to a file: `gpg --output /tmp/public.pgp --armor --export CryptomatorVaultBackup`
+Export a private key (ask passhprase): `gpg --output /tmp/private.pgp --armor --export-secret-key CryptomatorVaultBackup`
 Export a private key (passhprase in command line):
 ```
 gpg --output /tmp/private.pgp --armor --batch --pinentry-mode loopback --passphrase "my-pass-phrase" --export-secret-key CryptomatorVaultBackup

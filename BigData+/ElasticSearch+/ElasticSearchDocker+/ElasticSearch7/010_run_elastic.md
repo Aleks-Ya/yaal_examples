@@ -9,14 +9,10 @@
 ### Run the original build
 
 ```
-export ELASTIC_VERSION=7.17.17
-export CONTAINER_NAME=elastic-${ELASTIC_VERSION}
-
-docker run --rm -p 9200:9200 \
-  -e "http.host=0.0.0.0"  \
-  -e "transport.host=127.0.0.1" \
-  --name ${CONTAINER_NAME} \
-  docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+docker run --rm --name es7 \
+  -p 9200:9200 -p 9300:9300 \
+  -e "discovery.type=single-node" \
+  docker.elastic.co/elasticsearch/elasticsearch:7.17.17
 ```
 
 ### Run customized build
@@ -44,10 +40,7 @@ docker-compose -f docker-compose-6.2.1.yml down
 docker-compose -f docker-compose-6.2.1.yml down -v
 ```
 ## Test
-
-URL: http://localhost:9200
-
-Pass: elastic/changeme
+`curl -u elastic:changeme http://localhost:9200`
 
 ## Connect to Docker container with Bash
 `docker exec -it elastic bash`
