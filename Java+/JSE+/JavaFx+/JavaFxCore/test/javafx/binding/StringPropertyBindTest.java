@@ -17,7 +17,11 @@ class StringPropertyBindTest {
         assertThat(propertyA.getValue()).isEqualTo(initValueA);
         assertThat(propertyB.getValue()).isEqualTo(initValueB);
 
+        assertThat(propertyA.isBound()).isFalse();
+        assertThat(propertyB.isBound()).isFalse();
         propertyA.bind(propertyB);
+        assertThat(propertyA.isBound()).isTrue();
+        assertThat(propertyB.isBound()).isFalse();
         assertThat(propertyA.getValue()).isEqualTo(initValueB);
         assertThat(propertyB.getValue()).isEqualTo(initValueB);
 
@@ -40,7 +44,11 @@ class StringPropertyBindTest {
         assertThat(propertyA.getValue()).isEqualTo(initValueA);
         assertThat(propertyB.getValue()).isEqualTo(initValueB);
 
+        assertThat(propertyA.isBound()).isFalse();
+        assertThat(propertyB.isBound()).isFalse();
         propertyA.bindBidirectional(propertyB);
+        assertThat(propertyA.isBound()).isFalse();
+        assertThat(propertyB.isBound()).isFalse();
         assertThat(propertyA.getValue()).isEqualTo(initValueB);
         assertThat(propertyB.getValue()).isEqualTo(initValueB);
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="gptui.ui.view.ThemeController">
+    <Label fx:id="themeLabel" text="Theme (12):"/>
+    <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>
+    <ComboBox fx:id="themeComboBox" editable="true" onAction="#themeComboBoxAction"
+              onKeyReleased="#themeComboBoxKeyReleased"/>
+    <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>
+    <CheckBox fx:id="filterHistoryCheckBox" mnemonicParsing="false" onAction="#themeFilterHistoryCheckBoxClicked"
+              text="Filter history"/>
+</HBox>

@@ -24,18 +24,6 @@ public record Interaction(InteractionId id,
         return Optional.ofNullable(answers.get(answerType));
     }
 
-    public Interaction withType(InteractionType interactionType) {
-        return new Interaction(id, interactionType, theme, question, answers);
-    }
-
-    public Interaction withTheme(String theme) {
-        return new Interaction(id, type, theme, question, answers);
-    }
-
-    public Interaction withQuestion(String question) {
-        return new Interaction(id, type, theme, question, answers);
-    }
-
     public Interaction withAnswer(Answer answer) {
         var map = new HashMap<>(answers);
         map.put(answer.answerType(), answer);

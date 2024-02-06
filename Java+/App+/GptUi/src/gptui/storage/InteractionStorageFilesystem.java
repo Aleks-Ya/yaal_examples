@@ -2,11 +2,11 @@ package gptui.storage;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
 import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;

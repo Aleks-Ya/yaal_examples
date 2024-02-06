@@ -32,20 +32,25 @@ module GptUi.main {
     exports gptui;
     exports gptui.storage;
     exports gptui.ui;
-    exports gptui.ui.controller;
-    exports gptui.gpt;
-    exports gptui.gpt.openai;
-    exports gptui.gpt.gcp;
-    exports gptui.gpt.question;
+    exports gptui.ui.view;
+    exports gptui.ui.model;
+    exports gptui.ui.model.question;
+    exports gptui.ui.model.question.openai;
+    exports gptui.ui.model.question.gcp;
+    exports gptui.ui.model.question.question;
     exports gptui.config;
 
     opens gptui to com.google.guice, javafx.fxml;
     opens gptui.storage to com.google.guice;
-    opens gptui.ui.controller to com.google.guice, javafx.fxml;
-    opens gptui.gpt to com.google.gson, com.google.guice;
-    opens gptui.gpt.openai to com.google.gson, com.google.guice;
-    opens gptui.gpt.gcp to com.google.gson, com.google.guice;
-    opens gptui.gpt.question to com.google.gson, com.google.guice;
+    opens gptui.ui.model.question to com.google.gson, com.google.guice;
+    opens gptui.ui.model.question.openai to com.google.gson, com.google.guice;
+    opens gptui.ui.model.question.gcp to com.google.gson, com.google.guice;
+    opens gptui.ui.model.question.question to com.google.gson, com.google.guice;
     opens gptui.config to com.google.guice, javafx.fxml;
     opens gptui.ui to com.google.gson, com.google.guice, javafx.fxml;
+    opens gptui.ui.view to com.google.gson, com.google.guice, javafx.fxml;
+    opens gptui.ui.model to com.google.gson, com.google.guice, javafx.fxml;
+    opens gptui.ui.viewmodel to com.google.gson, com.google.guice, javafx.fxml;
+    exports gptui.ui.model.event;
+    opens gptui.ui.model.event to com.google.gson, com.google.guice, javafx.fxml;
 }

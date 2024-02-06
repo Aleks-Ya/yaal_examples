@@ -1,10 +1,12 @@
 package gptui.ui;
 
 import com.google.inject.util.Modules;
-import gptui.gpt.openai.MockGptApi;
 import gptui.storage.Interaction;
 import gptui.storage.InteractionStorage;
-import gptui.ui.controller.ClipboardHelper;
+import gptui.ui.model.ClipboardModel;
+import gptui.ui.model.StateModel;
+import gptui.ui.model.question.openai.MockGptApi;
+import gptui.ui.view.GptUiApplication;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -29,10 +31,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class BaseGptUiTest extends ApplicationTest {
     private final GptUiApplication app = new GptUiApplication(Modules.override(new RootModule()).with(new TestRootModule()));
-    protected final Model model = app.getGuiceContext().getInstance(Model.class);
+    protected final StateModel stateModel = app.getGuiceContext().getInstance(StateModel.class);
     protected final MockGptApi gptApi = app.getGuiceContext().getInstance(MockGptApi.class);
     protected final InteractionStorage storage = app.getGuiceContext().getInstance(InteractionStorage.class);
-    protected final ClipboardHelper clipboardHelper = app.getGuiceContext().getInstance(ClipboardHelper.class);
+    protected final ClipboardModel clipboardModel = app.getGuiceContext().getInstance(ClipboardModel.class);
     private final HistoryInfo history = new HistoryInfo();
     private final ThemeInfo theme = new ThemeInfo();
     private final QuestionInfo question = new QuestionInfo();
@@ -94,7 +96,7 @@ public abstract class BaseGptUiTest extends ApplicationTest {
     }
 
     protected void verifyHtmlClipboardContent(String expContent) {
-        interact(() -> assertThat(clipboardHelper.getTextFromClipboard())
+        interact(() -> assertThat(clipboardModel.getTextFromClipboard())
                 .isEqualTo("<html><head></head><body>" + expContent + "</body></html>"));
     }
 

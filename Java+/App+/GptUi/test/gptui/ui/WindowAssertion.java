@@ -195,12 +195,12 @@ public class WindowAssertion {
                         .as("History/ComboBox/SelectedItem").isNull();
             }
             soft.assertThat(history.comboBox().getItems()).as("History/ComboBox/Items").containsExactlyElementsOf(historyItems);
-            if (app.model.getCurrentInteractionId() != null) {
-                soft.assertThat(app.model.getCurrentInteractionId()).as("Model/CurrentInteractionId").isEqualTo(historySelectedItem.id());
+            if (app.stateModel.getCurrentInteractionId() != null) {
+                soft.assertThat(app.stateModel.getCurrentInteractionId()).as("Model/CurrentInteractionId").isEqualTo(historySelectedItem.id());
             } else {
                 soft.assertThat(historySelectedItem).as("History/ComboBox/SelectedItem").isNull();
             }
-            soft.assertThat(app.model.getFilteredHistory()).as("Model/History/Items").isEqualTo(historyItems);
+            soft.assertThat(app.stateModel.getFilteredHistory()).as("Model/History/Items").isEqualTo(historyItems);
         }
 
         {
@@ -210,7 +210,7 @@ public class WindowAssertion {
             soft.assertThat(theme.comboBox().getSelectionModel().getSelectedItem()).as("Theme/ComboBox/SelectedItem").isEqualTo(themeSelectedItem);
             soft.assertThat(theme.comboBox().getItems()).as("Theme/ComboBox/Items").containsExactlyElementsOf(themeItems);
             soft.assertThat(theme.filterHistoryCheckBox().isSelected()).as("Theme/Label/Text").isEqualTo(filterHistorySelected);
-            soft.assertThat(app.model.getCurrentTheme()).as("Theme/Model/CurrentTheme").isEqualTo(themeSelectedItem);
+            soft.assertThat(app.stateModel.getCurrentTheme()).as("Theme/Model/CurrentTheme").isEqualTo(themeSelectedItem);
         }
 
         {
@@ -222,8 +222,8 @@ public class WindowAssertion {
             soft.assertThat(question.factButton().getText()).as("Fact/Button/Text").isEqualTo("_Fact");
             soft.assertThat(question.regenerateButton().getText()).as("Regenerate/Button/Text").isEqualTo("_Resend");
             soft.assertThat(question.textArea().getText()).as("Question/TextArea/Text").isEqualTo(questionText);
-            soft.assertThat(app.model.getEditedQuestion()).as("Question/Model/Text").isEqualTo(modelEditedQuestion);
-            soft.assertThat(app.model.isEnteringNewQuestion()).as("Question/Model/isEnteringNewQuestion").isEqualTo(isEnteringNewQuestion);
+            soft.assertThat(app.stateModel.getEditedQuestion()).as("Question/Model/Text").isEqualTo(modelEditedQuestion);
+            soft.assertThat(app.stateModel.isEnteringNewQuestion()).as("Question/Model/isEnteringNewQuestion").isEqualTo(isEnteringNewQuestion);
         }
 
         {

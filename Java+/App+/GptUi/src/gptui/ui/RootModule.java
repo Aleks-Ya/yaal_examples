@@ -2,10 +2,11 @@ package gptui.ui;
 
 import com.google.inject.AbstractModule;
 import gptui.config.ConfigurationModule;
-import gptui.gpt.gcp.GcpModule;
-import gptui.gpt.openai.OpenAiModule;
-import gptui.gpt.question.QuestionModule;
 import gptui.storage.StorageModule;
+import gptui.ui.model.ModelModule;
+import gptui.ui.model.question.gcp.GcpModule;
+import gptui.ui.model.question.openai.OpenAiModule;
+import gptui.ui.model.question.question.QuestionModule;
 
 public class RootModule extends AbstractModule {
     @Override
@@ -15,5 +16,6 @@ public class RootModule extends AbstractModule {
         install(new GcpModule());
         install(new QuestionModule());
         install(new StorageModule());
+        install(new ModelModule());
     }
 }

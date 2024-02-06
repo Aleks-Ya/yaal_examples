@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.FileSystem;
 
 import static com.google.common.jimfs.Configuration.unix;
+import static gptui.storage.AnswerType.GRAMMAR;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InteractionStorageTest {
@@ -25,8 +26,12 @@ class InteractionStorageTest {
         assertThat(storage.readInteraction(I1.INTERACTION.id())).isEmpty();
         storage.saveInteraction(I1.INTERACTION);
         assertThat(storage.readInteraction(I1.INTERACTION.id())).contains(I1.INTERACTION);
-        storage.updateInteraction(I1.INTERACTION.id(), i -> i.withTheme("theme2"));
-        assertThat(storage.readInteraction(I1.INTERACTION.id())).contains(I1.INTERACTION.withTheme("theme2"));
+        var newGrammarPrompt = "new GRAMMAR prompt";
+        storage.updateInteraction(I1.INTERACTION.id(), i -> i.withAnswer(GRAMMAR, answer -> answer.withPrompt(newGrammarPrompt)));
+        assertThat(storage.readInteraction(I1.INTERACTION.id()))
+                .map(interaction -> interaction.getAnswer(GRAMMAR))
+                .map(answer -> answer.orElseThrow().prompt())
+                .contains(newGrammarPrompt);
     }
 
     @Test

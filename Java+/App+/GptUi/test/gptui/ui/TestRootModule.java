@@ -2,9 +2,9 @@ package gptui.ui;
 
 import com.google.common.jimfs.Jimfs;
 import com.google.inject.AbstractModule;
-import gptui.gpt.gcp.GcpApi;
-import gptui.gpt.openai.GptApi;
-import gptui.gpt.openai.MockGptApi;
+import gptui.ui.model.question.gcp.GcpApi;
+import gptui.ui.model.question.openai.GptApi;
+import gptui.ui.model.question.openai.MockGptApi;
 
 import java.nio.file.FileSystem;
 

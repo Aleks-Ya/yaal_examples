@@ -186,7 +186,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
                 .historyItems(storage.readAllInteractions())
                 .themeSize(2)
                 .themeSelectedItem(I2.THEME)
-                .themeItems(I1.THEME, I2.THEME)
+                .themeItems(I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I2.QUESTION)
                 .modelEditedQuestion(I2.QUESTION)
