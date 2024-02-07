@@ -1,5 +1,7 @@
 package javafx.controls;
 
+import javafx.application.Platform;
+import javafx.concurrent.Worker.State;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -8,7 +10,14 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
+import java.util.ArrayList;
+
+import static javafx.concurrent.Worker.State.READY;
+import static javafx.concurrent.Worker.State.RUNNING;
+import static javafx.concurrent.Worker.State.SCHEDULED;
+import static javafx.concurrent.Worker.State.SUCCEEDED;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 import static org.testfx.api.FxAssert.verifyThat;
 
 class WebViewTest extends ApplicationTest {
@@ -64,5 +73,17 @@ class WebViewTest extends ApplicationTest {
         clickOn("#Button");
         interact(() -> verifyThat(lookup("#WebView").queryAs(WebView.class),
                 webView -> getWebViewContent(webView).equals("<html><head></head><body>New content</body></html>")));
+    }
+
+    @Test
+    void workerStateListener() {
+        var webView = lookup("#WebView").queryAs(WebView.class);
+        var stateHistory = new ArrayList<State>();
+        Platform.runLater(() -> {
+            webView.getEngine().getLoadWorker().stateProperty()
+                    .addListener((observable, oldValue, newValue) -> stateHistory.add(newValue));
+            webView.getEngine().loadContent("new content");
+        });
+        await().untilAsserted(() -> assertThat(stateHistory).containsExactly(READY, SCHEDULED, RUNNING, SUCCEEDED));
     }
 }
