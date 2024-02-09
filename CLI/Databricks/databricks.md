@@ -11,6 +11,7 @@ Outdated version: `pip install databricks-cli`
 Version: `databricks --version`
 Help about a command group: `databricks fs -h`
 Help about a subcommand: `databricks fs cp -h`
+Debug log level: `databricks clusters list --debug`
 
 ### Cluster
 List clusters: `databricks clusters list`
@@ -21,6 +22,7 @@ Restart a cluster: `databricks clusters restart --cluster-id 0614-065657-yjnh9dj
 ### Authentication
 Set Databricks personal token: `databricks configure --token`
 Check authentication: `databricks fs ls dbfs:/`
+List profiles: `databricks auth profiles`
 
 ## File system
 List files in the root dir: `databricks fs ls dbfs:/`

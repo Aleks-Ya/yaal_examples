@@ -4,8 +4,8 @@ Submit a Scala app on a Standalone Spark cluster.
 
 1. Run a Spark cluster `BigData+/Spark+/SparkDocker+/Spark3StandaloneDocker`.
 2. Build
-    1. Choose Java 1: `sdk use java 11.0.12-open`
-    2. Choose Scala 2.12: `sdk use scala 2.12.17`
+    1. Choose Java 11: `sdk use java 11.0.22-zulu`
+    2. Choose Scala 2.12: `sdk use scala 2.12.18`
     3. Build JAR: `./build_jar.sh`
 3. Submit to a local cluster with spark-submit:
    `./submit_cluster_mode.sh databricks.cluster.shorttrem.ShortTermDatabricksClusterModeApp`

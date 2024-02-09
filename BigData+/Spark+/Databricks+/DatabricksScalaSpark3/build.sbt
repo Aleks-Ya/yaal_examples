@@ -2,7 +2,7 @@
  * Connecting to a Standalone Spark Master.
  */
 
-import Dependencies.*
+import Dependencies.allDeps
 
 lazy val root = (project in file(".")).
   settings(
