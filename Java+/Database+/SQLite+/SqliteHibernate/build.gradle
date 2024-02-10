@@ -1,4 +1,3 @@
 dependencies {
-    implementation hibernate5EntityManagerDep, sqliteJdbcDep,
-            'com.github.gwenn:sqlite-dialect:0.1.4'
+    implementation hibernate5EntityManagerDep, sqliteJdbcDep, 'com.github.gwenn:sqlite-dialect:0.1.4'
 }
