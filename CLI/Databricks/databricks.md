@@ -32,7 +32,8 @@ List profiles: `databricks auth profiles`
 #### DBFS
 List files in the root dir: `databricks fs ls dbfs:/`
 Create a folder: `databricks fs mkdirs dbfs:/Users/aleksei.iablokov@sap.com`
-Upload a file into DBFS: `databricks fs cp /local/file.txt dbfs:/remote/directory`
+Upload a file into DBFS (skip existing): `databricks fs cp /local/file.txt dbfs:/remote/directory`
+Upload a file into DBFS (overwrite): `databricks fs cp --overwrite /local/file.txt dbfs:/remote/directory`
 Download file from DBFS: `databricks fs cp dbfs:/remote/directory/file.txt /local/`
 Delete a file: `databricks fs rm dbfs:/remote/directory/file.txt`
 List files in a directory: `databricks fs ls dbfs:/cluster-logs-anna/driver`
@@ -77,3 +78,14 @@ Delete job (by Job ID): `databricks jobs delete 79957888534123`
 ### Job runs
 List all job runs: `databricks runs list`
 List job runs for a Job: `databricks runs list --job-id 1234567890`
+
+### Instance profile
+List instance profiles: `databricks instance-profiles list`
+
+### Compute policy (Cluster policy)
+List cluster policies: `databricks cluster-policies list`
+Show cluster policy details: `databricks cluster-policies get 0014FDF3D7665C16`
+
+### Policy family
+List policy families: `databricks policy-families list`
+Show policy family details: `databricks policy-families get personal-vm`

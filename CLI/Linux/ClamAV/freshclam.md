@@ -3,6 +3,11 @@
 ## Commands
 Refresh signatures: `sudo freshclam`
 
+## Service
+Status: `sudo systemctl status clamav-freshclam`
+Stop: `sudo systemctl stop clamav-freshclam`
+Disable auto-start: `sudo systemctl disable clamav-freshclam`
+
 ## Errors
 ### freshclam.log is locked by another process
 Command: `sudo freshclam`

@@ -5,10 +5,7 @@ Help: `mvn -h`
 Version: `mvn -v`
 
 ## Dependencies
-Print the dependency tree to a file:
-```
-mvn dependency:tree -DoutputFile=target/tree.txt
-```
+Print the dependency tree to a file: `mvn dependency:tree -DoutputFile=target/tree.txt`
 Download an artifact from the remote repo to the local repo:
 ```
 mvn org.apache.maven.plugins:maven-dependency-plugin:3.1.2:get -Dartifact=org.apache.orc:orc-tools:1.6.2

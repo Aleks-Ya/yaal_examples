@@ -8,9 +8,12 @@ Help: `opswat-client -h`
 Show found problems: `opswat-client -r`
 
 ## Service
-Stop: `sudo service opswatclient stop`
-Start: `sudo service opswatclient start`
-Process name: `daxz`
+Status: `sudo systemctl status opswatclient`
+Stop: `sudo systemctl stop opswatclient`
+Start: `sudo systemctl start  opswatclient`
+Process name (choose `All Processes` in `System Monitor`): `daxz`
+Show logs and follow: `journalctl -u opswatclient -f`
+Disable: `sudo systemctl disable opswatclient`
 
 ## Errors
 ### `OPSWAT status: Not Found`
