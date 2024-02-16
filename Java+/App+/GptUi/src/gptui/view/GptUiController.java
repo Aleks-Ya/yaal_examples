@@ -11,7 +11,7 @@ import static gptui.model.storage.AnswerType.GRAMMAR;
 import static gptui.model.storage.AnswerType.LONG;
 import static gptui.model.storage.AnswerType.SHORT;
 
-public class AnswersController extends BaseController {
+public class GptUiController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(HistoryController.class);
     @Inject
     private AnswersVM vm;
