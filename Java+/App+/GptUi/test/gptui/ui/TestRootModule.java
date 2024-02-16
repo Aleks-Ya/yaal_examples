@@ -13,6 +13,7 @@ import static com.google.common.jimfs.Configuration.unix;
 class TestRootModule extends AbstractModule {
     @Override
     protected void configure() {
+        bind(MockGptApi.class);
         bind(GptApi.class).to(MockGptApi.class);
         bind(GcpApi.class).to(MockGptApi.class);
         bind(FileSystem.class).toInstance(Jimfs.newFileSystem(unix()));
