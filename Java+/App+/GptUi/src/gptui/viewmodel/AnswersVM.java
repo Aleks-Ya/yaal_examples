@@ -4,6 +4,7 @@ import gptui.model.event.EventModel;
 import gptui.model.event.EventSource;
 import gptui.model.state.StateModel;
 import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,7 @@ import static gptui.model.storage.AnswerType.GRAMMAR;
 import static gptui.model.storage.AnswerType.LONG;
 import static gptui.model.storage.AnswerType.SHORT;
 
+@Singleton
 public class AnswersVM implements EventSource {
     private static final Logger log = LoggerFactory.getLogger(AnswersVM.class);
     @Inject
