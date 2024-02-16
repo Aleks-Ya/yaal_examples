@@ -11,11 +11,6 @@ import gptui.model.storage.StorageModule;
 public class RootModule extends AbstractModule {
     @Override
     protected void configure() {
-        install(new ConfigurationModule());
-        install(new OpenAiModule());
-        install(new GcpModule());
-        install(new QuestionModule());
-        install(new StorageModule());
         install(new ModelModule());
     }
 }
