@@ -25,10 +25,10 @@ public class AnswersVM implements EventSource {
         stateModel.chooseFirstInteractionAsCurrent();
         if (!history.isEmpty()) {
             var currentInteraction = stateModel.getCurrentInteraction();
-            currentInteraction.getAnswer(GRAMMAR).ifPresent(answer -> stateModel.getTemperatures().setTemperature(GRAMMAR, answer.temperature()));
-            currentInteraction.getAnswer(SHORT).ifPresent(answer -> stateModel.getTemperatures().setTemperature(SHORT, answer.temperature()));
-            currentInteraction.getAnswer(LONG).ifPresent(answer -> stateModel.getTemperatures().setTemperature(LONG, answer.temperature()));
-            currentInteraction.getAnswer(GCP).ifPresent(answer -> stateModel.getTemperatures().setTemperature(GCP, answer.temperature()));
+            currentInteraction.getAnswer(GRAMMAR).ifPresent(answer -> stateModel.setTemperature(GRAMMAR, answer.temperature()));
+            currentInteraction.getAnswer(SHORT).ifPresent(answer -> stateModel.setTemperature(SHORT, answer.temperature()));
+            currentInteraction.getAnswer(LONG).ifPresent(answer -> stateModel.setTemperature(LONG, answer.temperature()));
+            currentInteraction.getAnswer(GCP).ifPresent(answer -> stateModel.setTemperature(GCP, answer.temperature()));
         }
         stateModel.setFirstThemeAsCurrent();
         eventModel.fire().interactionChosenFromHistory(this);

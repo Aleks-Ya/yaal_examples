@@ -8,7 +8,6 @@ import gptui.storage.InteractionId;
 import gptui.storage.InteractionStorage;
 import gptui.storage.InteractionType;
 import gptui.ui.model.StateModel;
-import gptui.ui.model.Temperatures;
 import gptui.ui.model.event.EventModel;
 import gptui.ui.model.event.EventSource;
 import gptui.ui.model.question.QuestionModel;
@@ -54,17 +53,17 @@ class QuestionModelImpl implements QuestionModel, EventSource {
     private FormatConverter formatConverter;
 
     @Override
-    public synchronized void sendQuestion(InteractionType interactionType, Temperatures temperatures) {
+    public synchronized void sendQuestion(InteractionType interactionType) {
         var theme = stateModel.getCurrentTheme();
         var question = stateModel.getEditedQuestion();
         var interactionId = storage.newInteractionId();
         Mdc.run(interactionId, () -> {
             log.info("Sending question: interactionType=\"{}\", theme=\"{}\", question=\"{}\"", interactionType, theme, question);
             var interaction = new Interaction(interactionId, interactionType, theme, question, Map.of(
-                    GRAMMAR, new Answer(GRAMMAR, "", temperatures.getTemperature(GRAMMAR), "", "", NEW),
-                    SHORT, new Answer(SHORT, "", temperatures.getTemperature(SHORT), "", "", NEW),
-                    LONG, new Answer(LONG, "", temperatures.getTemperature(LONG), "", "", NEW),
-                    GCP, new Answer(GCP, "", temperatures.getTemperature(GCP), "", "", NEW)
+                    GRAMMAR, new Answer(GRAMMAR, "", stateModel.getTemperature(GRAMMAR), "", "", NEW),
+                    SHORT, new Answer(SHORT, "", stateModel.getTemperature(SHORT), "", "", NEW),
+                    LONG, new Answer(LONG, "", stateModel.getTemperature(LONG), "", "", NEW),
+                    GCP, new Answer(GCP, "", stateModel.getTemperature(GCP), "", "", NEW)
             ));
             storage.saveInteraction(interaction);
             stateModel.setCurrentInteractionId(interactionId);
@@ -83,7 +82,7 @@ class QuestionModelImpl implements QuestionModel, EventSource {
         var promptOpt = promptFactory.getPrompt(interaction.type(), interaction.theme(), interaction.question(), answerType);
         if (promptOpt.isPresent()) {
             var prompt = promptOpt.get();
-            var temperature = stateModel.getTemperatures().getTemperature(answerType);
+            var temperature = stateModel.getTemperature(answerType);
             updateAnswer(interactionId, answerType, answer -> answer.withPrompt(prompt).withState(SENT).withTemperature(temperature));
             runAsync(() -> Mdc.run(interactionId, () -> {
                 log.trace("requestAnswer async");

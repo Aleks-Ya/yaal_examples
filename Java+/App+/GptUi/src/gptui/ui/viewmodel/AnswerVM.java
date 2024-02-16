@@ -90,12 +90,12 @@ public class AnswerVM implements EventSource, EventListener {
                         properties.statusCircleFill.setValue(answerStateToColor(state));
                         var temperature = answerOpt.map(answer -> answer.temperature() + "°").orElse("");
                         properties.temperatureText.setValue(temperature);
-                        properties.temperatureSpinner.setValue(stateModel.getTemperatures().getTemperature(answerType));
+                        properties.temperatureSpinner.setValue(stateModel.getTemperature(answerType));
                     }, () -> {
                         properties.webViewContent.set("");
                         properties.statusCircleFill.setValue(WHITE);
                         properties.temperatureText.setValue("");
-                        properties.temperatureSpinner.setValue(stateModel.getTemperatures().getTemperature(answerType));
+                        properties.temperatureSpinner.setValue(stateModel.getTemperature(answerType));
                     });
         });
     }
@@ -111,7 +111,7 @@ public class AnswerVM implements EventSource, EventListener {
             properties.answerLabelText.setValue(labelTextMap.get(answerType));
             properties.copyButtonText.setValue(properties.copyButtonText.getValue() + " _" + hotkeyDigitMap.get(answerType));
             if (stateModel.getCurrentInteractionId() != null) {
-                properties.temperatureSpinner.setValue(stateModel.getTemperatures().getTemperature(answerType));
+                properties.temperatureSpinner.setValue(stateModel.getTemperature(answerType));
             }
         });
     }

@@ -118,22 +118,22 @@ public class QuestionVM implements EventListener {
 
     public void sendQuestion() {
         log.debug("sendQuestion");
-        questionModel.sendQuestion(QUESTION, stateModel.getTemperatures());
+        questionModel.sendQuestion(QUESTION);
     }
 
     public void sendDefinition() {
         log.debug("sendDefinition");
-        questionModel.sendQuestion(DEFINITION, stateModel.getTemperatures());
+        questionModel.sendQuestion(DEFINITION);
     }
 
     public void sendGrammar() {
         log.debug("sendGrammar");
-        questionModel.sendQuestion(InteractionType.GRAMMAR, stateModel.getTemperatures());
+        questionModel.sendQuestion(InteractionType.GRAMMAR);
     }
 
     public void sendFact() {
         log.debug("sendFact");
-        questionModel.sendQuestion(FACT, stateModel.getTemperatures());
+        questionModel.sendQuestion(FACT);
     }
 
     public void keyTypedQuestionTextArea() {

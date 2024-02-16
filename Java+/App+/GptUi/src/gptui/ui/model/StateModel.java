@@ -11,9 +11,16 @@ import javafx.scene.input.KeyCodeCombination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+
+import static gptui.storage.AnswerType.GCP;
+import static gptui.storage.AnswerType.GRAMMAR;
+import static gptui.storage.AnswerType.LONG;
+import static gptui.storage.AnswerType.SHORT;
 
 @Singleton
 public class StateModel {
@@ -24,8 +31,13 @@ public class StateModel {
     private String currentTheme;
     private String editedQuestion;
     private Scene scene;
-    private final Temperatures temperatures = new Temperatures();
     private Boolean isHistoryFilteringEnabled = false;
+    private final Map<AnswerType, Integer> temperatures = new HashMap<>(Map.of(
+            GRAMMAR, 50,
+            SHORT, 60,
+            LONG, 70,
+            GCP, 30
+    ));
 
     public synchronized boolean isEnteringNewQuestion() {
         return getCurrentInteractionOpt()
@@ -100,12 +112,12 @@ public class StateModel {
         this.scene = scene;
     }
 
-    public Temperatures getTemperatures() {
-        return temperatures;
+    public Integer getTemperature(AnswerType answerType) {
+        return temperatures.get(answerType);
     }
 
     public void setTemperature(AnswerType answerType, Integer temperature) {
-        temperatures.setTemperature(answerType, temperature);
+        temperatures.put(answerType, temperature);
     }
 
     public void addAccelerator(KeyCodeCombination keyCodeCombination, Runnable runnable) {
