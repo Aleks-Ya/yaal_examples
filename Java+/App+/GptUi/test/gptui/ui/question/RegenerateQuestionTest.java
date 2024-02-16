@@ -1,15 +1,15 @@
 package gptui.ui.question;
 
-import gptui.storage.Interaction;
+import gptui.model.storage.Interaction;
 import gptui.ui.BaseGptUiTest;
 import gptui.ui.TestingData.I1;
 import gptui.ui.TestingData.I2;
 import org.junit.jupiter.api.Test;
 
-import static gptui.storage.AnswerState.FAIL;
-import static gptui.storage.AnswerType.GCP;
-import static gptui.storage.AnswerType.LONG;
-import static gptui.storage.AnswerType.SHORT;
+import static gptui.model.storage.AnswerState.FAIL;
+import static gptui.model.storage.AnswerType.GCP;
+import static gptui.model.storage.AnswerType.LONG;
+import static gptui.model.storage.AnswerType.SHORT;
 import static java.time.Duration.ZERO;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;

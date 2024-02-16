@@ -1,18 +1,18 @@
 package gptui.ui;
 
-import gptui.storage.Answer;
-import gptui.storage.Interaction;
-import gptui.storage.InteractionId;
-import gptui.storage.InteractionType;
+import gptui.model.storage.Answer;
+import gptui.model.storage.Interaction;
+import gptui.model.storage.InteractionId;
+import gptui.model.storage.InteractionType;
 
 import java.util.Map;
 
-import static gptui.storage.AnswerState.FAIL;
-import static gptui.storage.AnswerState.SUCCESS;
-import static gptui.storage.AnswerType.GCP;
-import static gptui.storage.AnswerType.GRAMMAR;
-import static gptui.storage.AnswerType.LONG;
-import static gptui.storage.AnswerType.SHORT;
+import static gptui.model.storage.AnswerState.FAIL;
+import static gptui.model.storage.AnswerState.SUCCESS;
+import static gptui.model.storage.AnswerType.GCP;
+import static gptui.model.storage.AnswerType.GRAMMAR;
+import static gptui.model.storage.AnswerType.LONG;
+import static gptui.model.storage.AnswerType.SHORT;
 
 public class TestingData {
 

@@ -1,6 +1,6 @@
 package gptui;
 
-import gptui.ui.view.GptUiApplication;
+import gptui.view.GptUiApplication;
 import javafx.application.Application;
 
 public class GptUiMain {

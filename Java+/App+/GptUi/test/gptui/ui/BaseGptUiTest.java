@@ -1,12 +1,13 @@
 package gptui.ui;
 
 import com.google.inject.util.Modules;
-import gptui.storage.Interaction;
-import gptui.storage.InteractionStorage;
-import gptui.ui.model.ClipboardModel;
-import gptui.ui.model.StateModel;
-import gptui.ui.model.question.openai.MockGptApi;
-import gptui.ui.view.GptUiApplication;
+import gptui.RootModule;
+import gptui.model.clipboard.ClipboardModel;
+import gptui.model.question.openai.MockGptApi;
+import gptui.model.state.StateModel;
+import gptui.model.storage.Interaction;
+import gptui.model.storage.StorageModel;
+import gptui.view.GptUiApplication;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -33,7 +34,7 @@ public abstract class BaseGptUiTest extends ApplicationTest {
     private final GptUiApplication app = new GptUiApplication(Modules.override(new RootModule()).with(new TestRootModule()));
     protected final StateModel stateModel = app.getGuiceContext().getInstance(StateModel.class);
     protected final MockGptApi gptApi = app.getGuiceContext().getInstance(MockGptApi.class);
-    protected final InteractionStorage storage = app.getGuiceContext().getInstance(InteractionStorage.class);
+    protected final StorageModel storage = app.getGuiceContext().getInstance(StorageModel.class);
     protected final ClipboardModel clipboardModel = app.getGuiceContext().getInstance(ClipboardModel.class);
     private final HistoryInfo history = new HistoryInfo();
     private final ThemeInfo theme = new ThemeInfo();

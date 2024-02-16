@@ -1,6 +1,6 @@
 package gptui.ui;
 
-import gptui.storage.Interaction;
+import gptui.model.storage.Interaction;
 import javafx.scene.paint.Color;
 import org.assertj.core.api.SoftAssertions;
 import org.testfx.util.WaitForAsyncUtils;
