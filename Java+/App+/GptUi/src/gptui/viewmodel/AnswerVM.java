@@ -91,15 +91,12 @@ public class AnswerVM {
         });
     }
 
-    void displayInitialState() {
+    void initialize() {
         properties.temperatureSpinner.addListener((obs, oldValue, newValue) -> stateModel.setTemperature(answerType, newValue));
         Mdc.run(answerType, () -> {
             log.trace("displayInitialState");
             properties.answerLabelText.setValue(labelTextMap.get(answerType));
             properties.copyButtonText.setValue(properties.copyButtonText.getValue() + " _" + hotkeyDigitMap.get(answerType));
-            if (stateModel.getCurrentInteractionId() != null) {
-                properties.temperatureSpinner.setValue(stateModel.getTemperature(answerType));
-            }
         });
     }
 

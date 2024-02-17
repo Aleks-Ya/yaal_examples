@@ -34,10 +34,10 @@ class ViewModelMediator {
 
     public void stageShowed() {
         log.trace("stageShowed");
-        grammarAnswerVM.displayInitialState();
-        shortAnswerVM.displayInitialState();
-        longAnswerVM.displayInitialState();
-        gcpAnswerVM.displayInitialState();
+        grammarAnswerVM.initialize();
+        shortAnswerVM.initialize();
+        longAnswerVM.initialize();
+        gcpAnswerVM.initialize();
         historyVM.displayCurrentInteraction();
         historyVM.addShortcuts();
         questionVM.addShortcuts();
