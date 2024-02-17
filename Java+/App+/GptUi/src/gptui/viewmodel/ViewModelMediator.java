@@ -59,16 +59,12 @@ class ViewModelMediator {
 
     public void answerUpdated(AnswerType answerType) {
         log.trace("answerUpdated");
-//        switch (answerType) {
-//            case GRAMMAR -> grammarAnswerVM.displayCurrentAnswer();
-//            case SHORT -> shortAnswerVM.displayCurrentAnswer();
-//            case LONG -> longAnswerVM.displayCurrentAnswer();
-//            case GCP -> gcpAnswerVM.displayCurrentAnswer();
-//        }
-        grammarAnswerVM.displayCurrentAnswer();
-        shortAnswerVM.displayCurrentAnswer();
-        longAnswerVM.displayCurrentAnswer();
-        gcpAnswerVM.displayCurrentAnswer();
+        switch (answerType) {
+            case GRAMMAR -> grammarAnswerVM.displayCurrentAnswer();
+            case SHORT -> shortAnswerVM.displayCurrentAnswer();
+            case LONG -> longAnswerVM.displayCurrentAnswer();
+            case GCP -> gcpAnswerVM.displayCurrentAnswer();
+        }
         stateModel.chooseFirstInteractionAsCurrent();
         historyVM.displayCurrentInteraction();
     }
@@ -76,6 +72,10 @@ class ViewModelMediator {
     public void interactionCreated() {
         log.trace("interactionCreated");
         themeVM.updateComboBoxItems();
+        grammarAnswerVM.displayCurrentAnswer();
+        shortAnswerVM.displayCurrentAnswer();
+        longAnswerVM.displayCurrentAnswer();
+        gcpAnswerVM.displayCurrentAnswer();
     }
 
     public void interactionDeleted() {

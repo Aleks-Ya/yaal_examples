@@ -2,6 +2,8 @@ package gptui.model.storage;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import static java.util.stream.Collectors.groupingBy;
 
 @Singleton
 class StorageModelImpl implements StorageModel {
+    private static final Logger log = LoggerFactory.getLogger(StorageModelImpl.class);
     private final Map<InteractionId, Interaction> interactions = new LinkedHashMap<>();
     private final List<String> themes = new ArrayList<>();
     private final InteractionStorageFilesystem storageFilesystem;
@@ -36,7 +39,9 @@ class StorageModelImpl implements StorageModel {
 
     @Override
     public synchronized InteractionId newInteractionId() {
-        return new InteractionId(Instant.now().getEpochSecond());
+        var interactionId = new InteractionId(Instant.now().getEpochSecond());
+        log.trace("newInteractionId: {}", interactionId);
+        return interactionId;
     }
 
     @Override

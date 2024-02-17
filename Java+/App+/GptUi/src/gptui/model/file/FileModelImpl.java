@@ -24,7 +24,7 @@ class FileModelImpl implements FileModel {
     public String getAppVersion() {
         log.info("Reading application version...");
         try {
-            var is = requireNonNull(getClass().getClassLoader().getResourceAsStream("gptui/version.txt"));
+            var is = requireNonNull(getClass().getResourceAsStream("/gptui/version.txt"));
             try (var dataInputStream = new DataInputStream(is)) {
                 var bytes = new byte[is.available()];
                 dataInputStream.readFully(bytes);
@@ -40,7 +40,7 @@ class FileModelImpl implements FileModel {
     @Override
     public URL getFxmlLocation() {
         log.info("Java version: {}", Runtime.version());
-        var gptUiFxml = getClass().getClassLoader().getResource("gptui/view/GptUi.fxml");
+        var gptUiFxml = getClass().getResource("/gptui/view/GptUi.fxml");
         log.info("GptUi.fxml: {}", gptUiFxml);
         return requireNonNull(gptUiFxml);
     }

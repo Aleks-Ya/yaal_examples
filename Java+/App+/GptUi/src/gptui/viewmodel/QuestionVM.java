@@ -130,6 +130,7 @@ public class QuestionVM {
     }
 
     private synchronized void createNewInteractionAndRequestAnswers(InteractionType interactionType) {
+        log.debug("createNewInteractionAndRequestAnswers: interactionType={}", interactionType);
         var interactionId = storage.newInteractionId();
         Mdc.run(interactionId, () -> {
             var theme = stateModel.getCurrentTheme();
@@ -142,11 +143,11 @@ public class QuestionVM {
             ));
             storage.saveInteraction(interaction);
             stateModel.setCurrentInteractionId(interactionId);
+            mediator.interactionCreated();
             questionModel.requestAnswer(interactionId, GCP, () -> mediator.answerUpdated(GCP));
             questionModel.requestAnswer(interactionId, LONG, () -> mediator.answerUpdated(LONG));
             questionModel.requestAnswer(interactionId, SHORT, () -> mediator.answerUpdated(SHORT));
             questionModel.requestAnswer(interactionId, GRAMMAR, () -> mediator.answerUpdated(GRAMMAR));
-            mediator.interactionCreated();
         });
     }
 
