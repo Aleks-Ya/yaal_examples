@@ -1,0 +1,59 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package model{
+    class StateModel
+    class ClipboardModel
+    class ConfigModel
+    class FileModel
+    class QuestionModel
+    class StorageModel
+}
+package viewmodel {
+    class AnswerVM
+    class GptUiVM
+    class HistoryVM
+    class QuestionVM
+    class ThemeVM
+    class ViewModelMediator
+}
+
+package view {
+    class AnswerController
+    class GptUiApplication
+    class GptUiController
+    class HistoryController
+    class QuestionController
+    class ThemeController
+}
+
+ThemeController ---> ThemeVM
+QuestionController ---> QuestionVM
+HistoryController ---> HistoryVM
+AnswerController --> AnswerVM
+GptUiApplication --> GptUiVM
+
+GptUiController --> AnswerController
+GptUiController --> AnswerVM
+
+ThemeVM <--> ViewModelMediator
+QuestionVM <--> ViewModelMediator
+HistoryVM <--> ViewModelMediator
+GptUiVM --> ViewModelMediator
+AnswerVM <--> ViewModelMediator
+ThemeVM ---> StateModel
+HistoryVM ---> StateModel
+QuestionVM ---> StateModel
+QuestionVM ---> QuestionModel
+QuestionVM ---> ClipboardModel
+AnswerVM --> StateModel
+AnswerVM --> QuestionModel
+AnswerVM --> ClipboardModel
+GptUiVM --> FileModel
+
+StateModel --> StorageModel
+QuestionModel --> StorageModel
+QuestionModel --> ConfigModel
+
+
+@enduml

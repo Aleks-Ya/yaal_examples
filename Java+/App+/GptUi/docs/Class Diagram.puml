@@ -1,0 +1,81 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package model{
+    class StateModel
+    class ClipboardModel
+    class ConfigModel
+    class FileModel
+    class QuestionModel
+    class StorageModel
+}
+package viewmodel {
+    class "AnswerVM" as grammarAnswerVM <<GRAMMAR>>
+    class "AnswerVM" as shortAnswerVM <<SHORT>>
+    class "AnswerVM" as longAnswerVM <<LONG>>
+    class "AnswerVM" as gcpAnswerVM <<GCP>>
+    class GptUiVM
+    class HistoryVM
+    class QuestionVM
+    class ThemeVM
+    class ViewModelMediator
+}
+
+package view {
+    class "AnswerController"  as grammarAnswerController <<GRAMMAR>>
+    class "AnswerController" as shortAnswerController <<SHORT>>
+    class "AnswerController" as longAnswerController <<LONG>>
+    class "AnswerController" as gcpAnswerController <<GCP>>
+    class GptUiApplication
+    class GptUiController
+    class HistoryController
+    class QuestionController
+    class ThemeController
+}
+
+ThemeController ---> ThemeVM
+QuestionController ---> QuestionVM
+HistoryController ---> HistoryVM
+grammarAnswerController --> grammarAnswerVM
+shortAnswerController --> shortAnswerVM
+longAnswerController --> longAnswerVM
+gcpAnswerController --> gcpAnswerVM
+GptUiApplication --> GptUiVM
+
+GptUiController --> grammarAnswerController
+GptUiController --> shortAnswerController
+GptUiController --> longAnswerController
+GptUiController --> gcpAnswerController
+
+ThemeVM <--> ViewModelMediator
+QuestionVM <--> ViewModelMediator
+HistoryVM <--> ViewModelMediator
+GptUiVM --> ViewModelMediator
+grammarAnswerVM <--> ViewModelMediator
+shortAnswerVM <--> ViewModelMediator
+longAnswerVM <--> ViewModelMediator
+gcpAnswerVM <--> ViewModelMediator
+
+ThemeVM ---> StateModel
+HistoryVM ---> StateModel
+QuestionVM ---> StateModel
+QuestionVM ---> QuestionModel
+QuestionVM ---> ClipboardModel
+
+grammarAnswerVM --> StateModel
+shortAnswerVM --> StateModel
+longAnswerVM --> StateModel
+gcpAnswerVM --> StateModel
+
+grammarAnswerVM --> QuestionModel
+shortAnswerVM --> QuestionModel
+longAnswerVM --> QuestionModel
+gcpAnswerVM --> QuestionModel
+
+grammarAnswerVM --> ClipboardModel
+shortAnswerVM --> ClipboardModel
+longAnswerVM --> ClipboardModel
+gcpAnswerVM --> ClipboardModel
+
+
+@enduml
