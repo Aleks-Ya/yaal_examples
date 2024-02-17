@@ -7,9 +7,7 @@ import gptui.model.question.openai.GptApi;
 import gptui.model.state.StateModel;
 import gptui.model.storage.Answer;
 import gptui.model.storage.AnswerType;
-import gptui.model.storage.Interaction;
 import gptui.model.storage.InteractionId;
-import gptui.model.storage.InteractionType;
 import gptui.model.storage.StorageModel;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -17,17 +15,12 @@ import javafx.application.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
 import java.util.function.Function;
 
 import static gptui.model.storage.AnswerState.FAIL;
-import static gptui.model.storage.AnswerState.NEW;
 import static gptui.model.storage.AnswerState.SENT;
 import static gptui.model.storage.AnswerState.SUCCESS;
 import static gptui.model.storage.AnswerType.GCP;
-import static gptui.model.storage.AnswerType.GRAMMAR;
-import static gptui.model.storage.AnswerType.LONG;
-import static gptui.model.storage.AnswerType.SHORT;
 import static java.util.concurrent.CompletableFuture.runAsync;
 
 @Singleton
@@ -47,25 +40,6 @@ class QuestionModelImpl implements QuestionModel {
     private SoundService soundService;
     @Inject
     private FormatConverter formatConverter;
-
-    @Override
-    public synchronized InteractionId createNewInteraction(InteractionType interactionType) {
-        var theme = stateModel.getCurrentTheme();
-        var question = stateModel.getEditedQuestion();
-        var interactionId = storage.newInteractionId();
-        Mdc.run(interactionId, () -> {
-            log.info("Sending question: interactionType=\"{}\", theme=\"{}\", question=\"{}\"", interactionType, theme, question);
-            var interaction = new Interaction(interactionId, interactionType, theme, question, Map.of(
-                    GRAMMAR, new Answer(GRAMMAR, "", stateModel.getTemperature(GRAMMAR), "", "", NEW),
-                    SHORT, new Answer(SHORT, "", stateModel.getTemperature(SHORT), "", "", NEW),
-                    LONG, new Answer(LONG, "", stateModel.getTemperature(LONG), "", "", NEW),
-                    GCP, new Answer(GCP, "", stateModel.getTemperature(GCP), "", "", NEW)
-            ));
-            storage.saveInteraction(interaction);
-            stateModel.setCurrentInteractionId(interactionId);
-        });
-        return interactionId;
-    }
 
     @Override
     public void requestAnswer(InteractionId interactionId, AnswerType answerType, Runnable callback) {

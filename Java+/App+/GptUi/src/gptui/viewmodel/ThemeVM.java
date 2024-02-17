@@ -25,25 +25,18 @@ public class ThemeVM {
     @Inject
     private ViewModelMediator mediator;
 
-    public void themeComboBoxKeyReleased() {
-        log.trace("themeComboBoxKeyReleased");
+    public void onThemeComboBoxKeyReleased() {
+        log.trace("onThemeComboBoxKeyReleased");
         stateModel.setCurrentTheme(properties.themeCbEditor.getValue());
     }
 
-    public void themeComboBoxAction() {
-        log.trace("themeComboBoxAction");
-        var currentComboBoxValue = properties.themeCbValue.getValue();
-        log.trace("currentComboBoxValue: '{}'", currentComboBoxValue);
-        var currentModelValue = stateModel.getCurrentTheme();
-        log.trace("currentModelValue: '{}'", currentModelValue);
-        if (!Objects.equals(currentComboBoxValue, currentModelValue)) {
-            stateModel.setCurrentTheme(currentComboBoxValue);
-            mediator.themeWasChosen();
-        }
+    public void onThemeComboBoxAction() {
+        log.trace("onThemeComboBoxAction");
+        chooseThemeFromCb();
     }
 
-    public void themeFilterHistoryCheckBoxClicked() {
-        log.trace("themeFilterHistoryCheckBoxClicked");
+    public void onThemeFilterHistoryCheckBoxClicked() {
+        log.trace("onThemeFilterHistoryCheckBoxClicked");
         if (properties.filterHistoryCheckBoxSelected.getValue() != stateModel.isHistoryFilteringEnabled()) {
             stateModel.setIsHistoryFilteringEnabled(properties.filterHistoryCheckBoxSelected.getValue());
             log.debug("ThemeFilterHistoryCheckBox is set to {}", stateModel.isHistoryFilteringEnabled());
@@ -68,6 +61,18 @@ public class ThemeVM {
 
     void setLabel() {
         properties.themeLabelText.setValue(String.format("Theme (%d):", stateModel.getThemes().size()));
+    }
+
+    private void chooseThemeFromCb() {
+        log.trace("chooseThemeFromCb");
+        var currentComboBoxValue = properties.themeCbValue.getValue();
+        log.trace("currentComboBoxValue: '{}'", currentComboBoxValue);
+        var currentModelValue = stateModel.getCurrentTheme();
+        log.trace("currentModelValue: '{}'", currentModelValue);
+        if (!Objects.equals(currentComboBoxValue, currentModelValue)) {
+            stateModel.setCurrentTheme(currentComboBoxValue);
+            mediator.themeWasChosen();
+        }
     }
 
     public static class Properties {

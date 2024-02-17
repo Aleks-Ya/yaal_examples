@@ -38,13 +38,13 @@ public class HistoryVM {
     private final HistoryComboBoxFacade historyCbFacade = new HistoryComboBoxFacade();
     private final StateModelFacade stateModelFacade = new StateModelFacade();
 
-    public void historyComboBoxAction() {
-        log.trace("historyComboBoxAction");
+    public void onHistoryComboBoxAction() {
+        log.trace("onHistoryComboBoxAction");
         stateModelFacade.chooseHistoryCbInteractionAsCurrent();
     }
 
-    public void clickHistoryDeleteButton() {
-        log.trace("clickHistoryDeleteButton");
+    public void onClickHistoryDeleteButton() {
+        log.trace("onClickHistoryDeleteButton");
         var oldCurrentInteractionIndex = historyCbFacade.getSelectedItemIndex();
         stateModelFacade.deleteCurrentInteraction();
         stateModelFacade.choosePreviousInteractionAsCurrent(oldCurrentInteractionIndex);
@@ -67,34 +67,19 @@ public class HistoryVM {
         });
     }
 
-    void interactionChosenFromHistory() {
-        log.trace("interactionChosenFromHistory");
-        historyCbFacade.setItems();
-        historyCbFacade.selectCurrentInteraction();
-        enableDeleteButton();
-    }
-
-    void displayCurrentHistory() {
-        log.trace("displayCurrentHistory");
+    void displayCurrentInteraction() {
+        log.trace("displayCurrentInteraction");
         setLabel();
-        stateModelFacade.chooseFirstInteractionAsCurrent();
         historyCbFacade.setItems();
         historyCbFacade.selectCurrentInteraction();
         enableDeleteButton();
-    }
-
-    void displayCurrentHistoryIfHistoryFiltered() {
-        log.trace("themeWasChosen");
-        if (stateModelFacade.isHistoryFiltered()) {
-            displayCurrentHistory();
-        }
     }
 
     private void enableDeleteButton() {
         properties.historyDeleteButtonDisable.setValue(stateModelFacade.isCurrentInteractionEmpty());
     }
 
-    void setLabel() {
+    private void setLabel() {
         log.trace("setLabel");
         var historySize = stateModelFacade.getFilteredHistorySize();
         var allInteractionSize = stateModelFacade.getAllInteractionsSize();
@@ -121,11 +106,6 @@ public class HistoryVM {
             stateModel.choosePreviousInteractionAsCurrent(currentInteractionIndex);
         }
 
-        private void chooseFirstInteractionAsCurrent() {
-            log.trace("chooseFirstInteractionAsCurrent");
-            stateModel.chooseFirstInteractionAsCurrent();
-        }
-
         private void deleteCurrentInteraction() {
             log.trace("deleteCurrentInteraction");
             stateModel.deleteCurrentInteraction();
@@ -138,17 +118,12 @@ public class HistoryVM {
 
         private Integer getAllInteractionsSize() {
             log.trace("getAllInteractionsSize");
-            return stateModel.getAllInteractions().size();
+            return stateModel.getFullHistory().size();
         }
 
         private Boolean isCurrentInteractionEmpty() {
             log.trace("isCurrentInteractionEmpty");
             return stateModel.getCurrentInteractionOpt().isEmpty();
-        }
-
-        private Boolean isHistoryFiltered() {
-            log.trace("isHistoryFiltered");
-            return stateModel.isHistoryFilteringEnabled();
         }
     }
 
@@ -187,7 +162,6 @@ public class HistoryVM {
                 properties.historyCbOnAction.setValue(null);
                 properties.historyCbItems.setValue(FXCollections.observableArrayList(modelItems));
                 properties.historyCbOnAction.setValue(oldOnAction);
-                setLabel();
             }
         }
 

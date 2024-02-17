@@ -25,13 +25,13 @@ public class HistoryController extends BaseController {
     @FXML
     void historyComboBoxAction(ActionEvent ignoredEvent) {
         log.trace("historyComboBoxAction");
-        vm.historyComboBoxAction();
+        vm.onHistoryComboBoxAction();
     }
 
     @FXML
     void clickHistoryDeleteButton(ActionEvent ignoredEvent) {
         log.trace("clickHistoryDeleteButton");
-        vm.clickHistoryDeleteButton();
+        vm.onClickHistoryDeleteButton();
     }
 
     @Override

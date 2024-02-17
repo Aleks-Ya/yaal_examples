@@ -20,25 +20,25 @@ public class QuestionController extends BaseController {
     @FXML
     void sendQuestion(ActionEvent ignoredEvent) {
         log.debug("sendQuestion");
-        vm.sendQuestion();
+        vm.onSendQuestionClick();
     }
 
     @FXML
     void sendDefinition(ActionEvent ignoredEvent) {
         log.debug("sendDefinition");
-        vm.sendDefinition();
+        vm.onSendDefinitionClick();
     }
 
     @FXML
     void sendGrammar(ActionEvent ignoredEvent) {
         log.debug("sendGrammar");
-        vm.sendGrammar();
+        vm.onSendGrammarClick();
     }
 
     @FXML
     public void sendFact(ActionEvent ignoredEvent) {
         log.debug("sendFact");
-        vm.sendFact();
+        vm.onSendFactClick();
     }
 
     @FXML
@@ -50,7 +50,7 @@ public class QuestionController extends BaseController {
     @FXML
     void keyTypedQuestionTextArea(KeyEvent ignoredEvent) {
         log.trace("keyTypedQuestionTextArea");
-        vm.keyTypedQuestionTextArea();
+        vm.onKeyTypedQuestionTextArea();
     }
 
     @Override

@@ -21,7 +21,7 @@ public class GptUiVM {
 
     public void initialize() {
         log.trace("initialize");
-        var history = stateModel.getAllInteractions();
+        var history = stateModel.getFullHistory();
         stateModel.chooseFirstInteractionAsCurrent();
         if (!history.isEmpty()) {
             var currentInteraction = stateModel.getCurrentInteraction();

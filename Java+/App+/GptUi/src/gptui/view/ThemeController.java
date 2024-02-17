@@ -25,19 +25,19 @@ public class ThemeController extends BaseController {
     @FXML
     void themeComboBoxKeyReleased(KeyEvent ignoredEvent) {
         log.trace("themeComboBoxKeyReleased");
-        vm.themeComboBoxKeyReleased();
+        vm.onThemeComboBoxKeyReleased();
     }
 
     @FXML
     void themeComboBoxAction(ActionEvent ignoredEvent) {
         log.trace("themeComboBoxAction");
-        vm.themeComboBoxAction();
+        vm.onThemeComboBoxAction();
     }
 
     @FXML
     void themeFilterHistoryCheckBoxClicked(ActionEvent ignore) {
         log.trace("themeFilterHistoryCheckBoxClicked");
-        vm.themeFilterHistoryCheckBoxClicked();
+        vm.onThemeFilterHistoryCheckBoxClicked();
     }
 
     @Override

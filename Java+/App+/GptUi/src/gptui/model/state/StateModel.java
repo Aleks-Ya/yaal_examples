@@ -73,10 +73,6 @@ public class StateModel {
         storage.deleteInteraction(getCurrentInteractionId());
     }
 
-    public synchronized List<Interaction> getAllInteractions() {
-        return storage.readAllInteractions();
-    }
-
     public synchronized List<String> getThemes() {
         return storage.getThemes();
     }

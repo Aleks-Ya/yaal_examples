@@ -5,8 +5,10 @@ import gptui.Mdc;
 import gptui.model.clipboard.ClipboardModel;
 import gptui.model.question.QuestionModel;
 import gptui.model.state.StateModel;
+import gptui.model.storage.Answer;
 import gptui.model.storage.Interaction;
 import gptui.model.storage.InteractionType;
+import gptui.model.storage.StorageModel;
 import jakarta.inject.Inject;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -16,6 +18,9 @@ import javafx.scene.input.KeyCodeCombination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
+
+import static gptui.model.storage.AnswerState.NEW;
 import static gptui.model.storage.AnswerType.GCP;
 import static gptui.model.storage.AnswerType.GRAMMAR;
 import static gptui.model.storage.AnswerType.LONG;
@@ -36,14 +41,16 @@ public class QuestionVM {
     @Inject
     private StateModel stateModel;
     @Inject
+    private StorageModel storage;
+    @Inject
     private QuestionModel questionModel;
     @Inject
     private ClipboardModel clipboardModel;
     @Inject
     private ViewModelMediator mediator;
 
-    void displayCurrentQuestionIfChanged() {
-        log.trace("displayCurrentQuestionIfChanged");
+    void displayCurrentInteraction() {
+        log.trace("displayCurrentInteraction");
         stateModel.getCurrentInteractionOpt()
                 .map(Interaction::question)
                 .filter(question -> !question.equals(properties.questionTaText.getValue()))
@@ -54,18 +61,11 @@ public class QuestionVM {
                 });
     }
 
-    void displayCurrentQuestionIfChangedAndHistoryFiltered() {
-        log.trace("themeWasChosen");
-        if (stateModel.isHistoryFilteringEnabled()) {
-            displayCurrentQuestionIfChanged();
-        }
-    }
-
     void addShortcuts() {
-        log.trace("stageWasShowed");
+        log.trace("addShortcuts");
         stateModel.addAccelerator(new KeyCodeCombination(V, CONTROL_DOWN, ALT_DOWN), () -> {
             log.debug("pasteQuestionFromClipboardAndFocus");
-            setEditedQuestion();
+            pasteQuestionFromClipboard();
             properties.questionTaFocused.setValue(false);
             properties.questionTaFocused.setValue(true);
             properties.questionTaPositionCaretToEnd.setValue(false);
@@ -80,7 +80,7 @@ public class QuestionVM {
         });
         stateModel.addAccelerator(new KeyCodeCombination(ENTER, CONTROL_DOWN), () -> {
             log.debug("Send question by Ctrl-Enter");
-            sendQuestion();
+            onSendQuestionClick();
         });
     }
 
@@ -96,57 +96,58 @@ public class QuestionVM {
         });
     }
 
-    public void sendQuestion() {
-        log.debug("sendQuestion");
-        var interactionId = questionModel.createNewInteraction(QUESTION);
-        mediator.interactionCreated();
+    public void onSendQuestionClick() {
+        log.debug("onSendQuestionClick");
+        createNewInteractionAndRequestAnswers(QUESTION);
         mediator.currentInteractionChosen();
-        questionModel.requestAnswer(interactionId, GCP, () -> mediator.answerUpdated(GCP));
-        questionModel.requestAnswer(interactionId, LONG, () -> mediator.answerUpdated(LONG));
-        questionModel.requestAnswer(interactionId, SHORT, () -> mediator.answerUpdated(SHORT));
-        questionModel.requestAnswer(interactionId, GRAMMAR, () -> mediator.answerUpdated(GRAMMAR));
     }
 
-    public void sendDefinition() {
-        log.debug("sendDefinition");
-        var interactionId = questionModel.createNewInteraction(DEFINITION);
-        mediator.interactionCreated();
-        questionModel.requestAnswer(interactionId, GCP, () -> mediator.answerUpdated(GCP));
-        questionModel.requestAnswer(interactionId, LONG, () -> mediator.answerUpdated(LONG));
-        questionModel.requestAnswer(interactionId, SHORT, () -> mediator.answerUpdated(SHORT));
-        questionModel.requestAnswer(interactionId, GRAMMAR, () -> mediator.answerUpdated(GRAMMAR));
+    public void onSendDefinitionClick() {
+        log.debug("onSendDefinitionClick");
+        createNewInteractionAndRequestAnswers(DEFINITION);
     }
 
-    public void sendGrammar() {
-        log.debug("sendGrammar");
-        var interactionId = questionModel.createNewInteraction(InteractionType.GRAMMAR);
-        mediator.interactionCreated();
-        questionModel.requestAnswer(interactionId, GCP, () -> mediator.answerUpdated(GCP));
-        questionModel.requestAnswer(interactionId, LONG, () -> mediator.answerUpdated(LONG));
-        questionModel.requestAnswer(interactionId, SHORT, () -> mediator.answerUpdated(SHORT));
-        questionModel.requestAnswer(interactionId, GRAMMAR, () -> mediator.answerUpdated(GRAMMAR));
+    public void onSendGrammarClick() {
+        log.debug("onSendGrammarClick");
+        createNewInteractionAndRequestAnswers(InteractionType.GRAMMAR);
     }
 
-    public void sendFact() {
-        log.debug("sendFact");
-        var interactionId = questionModel.createNewInteraction(FACT);
-        mediator.interactionCreated();
-        questionModel.requestAnswer(interactionId, GCP, () -> mediator.answerUpdated(GCP));
-        questionModel.requestAnswer(interactionId, LONG, () -> mediator.answerUpdated(LONG));
-        questionModel.requestAnswer(interactionId, SHORT, () -> mediator.answerUpdated(SHORT));
-        questionModel.requestAnswer(interactionId, GRAMMAR, () -> mediator.answerUpdated(GRAMMAR));
+    public void onSendFactClick() {
+        log.debug("onSendFactClick");
+        createNewInteractionAndRequestAnswers(FACT);
     }
 
-    public void keyTypedQuestionTextArea() {
-        log.trace("keyTypedQuestionTextArea");
+    public void onKeyTypedQuestionTextArea() {
+        log.trace("onKeyTypedQuestionTextArea");
         stateModel.setEditedQuestion(properties.questionTaText.getValue());
     }
 
-    public void setEditedQuestion() {
-        log.debug("pasteQuestionFromClipboardAndFocus");
+    public void pasteQuestionFromClipboard() {
+        log.debug("pasteQuestionFromClipboard");
         var question = clipboardModel.getTextFromClipboard();
         properties.questionTaText.setValue(question);
         stateModel.setEditedQuestion(question);
+    }
+
+    private synchronized void createNewInteractionAndRequestAnswers(InteractionType interactionType) {
+        var interactionId = storage.newInteractionId();
+        Mdc.run(interactionId, () -> {
+            var theme = stateModel.getCurrentTheme();
+            var question = stateModel.getEditedQuestion();
+            var interaction = new Interaction(interactionId, interactionType, theme, question, Map.of(
+                    GRAMMAR, new Answer(GRAMMAR, "", stateModel.getTemperature(GRAMMAR), "", "", NEW),
+                    SHORT, new Answer(SHORT, "", stateModel.getTemperature(SHORT), "", "", NEW),
+                    LONG, new Answer(LONG, "", stateModel.getTemperature(LONG), "", "", NEW),
+                    GCP, new Answer(GCP, "", stateModel.getTemperature(GCP), "", "", NEW)
+            ));
+            storage.saveInteraction(interaction);
+            stateModel.setCurrentInteractionId(interactionId);
+            questionModel.requestAnswer(interactionId, GCP, () -> mediator.answerUpdated(GCP));
+            questionModel.requestAnswer(interactionId, LONG, () -> mediator.answerUpdated(LONG));
+            questionModel.requestAnswer(interactionId, SHORT, () -> mediator.answerUpdated(SHORT));
+            questionModel.requestAnswer(interactionId, GRAMMAR, () -> mediator.answerUpdated(GRAMMAR));
+            mediator.interactionCreated();
+        });
     }
 
     public static class Properties {

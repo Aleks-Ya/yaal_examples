@@ -1,12 +1,16 @@
 package gptui.viewmodel;
 
+import gptui.model.state.StateModel;
 import gptui.model.storage.AnswerType;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Singleton
 class ViewModelMediator {
+    private static final Logger log = LoggerFactory.getLogger(ViewModelMediator.class);
     @Inject
     @Named(ViewModelModule.GRAMMAR)
     private AnswerVM grammarAnswerVM;
@@ -25,24 +29,32 @@ class ViewModelMediator {
     private QuestionVM questionVM;
     @Inject
     private ThemeVM themeVM;
+    @Inject
+    private StateModel stateModel;
 
     public void stageShowed() {
+        log.trace("stageShowed");
         grammarAnswerVM.displayInitialState();
         shortAnswerVM.displayInitialState();
         longAnswerVM.displayInitialState();
         gcpAnswerVM.displayInitialState();
-        historyVM.setLabel();
+        historyVM.displayCurrentInteraction();
         historyVM.addShortcuts();
         questionVM.addShortcuts();
         themeVM.setLabel();
     }
 
     public void themeWasChosen() {
-        historyVM.displayCurrentHistoryIfHistoryFiltered();
-        questionVM.displayCurrentQuestionIfChangedAndHistoryFiltered();
+        log.trace("themeWasChosen");
+        if (stateModel.isHistoryFilteringEnabled()) {
+            stateModel.chooseFirstInteractionAsCurrent();
+            historyVM.displayCurrentInteraction();
+            questionVM.displayCurrentInteraction();
+        }
     }
 
     public void answerUpdated(AnswerType answerType) {
+        log.trace("answerUpdated");
 //        switch (answerType) {
 //            case GRAMMAR -> grammarAnswerVM.displayCurrentAnswer();
 //            case SHORT -> shortAnswerVM.displayCurrentAnswer();
@@ -53,29 +65,35 @@ class ViewModelMediator {
         shortAnswerVM.displayCurrentAnswer();
         longAnswerVM.displayCurrentAnswer();
         gcpAnswerVM.displayCurrentAnswer();
-        historyVM.displayCurrentHistory();
+        stateModel.chooseFirstInteractionAsCurrent();
+        historyVM.displayCurrentInteraction();
     }
 
     public void interactionCreated() {
+        log.trace("interactionCreated");
         themeVM.updateComboBoxItems();
     }
 
     public void interactionDeleted() {
+        log.trace("interactionDeleted");
         themeVM.updateComboBoxItems();
     }
 
     public void isThemeFilterHistoryChanged() {
-        historyVM.displayCurrentHistory();
+        log.trace("isThemeFilterHistoryChanged");
+        stateModel.chooseFirstInteractionAsCurrent();
+        historyVM.displayCurrentInteraction();
     }
 
     public void currentInteractionChosen() {
+        log.trace("currentInteractionChosen");
         grammarAnswerVM.displayCurrentAnswer();
         shortAnswerVM.displayCurrentAnswer();
         longAnswerVM.displayCurrentAnswer();
         gcpAnswerVM.displayCurrentAnswer();
 
-        historyVM.interactionChosenFromHistory();
-        questionVM.displayCurrentQuestionIfChanged();
+        historyVM.displayCurrentInteraction();
+        questionVM.displayCurrentInteraction();
         themeVM.updateComboBoxItems();
         themeVM.updateComboBoxCurrentValue();
     }
