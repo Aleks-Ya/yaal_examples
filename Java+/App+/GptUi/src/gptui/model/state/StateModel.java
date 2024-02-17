@@ -45,12 +45,14 @@ public class StateModel {
     }
 
     public synchronized List<Interaction> getFilteredHistory() {
+        var historyFilteringEnabled = isHistoryFilteringEnabled();
         return getFullHistory().stream()
-                .filter(interaction -> !isHistoryFilteringEnabled() || getCurrentTheme().trim().equals(interaction.theme().trim()))
+                .filter(interaction -> !historyFilteringEnabled || getCurrentTheme().trim().equals(interaction.theme().trim()))
                 .toList();
     }
 
     public synchronized InteractionId getCurrentInteractionId() {
+        log.trace("getCurrentInteractionId: '{}'", currentInteractionId);
         return currentInteractionId;
     }
 

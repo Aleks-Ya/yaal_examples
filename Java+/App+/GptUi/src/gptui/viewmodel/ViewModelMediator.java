@@ -50,6 +50,10 @@ class ViewModelMediator {
             stateModel.chooseFirstInteractionAsCurrent();
             historyVM.displayCurrentInteraction();
             questionVM.displayCurrentInteraction();
+            grammarAnswerVM.displayCurrentAnswer();
+            shortAnswerVM.displayCurrentAnswer();
+            longAnswerVM.displayCurrentAnswer();
+            gcpAnswerVM.displayCurrentAnswer();
         }
     }
 
@@ -81,8 +85,14 @@ class ViewModelMediator {
 
     public void isThemeFilterHistoryChanged() {
         log.trace("isThemeFilterHistoryChanged");
-        stateModel.chooseFirstInteractionAsCurrent();
+        if (stateModel.isHistoryFilteringEnabled()) {
+            stateModel.chooseFirstInteractionAsCurrent();
+        }
         historyVM.displayCurrentInteraction();
+        grammarAnswerVM.displayCurrentAnswer();
+        shortAnswerVM.displayCurrentAnswer();
+        longAnswerVM.displayCurrentAnswer();
+        gcpAnswerVM.displayCurrentAnswer();
     }
 
     public void currentInteractionChosen() {

@@ -37,9 +37,12 @@ public class ThemeVM {
 
     public void onThemeFilterHistoryCheckBoxClicked() {
         log.trace("onThemeFilterHistoryCheckBoxClicked");
-        if (properties.filterHistoryCheckBoxSelected.getValue() != stateModel.isHistoryFilteringEnabled()) {
-            stateModel.setIsHistoryFilteringEnabled(properties.filterHistoryCheckBoxSelected.getValue());
-            log.debug("ThemeFilterHistoryCheckBox is set to {}", stateModel.isHistoryFilteringEnabled());
+        var cbValue = properties.filterHistoryCheckBoxSelected.getValue();
+        var modelValue = stateModel.isHistoryFilteringEnabled();
+        log.trace("cbValue={}, modelValue={}", cbValue, modelValue);
+        if (cbValue != modelValue) {
+            log.trace("Setting ThemeFilterHistoryCheckBox to {}", cbValue);
+            stateModel.setIsHistoryFilteringEnabled(cbValue);
             mediator.isThemeFilterHistoryChanged();
         }
     }
