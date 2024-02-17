@@ -1,8 +1,6 @@
 package gptui.model.question.question;
 
 import gptui.Mdc;
-import gptui.model.event.EventModel;
-import gptui.model.event.EventSource;
 import gptui.model.question.QuestionModel;
 import gptui.model.question.gcp.GcpApi;
 import gptui.model.question.openai.GptApi;
@@ -33,12 +31,10 @@ import static gptui.model.storage.AnswerType.SHORT;
 import static java.util.concurrent.CompletableFuture.runAsync;
 
 @Singleton
-class QuestionModelImpl implements QuestionModel, EventSource {
+class QuestionModelImpl implements QuestionModel {
     private static final Logger log = LoggerFactory.getLogger(QuestionModelImpl.class);
     @Inject
     private StateModel stateModel;
-    @Inject
-    private EventModel eventModel;
     @Inject
     private StorageModel storage;
     @Inject
@@ -53,7 +49,7 @@ class QuestionModelImpl implements QuestionModel, EventSource {
     private FormatConverter formatConverter;
 
     @Override
-    public synchronized void sendQuestion(InteractionType interactionType) {
+    public synchronized InteractionId createNewInteraction(InteractionType interactionType) {
         var theme = stateModel.getCurrentTheme();
         var question = stateModel.getEditedQuestion();
         var interactionId = storage.newInteractionId();
@@ -67,29 +63,26 @@ class QuestionModelImpl implements QuestionModel, EventSource {
             ));
             storage.saveInteraction(interaction);
             stateModel.setCurrentInteractionId(interactionId);
-            Platform.runLater(() -> eventModel.fire().interactionCreated());
-            requestAnswer(interactionId, GCP);
-            requestAnswer(interactionId, LONG);
-            requestAnswer(interactionId, SHORT);
-            requestAnswer(interactionId, GRAMMAR);
         });
+        return interactionId;
     }
 
     @Override
-    public void requestAnswer(InteractionId interactionId, AnswerType answerType) {
+    public void requestAnswer(InteractionId interactionId, AnswerType answerType, Runnable callback) {
         log.info("Sending request for {}...", answerType);
         var interaction = storage.readInteraction(interactionId).orElseThrow();
         var promptOpt = promptFactory.getPrompt(interaction.type(), interaction.theme(), interaction.question(), answerType);
         if (promptOpt.isPresent()) {
             var prompt = promptOpt.get();
             var temperature = stateModel.getTemperature(answerType);
-            updateAnswer(interactionId, answerType, answer -> answer.withPrompt(prompt).withState(SENT).withTemperature(temperature));
+            updateAnswer(interactionId, answerType, answer -> answer.withPrompt(prompt).withState(SENT).withTemperature(temperature),
+                    callback);
             runAsync(() -> Mdc.run(interactionId, () -> {
                 log.trace("requestAnswer async");
                 var answerMd = answerType != GCP ? gptApi.send(prompt, temperature) : gcpApi.send(prompt, temperature);
                 var answerHtml = formatConverter.markdownToHtml(answerMd);
                 updateAnswer(interactionId, answerType, answer ->
-                        answer.withAnswerMd(answerMd).withAnswerHtml(answerHtml).withState(SUCCESS));
+                        answer.withAnswerMd(answerMd).withAnswerHtml(answerHtml).withState(SUCCESS), callback);
                 soundService.beenOnAnswer(answerType);
                 log.info("The short answer request finished.");
             })).handle((res, e) -> {
@@ -98,7 +91,7 @@ class QuestionModelImpl implements QuestionModel, EventSource {
                     Mdc.run(interactionId, () -> {
                         var message = e.getCause().getMessage();
                         updateAnswer(interactionId, answerType, answer ->
-                                answer.withAnswerMd(message).withAnswerHtml(message).withState(FAIL));
+                                answer.withAnswerMd(message).withAnswerHtml(message).withState(FAIL), callback);
                         soundService.beenOnAnswer(answerType);
                     });
                     return e;
@@ -111,15 +104,11 @@ class QuestionModelImpl implements QuestionModel, EventSource {
         }
     }
 
-    private synchronized void updateAnswer(InteractionId interactionId, AnswerType answerType, Function<Answer, Answer> update) {
+    private synchronized void updateAnswer(InteractionId interactionId, AnswerType answerType, Function<Answer,
+            Answer> update, Runnable callback) {
         log.trace("updateAnswer: interactionId={}. answerType={}", interactionId, answerType);
         storage.updateInteraction(interactionId, interaction ->
                 interaction.withAnswer(update.apply(interaction.getAnswer(answerType).orElseThrow())));
-        Platform.runLater(() -> eventModel.fire().answerUpdated());
-    }
-
-    @Override
-    public String getName() {
-        return QuestionModel.class.getSimpleName();
+        Platform.runLater(callback);
     }
 }

@@ -5,7 +5,7 @@ import gptui.model.storage.InteractionId;
 import gptui.model.storage.InteractionType;
 
 public interface QuestionModel {
-    void sendQuestion(InteractionType interactionType);
+    InteractionId createNewInteraction(InteractionType interactionType);
 
-    void requestAnswer(InteractionId interactionId, AnswerType answerType);
+    void requestAnswer(InteractionId interactionId, AnswerType answerType, Runnable callback);
 }

@@ -3,8 +3,6 @@ package gptui.viewmodel;
 import com.google.inject.Singleton;
 import gptui.Mdc;
 import gptui.model.clipboard.ClipboardModel;
-import gptui.model.event.EventListener;
-import gptui.model.event.EventModel;
 import gptui.model.question.QuestionModel;
 import gptui.model.state.StateModel;
 import gptui.model.storage.Interaction;
@@ -32,30 +30,19 @@ import static javafx.scene.input.KeyCombination.ALT_DOWN;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
 @Singleton
-public class QuestionVM implements EventListener {
+public class QuestionVM {
     private static final Logger log = LoggerFactory.getLogger(QuestionVM.class);
     public final Properties properties = new Properties();
     @Inject
     private StateModel stateModel;
     @Inject
-    private EventModel eventModel;
-    @Inject
     private QuestionModel questionModel;
     @Inject
     private ClipboardModel clipboardModel;
-
     @Inject
-    public void init() {
-        eventModel.subscribe(this);
-    }
+    private ViewModelMediator mediator;
 
-    @Override
-    public void interactionChosenFromHistory() {
-        log.trace("interactionChosenFromHistory");
-        displayCurrentQuestionIfChanged();
-    }
-
-    private void displayCurrentQuestionIfChanged() {
+    void displayCurrentQuestionIfChanged() {
         log.trace("displayCurrentQuestionIfChanged");
         stateModel.getCurrentInteractionOpt()
                 .map(Interaction::question)
@@ -67,21 +54,14 @@ public class QuestionVM implements EventListener {
                 });
     }
 
-    @Override
-    public void themeWasChosen() {
+    void displayCurrentQuestionIfChangedAndHistoryFiltered() {
         log.trace("themeWasChosen");
         if (stateModel.isHistoryFilteringEnabled()) {
             displayCurrentQuestionIfChanged();
         }
     }
 
-    @Override
-    public void stageWasShowed() {
-        log.trace("stageWasShowed");
-        addShortcuts();
-    }
-
-    private void addShortcuts() {
+    void addShortcuts() {
         log.trace("stageWasShowed");
         stateModel.addAccelerator(new KeyCodeCombination(V, CONTROL_DOWN, ALT_DOWN), () -> {
             log.debug("pasteQuestionFromClipboardAndFocus");
@@ -109,31 +89,52 @@ public class QuestionVM implements EventListener {
         var interactionId = stateModel.getCurrentInteractionId();
         Mdc.run(interactionId, () -> {
             log.info("Regenerate question: {}", interactionId);
-            questionModel.requestAnswer(interactionId, LONG);
-            questionModel.requestAnswer(interactionId, SHORT);
-            questionModel.requestAnswer(interactionId, GRAMMAR);
-            questionModel.requestAnswer(interactionId, GCP);
+            questionModel.requestAnswer(interactionId, LONG, () -> mediator.answerUpdated(LONG));
+            questionModel.requestAnswer(interactionId, SHORT, () -> mediator.answerUpdated(SHORT));
+            questionModel.requestAnswer(interactionId, GRAMMAR, () -> mediator.answerUpdated(GRAMMAR));
+            questionModel.requestAnswer(interactionId, GCP, () -> mediator.answerUpdated(GCP));
         });
     }
 
     public void sendQuestion() {
         log.debug("sendQuestion");
-        questionModel.sendQuestion(QUESTION);
+        var interactionId = questionModel.createNewInteraction(QUESTION);
+        mediator.interactionCreated();
+        mediator.currentInteractionChosen();
+        questionModel.requestAnswer(interactionId, GCP, () -> mediator.answerUpdated(GCP));
+        questionModel.requestAnswer(interactionId, LONG, () -> mediator.answerUpdated(LONG));
+        questionModel.requestAnswer(interactionId, SHORT, () -> mediator.answerUpdated(SHORT));
+        questionModel.requestAnswer(interactionId, GRAMMAR, () -> mediator.answerUpdated(GRAMMAR));
     }
 
     public void sendDefinition() {
         log.debug("sendDefinition");
-        questionModel.sendQuestion(DEFINITION);
+        var interactionId = questionModel.createNewInteraction(DEFINITION);
+        mediator.interactionCreated();
+        questionModel.requestAnswer(interactionId, GCP, () -> mediator.answerUpdated(GCP));
+        questionModel.requestAnswer(interactionId, LONG, () -> mediator.answerUpdated(LONG));
+        questionModel.requestAnswer(interactionId, SHORT, () -> mediator.answerUpdated(SHORT));
+        questionModel.requestAnswer(interactionId, GRAMMAR, () -> mediator.answerUpdated(GRAMMAR));
     }
 
     public void sendGrammar() {
         log.debug("sendGrammar");
-        questionModel.sendQuestion(InteractionType.GRAMMAR);
+        var interactionId = questionModel.createNewInteraction(InteractionType.GRAMMAR);
+        mediator.interactionCreated();
+        questionModel.requestAnswer(interactionId, GCP, () -> mediator.answerUpdated(GCP));
+        questionModel.requestAnswer(interactionId, LONG, () -> mediator.answerUpdated(LONG));
+        questionModel.requestAnswer(interactionId, SHORT, () -> mediator.answerUpdated(SHORT));
+        questionModel.requestAnswer(interactionId, GRAMMAR, () -> mediator.answerUpdated(GRAMMAR));
     }
 
     public void sendFact() {
         log.debug("sendFact");
-        questionModel.sendQuestion(FACT);
+        var interactionId = questionModel.createNewInteraction(FACT);
+        mediator.interactionCreated();
+        questionModel.requestAnswer(interactionId, GCP, () -> mediator.answerUpdated(GCP));
+        questionModel.requestAnswer(interactionId, LONG, () -> mediator.answerUpdated(LONG));
+        questionModel.requestAnswer(interactionId, SHORT, () -> mediator.answerUpdated(SHORT));
+        questionModel.requestAnswer(interactionId, GRAMMAR, () -> mediator.answerUpdated(GRAMMAR));
     }
 
     public void keyTypedQuestionTextArea() {

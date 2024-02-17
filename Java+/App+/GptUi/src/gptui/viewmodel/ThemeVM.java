@@ -1,9 +1,6 @@
 package gptui.viewmodel;
 
 import com.google.inject.Singleton;
-import gptui.model.event.EventListener;
-import gptui.model.event.EventModel;
-import gptui.model.event.EventSource;
 import gptui.model.state.StateModel;
 import gptui.model.storage.Interaction;
 import jakarta.inject.Inject;
@@ -20,18 +17,13 @@ import org.slf4j.LoggerFactory;
 import java.util.Objects;
 
 @Singleton
-public class ThemeVM implements EventSource, EventListener {
+public class ThemeVM {
     private static final Logger log = LoggerFactory.getLogger(ThemeVM.class);
     public final Properties properties = new Properties();
     @Inject
     private StateModel stateModel;
     @Inject
-    private EventModel eventModel;
-
-    @Inject
-    public void init() {
-        eventModel.subscribe(this);
-    }
+    private ViewModelMediator mediator;
 
     public void themeComboBoxKeyReleased() {
         log.trace("themeComboBoxKeyReleased");
@@ -46,7 +38,7 @@ public class ThemeVM implements EventSource, EventListener {
         log.trace("currentModelValue: '{}'", currentModelValue);
         if (!Objects.equals(currentComboBoxValue, currentModelValue)) {
             stateModel.setCurrentTheme(currentComboBoxValue);
-            eventModel.fire().themeWasChosen();
+            mediator.themeWasChosen();
         }
     }
 
@@ -55,45 +47,17 @@ public class ThemeVM implements EventSource, EventListener {
         if (properties.filterHistoryCheckBoxSelected.getValue() != stateModel.isHistoryFilteringEnabled()) {
             stateModel.setIsHistoryFilteringEnabled(properties.filterHistoryCheckBoxSelected.getValue());
             log.debug("ThemeFilterHistoryCheckBox is set to {}", stateModel.isHistoryFilteringEnabled());
-            eventModel.fire().isThemeFilterHistoryChanged();
+            mediator.isThemeFilterHistoryChanged();
         }
     }
 
-    @Override
-    public void stageWasShowed() {
-        log.trace("stageWasShowed");
-        setLabel();
-    }
-
-    @Override
-    public void interactionChosenFromHistory() {
-        log.trace("interactionChosenFromHistory");
-        updateComboBoxItems();
-        updateComboBoxCurrentValue();
-    }
-
-    @Override
-    public void interactionDeleted() {
-        updateComboBoxItems();
-    }
-
-    @Override
-    public void interactionCreated() {
-        updateComboBoxItems();
-    }
-
-    @Override
-    public String getName() {
-        return getClass().getSimpleName();
-    }
-
-    private void updateComboBoxCurrentValue() {
+    void updateComboBoxCurrentValue() {
         stateModel.getCurrentInteractionOpt()
                 .map(Interaction::theme)
                 .ifPresent(properties.themeCbValue::setValue);
     }
 
-    private void updateComboBoxItems() {
+    void updateComboBoxItems() {
         var currentModelItems = FXCollections.observableArrayList(stateModel.getThemes());
         var currentComboBoxItems = properties.themeCbItems.getValue();
         if (!Objects.equals(currentModelItems, currentComboBoxItems)) {
@@ -102,7 +66,7 @@ public class ThemeVM implements EventSource, EventListener {
         }
     }
 
-    private void setLabel() {
+    void setLabel() {
         properties.themeLabelText.setValue(String.format("Theme (%d):", stateModel.getThemes().size()));
     }
 

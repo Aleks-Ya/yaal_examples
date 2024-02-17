@@ -48,8 +48,6 @@ module GptUi.main {
     opens gptui.view to com.google.gson, com.google.guice, javafx.fxml;
     opens gptui.model to com.google.gson, com.google.guice, javafx.fxml;
     opens gptui.viewmodel to com.google.gson, com.google.guice, javafx.fxml;
-    exports gptui.model.event;
-    opens gptui.model.event to com.google.gson, com.google.guice, javafx.fxml;
     exports gptui.model.state;
     opens gptui.model.state to com.google.gson, com.google.guice, javafx.fxml;
     exports gptui.model.file;

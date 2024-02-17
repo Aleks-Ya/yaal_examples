@@ -1,6 +1,5 @@
 package gptui.viewmodel;
 
-import gptui.model.event.EventModel;
 import gptui.model.file.FileModel;
 import gptui.model.state.StateModel;
 import jakarta.inject.Inject;
@@ -20,7 +19,7 @@ public class GptUiApplicationVM {
     @Inject
     private StateModel stateModel;
     @Inject
-    private EventModel eventModel;
+    private ViewModelMediator mediator;
 
     public Image getApplicationIcon() {
         log.info("Loading application icon...");
@@ -42,7 +41,7 @@ public class GptUiApplicationVM {
     }
 
     public void stageShowed() {
-        eventModel.fire().stageShowed();
+        mediator.stageShowed();
     }
 }
 

@@ -200,7 +200,7 @@ public class WindowAssertion {
             } else {
                 soft.assertThat(historySelectedItem).as("History/ComboBox/SelectedItem").isNull();
             }
-            soft.assertThat(app.stateModel.getFilteredHistory()).as("Model/History/Items").isEqualTo(historyItems);
+            soft.assertThat(app.stateModel.getFilteredHistory()).as("Model/History/Items").containsExactlyElementsOf(historyItems);
         }
 
         {

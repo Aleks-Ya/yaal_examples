@@ -1,9 +1,6 @@
 package gptui.viewmodel;
 
 import com.google.inject.Singleton;
-import gptui.model.event.EventListener;
-import gptui.model.event.EventModel;
-import gptui.model.event.EventSource;
 import gptui.model.state.StateModel;
 import gptui.model.storage.Interaction;
 import jakarta.inject.Inject;
@@ -31,31 +28,19 @@ import static javafx.scene.input.KeyCombination.ALT_DOWN;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
 @Singleton
-public class HistoryVM implements EventSource, EventListener {
+public class HistoryVM {
     private static final Logger log = LoggerFactory.getLogger(HistoryVM.class);
     public final Properties properties = new Properties();
     @Inject
     private StateModel stateModel;
     @Inject
-    private EventModel eventModel;
+    private ViewModelMediator mediator;
     private final HistoryComboBoxFacade historyCbFacade = new HistoryComboBoxFacade();
     private final StateModelFacade stateModelFacade = new StateModelFacade();
-
-    @Inject
-    public void init() {
-        log.trace("init");
-        eventModel.subscribe(this);
-    }
 
     public void historyComboBoxAction() {
         log.trace("historyComboBoxAction");
         stateModelFacade.chooseHistoryCbInteractionAsCurrent();
-    }
-
-    @Override
-    public void isThemeFilterHistoryChanged() {
-        log.trace("isThemeFilterHistoryChanged");
-        displayCurrentHistory();
     }
 
     public void clickHistoryDeleteButton() {
@@ -66,15 +51,12 @@ public class HistoryVM implements EventSource, EventListener {
         historyCbFacade.setItems();
         historyCbFacade.selectCurrentInteraction();
         enableDeleteButton();
-        eventModel.fire().interactionDeleted();
-        eventModel.fire().interactionChosenFromHistory(this);
+        mediator.interactionDeleted();
+        mediator.currentInteractionChosen();
     }
 
-
-    @Override
-    public void stageWasShowed() {
-        log.trace("stageWasShowed");
-        setLabel();
+    void addShortcuts() {
+        log.trace("addShortcuts");
         stateModel.addAccelerator(new KeyCodeCombination(UP, CONTROL_DOWN, ALT_DOWN), () -> {
             log.debug("select next Interaction from history");
             historyCbFacade.selectPreviousItem();
@@ -85,21 +67,14 @@ public class HistoryVM implements EventSource, EventListener {
         });
     }
 
-    @Override
-    public void interactionChosenFromHistory() {
+    void interactionChosenFromHistory() {
         log.trace("interactionChosenFromHistory");
         historyCbFacade.setItems();
         historyCbFacade.selectCurrentInteraction();
         enableDeleteButton();
     }
 
-    @Override
-    public void answerUpdated() {
-        log.trace("answerUpdated");
-        displayCurrentHistory();
-    }
-
-    private void displayCurrentHistory() {
+    void displayCurrentHistory() {
         log.trace("displayCurrentHistory");
         setLabel();
         stateModelFacade.chooseFirstInteractionAsCurrent();
@@ -108,24 +83,18 @@ public class HistoryVM implements EventSource, EventListener {
         enableDeleteButton();
     }
 
-    @Override
-    public void themeWasChosen() {
+    void displayCurrentHistoryIfHistoryFiltered() {
         log.trace("themeWasChosen");
         if (stateModelFacade.isHistoryFiltered()) {
             displayCurrentHistory();
         }
     }
 
-    @Override
-    public String getName() {
-        return getClass().getSimpleName();
-    }
-
     private void enableDeleteButton() {
         properties.historyDeleteButtonDisable.setValue(stateModelFacade.isCurrentInteractionEmpty());
     }
 
-    private void setLabel() {
+    void setLabel() {
         log.trace("setLabel");
         var historySize = stateModelFacade.getFilteredHistorySize();
         var allInteractionSize = stateModelFacade.getAllInteractionsSize();
@@ -144,27 +113,12 @@ public class HistoryVM implements EventSource, EventListener {
             if (comboBoxCurrentInteraction != null && !Objects.equals(modelCurrentInteraction, comboBoxCurrentInteraction)) {
                 log.debug("setCurrentInteraction from historyComboBox: {}", comboBoxCurrentInteraction);
                 stateModel.setCurrentInteractionId(comboBoxCurrentInteraction.id());
-                eventModel.fire().interactionChosenFromHistory(HistoryVM.this);
+                mediator.currentInteractionChosen();
             }
         }
 
-        private void choosePreviousInteractionAsCurrent(int currentInteractionIndex) {
-            log.trace("choosePreviousInteractionAsCurrent: {}", currentInteractionIndex);
-            var newHistory = stateModel.getFilteredHistory();
-            if (!newHistory.isEmpty()) {
-                var newCurrentInteractionIndex = currentInteractionIndex - 1;
-                Interaction newCurrentInteraction;
-                if (newCurrentInteractionIndex >= 0 && newCurrentInteractionIndex < newHistory.size()) {
-                    newCurrentInteraction = newHistory.get(newCurrentInteractionIndex);
-                } else {
-                    newCurrentInteraction = newHistory.getLast();
-                }
-                stateModel.setCurrentInteractionId(newCurrentInteraction.id());
-                stateModel.setCurrentTheme(newCurrentInteraction.theme());
-            } else {
-                stateModel.setCurrentInteractionId(null);
-                stateModel.setCurrentTheme(null);
-            }
+        public void choosePreviousInteractionAsCurrent(int currentInteractionIndex) {
+            stateModel.choosePreviousInteractionAsCurrent(currentInteractionIndex);
         }
 
         private void chooseFirstInteractionAsCurrent() {

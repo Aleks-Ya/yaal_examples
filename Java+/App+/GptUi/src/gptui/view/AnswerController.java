@@ -1,8 +1,6 @@
 package gptui.view;
 
-import gptui.model.storage.AnswerType;
 import gptui.viewmodel.AnswerVM;
-import jakarta.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -29,11 +27,9 @@ public class AnswerController extends BaseController {
     private Text temperatureText;
     @FXML
     public Spinner<Integer> temperatureSpinner;
-    @Inject
     private AnswerVM vm;
 
-    @Override
-    protected void initialize() {
+    private void initialize1() {
         log.trace("initialize");
         temperatureSpinner.getValueFactory().setConverter(new StringConverter<>() {
             @Override
@@ -77,7 +73,12 @@ public class AnswerController extends BaseController {
         vm.onRegenerateButtonClick();
     }
 
-    public void setAnswerType(AnswerType answerType) {
-        vm.setAnswerType(answerType);
+    public void setVm(AnswerVM vm) {
+        this.vm = vm;
+        initialize1();
+    }
+
+    @Override
+    protected void initialize() {
     }
 }

@@ -136,4 +136,23 @@ public class StateModel {
             setCurrentInteractionId(null);
         }
     }
+
+    public void choosePreviousInteractionAsCurrent(int currentInteractionIndex) {
+        log.trace("choosePreviousInteractionAsCurrent: {}", currentInteractionIndex);
+        var newHistory = getFilteredHistory();
+        if (!newHistory.isEmpty()) {
+            var newCurrentInteractionIndex = currentInteractionIndex - 1;
+            Interaction newCurrentInteraction;
+            if (newCurrentInteractionIndex >= 0 && newCurrentInteractionIndex < newHistory.size()) {
+                newCurrentInteraction = newHistory.get(newCurrentInteractionIndex);
+            } else {
+                newCurrentInteraction = newHistory.getLast();
+            }
+            setCurrentInteractionId(newCurrentInteraction.id());
+            setCurrentTheme(newCurrentInteraction.theme());
+        } else {
+            setCurrentInteractionId(null);
+            setCurrentTheme(null);
+        }
+    }
 }

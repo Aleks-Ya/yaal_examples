@@ -1,7 +1,5 @@
 package gptui.viewmodel;
 
-import gptui.model.event.EventModel;
-import gptui.model.event.EventSource;
 import gptui.model.state.StateModel;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -14,12 +12,12 @@ import static gptui.model.storage.AnswerType.LONG;
 import static gptui.model.storage.AnswerType.SHORT;
 
 @Singleton
-public class AnswersVM implements EventSource {
-    private static final Logger log = LoggerFactory.getLogger(AnswersVM.class);
+public class GptUiVM {
+    private static final Logger log = LoggerFactory.getLogger(GptUiVM.class);
     @Inject
     private StateModel stateModel;
     @Inject
-    private EventModel eventModel;
+    private ViewModelMediator mediator;
 
     public void initialize() {
         log.trace("initialize");
@@ -33,12 +31,7 @@ public class AnswersVM implements EventSource {
             currentInteraction.getAnswer(GCP).ifPresent(answer -> stateModel.setTemperature(GCP, answer.temperature()));
         }
         stateModel.setFirstThemeAsCurrent();
-        eventModel.fire().interactionChosenFromHistory(this);
-    }
-
-    @Override
-    public String getName() {
-        return getClass().getSimpleName();
+        mediator.currentInteractionChosen();
     }
 }
 

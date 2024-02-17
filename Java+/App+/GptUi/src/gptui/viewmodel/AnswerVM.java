@@ -2,9 +2,6 @@ package gptui.viewmodel;
 
 import gptui.Mdc;
 import gptui.model.clipboard.ClipboardModel;
-import gptui.model.event.EventListener;
-import gptui.model.event.EventModel;
-import gptui.model.event.EventSource;
 import gptui.model.question.QuestionModel;
 import gptui.model.state.StateModel;
 import gptui.model.storage.AnswerState;
@@ -31,19 +28,23 @@ import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 import static javafx.scene.paint.Color.WHITE;
 
-public class AnswerVM implements EventSource, EventListener {
+public class AnswerVM {
+    public AnswerVM(AnswerType answerType) {
+        this.answerType = answerType;
+    }
+
     private static final Logger log = LoggerFactory.getLogger(AnswerVM.class);
     public final Properties properties = new Properties();
     @Inject
     private StateModel stateModel;
     @Inject
-    private EventModel eventModel;
-    @Inject
     private QuestionModel questionModel;
     @Inject
     private ClipboardModel clipboardModel;
+    @Inject
+    private ViewModelMediator mediator;
     private String currentWebViewContent = "";
-    private AnswerType answerType;
+    private final AnswerType answerType;
     private static final Map<AnswerType, Integer> hotkeyDigitMap =
             Map.of(GRAMMAR, 1, SHORT, 2, LONG, 3, GCP, 4);
     private static final Map<AnswerType, String> labelTextMap = Map.of(
@@ -51,16 +52,6 @@ public class AnswerVM implements EventSource, EventListener {
             SHORT, "Short\nanswer:",
             LONG, "Long\nanswer:",
             GCP, "Bard\nanswer:");
-
-    @Inject
-    public void init() {
-        eventModel.subscribe(this);
-    }
-
-    @Override
-    public String getName() {
-        return getClass().getSimpleName();
-    }
 
     public void clickCopyButton() {
         Mdc.run(answerType, () -> {
@@ -72,10 +63,10 @@ public class AnswerVM implements EventSource, EventListener {
 
     public void onRegenerateButtonClick() {
         log.trace("onRegenerateButtonClick");
-        questionModel.requestAnswer(stateModel.getCurrentInteractionId(), answerType);
+        questionModel.requestAnswer(stateModel.getCurrentInteractionId(), answerType, () -> mediator.answerUpdated(answerType));
     }
 
-    private void displayCurrentAnswer() {
+    void displayCurrentAnswer() {
         Mdc.run(answerType, () -> {
             log.trace("displayCurrentAnswer");
             stateModel.getCurrentInteractionOpt()
@@ -100,12 +91,8 @@ public class AnswerVM implements EventSource, EventListener {
         });
     }
 
-    @Override
-    public void stageWasShowed() {
-        displayInitialState();
-    }
-
-    private void displayInitialState() {
+    void displayInitialState() {
+        properties.temperatureSpinner.addListener((obs, oldValue, newValue) -> stateModel.setTemperature(answerType, newValue));
         Mdc.run(answerType, () -> {
             log.trace("displayInitialState");
             properties.answerLabelText.setValue(labelTextMap.get(answerType));
@@ -116,16 +103,6 @@ public class AnswerVM implements EventSource, EventListener {
         });
     }
 
-    @Override
-    public void answerUpdated() {
-        displayCurrentAnswer();
-    }
-
-    @Override
-    public void interactionChosenFromHistory() {
-        displayCurrentAnswer();
-    }
-
     private Color answerStateToColor(AnswerState answerState) {
         return switch (answerState) {
             case NEW -> WHITE;
@@ -133,11 +110,6 @@ public class AnswerVM implements EventSource, EventListener {
             case SUCCESS -> GREEN;
             case FAIL -> RED;
         };
-    }
-
-    public void setAnswerType(AnswerType answerType) {
-        this.answerType = answerType;
-        properties.temperatureSpinner.addListener((obs, oldValue, newValue) -> stateModel.setTemperature(answerType, newValue));
     }
 
     public static class Properties {
