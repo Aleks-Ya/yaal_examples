@@ -1,6 +1,5 @@
 package gptui.view;
 
-import gptui.model.clipboard.ClipboardModel;
 import gptui.model.storage.Interaction;
 import gptui.ui.BaseGptUiTest;
 import gptui.ui.TestingData.I1;
@@ -69,9 +68,8 @@ class HotKeysTest extends BaseGptUiTest {
 
     @Test
     void insertQuestionFromClipboardByCtrlAltV() {
-        var clipboardHelper = new ClipboardModel();
         assertThat(question().textArea().getText()).isEqualTo(I3.QUESTION);
-        executeSyncInFxThread(() -> clipboardHelper.putHtmlToClipboard("From clipboard"));
+        executeSyncInFxThread(() -> clipboardModel.putHtmlToClipboard("From clipboard"));
         press(CONTROL, ALT, V).release(V, ALT, CONTROL);
         assertThat(question().textArea().getText()).isEqualTo("From clipboard");
     }

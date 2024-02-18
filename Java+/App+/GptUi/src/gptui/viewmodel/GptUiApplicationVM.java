@@ -1,11 +1,11 @@
 package gptui.viewmodel;
 
 import gptui.model.file.FileModel;
-import gptui.model.state.StateModel;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-import javafx.scene.Scene;
+import javafx.collections.ObservableMap;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCombination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,8 +16,6 @@ public class GptUiApplicationVM {
     private static final Logger log = LoggerFactory.getLogger(GptUiApplicationVM.class);
     @Inject
     private FileModel fileModel;
-    @Inject
-    private StateModel stateModel;
     @Inject
     private ViewModelMediator mediator;
 
@@ -36,11 +34,8 @@ public class GptUiApplicationVM {
         return fileModel.getFxmlLocation();
     }
 
-    public void setScene(Scene scene) {
-        stateModel.setScene(scene);
-    }
-
-    public void stageShowed() {
+    public void stageShowed(ObservableMap<KeyCombination, Runnable> accelerators) {
+        mediator.addShortcuts(accelerators);
         mediator.stageShowed();
     }
 }

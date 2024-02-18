@@ -15,17 +15,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.SingleSelectionModel;
-import javafx.scene.input.KeyCodeCombination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
 import static java.lang.String.format;
-import static javafx.scene.input.KeyCode.DOWN;
-import static javafx.scene.input.KeyCode.UP;
-import static javafx.scene.input.KeyCombination.ALT_DOWN;
-import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
 @Singleton
 public class HistoryVM {
@@ -55,24 +50,22 @@ public class HistoryVM {
         mediator.currentInteractionChosen();
     }
 
-    void addShortcuts() {
-        log.trace("addShortcuts");
-        stateModel.addAccelerator(new KeyCodeCombination(UP, CONTROL_DOWN, ALT_DOWN), () -> {
-            log.debug("select next Interaction from history");
-            historyCbFacade.selectPreviousItem();
-        });
-        stateModel.addAccelerator(new KeyCodeCombination(DOWN, CONTROL_DOWN, ALT_DOWN), () -> {
-            log.debug("select previous Interaction from history");
-            historyCbFacade.selectNextItem();
-        });
-    }
-
     void displayCurrentInteraction() {
         log.trace("displayCurrentInteraction");
         setLabel();
         historyCbFacade.setItems();
         historyCbFacade.selectCurrentInteraction();
         enableDeleteButton();
+    }
+
+    void selectPreviousItem() {
+        log.trace("selectPreviousItem");
+        historyCbFacade.selectPreviousItem();
+    }
+
+    void selectNextItem() {
+        log.trace("selectNextItem");
+        historyCbFacade.selectNextItem();
     }
 
     private void enableDeleteButton() {

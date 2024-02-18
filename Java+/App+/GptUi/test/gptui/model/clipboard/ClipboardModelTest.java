@@ -16,7 +16,7 @@ class ClipboardModelTest extends ApplicationTest {
 
     @Test
     void putHtmlToClipboard() throws IOException, UnsupportedFlavorException, InterruptedException {
-        var clipboardHelper = new ClipboardModel();
+        var clipboardHelper = new ClipboardModelImpl();
         var html = "<h1>Header</h1>";
         var latch = new CountDownLatch(1);
         Platform.runLater(() -> {

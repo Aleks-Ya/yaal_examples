@@ -5,6 +5,6 @@ import com.google.inject.AbstractModule;
 public class StateModelModule extends AbstractModule {
     @Override
     protected void configure() {
-        bind(StateModel.class);
+        bind(StateModel.class).to(StateModelImpl.class);
     }
 }

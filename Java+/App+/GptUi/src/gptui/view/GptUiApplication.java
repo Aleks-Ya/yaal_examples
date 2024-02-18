@@ -40,8 +40,7 @@ public class GptUiApplication extends Application {
             var scene = createScene();
             var version = vm.getAppVersion();
             createStage(stage, version, scene);
-            vm.setScene(scene);
-            vm.stageShowed();
+            vm.stageShowed(scene.getAccelerators());
         } catch (Exception e) {
             log.error("Starting application error", e);
             throw e;

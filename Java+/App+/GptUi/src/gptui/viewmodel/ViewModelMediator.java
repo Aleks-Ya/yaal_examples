@@ -5,8 +5,19 @@ import gptui.model.storage.AnswerType;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
+import javafx.collections.ObservableMap;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static javafx.scene.input.KeyCode.DOWN;
+import static javafx.scene.input.KeyCode.ENTER;
+import static javafx.scene.input.KeyCode.ESCAPE;
+import static javafx.scene.input.KeyCode.UP;
+import static javafx.scene.input.KeyCode.V;
+import static javafx.scene.input.KeyCombination.ALT_DOWN;
+import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
 @Singleton
 class ViewModelMediator {
@@ -39,8 +50,6 @@ class ViewModelMediator {
         longAnswerVM.initialize();
         gcpAnswerVM.initialize();
         historyVM.displayCurrentInteraction();
-        historyVM.addShortcuts();
-        questionVM.addShortcuts();
         themeVM.setLabel();
     }
 
@@ -106,5 +115,14 @@ class ViewModelMediator {
         questionVM.displayCurrentInteraction();
         themeVM.updateComboBoxItems();
         themeVM.updateComboBoxCurrentValue();
+    }
+
+    public void addShortcuts(ObservableMap<KeyCombination, Runnable> accelerators) {
+        log.trace("addShortcuts");
+        accelerators.put(new KeyCodeCombination(UP, CONTROL_DOWN, ALT_DOWN), () -> historyVM.selectPreviousItem());
+        accelerators.put(new KeyCodeCombination(DOWN, CONTROL_DOWN, ALT_DOWN), () -> historyVM.selectNextItem());
+        accelerators.put(new KeyCodeCombination(V, CONTROL_DOWN, ALT_DOWN), () -> questionVM.selectPreviousInteraction());
+        accelerators.put(new KeyCodeCombination(ESCAPE), () -> questionVM.focusOnQuestionAndSelect());
+        accelerators.put(new KeyCodeCombination(ENTER, CONTROL_DOWN), () -> questionVM.onSendQuestionClick());
     }
 }
