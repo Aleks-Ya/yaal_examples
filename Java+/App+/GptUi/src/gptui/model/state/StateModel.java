@@ -31,7 +31,7 @@ public class StateModel {
             AnswerType.GRAMMAR, 50,
             AnswerType.SHORT, 60,
             AnswerType.LONG, 70,
-            AnswerType.GCP, 30
+            AnswerType.GCP, 90
     ));
 
     public synchronized boolean isEnteringNewQuestion() {

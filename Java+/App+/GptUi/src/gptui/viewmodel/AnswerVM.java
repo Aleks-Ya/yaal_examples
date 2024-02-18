@@ -51,7 +51,7 @@ public class AnswerVM {
             GRAMMAR, "Grammar\nanswer:",
             SHORT, "Short\nanswer:",
             LONG, "Long\nanswer:",
-            GCP, "Bard\nanswer:");
+            GCP, "GCP\nanswer:");
 
     public void clickCopyButton() {
         Mdc.run(answerType, () -> {

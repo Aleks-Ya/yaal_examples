@@ -170,11 +170,11 @@ public class WindowAssertion {
     }
 
     public WindowAssertion answerTextTemperaturesDefault() {
-        return answerTextTemperatures(50, 60, 70, 30);
+        return answerTextTemperatures(50, 60, 70, 90);
     }
 
     public WindowAssertion answerSpinnerTemperaturesDefault() {
-        return answerSpinnerTemperatures(50, 60, 70, 30);
+        return answerSpinnerTemperatures(50, 60, 70, 90);
     }
 
     public void assertApp() {
@@ -267,7 +267,7 @@ public class WindowAssertion {
 
         {
             var answer = app.gcpAnswer();
-            soft.assertThat(answer.label().getText()).as("Answer/GCP/Label/Text").isEqualTo("Bard\nanswer:");
+            soft.assertThat(answer.label().getText()).as("Answer/GCP/Label/Text").isEqualTo("GCP\nanswer:");
             soft.assertThat(answer.copyButton().getText()).as("Answer/GCP/CopyButton/Text").isEqualTo("Copy _4");
             soft.assertThat(answer.regenerateButton().getText()).as("Answer/GCP/RegenerateButton/Text").isEqualTo("⟳");
             app.verifyWebViewBody(soft, "Answer/GCP/WebView/Body", answer.webView(), gcpA().text);

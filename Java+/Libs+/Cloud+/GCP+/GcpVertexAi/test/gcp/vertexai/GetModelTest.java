@@ -1,7 +1,7 @@
 package gcp.vertexai;
 
 import com.google.cloud.vertexai.VertexAI;
-import com.google.cloud.vertexai.generativeai.preview.GenerativeModel;
+import com.google.cloud.vertexai.generativeai.GenerativeModel;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -25,6 +25,5 @@ class GetModelTest {
             var output = response.toString();
             System.out.println(output);
         }
-
     }
 }

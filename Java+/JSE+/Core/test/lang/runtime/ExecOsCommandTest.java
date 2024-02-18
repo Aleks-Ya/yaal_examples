@@ -1,21 +1,19 @@
 package lang.runtime;
 
 import org.junit.jupiter.api.Test;
+import util.InputStreamUtil;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ExecOsCommandTest {
-
     @Test
     void printStdOut() throws IOException {
-        Process process = Runtime.getRuntime().exec("echo Hi!");
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-        }
+        var text = "Hi!";
+        var cmdArray = new String[]{"echo", text};
+        var process = Runtime.getRuntime().exec(cmdArray);
+        var stdOut = InputStreamUtil.inputStreamToString(process.getInputStream());
+        assertThat(stdOut).isEqualTo(text);
     }
 }
