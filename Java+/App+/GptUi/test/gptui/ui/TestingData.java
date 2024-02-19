@@ -59,6 +59,10 @@ public class TestingData {
         public static final String SHORT_HTML = "Short answer HTML 3";
         public static final String LONG_HTML = "Long answer HTML 3";
         public static final String GCP_HTML = "GCP answer HTML 3";
+        public static final String EXP_GRAMMAR_HTML_BODY = wrapExpectedWebViewContent(I3.GRAMMAR_HTML);
+        public static final String EXP_SHORT_HTML_BODY = wrapExpectedWebViewContent(I3.SHORT_HTML);
+        public static final String EXP_LONG_HTML_BODY = wrapExpectedWebViewContent(I3.LONG_HTML);
+        public static final String EXP_GCP_HTML_BODY = wrapExpectedWebViewContent(I3.GCP_HTML);
         public static final Interaction INTERACTION = new Interaction(new InteractionId(3L), InteractionType.QUESTION, THEME, QUESTION, Map.of(
                 GRAMMAR, new Answer(GRAMMAR, "QC prompt 3", 50, "Grammar answer MD 3", I3.GRAMMAR_HTML, SUCCESS),
                 SHORT, new Answer(SHORT, "Short prompt 3", 60, "Short answer MD 3", I3.SHORT_HTML, SUCCESS),

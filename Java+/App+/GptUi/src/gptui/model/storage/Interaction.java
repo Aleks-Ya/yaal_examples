@@ -1,8 +1,8 @@
 package gptui.model.storage;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.function.Function;
 
 public record Interaction(InteractionId id,
@@ -17,7 +17,7 @@ public record Interaction(InteractionId id,
         this.type = type;
         this.theme = theme;
         this.question = question;
-        this.answers = answers != null ? answers : new HashMap<>();
+        this.answers = answers != null ? answers : new TreeMap<>();
     }
 
     public Optional<Answer> getAnswer(AnswerType answerType) {
@@ -25,7 +25,7 @@ public record Interaction(InteractionId id,
     }
 
     public Interaction withAnswer(Answer answer) {
-        var map = new HashMap<>(answers);
+        var map = new TreeMap<>(answers);
         map.put(answer.answerType(), answer);
         return new Interaction(id, type, theme, question, Map.copyOf(map));
     }
@@ -39,7 +39,7 @@ public record Interaction(InteractionId id,
 
     @SuppressWarnings("unused")
     public Interaction withAnswerDeleted(AnswerType answerType) {
-        var map = new HashMap<>(answers);
+        var map = new TreeMap<>(answers);
         map.remove(answerType);
         return new Interaction(id, type, theme, question, Map.copyOf(map));
     }
@@ -57,5 +57,15 @@ public record Interaction(InteractionId id,
             typeStr = String.format("[%s] ", typeSymbol);
         }
         return String.format("%s%s: %s", typeStr, theme, question);
+    }
+
+    public String toStringFull() {
+        return "Interaction{" +
+                "id=" + id +
+                ", type=" + type +
+                ", theme='" + theme + '\'' +
+                ", question='" + question + '\'' +
+                ", answers=" + answers +
+                '}';
     }
 }

@@ -2,11 +2,18 @@ package gptui.ui;
 
 import gptui.model.storage.Interaction;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import org.assertj.core.api.SoftAssertions;
 import org.testfx.util.WaitForAsyncUtils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
+import static javafx.scene.paint.Color.BLUE;
+import static javafx.scene.paint.Color.GREEN;
+import static javafx.scene.paint.Color.RED;
+import static javafx.scene.paint.Color.WHITE;
 
 public class WindowAssertion {
     private BaseGptUiTest app;
@@ -188,8 +195,8 @@ public class WindowAssertion {
             soft.assertThat(history.comboBox().getItems()).as("History/ComboBox/Items").hasSize(historySizeFiltered);
             soft.assertThat(history.deleteButton().isDisabled()).as("History/DeleteButton/Disabled").isEqualTo(historyDeleteButtonDisabled);
             if (historySelectedItem != null) {
-                soft.assertThat(history.comboBox().getSelectionModel().getSelectedItem()).as("History/ComboBox/SelectedItem")
-                        .isEqualTo(app.storage.readInteraction(historySelectedItem.id()).orElseThrow());
+                soft.assertThat(history.comboBox().getSelectionModel().getSelectedItem().toStringFull()).as("History/ComboBox/SelectedItem")
+                        .isEqualTo(app.storage.readInteraction(historySelectedItem.id()).orElseThrow().toStringFull());
             } else {
                 soft.assertThat(history.comboBox().getSelectionModel().getSelectedItem())
                         .as("History/ComboBox/SelectedItem").isNull();
@@ -232,7 +239,7 @@ public class WindowAssertion {
             soft.assertThat(answer.copyButton().getText()).as("Answer/Grammar/CopyButton/Text").isEqualTo("Copy _1");
             soft.assertThat(answer.regenerateButton().getText()).as("Answer/Grammar/RegenerateButton/Text").isEqualTo("⟳");
             app.verifyWebViewBody(soft, "Answer/Grammar/WebView/Body", answer.webView(), grammarAnswer.text);
-            soft.assertThat(answer.circle().getFill()).as("Answer/Grammar/Circle/Fill").isEqualTo(grammarAnswer.circleColor);
+            soft.assertThat(colorToString(answer.circle().getFill())).as("Answer/Grammar/Circle/Fill").isEqualTo(colorToString(grammarAnswer.circleColor));
             soft.assertThat(answer.temperatureText().getText()).as("Answer/Grammar/Temperature/Text")
                     .isEqualTo(temperatureToString(grammarA().temperatureText));
             soft.assertThat(answer.temperatureSpinner().getValue()).as("Answer/Grammar/TemperatureSpinner/Value")
@@ -245,7 +252,7 @@ public class WindowAssertion {
             soft.assertThat(answer.copyButton().getText()).as("Answer/Short/CopyButton/Text").isEqualTo("Copy _2");
             soft.assertThat(answer.regenerateButton().getText()).as("Answer/Short/RegenerateButton/Text").isEqualTo("⟳");
             app.verifyWebViewBody(soft, "Answer/Short/WebView/Body", answer.webView(), shortA().text);
-            soft.assertThat(answer.circle().getFill()).as("Answer/Short/Circle/Fill").isEqualTo(shortA().circleColor);
+            soft.assertThat(colorToString(answer.circle().getFill())).as("Answer/Short/Circle/Fill").isEqualTo(colorToString(shortA().circleColor));
             soft.assertThat(answer.temperatureText().getText()).as("Answer/Short/Temperature/Text")
                     .isEqualTo(temperatureToString(shortA().temperatureText));
             soft.assertThat(answer.temperatureSpinner().getValue()).as("Answer/Short/TemperatureSpinner/Value")
@@ -258,7 +265,7 @@ public class WindowAssertion {
             soft.assertThat(answer.copyButton().getText()).as("Answer/Long/CopyButton/Text").isEqualTo("Copy _3");
             soft.assertThat(answer.regenerateButton().getText()).as("Answer/Long/RegenerateButton/Text").isEqualTo("⟳");
             app.verifyWebViewBody(soft, "Answer/Long/WebView/Body", answer.webView(), longA().text);
-            soft.assertThat(answer.circle().getFill()).as("Answer/Long/Circle/Fill").isEqualTo(longA().circleColor);
+            soft.assertThat(colorToString(answer.circle().getFill())).as("Answer/Long/Circle/Fill").isEqualTo(colorToString(longA().circleColor));
             soft.assertThat(answer.temperatureText().getText()).as("Answer/Long/Temperature/Text")
                     .isEqualTo(temperatureToString(longA().temperatureText));
             soft.assertThat(answer.temperatureSpinner().getValue()).as("Answer/Long/TemperatureSpinner/Value")
@@ -271,7 +278,7 @@ public class WindowAssertion {
             soft.assertThat(answer.copyButton().getText()).as("Answer/GCP/CopyButton/Text").isEqualTo("Copy _4");
             soft.assertThat(answer.regenerateButton().getText()).as("Answer/GCP/RegenerateButton/Text").isEqualTo("⟳");
             app.verifyWebViewBody(soft, "Answer/GCP/WebView/Body", answer.webView(), gcpA().text);
-            soft.assertThat(answer.circle().getFill()).as("Answer/GCP/Circle/Fill").isEqualTo(gcpA().circleColor);
+            soft.assertThat(colorToString(answer.circle().getFill())).as("Answer/GCP/Circle/Fill").isEqualTo(colorToString(gcpA().circleColor));
             soft.assertThat(answer.temperatureText().getText()).as("Answer/GCP/Temperature/Text")
                     .isEqualTo(temperatureToString(gcpA().temperatureText));
             soft.assertThat(answer.temperatureSpinner().getValue()).as("Answer/GCP/TemperatureSpinner/Value")
@@ -286,6 +293,17 @@ public class WindowAssertion {
 
     private Integer temperatureToInteger(Integer temperature) {
         return temperature != null ? temperature : 0;
+    }
+
+    private final Map<Paint, String> colors = Map.of(
+            RED, "RED",
+            BLUE, "BLUE",
+            GREEN, "GREEN",
+            WHITE, "WHITE"
+    );
+
+    private String colorToString(Paint color) {
+        return colors.getOrDefault(color, color.toString());
     }
 }
 

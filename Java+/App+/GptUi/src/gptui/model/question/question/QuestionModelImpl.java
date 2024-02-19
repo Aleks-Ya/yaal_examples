@@ -73,6 +73,7 @@ class QuestionModelImpl implements QuestionModel {
         var promptOpt = promptFactory.getPrompt(interaction.type(), interaction.theme(), interaction.question(), answerType);
         if (promptOpt.isPresent()) {
             var prompt = promptOpt.get();
+            log.trace("Prompt: {}", prompt);
             var temperature = stateModel.getTemperature(answerType);
             updateAnswer(interactionId, answerType, answer -> answer.withPrompt(prompt).withState(SENT).withTemperature(temperature),
                     callback);
@@ -105,7 +106,7 @@ class QuestionModelImpl implements QuestionModel {
 
     private synchronized void updateAnswer(InteractionId interactionId, AnswerType answerType, Function<Answer,
             Answer> update, Runnable callback) {
-        log.trace("updateAnswer: interactionId={}. answerType={}", interactionId, answerType);
+        log.trace("updateAnswer: interactionId={}, answerType={}", interactionId, answerType);
         storage.updateInteraction(interactionId, interaction ->
                 interaction.withAnswer(update.apply(interaction.getAnswer(answerType).orElseThrow())));
         Platform.runLater(callback);

@@ -74,7 +74,6 @@ class ViewModelMediator {
             case LONG -> longAnswerVM.displayCurrentAnswer();
             case GCP -> gcpAnswerVM.displayCurrentAnswer();
         }
-        stateModel.chooseFirstInteractionAsCurrent();
         historyVM.displayCurrentInteraction();
     }
 
