@@ -1,24 +1,24 @@
 import com.google.testing.compile.JavaFileObjects;
 import org.junit.jupiter.api.Test;
 
-import static com.google.common.truth.Truth.assert_;
+import static com.google.common.truth.Truth.assertAbout;
 import static com.google.testing.compile.JavaSourceSubjectFactory.javaSource;
 
 /**
- * Компилируемый файл представлен строкой.
+ * Compile a Java-class represented by a String.
  */
-public class ClassAsString {
+class ClassAsStringTest {
 
     @Test
     void easiest() {
-        assert_().about(javaSource())
+        assertAbout(javaSource())
                 .that(JavaFileObjects.forSourceString("HelloWorld", "final class HelloWorld {}"))
                 .compilesWithoutError();
     }
 
     @Test
     void annotationProcessor() {
-        assert_().about(javaSource())
+        assertAbout(javaSource())
                 .that(JavaFileObjects.forSourceString("HelloWorld", "@MyAnnotation final class HelloWorld {}"))
                 .processedWith(new MyAnnotationProcessor())
                 .compilesWithoutError();

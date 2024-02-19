@@ -116,6 +116,7 @@ subprojects {
         googleCloudBomDep = 'com.google.cloud:libraries-bom:26.32.0'
         aws1Version = '1.12.620'
         aws2Version = '2.22.0'
+        compileTestingDep = 'com.google.testing.compile:compile-testing:0.21.0'
     }
     tasks.withType(JavaCompile).tap {
         configureEach {

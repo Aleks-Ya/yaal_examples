@@ -1,41 +1,36 @@
-import com.google.common.io.ByteSource;
 import com.google.common.io.Resources;
 import com.google.testing.compile.JavaFileObjects;
 import org.junit.jupiter.api.Test;
 
 import javax.tools.StandardLocation;
+import java.util.Objects;
 
-import static com.google.common.truth.Truth.assert_;
+import static com.google.common.truth.Truth.assertAbout;
 import static com.google.testing.compile.JavaSourceSubjectFactory.javaSource;
 
 /**
- * Компилируемый класс хранится в файле.
+ * Compile a Java-file.
  */
-public class ClassAsFile {
+class ClassAsFileTest {
 
-    /**
-     * Исходный код класса достаем из файла.
-     */
     @Test
-    void fromFIle() {
-        assert_().about(javaSource())
+    void fromFile() {
+        assertAbout(javaSource())
                 .that(JavaFileObjects.forResource("HelloWorld.java"))
                 .processedWith(new MyAnnotationProcessor())
                 .compilesWithoutError();
     }
 
-    /**
-     * Проверка генерации файлов.
-     */
     @Test
     void generateResources() {
-        ByteSource expContent = Resources.asByteSource(ClassAsFile.class.getResource("exp_content.txt"));
-
-        assert_().about(javaSource())
+        var url = Objects.requireNonNull(ClassAsFileTest.class.getResource("exp_content.txt"));
+        var expContent = Resources.asByteSource(url);
+        assertAbout(javaSource())
                 .that(JavaFileObjects.forResource("HelloWorld.java"))
                 .processedWith(new GenerateProcessor())
                 .compilesWithoutError()
-                .and().generatesFileNamed(StandardLocation.CLASS_OUTPUT, "", "GeneratedResource.txt")
+                .and()
+                .generatesFileNamed(StandardLocation.CLASS_OUTPUT, "", "GeneratedResource.txt")
                 .withContents(expContent);
     }
 }

@@ -16,7 +16,7 @@ Create a Databricks Workspace using Databricks UI.
 	3. Wait till creation finished
 4. Test Workspace
 	1. Open Workspace, login
-	2. Create a Job compute
+	2. Create an All-purpose compute
 		1. Name: `Alex Ya's Cluster`
 		2. Nodes: `Single node`
 		3. Use Photon Acceleration: `off`
