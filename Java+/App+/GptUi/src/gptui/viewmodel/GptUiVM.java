@@ -31,7 +31,7 @@ public class GptUiVM {
             currentInteraction.getAnswer(GCP).ifPresent(answer -> stateModel.setTemperature(GCP, answer.temperature()));
         }
         stateModel.setFirstThemeAsCurrent();
-        mediator.currentInteractionChosen();
+        mediator.displayCurrentInteraction();
     }
 }
 

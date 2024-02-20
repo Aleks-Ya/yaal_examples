@@ -194,19 +194,13 @@ public class WindowAssertion {
             soft.assertThat(history.deleteButton().getText()).as("History/DeleteButton/Text").isEqualTo("Delete");
             soft.assertThat(history.comboBox().getItems()).as("History/ComboBox/Items").hasSize(historySizeFiltered);
             soft.assertThat(history.deleteButton().isDisabled()).as("History/DeleteButton/Disabled").isEqualTo(historyDeleteButtonDisabled);
-            if (historySelectedItem != null) {
-                soft.assertThat(history.comboBox().getSelectionModel().getSelectedItem().toStringFull()).as("History/ComboBox/SelectedItem")
-                        .isEqualTo(app.storage.readInteraction(historySelectedItem.id()).orElseThrow().toStringFull());
-            } else {
-                soft.assertThat(history.comboBox().getSelectionModel().getSelectedItem())
-                        .as("History/ComboBox/SelectedItem").isNull();
-            }
+            var historySelectedItemId = historySelectedItem != null ? historySelectedItem.id() : null;
+            var cbSelectedItem = history.comboBox().getSelectionModel().getSelectedItem();
+            var cbSelectedItemStr = cbSelectedItem != null ? cbSelectedItem.toStringFull() : null;
+            soft.assertThat(cbSelectedItemStr).as("History/ComboBox/SelectedItem")
+                    .isEqualTo(app.storage.readInteraction(historySelectedItemId).map(Interaction::toStringFull).orElse(null));
             soft.assertThat(history.comboBox().getItems()).as("History/ComboBox/Items").containsExactlyElementsOf(historyItems);
-            if (app.stateModel.getCurrentInteractionId() != null) {
-                soft.assertThat(app.stateModel.getCurrentInteractionId()).as("Model/CurrentInteractionId").isEqualTo(historySelectedItem.id());
-            } else {
-                soft.assertThat(historySelectedItem).as("History/ComboBox/SelectedItem").isNull();
-            }
+            soft.assertThat(app.stateModel.getCurrentInteractionId()).as("Model/CurrentInteractionId").isEqualTo(historySelectedItemId);
             soft.assertThat(app.stateModel.getFilteredHistory()).as("Model/History/Items").containsExactlyElementsOf(historyItems);
         }
 

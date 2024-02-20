@@ -71,7 +71,7 @@ public class QuestionVM {
     public void onSendQuestionClick() {
         log.debug("onSendQuestionClick");
         createNewInteractionAndRequestAnswers(QUESTION);
-        mediator.currentInteractionChosen();
+        mediator.displayCurrentInteraction();
     }
 
     public void onSendDefinitionClick() {

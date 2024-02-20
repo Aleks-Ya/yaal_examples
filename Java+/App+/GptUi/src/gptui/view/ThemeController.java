@@ -46,6 +46,7 @@ public class ThemeController extends BaseController {
         vm.properties.themeCbValue.bindBidirectional(themeComboBox.valueProperty());
         vm.properties.themeCbItems.bindBidirectional(themeComboBox.itemsProperty());
         vm.properties.themeCbEditor.bindBidirectional(themeComboBox.getEditor().textProperty());
+        vm.properties.themeCbOnAction.bindBidirectional(themeComboBox.onActionProperty());
         vm.properties.filterHistoryCheckBoxSelected.bindBidirectional(filterHistoryCheckBox.selectedProperty());
     }
 }

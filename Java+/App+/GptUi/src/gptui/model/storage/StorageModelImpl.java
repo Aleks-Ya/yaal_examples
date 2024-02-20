@@ -70,6 +70,9 @@ class StorageModelImpl implements StorageModel {
 
     @Override
     public synchronized Optional<Interaction> readInteraction(InteractionId interactionId) {
+        if (interactionId == null) {
+            return Optional.empty();
+        }
         return Optional.ofNullable(interactions.get(interactionId));
     }
 

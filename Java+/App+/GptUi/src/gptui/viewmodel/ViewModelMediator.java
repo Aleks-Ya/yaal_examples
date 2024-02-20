@@ -103,8 +103,8 @@ class ViewModelMediator {
         gcpAnswerVM.displayCurrentAnswer();
     }
 
-    public void currentInteractionChosen() {
-        log.trace("currentInteractionChosen");
+    public void displayCurrentInteraction() {
+        log.trace("displayCurrentInteraction");
         grammarAnswerVM.displayCurrentAnswer();
         shortAnswerVM.displayCurrentAnswer();
         longAnswerVM.displayCurrentAnswer();

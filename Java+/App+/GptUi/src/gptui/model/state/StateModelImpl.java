@@ -47,7 +47,7 @@ class StateModelImpl implements StateModel {
     public synchronized List<Interaction> getFilteredHistory() {
         var historyFilteringEnabled = isHistoryFilteringEnabled();
         return getFullHistory().stream()
-                .filter(interaction -> !historyFilteringEnabled || getCurrentTheme().trim().equals(interaction.theme().trim()))
+                .filter(interaction -> !historyFilteringEnabled || Objects.equals(getCurrentTheme(), interaction.theme()))
                 .toList();
     }
 
@@ -77,7 +77,23 @@ class StateModelImpl implements StateModel {
 
     @Override
     public synchronized void deleteCurrentInteraction() {
-        storage.deleteInteraction(getCurrentInteractionId());
+        var currentInteractionOpt = getCurrentInteractionOpt();
+        if (currentInteractionOpt.isPresent()) {
+            var currentInteraction = currentInteractionOpt.get();
+            var history = getFilteredHistory();
+            var oldCurrentInteractionIndex = history.indexOf(currentInteraction);
+            Interaction newCurrentInteraction = null;
+            if (history.size() > 1) {
+                if (oldCurrentInteractionIndex == 0) {
+                    newCurrentInteraction = history.get(oldCurrentInteractionIndex + 1);
+                } else {
+                    newCurrentInteraction = history.get(oldCurrentInteractionIndex - 1);
+                }
+            }
+            storage.deleteInteraction(currentInteraction.id());
+            setCurrentInteractionId(newCurrentInteraction != null ? newCurrentInteraction.id() : null);
+            setCurrentTheme(newCurrentInteraction != null ? newCurrentInteraction.theme() : null);
+        }
     }
 
     @Override
@@ -140,26 +156,6 @@ class StateModelImpl implements StateModel {
             setCurrentInteractionId(getFilteredHistory().getFirst().id());
         } else {
             setCurrentInteractionId(null);
-        }
-    }
-
-    @Override
-    public void choosePreviousInteractionAsCurrent(int currentInteractionIndex) {
-        log.trace("choosePreviousInteractionAsCurrent: {}", currentInteractionIndex);
-        var newHistory = getFilteredHistory();
-        if (!newHistory.isEmpty()) {
-            var newCurrentInteractionIndex = currentInteractionIndex - 1;
-            Interaction newCurrentInteraction;
-            if (newCurrentInteractionIndex >= 0 && newCurrentInteractionIndex < newHistory.size()) {
-                newCurrentInteraction = newHistory.get(newCurrentInteractionIndex);
-            } else {
-                newCurrentInteraction = newHistory.getLast();
-            }
-            setCurrentInteractionId(newCurrentInteraction.id());
-            setCurrentTheme(newCurrentInteraction.theme());
-        } else {
-            setCurrentInteractionId(null);
-            setCurrentTheme(null);
         }
     }
 }

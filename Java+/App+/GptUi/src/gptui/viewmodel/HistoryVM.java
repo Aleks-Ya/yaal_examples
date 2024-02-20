@@ -40,14 +40,12 @@ public class HistoryVM {
 
     public void onClickHistoryDeleteButton() {
         log.trace("onClickHistoryDeleteButton");
-        var oldCurrentInteractionIndex = historyCbFacade.getSelectedItemIndex();
         stateModelFacade.deleteCurrentInteraction();
-        stateModelFacade.choosePreviousInteractionAsCurrent(oldCurrentInteractionIndex);
         historyCbFacade.setItems();
         historyCbFacade.selectCurrentInteraction();
         enableDeleteButton();
         mediator.interactionDeleted();
-        mediator.currentInteractionChosen();
+        mediator.displayCurrentInteraction();
     }
 
     void displayCurrentInteraction() {
@@ -91,12 +89,8 @@ public class HistoryVM {
             if (comboBoxCurrentInteraction != null && !Objects.equals(modelCurrentInteraction, comboBoxCurrentInteraction)) {
                 log.debug("setCurrentInteraction from historyComboBox: {}", comboBoxCurrentInteraction);
                 stateModel.setCurrentInteractionId(comboBoxCurrentInteraction.id());
-                mediator.currentInteractionChosen();
+                mediator.displayCurrentInteraction();
             }
-        }
-
-        public void choosePreviousInteractionAsCurrent(int currentInteractionIndex) {
-            stateModel.choosePreviousInteractionAsCurrent(currentInteractionIndex);
         }
 
         private void deleteCurrentInteraction() {
@@ -126,11 +120,6 @@ public class HistoryVM {
         private Interaction getSelectedItem() {
             log.trace("getSelectedItem");
             return properties.historyCbSelectionModel.getValue().getSelectedItem();
-        }
-
-        private Integer getSelectedItemIndex() {
-            log.trace("getSelectedItemIndex");
-            return properties.historyCbSelectionModel.getValue().getSelectedIndex();
         }
 
         private void selectPreviousItem() {

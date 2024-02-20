@@ -6,11 +6,15 @@ import gptui.model.storage.Interaction;
 import jakarta.inject.Inject;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,7 +61,10 @@ public class ThemeVM {
         var currentModelItems = FXCollections.observableArrayList(stateModel.getThemes());
         var currentComboBoxItems = properties.themeCbItems.getValue();
         if (!Objects.equals(currentModelItems, currentComboBoxItems)) {
+            var oldOnAction = properties.themeCbOnAction.getValue();
+            properties.themeCbOnAction.setValue(null);
             properties.themeCbItems.setValue(currentModelItems);
+            properties.themeCbOnAction.setValue(oldOnAction);
             setLabel();
         }
     }
@@ -82,6 +89,7 @@ public class ThemeVM {
         public final StringProperty themeCbValue = new SimpleStringProperty();
         public final ListProperty<String> themeCbItems = new SimpleListProperty<>();
         public final StringProperty themeCbEditor = new SimpleStringProperty();
+        public final ObjectProperty<EventHandler<ActionEvent>> themeCbOnAction = new SimpleObjectProperty<>();
         public final BooleanProperty filterHistoryCheckBoxSelected = new SimpleBooleanProperty();
         public final StringProperty themeLabelText = new SimpleStringProperty();
     }

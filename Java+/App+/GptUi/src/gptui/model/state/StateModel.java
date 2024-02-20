@@ -45,6 +45,4 @@ public interface StateModel {
     void setIsHistoryFilteringEnabled(Boolean isHistoryFilteringEnabled);
 
     void chooseFirstInteractionAsCurrent();
-
-    void choosePreviousInteractionAsCurrent(int currentInteractionIndex);
 }
