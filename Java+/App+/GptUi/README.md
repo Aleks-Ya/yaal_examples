@@ -7,6 +7,8 @@
 3. Add a filter (search) field for History
 4. Display current InteractionId in the main window
 5. Add "Copy" button for Question
+6. Expand Question and Answer view to full screen
+7. Display number of Interactions in each Theme in the Theme list
 
 ## Install on Ubuntu
 

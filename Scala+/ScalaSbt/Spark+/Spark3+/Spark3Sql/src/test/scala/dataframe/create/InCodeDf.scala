@@ -3,43 +3,47 @@ package dataframe.create
 import factory.Factory
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
-import org.scalatest.BeforeAndAfterAll
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-/**
- * Ways to instantiate DataFrame object.
- */
-class InCodeDf extends AnyFlatSpec with BeforeAndAfterAll with Matchers {
+import scala.beans.BeanProperty
+import scala.collection.JavaConverters._
+
+class InCodeDf extends AnyFlatSpec with Matchers {
 
   it should "apply schema to RDD" in {
     val schema = StructType(StructField("name", StringType) :: StructField("age", IntegerType) :: Nil)
-    val rdd = Factory.ss.sparkContext.parallelize(Seq(Row("Jhon", 25), Row("Peter", 35)))
-    val sql = Factory.ss.sqlContext
-    val peopleDf = sql.createDataFrame(rdd, schema)
-    peopleDf.createOrReplaceTempView("people")
-    sql.tableNames.toList should contain("people")
-
-    println("Tables: " + sql.tableNames.toList)
-
-    val selectDf = sql.sql("SELECT name, age FROM people WHERE age > 30")
-    selectDf.collect.map(_.toString) should contain("[Peter,35]")
-
-    peopleDf.printSchema //-> peopleSchemaRdd.schema.treeString
-    peopleDf.show
-
-    println("JSON: " + peopleDf.schema.prettyJson)
-    val tree = peopleDf.schema.treeString
-
-    tree shouldEqual
-      "root\n" +
-        " |-- name: string (nullable = true)\n" +
-        " |-- age: integer (nullable = true)\n"
+    val rdd = Factory.ss.sparkContext.parallelize(Seq(Row("John", 25), Row("Peter", 35)))
+    val df = Factory.ss.createDataFrame(rdd, schema)
+    df.schema.simpleString shouldEqual "struct<name:string,age:int>"
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","age":25}""",
+      """{"name":"Peter","age":35}"""
+    )
   }
 
-  class People(val name: String, val age: Int) {
-    override def toString: String = name + "-" + age
+  it should "apply schema to rows" in {
+    val schema = StructType(StructField("name", StringType) :: StructField("age", IntegerType) :: Nil)
+    val rows = Seq(Row("John", 25), Row("Peter", 35)).asJava
+    val df = Factory.ss.createDataFrame(rows, schema)
+    df.schema.simpleString shouldEqual "struct<name:string,age:int>"
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","age":25}""",
+      """{"name":"Peter","age":35}"""
+    )
   }
+
+  it should "infer schema from rows" in {
+    import Factory.ss.implicits._
+    val data = Seq(("John", 25), ("Peter", 35))
+    val df = data.toDF("name", "age")
+    df.schema.simpleString shouldEqual "struct<name:string,age:int>"
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","age":25}""",
+      """{"name":"Peter","age":35}"""
+    )
+  }
+
 
   it should "create DataFrame of numbers" in {
     import Factory.ss.sqlContext.implicits._
@@ -51,13 +55,15 @@ class InCodeDf extends AnyFlatSpec with BeforeAndAfterAll with Matchers {
     )
   }
 
-  it should "create DF from Object and Class" in {
-    val john = new People("John", 25)
-    val peter = new People("Peter", 35)
-    val data = java.util.Arrays.asList(john, peter)
+  it should "create DataFrame from Object and Class" in {
+    val data = Seq(People("John", 25), People("Peter", 35)).asJava
     val df = Factory.ss.sqlContext.createDataFrame(data, classOf[People])
-    df.show()
-    //don't work
-    //df.collect should contain inOrderOnly (john, peter)
+    df.schema.simpleString shouldEqual "struct<age:int,name:string>"
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"age":25,"name":"John"}""",
+      """{"age":35,"name":"Peter"}"""
+    )
   }
+
+  case class People(@BeanProperty var name: String, @BeanProperty var age: Int)
 }
