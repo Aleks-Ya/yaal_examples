@@ -17,7 +17,7 @@
 3. Add a menu icon by `MenuLibre` application:
     1. Command: `/home/aleks/installed/GptUI/bin/GptUi`
     2. Icon: `/home/aleks/installed/GptUI/bin/icon.png`
-4. Tokens: `${user.home}/.gpt/config.properties`. Properties:
+4. Tokens: `~/.gpt/config.properties`. Properties:
     1. `openai.token`
     2. `gcp.api.key`
-5. Log file: `${user.home}/.gpt/console.log`
+5. Log file: `~/.gpt/console.log`

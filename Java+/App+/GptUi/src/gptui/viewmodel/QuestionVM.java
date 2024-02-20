@@ -56,15 +56,6 @@ public class QuestionVM {
         properties.questionTaSelectAll.setValue(true);
     }
 
-    void selectPreviousInteraction() {
-        log.debug("pasteQuestionFromClipboardAndFocus");
-        pasteQuestionFromClipboard();
-        properties.questionTaFocused.setValue(false);
-        properties.questionTaFocused.setValue(true);
-        properties.questionTaPositionCaretToEnd.setValue(false);
-        properties.questionTaPositionCaretToEnd.setValue(true);
-    }
-
     public void onRegenerateButtonClick() {
         log.trace("onRegenerateButtonClick");
         var interactionId = stateModel.getCurrentInteractionId();
@@ -103,7 +94,7 @@ public class QuestionVM {
         stateModel.setEditedQuestion(properties.questionTaText.getValue());
     }
 
-    public void pasteQuestionFromClipboard() {
+    void pasteQuestionFromClipboard() {
         log.debug("pasteQuestionFromClipboard");
         var question = clipboardModel.getTextFromClipboard();
         properties.questionTaText.setValue(question);

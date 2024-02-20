@@ -120,7 +120,7 @@ class ViewModelMediator {
         log.trace("addShortcuts");
         accelerators.put(new KeyCodeCombination(UP, CONTROL_DOWN, ALT_DOWN), () -> historyVM.selectPreviousItem());
         accelerators.put(new KeyCodeCombination(DOWN, CONTROL_DOWN, ALT_DOWN), () -> historyVM.selectNextItem());
-        accelerators.put(new KeyCodeCombination(V, CONTROL_DOWN, ALT_DOWN), () -> questionVM.selectPreviousInteraction());
+        accelerators.put(new KeyCodeCombination(V, CONTROL_DOWN, ALT_DOWN), () -> questionVM.pasteQuestionFromClipboard());
         accelerators.put(new KeyCodeCombination(ESCAPE), () -> questionVM.focusOnQuestionAndSelect());
         accelerators.put(new KeyCodeCombination(ENTER, CONTROL_DOWN), () -> questionVM.onSendQuestionClick());
     }
