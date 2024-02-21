@@ -14,12 +14,12 @@ object Dependencies {
   val slf4jNopDep = "org.slf4j" % "slf4j-nop" % slf4jVersion
   val slf4jSimpleDep = "org.slf4j" % "slf4j-simple" % slf4jVersion
 
-  private val akkaVersion = "2.8.0"
+  private val akkaVersion = "2.8.5"
   val akkaActorTypedDep = "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion
   val akkaActorTestKitTypedDep = "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test
 
   private val slickVersion = "3.4.1"
-  private val playVersion = "2.8.18"
+  private val playVersion = "2.8.21"
   val slickDep = "com.typesafe.slick" %% "slick" % slickVersion
   val slickHikaricpDep = "com.typesafe.slick" %% "slick-hikaricp" % slickVersion
   val slickTestkitDep = "com.typesafe.slick" %% "slick-testkit" % slickVersion % Test

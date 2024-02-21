@@ -9,7 +9,7 @@ import scala.io.Source
 
 class ReadTextFileTest extends AnyFlatSpec with Matchers {
 
-  it should "read whole file to string" in {
+  it should "use Source#fromFile" in {
     val uri = getClass.getResource("readme.txt").toURI
     val source = Source.fromFile(uri)
     val content = source.getLines.mkString("\n")
@@ -33,4 +33,10 @@ class ReadTextFileTest extends AnyFlatSpec with Matchers {
     content shouldEqual "hi\nbye"
   }
 
+  it should "use Source#fromResource" in {
+    val source = Source.fromResource("scala/file/readme.txt")
+    val content = source.getLines.mkString("\n")
+    source.close()
+    content shouldEqual "hi\nbye"
+  }
 }

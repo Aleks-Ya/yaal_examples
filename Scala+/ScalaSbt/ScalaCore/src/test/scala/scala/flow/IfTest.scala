@@ -3,7 +3,7 @@ package scala.flow
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class If extends AnyFlatSpec with Matchers {
+class IfTest extends AnyFlatSpec with Matchers {
 
   it should "full if statement" in {
     val a = -3

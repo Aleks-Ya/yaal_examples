@@ -1,15 +1,12 @@
-/*
- * Build: sbt package
- */
-import Dependencies._
+import Dependencies.*
 
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
       organization := "com.example",
-      scalaVersion := "2.13.2",
-      version      := "0.1.0-SNAPSHOT"
+      scalaVersion := "2.12.18",
+      version := "0.1.0-SNAPSHOT"
     )),
-    name := "Hello",
+    name := "HelloWorld",
     libraryDependencies += scalaTest
   )
