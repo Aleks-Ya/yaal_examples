@@ -1,5 +1,5 @@
 # ScalaSbt
 
-Choose Java 8 version: `sdk use java 8.0.302-open`
-Compile sources: `sbt clean compile`  
-Compile tests: `sbt test:clean test:compile`
+Choose Java 21 version: `sdk use java 21.0.2-zulu`
+Compile sources: `sbt Compile/clean Compile/compile`  
+Compile tests: `sbt Test/clean Test/compile`

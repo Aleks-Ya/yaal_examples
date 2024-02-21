@@ -18,17 +18,6 @@ object Dependencies {
   val akkaActorTypedDep = "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion
   val akkaActorTestKitTypedDep = "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test
 
-  private val slickVersion = "3.4.1"
-  private val playVersion = "2.8.21"
-  val slickDep = "com.typesafe.slick" %% "slick" % slickVersion
-  val slickHikaricpDep = "com.typesafe.slick" %% "slick-hikaricp" % slickVersion
-  val slickTestkitDep = "com.typesafe.slick" %% "slick-testkit" % slickVersion % Test
-  val playLiquibaseDep = "com.ticketfly" %% "play-liquibase" % "2.2"
-  val playSlickDep = "com.typesafe.play" %% "play-slick" % "5.1.0"
-  val playJdbcDep = "com.typesafe.play" %% "play-jdbc" % playVersion
-  val playTestDep = "com.typesafe.play" %% "play-test" % playVersion
-  val scalaTestPlusPlayDep = "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test
-
   val typesafeConfigDep = "com.typesafe" % "config" % "1.4.2"
 
   val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "2.38.0" % Test

@@ -13,6 +13,6 @@ class ClassTest extends AnyFlatSpec with Matchers {
 
   it should "assert class of a collection" in {
     Seq(1, 2) shouldBe a[Seq[_]]
-    Array(1, 2) shouldBe a[Array[Int]]
+    Array(1, 2) shouldBe a[Array[_]]
   }
 }

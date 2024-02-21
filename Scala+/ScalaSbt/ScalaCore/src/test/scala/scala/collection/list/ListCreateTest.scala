@@ -23,7 +23,7 @@ class ListCreateTest extends AnyFlatSpec with Matchers {
 
   it should "create an empty list of specified type" in {
     val list: List[Double] = List()
-    list shouldBe a[List[Double]]
+    list shouldBe a[List[_]]
   }
 
 }
