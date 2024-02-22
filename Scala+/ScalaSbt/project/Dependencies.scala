@@ -18,7 +18,9 @@ object Dependencies {
   val akkaActorTypedDep = "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion
   val akkaActorTestKitTypedDep = "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test
 
-  val typesafeConfigDep = "com.typesafe" % "config" % "1.4.2"
+  val typesafeConfigDep = "com.typesafe" % "config" % "1.4.3"
+  val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.5.3"
+  val catsEffectScalaTestDep = "org.typelevel" %% "cats-effect-testing-scalatest" % "1.5.0" % Test
 
   val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "2.38.0" % Test
 

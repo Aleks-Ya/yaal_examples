@@ -21,6 +21,7 @@ lazy val json4s = project in file("Libs+/JSON+/json4s")
 lazy val SprayJson = project in file("Libs+/JSON+/SprayJson")
 lazy val TypesafeConfig = project in file("Libs+/TypesafeConfig")
 lazy val OkHttpMockWebServer = project in file("Libs+/OkHttpMockWebServer")
+lazy val CatsEffect = project in file("Libs+/CatsEffect")
 
 lazy val Spark3Core = project in file("Spark+/Spark3+/Spark3Core")
 lazy val Spark3Sql = project in file("Spark+/Spark3+/Spark3Sql")
