@@ -53,9 +53,9 @@ public class AnswerVM {
             LONG, "Long\nanswer:",
             GCP, "GCP\nanswer:");
 
-    public void clickCopyButton() {
+    public void onCopyButtonClick() {
         Mdc.run(answerType, () -> {
-            log.trace("clickCopyButton");
+            log.trace("onCopyButtonClick");
             var content = properties.webViewContent.get();
             clipboardModel.putHtmlToClipboard(content);
         });

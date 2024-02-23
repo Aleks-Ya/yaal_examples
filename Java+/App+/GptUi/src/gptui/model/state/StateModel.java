@@ -3,6 +3,7 @@ package gptui.model.state;
 import gptui.model.storage.AnswerType;
 import gptui.model.storage.Interaction;
 import gptui.model.storage.InteractionId;
+import gptui.model.storage.InteractionType;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,8 @@ public interface StateModel {
     Optional<Interaction> getCurrentInteractionOpt();
 
     void setCurrentInteractionId(InteractionId currentInteractionId);
+
+    InteractionId createInteraction(InteractionType interactionType);
 
     void deleteCurrentInteraction();
 

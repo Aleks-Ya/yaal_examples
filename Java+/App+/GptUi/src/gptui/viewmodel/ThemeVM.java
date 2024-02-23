@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
+import static gptui.viewmodel.CbHelper.updateCbSilently;
+
 @Singleton
 public class ThemeVM {
     private static final Logger log = LoggerFactory.getLogger(ThemeVM.class);
@@ -52,19 +54,17 @@ public class ThemeVM {
     }
 
     void updateComboBoxCurrentValue() {
-        stateModel.getCurrentInteractionOpt()
-                .map(Interaction::theme)
-                .ifPresent(properties.themeCbValue::setValue);
+        var theme = stateModel.getCurrentInteractionOpt().map(Interaction::theme).orElse(null);
+        stateModel.setCurrentTheme(theme);
+        updateCbSilently(() -> properties.themeCbValue.setValue(theme), properties.themeCbOnAction);
     }
 
     void updateComboBoxItems() {
         var currentModelItems = FXCollections.observableArrayList(stateModel.getThemes());
         var currentComboBoxItems = properties.themeCbItems.getValue();
         if (!Objects.equals(currentModelItems, currentComboBoxItems)) {
-            var oldOnAction = properties.themeCbOnAction.getValue();
-            properties.themeCbOnAction.setValue(null);
-            properties.themeCbItems.setValue(currentModelItems);
-            properties.themeCbOnAction.setValue(oldOnAction);
+            updateCbSilently(() -> properties.themeCbItems.setValue(currentModelItems),
+                    properties.themeCbOnAction);
             setLabel();
         }
     }

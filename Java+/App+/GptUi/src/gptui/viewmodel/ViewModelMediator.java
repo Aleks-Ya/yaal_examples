@@ -86,11 +86,6 @@ class ViewModelMediator {
         gcpAnswerVM.displayCurrentAnswer();
     }
 
-    public void interactionDeleted() {
-        log.trace("interactionDeleted");
-        themeVM.updateComboBoxItems();
-    }
-
     public void isThemeFilterHistoryChanged() {
         log.trace("isThemeFilterHistoryChanged");
         if (stateModel.isHistoryFilteringEnabled()) {
@@ -105,15 +100,14 @@ class ViewModelMediator {
 
     public void displayCurrentInteraction() {
         log.trace("displayCurrentInteraction");
-        grammarAnswerVM.displayCurrentAnswer();
-        shortAnswerVM.displayCurrentAnswer();
-        longAnswerVM.displayCurrentAnswer();
-        gcpAnswerVM.displayCurrentAnswer();
-
         historyVM.displayCurrentInteraction();
         questionVM.displayCurrentInteraction();
         themeVM.updateComboBoxItems();
         themeVM.updateComboBoxCurrentValue();
+        grammarAnswerVM.displayCurrentAnswer();
+        shortAnswerVM.displayCurrentAnswer();
+        longAnswerVM.displayCurrentAnswer();
+        gcpAnswerVM.displayCurrentAnswer();
     }
 
     public void addShortcuts(ObservableMap<KeyCombination, Runnable> accelerators) {

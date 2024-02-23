@@ -29,8 +29,21 @@ public class AnswerController extends BaseController {
     public Spinner<Integer> temperatureSpinner;
     private AnswerVM vm;
 
-    private void initialize1() {
-        log.trace("initialize");
+    @FXML
+    void clickCopyButton(ActionEvent ignoredEvent) {
+        log.trace("clickCopyButton");
+        vm.onCopyButtonClick();
+    }
+
+    @FXML
+    void onRegenerateButtonClick(ActionEvent ignoredEvent) {
+        log.trace("onRegenerateButtonClick");
+        vm.onRegenerateButtonClick();
+    }
+
+    void initializeController(AnswerVM vm) {
+        log.trace("initializeController");
+        this.vm = vm;
         temperatureSpinner.getValueFactory().setConverter(new StringConverter<>() {
             @Override
             public String toString(Integer number) {
@@ -44,41 +57,24 @@ public class AnswerController extends BaseController {
         });
         webView.getEngine().documentProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                vm.properties.webViewContent
+                this.vm.properties.webViewContent
                         .set((String) webView.getEngine().executeScript("document.documentElement.outerHTML"));
             }
         });
-        vm.properties.webViewContent.addListener((observable, oldValue, newValue) -> {
+        this.vm.properties.webViewContent.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 webView.getEngine().loadContent(newValue);
             }
         });
-
-        vm.properties.temperatureText.bindBidirectional(temperatureText.textProperty());
-        vm.properties.temperatureSpinner.bindBidirectional(temperatureSpinner.getValueFactory().valueProperty());
-        vm.properties.statusCircleFill.bindBidirectional(statusCircle.fillProperty());
-        vm.properties.answerLabelText.bindBidirectional(answerLabel.textProperty());
-        vm.properties.copyButtonText.bindBidirectional(copyButton.textProperty());
-    }
-
-    @FXML
-    void clickCopyButton(ActionEvent ignoredEvent) {
-        log.trace("clickCopyButton");
-        vm.clickCopyButton();
-    }
-
-    @FXML
-    void onRegenerateButtonClick(ActionEvent ignoredEvent) {
-        log.trace("onRegenerateButtonClick");
-        vm.onRegenerateButtonClick();
-    }
-
-    public void setVm(AnswerVM vm) {
-        this.vm = vm;
-        initialize1();
+        this.vm.properties.temperatureText.bindBidirectional(temperatureText.textProperty());
+        this.vm.properties.temperatureSpinner.bindBidirectional(temperatureSpinner.getValueFactory().valueProperty());
+        this.vm.properties.statusCircleFill.bindBidirectional(statusCircle.fillProperty());
+        this.vm.properties.answerLabelText.bindBidirectional(answerLabel.textProperty());
+        this.vm.properties.copyButtonText.bindBidirectional(copyButton.textProperty());
     }
 
     @Override
     protected void initialize() {
     }
+
 }

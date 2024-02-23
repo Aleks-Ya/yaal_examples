@@ -41,10 +41,10 @@ public class GptUiController extends BaseController {
     @Override
     protected void initialize() {
         log.trace("initialize");
-        grammarAnswerController.setVm(grammarAnswerVM);
-        shortAnswerController.setVm(shortAnswerVM);
-        longAnswerController.setVm(longAnswerVM);
-        gcpAnswerController.setVm(gcpAnswerVM);
+        grammarAnswerController.initializeController(grammarAnswerVM);
+        shortAnswerController.initializeController(shortAnswerVM);
+        longAnswerController.initializeController(longAnswerVM);
+        gcpAnswerController.initializeController(gcpAnswerVM);
         vm.initialize();
     }
 }

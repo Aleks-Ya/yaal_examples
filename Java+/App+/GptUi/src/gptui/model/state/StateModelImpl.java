@@ -1,8 +1,11 @@
 package gptui.model.state;
 
+import gptui.Mdc;
+import gptui.model.storage.Answer;
 import gptui.model.storage.AnswerType;
 import gptui.model.storage.Interaction;
 import gptui.model.storage.InteractionId;
+import gptui.model.storage.InteractionType;
 import gptui.model.storage.StorageModel;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -14,6 +17,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+
+import static gptui.model.storage.AnswerState.NEW;
+import static gptui.model.storage.AnswerType.GCP;
+import static gptui.model.storage.AnswerType.GRAMMAR;
+import static gptui.model.storage.AnswerType.LONG;
+import static gptui.model.storage.AnswerType.SHORT;
 
 @Singleton
 class StateModelImpl implements StateModel {
@@ -76,6 +85,24 @@ class StateModelImpl implements StateModel {
     }
 
     @Override
+    public InteractionId createInteraction(InteractionType interactionType) {
+        var interactionId = storage.newInteractionId();
+        Mdc.run(interactionId, () -> {
+            var theme = getCurrentTheme();
+            var question = getEditedQuestion();
+            var interaction = new Interaction(interactionId, interactionType, theme, question, Map.of(
+                    GRAMMAR, new Answer(GRAMMAR, "", getTemperature(GRAMMAR), "", "", NEW),
+                    SHORT, new Answer(SHORT, "", getTemperature(SHORT), "", "", NEW),
+                    LONG, new Answer(LONG, "", getTemperature(LONG), "", "", NEW),
+                    GCP, new Answer(GCP, "", getTemperature(GCP), "", "", NEW)
+            ));
+            storage.saveInteraction(interaction);
+            setCurrentInteractionId(interactionId);
+        });
+        return interactionId;
+    }
+
+    @Override
     public synchronized void deleteCurrentInteraction() {
         var currentInteractionOpt = getCurrentInteractionOpt();
         if (currentInteractionOpt.isPresent()) {
@@ -89,10 +116,29 @@ class StateModelImpl implements StateModel {
                 } else {
                     newCurrentInteraction = history.get(oldCurrentInteractionIndex - 1);
                 }
+                var newCurrentTheme = newCurrentInteraction.theme();
+                setCurrentTheme(newCurrentTheme);
+            } else {
+                var currentTheme = getCurrentTheme();
+                if (currentTheme != null) {
+                    var oldCurrentThemeIndex = getThemes().indexOf(currentTheme);
+                    if (getThemes().size() > 1) {
+                        String newCurrentTheme;
+                        if (oldCurrentThemeIndex == 0) {
+                            newCurrentTheme = getThemes().get(oldCurrentThemeIndex + 1);
+                        } else {
+                            newCurrentTheme = getThemes().get(oldCurrentThemeIndex - 1);
+                        }
+                        setCurrentTheme(newCurrentTheme);
+                        var history2 = getFilteredHistory();
+                        if (!history2.isEmpty()) {
+                            newCurrentInteraction = history2.getFirst();
+                        }
+                    }
+                }
             }
             storage.deleteInteraction(currentInteraction.id());
             setCurrentInteractionId(newCurrentInteraction != null ? newCurrentInteraction.id() : null);
-            setCurrentTheme(newCurrentInteraction != null ? newCurrentInteraction.theme() : null);
         }
     }
 

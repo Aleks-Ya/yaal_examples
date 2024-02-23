@@ -103,7 +103,7 @@ public class QuestionVM {
 
     private synchronized void createNewInteractionAndRequestAnswers(InteractionType interactionType) {
         log.debug("createNewInteractionAndRequestAnswers: interactionType={}", interactionType);
-        var interactionId = questionModel.createInteraction(interactionType);
+        var interactionId = stateModel.createInteraction(interactionType);
         mediator.interactionCreated();
         questionModel.requestAnswer(interactionId, GCP, () -> mediator.answerUpdated(GCP));
         questionModel.requestAnswer(interactionId, LONG, () -> mediator.answerUpdated(LONG));

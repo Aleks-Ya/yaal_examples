@@ -10,7 +10,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,7 +19,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
+import static gptui.viewmodel.CbHelper.updateCbSilently;
 import static java.lang.String.format;
+import static javafx.collections.FXCollections.observableArrayList;
 
 @Singleton
 public class HistoryVM {
@@ -41,10 +42,6 @@ public class HistoryVM {
     public void onClickHistoryDeleteButton() {
         log.trace("onClickHistoryDeleteButton");
         stateModelFacade.deleteCurrentInteraction();
-        historyCbFacade.setItems();
-        historyCbFacade.selectCurrentInteraction();
-        enableDeleteButton();
-        mediator.interactionDeleted();
         mediator.displayCurrentInteraction();
     }
 
@@ -140,10 +137,8 @@ public class HistoryVM {
             log.trace("comboBoxItems: {}", comboBoxItems.size());
             if (!Objects.equals(modelItems, comboBoxItems)) {
                 log.debug("Set items: {}", modelItems.size());
-                var oldOnAction = properties.historyCbOnAction.getValue();
-                properties.historyCbOnAction.setValue(null);
-                properties.historyCbItems.setValue(FXCollections.observableArrayList(modelItems));
-                properties.historyCbOnAction.setValue(oldOnAction);
+                updateCbSilently(() -> properties.historyCbItems.setValue(observableArrayList(modelItems)),
+                        properties.historyCbOnAction);
             }
         }
 
@@ -155,22 +150,17 @@ public class HistoryVM {
                 if (modelCurrentInteractionOpt.isPresent()) {
                     var modelCurrentValue = modelCurrentInteractionOpt.get();
                     log.debug("Select interaction: '{}'", modelCurrentValue);
-                    var oldOnAction = properties.historyCbOnAction.getValue();
-                    properties.historyCbOnAction.setValue(null);
-                    properties.historyCbSelectionModel.getValue().select(modelCurrentValue);
-                    properties.historyCbOnAction.setValue(oldOnAction);
+                    updateCbSilently(() -> properties.historyCbSelectionModel.getValue().select(modelCurrentValue),
+                            properties.historyCbOnAction);
                 } else {
                     log.debug("Clear selection");
-                    var oldOnAction = properties.historyCbOnAction.getValue();
-                    properties.historyCbOnAction.setValue(null);
-                    properties.historyCbSelectionModel.getValue().clearSelection();
-                    properties.historyCbOnAction.setValue(oldOnAction);
+                    updateCbSilently(() -> properties.historyCbSelectionModel.getValue().clearSelection(),
+                            properties.historyCbOnAction);
                 }
             } else {
                 log.debug("Selection is unchanged: '{}'", modelCurrentInteractionOpt);
             }
         }
-
     }
 
     public static class Properties {
