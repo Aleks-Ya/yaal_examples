@@ -67,7 +67,7 @@ tasks.jlink.mustRunAfter tasks.clean, tasks.test
 def installDir = System.properties['user.home'] + '/installed/GptUI'
 tasks.register('addIconToImage', Copy) {
     mustRunAfter tasks.jlink
-    from layout.projectDirectory.dir('resources/gptui/ui').file('icon.png')
+    from layout.projectDirectory.dir('resources/gptui/model/file').file('icon.png')
     into layout.projectDirectory.dir('build/image/bin')
 }
 tasks.register('deleteInstalledApp', Delete) {

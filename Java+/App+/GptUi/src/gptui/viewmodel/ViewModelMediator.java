@@ -50,6 +50,7 @@ class ViewModelMediator {
         longAnswerVM.initialize();
         gcpAnswerVM.initialize();
         historyVM.displayCurrentInteraction();
+        themeVM.initialize();
         themeVM.setLabel();
     }
 

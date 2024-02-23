@@ -9,8 +9,7 @@
 5. Display current InteractionId in the main window
 6. Add "Copy" button for Question
 7. Expand Question and Answer view to full screen
-8. Display number of Interactions in each Theme in the Theme list
-9. Replace Gemini Pro with Gemini Ultra.
+8. Replace Gemini Pro with Gemini Ultra.
 
 ## Install on Ubuntu
 

@@ -29,6 +29,8 @@ public interface StateModel {
 
     List<String> getThemes();
 
+    Long getInteractionCountInTheme(String theme);
+
     String getCurrentTheme();
 
     void setCurrentTheme(String currentTheme);

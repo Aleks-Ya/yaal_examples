@@ -15,6 +15,9 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.util.Callback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,6 +76,20 @@ public class ThemeVM {
         properties.themeLabelText.setValue(String.format("Theme (%d):", stateModel.getThemes().size()));
     }
 
+    void initialize() {
+        properties.themeCbCellFactory.setValue(listView -> new ListCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText("");
+                } else {
+                    setText(item + " (" + stateModel.getInteractionCountInTheme(item) + ")");
+                }
+            }
+        });
+    }
+
     private void chooseThemeFromCb() {
         log.trace("chooseThemeFromCb");
         var currentComboBoxValue = properties.themeCbValue.getValue();
@@ -90,6 +107,7 @@ public class ThemeVM {
         public final ListProperty<String> themeCbItems = new SimpleListProperty<>();
         public final StringProperty themeCbEditor = new SimpleStringProperty();
         public final ObjectProperty<EventHandler<ActionEvent>> themeCbOnAction = new SimpleObjectProperty<>();
+        public final ObjectProperty<Callback<ListView<String>, ListCell<String>>> themeCbCellFactory = new SimpleObjectProperty<>();
         public final BooleanProperty filterHistoryCheckBoxSelected = new SimpleBooleanProperty();
         public final StringProperty themeLabelText = new SimpleStringProperty();
     }

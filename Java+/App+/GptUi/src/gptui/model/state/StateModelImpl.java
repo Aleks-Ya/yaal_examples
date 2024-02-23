@@ -148,6 +148,11 @@ class StateModelImpl implements StateModel {
     }
 
     @Override
+    public Long getInteractionCountInTheme(String theme) {
+        return getFullHistory().stream().filter(interaction -> Objects.equals(interaction.theme(), theme)).count();
+    }
+
+    @Override
     public synchronized String getCurrentTheme() {
         return currentTheme;
     }
