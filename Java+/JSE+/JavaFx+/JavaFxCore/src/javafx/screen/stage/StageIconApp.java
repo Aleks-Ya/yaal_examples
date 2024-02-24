@@ -1,4 +1,4 @@
-package javafx.other;
+package javafx.screen.stage;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
-public class IconApp extends Application {
+public class StageIconApp extends Application {
     @Override
     public void start(Stage stage) {
         var label = new Label("Hello, JavaFX");

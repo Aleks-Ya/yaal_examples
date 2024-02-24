@@ -10,5 +10,5 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    implementation 'org.controlsfx:controlsfx:11.2.0'
+    implementation controlsFxDep
 }

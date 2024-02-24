@@ -28,4 +28,5 @@ module Java.JSE.JavaFx.main {
     exports javafx.fxml_.mvc to javafx.graphics, javafx.fxml;
     exports javafx.fxml_.mvc_multi_fxml to javafx.graphics, javafx.fxml;
     exports javafx to javafx.graphics, javafx.fxml;
+    exports javafx.screen.stage to javafx.graphics;
 }

@@ -117,6 +117,7 @@ subprojects {
         aws1Version = '1.12.620'
         aws2Version = '2.22.0'
         compileTestingDep = 'com.google.testing.compile:compile-testing:0.21.0'
+        controlsFxDep = 'org.controlsfx:controlsfx:11.2.0'
     }
     tasks.withType(JavaCompile).tap {
         configureEach {
