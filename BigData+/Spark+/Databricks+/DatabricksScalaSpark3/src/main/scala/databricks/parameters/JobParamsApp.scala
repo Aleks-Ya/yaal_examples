@@ -1,8 +1,8 @@
-package databricks.cluster.shorttrem
+package databricks.parameters
 
 import databricks.{Print, WordCount}
 
-object ShortTermDatabricksClusterModeApp {
+object JobParamsApp {
   def main(args: Array[String]): Unit = {
     Print.printInfo(this, args)
     WordCount.countWords(args)

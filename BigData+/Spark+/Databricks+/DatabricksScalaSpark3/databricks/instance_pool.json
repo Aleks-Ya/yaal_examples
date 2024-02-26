@@ -1,0 +1,16 @@
+{
+  "instance_pool_name": "pool-1",
+  "node_type_id": "m4.large",
+  "min_idle_instances": 0,
+  "max_capacity": 1,
+  "idle_instance_autotermination_minutes": 60,
+  "aws_attributes": {
+    "availability": "ON_DEMAND",
+    "spot_bid_price_percent": 100,
+    "zone_id": "us-west-2b"
+  },
+  "enable_elastic_disk": true,
+  "preloaded_spark_versions": [
+    "14.3.x-scala2.12"
+  ]
+}

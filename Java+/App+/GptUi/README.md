@@ -10,6 +10,7 @@
 6. Add "Copy" button for Question
 7. Expand Question and Answer view to full screen
 8. Replace Gemini Pro with Gemini Ultra.
+9. Bug: Ctrl-Alt-Up/Down in Answers moves content if the content is larger than WebView
 
 ## Install on Ubuntu
 

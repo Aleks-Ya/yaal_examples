@@ -1,10 +1,10 @@
-package databricks.secrets
+package databricks
 
 import com.databricks.dbutils_v1.DBUtilsHolder.dbutils
 
 import scala.util.Try
 
-object ReadSecretLamda {
+object JobParamsLamda {
   def stringToLength(str: String): Long = {
     val e = Try(dbutils.secrets).failed.get
     println(s"Exception: $e")

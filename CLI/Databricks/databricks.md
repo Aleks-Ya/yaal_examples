@@ -21,6 +21,8 @@ List clusters: `databricks clusters list`
 Show cluster metadata (by cluster id): `databricks clusters get --cluster-id 0411-065519-9uuqxbma`
 Show cluster metadata (by cluster name): `databricks clusters get --cluster-name my_test_databricks`
 Restart a cluster: `databricks clusters restart --cluster-id 0614-065657-yjnh9djz`
+Get cluster ID by cluster name (first): `databricks clusters list --output JSON | jq -r 'first(.[] | select(.cluster_name == "cluster-1") | .cluster_id)'`
+Create cluster for JSON definition (cluster starts immediately): `databricks clusters create --json @databricks_cluster_create.json`
  
 ### Authentication
 Set Databricks personal token: `databricks configure --token`
@@ -73,6 +75,7 @@ List jobs with name: `databricks jobs list --name my-job-name`
 Show job details: `databricks jobs get --job-id 1234567890` (Job Id is displayed by the List jobs command)
 Create job from JSON file: `databricks jobs create --json @my_job.json`
 Create job from JSON file (Windows): `databricks jobs create --json @C:\Users\IABLOAL1\job.json`
+Create job from JSON file (pipe, DO NOT WORK!!!!): `cat my_job.json | databricks jobs create --json -`
 Delete job (by Job ID): `databricks jobs delete 79957888534123`
  
 ### Job runs
@@ -89,3 +92,9 @@ Show cluster policy details: `databricks cluster-policies get 0014FDF3D7665C16`
 ### Policy family
 List policy families: `databricks policy-families list`
 Show policy family details: `databricks policy-families get personal-vm`
+
+### Instance Pool
+List instance pools: `databricks instance-pools list`
+Show instance pool details: `databricks instance-pools get 0226-061058-pol22-pool-igncb5ea`
+Create an Instance Pool from JSON definition (file): `databricks instance-pools create --json @instance_pool.json`
+Get Instance Pool ID by name (first): `databricks instance-pools list --output JSON | jq -r 'first(.[] | select(.instance_pool_name == "pool-1") | .instance_pool_id)'`

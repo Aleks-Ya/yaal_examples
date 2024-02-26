@@ -1,11 +1,11 @@
 package databricks.cluster.longterm
 
+import databricks.Print
 import org.apache.spark.SparkContext
 
 object LongTermDatabricksClusterModeApp {
   def main(args: Array[String]): Unit = {
-    println(s"Main class name: ${getClass.getName}")
-    println(s"Main method args: ${args.mkString(",")}")
+    Print.printInfo(this, args)
     val sc = SparkContext.getOrCreate()
     val durationsSec = args.map(_.toInt).toSeq
     val parallelism = durationsSec.length / 2
@@ -15,6 +15,6 @@ object LongTermDatabricksClusterModeApp {
     val expDuration = durationsSec.sum
     println(s"Expected duration: $expDuration")
     assert(actualDuration == expDuration)
-    println("Finished main")
+    Print.finished()
   }
 }
