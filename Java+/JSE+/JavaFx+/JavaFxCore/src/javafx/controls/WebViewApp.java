@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
@@ -18,7 +20,9 @@ public class WebViewApp extends Application {
         var webView2 = partialHtmlDocument();
         var element = copyHtmlButton();
         var size = webViewSize();
-        var vBox = new VBox(webView1, new Separator(), webView2, new Separator(), element, new Separator(), size);
+        var ctrlAltDownHotkey = disableCtrlAltDownHotkey();
+        var vBox = new VBox(webView1, new Separator(), webView2, new Separator(), element, new Separator(),
+                size, new Separator(), ctrlAltDownHotkey);
         var scene = new Scene(vBox, 1024, 768);
         stage.setScene(scene);
         stage.show();
@@ -69,6 +73,22 @@ public class WebViewApp extends Application {
         var webView = new WebView();
         webView.setMinHeight(minHeight);
         webView.setMaxHeight(maxHeight);
+        webView.getEngine().loadContent(content);
+        return webView;
+    }
+
+    private static WebView disableCtrlAltDownHotkey() {
+        var content = "<html><body>"
+                + "<p>This is a paragraph.</p>".repeat(10)
+                + "</body></html>";
+        var webView = new WebView();
+        webView.setMinHeight(100);
+        webView.setMaxHeight(100);
+        webView.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.isControlDown() && event.isAltDown() && event.getCode() == KeyCode.DOWN) {
+                event.consume();
+            }
+        });
         webView.getEngine().loadContent(content);
         return webView;
     }

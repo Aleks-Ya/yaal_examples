@@ -5,6 +5,7 @@ import gptui.ui.BaseGptUiTest;
 import gptui.ui.TestingData.I1;
 import gptui.ui.TestingData.I2;
 import gptui.ui.TestingData.I3;
+import javafx.geometry.VerticalDirection;
 import org.junit.jupiter.api.Test;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -154,6 +155,27 @@ class HotKeysTest extends BaseGptUiTest {
         assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I1.INTERACTION);
 
         press(CONTROL, ALT, DOWN).release(DOWN, ALT, CONTROL);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I1.INTERACTION);
+    }
+
+    @Test
+    void selectPreviousInteractionByCtrlAltDown_FocusOnWebView() {
+        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I3.THEME, I3.QUESTION));
+        clickOn(longAnswer().webView());
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I3.INTERACTION);
+
+        press(CONTROL, ALT, DOWN).release(DOWN, ALT, CONTROL);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I2.INTERACTION);
+    }
+
+    @Test
+    void selectPreviousInteractionByCtrlAltUp_FocusOnWebView() {
+        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I2.THEME, I2.QUESTION));
+        clickOn(longAnswer().webView());
+        scroll(10, VerticalDirection.DOWN);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I2.INTERACTION);
+
+        press(CONTROL, ALT, UP).release(UP, ALT, CONTROL);
         assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I1.INTERACTION);
     }
 }

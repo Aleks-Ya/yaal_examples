@@ -100,6 +100,14 @@ public class AnswerVM {
         });
     }
 
+    public void ctrlAltUpHotkeyPressed() {
+        mediator.selectNextHistoryItem();
+    }
+
+    public void ctrlAltDownHotkeyPressed() {
+        mediator.selectNextHistoryItem();
+    }
+
     private Color answerStateToColor(AnswerState answerState) {
         return switch (answerState) {
             case NEW -> WHITE;

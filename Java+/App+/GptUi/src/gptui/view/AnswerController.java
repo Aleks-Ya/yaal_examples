@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
@@ -71,6 +73,18 @@ public class AnswerController extends BaseController {
         this.vm.properties.statusCircleFill.bindBidirectional(statusCircle.fillProperty());
         this.vm.properties.answerLabelText.bindBidirectional(answerLabel.textProperty());
         this.vm.properties.copyButtonText.bindBidirectional(copyButton.textProperty());
+        webView.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.isControlDown() && event.isAltDown() && event.getCode() == KeyCode.DOWN) {
+                event.consume();
+                vm.ctrlAltDownHotkeyPressed();
+            }
+        });
+        webView.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.isControlDown() && event.isAltDown() && event.getCode() == KeyCode.UP) {
+                event.consume();
+                vm.ctrlAltUpHotkeyPressed();
+            }
+        });
     }
 
     @Override
