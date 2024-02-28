@@ -85,7 +85,8 @@ def _remove(changes, col) -> bool:
         'Antonyms',
         'Answer',
         'Example-my',
-        'Transcription'
+        'Transcription',
+        'Documentation'
     ]
     updated_count: int = 0
     for field_name in field_names:
