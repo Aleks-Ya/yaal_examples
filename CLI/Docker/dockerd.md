@@ -4,7 +4,8 @@ Docs: https://docs.docker.com/engine/reference/commandline/dockerd/
 
 ## Commands
 Help: `dockerd -h`
-Restart docker service: `sudo service docker restart`
+Show Docker service status: `sudo systemctl status docker`
+Restart Docker service: `sudo systemctl restart docker`
 Limit concurrent downloads on pull: `dockerd --max-concurrent-downloads 1`
 Debug mode: `dockerd --debug`
 Define config file (default value): `dockerd --config-file /etc/docker/daemon.json`

@@ -1,10 +1,12 @@
 # Jenkins CLI
 
+See CLI commands: http://localhost:8080/cli
+
 ## Prepare
 ```
 export JENKINS_URL=http://localhost:8080
-wget "$JENKINS_URL/jnlpJars/jenkins-cli.jar"
-export JCLI="java -jar jenkins-cli.jar -s $JENKINS_URL"
+wget $JENKINS_URL/jnlpJars/jenkins-cli.jar
+export JCLI="java -jar jenkins-cli.jar"
 
 $JCLI help
 ```
