@@ -13,7 +13,7 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Disabled("Requires downloaded file: https://proconsortium.org/download/current/pro_reasoned.obo")
-class ReadBigOntologyTest {
+class ReadBigOboTest {
     private static final File file = new File("/home/aleks/Downloads/OBO/pro_reasoned.obo");
 
     @Test

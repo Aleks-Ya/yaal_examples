@@ -6,3 +6,4 @@ Help: `robot help`
 Help about a command: `robot verify --help`
 
 Execute a Reasoner: `robot reason --input courses_all.obo --reasoner elk --output courses_all_reasoned.obo`
+Convert OWL XML to OBO: `robot convert --input ontology1.xml --format OBO --output ontology1.obo`

@@ -38,11 +38,13 @@ Upload a file into DBFS (skip existing): `databricks fs cp /local/file.txt dbfs:
 Upload a file into DBFS (overwrite): `databricks fs cp --overwrite /local/file.txt dbfs:/remote/directory`
 Download file from DBFS: `databricks fs cp dbfs:/remote/directory/file.txt /local/`
 Delete a file: `databricks fs rm dbfs:/remote/directory/file.txt`
+Delete a directory: `databricks fs rm -r dbfs:/dir1`
 List files in a directory: `databricks fs ls dbfs:/cluster-logs-anna/driver`
 Show file content: `databricks fs cat dbfs:/cluster-logs-anna/driver/log4j-active.log`
  
 #### Workspace (`/Workspace` dir is hidden in DBFS)
 List files in `/Workspace` dir: `databricks workspace list /`
+Upload a Python file as a Notebook into Workspace: `databricks workspace import --file script.py /tmp`
  
 ### Secrets
 List secret scopes: `databricks secrets list-scopes`
