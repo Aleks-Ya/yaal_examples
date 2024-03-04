@@ -90,7 +90,7 @@ class StateModelImpl implements StateModel {
         Mdc.run(interactionId, () -> {
             var theme = getCurrentTheme();
             var question = getEditedQuestion();
-            var interaction = new Interaction(interactionId, interactionType, theme, question, Map.of(
+            var interaction = new Interaction(interactionId, interactionType, theme, null, question, Map.of(
                     GRAMMAR, new Answer(GRAMMAR, "", getTemperature(GRAMMAR), "", "", NEW),
                     SHORT, new Answer(SHORT, "", getTemperature(SHORT), "", "", NEW),
                     LONG, new Answer(LONG, "", getTemperature(LONG), "", "", NEW),

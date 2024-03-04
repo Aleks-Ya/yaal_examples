@@ -18,4 +18,10 @@ public interface StorageModel {
     void deleteInteraction(InteractionId interactionId);
 
     List<String> getThemes();
+
+    Theme addTheme(String theme);
+
+    void saveTheme(Theme theme);
+
+    Theme getTheme(ThemeId themeId);
 }

@@ -27,7 +27,7 @@ public class TestingData {
         public static final String EXP_SHORT_HTML_BODY = wrapExpectedWebViewContent(SHORT_HTML);
         public static final String EXP_LONG_HTML_BODY = wrapExpectedWebViewContent(LONG_HTML);
         public static final String EXP_GCP_HTML_BODY = wrapExpectedWebViewContent(GCP_HTML);
-        public static final Interaction INTERACTION = new Interaction(new InteractionId(1L), InteractionType.QUESTION, THEME, QUESTION, Map.of(
+        public static final Interaction INTERACTION = new Interaction(new InteractionId(1L), InteractionType.QUESTION, THEME, null, QUESTION, Map.of(
                 GRAMMAR, new Answer(GRAMMAR, "QC prompt 1", 50, "Grammar answer MD 1", GRAMMAR_HTML, SUCCESS),
                 SHORT, new Answer(SHORT, "Short prompt 1", 60, "Short answer MD 1", SHORT_HTML, SUCCESS),
                 LONG, new Answer(LONG, "Long prompt 1", 70, "Long answer MD 1", LONG_HTML, SUCCESS),
@@ -45,7 +45,7 @@ public class TestingData {
         public static final String EXP_SHORT_HTML_BODY = wrapExpectedWebViewContent(I2.SHORT_HTML);
         public static final String EXP_LONG_HTML_BODY = wrapExpectedWebViewContent(I2.LONG_HTML);
         public static final String EXP_GCP_HTML_BODY = wrapExpectedWebViewContent(I2.GCP_HTML);
-        public static final Interaction INTERACTION = new Interaction(new InteractionId(2L), InteractionType.QUESTION, THEME, QUESTION, Map.of(
+        public static final Interaction INTERACTION = new Interaction(new InteractionId(2L), InteractionType.QUESTION, THEME, null, QUESTION, Map.of(
                 GRAMMAR, new Answer(GRAMMAR, "QC prompt 2", 50, "Grammar answer MD 2", I2.GRAMMAR_HTML, SUCCESS),
                 SHORT, new Answer(SHORT, "Short prompt 2", 60, "Short answer MD 2", I2.SHORT_HTML, SUCCESS),
                 LONG, new Answer(LONG, "Long prompt 2", 70, "Long answer MD 2".repeat(1000), I2.LONG_HTML, FAIL),
@@ -63,7 +63,7 @@ public class TestingData {
         public static final String EXP_SHORT_HTML_BODY = wrapExpectedWebViewContent(I3.SHORT_HTML);
         public static final String EXP_LONG_HTML_BODY = wrapExpectedWebViewContent(I3.LONG_HTML);
         public static final String EXP_GCP_HTML_BODY = wrapExpectedWebViewContent(I3.GCP_HTML);
-        public static final Interaction INTERACTION = new Interaction(new InteractionId(3L), InteractionType.QUESTION, THEME, QUESTION, Map.of(
+        public static final Interaction INTERACTION = new Interaction(new InteractionId(3L), InteractionType.QUESTION, THEME, null, QUESTION, Map.of(
                 GRAMMAR, new Answer(GRAMMAR, "QC prompt 3", 50, "Grammar answer MD 3", I3.GRAMMAR_HTML, SUCCESS),
                 SHORT, new Answer(SHORT, "Short prompt 3", 60, "Short answer MD 3", I3.SHORT_HTML, SUCCESS),
                 LONG, new Answer(LONG, "Long prompt 3", 70, "Long answer MD 3".repeat(1000), I3.LONG_HTML, FAIL),

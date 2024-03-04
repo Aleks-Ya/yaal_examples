@@ -10,6 +10,6 @@ public class StorageModule extends AbstractModule {
     protected void configure() {
         bind(FileSystem.class).toInstance(FileSystems.getDefault());
         bind(StorageModel.class).to(StorageModelImpl.class);
-        bind(InteractionStorageFilesystem.class);
+        bind(StorageFilesystem.class);
     }
 }

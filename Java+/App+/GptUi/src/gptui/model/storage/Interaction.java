@@ -8,14 +8,16 @@ import java.util.function.Function;
 public record Interaction(InteractionId id,
                           InteractionType type,
                           String theme,
+                          ThemeId themeId,
                           String question,
                           Map<AnswerType, Answer> answers) {
 
-    public Interaction(InteractionId id, InteractionType type, String theme, String question,
+    public Interaction(InteractionId id, InteractionType type, String theme, ThemeId themeId, String question,
                        Map<AnswerType, Answer> answers) {
         this.id = id;
         this.type = type;
         this.theme = theme;
+        this.themeId = themeId;
         this.question = question;
         this.answers = answers != null ? answers : new TreeMap<>();
     }
@@ -27,7 +29,11 @@ public record Interaction(InteractionId id,
     public Interaction withAnswer(Answer answer) {
         var map = new TreeMap<>(answers);
         map.put(answer.answerType(), answer);
-        return new Interaction(id, type, theme, question, Map.copyOf(map));
+        return new Interaction(id, type, theme, themeId, question, Map.copyOf(map));
+    }
+
+    public Interaction withThemeId(ThemeId themeId) {
+        return new Interaction(id, type, theme, themeId, question, answers);
     }
 
     public Interaction withAnswer(AnswerType answerType, Function<Answer, Answer> update) {
@@ -41,7 +47,7 @@ public record Interaction(InteractionId id,
     public Interaction withAnswerDeleted(AnswerType answerType) {
         var map = new TreeMap<>(answers);
         map.remove(answerType);
-        return new Interaction(id, type, theme, question, Map.copyOf(map));
+        return new Interaction(id, type, theme, themeId, question, Map.copyOf(map));
     }
 
     @Override

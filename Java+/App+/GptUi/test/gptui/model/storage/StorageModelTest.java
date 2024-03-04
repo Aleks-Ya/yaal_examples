@@ -11,10 +11,11 @@ import java.nio.file.FileSystem;
 import static com.google.common.jimfs.Configuration.unix;
 import static gptui.model.storage.AnswerType.GRAMMAR;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class StorageModelTest {
     private final FileSystem fileSystem = Jimfs.newFileSystem(unix());
-    private final StorageModel storage = new StorageModelImpl(new InteractionStorageFilesystem(fileSystem));
+    private final StorageModel storage = new StorageModelImpl(new StorageFilesystem(fileSystem));
 
     @Test
     void newInteractionId() {
@@ -107,7 +108,7 @@ class StorageModelTest {
 
     @Test
     void getThemesSeveralStart() {
-        var storage1 = new StorageModelImpl(new InteractionStorageFilesystem(fileSystem));
+        var storage1 = new StorageModelImpl(new StorageFilesystem(fileSystem));
         var theme1 = "AAA";
         var theme2 = "BBB";
         var theme4 = "CCC";
@@ -122,17 +123,17 @@ class StorageModelTest {
         storage1.saveInteraction(newInteraction(id4, theme4));
         storage1.saveInteraction(newInteraction(id5, theme2));
 
-        var storage2 = new StorageModelImpl(new InteractionStorageFilesystem(fileSystem));
+        var storage2 = new StorageModelImpl(new StorageFilesystem(fileSystem));
         assertThat(storage2.getThemes()).containsExactly(theme4, theme2, theme1);
     }
 
     @Test
     void getThemesSingleStart() {
-        var storage1 = new StorageModelImpl(new InteractionStorageFilesystem(fileSystem));
+        var storage1 = new StorageModelImpl(new StorageFilesystem(fileSystem));
         var theme = "AAA";
         storage1.saveInteraction(newInteraction(1693929900L, theme));
 
-        var storage2 = new StorageModelImpl(new InteractionStorageFilesystem(fileSystem));
+        var storage2 = new StorageModelImpl(new StorageFilesystem(fileSystem));
         assertThat(storage2.getThemes()).containsExactly(theme);
     }
 
@@ -141,7 +142,39 @@ class StorageModelTest {
         assertThat(storage.getThemes()).isEmpty();
     }
 
+    @Test
+    void addTheme() {
+        var title = "Java";
+        var theme1 = storage.addTheme(title);
+        assertThat(theme1).isEqualTo(new Theme(new ThemeId(1L), title));
+        var theme2 = storage.addTheme(title);
+        assertThat(theme2).isEqualTo(theme1);
+    }
+
+    @Test
+    void getTheme() {
+        var themeId = new ThemeId(1L);
+        assertThatThrownBy(() -> storage.getTheme(themeId))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("Theme was not found by id: ThemeId[id=1]");
+        var title = "Java";
+        var theme1 = storage.addTheme(title);
+        assertThat(theme1).isEqualTo(new Theme(new ThemeId(1L), title));
+        var theme2 = storage.getTheme(themeId);
+        assertThat(theme2).isEqualTo(theme1);
+    }
+
+    @Test
+    void saveTheme() {
+        var theme1 = new Theme(new ThemeId(5L), "Java");
+        var theme2 = new Theme(new ThemeId(10L), "Scala");
+        storage.saveTheme(theme1);
+        storage.saveTheme(theme2);
+        assertThat(storage.getTheme(theme1.id())).isEqualTo(theme1);
+        assertThat(storage.getTheme(theme2.id())).isEqualTo(theme2);
+    }
+
     private static Interaction newInteraction(long id, String theme) {
-        return new Interaction(new InteractionId(id), null, theme, null, null);
+        return new Interaction(new InteractionId(id), null, theme, null, null, null);
     }
 }

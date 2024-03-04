@@ -8,11 +8,13 @@ import org.slf4j.LoggerFactory;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
 import static java.util.Map.entry;
@@ -23,10 +25,11 @@ class StorageModelImpl implements StorageModel {
     private static final Logger log = LoggerFactory.getLogger(StorageModelImpl.class);
     private final Map<InteractionId, Interaction> interactions = new LinkedHashMap<>();
     private final List<String> themes = new ArrayList<>();
-    private final InteractionStorageFilesystem storageFilesystem;
+    private final StorageFilesystem storageFilesystem;
+    private Map<ThemeId, Theme> themeCache = new HashMap<>();
 
     @Inject
-    public StorageModelImpl(InteractionStorageFilesystem storageFilesystem) {
+    public StorageModelImpl(StorageFilesystem storageFilesystem) {
         this.storageFilesystem = storageFilesystem;
         storageFilesystem.readAllInteractions().forEach(interaction -> interactions.put(interaction.id(), interaction));
         readThemesFromInteractions();
@@ -49,7 +52,7 @@ class StorageModelImpl implements StorageModel {
         var interactionOpt = readInteraction(interactionId);
         Interaction interaction;
         if (interactionOpt.isEmpty()) {
-            interaction = new Interaction(interactionId, null, null, null, null);
+            interaction = new Interaction(interactionId, null, null, null, null, null);
             if (interactions.containsKey(interactionId)) {
                 throw new IllegalStateException("Interaction already exists: " + interaction);
             }
@@ -93,6 +96,52 @@ class StorageModelImpl implements StorageModel {
     @Override
     public synchronized List<String> getThemes() {
         return themes;
+    }
+
+    @Override
+    public Theme addTheme(String theme) {
+        var trimmed = theme.trim();
+        var existingThemes = storageFilesystem.readThemes();
+        var existingOpt = existingThemes.stream().filter(themeObj -> themeObj.title().equals(trimmed)).findFirst();
+        var newThemeExists = existingOpt.isPresent();
+        if (!newThemeExists) {
+            var themes = new ArrayList<>(existingThemes);
+            var maxId = existingThemes.stream().map(Theme::id).mapToLong(ThemeId::id).max().orElse(0L);
+            var newId = ++maxId;
+            var newTheme = new Theme(new ThemeId(newId), theme);
+            themes.add(newTheme);
+            updateThemeCaches(themes);
+            return newTheme;
+        } else {
+            return existingOpt.get();
+        }
+    }
+
+    private void updateThemeCaches(ArrayList<Theme> themes) {
+        storageFilesystem.saveThemes(themes);
+        themeCache = themes.stream().collect(Collectors.toMap(Theme::id, Function.identity()));
+    }
+
+    @Override
+    public void saveTheme(Theme theme) {
+        var existingThemes = storageFilesystem.readThemes();
+        var existingOpt = existingThemes.stream().filter(themeObj -> themeObj.id().equals(theme.id())).findFirst();
+        var newThemeExists = existingOpt.isPresent();
+        if (!newThemeExists) {
+            var themes = new ArrayList<>(existingThemes);
+            themes.add(theme);
+            storageFilesystem.saveThemes(themes);
+            updateThemeCaches(themes);
+        }
+    }
+
+    @Override
+    public Theme getTheme(ThemeId themeId) {
+        var theme = themeCache.get(themeId);
+        if (theme == null) {
+            throw new IllegalStateException("Theme was not found by id: " + themeId);
+        }
+        return theme;
     }
 
     private List<String> interactionsToThemes(List<Interaction> interactions) {
