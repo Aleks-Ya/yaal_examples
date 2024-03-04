@@ -17,7 +17,10 @@ import java.util.List;
 @Singleton
 class InteractionStorageFilesystem {
     private static final Logger log = LoggerFactory.getLogger(InteractionStorageFilesystem.class);
-    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(InteractionId.class, new InteractionIdSerDe())
+            .setPrettyPrinting()
+            .create();
     private final FileSystem fileSystem;
     private final Path storageDir;
 
