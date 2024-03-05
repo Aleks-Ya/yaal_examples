@@ -17,4 +17,4 @@ Create a Task dependent on another Task.
 
 ## Cleanup
 1. Delete the job
-2. Delte Python files: `databricks fs rm dbfs:/tmp/06-task-dependency/task.py`
+2. Delte DBFS files: `databricks fs rm -r dbfs:/tmp/06-task-dependency`
