@@ -47,7 +47,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
 
     private void sendFirstQuestion() {
         clickOn(theme().comboBox());
-        overWrite(I1.THEME);
+        overWrite(I1.THEME_TITLE);
         clickOn(question().textArea());
         overWrite(I1.QUESTION);
         assertion()
@@ -102,7 +102,7 @@ class ParallelRequestsTest extends BaseGptUiTest {
 
     private void sendSecondQuestion() {
         clickOn(theme().comboBox());
-        overWrite(I2.THEME);
+        overWrite(I2.THEME_TITLE);
         clickOn(question().textArea());
         overWrite(I2.QUESTION);
         assertion()

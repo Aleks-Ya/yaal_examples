@@ -66,6 +66,7 @@ public class ThemeVM {
         var currentModelItems = FXCollections.observableArrayList(stateModel.getThemes());
         var currentComboBoxItems = properties.themeCbItems.getValue();
         if (!Objects.equals(currentModelItems, currentComboBoxItems)) {
+            log.trace("Set themeCbItems: {}", currentModelItems);
             updateCbSilently(() -> properties.themeCbItems.setValue(currentModelItems),
                     properties.themeCbOnAction);
             setLabel();
@@ -96,7 +97,8 @@ public class ThemeVM {
         log.trace("currentComboBoxValue: '{}'", currentComboBoxValue);
         var currentModelValue = stateModel.getCurrentTheme();
         log.trace("currentModelValue: '{}'", currentModelValue);
-        if (!Objects.equals(currentComboBoxValue, currentModelValue)) {
+        var themeTitle = currentModelValue != null ? currentModelValue.title() : null;
+        if (!Objects.equals(currentComboBoxValue, themeTitle)) {
             stateModel.setCurrentTheme(currentComboBoxValue);
             mediator.themeWasChosen();
         }

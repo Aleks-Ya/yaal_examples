@@ -25,6 +25,7 @@ class StorageModelTest {
     @Test
     void updateInteraction() {
         assertThat(storage.readInteraction(I1.INTERACTION.id())).isEmpty();
+        storage.saveTheme(I1.THEME);
         storage.saveInteraction(I1.INTERACTION);
         assertThat(storage.readInteraction(I1.INTERACTION.id())).contains(I1.INTERACTION);
         var newGrammarPrompt = "new GRAMMAR prompt";
@@ -38,6 +39,8 @@ class StorageModelTest {
     @Test
     void saveInteraction() {
         assertThat(storage.readAllInteractions()).isEmpty();
+        storage.saveTheme(I1.THEME);
+        storage.saveTheme(I2.THEME);
         storage.saveInteraction(I1.INTERACTION);
         storage.saveInteraction(I2.INTERACTION);
         assertThat(storage.readAllInteractions()).containsExactlyInAnyOrder(I1.INTERACTION, I2.INTERACTION);
@@ -47,6 +50,7 @@ class StorageModelTest {
     void readInteraction() {
         var interactionId = new InteractionId(1L);
         assertThat(storage.readInteraction(interactionId)).isEmpty();
+        storage.saveTheme(I1.THEME);
         storage.saveInteraction(I1.INTERACTION);
         assertThat(storage.readInteraction(I1.INTERACTION.id())).contains(I1.INTERACTION);
     }
@@ -59,6 +63,9 @@ class StorageModelTest {
     @Test
     void readAllInteractions() {
         assertThat(storage.readAllInteractions()).isEmpty();
+        storage.saveTheme(I1.THEME);
+        storage.saveTheme(I2.THEME);
+        storage.saveTheme(I3.THEME);
         storage.saveInteraction(I1.INTERACTION);
         storage.saveInteraction(I2.INTERACTION);
         storage.saveInteraction(I3.INTERACTION);
@@ -68,6 +75,8 @@ class StorageModelTest {
     @Test
     void deleteInteraction() {
         assertThat(storage.readAllInteractions()).isEmpty();
+        storage.saveTheme(I1.THEME);
+        storage.saveTheme(I2.THEME);
         storage.saveInteraction(I1.INTERACTION);
         storage.saveInteraction(I2.INTERACTION);
         assertThat(storage.readAllInteractions()).containsExactlyInAnyOrder(I1.INTERACTION, I2.INTERACTION);
@@ -78,27 +87,35 @@ class StorageModelTest {
 
     @Test
     void getThemesSeveral() {
-        var theme1 = "AAA";
-        var theme2 = "BBB";
-        var theme4 = "CCC";
+        var themeTitle1 = "AAA";
+        var themeTitle2 = "BBB";
+        var themeTitle4 = "CCC";
+        var theme1 = new Theme(new ThemeId(1L), themeTitle1);
+        var theme2 = new Theme(new ThemeId(2L), themeTitle2);
+        var theme4 = new Theme(new ThemeId(4L), themeTitle4);
         var id1 = 1693929900L;
         var id2 = id1 - 1;
         var id3 = id1 + 1;
         var id4 = id1 + 2;
         var id5 = id1 - 2;
+        storage.saveTheme(theme1);
+        storage.saveTheme(theme2);
+        storage.saveTheme(theme4);
         storage.saveInteraction(newInteraction(id1, theme1));
         storage.saveInteraction(newInteraction(id2, theme2));
         storage.saveInteraction(newInteraction(id3, theme2));
         storage.saveInteraction(newInteraction(id4, theme4));
         storage.saveInteraction(newInteraction(id5, theme2));
-        assertThat(storage.getThemes()).containsExactly(theme2, theme4, theme1);
+        assertThat(storage.getThemes().stream().map(Theme::title)).containsExactly(themeTitle2, themeTitle4, themeTitle1);
     }
 
     @Test
     void getThemesSingle() {
-        var theme = "AAA";
+        var themeTitle = "AAA";
+        var theme = new Theme(new ThemeId(1L), themeTitle);
+        storage.saveTheme(theme);
         storage.saveInteraction(newInteraction(1693929900L, theme));
-        assertThat(storage.getThemes()).containsExactly(theme);
+        assertThat(storage.getThemes().stream().map(Theme::title)).containsExactly(themeTitle);
     }
 
     @Test
@@ -109,9 +126,15 @@ class StorageModelTest {
     @Test
     void getThemesSeveralStart() {
         var storage1 = new StorageModelImpl(new StorageFilesystem(fileSystem));
-        var theme1 = "AAA";
-        var theme2 = "BBB";
-        var theme4 = "CCC";
+        var themeTitle1 = "AAA";
+        var themeTitle2 = "BBB";
+        var themeTitle4 = "CCC";
+        var theme1 = new Theme(new ThemeId(1L), themeTitle1);
+        var theme2 = new Theme(new ThemeId(2L), themeTitle2);
+        var theme4 = new Theme(new ThemeId(4L), themeTitle4);
+        storage1.saveTheme(theme1);
+        storage1.saveTheme(theme2);
+        storage1.saveTheme(theme4);
         var id1 = 1693929900L;
         var id2 = id1 - 1;
         var id3 = id1 + 1;
@@ -124,13 +147,15 @@ class StorageModelTest {
         storage1.saveInteraction(newInteraction(id5, theme2));
 
         var storage2 = new StorageModelImpl(new StorageFilesystem(fileSystem));
-        assertThat(storage2.getThemes()).containsExactly(theme4, theme2, theme1);
+        assertThat(storage2.getThemes().stream().map(Theme::title)).containsExactly(themeTitle4, themeTitle2, themeTitle1);
     }
 
     @Test
     void getThemesSingleStart() {
         var storage1 = new StorageModelImpl(new StorageFilesystem(fileSystem));
-        var theme = "AAA";
+        var themeTitle = "AAA";
+        var theme = new Theme(new ThemeId(1L), themeTitle);
+        storage1.saveTheme(theme);
         storage1.saveInteraction(newInteraction(1693929900L, theme));
 
         var storage2 = new StorageModelImpl(new StorageFilesystem(fileSystem));
@@ -174,7 +199,7 @@ class StorageModelTest {
         assertThat(storage.getTheme(theme2.id())).isEqualTo(theme2);
     }
 
-    private static Interaction newInteraction(long id, String theme) {
-        return new Interaction(new InteractionId(id), null, theme, null, null, null);
+    private static Interaction newInteraction(long id, Theme theme) {
+        return new Interaction(new InteractionId(id), null, theme.title(), theme.id(), null, null);
     }
 }

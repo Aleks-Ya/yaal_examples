@@ -34,7 +34,7 @@ class MultiLineQuestionTest extends BaseGptUiTest {
                 .assertApp();
 
         clickOn(theme().comboBox());
-        overWrite(I1.THEME);
+        overWrite(I1.THEME_TITLE);
         clickOn(question().textArea());
         var questionLine1 = "Question line 1";
         var questionLine2 = "Question line 2";
@@ -48,6 +48,7 @@ class MultiLineQuestionTest extends BaseGptUiTest {
                 .putGcpResponse(I1.GCP_HTML, ZERO);
         clickOn(question().questionButton());
 
+        gptApi.waitUntilSent(4);
         var questionText = questionLine1 + "\n" + questionLine2 + "\n" + questionLine3;
         assertion()
                 .historySize(1, 1)

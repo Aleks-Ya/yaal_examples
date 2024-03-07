@@ -13,7 +13,6 @@ public class StorageUpdater {
         var storage = new StorageFilesystem(FileSystems.getDefault());
         var storageModel = new StorageModelImpl(storage);
         convertInteractions(storageModel);
-        convertThemes(storageModel, storage);
         setThemeIds(storage, storageModel);
     }
 
@@ -31,13 +30,6 @@ public class StorageUpdater {
                 })
                 .forEach(storageModel::saveInteraction);
         System.out.println("Counter: " + counter.get());
-    }
-
-    private static void convertThemes(StorageModelImpl storageModel, StorageFilesystem storage) {
-        var themes = storageModel.getThemes();
-        themes.forEach(storageModel::addTheme);
-        var actThemes = storage.readThemes();
-        System.out.println(actThemes);
     }
 
     private static void setThemeIds(StorageFilesystem storage, StorageModelImpl storageModel) {

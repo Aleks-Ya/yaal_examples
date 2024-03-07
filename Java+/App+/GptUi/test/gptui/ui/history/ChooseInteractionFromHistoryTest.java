@@ -12,6 +12,8 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
 
     @Override
     public void init() {
+        storage.saveTheme(I1.THEME);
+        storage.saveTheme(I2.THEME);
         storage.saveInteraction(I1.INTERACTION);
         storage.saveInteraction(I2.INTERACTION);
     }
@@ -39,7 +41,7 @@ class ChooseInteractionFromHistoryTest extends BaseGptUiTest {
                 .answerSpinnerTemperatures(50, 60, 70, 80)
                 .assertApp();
 
-        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I1.THEME, I1.QUESTION));
+        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I1.THEME_TITLE, I1.QUESTION));
 
         assertion()
                 .historySize(2, 2)

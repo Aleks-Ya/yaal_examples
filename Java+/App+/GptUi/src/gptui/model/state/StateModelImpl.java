@@ -7,6 +7,7 @@ import gptui.model.storage.Interaction;
 import gptui.model.storage.InteractionId;
 import gptui.model.storage.InteractionType;
 import gptui.model.storage.StorageModel;
+import gptui.model.storage.Theme;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ class StateModelImpl implements StateModel {
     @Inject
     private StorageModel storage;
     private InteractionId currentInteractionId;
-    private String currentTheme;
+    private Theme currentTheme;
     private String editedQuestion;
     private Boolean isHistoryFilteringEnabled = false;
     private final Map<AnswerType, Integer> temperatures = new HashMap<>(Map.of(
@@ -56,7 +57,7 @@ class StateModelImpl implements StateModel {
     public synchronized List<Interaction> getFilteredHistory() {
         var historyFilteringEnabled = isHistoryFilteringEnabled();
         return getFullHistory().stream()
-                .filter(interaction -> !historyFilteringEnabled || Objects.equals(getCurrentTheme(), interaction.theme()))
+                .filter(interaction -> !historyFilteringEnabled || Objects.equals(getCurrentTheme().title(), interaction.theme()))
                 .toList();
     }
 
@@ -90,7 +91,7 @@ class StateModelImpl implements StateModel {
         Mdc.run(interactionId, () -> {
             var theme = getCurrentTheme();
             var question = getEditedQuestion();
-            var interaction = new Interaction(interactionId, interactionType, theme, null, question, Map.of(
+            var interaction = new Interaction(interactionId, interactionType, theme.title(), theme.id(), question, Map.of(
                     GRAMMAR, new Answer(GRAMMAR, "", getTemperature(GRAMMAR), "", "", NEW),
                     SHORT, new Answer(SHORT, "", getTemperature(SHORT), "", "", NEW),
                     LONG, new Answer(LONG, "", getTemperature(LONG), "", "", NEW),
@@ -121,7 +122,7 @@ class StateModelImpl implements StateModel {
             } else {
                 var currentTheme = getCurrentTheme();
                 if (currentTheme != null) {
-                    var oldCurrentThemeIndex = getThemes().indexOf(currentTheme);
+                    var oldCurrentThemeIndex = getThemes().indexOf(currentTheme.title());
                     if (getThemes().size() > 1) {
                         String newCurrentTheme;
                         if (oldCurrentThemeIndex == 0) {
@@ -144,7 +145,7 @@ class StateModelImpl implements StateModel {
 
     @Override
     public synchronized List<String> getThemes() {
-        return storage.getThemes();
+        return storage.getThemes().stream().map(Theme::title).toList();
     }
 
     @Override
@@ -153,14 +154,20 @@ class StateModelImpl implements StateModel {
     }
 
     @Override
-    public synchronized String getCurrentTheme() {
+    public synchronized Theme getCurrentTheme() {
         return currentTheme;
     }
 
     @Override
     public synchronized void setCurrentTheme(String currentTheme) {
         log.trace("setCurrentTheme: '{}'", currentTheme);
-        this.currentTheme = currentTheme;
+        if (currentTheme != null) {
+            this.currentTheme = storage.getThemes().stream()
+                    .filter(theme -> theme.title().equals(currentTheme))
+                    .findFirst().orElseGet(() -> storage.addTheme(currentTheme));
+        } else {
+            this.currentTheme = null;
+        }
     }
 
     @Override

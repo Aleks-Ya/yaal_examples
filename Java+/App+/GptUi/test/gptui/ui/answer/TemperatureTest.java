@@ -47,7 +47,7 @@ class TemperatureTest extends BaseGptUiTest {
 
     private void sendQuestionWithDefaultTemperatures() {
         clickOn(theme().comboBox());
-        overWrite(I1.THEME);
+        overWrite(I1.THEME_TITLE);
         clickOn(question().textArea());
         overWrite(I1.QUESTION);
         assertion()
@@ -133,7 +133,7 @@ class TemperatureTest extends BaseGptUiTest {
 
     private void sendQuestionWithOtherTemperatures() {
         clickOn(theme().comboBox());
-        overWrite(I2.THEME);
+        overWrite(I2.THEME_TITLE);
         clickOn(question().textArea());
         overWrite(I2.QUESTION);
         clickOn(grammarAnswer().temperatureIncrementButton());
@@ -244,7 +244,7 @@ class TemperatureTest extends BaseGptUiTest {
                 .answerSpinnerTemperatures(55, 65, 60, 85)
                 .assertApp();
 
-        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I1.THEME, I1.QUESTION));
+        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I1.THEME_TITLE, I1.QUESTION));
         assertion()
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)

@@ -14,19 +14,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
 import static java.util.Map.entry;
+import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toMap;
 
 @Singleton
 class StorageModelImpl implements StorageModel {
     private static final Logger log = LoggerFactory.getLogger(StorageModelImpl.class);
     private final Map<InteractionId, Interaction> interactions = new LinkedHashMap<>();
-    private final List<String> themes = new ArrayList<>();
+    private final List<Theme> themeList = new ArrayList<>();
     private final StorageFilesystem storageFilesystem;
-    private Map<ThemeId, Theme> themeCache = new HashMap<>();
+    private Map<ThemeId, Theme> themeMap = new HashMap<>();
 
     @Inject
     public StorageModelImpl(StorageFilesystem storageFilesystem) {
@@ -36,8 +37,10 @@ class StorageModelImpl implements StorageModel {
     }
 
     private void readThemesFromInteractions() {
-        themes.clear();
-        themes.addAll(interactionsToThemes(readAllInteractions()));
+        themeMap.clear();
+        getThemesSortedByInteractionHistory().stream()
+                .filter(theme -> !themeList.contains(theme))
+                .forEach(themeList::add);
     }
 
     @Override
@@ -66,8 +69,9 @@ class StorageModelImpl implements StorageModel {
     @Override
     public synchronized void saveInteraction(Interaction interaction) {
         interactions.put(interaction.id(), interaction);
-        themes.remove(interaction.theme());
-        themes.addFirst(interaction.theme());
+        var theme = getTheme(interaction.themeId());
+        themeList.remove(theme);
+        themeList.addFirst(theme);
         storageFilesystem.saveInteraction(interaction);
     }
 
@@ -94,8 +98,8 @@ class StorageModelImpl implements StorageModel {
     }
 
     @Override
-    public synchronized List<String> getThemes() {
-        return themes;
+    public List<Theme> getThemes() {
+        return themeList;
     }
 
     @Override
@@ -119,7 +123,7 @@ class StorageModelImpl implements StorageModel {
 
     private void updateThemeCaches(ArrayList<Theme> themes) {
         storageFilesystem.saveThemes(themes);
-        themeCache = themes.stream().collect(Collectors.toMap(Theme::id, Function.identity()));
+        themeMap = themes.stream().collect(toMap(Theme::id, identity()));
     }
 
     @Override
@@ -137,11 +141,18 @@ class StorageModelImpl implements StorageModel {
 
     @Override
     public Theme getTheme(ThemeId themeId) {
-        var theme = themeCache.get(themeId);
+        var theme = themeMap.get(themeId);
         if (theme == null) {
             throw new IllegalStateException("Theme was not found by id: " + themeId);
         }
         return theme;
+    }
+
+    @Override
+    public List<Theme> getThemesSortedByInteractionHistory() {
+        return interactionsToThemes(readAllInteractions()).stream()
+                .map(this::addTheme)
+                .toList();
     }
 
     private List<String> interactionsToThemes(List<Interaction> interactions) {

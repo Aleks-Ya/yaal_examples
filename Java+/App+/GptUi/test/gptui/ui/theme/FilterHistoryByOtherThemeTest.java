@@ -12,6 +12,9 @@ import static javafx.scene.paint.Color.RED;
 class FilterHistoryByOtherThemeTest extends BaseGptUiTest {
     @Override
     public void init() {
+        storage.saveTheme(I1.THEME);
+        storage.saveTheme(I2.THEME);
+        storage.saveTheme(I3.THEME);
         storage.saveInteraction(I1.INTERACTION);
         storage.saveInteraction(I2.INTERACTION);
         storage.saveInteraction(I3.INTERACTION);
@@ -74,7 +77,7 @@ class FilterHistoryByOtherThemeTest extends BaseGptUiTest {
 
     private void chooseAnotherTheme() {
         clickOn(theme().comboBoxNarrow());
-        clickOn(I1.THEME + " (1)");
+        clickOn(I1.THEME_TITLE + " (1)");
         assertion()
                 .historySize(1, 3)
                 .historyDeleteButtonDisabled(false)

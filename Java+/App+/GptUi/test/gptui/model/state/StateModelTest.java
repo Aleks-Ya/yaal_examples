@@ -23,6 +23,6 @@ class StateModelTest extends BaseGptUiTest {
         assertThat(stateModel.getCurrentTheme()).isNull();
         clickOn(theme().comboBox()).type(A, B, C);
         WaitForAsyncUtils.waitForFxEvents();
-        assertThat(stateModel.getCurrentTheme()).isEqualTo("abc");
+        assertThat(stateModel.getCurrentTheme().title()).isEqualTo("abc");
     }
 }

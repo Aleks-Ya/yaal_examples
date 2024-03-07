@@ -22,6 +22,7 @@ class RegenerateQuestionTest extends BaseGptUiTest {
 
     @Override
     public void init() {
+        storage.saveTheme(I1.THEME);
         storage.saveInteraction(interaction1);
     }
 

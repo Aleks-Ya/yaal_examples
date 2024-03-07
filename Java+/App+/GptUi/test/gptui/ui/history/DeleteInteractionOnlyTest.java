@@ -10,6 +10,7 @@ import static javafx.scene.paint.Color.WHITE;
 class DeleteInteractionOnlyTest extends BaseGptUiTest {
     @Override
     public void init() {
+        storage.saveTheme(I1.THEME);
         storage.saveInteraction(I1.INTERACTION);
     }
 
@@ -43,9 +44,9 @@ class DeleteInteractionOnlyTest extends BaseGptUiTest {
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(null)
                 .historyItems()
-                .themeSize(0)
+                .themeSize(1)
                 .themeSelectedItem(null)
-                .themeItems()
+                .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
                 .modelEditedQuestion(I1.QUESTION)

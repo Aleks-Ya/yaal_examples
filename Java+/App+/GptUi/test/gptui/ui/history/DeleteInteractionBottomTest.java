@@ -11,6 +11,8 @@ import static javafx.scene.paint.Color.RED;
 class DeleteInteractionBottomTest extends BaseGptUiTest {
     @Override
     public void init() {
+        storage.saveTheme(I1.THEME);
+        storage.saveTheme(I2.THEME);
         storage.saveInteraction(I1.INTERACTION);
         storage.saveInteraction(I2.INTERACTION);
     }
@@ -38,7 +40,7 @@ class DeleteInteractionBottomTest extends BaseGptUiTest {
                 .answerSpinnerTemperatures(50, 60, 70, 80)
                 .assertApp();
 
-        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I1.THEME, I1.QUESTION));
+        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I1.THEME_TITLE, I1.QUESTION));
         clickOn(history().deleteButton());
 
         assertion()
@@ -46,9 +48,9 @@ class DeleteInteractionBottomTest extends BaseGptUiTest {
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I2.INTERACTION)
                 .historyItems(I2.INTERACTION)
-                .themeSize(1)
+                .themeSize(2)
                 .themeSelectedItem(I2.THEME)
-                .themeItems(I2.THEME)
+                .themeItems(I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I2.QUESTION)
                 .modelEditedQuestion(I2.QUESTION)

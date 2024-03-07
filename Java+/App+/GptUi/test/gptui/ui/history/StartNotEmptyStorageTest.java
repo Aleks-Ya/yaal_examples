@@ -12,6 +12,8 @@ class StartNotEmptyStorageTest extends BaseGptUiTest {
 
     @Override
     public void init() {
+        storage.saveTheme(I1.THEME);
+        storage.saveTheme(I2.THEME);
         storage.saveInteraction(I1.INTERACTION);
         storage.saveInteraction(I2.INTERACTION);
     }

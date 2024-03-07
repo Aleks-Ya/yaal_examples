@@ -4,6 +4,7 @@ import gptui.model.storage.AnswerType;
 import gptui.model.storage.Interaction;
 import gptui.model.storage.InteractionId;
 import gptui.model.storage.InteractionType;
+import gptui.model.storage.Theme;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +32,7 @@ public interface StateModel {
 
     Long getInteractionCountInTheme(String theme);
 
-    String getCurrentTheme();
+    Theme getCurrentTheme();
 
     void setCurrentTheme(String currentTheme);
 

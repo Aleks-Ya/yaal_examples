@@ -21,8 +21,8 @@ class StorageFilesystemTest {
     @Test
     void saveInteraction() {
         assertThat(storageFileSystem.readAllInteractions()).isEmpty();
-        var interaction1 = new Interaction(new InteractionId(1L), QUESTION, "theme1", null,"question1", null);
-        var interaction2 = new Interaction(new InteractionId(2L), QUESTION, "theme2", null,"question2", null);
+        var interaction1 = new Interaction(new InteractionId(1L), QUESTION, "theme1", null, "question1", null);
+        var interaction2 = new Interaction(new InteractionId(2L), QUESTION, "theme2", null, "question2", null);
         storageFileSystem.saveInteraction(interaction1);
         storageFileSystem.saveInteraction(interaction2);
         assertThat(storageFileSystem.readAllInteractions()).containsExactlyInAnyOrder(interaction1, interaction2);
@@ -31,8 +31,8 @@ class StorageFilesystemTest {
     @Test
     void deleteInteraction() {
         assertThat(storageFileSystem.readAllInteractions()).isEmpty();
-        var interaction1 = new Interaction(new InteractionId(1L), QUESTION, "theme1", null,"question1", null);
-        var interaction2 = new Interaction(new InteractionId(2L), QUESTION, "theme2", null,"question2", null);
+        var interaction1 = new Interaction(new InteractionId(1L), QUESTION, "theme1", null, "question1", null);
+        var interaction2 = new Interaction(new InteractionId(2L), QUESTION, "theme2", null, "question2", null);
         storageFileSystem.saveInteraction(interaction1);
         storageFileSystem.saveInteraction(interaction2);
         assertThat(storageFileSystem.readAllInteractions()).containsExactlyInAnyOrder(interaction1, interaction2);
