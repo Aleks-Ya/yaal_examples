@@ -1,13 +1,15 @@
 package gptui.view;
 
+import gptui.model.storage.Theme;
 import gptui.viewmodel.ThemeVM;
 import jakarta.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.TextInputDialog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,17 +18,14 @@ public class ThemeController extends BaseController {
     @FXML
     private Label themeLabel;
     @FXML
-    private ComboBox<String> themeComboBox;
+    private ComboBox<Theme> themeComboBox;
     @FXML
     private CheckBox filterHistoryCheckBox;
+    @FXML
+    private Button addButton;
     @Inject
     private ThemeVM vm;
-
-    @FXML
-    void themeComboBoxKeyReleased(KeyEvent ignoredEvent) {
-        log.trace("themeComboBoxKeyReleased");
-        vm.onThemeComboBoxKeyReleased();
-    }
+    private final TextInputDialog newThemeDialog = new TextInputDialog();
 
     @FXML
     void themeComboBoxAction(ActionEvent ignoredEvent) {
@@ -40,6 +39,12 @@ public class ThemeController extends BaseController {
         vm.onThemeFilterHistoryCheckBoxClicked();
     }
 
+    @FXML
+    void onAddButtonClicked(ActionEvent ignore) {
+        log.trace("onAddButtonClicked");
+        vm.onThemeFilterHistoryCheckBoxClicked();
+    }
+
     @Override
     protected void initialize() {
         vm.properties.themeLabelText.bindBidirectional(themeLabel.textProperty());
@@ -49,5 +54,15 @@ public class ThemeController extends BaseController {
         vm.properties.themeCbOnAction.bindBidirectional(themeComboBox.onActionProperty());
         vm.properties.themeCbCellFactory.bindBidirectional(themeComboBox.cellFactoryProperty());
         vm.properties.filterHistoryCheckBoxSelected.bindBidirectional(filterHistoryCheckBox.selectedProperty());
+
+        newThemeDialog.setTitle("Add new theme");
+        newThemeDialog.setHeaderText("New theme:");
+        addButton.setOnAction(event -> {
+            newThemeDialog.show();
+            newThemeDialog.getEditor().clear();
+            newThemeDialog.getEditor().requestFocus();
+            newThemeDialog.hide();
+            newThemeDialog.showAndWait().ifPresent(theme -> vm.addNewTheme(theme));
+        });
     }
 }

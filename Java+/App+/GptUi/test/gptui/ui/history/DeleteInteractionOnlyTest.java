@@ -1,6 +1,7 @@
 package gptui.ui.history;
 
 import gptui.ui.BaseGptUiTest;
+import gptui.ui.TestingData.I0;
 import gptui.ui.TestingData.I1;
 import org.junit.jupiter.api.Test;
 
@@ -42,19 +43,19 @@ class DeleteInteractionOnlyTest extends BaseGptUiTest {
         assertion()
                 .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
-                .historySelectedItem(null)
+                .historySelectedItem(I0.HISTORY_SELECTED_ITEM)
                 .historyItems()
                 .themeSize(1)
-                .themeSelectedItem(null)
+                .themeSelectedItem(I0.THEME_SELECTED_ITEM)
                 .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
-                .grammarA().text("")
-                .shortA().text("")
-                .longA().text("")
-                .gcpA().text("")
+                .grammarA().text(I0.GRAMMAR_HTML)
+                .shortA().text(I0.SHORT_HTML)
+                .longA().text(I0.LONG_HTML)
+                .gcpA().text(I0.GCP_HTML)
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
                 .answerTextTemperaturesAllEmpty()
                 .answerSpinnerTemperatures(50, 60, 70, 80)

@@ -5,6 +5,7 @@ import gptui.model.storage.Interaction;
 import gptui.model.storage.InteractionId;
 import gptui.model.storage.InteractionType;
 import gptui.model.storage.Theme;
+import gptui.model.storage.ThemeId;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,13 +29,17 @@ public interface StateModel {
 
     void deleteCurrentInteraction();
 
-    List<String> getThemes();
+    List<Theme> getThemes();
+
+    Theme addTheme(String theme);
+
+    Theme getTheme(ThemeId themeId);
 
     Long getInteractionCountInTheme(String theme);
 
     Theme getCurrentTheme();
 
-    void setCurrentTheme(String currentTheme);
+    void setCurrentTheme(Theme currentTheme);
 
     void setFirstThemeAsCurrent();
 

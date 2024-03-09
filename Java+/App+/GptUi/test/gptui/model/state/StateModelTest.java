@@ -17,12 +17,4 @@ class StateModelTest extends BaseGptUiTest {
         WaitForAsyncUtils.waitForFxEvents();
         assertThat(stateModel.getEditedQuestion()).isEqualTo("abc");
     }
-
-    @Test
-    void typeTheme() {
-        assertThat(stateModel.getCurrentTheme()).isNull();
-        clickOn(theme().comboBox()).type(A, B, C);
-        WaitForAsyncUtils.waitForFxEvents();
-        assertThat(stateModel.getCurrentTheme().title()).isEqualTo("abc");
-    }
 }

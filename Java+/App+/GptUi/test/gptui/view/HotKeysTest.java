@@ -133,52 +133,52 @@ class HotKeysTest extends BaseGptUiTest {
 
     @Test
     void selectNextInteractionByCtrlAltUp() {
-        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I1.THEME_TITLE, I1.QUESTION));
-        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I1.INTERACTION);
+        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I1.THEME.title(), I1.QUESTION));
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem().interaction()).isEqualTo(I1.INTERACTION);
 
         press(CONTROL, ALT, UP).release(UP, ALT, CONTROL);
-        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I2.INTERACTION);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem().interaction()).isEqualTo(I2.INTERACTION);
 
         press(CONTROL, ALT, UP).release(UP, ALT, CONTROL);
-        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I3.INTERACTION);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem().interaction()).isEqualTo(I3.INTERACTION);
 
         press(CONTROL, ALT, UP).release(UP, ALT, CONTROL);
-        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I3.INTERACTION);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem().interaction()).isEqualTo(I3.INTERACTION);
     }
 
     @Test
     void selectPreviousInteractionByCtrlAltDown() {
-        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I3.THEME_TITLE, I3.QUESTION));
-        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I3.INTERACTION);
+        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I3.THEME.title(), I3.QUESTION));
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem().interaction()).isEqualTo(I3.INTERACTION);
 
         press(CONTROL, ALT, DOWN).release(DOWN, ALT, CONTROL);
-        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I2.INTERACTION);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem().interaction()).isEqualTo(I2.INTERACTION);
 
         press(CONTROL, ALT, DOWN).release(DOWN, ALT, CONTROL);
-        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I1.INTERACTION);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem().interaction()).isEqualTo(I1.INTERACTION);
 
         press(CONTROL, ALT, DOWN).release(DOWN, ALT, CONTROL);
-        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I1.INTERACTION);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem().interaction()).isEqualTo(I1.INTERACTION);
     }
 
     @Test
     void selectPreviousInteractionByCtrlAltDown_FocusOnWebView() {
-        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I3.THEME_TITLE, I3.QUESTION));
+        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I3.THEME.title(), I3.QUESTION));
         clickOn(longAnswer().webView());
-        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I3.INTERACTION);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem().interaction()).isEqualTo(I3.INTERACTION);
 
         press(CONTROL, ALT, DOWN).release(DOWN, ALT, CONTROL);
-        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I2.INTERACTION);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem().interaction()).isEqualTo(I2.INTERACTION);
     }
 
     @Test
     void selectPreviousInteractionByCtrlAltUp_FocusOnWebView() {
-        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I2.THEME_TITLE, I2.QUESTION));
+        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I2.THEME.title(), I2.QUESTION));
         clickOn(longAnswer().webView());
         scroll(10, VerticalDirection.DOWN);
-        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I2.INTERACTION);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem().interaction()).isEqualTo(I2.INTERACTION);
 
         press(CONTROL, ALT, UP).release(UP, ALT, CONTROL);
-        assertThat(history().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I1.INTERACTION);
+        assertThat(history().comboBox().getSelectionModel().getSelectedItem().interaction()).isEqualTo(I1.INTERACTION);
     }
 }

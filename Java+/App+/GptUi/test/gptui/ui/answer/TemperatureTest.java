@@ -2,18 +2,24 @@ package gptui.ui.answer;
 
 import gptui.ui.BaseGptUiTest;
 import gptui.ui.TestingData;
+import gptui.ui.TestingData.I0;
 import gptui.ui.TestingData.I1;
 import gptui.ui.TestingData.I2;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
+import static java.lang.String.format;
 import static java.time.Duration.ofMillis;
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.WHITE;
 
 class TemperatureTest extends BaseGptUiTest {
+    @Override
+    public void init() {
+        storage.saveTheme(I1.THEME);
+        storage.saveTheme(I2.THEME);
+    }
+
     @Test
     void temperature() {
         initialState();
@@ -26,19 +32,19 @@ class TemperatureTest extends BaseGptUiTest {
         assertion()
                 .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
-                .historySelectedItem(null)
-                .historyItems(List.of())
-                .themeSize(0)
-                .themeSelectedItem(null)
-                .themeItems()
+                .historySelectedItem(I0.HISTORY_SELECTED_ITEM)
+                .historyItems(I0.HISTORY_ITEMS)
+                .themeSize(2)
+                .themeSelectedItem(I0.THEME_SELECTED_ITEM)
+                .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
-                .questionText("")
+                .questionText(I0.QUESTION)
                 .modelEditedQuestion(null)
                 .modelIsEnteringNewQuestion(false)
-                .grammarA().text("")
-                .shortA().text("")
-                .longA().text("")
-                .gcpA().text("")
+                .grammarA().text(I0.GRAMMAR_HTML)
+                .shortA().text(I0.SHORT_HTML)
+                .longA().text(I0.LONG_HTML)
+                .gcpA().text(I0.GCP_HTML)
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
                 .answerTextTemperaturesAllEmpty()
                 .answerSpinnerTemperaturesDefault()
@@ -46,26 +52,25 @@ class TemperatureTest extends BaseGptUiTest {
     }
 
     private void sendQuestionWithDefaultTemperatures() {
-        clickOn(theme().comboBox());
-        overWrite(I1.THEME_TITLE);
+        clickOn(theme().comboBoxNarrow()).clickOn(I1.THEME.title() + " (0)");
         clickOn(question().textArea());
         overWrite(I1.QUESTION);
         assertion()
                 .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
-                .historySelectedItem(null)
-                .historyItems(storage.readAllInteractions())
-                .themeSize(0)
+                .historySelectedItem(I0.HISTORY_SELECTED_ITEM)
+                .historyItems(I0.HISTORY_ITEMS)
+                .themeSize(2)
                 .themeSelectedItem(I1.THEME)
-                .themeItems()
+                .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
-                .grammarA().text("")
-                .shortA().text("")
-                .longA().text("")
-                .gcpA().text("")
+                .grammarA().text(I0.GRAMMAR_HTML)
+                .shortA().text(I0.SHORT_HTML)
+                .longA().text(I0.LONG_HTML)
+                .gcpA().text(I0.GCP_HTML)
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
                 .answerTextTemperaturesAllEmpty()
                 .answerSpinnerTemperaturesDefault()
@@ -83,17 +88,17 @@ class TemperatureTest extends BaseGptUiTest {
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
-                .themeSize(1)
+                .themeSize(2)
                 .themeSelectedItem(I1.THEME)
-                .themeItems(I1.THEME)
+                .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
-                .grammarA().text("")
-                .shortA().text("")
-                .longA().text("")
-                .gcpA().text("")
+                .grammarA().text(I0.GRAMMAR_HTML)
+                .shortA().text(I0.SHORT_HTML)
+                .longA().text(I0.LONG_HTML)
+                .gcpA().text(I0.GCP_HTML)
                 .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
                 .answerTextTemperaturesDefault()
                 .answerSpinnerTemperaturesDefault()
@@ -105,9 +110,9 @@ class TemperatureTest extends BaseGptUiTest {
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
-                .themeSize(1)
+                .themeSize(2)
                 .themeSelectedItem(I1.THEME)
-                .themeItems(I1.THEME)
+                .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
                 .modelEditedQuestion(I1.QUESTION)
@@ -132,8 +137,7 @@ class TemperatureTest extends BaseGptUiTest {
     }
 
     private void sendQuestionWithOtherTemperatures() {
-        clickOn(theme().comboBox());
-        overWrite(I2.THEME_TITLE);
+        clickOn(theme().comboBoxNarrow()).clickOn(I2.THEME.title() + " (0)");
         clickOn(question().textArea());
         overWrite(I2.QUESTION);
         clickOn(grammarAnswer().temperatureIncrementButton());
@@ -146,9 +150,9 @@ class TemperatureTest extends BaseGptUiTest {
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
                 .historyItems(storage.readAllInteractions())
-                .themeSize(1)
+                .themeSize(2)
                 .themeSelectedItem(I2.THEME)
-                .themeItems(I1.THEME)
+                .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I2.QUESTION)
                 .modelEditedQuestion(I2.QUESTION)
@@ -180,10 +184,10 @@ class TemperatureTest extends BaseGptUiTest {
                 .questionText(I2.QUESTION)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(false)
-                .grammarA().text("")
-                .shortA().text("")
-                .longA().text("")
-                .gcpA().text("")
+                .grammarA().text(I0.GRAMMAR_HTML)
+                .shortA().text(I0.SHORT_HTML)
+                .longA().text(I0.LONG_HTML)
+                .gcpA().text(I0.GCP_HTML)
                 .answerCircleColors(BLUE, BLUE, BLUE, BLUE)
                 .answerTextTemperatures(55, 65, 60, 85)
                 .answerSpinnerTemperatures(55, 65, 60, 85)
@@ -244,7 +248,7 @@ class TemperatureTest extends BaseGptUiTest {
                 .answerSpinnerTemperatures(55, 65, 60, 85)
                 .assertApp();
 
-        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I1.THEME_TITLE, I1.QUESTION));
+        clickOn(history().comboBox()).clickOn(format("[Q] %s: %s", I1.THEME.title(), I1.QUESTION));
         assertion()
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)

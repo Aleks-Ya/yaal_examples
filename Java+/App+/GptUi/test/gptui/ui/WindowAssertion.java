@@ -2,6 +2,7 @@ package gptui.ui;
 
 import gptui.model.storage.Interaction;
 import gptui.model.storage.Theme;
+import gptui.viewmodel.InteractionItem;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import org.assertj.core.api.SoftAssertions;
@@ -197,10 +198,11 @@ public class WindowAssertion {
             soft.assertThat(history.deleteButton().isDisabled()).as("History/DeleteButton/Disabled").isEqualTo(historyDeleteButtonDisabled);
             var historySelectedItemId = historySelectedItem != null ? historySelectedItem.id() : null;
             var cbSelectedItem = history.comboBox().getSelectionModel().getSelectedItem();
-            var cbSelectedItemStr = cbSelectedItem != null ? cbSelectedItem.toStringFull() : null;
+            var cbSelectedItemStr = cbSelectedItem != null ? cbSelectedItem.interaction() != null ? cbSelectedItem.interaction().toStringFull() : null : null;
             soft.assertThat(cbSelectedItemStr).as("History/ComboBox/SelectedItem")
                     .isEqualTo(app.storage.readInteraction(historySelectedItemId).map(Interaction::toStringFull).orElse(null));
-            soft.assertThat(history.comboBox().getItems()).as("History/ComboBox/Items").containsExactlyElementsOf(historyItems);
+            soft.assertThat(history.comboBox().getItems().stream().map(InteractionItem::interaction)).as("History/ComboBox/Items")
+                    .containsExactlyElementsOf(historyItems);
             soft.assertThat(app.stateModel.getCurrentInteractionId()).as("Model/CurrentInteractionId").isEqualTo(historySelectedItemId);
             soft.assertThat(app.stateModel.getFilteredHistory()).as("Model/History/Items").containsExactlyElementsOf(historyItems);
         }
@@ -211,9 +213,8 @@ public class WindowAssertion {
             soft.assertThat(theme.comboBox().getItems()).as("Theme/ComboBox/ItemsSize").hasSize(themeSize);
             var themeSelectedItemTitle = themeSelectedItem != null ? themeSelectedItem.title() : null;
             soft.assertThat(theme.comboBox().getSelectionModel().getSelectedItem()).as("Theme/ComboBox/SelectedItem")
-                    .isEqualTo(themeSelectedItemTitle);
-            soft.assertThat(theme.comboBox().getItems()).as("Theme/ComboBox/Items")
-                    .containsExactlyElementsOf(themeItems.stream().map(Theme::title).toList());
+                    .isEqualTo(themeSelectedItem);
+            soft.assertThat(theme.comboBox().getItems()).as("Theme/ComboBox/Items").containsExactlyElementsOf(themeItems);
             soft.assertThat(theme.filterHistoryCheckBox().isSelected()).as("Theme/Label/Text").isEqualTo(filterHistorySelected);
             var themeTitle = app.stateModel.getCurrentTheme() != null ? app.stateModel.getCurrentTheme().title() : null;
             soft.assertThat(themeTitle).as("Theme/Model/CurrentTheme").isEqualTo(themeSelectedItemTitle);

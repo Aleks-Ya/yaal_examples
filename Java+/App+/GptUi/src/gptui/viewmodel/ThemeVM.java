@@ -3,6 +3,7 @@ package gptui.viewmodel;
 import com.google.inject.Singleton;
 import gptui.model.state.StateModel;
 import gptui.model.storage.Interaction;
+import gptui.model.storage.Theme;
 import jakarta.inject.Inject;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
@@ -34,11 +35,6 @@ public class ThemeVM {
     @Inject
     private ViewModelMediator mediator;
 
-    public void onThemeComboBoxKeyReleased() {
-        log.trace("onThemeComboBoxKeyReleased");
-        stateModel.setCurrentTheme(properties.themeCbEditor.getValue());
-    }
-
     public void onThemeComboBoxAction() {
         log.trace("onThemeComboBoxAction");
         chooseThemeFromCb();
@@ -56,10 +52,24 @@ public class ThemeVM {
         }
     }
 
-    void updateComboBoxCurrentValue() {
-        var theme = stateModel.getCurrentInteractionOpt().map(Interaction::theme).orElse(null);
-        stateModel.setCurrentTheme(theme);
-        updateCbSilently(() -> properties.themeCbValue.setValue(theme), properties.themeCbOnAction);
+    public void addNewTheme(String theme) {
+        log.trace("addNewTheme");
+        var newTheme = stateModel.addTheme(theme);
+        stateModel.setCurrentTheme(newTheme);
+        mediator.themeWasChosen();
+    }
+
+    void updateComboBoxSelectedItemFromCurrentInteraction() {
+        var themeTitle = stateModel.getCurrentInteractionOpt()
+                .map(Interaction::themeId)
+                .map(stateModel::getTheme)
+                .orElse(null);
+        stateModel.setCurrentTheme(themeTitle);
+        updateCbSilently(() -> properties.themeCbValue.setValue(themeTitle), properties.themeCbOnAction);
+    }
+
+    void updateComboBoxSelectedItemFromStateModel() {
+        updateCbSilently(() -> properties.themeCbValue.setValue(stateModel.getCurrentTheme()), properties.themeCbOnAction);
     }
 
     void updateComboBoxItems() {
@@ -80,12 +90,12 @@ public class ThemeVM {
     void initialize() {
         properties.themeCbCellFactory.setValue(listView -> new ListCell<>() {
             @Override
-            protected void updateItem(String item, boolean empty) {
+            protected void updateItem(Theme item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) {
                     setText("");
                 } else {
-                    setText(item + " (" + stateModel.getInteractionCountInTheme(item) + ")");
+                    setText(item + " (" + stateModel.getInteractionCountInTheme(item.title()) + ")");
                 }
             }
         });
@@ -97,19 +107,18 @@ public class ThemeVM {
         log.trace("currentComboBoxValue: '{}'", currentComboBoxValue);
         var currentModelValue = stateModel.getCurrentTheme();
         log.trace("currentModelValue: '{}'", currentModelValue);
-        var themeTitle = currentModelValue != null ? currentModelValue.title() : null;
-        if (!Objects.equals(currentComboBoxValue, themeTitle)) {
+        if (!Objects.equals(currentComboBoxValue, currentModelValue)) {
             stateModel.setCurrentTheme(currentComboBoxValue);
             mediator.themeWasChosen();
         }
     }
 
     public static class Properties {
-        public final StringProperty themeCbValue = new SimpleStringProperty();
-        public final ListProperty<String> themeCbItems = new SimpleListProperty<>();
+        public final ObjectProperty<Theme> themeCbValue = new SimpleObjectProperty<>();
+        public final ListProperty<Theme> themeCbItems = new SimpleListProperty<>();
         public final StringProperty themeCbEditor = new SimpleStringProperty();
         public final ObjectProperty<EventHandler<ActionEvent>> themeCbOnAction = new SimpleObjectProperty<>();
-        public final ObjectProperty<Callback<ListView<String>, ListCell<String>>> themeCbCellFactory = new SimpleObjectProperty<>();
+        public final ObjectProperty<Callback<ListView<Theme>, ListCell<Theme>>> themeCbCellFactory = new SimpleObjectProperty<>();
         public final BooleanProperty filterHistoryCheckBoxSelected = new SimpleBooleanProperty();
         public final StringProperty themeLabelText = new SimpleStringProperty();
     }

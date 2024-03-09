@@ -45,7 +45,7 @@ class QuestionModelImpl implements QuestionModel {
     public void requestAnswer(InteractionId interactionId, AnswerType answerType, Runnable callback) {
         log.info("Sending request for {}...", answerType);
         var interaction = storage.readInteraction(interactionId).orElseThrow();
-        var promptOpt = promptFactory.getPrompt(interaction.type(), interaction.theme(), interaction.question(), answerType);
+        var promptOpt = promptFactory.getPrompt(interaction.type(), storage.getTheme(interaction.themeId()).title(), interaction.question(), answerType);
         if (promptOpt.isPresent()) {
             var prompt = promptOpt.get();
             log.trace("Prompt: {}", prompt);

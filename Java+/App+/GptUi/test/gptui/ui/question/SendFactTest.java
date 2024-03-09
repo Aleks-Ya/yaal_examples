@@ -1,6 +1,7 @@
 package gptui.ui.question;
 
 import gptui.ui.BaseGptUiTest;
+import gptui.ui.TestingData.I0;
 import gptui.ui.TestingData.I1;
 import gptui.ui.TestingData.I2;
 import gptui.ui.TestingData.I3;
@@ -63,9 +64,9 @@ class SendFactTest extends BaseGptUiTest {
                 .modelEditedQuestion("Question 4")
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text("<p>Fact answer 4</p>\n")
-                .shortA().text("")
-                .longA().text("")
-                .gcpA().text("")
+                .shortA().text(I0.SHORT_HTML)
+                .longA().text(I0.LONG_HTML)
+                .gcpA().text(I0.GCP_HTML)
                 .answerCircleColors(GREEN, WHITE, WHITE, WHITE)
                 .answerTextTemperatures(50, 60, 70, 80)
                 .answerSpinnerTemperatures(50, 60, 70, 80)

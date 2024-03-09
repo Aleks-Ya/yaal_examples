@@ -4,10 +4,12 @@ import com.google.inject.util.Modules;
 import gptui.RootModule;
 import gptui.model.clipboard.ClipboardModel;
 import gptui.model.question.openai.MockGptApi;
+import gptui.model.search.HistorySearchModel;
 import gptui.model.state.StateModel;
-import gptui.model.storage.Interaction;
 import gptui.model.storage.StorageModel;
+import gptui.model.storage.Theme;
 import gptui.view.GptUiApplication;
+import gptui.viewmodel.InteractionItem;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -35,6 +37,7 @@ public abstract class BaseGptUiTest extends ApplicationTest {
     protected final StateModel stateModel = app.getGuiceContext().getInstance(StateModel.class);
     protected final MockGptApi gptApi = app.getGuiceContext().getInstance(MockGptApi.class);
     protected final StorageModel storage = app.getGuiceContext().getInstance(StorageModel.class);
+    protected final HistorySearchModel search = app.getGuiceContext().getInstance(HistorySearchModel.class);
     protected final ClipboardModel clipboardModel = app.getGuiceContext().getInstance(ClipboardModel.class);
     private final HistoryInfo history = new HistoryInfo();
     private final ThemeInfo theme = new ThemeInfo();
@@ -118,7 +121,7 @@ public abstract class BaseGptUiTest extends ApplicationTest {
             return lookup("#historyLabel").queryAs(Label.class);
         }
 
-        public ComboBox<Interaction> comboBox() {
+        public ComboBox<InteractionItem> comboBox() {
             return lookup("#historyComboBox").queryComboBox();
         }
 
@@ -132,12 +135,16 @@ public abstract class BaseGptUiTest extends ApplicationTest {
             return lookup("#themeLabel").queryAs(Label.class);
         }
 
-        public ComboBox<String> comboBox() {
+        public ComboBox<Theme> comboBox() {
             return lookup("#themeComboBox").queryComboBox();
         }
 
         public Node comboBoxNarrow() {
             return comboBox().lookup(".arrow-button");
+        }
+
+        public Button addThemeButton() {
+            return lookup("#addButton").queryButton();
         }
 
         public CheckBox filterHistoryCheckBox() {

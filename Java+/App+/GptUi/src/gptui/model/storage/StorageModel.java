@@ -24,6 +24,4 @@ public interface StorageModel {
     void saveTheme(Theme theme);
 
     Theme getTheme(ThemeId themeId);
-
-    List<Theme> getThemesSortedByInteractionHistory();
 }

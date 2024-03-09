@@ -58,13 +58,15 @@ class ViewModelMediator {
         log.trace("themeWasChosen");
         if (stateModel.isHistoryFilteringEnabled()) {
             stateModel.chooseFirstInteractionAsCurrent();
-            historyVM.displayCurrentInteraction();
-            questionVM.displayCurrentInteraction();
-            grammarAnswerVM.displayCurrentAnswer();
-            shortAnswerVM.displayCurrentAnswer();
-            longAnswerVM.displayCurrentAnswer();
-            gcpAnswerVM.displayCurrentAnswer();
         }
+        themeVM.updateComboBoxSelectedItemFromStateModel();
+        themeVM.updateComboBoxItems();
+        historyVM.displayCurrentInteraction();
+        questionVM.displayCurrentInteraction();
+        grammarAnswerVM.displayCurrentAnswer();
+        shortAnswerVM.displayCurrentAnswer();
+        longAnswerVM.displayCurrentAnswer();
+        gcpAnswerVM.displayCurrentAnswer();
     }
 
     public void answerUpdated(AnswerType answerType) {
@@ -104,7 +106,7 @@ class ViewModelMediator {
         historyVM.displayCurrentInteraction();
         questionVM.displayCurrentInteraction();
         themeVM.updateComboBoxItems();
-        themeVM.updateComboBoxCurrentValue();
+        themeVM.updateComboBoxSelectedItemFromCurrentInteraction();
         grammarAnswerVM.displayCurrentAnswer();
         shortAnswerVM.displayCurrentAnswer();
         longAnswerVM.displayCurrentAnswer();

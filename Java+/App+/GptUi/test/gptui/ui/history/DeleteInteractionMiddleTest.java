@@ -6,6 +6,7 @@ import gptui.ui.TestingData.I2;
 import gptui.ui.TestingData.I3;
 import org.junit.jupiter.api.Test;
 
+import static java.lang.String.format;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 
@@ -22,6 +23,11 @@ class DeleteInteractionMiddleTest extends BaseGptUiTest {
 
     @Test
     void currentInteractionIsInMiddle() {
+        initialState();
+        deleteInteraction();
+    }
+
+    private void initialState() {
         assertion()
                 .historySize(3, 3)
                 .historyDeleteButtonDisabled(false)
@@ -42,11 +48,11 @@ class DeleteInteractionMiddleTest extends BaseGptUiTest {
                 .answerTextTemperatures(50, 60, 70, 80)
                 .answerSpinnerTemperatures(50, 60, 70, 80)
                 .assertApp();
+    }
 
-        var theme = String.format("[Q] %s: %s", I2.THEME_TITLE, I2.QUESTION);
-        clickOn(history().comboBox()).clickOn(theme);
+    private void deleteInteraction() {
+        clickOn(history().comboBox()).clickOn(format("[Q] %s: %s", I2.THEME.title(), I2.QUESTION));
         clickOn(history().deleteButton());
-
         assertion()
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)

@@ -76,8 +76,7 @@ class FilterHistoryByOtherThemeTest extends BaseGptUiTest {
     }
 
     private void chooseAnotherTheme() {
-        clickOn(theme().comboBoxNarrow());
-        clickOn(I1.THEME_TITLE + " (1)");
+        clickOn(theme().comboBoxNarrow()).clickOn(I1.THEME.title() + " (1)");
         assertion()
                 .historySize(1, 3)
                 .historyDeleteButtonDisabled(false)

@@ -116,7 +116,7 @@ public class HistoryVM {
 
         private Interaction getSelectedItem() {
             log.trace("getSelectedItem");
-            return properties.historyCbSelectionModel.getValue().getSelectedItem();
+            return properties.historyCbSelectionModel.getValue().getSelectedItem().interaction();
         }
 
         private void selectPreviousItem() {
@@ -135,22 +135,28 @@ public class HistoryVM {
             log.trace("modelItems: {}", modelItems.size());
             var comboBoxItems = properties.historyCbItems.getValue();
             log.trace("comboBoxItems: {}", comboBoxItems.size());
-            if (!Objects.equals(modelItems, comboBoxItems)) {
+            var comboBoxItemInteractions = comboBoxItems.stream().map(InteractionItem::interaction).toList();
+            if (!Objects.equals(modelItems, comboBoxItemInteractions)) {
                 log.debug("Set items: {}", modelItems.size());
-                updateCbSilently(() -> properties.historyCbItems.setValue(observableArrayList(modelItems)),
+                var interactionItems = modelItems.stream()
+                        .map(interaction -> new InteractionItem(stateModel.getTheme(interaction.themeId()), interaction))
+                        .toList();
+                updateCbSilently(() -> properties.historyCbItems.setValue(observableArrayList(interactionItems)),
                         properties.historyCbOnAction);
             }
         }
 
         private void selectCurrentInteraction() {
             log.trace("selectCurrentInteraction");
-            var modelCurrentInteractionOpt = stateModel.getCurrentInteractionOpt();
+            var modelCurrentInteractionIdOpt = stateModel.getCurrentInteractionOpt();
             var comboBoxCurrentInteraction = properties.historyCbSelectionModel.getValue().getSelectedItem();
-            if (!Objects.equals(modelCurrentInteractionOpt.orElse(null), comboBoxCurrentInteraction)) {
-                if (modelCurrentInteractionOpt.isPresent()) {
-                    var modelCurrentValue = modelCurrentInteractionOpt.get();
+            var cmCurrentInteraction = comboBoxCurrentInteraction != null ? comboBoxCurrentInteraction.interaction() : null;
+            if (!Objects.equals(modelCurrentInteractionIdOpt.orElse(null), cmCurrentInteraction)) {
+                if (modelCurrentInteractionIdOpt.isPresent()) {
+                    var modelCurrentValue = modelCurrentInteractionIdOpt.get();
                     log.debug("Select interaction: '{}'", modelCurrentValue);
-                    updateCbSilently(() -> properties.historyCbSelectionModel.getValue().select(modelCurrentValue),
+                    var interactionItem = new InteractionItem(stateModel.getCurrentTheme(), modelCurrentValue);
+                    updateCbSilently(() -> properties.historyCbSelectionModel.getValue().select(interactionItem),
                             properties.historyCbOnAction);
                 } else {
                     log.debug("Clear selection");
@@ -158,16 +164,16 @@ public class HistoryVM {
                             properties.historyCbOnAction);
                 }
             } else {
-                log.debug("Selection is unchanged: '{}'", modelCurrentInteractionOpt);
+                log.debug("Selection is unchanged: '{}'", modelCurrentInteractionIdOpt);
             }
         }
     }
 
     public static class Properties {
         public final StringProperty historyLabelText = new SimpleStringProperty();
-        public final ObjectProperty<SingleSelectionModel<Interaction>> historyCbSelectionModel = new SimpleObjectProperty<>();
+        public final ObjectProperty<SingleSelectionModel<InteractionItem>> historyCbSelectionModel = new SimpleObjectProperty<>();
         public final BooleanProperty historyDeleteButtonDisable = new SimpleBooleanProperty();
-        public final ObjectProperty<ObservableList<Interaction>> historyCbItems = new SimpleObjectProperty<>();
+        public final ObjectProperty<ObservableList<InteractionItem>> historyCbItems = new SimpleObjectProperty<>();
         public final ObjectProperty<EventHandler<ActionEvent>> historyCbOnAction = new SimpleObjectProperty<>();
     }
 }

@@ -7,6 +7,7 @@ import gptui.model.file.FileModelModule;
 import gptui.model.question.gcp.GcpModule;
 import gptui.model.question.openai.OpenAiModule;
 import gptui.model.question.question.QuestionModule;
+import gptui.model.search.SearchModule;
 import gptui.model.state.StateModelModule;
 import gptui.model.storage.StorageModule;
 
@@ -21,5 +22,6 @@ public class ModelModule extends AbstractModule {
         install(new StorageModule());
         install(new StateModelModule());
         install(new ClipboardModelModule());
+        install(new SearchModule());
     }
 }

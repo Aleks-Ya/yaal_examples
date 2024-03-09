@@ -6,6 +6,7 @@ import gptui.ui.TestingData.I2;
 import gptui.ui.TestingData.I3;
 import org.junit.jupiter.api.Test;
 
+import static java.lang.String.format;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 
@@ -43,7 +44,7 @@ class DeleteInteractionMiddleThemeFilteredTest extends BaseGptUiTest {
                 .answerSpinnerTemperatures(50, 60, 70, 80)
                 .assertApp();
 
-        clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I2.THEME_TITLE, I2.QUESTION));
+        clickOn(history().comboBox()).clickOn(format("[Q] %s: %s", I2.THEME.title(), I2.QUESTION));
         clickOn(theme().filterHistoryCheckBox());
 
         assertion()

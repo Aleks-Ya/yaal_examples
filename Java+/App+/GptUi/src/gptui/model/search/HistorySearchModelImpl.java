@@ -2,6 +2,9 @@ package gptui.model.search;
 
 import gptui.model.storage.Interaction;
 import gptui.model.storage.InteractionId;
+import gptui.model.storage.StorageModel;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.LongField;
@@ -22,7 +25,8 @@ import java.util.List;
 import static org.apache.lucene.document.Field.Store.YES;
 import static org.apache.lucene.search.BooleanClause.Occur.SHOULD;
 
-public class HistorySearchModelImpl implements HistorySearchModel {
+@Singleton
+class HistorySearchModelImpl implements HistorySearchModel {
     private static final String INTERACTION_ID_FIELD = "interactionId";
     private static final String THEME_FIELD = "theme";
     private static final String QUESTION_FIELD = "question";
@@ -30,6 +34,8 @@ public class HistorySearchModelImpl implements HistorySearchModel {
     private final IndexWriter writer;
     private boolean indexUpdated = true;
     private IndexSearcher searcher;
+    @Inject
+    private StorageModel storageModel;
 
     public HistorySearchModelImpl() {
         try {
@@ -42,10 +48,10 @@ public class HistorySearchModelImpl implements HistorySearchModel {
         }
     }
 
-    private static Document interactionToDocument(Interaction interaction) {
+    private Document interactionToDocument(Interaction interaction) {
         var doc = new Document();
         doc.add(new LongField(INTERACTION_ID_FIELD, interaction.id().id(), YES));
-        doc.add(new TextField(THEME_FIELD, interaction.theme(), YES));
+        doc.add(new TextField(THEME_FIELD, storageModel.getTheme(interaction.themeId()).title(), YES));
         doc.add(new TextField(QUESTION_FIELD, interaction.question(), YES));
         return doc;
     }

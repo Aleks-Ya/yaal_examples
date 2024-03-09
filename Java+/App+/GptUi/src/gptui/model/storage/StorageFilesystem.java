@@ -91,7 +91,9 @@ class StorageFilesystem {
             var json = Files.readString(themesFile);
             var type = new TypeToken<List<Theme>>() {
             }.getType();
-            return gson.fromJson(json, type);
+            List<Theme> themes = gson.fromJson(json, type);
+            log.trace("Themes were read from file ({} total): {}", themes.size(), themes);
+            return themes;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -101,7 +103,7 @@ class StorageFilesystem {
         try {
             var json = gson.toJson(themes);
             Files.writeString(themesFile, json);
-            log.info("Themes was saved to file: count={}, file={}", themes.size(), themesFile);
+            log.info("Themes were saved to file ({} total): {}", themes.size(), themes);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

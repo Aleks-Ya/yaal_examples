@@ -1,7 +1,7 @@
 package gptui.view;
 
-import gptui.model.storage.Interaction;
 import gptui.viewmodel.HistoryVM;
+import gptui.viewmodel.InteractionItem;
 import jakarta.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +16,7 @@ public class HistoryController extends BaseController {
     @FXML
     private Label historyLabel;
     @FXML
-    private ComboBox<Interaction> historyComboBox;
+    private ComboBox<InteractionItem> historyComboBox;
     @FXML
     private Button historyDeleteButton;
     @Inject

@@ -13,10 +13,9 @@ public class StorageUpdater {
         var storage = new StorageFilesystem(FileSystems.getDefault());
         var storageModel = new StorageModelImpl(storage);
         convertInteractions(storageModel);
-        setThemeIds(storage, storageModel);
     }
 
-    private static void convertInteractions(StorageModelImpl storageModel) {
+    private static void convertInteractions(StorageModel storageModel) {
         var counter = new AtomicInteger();
         var temperature = 70;
         storageModel.readAllInteractions().stream()
@@ -30,20 +29,5 @@ public class StorageUpdater {
                 })
                 .forEach(storageModel::saveInteraction);
         System.out.println("Counter: " + counter.get());
-    }
-
-    private static void setThemeIds(StorageFilesystem storage, StorageModelImpl storageModel) {
-        var themes = storage.readThemes();
-        var allInteractions = storageModel.readAllInteractions();
-        allInteractions.forEach(interaction -> {
-            var themeTitle = interaction.theme().trim();
-            var themeOpt = themes.stream().filter(themeObj -> themeObj.title().equals(themeTitle)).findFirst();
-            if (themeOpt.isPresent()) {
-                var updated = interaction.withThemeId(themeOpt.get().id());
-                storage.saveInteraction(updated);
-            } else {
-                System.out.println("Theme not found: '" + themeTitle + "'");
-            }
-        });
     }
 }

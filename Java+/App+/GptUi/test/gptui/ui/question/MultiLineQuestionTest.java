@@ -1,6 +1,7 @@
 package gptui.ui.question;
 
 import gptui.ui.BaseGptUiTest;
+import gptui.ui.TestingData.I0;
 import gptui.ui.TestingData.I1;
 import org.junit.jupiter.api.Test;
 
@@ -10,31 +11,42 @@ import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.WHITE;
 
 class MultiLineQuestionTest extends BaseGptUiTest {
+    @Override
+    public void init() {
+        storage.saveTheme(I1.THEME);
+    }
+
     @Test
     void currentInteractionIsInMiddle() {
+        initialState();
+        sendQuestion();
+    }
+
+    private void initialState() {
         assertion()
                 .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
-                .historySelectedItem(null)
+                .historySelectedItem(I0.HISTORY_SELECTED_ITEM)
                 .historyItems()
-                .themeSize(0)
-                .themeSelectedItem(null)
-                .themeItems()
+                .themeSize(1)
+                .themeSelectedItem(I0.THEME_SELECTED_ITEM)
+                .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
-                .questionText("")
+                .questionText(I0.QUESTION)
                 .modelEditedQuestion(null)
                 .modelIsEnteringNewQuestion(false)
-                .grammarA().text("")
-                .shortA().text("")
-                .longA().text("")
-                .gcpA().text("")
+                .grammarA().text(I0.GRAMMAR_HTML)
+                .shortA().text(I0.SHORT_HTML)
+                .longA().text(I0.LONG_HTML)
+                .gcpA().text(I0.GCP_HTML)
                 .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
                 .answerTextTemperaturesAllEmpty()
                 .answerSpinnerTemperaturesDefault()
                 .assertApp();
+    }
 
-        clickOn(theme().comboBox());
-        overWrite(I1.THEME_TITLE);
+    private void sendQuestion() {
+        clickOn(theme().comboBoxNarrow()).clickOn(I1.THEME.title() + " (0)");
         clickOn(question().textArea());
         var questionLine1 = "Question line 1";
         var questionLine2 = "Question line 2";

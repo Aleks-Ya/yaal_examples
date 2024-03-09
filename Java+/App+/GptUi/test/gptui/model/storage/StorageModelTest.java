@@ -200,6 +200,6 @@ class StorageModelTest {
     }
 
     private static Interaction newInteraction(long id, Theme theme) {
-        return new Interaction(new InteractionId(id), null, theme.title(), theme.id(), null, null);
+        return new Interaction(new InteractionId(id), null, theme.id(), null, null);
     }
 }
