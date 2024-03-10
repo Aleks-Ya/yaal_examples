@@ -59,7 +59,7 @@ class StateModelImpl implements StateModel {
         var historyFilteringEnabled = isHistoryFilteringEnabled();
         return getFullHistory().stream()
                 .filter(interaction -> !historyFilteringEnabled ||
-                        Objects.equals(getCurrentTheme().title(), storage.getTheme(interaction.themeId()).title()))
+                        Objects.equals(getCurrentTheme(), storage.getTheme(interaction.themeId())))
                 .toList();
     }
 

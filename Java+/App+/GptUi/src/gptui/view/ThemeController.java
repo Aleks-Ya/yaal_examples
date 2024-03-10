@@ -7,18 +7,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
+import org.controlsfx.control.SearchableComboBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 public class ThemeController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(ThemeController.class);
     @FXML
     private Label themeLabel;
     @FXML
-    private ComboBox<Theme> themeComboBox;
+    private SearchableComboBox<Theme> themeComboBox;
     @FXML
     private CheckBox filterHistoryCheckBox;
     @FXML
