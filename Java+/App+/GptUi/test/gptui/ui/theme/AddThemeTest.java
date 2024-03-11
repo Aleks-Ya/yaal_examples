@@ -15,6 +15,7 @@ class AddThemeTest extends BaseGptUiTest {
         initialState();
         addTheme1();
         addTheme2();
+        addDuplicatingTheme();
     }
 
     private void initialState() {
@@ -65,6 +66,30 @@ class AddThemeTest extends BaseGptUiTest {
     }
 
     private void addTheme2() {
+        clickOn(theme().addThemeButton()).write(I2.THEME.title()).type(KeyCode.ENTER);
+        assertion()
+                .historySize(0, 0)
+                .historyDeleteButtonDisabled(true)
+                .historySelectedItem(I0.HISTORY_SELECTED_ITEM)
+                .historyItems(I0.HISTORY_ITEMS)
+                .themeSize(2)
+                .themeSelectedItem(I2.THEME)
+                .themeItems(I1.THEME, I2.THEME)
+                .themeFilterHistorySelected(false)
+                .questionText(I0.QUESTION)
+                .modelEditedQuestion(null)
+                .modelIsEnteringNewQuestion(false)
+                .grammarA().text(I0.GRAMMAR_HTML)
+                .shortA().text(I0.SHORT_HTML)
+                .longA().text(I0.LONG_HTML)
+                .gcpA().text(I0.GCP_HTML)
+                .answerCircleColors(WHITE, WHITE, WHITE, WHITE)
+                .answerTextTemperaturesAllEmpty()
+                .answerSpinnerTemperaturesDefault()
+                .assertApp();
+    }
+
+    private void addDuplicatingTheme() {
         clickOn(theme().addThemeButton()).write(I2.THEME.title()).type(KeyCode.ENTER);
         assertion()
                 .historySize(0, 0)

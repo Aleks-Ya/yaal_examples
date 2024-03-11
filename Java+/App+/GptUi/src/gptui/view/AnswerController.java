@@ -59,12 +59,17 @@ public class AnswerController extends BaseController {
         });
         webView.getEngine().documentProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                this.vm.properties.webViewContent
-                        .set((String) webView.getEngine().executeScript("document.documentElement.outerHTML"));
+                var currentContent = this.vm.properties.webViewContent.getValue();
+                var newContent = (String) webView.getEngine().executeScript("document.documentElement.outerHTML");
+                if (!newContent.equals(currentContent)) {
+                    log.trace("Set value to webViewContent from WebView Engine: {}", newContent);
+                    this.vm.properties.webViewContent.set(newContent);
+                }
             }
         });
         this.vm.properties.webViewContent.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
+                log.trace("Load content to WebView Engine: {}", newValue);
                 webView.getEngine().loadContent(newValue);
             }
         });

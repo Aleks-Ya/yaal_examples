@@ -72,6 +72,7 @@ public class AnswerVM {
             stateModel.getCurrentInteractionOpt()
                     .map(interaction -> interaction.getAnswer(answerType))
                     .ifPresentOrElse(answerOpt -> {
+                        log.trace("Display answer: {}", answerOpt);
                         var html = answerOpt.isPresent() ? answerOpt.get().answerHtml() : "";
                         var state = answerOpt.isPresent() ? answerOpt.get().answerState() : NEW;
                         if (!currentWebViewContent.equals(html)) {
@@ -83,6 +84,8 @@ public class AnswerVM {
                         properties.temperatureText.setValue(temperature);
                         properties.temperatureSpinner.setValue(stateModel.getTemperature(answerType));
                     }, () -> {
+                        log.trace("Display empty answer");
+                        currentWebViewContent = "";
                         properties.webViewContent.set("");
                         properties.statusCircleFill.setValue(WHITE);
                         properties.temperatureText.setValue("");

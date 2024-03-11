@@ -4,12 +4,11 @@
 
 1. Add `Delete` button for the Themes
 2. Add `Rename` button for the Themes
-3. Add auto-completion for the Theme combo box
-4. Add a filter (search) field for History
-5. Display current InteractionId in the main window
-6. Add "Copy" button for Question
-7. Expand Question and Answer view to full screen
-8. Replace Gemini Pro with Gemini Ultra.
+3. Add a filter (search) field for History
+4. Add "Copy" button for Question
+5. Expand Question and Answer view to full screen
+6. Replace Gemini Pro with Gemini Ultra.
+7. Add new Theme dialog: disable OK button if theme title is empty
 
 ## Install on Ubuntu
 

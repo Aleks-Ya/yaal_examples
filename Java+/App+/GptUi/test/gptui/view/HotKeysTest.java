@@ -167,7 +167,7 @@ class HotKeysTest extends BaseGptUiTest {
         clickOn(longAnswer().webView());
         assertThat(history().comboBox().getSelectionModel().getSelectedItem().interaction()).isEqualTo(I3.INTERACTION);
 
-        press(CONTROL, ALT, DOWN).release(DOWN, ALT, CONTROL);
+        press(CONTROL, ALT, DOWN).release(CONTROL, ALT, DOWN);
         assertThat(history().comboBox().getSelectionModel().getSelectedItem().interaction()).isEqualTo(I2.INTERACTION);
     }
 

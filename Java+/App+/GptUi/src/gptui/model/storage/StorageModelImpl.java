@@ -122,6 +122,7 @@ class StorageModelImpl implements StorageModel {
             log.trace("Theme was added: {}", newTheme);
             return newTheme;
         } else {
+            log.trace("Skip adding existing Theme: {}", existingOpt.get());
             return existingOpt.get();
         }
     }
