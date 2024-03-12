@@ -86,7 +86,8 @@ def _remove(changes, col) -> bool:
         'Answer',
         'Example-my',
         'Transcription',
-        'Documentation'
+        'Documentation',
+        'Question'
     ]
     updated_count: int = 0
     for field_name in field_names:
@@ -134,6 +135,6 @@ def _ui_action():
     op.run_in_background()
 
 
-action = QAction('Clean generated fields', mw)
+action = QAction('Clean fields', mw)
 qconnect(action.triggered, _ui_action)
 mw.form.menuTools.addAction(action)

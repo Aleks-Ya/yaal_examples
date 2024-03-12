@@ -8,11 +8,11 @@ Version: `mvn -v`
 Print the dependency tree to a file: `mvn dependency:tree -DoutputFile=target/tree.txt`
 Download an artifact from the remote repo to the local repo:
 ```
-mvn org.apache.maven.plugins:maven-dependency-plugin:3.1.2:get -Dartifact=org.apache.orc:orc-tools:1.6.2
+mvn org.apache.maven.plugins:maven-dependency-plugin:3.6.1:get -Dartifact=org.apache.orc:orc-tools:1.6.2
 ```
 Download an artifact from the remote repo to local and copy it to a directory (path to target dir is created if absent):
 ```
-mvn org.apache.maven.plugins:maven-dependency-plugin:3.1.2:copy -Dartifact=org.apache.orc:orc-tools:1.6.2 -DoutputDirectory=/tmp/artifacts
+mvn org.apache.maven.plugins:maven-dependency-plugin:3.6.1:copy -Dartifact=org.apache.orc:orc-tools:1.6.2 -DoutputDirectory=/tmp/artifacts
 ```
 Install jar to local repo:
 ```
