@@ -12,4 +12,4 @@ Set logging level for Driver.
         --deploy-mode client \
         target/scala-2.12/spark3corestandalone_2.12-1.jar
     ```
-5. Application in the Spark UI: http://spark-standalone-cluster-master:8080
+3. Application in the Spark UI: http://spark-standalone-cluster-master:8080
