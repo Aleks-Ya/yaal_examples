@@ -65,5 +65,6 @@ public class ThemeController extends BaseController {
             newThemeDialog.hide();
             newThemeDialog.showAndWait().ifPresent(theme -> vm.addNewTheme(theme));
         });
+        themeLabel.setLabelFor(themeComboBox);
     }
 }

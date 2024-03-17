@@ -9,8 +9,7 @@
 5. Expand Question and Answer view to full screen
 6. Replace Gemini Pro with Gemini Ultra.
 7. Add new Theme dialog: disable OK button if theme title is empty
-8. Add a hotkey for opening the Theme combo box
-9. Move focus to the Question text area after choosing a theme
+8. Move focus to the Question text area after choosing a theme
 
 ## Install on Ubuntu
 

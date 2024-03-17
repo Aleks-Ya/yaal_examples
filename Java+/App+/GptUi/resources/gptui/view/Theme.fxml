@@ -8,7 +8,7 @@
 <?import org.controlsfx.control.SearchableComboBox?>
 <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="gptui.view.ThemeController">
-    <Label fx:id="themeLabel" text="Theme (12):"/>
+    <Label fx:id="themeLabel" text="_Theme (12):" mnemonicParsing="true"/>
     <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>
     <SearchableComboBox fx:id="themeComboBox" onAction="#themeComboBoxAction"/>
     <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>

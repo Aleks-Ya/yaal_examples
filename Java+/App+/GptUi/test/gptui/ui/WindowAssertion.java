@@ -209,7 +209,7 @@ public class WindowAssertion {
 
         {
             var theme = app.theme();
-            soft.assertThat(theme.label().getText()).as("Theme/Label/Text").isEqualTo("Theme (" + themeItems.size() + "):");
+            soft.assertThat(theme.label().getText()).as("Theme/Label/Text").isEqualTo("_Theme (" + themeItems.size() + "):");
             soft.assertThat(theme.comboBox().getItems()).as("Theme/ComboBox/ItemsSize").hasSize(themeSize);
             var themeSelectedItemTitle = themeSelectedItem != null ? themeSelectedItem.title() : null;
             soft.assertThat(theme.comboBox().getSelectionModel().getSelectedItem()).as("Theme/ComboBox/SelectedItem")

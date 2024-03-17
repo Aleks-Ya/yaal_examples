@@ -84,7 +84,7 @@ public class ThemeVM {
     }
 
     void setLabel() {
-        properties.themeLabelText.setValue(String.format("Theme (%d):", stateModel.getThemes().size()));
+        properties.themeLabelText.setValue(String.format("_Theme (%d):", stateModel.getThemes().size()));
     }
 
     void initialize() {

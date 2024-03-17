@@ -21,12 +21,17 @@ import static javafx.scene.input.KeyCode.DIGIT2;
 import static javafx.scene.input.KeyCode.DIGIT3;
 import static javafx.scene.input.KeyCode.DIGIT4;
 import static javafx.scene.input.KeyCode.DOWN;
+import static javafx.scene.input.KeyCode.E;
 import static javafx.scene.input.KeyCode.ENTER;
 import static javafx.scene.input.KeyCode.ESCAPE;
 import static javafx.scene.input.KeyCode.F;
 import static javafx.scene.input.KeyCode.G;
+import static javafx.scene.input.KeyCode.H;
+import static javafx.scene.input.KeyCode.M;
 import static javafx.scene.input.KeyCode.Q;
 import static javafx.scene.input.KeyCode.R;
+import static javafx.scene.input.KeyCode.SPACE;
+import static javafx.scene.input.KeyCode.T;
 import static javafx.scene.input.KeyCode.UP;
 import static javafx.scene.input.KeyCode.V;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -180,5 +185,15 @@ class HotKeysTest extends BaseGptUiTest {
 
         press(CONTROL, ALT, UP).release(UP, ALT, CONTROL);
         assertThat(history().comboBox().getSelectionModel().getSelectedItem().interaction()).isEqualTo(I1.INTERACTION);
+    }
+
+    @Test
+    void altTFocusOnThemeComboBox() {
+        assertThat(theme().comboBox().isFocused()).isFalse();
+        assertThat(theme().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I3.THEME);
+        press(ALT, T).release(ALT, T);
+        assertThat(theme().comboBox().isFocused()).isTrue();
+        type(T, H, E, M, E, SPACE, DIGIT2, ENTER);
+        assertThat(theme().comboBox().getSelectionModel().getSelectedItem()).isEqualTo(I2.THEME);
     }
 }

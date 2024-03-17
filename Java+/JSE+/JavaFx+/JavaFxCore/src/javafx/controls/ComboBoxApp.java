@@ -4,18 +4,23 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import static javafx.geometry.Pos.CENTER_LEFT;
 
 public class ComboBoxApp extends Application {
     @Override
     public void start(Stage stage) {
-        var comboBox1 = readOnlyComboBox();
-        var comboBox2 = editableComboBox();
-        var comboBox3 = addNewValueComboBox();
-        var comboBox4 = buttonInComboBox();
-        var scene = new Scene(new VBox(comboBox1, comboBox2, comboBox3, comboBox4), 640, 480);
+        var cb1 = readOnlyComboBox();
+        var cb2 = editableComboBox();
+        var cb3 = addNewValueComboBox();
+        var cb4 = buttonInComboBox();
+        var cb5 = labelForComboBox();
+        var scene = new Scene(new VBox(cb1, cb2, cb3, cb4, cb5), 640, 480);
         stage.setScene(scene);
         stage.show();
     }
@@ -78,6 +83,17 @@ public class ComboBoxApp extends Application {
         });
 
         return comboBox;
+    }
+
+    private static HBox labelForComboBox() {
+        var comboBox = new ComboBox<>();
+        comboBox.getItems().addAll("Water", "Air", "Earth", "Fire");
+        var label = new Label("Choose _element:");
+        label.setLabelFor(comboBox);
+        label.setMnemonicParsing(true);
+        var hBox = new HBox(label, comboBox);
+        hBox.setAlignment(CENTER_LEFT);
+        return hBox;
     }
 
     public static void main(String[] args) {
