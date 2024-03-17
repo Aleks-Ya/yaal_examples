@@ -1,5 +1,5 @@
 //OXM = Object-XML Mapping
 dependencies {
     implementation "org.springframework:spring-oxm:$spring5Version"
-    implementation 'com.thoughtworks.xstream:xstream:1.4.12'
+    implementation xStreamDep
 }

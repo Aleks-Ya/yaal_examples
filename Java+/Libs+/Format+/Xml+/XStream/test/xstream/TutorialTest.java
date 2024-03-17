@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static util.ResourceUtil.resourceToString;
 
 /**
- * Source: https://x-stream.github.io/tutorial.html
+ * <a href="https://x-stream.github.io/tutorial.html">Source</a>
  */
 class TutorialTest {
     private XStream xstream;

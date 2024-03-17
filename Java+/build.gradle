@@ -118,6 +118,7 @@ subprojects {
         aws2Version = '2.22.0'
         googleTestingCompileDep = 'com.google.testing.compile:compile-testing:0.21.0'
         controlsFxDep = 'org.controlsfx:controlsfx:11.2.0'
+        xStreamDep = 'com.thoughtworks.xstream:xstream:1.4.20'
     }
     tasks.withType(JavaCompile).tap {
         configureEach {

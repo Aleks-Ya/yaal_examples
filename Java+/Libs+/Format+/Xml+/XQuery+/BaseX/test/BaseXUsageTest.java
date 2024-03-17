@@ -1,5 +1,5 @@
 /**
- * Забил пока.
+ * TBD
  */
 class BaseXUsageTest {
 }

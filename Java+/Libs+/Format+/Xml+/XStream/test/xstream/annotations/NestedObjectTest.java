@@ -31,13 +31,13 @@ class NestedObjectTest {
 
     @Test
     void serialize() {
-        String actXml = xstream.toXML(person);
+        var actXml = xstream.toXML(person);
         assertThat(actXml).isEqualTo(xml);
     }
 
     @Test
     void deserialize() {
-        Person actPerson = (Person) xstream.fromXML(xml);
+        var actPerson = (Person) xstream.fromXML(xml);
         assertThat(actPerson).isEqualTo(person);
     }
 
@@ -92,7 +92,7 @@ class NestedObjectTest {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            Person person = (Person) o;
+            var person = (Person) o;
             return Objects.equals(firstName, person.firstName) &&
                     Objects.equals(lastName, person.lastName) &&
                     Objects.equals(phone, person.phone) &&
@@ -135,7 +135,7 @@ class NestedObjectTest {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            PhoneNumber that = (PhoneNumber) o;
+            var that = (PhoneNumber) o;
             return code == that.code &&
                     Objects.equals(number, that.number);
         }

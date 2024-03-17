@@ -16,7 +16,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @SuppressWarnings("unused")
 @ExtendWith(SpringExtension.class)
@@ -27,12 +26,12 @@ class MarshallerTest {
 
     @Test
     void marshall() throws IOException {
-        Person person = new Person("John", 30);
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        var person = new Person("John", 30);
+        var os = new ByteArrayOutputStream();
         Result result = new StreamResult(os);
         marshaller.marshal(person, result);
-        String act = new String(os.toByteArray());
-        String exp = "<oxm.Person><name>John</name><age>30</age></oxm.Person>";
+        var act = os.toString();
+        var exp = "<oxm.Person><name>John</name><age>30</age></oxm.Person>";
         assertThat(act).isEqualTo(exp);
     }
 

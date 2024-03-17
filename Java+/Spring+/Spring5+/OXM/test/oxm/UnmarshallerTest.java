@@ -10,13 +10,11 @@ import org.springframework.oxm.xstream.XStreamMarshaller;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SuppressWarnings("unused")
@@ -28,12 +26,12 @@ class UnmarshallerTest {
 
     @Test
     void marshall() throws IOException {
-        String xml = "<oxm.Person><name>John</name><age>30</age></oxm.Person>";
-        Person expPerson = new Person("John", 30);
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ByteArrayInputStream is = new ByteArrayInputStream(xml.getBytes());
-        Source source = new StreamSource(is);
-        Person actPerson = (Person) unmarshaller.unmarshal(source);
+        var xml = "<oxm.Person><name>John</name><age>30</age></oxm.Person>";
+        var expPerson = new Person("John", 30);
+        var os = new ByteArrayOutputStream();
+        var is = new ByteArrayInputStream(xml.getBytes());
+        var source = new StreamSource(is);
+        var actPerson = (Person) unmarshaller.unmarshal(source);
         assertThat(actPerson).isEqualTo(expPerson);
     }
 
@@ -41,7 +39,10 @@ class UnmarshallerTest {
     static class Config {
         @Bean
         public Unmarshaller unmarshaller() {
-            return new XStreamMarshaller();
+            var marshaller = new XStreamMarshaller();
+            var xstream = marshaller.getXStream();
+            xstream.allowTypes(new Class[]{oxm.Person.class});
+            return marshaller;
         }
     }
 }
