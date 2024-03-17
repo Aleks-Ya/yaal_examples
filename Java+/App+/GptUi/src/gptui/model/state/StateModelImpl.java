@@ -70,11 +70,6 @@ class StateModelImpl implements StateModel {
     }
 
     @Override
-    public synchronized Interaction getCurrentInteraction() {
-        return getCurrentInteractionOpt().orElseThrow();
-    }
-
-    @Override
     public synchronized Optional<Interaction> getCurrentInteractionOpt() {
         var result = storage.readInteraction(currentInteractionId);
         log.trace("getCurrentInteractionOpt: '{}'", result);

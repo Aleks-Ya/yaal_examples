@@ -1,6 +1,5 @@
 package gptui.viewmodel;
 
-import gptui.model.file.FileModel;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import javafx.collections.ObservableMap;
@@ -15,23 +14,21 @@ import java.net.URL;
 public class GptUiApplicationVM {
     private static final Logger log = LoggerFactory.getLogger(GptUiApplicationVM.class);
     @Inject
-    private FileModel fileModel;
-    @Inject
     private ViewModelMediator mediator;
 
     public Image getApplicationIcon() {
         log.info("Loading application icon...");
-        var applicationIcon = new Image(fileModel.getAppIcon());
+        var applicationIcon = new Image(mediator.getAppIcon());
         log.info("Application icon: {}", applicationIcon);
         return applicationIcon;
     }
 
     public String getAppVersion() {
-        return fileModel.getAppVersion();
+        return mediator.getAppVersion();
     }
 
     public URL getFxmlLocation() {
-        return fileModel.getFxmlLocation();
+        return mediator.getFxmlLocation();
     }
 
     public void stageShowed(ObservableMap<KeyCombination, Runnable> accelerators) {

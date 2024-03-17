@@ -19,8 +19,6 @@ public interface StateModel {
 
     InteractionId getCurrentInteractionId();
 
-    Interaction getCurrentInteraction();
-
     Optional<Interaction> getCurrentInteractionOpt();
 
     void setCurrentInteractionId(InteractionId currentInteractionId);

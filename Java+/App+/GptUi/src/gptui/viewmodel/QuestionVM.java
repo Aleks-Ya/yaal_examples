@@ -2,9 +2,6 @@ package gptui.viewmodel;
 
 import com.google.inject.Singleton;
 import gptui.Mdc;
-import gptui.model.clipboard.ClipboardModel;
-import gptui.model.question.QuestionModel;
-import gptui.model.state.StateModel;
 import gptui.model.storage.Interaction;
 import gptui.model.storage.InteractionType;
 import jakarta.inject.Inject;
@@ -28,23 +25,17 @@ public class QuestionVM {
     private static final Logger log = LoggerFactory.getLogger(QuestionVM.class);
     public final Properties properties = new Properties();
     @Inject
-    private StateModel stateModel;
-    @Inject
-    private QuestionModel questionModel;
-    @Inject
-    private ClipboardModel clipboardModel;
-    @Inject
     private ViewModelMediator mediator;
 
     void displayCurrentInteraction() {
         log.trace("displayCurrentInteraction");
-        stateModel.getCurrentInteractionOpt()
+        mediator.getCurrentInteractionOpt()
                 .map(Interaction::question)
                 .filter(question -> !question.equals(properties.questionTaText.getValue()))
                 .ifPresent(question -> {
                     log.trace("Update question text: '{}'", question);
                     properties.questionTaText.setValue(question);
-                    stateModel.setEditedQuestion(question);
+                    mediator.setEditedQuestion(question);
                 });
     }
 
@@ -58,20 +49,19 @@ public class QuestionVM {
 
     public void onRegenerateButtonClick() {
         log.trace("onRegenerateButtonClick");
-        var interactionId = stateModel.getCurrentInteractionId();
+        var interactionId = mediator.getCurrentInteractionId();
         Mdc.run(interactionId, () -> {
             log.info("Regenerate question: {}", interactionId);
-            questionModel.requestAnswer(interactionId, LONG, () -> mediator.answerUpdated(LONG));
-            questionModel.requestAnswer(interactionId, SHORT, () -> mediator.answerUpdated(SHORT));
-            questionModel.requestAnswer(interactionId, GRAMMAR, () -> mediator.answerUpdated(GRAMMAR));
-            questionModel.requestAnswer(interactionId, GCP, () -> mediator.answerUpdated(GCP));
+            mediator.requestAnswer(interactionId, LONG);
+            mediator.requestAnswer(interactionId, SHORT);
+            mediator.requestAnswer(interactionId, GRAMMAR);
+            mediator.requestAnswer(interactionId, GCP);
         });
     }
 
     public void onSendQuestionClick() {
         log.debug("onSendQuestionClick");
         createNewInteractionAndRequestAnswers(QUESTION);
-        mediator.displayCurrentInteraction();
     }
 
     public void onSendDefinitionClick() {
@@ -91,24 +81,23 @@ public class QuestionVM {
 
     public void onKeyTypedQuestionTextArea() {
         log.trace("onKeyTypedQuestionTextArea");
-        stateModel.setEditedQuestion(properties.questionTaText.getValue());
+        mediator.setEditedQuestion(properties.questionTaText.getValue());
     }
 
     void pasteQuestionFromClipboard() {
         log.debug("pasteQuestionFromClipboard");
-        var question = clipboardModel.getTextFromClipboard();
+        var question = mediator.getTextFromClipboard();
         properties.questionTaText.setValue(question);
-        stateModel.setEditedQuestion(question);
+        mediator.setEditedQuestion(question);
     }
 
     private synchronized void createNewInteractionAndRequestAnswers(InteractionType interactionType) {
         log.debug("createNewInteractionAndRequestAnswers: interactionType={}", interactionType);
-        var interactionId = stateModel.createInteraction(interactionType);
-        mediator.interactionCreated();
-        questionModel.requestAnswer(interactionId, GCP, () -> mediator.answerUpdated(GCP));
-        questionModel.requestAnswer(interactionId, LONG, () -> mediator.answerUpdated(LONG));
-        questionModel.requestAnswer(interactionId, SHORT, () -> mediator.answerUpdated(SHORT));
-        questionModel.requestAnswer(interactionId, GRAMMAR, () -> mediator.answerUpdated(GRAMMAR));
+        var interactionId = mediator.createInteraction(interactionType);
+        mediator.requestAnswer(interactionId, GCP);
+        mediator.requestAnswer(interactionId, LONG);
+        mediator.requestAnswer(interactionId, SHORT);
+        mediator.requestAnswer(interactionId, GRAMMAR);
     }
 
     public static class Properties {

@@ -1,9 +1,6 @@
 package gptui.viewmodel;
 
 import gptui.Mdc;
-import gptui.model.clipboard.ClipboardModel;
-import gptui.model.question.QuestionModel;
-import gptui.model.state.StateModel;
 import gptui.model.storage.AnswerState;
 import gptui.model.storage.AnswerType;
 import jakarta.inject.Inject;
@@ -36,12 +33,6 @@ public class AnswerVM {
     private static final Logger log = LoggerFactory.getLogger(AnswerVM.class);
     public final Properties properties = new Properties();
     @Inject
-    private StateModel stateModel;
-    @Inject
-    private QuestionModel questionModel;
-    @Inject
-    private ClipboardModel clipboardModel;
-    @Inject
     private ViewModelMediator mediator;
     private String currentWebViewContent = "";
     private final AnswerType answerType;
@@ -57,19 +48,19 @@ public class AnswerVM {
         Mdc.run(answerType, () -> {
             log.trace("onCopyButtonClick");
             var content = properties.webViewContent.get();
-            clipboardModel.putHtmlToClipboard(content);
+            mediator.putHtmlToClipboard(content);
         });
     }
 
     public void onRegenerateButtonClick() {
         log.trace("onRegenerateButtonClick");
-        questionModel.requestAnswer(stateModel.getCurrentInteractionId(), answerType, () -> mediator.answerUpdated(answerType));
+        mediator.requestAnswer(mediator.getCurrentInteractionId(), answerType);
     }
 
     void displayCurrentAnswer() {
         Mdc.run(answerType, () -> {
             log.trace("displayCurrentAnswer");
-            stateModel.getCurrentInteractionOpt()
+            mediator.getCurrentInteractionOpt()
                     .map(interaction -> interaction.getAnswer(answerType))
                     .ifPresentOrElse(answerOpt -> {
                         log.trace("Display answer: {}", answerOpt);
@@ -82,20 +73,20 @@ public class AnswerVM {
                         properties.statusCircleFill.setValue(answerStateToColor(state));
                         var temperature = answerOpt.map(answer -> answer.temperature() + "°").orElse("");
                         properties.temperatureText.setValue(temperature);
-                        properties.temperatureSpinner.setValue(stateModel.getTemperature(answerType));
+                        properties.temperatureSpinner.setValue(mediator.getTemperature(answerType));
                     }, () -> {
                         log.trace("Display empty answer");
                         currentWebViewContent = "";
                         properties.webViewContent.set("");
                         properties.statusCircleFill.setValue(WHITE);
                         properties.temperatureText.setValue("");
-                        properties.temperatureSpinner.setValue(stateModel.getTemperature(answerType));
+                        properties.temperatureSpinner.setValue(mediator.getTemperature(answerType));
                     });
         });
     }
 
     void initialize() {
-        properties.temperatureSpinner.addListener((obs, oldValue, newValue) -> stateModel.setTemperature(answerType, newValue));
+        properties.temperatureSpinner.addListener((obs, oldValue, newValue) -> mediator.setTemperature(answerType, newValue));
         Mdc.run(answerType, () -> {
             log.trace("displayInitialState");
             properties.answerLabelText.setValue(labelTextMap.get(answerType));

@@ -10,6 +10,7 @@ package model{
     class StorageModel
 }
 package viewmodel {
+    class GptUiApplicationVM
     class AnswerVM
     class GptUiVM
     class HistoryVM
@@ -19,6 +20,7 @@ package viewmodel {
 }
 
 package view {
+    class GptUiApplication
     class AnswerController
     class GptUiApplication
     class GptUiController
@@ -27,33 +29,33 @@ package view {
     class ThemeController
 }
 
+GptUiApplication --> GptUiApplicationVM
+
+GptUiApplicationVM --> ViewModelMediator
+
 ThemeController ---> ThemeVM
 QuestionController ---> QuestionVM
 HistoryController ---> HistoryVM
 AnswerController --> AnswerVM
-GptUiApplication --> GptUiVM
 
-GptUiController --> AnswerController
+GptUiController "1" --> "4" AnswerController: initialize
 GptUiController --> AnswerVM
+GptUiController --> GptUiVM
 
 ThemeVM <--> ViewModelMediator
 QuestionVM <--> ViewModelMediator
 HistoryVM <--> ViewModelMediator
 GptUiVM --> ViewModelMediator
 AnswerVM <--> ViewModelMediator
-ThemeVM ---> StateModel
-HistoryVM ---> StateModel
-QuestionVM ---> StateModel
-QuestionVM ---> QuestionModel
-QuestionVM ---> ClipboardModel
-AnswerVM --> StateModel
-AnswerVM --> QuestionModel
-AnswerVM --> ClipboardModel
-GptUiVM --> FileModel
 
 StateModel --> StorageModel
 QuestionModel --> StorageModel
 QuestionModel --> ConfigModel
+
+ViewModelMediator --> StateModel
+ViewModelMediator --> QuestionModel
+ViewModelMediator --> ClipboardModel
+ViewModelMediator --> FileModel
 
 
 @enduml

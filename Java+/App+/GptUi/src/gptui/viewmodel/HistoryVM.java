@@ -1,7 +1,6 @@
 package gptui.viewmodel;
 
 import com.google.inject.Singleton;
-import gptui.model.state.StateModel;
 import gptui.model.storage.Interaction;
 import jakarta.inject.Inject;
 import javafx.beans.property.BooleanProperty;
@@ -27,8 +26,6 @@ import static javafx.collections.FXCollections.observableArrayList;
 public class HistoryVM {
     private static final Logger log = LoggerFactory.getLogger(HistoryVM.class);
     public final Properties properties = new Properties();
-    @Inject
-    private StateModel stateModel;
     @Inject
     private ViewModelMediator mediator;
     private final HistoryComboBoxFacade historyCbFacade = new HistoryComboBoxFacade();
@@ -82,32 +79,32 @@ public class HistoryVM {
         private void chooseHistoryCbInteractionAsCurrent() {
             log.trace("chooseHistoryCbInteractionAsCurrent");
             var comboBoxCurrentInteraction = historyCbFacade.getSelectedItem();
-            var modelCurrentInteraction = stateModel.getCurrentInteraction();
+            var modelCurrentInteraction = mediator.getCurrentInteraction();
             if (comboBoxCurrentInteraction != null && !Objects.equals(modelCurrentInteraction, comboBoxCurrentInteraction)) {
                 log.debug("setCurrentInteraction from historyComboBox: {}", comboBoxCurrentInteraction);
-                stateModel.setCurrentInteractionId(comboBoxCurrentInteraction.id());
+                mediator.setCurrentInteractionId(comboBoxCurrentInteraction.id());
                 mediator.displayCurrentInteraction();
             }
         }
 
         private void deleteCurrentInteraction() {
             log.trace("deleteCurrentInteraction");
-            stateModel.deleteCurrentInteraction();
+            mediator.deleteCurrentInteraction();
         }
 
         private Integer getFilteredHistorySize() {
             log.trace("getFilteredHistorySize");
-            return stateModel.getFilteredHistory().size();
+            return mediator.getFilteredHistory().size();
         }
 
         private Integer getAllInteractionsSize() {
             log.trace("getAllInteractionsSize");
-            return stateModel.getFullHistory().size();
+            return mediator.getFullHistory().size();
         }
 
         private Boolean isCurrentInteractionEmpty() {
             log.trace("isCurrentInteractionEmpty");
-            return stateModel.getCurrentInteractionOpt().isEmpty();
+            return mediator.getCurrentInteractionOpt().isEmpty();
         }
     }
 
@@ -131,7 +128,7 @@ public class HistoryVM {
 
         private void setItems() {
             log.trace("setItems");
-            var modelItems = stateModel.getFilteredHistory();
+            var modelItems = mediator.getFilteredHistory();
             log.trace("modelItems: {}", modelItems.size());
             var comboBoxItems = properties.historyCbItems.getValue();
             log.trace("comboBoxItems: {}", comboBoxItems.size());
@@ -139,7 +136,7 @@ public class HistoryVM {
             if (!Objects.equals(modelItems, comboBoxItemInteractions)) {
                 log.debug("Set items: {}", modelItems.size());
                 var interactionItems = modelItems.stream()
-                        .map(interaction -> new InteractionItem(stateModel.getTheme(interaction.themeId()), interaction))
+                        .map(interaction -> new InteractionItem(mediator.getTheme(interaction.themeId()), interaction))
                         .toList();
                 updateCbSilently(() -> properties.historyCbItems.setValue(observableArrayList(interactionItems)),
                         properties.historyCbOnAction);
@@ -148,14 +145,14 @@ public class HistoryVM {
 
         private void selectCurrentInteraction() {
             log.trace("selectCurrentInteraction");
-            var modelCurrentInteractionIdOpt = stateModel.getCurrentInteractionOpt();
+            var modelCurrentInteractionIdOpt = mediator.getCurrentInteractionOpt();
             var comboBoxCurrentInteraction = properties.historyCbSelectionModel.getValue().getSelectedItem();
             var cmCurrentInteraction = comboBoxCurrentInteraction != null ? comboBoxCurrentInteraction.interaction() : null;
             if (!Objects.equals(modelCurrentInteractionIdOpt.orElse(null), cmCurrentInteraction)) {
                 if (modelCurrentInteractionIdOpt.isPresent()) {
                     var modelCurrentValue = modelCurrentInteractionIdOpt.get();
                     log.debug("Select interaction: '{}'", modelCurrentValue);
-                    var interactionItem = new InteractionItem(stateModel.getCurrentTheme(), modelCurrentValue);
+                    var interactionItem = new InteractionItem(mediator.getCurrentTheme(), modelCurrentValue);
                     updateCbSilently(() -> properties.historyCbSelectionModel.getValue().select(interactionItem),
                             properties.historyCbOnAction);
                 } else {

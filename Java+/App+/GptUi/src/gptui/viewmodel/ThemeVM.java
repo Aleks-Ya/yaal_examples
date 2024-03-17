@@ -1,7 +1,6 @@
 package gptui.viewmodel;
 
 import com.google.inject.Singleton;
-import gptui.model.state.StateModel;
 import gptui.model.storage.Interaction;
 import gptui.model.storage.Theme;
 import jakarta.inject.Inject;
@@ -31,8 +30,6 @@ public class ThemeVM {
     private static final Logger log = LoggerFactory.getLogger(ThemeVM.class);
     public final Properties properties = new Properties();
     @Inject
-    private StateModel stateModel;
-    @Inject
     private ViewModelMediator mediator;
 
     public void onThemeComboBoxAction() {
@@ -43,37 +40,37 @@ public class ThemeVM {
     public void onThemeFilterHistoryCheckBoxClicked() {
         log.trace("onThemeFilterHistoryCheckBoxClicked");
         var cbValue = properties.filterHistoryCheckBoxSelected.getValue();
-        var modelValue = stateModel.isHistoryFilteringEnabled();
+        var modelValue = mediator.isHistoryFilteringEnabled();
         log.trace("cbValue={}, modelValue={}", cbValue, modelValue);
         if (cbValue != modelValue) {
             log.trace("Setting ThemeFilterHistoryCheckBox to {}", cbValue);
-            stateModel.setIsHistoryFilteringEnabled(cbValue);
+            mediator.setIsHistoryFilteringEnabled(cbValue);
             mediator.isThemeFilterHistoryChanged();
         }
     }
 
     public void addNewTheme(String theme) {
         log.trace("addNewTheme");
-        var newTheme = stateModel.addTheme(theme);
-        stateModel.setCurrentTheme(newTheme);
+        var newTheme = mediator.addTheme(theme);
+        mediator.setCurrentTheme(newTheme);
         mediator.themeWasChosen();
     }
 
     void updateComboBoxSelectedItemFromCurrentInteraction() {
-        var themeTitle = stateModel.getCurrentInteractionOpt()
+        var themeTitle = mediator.getCurrentInteractionOpt()
                 .map(Interaction::themeId)
-                .map(stateModel::getTheme)
+                .map(mediator::getTheme)
                 .orElse(null);
-        stateModel.setCurrentTheme(themeTitle);
+        mediator.setCurrentTheme(themeTitle);
         updateCbSilently(() -> properties.themeCbValue.setValue(themeTitle), properties.themeCbOnAction);
     }
 
     void updateComboBoxSelectedItemFromStateModel() {
-        updateCbSilently(() -> properties.themeCbValue.setValue(stateModel.getCurrentTheme()), properties.themeCbOnAction);
+        updateCbSilently(() -> properties.themeCbValue.setValue(mediator.getCurrentTheme()), properties.themeCbOnAction);
     }
 
     void updateComboBoxItems() {
-        var currentModelItems = FXCollections.observableArrayList(stateModel.getThemes());
+        var currentModelItems = FXCollections.observableArrayList(mediator.getThemes());
         var currentComboBoxItems = properties.themeCbItems.getValue();
         if (!Objects.equals(currentModelItems, currentComboBoxItems)) {
             log.trace("Set themeCbItems: {}", currentModelItems);
@@ -84,7 +81,7 @@ public class ThemeVM {
     }
 
     void setLabel() {
-        properties.themeLabelText.setValue(String.format("_Theme (%d):", stateModel.getThemes().size()));
+        properties.themeLabelText.setValue(String.format("_Theme (%d):", mediator.getThemes().size()));
     }
 
     void initialize() {
@@ -95,7 +92,7 @@ public class ThemeVM {
                 if (empty) {
                     setText("");
                 } else {
-                    setText(item + " (" + stateModel.getInteractionCountInTheme(item.title()) + ")");
+                    setText(item + " (" + mediator.getInteractionCountInTheme(item.title()) + ")");
                 }
             }
         });
@@ -105,10 +102,10 @@ public class ThemeVM {
         log.trace("chooseThemeFromCb");
         var currentComboBoxValue = properties.themeCbValue.getValue();
         log.trace("currentComboBoxValue: '{}'", currentComboBoxValue);
-        var currentModelValue = stateModel.getCurrentTheme();
+        var currentModelValue = mediator.getCurrentTheme();
         log.trace("currentModelValue: '{}'", currentModelValue);
         if (!Objects.equals(currentComboBoxValue, currentModelValue)) {
-            stateModel.setCurrentTheme(currentComboBoxValue);
+            mediator.setCurrentTheme(currentComboBoxValue);
             mediator.themeWasChosen();
         }
     }
