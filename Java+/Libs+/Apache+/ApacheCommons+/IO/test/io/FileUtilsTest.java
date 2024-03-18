@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 
 import static java.nio.charset.Charset.defaultCharset;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,7 +54,7 @@ class FileUtilsTest {
     void readFileToString_FileNotFound() {
         var file = new File("/tmp/absent.txt");
         assertThatThrownBy(() -> FileUtils.readFileToString(file, defaultCharset()))
-                .isInstanceOf(FileNotFoundException.class)
-                .hasMessage("%s (No such file or directory)", file.getAbsolutePath());
+                .isInstanceOf(NoSuchFileException.class)
+                .hasMessage("/tmp/absent.txt");
     }
 }

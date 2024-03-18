@@ -3,18 +3,17 @@ package pdf;
 import com.codeborne.pdftest.PDF;
 import org.junit.jupiter.api.Test;
 
-import java.net.URL;
+import java.io.IOException;
 
 import static com.codeborne.pdftest.PDF.containsText;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static util.ResourceUtil.resourceToFile;
 
-public class PdfAssert {
-
+class PdfAssertTest {
     @Test
-    void canAssertThatPdfContainsText() {
-        URL pdfFile = PdfAssert.class.getResource("hello_world.pdf");
-        PDF pdf = new PDF(pdfFile);
+    void canAssertThatPdfContainsText() throws IOException {
+        var pdfFile = resourceToFile("pdf/hello_world.pdf");
+        var pdf = new PDF(pdfFile);
         assertThat(pdf, containsText("Hello World!"));
     }
-
 }

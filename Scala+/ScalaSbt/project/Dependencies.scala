@@ -1,7 +1,7 @@
 import sbt.*
 
 object Dependencies {
-  val scalaTestDep = "org.scalatest" %% "scalatest" % "3.2.17" % Test
+  val scalaTestDep = "org.scalatest" %% "scalatest" % "3.2.18" % Test
   val scalaMockDep = "org.scalamock" %% "scalamock" % "5.2.0" % Test
   val h2Dep = "com.h2database" % "h2" % "2.2.224"
   val logbackClassicDep = "ch.qos.logback" % "logback-classic" % "1.4.11"

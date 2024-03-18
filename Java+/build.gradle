@@ -41,8 +41,10 @@ subprojects {
         log4j2CoreDep = 'org.apache.logging.log4j:log4j-core:2.22.0'
         logbackClassicDep = 'ch.qos.logback:logback-classic:1.4.14'
         gsonDep = 'com.google.code.gson:gson:2.10.1'
-        commonsLangDep = 'org.apache.commons:commons-lang3:3.13.0'
-        commonsCsvDep = 'org.apache.commons:commons-csv:1.10.0'
+        apacheCommonsLangDep = 'org.apache.commons:commons-lang3:3.14.0'
+        apacheCommonsCsvDep = 'org.apache.commons:commons-csv:1.10.0'
+        apacheCommonsIoDep = 'commons-io:commons-io:2.15.1'
+        apacheCommonsFileUploadDep = 'commons-fileupload:commons-fileupload:1.5'
         wireMockDep = 'com.github.tomakehurst:wiremock:2.27.2'
         jaxbApiDep = 'javax.xml.bind:jaxb-api:2.3.1'
         elasticSearch7Version = '7.17.15'
@@ -50,7 +52,7 @@ subprojects {
         junit5PlatformVersion = '1.10.0'
         junit5Version = '5.10.1'
         cucumberVersion = '7.11.1'
-        spring5Version = '5.3.31'
+        spring5Version = '5.3.33'
         spring4Version = '4.3.30.RELEASE'
         spring3Version = '3.2.18.RELEASE'
         springBoot2Version = '2.7.18'
@@ -97,7 +99,6 @@ subprojects {
         retrofitJacksonDep = "com.squareup.retrofit2:converter-jackson:$retrofitVersion"
         retrofitMoshiDep = "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
         liquibaseCoreDep = 'org.liquibase:liquibase-core:4.22.0'
-        apacheCommonsIoDep = 'commons-io:commons-io:2.13.0'
         lucene8Version = '8.11.1'
         lucene9Version = '9.9.2'
         javaFxVersion = '21'
@@ -115,10 +116,11 @@ subprojects {
         parquetVersion = '1.13.1'
         googleCloudBomDep = 'com.google.cloud:libraries-bom:26.32.0'
         aws1Version = '1.12.620'
-        aws2Version = '2.22.0'
+        aws2Version = '2.25.2'
         googleTestingCompileDep = 'com.google.testing.compile:compile-testing:0.21.0'
         controlsFxDep = 'org.controlsfx:controlsfx:11.2.0'
         xStreamDep = 'com.thoughtworks.xstream:xstream:1.4.20'
+        pdfTestDep = 'com.codeborne:pdf-test:1.8.1'
     }
     tasks.withType(JavaCompile).tap {
         configureEach {
