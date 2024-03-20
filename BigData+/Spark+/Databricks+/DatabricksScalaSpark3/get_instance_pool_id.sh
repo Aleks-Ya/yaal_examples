@@ -1,0 +1,1 @@
+databricks instance-pools list --output JSON | jq -r 'first(.[] | select(.instance_pool_name == "pool-1") | .instance_pool_id)'

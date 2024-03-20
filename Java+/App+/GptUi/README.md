@@ -11,6 +11,8 @@
 7. Add new Theme dialog: disable OK button if theme title is empty
 8. Move focus to the Question text area after choosing a theme
 9. Fix floating unit-tests
+10. Limit length of text in History ComboBox
+11. Remove empty theme from Themes ComboBox
 
 ## Install on Ubuntu
 

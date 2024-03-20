@@ -14,14 +14,23 @@ Download an artifact from the remote repo to local and copy it to a directory (p
 ```
 mvn org.apache.maven.plugins:maven-dependency-plugin:3.6.1:copy -Dartifact=org.apache.orc:orc-tools:1.6.2 -DoutputDirectory=/tmp/artifacts
 ```
-Install jar to local repo:
+Install jar to local repo (create checksums):
 ```
-mvn install:install-file -Dfile=c:\alex\files\SAP\ngdbc.jar -DgroupId=com.sap.db.jdbc -DartifactId=ngdbc -Dversion=2.4.70 -Dpackaging=jar
+mvn install:install-file \
+	-DcreateChecksum=true \
+	-Dfile=c:\alex\files\SAP\ngdbc.jar \
+	-DgroupId=com.sap.db.jdbc \
+	-DartifactId=ngdbc \
+	-Dversion=2.4.70 \
+	-Dpackaging=jar
 ```
+Build JAR and deploy to Local repo (does NOT create checksums): `mvn clean install`
 Download sources: `mvn dependency:sources`
 Download JavaDoc: `mvn dependency:resolve -Dclassifier=javadoc`
 Go offline: `mvn dependency:go-offline`
 Debug, verbose: `mvn -X compile`
+Generate effective POM: `mvn help:effective-pom`
+Generate effective Settings: `mvn help:effective-settings`
 
 ## Tests
 Compile tests: `mvn test-compile`

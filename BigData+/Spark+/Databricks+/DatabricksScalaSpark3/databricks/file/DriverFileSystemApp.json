@@ -1,0 +1,60 @@
+{
+  "name": "DriverFileSystemApp",
+  "email_notifications": {
+    "no_alert_for_skipped_runs": false
+  },
+  "webhook_notifications": {},
+  "timeout_seconds": 0,
+  "max_concurrent_runs": 1,
+  "job_clusters": [
+    {
+      "job_cluster_key": "job-cluster-1",
+      "new_cluster": {
+        "spark_version": "13.3.x-scala2.12",
+        "spark_conf": {
+          "spark.master": "local[*, 4]",
+          "spark.databricks.cluster.profile": "singleNode"
+        },
+        "aws_attributes": {},
+        "custom_tags": {
+          "ResourceClass": "SingleNode"
+        },
+        "spark_env_vars": {
+          "PYSPARK_PYTHON": "/databricks/python3/bin/python3"
+        },
+        "instance_pool_id": "${POOL_ID}",
+        "data_security_mode": "LEGACY_SINGLE_USER_STANDARD",
+        "runtime_engine": "STANDARD",
+        "num_workers": 0
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "task_key": "DriverFileSystemApp",
+      "run_if": "ALL_SUCCESS",
+      "spark_jar_task": {
+        "jar_uri": "",
+        "main_class_name": "databricks.file.DriverFileSystemApp",
+        "run_as_repl": true
+      },
+      "job_cluster_key": "job-cluster-1",
+      "libraries": [
+        {
+          "jar": "dbfs:/jars/databricksscalaspark3.jar"
+        }
+      ],
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "notification_settings": {
+        "no_alert_for_skipped_runs": false,
+        "no_alert_for_canceled_runs": false,
+        "alert_on_last_attempt": false
+      },
+      "webhook_notifications": {}
+    }
+  ],
+  "run_as": {
+    "user_name": "alex_ya@mailbox.org"
+  }
+}

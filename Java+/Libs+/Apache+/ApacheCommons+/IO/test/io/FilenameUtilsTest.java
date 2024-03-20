@@ -12,8 +12,13 @@ class FilenameUtilsTest {
 
     @Test
     void concat() {
-        var file = FilenameUtils.concat("tmp", "file.txt");
-        var expPath = Paths.get("tmp", "file.txt");
+        var file = FilenameUtils.concat("tmp", "data.txt");
+        var expPath = Paths.get("tmp", "data.txt");
         assertThat(file).isEqualTo(expPath.toString());
+    }
+
+    @Test
+    void getBaseName() {
+        assertThat(FilenameUtils.getBaseName("/tmp/dir/data.txt")).isEqualTo("data");
     }
 }

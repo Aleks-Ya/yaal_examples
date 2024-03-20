@@ -1,12 +1,17 @@
 package databricks
 
 import org.apache.spark.SparkContext
+import org.apache.spark.rdd.RDD
 
 object WordCount {
   def countWords(words: Array[String]): Unit = {
-    val length = SparkContext.getOrCreate().parallelize(words).map(JobParamsLamda.stringToLength).sum().toInt
+    countWords(SparkContext.getOrCreate().parallelize(words))
+  }
+
+  def countWords(wordsRdd: RDD[String]): Unit = {
+    val length = wordsRdd.map(JobParamsLamda.stringToLength).sum().toInt
     println("Spark calculated length: " + length)
-    val expLength = words.map(word => word.length).sum
+    val expLength = wordsRdd.map(word => word.length).sum
     println("Expected length: " + expLength)
     assert(length == expLength)
   }
