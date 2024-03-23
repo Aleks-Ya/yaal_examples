@@ -24,6 +24,7 @@ class DeleteInteractionMiddleThemeFilteredTest extends BaseGptUiTest {
     @Test
     void currentInteractionIsInMiddle() {
         assertion()
+                .focus(history().comboBox())
                 .historySize(3, 3)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I3.INTERACTION)
@@ -48,6 +49,7 @@ class DeleteInteractionMiddleThemeFilteredTest extends BaseGptUiTest {
         clickOn(theme().filterHistoryCheckBox());
 
         assertion()
+                .focus(theme().filterHistoryCheckBox())
                 .historySize(1, 3)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I2.INTERACTION)
@@ -71,6 +73,7 @@ class DeleteInteractionMiddleThemeFilteredTest extends BaseGptUiTest {
         clickOn(history().deleteButton());
 
         assertion()
+                .focus(history().deleteButton())
                 .historySize(1, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I3.INTERACTION)

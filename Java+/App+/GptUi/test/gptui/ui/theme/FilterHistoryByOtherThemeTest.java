@@ -30,6 +30,7 @@ class FilterHistoryByOtherThemeTest extends BaseGptUiTest {
 
     private void initialState() {
         assertion()
+                .focus(history().comboBox())
                 .historySize(3, 3)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I3.INTERACTION)
@@ -54,6 +55,7 @@ class FilterHistoryByOtherThemeTest extends BaseGptUiTest {
     private void filterByCurrentTheme() {
         clickOn(theme().filterHistoryCheckBox());
         assertion()
+                .focus(theme().filterHistoryCheckBox())
                 .historySize(1, 3)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I3.INTERACTION)
@@ -78,6 +80,7 @@ class FilterHistoryByOtherThemeTest extends BaseGptUiTest {
     private void chooseAnotherTheme() {
         clickOn(theme().comboBoxNarrow()).clickOn(I1.THEME.title() + " (1)");
         assertion()
+                .focus(theme().addThemeButton())
                 .historySize(1, 3)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I1.INTERACTION)
@@ -102,6 +105,7 @@ class FilterHistoryByOtherThemeTest extends BaseGptUiTest {
     private void removeFilter() {
         clickOn(theme().filterHistoryCheckBox());
         assertion()
+                .focus(theme().filterHistoryCheckBox())
                 .historySize(3, 3)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I1.INTERACTION)

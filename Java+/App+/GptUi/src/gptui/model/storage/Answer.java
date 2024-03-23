@@ -1,5 +1,7 @@
 package gptui.model.storage;
 
+import static gptui.LogUtils.shorten;
+
 public record Answer(AnswerType answerType, String prompt, Integer temperature,
                      String answerMd, String answerHtml, AnswerState answerState) {
 
@@ -21,5 +23,12 @@ public record Answer(AnswerType answerType, String prompt, Integer temperature,
 
     public Answer withState(AnswerState answerState) {
         return new Answer(answerType, prompt, temperature, answerMd, answerHtml, answerState);
+    }
+
+    public String toShortString() {
+        return withPrompt(shorten(prompt))
+                .withAnswerMd(shorten(answerMd))
+                .withAnswerHtml(shorten(answerHtml))
+                .toString();
     }
 }

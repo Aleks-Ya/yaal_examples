@@ -26,6 +26,7 @@ class SendGrammarTest extends BaseGptUiTest {
     @Test
     void currentInteractionIsInMiddle() {
         assertion()
+                .focus(history().comboBox())
                 .historySize(3, 3)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I3.INTERACTION)
@@ -52,6 +53,7 @@ class SendGrammarTest extends BaseGptUiTest {
         clickOn(question().grammarButton());
 
         assertion()
+                .focus(question().grammarButton())
                 .historySize(4, 4)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())

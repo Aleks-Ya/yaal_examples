@@ -46,20 +46,6 @@ public record Interaction(InteractionId id,
 
     @Override
     public String toString() {
-        var typeStr = "";
-        if (type != null) {
-            var typeSymbol = switch (type) {
-                case QUESTION -> "Q";
-                case DEFINITION -> "D";
-                case GRAMMAR -> "G";
-                case FACT -> "F";
-            };
-            typeStr = String.format("[%s] ", typeSymbol);
-        }
-        return String.format("%s%s: %s", typeStr, themeId, question);
-    }
-
-    public String toStringFull() {
         return "Interaction{" +
                 "id=" + id +
                 ", type=" + type +

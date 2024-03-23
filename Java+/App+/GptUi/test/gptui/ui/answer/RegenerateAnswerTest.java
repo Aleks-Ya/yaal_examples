@@ -31,6 +31,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
 
     private void initialState() {
         assertion()
+                .focus(history().comboBox())
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I2.INTERACTION)
@@ -56,6 +57,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
         gptApi.clear().putGrammarResponse(I3.GRAMMAR_HTML, ZERO);
         clickOn(grammarAnswer().temperatureIncrementButton());
         assertion()
+                .focus(grammarAnswer().temperatureSpinner())
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I2.INTERACTION)
@@ -79,6 +81,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
         clickOn(grammarAnswer().regenerateButton());
         gptApi.waitUntilSent(1);
         assertion()
+                .focus(grammarAnswer().regenerateButton())
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readInteraction(I2.INTERACTION.id()).orElseThrow())
@@ -105,6 +108,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
         clickOn(shortAnswer().regenerateButton());
         gptApi.waitUntilSent(1);
         assertion()
+                .focus(shortAnswer().regenerateButton())
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readInteraction(I2.INTERACTION.id()).orElseThrow())
@@ -131,6 +135,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
         clickOn(longAnswer().regenerateButton());
         gptApi.waitUntilSent(1);
         assertion()
+                .focus(longAnswer().regenerateButton())
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readInteraction(I2.INTERACTION.id()).orElseThrow())
@@ -157,6 +162,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
         clickOn(gcpAnswer().regenerateButton());
         gptApi.waitUntilSent(1);
         assertion()
+                .focus(gcpAnswer().regenerateButton())
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readInteraction(I2.INTERACTION.id()).orElseThrow())
@@ -181,6 +187,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
     private void chooseInteractionAndRegenerateGcpAnswer() {
         clickOn(history().comboBox()).clickOn(String.format("[Q] %s: %s", I1.THEME.title(), I1.QUESTION));
         assertion()
+                .focus(history().comboBox())
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())
@@ -205,6 +212,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
         clickOn(gcpAnswer().regenerateButton());
         gptApi.waitUntilSent(1);
         assertion()
+                .focus(gcpAnswer().regenerateButton())
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readInteraction(I1.INTERACTION.id()).orElseThrow())

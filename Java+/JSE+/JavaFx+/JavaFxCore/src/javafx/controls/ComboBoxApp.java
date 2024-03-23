@@ -6,9 +6,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import static javafx.geometry.Pos.CENTER_LEFT;
 
@@ -20,7 +22,9 @@ public class ComboBoxApp extends Application {
         var cb3 = addNewValueComboBox();
         var cb4 = buttonInComboBox();
         var cb5 = labelForComboBox();
-        var scene = new Scene(new VBox(cb1, cb2, cb3, cb4, cb5), 640, 480);
+        var cb6 = customItemRepresentation();
+        var scene = new Scene(new VBox(cb1, new Separator(), cb2, new Separator(), cb3, new Separator(), cb4,
+                new Separator(), cb5, new Separator(), cb6), 640, 480);
         stage.setScene(scene);
         stage.show();
     }
@@ -94,6 +98,26 @@ public class ComboBoxApp extends Application {
         var hBox = new HBox(label, comboBox);
         hBox.setAlignment(CENTER_LEFT);
         return hBox;
+    }
+
+    private static ComboBox<Person> customItemRepresentation() {
+        var comboBox = new ComboBox<Person>();
+        comboBox.getItems().addAll(new Person("John", 30), new Person("Mary", 25));
+        comboBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Person person) {
+                return person != null ? String.format("%s (%d)", person.name(), person.age()) : "---";
+            }
+
+            @Override
+            public Person fromString(String string) {
+                throw new UnsupportedOperationException();
+            }
+        });
+        return comboBox;
+    }
+
+    private record Person(String name, Integer age) {
     }
 
     public static void main(String[] args) {

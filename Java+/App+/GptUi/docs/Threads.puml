@@ -1,0 +1,27 @@
+@startuml
+title GptUI threads
+
+autonumber
+autoactivate on
+
+box Main Thread
+participant GptUiMain
+end box
+
+box JavaFX Application Thread
+participant GptUiApplication
+participant QuestionModel as QuestionModelFx
+end box
+
+box Fork Join Pool
+participant QuestionModel as QuestionModelPool
+end box
+
+GptUiMain --> GptUiApplication **
+GptUiApplication -> QuestionModelFx: requestAnswer()
+QuestionModelFx -> QuestionModelPool: runAsync()
+QuestionModelFx <-- QuestionModelPool
+GptUiApplication <-- QuestionModelFx
+
+
+@enduml

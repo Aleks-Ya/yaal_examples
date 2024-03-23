@@ -47,13 +47,14 @@ public class MockGptApi implements GptApi, GcpApi {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        receivedCounter.incrementAndGet();
+        var newValue = receivedCounter.incrementAndGet();
+        log.trace("receivedCounter was incremented: {}", newValue);
         return info.content();
     }
 
     public void waitUntilSent(int counter) {
         log.debug("Start waiting: receivedCounter=" + receivedCounter.get());
-        await().timeout(Duration.ofSeconds(15)).until(() -> receivedCounter.get() == counter);
+        await().timeout(Duration.ofSeconds(15)).until(() -> receivedCounter.get() >= counter);
         log.debug("Finished waiting: receivedCounter=" + receivedCounter.get());
     }
 

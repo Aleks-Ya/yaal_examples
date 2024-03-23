@@ -29,6 +29,7 @@ class RegenerateQuestionTest extends BaseGptUiTest {
     @Test
     void currentInteractionIsTheOnly() {
         assertion()
+                .focus(history().comboBox())
                 .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(interaction1)
@@ -58,6 +59,7 @@ class RegenerateQuestionTest extends BaseGptUiTest {
         gptApi.waitUntilSent(4);
 
         assertion()
+                .focus(question().regenerateButton())
                 .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readInteraction(interaction1.id()).orElseThrow())

@@ -11,6 +11,7 @@ import gptui.model.storage.Theme;
 import gptui.view.GptUiApplication;
 import gptui.viewmodel.InteractionItem;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -50,6 +51,10 @@ public abstract class BaseGptUiTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws Exception {
         app.start(stage);
+    }
+
+    protected Scene scene() {
+        return theme().comboBox().getScene();
     }
 
     protected HistoryInfo history() {

@@ -10,6 +10,7 @@ class DeleteInteractionNullTest extends BaseGptUiTest {
     @Test
     void currentInteractionIsNull() {
         assertion()
+                .focus(history().comboBox())
                 .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(I0.HISTORY_SELECTED_ITEM)

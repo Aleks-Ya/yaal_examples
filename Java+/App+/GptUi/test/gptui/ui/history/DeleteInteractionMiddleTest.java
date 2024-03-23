@@ -29,6 +29,7 @@ class DeleteInteractionMiddleTest extends BaseGptUiTest {
 
     private void initialState() {
         assertion()
+                .focus(history().comboBox())
                 .historySize(3, 3)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I3.INTERACTION)
@@ -54,6 +55,7 @@ class DeleteInteractionMiddleTest extends BaseGptUiTest {
         clickOn(history().comboBox()).clickOn(format("[Q] %s: %s", I2.THEME.title(), I2.QUESTION));
         clickOn(history().deleteButton());
         assertion()
+                .focus(history().deleteButton())
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I3.INTERACTION)

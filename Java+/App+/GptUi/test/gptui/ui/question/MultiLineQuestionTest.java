@@ -24,6 +24,7 @@ class MultiLineQuestionTest extends BaseGptUiTest {
 
     private void initialState() {
         assertion()
+                .focus(history().comboBox())
                 .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(I0.HISTORY_SELECTED_ITEM)
@@ -63,6 +64,7 @@ class MultiLineQuestionTest extends BaseGptUiTest {
         gptApi.waitUntilSent(4);
         var questionText = questionLine1 + "\n" + questionLine2 + "\n" + questionLine3;
         assertion()
+                .focus(question().questionButton())
                 .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())

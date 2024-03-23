@@ -1,6 +1,7 @@
 package gptui.viewmodel;
 
 import gptui.Mdc;
+import gptui.model.storage.Answer;
 import gptui.model.storage.AnswerState;
 import gptui.model.storage.AnswerType;
 import jakarta.inject.Inject;
@@ -63,7 +64,7 @@ public class AnswerVM {
             mediator.getCurrentInteractionOpt()
                     .map(interaction -> interaction.getAnswer(answerType))
                     .ifPresentOrElse(answerOpt -> {
-                        log.trace("Display answer: {}", answerOpt);
+                        log.trace("Display answer: {}", answerOpt.map(Answer::toShortString));
                         var html = answerOpt.isPresent() ? answerOpt.get().answerHtml() : "";
                         var state = answerOpt.isPresent() ? answerOpt.get().answerState() : NEW;
                         if (!currentWebViewContent.equals(html)) {

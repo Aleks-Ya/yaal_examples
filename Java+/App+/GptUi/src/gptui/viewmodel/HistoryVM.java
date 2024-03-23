@@ -1,6 +1,7 @@
 package gptui.viewmodel;
 
 import com.google.inject.Singleton;
+import gptui.LogUtils;
 import gptui.model.storage.Interaction;
 import jakarta.inject.Inject;
 import javafx.beans.property.BooleanProperty;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
+import static gptui.LogUtils.shorten;
 import static gptui.viewmodel.CbHelper.updateCbSilently;
 import static java.lang.String.format;
 import static javafx.collections.FXCollections.observableArrayList;
@@ -81,7 +83,7 @@ public class HistoryVM {
             var comboBoxCurrentInteraction = historyCbFacade.getSelectedItem();
             var modelCurrentInteraction = mediator.getCurrentInteraction();
             if (comboBoxCurrentInteraction != null && !Objects.equals(modelCurrentInteraction, comboBoxCurrentInteraction)) {
-                log.debug("setCurrentInteraction from historyComboBox: {}", comboBoxCurrentInteraction);
+                log.debug("setCurrentInteraction from historyComboBox: {}", shorten(comboBoxCurrentInteraction));
                 mediator.setCurrentInteractionId(comboBoxCurrentInteraction.id());
                 mediator.displayCurrentInteraction();
             }
@@ -151,7 +153,7 @@ public class HistoryVM {
             if (!Objects.equals(modelCurrentInteractionIdOpt.orElse(null), cmCurrentInteraction)) {
                 if (modelCurrentInteractionIdOpt.isPresent()) {
                     var modelCurrentValue = modelCurrentInteractionIdOpt.get();
-                    log.debug("Select interaction: '{}'", modelCurrentValue);
+                    log.debug("Select interaction: '{}'", shorten(modelCurrentValue));
                     var interactionItem = new InteractionItem(mediator.getCurrentTheme(), modelCurrentValue);
                     updateCbSilently(() -> properties.historyCbSelectionModel.getValue().select(interactionItem),
                             properties.historyCbOnAction);
@@ -161,7 +163,7 @@ public class HistoryVM {
                             properties.historyCbOnAction);
                 }
             } else {
-                log.debug("Selection is unchanged: '{}'", modelCurrentInteractionIdOpt);
+                log.debug("Selection is unchanged: '{}'", modelCurrentInteractionIdOpt.map(LogUtils::shorten));
             }
         }
     }

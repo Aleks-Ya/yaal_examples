@@ -1,0 +1,20 @@
+@startuml
+title Put participants into Boxes
+
+box People
+    participant Alice
+    participant Bob
+end box
+
+box Machines
+    participant Server
+    participant Database
+end box
+
+Alice -> Bob
+Bob -> Server
+Server -> Database
+Server <-- Database
+Bob <-- Server
+Alice <-- Bob
+@enduml

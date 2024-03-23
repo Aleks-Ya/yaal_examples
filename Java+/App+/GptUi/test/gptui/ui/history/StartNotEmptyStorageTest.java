@@ -21,6 +21,7 @@ class StartNotEmptyStorageTest extends BaseGptUiTest {
     @Test
     void startWithNotEmptyStorage() {
         assertion()
+                .focus(history().comboBox())
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(I2.INTERACTION)

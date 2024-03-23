@@ -3,15 +3,18 @@ package gptui.ui;
 import gptui.model.storage.Interaction;
 import gptui.model.storage.Theme;
 import gptui.viewmodel.InteractionItem;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import org.assertj.core.api.SoftAssertions;
 import org.testfx.util.WaitForAsyncUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.String.format;
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
@@ -19,6 +22,7 @@ import static javafx.scene.paint.Color.WHITE;
 
 public class WindowAssertion {
     private BaseGptUiTest app;
+    private Node focus;
     private int historySizeFiltered;
     private int historySizeFull;
     private boolean historyDeleteButtonDisabled;
@@ -66,6 +70,11 @@ public class WindowAssertion {
 
     public WindowAssertion app(BaseGptUiTest app) {
         this.app = app;
+        return this;
+    }
+
+    public WindowAssertion focus(Node focus) {
+        this.focus = focus;
         return this;
     }
 
@@ -186,9 +195,24 @@ public class WindowAssertion {
         return answerSpinnerTemperatures(50, 60, 70, 90);
     }
 
+    private static String nodeFullId(Node node) {
+        var ids = new ArrayList<String>();
+        while (node != null) {
+            ids.add(node.getId() != null ? node.getId() : "null");
+            node = node.getParent();
+        }
+        return String.join("/", ids);
+    }
+
     public void assertApp() {
         WaitForAsyncUtils.waitForFxEvents();
         var soft = new SoftAssertions();
+        {
+            soft.assertThat(app.scene().getFocusOwner()).as("Focus")
+                    .withRepresentation(node -> node != null ?
+                            format("%s[ids=%s]", node.getClass().getSimpleName(), nodeFullId((Node) node)) : "null")
+                    .isEqualTo(focus);
+        }
         {
             var history = app.history();
             soft.assertThat(history.label().getText()).as("History/Label/Text")
@@ -198,9 +222,9 @@ public class WindowAssertion {
             soft.assertThat(history.deleteButton().isDisabled()).as("History/DeleteButton/Disabled").isEqualTo(historyDeleteButtonDisabled);
             var historySelectedItemId = historySelectedItem != null ? historySelectedItem.id() : null;
             var cbSelectedItem = history.comboBox().getSelectionModel().getSelectedItem();
-            var cbSelectedItemStr = cbSelectedItem != null ? cbSelectedItem.interaction() != null ? cbSelectedItem.interaction().toStringFull() : null : null;
+            var cbSelectedItemStr = cbSelectedItem != null ? cbSelectedItem.interaction() != null ? cbSelectedItem.interaction().toString() : null : null;
             soft.assertThat(cbSelectedItemStr).as("History/ComboBox/SelectedItem")
-                    .isEqualTo(app.storage.readInteraction(historySelectedItemId).map(Interaction::toStringFull).orElse(null));
+                    .isEqualTo(app.storage.readInteraction(historySelectedItemId).map(Interaction::toString).orElse(null));
             soft.assertThat(history.comboBox().getItems().stream().map(InteractionItem::interaction)).as("History/ComboBox/Items")
                     .containsExactlyElementsOf(historyItems);
             soft.assertThat(app.stateModel.getCurrentInteractionId()).as("Model/CurrentInteractionId").isEqualTo(historySelectedItemId);

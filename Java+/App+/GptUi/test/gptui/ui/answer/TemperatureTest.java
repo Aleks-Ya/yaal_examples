@@ -30,6 +30,7 @@ class TemperatureTest extends BaseGptUiTest {
 
     private void initialState() {
         assertion()
+                .focus(history().comboBox())
                 .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(I0.HISTORY_SELECTED_ITEM)
@@ -56,6 +57,7 @@ class TemperatureTest extends BaseGptUiTest {
         clickOn(question().textArea());
         overWrite(I1.QUESTION);
         assertion()
+                .focus(question().textArea())
                 .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(I0.HISTORY_SELECTED_ITEM)
@@ -76,14 +78,16 @@ class TemperatureTest extends BaseGptUiTest {
                 .answerSpinnerTemperaturesDefault()
                 .assertApp();
 
+        //TODO Fix: the test became unstable if set the same timeout for all 4 requests (e.g. 2000)
         gptApi.clear()
                 .putGrammarResponse(I1.GRAMMAR_HTML, ofMillis(500))
-                .putShortResponse(I1.SHORT_HTML, ofMillis(500))
-                .putLongResponse(I1.LONG_HTML, ofMillis(500))
-                .putGcpResponse(I1.GCP_HTML, ofMillis(500));
+                .putShortResponse(I1.SHORT_HTML, ofMillis(1000))
+                .putLongResponse(I1.LONG_HTML, ofMillis(1500))
+                .putGcpResponse(I1.GCP_HTML, ofMillis(2000));
 
         clickOn(question().questionButton());
         assertion()
+                .focus(question().questionButton())
                 .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
@@ -106,6 +110,7 @@ class TemperatureTest extends BaseGptUiTest {
 
         gptApi.waitUntilSent(4);
         assertion()
+                .focus(question().questionButton())
                 .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
@@ -146,6 +151,7 @@ class TemperatureTest extends BaseGptUiTest {
         clickOn(longAnswer().temperatureDecrementButton());
         clickOn(gcpAnswer().temperatureDecrementButton());
         assertion()
+                .focus(gcpAnswer().temperatureSpinner())
                 .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
@@ -173,6 +179,7 @@ class TemperatureTest extends BaseGptUiTest {
                 .putGcpResponse(I2.GCP_HTML, ofMillis(500));
         clickOn(question().questionButton());
         assertion()
+                .focus(question().questionButton())
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
@@ -196,6 +203,7 @@ class TemperatureTest extends BaseGptUiTest {
 
         gptApi.waitUntilSent(4);
         assertion()
+                .focus(question().questionButton())
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
@@ -228,6 +236,7 @@ class TemperatureTest extends BaseGptUiTest {
 
     private void choosePreviousInteraction() {
         assertion()
+                .focus(gcpAnswer().copyButton())
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
@@ -250,6 +259,7 @@ class TemperatureTest extends BaseGptUiTest {
 
         clickOn(history().comboBox()).clickOn(format("[Q] %s: %s", I1.THEME.title(), I1.QUESTION));
         assertion()
+                .focus(history().comboBox())
                 .historySize(2, 2)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().get(1))

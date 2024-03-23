@@ -15,6 +15,8 @@ import javafx.util.StringConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static gptui.LogUtils.shorten;
+
 public class AnswerController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(AnswerController.class);
     @FXML
@@ -62,14 +64,14 @@ public class AnswerController extends BaseController {
                 var currentContent = this.vm.properties.webViewContent.getValue();
                 var newContent = (String) webView.getEngine().executeScript("document.documentElement.outerHTML");
                 if (!newContent.equals(currentContent)) {
-                    log.trace("Set value to webViewContent from WebView Engine: {}", newContent);
+                    log.trace("Set value to webViewContent from WebView Engine: {}", shorten(newContent));
                     this.vm.properties.webViewContent.set(newContent);
                 }
             }
         });
         this.vm.properties.webViewContent.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                log.trace("Load content to WebView Engine: {}", newValue);
+                log.trace("Load content to WebView Engine: {}", shorten(newValue));
                 webView.getEngine().loadContent(newValue);
             }
         });

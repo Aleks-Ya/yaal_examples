@@ -1,5 +1,6 @@
 package gptui.model.state;
 
+import gptui.LogUtils;
 import gptui.Mdc;
 import gptui.model.storage.Answer;
 import gptui.model.storage.AnswerType;
@@ -71,9 +72,9 @@ class StateModelImpl implements StateModel {
 
     @Override
     public synchronized Optional<Interaction> getCurrentInteractionOpt() {
-        var result = storage.readInteraction(currentInteractionId);
-        log.trace("getCurrentInteractionOpt: '{}'", result);
-        return result;
+        var interaction = storage.readInteraction(currentInteractionId);
+        log.trace("getCurrentInteractionOpt: '{}'", interaction.map(LogUtils::shorten));
+        return interaction;
     }
 
     @Override

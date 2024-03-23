@@ -38,8 +38,25 @@ class MessageTest {
     }
 
     @Test
+    void asAndDescribedAs() {
+        assertThatThrownBy(() -> assertThat("abc")
+                .as("As text")
+                .describedAs("Described As")
+                .isEqualTo("ABC")
+        )
+                .isInstanceOf(AssertionError.class)
+                .hasMessage("""
+                        [Described As]\s
+                        expected: "ABC"
+                         but was: "abc\"""");
+    }
+
+    @Test
     void overridingErrorMessage() {
-        assertThatThrownBy(() -> assertThat("abc").overridingErrorMessage("Error message").isEqualTo("ABC"))
+        assertThatThrownBy(() -> assertThat("abc")
+                .overridingErrorMessage("Error message")
+                .isEqualTo("ABC")
+        )
                 .isInstanceOf(AssertionError.class)
                 .hasMessage("Error message");
     }
@@ -53,15 +70,37 @@ class MessageTest {
 
     @Test
     void withRepresentation() {
-        assertThatThrownBy(() -> assertThat("abc").withRepresentation(new StandardRepresentation() {
-            @Override
-            protected String toStringOf(String s) {
-                return "<<" + s + ">>";
-            }
-        }).isEqualTo("ABC"))
+        assertThatThrownBy(() -> assertThat("abc")
+                .withRepresentation(new StandardRepresentation() {
+                    @Override
+                    protected String toStringOf(String s) {
+                        return "<<" + s + ">>";
+                    }
+                })
+                .isEqualTo("ABC")
+        )
                 .isInstanceOf(AssertionError.class)
                 .hasMessage("""
                                                 
+                        expected: <<ABC>>
+                         but was: <<abc>>""");
+    }
+
+    @Test
+    void asAndWithRepresentation() {
+        assertThatThrownBy(() -> assertThat("abc")
+                .as("Context")
+                .withRepresentation(new StandardRepresentation() {
+                    @Override
+                    protected String toStringOf(String s) {
+                        return "<<" + s + ">>";
+                    }
+                })
+                .isEqualTo("ABC")
+        )
+                .isInstanceOf(AssertionError.class)
+                .hasMessage("""
+                        [Context]\s
                         expected: <<ABC>>
                          but was: <<abc>>""");
     }

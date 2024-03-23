@@ -27,6 +27,7 @@ class EditQuestionWhileWaitingAnswersTest extends BaseGptUiTest {
 
     private void initialState() {
         assertion()
+                .focus(history().comboBox())
                 .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(I0.HISTORY_SELECTED_ITEM)
@@ -53,6 +54,7 @@ class EditQuestionWhileWaitingAnswersTest extends BaseGptUiTest {
         clickOn(question().textArea());
         overWrite(I1.QUESTION);
         assertion()
+                .focus(question().textArea())
                 .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(I0.HISTORY_SELECTED_ITEM)
@@ -81,6 +83,7 @@ class EditQuestionWhileWaitingAnswersTest extends BaseGptUiTest {
 
         clickOn(question().questionButton());
         assertion()
+                .focus(question().questionButton())
                 .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
@@ -107,6 +110,7 @@ class EditQuestionWhileWaitingAnswersTest extends BaseGptUiTest {
         clickOn(question().textArea());
         overWrite(I2.QUESTION);
         assertion()
+                .focus(question().textArea())
                 .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
@@ -129,6 +133,7 @@ class EditQuestionWhileWaitingAnswersTest extends BaseGptUiTest {
 
         gptApi.waitUntilSent(4);
         assertion()
+                .focus(question().textArea())
                 .historySize(1, 1)
                 .historyDeleteButtonDisabled(false)
                 .historySelectedItem(storage.readAllInteractions().getFirst())
