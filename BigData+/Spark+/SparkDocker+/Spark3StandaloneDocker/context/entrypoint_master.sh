@@ -3,6 +3,7 @@
 set -e
 
 echo "SPARK_HOME=$SPARK_HOME"
+echo "SPARK_VERSION=$SPARK_VERSION"
 echo "PWD=$PWD"
 
 . user.sh
@@ -13,6 +14,10 @@ echo "Starting Spark Master..."
 chown -R spark:root /opt/spark/
 su spark -c "start-master.sh"
 echo "Spark Master started."
+
+echo "Starting Spark Connect..."
+su spark -c "start-connect-server.sh --jars $SPARK_HOME/spark-connect.jar --master spark://spark-standalone-cluster-master:7077"
+echo "Spark Connect started."
 
 echo "Starting Spark History Server..."
 su spark -c "mkdir -p /shared/spark-events"

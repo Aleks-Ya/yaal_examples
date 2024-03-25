@@ -6,7 +6,7 @@ Run a command:`docker run --rm --name almalinux almalinux echo 'Hello, World!'`
 Run Bash:`docker run -it --rm --name almalinux almalinux bash`
 
 ## Updated image
-Fetch the last version: `docker pull almalinux`
-Build: `docker build -t almalinux-updated AlmaLinuxUpdated`
-Run: `docker run -it --rm --name almalinux-updated almalinux-updated`
-Check: `docker run -it --rm --name almalinux-updated almalinux-updated which telnet`
+1. Fetch the last version: `docker pull almalinux`
+2. Build: `docker build -t almalinux-updated AlmaLinuxUpdated`
+3. Check: `docker run -it --rm --name almalinux-updated almalinux-updated which telnet`
+4. Run: `docker run -it --rm --name almalinux-updated almalinux-updated`

@@ -16,6 +16,8 @@ See Postman `ElasticSearch7` collection
    2. ELK 7.17.5 (LogStash doesn't work)
        1. Without persistence: `docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -e LOGSTASH_START=0 -m 2GB -it --rm --name elk7 sebp/elk:7.17.5`
        2. With persistence: `docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -e LOGSTASH_START=0 -m 2GB -it --rm --name elk7 -v elk-data:/var/lib/elasticsearch sebp/elk:7.17.5`
+   3. ELK 8
+      1. 1. Without persistence: `docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -it --rm --name elk8 sebp/elk:8.11.1`
 2. Check ElasticSearch endpoint: http://localhost:9200
 3. Open Kibana UI: http://localhost:5601
 

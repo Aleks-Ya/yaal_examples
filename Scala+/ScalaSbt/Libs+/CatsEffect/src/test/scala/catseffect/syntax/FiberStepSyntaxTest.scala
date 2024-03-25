@@ -20,11 +20,11 @@ class FiberStepSyntaxTest extends AsyncFreeSpec with AsyncIOSpec with Matchers {
       }
     }
 
-    "ignoring result of 1st step (opt 1)" in {
+    "ignoring output of 1st step (opt 1)" in {
       IO.println("Hello") >> IO.println("World 3")
     }
 
-    "ignoring result of 1st step (opt 2)" in {
+    "ignoring output of 1st step (opt 2)" in {
       IO.println("Hello") *> IO.println("World 4")
     }
   }

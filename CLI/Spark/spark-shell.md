@@ -15,6 +15,40 @@ Help: `spark-shell -h`
 Show version: `spark-shell --version`
 Run in local mode: `spark-shell --master local[2]`
 Connect to existing Master: `spark-shell --master spark://spark-standalone-cluster-master:7077`
+Set DEBUG log level: `sc.setLogLevel("DEBUG")`
+
+## Commands in `scala>`
+Help: `:help`
+Help about a command: `:help :type` or `:help type`
+Show completions for a command: `:completions sc.setL`
+Exit: `:quit`
+All:
+```
+All commands can be abbreviated, e.g., :he instead of :help.
+:completions <string>    output completions for the given string
+:edit <id>|<line>        edit history
+:help [command]          print this summary or command-specific help
+:history [num]           show the history (optional num is commands to show)
+:h? <string>             search the history
+:imports [name name ...] show import history, identifying sources of names
+:implicits [-v]          show the implicits in scope
+:javap <path|class>      disassemble a file or class name
+:line <id>|<line>        place line(s) at the end of history
+:load <path>             interpret lines in a file
+:paste [-raw] [path]     enter paste mode or paste a file
+:power                   enable power user mode
+:quit                    exit the interpreter
+:replay [options]        reset the repl and replay all previous commands
+:require <path>          add a jar to the classpath
+:reset [options]         reset the repl to its initial state, forgetting all session entries
+:save <path>             save replayable session to a file
+:sh <command line>       run a shell command (result is implicitly => List[String])
+:settings <options>      update compiler options, if possible; see reset
+:silent                  disable/enable automatic printing of results
+:type [-v] <expr>        display the type of an expression without evaluating it
+:kind [-v] <type>        display the kind of a type. see also :help kind
+:warnings                show the suppressed warnings from the most recent line which had any
+```
 
 ## Test calculations in Shell
 1. Test Spark Core: `sc.parallelize(Seq(1, 2, 3)).collect()`

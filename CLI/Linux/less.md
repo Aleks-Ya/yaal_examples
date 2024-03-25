@@ -2,6 +2,9 @@
 
 [Source](https://www.thegeekstuff.com/2010/02/unix-less-command-10-tips-for-effective-navigation)
 
+## Info
+Help: `less --help`
+
 ## Commands
 Disable line-wraps: `less -S files.txt`
 
