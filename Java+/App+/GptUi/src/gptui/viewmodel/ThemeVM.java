@@ -104,7 +104,7 @@ public class ThemeVM {
         log.trace("currentComboBoxValue: '{}'", currentComboBoxValue);
         var currentModelValue = mediator.getCurrentTheme();
         log.trace("currentModelValue: '{}'", currentModelValue);
-        if (!Objects.equals(currentComboBoxValue, currentModelValue)) {
+        if (currentComboBoxValue != null && !Objects.equals(currentComboBoxValue, currentModelValue)) {
             mediator.setCurrentTheme(currentComboBoxValue);
             mediator.themeWasChosen();
         }
