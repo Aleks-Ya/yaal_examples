@@ -5,6 +5,7 @@ import gptui.ui.TestingData.I0;
 import gptui.ui.TestingData.I1;
 import org.junit.jupiter.api.Test;
 
+import static gptui.viewmodel.Styles.QUESTION_STYLE_EMPTY;
 import static java.time.Duration.ZERO;
 import static javafx.scene.input.KeyCode.ENTER;
 import static javafx.scene.paint.Color.GREEN;
@@ -34,6 +35,7 @@ class MultiLineQuestionTest extends BaseGptUiTest {
                 .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I0.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(null)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I0.GRAMMAR_HTML)
@@ -74,6 +76,7 @@ class MultiLineQuestionTest extends BaseGptUiTest {
                 .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(questionText)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(questionText)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I1.EXP_GRAMMAR_HTML_BODY)

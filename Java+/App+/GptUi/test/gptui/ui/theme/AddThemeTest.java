@@ -7,6 +7,7 @@ import gptui.ui.TestingData.I2;
 import javafx.scene.input.KeyCode;
 import org.junit.jupiter.api.Test;
 
+import static gptui.viewmodel.Styles.QUESTION_STYLE_EMPTY;
 import static javafx.scene.paint.Color.WHITE;
 
 class AddThemeTest extends BaseGptUiTest {
@@ -30,6 +31,7 @@ class AddThemeTest extends BaseGptUiTest {
                 .themeItems(I0.THEME_ITEMS)
                 .themeFilterHistorySelected(false)
                 .questionText(I0.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(null)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I0.GRAMMAR_HTML)
@@ -55,6 +57,7 @@ class AddThemeTest extends BaseGptUiTest {
                 .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I0.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(null)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I0.GRAMMAR_HTML)
@@ -80,6 +83,7 @@ class AddThemeTest extends BaseGptUiTest {
                 .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I0.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(null)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I0.GRAMMAR_HTML)
@@ -105,6 +109,7 @@ class AddThemeTest extends BaseGptUiTest {
                 .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I0.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(null)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I0.GRAMMAR_HTML)

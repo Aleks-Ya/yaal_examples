@@ -6,6 +6,7 @@ import gptui.ui.TestingData.I2;
 import gptui.ui.TestingData.I3;
 import org.junit.jupiter.api.Test;
 
+import static gptui.viewmodel.Styles.QUESTION_STYLE_EMPTY;
 import static java.lang.String.format;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
@@ -34,6 +35,7 @@ class DeleteInteractionMiddleThemeFilteredTest extends BaseGptUiTest {
                 .themeItems(I3.THEME, I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I3.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I3.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I3.GRAMMAR_HTML)
@@ -59,6 +61,7 @@ class DeleteInteractionMiddleThemeFilteredTest extends BaseGptUiTest {
                 .themeItems(I3.THEME, I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(true)
                 .questionText(I2.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I2.GRAMMAR_HTML)
@@ -83,6 +86,7 @@ class DeleteInteractionMiddleThemeFilteredTest extends BaseGptUiTest {
                 .themeItems(I3.THEME, I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(true)
                 .questionText(I3.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I3.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I3.GRAMMAR_HTML)

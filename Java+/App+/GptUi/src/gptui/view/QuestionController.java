@@ -56,6 +56,7 @@ public class QuestionController extends BaseController {
     @Override
     protected void initialize() {
         vm.properties.questionTaText.bindBidirectional(questionTextArea.textProperty());
+        vm.properties.questionTaStyle.bindBidirectional(questionTextArea.styleProperty());
         vm.properties.questionTaFocused.addListener((observable, oldValue, newValue) -> {
                     if (newValue) {
                         Platform.runLater(() -> questionTextArea.requestFocus());

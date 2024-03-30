@@ -33,6 +33,7 @@ public class WindowAssertion {
     private List<Theme> themeItems;
     private Boolean filterHistorySelected;
     private String questionText;
+    private String questionStyle;
     private Boolean isEnteringNewQuestion;
     private String modelEditedQuestion;
     private final AnswerInfo grammarAnswer = new AnswerInfo();
@@ -126,6 +127,11 @@ public class WindowAssertion {
 
     public WindowAssertion questionText(String questionText) {
         this.questionText = questionText;
+        return this;
+    }
+
+    public WindowAssertion questionStyle(String questionStyle) {
+        this.questionStyle = questionStyle;
         return this;
     }
 
@@ -253,6 +259,7 @@ public class WindowAssertion {
             soft.assertThat(question.factButton().getText()).as("Fact/Button/Text").isEqualTo("_Fact");
             soft.assertThat(question.regenerateButton().getText()).as("Regenerate/Button/Text").isEqualTo("_Resend");
             soft.assertThat(question.textArea().getText()).as("Question/TextArea/Text").isEqualTo(questionText);
+            soft.assertThat(question.textArea().getStyle()).as("Question/TextArea/Style").isEqualTo(questionStyle);
             soft.assertThat(app.stateModel.getEditedQuestion()).as("Question/Model/Text").isEqualTo(modelEditedQuestion);
             soft.assertThat(app.stateModel.isEnteringNewQuestion()).as("Question/Model/isEnteringNewQuestion").isEqualTo(isEnteringNewQuestion);
         }

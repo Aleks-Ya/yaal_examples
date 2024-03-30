@@ -7,6 +7,8 @@ import gptui.ui.TestingData.I2;
 import gptui.ui.TestingData.I3;
 import org.junit.jupiter.api.Test;
 
+import static gptui.viewmodel.Styles.QUESTION_STYLE_EDITED;
+import static gptui.viewmodel.Styles.QUESTION_STYLE_EMPTY;
 import static java.time.Duration.ZERO;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
@@ -36,6 +38,7 @@ class SendFactTest extends BaseGptUiTest {
                 .themeItems(I3.THEME, I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I3.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I3.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I3.GRAMMAR_HTML)
@@ -63,6 +66,7 @@ class SendFactTest extends BaseGptUiTest {
                 .themeItems(I3.THEME, I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText("Question 4")
+                .questionStyle(QUESTION_STYLE_EDITED)
                 .modelEditedQuestion("Question 4")
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text("<p>Fact answer 4</p>\n")

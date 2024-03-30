@@ -6,6 +6,8 @@ import gptui.ui.TestingData.I1;
 import gptui.ui.TestingData.I2;
 import org.junit.jupiter.api.Test;
 
+import static gptui.viewmodel.Styles.QUESTION_STYLE_EDITED;
+import static gptui.viewmodel.Styles.QUESTION_STYLE_EMPTY;
 import static java.time.Duration.ofMillis;
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.GREEN;
@@ -37,6 +39,7 @@ class EditQuestionWhileWaitingAnswersTest extends BaseGptUiTest {
                 .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I0.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(null)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I0.GRAMMAR_HTML)
@@ -64,6 +67,7 @@ class EditQuestionWhileWaitingAnswersTest extends BaseGptUiTest {
                 .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I0.GRAMMAR_HTML)
@@ -93,6 +97,7 @@ class EditQuestionWhileWaitingAnswersTest extends BaseGptUiTest {
                 .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I0.GRAMMAR_HTML)
@@ -120,6 +125,7 @@ class EditQuestionWhileWaitingAnswersTest extends BaseGptUiTest {
                 .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I2.QUESTION)
+                .questionStyle(QUESTION_STYLE_EDITED)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(true)
                 .grammarA().text(I0.GRAMMAR_HTML)
@@ -143,6 +149,7 @@ class EditQuestionWhileWaitingAnswersTest extends BaseGptUiTest {
                 .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I2.QUESTION)
+                .questionStyle(QUESTION_STYLE_EDITED)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(true)
                 .grammarA().text(I1.EXP_GRAMMAR_HTML_BODY)

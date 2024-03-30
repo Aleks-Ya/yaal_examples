@@ -7,6 +7,8 @@ import gptui.ui.TestingData.I1;
 import gptui.ui.TestingData.I2;
 import org.junit.jupiter.api.Test;
 
+import static gptui.viewmodel.Styles.QUESTION_STYLE_EDITED;
+import static gptui.viewmodel.Styles.QUESTION_STYLE_EMPTY;
 import static java.time.Duration.ofMillis;
 import static javafx.scene.paint.Color.BLUE;
 import static javafx.scene.paint.Color.GREEN;
@@ -38,7 +40,9 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeSelectedItem(I0.THEME_SELECTED_ITEM)
                 .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .questionText(I0.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(null)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I0.GRAMMAR_HTML)
@@ -65,6 +69,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeSelectedItem(I1.THEME)
                 .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .questionText(I1.QUESTION)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
@@ -94,6 +99,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeSelectedItem(I1.THEME)
                 .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .questionText(I1.QUESTION)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
@@ -117,6 +123,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeSelectedItem(I1.THEME)
                 .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .questionText(I1.QUESTION)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
@@ -153,6 +160,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeSelectedItem(I2.THEME)
                 .themeItems(I1.THEME, I2.THEME)
                 .themeFilterHistorySelected(false)
+                .questionStyle(QUESTION_STYLE_EDITED)
                 .questionText(I2.QUESTION)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(true)
@@ -181,6 +189,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeSelectedItem(I2.THEME)
                 .themeItems(I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
+                .questionStyle(QUESTION_STYLE_EDITED)
                 .questionText(I2.QUESTION)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(false)
@@ -205,6 +214,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeSelectedItem(I2.THEME)
                 .themeItems(I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
+                .questionStyle(QUESTION_STYLE_EDITED)
                 .questionText(I2.QUESTION)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(false)
@@ -239,6 +249,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeItems(I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I2.QUESTION)
+                .questionStyle(QUESTION_STYLE_EDITED)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(TestingData.I2.EXP_GRAMMAR_HTML_BODY)
@@ -262,6 +273,7 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .themeItems(I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I1.EXP_GRAMMAR_HTML_BODY)

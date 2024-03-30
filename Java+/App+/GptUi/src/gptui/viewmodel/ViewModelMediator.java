@@ -204,6 +204,10 @@ class ViewModelMediator {
         stateModel.setEditedQuestion(question);
     }
 
+    Boolean isEnteringNewQuestion() {
+        return stateModel.isEnteringNewQuestion();
+    }
+
     void requestAnswer(InteractionId interactionId, AnswerType answerType) {
         questionModel.requestAnswer(interactionId, answerType, () -> answerUpdated(answerType));
     }

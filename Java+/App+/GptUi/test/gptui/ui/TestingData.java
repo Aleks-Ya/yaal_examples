@@ -18,7 +18,6 @@ import static gptui.model.storage.AnswerType.LONG;
 import static gptui.model.storage.AnswerType.SHORT;
 
 public class TestingData {
-
     public static class I0 {
         public static final String QUESTION = "";
         public static final String GRAMMAR_HTML = "";

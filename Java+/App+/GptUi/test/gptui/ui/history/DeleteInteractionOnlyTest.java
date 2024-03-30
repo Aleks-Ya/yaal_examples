@@ -5,6 +5,7 @@ import gptui.ui.TestingData.I0;
 import gptui.ui.TestingData.I1;
 import org.junit.jupiter.api.Test;
 
+import static gptui.viewmodel.Styles.QUESTION_STYLE_EMPTY;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.WHITE;
 
@@ -28,6 +29,7 @@ class DeleteInteractionOnlyTest extends BaseGptUiTest {
                 .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I1.GRAMMAR_HTML)
@@ -52,6 +54,7 @@ class DeleteInteractionOnlyTest extends BaseGptUiTest {
                 .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I0.GRAMMAR_HTML)

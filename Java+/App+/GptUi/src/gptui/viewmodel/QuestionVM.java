@@ -19,6 +19,7 @@ import static gptui.model.storage.AnswerType.SHORT;
 import static gptui.model.storage.InteractionType.DEFINITION;
 import static gptui.model.storage.InteractionType.FACT;
 import static gptui.model.storage.InteractionType.QUESTION;
+import static gptui.viewmodel.Styles.QUESTION_STYLE_EDITED;
 
 @Singleton
 public class QuestionVM {
@@ -36,6 +37,7 @@ public class QuestionVM {
                     log.trace("Update question text: '{}'", question);
                     properties.questionTaText.setValue(question);
                     mediator.setEditedQuestion(question);
+                    updateQuestionTextAreaBackgroundColor();
                 });
     }
 
@@ -82,6 +84,15 @@ public class QuestionVM {
     public void onKeyTypedQuestionTextArea() {
         log.trace("onKeyTypedQuestionTextArea");
         mediator.setEditedQuestion(properties.questionTaText.getValue());
+        updateQuestionTextAreaBackgroundColor();
+    }
+
+    private void updateQuestionTextAreaBackgroundColor() {
+        if (mediator.isEnteringNewQuestion()) {
+            properties.questionTaStyle.set(QUESTION_STYLE_EDITED);
+        } else {
+            properties.questionTaStyle.set(Styles.QUESTION_STYLE_EMPTY);
+        }
     }
 
     void pasteQuestionFromClipboard() {
@@ -102,6 +113,7 @@ public class QuestionVM {
 
     public static class Properties {
         public final StringProperty questionTaText = new SimpleStringProperty();
+        public final StringProperty questionTaStyle = new SimpleStringProperty();
         public final BooleanProperty questionTaFocused = new SimpleBooleanProperty();
         public final BooleanProperty questionTaSelectAll = new SimpleBooleanProperty();
         public final BooleanProperty questionTaPositionCaretToEnd = new SimpleBooleanProperty();

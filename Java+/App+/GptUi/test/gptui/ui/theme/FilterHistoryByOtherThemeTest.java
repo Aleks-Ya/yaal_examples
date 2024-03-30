@@ -6,6 +6,7 @@ import gptui.ui.TestingData.I2;
 import gptui.ui.TestingData.I3;
 import org.junit.jupiter.api.Test;
 
+import static gptui.viewmodel.Styles.QUESTION_STYLE_EMPTY;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 
@@ -40,6 +41,7 @@ class FilterHistoryByOtherThemeTest extends BaseGptUiTest {
                 .themeItems(I3.THEME, I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I3.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I3.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I3.GRAMMAR_HTML)
@@ -65,6 +67,7 @@ class FilterHistoryByOtherThemeTest extends BaseGptUiTest {
                 .themeItems(I3.THEME, I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(true)
                 .questionText(I3.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I3.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I3.GRAMMAR_HTML)
@@ -90,6 +93,7 @@ class FilterHistoryByOtherThemeTest extends BaseGptUiTest {
                 .themeItems(I3.THEME, I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(true)
                 .questionText(I1.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I1.GRAMMAR_HTML)
@@ -115,6 +119,7 @@ class FilterHistoryByOtherThemeTest extends BaseGptUiTest {
                 .themeItems(I3.THEME, I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I1.GRAMMAR_HTML)

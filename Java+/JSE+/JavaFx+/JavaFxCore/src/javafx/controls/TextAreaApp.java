@@ -19,8 +19,9 @@ public class TextAreaApp extends Application {
         var textArea5 = eventHandlerByTextFormatter();
         var textArea6 = eventHandlerByEventDispatcher();
         var textArea7 = eventHandlerByEventFilter();
-        var scene = new Scene(new VBox(textArea1, textArea2, textArea3, textArea4, textArea5, textArea6, textArea7),
-                640, 800);
+        var textArea8 = coloredTextArea();
+        var scene = new Scene(new VBox(textArea1, textArea2, textArea3, textArea4, textArea5, textArea6, textArea7,
+                textArea8), 640, 800);
         stage.setScene(scene);
         stage.show();
     }
@@ -88,6 +89,12 @@ public class TextAreaApp extends Application {
                 event.consume();
             }
         });
+        return textArea;
+    }
+
+    private static TextArea coloredTextArea() {
+        var textArea = new TextArea("Colored Text Area");
+        textArea.setStyle("-fx-control-inner-background: red;");
         return textArea;
     }
 

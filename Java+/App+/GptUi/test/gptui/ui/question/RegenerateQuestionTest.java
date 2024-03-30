@@ -10,6 +10,7 @@ import static gptui.model.storage.AnswerState.FAIL;
 import static gptui.model.storage.AnswerType.GCP;
 import static gptui.model.storage.AnswerType.LONG;
 import static gptui.model.storage.AnswerType.SHORT;
+import static gptui.viewmodel.Styles.QUESTION_STYLE_EMPTY;
 import static java.time.Duration.ZERO;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
@@ -39,6 +40,7 @@ class RegenerateQuestionTest extends BaseGptUiTest {
                 .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I1.GRAMMAR_HTML)
@@ -69,6 +71,7 @@ class RegenerateQuestionTest extends BaseGptUiTest {
                 .themeItems(I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I2.EXP_GRAMMAR_HTML_BODY)

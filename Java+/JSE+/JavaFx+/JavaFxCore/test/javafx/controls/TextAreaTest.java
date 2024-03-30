@@ -40,4 +40,14 @@ class TextAreaTest extends ApplicationTest {
         textArea.setText("Text Area 2");
         assertThat(textArea).extracting(TextArea::getText).isEqualTo("Text Area 2");
     }
+
+    @Test
+    void changeBackgroundColor() {
+        var textArea = lookup(".text-area").queryAs(TextArea.class);
+        assertThat(textArea).extracting(TextArea::getStyle).isEqualTo("");
+
+        var style = "-fx-control-inner-background: red;";
+        textArea.setStyle(style);
+        assertThat(textArea).extracting(TextArea::getStyle).isEqualTo(style);
+    }
 }

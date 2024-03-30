@@ -13,7 +13,7 @@
 9. Fix floating unit-tests: `TemperatureTest`
 10. Limit length of text in History ComboBox
 11. Remove empty theme from Themes ComboBox
-12. Highlight Question if the question is edited
+12. Bug: Ctrl-Alt-V within the Theme ComboBox
 
 ## Install on Ubuntu
 

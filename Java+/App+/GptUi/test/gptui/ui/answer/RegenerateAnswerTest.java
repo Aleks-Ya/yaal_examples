@@ -6,6 +6,7 @@ import gptui.ui.TestingData.I2;
 import gptui.ui.TestingData.I3;
 import org.junit.jupiter.api.Test;
 
+import static gptui.viewmodel.Styles.QUESTION_STYLE_EMPTY;
 import static java.time.Duration.ZERO;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
@@ -41,6 +42,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .themeItems(I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I2.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I2.GRAMMAR_HTML)
@@ -67,6 +69,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .themeItems(I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I2.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I2.GRAMMAR_HTML)
@@ -91,6 +94,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .themeItems(I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I2.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I3.EXP_GRAMMAR_HTML_BODY)
@@ -118,6 +122,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .themeItems(I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I2.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I3.EXP_GRAMMAR_HTML_BODY)
@@ -145,6 +150,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .themeItems(I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I2.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I3.EXP_GRAMMAR_HTML_BODY)
@@ -172,6 +178,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .themeItems(I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I2.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I3.EXP_GRAMMAR_HTML_BODY)
@@ -197,6 +204,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .themeItems(I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I1.GRAMMAR_HTML)
@@ -222,6 +230,7 @@ class RegenerateAnswerTest extends BaseGptUiTest {
                 .themeItems(I2.THEME, I1.THEME)
                 .themeFilterHistorySelected(false)
                 .questionText(I1.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
                 .modelEditedQuestion(I1.QUESTION)
                 .modelIsEnteringNewQuestion(false)
                 .grammarA().text(I1.GRAMMAR_HTML)
