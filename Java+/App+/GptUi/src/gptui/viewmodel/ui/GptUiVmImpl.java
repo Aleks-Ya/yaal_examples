@@ -20,15 +20,13 @@ class GptUiVmImpl implements GptUiVmController {
     @Override
     public void initialize() {
         log.trace("initialize");
-        var history = mediator.getFullHistory();
         mediator.chooseFirstInteractionAsCurrent();
-        if (!history.isEmpty()) {
-            var currentInteraction = mediator.getCurrentInteraction();
+        mediator.getCurrentInteractionOpt().ifPresent(currentInteraction -> {
             currentInteraction.getAnswer(GRAMMAR).ifPresent(answer -> mediator.setTemperature(GRAMMAR, answer.temperature()));
             currentInteraction.getAnswer(SHORT).ifPresent(answer -> mediator.setTemperature(SHORT, answer.temperature()));
             currentInteraction.getAnswer(LONG).ifPresent(answer -> mediator.setTemperature(LONG, answer.temperature()));
             currentInteraction.getAnswer(GCP).ifPresent(answer -> mediator.setTemperature(GCP, answer.temperature()));
-        }
+        });
         mediator.chooseFirstThemeAsCurrent();
         mediator.displayCurrentInteraction();
     }

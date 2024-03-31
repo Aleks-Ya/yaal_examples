@@ -6,8 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
@@ -16,6 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static gptui.LogUtils.shorten;
+import static javafx.scene.input.KeyCode.DOWN;
+import static javafx.scene.input.KeyCode.UP;
+import static javafx.scene.input.KeyEvent.KEY_PRESSED;
 
 public class AnswerController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(AnswerController.class);
@@ -61,35 +62,35 @@ public class AnswerController extends BaseController {
         });
         webView.getEngine().documentProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                var currentContent = this.vm.properties().webViewContent.getValue();
+                var currentContent = vm.properties().webViewContent.getValue();
                 var newContent = (String) webView.getEngine().executeScript("document.documentElement.outerHTML");
                 if (!newContent.equals(currentContent)) {
                     log.trace("Set value to webViewContent from WebView Engine: {}", shorten(newContent));
-                    this.vm.properties().webViewContent.set(newContent);
+                    vm.properties().webViewContent.set(newContent);
                 }
             }
         });
-        this.vm.properties().webViewContent.addListener((observable, oldValue, newValue) -> {
+        vm.properties().webViewContent.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 log.trace("Load content to WebView Engine: {}", shorten(newValue));
                 webView.getEngine().loadContent(newValue);
             }
         });
-        this.vm.properties().temperatureText.bindBidirectional(temperatureText.textProperty());
-        this.vm.properties().temperatureSpinner.bindBidirectional(temperatureSpinner.getValueFactory().valueProperty());
-        this.vm.properties().statusCircleFill.bindBidirectional(statusCircle.fillProperty());
-        this.vm.properties().answerLabelText.bindBidirectional(answerLabel.textProperty());
-        this.vm.properties().copyButtonText.bindBidirectional(copyButton.textProperty());
-        webView.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.isControlDown() && event.isAltDown() && event.getCode() == KeyCode.DOWN) {
-                event.consume();
-                vm.ctrlAltDownHotkeyPressed();
-            }
-        });
-        webView.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.isControlDown() && event.isAltDown() && event.getCode() == KeyCode.UP) {
-                event.consume();
-                vm.ctrlAltUpHotkeyPressed();
+        vm.properties().temperatureText.bindBidirectional(temperatureText.textProperty());
+        vm.properties().temperatureSpinner.bindBidirectional(temperatureSpinner.getValueFactory().valueProperty());
+        vm.properties().statusCircleFill.bindBidirectional(statusCircle.fillProperty());
+        vm.properties().answerLabelText.bindBidirectional(answerLabel.textProperty());
+        vm.properties().copyButtonText.bindBidirectional(copyButton.textProperty());
+        webView.addEventFilter(KEY_PRESSED, event -> {
+            if (event.isControlDown() && event.isAltDown()) {
+                if (event.getCode() == DOWN) {
+                    event.consume();
+                    vm.ctrlAltDownHotkeyPressed();
+                }
+                if (event.getCode() == UP) {
+                    event.consume();
+                    vm.ctrlAltUpHotkeyPressed();
+                }
             }
         });
     }

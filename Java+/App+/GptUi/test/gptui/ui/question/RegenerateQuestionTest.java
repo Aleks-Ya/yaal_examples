@@ -10,7 +10,7 @@ import static gptui.model.storage.AnswerState.FAIL;
 import static gptui.model.storage.AnswerType.GCP;
 import static gptui.model.storage.AnswerType.LONG;
 import static gptui.model.storage.AnswerType.SHORT;
-import static gptui.viewmodel.Styles.QUESTION_STYLE_EMPTY;
+import static gptui.viewmodel.question.QuestionStyle.QUESTION_STYLE_EMPTY;
 import static java.time.Duration.ZERO;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;

@@ -7,7 +7,7 @@ import gptui.ui.TestingData.I2;
 import javafx.scene.input.KeyCode;
 import org.junit.jupiter.api.Test;
 
-import static gptui.viewmodel.Styles.QUESTION_STYLE_EMPTY;
+import static gptui.viewmodel.question.QuestionStyle.QUESTION_STYLE_EMPTY;
 import static javafx.scene.paint.Color.WHITE;
 
 class AddThemeTest extends BaseGptUiTest {

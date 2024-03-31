@@ -5,7 +5,7 @@ import gptui.ui.TestingData.I1;
 import gptui.ui.TestingData.I2;
 import org.junit.jupiter.api.Test;
 
-import static gptui.viewmodel.Styles.QUESTION_STYLE_EMPTY;
+import static gptui.viewmodel.question.QuestionStyle.QUESTION_STYLE_EMPTY;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 

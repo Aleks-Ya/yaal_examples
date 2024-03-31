@@ -39,9 +39,9 @@ import static javafx.scene.input.KeyCombination.ALT_DOWN;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 
 @Singleton
-class ViewModelMediatorImpl implements HistoryMediator, QuestionMediator, ThemeMediator, AnswerMediator,
+class MediatorImpl implements HistoryMediator, QuestionMediator, ThemeMediator, AnswerMediator,
         GptUiMediator, GptUiApplicationMediator {
-    private static final Logger log = LoggerFactory.getLogger(ViewModelMediatorImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(MediatorImpl.class);
     @Inject
     @Named(AnswerVmModule.GRAMMAR)
     private AnswerVmMediator grammarAnswerVM;

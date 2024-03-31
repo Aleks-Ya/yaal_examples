@@ -4,7 +4,7 @@ import gptui.ui.BaseGptUiTest;
 import gptui.ui.TestingData.I0;
 import org.junit.jupiter.api.Test;
 
-import static gptui.viewmodel.Styles.QUESTION_STYLE_EMPTY;
+import static gptui.viewmodel.question.QuestionStyle.QUESTION_STYLE_EMPTY;
 import static javafx.scene.paint.Color.WHITE;
 
 class StartEmptyStorageTest extends BaseGptUiTest {

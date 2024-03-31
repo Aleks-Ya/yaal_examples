@@ -5,12 +5,12 @@ import com.google.inject.AbstractModule;
 public class MediatorModule extends AbstractModule {
     @Override
     protected void configure() {
-        bind(ViewModelMediatorImpl.class);
-        bind(HistoryMediator.class).to(ViewModelMediatorImpl.class);
-        bind(QuestionMediator.class).to(ViewModelMediatorImpl.class);
-        bind(ThemeMediator.class).to(ViewModelMediatorImpl.class);
-        bind(AnswerMediator.class).to(ViewModelMediatorImpl.class);
-        bind(GptUiMediator.class).to(ViewModelMediatorImpl.class);
-        bind(GptUiApplicationMediator.class).to(ViewModelMediatorImpl.class);
+        bind(MediatorImpl.class);
+        bind(HistoryMediator.class).to(MediatorImpl.class);
+        bind(QuestionMediator.class).to(MediatorImpl.class);
+        bind(ThemeMediator.class).to(MediatorImpl.class);
+        bind(AnswerMediator.class).to(MediatorImpl.class);
+        bind(GptUiMediator.class).to(MediatorImpl.class);
+        bind(GptUiApplicationMediator.class).to(MediatorImpl.class);
     }
 }

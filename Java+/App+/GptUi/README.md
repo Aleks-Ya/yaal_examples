@@ -11,8 +11,7 @@
 7. Add new Theme dialog: disable OK button if theme title is empty
 8. Fix floating unit-tests: `TemperatureTest`
 9. Limit length of text in History ComboBox
-10. Remove empty theme from Themes ComboBox
-11. Bug: Ctrl-Alt-V within the Theme ComboBox
+10. Bug: Ctrl-Alt-V within the Theme ComboBox
 
 ## Install on Ubuntu
 

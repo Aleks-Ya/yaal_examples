@@ -4,7 +4,6 @@ import com.google.inject.Singleton;
 import gptui.Mdc;
 import gptui.model.storage.Interaction;
 import gptui.model.storage.InteractionType;
-import gptui.viewmodel.Styles;
 import gptui.viewmodel.mediator.QuestionMediator;
 import jakarta.inject.Inject;
 import org.slf4j.Logger;
@@ -17,7 +16,7 @@ import static gptui.model.storage.AnswerType.SHORT;
 import static gptui.model.storage.InteractionType.DEFINITION;
 import static gptui.model.storage.InteractionType.FACT;
 import static gptui.model.storage.InteractionType.QUESTION;
-import static gptui.viewmodel.Styles.QUESTION_STYLE_EDITED;
+import static gptui.viewmodel.question.QuestionStyle.QUESTION_STYLE_EDITED;
 
 @Singleton
 class QuestionVmImpl implements QuestionVmController, QuestionVmMediator {
@@ -102,7 +101,7 @@ class QuestionVmImpl implements QuestionVmController, QuestionVmMediator {
         if (mediator.isEnteringNewQuestion()) {
             properties.questionTaStyle.set(QUESTION_STYLE_EDITED);
         } else {
-            properties.questionTaStyle.set(Styles.QUESTION_STYLE_EMPTY);
+            properties.questionTaStyle.set(QuestionStyle.QUESTION_STYLE_EMPTY);
         }
     }
 
