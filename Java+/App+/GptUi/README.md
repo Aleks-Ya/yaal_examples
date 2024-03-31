@@ -9,11 +9,10 @@
 5. Expand Question and Answer view to full screen
 6. Replace Gemini Pro with Gemini Ultra.
 7. Add new Theme dialog: disable OK button if theme title is empty
-8. Move focus to the Question text area after choosing a theme
-9. Fix floating unit-tests: `TemperatureTest`
-10. Limit length of text in History ComboBox
-11. Remove empty theme from Themes ComboBox
-12. Bug: Ctrl-Alt-V within the Theme ComboBox
+8. Fix floating unit-tests: `TemperatureTest`
+9. Limit length of text in History ComboBox
+10. Remove empty theme from Themes ComboBox
+11. Bug: Ctrl-Alt-V within the Theme ComboBox
 
 ## Install on Ubuntu
 

@@ -95,6 +95,7 @@ class ViewModelMediatorImpl implements HistoryMediator, QuestionMediator, ThemeM
         shortAnswerVM.displayCurrentAnswer();
         longAnswerVM.displayCurrentAnswer();
         gcpAnswerVM.displayCurrentAnswer();
+        questionVM.focusOnQuestionAndSelect();
     }
 
     private void answerUpdated(AnswerType answerType) {

@@ -47,7 +47,7 @@ class AddThemeTest extends BaseGptUiTest {
     private void addTheme1() {
         clickOn(theme().addThemeButton()).write(I1.THEME.title()).type(KeyCode.ENTER);
         assertion()
-                .focus(theme().addThemeButton())
+                .focus(question().textArea())
                 .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(I0.HISTORY_SELECTED_ITEM)
@@ -73,7 +73,7 @@ class AddThemeTest extends BaseGptUiTest {
     private void addTheme2() {
         clickOn(theme().addThemeButton()).write(I2.THEME.title()).type(KeyCode.ENTER);
         assertion()
-                .focus(theme().addThemeButton())
+                .focus(question().textArea())
                 .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(I0.HISTORY_SELECTED_ITEM)
@@ -99,7 +99,7 @@ class AddThemeTest extends BaseGptUiTest {
     private void addDuplicatingTheme() {
         clickOn(theme().addThemeButton()).write(I2.THEME.title()).type(KeyCode.ENTER);
         assertion()
-                .focus(theme().addThemeButton())
+                .focus(question().textArea())
                 .historySize(0, 0)
                 .historyDeleteButtonDisabled(true)
                 .historySelectedItem(I0.HISTORY_SELECTED_ITEM)
