@@ -1,5 +1,6 @@
-package gptui.viewmodel;
+package gptui.viewmodel.ui;
 
+import gptui.viewmodel.mediator.GptUiMediator;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
@@ -11,11 +12,12 @@ import static gptui.model.storage.AnswerType.LONG;
 import static gptui.model.storage.AnswerType.SHORT;
 
 @Singleton
-public class GptUiVM {
-    private static final Logger log = LoggerFactory.getLogger(GptUiVM.class);
+class GptUiVmImpl implements GptUiVmController {
+    private static final Logger log = LoggerFactory.getLogger(GptUiVmImpl.class);
     @Inject
-    private ViewModelMediator mediator;
+    private GptUiMediator mediator;
 
+    @Override
     public void initialize() {
         log.trace("initialize");
         var history = mediator.getFullHistory();

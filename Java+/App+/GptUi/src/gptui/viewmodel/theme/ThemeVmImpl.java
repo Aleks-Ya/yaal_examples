@@ -1,23 +1,12 @@
-package gptui.viewmodel;
+package gptui.viewmodel.theme;
 
 import com.google.inject.Singleton;
 import gptui.model.storage.Interaction;
 import gptui.model.storage.Theme;
+import gptui.viewmodel.mediator.ThemeMediator;
 import jakarta.inject.Inject;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.util.Callback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,17 +15,19 @@ import java.util.Objects;
 import static gptui.viewmodel.CbHelper.updateCbSilently;
 
 @Singleton
-public class ThemeVM {
-    private static final Logger log = LoggerFactory.getLogger(ThemeVM.class);
-    public final Properties properties = new Properties();
+class ThemeVmImpl implements ThemeVmController, ThemeVmMediator {
+    private static final Logger log = LoggerFactory.getLogger(ThemeVmImpl.class);
+    public final ThemeVmProperties properties = new ThemeVmProperties();
     @Inject
-    private ViewModelMediator mediator;
+    private ThemeMediator mediator;
 
+    @Override
     public void onThemeComboBoxAction() {
         log.trace("onThemeComboBoxAction");
         chooseThemeFromCb();
     }
 
+    @Override
     public void onThemeFilterHistoryCheckBoxClicked() {
         log.trace("onThemeFilterHistoryCheckBoxClicked");
         var cbValue = properties.filterHistoryCheckBoxSelected.getValue();
@@ -49,6 +40,12 @@ public class ThemeVM {
         }
     }
 
+    @Override
+    public ThemeVmProperties properties() {
+        return properties;
+    }
+
+    @Override
     public void addNewTheme(String theme) {
         log.trace("addNewTheme");
         var newTheme = mediator.addTheme(theme);
@@ -56,7 +53,8 @@ public class ThemeVM {
         mediator.themeWasChosen();
     }
 
-    void updateComboBoxSelectedItemFromCurrentInteraction() {
+    @Override
+    public void updateComboBoxSelectedItemFromCurrentInteraction() {
         var themeTitle = mediator.getCurrentInteractionOpt()
                 .map(Interaction::themeId)
                 .map(mediator::getTheme)
@@ -65,11 +63,13 @@ public class ThemeVM {
         updateCbSilently(() -> properties.themeCbValue.setValue(themeTitle), properties.themeCbOnAction);
     }
 
-    void updateComboBoxSelectedItemFromStateModel() {
+    @Override
+    public void updateComboBoxSelectedItemFromStateModel() {
         updateCbSilently(() -> properties.themeCbValue.setValue(mediator.getCurrentTheme()), properties.themeCbOnAction);
     }
 
-    void updateComboBoxItems() {
+    @Override
+    public void updateComboBoxItems() {
         var currentModelItems = FXCollections.observableArrayList(mediator.getThemes());
         var currentComboBoxItems = properties.themeCbItems.getValue();
         if (!Objects.equals(currentModelItems, currentComboBoxItems)) {
@@ -80,11 +80,13 @@ public class ThemeVM {
         }
     }
 
-    void setLabel() {
+    @Override
+    public void setLabel() {
         properties.themeLabelText.setValue(String.format("_Theme (%d):", mediator.getThemes().size()));
     }
 
-    void initialize() {
+    @Override
+    public void initialize() {
         properties.themeCbCellFactory.setValue(listView -> new ListCell<>() {
             @Override
             protected void updateItem(Theme item, boolean empty) {
@@ -108,16 +110,6 @@ public class ThemeVM {
             mediator.setCurrentTheme(currentComboBoxValue);
             mediator.themeWasChosen();
         }
-    }
-
-    public static class Properties {
-        public final ObjectProperty<Theme> themeCbValue = new SimpleObjectProperty<>();
-        public final ListProperty<Theme> themeCbItems = new SimpleListProperty<>();
-        public final StringProperty themeCbEditor = new SimpleStringProperty();
-        public final ObjectProperty<EventHandler<ActionEvent>> themeCbOnAction = new SimpleObjectProperty<>();
-        public final ObjectProperty<Callback<ListView<Theme>, ListCell<Theme>>> themeCbCellFactory = new SimpleObjectProperty<>();
-        public final BooleanProperty filterHistoryCheckBoxSelected = new SimpleBooleanProperty();
-        public final StringProperty themeLabelText = new SimpleStringProperty();
     }
 }
 

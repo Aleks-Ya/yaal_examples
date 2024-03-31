@@ -1,7 +1,7 @@
 package gptui.view;
 
-import gptui.viewmodel.HistoryVM;
 import gptui.viewmodel.InteractionItem;
+import gptui.viewmodel.history.HistoryVmController;
 import jakarta.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +20,7 @@ public class HistoryController extends BaseController {
     @FXML
     private Button historyDeleteButton;
     @Inject
-    private HistoryVM vm;
+    private HistoryVmController vm;
 
     @FXML
     void historyComboBoxAction(ActionEvent ignoredEvent) {
@@ -36,11 +36,11 @@ public class HistoryController extends BaseController {
 
     @Override
     protected void initialize() {
-        vm.properties.historyLabelText.bindBidirectional(historyLabel.textProperty());
-        vm.properties.historyCbSelectionModel.bindBidirectional(historyComboBox.selectionModelProperty());
-        vm.properties.historyCbItems.bindBidirectional(historyComboBox.itemsProperty());
-        vm.properties.historyCbOnAction.bindBidirectional(historyComboBox.onActionProperty());
-        vm.properties.historyDeleteButtonDisable.bindBidirectional(historyDeleteButton.disableProperty());
+        vm.properties().historyLabelText.bindBidirectional(historyLabel.textProperty());
+        vm.properties().historyCbSelectionModel.bindBidirectional(historyComboBox.selectionModelProperty());
+        vm.properties().historyCbItems.bindBidirectional(historyComboBox.itemsProperty());
+        vm.properties().historyCbOnAction.bindBidirectional(historyComboBox.onActionProperty());
+        vm.properties().historyDeleteButtonDisable.bindBidirectional(historyDeleteButton.disableProperty());
     }
 }
 

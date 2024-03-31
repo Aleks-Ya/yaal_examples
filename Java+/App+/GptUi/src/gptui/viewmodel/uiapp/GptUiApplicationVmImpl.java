@@ -1,5 +1,6 @@
-package gptui.viewmodel;
+package gptui.viewmodel.uiapp;
 
+import gptui.viewmodel.mediator.GptUiApplicationMediator;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import javafx.collections.ObservableMap;
@@ -11,10 +12,10 @@ import org.slf4j.LoggerFactory;
 import java.net.URL;
 
 @Singleton
-public class GptUiApplicationVM {
-    private static final Logger log = LoggerFactory.getLogger(GptUiApplicationVM.class);
+class GptUiApplicationVmImpl implements GptUiApplicationVmController {
+    private static final Logger log = LoggerFactory.getLogger(GptUiApplicationVmImpl.class);
     @Inject
-    private ViewModelMediator mediator;
+    private GptUiApplicationMediator mediator;
 
     public Image getApplicationIcon() {
         log.info("Loading application icon...");

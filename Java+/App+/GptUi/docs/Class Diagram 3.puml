@@ -1,0 +1,93 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package model{
+    class StateModel
+    class ClipboardModel
+    class ConfigModel
+    class FileModel
+    class QuestionModel
+    class StorageModel
+}
+package viewmodel {
+    interface QuestionVmController
+    interface QuestionVmMediator
+    class QuestionVmImpl
+
+    interface ThemeVmController
+    interface ThemeVmMediator
+    interface HistoryVmController
+    interface HistoryVmMediator
+    interface AnswerVmController
+    interface AnswerVmMediator
+    interface GptUiVmController
+
+    interface GptUiApplicationVmController
+    class GptUiApplicationVmImpl
+
+    interface AnswerMediator
+    interface GptUiApplicationMediator
+    interface GptUiMediator
+    interface HistoryMediator
+    interface QuestionMediator
+    interface ThemeMediator
+    class ViewModelMediatorImpl
+}
+
+package view {
+    class GptUiApplication
+    class AnswerController
+    class GptUiApplication
+    class GptUiController
+    class HistoryController
+    class QuestionController
+    class ThemeController
+}
+
+GptUiApplication --> GptUiApplicationVmController
+
+GptUiApplicationVmImpl ..|> GptUiApplicationVmController
+GptUiApplicationVmImpl --> GptUiApplicationMediator
+
+ViewModelMediatorImpl ..|> AnswerMediator
+ViewModelMediatorImpl ..|> GptUiApplicationMediator
+ViewModelMediatorImpl ..|> GptUiMediator
+ViewModelMediatorImpl ..|> HistoryMediator
+ViewModelMediatorImpl ..|> QuestionMediator
+ViewModelMediatorImpl ..|> ThemeMediator
+
+ViewModelMediatorImpl --> AnswerVmMediator
+ViewModelMediatorImpl --> HistoryVmMediator
+ViewModelMediatorImpl --> QuestionVmMediator
+ViewModelMediatorImpl --> ThemeVmMediator
+
+QuestionVmImpl ..|> QuestionVmController
+QuestionVmImpl ..|> QuestionVmMediator
+QuestionVmImpl --> QuestionMediator
+
+ThemeController ---> ThemeVmController
+QuestionController ---> QuestionVmController
+HistoryController ---> HistoryVmController
+AnswerController --> AnswerVmController
+
+GptUiController "1" --> "4" AnswerController: initialize
+GptUiController --> AnswerVmController
+GptUiController --> GptUiVmController
+
+ViewModelMediator <--> ThemeVmMediator
+ViewModelMediator <--> QuestionVmMediator
+ViewModelMediator --> HistoryVmMediator
+ViewModelMediator <--> AnswerVmMediator
+
+GptUiVM --> ViewModelMediator
+
+StateModel --> StorageModel
+QuestionModel --> StorageModel
+QuestionModel --> ConfigModel
+
+ViewModelMediator --> StateModel
+ViewModelMediator --> QuestionModel
+ViewModelMediator --> ClipboardModel
+ViewModelMediator --> FileModel
+
+@enduml

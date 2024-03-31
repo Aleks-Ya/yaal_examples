@@ -1,6 +1,6 @@
 package gptui.view;
 
-import gptui.viewmodel.QuestionVM;
+import gptui.viewmodel.question.QuestionVmController;
 import jakarta.inject.Inject;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class QuestionController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(QuestionController.class);
     @Inject
-    private QuestionVM vm;
+    private QuestionVmController vm;
     @FXML
     private TextArea questionTextArea;
 
@@ -55,21 +55,21 @@ public class QuestionController extends BaseController {
 
     @Override
     protected void initialize() {
-        vm.properties.questionTaText.bindBidirectional(questionTextArea.textProperty());
-        vm.properties.questionTaStyle.bindBidirectional(questionTextArea.styleProperty());
-        vm.properties.questionTaFocused.addListener((observable, oldValue, newValue) -> {
+        vm.properties().questionTaText.bindBidirectional(questionTextArea.textProperty());
+        vm.properties().questionTaStyle.bindBidirectional(questionTextArea.styleProperty());
+        vm.properties().questionTaFocused.addListener((observable, oldValue, newValue) -> {
                     if (newValue) {
                         Platform.runLater(() -> questionTextArea.requestFocus());
                     }
                 }
         );
-        vm.properties.questionTaSelectAll.addListener((observable, oldValue, newValue) -> {
+        vm.properties().questionTaSelectAll.addListener((observable, oldValue, newValue) -> {
                     if (newValue) {
                         Platform.runLater(() -> questionTextArea.selectAll());
                     }
                 }
         );
-        vm.properties.questionTaPositionCaretToEnd.addListener((observable, oldValue, newValue) -> {
+        vm.properties().questionTaPositionCaretToEnd.addListener((observable, oldValue, newValue) -> {
                     if (newValue) {
                         Platform.runLater(() -> questionTextArea.positionCaret(questionTextArea.getText().length()));
                     }

@@ -3,7 +3,7 @@ package gptui.view;
 import com.gluonhq.ignite.guice.GuiceContext;
 import com.google.inject.Module;
 import gptui.RootModule;
-import gptui.viewmodel.GptUiApplicationVM;
+import gptui.viewmodel.uiapp.GptUiApplicationVmController;
 import jakarta.inject.Inject;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +23,7 @@ public class GptUiApplication extends Application {
     @Inject
     private FXMLLoader fxmlLoader;
     @Inject
-    private GptUiApplicationVM vm;
+    private GptUiApplicationVmController vm;
 
     public GptUiApplication() {
         this(new RootModule());

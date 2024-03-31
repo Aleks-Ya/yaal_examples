@@ -1,19 +1,11 @@
-package gptui.viewmodel;
+package gptui.viewmodel.history;
 
 import com.google.inject.Singleton;
 import gptui.LogUtils;
 import gptui.model.storage.Interaction;
+import gptui.viewmodel.InteractionItem;
+import gptui.viewmodel.mediator.HistoryMediator;
 import jakarta.inject.Inject;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.SingleSelectionModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,26 +17,34 @@ import static java.lang.String.format;
 import static javafx.collections.FXCollections.observableArrayList;
 
 @Singleton
-public class HistoryVM {
-    private static final Logger log = LoggerFactory.getLogger(HistoryVM.class);
-    public final Properties properties = new Properties();
+class HistoryVmImpl implements HistoryVmController, HistoryVmMediator {
+    private static final Logger log = LoggerFactory.getLogger(HistoryVmImpl.class);
+    public final HistoryVmProperties properties = new HistoryVmProperties();
     @Inject
-    private ViewModelMediator mediator;
+    private HistoryMediator mediator;
     private final HistoryComboBoxFacade historyCbFacade = new HistoryComboBoxFacade();
     private final StateModelFacade stateModelFacade = new StateModelFacade();
 
+    @Override
     public void onHistoryComboBoxAction() {
         log.trace("onHistoryComboBoxAction");
         stateModelFacade.chooseHistoryCbInteractionAsCurrent();
     }
 
+    @Override
     public void onClickHistoryDeleteButton() {
         log.trace("onClickHistoryDeleteButton");
         stateModelFacade.deleteCurrentInteraction();
         mediator.displayCurrentInteraction();
     }
 
-    void displayCurrentInteraction() {
+    @Override
+    public HistoryVmProperties properties() {
+        return properties;
+    }
+
+    @Override
+    public void displayCurrentInteraction() {
         log.trace("displayCurrentInteraction");
         setLabel();
         historyCbFacade.setItems();
@@ -52,12 +52,14 @@ public class HistoryVM {
         enableDeleteButton();
     }
 
-    void selectPreviousItem() {
+    @Override
+    public void selectPreviousItem() {
         log.trace("selectPreviousItem");
         historyCbFacade.selectPreviousItem();
     }
 
-    void selectNextItem() {
+    @Override
+    public void selectNextItem() {
         log.trace("selectNextItem");
         historyCbFacade.selectNextItem();
     }
@@ -168,12 +170,5 @@ public class HistoryVM {
         }
     }
 
-    public static class Properties {
-        public final StringProperty historyLabelText = new SimpleStringProperty();
-        public final ObjectProperty<SingleSelectionModel<InteractionItem>> historyCbSelectionModel = new SimpleObjectProperty<>();
-        public final BooleanProperty historyDeleteButtonDisable = new SimpleBooleanProperty();
-        public final ObjectProperty<ObservableList<InteractionItem>> historyCbItems = new SimpleObjectProperty<>();
-        public final ObjectProperty<EventHandler<ActionEvent>> historyCbOnAction = new SimpleObjectProperty<>();
-    }
 }
 

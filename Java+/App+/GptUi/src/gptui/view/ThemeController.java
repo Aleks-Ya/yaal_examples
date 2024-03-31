@@ -1,7 +1,7 @@
 package gptui.view;
 
 import gptui.model.storage.Theme;
-import gptui.viewmodel.ThemeVM;
+import gptui.viewmodel.theme.ThemeVmController;
 import jakarta.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,7 +25,7 @@ public class ThemeController extends BaseController {
     @FXML
     private Button addButton;
     @Inject
-    private ThemeVM vm;
+    private ThemeVmController vm;
     private final TextInputDialog newThemeDialog = new TextInputDialog();
 
     @FXML
@@ -48,13 +48,13 @@ public class ThemeController extends BaseController {
 
     @Override
     protected void initialize() {
-        vm.properties.themeLabelText.bindBidirectional(themeLabel.textProperty());
-        vm.properties.themeCbValue.bindBidirectional(themeComboBox.valueProperty());
-        vm.properties.themeCbItems.bindBidirectional(themeComboBox.itemsProperty());
-        vm.properties.themeCbEditor.bindBidirectional(themeComboBox.getEditor().textProperty());
-        vm.properties.themeCbOnAction.bindBidirectional(themeComboBox.onActionProperty());
-        vm.properties.themeCbCellFactory.bindBidirectional(themeComboBox.cellFactoryProperty());
-        vm.properties.filterHistoryCheckBoxSelected.bindBidirectional(filterHistoryCheckBox.selectedProperty());
+        vm.properties().themeLabelText.bindBidirectional(themeLabel.textProperty());
+        vm.properties().themeCbValue.bindBidirectional(themeComboBox.valueProperty());
+        vm.properties().themeCbItems.bindBidirectional(themeComboBox.itemsProperty());
+        vm.properties().themeCbEditor.bindBidirectional(themeComboBox.getEditor().textProperty());
+        vm.properties().themeCbOnAction.bindBidirectional(themeComboBox.onActionProperty());
+        vm.properties().themeCbCellFactory.bindBidirectional(themeComboBox.cellFactoryProperty());
+        vm.properties().filterHistoryCheckBoxSelected.bindBidirectional(filterHistoryCheckBox.selectedProperty());
 
         newThemeDialog.setTitle("Add new theme");
         newThemeDialog.setHeaderText("New theme:");

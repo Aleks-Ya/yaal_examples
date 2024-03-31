@@ -1,6 +1,6 @@
 package gptui.view;
 
-import gptui.viewmodel.AnswerVM;
+import gptui.viewmodel.answer.AnswerVmController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -31,7 +31,7 @@ public class AnswerController extends BaseController {
     private Text temperatureText;
     @FXML
     public Spinner<Integer> temperatureSpinner;
-    private AnswerVM vm;
+    private AnswerVmController vm;
 
     @FXML
     void clickCopyButton(ActionEvent ignoredEvent) {
@@ -45,7 +45,7 @@ public class AnswerController extends BaseController {
         vm.onRegenerateButtonClick();
     }
 
-    void initializeController(AnswerVM vm) {
+    void initializeController(AnswerVmController vm) {
         log.trace("initializeController");
         this.vm = vm;
         temperatureSpinner.getValueFactory().setConverter(new StringConverter<>() {
@@ -61,25 +61,25 @@ public class AnswerController extends BaseController {
         });
         webView.getEngine().documentProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                var currentContent = this.vm.properties.webViewContent.getValue();
+                var currentContent = this.vm.properties().webViewContent.getValue();
                 var newContent = (String) webView.getEngine().executeScript("document.documentElement.outerHTML");
                 if (!newContent.equals(currentContent)) {
                     log.trace("Set value to webViewContent from WebView Engine: {}", shorten(newContent));
-                    this.vm.properties.webViewContent.set(newContent);
+                    this.vm.properties().webViewContent.set(newContent);
                 }
             }
         });
-        this.vm.properties.webViewContent.addListener((observable, oldValue, newValue) -> {
+        this.vm.properties().webViewContent.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 log.trace("Load content to WebView Engine: {}", shorten(newValue));
                 webView.getEngine().loadContent(newValue);
             }
         });
-        this.vm.properties.temperatureText.bindBidirectional(temperatureText.textProperty());
-        this.vm.properties.temperatureSpinner.bindBidirectional(temperatureSpinner.getValueFactory().valueProperty());
-        this.vm.properties.statusCircleFill.bindBidirectional(statusCircle.fillProperty());
-        this.vm.properties.answerLabelText.bindBidirectional(answerLabel.textProperty());
-        this.vm.properties.copyButtonText.bindBidirectional(copyButton.textProperty());
+        this.vm.properties().temperatureText.bindBidirectional(temperatureText.textProperty());
+        this.vm.properties().temperatureSpinner.bindBidirectional(temperatureSpinner.getValueFactory().valueProperty());
+        this.vm.properties().statusCircleFill.bindBidirectional(statusCircle.fillProperty());
+        this.vm.properties().answerLabelText.bindBidirectional(answerLabel.textProperty());
+        this.vm.properties().copyButtonText.bindBidirectional(copyButton.textProperty());
         webView.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.isControlDown() && event.isAltDown() && event.getCode() == KeyCode.DOWN) {
                 event.consume();

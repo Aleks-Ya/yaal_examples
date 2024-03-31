@@ -1,14 +1,12 @@
-package gptui.viewmodel;
+package gptui.viewmodel.question;
 
 import com.google.inject.Singleton;
 import gptui.Mdc;
 import gptui.model.storage.Interaction;
 import gptui.model.storage.InteractionType;
+import gptui.viewmodel.Styles;
+import gptui.viewmodel.mediator.QuestionMediator;
 import jakarta.inject.Inject;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,13 +20,14 @@ import static gptui.model.storage.InteractionType.QUESTION;
 import static gptui.viewmodel.Styles.QUESTION_STYLE_EDITED;
 
 @Singleton
-public class QuestionVM {
-    private static final Logger log = LoggerFactory.getLogger(QuestionVM.class);
-    public final Properties properties = new Properties();
+class QuestionVmImpl implements QuestionVmController, QuestionVmMediator {
+    private static final Logger log = LoggerFactory.getLogger(QuestionVmImpl.class);
+    private final QuestionVmProperties properties = new QuestionVmProperties();
     @Inject
-    private ViewModelMediator mediator;
+    private QuestionMediator mediator;
 
-    void displayCurrentInteraction() {
+    @Override
+    public void displayCurrentInteraction() {
         log.trace("displayCurrentInteraction");
         mediator.getCurrentInteractionOpt()
                 .map(Interaction::question)
@@ -41,7 +40,8 @@ public class QuestionVM {
                 });
     }
 
-    void focusOnQuestionAndSelect() {
+    @Override
+    public void focusOnQuestionAndSelect() {
         log.debug("focusOnQuestion");
         properties.questionTaFocused.setValue(false);
         properties.questionTaFocused.setValue(true);
@@ -49,6 +49,7 @@ public class QuestionVM {
         properties.questionTaSelectAll.setValue(true);
     }
 
+    @Override
     public void onRegenerateButtonClick() {
         log.trace("onRegenerateButtonClick");
         var interactionId = mediator.getCurrentInteractionId();
@@ -61,30 +62,40 @@ public class QuestionVM {
         });
     }
 
+    @Override
     public void onSendQuestionClick() {
         log.debug("onSendQuestionClick");
         createNewInteractionAndRequestAnswers(QUESTION);
     }
 
+    @Override
     public void onSendDefinitionClick() {
         log.debug("onSendDefinitionClick");
         createNewInteractionAndRequestAnswers(DEFINITION);
     }
 
+    @Override
     public void onSendGrammarClick() {
         log.debug("onSendGrammarClick");
         createNewInteractionAndRequestAnswers(InteractionType.GRAMMAR);
     }
 
+    @Override
     public void onSendFactClick() {
         log.debug("onSendFactClick");
         createNewInteractionAndRequestAnswers(FACT);
     }
 
+    @Override
     public void onKeyTypedQuestionTextArea() {
         log.trace("onKeyTypedQuestionTextArea");
         mediator.setEditedQuestion(properties.questionTaText.getValue());
         updateQuestionTextAreaBackgroundColor();
+    }
+
+    @Override
+    public QuestionVmProperties properties() {
+        return properties;
     }
 
     private void updateQuestionTextAreaBackgroundColor() {
@@ -95,28 +106,21 @@ public class QuestionVM {
         }
     }
 
-    void pasteQuestionFromClipboard() {
+    @Override
+    public void pasteQuestionFromClipboard() {
         log.debug("pasteQuestionFromClipboard");
         var question = mediator.getTextFromClipboard();
         properties.questionTaText.setValue(question);
         mediator.setEditedQuestion(question);
     }
 
-    private synchronized void createNewInteractionAndRequestAnswers(InteractionType interactionType) {
+    public synchronized void createNewInteractionAndRequestAnswers(InteractionType interactionType) {
         log.debug("createNewInteractionAndRequestAnswers: interactionType={}", interactionType);
         var interactionId = mediator.createInteraction(interactionType);
         mediator.requestAnswer(interactionId, GCP);
         mediator.requestAnswer(interactionId, LONG);
         mediator.requestAnswer(interactionId, SHORT);
         mediator.requestAnswer(interactionId, GRAMMAR);
-    }
-
-    public static class Properties {
-        public final StringProperty questionTaText = new SimpleStringProperty();
-        public final StringProperty questionTaStyle = new SimpleStringProperty();
-        public final BooleanProperty questionTaFocused = new SimpleBooleanProperty();
-        public final BooleanProperty questionTaSelectAll = new SimpleBooleanProperty();
-        public final BooleanProperty questionTaPositionCaretToEnd = new SimpleBooleanProperty();
     }
 }
 
