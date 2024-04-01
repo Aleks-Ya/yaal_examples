@@ -1,5 +1,9 @@
 # zip and unzip CLI
 
+## Help
+Short help: `zip -h`
+Full help: `zip -h2`
+
 ## List
 List files in an archive: 
 - `zipinfo my.zip`
@@ -15,3 +19,4 @@ Test ZIP file: `unzip -t my.zip`
 Zip directory with "my_folder": `zip -r OUTPUT.zip my_folder`
 Zip directory without "my_folder": `cd my_folder; zip -r ../OUTPUT.zip *`
 Zip directory without compression: `zip -0 -r OUTPUT.zip my_folder`
+Zip directory excluding log files: `zip -r out.zip my_folder -x *.log`

@@ -64,4 +64,19 @@ class ReadJsonFileTest extends AnyFlatSpec with Matchers {
     )
   }
 
+  it should "read several JSON files (infer schema)" in {
+    val file1 = requireNonNull(getClass.getResource("ReadJsonFileTest.json"))
+    val file2 = requireNonNull(getClass.getResource("ReadJsonFileTest2.json"))
+    val df = Factory.ss.read.json(file1.getPath, file2.getPath)
+    df.printSchema()
+    df.show()
+    df.schema.simpleString shouldEqual "struct<age:bigint,gender:string,name:string>"
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"age":30,"gender":"M","name":"John"}""",
+      """{"age":25,"gender":"F","name":"Mary"}""",
+      """{"age":20,"gender":"M","name":"Mark"}""",
+      """{"age":15,"gender":"M","name":"Chad"}"""
+    )
+  }
+
 }
