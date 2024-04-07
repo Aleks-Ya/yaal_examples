@@ -72,6 +72,8 @@ def _remove(changes, col) -> bool:
         r"</ul>\s*<br>": "</ul>"
     }
     field_names: List[str] = [
+        'Definition',
+        'Definition-wq-generated',
         'Examples1-generated',
         'Examples2-generated',
         'Synonyms-generated',
@@ -79,7 +81,6 @@ def _remove(changes, col) -> bool:
         'Gpt4Long',
         'Bard',
         'Quote',
-        'Description-my',
         'Synonym1',
         'Synonyms',
         'Antonyms',

@@ -13,5 +13,14 @@ Export a key to a file: `sudo apt-key export EE2C95AB58DC2B0138D16B4FEFC4571D7C9
 Delete a key: `sudo apt-key del EE2C95AB58DC2B0138D16B4FEFC4571D7C90E5AF`
 Install downloaded DEB: `sudo apt install -y ./docker-desktop.deb`
 
+### Install packages kept back
+Message:
+```
+The following packages have been kept back:
+  qemu-block-extra qemu-system-common
+```
+Install individually: `sudo apt install -y qemu-block-extra qemu-system-common`
+Install by full upgrade: `sudo apt full-upgrade -y`
+
 ## apt-key
 List public keys: `apt-key list`
