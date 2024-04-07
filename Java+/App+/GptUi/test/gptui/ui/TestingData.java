@@ -58,7 +58,7 @@ public class TestingData {
         public static final String QUESTION = "Question 2";
         public static final String GRAMMAR_HTML = "Grammar answer HTML 2";
         public static final String SHORT_HTML = "Short answer HTML 2";
-        public static final String LONG_HTML = "Long answer HTML 2".repeat(1000);
+        public static final String LONG_HTML = "Long answer HTML 2".repeat(LONG_ANSWER_MULTIPLIER);
         public static final String GCP_HTML = "GCP answer HTML 2";
         public static final String EXP_GRAMMAR_HTML_BODY = wrapExpectedWebViewContent(I2.GRAMMAR_HTML);
         public static final String EXP_SHORT_HTML_BODY = wrapExpectedWebViewContent(I2.SHORT_HTML);
@@ -68,7 +68,7 @@ public class TestingData {
                 THEME_ID, QUESTION, Map.of(
                 GRAMMAR, new Answer(GRAMMAR, "QC prompt 2", 50, "Grammar answer MD 2", I2.GRAMMAR_HTML, SUCCESS),
                 SHORT, new Answer(SHORT, "Short prompt 2", 60, "Short answer MD 2", I2.SHORT_HTML, SUCCESS),
-                LONG, new Answer(LONG, "Long prompt 2", 70, "Long answer MD 2".repeat(1000), I2.LONG_HTML, FAIL),
+                LONG, new Answer(LONG, "Long prompt 2", 70, "Long answer MD 2".repeat(LONG_ANSWER_MULTIPLIER), I2.LONG_HTML, FAIL),
                 GCP, new Answer(GCP, "GCP prompt 2", 80, "GCP answer MD 2", I2.GCP_HTML, SUCCESS)));
     }
 
@@ -78,7 +78,7 @@ public class TestingData {
         public static final String QUESTION = "Question 3";
         public static final String GRAMMAR_HTML = "Grammar answer HTML 3";
         public static final String SHORT_HTML = "Short answer HTML 3";
-        public static final String LONG_HTML = "Long answer HTML 3".repeat(1000);
+        public static final String LONG_HTML = "Long answer HTML 3".repeat(LONG_ANSWER_MULTIPLIER);
         public static final String GCP_HTML = "GCP answer HTML 3";
         public static final String EXP_GRAMMAR_HTML_BODY = wrapExpectedWebViewContent(I3.GRAMMAR_HTML);
         public static final String EXP_SHORT_HTML_BODY = wrapExpectedWebViewContent(I3.SHORT_HTML);
@@ -88,9 +88,11 @@ public class TestingData {
                 THEME_ID, QUESTION, Map.of(
                 GRAMMAR, new Answer(GRAMMAR, "QC prompt 3", 50, "Grammar answer MD 3", I3.GRAMMAR_HTML, SUCCESS),
                 SHORT, new Answer(SHORT, "Short prompt 3", 60, "Short answer MD 3", I3.SHORT_HTML, SUCCESS),
-                LONG, new Answer(LONG, "Long prompt 3", 70, "Long answer MD 3".repeat(1000), I3.LONG_HTML, FAIL),
+                LONG, new Answer(LONG, "Long prompt 3", 70, "Long answer MD 3".repeat(LONG_ANSWER_MULTIPLIER), I3.LONG_HTML, FAIL),
                 GCP, new Answer(GCP, "GCP prompt 3", 80, "GCP answer MD 3", I3.GCP_HTML, SUCCESS)));
     }
+
+    private static final int LONG_ANSWER_MULTIPLIER = 150;
 
     private static String wrapExpectedWebViewContent(String text) {
         return "<p>" + text + "</p>\n";

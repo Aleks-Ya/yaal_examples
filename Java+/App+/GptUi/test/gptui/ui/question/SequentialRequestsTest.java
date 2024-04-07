@@ -1,7 +1,6 @@
 package gptui.ui.question;
 
 import gptui.ui.BaseGptUiTest;
-import gptui.ui.TestingData;
 import gptui.ui.TestingData.I0;
 import gptui.ui.TestingData.I1;
 import gptui.ui.TestingData.I2;
@@ -137,13 +136,79 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .assertApp();
 
         clickOn(shortAnswer().copyButton());
-        verifyHtmlClipboardContent(I1.EXP_SHORT_HTML_BODY);
+        assertion()
+                .focus(shortAnswer().copyButton())
+                .historySize(1, 1)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().getFirst())
+                .historyItems(storage.readAllInteractions())
+                .themeSize(2)
+                .themeSelectedItem(I1.THEME)
+                .themeItems(I1.THEME, I2.THEME)
+                .themeFilterHistorySelected(false)
+                .questionStyle(QUESTION_STYLE_EMPTY)
+                .questionText(I1.QUESTION)
+                .modelEditedQuestion(I1.QUESTION)
+                .modelIsEnteringNewQuestion(false)
+                .grammarA().text(I1.EXP_GRAMMAR_HTML_BODY)
+                .shortA().text(I1.EXP_SHORT_HTML_BODY)
+                .longA().text(I1.EXP_LONG_HTML_BODY)
+                .gcpA().text(I1.EXP_GCP_HTML_BODY)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
+                .clipboard(I1.EXP_SHORT_HTML_BODY)
+                .assertApp();
 
         clickOn(longAnswer().copyButton());
-        verifyHtmlClipboardContent(I1.EXP_LONG_HTML_BODY);
+        assertion()
+                .focus(longAnswer().copyButton())
+                .historySize(1, 1)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().getFirst())
+                .historyItems(storage.readAllInteractions())
+                .themeSize(2)
+                .themeSelectedItem(I1.THEME)
+                .themeItems(I1.THEME, I2.THEME)
+                .themeFilterHistorySelected(false)
+                .questionStyle(QUESTION_STYLE_EMPTY)
+                .questionText(I1.QUESTION)
+                .modelEditedQuestion(I1.QUESTION)
+                .modelIsEnteringNewQuestion(false)
+                .grammarA().text(I1.EXP_GRAMMAR_HTML_BODY)
+                .shortA().text(I1.EXP_SHORT_HTML_BODY)
+                .longA().text(I1.EXP_LONG_HTML_BODY)
+                .gcpA().text(I1.EXP_GCP_HTML_BODY)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
+                .clipboard(I1.EXP_LONG_HTML_BODY)
+                .assertApp();
 
         clickOn(gcpAnswer().copyButton());
-        verifyHtmlClipboardContent(I1.EXP_GCP_HTML_BODY);
+        assertion()
+                .focus(gcpAnswer().copyButton())
+                .historySize(1, 1)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().getFirst())
+                .historyItems(storage.readAllInteractions())
+                .themeSize(2)
+                .themeSelectedItem(I1.THEME)
+                .themeItems(I1.THEME, I2.THEME)
+                .themeFilterHistorySelected(false)
+                .questionStyle(QUESTION_STYLE_EMPTY)
+                .questionText(I1.QUESTION)
+                .modelEditedQuestion(I1.QUESTION)
+                .modelIsEnteringNewQuestion(false)
+                .grammarA().text(I1.EXP_GRAMMAR_HTML_BODY)
+                .shortA().text(I1.EXP_SHORT_HTML_BODY)
+                .longA().text(I1.EXP_LONG_HTML_BODY)
+                .gcpA().text(I1.EXP_GCP_HTML_BODY)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
+                .clipboard(I1.EXP_GCP_HTML_BODY)
+                .assertApp();
     }
 
     private void sendSecondQuestion() {
@@ -218,23 +283,89 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .questionText(I2.QUESTION)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(false)
-                .grammarA().text(TestingData.I2.EXP_GRAMMAR_HTML_BODY)
-                .shortA().text(TestingData.I2.EXP_SHORT_HTML_BODY)
-                .longA().text(TestingData.I2.EXP_LONG_HTML_BODY)
-                .gcpA().text(TestingData.I2.EXP_GCP_HTML_BODY)
+                .grammarA().text(I2.EXP_GRAMMAR_HTML_BODY)
+                .shortA().text(I2.EXP_SHORT_HTML_BODY)
+                .longA().text(I2.EXP_LONG_HTML_BODY)
+                .gcpA().text(I2.EXP_GCP_HTML_BODY)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperaturesDefault()
                 .answerSpinnerTemperaturesDefault()
                 .assertApp();
 
         clickOn(shortAnswer().copyButton());
-        verifyHtmlClipboardContent(TestingData.I2.EXP_SHORT_HTML_BODY);
+        assertion()
+                .focus(shortAnswer().copyButton())
+                .historySize(2, 2)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().getFirst())
+                .historyItems(storage.readAllInteractions())
+                .themeSize(2)
+                .themeSelectedItem(I2.THEME)
+                .themeItems(I2.THEME, I1.THEME)
+                .themeFilterHistorySelected(false)
+                .questionStyle(QUESTION_STYLE_EDITED)
+                .questionText(I2.QUESTION)
+                .modelEditedQuestion(I2.QUESTION)
+                .modelIsEnteringNewQuestion(false)
+                .grammarA().text(I2.EXP_GRAMMAR_HTML_BODY)
+                .shortA().text(I2.EXP_SHORT_HTML_BODY)
+                .longA().text(I2.EXP_LONG_HTML_BODY)
+                .gcpA().text(I2.EXP_GCP_HTML_BODY)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
+                .clipboard(I2.EXP_SHORT_HTML_BODY)
+                .assertApp();
 
         clickOn(longAnswer().copyButton());
-        verifyHtmlClipboardContent(TestingData.I2.EXP_LONG_HTML_BODY);
+        assertion()
+                .focus(longAnswer().copyButton())
+                .historySize(2, 2)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().getFirst())
+                .historyItems(storage.readAllInteractions())
+                .themeSize(2)
+                .themeSelectedItem(I2.THEME)
+                .themeItems(I2.THEME, I1.THEME)
+                .themeFilterHistorySelected(false)
+                .questionStyle(QUESTION_STYLE_EDITED)
+                .questionText(I2.QUESTION)
+                .modelEditedQuestion(I2.QUESTION)
+                .modelIsEnteringNewQuestion(false)
+                .grammarA().text(I2.EXP_GRAMMAR_HTML_BODY)
+                .shortA().text(I2.EXP_SHORT_HTML_BODY)
+                .longA().text(I2.EXP_LONG_HTML_BODY)
+                .gcpA().text(I2.EXP_GCP_HTML_BODY)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
+                .clipboard(I2.EXP_LONG_HTML_BODY)
+                .assertApp();
 
         clickOn(gcpAnswer().copyButton());
-        verifyHtmlClipboardContent(TestingData.I2.EXP_GCP_HTML_BODY);
+        assertion()
+                .focus(gcpAnswer().copyButton())
+                .historySize(2, 2)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().getFirst())
+                .historyItems(storage.readAllInteractions())
+                .themeSize(2)
+                .themeSelectedItem(I2.THEME)
+                .themeItems(I2.THEME, I1.THEME)
+                .themeFilterHistorySelected(false)
+                .questionStyle(QUESTION_STYLE_EDITED)
+                .questionText(I2.QUESTION)
+                .modelEditedQuestion(I2.QUESTION)
+                .modelIsEnteringNewQuestion(false)
+                .grammarA().text(I2.EXP_GRAMMAR_HTML_BODY)
+                .shortA().text(I2.EXP_SHORT_HTML_BODY)
+                .longA().text(I2.EXP_LONG_HTML_BODY)
+                .gcpA().text(I2.EXP_GCP_HTML_BODY)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
+                .clipboard(I2.EXP_GCP_HTML_BODY)
+                .assertApp();
     }
 
     private void choosePreviousInteraction() {
@@ -252,10 +383,10 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .questionStyle(QUESTION_STYLE_EDITED)
                 .modelEditedQuestion(I2.QUESTION)
                 .modelIsEnteringNewQuestion(false)
-                .grammarA().text(TestingData.I2.EXP_GRAMMAR_HTML_BODY)
-                .shortA().text(TestingData.I2.EXP_SHORT_HTML_BODY)
-                .longA().text(TestingData.I2.EXP_LONG_HTML_BODY)
-                .gcpA().text(TestingData.I2.EXP_GCP_HTML_BODY)
+                .grammarA().text(I2.EXP_GRAMMAR_HTML_BODY)
+                .shortA().text(I2.EXP_SHORT_HTML_BODY)
+                .longA().text(I2.EXP_LONG_HTML_BODY)
+                .gcpA().text(I2.EXP_GCP_HTML_BODY)
                 .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
                 .answerTextTemperaturesDefault()
                 .answerSpinnerTemperaturesDefault()
@@ -286,12 +417,78 @@ class SequentialRequestsTest extends BaseGptUiTest {
                 .assertApp();
 
         clickOn(shortAnswer().copyButton());
-        verifyHtmlClipboardContent(I1.EXP_SHORT_HTML_BODY);
+        assertion()
+                .focus(shortAnswer().copyButton())
+                .historySize(2, 2)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().get(1))
+                .historyItems(storage.readAllInteractions())
+                .themeSize(2)
+                .themeSelectedItem(I1.THEME)
+                .themeItems(I2.THEME, I1.THEME)
+                .themeFilterHistorySelected(false)
+                .questionText(I1.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
+                .modelEditedQuestion(I1.QUESTION)
+                .modelIsEnteringNewQuestion(false)
+                .grammarA().text(I1.EXP_GRAMMAR_HTML_BODY)
+                .shortA().text(I1.EXP_SHORT_HTML_BODY)
+                .longA().text(I1.EXP_LONG_HTML_BODY)
+                .gcpA().text(I1.EXP_GCP_HTML_BODY)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
+                .clipboard(I1.EXP_SHORT_HTML_BODY)
+                .assertApp();
 
         clickOn(longAnswer().copyButton());
-        verifyHtmlClipboardContent(I1.EXP_LONG_HTML_BODY);
+        assertion()
+                .focus(longAnswer().copyButton())
+                .historySize(2, 2)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().get(1))
+                .historyItems(storage.readAllInteractions())
+                .themeSize(2)
+                .themeSelectedItem(I1.THEME)
+                .themeItems(I2.THEME, I1.THEME)
+                .themeFilterHistorySelected(false)
+                .questionText(I1.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
+                .modelEditedQuestion(I1.QUESTION)
+                .modelIsEnteringNewQuestion(false)
+                .grammarA().text(I1.EXP_GRAMMAR_HTML_BODY)
+                .shortA().text(I1.EXP_SHORT_HTML_BODY)
+                .longA().text(I1.EXP_LONG_HTML_BODY)
+                .gcpA().text(I1.EXP_GCP_HTML_BODY)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
+                .clipboard(I1.EXP_LONG_HTML_BODY)
+                .assertApp();
 
         clickOn(gcpAnswer().copyButton());
-        verifyHtmlClipboardContent(I1.EXP_GCP_HTML_BODY);
+        assertion()
+                .focus(gcpAnswer().copyButton())
+                .historySize(2, 2)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(storage.readAllInteractions().get(1))
+                .historyItems(storage.readAllInteractions())
+                .themeSize(2)
+                .themeSelectedItem(I1.THEME)
+                .themeItems(I2.THEME, I1.THEME)
+                .themeFilterHistorySelected(false)
+                .questionText(I1.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
+                .modelEditedQuestion(I1.QUESTION)
+                .modelIsEnteringNewQuestion(false)
+                .grammarA().text(I1.EXP_GRAMMAR_HTML_BODY)
+                .shortA().text(I1.EXP_SHORT_HTML_BODY)
+                .longA().text(I1.EXP_LONG_HTML_BODY)
+                .gcpA().text(I1.EXP_GCP_HTML_BODY)
+                .answerCircleColors(GREEN, GREEN, GREEN, GREEN)
+                .answerTextTemperaturesDefault()
+                .answerSpinnerTemperaturesDefault()
+                .clipboard(I1.EXP_GCP_HTML_BODY)
+                .assertApp();
     }
 }

@@ -31,7 +31,6 @@ import java.util.concurrent.ExecutionException;
 
 import static javafx.scene.input.KeyCode.A;
 import static javafx.scene.input.KeyCode.CONTROL;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class BaseGptUiTest extends ApplicationTest {
     private final GptUiApplication app = new GptUiApplication(Modules.override(new RootModule()).with(new TestRootModule()));
@@ -94,18 +93,8 @@ public abstract class BaseGptUiTest extends ApplicationTest {
         return press(CONTROL, A).release(A, CONTROL).write(text);
     }
 
-    protected void verifyWebViewBody(WebView webView, String expContent) {
-        interact(() -> assertThat(extractWebViewContent(webView))
-                .isEqualTo("<html><head></head><body>" + expContent + "</body></html>"));
-    }
-
-    protected void verifyWebViewBody(SoftAssertions soft, String as, WebView webView, String expContent) {
+    void verifyWebViewBody(SoftAssertions soft, String as, WebView webView, String expContent) {
         interact(() -> soft.assertThat(extractWebViewContent(webView)).as(as)
-                .isEqualTo("<html><head></head><body>" + expContent + "</body></html>"));
-    }
-
-    protected void verifyHtmlClipboardContent(String expContent) {
-        interact(() -> assertThat(clipboardModel.getTextFromClipboard())
                 .isEqualTo("<html><head></head><body>" + expContent + "</body></html>"));
     }
 

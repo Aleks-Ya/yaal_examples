@@ -13,6 +13,7 @@ import static gptui.model.storage.InteractionType.DEFINITION;
 import static gptui.model.storage.InteractionType.FACT;
 import static gptui.model.storage.InteractionType.GRAMMAR;
 import static gptui.model.storage.InteractionType.QUESTION;
+import static gptui.viewmodel.question.QuestionStyle.QUESTION_STYLE_EMPTY;
 import static javafx.scene.input.KeyCode.ALT;
 import static javafx.scene.input.KeyCode.CONTROL;
 import static javafx.scene.input.KeyCode.D;
@@ -34,9 +35,14 @@ import static javafx.scene.input.KeyCode.SPACE;
 import static javafx.scene.input.KeyCode.T;
 import static javafx.scene.input.KeyCode.UP;
 import static javafx.scene.input.KeyCode.V;
+import static javafx.scene.paint.Color.GREEN;
+import static javafx.scene.paint.Color.RED;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class HotKeysTest extends BaseGptUiTest {
+    private static final String CLIPBOARD_CONTENT = "From clipboard";
+    private static final String CLIPBOARD_CONTENT_WRAPPED = "<html><head></head><body>" + CLIPBOARD_CONTENT + "</body></html>";
+
     @Override
     public void init() {
         storage.saveTheme(I1.THEME);
@@ -48,41 +54,57 @@ class HotKeysTest extends BaseGptUiTest {
     }
 
     @Test
-    void copyGrammarAnswerByAlt1() {
-        verifyWebViewBody(grammarAnswer().webView(), I3.GRAMMAR_HTML);
-        press(ALT, DIGIT1).release(DIGIT1, ALT);
-        verifyHtmlClipboardContent(I3.GRAMMAR_HTML);
-    }
+    void hotKeys() {
+        assertion()
+                .focus(history().comboBox())
+                .historySize(3, 3)
+                .historyDeleteButtonDisabled(false)
+                .historySelectedItem(I3.INTERACTION)
+                .historyItems(I3.INTERACTION, I2.INTERACTION, I1.INTERACTION)
+                .themeSize(3)
+                .themeSelectedItem(I3.THEME)
+                .themeItems(I3.THEME, I2.THEME, I1.THEME)
+                .themeFilterHistorySelected(false)
+                .questionText(I3.QUESTION)
+                .questionStyle(QUESTION_STYLE_EMPTY)
+                .modelEditedQuestion(I3.QUESTION)
+                .modelIsEnteringNewQuestion(false)
+                .grammarA().text(I3.GRAMMAR_HTML)
+                .shortA().text(I3.SHORT_HTML)
+                .longA().text(I3.LONG_HTML)
+                .gcpA().text(I3.GCP_HTML)
+                .answerCircleColors(GREEN, GREEN, RED, GREEN)
+                .answerTextTemperatures(50, 60, 70, 80)
+                .answerSpinnerTemperatures(50, 60, 70, 80)
 
-    @Test
-    void copyShortAnswerByAlt2() {
-        verifyWebViewBody(shortAnswer().webView(), I3.SHORT_HTML);
-        press(ALT, DIGIT2).release(DIGIT2, ALT);
-        verifyHtmlClipboardContent(I3.SHORT_HTML);
-    }
+                .work("Copy Grammar Answer By Alt-1", () -> press(ALT, DIGIT1).release(DIGIT1, ALT))
+                .focus(grammarAnswer().copyButton())
+                .clipboard(I3.GRAMMAR_HTML)
 
-    @Test
-    void copyLongAnswerByAlt3() {
-        verifyWebViewBody(longAnswer().webView(), I3.LONG_HTML);
-        press(ALT, DIGIT3).release(DIGIT3, ALT);
-        verifyHtmlClipboardContent(I3.LONG_HTML);
-    }
+                .work("Copy Short Answer By Alt-2", () -> press(ALT, DIGIT2).release(DIGIT2, ALT))
+                .focus(shortAnswer().copyButton())
+                .clipboard(I3.SHORT_HTML)
 
-    @Test
-    void copyGcpAnswerByAlt4() {
-        verifyWebViewBody(gcpAnswer().webView(), I3.GCP_HTML);
-        press(ALT, DIGIT4).release(DIGIT4, ALT);
-        verifyHtmlClipboardContent(I3.GCP_HTML);
-    }
+                .work("Copy Long Answer By Alt-3", () -> press(ALT, DIGIT3).release(DIGIT3, ALT))
+                .focus(longAnswer().copyButton())
+                .clipboard(I3.LONG_HTML)
 
-    @Test
-    void pasteQuestionFromClipboardByCtrlAltV() {
-        assertThat(question().textArea().getText()).isEqualTo(I3.QUESTION);
-        var content = "From clipboard";
-        executeSyncInFxThread(() -> clipboardModel.putHtmlToClipboard(content));
-        press(CONTROL, ALT, V).release(V, ALT, CONTROL);
-        assertThat(question().textArea().getText()).isEqualTo(content);
-        assertThat(stateModel.getEditedQuestion()).isEqualTo(content);
+                .work("Copy GCP Answer By Alt-4", () -> press(ALT, DIGIT4).release(DIGIT4, ALT))
+                .focus(gcpAnswer().copyButton())
+                .clipboard(I3.GCP_HTML)
+
+                .work("Paste Question From Clipboard By Ctrl-Alt-V", () -> {
+                    executeSyncInFxThread(() -> clipboardModel.putHtmlToClipboard(CLIPBOARD_CONTENT_WRAPPED));
+                    press(CONTROL, ALT, V).release(V, ALT, CONTROL);
+                })
+                .focus(gcpAnswer().copyButton())
+                .questionText(CLIPBOARD_CONTENT_WRAPPED)
+                .clipboard(CLIPBOARD_CONTENT)
+                .modelIsEnteringNewQuestion(true)
+                .modelEditedQuestion(CLIPBOARD_CONTENT_WRAPPED)
+
+                .assertApp();
+
     }
 
     @Test
