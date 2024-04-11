@@ -1,7 +1,7 @@
 # AWS configure CLI
 
 Show current configuration data: `aws configure list`
-List all properties: `aws configure list-profiles`
+List all profiles: `aws configure list-profiles`
 Configure default profile: `aws configure`
 Configure profile `Developer`: `aws configure --profile Developer`
 Show default region: `aws configure get region`

@@ -18,6 +18,7 @@ Choose output format (`text`, `table`, `json`, etc.): `aws s3api --output table 
 ### help
 Help: `aws help`
 Help for a command: `aws ec2 help`
+Help for a sub-command: `aws configure list-profiles help`
 
 ### OpenSearch
 Help: `aws opensearch help`

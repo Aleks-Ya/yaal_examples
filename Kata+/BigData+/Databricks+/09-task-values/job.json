@@ -13,7 +13,7 @@
       "spark_python_task": {
         "python_file": "dbfs:/tmp/09-task-values/set_task_values.py"
       },
-      "existing_cluster_id": "0226-102224-x534cbj7",
+      "existing_cluster_id": "0411-021026-rcujl90",
       "timeout_seconds": 0,
       "email_notifications": {},
       "notification_settings": {
@@ -34,7 +34,7 @@
       "spark_python_task": {
         "python_file": "dbfs:/tmp/09-task-values/print_task_values.py"
       },
-      "existing_cluster_id": "0226-102224-x534cbj7",
+      "existing_cluster_id": "0411-021026-rcujl90",
       "timeout_seconds": 0,
       "email_notifications": {},
       "notification_settings": {

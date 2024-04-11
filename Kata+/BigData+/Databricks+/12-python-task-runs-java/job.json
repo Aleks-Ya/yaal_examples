@@ -13,7 +13,7 @@
       "spark_python_task": {
         "python_file": "dbfs:/tmp/12-python-task-runs-java/print_java_version.py"
       },
-      "existing_cluster_id": "0226-102224-x534cbj7",
+      "existing_cluster_id": "0411-021026-rcujl90",
       "timeout_seconds": 0,
       "email_notifications": {},
       "notification_settings": {
@@ -29,7 +29,7 @@
       "spark_python_task": {
         "python_file": "dbfs:/tmp/12-python-task-runs-java/run_java_jar.py"
       },
-      "existing_cluster_id": "0226-102224-x534cbj7",
+      "existing_cluster_id": "0411-021026-rcujl90",
       "timeout_seconds": 0,
       "email_notifications": {},
       "notification_settings": {
