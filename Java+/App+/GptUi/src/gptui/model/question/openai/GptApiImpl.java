@@ -20,7 +20,7 @@ import static java.math.RoundingMode.HALF_UP;
 @Singleton
 class GptApiImpl implements GptApi {
     private static final Logger log = LoggerFactory.getLogger(GptApiImpl.class);
-    private static final String MODEL = "gpt-4-1106-preview";
+    private static final String MODEL = "gpt-4-turbo";
     private static final Gson gson = new Gson();
     private static final URI endpoint = URI.create("https://api.openai.com/v1/chat/completions");
     private final String token;
