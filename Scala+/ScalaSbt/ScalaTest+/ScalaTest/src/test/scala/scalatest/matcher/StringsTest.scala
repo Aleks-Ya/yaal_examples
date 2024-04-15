@@ -13,4 +13,8 @@ class StringsTest extends AnyFlatSpec with Matchers {
     "abcdeg" should include("cd")
   }
 
+  it should "assert toString" in {
+    125.toString shouldEqual "125"
+  }
+
 }

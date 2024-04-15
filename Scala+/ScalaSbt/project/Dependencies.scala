@@ -22,6 +22,9 @@ object Dependencies {
   val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.5.3"
   val catsEffectScalaTestDep = "org.typelevel" %% "cats-effect-testing-scalatest" % "1.5.0" % Test
 
+  val http4sDep = "org.http4s" %% "http4s-ember-client" % "0.23.26"
+  val httpJdkHttpClientDep = "org.http4s" %% "http4s-jdk-http-client" % "0.9.1"
+
   val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "3.2.7" % Test
 
   private val spark3Version = "3.5.1"

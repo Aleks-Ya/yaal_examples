@@ -5,7 +5,8 @@ ThisBuild / version      := "1"
 ThisBuild / scalaVersion := "2.12.19"
 
 lazy val root: Project = (project in file(".")).settings(name := "ScalaSbt")
-  .aggregate(ScalaCore, ScalaTest, ScalaMock, ScalaScopt, json4s, akkaActorScalaExamples, akkaQuickScala)
+  .aggregate(ScalaCore, ScalaTest, ScalaMock, ScalaScopt, json4s, akkaActorScalaExamples, akkaQuickScala,
+    Http4s)
 
 lazy val ScalaCore = project in file("ScalaCore")
 lazy val ScalaTest = project in file("ScalaTest+/ScalaTest")
@@ -22,6 +23,7 @@ lazy val SprayJson = project in file("Libs+/JSON+/SprayJson")
 lazy val TypesafeConfig = project in file("Libs+/TypesafeConfig")
 lazy val OkHttpMockWebServer = project in file("Libs+/OkHttpMockWebServer")
 lazy val CatsEffect = project in file("Libs+/CatsEffect")
+lazy val Http4s = project in file("Libs+/Http4s")
 
 lazy val Spark3Core = project in file("Spark+/Spark3+/Spark3Core")
 lazy val Spark3Sql = project in file("Spark+/Spark3+/Spark3Sql")

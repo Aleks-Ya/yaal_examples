@@ -36,6 +36,7 @@ Drop untracked files (dry-run): `git clean -n -df`
 Drop untracked files (execute): `git clean -df`
 
 ## Bundle
+Create a bundle with all refs (brances, tags, etc.): `git bundle create b1.bundle --all`
 Create a bundle with all objects in a branch: `git bundle create b1.pack master`
 Create a bundle with last 2 objects in a branch: `git bundle create b1.pack  master~2..master`
 List heads in a bundle: `git bundle list-heads b1.pack`
@@ -81,3 +82,6 @@ Apply latest entry: `git stash apply`
 Apply specific entry: `git stash apply stash@{0}`
 Save local changes to an entry: `git stash push` = `git stash` (`git save` is deprecated)
 Delete an entry: `git stash drop stash@{0}`
+
+## Archive
+Pack branch into a ZIP (without `.git`): `git archive --output a.zip master`

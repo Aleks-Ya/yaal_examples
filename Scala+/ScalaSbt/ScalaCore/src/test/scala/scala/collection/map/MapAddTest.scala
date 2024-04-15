@@ -17,6 +17,13 @@ class MapAddTest extends AnyFlatSpec with Matchers {
     map should contain value 2
   }
 
+  it should "add a map to a mutable map" in {
+    val map1 = scala.collection.mutable.Map[String, Int]("b" -> 2)
+    val map2 = Map("a" -> 1)
+    map1 ++= map2
+    map1 should contain allOf("a" -> 1, "b" -> 2)
+  }
+
   it should "add entry to immutable map" in {
     val map = Map("a" -> 1)
     val newMap = map + ("b" -> 2)
