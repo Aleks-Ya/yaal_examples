@@ -1,34 +1,41 @@
 import sbt.Project
 
 ThisBuild / organization := "ru.yaal.examples.scala"
-ThisBuild / version      := "1"
+ThisBuild / version := "1"
 ThisBuild / scalaVersion := "2.12.19"
 
 lazy val root: Project = (project in file(".")).settings(name := "ScalaSbt")
-  .aggregate(ScalaCore, ScalaTest, ScalaMock, ScalaScopt, json4s, akkaActorScalaExamples, akkaQuickScala,
-    Http4s)
+  .aggregate(ScalaCore, ScalaTest, ScalaMock, ScalaScopt, Json4s, AkkaActorScalaExamples, AkkaQuickstartScala,
+      Http4s, Http4sJdkHttpClient, UtilSrc)
 
-lazy val ScalaCore = project in file("ScalaCore")
-lazy val ScalaTest = project in file("ScalaTest+/ScalaTest")
-lazy val ScalaTestJsonAssert = project in file("ScalaTest+/ScalaTestJsonAssert")
-lazy val ScalaMock = project in file("ScalaMock")
-lazy val ScalaRun = project in file("ScalaRun")
-lazy val ScalaScopt = project in file("ScalaScopt")
+lazy val UtilSrc = Projects.UtilSrc
 
-lazy val akkaActorScalaExamples = project in file("Akka+/akka-actor-scala-examples")
-lazy val akkaQuickScala = project in file("Akka+/akka-quickstart-scala")
+lazy val ScalaCore = Projects.ScalaCore
 
-lazy val json4s = project in file("Libs+/JSON+/json4s")
-lazy val SprayJson = project in file("Libs+/JSON+/SprayJson")
-lazy val TypesafeConfig = project in file("Libs+/TypesafeConfig")
-lazy val OkHttpMockWebServer = project in file("Libs+/OkHttpMockWebServer")
-lazy val CatsEffect = project in file("Libs+/CatsEffect")
-lazy val Http4s = project in file("Libs+/Http4s")
+lazy val ScalaTest = Projects.ScalaTest
+lazy val ScalaTestJsonAssert = Projects.ScalaTestJsonAssert
+lazy val ScalaMock = Projects.ScalaMock
+lazy val ScalaRun = Projects.ScalaRun
+lazy val ScalaScopt = Projects.ScalaScopt
 
-lazy val Spark3Core = project in file("Spark+/Spark3+/Spark3Core")
-lazy val Spark3Sql = project in file("Spark+/Spark3+/Spark3Sql")
-lazy val Spark3Streaming = project in file("Spark+/Spark3+/Spark3Streaming")
+lazy val AkkaActorScalaExamples = Projects.AkkaActorScalaExamples
+lazy val AkkaQuickstartScala = Projects.AkkaQuickstartScala
 
-lazy val KafkaScalaCore = project in file("Kafka+/KafkaScalaCore")
-lazy val IoGithubEmbeddedKafka = project in file("Kafka+/EmbeddedKafka+/IoGithubEmbeddedKafka")
-lazy val ManubEmbeddedKafka = project in file("Kafka+/EmbeddedKafka+/ManubEmbeddedKafka")
+lazy val Json4s = Projects.Json4s
+lazy val SprayJson = Projects.SprayJson
+lazy val TypesafeConfig = Projects.TypesafeConfig
+lazy val OkHttpMockWebServer = Projects.OkHttpMockWebServer
+lazy val CatsEffect = Projects.CatsEffect
+lazy val Fs2Core = Projects.Fs2Core
+
+lazy val Http4s = Projects.Http4s
+lazy val Http4sDsl = Projects.Http4sDsl
+lazy val Http4sJdkHttpClient = Projects.Http4sJdkHttpClient
+
+lazy val Spark3Core = Projects.Spark3Core
+lazy val Spark3Sql = Projects.Spark3Sql
+lazy val Spark3Streaming = Projects.Spark3Streaming
+
+lazy val KafkaScalaCore = Projects.KafkaScalaCore
+lazy val IoGithubEmbeddedKafka = Projects.IoGithubEmbeddedKafka
+lazy val ManubEmbeddedKafka = Projects.ManubEmbeddedKafka

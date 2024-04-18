@@ -21,8 +21,11 @@ object Dependencies {
   val typesafeConfigDep = "com.typesafe" % "config" % "1.4.3"
   val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.5.3"
   val catsEffectScalaTestDep = "org.typelevel" %% "cats-effect-testing-scalatest" % "1.5.0" % Test
+  val fs2CoreDep = "co.fs2" %% "fs2-core" % "3.10.2"
 
-  val http4sDep = "org.http4s" %% "http4s-ember-client" % "0.23.26"
+  private val http4sVersion = "0.23.26"
+  val http4sEmberClientDep = "org.http4s" %% "http4s-ember-client" % http4sVersion
+  val http4sDslDep = "org.http4s" %% "http4s-dsl" % http4sVersion
   val httpJdkHttpClientDep = "org.http4s" %% "http4s-jdk-http-client" % "0.9.1"
 
   val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "3.2.7" % Test

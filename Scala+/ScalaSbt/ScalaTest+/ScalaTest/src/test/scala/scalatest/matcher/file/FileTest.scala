@@ -2,6 +2,7 @@ package scalatest.matcher.file
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import util.FileUtil
 
 import java.io.File
 import java.nio.file.Files
@@ -18,6 +19,7 @@ class FileTest extends AnyFlatSpec with Matchers {
   "File" should "be a file" in {
     file should be a 'file
     file should not be 'directory
+    file should have length 0
     file.isFile shouldBe true
     file.isDirectory shouldBe false
   }
@@ -39,8 +41,20 @@ class FileTest extends AnyFlatSpec with Matchers {
 
   "File" should "have content" in {
     val content = "abc"
-//    Files.writeString(file.toPath, content)
-//    Files.readString(file.toPath) shouldEqual content
+    FileUtil.write(file, content)
+    FileUtil.read(file) shouldEqual content
+  }
+
+  "File" should "have size" in {
+    file should have length 0
+    file.length() shouldEqual 0
+    file.length() shouldBe 0
+
+    FileUtil.write(file, "abc")
+    file should have length 3
+    //file should have length >(1L) //NOT WORK
+    file.length() shouldEqual 3
+    file.length() should be > 1L
   }
 
 }
