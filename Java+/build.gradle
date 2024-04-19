@@ -50,7 +50,7 @@ subprojects {
         elasticSearch7Version = '7.17.15'
         elasticSearch8Version = '8.11.1'
         junit5PlatformVersion = '1.10.0'
-        junit5Version = '5.10.1'
+        junit5Version = '5.10.2'
         cucumberVersion = '7.11.1'
         spring5Version = '5.3.33'
         spring4Version = '4.3.30.RELEASE'
@@ -118,7 +118,7 @@ subprojects {
         aws1Version = '1.12.620'
         aws2Version = '2.25.2'
         googleTestingCompileDep = 'com.google.testing.compile:compile-testing:0.21.0'
-        controlsFxDep = 'org.controlsfx:controlsfx:11.2.0'
+        controlsFxDep = 'org.controlsfx:controlsfx:11.2.1'
         xStreamDep = 'com.thoughtworks.xstream:xstream:1.4.20'
         pdfTestDep = 'com.codeborne:pdf-test:1.8.1'
     }

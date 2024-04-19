@@ -2,20 +2,41 @@ package controlsfx;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
+
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static java.lang.System.out;
 
 public class SearchableComboBoxApp extends Application {
     @Override
     public void start(Stage stage) {
         var list = FXCollections.observableArrayList("Medium", "High", "Highest", "Low");
         var searchableComboBox = new SearchableComboBox<>(list);
-        searchableComboBox.setOnAction(event -> System.out.printf("On Action: %s\n", event));
-        searchableComboBox.setOnKeyPressed(event -> System.out.printf("On key pressed: %s\n", event));
-        searchableComboBox.setOnKeyReleased(event -> System.out.printf("On key released: %s\n", event));
-        searchableComboBox.setOnKeyTyped(event -> System.out.printf("On Key typed: %s\n", event));
+        var counter = new AtomicInteger();
+
+        searchableComboBox.setOnAction(event -> out.printf("%d OnAction: %s\n", counter.incrementAndGet(), event));
+
+        searchableComboBox.setOnKeyPressed(event -> out.printf("%d OnKeyPressed: %s\n", counter.incrementAndGet(), event));
+        searchableComboBox.setOnKeyReleased(event -> out.printf("%d OnKeyReleased: %s\n", counter.incrementAndGet(), event));
+        searchableComboBox.setOnKeyTyped(event -> out.printf("%d OnKeyTyped: %s\n", counter.incrementAndGet(), event));
+
+        searchableComboBox.setOnMouseClicked(event -> out.printf("%d OnMouseClicked: %s\n", counter.incrementAndGet(), event));
+        searchableComboBox.setOnMousePressed(event -> out.printf("%d OnMousePressed: %s\n", counter.incrementAndGet(), event));
+        searchableComboBox.setOnMouseReleased(event -> out.printf("%d OnMouseReleased: %s\n", counter.incrementAndGet(), event));
+        searchableComboBox.getItems().addListener((ListChangeListener<? super String>) c ->
+                out.printf("%d Items Listener: %s\n", counter.incrementAndGet(), c));
+
+        searchableComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+                out.printf("%d ChangeListener: %s->%s\n", counter.incrementAndGet(), oldValue, newValue));
+        searchableComboBox.getSelectionModel().selectedItemProperty().addListener(observable ->
+                out.printf("%d InvalidationListener: %s\n", counter.incrementAndGet(), observable));
+
+
         var scene = new Scene(new VBox(searchableComboBox), 640, 480);
         stage.setScene(scene);
         stage.show();

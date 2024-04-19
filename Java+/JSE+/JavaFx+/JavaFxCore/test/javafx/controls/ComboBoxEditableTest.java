@@ -7,9 +7,17 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import static javafx.scene.input.KeyCode.*;
+import static javafx.scene.input.KeyCode.A;
+import static javafx.scene.input.KeyCode.ALT;
+import static javafx.scene.input.KeyCode.CONTROL;
+import static javafx.scene.input.KeyCode.DOWN;
+import static javafx.scene.input.KeyCode.ENTER;
 import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.control.ComboBoxMatchers.*;
+import static org.testfx.matcher.control.ComboBoxMatchers.containsExactlyItems;
+import static org.testfx.matcher.control.ComboBoxMatchers.containsExactlyItemsInOrder;
+import static org.testfx.matcher.control.ComboBoxMatchers.containsItems;
+import static org.testfx.matcher.control.ComboBoxMatchers.hasItems;
+import static org.testfx.matcher.control.ComboBoxMatchers.hasSelectedItem;
 
 class ComboBoxEditableTest extends ApplicationTest {
     @Override
@@ -43,16 +51,16 @@ class ComboBoxEditableTest extends ApplicationTest {
     void shouldWriteToComboBox() {
         var comboBox = lookup(".combo-box").queryComboBox();
         clickOn(comboBox);
-        press(CONTROL).press(A).release(A).release(CONTROL);
-        write("Option 4").press(ENTER);
-        verifyThat(comboBox, hasSelectedItem("Option 1"));
+        press(CONTROL, A).release(CONTROL, A);
+        write("Option 4").type(ENTER);
+        verifyThat(comboBox, hasSelectedItem("Option 4"));
         verifyThat(comboBox, containsExactlyItemsInOrder("Option 1", "Option 2", "Option 3"));
     }
 
     @Test
     void shouldChooseAnotherItemInComboBox() {
         var comboBox = lookup(".combo-box").queryComboBox();
-        clickOn(comboBox).press(ALT, DOWN).clickOn("Option 2");
+        clickOn(comboBox).press(ALT, DOWN).release(ALT, DOWN).clickOn("Option 2");
         verifyThat(comboBox, hasSelectedItem("Option 2"));
         verifyThat(comboBox, containsExactlyItemsInOrder("Option 1", "Option 2", "Option 3"));
     }
