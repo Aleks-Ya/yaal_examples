@@ -1,7 +1,6 @@
 package dataframe.transformation
 
 import factory.Factory
-import org.apache.spark.sql.functions
 import org.apache.spark.sql.functions.{max, sum}
 import org.apache.spark.sql.types.LongType
 import org.scalatest.flatspec.AnyFlatSpec
@@ -11,19 +10,22 @@ import org.scalatest.matchers.should.Matchers
 class AggTransformation extends AnyFlatSpec with Matchers {
 
   it should "calculate sum with an agg transformation" in {
-    val df = Factory.peopleDf.agg(sum("age"))
-    df.schema.fields(df.schema.fieldIndex("sum(age)")).dataType shouldBe LongType
-    df.toJSON.collect() should contain only """{"sum(age)":80}"""
+    val df = Factory.peopleDf
+    val updatedDf = df.agg(sum("age"))
+    updatedDf.schema.fields(updatedDf.schema.fieldIndex("sum(age)")).dataType shouldBe LongType
+    updatedDf.toJSON.collect() should contain only """{"sum(age)":80}"""
   }
 
   it should "rename column after an agg transformation" in {
-    val df = Factory.peopleDf.agg(sum("age").as("age_sum"))
-    df.schema.fields(df.schema.fieldIndex("age_sum")).dataType shouldBe LongType
-    df.toJSON.collect() should contain only """{"age_sum":80}"""
+    val df = Factory.peopleDf
+    val updatedDf = df.agg(sum("age").as("age_sum"))
+    updatedDf.schema.fields(updatedDf.schema.fieldIndex("age_sum")).dataType shouldBe LongType
+    updatedDf.toJSON.collect() should contain only """{"age_sum":80}"""
   }
 
   it should "calculate several aggregations" in {
-    val df = Factory.peopleDf.agg(sum("age"), max("age"))
-    df.toJSON.collect() should contain only """{"sum(age)":80,"max(age)":35}"""
+    val df = Factory.peopleDf
+    val updatedDf = df.agg(sum("age"), max("age"))
+    updatedDf.toJSON.collect() should contain only """{"sum(age)":80,"max(age)":35}"""
   }
 }

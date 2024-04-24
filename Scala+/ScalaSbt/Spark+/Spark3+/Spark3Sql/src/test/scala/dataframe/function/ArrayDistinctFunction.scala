@@ -14,7 +14,7 @@ class ArrayDistinctFunction extends AnyFlatSpec with Matchers {
       Row(List("Berlin", "Barcelona", "Barcelona")))
     val updatedDf = df.select(
       col("cities"),
-      array_distinct(col("cities")).as("unique_city"))
+      array_distinct(col("cities")) as "unique_city")
     updatedDf.toJSON.collect() should contain inOrderOnly(
       """{"cities":["London","Paris","London"],"unique_city":["London","Paris"]}""",
       """{"cities":["Berlin","Barcelona","Barcelona"],"unique_city":["Berlin","Barcelona"]}"""
