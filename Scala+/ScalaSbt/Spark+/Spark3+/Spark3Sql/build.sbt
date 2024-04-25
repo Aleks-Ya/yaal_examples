@@ -1,4 +1,5 @@
-import Dependencies.{scalaTestDep, spark3SqlDep, h2Dep}
+import Dependencies.{h2Dep, scalaTestDep, spark3SqlDep}
 
 lazy val Spark3Sql = (project in file("."))
+  .dependsOn(Projects.UtilSrc)
   .settings(libraryDependencies ++= Seq(spark3SqlDep, scalaTestDep, h2Dep))

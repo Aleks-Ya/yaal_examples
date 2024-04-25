@@ -1,6 +1,7 @@
 package util
 
 import java.io.{File, FileWriter}
+import java.nio.file.{Files, Path}
 import scala.io.Source
 
 object FileUtil {
@@ -21,5 +22,14 @@ object FileUtil {
     val content = source.getLines.mkString("\n")
     source.close()
     content
+  }
+
+  def createAbsentTmpDirStr(): String = createAbsentTmpDirPath().toString
+
+  def createAbsentTmpDirPath(): Path = {
+    val dir = Files.createTempDirectory(FileUtil.getClass.getSimpleName.replace("$", "") + "_")
+    Files.delete(dir)
+    println(s"Absent temp directory was created: $dir")
+    dir
   }
 }

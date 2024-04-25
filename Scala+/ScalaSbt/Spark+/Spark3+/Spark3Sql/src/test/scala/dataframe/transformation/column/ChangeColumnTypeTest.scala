@@ -14,7 +14,6 @@ class ChangeColumnTypeTest extends AnyFlatSpec with Matchers {
     df.schema.simpleString shouldEqual "struct<name:string,age:int,gender:string>"
 
     val newDf = df.withColumn("age", col("age").cast(ByteType))
-    newDf.printSchema
     newDf.schema.simpleString shouldEqual "struct<name:string,age:tinyint,gender:string>"
   }
 
@@ -23,7 +22,6 @@ class ChangeColumnTypeTest extends AnyFlatSpec with Matchers {
     df.schema.simpleString shouldEqual "struct<name:string,age:int,gender:string>"
 
     val newDf = df.withColumn("age", col("age").cast(StringType))
-    newDf.printSchema
     newDf.schema.simpleString shouldEqual "struct<name:string,age:string,gender:string>"
   }
 
@@ -33,7 +31,6 @@ class ChangeColumnTypeTest extends AnyFlatSpec with Matchers {
     df.schema.simpleString shouldEqual "struct<name:string,age:string>"
 
     val newDf = df.withColumn("age", col("age").cast(IntegerType))
-    newDf.printSchema
     newDf.schema.simpleString shouldEqual "struct<name:string,age:int>"
   }
 }

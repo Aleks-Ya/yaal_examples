@@ -1,29 +1,48 @@
 package dataframe.create.parquet
 
 import factory.Factory
+import org.apache.spark.sql.functions.col
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-
-import java.io.File
-import java.nio.file.Files
+import util.FileUtil
 
 class WriteReadParquet extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
+  it should "write to parquet file" in {
+    val originalDf = Factory.peopleDf
 
-  "Parquet test" should "write to parquet file" in {
-    val peopleDf = Factory.peopleDf
-
-    val file = new File(Files.createTempDirectory("parquet").toString, "output.parquet")
-    peopleDf.write.parquet(file.toString)
+    val file = FileUtil.createAbsentTmpDirStr()
+    originalDf.write.parquet(file)
 
     val sql = Factory.ss.sqlContext
-    val parquetDf = sql.read.parquet(file.getAbsolutePath)
-    parquetDf.show()
-    parquetDf.collect.map(_.toString) should contain inOrderOnly("[John,25,M]", "[Peter,35,M]", "[Mary,20,F]")
+    val parquetDf = sql.read.parquet(file)
 
-    parquetDf.createOrReplaceTempView("parquetPeople")
-    val resultDf = sql.sql("SELECT name FROM parquetPeople WHERE age > 30")
-    resultDf.show()
-    resultDf.collect.map(_.toString) should contain("[Peter]")
+    parquetDf.toJSON.collect() shouldEqual originalDf.toJSON.collect()
+    parquetDf.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","age":25,"gender":"M"}""",
+      """{"name":"Peter","age":35,"gender":"M"}""",
+      """{"name":"Mary","age":20,"gender":"F"}""")
+  }
+
+  it should "read several parquet files in single DataFrame" in {
+    val originalDf = Factory.peopleDf
+    val maleDf = originalDf.filter(col("gender") === "M")
+    maleDf.count() shouldEqual 2
+    val femaleDf = originalDf.filter(col("gender") === "F")
+    femaleDf.count() shouldEqual 1
+
+    val maleFile = FileUtil.createAbsentTmpDirStr()
+    val femaleFile = FileUtil.createAbsentTmpDirStr()
+    maleDf.write.parquet(maleFile)
+    femaleDf.write.parquet(femaleFile)
+
+    val sql = Factory.ss.sqlContext
+    val parquetDf = sql.read.parquet(maleFile, femaleFile)
+
+    parquetDf.toJSON.collect() shouldEqual originalDf.toJSON.collect()
+    parquetDf.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","age":25,"gender":"M"}""",
+      """{"name":"Peter","age":35,"gender":"M"}""",
+      """{"name":"Mary","age":20,"gender":"F"}""")
   }
 }

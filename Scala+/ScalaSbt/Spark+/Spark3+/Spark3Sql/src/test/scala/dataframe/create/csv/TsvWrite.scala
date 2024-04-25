@@ -3,15 +3,14 @@ package dataframe.create.csv
 import factory.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import util.FileUtil
 
 import java.nio.file.Files
 
 class TsvWrite extends AnyFlatSpec with Matchers {
 
   it should "write a TSV-file" in {
-    val dir = Files.createTempDirectory(getClass.getSimpleName)
-    Files.delete(dir)
-    println(s"Tmp file name: $dir")
+    val dir = FileUtil.createAbsentTmpDirPath()
 
     val expDf = Factory.peopleDf
     expDf.write
@@ -34,8 +33,7 @@ class TsvWrite extends AnyFlatSpec with Matchers {
   }
 
   it should "write a GZIP-compressed TSV-file" in {
-    val dir = Files.createTempDirectory(getClass.getSimpleName)
-    Files.delete(dir)
+    val dir = FileUtil.createAbsentTmpDirPath()
     println(s"Tmp file name: $dir")
 
     val expDf = Factory.peopleDf

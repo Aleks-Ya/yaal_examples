@@ -22,12 +22,10 @@ class AssertDataFrameRow extends AnyFlatSpec with Matchers {
     val rows2 = Factory.peopleDf.head(2)
     rows2.map(_.toSeq) should contain inOrderOnly(
       Seq("John", 25, "M"),
-      Seq("Peter", 35, "M")
-    )
+      Seq("Peter", 35, "M"))
     rows2.map(_.json) should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M"}""",
-      """{"name":"Peter","age":35,"gender":"M"}"""
-    )
+      """{"name":"Peter","age":35,"gender":"M"}""")
     rows2.mkString shouldBe "[John,25,M][Peter,35,M]"
     rows2.mkString(",") shouldBe "[John,25,M],[Peter,35,M]"
   }

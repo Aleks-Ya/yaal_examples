@@ -15,8 +15,7 @@ class SelectTransformationTest extends AnyFlatSpec with Matchers {
     df.toJSON.collect() should contain inOrderOnly(
       """{"name":"John","gender":"M"}""",
       """{"name":"Peter","gender":"M"}""",
-      """{"name":"Mary","gender":"F"}"""
-    )
+      """{"name":"Mary","gender":"F"}""")
   }
 
   it should "select a sub-field" in {
@@ -32,8 +31,7 @@ class SelectTransformationTest extends AnyFlatSpec with Matchers {
     df2.toJSON.collect() should contain inOrderOnly(
       """{"name":"John","age":30}""",
       """{"name":"Peter","age":25}""",
-      """{"name":"Mary","age":20}"""
-    )
+      """{"name":"Mary","age":20}""")
   }
 
   it should "select a sub-field of an array type" in {
@@ -51,13 +49,11 @@ class SelectTransformationTest extends AnyFlatSpec with Matchers {
       Row("Ann", null))
 
     val df2 = df.select(col("name"), col("departments").getField("city").as("cities"))
-    print(df2.toJSON.collect().mkString("Array(", ", ", ")"))
     df2.toJSON.collect() should contain inOrderOnly(
       """{"name":"John","cities":["London","Paris"]}""",
       """{"name":"Peter","cities":["Madrid",null]}""",
       """{"name":"Mary","cities":[]}""",
       """{"name":"Sara","cities":[null]}""",
-      """{"name":"Ann","cities":null}"""
-    )
+      """{"name":"Ann","cities":null}""")
   }
 }

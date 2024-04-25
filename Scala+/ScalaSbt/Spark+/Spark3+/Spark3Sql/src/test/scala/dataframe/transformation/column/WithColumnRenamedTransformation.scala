@@ -4,23 +4,11 @@ import factory.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-
 class WithColumnRenamedTransformation extends AnyFlatSpec with Matchers {
-
   it should "rename a column" in {
     val df = Factory.peopleDf
-    df.printSchema
-    df.schema.treeString shouldEqual "root\n" +
-      " |-- name: string (nullable = true)\n" +
-      " |-- age: integer (nullable = true)\n" +
-      " |-- gender: string (nullable = true)\n"
-
-    val newDf = df.withColumnRenamed("name", "fio")
-    newDf.printSchema
-    newDf.schema.treeString shouldEqual
-      "root\n" +
-        " |-- fio: string (nullable = true)\n" +
-        " |-- age: integer (nullable = true)\n" +
-        " |-- gender: string (nullable = true)\n"
+    df.schema.simpleString shouldEqual "struct<name:string,age:int,gender:string>"
+    val updatedDf = df.withColumnRenamed("name", "fio")
+    updatedDf.schema.simpleString shouldEqual "struct<fio:string,age:int,gender:string>"
   }
 }

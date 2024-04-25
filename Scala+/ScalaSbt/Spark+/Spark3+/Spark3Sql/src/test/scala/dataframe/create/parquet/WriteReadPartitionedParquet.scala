@@ -6,17 +6,16 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import util.FileUtil
 
-class WriteReadParquetZip extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
-  it should "write to ZIP parquet file" in {
-    val compressionAlgorithm = "gzip"
+class WriteReadPartitionedParquet extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
+  it should "write to a partitioned parquet file" in {
     val originalDf = Factory.peopleDf
+    val path = FileUtil.createAbsentTmpDirPath()
+    originalDf.write.partitionBy("gender").parquet(path.toString)
+    path.toFile should be a 'directory
+    path.resolve("gender=F").toFile should be a 'directory
+    path.resolve("gender=M").toFile should be a 'directory
 
-    val gzFile = FileUtil.createAbsentTmpDirStr()
-    originalDf.write.option("compression", compressionAlgorithm).parquet(gzFile)
-
-    val sql = Factory.ss.sqlContext
-    val parquetDf = sql.read.option("compression", compressionAlgorithm).parquet(gzFile)
-
+    val parquetDf = Factory.ss.sqlContext.read.parquet(path.toString)
     parquetDf.toJSON.collect() shouldEqual originalDf.toJSON.collect()
     parquetDf.toJSON.collect() should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M"}""",
