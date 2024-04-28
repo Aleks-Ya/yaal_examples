@@ -12,8 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
-import static gptui.viewmodel.CbHelper.updateCbSilently;
-
 @Singleton
 class ThemeVmImpl implements ThemeVmController, ThemeVmMediator {
     private static final Logger log = LoggerFactory.getLogger(ThemeVmImpl.class);
@@ -60,12 +58,12 @@ class ThemeVmImpl implements ThemeVmController, ThemeVmMediator {
                 .map(mediator::getTheme)
                 .orElse(null);
         mediator.setCurrentTheme(themeTitle);
-        updateCbSilently(() -> properties.themeCbValue.setValue(themeTitle), properties.themeCbOnAction);
+        properties.themeCbValue.setValue(themeTitle);
     }
 
     @Override
     public void updateComboBoxSelectedItemFromStateModel() {
-        updateCbSilently(() -> properties.themeCbValue.setValue(mediator.getCurrentTheme()), properties.themeCbOnAction);
+        properties.themeCbValue.setValue(mediator.getCurrentTheme());
     }
 
     @Override
@@ -74,8 +72,7 @@ class ThemeVmImpl implements ThemeVmController, ThemeVmMediator {
         var currentComboBoxItems = properties.themeCbItems.getValue();
         if (!Objects.equals(currentModelItems, currentComboBoxItems)) {
             log.trace("Set themeCbItems: {}", currentModelItems);
-            updateCbSilently(() -> properties.themeCbItems.setValue(currentModelItems),
-                    properties.themeCbOnAction);
+            properties.themeCbItems.setValue(currentModelItems);
             setLabel();
         }
     }

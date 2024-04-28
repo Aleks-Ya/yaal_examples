@@ -4,10 +4,11 @@ import gptui.ui.BaseGptUiTest;
 import gptui.ui.TestingData.I1;
 import gptui.ui.TestingData.I2;
 import gptui.ui.TestingData.I3;
-import javafx.scene.input.KeyCode;
 import org.junit.jupiter.api.Test;
 
 import static gptui.viewmodel.question.QuestionStyle.QUESTION_STYLE_EMPTY;
+import static javafx.scene.input.KeyCode.DOWN;
+import static javafx.scene.input.KeyCode.ENTER;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 
@@ -49,7 +50,7 @@ class SelectThemeTest extends BaseGptUiTest {
                 .work("Search Theme", () -> {
                     clickOn(theme().comboBoxNarrow());
                     write(I1.THEME.title().substring(0, 2));
-                    press(KeyCode.DOWN);
+                    type(DOWN, ENTER);
                 })
                 .focus(question().textArea())
                 .themeSelectedItem(I2.THEME)

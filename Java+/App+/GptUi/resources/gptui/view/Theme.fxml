@@ -10,7 +10,7 @@
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="gptui.view.ThemeController">
     <Label fx:id="themeLabel" text="_Theme (12):" mnemonicParsing="true"/>
     <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>
-    <SearchableComboBox fx:id="themeComboBox" onAction="#themeComboBoxAction"/>
+    <SearchableComboBox fx:id="themeComboBox"/>
     <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>
     <Button fx:id="addButton" onAction="#onAddButtonClicked" text="_+"/>
     <Separator orientation="VERTICAL" prefHeight="200.0" visible="false"/>

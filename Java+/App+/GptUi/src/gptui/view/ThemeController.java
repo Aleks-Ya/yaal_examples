@@ -29,12 +29,6 @@ public class ThemeController extends BaseController {
     private final TextInputDialog newThemeDialog = new TextInputDialog();
 
     @FXML
-    void themeComboBoxAction(ActionEvent ignoredEvent) {
-        log.trace("themeComboBoxAction");
-        vm.onThemeComboBoxAction();
-    }
-
-    @FXML
     void themeFilterHistoryCheckBoxClicked(ActionEvent ignore) {
         log.trace("themeFilterHistoryCheckBoxClicked");
         vm.onThemeFilterHistoryCheckBoxClicked();
@@ -52,7 +46,6 @@ public class ThemeController extends BaseController {
         vm.properties().themeCbValue.bindBidirectional(themeComboBox.valueProperty());
         vm.properties().themeCbItems.bindBidirectional(themeComboBox.itemsProperty());
         vm.properties().themeCbEditor.bindBidirectional(themeComboBox.getEditor().textProperty());
-        vm.properties().themeCbOnAction.bindBidirectional(themeComboBox.onActionProperty());
         vm.properties().themeCbCellFactory.bindBidirectional(themeComboBox.cellFactoryProperty());
         vm.properties().filterHistoryCheckBoxSelected.bindBidirectional(filterHistoryCheckBox.selectedProperty());
 
@@ -66,5 +59,6 @@ public class ThemeController extends BaseController {
             newThemeDialog.showAndWait().ifPresent(theme -> vm.addNewTheme(theme));
         });
         themeLabel.setLabelFor(themeComboBox);
+        themeComboBox.showingProperty().addListener((observable, oldValue, newValue) -> vm.onThemeComboBoxAction());
     }
 }

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -12,7 +13,7 @@ public class ChoiceBoxApp extends Application {
     public void start(Stage stage) {
         var choiceBox1 = fillUsingFxCollection();
         var choiceBox2 = fillUsingGetItems();
-        var scene = new Scene(new VBox(choiceBox1, choiceBox2), 640, 480);
+        var scene = new Scene(new VBox(choiceBox1, new Separator(), choiceBox2), 640, 480);
         stage.setScene(scene);
         stage.show();
     }

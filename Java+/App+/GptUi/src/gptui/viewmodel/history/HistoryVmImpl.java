@@ -20,10 +20,10 @@ import static javafx.collections.FXCollections.observableArrayList;
 class HistoryVmImpl implements HistoryVmController, HistoryVmMediator {
     private static final Logger log = LoggerFactory.getLogger(HistoryVmImpl.class);
     public final HistoryVmProperties properties = new HistoryVmProperties();
-    @Inject
-    private HistoryMediator mediator;
     private final HistoryComboBoxFacade historyCbFacade = new HistoryComboBoxFacade();
     private final StateModelFacade stateModelFacade = new StateModelFacade();
+    @Inject
+    private HistoryMediator mediator;
 
     @Override
     public void onHistoryComboBoxAction() {

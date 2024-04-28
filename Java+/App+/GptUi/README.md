@@ -13,7 +13,6 @@
 9. Limit length of text in History ComboBox
 10. Bug: Ctrl-Alt-V within the Theme ComboBox
 11. Bug: Ctrl-Alt-Up/Down switch Interaction is random order
-12. Bug: Theme ComboBox switches to Question after pressing Up/Down
 
 ## Install on Ubuntu
 

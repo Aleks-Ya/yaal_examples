@@ -36,6 +36,12 @@ public class SearchableComboBoxApp extends Application {
         searchableComboBox.getSelectionModel().selectedItemProperty().addListener(observable ->
                 out.printf("%d InvalidationListener: %s\n", counter.incrementAndGet(), observable));
 
+        searchableComboBox.showingProperty().addListener((observable, oldValue, newValue) ->
+                out.printf("%d ShowingListener: %s->%s\n", counter.incrementAndGet(), oldValue, newValue));
+        searchableComboBox.onShowingProperty().addListener((observable, oldValue, newValue) ->
+                out.printf("%d OnShowingListener: %s->%s\n", counter.incrementAndGet(), oldValue, newValue));
+        searchableComboBox.onShownProperty().addListener((observable, oldValue, newValue) ->
+                out.printf("%d OnShownListener: %s->%s\n", counter.incrementAndGet(), oldValue, newValue));
 
         var scene = new Scene(new VBox(searchableComboBox), 640, 480);
         stage.setScene(scene);
