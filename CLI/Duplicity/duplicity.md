@@ -11,6 +11,7 @@ Show progress: `duplicity full --progress --no-encryption /tmp/data file:///tmp/
 ## Backup with encryption
 Make a full backup of a dir: `duplicity full --encrypt-key john.dow@mail.com /tmp/data file:///tmp/backup`
 Make an increment backup of a dir: `duplicity incremental --encrypt-key john.dow@mail.com /tmp/data file:///tmp/backup`
+List saved times: `duplicity collection-status file:///tmp/backup`
 List files in a backup dir: `duplicity list-current-files file:///tmp/backup`
 Restore a backup to a dir: `duplicity restore file:///tmp/backup /tmp/restore`
 Verify that a backup has no differences from the origin dir (with data comparison):  `duplicity verify --compare-data file:///tmp/backup /tmp/data`

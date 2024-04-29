@@ -25,4 +25,22 @@ class AsyncFreeSpecTest extends AsyncFreeSpec with Matchers {
       assert(sum == 3)
     }
   }
+
+  "It" - {
+    "recoverToSucceededIf" in {
+      recoverToSucceededIf[IllegalArgumentException] {
+        Future(throw new IllegalArgumentException("Error occurred"))
+      }
+    }
+  }
+
+  "It" - {
+    "recoverToExceptionIf" in {
+      recoverToExceptionIf[IllegalArgumentException] {
+        Future(throw new IllegalArgumentException("Error occurred"))
+      } map { ex =>
+        ex should have message "Error occurred"
+      }
+    }
+  }
 }
