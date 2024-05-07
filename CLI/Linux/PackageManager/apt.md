@@ -19,8 +19,8 @@ Message:
 The following packages have been kept back:
   qemu-block-extra qemu-system-common
 ```
-Install individually: `sudo apt install -y qemu-block-extra qemu-system-common`
-Install by full upgrade: `sudo apt full-upgrade -y`
+Install individually: `sudo apt install --only-upgrade qemu-block-extra qemu-system-common`
+Install by full upgrade (NOT WORK): `sudo apt full-upgrade -y`
 
 ## apt-key
 List public keys: `apt-key list`

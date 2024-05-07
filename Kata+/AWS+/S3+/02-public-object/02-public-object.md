@@ -1,6 +1,7 @@
 # Kata S3 - Public Object
 
-Task: upload a photo to S3 and make it available from the Internet
+## Task
+Upload a photo to S3 and make it available from the Internet
 Conditions: use Root User
 
 Solution 1: using AWS Console.

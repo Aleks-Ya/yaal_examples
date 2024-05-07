@@ -1,4 +1,4 @@
-# 02-function-alias
+# 040-function-alias
 
 ## Task
 Create a function with 3 environments: DEV, TST, PRD and deploy different versions to them.
