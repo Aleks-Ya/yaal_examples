@@ -27,6 +27,7 @@ lazy val TypesafeConfig = Projects.TypesafeConfig
 lazy val OkHttpMockWebServer = Projects.OkHttpMockWebServer
 lazy val CatsEffect = Projects.CatsEffect
 lazy val Fs2Core = Projects.Fs2Core
+lazy val TomlScala = Projects.TomlScala
 
 lazy val Http4s = Projects.Http4s
 lazy val Http4sDsl = Projects.Http4sDsl

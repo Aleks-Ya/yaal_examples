@@ -22,6 +22,7 @@ object Dependencies {
   val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.5.3"
   val catsEffectScalaTestDep = "org.typelevel" %% "cats-effect-testing-scalatest" % "1.5.0" % Test
   val fs2CoreDep = "co.fs2" %% "fs2-core" % "3.10.2"
+  val tomlScalaDep = "tech.sparse" %% "toml-scala" % "0.2.2"
 
   private val http4sVersion = "0.23.26"
   val http4sEmberClientDep = "org.http4s" %% "http4s-ember-client" % http4sVersion

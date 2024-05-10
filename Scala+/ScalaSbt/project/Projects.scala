@@ -20,6 +20,7 @@ object Projects {
   lazy val OkHttpMockWebServer = project in file("Libs+/OkHttpMockWebServer")
   lazy val CatsEffect = project in file("Libs+/CatsEffect")
   lazy val Fs2Core = project in file("Libs+/Fs2+/Fs2Core")
+  lazy val TomlScala = project in file("Libs+/TOML+/TomlScala")
 
   lazy val Http4s = project in file("Libs+/Http4s+/Http4s")
   lazy val Http4sDsl = project in file("Libs+/Http4s+/Http4sDsl")
