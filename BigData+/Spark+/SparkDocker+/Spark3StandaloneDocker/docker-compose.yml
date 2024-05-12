@@ -44,8 +44,7 @@ services:
       - datasets:/datasets
       - shared:/shared
 networks:
-  default:
-    name: spark-standalone-cluster-network
+  spark-standalone-cluster-network:
 volumes:
   datasets:
     driver: local

@@ -30,7 +30,7 @@
 
 ## Connect by Spark Shell
 ### From a container
-1. Run Spark Shell: `docker run --rm --network spark-standalone-cluster-network -it spark-standalone spark-shell --master spark://spark-standalone-cluster-master:7077`
+1. Run Spark Shell: `docker run --rm -it --network spark-standalone-cluster-network spark-standalone spark-shell --master spark://spark-standalone-cluster-master:7077`
 2. Execute app: `sc.parallelize(Seq(1, 2, 3)).collect()`
 ### From the host machine
 1. Run Spark Shell: `spark-shell --master spark://spark-standalone-cluster-master:7077`

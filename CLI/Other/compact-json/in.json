@@ -1,0 +1,33 @@
+{
+	"name": "John",
+	"age": 30,
+	"details": {
+		"city": "London",
+		"street": "First",
+		"house": 335
+	},
+	"departments": [
+		"sales",
+		"development",
+		"research"
+	],
+	"articles": [
+		"Big Data: The Management Revolution",
+		"14 Cutting-Edge Big Data Applications Transforming Industries",
+		"Big Data and Higher Education",
+		"Article 1",
+		"Article 2"
+	],
+	"specialization": {
+		"Major": {
+			"Computer Science": {
+				"Algorithms": {
+					"Sorting": {
+						"bubble": "Good",
+						"quick": "Bad"
+					}
+				}
+			}
+		}
+	}
+}

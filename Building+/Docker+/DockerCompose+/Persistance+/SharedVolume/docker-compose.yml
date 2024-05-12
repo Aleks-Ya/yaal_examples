@@ -1,4 +1,3 @@
-version: '3'
 services:
   server-service:
     container_name: shared-volume-server-container

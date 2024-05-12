@@ -1,0 +1,18 @@
+services:
+  writer-service:
+    container_name: writer-container
+    image: alpine:latest
+    volumes:
+      - my-external-data:/tmp
+    command: sh -c "echo abc > /tmp/greeting.txt"
+  reader-service:
+    container_name: reader-container
+    depends_on: 
+      - writer-service
+    image: alpine:latest
+    volumes:
+      - my-external-data:/tmp
+    command: sh -c "cat /tmp/greeting.txt"
+volumes:
+  my-external-data:
+    external: true

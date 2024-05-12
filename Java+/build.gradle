@@ -52,7 +52,7 @@ subprojects {
         junit5PlatformVersion = '1.10.0'
         junit5Version = '5.10.2'
         cucumberVersion = '7.11.1'
-        spring5Version = '5.3.33'
+        spring5Version = '5.3.34'
         spring4Version = '4.3.30.RELEASE'
         spring3Version = '3.2.18.RELEASE'
         springBoot2Version = '2.7.18'
@@ -61,7 +61,7 @@ subprojects {
         springCloud3Version = '3.1.7'
         springCloud4Version = '4.1.0'
         springSecurity5Version = '5.8.8'
-        springBoot3Version = '3.2.0'
+        springBoot3Version = '3.2.5'
         springBoot3StarterWebDep = "org.springframework.boot:spring-boot-starter-web:$springBoot3Version"
         springBoot3StarterDataJpaDep = "org.springframework.boot:spring-boot-starter-data-jpa:$springBoot3Version"
         hadoop2Version = '2.10.2'

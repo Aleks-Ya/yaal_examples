@@ -1,6 +1,7 @@
-package spring.boot2.oauth2.client.authorization_code;
+package spring.boot3.oauth2.client.authorization_code;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,6 +16,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.reactive.function.client.WebClient;
 
+@Configuration
 @EnableWebSecurity
 @PropertySource(value = "file:/tmp/oauth-client.properties", ignoreResourceNotFound = true)
 class SecurityConfig {
@@ -22,14 +24,10 @@ class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/authorizationCode/**").authenticated()
-                .antMatchers("/clientCredentials/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .oauth2Login()
-                .userInfoEndpoint()
-                .oidcUserService(oidcUserService());
+                .authorizeHttpRequests((registry) -> registry
+                        .requestMatchers("/authorizationCode/**").authenticated()
+                        .requestMatchers("/clientCredentials/**").permitAll())
+                .oauth2Login(configurer -> configurer.userInfoEndpoint(config -> config.oidcUserService(oidcUserService())));
         return http.build();
     }
 

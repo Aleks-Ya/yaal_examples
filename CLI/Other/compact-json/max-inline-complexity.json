@@ -1,0 +1,14 @@
+{
+	"specialization": {
+		"Major": {
+			"Computer Science": {
+				"Algorithms": {
+					"Sorting": {
+						"bubble": "Good",
+						"quick": "Bad"
+					}
+				}
+			}
+		}
+	}
+}
