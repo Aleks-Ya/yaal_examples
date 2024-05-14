@@ -31,4 +31,8 @@ sdk selfupdate
 sdk update
 echo
 
+echo "Updating Coursier..."
+cs update
+echo
+
 echo "DONE"

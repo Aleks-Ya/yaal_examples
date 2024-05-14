@@ -16,7 +16,13 @@ su spark -c "start-master.sh"
 echo "Spark Master started."
 
 echo "Starting Spark Connect..."
-su spark -c "start-connect-server.sh --jars $SPARK_HOME/spark-connect.jar --master spark://spark-standalone-cluster-master:7077"
+su spark -c "start-connect-server.sh \
+--jars $SPARK_HOME/spark-connect.jar \
+--driver-cores 1 \
+--executor-cores 1 \
+--total-executor-cores 1 \
+--num-executors 1 \
+--master spark://spark-standalone-cluster-master:7077"
 echo "Spark Connect started."
 
 echo "Starting Spark History Server..."

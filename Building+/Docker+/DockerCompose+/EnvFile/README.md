@@ -1,4 +1,4 @@
-# Declare default environment variables in ".env" file
+# Declare default environment variables in `.env` file
 Docs: https://docs.docker.com/compose/env-file/
 
 1. Build: `docker-compose build`

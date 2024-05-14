@@ -30,11 +30,21 @@
 
 ## Connect by Spark Shell
 ### From a container
-1. Run Spark Shell: `docker run --rm -it --network spark-standalone-cluster-network spark-standalone spark-shell --master spark://spark-standalone-cluster-master:7077`
-2. Execute app: `sc.parallelize(Seq(1, 2, 3)).collect()`
+1. Run Spark Shell:
+   ```shell
+   docker run --rm -it --network spark-standalone-cluster-network spark-standalone \
+      spark-shell \
+      --total-executor-cores 1 \
+      --master spark://spark-standalone-cluster-master:7077
+   ```
+2. Execute app: `sc.parallelize(Seq(1, 2, 3)).sum()`
 ### From the host machine
-1. Run Spark Shell: `spark-shell --master spark://spark-standalone-cluster-master:7077`
-2. Execute app: `sc.parallelize(Seq(1, 2, 3)).collect()`
+1. Run Spark Shell: `spark-shell --total-executor-cores 1 --master spark://spark-standalone-cluster-master:7077`
+2. Execute app: `sc.parallelize(Seq(1, 2, 3)).sum()`
+
+## Spark Connect
+REPL (doesn't work): `spark-connect-repl --host spark-standalone-cluster-master --port 15002`
+Standalone app: see `BigData+/Spark+/SparkScala+/Spark3+/Core+/Spark3Connect`
 
 ## Stop cluster
 `docker compose stop`
@@ -44,7 +54,7 @@
 
 ## Errors
 ### Initial job has not accepted any resources
-Command: `sc.parallelize(Seq(1, 2, 3)).collect()`
+Command: `sc.parallelize(Seq(1, 2, 3)).sum()`
 Message: `WARN TaskSchedulerImpl: Initial job has not accepted any resources; check your cluster UI to ensure that workers are registered and have sufficient resources`
 Cause: UWF (Linux firewall) is enabled
 Solution: 

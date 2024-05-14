@@ -6,7 +6,8 @@
 Help: `less --help`
 
 ## Commands
-Disable line-wraps: `less -S files.txt`
+Disable line-wraps: `less -S file.txt`
+Wait for changes: `less +F file.txt`
 
 ## UI commands 
 ### Search Navigation

@@ -1,4 +1,3 @@
-version: '3'
 services:
   master:
     container_name: spark-standalone-cluster-master
@@ -13,6 +12,8 @@ services:
     volumes:
       - datasets:/datasets
       - shared:/shared
+    networks:
+      - spark-standalone-cluster-network
   slave-1:
     container_name: spark-standalone-cluster-slave-1
     image: spark-standalone
@@ -28,6 +29,8 @@ services:
     volumes:
       - datasets:/datasets
       - shared:/shared
+    networks:
+      - spark-standalone-cluster-network
   slave-2:
     container_name: spark-standalone-cluster-slave-2
     image: spark-standalone
@@ -43,8 +46,11 @@ services:
     volumes:
       - datasets:/datasets
       - shared:/shared
+    networks:
+      - spark-standalone-cluster-network
 networks:
   spark-standalone-cluster-network:
+    name: spark-standalone-cluster-network
 volumes:
   datasets:
     driver: local
