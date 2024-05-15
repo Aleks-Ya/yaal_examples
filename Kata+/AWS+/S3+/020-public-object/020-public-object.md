@@ -1,4 +1,4 @@
-# Kata S3 - Public Object
+# 020-public-object
 
 ## Task
 Upload a photo to S3 and make it available from the Internet

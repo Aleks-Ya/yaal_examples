@@ -1,4 +1,4 @@
-# 001-upload-download-file
+# 010-upload-download-file
 
 ## Task
 Using AWS CLI: upload file `picture.png` to new S3 bucket and download it to file `picture2.png`.

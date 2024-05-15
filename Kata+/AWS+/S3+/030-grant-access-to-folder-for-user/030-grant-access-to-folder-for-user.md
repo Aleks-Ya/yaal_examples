@@ -1,4 +1,4 @@
-# 03-grant-access-to-folder-for-user
+# 030-grant-access-to-folder-for-user
 
 ## Task
 Grant read-write access to a folder in a bucket for a user.
