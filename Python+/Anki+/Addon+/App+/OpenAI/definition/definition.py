@@ -11,9 +11,9 @@ from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
 from openai.types.chat import ChatCompletion
 
-from fields import english_field, part_of_speech_field, definition_field
-from tags import unit_tag
-from . import openai_client
+from common.fields import english_field, part_of_speech_field, definition_field
+from common.tags import unit_tag
+from openai_client import openai_client
 
 log: logging.Logger = logging.getLogger(__name__)
 

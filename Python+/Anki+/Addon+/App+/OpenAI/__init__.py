@@ -19,14 +19,14 @@ log.addHandler(handler)
 log.info(f'Logger is configured: file={log_file}')
 
 addon_dir = os.path.dirname(__file__)
-sys.path.insert(1, os.path.abspath(os.path.dirname(__file__)))
+sys.path.insert(1, os.path.abspath(addon_dir))
 sys.path.insert(1, os.path.join(addon_dir, 'bundled_dependencies'))
 
 log.info(f"sys.path={sys.path}")
 
-from . import synonyms_antonyms
-from . import definition
-from . import chinese
+from synonyms_antonyms import synonyms_antonyms
+from definition import definition
+from chinese import chinese
 
 parent_menu: QMenu = QMenu("OpenAI", mw)
 mw.form.menuTools.addMenu(parent_menu)
