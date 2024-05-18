@@ -30,4 +30,18 @@ class MapAddTest extends AnyFlatSpec with Matchers {
     newMap should contain only("a" -> 1, "b" -> 2)
   }
 
+  it should "join 2 immutable maps" in {
+    val map1 = Map("a" -> 1)
+    val map2 = Map("b" -> 2)
+    val newMap = map1 ++ map2
+    newMap should contain only("a" -> 1, "b" -> 2)
+  }
+
+  it should "overwrite entry by joining immutable maps" in {
+    val map1 = Map("a" -> 1)
+    val map2 = Map("a" -> 2, "b" -> 3)
+    val newMap = map1 ++ map2
+    newMap should contain only("a" -> 2, "b" -> 3)
+  }
+
 }

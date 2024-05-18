@@ -1,0 +1,13 @@
+{
+  "title": "Mr",
+  "enabled": true,
+  "room": 15,
+  "fruits": [
+    "apple",
+    "pea"
+  ],
+  "address": {
+    "country": "UK",
+    "city": "London"
+  }
+}

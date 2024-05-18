@@ -26,6 +26,7 @@ log.addHandler(handler)
 log.info(f'Logger is configured: file={log_file}')
 
 
+# TODO Detect when a note has several POS tags
 def _fill() -> None:
     tag_separator: str = '::'
     base_tag: str = f'en{tag_separator}parts{tag_separator}'

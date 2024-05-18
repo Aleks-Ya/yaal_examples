@@ -20,3 +20,7 @@ assert 'three' not in d
 # Size
 d = dict(one=1, two=2)
 assert len(d) == 2
+
+# Nested dict
+d = dict(address=dict(city="London"))
+assert d['address']['city'] == "London"
