@@ -14,8 +14,8 @@ from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
 from openai.types.chat import ChatCompletion
 
-from fields import english_field, part_of_speech_field, synonym1_field, synonyms_field, antonyms_field
-from tags import absent_synonym1_tag, absent_synonyms_tag, absent_antonyms_tag, unit_tag
+from fields import english_field, part_of_speech_field, synonym1_field, synonyms_field, antonyms_field, antonym1_field
+from tags import absent_synonym1_tag, absent_synonyms_tag, absent_antonyms_tag, unit_tag, absent_antonym1_tag
 from . import openai_client
 
 log: logging.Logger = logging.getLogger(__name__)
@@ -58,6 +58,7 @@ def _update_notes(notes_to_update: List[Note], col: Collection, changes: OpChang
         f'You need to fill columns {", ".join(all_headers_quoted)} in the snippet. '
         f'Use the most simple and wide-spread synonyms/antonyms if possible. '
         f'One-word synonyms/antonyms are preferred over multi-words. '
+        f'If synonyms/antonyms absents, leave the column empty. '
         f'Your response must contain strictly only raw CSV content (it is very important). '
         f'The CSV snippet is:\n'
         f'```\n'
@@ -81,16 +82,19 @@ def _update_notes(notes_to_update: List[Note], col: Collection, changes: OpChang
             note: Note = col.get_note(NoteId(nid_int))
             synonym1_old: str = note[synonym1_field]
             synonyms_old: str = note[synonyms_field]
+            antonym1_old: str = note[antonym1_field]
             antonyms_old: str = note[antonyms_field]
             is_synonym1_empty: bool = synonym1_old.strip() == ''
             is_synonyms_empty: bool = synonyms_old.strip() == ''
+            is_antonym1_empty: bool = antonym1_old.strip() == ''
             is_antonyms_empty: bool = antonyms_old.strip() == ''
             if note[english_field] != row[english_column]:
                 raise RuntimeError(f"Wrong English word: note={note[english_field]}, row={row[english_column]}")
-            if not is_synonym1_empty and not is_synonyms_empty and not is_antonyms_empty:
-                raise RuntimeError(f"Fields {synonym1_field}, {synonyms_field} and {antonyms_field} are all not empty: "
-                                   f"nid={note.id}, synonym1='{synonym1_old}', synonyms='{synonyms_old}', "
-                                   f"antonyms='{antonyms_old}'")
+            if not is_synonym1_empty and not is_synonyms_empty and not is_antonym1_empty and not is_antonyms_empty:
+                raise RuntimeError(
+                    f"Fields {synonym1_field}, {synonyms_field}, {is_antonym1_empty} and {antonyms_field} "
+                    f"are all not empty: nid={note.id}, synonym1='{synonym1_old}', synonyms='{synonyms_old}', "
+                    "antonym1='{antonym1_old}', antonyms='{antonyms_old}'")
             full_synonyms: List[str] = [row[synonym_header] for synonym_header in synonym_headers
                                         if row[synonym_header]]
             full_antonyms: List[str] = [row[antonym_header] for antonym_header in antonym_headers
@@ -111,9 +115,25 @@ def _update_notes(notes_to_update: List[Note], col: Collection, changes: OpChang
                     synonyms_new: str = ", ".join(full_synonyms)
                 else:
                     synonyms_new: str = synonyms_old
-            antonyms_new: str = ", ".join(full_antonyms) if is_antonyms_empty else antonyms_old
+            if is_antonym1_empty:
+                antonym1_new: str = full_antonyms[0] if len(full_antonyms) > 0 else ""
+                if is_antonyms_empty:
+                    if antonym1_new in full_antonyms:
+                        full_antonyms.remove(antonym1_new)
+                    antonyms_new: str = ", ".join(full_antonyms)
+                else:
+                    antonyms_new: str = antonyms_old
+            else:
+                antonym1_new: str = antonym1_old
+                if is_antonyms_empty:
+                    if antonym1_new in full_antonyms:
+                        full_antonyms.remove(antonym1_new)
+                    antonyms_new: str = ", ".join(full_antonyms)
+                else:
+                    antonyms_new: str = antonyms_old
             note[synonym1_field] = synonym1_new
             note[synonyms_field] = synonyms_new
+            note[antonym1_field] = antonym1_new
             note[antonyms_field] = antonyms_new
 
             tags_old: List[str] = list(note.tags)
@@ -127,6 +147,11 @@ def _update_notes(notes_to_update: List[Note], col: Collection, changes: OpChang
             else:
                 if absent_synonyms_tag in tags_old:
                     note.tags.remove(absent_synonyms_tag)
+            if antonym1_new == '':
+                note.tags.append(absent_antonym1_tag)
+            else:
+                if absent_antonym1_tag in tags_old:
+                    note.tags.remove(absent_antonym1_tag)
             if antonyms_new == '':
                 note.tags.append(absent_antonyms_tag)
             else:
@@ -137,6 +162,7 @@ def _update_notes(notes_to_update: List[Note], col: Collection, changes: OpChang
                      f"pos='{note[part_of_speech_field]}', "
                      f"synonym1='{synonym1_old}'->'{synonym1_new}', "
                      f"synonyms='{synonyms_old}'->'{synonyms_new}', "
+                     f"antonym1='{antonym1_old}'->'{antonym1_new}', "
                      f"antonyms='{antonyms_old}'->'{antonyms_new}', "
                      f"tags='{tags_old}'->'{note.tags}'")
             if not dry_run:
@@ -150,6 +176,7 @@ def _background_operation(col: Collection) -> ResultWithChanges:
     changes: OpChangesWithCount = OpChangesWithCount()
     query: str = (f'(({synonym1_field}: -tag:{absent_synonym1_tag}) OR '
                   f'({synonyms_field}: -tag:{absent_synonyms_tag}) OR '
+                  f'({antonym1_field}: -tag:{absent_antonym1_tag}) OR '
                   f'({antonyms_field}: -tag:{absent_antonyms_tag})) '
                   f'-tag:{unit_tag}')
     log.info(f"Query: '{query}'")
@@ -160,8 +187,9 @@ def _background_operation(col: Collection) -> ResultWithChanges:
         note: Note = col.get_note(note_id)
         synonym1_old: str = note[synonym1_field]
         synonyms_old: str = note[synonyms_field]
+        antonym1_old: str = note[antonym1_field]
         antonyms_old: str = note[antonyms_field]
-        need_update: bool = not synonym1_old or not synonyms_old or not antonyms_old
+        need_update: bool = not synonym1_old or not synonyms_old or not antonym1_old or not antonyms_old
         if need_update:
             notes_to_update.append(note)
     notes_to_update_size: int = len(notes_to_update)
