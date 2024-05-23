@@ -6,30 +6,33 @@ from argparse import Namespace
 
 from anki.collection import Collection
 from aqt import AnkiQt, AnkiApp, ProfileManager
-from aqt.browser import Browser
 
 tmp_dir = tempfile.mkdtemp()
 os.removedirs(tmp_dir)
 base_dir = ProfileManager.get_created_base_folder(tmp_dir)
 pm = ProfileManager(base=base_dir)
 pm.setupMeta()
-pm.create("Profile1")
+profile = "Profile1"
+pm.create(profile)
 pm.setLang("en")
+pm.openProfile(profile)
 
-app = AnkiApp([])
+args = [f"base={base_dir}", f"profile={profile}"]
+app = AnkiApp(args)
 _, full_name = tempfile.mkstemp()
 col = Collection(path=full_name)
 namespace = Namespace(
     safemode=False,
-    profile="Profile1",
-    # base=None,
+    profile=profile,
+    base=base_dir,
     # path=None,
     web=False,
     # debug=False,
     # version=False,
-    # no_update_check=False,
+    no_update_check=True
 )
+app.startingUp()
 mw = AnkiQt(app, pm, col.backend, namespace, sys.argv)
-browser = Browser(mw=mw)
-browser.close()
+# browser = Browser(mw=mw)
+# browser.close()
 mw.close()
