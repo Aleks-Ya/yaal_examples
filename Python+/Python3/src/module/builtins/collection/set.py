@@ -1,5 +1,8 @@
 # Using sets
 
+# Create an empty set
+s: set[int] = set()
+
 # Create a set
 s = {1, 2}
 assert len(s) == 2
@@ -21,15 +24,15 @@ sorted(s)
 assert s == {1, 2, 3}
 
 # Join sets by update
-s1 = {10, 11}
-s2 = {1, 2}
+s1: set[int] = {10, 11}
+s2: set[int] = {1, 2}
 s1.update(s2)
 assert s1 == {10, 11, 1, 2}
 
 # Join sets by union
 s1 = {10, 11}
 s2 = {1, 2}
-s3 = s1.union(s2)
+s3: set[int] = s1.union(s2)
 assert s3 == {10, 11, 1, 2}
 
 # Join sets by |=

@@ -1,0 +1,17 @@
+<!-- Duplicate on each next learned card: no -->
+<!-- Works in AnkiDroid: yes -->
+<script>
+    function displayText() {
+        const id = "my-text";
+        let element = document.getElementById(id);
+        if (element == null) {
+            element = document.createElement("p");
+            element.id = id;
+            document.body.appendChild(element);
+        }
+        element.textContent = "Append Child In Local Function No Duplication";
+    }
+</script>
+<script>
+    displayText();
+</script>

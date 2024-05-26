@@ -3,8 +3,7 @@ from typing import List, Dict
 
 from anki.notes import Note
 
-from common.fields import english_field, part_of_speech_field, synonym1_field, synonyms_field, antonyms_field, \
-    antonym1_field
+from common.fields import english_field, synonym1_field, synonyms_field, antonyms_field, antonym1_field
 from common.tags import absent_synonym1_tag, absent_synonyms_tag, absent_antonyms_tag, absent_antonym1_tag
 from .columns import english_column, synonym_headers, antonym_headers
 
@@ -41,7 +40,6 @@ def fill_note(note: Note, row: Dict[str, str]):
     update_tags(note, antonyms_field, absent_antonyms_tag)
 
     log.info(f"Updating note: nid={note.id}, english='{note[english_field]}', "
-             f"pos='{note[part_of_speech_field]}', "
              f"synonym1='{synonym1_old}'->'{synonym1_new}', "
              f"synonyms='{synonyms_old}'->'{synonyms_new}', "
              f"antonym1='{antonym1_old}'->'{antonym1_new}', "

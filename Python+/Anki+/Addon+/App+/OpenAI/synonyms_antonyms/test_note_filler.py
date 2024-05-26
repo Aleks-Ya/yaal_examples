@@ -6,19 +6,18 @@ from anki.collection import Collection
 from anki.models import ModelManager
 from anki.notes import Note
 
-from common.fields import synonym1_field, synonyms_field, antonym1_field, antonyms_field, english_field, \
-    part_of_speech_field
+from common.fields import synonym1_field, synonyms_field, antonym1_field, antonyms_field, english_field
 from common.tags import absent_synonym1_tag, absent_synonyms_tag, absent_antonym1_tag, absent_antonyms_tag
 from synonyms_antonyms.columns import english_column, pos_column, nid_column
 from synonyms_antonyms.note_filler import fill_note
 
 
-class NoteFiller2TestCase(unittest.TestCase):
+class NoteFillerTestCase(unittest.TestCase):
     def setUp(self):
         self.col: Collection = Collection(tempfile.mkstemp()[1])
         mm: ModelManager = self.col.models
         self.note_type: dict[str, Any] = mm.new('English')
-        field_names: list[str] = [english_field, part_of_speech_field, synonym1_field, synonyms_field, antonym1_field,
+        field_names: list[str] = [english_field, synonym1_field, synonyms_field, antonym1_field,
                                   antonyms_field]
         for field_name in field_names:
             field: dict[str, Any] = mm.new_field(field_name)
@@ -165,8 +164,7 @@ class NoteFiller2TestCase(unittest.TestCase):
         print(f"Fields: {note.items()}")
         print(f"Tags: {note.tags}")
         self.assertListEqual([
-            (english_field, english),
-            (part_of_speech_field, pos),  # TODO verify that POS and ID in Note and Row are equal
+            (english_field, english),  # TODO verify that ID in Note and Row are equal
             (synonym1_field, synonym1),
             (synonyms_field, synonyms),
             (antonym1_field, antonym1),

@@ -4,7 +4,8 @@ import sys
 from pathlib import Path
 
 from PyQt6.QtWidgets import QMenu
-from aqt import mw
+from aqt import mw, gui_hooks
+from aqt.browser import Browser
 
 init_py_file: Path = Path(__file__)
 addon_dir: Path = init_py_file.parent
@@ -24,12 +25,27 @@ sys.path.insert(1, os.path.join(addon_dir, 'bundled_dependencies'))
 
 log.info(f"sys.path={sys.path}")
 
-from synonyms_antonyms import synonyms_antonyms
-from definition import definition
-from chinese import chinese
+from synonyms_antonyms.synonyms_antonyms import SynonymsAntonyms
+from chinese.chinese import Chinese
+from definition.definition import Definition
+
+config = mw.addonManager.getConfig(__name__)
+log.info(f"Config: {config}")
+synonyms_antonyms: SynonymsAntonyms = SynonymsAntonyms(config)
+definition: Definition = Definition(config)
+chinese: Chinese = Chinese(config)
 
 parent_menu: QMenu = QMenu("OpenAI", mw)
 mw.form.menuTools.addMenu(parent_menu)
-parent_menu.addAction(synonyms_antonyms.menu_action())
+parent_menu.addAction(synonyms_antonyms.menu_action(mw))
 parent_menu.addAction(definition.menu_action())
 parent_menu.addAction(chinese.menu_action())
+
+
+def add_browser_menu(browser: Browser) -> None:
+    parent: QMenu = QMenu("LanguageAI", browser)
+    browser.form.menubar.addMenu(parent)
+    parent.addAction(synonyms_antonyms.menu_action(browser))
+
+
+gui_hooks.browser_will_show.append(add_browser_menu)
