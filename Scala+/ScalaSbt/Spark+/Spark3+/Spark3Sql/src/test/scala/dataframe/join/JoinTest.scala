@@ -2,6 +2,7 @@ package dataframe.join
 
 import factory.Factory
 import org.apache.spark.sql.Row
+import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.types.{IntegerType, StringType}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -67,6 +68,21 @@ class JoinTest extends AnyFlatSpec with Matchers {
       """{"country":"England","city":"Manchester","population":40,"mayor":"Andy Burnham"}""",
       """{"country":"France","city":"Marseille","population":20,"mayor":"Benoit Payan"}""",
       """{"country":"France","city":"Paris","population":10,"mayor":"Anne Hidalgo"}"""
+    )
+  }
+
+  it should "join DataFrame to itself" in {
+    val df = Factory.createDf(Map("id" -> IntegerType, "name" -> StringType, "bossId" -> IntegerType),
+      Row(1, "John", null),
+      Row(2, "Mark", 1),
+      Row(3, "Chad", 1))
+    val joinedDf = df.as("a")
+      .join(df.as("b"), col("a.bossId") === col("b.id"), "left")
+      .select(col("a.id"), col("a.name"), col("b.name") as "boss")
+    joinedDf.toJSON.collect() should contain inOrderOnly(
+      """{"id":1,"name":"John","boss":null}""",
+      """{"id":2,"name":"Mark","boss":"John"}""",
+      """{"id":3,"name":"Chad","boss":"John"}"""
     )
   }
 }

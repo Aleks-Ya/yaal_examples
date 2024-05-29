@@ -3,7 +3,7 @@ package scala.clazz.reflection
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class ClassObject extends AnyFlatSpec with Matchers {
+class ClassObjectTest extends AnyFlatSpec with Matchers {
 
 
   it should "get class with 'classOf'" in {

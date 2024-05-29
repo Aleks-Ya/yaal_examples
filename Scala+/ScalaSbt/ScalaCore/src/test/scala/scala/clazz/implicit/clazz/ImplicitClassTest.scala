@@ -3,7 +3,7 @@ package scala.clazz.`implicit`.clazz
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class ImplicitClass extends AnyFlatSpec with Matchers {
+class ImplicitClassTest extends AnyFlatSpec with Matchers {
 
   it should "repeat function several times" in {
     object Helpers {

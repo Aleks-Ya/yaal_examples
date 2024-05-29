@@ -22,4 +22,9 @@ class ValFunctionTest extends AnyFlatSpec with Matchers {
     add(1, 2) shouldEqual 3
   }
 
+  it should "declare a function without parameters" in {
+    val giveThree = () => 3
+    giveThree() shouldEqual 3
+  }
+
 }

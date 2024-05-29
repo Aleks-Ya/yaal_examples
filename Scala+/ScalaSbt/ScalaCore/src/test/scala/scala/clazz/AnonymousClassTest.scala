@@ -3,7 +3,7 @@ package scala.clazz
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class AnonymousClass extends AnyFlatSpec with Matchers {
+class AnonymousClassTest extends AnyFlatSpec with Matchers {
 
   it should "instantiate anonymous class" in {
     class Information {

@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 /**
   * Source: https://docs.scala-lang.org/tour/implicit-parameters.html
   */
-class MonoidExample extends AnyFlatSpec with Matchers {
+class MonoidExampleTest extends AnyFlatSpec with Matchers {
 
   it should "use implicit parameters" in {
     abstract class MonoId[A] {

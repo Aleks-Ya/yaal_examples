@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers
 
 import java.io.{ByteArrayInputStream, FileInputStream, InputStream}
 
-class InstanceOf extends AnyFlatSpec with Matchers {
+class InstanceOfTest extends AnyFlatSpec with Matchers {
 
   it should "check class of an object" in {
     val is: InputStream = new ByteArrayInputStream(Array[Byte]())

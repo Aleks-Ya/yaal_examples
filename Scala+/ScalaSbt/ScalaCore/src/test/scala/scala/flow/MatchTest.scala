@@ -65,4 +65,24 @@ class MatchTest extends AnyFlatSpec with Matchers {
     title(LocalDateTime.now()) shouldEqual "shit"
   }
 
+  it should "missing case" in {
+    assertThrows[MatchError] {
+      "X" match {
+        case "M" => "man"
+        case "W" => "women"
+      }
+    }
+  }
+
+  it should "nested match" in {
+    val code = "M"
+    val age = Some(20)
+    val gender = code match {
+      case "M" => "man"
+      case "W" => "women"
+      case _ => "shit"
+    }
+    gender shouldEqual "man"
+  }
+
 }
