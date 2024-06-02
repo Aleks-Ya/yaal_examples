@@ -1,9 +1,10 @@
 import logging
 import os
+from pathlib import Path
 
-addon_dir = os.path.dirname(__file__)
+addon_dir: Path = Path(__file__)
 addon_name: str = addon_dir.name
-log_file = os.path.join(addon_dir, f"{addon_name}.log")
+log_file: str = os.path.join(addon_dir, f"{addon_name}.log")
 logging.basicConfig(filename=log_file, level=logging.DEBUG,
                     format='%(asctime)s %(name)s %(funcName)s %(levelname)s %(message)s')
 

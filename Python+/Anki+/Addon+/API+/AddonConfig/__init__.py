@@ -2,8 +2,9 @@
 from typing import Optional, Any, List, Dict
 
 from aqt import mw
-from aqt.qt import *
 from aqt.utils import showInfo
+
+from ._common import menu
 
 
 def _ui_action():
@@ -24,6 +25,4 @@ def _ui_action():
     """)
 
 
-action = QAction("Addon Config", mw)
-qconnect(action.triggered, _ui_action)
-mw.form.menuTools.addAction(action)
+menu.add_mw_menu_item("Addon Config", _ui_action)

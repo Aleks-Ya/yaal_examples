@@ -1,7 +1,7 @@
 # pip CLI
 
 ## Install
-Insatll: `sudo apt install -y python3-pip`
+Install: `sudo apt install -y python3-pip`
 
 Upgrade all installed packages:
 1. Install: `pip install pip-review`

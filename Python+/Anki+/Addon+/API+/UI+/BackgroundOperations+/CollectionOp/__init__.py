@@ -5,8 +5,9 @@ from anki.collection import OpChanges, Collection
 from anki.notes import NoteId, Note
 from aqt import mw
 from aqt.operations import CollectionOp, ResultWithChanges
-from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
+
+from ._common import menu
 
 
 def my_background_op(col: Collection) -> ResultWithChanges:
@@ -54,6 +55,4 @@ def my_ui_action():
     op.run_in_background()
 
 
-action: QAction = QAction('Start long-running operation (read-write)', mw)
-qconnect(action.triggered, my_ui_action)
-mw.form.menuTools.addAction(action)
+menu.add_mw_menu_item("Start long-running operation (read-write)", my_ui_action)

@@ -1,0 +1,44 @@
+anki_addons_dir=/home/aleks/.local/share/Anki2/addons21
+addons_api_dir=/home/aleks/pr/home/yaal_examples/Python+/Anki+/Addon+/API+
+src_relative_paths=(
+  AddonConfig
+  AddonInfo
+  Collection
+  Dependencies+/addon_with_dependency
+  Dependencies+/addon_with_dependency_pip
+  Hook+/GUI+/BrowserDidFetchColumns
+  Hook+/GUI+/BrowserDidFetchRow
+  Hook+/GUI+/BrowserDidSearch
+  Hook+/GUI+/BrowserWillShow
+  Hook+/PyLib+/field_filter
+  Logging+/log_to_file_basic
+  Logging+/log_to_file_handler
+  Logging+/log_to_stderr
+  Media
+  UI+/BackgroundOperations+/CollectionOp
+  UI+/BackgroundOperations+/QueryOp
+  UI+/BrowserDoSearch
+  UI+/BrowserSelectedNotes
+  UI+/MainWindowMenuItem
+)
+for src_relative_path in "${src_relative_paths[@]}"; do
+  src_full_path=${addons_api_dir}/${src_relative_path}
+  safe_name=${src_relative_path//\//-}
+  safe_name=${safe_name//+/}
+  dest_full_path=${anki_addons_dir}/${safe_name}
+  if [ -L $dest_full_path ]; then
+    echo "Unlinking $dest_full_path"
+    unlink $dest_full_path
+  fi
+  echo "Linking   $src_full_path to $dest_full_path"
+  ln -s $src_full_path $dest_full_path
+
+  dest_common_dir=${src_full_path}/_common
+  src_common_dir=${addons_api_dir}/common
+  if [ -L $dest_common_dir ]; then
+    echo "Unlinking $dest_common_dir"
+    unlink $dest_common_dir
+  fi
+  echo "Linking   $src_common_dir to $dest_common_dir"
+  ln -s $src_common_dir $dest_common_dir
+done

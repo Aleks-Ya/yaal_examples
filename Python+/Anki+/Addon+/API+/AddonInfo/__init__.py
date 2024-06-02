@@ -3,9 +3,10 @@ import os
 import sys
 from pathlib import Path
 
-from PyQt6.QtGui import QAction
-from aqt import mw, qconnect
+from aqt import mw
 from aqt.utils import showInfo
+
+from ._common import menu
 
 
 def _show_addon_info() -> None:
@@ -18,6 +19,4 @@ def _show_addon_info() -> None:
     """)
 
 
-action = QAction("Show addon info", mw)
-qconnect(action.triggered, _show_addon_info)
-mw.form.menuTools.addAction(action)
+menu.add_mw_menu_item("Show addon info", _show_addon_info)

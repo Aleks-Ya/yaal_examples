@@ -3,8 +3,9 @@ from os.path import join, getsize
 
 from anki.notes import NoteId, Note
 from aqt import mw
-from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
+
+from ._common import menu
 
 
 def show_note_details() -> None:
@@ -22,6 +23,4 @@ def show_note_details() -> None:
                  f"full_path={full_path}, size={size}")
 
 
-action = QAction("Show a sound size", mw)
-qconnect(action.triggered, show_note_details)
-mw.form.menuTools.addAction(action)
+menu.add_mw_menu_item("Show a sound size", show_note_details)

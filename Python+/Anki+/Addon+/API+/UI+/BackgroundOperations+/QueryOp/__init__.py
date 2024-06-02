@@ -3,8 +3,9 @@ import time
 
 from aqt import mw
 from aqt.operations import QueryOp
-from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
+
+from ._common import menu
 
 
 def my_background_op() -> int:
@@ -43,6 +44,4 @@ def my_ui_action():
     op.with_progress().run_in_background()
 
 
-action: QAction = QAction('Start long-running operation (read-only)', mw)
-qconnect(action.triggered, my_ui_action)
-mw.form.menuTools.addAction(action)
+menu.add_mw_menu_item("Start long-running operation (read-only)", my_ui_action)
