@@ -1,12 +1,13 @@
 # Change log format by updating exists handlers
 import logging
+from logging import Logger, Formatter
 
 logging.basicConfig()
 
-root_logger = logging.getLogger()
+root_logger: Logger = logging.getLogger()
 root_logger.setLevel(logging.DEBUG)
 
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter: Formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 for handler in root_logger.handlers:
     handler.setFormatter(formatter)
 
