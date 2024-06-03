@@ -2,11 +2,12 @@ import logging
 import os
 import sys
 from pathlib import Path
-from typing import Optional, Any
 
 from PyQt6.QtWidgets import QMenu
 from aqt import mw, gui_hooks
 from aqt.browser import Browser
+
+from .common.config import LanguageAiConfig
 
 init_py_file: Path = Path(__file__)
 addon_dir: Path = init_py_file.parent
@@ -31,7 +32,7 @@ from synonyms_antonyms.synonyms_antonyms import SynonymsAntonyms
 from chinese.chinese import Chinese
 from definition.definition import Definition
 
-config: Optional[dict[str, Any]] = mw.addonManager.getConfig(__name__)
+config: LanguageAiConfig = LanguageAiConfig(mw.addonManager.getConfig(__name__))
 log.info(f"Config: {config}")
 synonyms_antonyms: SynonymsAntonyms = SynonymsAntonyms(config)
 definition: Definition = Definition(config)

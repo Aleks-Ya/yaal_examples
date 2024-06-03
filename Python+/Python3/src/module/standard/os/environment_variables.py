@@ -32,3 +32,7 @@ assert 'STREET' not in os.environ
 if 'STREET' in os.environ:
     del os.environ['STREET']
 assert 'STREET' not in os.environ
+
+# Substitute env variables
+expanded_string = os.path.expandvars("Path: $HOME/Documents/$USER")
+print(expanded_string)

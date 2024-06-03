@@ -10,24 +10,24 @@ class PartOfSpeechTestCase(unittest.TestCase):
         self.pos = PartOfSpeech()
 
     def test_empty_tags(self):
-        self.assertEquals(self.pos.tagsToPos([]), [])
+        self.assertEqual(self.pos.tagsToPos([]), [])
 
     def test_no_pos_tags(self):
-        self.assertEquals(self.pos.tagsToPos(["tag1", "nested::tag2"]), [])
+        self.assertEqual(self.pos.tagsToPos(["tag1", "nested::tag2"]), [])
 
     def test_single_tag(self):
-        self.assertEquals(self.pos.tagsToPos([adjective_tag]), ["Adjective"])
+        self.assertEqual(self.pos.tagsToPos([adjective_tag]), ["Adjective"])
 
     def test_several_tags(self):
         tags = [adjective_tag, "tag1", "nested::tag2", number_tag]
-        self.assertEquals(self.pos.tagsToPos(tags), ["Adjective", "Number"])
+        self.assertEqual(self.pos.tagsToPos(tags), ["Adjective", "Number"])
 
     def test_duplicated_tag(self):
         tags = [adjective_tag, adjective_tag]
-        self.assertEquals(self.pos.tagsToPos(tags), ["Adjective"])
+        self.assertEqual(self.pos.tagsToPos(tags), ["Adjective"])
 
     def test_parent_tag(self):
-        self.assertEquals(self.pos.tagsToPos(["en::parts::verb::phrasal"]), ["Verb"])
+        self.assertEqual(self.pos.tagsToPos(["en::parts::verb::phrasal"]), ["Verb"])
 
     def test_MissingPartOfSpeechException(self):
         with self.assertRaises(MissingPartOfSpeechException) as e:

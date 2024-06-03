@@ -1,3 +1,15 @@
 {
-  "model": "gpt-4o"
+  "openai-client": {
+    "token-path": "$HOME/.gpt/token.txt",
+    "model": "gpt-4o",
+    "timeout_sec": 120
+  },
+  "synonyms": {
+    "synonym_number": 5,
+    "delimiter": ", "
+  },
+  "antonyms": {
+    "antonym_number": 5,
+    "delimiter": ", "
+  }
 }

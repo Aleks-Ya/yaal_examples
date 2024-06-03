@@ -1,4 +1,5 @@
 # Addon config
+import datetime
 from typing import Optional, Any, List, Dict
 
 from aqt import mw
@@ -7,7 +8,7 @@ from aqt.utils import showInfo
 from ._common import menu
 
 
-def _ui_action():
+def _show_addon_config():
     config: Optional[dict[str, Any]] = mw.addonManager.getConfig(__name__)
     title: str = config['title']
     enabled: bool = config['enabled']
@@ -25,4 +26,20 @@ def _ui_action():
     """)
 
 
-menu.add_mw_menu_item("Addon Config", _ui_action)
+def _update_addon_config():
+    property_name: str = 'updated'
+    module: str = __name__
+    config_old: Optional[dict[str, Any]] = mw.addonManager.getConfig(module)
+    old_value: str = config_old[property_name]
+    config_old[property_name] = str(datetime.datetime.now().replace(microsecond=0))
+    mw.addonManager.writeConfig(module, config_old)
+    config_new: Optional[dict[str, Any]] = mw.addonManager.getConfig(module)
+    new_value: str = config_new[property_name]
+    showInfo(f"""
+        Old value: {old_value}
+        New value: {new_value}
+    """)
+
+
+menu.add_mw_menu_item("Show addon config", _show_addon_config)
+menu.add_mw_menu_item("Update addon config", _update_addon_config)

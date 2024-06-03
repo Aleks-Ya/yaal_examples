@@ -6,13 +6,15 @@ from anki.collection import Collection
 from anki.models import ModelManager
 from anki.notes import Note
 
+from common.config import LanguageAiConfig
 from common.fields import synonym1_field, synonyms_field, antonym1_field, antonyms_field, english_field
 from common.tags import absent_synonym1_tag, absent_synonyms_tag, absent_antonym1_tag, absent_antonyms_tag
 from synonyms_antonyms.columns import english_column, pos_column, nid_column
-from synonyms_antonyms.note_filler import fill_note
+from synonyms_antonyms.note_filler import NoteFiller
 
 
 class NoteFillerTestCase(unittest.TestCase):
+
     def setUp(self):
         self.col: Collection = Collection(tempfile.mkstemp()[1])
         mm: ModelManager = self.col.models
@@ -33,10 +35,13 @@ class NoteFillerTestCase(unittest.TestCase):
                                          'Synonym 4': 'obscure', 'Synonym 5': 'murky',
                                          'Antonym 1': 'light', 'Antonym 2': 'bright', 'Antonym 3': 'luminous',
                                          'Antonym 4': 'radiant', 'Antonym 5': 'clear'}
+        config: LanguageAiConfig = LanguageAiConfig({'synonyms': {'synonym_number': 5, 'delimiter': ', '},
+                                                     'antonyms': {'antonym_number': 5, 'delimiter': ', '}})
+        self.note_filler: NoteFiller = NoteFiller(config)
 
     def test_all_fields_empty(self):
         note: Note = self.createNote(english='dark')
-        updated_note: Note = fill_note(note, self.row_dark)
+        updated_note: Note = self.note_filler.fill_note(note, self.row_dark)
         self.assertNote(updated_note, 'dark', '', 'dim', 'gloomy, shadowy, obscure, murky',
                         'light', 'bright, luminous, radiant, clear')
 
@@ -44,21 +49,21 @@ class NoteFillerTestCase(unittest.TestCase):
         note: Note = self.createNote(english='dark',
                                      tags=[absent_synonym1_tag, absent_synonyms_tag, absent_antonym1_tag,
                                            absent_antonyms_tag])
-        updated_note: Note = fill_note(note, self.row_dark)
+        updated_note: Note = self.note_filler.fill_note(note, self.row_dark)
         self.assertNote(updated_note, 'dark', '', 'dim', 'gloomy, shadowy, obscure, murky',
                         'light', 'bright, luminous, radiant, clear')
 
     def test_synonym1_field_empty(self):
         note: Note = self.createNote(english='dark', synonyms='dim, obscure, shadowy', antonym1='bright',
                                      antonyms='light, clear')
-        updated_note: Note = fill_note(note, self.row_dark)
+        updated_note: Note = self.note_filler.fill_note(note, self.row_dark)
         self.assertNote(updated_note, 'dark', '', 'dim', 'obscure, shadowy',
                         'bright', 'light, clear')
 
     def test_synonym1_column_empty(self):
         note: Note = self.createNote(english='dark')
         self.row_dark['Synonym 1'] = ''
-        updated_note: Note = fill_note(note, self.row_dark)
+        updated_note: Note = self.note_filler.fill_note(note, self.row_dark)
         self.assertNote(updated_note, 'dark', '', 'gloomy', 'shadowy, obscure, murky',
                         'light', 'bright, luminous, radiant, clear')
 
@@ -69,41 +74,41 @@ class NoteFillerTestCase(unittest.TestCase):
         self.row_dark['Synonym 3'] = ''
         self.row_dark['Synonym 4'] = ''
         self.row_dark['Synonym 5'] = ''
-        updated_note: Note = fill_note(note, self.row_dark)
+        updated_note: Note = self.note_filler.fill_note(note, self.row_dark)
         self.assertNote(updated_note, 'dark', '', '', '',
                         'light', 'bright, luminous, radiant, clear',
                         [absent_synonym1_tag, absent_synonyms_tag])
 
     def test_synonyms_field_empty(self):
         note: Note = self.createNote(english='dark', synonym1='obscure', antonym1='bright', antonyms='light, clear')
-        updated_note: Note = fill_note(note, self.row_dark)
+        updated_note: Note = self.note_filler.fill_note(note, self.row_dark)
         self.assertNote(updated_note, 'dark', '', 'obscure', 'dim, gloomy, shadowy, murky',
                         'bright', 'light, clear')
 
     def test_synonym1_synonyms_fields_empty(self):
         note: Note = self.createNote(english='dark', antonym1='bright', antonyms='light, clear')
-        updated_note: Note = fill_note(note, self.row_dark)
+        updated_note: Note = self.note_filler.fill_note(note, self.row_dark)
         self.assertNote(updated_note, 'dark', '', 'dim', 'gloomy, shadowy, obscure, murky',
                         'bright', 'light, clear')
 
     def test_antonym1_field_empty(self):
         note: Note = self.createNote(english='dark', synonym1='obscure', synonyms='dim, obscure, shadowy',
                                      antonyms='bright, light, clear')
-        updated_note: Note = fill_note(note, self.row_dark)
+        updated_note: Note = self.note_filler.fill_note(note, self.row_dark)
         self.assertNote(updated_note, 'dark', '', 'obscure', 'dim, obscure, shadowy',
                         'light', 'bright, clear')
 
     def test_antonym1_column_empty(self):
         note: Note = self.createNote(english='dark')
         self.row_dark['Antonym 1'] = ''
-        updated_note: Note = fill_note(note, self.row_dark)
+        updated_note: Note = self.note_filler.fill_note(note, self.row_dark)
         self.assertNote(updated_note, 'dark', '', 'dim', 'gloomy, shadowy, obscure, murky',
                         'bright', 'luminous, radiant, clear')
 
     def test_antonyms_field_empty(self):
         note: Note = self.createNote(english='dark', synonym1='obscure', synonyms='dim, obscure, shadowy',
                                      antonym1='bright')
-        updated_note: Note = fill_note(note, self.row_dark)
+        updated_note: Note = self.note_filler.fill_note(note, self.row_dark)
         self.assertNote(updated_note, 'dark', '', 'obscure', 'dim, obscure, shadowy',
                         'bright', 'light, luminous, radiant, clear')
 
@@ -114,27 +119,27 @@ class NoteFillerTestCase(unittest.TestCase):
         self.row_dark['Antonym 3'] = ''
         self.row_dark['Antonym 4'] = ''
         self.row_dark['Antonym 5'] = ''
-        updated_note: Note = fill_note(note, self.row_dark)
+        updated_note: Note = self.note_filler.fill_note(note, self.row_dark)
         self.assertNote(updated_note, 'dark', '', 'dim', 'gloomy, shadowy, obscure, murky',
                         '', '', [absent_antonym1_tag, absent_antonyms_tag])
 
     def test_antonym1_antonyms_fields_empty(self):
         note: Note = self.createNote(english='dark', synonym1='obscure', synonyms='dim, obscure, shadowy')
-        updated_note: Note = fill_note(note, self.row_dark)
+        updated_note: Note = self.note_filler.fill_note(note, self.row_dark)
         self.assertNote(updated_note, 'dark', '', 'obscure', 'dim, obscure, shadowy',
                         'light', 'bright, luminous, radiant, clear')
 
     def test_english_field_differs_from_column(self):
         with self.assertRaises(RuntimeError) as ctx:
             note: Note = self.createNote(english='famous')
-            fill_note(note, self.row_dark)
+            self.note_filler.fill_note(note, self.row_dark)
         self.assertEqual(str(ctx.exception), 'Wrong English word: note=famous, row=dark')
 
     def test_old_fields_are_already_filled(self):
         with self.assertRaises(RuntimeError) as ctx:
             note: Note = self.createNote(english='dark', synonym1='murky', synonyms='dim,obscure',
                                          antonym1='bright', antonyms='light,clear')
-            fill_note(note, self.row_dark)
+            self.note_filler.fill_note(note, self.row_dark)
         self.assertEqual(str(ctx.exception), f"All fields are filled already: nid={note.id}, Synonym1='murky',"
                                              " Synonyms='dim,obscure', Antonym1='bright', Antonyms='light,clear'")
 

@@ -1,7 +1,7 @@
 # DO NOT USE: works slow, GPT responses are unreliable
 import logging
 import re
-from typing import Sequence, List, Optional, Any
+from typing import Sequence, List
 
 from anki.collection import OpChanges, Collection, OpChangesWithCount
 from anki.notes import NoteId, Note
@@ -11,6 +11,7 @@ from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
 from openai.types.chat import ChatCompletion
 
+from common.config import LanguageAiConfig
 from common.fields import english_field, examples1_generated_field, \
     examples2_generated_field, examples3_generated_field
 from openai_client.openai_client import OpenAiClient
@@ -21,7 +22,7 @@ fields: List[str] = [examples1_generated_field, examples2_generated_field, examp
 
 
 class Chinese:
-    def __init__(self, config: Optional[dict[str, Any]]):
+    def __init__(self, config: LanguageAiConfig):
         self.openai_client: OpenAiClient = OpenAiClient(config)
 
     def _background_operation(self, col: Collection) -> ResultWithChanges:

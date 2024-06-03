@@ -4,7 +4,7 @@
 import logging
 from csv import DictReader
 from io import StringIO
-from typing import Sequence, List, Optional, Any, Callable
+from typing import Sequence, List, Callable
 
 from PyQt6.QtWidgets import QWidget
 from anki.collection import OpChanges, OpChangesWithCount, Collection
@@ -15,10 +15,11 @@ from aqt.operations import CollectionOp, ResultWithChanges
 from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
 
+from common.config import LanguageAiConfig
 from common.fields import synonym1_field, synonyms_field, antonyms_field, antonym1_field
 from common.tags import absent_synonym1_tag, absent_synonyms_tag, absent_antonyms_tag, unit_tag, absent_antonym1_tag
 from .columns import nid_column
-from .note_filler import fill_note
+from .note_filler import NoteFiller
 from .openai_api import OpenAiApi
 
 log: logging.Logger = logging.getLogger(__name__)
@@ -30,8 +31,9 @@ class WantCancelException(Exception):
 
 
 class SynonymsAntonyms:
-    def __init__(self, config: Optional[dict[str, Any]]):
+    def __init__(self, config: LanguageAiConfig):
         self.open_ai_api: OpenAiApi = OpenAiApi(config)
+        self.note_filler: NoteFiller = NoteFiller(config)
 
     def _update_notes(self, notes_to_update: List[Note], col: Collection, changes: OpChangesWithCount):
         log.info(f"Notes to update in slice: {len(notes_to_update)}")
@@ -44,7 +46,7 @@ class SynonymsAntonyms:
                 log.debug(f"Row: {row}")
                 nid_int: int = int(row[nid_column])
                 note: Note = col.get_note(NoteId(nid_int))
-                note = fill_note(note, row)
+                note = self.note_filler.fill_note(note, row)
                 if not dry_run:
                     col.update_note(note)
                 else:

@@ -1,7 +1,7 @@
 import logging
 from csv import DictReader
 from io import StringIO
-from typing import Sequence, List, Optional, Any
+from typing import Sequence, List
 
 from anki.collection import OpChanges, Collection, OpChangesWithCount
 from anki.notes import NoteId, Note
@@ -11,6 +11,7 @@ from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
 from openai.types.chat import ChatCompletion
 
+from common.config import LanguageAiConfig
 from common.fields import english_field, definition_field
 from common.part_of_speech import PartOfSpeech
 from common.tags import unit_tag
@@ -24,7 +25,7 @@ class WantCancelException(Exception):
 
 
 class Definition:
-    def __init__(self, config: Optional[dict[str, Any]]):
+    def __init__(self, config: LanguageAiConfig):
         self.openai_client: OpenAiClient = OpenAiClient(config)
         self.part_of_speech = PartOfSpeech()
 
