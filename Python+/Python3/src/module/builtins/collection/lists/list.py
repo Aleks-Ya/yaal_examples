@@ -81,3 +81,8 @@ lst = ['a', 'b', 'c']
 result_map = map(lambda symbol: symbol.upper(), lst)
 result_list = list(result_map)
 assert result_list == ['A', 'B', 'C']
+
+# flat map (list of lists to list)
+list_of_lists: list[list[str]] = [['a', 'b'], ['c', 'd'], ['e']]
+flattened_list: list[str] = [item for sublist in list_of_lists for item in sublist]
+assert flattened_list == ['a', 'b', 'c', 'd', 'e']

@@ -1,3 +1,4 @@
+set -e
 anki_addons_dir=/home/aleks/.local/share/Anki2/addons21
 addons_api_dir=/home/aleks/pr/home/yaal_examples/Python+/Anki+/Addon+/API+
 src_relative_paths=(
@@ -6,10 +7,16 @@ src_relative_paths=(
   Collection
   Dependencies+/addon_with_dependency
   Dependencies+/addon_with_dependency_pip
-  Hook+/GUI+/BrowserDidFetchColumns
-  Hook+/GUI+/BrowserDidFetchRow
-  Hook+/GUI+/BrowserDidSearch
-  Hook+/GUI+/BrowserWillShow
+  Hook+/GUI+/Browser+/BrowserDidFetchColumns
+  Hook+/GUI+/Browser+/BrowserDidFetchRow
+  Hook+/GUI+/Browser+/BrowserDidSearch
+  Hook+/GUI+/Browser+/BrowserWillSearch
+  Hook+/GUI+/Browser+/BrowserWillShow
+  Hook+/GUI+/Editor+/EditorDidInitButtons
+  Hook+/GUI+/Editor+/EditorDidLoadNote
+  Hook+/GUI+/Editor+/EditorDidPaste
+  Hook+/GUI+/Editor+/EditorDidUnfocusField
+  Hook+/GUI+/Editor+/EditorStateDidChange
   Hook+/PyLib+/field_filter
   Logging+/log_to_file_basic
   Logging+/log_to_file_handler

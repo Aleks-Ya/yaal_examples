@@ -19,8 +19,7 @@ pm.openProfile(profile)
 
 args = [f"base={base_dir}", f"profile={profile}"]
 app = AnkiApp(args)
-_, full_name = tempfile.mkstemp()
-col = Collection(path=full_name)
+col: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
 namespace = Namespace(
     safemode=False,
     profile=profile,

@@ -8,7 +8,7 @@ from anki.notes import Note
 
 class CollectionTestCase(unittest.TestCase):
     def setUp(self):
-        self.col = Collection(tempfile.mkstemp()[1])
+        self.col: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
 
     def test_create_empty_collection(self):
         _, full_name = tempfile.mkstemp()

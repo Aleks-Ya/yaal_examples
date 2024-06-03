@@ -16,4 +16,4 @@ def sort(item_ids: Sequence[ItemId]) -> Sequence[ItemId]:
     return sorted(item_ids, reverse=True)
 
 
-gui_hooks.browser_did_search.append(modify_row)
+# gui_hooks.browser_did_search.append(modify_row)

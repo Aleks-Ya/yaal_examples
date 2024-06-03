@@ -2,7 +2,7 @@ import json
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Dict
+from typing import Dict, Optional, Any
 
 from aqt.addons import AddonManager
 from mock.mock import MagicMock
@@ -12,10 +12,10 @@ class AddonManagerTestCase(unittest.TestCase):
 
     def test_create_addon_manager(self):
         with TemporaryDirectory() as td:
-            wm = MagicMock()
+            wm: MagicMock = MagicMock()
             wm.pm.addonFolder.return_value = td
-            adm = AddonManager(wm)
-            all_addons = adm.allAddons()
+            adm: AddonManager = AddonManager(wm)
+            all_addons: list[str] = adm.allAddons()
             self.assertEqual(len(all_addons), 0)
 
     def test_read_config(self):
@@ -25,11 +25,11 @@ class AddonManagerTestCase(unittest.TestCase):
             json_obj: Dict[str, object] = json.loads(data)
             with open(f, 'w') as fp:
                 json.dump(json_obj, fp, indent=2)
-            wm = MagicMock()
+            wm: MagicMock = MagicMock()
             wm.pm.addonFolder.return_value = td
-            adm = AddonManager(wm)
-            config = adm.getConfig("")
-            value = config['param1']
+            adm: AddonManager = AddonManager(wm)
+            config: Optional[dict[str, Any]] = adm.getConfig("")
+            value: object = config['param1']
             self.assertEqual(value, 'value1')
 
 

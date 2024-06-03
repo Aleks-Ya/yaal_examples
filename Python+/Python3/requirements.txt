@@ -29,3 +29,4 @@ fastparquet
 pyarrow
 boto
 boto3
+humanize

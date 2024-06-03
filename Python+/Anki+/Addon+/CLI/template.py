@@ -7,7 +7,7 @@ from anki.collection import Collection
 # Model == Note Type
 class ModelTestCase(unittest.TestCase):
     def setUp(self):
-        self.col = Collection(tempfile.mkstemp()[1])
+        self.col: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
 
     def test_get_note_type_templates(self):
         note_type = self.col.models.by_name('Basic')
