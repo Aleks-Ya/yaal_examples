@@ -12,6 +12,7 @@ src_relative_paths=(
   Hook+/GUI+/Browser+/BrowserDidSearch
   Hook+/GUI+/Browser+/BrowserWillSearch
   Hook+/GUI+/Browser+/BrowserWillShow
+  Hook+/GUI+/Editor+/EditorDidInit
   Hook+/GUI+/Editor+/EditorDidInitButtons
   Hook+/GUI+/Editor+/EditorDidLoadNote
   Hook+/GUI+/Editor+/EditorDidPaste
@@ -22,6 +23,7 @@ src_relative_paths=(
   Logging+/log_to_file_handler
   Logging+/log_to_stderr
   Media
+  SortByCustomColumn
   UI+/BackgroundOperations+/CollectionOp
   UI+/BackgroundOperations+/QueryOp
   UI+/BrowserDoSearch

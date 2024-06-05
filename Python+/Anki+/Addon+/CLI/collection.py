@@ -3,7 +3,8 @@ import unittest
 from pathlib import Path
 
 from anki.collection import Collection
-from anki.notes import Note
+from anki.errors import NotFoundError
+from anki.notes import Note, NoteId
 
 
 class CollectionTestCase(unittest.TestCase):
@@ -30,6 +31,20 @@ class CollectionTestCase(unittest.TestCase):
         self.col.addNote(note)
         self.assertEqual(note.fields, ['one', 'two'])
         self.assertEqual(note.items(), [('Front', 'one'), ('Back', 'two')])
+
+    def test_get_existing_note(self):
+        exp_note: Note = self.col.newNote()
+        exp_note['Front'] = 'one'
+        exp_note['Back'] = 'two'
+        self.col.addNote(exp_note)
+        note_id: NoteId = exp_note.id
+        act_note: Note = self.col.get_note(note_id)
+        self.assertListEqual(act_note.items(), exp_note.items())
+
+    def test_get_absent_note(self):
+        with self.assertRaises(NotFoundError):
+            note_id: NoteId = NoteId(1)
+            self.col.get_note(note_id)
 
     def tearDown(self):
         self.col.close()
