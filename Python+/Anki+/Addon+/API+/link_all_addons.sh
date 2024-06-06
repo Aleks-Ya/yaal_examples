@@ -18,6 +18,8 @@ src_relative_paths=(
   Hook+/GUI+/Editor+/EditorDidPaste
   Hook+/GUI+/Editor+/EditorDidUnfocusField
   Hook+/GUI+/Editor+/EditorStateDidChange
+  Hook+/GUI+/MainWindow+/MainWindowDidInit
+  Hook+/GUI+/Profile+/ProfileDidOpen
   Hook+/PyLib+/field_filter
   Logging+/log_to_file_basic
   Logging+/log_to_file_handler

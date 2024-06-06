@@ -30,3 +30,4 @@ pyarrow
 boto
 boto3
 humanize
+bs4

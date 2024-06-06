@@ -1,8 +1,9 @@
 from lxml import etree
+from lxml.etree import Element, SubElement
 
-root = etree.Element("root")
+root = Element("root")
 print(root.tag)
-root.append(etree.Element("child1"))
-child2 = etree.SubElement(root, "child2")
-child3 = etree.SubElement(root, "child3")
+root.append(Element("child1"))
+child2 = SubElement(root, "child2")
+child3 = SubElement(root, "child3")
 print(etree.tostring(root, pretty_print=True))
