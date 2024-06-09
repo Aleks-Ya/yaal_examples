@@ -12,12 +12,15 @@ src_relative_paths=(
   Hook+/GUI+/Browser+/BrowserDidSearch
   Hook+/GUI+/Browser+/BrowserWillSearch
   Hook+/GUI+/Browser+/BrowserWillShow
+  Hook+/GUI+/DeckBrowser+/DeckBrowserDidRender
+  Hook+/GUI+/DeckBrowser+/DeckBrowserWillRenderContent
   Hook+/GUI+/Editor+/EditorDidInit
   Hook+/GUI+/Editor+/EditorDidInitButtons
   Hook+/GUI+/Editor+/EditorDidLoadNote
   Hook+/GUI+/Editor+/EditorDidPaste
   Hook+/GUI+/Editor+/EditorDidUnfocusField
   Hook+/GUI+/Editor+/EditorStateDidChange
+  Hook+/GUI+/Editor+/EditorWebViewDidInit
   Hook+/GUI+/MainWindow+/MainWindowDidInit
   Hook+/GUI+/Profile+/ProfileDidOpen
   Hook+/PyLib+/field_filter
