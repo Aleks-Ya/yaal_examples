@@ -22,6 +22,8 @@ object Projects {
   lazy val Fs2Core = project in file("Libs+/Fs2+/Fs2Core")
   lazy val TomlScala = project in file("Libs+/TOML+/TomlScala")
 
+  lazy val JacksonDataformatYaml = project in file("Libs+/YAML+/JacksonDataformatYaml")
+
   lazy val Http4s = project in file("Libs+/Http4s+/Http4s")
   lazy val Http4sDsl = project in file("Libs+/Http4s+/Http4sDsl")
   lazy val Http4sJdkHttpClient = project in file("Libs+/Http4s+/Http4sJdkHttpClient")

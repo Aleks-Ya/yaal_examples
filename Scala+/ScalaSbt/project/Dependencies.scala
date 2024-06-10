@@ -24,6 +24,10 @@ object Dependencies {
   val fs2CoreDep = "co.fs2" %% "fs2-core" % "3.10.2"
   val tomlScalaDep = "tech.sparse" %% "toml-scala" % "0.2.2"
 
+  private val jacksonVersion = "2.17.1"
+  val jacksonDataformatYamlDep = "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml" % jacksonVersion
+  val jacksonModuleScalaDep = "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion
+
   private val http4sVersion = "0.23.26"
   val http4sEmberClientDep = "org.http4s" %% "http4s-ember-client" % http4sVersion
   val http4sDslDep = "org.http4s" %% "http4s-dsl" % http4sVersion

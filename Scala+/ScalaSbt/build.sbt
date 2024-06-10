@@ -6,7 +6,7 @@ ThisBuild / scalaVersion := "2.12.19"
 
 lazy val root: Project = (project in file(".")).settings(name := "ScalaSbt")
   .aggregate(ScalaCore, ScalaTest, ScalaMock, ScalaScopt, Json4s, AkkaActorScalaExamples, AkkaQuickstartScala,
-      Http4s, Http4sJdkHttpClient, UtilSrc)
+    Http4s, Http4sJdkHttpClient, UtilSrc)
 
 lazy val UtilSrc = Projects.UtilSrc
 
@@ -28,6 +28,8 @@ lazy val OkHttpMockWebServer = Projects.OkHttpMockWebServer
 lazy val CatsEffect = Projects.CatsEffect
 lazy val Fs2Core = Projects.Fs2Core
 lazy val TomlScala = Projects.TomlScala
+
+lazy val JacksonDataformatYaml = Projects.JacksonDataformatYaml
 
 lazy val Http4s = Projects.Http4s
 lazy val Http4sDsl = Projects.Http4sDsl
