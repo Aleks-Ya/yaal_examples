@@ -14,6 +14,7 @@ src_relative_paths=(
   Hook+/GUI+/Browser+/BrowserWillShow
   Hook+/GUI+/DeckBrowser+/DeckBrowserDidRender
   Hook+/GUI+/DeckBrowser+/DeckBrowserWillRenderContent
+  Hook+/GUI+/Editor+/EditorDidFireTypingTimer
   Hook+/GUI+/Editor+/EditorDidInit
   Hook+/GUI+/Editor+/EditorDidInitButtons
   Hook+/GUI+/Editor+/EditorDidLoadNote

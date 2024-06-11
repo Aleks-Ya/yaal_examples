@@ -1,37 +1,32 @@
-# Compare strings
+import unittest
 
-# length
-assert len('abc') == 3
 
-# Is a string contains a substring
-s = 'abc'
-assert 'b' in s
-assert 'z' not in s
+class CompareStringsTestCase(unittest.TestCase):
 
-# is empty
-s = ''
-is_empty = not s
-assert is_empty
+    def test_string_contains_substring(self):
+        s = 'abc'
+        self.assertIn('b', s)
+        self.assertNotIn('z', s)
 
-# is not empty
-s = 'a'
-assert s
+    def test_is_empty(self):
+        s = ''
+        is_empty = not s
+        self.assertTrue(is_empty)
 
-# Is not None and not empty
-s = None
-if s:
-    assert False
-else:
-    assert True
+    def test_is_not_empty(self):
+        s = 'a'
+        self.assertTrue(s)
 
-s = ''
-if s:
-    assert False
-else:
-    assert True
+    def test_is_not_None_and_not_empty(self):
+        s = None
+        self.assertFalse(s)
 
-s = 'a'
-if s:
-    assert True
-else:
-    assert False
+        s = ''
+        self.assertFalse(s)
+
+        s = 'a'
+        self.assertTrue(s)
+
+
+if __name__ == '__main__':
+    unittest.main()
