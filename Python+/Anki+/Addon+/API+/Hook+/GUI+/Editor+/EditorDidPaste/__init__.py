@@ -12,4 +12,4 @@ def on_paste(editor: Editor, html: str, internal: bool, extended: bool):
              f" internal={internal}, extended={extended}")
 
 
-gui_hooks.editor_did_paste.append(on_paste)
+# gui_hooks.editor_did_paste.append(on_paste)

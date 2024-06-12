@@ -15,4 +15,14 @@ class WhenOtherwiseFunction extends AnyFlatSpec with Matchers {
       """{"name":"Mary","full_gender":"Woman"}"""
     )
   }
+
+  it should "use when without otherwise" in {
+    val df = Factory.peopleDf
+    val updatedDf = df.select(col("name"), when(col("gender") === "M", "Man") as "full_gender")
+    updatedDf.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","full_gender":"Man"}""",
+      """{"name":"Peter","full_gender":"Man"}""",
+      """{"name":"Mary","full_gender":null}"""
+    )
+  }
 }

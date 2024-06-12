@@ -26,22 +26,30 @@ class ConstructorTest extends AnyFlatSpec with Matchers {
     person.name shouldEqual "123"
   }
 
-  it should "init class with constructor parameters" in {
+  it should "init class with constructor parameters (var)" in {
     class ConstructorClass {
       var name: String = ""
       var age: Int = 20
 
       def this(name: String, age: Int) = {
         this()
-        this.name = name
-        this.age = age
+        this.name = name.toUpperCase()
+        this.age = age * 2
       }
     }
-    val name = "John"
-    val age = 30
-    val person = new ConstructorClass(name, age)
-    person.name shouldEqual name
-    person.age shouldEqual age
+    val person = new ConstructorClass("John", 30)
+    person.name shouldEqual "JOHN"
+    person.age shouldEqual 60
+  }
+
+  it should "init class with constructor parameters (val)" in {
+    class ConstructorClass(private val name1: String, private val age1: Int) {
+      val name: String = name1.toUpperCase()
+      val age: Int = age1 * 2
+    }
+    val person = new ConstructorClass("John", 30)
+    person.name shouldEqual "JOHN"
+    person.age shouldEqual 60
   }
 
   it should "init class with default values in constructor" in {
