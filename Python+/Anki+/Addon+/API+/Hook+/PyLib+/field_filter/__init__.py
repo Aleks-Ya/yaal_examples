@@ -4,6 +4,8 @@ import time
 from anki import hooks
 from anki.template import TemplateRenderContext
 
+from ._common.disable import enabled
+
 
 def _avganstime(ctx):
     """The average answer time in seconds of the card in "review" status."""
@@ -29,7 +31,7 @@ def _type_mark(type):
     return types[type]
 
 
-def dynFields(text: str, field_name: str, filter_name: str, ctx: TemplateRenderContext) -> str:
+def _dynFields(text: str, field_name: str, filter_name: str, ctx: TemplateRenderContext) -> str:
     """Set dynamic fields as template filter names."""
     dynamic_fields = {
         # Dynamic fields showing program parameters of the card:
@@ -47,4 +49,5 @@ def dynFields(text: str, field_name: str, filter_name: str, ctx: TemplateRenderC
     return dynamic_fields.get(filter_name, text)
 
 
-hooks.field_filter.append(dynFields)
+if enabled():
+    hooks.field_filter.append(_dynFields)

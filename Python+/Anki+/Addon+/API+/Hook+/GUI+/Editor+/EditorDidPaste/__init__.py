@@ -2,8 +2,10 @@ from aqt import gui_hooks
 from aqt.editor import Editor
 from aqt.utils import showInfo
 
+from ._common.disable import enabled
 
-def on_paste(editor: Editor, html: str, internal: bool, extended: bool):
+
+def _on_paste(editor: Editor, html: str, internal: bool, extended: bool):
     items = str([item for item in editor.note.items()]).replace("<", "&lt;")
     html_clean = html.replace("<", "&lt;")
     showInfo(f"Editor did paste:\n\n"
@@ -12,4 +14,5 @@ def on_paste(editor: Editor, html: str, internal: bool, extended: bool):
              f" internal={internal}, extended={extended}")
 
 
-# gui_hooks.editor_did_paste.append(on_paste)
+if enabled():
+    gui_hooks.editor_did_paste.append(_on_paste)

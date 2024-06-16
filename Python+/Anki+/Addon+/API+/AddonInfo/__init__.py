@@ -6,6 +6,7 @@ from pathlib import Path
 from aqt import mw
 from aqt.utils import showInfo
 
+from ._common.disable import enabled
 from ._common import menu
 
 
@@ -19,4 +20,5 @@ def _show_addon_info() -> None:
     """)
 
 
-menu.add_mw_menu_item("Show addon info", _show_addon_info)
+if enabled():
+    menu.add_mw_menu_item("Show addon info", _show_addon_info)

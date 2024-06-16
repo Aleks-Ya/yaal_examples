@@ -1,8 +1,10 @@
 from aqt import gui_hooks, mw
 from aqt.utils import showInfo
 
+from ._common.disable import enabled
 
-def on_init():
+
+def _on_init():
     showInfo(f"""
             Profile did open.
             'mw'={mw}
@@ -10,4 +12,5 @@ def on_init():
             """)
 
 
-# gui_hooks.profile_did_open.append(on_init)
+if enabled():
+    gui_hooks.profile_did_open.append(_on_init)

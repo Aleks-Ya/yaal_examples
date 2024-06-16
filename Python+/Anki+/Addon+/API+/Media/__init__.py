@@ -5,10 +5,11 @@ from anki.notes import NoteId, Note
 from aqt import mw
 from aqt.utils import showInfo
 
+from ._common.disable import enabled
 from ._common import menu
 
 
-def show_note_details() -> None:
+def _show_note_details() -> None:
     note_id: NoteId = NoteId(1638679140645)
     note: Note = mw.col.get_note(note_id)
     items_filtered: list[tuple[str, str]] = [item for item in note.items() if item[0] == "English-audio-generated"]
@@ -23,4 +24,5 @@ def show_note_details() -> None:
                  f"full_path={full_path}, size={size}")
 
 
-menu.add_mw_menu_item("Show a sound size", show_note_details)
+if enabled():
+    menu.add_mw_menu_item("Show a sound size", _show_note_details)

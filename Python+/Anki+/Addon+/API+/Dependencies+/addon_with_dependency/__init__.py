@@ -4,6 +4,7 @@ import sys
 
 from aqt.utils import showInfo
 
+from ._common.disable import enabled
 from ._common import menu
 
 mem_top_installed = importlib.util.find_spec('mem_top') is not None
@@ -19,9 +20,10 @@ import mem_top
 import mem_top_client
 
 
-def use_mem_top_from_init():
+def _use_mem_top_from_init():
     showInfo("Mem Top (from init.py): %s" % mem_top.mem_top())
 
 
-menu.add_mw_menu_item("Mem Top (directly)", use_mem_top_from_init)
-menu.add_mw_menu_item("Mem Top (through client)", mem_top_client.show_memory_usage)
+if enabled():
+    menu.add_mw_menu_item("Mem Top (directly)", _use_mem_top_from_init)
+    menu.add_mw_menu_item("Mem Top (through client)", mem_top_client.show_memory_usage)

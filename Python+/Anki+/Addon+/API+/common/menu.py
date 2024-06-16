@@ -17,6 +17,11 @@ def add_mw_menu_item(item_name: str, item_action: Callable) -> None:
     addon_top_menu.addAction(action)
 
 
+def add_browser_menu(item_name: str, item_action: Callable):
+    partial_func = partial(_add_item_to_edit_menu, item_name, item_action)
+    gui_hooks.browser_will_show.append(partial_func)
+
+
 def _create_top_menu(menubar: QMenuBar) -> QMenu:
     top_name: str = "Addon API"
     top_menu: QMenu = menubar.findChild(QMenu, top_name) or QMenu(top_name, menubar)
@@ -40,8 +45,3 @@ def _add_item_to_edit_menu(item_name: str, item_action: Callable, browser: Brows
     action: QAction = QAction(item_name, browser)
     qconnect(action.triggered, lambda: item_action(browser))
     addon_top_menu.addAction(action)
-
-
-def add_browser_menu(item_name: str, item_action: Callable):
-    partial_func = partial(_add_item_to_edit_menu, item_name, item_action)
-    gui_hooks.browser_will_show.append(partial_func)

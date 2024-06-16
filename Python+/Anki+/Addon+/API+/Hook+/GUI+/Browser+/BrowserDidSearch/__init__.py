@@ -4,16 +4,19 @@ from typing import Sequence
 from aqt import gui_hooks
 from aqt.browser import SearchContext, Column, ItemId
 
+from ._common.disable import enabled
 
-def modify_row(context: SearchContext) -> None:
+
+def _modify_row(context: SearchContext) -> None:
     order: Column = context.order
     # sys.stderr.write(f"Context order: key={order.key}, sorting={order.sorting}")
     if context.ids:
-        context.ids = sort(context.ids)
+        context.ids = _sort(context.ids)
 
 
-def sort(item_ids: Sequence[ItemId]) -> Sequence[ItemId]:
+def _sort(item_ids: Sequence[ItemId]) -> Sequence[ItemId]:
     return sorted(item_ids, reverse=True)
 
 
-# gui_hooks.browser_did_search.append(modify_row)
+if enabled():
+    gui_hooks.browser_did_search.append(_modify_row)

@@ -7,10 +7,11 @@ from aqt import mw
 from aqt.operations import CollectionOp, ResultWithChanges
 from aqt.utils import showInfo
 
+from ._common.disable import enabled
 from ._common import menu
 
 
-def my_background_op(col: Collection) -> ResultWithChanges:
+def _my_background_op(col: Collection) -> ResultWithChanges:
     note: Note = mw.col.get_note(NoteId(1699885664723))
     end = 10
     last_progress = time.time()
@@ -40,19 +41,20 @@ def my_background_op(col: Collection) -> ResultWithChanges:
     return OpChanges(note_text=True)
 
 
-def on_success(result: ResultWithChanges) -> None:
+def _on_success(result: ResultWithChanges) -> None:
     showInfo(f"Long-running read-write operation succeeded: {result}")
 
 
-def on_failure(e: Exception) -> None:
+def _on_failure(e: Exception) -> None:
     showInfo(f"Long-running read-write operation failed: {e}")
 
 
-def my_ui_action():
-    op: CollectionOp[OpChanges] = CollectionOp(parent=mw, op=lambda col: my_background_op(col))
-    op.success(on_success)
-    op.failure(on_failure)
+def _my_ui_action():
+    op: CollectionOp[OpChanges] = CollectionOp(parent=mw, op=lambda col: _my_background_op(col))
+    op.success(_on_success)
+    op.failure(_on_failure)
     op.run_in_background()
 
 
-menu.add_mw_menu_item("Start long-running operation (read-write)", my_ui_action)
+if enabled():
+    menu.add_mw_menu_item("Start long-running operation (read-write)", _my_ui_action)

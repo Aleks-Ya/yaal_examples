@@ -5,10 +5,11 @@ from aqt import mw
 from aqt.operations import QueryOp
 from aqt.utils import showInfo
 
+from ._common.disable import enabled
 from ._common import menu
 
 
-def my_background_op() -> int:
+def _my_background_op() -> int:
     end = 20
     last_progress = time.time()
     for i in range(1, end):
@@ -35,13 +36,14 @@ def my_background_op() -> int:
     return end
 
 
-def on_success(count: int) -> None:
+def _on_success(count: int) -> None:
     showInfo(f"my_background_op() returned {count}")
 
 
-def my_ui_action():
-    op: QueryOp = QueryOp(parent=mw, op=lambda col: my_background_op(), success=on_success)
+def _my_ui_action():
+    op: QueryOp = QueryOp(parent=mw, op=lambda col: _my_background_op(), success=_on_success)
     op.with_progress().run_in_background()
 
 
-menu.add_mw_menu_item("Start long-running operation (read-only)", my_ui_action)
+if enabled():
+    menu.add_mw_menu_item("Start long-running operation (read-only)", _my_ui_action)

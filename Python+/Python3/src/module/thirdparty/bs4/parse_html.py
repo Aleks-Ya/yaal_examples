@@ -1,6 +1,6 @@
 import unittest
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 
 
 class ParseHtmlTestCase(unittest.TestCase):
@@ -11,6 +11,12 @@ class ParseHtmlTestCase(unittest.TestCase):
         self.assertEqual("Hello, World!", soup.div.h1.text)
         act_fragment = str(soup)
         self.assertEqual(exp_fragment, act_fragment)
+
+    def test_find_by_id(self):
+        html = '<div><h1 id="greeting">Hello, World!</h1></div>'
+        soup = BeautifulSoup(html, 'html.parser')
+        h1: Tag = soup.find(id="greeting")
+        self.assertEqual("Hello, World!", h1.text)
 
 
 if __name__ == '__main__':

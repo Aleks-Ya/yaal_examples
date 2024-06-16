@@ -5,6 +5,7 @@ from typing import Optional, Any, List, Dict
 from aqt import mw
 from aqt.utils import showInfo
 
+from ._common.disable import enabled
 from ._common import menu
 
 
@@ -41,5 +42,6 @@ def _update_addon_config():
     """)
 
 
-menu.add_mw_menu_item("Show addon config", _show_addon_config)
-menu.add_mw_menu_item("Update addon config", _update_addon_config)
+if enabled():
+    menu.add_mw_menu_item("Show addon config", _show_addon_config)
+    menu.add_mw_menu_item("Update addon config", _update_addon_config)

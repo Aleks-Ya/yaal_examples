@@ -7,6 +7,7 @@ import sys
 
 from aqt.utils import showInfo
 
+from ._common.disable import enabled
 from ._common import menu
 
 mem_top_installed = importlib.util.find_spec('pyyaml') is not None
@@ -17,13 +18,14 @@ addon_dir = os.path.dirname(__file__)
 sys.path.insert(1, os.path.abspath(os.path.dirname(__file__)))
 sys.path.insert(1, os.path.join(addon_dir, 'bundled_dependencies'))
 
-import yaml
+import yaml  # will be imported from dependencies
 import client
 
 
-def use_from_init():
+def _use_from_init():
     showInfo("pyyaml from __init__.py: %s" % yaml.safe_load("person: John"))
 
 
-menu.add_mw_menu_item("Run from __init__.py", use_from_init)
-menu.add_mw_menu_item("Run from client", client.use_from_client)
+if enabled():
+    menu.add_mw_menu_item("Run from __init__.py", _use_from_init)
+    menu.add_mw_menu_item("Run from client", client.use_from_client)

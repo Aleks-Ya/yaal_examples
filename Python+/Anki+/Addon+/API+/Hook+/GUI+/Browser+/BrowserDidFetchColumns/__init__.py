@@ -2,9 +2,10 @@
 from anki.collection import BrowserColumns
 from aqt import gui_hooks
 from aqt.browser import Column
+from ._common.disable import enabled
 
 
-def add_custom_column(columns: dict[str, Column]) -> None:
+def _add_custom_column(columns: dict[str, Column]) -> None:
     column_key = "mycustomcolumn"
     column_label = "The custom column"
     columns[column_key] = Column(
@@ -20,4 +21,5 @@ def add_custom_column(columns: dict[str, Column]) -> None:
     )
 
 
-gui_hooks.browser_did_fetch_columns.append(add_custom_column)
+if enabled():
+    gui_hooks.browser_did_fetch_columns.append(_add_custom_column)

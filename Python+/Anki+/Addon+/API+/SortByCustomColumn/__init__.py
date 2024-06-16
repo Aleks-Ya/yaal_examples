@@ -8,11 +8,13 @@ from aqt import gui_hooks, mw
 from aqt.browser import CellRow, Column, SearchContext
 from aqt.browser.table import ItemId
 
+from ._common.disable import enabled
+
 COLUMN_KEY = "alphabeticSortField"
 COLUMN_LABEL = "Sort Field (Alphabetic)"
 
 
-def add_browser_column(columns: dict[str, Column]) -> None:
+def _add_browser_column(columns: dict[str, Column]) -> None:
     columns[COLUMN_KEY] = Column(
         key=COLUMN_KEY,
         cards_mode_label=COLUMN_LABEL,
@@ -26,14 +28,14 @@ def add_browser_column(columns: dict[str, Column]) -> None:
     )
 
 
-def on_search(context: SearchContext) -> None:
+def _on_search(context: SearchContext) -> None:
     if isinstance(context.order, Column) and context.order.key == COLUMN_KEY:
         sort_col = mw.col.get_browser_column("noteFld")
         sort_col.notes_mode_label = COLUMN_LABEL
         context.order = sort_col
 
 
-def on_browser_did_fetch_row(
+def _on_browser_did_fetch_row(
         card_or_note_id: ItemId, is_note: bool, row: CellRow, columns: Sequence[str]) -> None:
     try:
         idx = columns.index(COLUMN_KEY)
@@ -61,7 +63,7 @@ def on_browser_did_fetch_row(
         row.cells[idx].is_rtl = notetype["flds"][sortf]["rtl"]
 
 
-def unicode_sort(item_id: ItemId) -> str:
+def _unicode_sort(item_id: ItemId) -> str:
     sfld = mw.col.db.scalar("select sfld from notes where id = ?", item_id)
     if not sfld:
         sfld = mw.col.db.scalar(
@@ -74,18 +76,15 @@ def unicode_sort(item_id: ItemId) -> str:
     return sfld
 
 
-def on_browser_did_search(context: SearchContext) -> None:
+def _on_browser_did_search(context: SearchContext) -> None:
     if not context.ids:
         return
     if isinstance(context.order, Column) and context.order.notes_mode_label == COLUMN_LABEL:
-        context.ids = sorted(context.ids, key=lambda item_id: unicode_sort(item_id))
+        context.ids = sorted(context.ids, key=lambda item_id: _unicode_sort(item_id))
 
 
-def setup_hooks() -> None:
-    gui_hooks.browser_did_fetch_columns.append(add_browser_column)
-    gui_hooks.browser_will_search.append(on_search)
-    gui_hooks.browser_did_fetch_row.append(on_browser_did_fetch_row)
-    gui_hooks.browser_did_search.append(on_browser_did_search)
-
-
-setup_hooks()
+if enabled():
+    gui_hooks.browser_did_fetch_columns.append(_add_browser_column)
+    gui_hooks.browser_will_search.append(_on_search)
+    gui_hooks.browser_did_fetch_row.append(_on_browser_did_fetch_row)
+    gui_hooks.browser_did_search.append(_on_browser_did_search)
