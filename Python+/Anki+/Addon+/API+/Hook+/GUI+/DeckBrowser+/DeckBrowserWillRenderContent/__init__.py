@@ -2,15 +2,15 @@ import datetime
 from logging import Logger
 
 from aqt import gui_hooks
-from aqt.addons import AddonManager
 from aqt.deckbrowser import DeckBrowser, DeckBrowserContent
 
 from ._common.disable import enabled
+from ._common.log import get_addon_logger
+
+log: Logger = get_addon_logger()
 
 
 def _on_action(deck_browser: DeckBrowser, content: DeckBrowserContent):
-    # Output: ~/.local/share/Anki2/logs/addons/Hook-GUI-DeckBrowser-DeckBrowserWillRenderContent/Hook-GUI-DeckBrowser-DeckBrowserWillRenderContent.log
-    log: Logger = AddonManager.get_logger(__name__)
     log.info(f"DeckBrowser: {deck_browser}\n\n")
     log.info(f"DeckBrowserContent tree: {content.tree}\n\n")
     log.info(f"DeckBrowserContent stats: {content.stats}\n\n")
