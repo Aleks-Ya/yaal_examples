@@ -1,14 +1,19 @@
-# Dict to a key list
-d = {'a': 1, 'b': 2, 'c': 3}
-key_list = list(d.keys())
-assert key_list == ['a', 'b', 'c']
+import unittest
 
-# Dict to a value list
-d = {'a': 1, 'b': 2, 'c': 3}
-key_list = list(d.values())
-assert key_list == [1, 2, 3]
 
-# List to dict
-l = ['a', 'bb', 'ccc']
-d = {element: len(element) for element in l}
-assert d == {'a': 1, 'bb': 2, 'ccc': 3}
+class TestDictConversion(unittest.TestCase):
+    def test_dict_to_key_list(self):
+        d: dict[str, int] = {'a': 1, 'b': 2, 'c': 3}
+        self.assertListEqual(list(d.keys()), ['a', 'b', 'c'])
+
+    def test_dict_to_value_list(self):
+        d: dict[str, int] = {'a': 1, 'b': 2, 'c': 3}
+        self.assertListEqual(list(d.values()), [1, 2, 3])
+
+    def test_list_to_dict(self):
+        l: list[str] = ['a', 'bb', 'ccc']
+        d: dict[str, int] = {element: len(element) for element in l}
+        self.assertDictEqual(d, {'a': 1, 'bb': 2, 'ccc': 3})
+
+        if __name__ == '__main__':
+            unittest.main()
