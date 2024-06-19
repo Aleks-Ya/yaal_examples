@@ -3,7 +3,7 @@ import unittest
 import humanize
 
 
-class HumanizeTestCase(unittest.TestCase):
+class TestHumanize(unittest.TestCase):
 
     def test_convert_bytes_to_strings(self):
         self.assertEqual(humanize.naturalsize(1_000_000), "1.0 MB")

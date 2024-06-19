@@ -5,7 +5,7 @@ import tempfile
 import unittest
 
 
-class RemoveTreeTestCase(unittest.TestCase):
+class TestRemoveTree(unittest.TestCase):
 
     def test_remove_tree(self):
         tmp_dir: str = tempfile.mkdtemp()

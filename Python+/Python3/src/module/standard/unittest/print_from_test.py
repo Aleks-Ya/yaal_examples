@@ -2,7 +2,7 @@ import unittest
 from time import sleep
 
 
-class PrintFromTestTestCase(unittest.TestCase):
+class TestPrintFromTest(unittest.TestCase):
 
     @staticmethod
     def test_print():

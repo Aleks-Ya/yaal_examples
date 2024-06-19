@@ -1,7 +1,7 @@
 import unittest
 
 
-class MultipleAssertionsTestCase(unittest.TestCase):
+class TestMultipleAssertions(unittest.TestCase):
 
     def test_multiple_assertions(self):
         with self.subTest("Subtest 1"):

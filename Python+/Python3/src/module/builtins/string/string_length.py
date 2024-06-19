@@ -1,7 +1,7 @@
 import unittest
 
 
-class StringLengthTestCase(unittest.TestCase):
+class TestStringLength(unittest.TestCase):
     def test_length(self):
         self.assertEqual(3, len('abc'))
 

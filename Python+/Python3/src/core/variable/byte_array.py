@@ -1,7 +1,7 @@
 import unittest
 
 
-class ByteArrayTestCase(unittest.TestCase):
+class TestByteArray(unittest.TestCase):
 
     def test_empty_byte_array(self):
         empty_byte_array: bytes = bytearray()

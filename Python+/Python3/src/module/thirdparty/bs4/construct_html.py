@@ -3,7 +3,7 @@ import unittest
 from bs4 import BeautifulSoup, Tag
 
 
-class ConstructHtmlTestCase(unittest.TestCase):
+class TestConstructHtml(unittest.TestCase):
 
     def setUp(self):
         self.soup: BeautifulSoup = BeautifulSoup()

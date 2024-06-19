@@ -5,7 +5,7 @@ import tempfile
 import unittest
 
 
-class MakeArchiveTestCase(unittest.TestCase):
+class TestMakeArchive(unittest.TestCase):
 
     def test_make_archive(self):
         src_dir: str = tempfile.mkdtemp()

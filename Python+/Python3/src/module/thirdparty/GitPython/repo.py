@@ -4,7 +4,7 @@ from datetime import datetime
 from git import Repo, TagReference, Commit
 
 
-class RepoTestCase(unittest.TestCase):
+class TestRepo(unittest.TestCase):
 
     def setUp(self):
         self.repo: Repo = Repo(".", search_parent_directories=True)

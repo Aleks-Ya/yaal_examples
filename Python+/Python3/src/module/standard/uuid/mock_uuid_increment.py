@@ -1,6 +1,5 @@
 import unittest
 import uuid
-from unittest import TestCase
 from unittest.mock import patch
 
 TEST_UUIDS = ['uuid_{}'.format(i) for i in range(10000)]
@@ -10,7 +9,7 @@ def uuid_prefix(prefix: str):
     return patch.object(uuid, 'uuid4', side_effect=['{}_{}'.format(prefix, x) for x in TEST_UUIDS])
 
 
-class MyTestCase(TestCase):
+class TestMy(unittest.TestCase):
 
     def test_create_my_object(self):
         with uuid_prefix('obj_a'):

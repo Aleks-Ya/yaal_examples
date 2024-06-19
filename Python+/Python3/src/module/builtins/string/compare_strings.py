@@ -1,7 +1,7 @@
 import unittest
 
 
-class CompareStringsTestCase(unittest.TestCase):
+class TestCompareStrings(unittest.TestCase):
 
     def test_string_contains_substring(self):
         s = 'abc'

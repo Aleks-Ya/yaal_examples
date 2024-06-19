@@ -3,7 +3,7 @@ import datetime
 from datetime import datetime, timedelta
 
 
-class IntervalTestCase(unittest.TestCase):
+class TestInterval(unittest.TestCase):
 
     def test_date_difference(self):
         date_time1: datetime = datetime(2018, 12, 25, 8, 25, 30)

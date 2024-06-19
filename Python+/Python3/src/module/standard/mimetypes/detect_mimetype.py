@@ -2,7 +2,7 @@ import mimetypes
 import unittest
 
 
-class DetectMimeTypeTestCase(unittest.TestCase):
+class TestDetectMimeType(unittest.TestCase):
     def test_guess_type(self):
         txt_type: tuple[str, str] = mimetypes.guess_type("abc.txt")
         self.assertEqual(('text/plain', None), txt_type)

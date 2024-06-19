@@ -3,7 +3,7 @@ import unittest
 from pydantic import ByteSize
 
 
-class ByteSizeTestCase(unittest.TestCase):
+class TestByteSize(unittest.TestCase):
 
     def test_human_readable(self):
         byte_size: ByteSize = ByteSize(0)

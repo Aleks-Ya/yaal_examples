@@ -5,7 +5,7 @@ import tempfile
 import unittest
 
 
-class CopyTreeTestCase(unittest.TestCase):
+class TestCopyTree(unittest.TestCase):
 
     def test_copy_tree(self):
         src_dir: str = tempfile.mkdtemp()

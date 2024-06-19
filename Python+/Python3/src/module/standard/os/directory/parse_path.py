@@ -3,7 +3,7 @@ import os
 import unittest
 
 
-class ParsePathTestCase(unittest.TestCase):
+class TestParsePath(unittest.TestCase):
 
     def test_dirname_of_file(self):
         file_name: str = '/tmp/work/data.txt'

@@ -14,7 +14,7 @@ def test():
 # Or a unittest TestCase - freezes for every test, from the start of setUpClass to the end of tearDownClass
 
 @freeze_time("1955-11-12")
-class MyTests(unittest.TestCase):
+class TestMy(unittest.TestCase):
     def test_the_class(self):
         assert datetime.datetime.now() == datetime.datetime(1955, 11, 12)
 

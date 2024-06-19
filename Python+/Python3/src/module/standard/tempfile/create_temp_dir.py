@@ -5,7 +5,7 @@ import unittest
 from tempfile import TemporaryDirectory
 
 
-class TempFileTestCase(unittest.TestCase):
+class TestTempFile(unittest.TestCase):
 
     def test_mkdtemp(self):
         full_name: str = tempfile.mkdtemp()

@@ -1,7 +1,7 @@
 import unittest
 
 
-class BytesToHumanStrCase(unittest.TestCase):
+class TestBytesToHumanStr(unittest.TestCase):
 
     def test_bytes_to_human_str(self):
         self.assertEqual(self._bytes_to_human_str(0), "0.0 B")

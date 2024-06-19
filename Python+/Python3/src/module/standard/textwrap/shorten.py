@@ -3,7 +3,7 @@ import textwrap
 import unittest
 
 
-class ShortenTestCase(unittest.TestCase):
+class TestShorten(unittest.TestCase):
 
     def test_shorten(self):
         s: str = "A long long long long long text"

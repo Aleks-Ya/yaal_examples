@@ -1,7 +1,7 @@
 import unittest
 
 
-class IdCase(unittest.TestCase):
+class TestId(unittest.TestCase):
     def test_get_object_id(self):
         obj1: str = "abc"
         id_1: int = id(obj1)

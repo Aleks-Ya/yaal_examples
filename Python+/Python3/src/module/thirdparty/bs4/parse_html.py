@@ -3,7 +3,7 @@ import unittest
 from bs4 import BeautifulSoup, Tag
 
 
-class ParseHtmlTestCase(unittest.TestCase):
+class TestParseHtml(unittest.TestCase):
 
     def test_parse_html(self):
         exp_fragment = '<div><h1>Hello, World!</h1><p>This is a sample HTML fragment.</p></div>'

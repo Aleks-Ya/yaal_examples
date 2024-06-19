@@ -1,7 +1,7 @@
 import unittest
 
 
-class SortDictTestCase(unittest.TestCase):
+class TestSortDict(unittest.TestCase):
 
     def test_sort_by_keys(self):
         origin_dict: dict[str, int] = {'two': 2, 'one': 1, 'three': 3}

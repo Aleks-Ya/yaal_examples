@@ -5,7 +5,7 @@ import tempfile
 import unittest
 
 
-class CopyFileTestCase(unittest.TestCase):
+class TestCopyFile(unittest.TestCase):
 
     def test_copy_file(self):
         _, source_file = tempfile.mkstemp()

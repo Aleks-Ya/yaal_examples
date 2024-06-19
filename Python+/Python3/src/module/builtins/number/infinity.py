@@ -2,7 +2,7 @@ import math
 import unittest
 
 
-class InfinityTestCase(unittest.TestCase):
+class TestInfinity(unittest.TestCase):
     def test_instantiate_infinity(self):
         plus_infinity_1: float = float("inf")
         plus_infinity_2: float = float("+inf")

@@ -2,12 +2,12 @@ import unittest
 from threading import Thread, Lock
 
 
-class DictLockTestCase(unittest.TestCase):
+class TestDictLock(unittest.TestCase):
     my_dict: dict[str, str] = {}
     lock: Lock = Lock()
 
     def test_start_thread(self):
-        thread: Thread = Thread(target=DictLockTestCase._background_method)
+        thread: Thread = Thread(target=TestDictLock._background_method)
         thread.start()
         thread.join()
         self.assertFalse(thread.is_alive())

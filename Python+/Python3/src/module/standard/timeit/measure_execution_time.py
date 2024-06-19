@@ -3,10 +3,10 @@ import unittest
 from time import sleep
 
 
-class MeasureExecutionTime(unittest.TestCase):
+class TestMeasureExecutionTime(unittest.TestCase):
 
     def test_measure_time(self):
-        execution_time: float = timeit.timeit(MeasureExecutionTime._method_under_test, number=1)
+        execution_time: float = timeit.timeit(TestMeasureExecutionTime._method_under_test, number=1)
         self.assertGreater(execution_time, 0.1)
 
     @staticmethod
