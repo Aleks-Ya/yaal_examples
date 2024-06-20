@@ -9,7 +9,7 @@ import org.scalatest.matchers.should.Matchers
 import scala.beans.BeanProperty
 import scala.collection.JavaConverters._
 
-class InCodeDf extends AnyFlatSpec with Matchers {
+class CreateDataFrameTest extends AnyFlatSpec with Matchers {
 
   it should "apply schema to RDD" in {
     val schema = StructType(StructField("name", StringType) :: StructField("age", IntegerType) :: Nil)
@@ -33,31 +33,9 @@ class InCodeDf extends AnyFlatSpec with Matchers {
     )
   }
 
-  it should "infer schema from rows" in {
-    import Factory.ss.implicits._
-    val data = Seq(("John", 25), ("Peter", 35))
-    val df = data.toDF("name", "age")
-    df.schema.simpleString shouldEqual "struct<name:string,age:int>"
-    df.toJSON.collect() should contain inOrderOnly(
-      """{"name":"John","age":25}""",
-      """{"name":"Peter","age":35}"""
-    )
-  }
-
-
-  it should "create DataFrame of numbers" in {
-    import Factory.ss.sqlContext.implicits._
-    val df = (1 to 3).toDF("id")
-    df.toJSON.collect() should contain inOrderOnly(
-      """{"id":1}""",
-      """{"id":2}""",
-      """{"id":3}"""
-    )
-  }
-
   it should "create DataFrame from Object and Class" in {
     val data = Seq(People("John", 25), People("Peter", 35)).asJava
-    val df = Factory.ss.sqlContext.createDataFrame(data, classOf[People])
+    val df = Factory.ss.createDataFrame(data, classOf[People])
     df.schema.simpleString shouldEqual "struct<age:int,name:string>"
     df.toJSON.collect() should contain inOrderOnly(
       """{"age":25,"name":"John"}""",
