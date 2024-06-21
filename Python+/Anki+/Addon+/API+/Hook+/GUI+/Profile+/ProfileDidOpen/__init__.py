@@ -4,7 +4,7 @@ from aqt.utils import showInfo
 from ._common.disable import enabled
 
 
-def _on_event():
+def __on_event():
     showInfo(f"""
             Profile did open.
             'mw'={mw}
@@ -13,4 +13,4 @@ def _on_event():
 
 
 if enabled():
-    gui_hooks.profile_did_open.append(_on_event)
+    gui_hooks.profile_did_open.append(__on_event)

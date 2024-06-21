@@ -10,22 +10,22 @@ from aqt.utils import showInfo
 from ._common.disable import enabled
 from ._common import menu
 
-mem_top_installed = importlib.util.find_spec('pyyaml') is not None
-if mem_top_installed:
+__mem_top_installed = importlib.util.find_spec('pyyaml') is not None
+if __mem_top_installed:
     raise RuntimeError("pyyaml is installed already")
 
-addon_dir = os.path.dirname(__file__)
+__addon_dir = os.path.dirname(__file__)
 sys.path.insert(1, os.path.abspath(os.path.dirname(__file__)))
-sys.path.insert(1, os.path.join(addon_dir, 'bundled_dependencies'))
+sys.path.insert(1, os.path.join(__addon_dir, 'bundled_dependencies'))
 
 import yaml  # will be imported from dependencies
 import client
 
 
-def _use_from_init():
+def __use_from_init():
     showInfo("pyyaml from __init__.py: %s" % yaml.safe_load("person: John"))
 
 
 if enabled():
-    menu.add_mw_menu_item("Run from __init__.py", _use_from_init)
+    menu.add_mw_menu_item("Run from __init__.py", __use_from_init)
     menu.add_mw_menu_item("Run from client", client.use_from_client)

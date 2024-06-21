@@ -10,7 +10,7 @@ from ._common.log import get_addon_logger
 log: Logger = get_addon_logger()
 
 
-def _on_action(deck_browser: DeckBrowser, content: DeckBrowserContent):
+def __on_action(deck_browser: DeckBrowser, content: DeckBrowserContent):
     log.info(f"DeckBrowser: {deck_browser}\n\n")
     log.info(f"DeckBrowserContent tree: {content.tree}\n\n")
     log.info(f"DeckBrowserContent stats: {content.stats}\n\n")
@@ -25,4 +25,4 @@ def _on_action(deck_browser: DeckBrowser, content: DeckBrowserContent):
 
 
 if enabled():
-    gui_hooks.deck_browser_will_render_content.append(_on_action)
+    gui_hooks.deck_browser_will_render_content.append(__on_action)

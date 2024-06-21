@@ -9,7 +9,7 @@ from ._common.disable import enabled
 from ._common import menu
 
 
-def _show_addon_config():
+def __show_addon_config():
     config: Optional[dict[str, Any]] = mw.addonManager.getConfig(__name__)
     title: str = config['title']
     enabled: bool = config['enabled']
@@ -27,7 +27,7 @@ def _show_addon_config():
     """)
 
 
-def _update_addon_config():
+def __update_addon_config():
     property_name: str = 'updated'
     module: str = __name__
     config_old: Optional[dict[str, Any]] = mw.addonManager.getConfig(module)
@@ -43,5 +43,5 @@ def _update_addon_config():
 
 
 if enabled():
-    menu.add_mw_menu_item("Show addon config", _show_addon_config)
-    menu.add_mw_menu_item("Update addon config", _update_addon_config)
+    menu.add_mw_menu_item("Show addon config", __show_addon_config)
+    menu.add_mw_menu_item("Update addon config", __update_addon_config)

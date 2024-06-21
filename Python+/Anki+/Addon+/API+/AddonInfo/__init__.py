@@ -10,7 +10,7 @@ from ._common.disable import enabled
 from ._common import menu
 
 
-def _show_addon_info() -> None:
+def __show_addon_info() -> None:
     showInfo(f"""\
     Addons folder={mw.addonManager.addonsFolder()}
     Addon name={os.path.basename(os.path.dirname(__file__))}
@@ -21,4 +21,4 @@ def _show_addon_info() -> None:
 
 
 if enabled():
-    menu.add_mw_menu_item("Show addon info", _show_addon_info)
+    menu.add_mw_menu_item("Show addon info", __show_addon_info)

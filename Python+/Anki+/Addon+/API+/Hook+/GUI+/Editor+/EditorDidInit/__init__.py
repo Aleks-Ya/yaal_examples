@@ -5,9 +5,9 @@ from aqt.utils import showInfo
 from ._common.disable import enabled
 
 
-def _on_init(editor: Editor):
+def __on_init(editor: Editor):
     showInfo(f"Editor did init: {editor}")
 
 
 if enabled():
-    gui_hooks.editor_did_init.append(_on_init)
+    gui_hooks.editor_did_init.append(__on_init)

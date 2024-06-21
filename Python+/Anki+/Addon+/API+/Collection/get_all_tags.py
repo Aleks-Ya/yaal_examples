@@ -7,7 +7,7 @@ from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
 
 
-def _act() -> None:
+def __act() -> None:
     all_tags: List[str] = mw.col.tags.all()
     tag_number: int = len(all_tags)
     tags_10: List[str] = all_tags[:10]
@@ -16,5 +16,5 @@ def _act() -> None:
 
 def add_menu_item(parent_menu: QMenu):
     action: QAction = QAction("Get all tags", mw)
-    qconnect(action.triggered, _act)
+    qconnect(action.triggered, __act)
     parent_menu.addAction(action)

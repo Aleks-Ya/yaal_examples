@@ -5,7 +5,7 @@ from ._common.disable import enabled
 from ._common import menu
 
 
-def _on_init():
+def __on_init():
     showInfo(f"""
             MainWindow did init.
             'mw'={mw}
@@ -13,14 +13,14 @@ def _on_init():
             """)
 
 
-def _menu_item_action():
+def __menu_item_action():
     showInfo('You clicked "MainWindowDidInit item"')
 
 
-def _add_menu_item():
-    menu.add_mw_menu_item("MainWindowDidInit item", _menu_item_action)
+def __add_menu_item():
+    menu.add_mw_menu_item("MainWindowDidInit item", __menu_item_action)
 
 
 if enabled():
-    gui_hooks.main_window_did_init.append(_on_init)
-    gui_hooks.main_window_did_init.append(_add_menu_item)
+    gui_hooks.main_window_did_init.append(__on_init)
+    gui_hooks.main_window_did_init.append(__add_menu_item)

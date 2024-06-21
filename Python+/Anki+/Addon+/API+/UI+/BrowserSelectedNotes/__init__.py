@@ -8,7 +8,7 @@ from ._common.disable import enabled
 from ._common import menu
 
 
-def _show_selected_notes(browser: Browser):
+def __show_selected_notes(browser: Browser):
     selected_note_ids: Sequence[NoteId] = browser.selected_notes()
     selected_card_ids: Sequence[int] = browser.selected_cards()
     showInfo(f'''
@@ -18,4 +18,4 @@ def _show_selected_notes(browser: Browser):
 
 
 if enabled():
-    menu.add_browser_menu("Info about selected notes", _show_selected_notes)
+    menu.add_browser_menu("Info about selected notes", __show_selected_notes)

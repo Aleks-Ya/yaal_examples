@@ -1,88 +1,77 @@
-# List
+import unittest
+from typing import Any
 
-# Create an empty list
-e = []
-assert len(e) == 0
 
-# Create a single element list
-single_element_list = [25]
-assert single_element_list[0] == 25
+class TestListOperations(unittest.TestCase):
+    def test_empty_list(self):
+        e: list[Any] = []
+        self.assertEqual(len(e), 0)
 
-# Create a multi element list
-squares = [1, 4, 9, 16, 25]
+    def test_single_element_list(self):
+        single_element_list: list[int] = [25]
+        self.assertEqual(single_element_list[0], 25)
 
-# length
-assert len([1, 2]) == 2
+    def test_contains_element(self):
+        symbols: list[str] = ['a', 'b', 'c']
+        self.assertTrue('b' in symbols)
+        self.assertFalse('z' in symbols)
 
-# Does contain an element?
-symbols = ['a', 'b', 'c']
-contains_b = 'b' in symbols
-assert contains_b
-contains_z = 'z' in symbols
-assert not contains_z
+    def test_get_element_by_index(self):
+        squares: list[int] = [1, 4, 9, 16, 25]
+        self.assertEqual(squares[1], 4)
+        self.assertEqual(squares[-2], 16)
 
-# get element by index
-assert squares[1] == 4
-assert squares[-2] == 16
+    def test_copy(self):
+        squares: list[int] = [1, 4, 9, 16, 25]
+        copy: list[int] = squares[:]
+        self.assertEqual(copy, squares)
 
-# slicing
-assert squares[1:3] == [4, 9]
-assert squares[:3] == [1, 4, 9]
-assert squares[3:] == [16, 25]
-assert squares[-2:] == [16, 25]
-assert squares[:-2] == [1, 4, 9]
+    def test_replace(self):
+        lst: list[int] = [1, 3, 3]
+        lst[1] = 2
+        self.assertEqual(lst, [1, 2, 3])
 
-# copy
-copy = squares[:]
-assert copy == squares
+    def test_nested_lists(self):
+        lst: list[list[int] | list[str]] = [[1, 2], ['a', 'b']]
+        self.assertEqual(len(lst), 2)
 
-# replace
-lst = [1, 3, 3]
-lst[1] = 2
-assert lst == [1, 2, 3]
+    def test_is_empty(self):
+        lst: list[Any] = []
+        self.assertTrue(not lst)
 
-# nested lists
-lst = [[1, 2], ['a', 'b']]
-assert len(lst) == 2
+    def test_is_not_empty(self):
+        lst: list[int] = [1]
+        self.assertTrue(lst)
 
-# is empty
-lst = []
-is_empty = not lst
-assert is_empty
+    def test_iterate_list(self):
+        lst: list[str] = ['a', 'b', 'c']
+        result: str = ''
+        for char in lst:
+            result = result + char
+        self.assertEqual(result, 'abc')
 
-# is not empty
-lst = [1]
-if lst:
-    is_empty = False
-else:
-    is_empty = True
-assert is_empty is False
+    def test_iterate_list_with_indexes(self):
+        lst: list[str] = ['a', 'b', 'c']
+        result: str = ''
+        for i, char in enumerate(lst):
+            result = result + str(i) + char
+        self.assertEqual(result, '0a1b2c')
 
-# iterate list
-lst = ['a', 'b', 'c']
-result = ''
-for char in lst:
-    result = result + char
-assert result == 'abc'
+    def test_find_element_index(self):
+        lst: list[str] = ['a', 'b', 'c']
+        self.assertEqual(lst.index('b'), 1)
 
-# iterate list (with indexes)
-lst = ['a', 'b', 'c']
-result = ''
-for i, char in enumerate(lst):
-    result = result + str(i) + char
-assert result == '0a1b2c'
+    def test_transform_list_elements(self):
+        lst: list[str] = ['a', 'b', 'c']
+        result_map = map(lambda symbol: symbol.upper(), lst)
+        result_list = list(result_map)
+        self.assertEqual(result_list, ['A', 'B', 'C'])
 
-# find element index by object
-lst = ['a', 'b', 'c']
-assert lst.index('b') == 1
+    def test_flat_map(self):
+        list_of_lists: list[list[str]] = [['a', 'b'], ['c', 'd'], ['e']]
+        flattened_list: list[str] = [item for sublist in list_of_lists for item in sublist]
+        self.assertEqual(flattened_list, ['a', 'b', 'c', 'd', 'e'])
 
-# transform list elements
-lst = ['a', 'b', 'c']
-result_map = map(lambda symbol: symbol.upper(), lst)
-result_list = list(result_map)
-assert result_list == ['A', 'B', 'C']
 
-# flat map (list of lists to list)
-list_of_lists: list[list[str]] = [['a', 'b'], ['c', 'd'], ['e']]
-flattened_list: list[str] = [item for sublist in list_of_lists for item in sublist]
-assert flattened_list == ['a', 'b', 'c', 'd', 'e']
+if __name__ == '__main__':
+    unittest.main()

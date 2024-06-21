@@ -1,27 +1,34 @@
-# Format numbers
+import unittest
 
-# Split thousands with comma
-i = 123456.3
-f = "{:,}".format(i)
-assert f == '123,456.3'
 
-# Split thousands with spaces
-i = 123456.3
-f = "{:,}".format(i).replace(',', ' ')
-assert f == '123 456.3'
+class TestNumberFormatting(unittest.TestCase):
 
-# Padding
-i = 123
-f = "a{:10,}b".format(i)
-assert f == 'a       123b'
+    def test_thousands_comma_split(self):
+        i: float = 123456.3
+        f: str = f"{i:,}"
+        self.assertEqual(f, '123,456.3')
 
-# Padding with leading zeros
-i = 123
-f = "a{:010}b".format(i)
-assert f == 'a0000000123b'
+    def test_thousands_space_split(self):
+        i: float = 123456.3
+        f: str = f"{i:,}".replace(',', ' ')
+        self.assertEqual(f, '123 456.3')
 
-# Float to percents
-i = 0.756
-p = round(i * 100)
-f = f"{p}%"
-assert f == '76%'
+    def test_padding(self):
+        i: int = 123
+        f: str = f"a{i:10,}b"
+        self.assertEqual(f, 'a       123b')
+
+    def test_padding_with_leading_zeros(self):
+        i: int = 123
+        f: str = f"a{i:010}b"
+        self.assertEqual(f, 'a0000000123b')
+
+    def test_float_to_percent(self):
+        i: float = 0.756
+        p: int = round(i * 100)
+        f: str = f"{p}%"
+        self.assertEqual(f, '76%')
+
+
+if __name__ == '__main__':
+    unittest.main()

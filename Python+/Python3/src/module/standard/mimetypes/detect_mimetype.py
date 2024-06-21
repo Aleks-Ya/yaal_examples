@@ -20,6 +20,11 @@ class TestDetectMimeType(unittest.TestCase):
         self.assertEqual(('application/vnd.adobe.flash.movie', None), mimetypes.guess_type("abc.swf"))
         self.assertEqual(('application/pdf', None), mimetypes.guess_type("abc.pdf"))
 
+    def test_guess_empty_types(self):
+        self.assertEqual((None, None), mimetypes.guess_type(""))
+        self.assertEqual((None, None), mimetypes.guess_type("without_extension"))
+        self.assertEqual((None, None), mimetypes.guess_type("wrong_extension.no1"))
+
 
 if __name__ == '__main__':
     unittest.main()

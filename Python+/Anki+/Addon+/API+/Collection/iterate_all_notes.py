@@ -8,7 +8,7 @@ from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
 
 
-def _act() -> None:
+def __act() -> None:
     all_note_ids: Sequence[NoteId] = mw.col.find_notes("")
     total_fields_number: int = 0
     for note_id in all_note_ids:
@@ -20,5 +20,5 @@ def _act() -> None:
 
 def add_menu_item(parent_menu: QMenu):
     action: QAction = QAction("Iterate all notes", mw)
-    qconnect(action.triggered, _act)
+    qconnect(action.triggered, __act)
     parent_menu.addAction(action)

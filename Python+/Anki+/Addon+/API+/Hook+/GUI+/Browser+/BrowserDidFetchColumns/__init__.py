@@ -5,7 +5,7 @@ from aqt.browser import Column
 from ._common.disable import enabled
 
 
-def _add_custom_column(columns: dict[str, Column]) -> None:
+def __add_custom_column(columns: dict[str, Column]) -> None:
     column_key = "mycustomcolumn"
     column_label = "The custom column"
     columns[column_key] = Column(
@@ -22,4 +22,4 @@ def _add_custom_column(columns: dict[str, Column]) -> None:
 
 
 if enabled():
-    gui_hooks.browser_did_fetch_columns.append(_add_custom_column)
+    gui_hooks.browser_did_fetch_columns.append(__add_custom_column)

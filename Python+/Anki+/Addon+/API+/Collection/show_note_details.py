@@ -6,7 +6,7 @@ from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
 
 
-def _act() -> None:
+def __act() -> None:
     note_id: NoteId = NoteId(1638679140645)
     note: Note = mw.col.get_note(note_id)
     showInfo(f"Note={note}, id={note.id}, col={note.col}, data={note.data}, fields={note.fields}, "
@@ -15,5 +15,5 @@ def _act() -> None:
 
 def add_menu_item(parent_menu: QMenu):
     action: QAction = QAction("Show Note details", mw)
-    qconnect(action.triggered, _act)
+    qconnect(action.triggered, __act)
     parent_menu.addAction(action)

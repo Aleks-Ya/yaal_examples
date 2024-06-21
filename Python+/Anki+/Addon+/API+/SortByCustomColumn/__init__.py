@@ -10,15 +10,15 @@ from aqt.browser.table import ItemId
 
 from ._common.disable import enabled
 
-COLUMN_KEY = "alphabeticSortField"
-COLUMN_LABEL = "Sort Field (Alphabetic)"
+__COLUMN_KEY = "alphabeticSortField"
+__COLUMN_LABEL = "Sort Field (Alphabetic)"
 
 
-def _add_browser_column(columns: dict[str, Column]) -> None:
-    columns[COLUMN_KEY] = Column(
-        key=COLUMN_KEY,
-        cards_mode_label=COLUMN_LABEL,
-        notes_mode_label=COLUMN_LABEL,
+def __add_browser_column(columns: dict[str, Column]) -> None:
+    columns[__COLUMN_KEY] = Column(
+        key=__COLUMN_KEY,
+        cards_mode_label=__COLUMN_LABEL,
+        notes_mode_label=__COLUMN_LABEL,
         sorting_cards=BrowserColumns.SORTING_ASCENDING,
         sorting_notes=BrowserColumns.SORTING_ASCENDING,
         uses_cell_font=True,
@@ -28,17 +28,17 @@ def _add_browser_column(columns: dict[str, Column]) -> None:
     )
 
 
-def _on_search(context: SearchContext) -> None:
-    if isinstance(context.order, Column) and context.order.key == COLUMN_KEY:
+def __on_search(context: SearchContext) -> None:
+    if isinstance(context.order, Column) and context.order.key == __COLUMN_KEY:
         sort_col = mw.col.get_browser_column("noteFld")
-        sort_col.notes_mode_label = COLUMN_LABEL
+        sort_col.notes_mode_label = __COLUMN_LABEL
         context.order = sort_col
 
 
-def _on_browser_did_fetch_row(
+def __on_browser_did_fetch_row(
         card_or_note_id: ItemId, is_note: bool, row: CellRow, columns: Sequence[str]) -> None:
     try:
-        idx = columns.index(COLUMN_KEY)
+        idx = columns.index(__COLUMN_KEY)
     except ValueError:
         return
     try:
@@ -63,7 +63,7 @@ def _on_browser_did_fetch_row(
         row.cells[idx].is_rtl = notetype["flds"][sortf]["rtl"]
 
 
-def _unicode_sort(item_id: ItemId) -> str:
+def __unicode_sort(item_id: ItemId) -> str:
     sfld = mw.col.db.scalar("select sfld from notes where id = ?", item_id)
     if not sfld:
         sfld = mw.col.db.scalar(
@@ -76,15 +76,15 @@ def _unicode_sort(item_id: ItemId) -> str:
     return sfld
 
 
-def _on_browser_did_search(context: SearchContext) -> None:
+def __on_browser_did_search(context: SearchContext) -> None:
     if not context.ids:
         return
-    if isinstance(context.order, Column) and context.order.notes_mode_label == COLUMN_LABEL:
-        context.ids = sorted(context.ids, key=lambda item_id: _unicode_sort(item_id))
+    if isinstance(context.order, Column) and context.order.notes_mode_label == __COLUMN_LABEL:
+        context.ids = sorted(context.ids, key=lambda item_id: __unicode_sort(item_id))
 
 
 if enabled():
-    gui_hooks.browser_did_fetch_columns.append(_add_browser_column)
-    gui_hooks.browser_will_search.append(_on_search)
-    gui_hooks.browser_did_fetch_row.append(_on_browser_did_fetch_row)
-    gui_hooks.browser_did_search.append(_on_browser_did_search)
+    gui_hooks.browser_did_fetch_columns.append(__add_browser_column)
+    gui_hooks.browser_will_search.append(__on_search)
+    gui_hooks.browser_did_fetch_row.append(__on_browser_did_fetch_row)
+    gui_hooks.browser_did_search.append(__on_browser_did_search)

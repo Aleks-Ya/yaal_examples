@@ -12,6 +12,7 @@ src_relative_paths=(
   Hook+/GUI+/Browser+/BrowserDidSearch
   Hook+/GUI+/Browser+/BrowserWillSearch
   Hook+/GUI+/Browser+/BrowserWillShow
+  Hook+/GUI+/Browser+/BrowserWillShowContextMenu
   Hook+/GUI+/Collection+/CollectionDidLoad
   Hook+/GUI+/DeckBrowser+/DeckBrowserDidRender
   Hook+/GUI+/DeckBrowser+/DeckBrowserWillRenderContent

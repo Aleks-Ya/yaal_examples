@@ -1,10 +1,18 @@
-# Use Optional
-
+import unittest
 from typing import Optional
 
-notNoneOpt: Optional[int] = 2
-assert notNoneOpt is not None
-assert notNoneOpt * 3 == 6
 
-noneOpt: Optional[int] = None
-assert noneOpt is None
+class TestOptional(unittest.TestCase):
+
+    def test_notNoneOpt(self):
+        not_none_opt: Optional[int] = 2
+        self.assertIsNotNone(not_none_opt)
+        self.assertEqual(not_none_opt * 3, 6)
+
+    def test_noneOpt(self):
+        none_opt: Optional[int] = None
+        self.assertIsNone(none_opt)
+
+
+if __name__ == '__main__':
+    unittest.main()

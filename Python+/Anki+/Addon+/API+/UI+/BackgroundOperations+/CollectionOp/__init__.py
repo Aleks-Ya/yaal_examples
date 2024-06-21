@@ -11,7 +11,7 @@ from ._common.disable import enabled
 from ._common import menu
 
 
-def _my_background_op(col: Collection) -> ResultWithChanges:
+def __my_background_op(col: Collection) -> ResultWithChanges:
     note: Note = mw.col.get_note(NoteId(1699885664723))
     end = 10
     last_progress = time.time()
@@ -41,20 +41,20 @@ def _my_background_op(col: Collection) -> ResultWithChanges:
     return OpChanges(note_text=True)
 
 
-def _on_success(result: ResultWithChanges) -> None:
+def __on_success(result: ResultWithChanges) -> None:
     showInfo(f"Long-running read-write operation succeeded: {result}")
 
 
-def _on_failure(e: Exception) -> None:
+def __on_failure(e: Exception) -> None:
     showInfo(f"Long-running read-write operation failed: {e}")
 
 
-def _my_ui_action():
-    op: CollectionOp[OpChanges] = CollectionOp(parent=mw, op=lambda col: _my_background_op(col))
-    op.success(_on_success)
-    op.failure(_on_failure)
+def __my_ui_action():
+    op: CollectionOp[OpChanges] = CollectionOp(parent=mw, op=lambda col: __my_background_op(col))
+    op.success(__on_success)
+    op.failure(__on_failure)
     op.run_in_background()
 
 
 if enabled():
-    menu.add_mw_menu_item("Start long-running operation (read-write)", _my_ui_action)
+    menu.add_mw_menu_item("Start long-running operation (read-write)", __my_ui_action)
