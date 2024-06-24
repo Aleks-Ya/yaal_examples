@@ -27,6 +27,7 @@ src_relative_paths=(
   Hook+/GUI+/MainWindow+/MainWindowDidInit
   Hook+/GUI+/Profile+/ProfileDidOpen
   Hook+/GUI+/Stats+/StatsDialogWillShow
+  Hook+/GUI+/WebView+/WebviewDidInjectStyleIntoPage
   Hook+/GUI+/WebView+/WebViewDidReceiveJsMessage
   Hook+/GUI+/WebView+/WebviewWillSetContent
   Hook+/PyLib+/field_filter
