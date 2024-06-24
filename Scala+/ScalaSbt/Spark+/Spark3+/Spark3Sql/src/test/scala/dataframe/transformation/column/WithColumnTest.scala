@@ -6,7 +6,7 @@ import org.apache.spark.sql.types.StringType
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class AddColumnTest extends AnyFlatSpec with Matchers {
+class WithColumnTest extends AnyFlatSpec with Matchers {
 
   it should "add a constant column" in {
     val df = Factory.peopleDf

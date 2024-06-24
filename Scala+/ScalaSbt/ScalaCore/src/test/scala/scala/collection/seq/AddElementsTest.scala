@@ -9,21 +9,33 @@ class AddElementsTest extends AnyFlatSpec with Matchers {
     val s1 = Seq(1, 2)
     val s2 = Seq(3, 4)
     val joined = s1 ++ s2
-    joined should contain allOf(1, 2, 3, 4)
+    s1 should contain allOf(1, 2)
+    s2 should contain allOf(3, 4)
+    joined should contain inOrderOnly(1, 2, 3, 4)
   }
 
-  it should "add element to an immutable Seq #1" in {
+  it should "add element to end of an immutable Seq #1" in {
     val s = Seq(1, 2)
     val element = 3
     val joined = s :+ element
-    joined should contain allOf(1, 2, 3)
+    s should contain allOf(1, 2)
+    joined should contain inOrderOnly(1, 2, 3)
   }
 
-  it should "add element to an immutable Seq #2" in {
+  it should "add element to beginning of an immutable Seq" in {
+    val s = Seq(1, 2)
+    val element = 3
+    val joined = element +: s
+    s should contain allOf(1, 2)
+    joined should contain inOrderOnly(3, 1, 2)
+  }
+
+  it should "add element to end of an immutable Seq #2" in {
     val s = Seq(1, 2)
     val element = 3
     val joined = s ++ Seq(element)
-    joined should contain allOf(1, 2, 3)
+    s should contain allOf(1, 2)
+    joined should contain inOrderOnly(1, 2, 3)
   }
 
 }
