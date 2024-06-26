@@ -10,7 +10,7 @@ from ._common.log import get_addon_logger
 log: Logger = get_addon_logger()
 
 
-def __on_action(deck_browser: DeckBrowser, content: DeckBrowserContent):
+def __on_action(deck_browser: DeckBrowser, content: DeckBrowserContent) -> None:
     log.info(f"DeckBrowser: {deck_browser}\n\n")
     log.info(f"DeckBrowserContent tree: {content.tree}\n\n")
     log.info(f"DeckBrowserContent stats: {content.stats}\n\n")

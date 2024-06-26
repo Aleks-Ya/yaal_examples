@@ -7,30 +7,34 @@ src_relative_paths=(
   Collection
   Dependencies+/addon_with_dependency
   Dependencies+/addon_with_dependency_pip
-  Hook+/GUI+/Browser+/BrowserDidFetchColumns
-  Hook+/GUI+/Browser+/BrowserDidFetchRow
-  Hook+/GUI+/Browser+/BrowserDidSearch
-  Hook+/GUI+/Browser+/BrowserWillSearch
-  Hook+/GUI+/Browser+/BrowserWillShow
-  Hook+/GUI+/Browser+/BrowserWillShowContextMenu
-  Hook+/GUI+/Collection+/CollectionDidLoad
-  Hook+/GUI+/DeckBrowser+/DeckBrowserDidRender
-  Hook+/GUI+/DeckBrowser+/DeckBrowserWillRenderContent
-  Hook+/GUI+/Editor+/EditorDidFireTypingTimer
-  Hook+/GUI+/Editor+/EditorDidInit
-  Hook+/GUI+/Editor+/EditorDidInitButtons
-  Hook+/GUI+/Editor+/EditorDidLoadNote
-  Hook+/GUI+/Editor+/EditorDidPaste
-  Hook+/GUI+/Editor+/EditorDidUnfocusField
-  Hook+/GUI+/Editor+/EditorStateDidChange
-  Hook+/GUI+/Editor+/EditorWebViewDidInit
-  Hook+/GUI+/MainWindow+/MainWindowDidInit
-  Hook+/GUI+/Profile+/ProfileDidOpen
-  Hook+/GUI+/Stats+/StatsDialogWillShow
-  Hook+/GUI+/WebView+/WebviewDidInjectStyleIntoPage
-  Hook+/GUI+/WebView+/WebViewDidReceiveJsMessage
-  Hook+/GUI+/WebView+/WebviewWillSetContent
-  Hook+/PyLib+/field_filter
+  Hook+/GenHooks+/FieldFilter
+  Hook+/GenHooks+/NotesWillBeDeleted
+  Hook+/GuiHooks+/Browser+/BrowserDidFetchColumns
+  Hook+/GuiHooks+/Browser+/BrowserDidFetchRow
+  Hook+/GuiHooks+/Browser+/BrowserDidSearch
+  Hook+/GuiHooks+/Browser+/BrowserWillSearch
+  Hook+/GuiHooks+/Browser+/BrowserWillShow
+  Hook+/GuiHooks+/Browser+/BrowserWillShowContextMenu
+  Hook+/GuiHooks+/Collection+/CollectionDidLoad
+  Hook+/GuiHooks+/DeckBrowser+/DeckBrowserDidRender
+  Hook+/GuiHooks+/DeckBrowser+/DeckBrowserWillRenderContent
+  Hook+/GuiHooks+/Editor+/EditorDidFireTypingTimer
+  Hook+/GuiHooks+/Editor+/EditorDidInit
+  Hook+/GuiHooks+/Editor+/EditorDidInitButtons
+  Hook+/GuiHooks+/Editor+/EditorDidLoadNote
+  Hook+/GuiHooks+/Editor+/EditorDidPaste
+  Hook+/GuiHooks+/Editor+/EditorDidUnfocusField
+  Hook+/GuiHooks+/Editor+/EditorStateDidChange
+  Hook+/GuiHooks+/Editor+/EditorWebViewDidInit
+  Hook+/GuiHooks+/MainWindow+/MainWindowDidInit
+  Hook+/GuiHooks+/Profile+/ProfileDidOpen
+  Hook+/GuiHooks+/Stats+/StatsDialogWillShow
+  Hook+/GuiHooks+/Sync+/MediaSyncDidStartOrStop
+  Hook+/GuiHooks+/Sync+/SyncDidFinish
+  Hook+/GuiHooks+/Sync+/SyncWillStart
+  Hook+/GuiHooks+/WebView+/WebviewDidInjectStyleIntoPage
+  Hook+/GuiHooks+/WebView+/WebViewDidReceiveJsMessage
+  Hook+/GuiHooks+/WebView+/WebviewWillSetContent
   Logging+/AddonManager
   Logging+/log_to_file_basic
   Logging+/log_to_file_handler
