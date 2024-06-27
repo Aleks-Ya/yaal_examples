@@ -18,7 +18,7 @@ class FilterTransformation extends AnyFlatSpec with Matchers {
     )
   }
 
-  it should "exclude rows with null in a column" in {
+  it should "filter non null" in {
     val df = Factory.createDf(Map("name" -> StringType, "age" -> IntegerType),
       Row("John", 35), Row("Peter", null), Row("Mary", 20))
 
@@ -43,12 +43,6 @@ class FilterTransformation extends AnyFlatSpec with Matchers {
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}"""
     )
-  }
-
-  it should "filter non null" in {
-    val df = Factory.createDf(Map("name" -> StringType, "age" -> IntegerType), Row("John", 30), Row("Mary", null))
-      .filter(col("age").isNotNull)
-    df.toJSON.collect() should contain only """{"name":"John","age":30}"""
   }
 
   it should "filter by array contains" in {
@@ -90,5 +84,14 @@ class FilterTransformation extends AnyFlatSpec with Matchers {
   it should "filter by a NOT expression (syntax 2)" in {
     val df = Factory.peopleDf.filter(col("gender") === "M" && col("age") =!= 25)
     df.toJSON.collect() should contain only """{"name":"Peter","age":35,"gender":"M"}"""
+  }
+
+  it should "filter by IN condition" in {
+    val names = Seq("John", "Mary")
+    val df = Factory.peopleDf.filter(row => names.contains(row.getAs[String]("name")))
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","age":25,"gender":"M"}""",
+      """{"name":"Mary","age":20,"gender":"F"}"""
+    )
   }
 }

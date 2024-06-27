@@ -8,3 +8,7 @@ Windows 10: `winget install Microsoft.PowerShell`
 Version: `$PSVersionTable.PSVersion`
 Help: `Get-Help`
 Help about a command: `Get-Help Get-Process`
+
+## DNS
+Resolve DNS name to IP address: `Resolve-DnsName -Name www.bing.com`
+Resolve DNS name against specific DNS server: `Resolve-DnsName -Name www.bing.com -Server 10.0.0.1`
