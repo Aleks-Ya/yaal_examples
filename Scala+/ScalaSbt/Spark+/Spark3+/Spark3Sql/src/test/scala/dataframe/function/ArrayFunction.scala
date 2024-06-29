@@ -20,4 +20,17 @@ class ArrayFunction extends AnyFlatSpec with Matchers {
       """{"country1":"Canada","countries":["Canada","Australia"]}"""
     )
   }
+
+  it should "get 1st element of an array" in {
+    val df = Factory.createDf(Map("country1" -> StringType, "country2" -> StringType),
+      Row("USA", "UK"),
+      Row("Canada", "Australia"))
+    val updatedDf = df.select(
+      array("country1", "country2")(0) as "first"
+    )
+    updatedDf.toJSON.collect() should contain inOrderOnly(
+      """{"first":"USA"}""",
+      """{"first":"Canada"}"""
+    )
+  }
 }

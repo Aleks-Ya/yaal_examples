@@ -8,8 +8,6 @@ import scala.util.Try
 class TryFunctionTest extends AnyFlatSpec with Matchers {
 
   it should "try to option (with exception)" in {
-    def throwException = throw new IllegalArgumentException
-
     val option = Try(throwException).toOption
     option shouldBe None
     option.getOrElse("if none") shouldEqual "if none"
@@ -23,17 +21,20 @@ class TryFunctionTest extends AnyFlatSpec with Matchers {
   }
 
   it should "try to either (with exception)" in {
-    def throwException = throw new IllegalArgumentException
-
     val either = Try(throwException).toEither
     either.isLeft shouldBe true
     either.isRight shouldBe false
   }
 
   it should "check was exception of not" in {
-    def throwException = throw new IllegalArgumentException
-
     Try(throwException).isFailure shouldBe true
     Try(throwException).isSuccess shouldBe false
   }
+
+  it should "get or else" in {
+    val result = Try(throwException).getOrElse("abc")
+    result shouldEqual "abc"
+  }
+
+  private def throwException: String = throw new IllegalArgumentException
 }

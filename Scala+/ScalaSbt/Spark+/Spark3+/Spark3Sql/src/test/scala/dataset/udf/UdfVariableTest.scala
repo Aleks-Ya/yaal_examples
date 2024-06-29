@@ -42,7 +42,6 @@ class UdfVariableTest extends AnyFlatSpec with Matchers {
   it should "put sum of an array to new column" in {
     import Factory.ss.implicits._
     val ds = Factory.ss.createDataset(Seq(Array(1, 2, 3), Array(4, 5, 6)))
-    ds.show
     val sum: Seq[Int] => Int = _.sum
     sum(Array(1, 2, 3)) shouldEqual 6
     val sumUdf = udf(sum)
@@ -60,7 +59,6 @@ class UdfVariableTest extends AnyFlatSpec with Matchers {
     val df = Factory.ss
       .createDataset(Seq("a", "b"))
       .withColumn("upper", upperUdf('value))
-    df.show()
     df.toJSON.collect() should contain inOrderOnly(
       """{"value":"a","upper":"A_SUF"}""",
       """{"value":"b","upper":"B_SUF"}"""

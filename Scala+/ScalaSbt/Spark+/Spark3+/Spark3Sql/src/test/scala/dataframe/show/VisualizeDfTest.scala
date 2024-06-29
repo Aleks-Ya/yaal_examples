@@ -9,7 +9,7 @@ import org.scalatest.matchers.should.Matchers
 
 class VisualizeDfTest extends AnyFlatSpec with Matchers {
 
-  "Visualize DF" should "print some info" in {
+  it should "print some info" in {
     val df = Factory.peopleDf
     println("Table names:\n" + Factory.ss.sqlContext.tableNames.toList)
 

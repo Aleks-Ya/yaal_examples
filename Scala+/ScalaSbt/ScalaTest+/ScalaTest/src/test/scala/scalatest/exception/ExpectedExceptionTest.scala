@@ -13,10 +13,10 @@ class ExpectedExceptionTest extends AnyFlatSpec with Matchers {
   }
 
   it should "verify exception's message" in {
-    val caught = intercept[IndexOutOfBoundsException] {
+    val e = intercept[IndexOutOfBoundsException] {
       "hi".charAt(-1)
     }
-    assert(caught.getMessage.indexOf("-1") != -1)
+    e.getMessage shouldEqual "String index out of range: -1"
   }
 
   it should "with clue (a hint)" in {
