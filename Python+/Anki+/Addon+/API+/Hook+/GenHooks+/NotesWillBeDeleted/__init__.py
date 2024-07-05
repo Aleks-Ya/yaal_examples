@@ -1,4 +1,3 @@
-# Add a column into Browser window.
 from logging import Logger
 from typing import Sequence
 

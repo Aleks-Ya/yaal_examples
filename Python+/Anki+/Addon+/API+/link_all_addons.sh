@@ -9,6 +9,9 @@ src_relative_paths=(
   Dependencies+/addon_with_dependency_pip
   Hook+/GenHooks+/FieldFilter
   Hook+/GenHooks+/NotesWillBeDeleted
+  Hook+/GenHooks+/NoteWillBeAdded
+  Hook+/GenHooks+/NoteWillFlush
+  Hook+/GuiHooks+/AddCards+/AddCardsDidAddNote
   Hook+/GuiHooks+/Browser+/BrowserDidFetchColumns
   Hook+/GuiHooks+/Browser+/BrowserDidFetchRow
   Hook+/GuiHooks+/Browser+/BrowserDidSearch

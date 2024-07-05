@@ -1,0 +1,1 @@
+cp ~/_fastwqcfg.json ~/BackupVault/Backup/Anki/fast_word_query/_fastwqcfg_$(date +%F).json

@@ -5,7 +5,7 @@ import unittest
 from aqt import ProfileManager
 
 
-class ProfileManagerTestCase(unittest.TestCase):
+class TestProfileManager(unittest.TestCase):
 
     def test_create_profile(self):
         tmp_dir = tempfile.mkdtemp()

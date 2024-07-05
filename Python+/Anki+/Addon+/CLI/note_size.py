@@ -6,7 +6,7 @@ from anki.collection import Collection
 from anki.notes import Note
 
 
-class NoteSizeTestCase(unittest.TestCase):
+class TestNoteSize(unittest.TestCase):
 
     def test_note_size(self):
         col: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
@@ -22,14 +22,14 @@ class NoteSizeTestCase(unittest.TestCase):
         note['Front'] = front
         note['Back'] = back
         col.addNote(note)
-        act_size: int = NoteSizeTestCase._note_size(note)
+        act_size: int = TestNoteSize._note_size(note)
         exp_size: int = len(front) + len(back) + len(content1) + len(content2) + len(content3)
         self.assertEqual(act_size, exp_size)
         col.close()
 
     @staticmethod
     def _note_size(note: Note) -> int:
-        return NoteSizeTestCase._total_text_size(note) + NoteSizeTestCase._total_file_size(note)
+        return TestNoteSize._total_text_size(note) + TestNoteSize._total_file_size(note)
 
     @staticmethod
     def _total_text_size(note: Note):
@@ -37,7 +37,7 @@ class NoteSizeTestCase(unittest.TestCase):
 
     @staticmethod
     def _total_file_size(note: Note) -> int:
-        relative_names: set[str] = NoteSizeTestCase._all_files_in_note(note)
+        relative_names: set[str] = TestNoteSize._all_files_in_note(note)
         full_names: set[str] = {os.path.join(note.col.media.dir(), filename) for filename in relative_names}
         return sum([os.path.getsize(full_name) for full_name in full_names])
 

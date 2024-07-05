@@ -5,7 +5,7 @@ from anki.collection import Collection
 
 
 # Model == Note Type
-class ModelTestCase(unittest.TestCase):
+class TestModel(unittest.TestCase):
     def setUp(self):
         self.col: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
 

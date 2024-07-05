@@ -8,7 +8,7 @@ from anki.models import NotetypeId
 from anki.notes import Note, NoteId
 
 
-class MediaTestCase(unittest.TestCase):
+class TestMedia(unittest.TestCase):
     def setUp(self):
         self.col: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
 

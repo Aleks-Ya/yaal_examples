@@ -9,7 +9,7 @@ from anki.errors import NotFoundError
 from anki.notes import Note, NoteId
 
 
-class CollectionTestCase(unittest.TestCase):
+class TestCollection(unittest.TestCase):
     def setUp(self):
         self.col: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
 

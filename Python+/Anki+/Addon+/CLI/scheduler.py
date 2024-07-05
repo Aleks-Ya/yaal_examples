@@ -8,7 +8,7 @@ from anki.consts import BUTTON_THREE
 from anki.notes import Note
 
 
-class SchedulerTestCase(unittest.TestCase):
+class TestScheduler(unittest.TestCase):
     def setUp(self):
         self.col: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
 

@@ -4,7 +4,7 @@ import unittest
 from anki.collection import Collection
 
 
-class TranslationsTestCase(unittest.TestCase):
+class TestTranslations(unittest.TestCase):
     def setUp(self):
         self.col: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
 

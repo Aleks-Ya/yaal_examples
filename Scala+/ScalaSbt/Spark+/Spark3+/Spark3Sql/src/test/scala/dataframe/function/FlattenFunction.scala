@@ -59,4 +59,15 @@ class FlattenFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.agg(flatten(collect_list("orders")) as "all_orders")
     updatedDf.toJSON.collect() should contain only """{"all_orders":[10,20,100,200,30,40,300,400]}"""
   }
+
+  it should "fail if flatten is applied to an one-level array" in {
+    val df = Factory.createDf(Map("country" -> StringType, "orders" -> ArrayType(ArrayType(IntegerType))),
+        Row("USA", Seq(10, 20)),
+        Row("Canada", Seq(100, 200)))
+      .select(col("country"), flatten(col("orders")) as "country_orders")
+    val e = intercept[Exception] {
+      df.collect()
+    }
+    e.getMessage should include("java.lang.Integer is not a valid external type for schema of array<int>")
+  }
 }

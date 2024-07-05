@@ -8,7 +8,7 @@ from aqt.addons import AddonManager
 from mock.mock import MagicMock
 
 
-class AddonManagerTestCase(unittest.TestCase):
+class TestAddonManager(unittest.TestCase):
 
     def test_create_addon_manager(self):
         with TemporaryDirectory() as td:

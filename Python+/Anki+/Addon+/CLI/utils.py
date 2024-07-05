@@ -8,7 +8,7 @@ from aqt import utils
 from anki.collection import Collection
 
 
-class UtilsTestCase(unittest.TestCase):
+class TestUtils(unittest.TestCase):
     def setUp(self):
         self.col: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
 
