@@ -36,6 +36,15 @@ class TestConstructHtml(unittest.TestCase):
         exp_fragment: str = '<h1>Variable <code>username</code> is note defined</h1>'
         self.assertEqual(exp_fragment, act_fragment)
 
+    def test_add_title(self):
+        div: Tag = self.soup.new_tag('div', attrs={"title": "Tooltip hint"})
+        div.string = "Text"
+        self.soup.append(div)
+
+        act_fragment: str = str(self.soup)
+        exp_fragment: str = '<div title="Tooltip hint">Text</div>'
+        self.assertEqual(exp_fragment, act_fragment)
+
 
 if __name__ == '__main__':
     unittest.main()

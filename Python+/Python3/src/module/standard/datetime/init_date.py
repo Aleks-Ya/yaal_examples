@@ -1,34 +1,45 @@
-# Creating a date/time instance
+import unittest
 import datetime
 
-time = datetime.time(8, 25, 30)
-print("Time: ", time)
 
-date = datetime.date(2018, 12, 25)
-print("Date: ", date)
+class TestDateTime(unittest.TestCase):
 
-date_time = datetime.datetime(2018, 12, 25, 8, 25, 30)
-print("Datetime: ", date_time)
+    def test_time(self):
+        time = datetime.time(8, 25, 30)
+        self.assertEqual(str(time), '08:25:30')
 
-date_time_millis = datetime.datetime(2018, 12, 25, 8, 25, 30, 500)
-print("Datetime with microseconds: ", date_time_millis)
+    def test_date(self):
+        date = datetime.date(2018, 12, 25)
+        self.assertEqual(str(date), '2018-12-25')
 
-time_delta = datetime.timedelta(seconds=3)
-print("Time delta: ", time_delta)
+    def test_date_time(self):
+        date_time = datetime.datetime(2018, 12, 25, 8, 25, 30)
+        self.assertEqual(str(date_time), '2018-12-25 08:25:30')
 
-empty_time_delta = datetime.timedelta()
-print("Empty time delta: ", empty_time_delta)
+    def test_date_time_millis(self):
+        date_time_millis = datetime.datetime(2018, 12, 25, 8, 25, 30, 500)
+        self.assertEqual(str(date_time_millis), '2018-12-25 08:25:30.000500')
 
-# Today
-today = datetime.date.today()
-print("Today: ", today)
+    def test_time_delta(self):
+        time_delta = datetime.timedelta(seconds=3)
+        self.assertEqual(str(time_delta), '0:00:03')
 
-now_date_time = datetime.datetime.now()
-print(f"now_date_time: {now_date_time}")
+    def test_empty_time_delta(self):
+        empty_time_delta = datetime.timedelta()
+        self.assertEqual(str(empty_time_delta), '0:00:00')
 
-now_utc = datetime.datetime.utcnow()
-print(f"now_utc: {now_utc}")
+    def test_today(self):
+        today = datetime.date.today()
+        self.assertIsNotNone(today)
 
-# Epoch
-now_epoch_seconds = int(datetime.datetime.now().timestamp())
-print(f"now_epoch: {now_epoch_seconds}")
+    def test_now_date_time(self):
+        now_date_time = datetime.datetime.now()
+        self.assertIsNotNone(now_date_time)
+
+    def test_now_utc(self):
+        now_utc = datetime.datetime.utcnow()
+        self.assertIsNotNone(now_utc)
+
+
+if __name__ == '__main__':
+    unittest.main()

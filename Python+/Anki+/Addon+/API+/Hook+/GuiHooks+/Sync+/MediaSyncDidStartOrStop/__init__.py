@@ -10,8 +10,8 @@ log: Logger = get_addon_logger()
 
 
 def __on_event(running: bool) -> None:
-    log.info(f"Sync is running: {running}")
-    showInfo(f"Sync is running: {running}")
+    log.info(f"MediaSyncDidStartOrStop: sync is running: {running}")
+    showInfo(f"MediaSyncDidStartOrStop: sync is running: {running}")
 
 
 if enabled():

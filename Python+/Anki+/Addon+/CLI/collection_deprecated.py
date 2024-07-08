@@ -5,17 +5,13 @@ from typing import Sequence
 
 from anki.collection import Collection
 from anki.cards import Card
-from anki.decks import DeckId
 from anki.errors import NotFoundError
-from anki.models import NotetypeDict
 from anki.notes import Note, NoteId
 
 
-class TestCollection(unittest.TestCase):
+class TestCollectionDeprecated(unittest.TestCase):
     def setUp(self):
         self.col: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
-        self.basic_note_type: NotetypeDict = self.col.models.by_name('Basic')
-        self.deck_id: DeckId = self.col.decks.get_current_id()
 
     def test_create_empty_collection(self):
         _, full_name = tempfile.mkstemp()
@@ -26,23 +22,23 @@ class TestCollection(unittest.TestCase):
         self.assertEqual(col.name(), Path(full_name).name)
 
     def test_create_note(self):
-        note: Note = self.col.new_note(self.basic_note_type)
+        note: Note = self.col.newNote()
         self.col.addNote(note)
         self.assertEqual(note.fields, ['', ''])
 
     def test_add_field_to_note(self):
-        note: Note = self.col.new_note(self.basic_note_type)
+        note: Note = self.col.newNote()
         note['Front'] = 'one'
         note['Back'] = 'two'
-        self.col.add_note(note, self.deck_id)
+        self.col.addNote(note)
         self.assertEqual(note.fields, ['one', 'two'])
         self.assertEqual(note.items(), [('Front', 'one'), ('Back', 'two')])
 
     def test_get_existing_note(self):
-        exp_note: Note = self.col.new_note(self.basic_note_type)
+        exp_note: Note = self.col.newNote()
         exp_note['Front'] = 'one'
         exp_note['Back'] = 'two'
-        self.col.add_note(exp_note, self.deck_id)
+        self.col.addNote(exp_note)
         note_id: NoteId = exp_note.id
         act_note: Note = self.col.get_note(note_id)
         self.assertListEqual(act_note.items(), exp_note.items())
@@ -53,14 +49,14 @@ class TestCollection(unittest.TestCase):
             self.col.get_note(note_id)
 
     def test_card_ids_of_note(self):
-        note: Note = self.col.new_note(self.basic_note_type)
-        self.col.add_note(note, self.deck_id)
+        note: Note = self.col.newNote()
+        self.col.addNote(note)
         card_ids: Sequence[int] = self.col.card_ids_of_note(note.id)
         self.assertEqual(1, len(card_ids))
 
     def test_get_card(self):
-        note: Note = self.col.new_note(self.basic_note_type)
-        self.col.add_note(note, self.deck_id)
+        note: Note = self.col.newNote()
+        self.col.addNote(note)
         card_ids: Sequence[int] = self.col.card_ids_of_note(note.id)
         self.assertEqual(1, len(card_ids))
         card_id: int = card_ids[0]
