@@ -7,16 +7,11 @@ import org.apache.spark.sql.types.{ArrayType, DataTypes, IntegerType, StringType
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-/**
- * Handle ArrayType.
- */
 class ArrayTypeTest extends AnyFlatSpec with Matchers {
 
   it should "create an ArrayType field (with ArrayType constructor)" in {
     val df = Factory.createDf(Map("name" -> StringType, "orders" -> ArrayType(IntegerType)),
       Row("USA", Array(10, 20)), Row("Canada", Array(30, 40)))
-    df.show()
-    df.printSchema()
     df.toJSON.collect() should contain inOrderOnly(
       """{"name":"USA","orders":[10,20]}""",
       """{"name":"Canada","orders":[30,40]}"""
@@ -26,8 +21,6 @@ class ArrayTypeTest extends AnyFlatSpec with Matchers {
   it should "create an ArrayType field (with DataTypes class)" in {
     val df = Factory.createDf(Map("name" -> StringType, "orders" -> DataTypes.createArrayType(IntegerType)),
       Row("USA", Array(10, 20)), Row("Canada", Array(30, 40)))
-    df.show()
-    df.printSchema()
     df.toJSON.collect() should contain inOrderOnly(
       """{"name":"USA","orders":[10,20]}""",
       """{"name":"Canada","orders":[30,40]}"""
