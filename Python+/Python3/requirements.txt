@@ -32,3 +32,6 @@ boto3
 humanize
 bs4
 GitPython
+humanfriendly
+pint
+bitmath

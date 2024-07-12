@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Remove existing events from a button</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const button = document.getElementById("button");
+            button.addEventListener('mouseenter', function () {
+                console.log('Mouse enter 1')
+            });
+            button.addEventListener('mouseout', function () {
+                console.log('Mouse out 1')
+            });
+        });
+
+        function onClick() {
+            const button = document.getElementById("button");
+            const newButton = button.cloneNode(true);
+            button.parentNode.replaceChild(newButton, button);
+            newButton.addEventListener('mouseenter', function () {
+                console.log('Mouse enter 2')
+            });
+            newButton.addEventListener('mouseout', function () {
+                console.log('Mouse out 2')
+            });
+        }
+    </script>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<button id="button" type="button" onclick="onClick()">Click to replace listeners</button>
+</body>
+</html>

@@ -24,4 +24,9 @@ class StringInterpolationTest extends AnyFlatSpec with Matchers {
     text shouldEqual "a\\nb"
   }
 
+  "triple quotes" should "don't escape the special symbols" in {
+    val text = """a\nb"""
+    text shouldEqual "a\\nb"
+  }
+
 }

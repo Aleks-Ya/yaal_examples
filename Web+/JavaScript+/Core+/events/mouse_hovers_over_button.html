@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Events when mouse hovers over a button</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const button = document.getElementById("button");
+            button.addEventListener('mouseover', function () {
+                console.log('Mouse over')
+            });
+            button.addEventListener('mouseenter', function () {
+                console.log('Mouse enter')
+            });
+            button.addEventListener('mousemove', function () {
+                console.log('Mouse move')
+            });
+            button.addEventListener('mouseout', function () {
+                console.log('Mouse out')
+            });
+            button.addEventListener('mouseleave', function () {
+                console.log('Mouse leave')
+            });
+        });
+    </script>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<button id="button" type="button">Point mouse over me</button>
+</body>
+</html>

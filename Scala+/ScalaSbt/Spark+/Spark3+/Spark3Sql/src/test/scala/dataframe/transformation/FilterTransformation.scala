@@ -21,7 +21,6 @@ class FilterTransformation extends AnyFlatSpec with Matchers {
   it should "filter non null" in {
     val df = Factory.createDf(Map("name" -> StringType, "age" -> IntegerType),
       Row("John", 35), Row("Peter", null), Row("Mary", 20))
-
     val filteredDf = df.filter(col("age").isNotNull)
     filteredDf.toJSON.collect() should contain inOrderOnly(
       """{"name":"John","age":35}""",
