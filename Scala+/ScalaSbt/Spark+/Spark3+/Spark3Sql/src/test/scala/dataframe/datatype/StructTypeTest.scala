@@ -56,4 +56,40 @@ class StructTypeTest extends AnyFlatSpec with Matchers {
     )
   }
 
+  it should "modify field in a struct" in {
+    val df = Factory.createDf(Map("name" -> StringType, "details" -> StructType(Seq(
+      StructField("city", StringType),
+      StructField("age", IntegerType),
+    ))),
+      Row("John", Row("London", 30)),
+      Row("Mary", Row("Berlin", 15)))
+    val updatedDf = df.select(
+      col("name"),
+      col("details").withField("age", col("details.age") * 2) as "details"
+    )
+    updatedDf.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","details":{"city":"London","age":60}}""",
+      """{"name":"Mary","details":{"city":"Berlin","age":30}}"""
+    )
+  }
+
+  it should "conditionally modify field in a struct" in {
+    val df = Factory.createDf(Map("name" -> StringType, "details" -> StructType(Seq(
+      StructField("city", StringType),
+      StructField("age", IntegerType),
+    ))),
+      Row("John", Row("London", 30)),
+      Row("Mary", Row("Berlin", 15)))
+    val updatedDf = df.select(
+      col("name"),
+      col("details").withField("age",
+        when(col("details.age") > 18, col("details.age") * 2)
+          .otherwise(col("details.age") * 3))
+        as "details")
+    updatedDf.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","details":{"city":"London","age":60}}""",
+      """{"name":"Mary","details":{"city":"Berlin","age":45}}"""
+    )
+  }
+
 }

@@ -8,6 +8,7 @@ src_relative_paths=(
   Dependencies+/addon_with_dependency
   Dependencies+/addon_with_dependency_pip
   Hook+/GenHooks+/FieldFilter
+  Hook+/GenHooks+/NotesWereUpdated
   Hook+/GenHooks+/NotesWillBeDeleted
   Hook+/GenHooks+/NoteWillBeAdded
   Hook+/GenHooks+/NoteWillFlush

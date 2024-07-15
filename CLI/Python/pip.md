@@ -18,5 +18,6 @@ Show version of an installed package: `pip show Fake`
 Show installed packages folder: `pip show pip` 
 Remove a package: `pip uninstall Faker`
 List all installed packages: `pip list`
+List all versions of a package: `pip index versions env_logger`
 Upgrade package to the last version: `pip install -U pyspark`
 Upgrade PIP: `pip3 install -U pip`
