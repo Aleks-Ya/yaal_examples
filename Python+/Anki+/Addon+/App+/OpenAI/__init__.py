@@ -3,7 +3,7 @@ import os
 import sys
 from pathlib import Path
 
-from PyQt6.QtWidgets import QMenu
+from aqt.qt import QMenu
 from aqt import mw, gui_hooks
 from aqt.browser import Browser
 

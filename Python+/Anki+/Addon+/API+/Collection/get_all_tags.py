@@ -1,9 +1,8 @@
 # Get all tags
 from typing import List
 
-from PyQt6.QtWidgets import QMenu
 from aqt import mw
-from aqt.qt import QAction, qconnect
+from aqt.qt import QAction, qconnect, QMenu
 from aqt.utils import showInfo
 
 

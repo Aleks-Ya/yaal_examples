@@ -7,6 +7,8 @@ src_relative_paths=(
   Collection
   Dependencies+/addon_with_dependency
   Dependencies+/addon_with_dependency_pip
+  GUI+/QtAPI+/NoteSizeConfig
+  GUI+/QtAPI+/QDialogButtonBox
   Hook+/GenHooks+/FieldFilter
   Hook+/GenHooks+/NotesWereUpdated
   Hook+/GenHooks+/NotesWillBeDeleted

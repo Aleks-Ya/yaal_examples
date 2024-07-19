@@ -15,21 +15,21 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.button = QPushButton("Right Click Me")
+        self.button: QPushButton = QPushButton("Right Click Me")
 
-        layout = QVBoxLayout()
+        layout: QVBoxLayout = QVBoxLayout()
         layout.addWidget(self.button)
 
-        central_widget = QWidget()
+        central_widget: QWidget = QWidget()
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
 
-        self.action1 = QAction("Option 1")
+        self.action1: QAction = QAction("Option 1")
         self.action1.triggered.connect(self.option1_action)
-        self.action2 = QAction("Option 2")
+        self.action2: QAction = QAction("Option 2")
         self.action2.triggered.connect(self.option2_action)
 
-        self.context_menu = QMenu(self)
+        self.context_menu: QMenu = QMenu(self)
         self.context_menu.addAction(self.action1)
         self.context_menu.addAction(self.action2)
 
@@ -47,8 +47,8 @@ class MainWindow(QMainWindow):
 
 
 def main():
-    app = QApplication(sys.argv)
-    main_window = MainWindow()
+    app: QApplication = QApplication(sys.argv)
+    main_window: MainWindow = MainWindow()
     main_window.show()
     sys.exit(app.exec())
 

@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtGui import QFontDatabase
 
-app = QApplication([])
+app: QApplication = QApplication([])
 
 family1: str = "FreeMono"
 exists1: bool = family1 in QFontDatabase.families()

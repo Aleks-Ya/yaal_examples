@@ -6,13 +6,12 @@ from csv import DictReader
 from io import StringIO
 from typing import Sequence, List, Callable
 
-from PyQt6.QtWidgets import QWidget
 from anki.collection import OpChanges, OpChangesWithCount, Collection
 from anki.notes import NoteId, Note
 from aqt import mw
 from aqt.browser import Browser
 from aqt.operations import CollectionOp, ResultWithChanges
-from aqt.qt import QAction, qconnect
+from aqt.qt import QAction, qconnect, QWidget
 from aqt.utils import showInfo
 
 from common.config import LanguageAiConfig

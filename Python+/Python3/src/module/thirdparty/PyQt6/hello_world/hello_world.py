@@ -7,14 +7,14 @@ from PyQt6.QtWidgets import QApplication, QLabel, QMainWindow
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        label = QLabel("Hello, World!")
+        label: QLabel = QLabel("Hello, World!")
         label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.setCentralWidget(label)
 
 
 def main():
-    app = QApplication(sys.argv)
-    main_window = MainWindow()
+    app: QApplication = QApplication(sys.argv)
+    main_window: MainWindow = MainWindow()
     main_window.show()
     sys.exit(app.exec())
 

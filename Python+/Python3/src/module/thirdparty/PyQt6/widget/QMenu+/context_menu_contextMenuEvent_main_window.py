@@ -12,13 +12,13 @@ class MainWindow(QMainWindow):
         super().__init__()
 
     def contextMenuEvent(self, event):
-        context_menu = QMenu(self)
+        context_menu: QMenu = QMenu(self)
 
-        option1 = QAction('Option 1', self)
+        option1: QAction = QAction('Option 1', self)
         option1.triggered.connect(self.option1_action)
         context_menu.addAction(option1)
 
-        option2 = QAction('Option 2', self)
+        option2: QAction = QAction('Option 2', self)
         option2.triggered.connect(self.option2_action)
         context_menu.addAction(option2)
 
@@ -32,8 +32,8 @@ class MainWindow(QMainWindow):
 
 
 def main():
-    app = QApplication(sys.argv)
-    main_window = MainWindow()
+    app: QApplication = QApplication(sys.argv)
+    main_window: MainWindow = MainWindow()
     main_window.show()
     sys.exit(app.exec())
 

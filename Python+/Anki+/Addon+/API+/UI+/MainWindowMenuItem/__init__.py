@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QMenu
+from aqt.qt import QMenu
 from aqt import mw
 from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo

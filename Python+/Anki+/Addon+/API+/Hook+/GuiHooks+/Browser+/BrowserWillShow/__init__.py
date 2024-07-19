@@ -1,6 +1,4 @@
-from PyQt6.QtGui import QAction
-from PyQt6.QtWidgets import QMenu
-from aqt import gui_hooks, qconnect
+from aqt import gui_hooks, qconnect, QAction, QMenu
 from aqt.browser import Browser
 from aqt.utils import showInfo
 

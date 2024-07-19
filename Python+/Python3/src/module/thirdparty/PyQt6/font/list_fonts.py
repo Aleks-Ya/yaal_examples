@@ -1,7 +1,7 @@
 from PyQt6.QtGui import QFontDatabase
 from PyQt6.QtWidgets import QApplication
 
-app = QApplication([])
+app: QApplication = QApplication([])
 families: list[str] = QFontDatabase.families()
 
 for family in families:

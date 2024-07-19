@@ -1,11 +1,11 @@
+import os
 from functools import partial
 from pathlib import Path
+from typing import Callable
 
-from PyQt6.QtGui import QAction
-from PyQt6.QtWidgets import QMenu
 from aqt import mw, gui_hooks
 from aqt.browser import Browser
-from aqt.qt import *
+from aqt.qt import QAction, QMenu, QMenuBar, qconnect
 
 
 def add_mw_menu_item(item_name: str, item_action: Callable) -> None:

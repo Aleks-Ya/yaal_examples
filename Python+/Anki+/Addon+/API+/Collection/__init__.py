@@ -1,5 +1,5 @@
 # Add items to "Main window -> Tools"
-from PyQt6.QtWidgets import QMenu
+from aqt.qt import QMenu
 from aqt import mw
 
 from ._common.disable import enabled

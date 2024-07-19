@@ -2,8 +2,7 @@ import os
 import tempfile
 import unittest
 
-from PyQt6.QtCore import QUrl
-from PyQt6.QtGui import QGuiApplication, QDesktopServices
+from aqt.qt import QUrl, QGuiApplication, QDesktopServices
 from aqt import utils
 from anki.collection import Collection
 
@@ -19,7 +18,7 @@ class TestUtils(unittest.TestCase):
     def test_openLink(self):
         _ = QGuiApplication([])  # required
         path = os.path.join(os.getcwd(), "utils.py")
-        QDesktopServices.openUrl(QUrl(path))
+        QDesktopServices.openUrl(QUrl(path))  # TODO fix
         # utils.openLink(path) # requires mw object
 
     def tearDown(self):

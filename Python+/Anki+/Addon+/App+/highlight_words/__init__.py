@@ -3,12 +3,11 @@ import os
 from pathlib import Path
 from typing import Sequence, List, Callable
 
-from PyQt6.QtWidgets import QMenu
 from anki.collection import OpChanges, Collection, OpChangesWithCount
 from anki.notes import NoteId, Note
 from aqt import mw
 from aqt.operations import CollectionOp, ResultWithChanges
-from aqt.qt import QAction, qconnect
+from aqt.qt import QAction, qconnect, QMenu
 from aqt.utils import showInfo
 
 from .highlight import highlight, remove_highlight

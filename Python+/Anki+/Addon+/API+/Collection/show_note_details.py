@@ -1,8 +1,7 @@
 # Show Note details
-from PyQt6.QtWidgets import QMenu
 from anki.notes import NoteId, Note
 from aqt import mw
-from aqt.qt import QAction, qconnect
+from aqt.qt import QAction, qconnect, QMenu
 from aqt.utils import showInfo
 
 
