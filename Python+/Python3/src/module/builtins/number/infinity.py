@@ -18,6 +18,11 @@ class TestInfinity(unittest.TestCase):
         self.assertTrue(plus_infinity_1 > minus_infinity_2)
         self.assertTrue(plus_infinity_3 > minus_infinity_2)
 
+    def test_int_infinity(self):
+        with self.assertRaises(OverflowError):
+            float_infinity: float = float("inf")
+            int(float_infinity)
+
 
 if __name__ == '__main__':
     unittest.main()

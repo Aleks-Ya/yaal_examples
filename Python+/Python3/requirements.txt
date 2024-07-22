@@ -1,6 +1,7 @@
 requests
 psutil
 PyQt6
+pytest
 pytest-qt
 phoenixdb
 lockfile

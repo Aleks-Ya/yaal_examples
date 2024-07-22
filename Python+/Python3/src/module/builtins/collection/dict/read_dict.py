@@ -1,26 +1,33 @@
-# Get existing element by key
-d = dict(one=1, two=2)
-assert d['one'] == 1
-assert d.get('one') == 1
+import unittest
+from typing import Any
 
-# Get absent element by key
-d = dict()
-assert d.get('absent') is None
-try:
-    v = d['absent']
-    raise AssertionError('Should not reach this line')
-except KeyError as ex:
-    assert ex.args[0] == "absent"
 
-# Contains key?
-d = dict(one=1, two=2)
-assert 'one' in d
-assert 'three' not in d
+class TestReadDict(unittest.TestCase):
+    def test_get_existing_key(self):
+        d: dict[str, int] = dict(one=1, two=2)
+        self.assertEqual(d['one'], 1)
+        self.assertEqual(d.get('one'), 1)
 
-# Size
-d = dict(one=1, two=2)
-assert len(d) == 2
+    def test_get_absent_key(self):
+        d: dict[Any, Any] = dict()
+        self.assertIsNone(d.get('absent'))
+        with self.assertRaises(KeyError) as ex:
+            v = d['absent']
+        self.assertEqual(ex.exception.args[0], "absent")
 
-# Nested dict
-d = dict(address=dict(city="London"))
-assert d['address']['city'] == "London"
+    def test_contains_key(self):
+        d: dict[str, int] = dict(one=1, two=2)
+        self.assertIn('one', d)
+        self.assertNotIn('three', d)
+
+    def test_size_key(self):
+        d: dict[str, int] = dict(one=1, two=2)
+        self.assertEqual(len(d), 2)
+
+    def test_nested_dict(self):
+        d: dict[str, dict[str, str]] = dict(address=dict(city="London"))
+        self.assertEqual(d['address']['city'], "London")
+
+
+if __name__ == '__main__':
+    unittest.main()
