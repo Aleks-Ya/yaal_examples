@@ -29,6 +29,16 @@ class TestNumberFormatting(unittest.TestCase):
         f: str = f"{p}%"
         self.assertEqual(f, '76%')
 
+    def test_number_after_dot_1(self):
+        i: float = 123.123456
+        f: str = f"a{i:0.2f}b"
+        self.assertEqual(f, 'a123.12b')
+
+    def test_number_after_dot_2(self):
+        i: float = 123.123456
+        f: str = "a{:.2f}b".format(i)
+        self.assertEqual(f, 'a123.12b')
+
 
 if __name__ == '__main__':
     unittest.main()

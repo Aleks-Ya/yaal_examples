@@ -52,7 +52,10 @@ src_relative_paths=(
   UI+/BackgroundOperations+/QueryOp
   UI+/BrowserDoSearch
   UI+/BrowserSelectedNotes
+  UI+/BrowserUpdate
+  UI+/DeckBrowserRefresh
   UI+/MainWindowMenuItem
+  Utils/ShowInfo
 )
 for src_relative_path in "${src_relative_paths[@]}"; do
   src_full_path=${addons_api_dir}/${src_relative_path}
