@@ -1,14 +1,9 @@
 from PyQt6.QtWidgets import QApplication, QCheckBox
 
-
-def on_state_changed(state: int):
-    print(f"Checkbox state: {state}")
-
-
 app: QApplication = QApplication([])
 
 checkbox: QCheckBox = QCheckBox("Check me!")
-checkbox.stateChanged.connect(on_state_changed)
+checkbox.setTristate(True)
 
 checkbox.show()
 app.exec()

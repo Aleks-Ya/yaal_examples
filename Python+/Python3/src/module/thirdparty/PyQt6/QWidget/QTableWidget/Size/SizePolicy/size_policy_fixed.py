@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QTableWidget, QWidget, QHBoxLayout, QSizePolicy
 
-from src.module.thirdparty.PyQt6.widget.QTableWidget.data import create_table_with_headers
+from src.module.thirdparty.PyQt6.QWidget.QTableWidget.data import create_table_with_headers
 
 app: QApplication = QApplication([])
 
@@ -9,7 +9,7 @@ layout: QHBoxLayout = QHBoxLayout()
 
 table: QTableWidget = create_table_with_headers()
 
-table.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+table.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
 layout.addWidget(table)
 

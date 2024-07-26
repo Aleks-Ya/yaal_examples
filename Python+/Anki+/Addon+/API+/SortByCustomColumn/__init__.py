@@ -63,7 +63,7 @@ def __get_item_id_last_digits(item_id: ItemId) -> int:
     return item_id % 1000
 
 
-if enabled(True):
+if enabled():
     gui_hooks.browser_did_fetch_columns.append(__add_browser_column)
     gui_hooks.browser_will_search.append(__on_search)
     gui_hooks.browser_did_search.append(__on_browser_did_search)

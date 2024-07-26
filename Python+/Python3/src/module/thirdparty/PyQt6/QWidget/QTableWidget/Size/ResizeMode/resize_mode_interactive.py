@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QTableWidget, QWidget, QHBoxLayout, QHeaderView
 
-from src.module.thirdparty.PyQt6.widget.QTableWidget.data import create_table_with_headers
+from src.module.thirdparty.PyQt6.QWidget.QTableWidget.data import create_table_with_headers
 
 app: QApplication = QApplication([])
 
@@ -9,8 +9,8 @@ layout: QHBoxLayout = QHBoxLayout()
 
 table: QTableWidget = create_table_with_headers()
 
-table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Fixed)
-table.verticalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Fixed)
+table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Interactive)
+table.verticalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Interactive)
 
 layout.addWidget(table)
 

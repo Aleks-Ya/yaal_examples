@@ -32,6 +32,7 @@ src_relative_paths=(
   Hook+/GuiHooks+/Editor+/EditorDidUnfocusField
   Hook+/GuiHooks+/Editor+/EditorStateDidChange
   Hook+/GuiHooks+/Editor+/EditorWebViewDidInit
+  Hook+/GuiHooks+/Focus+/FocusDidChange
   Hook+/GuiHooks+/MainWindow+/MainWindowDidInit
   Hook+/GuiHooks+/Profile+/ProfileDidOpen
   Hook+/GuiHooks+/Stats+/StatsDialogWillShow
