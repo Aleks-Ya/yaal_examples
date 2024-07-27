@@ -35,6 +35,7 @@ src_relative_paths=(
   Hook+/GuiHooks+/Focus+/FocusDidChange
   Hook+/GuiHooks+/MainWindow+/MainWindowDidInit
   Hook+/GuiHooks+/Profile+/ProfileDidOpen
+  Hook+/GuiHooks+/Profile+/ProfileWillClose
   Hook+/GuiHooks+/Stats+/StatsDialogWillShow
   Hook+/GuiHooks+/Sync+/MediaSyncDidProgress
   Hook+/GuiHooks+/Sync+/MediaSyncDidStartOrStop
