@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <groupId>ru.yaal.examples.bigdata.spark2</groupId>
-    <artifactId>spark-2-sql-hello-world</artifactId>
+    <artifactId>spark-2-scala-maven</artifactId>
     <version>1</version>
 
     <properties>

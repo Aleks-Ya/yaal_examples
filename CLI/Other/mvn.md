@@ -35,3 +35,6 @@ Generate effective Settings: `mvn help:effective-settings`
 ## Tests
 Compile tests: `mvn test-compile`
 Skip tests: `mvn -DskipTests package`
+
+## Prifles
+Print active profiles: `mvn help:active-profiles`

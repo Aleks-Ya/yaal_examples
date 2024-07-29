@@ -29,4 +29,10 @@ class StringInterpolationTest extends AnyFlatSpec with Matchers {
     text shouldEqual "a\\nb"
   }
 
+  "format method" should "substitute variables" in {
+    "Name: %s, Age: %d".format("John", 30) shouldEqual "Name: John, Age: 30"
+    raw"Name: \%s\, Age: \%d\".format("John", 30) shouldEqual "Name: \\John\\, Age: \\30\\"
+    """Name: \%s\, Age: \%d\""".format("John", 30) shouldEqual "Name: \\John\\, Age: \\30\\"
+  }
+
 }

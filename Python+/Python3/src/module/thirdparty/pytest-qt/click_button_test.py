@@ -10,7 +10,7 @@ def on_button_click():
     clicked = True
 
 
-def test_label_text(qtbot: QtBot):
+def test_click_button(qtbot: QtBot):
     button: QPushButton = QPushButton()
     button.clicked.connect(on_button_click)
     qtbot.addWidget(button)
