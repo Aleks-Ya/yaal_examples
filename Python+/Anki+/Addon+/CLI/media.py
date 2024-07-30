@@ -1,6 +1,8 @@
 import os.path
 import tempfile
+import textwrap
 import unittest
+from pathlib import Path
 
 from anki.collection import Collection
 from anki.media_pb2 import CheckMediaResponse
@@ -13,17 +15,14 @@ class TestMedia(unittest.TestCase):
         self.col: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
 
     def test_add_file(self):
-        tmp_file: str = os.path.join(self.col.media.dir(), 'abc.txt')
+        tmp_file: Path = Path(self.col.media.dir()).joinpath('abc.txt')
         exp_content: str = "abc"
-        with open(tmp_file, 'w') as f:
-            f.write(exp_content)
+        tmp_file.write_text(exp_content)
         filename: str = self.col.media.add_file(tmp_file)
         self.assertTrue(self.col.media.have(filename))
-        full_path: str = os.path.join(self.col.media.dir(), filename)
-        self.assertTrue(os.path.isfile(full_path))
-        with open(full_path, "r") as f:
-            act_content: str = f.read()
-            self.assertEqual(act_content, exp_content)
+        full_path: Path = Path(self.col.media.dir()).joinpath(filename)
+        self.assertTrue(full_path.is_file())
+        self.assertEqual(exp_content, full_path.read_text())
 
     def test_write_data(self):
         exp_content: str = 'content'
@@ -36,9 +35,22 @@ class TestMedia(unittest.TestCase):
         self.assertEqual(act_content, exp_content)
 
     def test_check(self):
+        tmp_file: Path = Path(self.col.media.dir()).joinpath('abc.txt')
+        tmp_file.write_text("abc")
+        filename: str = self.col.media.add_file(tmp_file)
         res: CheckMediaResponse = self.col.media.check()
-        self.assertEqual(len(res.missing), 0)
-        self.assertEqual(len(res.unused), 0)
+        self.assertEqual(0, len(res.missing))
+        self.assertListEqual([filename], list(res.unused))
+        self.assertEqual(0, len(res.missing_media_notes))
+        self.assertFalse(res.have_trash)
+        exp_report: str = textwrap.dedent("""\
+        Missing files: ⁨0⁩
+        Unused files: ⁨1⁩
+        
+        The following files were found in the media folder, but do not appear to be used on any cards:
+        Unused: abc.txt
+        """)
+        self.assertEqual(exp_report, res.report)
 
     def test_attach_file_to_note(self):
         filename1: str = self.col.media.write_data('picture.jpg', b'picture')

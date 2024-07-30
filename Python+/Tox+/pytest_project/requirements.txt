@@ -2,3 +2,4 @@ setuptools
 tox
 pytest-qt
 pytest
+PyQt6

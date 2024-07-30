@@ -167,5 +167,5 @@ def __cache_tab() -> QWidget:
     return tab
 
 
-if enabled(True):
+if enabled():
     menu.add_mw_menu_item("Show config dialog", __show_dialog)

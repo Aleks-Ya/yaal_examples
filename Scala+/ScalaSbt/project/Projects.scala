@@ -15,6 +15,7 @@ object Projects {
   lazy val AkkaQuickstartScala = project in file("Akka+/AkkaQuickstartScala")
 
   lazy val Json4s = project in file("Libs+/JSON+/Json4s")
+  lazy val JsonUnit = project in file("Libs+/JSON+/JsonUnit")
   lazy val SprayJson = project in file("Libs+/JSON+/SprayJson")
   lazy val TypesafeConfig = project in file("Libs+/TypesafeConfig")
   lazy val OkHttpMockWebServer = project in file("Libs+/OkHttpMockWebServer")

@@ -48,7 +48,7 @@ src_relative_paths=(
   Logging+/log_to_file_basic
   Logging+/log_to_file_handler
   Logging+/log_to_stderr
-  Media
+  Media/OpenCheckMediaDialog
   SortByCustomColumn
   UI+/BackgroundOperations+/CollectionOp
   UI+/BackgroundOperations+/QueryOp

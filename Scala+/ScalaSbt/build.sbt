@@ -5,7 +5,7 @@ ThisBuild / version := "1"
 ThisBuild / scalaVersion := "2.12.19"
 
 lazy val root: Project = (project in file(".")).settings(name := "ScalaSbt")
-  .aggregate(ScalaCore, ScalaTest, ScalaMock, ScalaScopt, Json4s, AkkaActorScalaExamples, AkkaQuickstartScala,
+  .aggregate(ScalaCore, ScalaTest, ScalaMock, ScalaScopt, Json4s, JsonUnit, AkkaActorScalaExamples, AkkaQuickstartScala,
     Http4s, Http4sJdkHttpClient, UtilSrc)
 
 lazy val UtilSrc = Projects.UtilSrc
@@ -22,6 +22,7 @@ lazy val AkkaActorScalaExamples = Projects.AkkaActorScalaExamples
 lazy val AkkaQuickstartScala = Projects.AkkaQuickstartScala
 
 lazy val Json4s = Projects.Json4s
+lazy val JsonUnit = Projects.JsonUnit
 lazy val SprayJson = Projects.SprayJson
 lazy val TypesafeConfig = Projects.TypesafeConfig
 lazy val OkHttpMockWebServer = Projects.OkHttpMockWebServer

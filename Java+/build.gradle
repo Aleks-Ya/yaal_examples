@@ -31,7 +31,7 @@ subprojects {
         jacksonVersion = '2.15.3'
         jacksonDataBindDep = "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         jacksonDatatypeJsr310Dep = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
-        jsonUnitVersion = '3.2.2'
+        jsonUnitVersion = '3.4.1'
         jsonUnitDep = "net.javacrumbs.json-unit:json-unit:$jsonUnitVersion"
         jsonUnitAssertJDep = "net.javacrumbs.json-unit:json-unit-assertj:$jsonUnitVersion"
         mockitoVersion = '5.10.0'

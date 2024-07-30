@@ -33,7 +33,7 @@ object Dependencies {
   val http4sDslDep = "org.http4s" %% "http4s-dsl" % http4sVersion
   val httpJdkHttpClientDep = "org.http4s" %% "http4s-jdk-http-client" % "0.9.1"
 
-  val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "3.2.7" % Test
+  val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "3.4.1" % Test
 
   private val spark3Version = "3.5.1"
   val spark3CoreDep = "org.apache.spark" %% "spark-core" % spark3Version
