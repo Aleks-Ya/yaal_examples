@@ -1,4 +1,13 @@
+import unittest
 from pathlib import Path
 
-user_home_dir: Path = Path.home()
-print(f"User home dir: {user_home_dir}")
+
+class TestGetUserHomeDir(unittest.TestCase):
+
+    def test_user_home_dir(self):
+        user_home_dir: Path = Path.home()
+        self.assertIsNotNone(user_home_dir)
+
+
+if __name__ == '__main__':
+    unittest.main()

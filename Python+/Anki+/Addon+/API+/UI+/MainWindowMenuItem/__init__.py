@@ -14,6 +14,10 @@ def __child_message():
     showInfo('You clicked "Child Item"')
 
 
+def __third_message():
+    showInfo('You clicked "Third Item"')
+
+
 def __hotkey_message():
     showInfo('You clicked "Menu item with hotkey"')
 
@@ -30,6 +34,15 @@ if enabled():
     child_action: QAction = QAction("Child Item", mw)
     qconnect(child_action.triggered, __child_message)
     parent_menu.addAction(child_action)
+
+    # Double-nested menu item
+    menu1: QMenu = QMenu("Top Item", mw)
+    mw.form.menuTools.addMenu(menu1)
+    menu2: QMenu = QMenu("Middle Item", mw)
+    menu1.addMenu(menu2)
+    action3: QAction = QAction("Third Item", mw)
+    qconnect(action3.triggered, __third_message)
+    menu2.addAction(action3)
 
     # Hotkey (&)
     action2: QAction = QAction("Menu item with &hotkey", mw)

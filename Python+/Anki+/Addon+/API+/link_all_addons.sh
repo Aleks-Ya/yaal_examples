@@ -51,7 +51,12 @@ src_relative_paths=(
   Media/OpenCheckMediaDialog
   SortByCustomColumn
   UI+/BackgroundOperations+/CollectionOp
-  UI+/BackgroundOperations+/QueryOp
+  UI+/BackgroundOperations+/ProgressManager+/ProgressManager
+  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/FailureCallback
+  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/FailurePopup
+  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/NoProgress
+  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/WithoutCollection
+  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgress
   UI+/BrowserDoSearch
   UI+/BrowserSelectedNotes
   UI+/BrowserUpdate

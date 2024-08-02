@@ -35,9 +35,7 @@ class TestMedia(unittest.TestCase):
         self.assertEqual(act_content, exp_content)
 
     def test_check(self):
-        tmp_file: Path = Path(self.col.media.dir()).joinpath('abc.txt')
-        tmp_file.write_text("abc")
-        filename: str = self.col.media.add_file(tmp_file)
+        filename: str = self.col.media.write_data('abc.txt', b"abc")
         res: CheckMediaResponse = self.col.media.check()
         self.assertEqual(0, len(res.missing))
         self.assertListEqual([filename], list(res.unused))

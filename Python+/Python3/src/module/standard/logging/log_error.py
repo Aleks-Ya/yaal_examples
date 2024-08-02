@@ -9,3 +9,8 @@ try:
     raise ArithmeticError('Still hate math')
 except ArithmeticError:
     logging.exception("Message for Still hate math")
+
+try:
+    raise ArithmeticError('Still hate math')
+except ArithmeticError:
+    logging.warning("My warning", exc_info=True)
