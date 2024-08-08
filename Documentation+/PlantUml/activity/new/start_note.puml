@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+note right
+    User click the link
+end note
+:Send request;
+:New page;
+stop
+
+@enduml

@@ -2,8 +2,8 @@ package dataframe.transformation
 
 import factory.Factory
 import org.apache.spark.sql.Row
-import org.apache.spark.sql.functions.{avg, collect_list, max, min}
-import org.apache.spark.sql.types.{IntegerType, StringType}
+import org.apache.spark.sql.functions.{avg, col, collect_list, max, min, sort_array}
+import org.apache.spark.sql.types.{ArrayType, IntegerType, StringType}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -42,6 +42,32 @@ class GroupByTransformation extends AnyFlatSpec with Matchers {
       """{"gender":"M","age":25,"names":["Mark"]}""",
       """{"gender":"M","age":30,"names":["John","Chad"]}""",
       """{"gender":"F","age":30,"names":["Mary"]}"""
+    )
+  }
+
+  it should "group by an array column" in {
+    val df = Factory.createDf(Map("person" -> StringType, "countries" -> ArrayType(StringType)),
+      Row("John", Seq("USA", "Germany", "UK")),
+      Row("Mary", Seq("Belgium", "Canada", "Australia")),
+      Row("Mark", Seq("USA", "Germany", "UK")),
+      Row("Chad", Seq("Germany", "USA", "UK"))
+    )
+
+    val unsortedArrayDf = df.groupBy("countries").agg(
+      collect_list("person").as("persons")
+    )
+    unsortedArrayDf.toJSON.collect() should contain inOrderOnly(
+      """{"countries":["USA","Germany","UK"],"persons":["John","Mark"]}""",
+      """{"countries":["Belgium","Canada","Australia"],"persons":["Mary"]}""",
+      """{"countries":["Germany","USA","UK"],"persons":["Chad"]}"""
+    )
+
+    val sortedArrayDf = df.groupBy(sort_array(col("countries")).as("countries")).agg(
+      collect_list("person").as("persons")
+    )
+    sortedArrayDf.toJSON.collect() should contain inOrderOnly(
+      """{"countries":["Germany","UK","USA"],"persons":["John","Mark","Chad"]}""",
+      """{"countries":["Australia","Belgium","Canada"],"persons":["Mary"]}"""
     )
   }
 }

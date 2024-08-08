@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+@startuml
+split
+   -[hidden]->
+   :A;
+split again
+   -[hidden]->
+   :B;
+split again
+   -[hidden]->
+   :C;
+end split
+:D;
+@enduml

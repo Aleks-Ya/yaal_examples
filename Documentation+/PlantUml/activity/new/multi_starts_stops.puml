@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:Send request;
+:New page;
+stop
+
+start
+:Upload image;
+:Read answer;
+stop
+
+@enduml
