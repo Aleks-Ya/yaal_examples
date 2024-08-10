@@ -1,66 +1,73 @@
-# Create strings
-import textwrap
+import unittest
 
-# single quotes
-a = 'a'
 
-# escape in single quotes
-escape = 'a\'b'
-assert escape == "a'b"
+class TestCreateString(unittest.TestCase):
 
-# double quotes
-b = "ab"
+    def test_single_quotes(self):
+        a = 'a'
+        self.assertEqual(a, 'a')
 
-# escape in double quotes
-escape = "a\"b"
-assert escape == 'a"b'
+    def test_escape_in_single_quotes(self):
+        escape = 'a\'b'
+        self.assertEqual(escape, "a'b")
 
-# escape in raw strings
-escape = r'a row \n \" string'
-assert escape == 'a row \\n \\" string'
+    def test_double_quotes(self):
+        b = "ab"
+        self.assertEqual(b, 'ab')
 
-# multi line strings
-m = """
+    def test_escape_in_double_quotes(self):
+        escape = "a\"b"
+        self.assertEqual(escape, 'a"b')
+
+    def test_escape_in_raw_strings(self):
+        escape = r'a row \n \" string'
+        self.assertEqual(escape, 'a row \\n \\" string')
+
+    def test_multi_line_strings(self):
+        m = """
 a
 b
 """
-assert m == '\na\nb\n'
+        self.assertEqual(m, '\na\nb\n')
 
+    def test_multi_line_strings_without_indent(self):
+        import textwrap
+        def get_string():
+            return textwrap.dedent("""
+                                a
+                                b
+                                """)
 
-# multi line strings without indent
-def get_string():
-    return textwrap.dedent("""
-                            a
-                            b
-                            """)
+        self.assertEqual(get_string(), '\na\nb\n')
 
-
-assert get_string() == '\na\nb\n'
-
-# ?
-m = '''
+    def test_alternate_multi_line_strings(self):
+        m = '''
 a
 b
 '''
-assert m == '\na\nb\n'
+        self.assertEqual(m, '\na\nb\n')
 
-# skip the 1st \n in a multi line string
-m = """\
+    def test_skip_first_newline_in_multi_line_string(self):
+        m = """\
 a
 b
 """
-assert m == 'a\nb\n'
+        self.assertEqual(m, 'a\nb\n')
 
-m = '''\
+        m = '''\
 a
 b
 '''
-assert m == 'a\nb\n'
+        self.assertEqual(m, 'a\nb\n')
 
-# auto concatenation
-c = 'a' "b"
-assert c == 'ab'
+    def test_auto_concatenation(self):
+        c = 'a' "b"
+        self.assertEqual(c, 'ab')
 
-text = ('Put several strings within parentheses '
-        'to have them joined together.')
-assert text == 'Put several strings within parentheses to have them joined together.'
+        text = ('Put several strings within parentheses '
+                'to have them joined together.')
+        self.assertEqual(text, 'Put several strings within parentheses to have them joined together.')
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -63,6 +63,7 @@ src_relative_paths=(
   UI+/BrowserUpdate
   UI+/DeckBrowserRefresh
   UI+/MainWindowMenuItem
+  Utils/ShowException
   Utils/ShowInfo
 )
 for src_relative_path in "${src_relative_paths[@]}"; do
