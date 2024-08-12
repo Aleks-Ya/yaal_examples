@@ -6,6 +6,7 @@ from argparse import Namespace
 
 from anki.collection import Collection
 from aqt import AnkiQt, AnkiApp, ProfileManager
+from aqt.browser import Browser
 
 tmp_dir = tempfile.mkdtemp()
 os.removedirs(tmp_dir)
@@ -32,6 +33,7 @@ namespace = Namespace(
 )
 app.startingUp()
 mw = AnkiQt(app, pm, col.backend, namespace, sys.argv)
-# browser = Browser(mw=mw)
-# browser.close()
+browser = Browser(mw=mw)
+browser.form.tableView.showColumn()
+browser.close()
 mw.close()

@@ -66,4 +66,25 @@ class CsvRead extends AnyFlatSpec with Matchers {
     )
   }
 
+  it should "read CSV from a Dataset" in {
+    val csvPath = classOf[CsvRead].getResource("data.csv").getFile
+    val textDs = Factory.ss.read.textFile(csvPath)
+    val csvDf = Factory.ss.read.option("header", "true").option("inferSchema", "true").csv(textDs)
+    csvDf.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","age":35,"married":false}""",
+      """{"name":"Mary","age":25,"married":true}"""
+    )
+  }
+
+  it should "skip first rows from CSV file" in {
+    val csvPath = classOf[CsvRead].getResource("skip_lines.csv").getFile
+    val textDs = Factory.ss.read.textFile(csvPath)
+    val cleanDs = textDs.offset(2)
+    val csvDf = Factory.ss.read.option("header", "true").option("inferSchema", "true").csv(cleanDs)
+    csvDf.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","age":35,"married":false}""",
+      """{"name":"Mary","age":25,"married":true}"""
+    )
+  }
+
 }
