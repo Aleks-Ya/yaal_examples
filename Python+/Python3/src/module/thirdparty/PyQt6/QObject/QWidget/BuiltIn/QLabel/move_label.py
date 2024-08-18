@@ -1,22 +1,13 @@
-import sys
-
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget
 
+app: QApplication = QApplication([])
+window: QWidget = QWidget()
+window.setGeometry(200, 100, 400, 300)
 
-class MainWindow(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.initialize_ui()
+label: QLabel = QLabel(window)
+label.setText('Hello, PyQt6!')
+label.move(50, 50)
 
-    def initialize_ui(self):
-        self.setGeometry(200, 100, 400, 300)
-        label: QLabel = QLabel(self)
-        label.setText('Hello, PyQt6!')
-        label.move(50, 50)
-        self.show()
+window.show()
 
-
-if __name__ == '__main__':
-    app: QApplication = QApplication(sys.argv)
-    window: MainWindow = MainWindow()
-    sys.exit(app.exec())
+app.exec()

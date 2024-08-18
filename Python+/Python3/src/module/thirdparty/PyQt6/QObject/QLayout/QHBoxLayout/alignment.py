@@ -16,12 +16,14 @@ text3.setPlainText('Line 1')
 text3.setFixedSize(100, 100)
 
 layout: QHBoxLayout = QHBoxLayout()
+layout.setAlignment(Qt.AlignmentFlag.AlignRight)
 layout.addWidget(text1, alignment=Qt.AlignmentFlag.AlignBottom)
 layout.addWidget(text2, alignment=Qt.AlignmentFlag.AlignBottom)
 layout.addWidget(text3, alignment=Qt.AlignmentFlag.AlignTop)
 
 window: QWidget = QWidget()
 window.setLayout(layout)
+window.setFixedSize(600, 300)
 window.show()
 
 app.exec()

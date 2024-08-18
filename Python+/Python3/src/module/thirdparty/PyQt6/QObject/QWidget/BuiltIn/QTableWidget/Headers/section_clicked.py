@@ -4,9 +4,13 @@ from src.module.thirdparty.PyQt6.QObject.QWidget.BuiltIn.QTableWidget.data impor
 
 app: QApplication = QApplication([])
 
+
+def on_event(index: int) -> None:
+    print(f"Clicked header: {index}")
+
+
 table: QTableWidget = create_table_with_headers()
-table.resizeRowsToContents()
-table.resizeColumnsToContents()
+table.horizontalHeader().sectionClicked.connect(on_event)
 table.show()
 
 app.exec()
