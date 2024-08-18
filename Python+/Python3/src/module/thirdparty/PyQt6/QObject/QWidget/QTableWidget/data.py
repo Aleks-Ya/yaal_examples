@@ -7,11 +7,11 @@ def create_table_with_headers():
 
     table.setItem(0, 0, QTableWidgetItem("John"))
     table.setItem(0, 1, QTableWidgetItem("40"))
-    table.setItem(0, 2, QTableWidgetItem("London"))
+    table.setItem(0, 2, QTableWidgetItem("London Madrid Rome Amsterdam Vienna Stockholm Oslo"))
 
     table.setItem(1, 0, QTableWidgetItem("Mary"))
     table.setItem(1, 1, QTableWidgetItem("30"))
-    table.setItem(1, 2, QTableWidgetItem("Berlin"))
+    table.setItem(1, 2, QTableWidgetItem("Berlin\nBrussels\nPrague"))
 
     table.setItem(2, 0, QTableWidgetItem("Mark"))
     table.setItem(2, 1, QTableWidgetItem("20"))
