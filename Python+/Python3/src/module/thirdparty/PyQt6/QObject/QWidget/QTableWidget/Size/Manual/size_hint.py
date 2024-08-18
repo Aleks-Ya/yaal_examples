@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QTableWidget, QWidget, QHBoxLayout
 
-from src.module.thirdparty.PyQt6.QObject.QWidget.BuiltIn.QTableWidget.data import create_table_with_headers
+from src.module.thirdparty.PyQt6.QObject.QWidget.QTableWidget.data import create_table_with_headers
 
 app: QApplication = QApplication([])
 
