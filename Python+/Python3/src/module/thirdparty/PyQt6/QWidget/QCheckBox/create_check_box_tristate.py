@@ -4,6 +4,6 @@ app: QApplication = QApplication([])
 
 checkbox: QCheckBox = QCheckBox("Check me!")
 checkbox.setTristate(True)
-
 checkbox.show()
+
 app.exec()

@@ -30,19 +30,19 @@ class TitledSpinBoxLayout(QHBoxLayout):
 
 app: QApplication = QApplication([])
 
-window: QWidget = QWidget()
-hbox: QVBoxLayout = QVBoxLayout()
-
 age: TitledSpinBoxLayout = TitledSpinBoxLayout('Enter your age:', 18, 65, 30)
 percent: TitledSpinBoxLayout = TitledSpinBoxLayout('Your percent:', 0, 100, 50)
 anything: TitledSpinBoxLayout = TitledSpinBoxLayout('Anything:')
 disabled: TitledSpinBoxLayout = TitledSpinBoxLayout('Disabled:')
 disabled.set_enabled(False)
 
+hbox: QVBoxLayout = QVBoxLayout()
 hbox.addLayout(age)
 hbox.addLayout(percent)
 hbox.addLayout(anything)
 hbox.addLayout(disabled)
+
+window: QWidget = QWidget()
 window.setLayout(hbox)
 window.show()
 

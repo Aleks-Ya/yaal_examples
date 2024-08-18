@@ -17,7 +17,6 @@ group_box: GroupVBox = GroupVBox('Group VBox options')
 group_box.add_widget(checkbox1)
 group_box.add_widget(checkbox2)
 group_box.add_layout(button_layout)
-
 group_box.show()
 
 app.exec()

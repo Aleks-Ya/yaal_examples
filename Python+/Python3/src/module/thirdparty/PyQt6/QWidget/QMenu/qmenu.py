@@ -12,20 +12,20 @@ class MainWindow(QMainWindow):
         label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.setCentralWidget(label)
 
-        menubar = self.menuBar()
-
-        file_menu: QMenu = QMenu('File', self)
-        menubar.addMenu(file_menu)
-
         message_action: QAction = QAction('Show message', self)
         message_action.setShortcut(QKeySequence('Ctrl+M'))
         message_action.triggered.connect(self.show_message)
-        file_menu.addAction(message_action)
 
         exit_action: QAction = QAction('Exit', self)
         exit_action.setShortcut(QKeySequence('Ctrl+Q'))
         exit_action.triggered.connect(self.close)
+
+        file_menu: QMenu = QMenu('File', self)
+        file_menu.addAction(message_action)
         file_menu.addAction(exit_action)
+
+        menubar = self.menuBar()
+        menubar.addMenu(file_menu)
 
     def show_message(self):
         QMessageBox.information(self, 'Message', 'This is a message box')

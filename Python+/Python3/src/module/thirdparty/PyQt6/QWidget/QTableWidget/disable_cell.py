@@ -13,4 +13,5 @@ table.setItem(0, 1, item)
 table.setItem(0, 2, QTableWidgetItem("Enabled Cell"))
 
 table.show()
+
 app.exec()

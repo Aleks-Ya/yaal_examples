@@ -12,13 +12,13 @@ def show_color_dialog():
 
 app: QApplication = QApplication([])
 
-window: QWidget = QWidget()
-layout: QVBoxLayout = QVBoxLayout()
-
 button: QPushButton = QPushButton('Choose Color')
 button.clicked.connect(show_color_dialog)
+
+layout: QVBoxLayout = QVBoxLayout()
 layout.addWidget(button)
 
+window: QWidget = QWidget()
 window.setLayout(layout)
 window.show()
 

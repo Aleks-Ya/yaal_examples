@@ -2,10 +2,10 @@ from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout
 
 
 def create_widget() -> QWidget:
-    widget: QWidget = QWidget()
-    layout: QVBoxLayout = QVBoxLayout()
     label: QLabel = QLabel('Hello, World!')
+    layout: QVBoxLayout = QVBoxLayout()
     layout.addWidget(label)
+    widget: QWidget = QWidget()
     widget.setLayout(layout)
     widget.show()
     return widget

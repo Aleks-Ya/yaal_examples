@@ -15,6 +15,6 @@ app: QApplication = QApplication([])
 checkbox: QCheckBox = QCheckBox("Check me!")
 checkbox.setTristate(True)
 checkbox.stateChanged.connect(on_state_changed)
-
 checkbox.show()
+
 app.exec()

@@ -21,9 +21,10 @@ class TitledComboBoxLayout(QHBoxLayout):
 
 app: QApplication = QApplication([])
 
-window: QWidget = QWidget()
 animals: list[str] = ["Cat", "Dog", "Rabbit"]
 layout: TitledComboBoxLayout = TitledComboBoxLayout('Choose animal:', animals)
+
+window: QWidget = QWidget()
 window.setLayout(layout)
 window.show()
 

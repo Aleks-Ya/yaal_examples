@@ -9,6 +9,6 @@ app: QApplication = QApplication([])
 
 button: QPushButton = QPushButton('Click Me')
 button.clicked.connect(on_button_click)
-
 button.show()
+
 app.exec()

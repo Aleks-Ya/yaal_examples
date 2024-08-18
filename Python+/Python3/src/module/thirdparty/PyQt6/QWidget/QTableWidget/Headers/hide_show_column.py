@@ -1,7 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QTableWidget, QWidget, QPushButton, QVBoxLayout
 
 app: QApplication = QApplication([])
-window: QWidget = QWidget()
 
 
 def __hide_column() -> None:
@@ -28,8 +27,9 @@ layout.addWidget(table)
 layout.addWidget(add_button)
 layout.addWidget(remove_button)
 
+window: QWidget = QWidget()
 window.setLayout(layout)
 window.setMinimumWidth(500)
-
 window.show()
+
 app.exec()

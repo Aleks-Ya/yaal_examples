@@ -3,11 +3,6 @@ from PyQt6.QtWidgets import QApplication, QCheckBox, QWidget, QVBoxLayout, QGrou
 
 app: QApplication = QApplication([])
 
-window: QWidget = QWidget()
-layout: QVBoxLayout = QVBoxLayout()
-
-group_box: QGroupBox = QGroupBox("Options")
-
 group_checkbox: QCheckBox = QCheckBox("Enable/Disable GroupBox")
 group_checkbox.stateChanged.connect(lambda state: group_box.setEnabled(state == 2))
 group_checkbox.setCheckState(Qt.CheckState.Checked)
@@ -21,10 +16,14 @@ group_layout.addWidget(checkbox1)
 group_layout.addWidget(checkbox2)
 group_layout.addWidget(checkbox3)
 
+group_box: QGroupBox = QGroupBox("Options")
 group_box.setLayout(group_layout)
+
+layout: QVBoxLayout = QVBoxLayout()
 layout.addWidget(group_checkbox)
 layout.addWidget(group_box)
 
+window: QWidget = QWidget()
 window.setLayout(layout)
 window.show()
 

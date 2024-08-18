@@ -19,4 +19,5 @@ table.setItem(2, 1, QTableWidgetItem("20"))
 table.setItem(2, 2, QTableWidgetItem("Paris"))
 
 table.show()
+
 app.exec()

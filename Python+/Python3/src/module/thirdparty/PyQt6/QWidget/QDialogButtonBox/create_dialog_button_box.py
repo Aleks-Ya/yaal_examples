@@ -23,6 +23,6 @@ button_box.accepted.connect(accept)
 button_box.rejected.connect(reject)
 restore_defaults_button: QPushButton = button_box.button(QDialogButtonBox.StandardButton.RestoreDefaults)
 restore_defaults_button.clicked.connect(restore_defaults)
-
 button_box.show()
+
 app.exec()

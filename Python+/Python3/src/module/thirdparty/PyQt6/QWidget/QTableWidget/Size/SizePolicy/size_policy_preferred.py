@@ -4,18 +4,16 @@ from src.module.thirdparty.PyQt6.QWidget.QTableWidget.data import create_table_w
 
 app: QApplication = QApplication([])
 
-window: QWidget = QWidget()
-layout: QHBoxLayout = QHBoxLayout()
-
 table: QTableWidget = create_table_with_headers()
-
 table.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
 
+layout: QHBoxLayout = QHBoxLayout()
 layout.addWidget(table)
 
+window: QWidget = QWidget()
 window.setLayout(layout)
 window.setFixedWidth(500)
 window.setFixedHeight(500)
-
 window.show()
+
 app.exec()

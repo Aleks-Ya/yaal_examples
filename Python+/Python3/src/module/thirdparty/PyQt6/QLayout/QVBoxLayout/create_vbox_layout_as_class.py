@@ -11,8 +11,10 @@ class LayoutWithButtons(QVBoxLayout):
 
 
 app: QApplication = QApplication([])
-window: QWidget = QWidget()
+
 layout: LayoutWithButtons = LayoutWithButtons()
+
+window: QWidget = QWidget()
 window.setLayout(layout)
 window.show()
 

@@ -19,6 +19,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(300, 300, 400, 300)
         new_action: QAction = QAction('New', self)
         open_action: QAction = QAction('Open', self)
+
         file_menu: QMenu = self.menuBar().addMenu('File')
         file_menu.addAction(new_action)
         file_menu.addAction(open_action)
