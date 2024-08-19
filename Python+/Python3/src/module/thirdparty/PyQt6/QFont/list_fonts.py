@@ -1,14 +1,15 @@
 from PyQt6.QtGui import QFontDatabase
-from PyQt6.QtWidgets import QApplication
 
-app: QApplication = QApplication([])
-families: list[str] = QFontDatabase.families()
+from src.module.thirdparty.PyQt6 import app
 
-for family in families:
-    print(family)
+with app():
+    families: list[str] = QFontDatabase.families()
 
-print(f"\nTotal families number: {len(families)}\n")
+    for family in families:
+        print(family)
 
-styles: list[str] = QFontDatabase.styles("FreeMono")
-for style in styles:
-    print(f"Style: {style}")
+    print(f"\nTotal families number: {len(families)}\n")
+
+    styles: list[str] = QFontDatabase.styles("FreeMono")
+    for style in styles:
+        print(f"Style: {style}")

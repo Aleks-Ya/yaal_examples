@@ -1,16 +1,14 @@
-from PyQt6.QtWidgets import QApplication, QTableWidget
+from PyQt6.QtWidgets import QTableWidget
 
 from src.module.thirdparty.PyQt6.QObject.QWidget.QTableWidget.data import create_table_with_headers
-
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
 
 def on_event(index: int) -> None:
     print(f"Double clicked section handle: {index}")
 
 
-table: QTableWidget = create_table_with_headers()
-table.horizontalHeader().sectionHandleDoubleClicked.connect(on_event)
-table.show()
-
-app.exec()
+with app():
+    table: QTableWidget = create_table_with_headers()
+    table.horizontalHeader().sectionHandleDoubleClicked.connect(on_event)
+    table.show()

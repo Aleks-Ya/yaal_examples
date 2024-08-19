@@ -1,11 +1,10 @@
-from PyQt6.QtWidgets import QApplication, QMessageBox
+from PyQt6.QtWidgets import QMessageBox
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-message_box: QMessageBox = QMessageBox()
-message_box.setWindowTitle("Important message")
-message_box.setText("It was good!")
-message_box.setIcon(QMessageBox.Icon.Warning)
-message_box.show()
-
-app.exec()
+with app():
+    message_box: QMessageBox = QMessageBox()
+    message_box.setWindowTitle("Important message")
+    message_box.setText("It was good!")
+    message_box.setIcon(QMessageBox.Icon.Warning)
+    message_box.show()

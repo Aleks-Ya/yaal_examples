@@ -1,4 +1,6 @@
-from PyQt6.QtWidgets import QApplication, QTableWidget, QTableWidgetItem
+from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem
+
+from src.module.thirdparty.PyQt6 import app
 
 
 class MyTableWidget(QTableWidget):
@@ -9,7 +11,6 @@ class MyTableWidget(QTableWidget):
         self.setItem(0, 2, QTableWidgetItem("Item 3"))
 
 
-app: QApplication = QApplication([])
-table: MyTableWidget = MyTableWidget()
-table.show()
-app.exec()
+with app():
+    table: MyTableWidget = MyTableWidget()
+    table.show()

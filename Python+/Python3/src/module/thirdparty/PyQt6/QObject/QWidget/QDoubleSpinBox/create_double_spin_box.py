@@ -1,13 +1,12 @@
-from PyQt6.QtWidgets import QApplication, QDoubleSpinBox
+from PyQt6.QtWidgets import QDoubleSpinBox
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-spin_box: QDoubleSpinBox = QDoubleSpinBox()
-spin_box.setPrefix("$")
-spin_box.setDecimals(4)
-spin_box.setMinimum(1.5)
-spin_box.setMaximum(7.6)
-spin_box.setSingleStep(0.01)
-spin_box.show()
-
-app.exec()
+with app():
+    spin_box: QDoubleSpinBox = QDoubleSpinBox()
+    spin_box.setPrefix("$")
+    spin_box.setDecimals(4)
+    spin_box.setMinimum(1.5)
+    spin_box.setMaximum(7.6)
+    spin_box.setSingleStep(0.01)
+    spin_box.show()

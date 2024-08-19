@@ -1,21 +1,18 @@
 from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QApplication, QPushButton, QWidget, QVBoxLayout
+from PyQt6.QtWidgets import QPushButton, QVBoxLayout
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import window
 
-icon: QIcon = QIcon('info.png')
+with window() as window:
+    icon: QIcon = QIcon('info.png')
 
-button: QPushButton = QPushButton()
-button.setIcon(icon)
-button.setIconSize(button.sizeHint())
-button.setFixedSize(icon.actualSize(button.iconSize()))
+    button: QPushButton = QPushButton()
+    button.setIcon(icon)
+    button.setIconSize(button.sizeHint())
+    button.setFixedSize(icon.actualSize(button.iconSize()))
 
-layout: QVBoxLayout = QVBoxLayout()
-layout.addWidget(button)
+    layout: QVBoxLayout = QVBoxLayout()
+    layout.addWidget(button)
 
-window: QWidget = QWidget()
-window.setLayout(layout)
-window.resize(400, 300)
-window.show()
-
-app.exec()
+    window.setLayout(layout)
+    window.resize(400, 300)

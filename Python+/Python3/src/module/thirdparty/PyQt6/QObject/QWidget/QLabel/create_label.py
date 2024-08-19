@@ -1,8 +1,7 @@
-from PyQt6.QtWidgets import QApplication, QLabel
+from PyQt6.QtWidgets import QLabel
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-label: QLabel = QLabel('Hello, PyQt6!')
-label.show()
-
-app.exec()
+with app():
+    label: QLabel = QLabel('Hello, PyQt6!')
+    label.show()

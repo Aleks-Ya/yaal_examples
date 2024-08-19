@@ -1,11 +1,10 @@
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QLabel
+from PyQt6.QtWidgets import QLabel
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-label: QLabel = QLabel()
-label.setFixedSize(400, 300)
-label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-label.show()
-
-app.exec()
+with app():
+    label: QLabel = QLabel('Hello, PyQt6!')
+    label.setFixedSize(400, 300)
+    label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+    label.show()

@@ -1,9 +1,8 @@
-from PyQt6.QtWidgets import QApplication, QLineEdit
+from PyQt6.QtWidgets import QLineEdit
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-line_edit: QLineEdit = QLineEdit('Clear me')
-line_edit.setClearButtonEnabled(True)
-line_edit.show()
-
-app.exec()
+with app():
+    line_edit: QLineEdit = QLineEdit('Clear me')
+    line_edit.setClearButtonEnabled(True)
+    line_edit.show()

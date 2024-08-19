@@ -1,10 +1,9 @@
-from PyQt6.QtWidgets import QApplication, QComboBox
+from PyQt6.QtWidgets import QComboBox
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-combo_box: QComboBox = QComboBox()
-combo_box.addItems(["Choose animal", "Cat", "Dog", "Rabbit"])
-combo_box.model().item(0).setEnabled(False)
-combo_box.show()
-
-app.exec()
+with app():
+    combo_box: QComboBox = QComboBox()
+    combo_box.addItems(["Choose animal", "Cat", "Dog", "Rabbit"])
+    combo_box.model().item(0).setEnabled(False)
+    combo_box.show()

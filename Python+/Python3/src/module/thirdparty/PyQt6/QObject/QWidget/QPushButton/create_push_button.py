@@ -1,8 +1,7 @@
-from PyQt6.QtWidgets import QApplication, QPushButton
+from PyQt6.QtWidgets import QPushButton
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-button: QPushButton = QPushButton('Click Me')
-button.show()
-
-app.exec()
+with app():
+    button: QPushButton = QPushButton('Click Me')
+    button.show()

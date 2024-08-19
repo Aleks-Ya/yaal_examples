@@ -1,7 +1,9 @@
 from typing import Optional
 
 from PyQt6.QtGui import QColor
-from PyQt6.QtWidgets import QApplication, QPushButton, QColorDialog, QWidget, QVBoxLayout
+from PyQt6.QtWidgets import QPushButton, QColorDialog, QVBoxLayout
+
+from src.module.thirdparty.PyQt6 import window
 
 
 def show_color_dialog():
@@ -10,16 +12,11 @@ def show_color_dialog():
         window.setStyleSheet(f'QWidget {{ background-color: {color.name()} }}')
 
 
-app: QApplication = QApplication([])
+with window() as window:
+    button: QPushButton = QPushButton('Choose Color')
+    button.clicked.connect(show_color_dialog)
 
-button: QPushButton = QPushButton('Choose Color')
-button.clicked.connect(show_color_dialog)
+    layout: QVBoxLayout = QVBoxLayout()
+    layout.addWidget(button)
 
-layout: QVBoxLayout = QVBoxLayout()
-layout.addWidget(button)
-
-window: QWidget = QWidget()
-window.setLayout(layout)
-window.show()
-
-app.exec()
+    window.setLayout(layout)

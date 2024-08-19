@@ -1,5 +1,6 @@
-from PyQt6.QtWidgets import QApplication, QMessageBox
+from PyQt6.QtWidgets import QMessageBox
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-QMessageBox.information(None, "My message title", "My message text")
+with app():
+    QMessageBox.information(None, "My message title", "My message text")

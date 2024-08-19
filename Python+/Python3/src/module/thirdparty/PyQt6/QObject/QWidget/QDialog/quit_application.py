@@ -1,10 +1,9 @@
-from PyQt6.QtWidgets import QApplication, QDialog
+from PyQt6.QtWidgets import QDialog
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-dialog: QDialog = QDialog()
-dialog.setWindowTitle("Close application dialog")
-dialog.finished.connect(app.quit)
-dialog.show()
-
-app.exec()
+with app():
+    dialog: QDialog = QDialog()
+    dialog.setWindowTitle("Close application dialog")
+    dialog.finished.connect(app.quit)
+    dialog.show()

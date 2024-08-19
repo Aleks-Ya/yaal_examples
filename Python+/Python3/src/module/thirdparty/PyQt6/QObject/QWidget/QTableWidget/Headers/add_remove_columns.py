@@ -1,6 +1,6 @@
-from PyQt6.QtWidgets import QApplication, QTableWidget, QWidget, QPushButton, QVBoxLayout, QMessageBox
+from PyQt6.QtWidgets import QTableWidget, QPushButton, QVBoxLayout, QMessageBox
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import window
 
 
 def __add_column() -> None:
@@ -20,25 +20,22 @@ def __remove_column() -> None:
         QMessageBox.warning(None, "Removing columns", "No column is selected")
 
 
-table: QTableWidget = QTableWidget(0, 3)
-table.setHorizontalHeaderLabels(["Column 1", "Column 2", "Column 3"])
-table.insertRow(table.rowCount())
-table.insertRow(table.rowCount())
+with window() as window:
+    table: QTableWidget = QTableWidget(0, 3)
+    table.setHorizontalHeaderLabels(["Column 1", "Column 2", "Column 3"])
+    table.insertRow(table.rowCount())
+    table.insertRow(table.rowCount())
 
-add_button: QPushButton = QPushButton("Add Column")
-add_button.clicked.connect(__add_column)
+    add_button: QPushButton = QPushButton("Add Column")
+    add_button.clicked.connect(__add_column)
 
-remove_button: QPushButton = QPushButton("Remove Column")
-remove_button.clicked.connect(__remove_column)
+    remove_button: QPushButton = QPushButton("Remove Column")
+    remove_button.clicked.connect(__remove_column)
 
-layout: QVBoxLayout = QVBoxLayout()
-layout.addWidget(table)
-layout.addWidget(add_button)
-layout.addWidget(remove_button)
+    layout: QVBoxLayout = QVBoxLayout()
+    layout.addWidget(table)
+    layout.addWidget(add_button)
+    layout.addWidget(remove_button)
 
-window: QWidget = QWidget()
-window.setLayout(layout)
-window.setMinimumWidth(500)
-window.show()
-
-app.exec()
+    window.setLayout(layout)
+    window.setMinimumWidth(500)

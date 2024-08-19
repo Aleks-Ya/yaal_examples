@@ -1,4 +1,6 @@
-from PyQt6.QtWidgets import QApplication, QTableWidget, QTableWidgetItem, QWidget, QVBoxLayout
+from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem, QWidget, QVBoxLayout
+
+from src.module.thirdparty.PyQt6 import app
 
 
 class MyTableWidget(QWidget):
@@ -13,7 +15,6 @@ class MyTableWidget(QWidget):
         self.setLayout(self.__layout)
 
 
-app: QApplication = QApplication([])
-table: MyTableWidget = MyTableWidget()
-table.show()
-app.exec()
+with app():
+    table: MyTableWidget = MyTableWidget()
+    table.show()

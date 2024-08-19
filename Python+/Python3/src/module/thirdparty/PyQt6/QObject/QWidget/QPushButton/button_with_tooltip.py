@@ -1,15 +1,12 @@
-from PyQt6.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QPushButton, QVBoxLayout
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import window
 
-button: QPushButton = QPushButton('Hover over me')
-button.setToolTip("Good boy")
+with window() as window:
+    button: QPushButton = QPushButton('Hover over me')
+    button.setToolTip("Good boy")
 
-layout: QVBoxLayout = QVBoxLayout()
-layout.addWidget(button)
+    layout: QVBoxLayout = QVBoxLayout()
+    layout.addWidget(button)
 
-window: QWidget = QWidget()
-window.setLayout(layout)
-window.show()
-
-app.exec()
+    window.setLayout(layout)

@@ -1,7 +1,7 @@
 from typing import Optional
 
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QSpinBox, QHBoxLayout, QLabel, QWidget, QVBoxLayout
+from PyQt6.QtWidgets import QSpinBox, QHBoxLayout, QLabel, QVBoxLayout
 
 
 class TitledSpinBoxLayout(QHBoxLayout):
@@ -28,22 +28,19 @@ class TitledSpinBoxLayout(QHBoxLayout):
         self.spin_box.setEnabled(enabled)
 
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import window
 
-age: TitledSpinBoxLayout = TitledSpinBoxLayout('Enter your age:', 18, 65, 30)
-percent: TitledSpinBoxLayout = TitledSpinBoxLayout('Your percent:', 0, 100, 50)
-anything: TitledSpinBoxLayout = TitledSpinBoxLayout('Anything:')
-disabled: TitledSpinBoxLayout = TitledSpinBoxLayout('Disabled:')
-disabled.set_enabled(False)
+with window() as window:
+    age: TitledSpinBoxLayout = TitledSpinBoxLayout('Enter your age:', 18, 65, 30)
+    percent: TitledSpinBoxLayout = TitledSpinBoxLayout('Your percent:', 0, 100, 50)
+    anything: TitledSpinBoxLayout = TitledSpinBoxLayout('Anything:')
+    disabled: TitledSpinBoxLayout = TitledSpinBoxLayout('Disabled:')
+    disabled.set_enabled(False)
 
-hbox: QVBoxLayout = QVBoxLayout()
-hbox.addLayout(age)
-hbox.addLayout(percent)
-hbox.addLayout(anything)
-hbox.addLayout(disabled)
+    hbox: QVBoxLayout = QVBoxLayout()
+    hbox.addLayout(age)
+    hbox.addLayout(percent)
+    hbox.addLayout(anything)
+    hbox.addLayout(disabled)
 
-window: QWidget = QWidget()
-window.setLayout(hbox)
-window.show()
-
-app.exec()
+    window.setLayout(hbox)

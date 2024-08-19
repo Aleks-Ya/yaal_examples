@@ -1,14 +1,13 @@
-from PyQt6.QtWidgets import QApplication, QPushButton
+from PyQt6.QtWidgets import QPushButton
 
 
 def on_button_click():
     print("Button clicked!")
 
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-button: QPushButton = QPushButton('Click Me')
-button.clicked.connect(on_button_click)
-button.show()
-
-app.exec()
+with app():
+    button: QPushButton = QPushButton('Click Me')
+    button.clicked.connect(on_button_click)
+    button.show()

@@ -1,9 +1,8 @@
-from PyQt6.QtWidgets import QApplication, QPushButton
+from PyQt6.QtWidgets import QPushButton
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-button: QPushButton = QPushButton('Button without border')
-button.setStyleSheet("border: none;")
-button.show()
-
-app.exec()
+with app():
+    button: QPushButton = QPushButton('Button without border')
+    button.setStyleSheet("border: none;")
+    button.show()

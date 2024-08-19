@@ -1,9 +1,8 @@
-from PyQt6.QtWidgets import QApplication, QSpinBox
+from PyQt6.QtWidgets import QSpinBox
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-spin_box: QSpinBox = QSpinBox()
-spin_box.setValue(50)
-spin_box.show()
-
-app.exec()
+with app():
+    spin_box: QSpinBox = QSpinBox()
+    spin_box.setValue(50)
+    spin_box.show()

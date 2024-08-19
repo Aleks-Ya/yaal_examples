@@ -1,8 +1,7 @@
-from PyQt6.QtWidgets import QApplication, QRadioButton
+from PyQt6.QtWidgets import QRadioButton
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-checkbox: QRadioButton = QRadioButton("Check me!")
-checkbox.show()
-
-app.exec()
+with app():
+    checkbox: QRadioButton = QRadioButton("Check me!")
+    checkbox.show()

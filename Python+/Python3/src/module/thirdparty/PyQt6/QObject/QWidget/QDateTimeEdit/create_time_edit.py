@@ -1,11 +1,10 @@
 from PyQt6.QtCore import QDateTime
-from PyQt6.QtWidgets import QApplication, QDateTimeEdit
+from PyQt6.QtWidgets import QDateTimeEdit
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-time_edit: QDateTimeEdit = QDateTimeEdit()
-time_edit.setDateTime(QDateTime.currentDateTime())
-time_edit.setDisplayFormat("yyyy-MM-dd hh:mm:ss")
-time_edit.show()
-
-app.exec()
+with app():
+    time_edit: QDateTimeEdit = QDateTimeEdit()
+    time_edit.setDateTime(QDateTime.currentDateTime())
+    time_edit.setDisplayFormat("yyyy-MM-dd hh:mm:ss")
+    time_edit.show()

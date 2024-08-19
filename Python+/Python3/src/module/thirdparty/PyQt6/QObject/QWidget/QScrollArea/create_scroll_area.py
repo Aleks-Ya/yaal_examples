@@ -1,11 +1,9 @@
-from PyQt6.QtWidgets import QApplication, QLabel, QScrollArea
+from PyQt6.QtWidgets import QLabel, QScrollArea
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-label: QLabel = QLabel('abc ' * 100)
-
-scroll_area: QScrollArea = QScrollArea()
-scroll_area.setWidget(label)
-scroll_area.show()
-
-app.exec()
+with app():
+    label: QLabel = QLabel('abc ' * 100)
+    scroll_area: QScrollArea = QScrollArea()
+    scroll_area.setWidget(label)
+    scroll_area.show()

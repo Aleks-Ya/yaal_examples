@@ -1,16 +1,13 @@
-from PyQt6.QtWidgets import QApplication, QPushButton, QWidget, QHBoxLayout
+from PyQt6.QtWidgets import QPushButton, QHBoxLayout
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import window
 
-button: QPushButton = QPushButton('Click Me')
-button.setFixedWidth(button.sizeHint().width())
+with window() as window:
+    button: QPushButton = QPushButton('Click Me')
+    button.setFixedWidth(button.sizeHint().width())
 
-layout: QHBoxLayout = QHBoxLayout()
-layout.addWidget(button)
+    layout: QHBoxLayout = QHBoxLayout()
+    layout.addWidget(button)
 
-window: QWidget = QWidget()
-window.setLayout(layout)
-window.setFixedWidth(1000)
-window.show()
-
-app.exec()
+    window.setLayout(layout)
+    window.setFixedWidth(1000)

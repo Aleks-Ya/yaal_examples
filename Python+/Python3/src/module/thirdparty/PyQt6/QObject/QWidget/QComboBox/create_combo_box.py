@@ -1,10 +1,9 @@
-from PyQt6.QtWidgets import QApplication, QComboBox
+from PyQt6.QtWidgets import QComboBox
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-combo_box: QComboBox = QComboBox()
-combo_box.addItem("Option 1")
-combo_box.addItems(["Option 2", "Option 3"])
-combo_box.show()
-
-app.exec()
+with app():
+    combo_box: QComboBox = QComboBox()
+    combo_box.addItem("Option 1")
+    combo_box.addItems(["Option 2", "Option 3"])
+    combo_box.show()

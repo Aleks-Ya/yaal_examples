@@ -1,24 +1,20 @@
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QTableWidget, QWidget, QHBoxLayout
+from PyQt6.QtWidgets import QTableWidget, QHBoxLayout
 
 from src.module.thirdparty.PyQt6.QObject.QWidget.QTableWidget.data import create_table_with_headers
+from src.module.thirdparty.PyQt6 import window
 
-app: QApplication = QApplication([])
+with window() as window:
+    table: QTableWidget = create_table_with_headers()
+    table.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+    table.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
 
-table: QTableWidget = create_table_with_headers()
-table.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-table.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+    table_width: int = table.verticalHeader().width() + table.horizontalHeader().length()
+    table_height: int = table.horizontalHeader().height() + table.verticalHeader().length()
+    table.setFixedSize(table_width, table_height)
 
-table_width: int = table.verticalHeader().width() + table.horizontalHeader().length()
-table_height: int = table.horizontalHeader().height() + table.verticalHeader().length()
-table.setFixedSize(table_width, table_height)
+    layout: QHBoxLayout = QHBoxLayout()
+    layout.addWidget(table)
 
-layout: QHBoxLayout = QHBoxLayout()
-layout.addWidget(table)
-
-window: QWidget = QWidget()
-window.setLayout(layout)
-window.adjustSize()
-
-window.show()
-app.exec()
+    window.setLayout(layout)
+    window.adjustSize()

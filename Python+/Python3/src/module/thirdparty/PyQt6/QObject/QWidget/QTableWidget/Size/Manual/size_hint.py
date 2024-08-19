@@ -1,18 +1,14 @@
-from PyQt6.QtWidgets import QApplication, QTableWidget, QWidget, QHBoxLayout
+from PyQt6.QtWidgets import QTableWidget, QHBoxLayout
 
 from src.module.thirdparty.PyQt6.QObject.QWidget.QTableWidget.data import create_table_with_headers
+from src.module.thirdparty.PyQt6 import window
 
-app: QApplication = QApplication([])
+with window() as window:
+    table: QTableWidget = create_table_with_headers()
+    table.setMinimumSize(table.sizeHint())
 
-table: QTableWidget = create_table_with_headers()
-table.setMinimumSize(table.sizeHint())
+    layout: QHBoxLayout = QHBoxLayout()
+    layout.addWidget(table)
 
-layout: QHBoxLayout = QHBoxLayout()
-layout.addWidget(table)
-
-window: QWidget = QWidget()
-window.setLayout(layout)
-window.adjustSize()
-
-window.show()
-app.exec()
+    window.setLayout(layout)
+    window.adjustSize()

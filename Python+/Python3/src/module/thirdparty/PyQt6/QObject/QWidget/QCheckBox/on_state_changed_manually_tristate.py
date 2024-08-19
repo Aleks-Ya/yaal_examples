@@ -1,5 +1,7 @@
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QCheckBox
+from PyQt6.QtWidgets import QCheckBox
+
+from src.module.thirdparty.PyQt6 import app
 
 
 def on_state_changed(state: int):
@@ -10,11 +12,8 @@ def on_state_changed(state: int):
           f"Is unchecked: {is_unchecked}")
 
 
-app: QApplication = QApplication([])
-
-checkbox: QCheckBox = QCheckBox("Check me!")
-checkbox.setTristate(True)
-checkbox.stateChanged.connect(on_state_changed)
-checkbox.show()
-
-app.exec()
+with app():
+    checkbox: QCheckBox = QCheckBox("Check me!")
+    checkbox.setTristate(True)
+    checkbox.stateChanged.connect(on_state_changed)
+    checkbox.show()

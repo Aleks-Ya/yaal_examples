@@ -1,19 +1,18 @@
 from typing import Callable, Any
 
-from PyQt6.QtWidgets import QApplication, QComboBox
+from PyQt6.QtWidgets import QComboBox
+
+from src.module.thirdparty.PyQt6 import app
 
 
 def on_combobox_changed(index):
     print(f"Selected index: {index}")
 
 
-app: QApplication = QApplication([])
+with app():
+    changed: Callable[[Any], None] = on_combobox_changed
 
-changed: Callable[[Any], None] = on_combobox_changed
-
-combo_box: QComboBox = QComboBox()
-combo_box.addItems(["Option 1", "Option 2", "Option 3"])
-combo_box.currentIndexChanged.connect(changed)
-combo_box.show()
-
-app.exec()
+    combo_box: QComboBox = QComboBox()
+    combo_box.addItems(["Option 1", "Option 2", "Option 3"])
+    combo_box.currentIndexChanged.connect(changed)
+    combo_box.show()

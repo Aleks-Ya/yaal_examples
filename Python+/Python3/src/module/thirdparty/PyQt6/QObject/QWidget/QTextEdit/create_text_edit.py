@@ -1,8 +1,7 @@
-from PyQt6.QtWidgets import QApplication, QTextEdit
+from PyQt6.QtWidgets import QTextEdit
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-text_edit: QTextEdit = QTextEdit()
-text_edit.show()
-
-app.exec()
+with app():
+    text_edit: QTextEdit = QTextEdit()
+    text_edit.show()

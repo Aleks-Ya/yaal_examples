@@ -1,7 +1,9 @@
 from typing import Optional
 
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QApplication, QComboBox, QHBoxLayout, QLabel, QWidget
+from PyQt6.QtWidgets import QComboBox, QHBoxLayout, QLabel
+
+from src.module.thirdparty.PyQt6 import window
 
 
 class TitledComboBoxLayout(QHBoxLayout):
@@ -19,13 +21,7 @@ class TitledComboBoxLayout(QHBoxLayout):
         self.combo_box.setCurrentText(current_text)
 
 
-app: QApplication = QApplication([])
-
-animals: list[str] = ["Cat", "Dog", "Rabbit"]
-layout: TitledComboBoxLayout = TitledComboBoxLayout('Choose animal:', animals)
-
-window: QWidget = QWidget()
-window.setLayout(layout)
-window.show()
-
-app.exec()
+with window() as window:
+    animals: list[str] = ["Cat", "Dog", "Rabbit"]
+    layout: TitledComboBoxLayout = TitledComboBoxLayout('Choose animal:', animals)
+    window.setLayout(layout)

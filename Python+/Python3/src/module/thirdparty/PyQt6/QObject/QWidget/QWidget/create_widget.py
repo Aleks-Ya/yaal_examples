@@ -1,8 +1,7 @@
-from PyQt6.QtWidgets import QApplication, QWidget
+from PyQt6.QtWidgets import QWidget
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-widget: QWidget = QWidget()
-widget.show()
-
-app.exec()
+with app():
+    widget: QWidget = QWidget()
+    widget.show()

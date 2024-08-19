@@ -1,8 +1,7 @@
-from PyQt6.QtWidgets import QApplication, QCheckBox
+from PyQt6.QtWidgets import QCheckBox
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-checkbox: QCheckBox = QCheckBox("Check me!")
-checkbox.show()
-
-app.exec()
+with app():
+    checkbox: QCheckBox = QCheckBox("Check me!")
+    checkbox.show()

@@ -1,14 +1,13 @@
-from PyQt6.QtWidgets import QApplication, QCheckBox
+from PyQt6.QtWidgets import QCheckBox
+
+from src.module.thirdparty.PyQt6 import app
 
 
 def on_state_changed(state: int):
     print(f"Checkbox state: {state}, Is checked: {checkbox.isChecked()}")
 
 
-app: QApplication = QApplication([])
-
-checkbox: QCheckBox = QCheckBox("Check me!")
-checkbox.stateChanged.connect(on_state_changed)
-checkbox.show()
-
-app.exec()
+with app():
+    checkbox: QCheckBox = QCheckBox("Check me!")
+    checkbox.stateChanged.connect(on_state_changed)
+    checkbox.show()

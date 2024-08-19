@@ -1,21 +1,21 @@
-from PyQt6.QtWidgets import QApplication, QDialog, QVBoxLayout, QLabel, QPushButton
+from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-dialog: QDialog = QDialog()
-dialog.setWindowTitle("Create Dialog")
+with app():
+    dialog: QDialog = QDialog()
+    dialog.setWindowTitle("Create Dialog")
 
-label: QLabel = QLabel("This is a dialog")
+    label: QLabel = QLabel("This is a dialog")
 
-button: QPushButton = QPushButton("Close")
-button.clicked.connect(dialog.close)
+    button: QPushButton = QPushButton("Close")
+    button.clicked.connect(dialog.close)
 
-layout: QVBoxLayout = QVBoxLayout()
-layout.addWidget(label)
-layout.addWidget(button)
+    layout: QVBoxLayout = QVBoxLayout()
+    layout.addWidget(label)
+    layout.addWidget(button)
 
-dialog.setLayout(layout)
-dialog.finished.connect(app.quit)
+    dialog.setLayout(layout)
+    dialog.finished.connect(app.quit)
 
-dialog.show()
-app.exec()
+    dialog.show()
