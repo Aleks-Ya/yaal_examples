@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton
+from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QApplication
 
 from src.module.thirdparty.PyQt6 import app
 
@@ -16,6 +16,6 @@ with app():
     layout.addWidget(button)
 
     dialog.setLayout(layout)
-    dialog.finished.connect(app.quit)
+    dialog.finished.connect(QApplication.quit)
 
     dialog.show()

@@ -1,16 +1,13 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton
+from PyQt6.QtWidgets import QVBoxLayout, QPushButton
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import window
 
-button1: QPushButton = QPushButton('Button 1')
-button2: QPushButton = QPushButton('Button 2')
+with window() as window:
+    button1: QPushButton = QPushButton('Button 1')
+    button2: QPushButton = QPushButton('Button 2')
 
-layout: QVBoxLayout = QVBoxLayout()
-layout.addWidget(button1)
-layout.addWidget(button2)
+    layout: QVBoxLayout = QVBoxLayout()
+    layout.addWidget(button1)
+    layout.addWidget(button2)
 
-window: QWidget = QWidget()
-window.setLayout(layout)
-window.show()
-
-app.exec()
+    window.setLayout(layout)

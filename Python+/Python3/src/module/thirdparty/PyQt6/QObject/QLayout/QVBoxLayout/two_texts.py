@@ -1,19 +1,16 @@
 # Window contains two text editors: one can resize only vertically
-from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QTextEdit, QSizePolicy
+from PyQt6.QtWidgets import QVBoxLayout, QTextEdit, QSizePolicy
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import window
 
-text_edit_small: QTextEdit = QTextEdit()
-text_edit_small.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+with window() as window:
+    text_edit_small: QTextEdit = QTextEdit()
+    text_edit_small.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
 
-text_edit_large: QTextEdit = QTextEdit()
+    text_edit_large: QTextEdit = QTextEdit()
 
-layout: QVBoxLayout = QVBoxLayout()
-layout.addWidget(text_edit_small)
-layout.addWidget(text_edit_large)
+    layout: QVBoxLayout = QVBoxLayout()
+    layout.addWidget(text_edit_small)
+    layout.addWidget(text_edit_large)
 
-window: QWidget = QWidget()
-window.setLayout(layout)
-window.show()
-
-app.exec()
+    window.setLayout(layout)

@@ -6,8 +6,12 @@ from src.module.thirdparty.PyQt6 import window
 
 with window() as window:
     table: QTableWidget = create_table_with_headers()
+
     table.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
     table.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+
+    table.resizeColumnsToContents()
+    table.resizeRowsToContents()
 
     table_width: int = table.verticalHeader().width() + table.horizontalHeader().length()
     table_height: int = table.horizontalHeader().height() + table.verticalHeader().length()

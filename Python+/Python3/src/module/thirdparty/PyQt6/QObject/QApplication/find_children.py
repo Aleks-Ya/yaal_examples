@@ -1,13 +1,13 @@
 from PyQt6.QtCore import QObject
 from PyQt6.QtWidgets import QApplication, QPushButton
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-button: QPushButton = QPushButton('Quit application')
-button.clicked.connect(app.quit)
+with app():
+    button: QPushButton = QPushButton('Quit application')
+    button.clicked.connect(QApplication.quit)
 
-children: list[QObject] = app.children()
-print(children)
+    children: list[QObject] = QApplication.instance().children()
+    print(children)
 
-button.show()
-app.exec()
+    button.show()

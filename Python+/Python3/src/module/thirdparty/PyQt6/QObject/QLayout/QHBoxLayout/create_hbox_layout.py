@@ -1,18 +1,15 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QHBoxLayout
+from PyQt6.QtWidgets import QPushButton, QHBoxLayout
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import window
 
-button1: QPushButton = QPushButton('Button 1')
-button2: QPushButton = QPushButton('Button 2')
-assert button1.parent() is None
+with window() as window:
+    button1: QPushButton = QPushButton('Button 1')
+    button2: QPushButton = QPushButton('Button 2')
+    assert button1.parent() is None
 
-layout: QHBoxLayout = QHBoxLayout()
-layout.addWidget(button1)
-layout.addWidget(button2)
+    layout: QHBoxLayout = QHBoxLayout()
+    layout.addWidget(button1)
+    layout.addWidget(button2)
 
-window: QWidget = QWidget()
-window.setLayout(layout)
-assert button1.parent() == window
-window.show()
-
-app.exec()
+    window.setLayout(layout)
+    assert button1.parent() == window

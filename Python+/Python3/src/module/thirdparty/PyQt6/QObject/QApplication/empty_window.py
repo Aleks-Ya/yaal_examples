@@ -1,6 +1,4 @@
-import sys
-
-from PyQt6.QtWidgets import QApplication, QWidget
+from PyQt6.QtWidgets import QWidget
 
 
 class EmptyWindow(QWidget):
@@ -14,7 +12,7 @@ class EmptyWindow(QWidget):
         self.show()
 
 
-if __name__ == '__main__':
-    app: QApplication = QApplication(sys.argv)
+from src.module.thirdparty.PyQt6 import app
+
+with app():
     window: EmptyWindow = EmptyWindow()
-    sys.exit(app.exec())

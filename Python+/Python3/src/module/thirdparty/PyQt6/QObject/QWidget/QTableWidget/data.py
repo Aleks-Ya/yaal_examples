@@ -7,7 +7,7 @@ def create_table_with_headers():
 
     table.setItem(0, 0, QTableWidgetItem("John"))
     table.setItem(0, 1, QTableWidgetItem("40"))
-    table.setItem(0, 2, QTableWidgetItem("London Madrid Rome Amsterdam Vienna Stockholm Oslo"))
+    table.setItem(0, 2, QTableWidgetItem("London Madrid Rome Amsterdam Vienna Stockholm Oslo " * 2))
 
     table.setItem(1, 0, QTableWidgetItem("Mary"))
     table.setItem(1, 1, QTableWidgetItem("30"))

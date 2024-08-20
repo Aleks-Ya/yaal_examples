@@ -1,9 +1,9 @@
-from PyQt6.QtWidgets import QApplication, QPushButton
+from PyQt6.QtWidgets import QPushButton
 
-app: QApplication = QApplication([])
+from src.module.thirdparty.PyQt6 import app
 
-button: QPushButton = QPushButton('Quit application')
-button.clicked.connect(app.quit)
+with app():
+    button: QPushButton = QPushButton('Quit application')
+    button.clicked.connect(app.quit)
 
-button.show()
-app.exec()
+    button.show()

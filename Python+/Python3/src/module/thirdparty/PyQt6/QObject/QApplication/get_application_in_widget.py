@@ -1,7 +1,7 @@
-import sys
-
 from PyQt6.QtCore import QCoreApplication
 from PyQt6.QtWidgets import QApplication, QWidget
+
+from src.module.thirdparty.PyQt6 import app
 
 
 class GetAppWindow(QWidget):
@@ -13,7 +13,5 @@ class GetAppWindow(QWidget):
         self.show()
 
 
-if __name__ == '__main__':
-    app: QApplication = QApplication(sys.argv)
+with app():
     window: GetAppWindow = GetAppWindow()
-    sys.exit(app.exec())

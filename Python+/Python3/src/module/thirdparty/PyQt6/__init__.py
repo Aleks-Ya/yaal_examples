@@ -8,7 +8,7 @@ from PyQt6.QtWidgets import QApplication, QWidget, QSizePolicy, QLayout, QAbstra
 
 
 @contextmanager
-def app() -> Generator[None, QApplication, None]:
+def app() -> Generator[QApplication, QApplication, QApplication]:
     try:
         application: QApplication = QApplication([])
         yield application
@@ -18,7 +18,7 @@ def app() -> Generator[None, QApplication, None]:
 
 
 @contextmanager
-def window() -> Generator[None, QWidget, None]:
+def window() -> Generator[QWidget, QWidget, QWidget]:
     try:
         application: QApplication = QApplication([])
         widget: QWidget = QWidget()

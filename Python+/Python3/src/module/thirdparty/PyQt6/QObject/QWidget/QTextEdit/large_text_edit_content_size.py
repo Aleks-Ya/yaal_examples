@@ -33,9 +33,10 @@ with app():
         frame_size=QSize(385, 281),
         geometry=QRect(0, 0, 379, 248))
 
-    assert_scroll_area_size(text_edit, QAbstractScrollArea.SizeAdjustPolicy.AdjustIgnored)
+    assert_scroll_area_size(scroll_area=text_edit,
+                            size_adjust_policy=QAbstractScrollArea.SizeAdjustPolicy.AdjustIgnored)
 
-    assert_text_document_size(text_edit.document(),
+    assert_text_document_size(text_document=text_edit.document(),
                               size=QSizeF(377.0, 246.0),
                               page_size=QSizeF(377.0, -1.0))
 
