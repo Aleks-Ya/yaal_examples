@@ -20,8 +20,8 @@ with app():
         geometry=QRect(0, 0, 640, 480)
     )
 
-    table.resizeRowsToContents()
     table.resizeColumnsToContents()
+    table.resizeRowsToContents()
     assert_widget_size(
         widget=table,
         size=QSize(640, 480),

@@ -13,6 +13,11 @@ with app():
     item_icon_and_text.setFlags(
         item_icon_and_text.flags() & ~Qt.ItemFlag.ItemIsEditable & ~Qt.ItemFlag.ItemIsSelectable)
 
+    item_icon_no_text: QTableWidgetItem = QTableWidgetItem()
+    item_icon_no_text.setData(Qt.ItemDataRole.DecorationRole, pixmap)
+    item_icon_no_text.setFlags(
+        item_icon_no_text.flags() & ~Qt.ItemFlag.ItemIsEditable & ~Qt.ItemFlag.ItemIsSelectable)
+
     label: QLabel = QLabel()
     label.setPixmap(pixmap)
     label.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -22,6 +27,7 @@ with app():
     table: QTableWidget = QTableWidget(rows, columns)
     table.horizontalHeader().setMinimumSectionSize(0)
     table.setItem(0, 0, item_icon_and_text)
-    table.setCellWidget(0, 1, label)
+    table.setItem(0, 1, item_icon_no_text)
+    table.setCellWidget(0, 2, label)
     table.resizeColumnsToContents()
     table.show()

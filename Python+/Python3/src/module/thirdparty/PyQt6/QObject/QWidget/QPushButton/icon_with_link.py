@@ -1,3 +1,4 @@
+from PyQt6.QtCore import QSize, QMargins
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout
 
@@ -7,9 +8,13 @@ with window() as window:
     icon: QIcon = QIcon('info.png')
 
     button: QPushButton = QPushButton()
+    size: int = 50
+    margin: int = 10
+    button.setFixedSize(size, size)
+    icon_size: QSize = button.size().shrunkBy(QMargins(margin, margin, margin, margin))
     button.setIcon(icon)
-    button.setIconSize(button.sizeHint())
-    button.setFixedSize(icon.actualSize(button.iconSize()))
+    button.setIconSize(icon_size)
+    button.clicked.connect(lambda: print("Clicked"))
 
     layout: QVBoxLayout = QVBoxLayout()
     layout.addWidget(button)
