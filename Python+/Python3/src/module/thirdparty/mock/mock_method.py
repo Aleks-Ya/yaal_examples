@@ -2,11 +2,11 @@ from unittest.mock import MagicMock
 
 
 class ProductionClass:
-    def method(self):
+    def method(self) -> str:
         return "abc"
 
 
-thing = ProductionClass()
+thing: ProductionClass = ProductionClass()
 thing.method = MagicMock(return_value="xyz")
-res = thing.method()
+res: str = thing.method()
 assert res == "xyz"
