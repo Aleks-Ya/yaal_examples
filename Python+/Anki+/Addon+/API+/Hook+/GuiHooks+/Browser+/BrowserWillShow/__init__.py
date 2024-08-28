@@ -1,8 +1,13 @@
-from aqt import gui_hooks, qconnect, QAction, QMenu
+from logging import Logger
+
+from aqt import gui_hooks, qconnect, QAction, QMenu, QPushButton
 from aqt.browser import Browser
 from aqt.utils import showInfo
 
+from ._common.log import get_addon_logger
 from ._common.disable import enabled
+
+log: Logger = get_addon_logger()
 
 
 def __show_message_1():
@@ -39,7 +44,13 @@ def __add_item_to_custom_menu(browser: Browser) -> None:
     parent_menu.addAction(child_action)
 
 
+def __add_button_after_search_combobox(browser: Browser) -> None:
+    button: QPushButton = QPushButton("Click me")
+    browser.form.gridLayout.addWidget(button, 0, 2)
+
+
 if enabled():
     gui_hooks.browser_will_show.append(__add_item_to_edit_menu)
     gui_hooks.browser_will_show.append(__add_multi_level_item_to_edit_menu)
     gui_hooks.browser_will_show.append(__add_item_to_custom_menu)
+    gui_hooks.browser_will_show.append(__add_button_after_search_combobox)
