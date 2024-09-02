@@ -36,3 +36,5 @@ GitPython
 humanfriendly
 pint
 bitmath
+pytz
+python-dateutil
