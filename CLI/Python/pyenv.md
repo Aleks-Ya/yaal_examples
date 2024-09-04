@@ -1,6 +1,8 @@
 # pyenv CLI
 
-Install: `brew install pyenv`
+Install: 
+1. `brew install pyenv`
+2. `pyenv init` and append `~/.bashrc`
 
 ## Help
 Help: `pyenv help`

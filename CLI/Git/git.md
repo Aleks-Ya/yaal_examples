@@ -55,7 +55,7 @@ Show all configured properties: `git config --list`
 Show value of a config property: `git config --get-all user.email`
 Set property value: `git config push.default upstream`
 Set username: `git config --global user.name "Aleksey Yablokov"`
-Set email: `git config --global user.email ya_al@bk.ru`
+Set email: `git config --global user.email alex_ya@mailbox.org`
 Unset a property: `git config --unset http.sslcainfo`
 
 ## SubTree
