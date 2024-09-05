@@ -1,0 +1,30 @@
+{
+  "people": [
+    {
+      "name": "John",
+      "age": 30,
+      "married": false,
+      "positions": [
+        "manager",
+        "investor"
+      ]
+    },
+    {
+      "name": "Mary",
+      "age": 25,
+      "married": true,
+      "positions": [
+        "accountant"
+      ]
+    },
+    {
+      "name": "Mark",
+      "age": 20,
+      "married": false,
+      "positions": [
+        "developer",
+        "tester"
+      ]
+    }
+  ]
+}

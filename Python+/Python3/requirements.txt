@@ -38,3 +38,6 @@ pint
 bitmath
 pytz
 python-dateutil
+databricks-sdk
+jsonschema
+genson
