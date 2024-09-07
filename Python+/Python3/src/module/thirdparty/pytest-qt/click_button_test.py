@@ -12,6 +12,7 @@ def on_button_click():
 
 def test_click_button(qtbot: QtBot):
     button: QPushButton = QPushButton()
+    # noinspection PyUnresolvedReferences
     button.clicked.connect(on_button_click)
     qtbot.addWidget(button)
     assert not clicked

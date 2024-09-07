@@ -1,27 +1,20 @@
-import unittest
+def test_join_elements_of_list_to_string():
+    string_list = ['abcd', 'efg']
+    joined = ",".join(string_list)
+    assert joined == 'abcd,efg'
+
+    num_list = '123'
+    joined = "','".join(num_list)
+    assert joined == "1','2','3"
 
 
-class TestJoin(unittest.TestCase):
-
-    def test_join_elements_of_list_to_string(self):
-        string_list: list[str] = ['abcd', 'efg']
-        joined: str = ",".join(string_list)
-        self.assertEqual(joined, 'abcd,efg')
-
-        num_list: str = '123'
-        joined: str = "','".join(num_list)
-        self.assertEqual(joined, "1','2','3")
-
-    def test_join_with_transformation1(self):
-        list3: list[str] = ['abcd', 'efg']
-        joined3: str = ",".join((element.upper() for element in list3))
-        self.assertEqual(joined3, 'ABCD,EFG')
-
-    def test_join_with_transformation2(self):
-        list4: list[str] = ['ab', 'efg']
-        joined4: str = ",".join([element.upper() for element in list4])
-        self.assertEqual(joined4, 'AB,EFG')
+def test_join_with_transformation1():
+    list3 = ['abcd', 'efg']
+    joined3 = ",".join((element.upper() for element in list3))
+    assert joined3 == 'ABCD,EFG'
 
 
-if __name__ == "__main__":
-    unittest.main()
+def test_join_with_transformation2():
+    list4 = ['ab', 'efg']
+    joined4 = ",".join([element.upper() for element in list4])
+    assert joined4 == 'AB,EFG'
