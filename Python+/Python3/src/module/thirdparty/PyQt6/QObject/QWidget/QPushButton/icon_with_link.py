@@ -14,6 +14,7 @@ with window() as window:
     icon_size: QSize = button.size().shrunkBy(QMargins(margin, margin, margin, margin))
     button.setIcon(icon)
     button.setIconSize(icon_size)
+    # noinspection PyUnresolvedReferences
     button.clicked.connect(lambda: print("Clicked"))
 
     layout: QVBoxLayout = QVBoxLayout()
