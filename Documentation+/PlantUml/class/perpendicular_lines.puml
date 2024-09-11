@@ -1,0 +1,21 @@
+@startuml
+skinparam linetype ortho
+
+abstract class AbstractList
+abstract AbstractCollection
+interface List
+interface Collection
+
+AbstractList ..|> List
+Collection <|.. AbstractCollection
+
+Collection <|- List
+AbstractCollection <|- AbstractList
+AbstractList <|-- ArrayList
+
+class ArrayList {
+    Object[] elementData
+    size()
+}
+
+@enduml
