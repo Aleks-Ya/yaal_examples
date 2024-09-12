@@ -41,3 +41,4 @@ python-dateutil
 databricks-sdk
 jsonschema
 genson
+timerit

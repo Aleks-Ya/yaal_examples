@@ -9,3 +9,4 @@ Install an app and rename EXE file: `winget install Git.Git -r git22`
 Upgrade an app: `winget upgrade Databricks.DatabricksCLI`
 Upgrade all apps: `winget upgrade --all`
 Uninstall an app: `winget uninstall Git.Git`
+Update sources of packages: `winget source update`

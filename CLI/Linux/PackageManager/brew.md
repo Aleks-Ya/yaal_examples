@@ -9,6 +9,7 @@ List installed applications: `brew list`
 Find for an application: `brew search swagger`
 Show details about an app: `brew info swagger-codegen`
 Upgrade all apps: `brew upgrade`
+Upgrade app: `brew upgrade databricks`
 List outdated apps: `brew outdated`
 Remove an application: `brew uninstall minikube`
 

@@ -22,7 +22,7 @@ def __on_success(count: int) -> None:
 
 def __ui_action() -> None:
     op: QueryOp = QueryOp(parent=mw, op=__background_op, success=__on_success)
-    op.without_collection().run_in_background()
+    op.without_collection().with_progress().run_in_background()
 
 
 if enabled(True):

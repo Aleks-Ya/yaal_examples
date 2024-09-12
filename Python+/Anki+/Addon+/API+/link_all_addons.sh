@@ -59,8 +59,9 @@ src_relative_paths=(
   UI+/BackgroundOperations+/QueryOp+/RunInBackground+/FailurePopup
   UI+/BackgroundOperations+/QueryOp+/RunInBackground+/NoProgress
   UI+/BackgroundOperations+/QueryOp+/RunInBackground+/WithoutCollection
-  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgress
   UI+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgressConcurrent
+  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgressCounter
+  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgressNoCounter
   UI+/Browser/ShowHideColumn
   UI+/BrowserDoSearch
   UI+/BrowserSelectedNotes
