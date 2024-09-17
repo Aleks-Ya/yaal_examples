@@ -44,6 +44,7 @@ object Dependencies {
 
   private val kafkaVersion = "3.5.1"
   val embeddedKafkaDep = "io.github.embeddedkafka" %% "embedded-kafka" % kafkaVersion % Test
+  val sparkSqlKafkaDep = "org.apache.spark" %% "spark-sql-kafka-0-10" % spark3Version
   val sparkStreamingKafkaDep = "org.apache.spark" %% "spark-streaming-kafka-0-10-assembly" % spark3Version
   val kafkaClientsDep = "org.apache.kafka" % "kafka-clients" % kafkaVersion % Provided
   val kafkaDep = "org.apache.kafka" %% "kafka" % kafkaVersion
