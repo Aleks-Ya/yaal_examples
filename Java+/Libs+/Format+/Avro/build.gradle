@@ -1,4 +1,4 @@
 dependencies {
-    implementation 'org.apache.avro:avro:1.11.3', slf4jSimpleDep
+    implementation avroDep, slf4jSimpleDep
     testImplementation jsonUnitAssertJDep
 }

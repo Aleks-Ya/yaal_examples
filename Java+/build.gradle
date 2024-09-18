@@ -75,7 +75,7 @@ subprojects {
         eclipseLink2Version = '2.7.12'
         eclipseLink4Version = '4.0.1'
         jsonAssertDep = 'org.skyscreamer:jsonassert:1.5.1'
-        bouncyCustleDep = 'org.bouncycastle:bcpkix-jdk15on:1.70'
+        bouncyCastleDep = 'org.bouncycastle:bcpkix-jdk18on:1.78.1'
         testContainersVersion = '1.19.1'
         testContainersDep = "org.testcontainers:testcontainers:$testContainersVersion"
         testContainersJunitDep = "org.testcontainers:junit-jupiter:$testContainersVersion"
@@ -122,6 +122,7 @@ subprojects {
         xStreamDep = 'com.thoughtworks.xstream:xstream:1.4.20'
         pdfTestDep = 'com.codeborne:pdf-test:1.8.1'
         kafka2Version = '2.8.2'
+        avroDep = 'org.apache.avro:avro:1.12.0'
     }
     tasks.withType(JavaCompile).tap {
         configureEach {

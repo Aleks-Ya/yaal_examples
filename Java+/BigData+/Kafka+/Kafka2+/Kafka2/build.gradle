@@ -5,5 +5,5 @@ dependencies {
             "org.apache.kafka:kafka-clients:$kafka2Version:test",
             "org.apache.kafka:kafka_$scalaVersion:$kafka2Version",
             "org.apache.kafka:kafka_$scalaVersion:$kafka2Version:test",
-            bouncyCustleDep
+            bouncyCastleDep
 }
