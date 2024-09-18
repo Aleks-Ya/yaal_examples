@@ -121,6 +121,7 @@ subprojects {
         controlsFxDep = 'org.controlsfx:controlsfx:11.2.1'
         xStreamDep = 'com.thoughtworks.xstream:xstream:1.4.20'
         pdfTestDep = 'com.codeborne:pdf-test:1.8.1'
+        kafka2Version = '2.8.2'
     }
     tasks.withType(JavaCompile).tap {
         configureEach {
