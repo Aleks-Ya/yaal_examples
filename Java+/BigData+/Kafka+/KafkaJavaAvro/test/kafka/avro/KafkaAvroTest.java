@@ -1,6 +1,6 @@
 package kafka.avro;
 
-import example.avro.ActiveAppEvent;
+import example.ActiveAppEvent;
 import io.confluent.kafka.schemaregistry.client.MockSchemaRegistryClient;
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
 import io.confluent.kafka.schemaregistry.client.rest.exceptions.RestClientException;
@@ -16,7 +16,8 @@ import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import scala.collection.immutable.List;
 import scala.jdk.javaapi.CollectionConverters;
 
@@ -35,7 +36,8 @@ import static org.hamcrest.Matchers.equalTo;
 public class KafkaAvroTest extends IntegrationTestHarness {
     private static final String topic = KafkaAvroTest.class.getSimpleName().toLowerCase();
 
-    @Test(timeout = 10_000)
+    @Test
+    @Timeout(10_000)
     public void kafka() throws ExecutionException, InterruptedException, IOException, RestClientException {
         ActiveAppEvent value = new ActiveAppEvent("firefox", 1, 2, "no_errors");
 

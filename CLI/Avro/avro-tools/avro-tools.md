@@ -1,13 +1,8 @@
 # avro-tools CLI
 
 ## Install
-1. Download JAR: `wget https://downloads.apache.org/avro/stable/java/avro-tools-1.11.3.jar` to `~/installed/avro-tools/avro-tools-1.11.3.jar`
-2. Create file `subl ~/.local/bin/avro-tools`:
-```
-#!/bin/bash
-java -jar ~/installed/avro-tools/avro-tools-1.11.3.jar "$@"
-```
-3. Make the file executable: `chmod +x ~/.local/bin/avro-tools`
+1. Download JAR: `wget https://downloads.apache.org/avro/stable/java/avro-tools-1.12.0.jar -x -O ~/installed/avro-tools/avro-tools.jar`
+2. Add to `~/.bashrc`: `alias avro-tools='java -jar ~/installed/avro-tools/avro-tools.jar'`
 
 ## Commands
 Help: `avro-tools`

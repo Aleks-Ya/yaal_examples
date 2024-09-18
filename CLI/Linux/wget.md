@@ -1,27 +1,17 @@
 # wget CLI
 
+## Commands
+### Info
 Help: `wget -h`
-Debug logs: `wget -d http://10.3.50.157:8080/emiss-etl-dag.zip`
+Debug logs: `wget -d http://10.3.50.157:8080/data.zip`
+Not verbose (hide progress indicator): `wget -nv http://10.3.50.157:8080/data.zip`
 
-Download file from Nexus with basic authentication:
-```
-wget --http-user=<user> --http-passwd=<pass>  http://10.3.50.157:8080/emiss-etl-dag.zip
-```
-Download to specific file (result is /tmp/output_file.zip):
-```
-wget -O /tmp/output_file.zip http://10.3.50.157:8080/emiss-etl-dag.zip
-```
-Download to specific directory (result is /tmp/emiss-etl-dag.zip):
-```
-wget -P /tmp http://10.3.50.157:8080/emiss-etl-dag.zip
-```
-Download file content to console:
-```
-wget -O - http://10.3.50.157:8080/emiss-etl-dag.zip
-```
-Not verbose (hide progress indicator):
-```
-wget -nv http://10.3.50.157:8080/emiss-etl-dag.zip
-```
-Send POST request:
-`wget --post-data '{"tenantId":"249355261054976","needValidation":false}' http://localhost:80/jwt-validation/validate`
+### Download
+Download to specific file (result is /tmp/output_file.zip): `wget -O /tmp/out.zip http://10.3.50.157:8080/data.zip`
+Download to specific directory (result is /tmp/emiss-etl-dag.zip): `wget -P /tmp http://10.3.50.157:8080/data.zip`
+Download file content to console: `wget -O - http://10.3.50.157:8080/data.zip`
+Download file from Nexus with basic authentication: `wget --http-user=<user> --http-passwd=<pass>  http://10.3.50.157:8080/data.zip`
+Create absent directories to the output file: `wget -x -O /tmp/sub1/sub2/output.zip http://10.3.50.157:8080/data.zip`
+
+### POST
+Send POST request: `wget --post-data '{"idd":"249355261054976","validation":false}' http://localhost:80/jwt-validation/validate`
