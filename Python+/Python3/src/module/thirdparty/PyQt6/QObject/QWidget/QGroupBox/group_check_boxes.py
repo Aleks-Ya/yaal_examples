@@ -1,8 +1,8 @@
 from PyQt6.QtWidgets import QCheckBox, QVBoxLayout, QGroupBox
 
-from src.module.thirdparty.PyQt6 import window
+from src.module.thirdparty.PyQt6 import vbox
 
-with window() as window:
+with vbox() as layout:
     checkbox1: QCheckBox = QCheckBox("Option 1")
     checkbox2: QCheckBox = QCheckBox("Option 2")
     checkbox3: QCheckBox = QCheckBox("Option 3")
@@ -15,7 +15,4 @@ with window() as window:
     group_box: QGroupBox = QGroupBox("Options")
     group_box.setLayout(group_layout)
 
-    layout: QVBoxLayout = QVBoxLayout()
     layout.addWidget(group_box)
-
-    window.setLayout(layout)

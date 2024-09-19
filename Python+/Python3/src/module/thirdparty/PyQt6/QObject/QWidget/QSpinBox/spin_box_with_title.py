@@ -1,7 +1,9 @@
 from typing import Optional
 
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QSpinBox, QHBoxLayout, QLabel, QVBoxLayout
+from PyQt6.QtWidgets import QSpinBox, QHBoxLayout, QLabel
+
+from src.module.thirdparty.PyQt6 import vbox
 
 
 class TitledSpinBoxLayout(QHBoxLayout):
@@ -28,19 +30,14 @@ class TitledSpinBoxLayout(QHBoxLayout):
         self.spin_box.setEnabled(enabled)
 
 
-from src.module.thirdparty.PyQt6 import window
-
-with window() as window:
+with vbox() as layout:
     age: TitledSpinBoxLayout = TitledSpinBoxLayout('Enter your age:', 18, 65, 30)
     percent: TitledSpinBoxLayout = TitledSpinBoxLayout('Your percent:', 0, 100, 50)
     anything: TitledSpinBoxLayout = TitledSpinBoxLayout('Anything:')
     disabled: TitledSpinBoxLayout = TitledSpinBoxLayout('Disabled:')
     disabled.set_enabled(False)
 
-    hbox: QVBoxLayout = QVBoxLayout()
-    hbox.addLayout(age)
-    hbox.addLayout(percent)
-    hbox.addLayout(anything)
-    hbox.addLayout(disabled)
-
-    window.setLayout(hbox)
+    layout.addLayout(age)
+    layout.addLayout(percent)
+    layout.addLayout(anything)
+    layout.addLayout(disabled)

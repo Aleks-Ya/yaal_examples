@@ -1,6 +1,6 @@
-from PyQt6.QtWidgets import QTableWidget, QPushButton, QVBoxLayout
+from PyQt6.QtWidgets import QTableWidget, QPushButton
 
-from src.module.thirdparty.PyQt6 import window
+from src.module.thirdparty.PyQt6 import vbox
 
 
 def __add_row() -> None:
@@ -13,7 +13,7 @@ def __remove_row() -> None:
         table.removeRow(current_row)
 
 
-with window() as window:
+with vbox() as layout:
     table: QTableWidget = QTableWidget(0, 3)
     table.setHorizontalHeaderLabels(["Column 1", "Column 2", "Column 3"])
 
@@ -23,9 +23,6 @@ with window() as window:
     remove_button: QPushButton = QPushButton("Remove Row")
     remove_button.clicked.connect(__remove_row)
 
-    layout: QVBoxLayout = QVBoxLayout()
     layout.addWidget(table)
     layout.addWidget(add_button)
     layout.addWidget(remove_button)
-
-    window.setLayout(layout)

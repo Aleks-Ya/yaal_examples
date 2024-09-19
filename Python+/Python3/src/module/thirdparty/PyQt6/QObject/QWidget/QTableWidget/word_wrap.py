@@ -1,11 +1,9 @@
-from PyQt6.QtWidgets import QTableWidget, QVBoxLayout
+from PyQt6.QtWidgets import QTableWidget
 
 from src.module.thirdparty.PyQt6.QObject.QWidget.QTableWidget.data import create_table_with_headers
-from src.module.thirdparty.PyQt6 import window
+from src.module.thirdparty.PyQt6 import vbox
 
-with window() as window:
-    layout: QVBoxLayout = QVBoxLayout()
-
+with vbox() as layout:
     table_wrap_on: QTableWidget = create_table_with_headers()
     table_wrap_on.setSizeAdjustPolicy(QTableWidget.SizeAdjustPolicy.AdjustToContents)
     assert table_wrap_on.wordWrap()
@@ -21,5 +19,3 @@ with window() as window:
 
     layout.addWidget(table_wrap_on)
     layout.addWidget(table_wrap_off)
-    window.setLayout(layout)
-    window.show()

@@ -1,14 +1,11 @@
-from PyQt6.QtWidgets import QCheckBox, QVBoxLayout
+from PyQt6.QtWidgets import QCheckBox
 
-from src.module.thirdparty.PyQt6 import window
+from src.module.thirdparty.PyQt6 import vbox
 
-with window() as window:
+with vbox() as layout:
     enabled_checkbox: QCheckBox = QCheckBox("Enabled")
     disabled_checkbox: QCheckBox = QCheckBox("Disabled")
     disabled_checkbox.setEnabled(False)
 
-    layout: QVBoxLayout = QVBoxLayout()
     layout.addWidget(enabled_checkbox)
     layout.addWidget(disabled_checkbox)
-
-    window.setLayout(layout)
