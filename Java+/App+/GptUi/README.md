@@ -13,6 +13,7 @@
 9. Limit length of text in History ComboBox
 10. Bug: Ctrl-Alt-V within the Theme ComboBox
 11. Bug: Ctrl-Alt-Up/Down switch Interaction is random order
+12. Utilize "Structured output" from `gpt-4o-2024-08-06` model (https://openai.com/index/introducing-structured-outputs-in-the-api/)
 
 ## Install on Ubuntu
 
