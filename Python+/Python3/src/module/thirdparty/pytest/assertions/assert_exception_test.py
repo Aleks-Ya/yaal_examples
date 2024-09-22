@@ -1,7 +1,7 @@
-import pytest
+from pytest import raises
 
 
 def test_zero_division():
-    with pytest.raises(ZeroDivisionError):
+    with raises(ZeroDivisionError):
         # noinspection PyStatementEffect
         1 / 0
