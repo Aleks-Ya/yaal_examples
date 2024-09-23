@@ -1,4 +1,4 @@
 @ECHO OFF
 :: Handle script paramters 
-:: Run: "parameters.bat John"
-ECHO Hello %1 from %0!
+:: Run: "parameters.bat John Smith"
+ECHO Hello %1 %2 from script %0!

@@ -1,15 +1,15 @@
 @ECHO OFF
 
-REM Docs: https://www.dostips.com/DtTipsStringManipulation.php
+:: Docs: https://www.dostips.com/DtTipsStringManipulation.php
 
-REM Remove spaces from a string
+:: Remove spaces from a string
 SETLOCAL
 set var= a b  c 
 set var=%var: =%
 echo No spaces: '%var%'
 ENDLOCAL
 
-REM Replace space with zero (for time)
+:: Replace space with zero (for time)
 SETLOCAL
 set var= 2:27:55,30
 set var=%var: =0%

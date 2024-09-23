@@ -59,7 +59,7 @@ object Factory {
   }
 
   def createCityDs(cities: Seq[City]): Dataset[City] = {
-    implicit val mapEncoder: Encoder[City] = Encoders.product[City]
+    implicit val encoder: Encoder[City] = Encoders.product[City]
     ss.createDataset(cities)
   }
 

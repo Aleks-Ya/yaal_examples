@@ -17,3 +17,17 @@ List connections of a snap: `snap connections gnome-boxes`
 ## Refresh
 List available updates: `snap refresh --list`
 Update versions of all installed snaps: `sudo snap refresh`
+
+## Errors
+### Cannot refresh snap-store
+Command: `sudo snap refresh snap-store`
+Message:
+```
+error: cannot refresh "snap-store": snap "snap-store" has running apps
+       (snap-store), pids: 3156
+```
+Fix:
+```
+snap-store --quit
+sudo snap refresh snap-store
+```

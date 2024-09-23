@@ -1,0 +1,10 @@
+@startuml
+
+skinparam ArrowColor red
+
+class Person
+class City
+Person -> City: default color
+Person -[#blue]> City: blue color
+Person -> City #green: green
+@enduml
