@@ -68,6 +68,7 @@ src_relative_paths=(
   UI+/BrowserSelectedNotes
   UI+/BrowserUpdate
   UI+/DeckBrowserRefresh
+  UI+/DialogManager
   UI+/MainWindowMenuItem
   Utils/ShowException
   Utils/ShowInfo
