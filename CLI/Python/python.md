@@ -1,5 +1,7 @@
 # python CLI
 
+Install: `sudo apt install -y python3-full`
+
 List global site-packages ("dist-packages") directories:
 ```
 # In sys.path:

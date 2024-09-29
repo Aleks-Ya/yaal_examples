@@ -21,3 +21,14 @@ List all installed packages: `pip list`
 List all versions of a package: `pip index versions env_logger`
 Upgrade package to the last version: `pip install -U pyspark`
 Upgrade PIP: `pip3 install -U pip`
+
+## Error
+### Externally managed environment
+Coomand: `pip install --update pip`
+Message: `error: externally-managed-environment`
+Solution: 
+Add to `~/.config/pip/pip.conf`:
+```
+[global]
+break-system-packages = true
+```
