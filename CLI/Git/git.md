@@ -53,6 +53,7 @@ List all refs: `git show-ref`
 ## Config
 Show all configured properties: `git config --list`
 Show value of a config property: `git config --get-all user.email`
+Show properties starting with `credential`: `git config --get-regexp '^credential'`
 Set property value: `git config push.default upstream`
 Set username: `git config --global user.name "Aleksey Yablokov"`
 Set email: `git config --global user.email alex_ya@mailbox.org`
@@ -65,6 +66,9 @@ Create a subproject:
 Change the author of the last commit: `git commit --amend --author="Mark <mark@address.com>" --no-edit`
 
 ## Credentials
+List installed credential helpers:
+- Linux: `git help -a | grep credential-`
+- Windows: `git help -a | findstr credential-`
 Use storage credential helper: `git config --global credential.helper store`
 Remove expired credentials:
 1. Run `git credential reject`
