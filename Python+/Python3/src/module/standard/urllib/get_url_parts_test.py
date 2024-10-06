@@ -8,3 +8,15 @@ def test_parse_s3_bucket_and_prefix():
     s3_prefix: str = parsed_url.path.lstrip('/')
     assert bucket_name == 'my-bucket'
     assert s3_prefix == 'prefix1/file.txt'
+
+
+def test_get_anchor():
+    url: str = 'https://me.com/data/info.html#table-of-contents'
+    parsed_url: ParseResult = urlparse(url)
+    anchor: str = parsed_url.fragment
+    assert anchor == 'table-of-contents'
+
+    url_absent_anchor: ParseResult = urlparse('https://me.com/data/info.html')
+    assert url_absent_anchor.fragment == ''
+    url_empty_anchor: ParseResult = urlparse('https://me.com/data/info.html#')
+    assert url_empty_anchor.fragment == ''

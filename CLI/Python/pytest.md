@@ -7,7 +7,8 @@ Version: `pytest --version`
 
 ### Run
 Run all tests (from project root where `tests` dir is nested): `pytest`
-Run given Python file: `pytest pytest tests/cache/test_cache.py`
+Run given Python file: `pytest tests/cache/test_cache.py`
+Run given test function from given Python file: `pytest tests/config/url_test.py::test_get_all_urls`
 
 ### Markers
 Run tests with given marker: `pytest -m fast`
