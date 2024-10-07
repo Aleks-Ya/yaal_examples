@@ -1,3 +1,4 @@
 openai~=1.30.1
 anki~=24.4.1
 aqt~=24.4.1
+pytest

@@ -28,6 +28,19 @@ class FilterTransformation extends AnyFlatSpec with Matchers {
     )
   }
 
+  it should "filter column contains substring" in {
+    val df = Factory.peopleDf.filter(col("name").contains("r"))
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"name":"Peter","age":35,"gender":"M"}""",
+      """{"name":"Mary","age":20,"gender":"F"}"""
+    )
+  }
+
+  it should "filter column NOT contain substring" in {
+    val df = Factory.peopleDf.filter(!col("name").contains("r"))
+    df.toJSON.collect() should contain only """{"name":"John","age":25,"gender":"M"}"""
+  }
+
   it should "filter by String equality (syntax 1)" in {
     val df = Factory.peopleDf.filter("gender = 'M'")
     df.toJSON.collect() should contain inOrderOnly(

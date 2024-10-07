@@ -3,7 +3,7 @@ from typing import Optional, Sequence, Any
 
 import pytest
 from anki.collection import Collection
-from anki.models import NotetypeDict, FieldDict, NotetypeId
+from anki.models import FieldDict, NotetypeId, NoteType
 from anki.notetypes_pb2 import NotetypeNameId
 
 
@@ -18,12 +18,12 @@ basic_model_name: str = 'Basic'
 
 
 def test_get_all_models(col: Collection):
-    all_models: list[NotetypeDict] = col.models.all()
+    all_models: list[NoteType] = col.models.all()
     assert len(all_models) == 6
 
 
 def test_get_model_by_name(col: Collection):
-    basic_model: Optional[NotetypeDict] = col.models.by_name(basic_model_name)
+    basic_model: Optional[NoteType] = col.models.by_name(basic_model_name)
     assert basic_model['name'] == basic_model_name
 
 
@@ -44,20 +44,20 @@ def test_id_for_name(col: Collection):
 
 
 def test_get_field_names(col: Collection):
-    basic_model: Optional[NotetypeDict] = col.models.by_name(basic_model_name)
+    basic_model: Optional[NoteType] = col.models.by_name(basic_model_name)
     field_names: list[str] = col.models.field_names(basic_model)
     assert field_names == ['Front', 'Back']
 
 
 def test_add_new_field(col: Collection):
-    basic_model: Optional[NotetypeDict] = col.models.by_name(basic_model_name)
+    basic_model: Optional[NoteType] = col.models.by_name(basic_model_name)
     field: FieldDict = col.models.new_field('Comment')
     col.models.add_field(basic_model, field)
     assert col.models.field_names(basic_model) == ['Front', 'Back', 'Comment']
 
 
 def test_modify_template(col: Collection):
-    model: NotetypeDict = col.models.by_name(basic_model_name)
+    model: NoteType = col.models.by_name(basic_model_name)
     templates: list[dict[str, Any]] = model['tmpls']
     template: dict[str, Any] = templates[0]
     question_template: str = template["qfmt"]
