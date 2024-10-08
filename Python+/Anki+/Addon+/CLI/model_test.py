@@ -3,8 +3,7 @@ from typing import Optional, Sequence, Any
 
 import pytest
 from anki.collection import Collection
-from anki.models import FieldDict, NotetypeId, NoteType
-from anki.notetypes_pb2 import NotetypeNameId
+from anki.models import FieldDict, NotetypeId, NoteType, NotetypeNameId
 
 
 @pytest.fixture

@@ -3,7 +3,7 @@ import time
 from anki.collection import Collection
 from aqt import mw
 from aqt.operations import QueryOp
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.disable import enabled
 from ._common import menu
@@ -23,7 +23,7 @@ class NoProgressQueryOp:
         return self.end
 
     def __on_success(self, count: int) -> None:
-        showInfo(f"{self.success_message} {count}")
+        show_info(f"{self.success_message} {count}")
 
 
 def __ui_action() -> None:

@@ -1,4 +1,3 @@
-import unittest
 from enum import Enum
 
 
@@ -8,24 +7,23 @@ class Color(Enum):
     BLUE = "blue"
 
 
-class TestStrDerivedEnum(unittest.TestCase):
+def test_enum():
+    assert str(Color.RED) == 'Color.RED'
+    assert Color.RED.name == 'RED'
+    assert Color.RED.value == 'red'
+    assert Color['RED'] == Color.RED
+    assert Color('red') == Color.RED
 
-    def test_enum(self):
-        self.assertEqual(str(Color.RED), 'Color.RED')
-        self.assertEqual(Color.RED.name, 'RED')
-        self.assertEqual(Color.RED.value, 'red')
-        self.assertEqual(Color['RED'], Color.RED)
-        self.assertEqual(Color('red'), Color.RED)
-
-        member = Color.RED
-        self.assertEqual(member.name, 'RED')
-        self.assertEqual(member.value, 'red')
-
-    def test_enum_iteration(self):
-        expected_values = ["Color.RED", "Color.GREEN", "Color.BLUE"]
-        actual_values = [str(color) for color in Color]
-        self.assertListEqual(actual_values, expected_values)
+    member: Color = Color.RED
+    assert member.name == 'RED'
+    assert member.value == 'red'
 
 
-if __name__ == "__main__":
-    unittest.main()
+def test_get_by_name():
+    assert Color['RED'] == Color.RED
+
+
+def test_enum_iteration():
+    expected_values: list[str] = ["Color.RED", "Color.GREEN", "Color.BLUE"]
+    actual_values: list[str] = [str(color) for color in Color]
+    assert actual_values == expected_values

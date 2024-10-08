@@ -3,6 +3,7 @@ psutil
 PyQt6
 pytest
 pytest-qt
+pytest-subtests
 phoenixdb
 lockfile
 cachecontrol
@@ -42,3 +43,6 @@ databricks-sdk
 jsonschema
 genson
 timerit
+nltk
+textblob
+spacy

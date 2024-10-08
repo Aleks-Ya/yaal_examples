@@ -4,7 +4,7 @@ import time
 from anki.collection import Collection
 from aqt import mw
 from aqt.operations import QueryOp
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.disable import enabled
 from ._common import menu
@@ -28,7 +28,7 @@ class WithProgressQueryOp:
                 if mw.progress.want_cancel():
                     self.__update_progress("Cancelling...", self.end - i, self.end)
                     time.sleep(3)
-                    break
+                    return i
             col.find_notes("deck: *")
             last_progress = time.time()
         return self.end
@@ -38,7 +38,7 @@ class WithProgressQueryOp:
         mw.taskman.run_on_main(lambda: mw.progress.update(label, value, max_value))
 
     def __on_success(self, count: int) -> None:
-        showInfo(f"{self.success_message} {count}")
+        show_info(f"{self.success_message} {count}")
 
 
 def __ui_action() -> None:
