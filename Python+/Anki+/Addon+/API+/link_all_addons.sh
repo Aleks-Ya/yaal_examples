@@ -65,6 +65,7 @@ src_relative_paths=(
   UI+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgressCounter
   UI+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgressCounterInherit
   UI+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgressNoCounter
+  UI+/Browser/RefreshCurrentNote
   UI+/Browser/ShowHideColumn
   UI+/BrowserDoSearch
   UI+/BrowserSelectedNotes

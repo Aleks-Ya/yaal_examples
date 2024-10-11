@@ -4,6 +4,8 @@ PyQt6
 pytest
 pytest-qt
 pytest-subtests
+pytest-mock
+pytest_check
 phoenixdb
 lockfile
 cachecontrol
