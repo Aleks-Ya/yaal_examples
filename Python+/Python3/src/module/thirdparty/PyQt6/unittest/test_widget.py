@@ -9,7 +9,8 @@ from PyQt6.QtCore import Qt
 class MyWidget(QWidget):
     def __init__(self):
         super().__init__()
-        self.button = QPushButton("Click me", self)
+        self.button: QPushButton = QPushButton("Click me", self)
+        # noinspection PyUnresolvedReferences
         self.button.clicked.connect(self.on_button_click)
         self.clicked = False
 
@@ -19,8 +20,8 @@ class MyWidget(QWidget):
 
 class TestMyWidget(unittest.TestCase):
     def setUp(self):
-        self.app = QApplication(sys.argv)
-        self.widget = MyWidget()
+        self.app: QApplication = QApplication(sys.argv)
+        self.widget: MyWidget = MyWidget()
 
     def tearDown(self):
         self.widget = None

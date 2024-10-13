@@ -4,9 +4,6 @@ from unittest.mock import MagicMock
 from aqt import AnkiQt, QApplication, QWidget
 from aqt.progress import ProgressManager
 
-ran_on_main: bool = False
-ran_in_background: bool = False
-
 
 def test_update():
     application: QApplication = QApplication([])

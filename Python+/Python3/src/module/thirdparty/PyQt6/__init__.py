@@ -9,37 +9,28 @@ from PyQt6.QtWidgets import QApplication, QWidget, QSizePolicy, QLayout, QAbstra
 
 @contextmanager
 def app() -> Generator[QApplication, QApplication, QApplication]:
-    try:
-        application: QApplication = QApplication([])
-        yield application
-        sys.exit(application.exec())
-    finally:
-        pass
+    application: QApplication = QApplication([])
+    yield application
+    sys.exit(application.exec())
 
 
 @contextmanager
 def window() -> Generator[QWidget, QWidget, QWidget]:
-    try:
-        application: QApplication = QApplication([])
-        widget: QWidget = QWidget()
-        yield widget
-        widget.show()
-        sys.exit(application.exec())
-    finally:
-        pass
+    application: QApplication = QApplication([])
+    widget: QWidget = QWidget()
+    yield widget
+    widget.show()
+    sys.exit(application.exec())
 
 
 @contextmanager
 def vbox() -> Generator[QVBoxLayout, QVBoxLayout, QVBoxLayout]:
-    try:
-        application: QApplication = QApplication([])
-        widget: QWidget = QWidget()
-        layout: QVBoxLayout = QVBoxLayout(widget)
-        yield layout
-        widget.show()
-        sys.exit(application.exec())
-    finally:
-        pass
+    application: QApplication = QApplication([])
+    widget: QWidget = QWidget()
+    layout: QVBoxLayout = QVBoxLayout(widget)
+    yield layout
+    widget.show()
+    sys.exit(application.exec())
 
 
 def assert_widget_size(widget: QWidget, size: QSize, minimum_size: QSize, maximum_size: QSize,
