@@ -1,8 +1,8 @@
 package dataframe.function
 
 import factory.Factory
-import org.apache.spark.sql.functions.{col, lit, struct, transform, udf}
-import org.apache.spark.sql.types.{ArrayType, IntegerType, StringType, StructField, StructType}
+import org.apache.spark.sql.functions._
+import org.apache.spark.sql.types._
 import org.apache.spark.sql.{Column, Row}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -42,6 +42,17 @@ class TransformFunction extends AnyFlatSpec with Matchers {
     updatedDf.toJSON.collect() should contain inOrderOnly(
       """{"cities":[{"name":"London","population":2000,"comment":"my_comment"}]}""",
       """{"cities":[{"name":"Barcelona","population":1000,"comment":"my_comment"}]}"""
+    )
+  }
+
+  it should "transform replaces a field" in {
+    val df = Factory.createDf(Map("cities" -> ArrayType(StringType)),
+      Row(List("London", "Paris", "London")),
+      Row(List("Berlin", "Barcelona", "Barcelona")))
+    val updatedDf = df.select(transform(col("cities"), city => UpperCaseUdf(city)) as "cities")
+    updatedDf.toJSON.collect() should contain inOrderOnly(
+      """{"cities":["LONDON","PARIS","LONDON"]}""",
+      """{"cities":["BERLIN","BARCELONA","BARCELONA"]}"""
     )
   }
 }

@@ -24,6 +24,7 @@ class TestAddonManager(unittest.TestCase):
             data: str = '{"param1": "value1"}'
             json_obj: Dict[str, object] = json.loads(data)
             with open(f, 'w') as fp:
+                # noinspection PyTypeChecker
                 json.dump(json_obj, fp, indent=2)
             wm: MagicMock = MagicMock()
             wm.pm.addonFolder.return_value = td

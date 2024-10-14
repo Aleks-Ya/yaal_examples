@@ -56,6 +56,24 @@ class StructTypeTest extends AnyFlatSpec with Matchers {
     )
   }
 
+  it should "add and delete fields from a struct" in {
+    val df = Factory.createDf(Map("name" -> StringType, "details" -> StructType(Seq(
+      StructField("city", StringType),
+      StructField("age", IntegerType),
+    ))),
+      Row("John", Row("London", 30)),
+      Row("Mary", Row("Berlin", 15)))
+    val updatedDf = df.withColumn("details", struct(
+        col("details.*"),
+        when(col("details.age") >= 18, lit(true)).otherwise(lit(false)) as "adult"
+      ))
+      .withColumn("details", col("details").dropFields("age"))
+    updatedDf.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","details":{"city":"London","adult":true}}""",
+      """{"name":"Mary","details":{"city":"Berlin","adult":false}}"""
+    )
+  }
+
   it should "modify field in a struct" in {
     val df = Factory.createDf(Map("name" -> StringType, "details" -> StructType(Seq(
       StructField("city", StringType),

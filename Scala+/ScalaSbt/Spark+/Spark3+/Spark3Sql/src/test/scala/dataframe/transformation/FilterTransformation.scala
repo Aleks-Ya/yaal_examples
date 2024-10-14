@@ -2,7 +2,7 @@ package dataframe.transformation
 
 import factory.Factory
 import org.apache.spark.sql.Row
-import org.apache.spark.sql.functions.{array_contains, col, lit, udf}
+import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types.{ArrayType, IntegerType, StringType}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -28,7 +28,7 @@ class FilterTransformation extends AnyFlatSpec with Matchers {
     )
   }
 
-  it should "filter column contains substring" in {
+  it should "filter column contains substring (case sensitive)" in {
     val df = Factory.peopleDf.filter(col("name").contains("r"))
     df.toJSON.collect() should contain inOrderOnly(
       """{"name":"Peter","age":35,"gender":"M"}""",
@@ -36,9 +36,18 @@ class FilterTransformation extends AnyFlatSpec with Matchers {
     )
   }
 
-  it should "filter column NOT contain substring" in {
+  it should "filter column NOT contain substring (case sensitive)" in {
     val df = Factory.peopleDf.filter(!col("name").contains("r"))
     df.toJSON.collect() should contain only """{"name":"John","age":25,"gender":"M"}"""
+  }
+
+  it should "filter column contains substring (case insensitive)" in {
+    val substring = "R"
+    val df = Factory.peopleDf.filter(lower(col("name")).contains(substring.toLowerCase))
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"name":"Peter","age":35,"gender":"M"}""",
+      """{"name":"Mary","age":20,"gender":"F"}"""
+    )
   }
 
   it should "filter by String equality (syntax 1)" in {

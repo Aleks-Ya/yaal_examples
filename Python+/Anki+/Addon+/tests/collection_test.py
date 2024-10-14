@@ -1,11 +1,12 @@
 import tempfile
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Sequence
 
 import pytest
 from anki.collection import Collection
 from anki.decks import DeckId
 from anki.errors import NotFoundError
+from anki.models import NoteType
 from anki.notes import NoteId, Note
 from anki.cards import CardId, Card
 
@@ -19,13 +20,13 @@ def test_create_empty_collection():
     assert col.name() == Path(full_name).name
 
 
-def test_create_note(col: Collection, basic_note_type: dict[str, Any], deck_id: DeckId):
+def test_create_note(col: Collection, basic_note_type: NoteType, deck_id: DeckId):
     note: Note = col.new_note(basic_note_type)
     col.add_note(note, deck_id)
     assert note.fields == ['', '']
 
 
-def test_add_field_to_note(col: Collection, basic_note_type: dict[str, Any], deck_id: DeckId):
+def test_add_field_to_note(col: Collection, basic_note_type: NoteType, deck_id: DeckId):
     note: Note = col.new_note(basic_note_type)
     note['Front'] = 'one'
     note['Back'] = 'two'
@@ -34,7 +35,7 @@ def test_add_field_to_note(col: Collection, basic_note_type: dict[str, Any], dec
     assert note.items() == [('Front', 'one'), ('Back', 'two')]
 
 
-def test_get_existing_note(col: Collection, basic_note_type: dict[str, Any], deck_id: DeckId):
+def test_get_existing_note(col: Collection, basic_note_type: NoteType, deck_id: DeckId):
     exp_note: Note = col.new_note(basic_note_type)
     exp_note['Front'] = 'one'
     exp_note['Back'] = 'two'
@@ -50,14 +51,14 @@ def test_get_absent_note(col: Collection):
         col.get_note(note_id)
 
 
-def test_card_ids_of_note(col: Collection, basic_note_type: dict[str, Any], deck_id: DeckId):
+def test_card_ids_of_note(col: Collection, basic_note_type: NoteType, deck_id: DeckId):
     note: Note = col.new_note(basic_note_type)
     col.add_note(note, deck_id)
     card_ids: Sequence[CardId] = col.card_ids_of_note(note.id)
     assert len(card_ids) == 1
 
 
-def test_get_card(col: Collection, basic_note_type: dict[str, Any], deck_id: DeckId):
+def test_get_card(col: Collection, basic_note_type: NoteType, deck_id: DeckId):
     note: Note = col.new_note(basic_note_type)
     col.add_note(note, deck_id)
     card_ids: Sequence[CardId] = col.card_ids_of_note(note.id)
@@ -65,20 +66,3 @@ def test_get_card(col: Collection, basic_note_type: dict[str, Any], deck_id: Dec
     card_id: CardId = card_ids[0]
     card: Card = col.get_card(card_id)
     assert card is not None
-
-
-@pytest.fixture
-def col() -> Collection:
-    col: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
-    yield col
-    col.close()
-
-
-@pytest.fixture
-def basic_note_type(col: Collection) -> dict[str, Any]:
-    return col.models.by_name('Basic')
-
-
-@pytest.fixture
-def deck_id(col: Collection) -> DeckId:
-    return col.decks.get_current_id()
