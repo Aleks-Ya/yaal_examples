@@ -7,7 +7,7 @@ class Communicator(ABC):
 
     @abstractmethod
     def say(self) -> str:
-        pass
+        ...
 
 
 class Hello(Communicator):
@@ -20,8 +20,9 @@ class Buy(Communicator):
         return f"Buy{self._mark}"
 
 
-hello: Communicator = Hello()
-assert hello.say() == "Hello!"
+def test_use_sub_classes():
+    hello: Communicator = Hello()
+    assert hello.say() == "Hello!"
 
-buy: Communicator = Buy()
-assert buy.say() == "Buy!"
+    buy: Communicator = Buy()
+    assert buy.say() == "Buy!"

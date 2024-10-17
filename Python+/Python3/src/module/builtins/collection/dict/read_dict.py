@@ -1,6 +1,6 @@
 from typing import Any
 
-import pytest
+from pytest import raises
 
 
 def test_get_existing_key():
@@ -12,7 +12,7 @@ def test_get_existing_key():
 def test_get_absent_key():
     d: dict[Any, Any] = dict()
     assert d.get('absent') is None
-    with pytest.raises(KeyError) as ex:
+    with raises(KeyError) as ex:
         v = d['absent']
     assert ex.value.args[0] == "absent"
 

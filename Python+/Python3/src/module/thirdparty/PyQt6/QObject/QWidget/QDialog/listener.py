@@ -13,7 +13,7 @@ class Event:
 class Listener:
     @abstractmethod
     def on_changed(self, event: Event):
-        pass
+        ...
 
 
 class MyDialog(QDialog, Listener):

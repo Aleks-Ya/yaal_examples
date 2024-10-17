@@ -1,6 +1,6 @@
 import datetime
 
-import pytest
+from pytest import raises
 
 
 def test_to_datetime():
@@ -28,6 +28,6 @@ def test_parse_iso_time_format():
 
 
 def test_bad_format_date():
-    with pytest.raises(ValueError) as ex:
+    with raises(ValueError) as ex:
         datetime.datetime.strptime('2022-06-35', '%Y-%M-%d')
     assert str(ex.value) == 'unconverted data remains: 5'
