@@ -11,6 +11,9 @@ class FunctionClass:
     def my_function(self) -> str:
         return "abc"
 
+    def upper_case(self, text: str) -> str:
+        return text.upper()
+
 
 class TestMock(unittest.TestCase):
     def test_mock_field(self):
@@ -18,11 +21,21 @@ class TestMock(unittest.TestCase):
         thing.person = "Mary"
         self.assertEqual(thing.person, "Mary")
 
-    def test_mock_function(self):
+    def test_mock_function_without_arguments(self):
         thing: FunctionClass = FunctionClass()
+        self.assertEqual(thing.my_function(), "abc")
         thing.my_function = Mock(return_value="xyz")
         res: str = thing.my_function()
-        assert res == "xyz"
+        self.assertEqual(res, "xyz")
+        thing.my_function.assert_called_once()
+        thing.my_function.assert_called_once_with()
+
+    def test_mock_function_with_arguments(self):
+        thing: FunctionClass = FunctionClass()
+        self.assertEqual(thing.upper_case("abc"), "ABC")
+        thing.upper_case = Mock(return_value="xyz")
+        self.assertEqual(thing.upper_case("abc"), "xyz")
+        thing.upper_case.assert_called_once_with("abc")
 
 
 if __name__ == '__main__':
