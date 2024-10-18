@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers
 
 class NumbersTest extends AnyFlatSpec with Matchers {
 
-  "shouldEqual matcher" should "assert Int" in {
+  it should "assert an Int" in {
     val result: Int = 3
     result shouldEqual 3
     result should equal(3)
@@ -22,9 +22,12 @@ class NumbersTest extends AnyFlatSpec with Matchers {
     result shouldBe >=(3)
     result shouldBe <(4)
     result shouldBe <=(3)
+
+    result should (be > 0 and be <= 4)
+    result should be(3 +- 1)
   }
 
-  "shouldEqual matcher" should "assert Long" in {
+  it should "assert a Long" in {
     val result: Long = 3L
     result shouldEqual 3
     result should equal(3)
@@ -41,6 +44,9 @@ class NumbersTest extends AnyFlatSpec with Matchers {
     result shouldBe >=(3L)
     result shouldBe <(4L)
     result shouldBe <=(3L)
+
+    result should (be > 0L and be <= 4L)
+    result should be(3L +- 1L)
   }
 
   "NaN matcher" should "work" in {

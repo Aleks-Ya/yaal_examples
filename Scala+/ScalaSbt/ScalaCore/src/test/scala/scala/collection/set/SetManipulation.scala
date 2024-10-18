@@ -26,4 +26,11 @@ class SetManipulation extends AnyFlatSpec with Matchers {
     set should contain allOf(1, 2, 3)
   }
 
+  it should "add an array to a mutable set" in {
+    val arr = Array(2, 3, 4)
+    val set = scala.collection.mutable.Set(1, 2)
+    set ++= arr
+    set shouldEqual Set(1, 2, 3, 4)
+  }
+
 }
