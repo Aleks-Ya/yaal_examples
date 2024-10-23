@@ -1,6 +1,7 @@
 # keytool CLI
 
 ## Info
+Version: `keytool -version`
 Help: `keytool -h`
 Help about a command: `keytool -list -h`
 
