@@ -27,6 +27,7 @@ def test_all_names(col: Collection, basic_note_type: NoteType, cloze_note_type: 
 
 def test_get_all_names_and_ids(col: Collection, basic_note_type: NoteType, cloze_note_type: NoteType):
     all_name_ids: Sequence[NotetypeNameId] = col.models.all_names_and_ids()
+    print(all_name_ids)
     assert len(all_name_ids) == 6
 
 

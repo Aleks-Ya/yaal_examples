@@ -109,7 +109,7 @@ class FilterTransformation extends AnyFlatSpec with Matchers {
 
   it should "filter by IN condition" in {
     val names = Seq("John", "Mary")
-    val df = Factory.peopleDf.filter(row => names.contains(row.getAs[String]("name")))
+    val df = Factory.peopleDf.filter(col("name").isin(names: _*))
     df.toJSON.collect() should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Mary","age":20,"gender":"F"}"""
