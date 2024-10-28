@@ -22,6 +22,6 @@ def __on_event_collection(browser: Browser):
     browser.editor.set_note(note)
 
 
-if enabled(True):
+if enabled(False):
     menu.add_browser_menu("Update note in Editor and refresh Editor", __on_event_editor)
     menu.add_browser_menu("Update note in Collection and refresh Editor", __on_event_collection)

@@ -26,5 +26,5 @@ def __ui_action() -> None:
     op.run_in_background()
 
 
-if enabled(True):
+if enabled(False):
     menu.add_mw_menu_item("Start a failing QueryOp", __ui_action)

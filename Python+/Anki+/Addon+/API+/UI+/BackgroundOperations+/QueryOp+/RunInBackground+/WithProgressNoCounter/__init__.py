@@ -39,5 +39,5 @@ def __ui_action() -> None:
     WithProgressQueryOp().run()
 
 
-if enabled(True):
+if enabled(False):
     menu.add_mw_menu_item("Start long-running operation with progress 2", __ui_action)

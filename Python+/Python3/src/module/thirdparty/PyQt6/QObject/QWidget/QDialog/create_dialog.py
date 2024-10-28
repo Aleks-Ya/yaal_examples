@@ -9,6 +9,7 @@ with app():
     label: QLabel = QLabel("This is a dialog")
 
     button: QPushButton = QPushButton("Close")
+    # noinspection PyUnresolvedReferences
     button.clicked.connect(dialog.close)
 
     layout: QVBoxLayout = QVBoxLayout()
@@ -16,6 +17,7 @@ with app():
     layout.addWidget(button)
 
     dialog.setLayout(layout)
+    # noinspection PyUnresolvedReferences
     dialog.finished.connect(QApplication.quit)
 
     dialog.show()

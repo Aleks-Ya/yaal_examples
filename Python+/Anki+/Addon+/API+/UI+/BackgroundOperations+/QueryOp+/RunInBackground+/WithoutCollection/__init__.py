@@ -25,5 +25,5 @@ def __ui_action() -> None:
     op.without_collection().with_progress().run_in_background()
 
 
-if enabled(True):
+if enabled(False):
     menu.add_mw_menu_item("Start a QueryOp without Collection", __ui_action)

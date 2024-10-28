@@ -36,6 +36,6 @@ def __on_open_mood_dialog():
 
 
 def init():
-    if enabled(True):
+    if enabled(False):
         menu.add_mw_menu_item(f"Register in DialogManager: {MoodDialog.name}", __on_register_dialog)
         menu.add_mw_menu_item(f"Open by DialogManager: {MoodDialog.name}", __on_open_mood_dialog)

@@ -43,6 +43,6 @@ def __show_dialog_range() -> None:
     thread.start()
 
 
-if enabled(True):
+if enabled(False):
     menu.add_mw_menu_item("Show progress dialog (endless)", __show_dialog_endless)
     menu.add_mw_menu_item("Show progress dialog (range) 5", __show_dialog_range)

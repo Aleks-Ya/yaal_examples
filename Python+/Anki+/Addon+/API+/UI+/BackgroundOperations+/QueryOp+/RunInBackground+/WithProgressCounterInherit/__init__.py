@@ -55,5 +55,5 @@ def __ui_action() -> None:
     op.run_in_background()
 
 
-if enabled(True):
+if enabled(False):
     menu.add_mw_menu_item("Start long-running operation with progress", __ui_action)
