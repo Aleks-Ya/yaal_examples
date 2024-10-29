@@ -82,6 +82,9 @@ def test_add_new_field(col: Collection):
     field: FieldDict = col.models.new_field('Comment')
     col.models.add_field(basic_model, field)
     assert col.models.field_names(basic_model) == ['Front', 'Back', 'Comment']
+    col.models.save(basic_model)
+    new_note: Note = col.new_note(basic_model)
+    new_note['Comment'] = 'comment'
 
 
 def test_modify_template(col: Collection):

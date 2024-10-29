@@ -22,6 +22,21 @@ class TransformFunction extends AnyFlatSpec with Matchers {
     )
   }
 
+  it should "update each element in an array" in {
+    val df = Factory.createDf(Map("cities" -> ArrayType(StringType)),
+      Row(Seq("London", "Berlin")),
+      Row(Seq("Barcelona", "Rome")))
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"cities":["London","Berlin"]}""",
+      """{"cities":["Barcelona","Rome"]}"""
+    )
+    val updatedDf = df.withColumn("cities", transform(col("cities"), city => upper(city)))
+    updatedDf.toJSON.collect() should contain inOrderOnly(
+      """{"cities":["LONDON","BERLIN"]}""",
+      """{"cities":["BARCELONA","ROME"]}"""
+    )
+  }
+
   it should "add a field to each element in an array" in {
     val cityStructType = StructType(StructField("name", StringType) :: StructField("population", IntegerType) :: Nil)
     val df = Factory.createDf(Map("cities" -> ArrayType(cityStructType)),
@@ -31,7 +46,6 @@ class TransformFunction extends AnyFlatSpec with Matchers {
       """{"cities":[{"name":"London","population":2000}]}""",
       """{"cities":[{"name":"Barcelona","population":1000}]}"""
     )
-
     val updatedDf = df.withColumn("cities", transform(col("cities"), city =>
       struct(
         city.getField("name").as("name"),
