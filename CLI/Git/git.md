@@ -27,6 +27,9 @@ Remove local changes in a file: `git checkout db.changelog-insert.yaml`
 Log one line: `git log --pretty=oneline master`
 Log shows committer: `git log --pretty=full`
 
+## Show
+Show filenames in a commit: `git show --name-only 67b9363`
+
 ## Patch
 Create patch from the last commit: `git format-patch -1`
 Create a commit from a patch: `git am 0001-update.patch`

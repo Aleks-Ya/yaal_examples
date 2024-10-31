@@ -43,4 +43,15 @@ class VisualizeDfTest extends AnyFlatSpec with Matchers {
     df.toDF("truncated_text_2").show(true)
     df.toDF("not_truncated_text").show(false)
   }
+
+  it should "print tree string" in {
+    val df = Factory.peopleDf
+    val tree = df.schema.treeString
+    tree shouldEqual
+      "root\n" +
+        " |-- name: string (nullable = true)\n" +
+        " |-- age: integer (nullable = true)\n" +
+        " |-- gender: string (nullable = true)\n"
+    println(s"Tree String:\n$tree")
+  }
 }

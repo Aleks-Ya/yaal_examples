@@ -15,5 +15,6 @@ def on_state_changed(state: int):
 with app():
     checkbox: QCheckBox = QCheckBox("Check me!")
     checkbox.setTristate(True)
+    # noinspection PyUnresolvedReferences
     checkbox.stateChanged.connect(on_state_changed)
     checkbox.show()

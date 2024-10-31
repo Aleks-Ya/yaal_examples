@@ -5,15 +5,16 @@ from PyQt6.QtWidgets import QComboBox
 from src.module.thirdparty.PyQt6 import app
 
 
-def __on_current_text_changed(text: str):
-    print(f"Selected text: {text}")
+# "activated" reacts only on user actions and ignore programmatic changes
+def __on_activated(index: int) -> None:
+    print(f"Selected index: {index}")
 
 
 with app():
-    changed: Callable[[str], None] = __on_current_text_changed
+    changed: Callable[[int], None] = __on_activated
 
     combo_box: QComboBox = QComboBox()
     combo_box.addItems(["Option 1", "Option 2", "Option 3"])
     # noinspection PyUnresolvedReferences
-    combo_box.currentTextChanged.connect(changed)
+    combo_box.activated.connect(changed)
     combo_box.show()

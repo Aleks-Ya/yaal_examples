@@ -8,7 +8,7 @@ import org.scalatest.matchers.should.Matchers
 import java.io.{FileInputStream, FileOutputStream, ObjectInputStream, ObjectOutputStream}
 import java.nio.file.Files
 
-class SerializeSchema extends AnyFlatSpec with Matchers {
+class SerializeSchemaToBytes extends AnyFlatSpec with Matchers {
 
   it should "infer CSV schema, save it to file, and reuse it for the next reading" in {
     val airportsFile = getClass.getResource("airports.csv")

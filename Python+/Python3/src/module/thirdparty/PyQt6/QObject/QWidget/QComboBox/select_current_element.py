@@ -1,30 +1,35 @@
-import unittest
-
 from PyQt6.QtWidgets import QApplication, QComboBox
 
 
-class TestSelectCurrentElementComboBoxProgrammatically(unittest.TestCase):
+def test_set_current_item():
+    app: QApplication = QApplication([])
 
-    def setUp(self):
-        self.app: QApplication = QApplication([])
+    combo_box: QComboBox = QComboBox()
+    combo_box.addItems(["Option 1", "Option 2", "Option 3"])
+    assert combo_box.currentText() == "Option 1"
+    assert combo_box.currentIndex() == 0
 
-    def tearDown(self):
-        self.app.quit()
+    combo_box.setCurrentText("Option 2")
+    assert combo_box.currentText() == "Option 2"
+    assert combo_box.currentIndex() == 1
 
-    def test_set_checked(self):
-        combo_box: QComboBox = QComboBox()
-        combo_box.addItems(["Option 1", "Option 2", "Option 3"])
-        self.assertEqual("Option 1", combo_box.currentText())
-        self.assertEqual(0, combo_box.currentIndex())
+    combo_box.setCurrentIndex(2)
+    assert combo_box.currentText() == "Option 3"
+    assert combo_box.currentIndex() == 2
 
-        combo_box.setCurrentText("Option 2")
-        self.assertEqual("Option 2", combo_box.currentText())
-        self.assertEqual(1, combo_box.currentIndex())
-
-        combo_box.setCurrentIndex(2)
-        self.assertEqual("Option 3", combo_box.currentText())
-        self.assertEqual(2, combo_box.currentIndex())
+    app.quit()
 
 
-if __name__ == "__main__":
-    unittest.main()
+def test_set_absent_current_item():
+    app: QApplication = QApplication([])
+
+    combo_box: QComboBox = QComboBox()
+    combo_box.addItems(["Option 1", "Option 2", "Option 3"])
+    assert combo_box.currentText() == "Option 1"
+    assert combo_box.currentIndex() == 0
+
+    combo_box.setCurrentText("Option 4")
+    assert combo_box.currentText() == "Option 1"
+    assert combo_box.currentIndex() == 0
+
+    app.quit()

@@ -10,6 +10,7 @@ class TestCheckBoxStateChangedProgrammatically(unittest.TestCase):
     def setUp(self):
         self.app: QApplication = QApplication([])
         self.checkbox: QCheckBox = QCheckBox("Check me!")
+        # noinspection PyUnresolvedReferences
         self.checkbox.stateChanged.connect(self.__on_state_changed)
 
     def tearDown(self):
@@ -36,11 +37,13 @@ class TestCheckBoxStateChangedProgrammatically(unittest.TestCase):
         self.assertFalse(self.checkbox.isChecked())
 
         # Test checking the box
+        # noinspection PyUnresolvedReferences
         self.checkbox.stateChanged.emit(Qt.CheckState.Checked.value)
         self.assertFalse(self.checkbox.isChecked())
         self.assertEqual(self.current_state, Qt.CheckState.Checked.value)
 
         # Test unchecking the box
+        # noinspection PyUnresolvedReferences
         self.checkbox.stateChanged.emit(Qt.CheckState.Unchecked.value)
         self.assertFalse(self.checkbox.isChecked())
         self.assertEqual(self.current_state, Qt.CheckState.Unchecked.value)

@@ -8,7 +8,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 class CollectSetFunction extends AnyFlatSpec with Matchers {
-  it should "use collect_list function" in {
+  it should "use collect_set function" in {
     val df = Factory.createDf(Map("city" -> StringType),
       Row("London"),
       Row("Paris"),
