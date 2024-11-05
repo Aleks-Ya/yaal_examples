@@ -65,7 +65,7 @@ class StructTypeTest extends AnyFlatSpec with Matchers {
       Row("Mary", Row("Berlin", 15)))
     val updatedDf = df.withColumn("details", struct(
         col("details.*"),
-        when(col("details.age") >= 18, lit(true)).otherwise(lit(false)) as "adult"
+        col("details.age") >= 18 as "adult"
       ))
       .withColumn("details", col("details").dropFields("age"))
     updatedDf.toJSON.collect() should contain inOrderOnly(
@@ -88,6 +88,27 @@ class StructTypeTest extends AnyFlatSpec with Matchers {
     updatedDf.toJSON.collect() should contain inOrderOnly(
       """{"name":"John","details":{"city":"London","age":60}}""",
       """{"name":"Mary","details":{"city":"Berlin","age":30}}"""
+    )
+  }
+
+  it should "use a just added field" in {
+    val df = Factory.createDf(Map("name" -> StringType, "details" -> StructType(Seq(
+      StructField("city", StringType),
+      StructField("age", IntegerType),
+    ))),
+      Row("John", Row("London", 30)),
+      Row("Mary", Row("Berlin", 15)))
+    val updatedDf1 = df.select(
+      col("name"),
+      col("details").withField("adult", col("details.age") >= 18) as "details"
+    )
+    val updatedDf2 = updatedDf1.select(
+      col("name"),
+      col("details").withField("maturity", when(col("details.adult"), lit("Adult")).otherwise(lit("Infant"))) as "details"
+    )
+    updatedDf2.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","details":{"city":"London","age":30,"adult":true,"maturity":"Adult"}}""",
+      """{"name":"Mary","details":{"city":"Berlin","age":15,"adult":false,"maturity":"Infant"}}"""
     )
   }
 

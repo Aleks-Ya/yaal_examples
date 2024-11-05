@@ -10,8 +10,7 @@ class BroadcastVariableTest extends AnyFlatSpec with Matchers {
     val addendum = 10
     val broadcastVar = Factory.sc.broadcast(addendum)
     val sum = Factory.sc.parallelize(Array(1, 2, 3)).map(x => x + broadcastVar.value).sum()
-    val expSum = 11 + 12 + 13
-    sum shouldEqual expSum
+    sum shouldEqual 11 + 12 + 13
   }
 
   it should "use an array broadcast variable" in {
@@ -22,5 +21,13 @@ class BroadcastVariableTest extends AnyFlatSpec with Matchers {
     val actVar = broadcastVar.value
     actVar.getClass shouldBe classOf[Array[Int]]
     actVar shouldEqual expVar
+  }
+
+  it should "delete unused broadcast variable" in {
+    val addendum = 10
+    val broadcastVar = Factory.sc.broadcast(addendum)
+    val sum = Factory.sc.parallelize(Array(1, 2, 3)).map(x => x + broadcastVar.value).sum()
+    broadcastVar.unpersist()
+    sum shouldEqual 11 + 12 + 13
   }
 }

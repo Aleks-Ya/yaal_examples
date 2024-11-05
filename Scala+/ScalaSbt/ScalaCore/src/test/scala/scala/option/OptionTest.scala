@@ -13,6 +13,7 @@ class OptionTest extends AnyFlatSpec with Matchers {
     o2 shouldBe None
 
     var o3: Option[Int] = null
+    o3 shouldBe null
     o3 = Some(3)
     o3 should contain(3)
   }
@@ -60,5 +61,13 @@ class OptionTest extends AnyFlatSpec with Matchers {
       case None => "no value"
     }
     result shouldEqual "123 is an integer"
+  }
+
+  it should "get value from Option chain" in {
+    val expValue = "xyz"
+    val option1: Option[String] = None
+    val option2: Option[String] = Some(expValue)
+    val result = option1.orElse(option2).get
+    result shouldEqual expValue
   }
 }
