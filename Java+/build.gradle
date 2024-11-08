@@ -90,8 +90,8 @@ subprojects {
         sardineDep = 'com.github.lookfirst:sardine:5.10'
         resilience4jVer = '2.0.2'
         aspectJVersion = '1.9.19'
-        micrometerVersion = '1.10.5'
-        prometheusVersion = '0.15.0'
+        micrometerVersion = '1.13.6'
+        prometheusVersion = '0.16.0'
         jsoupDep = 'org.jsoup:jsoup:1.15.3'
         retrofitVersion = '2.9.0'
         retrofitDep = "com.squareup.retrofit2:retrofit:$retrofitVersion"

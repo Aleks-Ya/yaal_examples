@@ -3,7 +3,7 @@ package scalatest.matcher.file
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-import java.nio.file.Files
+import java.nio.file.{Files, Paths}
 
 class PathTest extends AnyFlatSpec with Matchers {
   private val prefix: String = classOf[PathTest].getSimpleName
@@ -13,6 +13,12 @@ class PathTest extends AnyFlatSpec with Matchers {
     val path = Files.createTempFile(prefix, suffix)
     path.toFile should exist
     Files.exists(path) shouldBe true
+  }
+
+  it should "check file not exists" in {
+    val path = Paths.get("absent-file.txt")
+    path.toFile shouldNot exist
+    Files.exists(path) shouldBe false
   }
 
   it should "is a file" in {

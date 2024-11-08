@@ -85,6 +85,7 @@ include 'BigData+:Hadoop+:Hadoop2+:Common2',
         'Logging+:LogBack+:LogbackNoConfig',
         'Logging+:LogBack+:LogbackXml',
         'Logging+:CommonsLogging+:CommonLoggingExamples',
+        'Logging+:CommonsLogging+:CommonLoggingExamples1',
         'Monitoring+:Micrometer+:MicrometerCore',
         'Monitoring+:Micrometer+:MicrometerPrometheus',
         'Monitoring+:Prometheus+:PrometheusSimpleClient',
@@ -127,7 +128,22 @@ include 'BigData+:Hadoop+:Hadoop2+:Common2',
         'UnitTest+:TestNG+:TestTree',
         'UnitTest+:WireMock',
         'UnitTest+:OkHttpMockWebServer',
-        'Libs+:Apache+:ApacheCommons+:BeanUtils',
+        'Algorithm',
+        'App+:GptUi',
+        'App+:Joplin+:JoplinSqlite',
+        'App+:Joplin+:JoplinRestApi',
+        'App+:Trello',
+        'App+:Anki+:AnkiConnectJava',
+        'App+:Anki+:MissedWords',
+        'App+:Anki+:SubtitlesAnalyzer',
+        'Git+:JGit',
+        'Util+:UtilSrc',
+        'Util+:UtilTest'
+
+/**
+ * Java Libs
+ */
+include 'Libs+:Apache+:ApacheCommons+:BeanUtils',
         'Libs+:Apache+:ApacheCommons+:FileUpload',
         'Libs+:Apache+:ApacheCommons+:Collections',
         'Libs+:Apache+:ApacheCommons+:IO',
@@ -249,18 +265,8 @@ include 'BigData+:Hadoop+:Hadoop2+:Common2',
         'Libs+:Guice+:Guice',
         'Libs+:Guice+:GuiceGrapher',
         'Libs+:OkHttp',
-        'Libs+:AsyncHttpClient',
-        'Algorithm',
-        'App+:GptUi',
-        'App+:Joplin+:JoplinSqlite',
-        'App+:Joplin+:JoplinRestApi',
-        'App+:Trello',
-        'App+:Anki+:AnkiConnectJava',
-        'App+:Anki+:MissedWords',
-        'App+:Anki+:SubtitlesAnalyzer',
-        'Git+:JGit',
-        'Util+:UtilSrc',
-        'Util+:UtilTest'
+        'Libs+:AsyncHttpClient'
+
 /**
  * JavaEE+
  */
@@ -312,7 +318,7 @@ include 'Spring+:Spring3+:AnnotationConfig+:Configuration',
         'Spring+:Spring4+:AOP+:SpringAOP',
         'Spring+:Spring4+:AOP+:AspectJ',
         'Spring+:Spring4+:Data+:SpringDataMongoDB',
-
+        'Monitoring+:DropwizardMetrics+:DropwizardMetricsCore',
         'Spring+:Spring5+:AOP+:SpringAOP',
         'Spring+:Spring5+:AOP+:AspectJ',
         'Spring+:Spring5+:Context+:Core',

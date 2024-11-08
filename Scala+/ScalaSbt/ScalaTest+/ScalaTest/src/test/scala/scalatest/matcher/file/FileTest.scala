@@ -16,6 +16,12 @@ class FileTest extends AnyFlatSpec with Matchers {
     file.exists shouldBe true
   }
 
+  "File" should "not exist" in {
+    val file = new File("absent-file.txt")
+    file shouldNot exist
+    file.exists shouldBe false
+  }
+
   "File" should "be a file" in {
     file should be a 'file
     file should not be 'directory
