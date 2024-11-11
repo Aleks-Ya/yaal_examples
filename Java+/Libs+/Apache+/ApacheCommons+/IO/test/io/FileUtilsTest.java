@@ -57,4 +57,12 @@ class FileUtilsTest {
                 .isInstanceOf(NoSuchFileException.class)
                 .hasMessage("/tmp/absent.txt");
     }
+
+    @Test
+    void byteCountToDisplaySize() {
+        assertThat(FileUtils.byteCountToDisplaySize(1)).isEqualTo("1 bytes");
+        assertThat(FileUtils.byteCountToDisplaySize(1_500)).isEqualTo("1 KB");
+        assertThat(FileUtils.byteCountToDisplaySize(1_500_000)).isEqualTo("1 MB");
+        assertThat(FileUtils.byteCountToDisplaySize(1_500_000_000)).isEqualTo("1 GB");
+    }
 }

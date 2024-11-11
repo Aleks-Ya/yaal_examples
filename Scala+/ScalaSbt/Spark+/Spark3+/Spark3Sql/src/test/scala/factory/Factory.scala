@@ -63,6 +63,14 @@ object Factory {
     ss.createDataset(cities)
   }
 
+  def createDf(ddl: String, rows: Row*): DataFrame = {
+    val schema = StructType.fromDDL(ddl)
+    val df = ss.createDataFrame(ss.sparkContext.parallelize(rows), schema)
+    df.show
+    df.printSchema
+    df
+  }
+
   def createDf(fields: Map[String, DataType], rows: Row*): DataFrame = {
     val schema = StructType(fields.map { case (name, dataType) => StructField(name, dataType) }.toList)
     val df = ss.createDataFrame(ss.sparkContext.parallelize(rows), schema)

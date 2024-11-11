@@ -16,6 +16,10 @@ class AssertDataFrameSchema extends AnyFlatSpec with Matchers {
     df.schema.find(_.name.equals("age")).get.dataType shouldBe IntegerType
   }
 
+  it should "assert a whole schema (DDL)" in {
+    Factory.peopleDf.schema.toDDL shouldEqual "name STRING,age INT,gender STRING"
+  }
+
   it should "assert a whole schema (simpleString)" in {
     Factory.peopleDf.schema.simpleString shouldEqual "struct<name:string,age:int,gender:string>"
   }

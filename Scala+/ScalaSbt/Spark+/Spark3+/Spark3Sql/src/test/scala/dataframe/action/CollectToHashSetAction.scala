@@ -1,7 +1,6 @@
 package dataframe.action
 
 import factory.Factory
-import org.apache.spark.sql.types.StringType
 import org.apache.spark.sql.{Encoder, Encoders, Row}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -10,7 +9,7 @@ import scala.collection.mutable
 
 class CollectToHashSetAction extends AnyFlatSpec with Matchers {
   it should "collect a String DataFrame to a HashSet" in {
-    val df = Factory.createDf(Map("city" -> StringType),
+    val df = Factory.createDf("city STRING",
       Row("London"), Row("Berlin"), Row("Paris"))
 
     implicit val encoder: Encoder[String] = Encoders.STRING

@@ -21,4 +21,18 @@ class SerializeSchemaToDdlTest extends AnyFlatSpec with Matchers {
     schemaAct shouldEqual schemaExp
   }
 
+  it should "read DDL with line breaks" in {
+    val multiLinesDdl =
+      """name STRING,
+        |details STRUCT<
+        |  city: STRING,
+        |  age: INT,
+        |  phones: ARRAY<STRING>
+        |>""".stripMargin
+    val multiLinesSchema = StructType.fromDDL(multiLinesDdl)
+    val oneLineDdl = "name STRING,details STRUCT<city: STRING, age: INT, phones: ARRAY<STRING>>"
+    val oneLineSchema = StructType.fromDDL(oneLineDdl)
+    multiLinesSchema shouldEqual oneLineSchema
+  }
+
 }

@@ -129,4 +129,18 @@ class ArrayTypeTest extends AnyFlatSpec with Matchers {
       """{"person":"John","products":[{"title":"car","sales":[1,2]},{"title":"house","sales":[3,4]}],"maxSale":4}""",
       """{"person":"Mary","products":[{"title":"butter","sales":[10,20]},{"title":"bread","sales":[30,40]}],"maxSale":40}""")
   }
+
+  it should "collect values from 2-dimensional array" in {
+    val df = Factory.createDf("person STRING,products ARRAY<STRUCT<title: STRING, sales: ARRAY<INT>>>",
+      Row("John", Array(Row("car", Array(1, 2)), Row("house", Array(3, 4)))),
+      Row("Mary", Array(Row("butter", Array(10, 20)), Row("bread", Array(30, 40)))))
+    df.toJSON.collect() should contain inOrderOnly(
+      """{"person":"John","products":[{"title":"car","sales":[1,2]},{"title":"house","sales":[3,4]}]}""",
+      """{"person":"Mary","products":[{"title":"butter","sales":[10,20]},{"title":"bread","sales":[30,40]}]}""")
+    val salesDf = df.select(col("person"), flatten(col("products")("sales")) as "sales")
+    salesDf.schema.toDDL shouldEqual "person STRING,sales ARRAY<INT>"
+    salesDf.toJSON.collect() should contain inOrderOnly(
+      """{"person":"John","sales":[1,2,3,4]}""",
+      """{"person":"Mary","sales":[10,20,30,40]}""")
+  }
 }
