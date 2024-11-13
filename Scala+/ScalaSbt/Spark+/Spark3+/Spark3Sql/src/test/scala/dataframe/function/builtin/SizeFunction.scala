@@ -2,14 +2,13 @@ package dataframe.function.builtin
 
 import factory.Factory
 import org.apache.spark.sql.functions.col
-import org.apache.spark.sql.types.{ArrayType, StringType}
 import org.apache.spark.sql.{Row, functions}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 class SizeFunction extends AnyFlatSpec with Matchers {
   it should "use size function" in {
-    val df = Factory.createDf(Map("country" -> StringType, "cities" -> ArrayType(StringType)),
+    val df = Factory.createDf("country STRING,cities ARRAY<STRING>",
       Row("England", Seq("London", "Manchester")),
       Row("Germany", Seq("Berlin", "Hamburg", "Munich")),
       Row("Ethiopia", Seq()))

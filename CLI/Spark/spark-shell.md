@@ -16,6 +16,7 @@ Show version: `spark-shell --version`
 Run in local mode: `spark-shell --master local[2]`
 Connect to existing Master: `spark-shell --master spark://spark-standalone-cluster-master:7077`
 Set DEBUG log level: `sc.setLogLevel("DEBUG")`
+Load functions from a Scala file: `:load /path/to/functions.scala`
 
 ## Commands in `scala>`
 Help: `:help`

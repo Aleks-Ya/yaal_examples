@@ -35,6 +35,8 @@ Generate effective Settings: `mvn help:effective-settings`
 ## Tests
 Compile tests: `mvn test-compile`
 Skip tests: `mvn -DskipTests package`
+Run single test class: `mvn -Dtest="my.code.MyTest" test`
+Run several test classes: `mvn -Dtest="my.code.FirstTest,my.code.SecondTest" test`
 
 ## Prifles
 Print active profiles: `mvn help:active-profiles`
