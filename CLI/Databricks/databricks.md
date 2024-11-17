@@ -47,6 +47,9 @@ Show file content: `databricks fs cat dbfs:/cluster-logs-anna/driver/log4j-activ
 #### Workspace (`/Workspace` dir is hidden in DBFS)
 List files in `/Workspace` dir: `databricks workspace list /`
 Upload a Python file as a Notebook into Workspace: `databricks workspace import --file script.py /tmp`
+Upload a diretory to Workspace: `databricks workspace import-dir --overwrite /tmp/local-dir /MyWorkspace/destination/`
+Delete object in a Workspace: `databricks workspace delete /initScripts/init.py`
+Deleta a folder in a Workspace: `databricks workspace delete --recursive /MyWorkspace/dir1`
  
 ### Secrets
 List secret scopes: `databricks secrets list-scopes`
@@ -102,3 +105,9 @@ List instance pools: `databricks instance-pools list`
 Show instance pool details: `databricks instance-pools get 0226-061058-pol22-pool-igncb5ea`
 Create an Instance Pool from JSON definition (file): `databricks instance-pools create --json @instance_pool.json`
 Get Instance Pool ID by name (first): `databricks instance-pools list --output JSON | jq -r 'first(.[] | select(.instance_pool_name == "pool-1") | .instance_pool_id)'`
+
+### Permissions
+List all job permission levels: `databricks jobs get-permission-levels 122862247468184`
+Get job permissions: `databricks jobs get-permissions 122862247468184`
+Set job permissions: `databricks jobs set-permissions 122862247468184 --json ???`
+Update job permissions: `databricks jobs update-permissions 122862247468184 --json {\"access_control_list\":[{\"group_name\":\"CdipSearchAuthors\",\"permission_level\":\"CAN_MANAGE\"}]}`

@@ -1,0 +1,18 @@
+@startuml
+left to right direction
+
+json TaskParameters {
+   "fruit":"Apple",
+   "size":"Large",
+   "color": ["Red", "Green"]
+}
+
+agent Task1
+agent Task2
+
+Task1 --> TaskParameters
+TaskParameters --> Task2
+
+'Task1 -right-> Task2: run
+
+@enduml
