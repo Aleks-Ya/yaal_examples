@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 
 class ExpectedExceptionTest extends AnyFlatSpec with Matchers {
 
-  it should "throw exception" in {
+  it should "throw an exception" in {
     assertThrows[IndexOutOfBoundsException] {
       "hi".charAt(-1)
     }
@@ -17,6 +17,7 @@ class ExpectedExceptionTest extends AnyFlatSpec with Matchers {
       "hi".charAt(-1)
     }
     e.getMessage shouldEqual "String index out of range: -1"
+    e should have message "String index out of range: -1"
   }
 
   it should "with clue (a hint)" in {

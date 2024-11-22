@@ -1,6 +1,4 @@
 # Extract value from JSON by path
-import json
-from typing import Dict
 
 
 class Foo(object):
@@ -9,7 +7,8 @@ class Foo(object):
         self.y = 2
 
 
-foo = Foo()
-json_obj: Dict[str, object] = foo.__dict__
-s: Dict[str, object] = json_obj.dumps()
-print(s)
+def test_object_to_json():
+    foo: Foo = Foo()
+    json_obj: dict[str, any] = foo.__dict__
+    s: dict[str, object] = json_obj.dumps()
+    print(s)

@@ -1,6 +1,7 @@
 import json
-import unittest
 from enum import Enum
+
+import pytest
 
 
 class SizeType(int, Enum):
@@ -8,13 +9,11 @@ class SizeType(int, Enum):
     FILES = 2
 
 
-class TestEnumToJson(unittest.TestCase):
-
-    def test_serialize(self):
-        sizes: dict[SizeType, int] = {SizeType.TOTAL: 2048, SizeType.FILES: 1024}
-        json_str: str = json.dumps(sizes)
-        self.assertEqual('{"1": 2048, "2": 1024}', json_str)
+def test_serialize():
+    sizes: dict[SizeType, int] = {SizeType.TOTAL: 2048, SizeType.FILES: 1024}
+    json_str: str = json.dumps(sizes)
+    assert json_str == '{"1": 2048, "2": 1024}'
 
 
 if __name__ == "__main__":
-    unittest.main()
+    pytest.main()

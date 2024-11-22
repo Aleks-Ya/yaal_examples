@@ -1,21 +1,24 @@
 # Save JSON to a file
 import json
 import tempfile
-from typing import Dict
+import textwrap
 
-data: str = '{"a": {"b": 7}}'
-json_obj: Dict[str, object] = json.loads(data)
 
-f: str = tempfile.mkstemp()[1]
+def test_save_json_to_file():
+    data: str = '{"a": {"b": 7}}'
+    json_obj: dict[str, object] = json.loads(data)
 
-with open(f, 'w') as fp:
-    json.dump(json_obj, fp, indent=2)
+    f: str = tempfile.mkstemp()[1]
 
-with open(f) as fp:
-    act_content: str = fp.read()
+    with open(f, 'w') as fp:
+        json.dump(json_obj, fp, indent=2)
 
-assert act_content == '''{
-  "a": {
-    "b": 7
-  }
-}'''
+    with open(f) as fp:
+        act_content: str = fp.read()
+
+    assert act_content == textwrap.dedent('''\
+    {
+      "a": {
+        "b": 7
+      }
+    }''')

@@ -11,7 +11,8 @@ class Foo(object):
         return f'Foo-{self.x}-{self.y}'
 
 
-content = '{"x": 5, "y": 10}'
-f = json.loads(content)
-foo = Foo(**f)
-assert str(foo) == 'Foo-5-10'
+def test_json_to_object():
+    content: str = '{"x": 5, "y": 10}'
+    f: any = json.loads(content)
+    foo: Foo = Foo(**f)
+    assert str(foo) == 'Foo-5-10'

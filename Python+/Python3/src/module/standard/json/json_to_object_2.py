@@ -2,14 +2,16 @@
 import json
 from types import SimpleNamespace
 
-data = '{"name": "John Smith", "hometown": {"name": "New York", "id": 123}}'
 
-obj = json.loads(data, object_hook=lambda d: SimpleNamespace(**d))
+def test_json_to_object():
+    data: str = '{"name": "John Smith", "hometown": {"name": "New York", "id": 123}}'
 
-assert obj.name == "John Smith"
-assert obj.hometown.name == "New York"
-assert obj.hometown.id == 123
+    obj: any = json.loads(data, object_hook=lambda d: SimpleNamespace(**d))
 
-# Has field?
-assert hasattr(obj, 'name')
-assert not hasattr(obj, 'absent')
+    assert obj.name == "John Smith"
+    assert obj.hometown.name == "New York"
+    assert obj.hometown.id == 123
+
+    # Has field?
+    assert hasattr(obj, 'name')
+    assert not hasattr(obj, 'absent')

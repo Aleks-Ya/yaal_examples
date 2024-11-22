@@ -3,8 +3,8 @@
 Submit a Scala app on a Standalone Spark cluster.
 
 1. Build
-    1. Choose Java 11: `sdk use java 11.0.22-zulu`
-    2. Choose Scala 2.12: `sdk use scala 2.12.18`
+    1. Choose Java 11: `sdk use java 11.0.25-zulu`
+    2. Choose Scala 2.12: `sdk use scala 2.12.20`
     3. Build JAR: `./build_jar.sh`
 2. Run locally
     1. Run a Spark cluster `BigData+/Spark+/SparkDocker+/Spark3StandaloneDocker`

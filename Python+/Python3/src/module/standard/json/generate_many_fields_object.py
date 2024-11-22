@@ -2,13 +2,12 @@
 # {"f1": 1, "f2": 2, ... }
 import json
 import tempfile
-from typing import Dict
 
-field_num = 100
-column_mapping_list = []
+field_num: int = 100
+column_mapping_list: list[dict[str, object]] = []
 for num in range(field_num):
-    column_name = f'column{num}'
-    column_mapping_dict: Dict[str, object] = {
+    column_name: str = f'column{num}'
+    column_mapping_dict: dict[str, object] = {
         'dataFrameColumnName': column_name,
         'tableColumnName': column_name,
         'tableColumnType': 'VARCHAR',
