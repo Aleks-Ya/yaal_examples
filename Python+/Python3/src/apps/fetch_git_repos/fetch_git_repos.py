@@ -2,27 +2,29 @@
 # Run example: "python fetch_git_repos.py /home/aleks/pr/home"
 # Add Linux alias: alias fetch_all='python3 /home/aleks/pr/home/yaal_examples/Python+/Python3/src/apps/fetch_git_repos/fetch_git_repos.py /home/aleks/pr'
 import os
+import platform
 import sys
 from subprocess import Popen, PIPE, TimeoutExpired
-from typing import Any, List, Dict
+from typing import Any, List, Dict, Optional
 
 
 class FetchResult:
-    def __init__(self, repo, return_code: int, outs: str, errs: str, has_changes: bool, is_success: bool):
-        self.repo = repo
-        self.return_code = return_code
-        self.outs = outs
-        self.errs = errs
-        self.has_changes = has_changes
-        self.is_success = is_success
+    def __init__(self, repo: str, return_code: int, outs: str, errs: str, has_changes: bool, is_success: bool):
+        self.repo: str = repo
+        self.return_code: int = return_code
+        self.outs: str = outs
+        self.errs: str = errs
+        self.has_changes: bool = has_changes
+        self.is_success: bool = is_success
 
 
 class FetchProcess:
-
-    def __init__(self, cmd: str, repo: str, buffer_size: int = 1024000) -> None:
-        self.__process = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True, executable="/bin/bash", cwd=repo,
+    def __init__(self, cmd: str, repo: str, timeout_sec: int, executable: Optional[str],
+                 buffer_size: int = 1024000) -> None:
+        self.__process = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True, executable=executable, cwd=repo,
                                bufsize=buffer_size)
         self.__repo = repo
+        self.__timeout_sec = timeout_sec
 
     def get_pid(self) -> int:
         return self.__process.pid
@@ -32,7 +34,7 @@ class FetchProcess:
 
     def fetch_repo(self) -> FetchResult:
         try:
-            outs, errs = self.__process.communicate(timeout=timeout_sec)
+            outs, errs = self.__process.communicate(timeout=self.__timeout_sec)
         except TimeoutExpired:
             self.__process.kill()
             outs, errs = self.__process.communicate()
@@ -111,11 +113,12 @@ class Printer:
               f'retry count={fetch_statistics.retry_count}')
 
     @staticmethod
-    def print_parameters(root_dir: str, cmd: str, timeout_sec: int, batch_size: int):
+    def print_parameters(root_dir: str, cmd: str, timeout_sec: int, batch_size: int, executable: str):
         print(f'Root dir: {root_dir}')
         print(f'Command: "{cmd}"')
         print(f'Timeout (seconds): {timeout_sec}')
         print(f'Batch size: {batch_size}')
+        print(f'Executable: {executable}')
         print()
 
     @staticmethod
@@ -137,9 +140,10 @@ def on_error(error: Any):
 root_dir: str = sys.argv[1]
 git_dir: str = ".git"
 timeout_sec: int = 1 * 60
-cmd: str = f'timeout -s 9 {timeout_sec}s git fetch --tags'
+cmd: str = 'git fetch --tags'
 batch_size = 10
-Printer.print_parameters(root_dir, cmd, timeout_sec, batch_size)
+executable: str = None if platform.system() == 'Windows' else '/bin/bash'
+Printer.print_parameters(root_dir, cmd, timeout_sec, batch_size, executable)
 
 git_repos: List[str] = [tup[0] for tup in os.walk(root_dir, onerror=on_error) if git_dir in tup[1]]
 slices: list[list[str]] = [git_repos[i:i + batch_size] for i in range(0, len(git_repos), batch_size)]
@@ -149,7 +153,8 @@ statistics: FetchStatistics = FetchStatistics()
 failed_repos: List[str] = []
 
 for repo_slice in slices:
-    processes: Dict[str, FetchProcess] = dict([(repo, FetchProcess(cmd, repo)) for repo in repo_slice])
+    processes: Dict[str, FetchProcess] = dict([(repo, FetchProcess(cmd, repo, timeout_sec, executable))
+                                               for repo in repo_slice])
     for process in processes.values():
         Printer.print_fetch_process(process, len(git_repos))
         result: FetchResult = process.fetch_repo()
@@ -159,7 +164,7 @@ for repo_slice in slices:
 Printer.print_failed_repos(statistics.failed_repos)
 failed_repo_number: int = len(statistics.failed_repos)
 for failed_repo in statistics.failed_repos.copy():
-    process: FetchProcess = FetchProcess(cmd, failed_repo)
+    process: FetchProcess = FetchProcess(cmd, failed_repo, timeout_sec, executable)
     Printer.print_retry_process(process, failed_repo_number)
     result: FetchResult = process.fetch_repo()
     statistics.add_retry_result(result)
