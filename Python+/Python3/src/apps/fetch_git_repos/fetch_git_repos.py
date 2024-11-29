@@ -36,8 +36,8 @@ class FetchProcess:
         except TimeoutExpired:
             self.__process.kill()
             outs, errs = self.__process.communicate()
-        has_changes = len(errs) > 0
-        is_success = self.__process.returncode == 0
+        has_changes: bool = len(errs) > 0
+        is_success: bool = self.__process.returncode == 0
         return FetchResult(self.get_repo(), self.__process.returncode, outs.decode(), errs.decode(), has_changes,
                            is_success)
 
@@ -80,13 +80,13 @@ class FetchStatistics:
 class Printer:
     @staticmethod
     def print_fetch_process(fetch_process: FetchProcess, repo_number: int) -> None:
-        counter = statistics.total_count + 1
+        counter: int = statistics.total_count + 1
         print(f'[{counter} of {repo_number}] [PID {fetch_process.get_pid()}] {fetch_process.get_repo()}... ',
               end='', flush=True)
 
     @staticmethod
     def print_retry_process(fetch_process: FetchProcess, failed_repo_number: int) -> None:
-        counter = statistics.retry_count + 1
+        counter: int = statistics.retry_count + 1
         print(f'[{counter} of {failed_repo_number}] [PID {fetch_process.get_pid()}] {fetch_process.get_repo()}... ',
               end='', flush=True)
 
@@ -111,12 +111,16 @@ class Printer:
               f'retry count={fetch_statistics.retry_count}')
 
     @staticmethod
-    def print_parameters(root_dir: str, git_repos: List[str], cmd: str, timeout_sec: int, batch_size: int, slices):
+    def print_parameters(root_dir: str, cmd: str, timeout_sec: int, batch_size: int):
         print(f'Root dir: {root_dir}')
-        print(f'Git repositories ({len(git_repos)}): {git_repos}')
         print(f'Command: "{cmd}"')
         print(f'Timeout (seconds): {timeout_sec}')
         print(f'Batch size: {batch_size}')
+        print()
+
+    @staticmethod
+    def print_repos(git_repos: List[str], slices):
+        print(f'Git repositories ({len(git_repos)}): {git_repos}')
         print(f'Slice number: {len(slices)}')
         print()
 
@@ -132,31 +136,32 @@ def on_error(error: Any):
 
 root_dir: str = sys.argv[1]
 git_dir: str = ".git"
-git_repos: List[str] = [tup[0] for tup in os.walk(root_dir, onerror=on_error) if git_dir in tup[1]]
-timeout_sec = 1 * 60
+timeout_sec: int = 1 * 60
 cmd: str = f'timeout -s 9 {timeout_sec}s git fetch --tags'
 batch_size = 10
-slices = [git_repos[i:i + batch_size] for i in range(0, len(git_repos), batch_size)]
+Printer.print_parameters(root_dir, cmd, timeout_sec, batch_size)
 
-Printer.print_parameters(root_dir, git_repos, cmd, timeout_sec, batch_size, slices)
+git_repos: List[str] = [tup[0] for tup in os.walk(root_dir, onerror=on_error) if git_dir in tup[1]]
+slices: list[list[str]] = [git_repos[i:i + batch_size] for i in range(0, len(git_repos), batch_size)]
+Printer.print_repos(git_repos, slices)
 
-statistics = FetchStatistics()
+statistics: FetchStatistics = FetchStatistics()
 failed_repos: List[str] = []
 
 for repo_slice in slices:
     processes: Dict[str, FetchProcess] = dict([(repo, FetchProcess(cmd, repo)) for repo in repo_slice])
     for process in processes.values():
         Printer.print_fetch_process(process, len(git_repos))
-        result = process.fetch_repo()
+        result: FetchResult = process.fetch_repo()
         statistics.add_result(result)
         Printer.print_fetch_result(result)
 
 Printer.print_failed_repos(statistics.failed_repos)
-failed_repo_number = len(statistics.failed_repos)
+failed_repo_number: int = len(statistics.failed_repos)
 for failed_repo in statistics.failed_repos.copy():
-    process = FetchProcess(cmd, failed_repo)
+    process: FetchProcess = FetchProcess(cmd, failed_repo)
     Printer.print_retry_process(process, failed_repo_number)
-    result = process.fetch_repo()
+    result: FetchResult = process.fetch_repo()
     statistics.add_retry_result(result)
     Printer.print_fetch_result(result)
 

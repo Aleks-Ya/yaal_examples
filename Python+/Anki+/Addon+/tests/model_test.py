@@ -4,7 +4,7 @@ import pytest
 from anki.collection import Collection
 from anki.decks import DeckId
 from anki.errors import InvalidInput
-from anki.models import FieldDict, NotetypeId, NoteType, NotetypeNameId, TemplateDict
+from anki.models import FieldDict, NotetypeId, NoteType, NotetypeNameId, TemplateDict, ModelManager, NotetypeDict
 from anki.notes import Note, NoteId
 
 basic_model_name: str = 'Basic'
@@ -78,17 +78,19 @@ def test_field_names(col: Collection):
 
 
 def test_add_new_field(col: Collection):
-    basic_model: Optional[NoteType] = col.models.by_name(basic_model_name)
-    field: FieldDict = col.models.new_field('Comment')
-    col.models.add_field(basic_model, field)
-    assert col.models.field_names(basic_model) == ['Front', 'Back', 'Comment']
-    col.models.save(basic_model)
+    mm: ModelManager = col.models
+    basic_model: Optional[NoteType] = mm.by_name(basic_model_name)
+    field: FieldDict = mm.new_field('Comment')
+    mm.add_field(basic_model, field)
+    assert mm.field_names(basic_model) == ['Front', 'Back', 'Comment']
+    mm.save(basic_model)
     new_note: Note = col.new_note(basic_model)
     new_note['Comment'] = 'comment'
 
 
 def test_modify_template(col: Collection):
-    model: NoteType = col.models.by_name(basic_model_name)
+    mm: ModelManager = col.models
+    model: NoteType = mm.by_name(basic_model_name)
     templates: list[TemplateDict] = model['tmpls']
     template: TemplateDict = templates[0]
     question_template: str = template["qfmt"]
@@ -99,8 +101,38 @@ def test_modify_template(col: Collection):
     new_answer_format: str = "Your answer: {{Back}}"
     template["qfmt"] = new_question_format
     template["afmt"] = new_answer_format
-    col.models.save(model)
+    mm.save(model)
 
-    act_template: dict[str, Any] = col.models.by_name(basic_model_name)['tmpls'][0]
+    act_template: dict[str, Any] = mm.by_name(basic_model_name)['tmpls'][0]
     assert act_template["qfmt"] == new_question_format
     assert act_template["afmt"] == new_answer_format
+
+
+def test_create_note_type(col: Collection):
+    mm: ModelManager = col.models
+    note_type_name: str = "My Note Type"
+    note_type: NotetypeDict = mm.new(note_type_name)
+    field_front: FieldDict = mm.new_field('Front')
+    field_back: FieldDict = mm.new_field('Back')
+    mm.add_field(note_type, field_front)
+    mm.add_field(note_type, field_back)
+
+    t: TemplateDict = mm.new_template("Reverse")
+    t["qfmt"] = "{{Back}}"
+    t["afmt"] = "{{Front}}"
+    mm.add_template(note_type, t)
+
+    mm.save(note_type)
+    act_note_type: NotetypeDict = mm.by_name(note_type_name)
+    assert act_note_type['name'] == note_type_name
+
+
+def test_rename_note_type(col: Collection):
+    mm: ModelManager = col.models
+    new_name: str = "My Note Type"
+    assert mm.by_name(new_name) is None
+    note_type: NoteType = mm.by_name(basic_model_name)
+    assert note_type['name'] == basic_model_name
+    note_type['name'] = new_name
+    mm.save(note_type)
+    assert mm.by_name(new_name) is not None
