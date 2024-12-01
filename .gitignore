@@ -30,6 +30,7 @@ Pipfile.lock
 __pycache__
 *.hprof
 *.bak
+Python+/Anki+/Addon+/**/meta.json
 
 #SBT
 .bsp
