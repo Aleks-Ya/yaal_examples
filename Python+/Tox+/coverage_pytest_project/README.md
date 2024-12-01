@@ -1,4 +1,4 @@
-# TOX project
+# TOX project with coverage: coverage executes pytest
 
 ## Run unit-tests
 

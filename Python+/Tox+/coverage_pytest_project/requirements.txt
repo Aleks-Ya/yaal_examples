@@ -1,0 +1,6 @@
+setuptools
+tox
+pytest-qt
+pytest
+PyQt6
+coverage

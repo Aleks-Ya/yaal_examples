@@ -36,5 +36,14 @@ class TryFunctionTest extends AnyFlatSpec with Matchers {
     result shouldEqual "abc"
   }
 
+  it should "return value on given exception" in {
+    val result = Try(throwException)
+      .recover {
+        case _: IllegalArgumentException => "problem"
+      }
+      .getOrElse("ok")
+    result shouldEqual "problem"
+  }
+
   private def throwException: String = throw new IllegalArgumentException
 }

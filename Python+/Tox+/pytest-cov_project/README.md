@@ -1,4 +1,4 @@
-# TOX project
+# TOX project with coverage: use `pytest-cov` plugin
 
 ## Run unit-tests
 

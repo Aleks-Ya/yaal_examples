@@ -92,3 +92,7 @@ Delete an entry: `git stash drop stash@{0}`
 
 ## Archive
 Pack branch into a ZIP (without `.git`): `git archive --output a.zip master`
+
+## Remote
+List remote repos with URLs: `git remote -v`
+Set URL for a remote repo: `git remote set-url origin file://project.git`
