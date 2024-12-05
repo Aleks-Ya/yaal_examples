@@ -16,7 +16,7 @@ subprojects {
 
 configure(subprojects - project('Spock')) {
     dependencies {
-        def junitVersion = '5.9.2'
+        def junitVersion = '5.11.3'
         testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
         testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
     }
