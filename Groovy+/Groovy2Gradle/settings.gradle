@@ -1,0 +1,4 @@
+include 'App',
+        'Core',
+        'Xml',
+        'Spock'
