@@ -6,7 +6,7 @@ subprojects {
     sourceSets.test.resources.srcDir 'resourcesTest'
 
     dependencies {
-        implementation localGroovy()
+        implementation 'org.apache.groovy:groovy-all:4.0.24'
     }
 
     repositories {
