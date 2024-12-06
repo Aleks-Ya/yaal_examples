@@ -40,3 +40,7 @@ Run several test classes: `mvn -Dtest="my.code.FirstTest,my.code.SecondTest" tes
 
 ## Prifles
 Print active profiles: `mvn help:active-profiles`
+
+## Archetype
+Docs ("Maven Archetype Plugin"): https://maven.apache.org/archetype/maven-archetype-plugin/index.html
+Help: `mvn archetype:help`
