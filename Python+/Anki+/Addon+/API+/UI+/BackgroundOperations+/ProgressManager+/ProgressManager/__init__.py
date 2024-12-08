@@ -48,5 +48,5 @@ def __on_action() -> None:
     op.with_progress().run_in_background()
 
 
-if enabled(False):
+if enabled():
     menu.add_mw_menu_item("Show ProgressManager", __on_action)

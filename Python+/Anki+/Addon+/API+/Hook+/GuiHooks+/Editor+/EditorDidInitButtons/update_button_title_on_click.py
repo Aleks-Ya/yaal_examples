@@ -12,7 +12,7 @@ def __on_button_click(editor: Editor):
     editor.web.eval(f"document.getElementById('counter_button').textContent = 'Clicked: {__counter}'")
 
 
-def __on_setup_buttons(buttons: list[str], editor: Editor):
+def __on_init_buttons(buttons: list[str], editor: Editor):
     button: str = editor.addButton(id="counter_button", label=f"Click to increment", icon=None,
                                    cmd="counter_button_cmd",
                                    func=__on_button_click,
@@ -21,4 +21,4 @@ def __on_setup_buttons(buttons: list[str], editor: Editor):
 
 
 if enabled():
-    gui_hooks.editor_did_init_buttons.append(__on_setup_buttons)
+    gui_hooks.editor_did_init_buttons.append(__on_init_buttons)

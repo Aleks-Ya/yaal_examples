@@ -11,7 +11,7 @@ def __on_button_click(editor: Editor):
     editor.web.eval("alert('Button Clicked!')")
 
 
-def __on_setup_buttons(buttons: list[str], editor: Editor):
+def __on_init_buttons(buttons: list[str], editor: Editor):
     showInfo("Editor did init buttons")
     button: str = editor.addButton(id="disabled_button", label="Disabled button 11", icon=None,
                                    cmd="",
@@ -31,6 +31,6 @@ def __on_load_note(editor: Editor):
 
 
 if enabled():
-    gui_hooks.editor_did_init_buttons.append(__on_setup_buttons)
+    gui_hooks.editor_did_init_buttons.append(__on_init_buttons)
     gui_hooks.editor_did_init.append(__on_init)
     gui_hooks.editor_did_load_note.append(__on_load_note)

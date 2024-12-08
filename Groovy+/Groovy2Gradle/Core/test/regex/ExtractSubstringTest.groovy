@@ -31,4 +31,16 @@ class ExtractSubstringTest {
         }
     }
 
+    @Test
+    void matchManySubstrings() {
+        def distributionUrl = 'gradle-6.5-bin.zip gradle-7.0-bin.zip'
+        def match = distributionUrl =~ /gradle-([\d.]+)-bin.zip/
+        def versions = []
+        while (match.find()) {
+            def version = match.group(1)
+            versions.add(version)
+        }
+        assertEquals(["6.5", "7.0"], versions)
+    }
+
 }

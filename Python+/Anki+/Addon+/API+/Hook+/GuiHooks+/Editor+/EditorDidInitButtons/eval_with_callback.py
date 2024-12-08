@@ -27,7 +27,7 @@ def __on_button_click_fail(editor: Editor):
     editor.web.evalWithCallback(js, __callback)
 
 
-def __on_setup_buttons(buttons: list[str], editor: Editor):
+def __on_init_buttons(buttons: list[str], editor: Editor):
     buttons.append(editor.addButton(id="counter_button", label=f"Callback (success)", icon=None,
                                     cmd="counter_button_cmd_success", func=__on_button_click))
     buttons.append(editor.addButton(id="counter_button_fail", label=f"Callback (fail)", icon=None,
@@ -35,4 +35,4 @@ def __on_setup_buttons(buttons: list[str], editor: Editor):
 
 
 if enabled():
-    gui_hooks.editor_did_init_buttons.append(__on_setup_buttons)
+    gui_hooks.editor_did_init_buttons.append(__on_init_buttons)
