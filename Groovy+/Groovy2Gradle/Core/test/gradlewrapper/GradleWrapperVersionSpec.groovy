@@ -1,64 +1,68 @@
 package gradlewrapper
 
-import org.junit.jupiter.api.Test
+import spock.lang.Specification
 
 import java.nio.file.Files
 import java.nio.file.Paths
 
-import static org.junit.jupiter.api.Assertions.assertEquals
-import static org.junit.jupiter.api.Assertions.assertFalse
+class GradleWrapperVersionSpec extends Specification {
 
-class GradleWrapperVersionTest {
-
-    @Test
-    void success1() {
+    def "success1"() {
+        when:
         def dir = getProjectDir('/app/gradlewrapper/success1/gradle/wrapper/gradle-wrapper.properties')
         def version = parseGradleWrapperVersion(dir)
-        assertEquals('7.1', version.get())
+
+        then:
+        version.get() == '7.1'
     }
 
-    @Test
-    void success2() {
+    def "success2"() {
+        when:
         def dir = getProjectDir('/app/gradlewrapper/success2/gradle/wrapper/gradle-wrapper.properties')
         def version = parseGradleWrapperVersion(dir)
-        assertEquals('6.7.9', version.get())
+
+        then:
+        version.get() == '6.7.9'
     }
 
-    @Test
-    void noVersion() {
+    def "noVersion"() {
+        when:
         def dir = getProjectDir('/app/gradlewrapper/noversion/gradle/wrapper/gradle-wrapper.properties')
         def version = parseGradleWrapperVersion(dir)
-        assertFalse(version.isPresent())
+
+        then:
+        !version.isPresent()
     }
 
-    @Test
-    void noFile() {
+    def "noFile"() {
+        when:
         def dir = '/tmp/absent/gradle/wrapper/gradle-wrapper.properties'
         def version = parseGradleWrapperVersion(dir)
-        assertFalse(version.isPresent())
+
+        then:
+        !version.isPresent()
     }
 
-    @Test
-    void nullDir() {
+    def "nullDir"() {
+        when:
         def version = parseGradleWrapperVersion(null)
-        assertFalse(version.isPresent())
+
+        then:
+        !version.isPresent()
     }
 
-    @Test
-    void emptyDir() {
+    def "emptyDir"() {
+        when:
         def version = parseGradleWrapperVersion('')
-        assertFalse(version.isPresent())
+
+        then:
+        !version.isPresent()
     }
 
     private def getProjectDir(String gradleWrapperProperties) {
         new File(getClass().getResource(gradleWrapperProperties).file).parentFile.parentFile.parentFile.path
     }
 
-    /**
-     * Parse Gradle version from "gradle/wrapper/gradle-wrapper.properties".
-     * @param projectRootDir Example: for "/my/project/gradle/wrapper/gradle-wrapper.properties" should be "/my/project".
-     * @return Gradle version if found.
-     */
     private static Optional<String> parseGradleWrapperVersion(String projectRootDir) {
         if (projectRootDir != null) {
             def file = Paths.get(projectRootDir, "gradle", "wrapper", "gradle-wrapper.properties")
