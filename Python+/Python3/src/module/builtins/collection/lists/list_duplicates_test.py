@@ -1,6 +1,3 @@
-from typing import Any
-
-
 def test_remove_duplicates_loose_order():
     original: list[str] = ['a', 'b', 'c', 'a', 'c']
     distinct: list[str] = list(set(original))
@@ -19,6 +16,6 @@ def test_remove_duplicates_preserve_order_by_set():
     assert distinct == ['a', 'b', 'c']  # Order is preserved
 
 
-def __remove_duplicates(original: list[Any]) -> list[Any]:
-    seen: set[Any] = set()
+def __remove_duplicates(original: list[any]) -> list[any]:
+    seen: set[any] = set()
     return [x for x in original if not (x in seen or seen.add(x))]

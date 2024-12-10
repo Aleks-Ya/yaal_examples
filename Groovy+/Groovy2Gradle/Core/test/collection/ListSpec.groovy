@@ -133,4 +133,29 @@ class ListSpec extends Specification {
         then:
         numbersMap == [(1): "Positive", (-2): "Negative", (0): "Zero"]
     }
+
+    def "clone list"() {
+        given:
+        List<Integer> numbers = [1, 2, 3]
+        List<Integer> copy = numbers.clone()
+
+        when:
+        copy[1] = 100
+
+        then:
+        assert numbers == [1, 2, 3]
+        assert copy == [1, 100, 3]
+    }
+
+    def "get list elements not in set"() {
+        given:
+        List<Integer> list = [1, 2, 3, 4, 5]
+        Set<Integer> set = [2, 4] as Set
+
+        when:
+        List<Integer> result = list - set
+
+        then:
+        assert result == [1, 3, 5]
+    }
 }

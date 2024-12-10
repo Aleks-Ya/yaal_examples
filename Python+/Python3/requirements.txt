@@ -5,6 +5,7 @@ pytest
 pytest-qt
 pytest-subtests
 pytest-mock
+pytest-asyncio
 pytest_check
 phoenixdb
 lockfile
@@ -48,3 +49,4 @@ timerit
 nltk
 textblob
 spacy
+tenacity

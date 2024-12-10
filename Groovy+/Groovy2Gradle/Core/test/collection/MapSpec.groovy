@@ -56,4 +56,16 @@ class MapSpec extends Specification {
         expect:
         map.size() == 2
     }
+
+    def "get keys not in list"() {
+        given:
+        def nameMap = ["John": 30, "Mary": 25, "Mark": 20]
+        def names = ["Mark", "John"]
+
+        when:
+        def namesNotInList = nameMap.keySet().findAll { !names.contains(it) }
+
+        then:
+        assert namesNotInList == ["Mary"] as Set
+    }
 }
