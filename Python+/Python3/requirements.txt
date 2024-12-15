@@ -50,3 +50,5 @@ nltk
 textblob
 spacy
 tenacity
+inflect
+pattern3

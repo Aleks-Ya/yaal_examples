@@ -8,3 +8,5 @@ from . import add_disabled_button
 from . import eval_with_callback
 # noinspection PyUnresolvedReferences
 from . import add_button_with_icon
+# noinspection PyUnresolvedReferences
+from . import add_button_with_shortcut

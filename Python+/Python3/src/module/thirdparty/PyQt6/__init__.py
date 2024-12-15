@@ -4,7 +4,7 @@ from typing import Generator
 
 from PyQt6.QtCore import QSize, QRect, QSizeF
 from PyQt6.QtGui import QTextDocument
-from PyQt6.QtWidgets import QApplication, QWidget, QSizePolicy, QLayout, QAbstractScrollArea, QVBoxLayout
+from PyQt6.QtWidgets import QApplication, QWidget, QSizePolicy, QLayout, QAbstractScrollArea, QVBoxLayout, QMainWindow
 
 
 @contextmanager
@@ -20,6 +20,15 @@ def window() -> Generator[QWidget, QWidget, QWidget]:
     widget: QWidget = QWidget()
     yield widget
     widget.show()
+    sys.exit(application.exec())
+
+
+@contextmanager
+def main_window() -> Generator[QMainWindow, QMainWindow, QMainWindow]:
+    application: QApplication = QApplication([])
+    window: QMainWindow = QMainWindow()
+    yield window
+    window.show()
     sys.exit(application.exec())
 
 
