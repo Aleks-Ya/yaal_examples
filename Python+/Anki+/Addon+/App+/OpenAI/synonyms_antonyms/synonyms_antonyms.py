@@ -13,10 +13,10 @@ from aqt.browser import Browser
 from aqt.operations import CollectionOp, ResultWithChanges
 from aqt.qt import QAction, qconnect, QWidget
 from aqt.utils import showInfo
-
 from common.config import LanguageAiConfig
 from common.fields import synonym1_field, synonyms_field, antonyms_field, antonym1_field
 from common.tags import absent_synonym1_tag, absent_synonyms_tag, absent_antonyms_tag, unit_tag, absent_antonym1_tag
+
 from .columns import nid_column
 from .note_filler import NoteFiller
 from .openai_api import OpenAiApi
@@ -93,6 +93,10 @@ class SynonymsAntonyms:
             except WantCancelException:
                 log.info("Cancelling")
                 return changes
+            except Exception as e:
+                log.exception("Unexpected error during notes update", exc_info=e)
+                raise e
+
         return changes
 
     def _show_progress(self, changes: OpChangesWithCount, notes_len: int):

@@ -139,6 +139,7 @@ def to_mb(size_bytes: int) -> int:
 
 def check_enough_disk_space(files_data_arg: FilesData, dest_dir_arg: Path):
     total_file_size = files_data_arg.src_file_size_total
+    print(f"Total file size: {to_mb(total_file_size)}MB")
     available_disk_space_bytes = shutil.disk_usage(dest_dir_arg).free
     reserve_disk_space_bytes = 1 * 1024 * 1024 * 1024  # 1Gb
     if (total_file_size + reserve_disk_space_bytes) > available_disk_space_bytes:

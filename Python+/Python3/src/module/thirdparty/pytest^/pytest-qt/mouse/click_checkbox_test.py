@@ -2,28 +2,31 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QCheckBox, QVBoxLayout, QWidget
 from pytestqt.qtbot import QtBot
 
-__clicked: bool = False
 
+class State:
+    def __init__(self):
+        self.checked = False
 
-def __on_state_changed(_: int):
-    global __clicked
-    __clicked = True
+    def on_state_changed(self, _: int):
+        self.checked = True
 
 
 def test_check_checkbox_alone(qtbot: QtBot):
+    state: State = State()
     checkbox: QCheckBox = QCheckBox()
     # noinspection PyUnresolvedReferences
-    checkbox.stateChanged.connect(__on_state_changed)
+    checkbox.stateChanged.connect(state.on_state_changed)
     checkbox.show()
     qtbot.addWidget(checkbox)
     assert not checkbox.isChecked()
-    assert not __clicked
+    assert not state.checked
     qtbot.mouseClick(checkbox, Qt.MouseButton.LeftButton)
     assert checkbox.isChecked()
-    assert __clicked
+    assert state.checked
 
 
 def test_check_checkbox_in_widget(qtbot: QtBot):
+    state: State = State()
     checkbox: QCheckBox = QCheckBox()
     layout: QVBoxLayout = QVBoxLayout()
     layout.addWidget(checkbox)
@@ -32,9 +35,9 @@ def test_check_checkbox_in_widget(qtbot: QtBot):
     widget.show()
 
     # noinspection PyUnresolvedReferences
-    checkbox.stateChanged.connect(__on_state_changed)
+    checkbox.stateChanged.connect(state.on_state_changed)
     assert not checkbox.isChecked()
-    assert not __clicked
+    assert not state.checked
     qtbot.mouseClick(checkbox, Qt.MouseButton.LeftButton)
     assert checkbox.isChecked()
-    assert __clicked
+    assert state.checked

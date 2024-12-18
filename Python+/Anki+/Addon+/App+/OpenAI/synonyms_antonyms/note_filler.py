@@ -2,10 +2,10 @@ import logging
 from typing import List, Dict
 
 from anki.notes import Note
-
 from common.config import LanguageAiConfig
 from common.fields import english_field, synonym1_field, synonyms_field, antonyms_field, antonym1_field
 from common.tags import absent_synonym1_tag, absent_synonyms_tag, absent_antonyms_tag, absent_antonym1_tag
+
 from .columns import english_column
 
 log: logging.Logger = logging.getLogger(__name__)
@@ -20,6 +20,7 @@ class NoteFiller:
         self.antonyms_delimiter: str = config.get_antonyms_delimiter()
 
     def fill_note(self, note: Note, row: Dict[str, str]):
+        log.info(f"Filling note: {note.id}")
         synonym1_old: str = note[synonym1_field]
         synonyms_old: str = note[synonyms_field]
         antonym1_old: str = note[antonym1_field]
@@ -59,6 +60,7 @@ class NoteFiller:
         return note
 
     def remove_word(self, string: str, word: str, delimiter: str) -> str:
+        log.info(f"Removing word: '{word}' from '{string}'")
         split = string.split(delimiter.strip())
         split = [s.strip() for s in split]
         split.remove(word)
@@ -89,6 +91,7 @@ class NoteFiller:
         return word.strip() == ''
 
     def update_tags(self, note: Note, field: str, absent_tag: str) -> None:
+        log.info(f"Updating tags: {field}={note[field]}, absent_tag={absent_tag}")
         if self.is_empty(note[field]):
             note.tags.append(absent_tag)
         else:
