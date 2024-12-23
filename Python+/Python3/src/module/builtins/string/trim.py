@@ -1,4 +1,2 @@
-# Trim strings
-
-assert ' abc '.strip() == 'abc'
-
+def test_trim():
+    assert ' abc '.strip() == 'abc'

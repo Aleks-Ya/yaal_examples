@@ -1,24 +1,26 @@
-# Format string with f-strings
-
-import decimal
 from datetime import datetime
+from decimal import Decimal
 
-# string
-name = 'John'
-assert f"Hi {name}!" == 'Hi John!'
 
-# integer
-age = 33
-assert f"I am {age} years old" == 'I am 33 years old'
+def test_string_format():
+    name: str = 'John'
+    assert f"Hi {name}!" == 'Hi John!'
 
-# decimal
-width = 10
-precision = 4
-value = decimal.Decimal("12.34567")
-s = f"result: {value:{width}.{precision}}"
-assert s == 'result:      12.35'
 
-# date
-today = datetime(year=2017, month=1, day=27)
-s = f"{today:%b %d, %Y}"
-assert s == 'Jan 27, 2017'
+def test_integer_format():
+    age: int = 33
+    assert f"I am {age} years old" == 'I am 33 years old'
+
+
+def test_decimal_format():
+    width: int = 10
+    precision: int = 4
+    value: Decimal = Decimal("12.34567")
+    s: str = f"result: {value:{width}.{precision}}"
+    assert s == 'result:      12.35'
+
+
+def test_date_format():
+    today: datetime = datetime(year=2017, month=1, day=27)
+    s: str = f"{today:%b %d, %Y}"
+    assert s == 'Jan 27, 2017'

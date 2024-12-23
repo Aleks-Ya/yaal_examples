@@ -1,12 +1,13 @@
 # Replace substring
 
-# Replace all occurrences
-s = 'abcb'
-u = s.replace("b", "x")
-assert u == 'axcx'
+def test_replace_all_occurrences():
+    s: str = 'abcb'
+    u: str = s.replace("b", "x")
+    assert u == 'axcx'
 
-# Replace dollar
-u = 'a$bc'.replace("$", "\\$")
-print(u)
-assert u == "a\\$bc"
-assert u == "a\$bc"
+
+def test_replace_dollar():
+    u: str = 'a$bc'.replace("$", "\\$")
+    print(u)
+    assert u == "a\\$bc"
+    assert u == "a\$bc"

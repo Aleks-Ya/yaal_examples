@@ -1,7 +1,5 @@
-# Format strings with "format()" method
-
-# string
-greeting = 'Hi'
-name = 'John'
-formatted = "{} {}!".format(greeting, name)
-assert formatted == 'Hi John!'
+def test_format():
+    greeting: str = 'Hi'
+    name: str = 'John'
+    formatted: str = "{} {}!".format(greeting, name)
+    assert formatted == 'Hi John!'

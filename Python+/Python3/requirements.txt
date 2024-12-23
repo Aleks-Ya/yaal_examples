@@ -52,3 +52,6 @@ spacy
 tenacity
 inflect
 pattern3
+mistune
+markdown2
+mdutils
