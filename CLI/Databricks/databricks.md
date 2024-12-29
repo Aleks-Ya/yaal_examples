@@ -111,3 +111,8 @@ List all job permission levels: `databricks jobs get-permission-levels 122862247
 Get job permissions: `databricks jobs get-permissions 122862247468184`
 Set job permissions: `databricks jobs set-permissions 122862247468184 --json ???`
 Update job permissions: `databricks jobs update-permissions 122862247468184 --json {\"access_control_list\":[{\"group_name\":\"CdipSearchAuthors\",\"permission_level\":\"CAN_MANAGE\"}]}`
+
+### Unity Catalog
+List catalogs: `databricks catalogs list`
+List schemas in a catalog: `databricks schemas list my-catalog` 
+List tables in a schema: `databricks table list my-catalog my-schema`

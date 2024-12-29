@@ -55,3 +55,6 @@ pattern3
 mistune
 markdown2
 mdutils
+langdetect
+langid
+pycountry

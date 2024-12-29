@@ -1,7 +1,7 @@
 import sys
 
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QAction
+from PyQt6.QtGui import QAction, QKeySequence
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtWidgets import QMenu
@@ -26,6 +26,7 @@ class MainWindow(QMainWindow):
 
         self.action1: QAction = QAction("Option 1")
         self.action1.triggered.connect(self.option1_action)
+        self.action1.setShortcut(QKeySequence("Ctrl+1"))
         self.action2: QAction = QAction("Option 2")
         self.action2.triggered.connect(self.option2_action)
 
@@ -35,6 +36,8 @@ class MainWindow(QMainWindow):
 
         self.button.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.button.customContextMenuRequested.connect(self.show_context_menu)
+
+        self.addAction(self.action1)
 
     def show_context_menu(self, position):
         self.context_menu.exec(self.button.mapToGlobal(position))

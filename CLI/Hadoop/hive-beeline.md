@@ -2,27 +2,15 @@
 
 See also: Beeline queries examples
 
-Help:
-```
-beeline --help
-```
-Verbose:
-```
-beeline --verbose ...
-```
-Connect with login and password:
-```
-beeline -u jdbc:hive2://localhost:10000 -n my_login -p my_pass
-```
-Connect anonymously:
-```
-beeline -u jdbc:hive2://localhost:10000 -n '' -p ''
-```
+Help: `beeline --help`
+Verbose: `beeline --verbose ...`
+Connect with login and password: `beeline -u jdbc:hive2://localhost:10000 -n my_login -p my_pass`
+Connect anonymously: `beeline -u jdbc:hive2://localhost:10000 -n '' -p ''`
 
 
 
 ## Beeline queries examples
-
+```sql
 SELECT COUNT(*) FROM flights; --7 453 216
 SELECT COUNT(*) FROM flights WHERE cancelled = TRUE; -- 160 748 
 SELECT COUNT(*) FROM flights WHERE cancelled = TRUE AND year=2007; -- 160 748 
@@ -63,3 +51,4 @@ ORDER BY `Cancelled flights` DESC;
 
 DROP TABLE cancelled_flights;
 DROP TABLE cancelled_cities;
+```
