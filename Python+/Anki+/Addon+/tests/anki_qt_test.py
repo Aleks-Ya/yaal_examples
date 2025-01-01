@@ -7,7 +7,20 @@ from anki.collection import Collection
 from aqt import AnkiQt, AnkiApp, ProfileManager
 
 
-def test_anki_qt():
+def test_anki_qt_light():
+    profile: str = "Profile1"
+    base_dir: Path = __base_dir()
+    pm: ProfileManager = __profile_manager(base_dir, profile)
+    col: Collection = Collection(pm.collectionPath())
+    col.close()  # prevent "collection already open"
+    namespace: Namespace = Namespace(safemode=False, profile=profile, base=base_dir, web=False, no_update_check=True)
+    args: list[str] = [f"base={base_dir}", f"profile={profile}"]
+    app: AnkiApp = AnkiApp(args)
+    mw: AnkiQt = AnkiQt(app, pm, col.backend, namespace, [])
+    assert mw is not None
+
+
+def test_anki_qt_full():
     profile: str = "Profile1"
     base_dir: Path = __base_dir()
     pm: ProfileManager = __profile_manager(base_dir, profile)

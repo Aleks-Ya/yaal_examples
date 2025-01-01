@@ -1,40 +1,44 @@
-# Class has constructor
+def test_minimal_class_1():
+    class MinimalClass1:
+        """minimal class 1"""
+
+    m1: MinimalClass1 = MinimalClass1()
+    assert isinstance(m1, MinimalClass1)
 
 
-# Minimal class 1
-class MinimalClass1:
-    """minimal class 1"""
+def test_minimal_class_2():
+    class MinimalClass2:
+        pass
+
+    m2: MinimalClass2 = MinimalClass2()
+    assert isinstance(m2, MinimalClass2)
 
 
-m1 = MinimalClass1()
+def test_constructor_has_no_arguments():
+    class NoArgsConstructorClass:
+        def __init__(self):
+            self.data = 'hello'
+
+    x: NoArgsConstructorClass = NoArgsConstructorClass()
+    assert x.data == 'hello'
 
 
-# Minimal class 2
-class MinimalClass2:
-    pass
+def test_constructor_with_arguments():
+    class ArgsConstructorClass:
+        def __new__(cls, *args, **kwargs):
+            return super(ArgsConstructorClass, cls).__new__(cls)
+
+        def __init__(self, text):
+            self.text = text
+
+    x: ArgsConstructorClass = ArgsConstructorClass('hi!')
+    assert x.text == 'hi!'
 
 
-m2 = MinimalClass2()
+def test_instantiate_class_without_initialization():
+    class WithoutInitializationClass:
+        def __init__(self, text):
+            self.text = text
 
-
-# No arguments constructor
-class NoArgsConstructorClass:
-    def __init__(self):
-        self.data = 'hello'
-
-
-x = NoArgsConstructorClass()
-assert x.data == 'hello'
-
-
-# Constructor has arguments
-class ArgsConstructorClass:
-    def __new__(cls, *args, **kwargs):
-        return super(ArgsConstructorClass, cls).__new__(cls)
-
-    def __init__(self, text):
-        self.text = text
-
-
-x = ArgsConstructorClass('hi!')
-assert x.text == 'hi!'
+    without_initialization: WithoutInitializationClass = WithoutInitializationClass.__new__(WithoutInitializationClass)
+    assert not hasattr(without_initialization, 'text')
