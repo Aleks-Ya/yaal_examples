@@ -6,3 +6,5 @@ CREATE TABLE person (
 );
 INSERT INTO person(id, name) VALUES (1, 'John'), (2, 'Mary');
 SELECT * FROM person;
+
+.schema

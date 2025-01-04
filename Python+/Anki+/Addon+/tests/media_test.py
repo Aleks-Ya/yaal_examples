@@ -13,7 +13,7 @@ import pytest
 
 @pytest.fixture(scope="function")
 def col():
-    collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
+    collection: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
     yield collection
     collection.close()
 
