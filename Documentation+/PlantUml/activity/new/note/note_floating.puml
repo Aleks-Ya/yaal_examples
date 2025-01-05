@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+title Notes
+
+start
+:foo1;
+floating note left: This is a note
+stop
+
+@enduml

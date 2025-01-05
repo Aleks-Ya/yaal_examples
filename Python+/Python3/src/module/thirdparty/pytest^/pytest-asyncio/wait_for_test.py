@@ -4,20 +4,19 @@ import pytest
 
 
 async def main_with_return() -> str:
-    await sleep(1)
-    return 'Finished'
+    return await sleep(1, result='Finished')
 
 
 @pytest.mark.asyncio
 async def test_some_asyncio_code():
-    res: str = await main_with_return()
-    assert "Finished" == res
+    result: str = await main_with_return()
+    assert "Finished" == result
 
 
 @pytest.mark.asyncio
 async def test_wait_for_with_timeout():
     try:
-        res: str = await wait_for(main_with_return(), timeout=10)
-        assert "Finished" == res
+        result: str = await wait_for(main_with_return(), timeout=10)
+        assert "Finished" == result
     except TimeoutError:
         pytest.fail("The task was not completed within the timeout period.")

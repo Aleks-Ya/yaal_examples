@@ -2,6 +2,7 @@ import os
 import tempfile
 from pathlib import Path
 
+import pytest
 from pytest import raises
 from anki.collection import Collection
 from aqt import ProfileManager
@@ -20,11 +21,10 @@ def test_create_profile():
     pm.save()
 
 
-def test_disable_auto_sync():
-    pm: ProfileManager = __create_pm('Profile1')
-    assert pm.auto_syncing_enabled()
-    pm.profile['autoSync'] = False
-    assert not pm.auto_syncing_enabled()
+def test_disable_auto_sync(profile_manager: ProfileManager):
+    assert profile_manager.auto_syncing_enabled()
+    profile_manager.profile['autoSync'] = False
+    assert not profile_manager.auto_syncing_enabled()
 
 
 def test_collection_path():
@@ -52,14 +52,19 @@ def test_collection_path():
     assert col.note_count() == 0
 
 
-def __create_pm(profile_name: str):
+def test_last_loaded_profile_name():
     tmp_dir: str = tempfile.mkdtemp()
     os.removedirs(tmp_dir)
     base_dir: Path = ProfileManager.get_created_base_folder(tmp_dir)
     pm: ProfileManager = ProfileManager(base=base_dir)
+    with pytest.raises(AttributeError):
+        pm.last_loaded_profile_name()
     pm.setupMeta()
-    pm.create(profile_name)
-    assert pm.profiles() == [profile_name]
-    pm.openProfile(profile_name)
+    assert pm.last_loaded_profile_name() == None
+    profile: str = "Profile1"
+    pm.create(profile)
+    assert pm.last_loaded_profile_name() == None
+    pm.openProfile(profile)
+    assert pm.last_loaded_profile_name() == profile
     pm.save()
-    return pm
+    assert pm.last_loaded_profile_name() == profile

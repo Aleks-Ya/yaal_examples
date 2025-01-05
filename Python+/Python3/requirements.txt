@@ -58,3 +58,4 @@ mdutils
 langdetect
 langid
 pycountry
+trio

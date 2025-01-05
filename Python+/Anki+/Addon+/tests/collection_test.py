@@ -29,6 +29,7 @@ def test_create_note(col: Collection, basic_note_type: NoteType, deck_id: DeckId
 
 
 def test_create_notes(col: Collection, basic_note_type: NoteType, deck_id: DeckId):
+    assert col.note_count() == 0
     note1: Note = col.new_note(basic_note_type)
     note2: Note = col.new_note(basic_note_type)
     assert note1.id == 0
@@ -37,6 +38,7 @@ def test_create_notes(col: Collection, basic_note_type: NoteType, deck_id: DeckI
     col.add_notes(requests)
     assert note1.id != 0
     assert note2.id != 0
+    assert col.note_count() == 2
 
 
 def test_add_field_to_note(col: Collection, basic_note_type: NoteType, deck_id: DeckId):

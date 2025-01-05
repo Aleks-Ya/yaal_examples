@@ -8,12 +8,13 @@ from anki.notes import Note
 
 # Run with `-s` option to see console output immediately: `pytest -s`
 def test_generate_large_collections(col: Collection, basic_note_type: NoteType, deck_id: DeckId):
-    note_count: int = 1000
-    files_in_field: int = 2
+    print(f"Collection path: {col.path}")
+    note_count: int = 10000
+    files_in_field: int = 1
     file_size_bytes: int = 20
     file_content: str = "a" * file_size_bytes
     media_dir: Path = Path(col.media.dir())
-    batch_size: int = 100
+    batch_size: int = 1000
     for start_index in range(0, note_count, batch_size):
         end_index: int = min(start_index + batch_size, note_count)
         requests: list[AddNoteRequest] = []

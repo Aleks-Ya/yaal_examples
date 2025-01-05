@@ -22,7 +22,7 @@ pip install --upgrade pip
 echo
 
 echo "Updating PIP3..."
-pip3 install --upgrade pip
+pip3 install --upgrade pip --break-system-packages
 echo 
 
 echo "Updating SdkMan..."

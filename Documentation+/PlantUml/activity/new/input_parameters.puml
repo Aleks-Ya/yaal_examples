@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+title Declare input parameters of a diagram
+
+start
+note right
+    name: String
+    age: Int
+end note
+:Calculate;
+stop
+note right: Schedule
+
+@enduml

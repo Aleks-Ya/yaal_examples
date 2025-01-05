@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+title One-line note
+
+start
+:foo1;
+note right: hello
+stop
+
+@enduml
