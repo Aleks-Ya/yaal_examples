@@ -17,4 +17,5 @@ def __on_event(col: Collection, notes: Sequence[Note]) -> None:
 
 
 if enabled():
+    # PR with this hook was rejected: https://github.com/ankitects/anki/pull/3310
     hooks.notes_were_updated.append(__on_event)

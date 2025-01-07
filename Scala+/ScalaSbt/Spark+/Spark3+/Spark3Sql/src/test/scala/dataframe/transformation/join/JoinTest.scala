@@ -2,8 +2,8 @@ package dataframe.transformation.join
 
 import factory.Factory
 import org.apache.spark.sql.Row
-import org.apache.spark.sql.functions.col
-import org.apache.spark.sql.types.{IntegerType, StringType}
+import org.apache.spark.sql.functions.{col, collect_list, explode}
+import org.apache.spark.sql.types.{ArrayType, IntegerType, StringType}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -83,6 +83,31 @@ class JoinTest extends AnyFlatSpec with Matchers {
       """{"id":1,"name":"John","boss":null}""",
       """{"id":2,"name":"Mark","boss":"John"}""",
       """{"id":3,"name":"Chad","boss":"John"}"""
+    )
+  }
+
+  it should "do inner join on array column" in {
+    val countriesDf = Factory.createDf(Map("country" -> StringType, "president_ids" -> ArrayType(IntegerType)),
+      Row("USA", Seq(1, 3)),
+      Row("France", Seq(2)),
+      Row("England", null))
+    val presidentsDf = Factory.createDf(Map("id" -> IntegerType, "name" -> StringType),
+      Row(1, "Biden"),
+      Row(2, "Macron"),
+      Row(3, "Trump")
+    )
+
+    val presidentsRenamedDf = presidentsDf
+      .withColumnRenamed("id", "president_id")
+      .withColumnRenamed("name", "president")
+    val joinedDf = countriesDf
+      .withColumn("president_id", explode(col("president_ids")))
+      .join(presidentsRenamedDf, "president_id")
+      .groupBy("country")
+      .agg(collect_list(col("president")) as "presidents")
+    joinedDf.toJSON.collect() should contain inOrderOnly(
+      """{"country":"France","presidents":["Macron"]}""",
+      """{"country":"USA","presidents":["Biden","Trump"]}"""
     )
   }
 }

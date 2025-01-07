@@ -1,9 +1,9 @@
 package dataframe.transformation
 
 import factory.Factory
-import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types.{ArrayType, IntegerType, StringType}
+import org.apache.spark.sql.{Row, functions}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -82,6 +82,13 @@ class FilterTransformation extends AnyFlatSpec with Matchers {
       Row("Germany", null))
     val df2 = df.filter(arrayContainsSubstringUdf(col("cities"), lit("ming")))
     df2.toJSON.collect() should contain only """{"country":"England","cities":["London","Birmingham"]}"""
+  }
+
+  it should "filter by array of nulls" in {
+    val df = Factory.createDf(Map("name" -> StringType, "orders" -> ArrayType(IntegerType)),
+      Row("USA", Array(10, null)), Row("Canada", Array(null, null)))
+    val df2 = df.filter(functions.size(array_except(col("orders"), array(lit(null)))) === 0)
+    df2.toJSON.collect() should contain only """{"name":"Canada","orders":[null,null]}"""
   }
 
   it should "filter by an OR expression" in {
