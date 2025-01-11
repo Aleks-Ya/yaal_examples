@@ -1,12 +1,9 @@
-from aqt import gui_hooks
-from aqt.utils import showInfo
-
 from ._common.disable import enabled
 
-
-def __on_event():
-    showInfo("Profile will close")
-
+if enabled():
+    # noinspection PyUnresolvedReferences
+    from . import profile_will_close
 
 if enabled():
-    gui_hooks.profile_will_close.append(__on_event)
+    # noinspection PyUnresolvedReferences
+    from . import error_exit_anki_editor_hidden

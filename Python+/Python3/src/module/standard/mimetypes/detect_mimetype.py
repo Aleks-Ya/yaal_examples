@@ -24,6 +24,7 @@ class TestDetectMimeType(unittest.TestCase):
         self.assertEqual((None, None), mimetypes.guess_type(""))
         self.assertEqual((None, None), mimetypes.guess_type("without_extension"))
         self.assertEqual((None, None), mimetypes.guess_type("wrong_extension.no1"))
+        self.assertEqual((None, None), mimetypes.guess_type(".png"))
 
 
 if __name__ == '__main__':

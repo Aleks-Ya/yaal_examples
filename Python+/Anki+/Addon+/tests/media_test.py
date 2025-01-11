@@ -1,6 +1,7 @@
 import os.path
 import tempfile
 import textwrap
+import timeit
 from pathlib import Path
 from typing import Sequence, Any
 
@@ -102,3 +103,14 @@ def test_extract_static_media_files(col: Collection):
     note_type_id: NotetypeId = col.models.id_for_name(basic_note_type)
     files: Sequence[str] = col.media.extract_static_media_files(note_type_id)
     assert files == ['_googletts-25f19a6b-ea6e1f76-5a1be9f2-95124eac-06d072b2.mp3', '_Lemon-Lime_Slush.jpg']
+
+
+def test_files_in_str_performance(col: Collection):
+    filename1: str = col.media.write_data('picture.jpg', b'picture')
+    filename2: str = col.media.write_data('sound.mp3', b'sound')
+    filename3: str = col.media.write_data('animation.gif', b'animation')
+    note: Note = col.newNote()
+    note['Front'] = f'Files: <img src="{filename1}"> <img src="{filename2}"> <img src="{filename3}">'
+    col.addNote(note)
+    execution_time_sec: float = timeit.timeit(lambda: col.media.files_in_str(note.mid, 'Front'), number=30_000)
+    assert execution_time_sec < 1
