@@ -6,6 +6,7 @@ src_relative_paths=(
   AddonConfig+/ReadWriteAddonConfig
   AddonInfo
   Collection
+  Cython+/CythonAddon/src
   Dependencies+/addon_with_dependency
   Dependencies+/addon_with_dependency_pip
   GUI+/QProgressDialog

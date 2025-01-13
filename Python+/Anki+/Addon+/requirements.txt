@@ -4,3 +4,4 @@ aqt~=24.6.3
 pytest
 pytest-qt
 mock
+Cython
