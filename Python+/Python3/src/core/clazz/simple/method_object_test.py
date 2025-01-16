@@ -3,9 +3,10 @@
 
 class MyClass:
     @staticmethod
-    def f():
+    def get_greeting():
         return 'hello world'
 
 
-hello = MyClass.f
-assert hello() == 'hello world'
+def test_get_greeting():
+    hello = MyClass.get_greeting
+    assert hello() == 'hello world'

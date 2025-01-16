@@ -21,9 +21,16 @@ class DerivedClass(ParentClass):
         return self.city
 
 
-x = ParentClass()
-assert x.get_data() == 'parent'
+def test_parent_class_get_data():
+    x: ParentClass = ParentClass()
+    assert x.get_data() == 'parent'
 
-x = DerivedClass()
-assert x.get_data() == 'PARENT'
-assert x.get_city() == 'msk'
+
+def test_derived_class_get_data():
+    x: DerivedClass = DerivedClass()
+    assert x.get_data() == 'PARENT'
+
+
+def test_derived_class_get_city():
+    x: DerivedClass = DerivedClass()
+    assert x.get_city() == 'msk'

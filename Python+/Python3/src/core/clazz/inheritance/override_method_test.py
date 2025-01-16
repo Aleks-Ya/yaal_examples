@@ -18,8 +18,11 @@ class DerivedClass(ParentClass):
         return self.data_derived
 
 
-x = ParentClass()
-assert x.get_data() == 'parent'
+def test_parent_class():
+    x: ParentClass = ParentClass()
+    assert x.get_data() == 'parent'
 
-x = DerivedClass()
-assert x.get_data() == 'derived'
+
+def test_derived_class():
+    x: DerivedClass = DerivedClass()
+    assert x.get_data() == 'derived'

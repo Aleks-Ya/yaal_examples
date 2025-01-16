@@ -6,4 +6,5 @@ def min_value(x, y):
     return min(x, x + y)
 
 
-assert min_value(1, 2) == 1
+def test_min_value():
+    assert min_value(1, 2) == 1

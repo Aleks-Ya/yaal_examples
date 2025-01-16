@@ -30,6 +30,7 @@ src_relative_paths=(
   Hook+/GuiHooks+/Editor+/EditorDidFireTypingTimer
   Hook+/GuiHooks+/Editor+/EditorDidInit
   Hook+/GuiHooks+/Editor+/EditorDidInitButtons
+  Hook+/GuiHooks+/Editor+/EditorDidInitShortcuts
   Hook+/GuiHooks+/Editor+/EditorDidLoadNote
   Hook+/GuiHooks+/Editor+/EditorDidPaste
   Hook+/GuiHooks+/Editor+/EditorDidUnfocusField

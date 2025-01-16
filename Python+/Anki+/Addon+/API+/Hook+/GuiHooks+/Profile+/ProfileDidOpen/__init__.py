@@ -4,6 +4,7 @@ from aqt.utils import show_info
 from ._common.disable import enabled
 
 
+# Hook "collection_did_load" is invoked earlier
 def __on_event():
     show_info(f"""
             Profile did open.

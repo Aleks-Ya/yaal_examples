@@ -7,10 +7,7 @@ class Person:
         return f'{self.name} - {self.age}'
 
 
-p = Person('John', 30)
-print(p)
-
-s = str(p)
-print(s)
-
-assert s == 'John - 30'
+def test_person_string_representation():
+    p = Person('John', 30)
+    s = str(p)
+    assert s == 'John - 30'

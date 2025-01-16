@@ -3,3 +3,6 @@ bundled_dependencies
 *.c
 *.so
 .coverage
+.tox
+build
+dist
