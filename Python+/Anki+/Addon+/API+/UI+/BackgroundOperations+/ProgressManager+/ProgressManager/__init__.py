@@ -3,7 +3,7 @@ import time
 from anki.collection import Collection
 from aqt import mw
 from aqt.operations import QueryOp
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.disable import enabled
 from ._common import menu
@@ -40,7 +40,7 @@ def __prefix(i: int, end: int) -> str:
 
 
 def __on_success(count: int) -> None:
-    showInfo(f"Background operation returned {count}")
+    show_info(f"Background operation returned {count}")
 
 
 def __on_action() -> None:

@@ -3,7 +3,7 @@ from typing import Optional
 from aqt import mw
 from aqt.qt import QDialog, QVBoxLayout, QDialogButtonBox, QWidget, QTabWidget, QCheckBox, QComboBox, QHBoxLayout, \
     QLabel, QGroupBox, QTableWidget, QTableWidgetItem, QFrame, QPushButton, QColor, QColorDialog, Qt
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.disable import enabled
 from ._common import menu
@@ -79,11 +79,11 @@ class ColorsLayout(QVBoxLayout):
 
 
 def __accept():
-    showInfo("Accept")
+    show_info("Accept")
 
 
 def __reject():
-    showInfo("Reject")
+    show_info("Reject")
 
 
 def __show_dialog() -> None:

@@ -1,12 +1,12 @@
 from anki.notes import Note
 from aqt import gui_hooks
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.disable import enabled
 
 
 def __on_unfocus_field(changed: bool, note: Note, current_field_idx: int):
-    showInfo(f"Editor did unfocus field: note={note}, changed={changed}, current_field_idx={current_field_idx}")
+    show_info(f"Editor did unfocus field: note={note}, changed={changed}, current_field_idx={current_field_idx}")
 
 
 if enabled():

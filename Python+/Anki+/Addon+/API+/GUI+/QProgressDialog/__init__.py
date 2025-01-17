@@ -3,14 +3,14 @@ from time import sleep
 
 from aqt import mw
 from aqt.qt import QProgressDialog
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.disable import enabled
 from ._common import menu
 
 
 def __cancelled():
-    showInfo("Operation was cancelled")
+    show_info("Operation was cancelled")
 
 
 def __show_dialog_endless() -> None:
@@ -36,7 +36,7 @@ def __show_dialog_range() -> None:
     # noinspection PyUnresolvedReferences
     progress_dialog.canceled.connect(__cancelled)
     # noinspection PyUnresolvedReferences
-    progress_dialog.finished.connect(lambda: showInfo("Operation was finished"))
+    progress_dialog.finished.connect(lambda: show_info("Operation was finished"))
     # noinspection PyUnresolvedReferences
     progress_dialog.show()
     thread: Thread = Thread(target=__increment_progress, args=(progress_dialog,))

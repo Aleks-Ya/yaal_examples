@@ -1,7 +1,7 @@
 from typing import Any
 
 from aqt import gui_hooks, mw
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.disable import enabled
 from ._common import menu
@@ -10,15 +10,15 @@ __my_python_action: str = "my-action"
 
 
 def __on_event(handled: tuple[bool, Any], message: str, _: Any) -> tuple[bool, Any]:
-    showInfo(f"did_receive_js_message: message={message}")
+    show_info(f"did_receive_js_message: message={message}")
     if message == __my_python_action:
-        showInfo(f"Received my event: message={message}")
+        show_info(f"Received my event: message={message}")
         return True, None
     return handled
 
 
 def __menu_item_action() -> None:
-    showInfo('You clicked "Send pycmd event"')
+    show_info('You clicked "Send pycmd event"')
     mw.web.eval(f"pycmd('{__my_python_action}')")
 
 

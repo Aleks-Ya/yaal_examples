@@ -2,7 +2,7 @@ import importlib.util
 import os
 import sys
 
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.disable import enabled
 from ._common import menu
@@ -21,7 +21,7 @@ import mem_top_client
 
 
 def __use_mem_top_from_init():
-    showInfo("Mem Top (from init.py): %s" % mem_top.mem_top())
+    show_info("Mem Top (from init.py): %s" % mem_top.mem_top())
 
 
 if enabled():

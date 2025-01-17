@@ -1,12 +1,12 @@
 from aqt import gui_hooks
 from aqt.editor import Editor, EditorState
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.disable import enabled
 
 
 def __on_change(editor: Editor, new_state: EditorState, old_state: EditorState):
-    showInfo(f"Editor state did change: note={editor.note}, old_state={old_state}, new_state={new_state}")
+    show_info(f"Editor state did change: note={editor.note}, old_state={old_state}, new_state={new_state}")
 
 
 if enabled():

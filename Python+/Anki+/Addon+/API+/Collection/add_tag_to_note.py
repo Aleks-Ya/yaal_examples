@@ -4,7 +4,7 @@ from typing import List
 from anki.notes import NoteId, Note
 from aqt import mw
 from aqt.qt import QAction, qconnect, QMenu
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 
 def __act() -> None:
@@ -13,7 +13,7 @@ def __act() -> None:
     tags_before: List[str] = note.tags
     note.tags.append("leech")
     mw.col.update_note(note)
-    showInfo(f"Note tag added: nid={note.id}, tags before={tags_before}, tags after={note.tags}")
+    show_info(f"Note tag added: nid={note.id}, tags before={tags_before}, tags after={note.tags}")
 
 
 def add_menu_item(parent_menu: QMenu):

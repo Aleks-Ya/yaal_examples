@@ -5,7 +5,7 @@ from anki.collection import OpChanges, Collection
 from anki.notes import NoteId, Note
 from aqt import mw
 from aqt.operations import CollectionOp, ResultWithChanges
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.disable import enabled
 from ._common import menu
@@ -42,11 +42,11 @@ def __my_background_op(col: Collection) -> ResultWithChanges:
 
 
 def __on_success(result: ResultWithChanges) -> None:
-    showInfo(f"Long-running read-write operation succeeded: {result}")
+    show_info(f"Long-running read-write operation succeeded: {result}")
 
 
 def __on_failure(e: Exception) -> None:
-    showInfo(f"Long-running read-write operation failed: {e}")
+    show_info(f"Long-running read-write operation failed: {e}")
 
 
 def __my_ui_action():

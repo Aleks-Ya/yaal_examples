@@ -5,7 +5,7 @@ import importlib.util
 import os
 import sys
 
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.disable import enabled
 from ._common import menu
@@ -23,7 +23,7 @@ import client
 
 
 def __use_from_init():
-    showInfo("pyyaml from __init__.py: %s" % yaml.safe_load("person: John"))
+    show_info("pyyaml from __init__.py: %s" % yaml.safe_load("person: John"))
 
 
 if enabled():

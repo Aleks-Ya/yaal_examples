@@ -1,12 +1,12 @@
 from aqt import gui_hooks, mw
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.disable import enabled
 from ._common import menu
 
 
 def __on_init():
-    showInfo(f"""
+    show_info(f"""
             MainWindow did init.
             'mw'={mw}
             'mw.col'={mw.col}
@@ -14,7 +14,7 @@ def __on_init():
 
 
 def __menu_item_action():
-    showInfo('You clicked "MainWindowDidInit item"')
+    show_info('You clicked "MainWindowDidInit item"')
 
 
 def __add_menu_item():

@@ -1,25 +1,25 @@
 from aqt.qt import QMenu
 from aqt import mw
 from aqt.qt import QAction, qconnect
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.disable import enabled
 
 
 def __show_message():
-    showInfo('You clicked "Top level menu item"')
+    show_info('You clicked "Top level menu item"')
 
 
 def __child_message():
-    showInfo('You clicked "Child Item"')
+    show_info('You clicked "Child Item"')
 
 
 def __third_message():
-    showInfo('You clicked "Third Item"')
+    show_info('You clicked "Third Item"')
 
 
 def __hotkey_message():
-    showInfo('You clicked "Menu item with hotkey"')
+    show_info('You clicked "Menu item with hotkey"')
 
 
 if enabled():

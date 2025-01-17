@@ -2,13 +2,13 @@
 from anki.notes import NoteId, Note
 from aqt import mw
 from aqt.qt import QAction, qconnect, QMenu
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 
 def __act() -> None:
     note_id: NoteId = NoteId(1638679140645)
     note: Note = mw.col.get_note(note_id)
-    showInfo(f"Note={note}, id={note.id}, col={note.col}, data={note.data}, fields={note.fields}, "
+    show_info(f"Note={note}, id={note.id}, col={note.col}, data={note.data}, fields={note.fields}, "
              f"items={note.items()}, values={note.values()}")
 
 

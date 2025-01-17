@@ -2,13 +2,13 @@ from typing import Any
 
 from aqt import gui_hooks
 from aqt.editor import Editor
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.disable import enabled
 
 
 def __callback(val: Any):
-    showInfo(f"Callback:\n{val}")
+    show_info(f"Callback:\n{val}")
 
 
 def __on_button_click(editor: Editor):

@@ -4,7 +4,7 @@ from typing import Sequence
 from anki.notes import NoteId, Note
 from aqt import mw
 from aqt.qt import QAction, qconnect, QMenu
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 
 def __act() -> None:
@@ -14,7 +14,7 @@ def __act() -> None:
         note: Note = mw.col.get_note(note_id)
         field_number: int = len(note.fields)
         total_fields_number = total_fields_number + field_number
-    showInfo(f"Note number={len(all_note_ids)}, field number={total_fields_number}")
+    show_info(f"Note number={len(all_note_ids)}, field number={total_fields_number}")
 
 
 def add_menu_item(parent_menu: QMenu):

@@ -3,7 +3,7 @@ import datetime
 from typing import Optional, Any, List, Dict
 
 from aqt import mw
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.disable import enabled
 from ._common import menu
@@ -17,7 +17,7 @@ def __show_addon_config():
     fruits: List[str] = config['fruits']
     address: Dict[str, str] = config['address']
     city: str = config['address']['city']
-    showInfo(f"""
+    show_info(f"""
         Title: {title}
         Enabled: {enabled}
         Room: {room}
@@ -36,7 +36,7 @@ def __update_addon_config():
     mw.addonManager.writeConfig(module, config_old)
     config_new: Optional[dict[str, Any]] = mw.addonManager.getConfig(module)
     new_value: str = config_new[property_name]
-    showInfo(f"""
+    show_info(f"""
         Old value: {old_value}
         New value: {new_value}
     """)

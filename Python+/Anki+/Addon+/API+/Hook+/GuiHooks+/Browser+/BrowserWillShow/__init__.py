@@ -2,7 +2,7 @@ from logging import Logger
 
 from aqt import gui_hooks, qconnect, QAction, QMenu, QPushButton
 from aqt.browser import Browser
-from aqt.utils import showInfo
+from aqt.utils import show_info
 
 from ._common.log import get_addon_logger
 from ._common.disable import enabled
@@ -11,15 +11,15 @@ log: Logger = get_addon_logger()
 
 
 def __show_message_1():
-    showInfo('You clicked one-level Edit menu item')
+    show_info('You clicked one-level Edit menu item')
 
 
 def __show_message_2():
-    showInfo('You clicked "Child item 1"')
+    show_info('You clicked "Child item 1"')
 
 
 def __show_message_3():
-    showInfo('You clicked "Custom Child item 1"')
+    show_info('You clicked "Custom Child item 1"')
 
 
 def __add_item_to_edit_menu(browser: Browser) -> None:
