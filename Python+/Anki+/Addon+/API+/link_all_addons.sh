@@ -76,6 +76,7 @@ src_relative_paths=(
   Scenarios+/DeckBrowserRefresh
   Scenarios+/DialogManager
   Scenarios+/MainWindowMenuItem
+  Scenarios+/SwitchProfile
   Utils/ShowException
   Utils/ShowInfo
 )
