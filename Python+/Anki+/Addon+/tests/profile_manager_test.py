@@ -13,11 +13,19 @@ def test_create_profile():
     os.removedirs(tmp_dir)
     base_dir: Path = ProfileManager.get_created_base_folder(tmp_dir)
     pm: ProfileManager = ProfileManager(base=base_dir)
+    assert pm.name is None
+    with pytest.raises(AttributeError):
+        pm.profiles()
     pm.setupMeta()
+    assert pm.name is None
+    with pytest.raises(TypeError):
+        pm.profiles()
     profile: str = "Profile1"
     pm.create(profile)
+    assert pm.name is None
     assert pm.profiles() == [profile]
     pm.openProfile(profile)
+    assert pm.name == profile
     pm.save()
 
 

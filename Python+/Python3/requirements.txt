@@ -60,3 +60,5 @@ langid
 pycountry
 trio
 cython
+sentry-sdk
+fasttext

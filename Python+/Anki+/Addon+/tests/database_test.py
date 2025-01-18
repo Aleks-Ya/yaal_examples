@@ -20,6 +20,10 @@ def test_list(col: Collection, basic_note_type: NoteType, deck_id: DeckId):
     assert id_list == [note.id]
 
 
+def test_list_on_empty_collection(col: Collection):
+    assert col.db.list("select id from notes") == []
+
+
 def test_all(col: Collection, basic_note_type: NoteType, deck_id: DeckId):
     note: Note = col.new_note(basic_note_type)
     note['Front'] = 'one'

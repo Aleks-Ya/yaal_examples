@@ -15,15 +15,15 @@ def __log(message: str) -> None:
 
 
 def __on_profile_did_open():
-    __log("Profile did open")
+    __log(f"Profile did open: {mw.pm.name}")
 
 
 def __on_profile_will_close():
-    __log("Profile will close")
+    __log(f"Profile will close: {mw.pm.name}")
 
 
 def __on_collection_did_load(col: Collection):
-    __log(f"Collection did load: {col}")
+    __log(f"Collection did load: col={col}, profile={mw.pm.name}")
 
 
 def __on_collection_did_temporarily_close(col: Collection):
@@ -39,7 +39,7 @@ if enabled():
     log.info(setup_message)
     show_info(setup_message)
 
-    from aqt import gui_hooks
+    from aqt import gui_hooks, mw
 
     gui_hooks.collection_did_load.append(__on_collection_did_load)
     gui_hooks.collection_will_temporarily_close.append(__on_collection_will_temporarily_close)
