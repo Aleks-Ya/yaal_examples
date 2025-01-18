@@ -57,25 +57,25 @@ src_relative_paths=(
   Logging+/log_to_stderr
   Media/OpenCheckMediaDialog
   SortByCustomColumn
-  UI+/BackgroundOperations+/CollectionOp
-  UI+/BackgroundOperations+/ProgressManager+/ProgressManager
-  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/FailureCallback
-  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/FailurePopup
-  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/NoProgressInherit
-  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/NoProgress
-  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/WithoutCollection
-  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgressConcurrent
-  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgressCounter
-  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgressCounterInherit
-  UI+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgressNoCounter
-  UI+/Browser/RefreshCurrentNote
-  UI+/Browser/ShowHideColumn
-  UI+/BrowserDoSearch
-  UI+/BrowserSelectedNotes
-  UI+/BrowserUpdate
-  UI+/DeckBrowserRefresh
-  UI+/DialogManager
-  UI+/MainWindowMenuItem
+  Scenarios+/BackgroundOperations+/CollectionOp
+  Scenarios+/BackgroundOperations+/ProgressManager+/ProgressManager
+  Scenarios+/BackgroundOperations+/QueryOp+/RunInBackground+/FailureCallback
+  Scenarios+/BackgroundOperations+/QueryOp+/RunInBackground+/FailurePopup
+  Scenarios+/BackgroundOperations+/QueryOp+/RunInBackground+/NoProgressInherit
+  Scenarios+/BackgroundOperations+/QueryOp+/RunInBackground+/NoProgress
+  Scenarios+/BackgroundOperations+/QueryOp+/RunInBackground+/WithoutCollection
+  Scenarios+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgressConcurrent
+  Scenarios+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgressCounter
+  Scenarios+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgressCounterInherit
+  Scenarios+/BackgroundOperations+/QueryOp+/RunInBackground+/WithProgressNoCounter
+  Scenarios+/Browser/RefreshCurrentNote
+  Scenarios+/Browser/ShowHideColumn
+  Scenarios+/BrowserDoSearch
+  Scenarios+/BrowserSelectedNotes
+  Scenarios+/BrowserUpdate
+  Scenarios+/DeckBrowserRefresh
+  Scenarios+/DialogManager
+  Scenarios+/MainWindowMenuItem
   Utils/ShowException
   Utils/ShowInfo
 )
