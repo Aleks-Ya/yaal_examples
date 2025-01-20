@@ -33,4 +33,15 @@ class UpdateColumnTest extends AnyFlatSpec with Matchers {
       """{"name":"Mr. Mary","age":20,"gender":"F"}""")
   }
 
+  it should "rename a nested column" in {
+    val df = Factory.createDf("name STRING, details STRUCT<age: INT, gender: STRING>",
+      Row("John", Row(35, "M")), Row("Mary", Row(30, "F")))
+    val updatedDf = df.withColumn("details", col("details").withField("sex", col("details.gender")).dropFields("gender"))
+    updatedDf.schema.simpleString shouldEqual "struct<name:string,details:struct<age:int,sex:string>>"
+    updatedDf.toJSON.collect() should contain inOrderOnly(
+      """{"name":"John","details":{"age":35,"sex":"M"}}""",
+      """{"name":"Mary","details":{"age":30,"sex":"F"}}"""
+    )
+  }
+
 }
