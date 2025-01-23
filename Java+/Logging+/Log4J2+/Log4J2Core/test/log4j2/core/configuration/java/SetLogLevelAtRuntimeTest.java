@@ -1,5 +1,6 @@
-package log4j2.core;
+package log4j2.core.configuration.java;
 
+import log4j2.core.BaseLog4jTest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.junit.jupiter.api.Test;
@@ -15,9 +16,9 @@ class SetLogLevelAtRuntimeTest extends BaseLog4jTest {
         var subLog1 = LogManager.getLogger("app.logger1");
         var subLog2 = LogManager.getLogger("app.logger2");
 
+        assertThat(appLog.getLevel()).isEqualTo(ERROR);
         assertThat(subLog1.getLevel()).isEqualTo(ERROR);
         assertThat(subLog2.getLevel()).isEqualTo(ERROR);
-        assertThat(appLog.getLevel()).isEqualTo(ERROR);
 
         Configurator.setLevel(appLog, DEBUG);
 

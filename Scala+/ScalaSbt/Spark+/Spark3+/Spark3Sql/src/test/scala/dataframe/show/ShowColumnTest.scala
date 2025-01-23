@@ -28,6 +28,7 @@ class ShowColumnTest extends AnyFlatSpec with Matchers {
   it should "explain a column" in {
     val ageCol = col("age").isNotNull * 2
     ageCol.explain(false)
+    ageCol.explain(true)
   }
 
 }

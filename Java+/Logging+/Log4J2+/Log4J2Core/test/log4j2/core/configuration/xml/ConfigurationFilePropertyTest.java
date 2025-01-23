@@ -1,5 +1,6 @@
-package log4j2.core;
+package log4j2.core.configuration.xml;
 
+import log4j2.core.BaseLog4jTest;
 import org.apache.logging.log4j.LogManager;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ConfigurationFilePropertyTest extends BaseLog4jTest {
     @Test
     void file() {
-        System.setProperty("log4j2.configurationFile", "classpath:log4j2/core/ConfigurationFilePropertyTest.xml");
+        System.setProperty("log4j2.configurationFile", "classpath:log4j2/core/xml/ConfigurationFilePropertyTest.xml");
         try (var out = redirectOutput()) {
             var log = LogManager.getLogger(getClass());
             log.error("abc");

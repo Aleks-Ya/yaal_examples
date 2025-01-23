@@ -65,6 +65,13 @@ class SeqToDfTest extends AnyFlatSpec with Matchers {
     )
   }
 
+  it should "create an emtpy DataFrame" in {
+    import Factory.ss.implicits._
+    val df = Seq[String]().toDF("id")
+    df.schema.simpleString shouldEqual "struct<id:string>"
+    df.toJSON.collect() shouldBe empty
+  }
+
 }
 
 case class People(@BeanProperty var name: String, @BeanProperty var age: Int)
