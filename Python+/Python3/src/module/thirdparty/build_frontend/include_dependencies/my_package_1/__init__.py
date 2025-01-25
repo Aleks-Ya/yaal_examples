@@ -1,5 +1,5 @@
 from mem_top import mem_top
 
-name = "example_pkg_yaal"
+name = "my_package_1"
 
 print(mem_top())

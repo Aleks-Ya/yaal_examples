@@ -12,7 +12,7 @@ def parse_requirements(filename: str) -> list[str]:
 requirements = parse_requirements('requirements.txt')
 print(f"Requirements: {requirements}")
 setuptools.setup(
-    name="example_pkg_yaal",
+    name="my_package_1",
     version="0.0.2",
     author="Example Author",
     author_email="author@example.com",

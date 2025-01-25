@@ -62,3 +62,6 @@ trio
 cython
 sentry-sdk
 fasttext
+pyzotero
+build
+seedir

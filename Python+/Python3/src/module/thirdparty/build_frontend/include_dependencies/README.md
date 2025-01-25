@@ -4,7 +4,7 @@ Source: [Packaging Python Projects](https://packaging.python.org/tutorials/packa
 
 ```
 # Choose working directory (directory where "setup.py" is located)
-cd src/module/thirdparty/setuptools/include_dependencies
+cd include_dependencies
 
 # Create a virtual environment
 sudo apt install python3-venv #try "pip install venv" instead
@@ -21,3 +21,8 @@ python setup.py sdist bdist_wheel
 # Clean up
 rm -rf build dist *.egg-info venv1
 ```
+
+Build:
+
+1. Change directory to `include_dependencies`
+2. Run: `python -m build my_package_1`
