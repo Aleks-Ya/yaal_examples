@@ -1,4 +1,4 @@
-# TOX project with `pyproject.toml`
+# TOX project with `pyproject.toml` and `tox.toml`
 
 ## Run unit-tests
 

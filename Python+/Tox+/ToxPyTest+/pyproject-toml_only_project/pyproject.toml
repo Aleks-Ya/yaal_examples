@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "application"
+version = "0.1.0"
+description = "A simple Hello World package"
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }
+]
+dependencies = [
+    "PyQt6"
+]
+
+[tool.setuptools]
+packages = ["application"]
+
+[tool.tox]
+envlist = ["3.12.7"]
+
+[tool.tox.env_run_base]
+description = "run unit tests"
+passenv = ["*"]
+deps = [
+    "pytest>=8",
+    "pytest-sugar",
+    "pytest-qt"
+]
+commands = [["pytest", "-m", "not integration", "{posargs:tests}"]]
+
+[tool.tox.env.integration]
+commands = [["pytest", "-m", "integration", "{posargs:tests}"]]

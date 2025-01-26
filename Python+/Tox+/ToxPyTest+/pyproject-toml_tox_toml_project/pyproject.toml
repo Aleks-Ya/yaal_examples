@@ -15,3 +15,16 @@ dependencies = [
 
 [tool.setuptools]
 packages = ["application"]
+
+[tool.tox]
+envlist = ["3.12.7"]
+
+[tool.tox.env_run_base]
+description = "run unit tests"
+passenv = ["*"]
+deps = [
+    "pytest>=8",
+    "pytest-sugar",
+    "pytest-qt"
+]
+commands = [["pytest", "-m", "not integration", "{posargs:tests}"]]
