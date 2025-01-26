@@ -1,0 +1,8 @@
+@startuml
+
+[First component] <<Database>>
+[Another component] as Comp2 <<Database>>
+component Comp3 <<Database>>
+component [Last\ncomponent] as Comp4 <<Database>>
+
+@enduml

@@ -1,0 +1,16 @@
+envlist = ["3.12.7"]
+
+[env_run_base]
+description = "run unit tests"
+passenv = ["*"]
+deps = [
+    "pytest>=8",
+    "pytest-sugar",
+    "pytest-qt",
+    "-rrequirements.txt",
+    "-rrequirements-tests.txt"
+]
+commands = [["pytest", "-m", "not integration", "{posargs:tests}"]]
+
+[env.integration]
+commands = [["pytest", "-m", "integration", "{posargs:tests}"]]

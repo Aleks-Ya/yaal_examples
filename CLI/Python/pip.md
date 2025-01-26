@@ -20,7 +20,7 @@ List all versions of a package: `pip index versions env_logger`
 ### Install
 Downgrade package to older version: `pip install 'pyspark==2.1.2' --force-reinstall`
 Install a package: `pip install mem_top`
-Install dependencies from requirements.txt: `pip install -r requirements.txt`
+Install dependencies from file: `pip install -r requirements.txt -r requirements-dev.txt`
 Upgrade package to the last version: `pip install -U pyspark`
 Upgrade PIP: `pip3 install -U pip`
 
