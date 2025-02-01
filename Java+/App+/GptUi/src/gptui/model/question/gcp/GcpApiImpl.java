@@ -22,7 +22,7 @@ import static java.math.RoundingMode.HALF_UP;
 class GcpApiImpl implements GcpApi {
     private static final Logger log = LoggerFactory.getLogger(GcpApiImpl.class);
     private static final Gson gson = new Gson();
-    private static final URI endpoint = URI.create("https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent");
+    private static final URI endpoint = URI.create("https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent");
     private final String apiKey;
 
     @Inject
