@@ -2,9 +2,13 @@
 
 Install: https://brew.sh (use VPN "US San Francisco")
 
-## Commands
+## Info
 Help: `brew help`
+Help about a command: `brew help install`
+
+## Commands
 Install an application: `brew install argocd`
+Install several applications: `brew install pyenv pyenv-virtualenv`
 List installed applications: `brew list`
 Find for an application: `brew search swagger`
 Show details about an app: `brew info swagger-codegen`

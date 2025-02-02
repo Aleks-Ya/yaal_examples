@@ -6,7 +6,7 @@
 ## Run unit-tests
 
 1. Using Tox:
-    1. Install environment: `pyenv install 3.12.8 3.13.1`
+    1. Install environments: `pyenv install 3.12.8 3.13.1`
     2. Run normal tests: `tox`
     3. Run integration tests: `tox -- integration`
 2. Using PyTest or SetupTools

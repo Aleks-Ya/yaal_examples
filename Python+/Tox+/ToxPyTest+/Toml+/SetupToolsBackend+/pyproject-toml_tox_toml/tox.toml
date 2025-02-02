@@ -1,4 +1,5 @@
 envlist = ["3.12.7"]
+skipsdist = true
 
 [env_run_base]
 description = "run unit tests"

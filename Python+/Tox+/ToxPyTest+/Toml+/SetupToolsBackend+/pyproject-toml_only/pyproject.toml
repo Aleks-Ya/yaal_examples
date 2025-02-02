@@ -1,6 +1,5 @@
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["setuptools"]
 
 [project]
 name = "application"
@@ -13,11 +12,14 @@ dependencies = [
     "PyQt6"
 ]
 
-[tool.setuptools]
-packages = ["application"]
+[tool.pytest.ini_options]
+markers = [
+    "integration: tests require connection to other services or to the Internet"
+]
 
 [tool.tox]
-envlist = ["3.12.7"]
+envlist = ["3.12.8", "3.13.1"]
+skipsdist = true
 
 [tool.tox.env_run_base]
 description = "run unit tests"
@@ -27,7 +29,4 @@ deps = [
     "pytest-sugar",
     "pytest-qt"
 ]
-commands = [["pytest", "-m", "not integration", "{posargs:tests}"]]
-
-[tool.tox.env.integration]
-commands = [["pytest", "-m", "integration", "{posargs:tests}"]]
+commands = [["pytest", "tests", "-m", "{posargs:not integration}"]]
