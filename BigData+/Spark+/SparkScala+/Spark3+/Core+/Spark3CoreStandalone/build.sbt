@@ -8,7 +8,7 @@ lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
       organization := "ru.yaal.examples.bigdata.spark3",
-      scalaVersion := "2.12.18",
+      scalaVersion := "2.12.20",
       version := "1"
     )),
     name := "Spark3CoreStandalone",

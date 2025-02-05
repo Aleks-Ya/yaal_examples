@@ -1,12 +1,14 @@
-package mode.clientmode
+package shared_variables.broadcast.broadcast_variable
 
-import mode.StringLengthAction
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.SparkConf
 
-object ClientModeIdeApp {
+import java.lang.Thread.currentThread
+import java.lang.management.ManagementFactory.getRuntimeMXBean
 
+object BroadcastVariableClientModeIdeApp {
   def main(args: Array[String]): Unit = {
-    println("Start")
+    printf("[%s][%s] Start\n", getRuntimeMXBean.getName, currentThread().getName)
+
     val jars = Seq("target/scala-2.12/spark3corestandalone_2.12-1.jar")
     val conf = new SparkConf()
       .setAppName(getClass.getSimpleName)
@@ -18,14 +20,10 @@ object ClientModeIdeApp {
       .set("spark.eventLog.enabled", "true")
       .set("spark.eventLog.dir", "file:/tmp/spark-standalone-cluster-shared/spark-events")
       .setJars(jars)
-    val sc = new SparkContext(conf)
-    val words = Seq("Hello, ", "World", "!")
-    val action = new StringLengthAction(sc)
-    val length = action.calcLength(words)
-    println("Length: " + length)
-    sc.stop()
-    assert(length == 13)
-    println("Finish")
+
+    DriverLogic.doWork(conf)
+
+    printf("[%s][%s] Finish\n", getRuntimeMXBean.getName, currentThread().getName)
   }
 
 }

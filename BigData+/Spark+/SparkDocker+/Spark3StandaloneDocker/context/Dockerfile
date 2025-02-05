@@ -1,5 +1,5 @@
 ARG SPARK_VERSION
-FROM almalinux-updated as spark-distr
+FROM almalinux-updated AS spark-distr
 ARG SCALA_BINARY_VERSION
 ARG SPARK_VERSION
 ARG HADOOP_BUILD_VERSION
@@ -12,7 +12,7 @@ RUN wget -O /tmp/spark-connect.jar https://repo1.maven.org/maven2/org/apache/spa
 FROM almalinux-updated
 ARG SPARK_VERSION
 
-RUN yum install -y java python311
+RUN yum install -y java-11-openjdk.x86_64 python312
 
 ENV SPARK_VERSION=$SPARK_VERSION
 ENV SPARK_HOME=/opt/spark

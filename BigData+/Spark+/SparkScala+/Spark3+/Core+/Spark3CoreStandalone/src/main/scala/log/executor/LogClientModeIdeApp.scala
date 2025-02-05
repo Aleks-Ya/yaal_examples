@@ -23,7 +23,7 @@ object LogClientModeIdeApp {
       .set("spark.deploy.defaultCores", "1")
       .set("spark.cores.max", "2")
       .set("spark.eventLog.enabled", "true")
-      .set("spark.eventLog.dir", "file:///media/aleks/ADATA/dataset/spark-events")
+      .set("spark.eventLog.dir", "file:/tmp/spark-standalone-cluster-shared/spark-events")
       .setJars(jars)
 
     DriverLogic.doWork(conf)

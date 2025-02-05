@@ -1,3 +1,10 @@
+# Example: working with IMDB
+
+## Run
+1. Build: `./build_jar.sh`
+2. Run in cluster mode: `./src/main/scala/app/imdb/submit_cluster_mode.sh app.imdb.Exercise1App`
+
+## Info
 Source: https://www.imdb.com/interfaces/
 
 Exercises:

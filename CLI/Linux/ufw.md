@@ -11,7 +11,8 @@ Show status: `sudo ufw status verbose`
 
 ### Enable/Disable
 Enable: `sudo ufw enable`
-Disable: `sudo ufw disable`
+Stop and disable on startup: `sudo ufw disable`
+Stop until startup: `sudo systemctl stop ufw`
 
 ### Rules
 Allow Samba: `sudo ufw allow samba`

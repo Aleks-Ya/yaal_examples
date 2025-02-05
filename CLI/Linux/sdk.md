@@ -2,6 +2,7 @@
 
 Help: `sdk help`
 Help for command: `sdk help install`
+Update SdkMan: `sdk selfupdate`
 
 List installed candidates: `sdk current`
 List available versions for Java: `sdk list java`

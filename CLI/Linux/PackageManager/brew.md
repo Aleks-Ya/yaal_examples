@@ -16,6 +16,7 @@ Upgrade all apps: `brew upgrade`
 Upgrade app: `brew upgrade databricks`
 List outdated apps: `brew outdated`
 Remove an application: `brew uninstall minikube`
+Disable an application without uninstalling it (if other apps depend on it): `brew unlink openjdk`
 
 ### Taps (repositories)
 List installed taps: `brew tap`
