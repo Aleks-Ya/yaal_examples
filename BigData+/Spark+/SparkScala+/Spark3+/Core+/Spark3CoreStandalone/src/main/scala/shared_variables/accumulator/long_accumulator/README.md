@@ -19,15 +19,5 @@
        ```
 4. Cluster mode:
     1. Build: `./build_jar.sh`
-    2. `unset JAVA_HOME`
-    3. ```shell
-       spark-submit \
-       --class shared_variables.accumulator.long_accumulator.LongAccumulatorClientOrClusterModeSubmitApp \
-       --master spark://spark-standalone-cluster-master:7077 \
-       --deploy-mode cluster \
-       --num-executors 2 \
-       --executor-cores 1 \
-       --conf "spark.eventLog.enabled=true" \
-       --conf "spark.eventLog.dir=file:/shared/spark-events" \
-       file:///shared/spark3corestandalone.jar
-       ```
+    2. Run:
+       `./run_in_cluster_mode.sh shared_variables.accumulator.long_accumulator.LongAccumulatorClientOrClusterModeSubmitApp`

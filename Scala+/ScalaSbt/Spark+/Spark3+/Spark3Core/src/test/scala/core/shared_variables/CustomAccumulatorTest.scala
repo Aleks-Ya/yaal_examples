@@ -8,7 +8,8 @@ import org.scalatest.matchers.should.Matchers
 /**
  * Use custom accumulators (AccumulatorV2).
  */
-class AccumulatorV2Test extends AnyFlatSpec with Matchers {
+class CustomAccumulatorTest extends AnyFlatSpec with Matchers {
+
   it should "use a custom accumulator" in {
     val accum = new CheckStatisticsAccumulator
     Factory.sc.register(accum, "My Long Accumulator")
@@ -18,11 +19,12 @@ class AccumulatorV2Test extends AnyFlatSpec with Matchers {
         accum.add(new CheckStatistics(1))
       }
     })
-    if (accum.value.getTotalCheckCount != 2) throw new AssertionError
+    accum.value.getTotalCheckCount shouldEqual 2
   }
+
 }
 
-class CheckStatistics() extends Serializable {
+class CheckStatistics extends Serializable {
   def this(totalCheckCount: Long) = {
     this()
     this.totalCheckCount = totalCheckCount

@@ -10,7 +10,7 @@ services:
           cpus: '2'
           memory: 2G
     volumes:
-      - datasets:/datasets
+#      - datasets:/datasets
       - shared:/shared
     networks:
       - spark-standalone-cluster-network
@@ -27,7 +27,7 @@ services:
     depends_on:
       - master
     volumes:
-      - datasets:/datasets
+#      - datasets:/datasets
       - shared:/shared
     networks:
       - spark-standalone-cluster-network
@@ -44,7 +44,7 @@ services:
     depends_on:
       - master
     volumes:
-      - datasets:/datasets
+#      - datasets:/datasets
       - shared:/shared
     networks:
       - spark-standalone-cluster-network
