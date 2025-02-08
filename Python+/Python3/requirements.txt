@@ -65,3 +65,6 @@ fasttext
 pyzotero
 build
 seedir
+lingua-language-detector
+chardet
+googletrans

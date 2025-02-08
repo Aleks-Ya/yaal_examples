@@ -4,7 +4,7 @@ import fasttext
 
 # NOT WORKING
 def test_detect_language():
-    model = fasttext.load_model('lid.176.bin')
+    model = fasttext.load_model('/home/aleks/Downloads/lid.176.bin')
     text: str = "Hola, ¿cómo estás?"
     predictions = model.predict(text)
     print(predictions)
