@@ -68,3 +68,7 @@ seedir
 lingua-language-detector
 chardet
 googletrans
+langcodes
+iso639-lang #1.9M
+python-iso639
+polyglot #500K
