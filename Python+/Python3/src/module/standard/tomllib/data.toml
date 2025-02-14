@@ -1,0 +1,11 @@
+# Sample configuration for a demo application
+
+[server]
+host = "127.0.0.1"
+port = 8080
+
+[database]
+type = "sqlite"
+name = "demo.db"
+
+# This is a simple TOML configuration file for demonstration purposes.

@@ -45,6 +45,14 @@ class FormatTest {
     }
 
     @Test
+    void formatLong() {
+        assertThat(format("\nЦелое число: %d%n", 300L)).isEqualTo("\nЦелое число: 300\n");
+        assertThat(format("Ведущие нули: %05d %n", 300L)).isEqualTo("Ведущие нули: 00300 \n");
+        assertThat(format("Знакоместа в начале числа: %20d %n", 300L)).isEqualTo("Знакоместа в начале числа:                  300 \n");
+        assertThat(format("Thousand separator: %,d", 300000000L)).isEqualTo("Thousand separator: 300,000,000");
+    }
+
+    @Test
     void floating() {
         assertThat(format("Знакоместа в начале числа: %15f %n", 9.8)).isEqualTo("Знакоместа в начале числа:        9.800000 \n");
         assertThat(format("Ведущие нули: %010f %n", 9.8)).isEqualTo("Ведущие нули: 009.800000 \n");
