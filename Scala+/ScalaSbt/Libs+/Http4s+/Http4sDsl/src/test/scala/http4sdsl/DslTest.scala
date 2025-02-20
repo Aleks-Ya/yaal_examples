@@ -3,7 +3,7 @@ package http4sdsl
 import cats.effect.IO
 import cats.effect.testing.scalatest.AsyncIOSpec
 import org.http4s.client.dsl.io._
-import org.http4s.dsl.io._
+import org.http4s.dsl.io.GET
 import org.http4s.ember.client.EmberClientBuilder
 import org.http4s.implicits.http4sLiteralsSyntax
 import org.scalatest.freespec.AsyncFreeSpec
@@ -41,6 +41,17 @@ class DslTest extends AsyncFreeSpec with AsyncIOSpec with Matchers {
           }
         } yield body
       ).assertThrowsWithMessage[IllegalStateException]("Not allowed: 403")
+    }
+
+    "GET request body #2" in {
+      val request = GET(uri"http://httpbin.io/base64/decode/YWJjCg==")
+      clientResource.use(client =>
+        for {
+          body <- client.run(request).use { response =>
+            response.bodyText.compile.string
+          }
+        } yield body
+      ).asserting(_ shouldEqual "abc\n")
     }
   }
 }

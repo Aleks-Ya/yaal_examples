@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers
 
 class OptionTest extends AnyFlatSpec with Matchers {
 
-  it should "create Option" in {
+  it should "create Option from a literal" in {
     val o1 = Some(1)
     o1 should contain(1)
 
@@ -16,6 +16,16 @@ class OptionTest extends AnyFlatSpec with Matchers {
     o3 shouldBe null
     o3 = Some(3)
     o3 should contain(3)
+  }
+
+  it should "create Option from a nullable variable" in {
+    val nullableVariable1: String = null
+    val o1: Option[String] = Option(nullableVariable1)
+    o1 shouldBe None
+
+    val nullableVariable2: String = "abc"
+    val o2: Option[String] = Option(nullableVariable2)
+    o2 should contain("abc")
   }
 
   it should "handle Option" in {

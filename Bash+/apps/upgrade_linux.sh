@@ -18,7 +18,7 @@ brew upgrade
 echo
 
 echo "Updating PIP..."
-pip install --upgrade pip
+python -m pip install --upgrade pip
 echo
 
 echo "Updating PIP3..."

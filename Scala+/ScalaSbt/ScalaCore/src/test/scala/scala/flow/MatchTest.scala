@@ -76,13 +76,23 @@ class MatchTest extends AnyFlatSpec with Matchers {
 
   it should "nested match" in {
     val code = "M"
-    val age = Some(20)
     val gender = code match {
       case "M" => "man"
       case "W" => "women"
       case _ => "shit"
     }
     gender shouldEqual "man"
+  }
+
+  it should "match if" in {
+    val age = 70
+    val generation = age match {
+      case age if age < 18 => "kid"
+      case age if age > 60 && age < 100 => "aged"
+      case age if age >= 100 => "long-liver"
+      case _ => "adult"
+    }
+    generation shouldEqual "aged"
   }
 
 }
