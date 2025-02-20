@@ -16,7 +16,9 @@ Install specific version: `pyenv install 3.9.18`
 Install several versions: `pyenv install 3.12.8 3.13.1`
 Uninstall specific version: `pyenv uninstall 3.9.18`
 List installed versions: `pyenv versions`
-Use version in current shell session: `pyenv shell 3.9.18`
+Use version in current shell session: 
+  1. `pyenv shell 3.9.18`
+  2. `eval "$(pyenv init --path)"`
 Use system Python in current shell session: `pyenv shell system`
 
 ## Errors
