@@ -12,7 +12,7 @@
 docker run --rm --name es7 \
   -p 9200:9200 -p 9300:9300 \
   -e "discovery.type=single-node" \
-  docker.elastic.co/elasticsearch/elasticsearch:7.17.17
+  docker.elastic.co/elasticsearch/elasticsearch:7.17.27
 ```
 
 ### Run customized build

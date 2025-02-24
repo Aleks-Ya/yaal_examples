@@ -1,0 +1,27 @@
+from datetime import datetime
+
+from elasticsearch import Elasticsearch
+
+# NOT FINISHED
+def test_create_get_delete_alias():
+    client: Elasticsearch = Elasticsearch("http://localhost:9200/")
+
+    resp: dict[str, any] = client.indices.get_alias()
+
+    # doc: dict[str, object] = {
+    #     "author": "kimchy",
+    #     "text": "Elasticsearch: cool. bonsai cool.",
+    #     "timestamp": datetime.now(),
+    # }
+    # resp: dict[str, any] = client.index(index="test-index", id="1", document=doc)
+    # print(resp["result"])
+    #
+    # resp = client.get(index="test-index", id="1")
+    # print(resp["_source"])
+    #
+    # client.indices.refresh(index="test-index")
+    #
+    # resp = client.search(index="test-index", query={"match_all": {}})
+    # print("Got {} hits:".format(resp["hits"]["total"]["value"]))
+    # for hit in resp["hits"]["hits"]:
+    #     print("{timestamp} {author} {text}".format(**hit["_source"]))

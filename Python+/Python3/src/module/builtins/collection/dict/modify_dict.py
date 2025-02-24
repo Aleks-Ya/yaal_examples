@@ -38,3 +38,20 @@ def test_filter_dict_using_lambda():
     e: dict[str, int] = {'a': 1, 'b': -2, 'c': 3}
     filtered: dict[Any, Any] = dict(filter(lambda val: val[1] > 0, e.items()))
     assert filtered == {'a': 1, 'c': 3}
+
+
+def test_update_recursively():
+    def update_dict_recursive(original_dict: dict, update_dict: dict) -> None:
+        for key, value in update_dict.items():
+            if isinstance(value, dict):
+                update_dict_recursive(original_dict.get(key, {}), value)
+            else:
+                original_dict[key] = value
+
+    a: dict[str, dict[str, int]] = {"John": {"car": 10, "house": {"count": 5, "square": 100}},
+                                    "Mary": {"car": 2, "house": {"count": 1, "square": 50}}}
+    b: dict[str, dict[str, int]] = {"John": {"car": 11, "house": {"square": 200}},
+                                    "Mary": {"house": {"count": 2}}}
+    update_dict_recursive(a, b)
+    assert a == {"John": {"car": 11, "house": {"count": 5, "square": 200}},
+                 "Mary": {"car": 2, "house": {"count": 2, "square": 50}}}

@@ -2,6 +2,7 @@
 
 ## Help
 Show help about a command in terminal: `git help submodule`
+
 ### Help in web-broser
 Install: `sudo apt-get install git-doc`
 Show help about a command in browser: `git help -w submodule` (not all commands are available)
@@ -22,6 +23,9 @@ Possible values can include:   true, 1 or 2 to write to stderr,  an absolute pat
 
 ## Checkout
 Remove local changes in a file: `git checkout db.changelog-insert.yaml`
+
+## Branch
+Rename current branch: `git branch -m new-branch-name`
 
 ## Log
 Log one line: `git log --pretty=oneline master`
