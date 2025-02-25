@@ -8,6 +8,9 @@ def test_sort_by_keys():
     sorted_desc_dict: dict[str, int] = dict(sorted(origin_dict.items(), reverse=True))
     assert str(sorted_desc_dict) == "{'two': 2, 'three': 3, 'one': 1}"
 
+    sorted_custom_dict: dict[str, int] = dict(sorted(origin_dict.items(), key=lambda item: len(item[0])))
+    assert str(sorted_custom_dict) == "{'two': 2, 'one': 1, 'three': 3}"
+
 
 def test_sort_by_values():
     origin_dict: dict[str, int] = {'two': 2, 'three': 3, 'one': 1}

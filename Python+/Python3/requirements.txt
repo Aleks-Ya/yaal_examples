@@ -1,3 +1,4 @@
+# Show package size: du -sh /home/aleks/.pyenv/versions/3.12.5/envs/python3-examples/lib/python3.12/site-packages/inflect
 requests
 psutil
 PyQt6
@@ -50,7 +51,7 @@ nltk
 textblob
 spacy
 tenacity
-inflect
+inflect #300KB
 pattern3
 mistune
 markdown2
@@ -73,3 +74,4 @@ iso639-lang #1.9M
 python-iso639
 polyglot #500K
 elasticsearch==7.17.12
+tinkoff-investments

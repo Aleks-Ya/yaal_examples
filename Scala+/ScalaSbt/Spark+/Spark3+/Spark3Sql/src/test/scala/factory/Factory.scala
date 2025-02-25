@@ -33,7 +33,7 @@ object Factory {
     df
   }
   lazy val cityListDf: DataFrame = {
-    val schema = StructType(StructField("city", StringType, nullable = true) :: Nil)
+    val schema = StructType.fromDDL("city string")
     val rowRdd = ss.sparkContext.parallelize(Seq(Row("Moscow"), Row("SPb")))
     val df = ss.createDataFrame(rowRdd, schema)
     df.show
@@ -51,10 +51,7 @@ object Factory {
   }
 
   def createPeopleDf(): DataFrame = {
-    val schema = StructType(
-      StructField("name", StringType) ::
-        StructField("age", IntegerType) ::
-        StructField("gender", StringType) :: Nil)
+    val schema = StructType.fromDDL("name string, age int, gender string")
     createDf(schema, Row("John", 25, "M"), Row("Peter", 35, "M"), Row("Mary", 20, "F"))
   }
 
