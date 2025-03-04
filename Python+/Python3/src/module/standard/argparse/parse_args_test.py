@@ -1,49 +1,36 @@
+import sys
 from argparse import ArgumentParser, Namespace
 
+from _pytest.monkeypatch import MonkeyPatch
 
-# Use flags "-n" and "--age"
-def test_parse_args_flags():
+
+# Take args from "sys.argv"
+def test_parse_sys(monkeypatch: MonkeyPatch):
+    monkeypatch.setattr(sys, 'argv', ['script.py', '-n', 'John', '--age', '30'])
+
+    parser: ArgumentParser = ArgumentParser()
+    parser.add_argument('-n', '--name', dest='name')
+    parser.add_argument('-a', '--age', type=int, dest='age')
+    namespace: Namespace = parser.parse_args()
+
+    name: str = namespace.name
+    age: int = namespace.age
+
+    assert name == 'John'
+    assert age == 30
+
+
+# Take args from a string list
+def test_parse_str_list():
     script_args: list[str] = ['-n', 'John', '--age', '30']
 
     parser: ArgumentParser = ArgumentParser()
     parser.add_argument('-n', '--name', dest='name')
     parser.add_argument('-a', '--age', type=int, dest='age')
+    namespace: Namespace = parser.parse_args(script_args)
 
-    parsed_args: Namespace = parser.parse_args(script_args)
-    name: str = parsed_args.name
-    age: int = parsed_args.age
-
-    assert name == 'John'
-    assert age == 30
-
-
-# Without flags
-def test_parse_args_positional():
-    script_args: list[str] = ['John', '30']
-
-    parser: ArgumentParser = ArgumentParser()
-    parser.add_argument('name')
-    parser.add_argument('age', type=int)
-
-    parsed_args: Namespace = parser.parse_args(script_args)
-    name: str = parsed_args.name
-    age: int = parsed_args.age
-
-    assert name == 'John'
-    assert age == 30
-
-
-# Default values
-def test_parse_args_positional_default():
-    script_args: list[str] = ['John']
-
-    parser: ArgumentParser = ArgumentParser()
-    parser.add_argument('name')
-    parser.add_argument('age', type=int, default=30, nargs='?')
-
-    parsed_args: Namespace = parser.parse_args(script_args)
-    name: str = parsed_args.name
-    age: int = parsed_args.age
+    name: str = namespace.name
+    age: int = namespace.age
 
     assert name == 'John'
     assert age == 30

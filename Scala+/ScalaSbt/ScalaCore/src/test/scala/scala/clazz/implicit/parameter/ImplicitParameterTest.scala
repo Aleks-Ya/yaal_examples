@@ -9,9 +9,7 @@ class ImplicitParameterTest extends AnyFlatSpec with Matchers {
     case class WeightUnit(title: String)
     implicit val kgWeightUnit: WeightUnit = WeightUnit("kg")
     object WeightFormatter {
-      def formatWeight(weight: Double)(implicit weightUnit: WeightUnit): String = {
-        weight + " " + weightUnit.title
-      }
+      def formatWeight(weight: Double)(implicit weightUnit: WeightUnit): String = weight + " " + weightUnit.title
     }
     val weight = 100
     val weightStr = WeightFormatter.formatWeight(weight)
