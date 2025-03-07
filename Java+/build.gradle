@@ -20,9 +20,9 @@ subprojects {
         postgresDep = 'org.postgresql:postgresql:42.6.0'
         derbyDep = 'org.apache.derby:derby:10.16.1.1'
         hsqldbDep = 'org.hsqldb:hsqldb:2.7.1'
-        slf4jVersion = '2.0.11'
+        slf4jVersion = '2.0.17'
         slf4jSimpleDep = "org.slf4j:slf4j-simple:$slf4jVersion"
-        def okHttpVersion = '4.11.0'
+        def okHttpVersion = '4.12.0'
         okHttpDep = "com.squareup.okhttp3:okhttp:$okHttpVersion"
         mockWebServerDep = "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
         jettyServlet10Dep = 'org.eclipse.jetty:jetty-servlet:10.0.15'

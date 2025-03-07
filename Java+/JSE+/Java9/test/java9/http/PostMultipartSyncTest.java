@@ -58,17 +58,18 @@ class PostMultipartSyncTest {
                     .header("Content-Type", "multipart/form-data; boundary=" + boundary)
                     .build();
 
-            var response = HttpClient.newHttpClient()
-                    .send(request, HttpResponse.BodyHandlers.ofString());
-            assertThat(response.statusCode()).isEqualTo(200);
+            try (var client = HttpClient.newHttpClient()) {
+                var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                assertThat(response.statusCode()).isEqualTo(200);
 
-            var recordedRequest = server.takeRequest();
-            assertThat(recordedRequest.getPath()).isEqualTo(path);
-            assertThat(recordedRequest.getMethod()).isEqualTo("POST");
-            assertThat(recordedRequest.getBody().readString(Charset.defaultCharset()))
-                    .containsSubsequence(boundary)
-                    .containsSubsequence("Content-Disposition: form-data; name=\"message1\"\r\n\r\nabc\r\n")
-                    .containsSubsequence("Content-Disposition: form-data; name=\"message2\"\r\n\r\nefg\r\n");
+                var recordedRequest = server.takeRequest();
+                assertThat(recordedRequest.getPath()).isEqualTo(path);
+                assertThat(recordedRequest.getMethod()).isEqualTo("POST");
+                assertThat(recordedRequest.getBody().readString(Charset.defaultCharset()))
+                        .containsSubsequence(boundary)
+                        .containsSubsequence("Content-Disposition: form-data; name=\"message1\"\r\n\r\nabc\r\n")
+                        .containsSubsequence("Content-Disposition: form-data; name=\"message2\"\r\n\r\nefg\r\n");
+            }
         }
     }
 
@@ -92,17 +93,18 @@ class PostMultipartSyncTest {
                     .header("Content-Type", "multipart/form-data boundary=" + boundary)
                     .build();
 
-            var response = HttpClient.newHttpClient()
-                    .send(request, HttpResponse.BodyHandlers.ofString());
-            assertThat(response.statusCode()).isEqualTo(200);
+            try (var client = HttpClient.newHttpClient()) {
+                var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                assertThat(response.statusCode()).isEqualTo(200);
 
-            var recordedRequest = server.takeRequest();
-            assertThat(recordedRequest.getPath()).isEqualTo(path);
-            assertThat(recordedRequest.getMethod()).isEqualTo("POST");
-            assertThat(recordedRequest.getBody().readString(Charset.defaultCharset()))
-                    .containsSubsequence(boundary)
-                    .containsSubsequence("Content-Disposition: form-data; name=\"message1\"\r\n\r\nabc\r\n")
-                    .containsSubsequence("Content-Disposition: form-data; name=\"message2\"\r\n\r\nefg\r\n");
+                var recordedRequest = server.takeRequest();
+                assertThat(recordedRequest.getPath()).isEqualTo(path);
+                assertThat(recordedRequest.getMethod()).isEqualTo("POST");
+                assertThat(recordedRequest.getBody().readString(Charset.defaultCharset()))
+                        .containsSubsequence(boundary)
+                        .containsSubsequence("Content-Disposition: form-data; name=\"message1\"\r\n\r\nabc\r\n")
+                        .containsSubsequence("Content-Disposition: form-data; name=\"message2\"\r\n\r\nefg\r\n");
+            }
         }
     }
 }

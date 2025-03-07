@@ -40,36 +40,38 @@ class CookieTest {
             var baseUrl = server.url("/").uri();
 
             var cookieHandler = new CookieManager();
-            var httpClient = HttpClient.newBuilder().cookieHandler(cookieHandler).build();
-            {
-                var request = HttpRequest.newBuilder().uri(baseUrl).GET().build();
-                var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-                assertThat(response.statusCode()).isEqualTo(SUCCESS_STATUS);
-                assertThat(response.body()).isEqualTo(body1);
+            var builder = HttpClient.newBuilder().cookieHandler(cookieHandler);
+            try (var httpClient = builder.build()) {
+                {
+                    var request = HttpRequest.newBuilder().uri(baseUrl).GET().build();
+                    var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+                    assertThat(response.statusCode()).isEqualTo(SUCCESS_STATUS);
+                    assertThat(response.body()).isEqualTo(body1);
 
-                var handlerCookies = cookieHandler.getCookieStore().getCookies();
-                assertThat(handlerCookies).hasToString("[abc=1, efg=2]");
+                    var handlerCookies = cookieHandler.getCookieStore().getCookies();
+                    assertThat(handlerCookies).hasToString("[abc=1, efg=2]");
 
-                var responseSetCookieHeader = response.headers().allValues(SET_COOKIE_HEADER);
-                assertThat(responseSetCookieHeader).hasToString("[abc=1, efg=2]");
+                    var responseSetCookieHeader = response.headers().allValues(SET_COOKIE_HEADER);
+                    assertThat(responseSetCookieHeader).hasToString("[abc=1, efg=2]");
 
-                var requestCookieHeader = server.takeRequest().getHeader(COOKIE_HEADER);
-                assertThat(requestCookieHeader).isNull();
-            }
-            {
-                var request = HttpRequest.newBuilder().uri(baseUrl).GET().build();
-                var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-                assertThat(response.statusCode()).isEqualTo(SUCCESS_STATUS);
-                assertThat(response.body()).isEqualTo(body2);
+                    var requestCookieHeader = server.takeRequest().getHeader(COOKIE_HEADER);
+                    assertThat(requestCookieHeader).isNull();
+                }
+                {
+                    var request = HttpRequest.newBuilder().uri(baseUrl).GET().build();
+                    var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+                    assertThat(response.statusCode()).isEqualTo(SUCCESS_STATUS);
+                    assertThat(response.body()).isEqualTo(body2);
 
-                var handlerCookies = cookieHandler.getCookieStore().getCookies();
-                assertThat(handlerCookies).hasToString("[abc=1, efg=2]");
+                    var handlerCookies = cookieHandler.getCookieStore().getCookies();
+                    assertThat(handlerCookies).hasToString("[abc=1, efg=2]");
 
-                var responseSetCookieHeader = response.headers().allValues(SET_COOKIE_HEADER);
-                assertThat(responseSetCookieHeader).isEmpty();
+                    var responseSetCookieHeader = response.headers().allValues(SET_COOKIE_HEADER);
+                    assertThat(responseSetCookieHeader).isEmpty();
 
-                var requestCookieHeader = server.takeRequest().getHeader(COOKIE_HEADER);
-                assertThat(requestCookieHeader).isEqualTo("abc=1; efg=2");
+                    var requestCookieHeader = server.takeRequest().getHeader(COOKIE_HEADER);
+                    assertThat(requestCookieHeader).isEqualTo("abc=1; efg=2");
+                }
             }
         }
     }
@@ -86,20 +88,21 @@ class CookieTest {
             server.start();
             var baseUrl = server.url("/").uri();
 
-            var httpClient = HttpClient.newBuilder().build();
-            var request = HttpRequest.newBuilder()
-                    .uri(baseUrl)
-                    .header("Cookie", cookiePair1)
-                    .GET()
-                    .build();
-            var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-            assertThat(response.statusCode()).isEqualTo(SUCCESS_STATUS);
-            assertThat(response.body()).isEqualTo(body1);
+            try (var client = HttpClient.newBuilder().build()) {
+                var request = HttpRequest.newBuilder()
+                        .uri(baseUrl)
+                        .header("Cookie", cookiePair1)
+                        .GET()
+                        .build();
+                var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                assertThat(response.statusCode()).isEqualTo(SUCCESS_STATUS);
+                assertThat(response.body()).isEqualTo(body1);
 
-            var request1 = server.takeRequest();
-            var headers = request1.getHeaders();
-            var actCookies = headers.get("Cookie");
-            assertThat(actCookies).isEqualTo(cookiePair1);
+                var request1 = server.takeRequest();
+                var headers = request1.getHeaders();
+                var actCookies = headers.get("Cookie");
+                assertThat(actCookies).isEqualTo(cookiePair1);
+            }
         }
     }
 

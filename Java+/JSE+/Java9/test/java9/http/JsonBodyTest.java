@@ -28,13 +28,14 @@ class JsonBodyTest {
                     .GET()
                     .build();
 
-            var response = HttpClient.newHttpClient()
-                    .send(request, HttpResponse.BodyHandlers.ofString());
-            var statusCode = response.statusCode();
-            assertThat(statusCode).isEqualTo(200);
-            var objectMapper = new ObjectMapper();
-            var actPerson = objectMapper.readValue(response.body(), Person.class);
-            assertThat(actPerson).isEqualTo(new Person("John", 30));
+            try (var client = HttpClient.newHttpClient()) {
+                var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                var statusCode = response.statusCode();
+                assertThat(statusCode).isEqualTo(200);
+                var objectMapper = new ObjectMapper();
+                var actPerson = objectMapper.readValue(response.body(), Person.class);
+                assertThat(actPerson).isEqualTo(new Person("John", 30));
+            }
         }
     }
 }
@@ -71,7 +72,7 @@ class Person {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
+        var person = (Person) o;
         return Objects.equals(name, person.name) && Objects.equals(age, person.age);
     }
 

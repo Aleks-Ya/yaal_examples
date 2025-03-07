@@ -28,10 +28,11 @@ class GetSyncTest {
                     .GET()
                     .build();
 
-            var response = HttpClient.newHttpClient()
-                    .send(request, HttpResponse.BodyHandlers.ofString());
-            var statusCode = response.statusCode();
-            assertThat(statusCode).isEqualTo(200);
+            try (var client = HttpClient.newHttpClient()) {
+                var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                var statusCode = response.statusCode();
+                assertThat(statusCode).isEqualTo(200);
+            }
         }
     }
 
@@ -50,16 +51,18 @@ class GetSyncTest {
             var request = HttpRequest.newBuilder().uri(baseUrl.uri()).GET().build();
             var bodyHandler = HttpResponse.BodyHandlers.ofFileDownload(outputDir,
                     StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
-            var response = HttpClient.newHttpClient().send(request, bodyHandler);
+            try (var client = HttpClient.newHttpClient()) {
+                var response = client.send(request, bodyHandler);
 
-            var statusCode = response.statusCode();
-            assertThat(statusCode).isEqualTo(200);
+                var statusCode = response.statusCode();
+                assertThat(statusCode).isEqualTo(200);
 
-            var outputFile = response.body();
-            assertThat(outputFile).isEqualTo(outputDir.resolve(outputFilename));
+                var outputFile = response.body();
+                assertThat(outputFile).isEqualTo(outputDir.resolve(outputFilename));
 
-            var actContent = Files.readString(outputFile);
-            assertThat(actContent).isEqualTo(body);
+                var actContent = Files.readString(outputFile);
+                assertThat(actContent).isEqualTo(body);
+            }
         }
     }
 
@@ -74,10 +77,11 @@ class GetSyncTest {
 
             var request = HttpRequest.newBuilder().uri(baseUrl.uri()).GET().build();
 
-            var response = HttpClient.newHttpClient()
-                    .send(request, HttpResponse.BodyHandlers.ofString());
-            assertThat(response.statusCode()).isEqualTo(statusCode);
-            assertThat(response.body()).isEqualTo(errorMessage);
+            try (var client = HttpClient.newHttpClient()) {
+                var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                assertThat(response.statusCode()).isEqualTo(statusCode);
+                assertThat(response.body()).isEqualTo(errorMessage);
+            }
         }
     }
 

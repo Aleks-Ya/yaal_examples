@@ -22,17 +22,18 @@ class BasicAuthTest {
     @Test
     void successAuthenticator() throws IOException, InterruptedException {
         var request = HttpRequest.newBuilder().uri(ENDPOINT).GET().build();
-        var client = HttpClient.newBuilder()
+        var builder = HttpClient.newBuilder()
                 .authenticator(new Authenticator() {
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(USERNAME, PASSWORD.toCharArray());
                     }
-                })
-                .build();
-        var response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        var statusCode = response.statusCode();
-        assertThat(statusCode).isEqualTo(200);
+                });
+        try (var client = builder.build()) {
+            var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            var statusCode = response.statusCode();
+            assertThat(statusCode).isEqualTo(200);
+        }
     }
 
     @Test
@@ -42,17 +43,21 @@ class BasicAuthTest {
         var request = HttpRequest.newBuilder()
                 .header("Authorization", headerValue)
                 .uri(ENDPOINT).GET().build();
-        var response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        var statusCode = response.statusCode();
-        assertThat(statusCode).isEqualTo(200);
+        try (var client = HttpClient.newHttpClient()) {
+            var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            var statusCode = response.statusCode();
+            assertThat(statusCode).isEqualTo(200);
+        }
     }
 
     @Test
     void failAnonymous() throws IOException, InterruptedException {
         var request = HttpRequest.newBuilder().uri(ENDPOINT).GET().build();
-        var response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        var statusCode = response.statusCode();
-        assertThat(statusCode).isEqualTo(401);
+        try (var client = HttpClient.newHttpClient()) {
+            var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            var statusCode = response.statusCode();
+            assertThat(statusCode).isEqualTo(401);
+        }
     }
 
 }

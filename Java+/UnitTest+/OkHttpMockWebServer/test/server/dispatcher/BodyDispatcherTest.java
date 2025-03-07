@@ -47,20 +47,26 @@ class BodyDispatcherTest {
 
             var baseUrl = server.url(path);
 
-            var request1 = HttpRequest.newBuilder().uri(baseUrl.uri()).POST(ofString(requestBody1)).build();
-            var response1 = HttpClient.newHttpClient().send(request1, HttpResponse.BodyHandlers.ofString());
-            assertThat(response1.statusCode()).isEqualTo(200);
-            assertThat(response1.body()).isEqualTo(responseBody1);
+            try (var client = HttpClient.newHttpClient()) {
+                var request1 = HttpRequest.newBuilder().uri(baseUrl.uri()).POST(ofString(requestBody1)).build();
+                var response1 = client.send(request1, HttpResponse.BodyHandlers.ofString());
+                assertThat(response1.statusCode()).isEqualTo(200);
+                assertThat(response1.body()).isEqualTo(responseBody1);
+            }
 
-            var request2 = HttpRequest.newBuilder().uri(baseUrl.uri()).POST(ofString(requestBody2)).build();
-            var response2 = HttpClient.newHttpClient().send(request2, HttpResponse.BodyHandlers.ofString());
-            assertThat(response2.statusCode()).isEqualTo(200);
-            assertThat(response2.body()).isEqualTo(responseBody2);
+            try (var client = HttpClient.newHttpClient()) {
+                var request2 = HttpRequest.newBuilder().uri(baseUrl.uri()).POST(ofString(requestBody2)).build();
+                var response2 = client.send(request2, HttpResponse.BodyHandlers.ofString());
+                assertThat(response2.statusCode()).isEqualTo(200);
+                assertThat(response2.body()).isEqualTo(responseBody2);
+            }
 
-            var requestUnknown = HttpRequest.newBuilder().uri(baseUrl.uri()).POST(ofString("unknown")).build();
-            var responseUnknown = HttpClient.newHttpClient().send(requestUnknown, HttpResponse.BodyHandlers.ofString());
-            assertThat(responseUnknown.statusCode()).isEqualTo(400);
-            assertThat(responseUnknown.body()).isEqualTo(responseBodyUnknown);
+            try (var client = HttpClient.newHttpClient()) {
+                var requestUnknown = HttpRequest.newBuilder().uri(baseUrl.uri()).POST(ofString("unknown")).build();
+                var responseUnknown = client.send(requestUnknown, HttpResponse.BodyHandlers.ofString());
+                assertThat(responseUnknown.statusCode()).isEqualTo(400);
+                assertThat(responseUnknown.body()).isEqualTo(responseBodyUnknown);
+            }
         }
     }
 

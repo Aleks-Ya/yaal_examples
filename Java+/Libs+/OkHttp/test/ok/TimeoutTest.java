@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -22,7 +22,7 @@ class TimeoutTest {
 
         try (var server = new MockWebServer()) {
             server.enqueue(new MockResponse()
-                    .throttleBody(5, timeoutSec * 2, TimeUnit.SECONDS)
+                    .throttleBody(5, timeoutSec * 2, SECONDS)
                     .setBody("hello, world!"));
             server.start();
 
@@ -51,7 +51,7 @@ class TimeoutTest {
             var body = "hello, world!";
             long bytesPerPeriod = 5;
             server.enqueue(new MockResponse()
-                    .throttleBody(bytesPerPeriod, timeoutSec / 2, TimeUnit.SECONDS)
+                    .throttleBody(bytesPerPeriod, timeoutSec / 2, SECONDS)
                     .setBody(body));
             server.start();
 

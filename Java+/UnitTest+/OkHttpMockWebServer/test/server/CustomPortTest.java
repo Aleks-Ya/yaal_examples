@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import util.NetUtil;
 
 import java.io.IOException;
-import java.net.URL;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,7 +23,7 @@ class CustomPortTest {
             var baseUrl = server.url("/v1/chat/");
             assertThat(baseUrl.port()).isEqualTo(port);
 
-            var body = NetUtil.urlContentToString(new URL(baseUrl.url(), "messages/"));
+            var body = NetUtil.urlContentToString(baseUrl.uri().resolve("messages/"));
             assertThat(body).isEqualTo(expBody);
         }
     }

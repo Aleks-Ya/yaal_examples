@@ -2,7 +2,6 @@ package server;
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import okhttp3.mockwebserver.SocketPolicy;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -11,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import static okhttp3.mockwebserver.SocketPolicy.DISCONNECT_AT_END;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -23,8 +23,8 @@ class TcpRequestTest {
         try (var server = new MockWebServer()) {
             var body1 = "hello, world!";
             var body2 = "buy all!";
-            server.enqueue(new MockResponse().setBody(body1).setSocketPolicy(SocketPolicy.DISCONNECT_AT_END));
-            server.enqueue(new MockResponse().setBody(body2).setSocketPolicy(SocketPolicy.DISCONNECT_AT_END));
+            server.enqueue(new MockResponse().setBody(body1).setSocketPolicy(DISCONNECT_AT_END));
+            server.enqueue(new MockResponse().setBody(body2).setSocketPolicy(DISCONNECT_AT_END));
 
             server.start();
 

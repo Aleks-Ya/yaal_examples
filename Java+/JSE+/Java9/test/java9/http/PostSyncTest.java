@@ -28,14 +28,15 @@ class PostSyncTest {
                     .POST(HttpRequest.BodyPublishers.ofString(body))
                     .build();
 
-            var response = HttpClient.newHttpClient()
-                    .send(request, HttpResponse.BodyHandlers.ofString());
-            assertThat(response.statusCode()).isEqualTo(200);
+            try (var client = HttpClient.newHttpClient()) {
+                var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                assertThat(response.statusCode()).isEqualTo(200);
 
-            var recordedRequest = server.takeRequest();
-            assertThat(recordedRequest.getPath()).isEqualTo(path);
-            assertThat(recordedRequest.getMethod()).isEqualTo("POST");
-            assertThat(recordedRequest.getBody().readString(Charset.defaultCharset())).isEqualTo(body);
+                var recordedRequest = server.takeRequest();
+                assertThat(recordedRequest.getPath()).isEqualTo(path);
+                assertThat(recordedRequest.getMethod()).isEqualTo("POST");
+                assertThat(recordedRequest.getBody().readString(Charset.defaultCharset())).isEqualTo(body);
+            }
         }
     }
 }

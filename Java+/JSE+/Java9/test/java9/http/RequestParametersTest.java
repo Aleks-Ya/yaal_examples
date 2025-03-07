@@ -30,12 +30,14 @@ class RequestParametersTest {
             var url = URI.create(baseUrl + "?" + paramStr);
 
             var request = HttpRequest.newBuilder().uri(url).GET().build();
-            var response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-            var statusCode = response.statusCode();
-            assertThat(statusCode).isEqualTo(200);
+            try (var client = HttpClient.newHttpClient()) {
+                var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                var statusCode = response.statusCode();
+                assertThat(statusCode).isEqualTo(200);
 
-            var actRequest = server.takeRequest();
-            assertThat(actRequest.getPath()).contains("param1=value1").contains("param2=value2");
+                var actRequest = server.takeRequest();
+                assertThat(actRequest.getPath()).contains("param1=value1").contains("param2=value2");
+            }
         }
     }
 }

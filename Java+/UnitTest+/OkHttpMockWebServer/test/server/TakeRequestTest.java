@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import util.NetUtil;
 
 import java.io.IOException;
-import java.net.URL;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,13 +25,13 @@ class TakeRequestTest {
 
             var baseUrl = server.url("/v1/chat/");
 
-            var body = NetUtil.urlContentToString(new URL(baseUrl.url(), "messages/"));
+            var body = NetUtil.urlContentToString(baseUrl.uri().resolve("messages/"));
             assertThat(body).isEqualTo(body1);
 
-            var actBody2 = NetUtil.urlContentToString(new URL(baseUrl.url(), "messages/2"));
+            var actBody2 = NetUtil.urlContentToString(baseUrl.uri().resolve("messages/2"));
             assertThat(actBody2).isEqualTo(body2);
 
-            var actBody3 = NetUtil.urlContentToString(new URL(baseUrl.url(), "messages/3"));
+            var actBody3 = NetUtil.urlContentToString(baseUrl.uri().resolve("messages/3"));
             assertThat(actBody3).isEqualTo(body3);
 
             var request1 = server.takeRequest();

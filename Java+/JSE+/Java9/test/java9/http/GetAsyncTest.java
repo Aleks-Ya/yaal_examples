@@ -34,18 +34,19 @@ class GetAsyncTest {
             var request1 = HttpRequest.newBuilder().uri(baseUrl.uri()).GET().build();
             var request2 = HttpRequest.newBuilder().uri(baseUrl.uri()).GET().build();
 
-            var httpClient = HttpClient.newHttpClient();
-            var responseFuture1 = httpClient.sendAsync(request1, ofString());
-            var responseFuture2 = httpClient.sendAsync(request2, ofString());
-            CompletableFuture.allOf(responseFuture1, responseFuture2).join();
+            try (var client = HttpClient.newHttpClient()) {
+                var responseFuture1 = client.sendAsync(request1, ofString());
+                var responseFuture2 = client.sendAsync(request2, ofString());
+                CompletableFuture.allOf(responseFuture1, responseFuture2).join();
 
-            var response1 = responseFuture1.join();
-            assertThat(response1.statusCode()).isEqualTo(200);
-            assertThat(response1.body()).isEqualTo(body1);
+                var response1 = responseFuture1.join();
+                assertThat(response1.statusCode()).isEqualTo(200);
+                assertThat(response1.body()).isEqualTo(body1);
 
-            var response2 = responseFuture2.join();
-            assertThat(response2.statusCode()).isEqualTo(200);
-            assertThat(response2.body()).isEqualTo(body2);
+                var response2 = responseFuture2.join();
+                assertThat(response2.statusCode()).isEqualTo(200);
+                assertThat(response2.body()).isEqualTo(body2);
+            }
         }
     }
 
@@ -64,16 +65,18 @@ class GetAsyncTest {
             var request = HttpRequest.newBuilder().uri(baseUrl.uri()).GET().build();
             var bodyHandler = HttpResponse.BodyHandlers.ofFileDownload(outputDir,
                     StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
-            var responseFuture = HttpClient.newHttpClient().sendAsync(request, bodyHandler);
-            var response = responseFuture.join();
-            var statusCode = response.statusCode();
-            assertThat(statusCode).isEqualTo(200);
+            try (var client = HttpClient.newHttpClient()) {
+                var responseFuture = client.sendAsync(request, bodyHandler);
+                var response = responseFuture.join();
+                var statusCode = response.statusCode();
+                assertThat(statusCode).isEqualTo(200);
 
-            var outputFile = response.body();
-            assertThat(outputFile).isEqualTo(outputDir.resolve(outputFilename));
+                var outputFile = response.body();
+                assertThat(outputFile).isEqualTo(outputDir.resolve(outputFilename));
 
-            var actContent = Files.readString(outputFile);
-            assertThat(actContent).isEqualTo(body);
+                var actContent = Files.readString(outputFile);
+                assertThat(actContent).isEqualTo(body);
+            }
         }
     }
 
@@ -89,18 +92,19 @@ class GetAsyncTest {
             var request1 = HttpRequest.newBuilder().uri(baseUrl.uri()).GET().build();
             var request2 = HttpRequest.newBuilder().uri(baseUrl.uri()).GET().build();
 
-            var httpClient = HttpClient.newHttpClient();
-            var responseFuture1 = httpClient.sendAsync(request1, ofString())
-                    .thenCompose(response -> CompletableFuture.supplyAsync(() -> response.body().toUpperCase()));
-            var responseFuture2 = httpClient.sendAsync(request2, ofString())
-                    .thenCompose(response -> CompletableFuture.supplyAsync(() -> response.body().toLowerCase()));
-            CompletableFuture.allOf(responseFuture1, responseFuture2).join();
+            try (var client = HttpClient.newHttpClient()) {
+                var responseFuture1 = client.sendAsync(request1, ofString())
+                        .thenCompose(response -> CompletableFuture.supplyAsync(() -> response.body().toUpperCase()));
+                var responseFuture2 = client.sendAsync(request2, ofString())
+                        .thenCompose(response -> CompletableFuture.supplyAsync(() -> response.body().toLowerCase()));
+                CompletableFuture.allOf(responseFuture1, responseFuture2).join();
 
-            var actBody1 = responseFuture1.join();
-            assertThat(actBody1).isEqualTo(body.toUpperCase());
+                var actBody1 = responseFuture1.join();
+                assertThat(actBody1).isEqualTo(body.toUpperCase());
 
-            var actBody2 = responseFuture2.join();
-            assertThat(actBody2).isEqualTo(body.toLowerCase());
+                var actBody2 = responseFuture2.join();
+                assertThat(actBody2).isEqualTo(body.toLowerCase());
+            }
         }
     }
 
@@ -115,18 +119,19 @@ class GetAsyncTest {
 
             var request = HttpRequest.newBuilder().uri(baseUrl.uri()).GET().build();
 
-            var httpClient = HttpClient.newHttpClient();
-            var responseFuture = httpClient.sendAsync(request, ofString());
-            Thread.sleep(1000);
-            var result = responseFuture.cancel(false);
-            System.out.println("Result: " + result);
+            try (var client = HttpClient.newHttpClient()) {
+                var responseFuture = client.sendAsync(request, ofString());
+                Thread.sleep(1000);
+                var result = responseFuture.cancel(false);
+                System.out.println("Result: " + result);
 
-            var response = responseFuture.join();
-            assertThat(response.statusCode()).isEqualTo(200);
-            assertThat(response.body()).isEqualTo(body);
+                var response = responseFuture.join();
+                assertThat(response.statusCode()).isEqualTo(200);
+                assertThat(response.body()).isEqualTo(body);
 
-            var recordedRequest = server.takeRequest();
-            assertThat(recordedRequest.getBody().readString(Charset.defaultCharset())).isEqualTo(body);
+                var recordedRequest = server.takeRequest();
+                assertThat(recordedRequest.getBody().readString(Charset.defaultCharset())).isEqualTo(body);
+            }
         }
     }
 

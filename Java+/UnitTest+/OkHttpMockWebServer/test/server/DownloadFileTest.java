@@ -65,7 +65,7 @@ class DownloadFileTest {
             var baseUrl = server.url("/v1/chat/");
 
             var outDir = Files.createTempDirectory(getClass().getSimpleName()).toFile();
-            var outFile = downloadFileFromUrl(new URL(baseUrl.url(), "messages/"), outDir);
+            var outFile = downloadFileFromUrl(baseUrl.uri().resolve("messages/").toURL(), outDir);
             assertThat(outFile).hasName(expFilename);
             var expFile = ResourceUtil.resourceToFile(getClass(), expFilename);
             assertThat(outFile).hasSameBinaryContentAs(expFile);

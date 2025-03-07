@@ -75,3 +75,4 @@ python-iso639
 polyglot #500K
 elasticsearch==7.17.12
 tinkoff-investments
+praw

@@ -20,8 +20,10 @@ class LoggerTest {
             server.start();
             var baseUrl = server.url("/");
             var request = HttpRequest.newBuilder().uri(baseUrl.uri()).GET().build();
-            var response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-            assertThat(response.statusCode()).isEqualTo(200);
+            try (var client = HttpClient.newHttpClient()) {
+                var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                assertThat(response.statusCode()).isEqualTo(200);
+            }
         }
     }
 }
