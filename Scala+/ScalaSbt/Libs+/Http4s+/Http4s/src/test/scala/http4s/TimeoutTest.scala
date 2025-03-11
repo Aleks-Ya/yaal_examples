@@ -7,8 +7,8 @@ import org.scalatest.freespec.AsyncFreeSpec
 import org.scalatest.matchers.should.Matchers
 
 import java.util.concurrent.TimeUnit.SECONDS
+import scala.concurrent.TimeoutException
 import scala.concurrent.duration.Duration
-import scala.concurrent.{Future, TimeoutException}
 
 class TimeoutTest extends AsyncFreeSpec with AsyncIOSpec with Matchers {
   private val timeoutSec = 2
@@ -16,13 +16,12 @@ class TimeoutTest extends AsyncFreeSpec with AsyncIOSpec with Matchers {
 
   "HttpClient" - {
     "should fail with timeout" in {
-      recoverToExceptionIf[TimeoutException] {
-        Future(client.use(c => {
-          val delaySec = timeoutSec * 2
-          val url = s"http://httpbin.io/delay/$delaySec"
-          c.get(url)(response => IO(response.status.code))
-        }).unsafeRunSync())
-      } map { ex => ex shouldBe a[TimeoutException] }
+      val io = client.use(c => {
+        val delaySec = timeoutSec * 2
+        val url = s"https://httpbin.io/delay/$delaySec"
+        c.get(url)(response => IO(response.status.code))
+      })
+      io.assertThrows[TimeoutException]
     }
   }
 }

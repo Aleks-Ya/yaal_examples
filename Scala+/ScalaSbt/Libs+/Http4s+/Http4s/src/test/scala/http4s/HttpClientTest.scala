@@ -18,15 +18,15 @@ class HttpClientTest extends AsyncFreeSpec with AsyncIOSpec with Matchers {
     })
 
     "200 OK" in {
-      getStatusCode("http://httpbin.org/status/200")
+      getStatusCode("https://httpbin.org/status/200")
     }.asserting(_ shouldEqual 200)
 
     "expect 404 NOT FOUND" in {
-      getStatusCode("http://httpbin.org/status/404")
+      getStatusCode("https://httpbin.org/status/404")
     }.asserting(_ shouldEqual 404)
 
     "ignore 404 NOT FOUND" in {
-      val url = uri"http://httpbin.org/status/404"
+      val url = uri"https://httpbin.org/status/404"
       val request = Request[IO](GET, url)
       val response = client.use(c => c.run(request).use { response =>
         if (response.status == Status.NotFound) IO.pure(None)
@@ -36,7 +36,7 @@ class HttpClientTest extends AsyncFreeSpec with AsyncIOSpec with Matchers {
     }
 
     "handle different status codes" in {
-      val url = uri"http://httpbin.org/status/500"
+      val url = uri"https://httpbin.org/status/500"
       val request = Request[IO](GET, url)
       val response = client.use(c => c.run(request).use { response =>
         response.status match {
@@ -62,17 +62,17 @@ class HttpClientTest extends AsyncFreeSpec with AsyncIOSpec with Matchers {
     }
 
     "return optional body (Some)" in {
-      val body: IO[Option[String]] = getBodyOption("http://httpbin.io/base64/decode/YWJjCg==")
+      val body: IO[Option[String]] = getBodyOption("https://httpbin.io/base64/decode/YWJjCg==")
       body.asserting(_ shouldEqual Some("abc\n"))
     }
 
     "return optional body (None 404)" in {
-      val body: IO[Option[String]] = getBodyOption("http://httpbin.org/status/404")
+      val body: IO[Option[String]] = getBodyOption("https://httpbin.org/status/404")
       body.asserting(_ shouldEqual None)
     }
 
     "return optional body (Exception 500)" in {
-      val body: IO[Option[String]] = getBodyOption("http://httpbin.org/status/500")
+      val body: IO[Option[String]] = getBodyOption("https://httpbin.org/status/500")
       body.assertThrowsWithMessage[RuntimeException]("Internal Server Error")
     }
   }

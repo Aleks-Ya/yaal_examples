@@ -3,7 +3,7 @@ package scalatest.matcher.collections
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class SequencesTest extends AnyFlatSpec with Matchers {
+class SeqTest extends AnyFlatSpec with Matchers {
 
   "sequences with integers" should "work" in {
     val list = List(1, 2, 2, 3, 3, 3)
