@@ -3,7 +3,7 @@
 Install: `sudo apt install -y cadaver`
 
 Help: `cadaver -h`
-Connect to server: `cadaver https://webdav.yandex.ru`
+Connect to server: `cadaver https://webdav.yandex.ru`, `cadaver https://ewebdav.pcloud.com`
 
 ### Commands
 
