@@ -16,8 +16,8 @@ subprojects {
         mavenCentral()
     }
     ext {
-        h2Dep = 'com.h2database:h2:2.1.214'
-        postgresDep = 'org.postgresql:postgresql:42.6.0'
+        h2Dep = 'com.h2database:h2:2.3.232'
+        postgresDep = 'org.postgresql:postgresql:42.7.5'
         derbyDep = 'org.apache.derby:derby:10.16.1.1'
         hsqldbDep = 'org.hsqldb:hsqldb:2.7.1'
         slf4jVersion = '2.0.17'
@@ -28,29 +28,29 @@ subprojects {
         jettyServlet10Dep = 'org.eclipse.jetty:jetty-servlet:10.0.15'
         jettyServlet11Dep = 'org.eclipse.jetty:jetty-servlet:11.0.15'
         servlet4Dep = 'javax.servlet:javax.servlet-api:4.0.1'
-        jacksonVersion = '2.15.3'
+        jacksonVersion = '2.18.3'
         jacksonDataBindDep = "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         jacksonDatatypeJsr310Dep = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
-        jsonUnitVersion = '3.4.1'
+        jsonUnitVersion = '4.1.0'
         jsonUnitDep = "net.javacrumbs.json-unit:json-unit:$jsonUnitVersion"
         jsonUnitAssertJDep = "net.javacrumbs.json-unit:json-unit-assertj:$jsonUnitVersion"
         mockitoVersion = '5.10.0'
-        mockitoInlineVersion = '5.2.0'
+        mockitoInlineVersion = '5.16.0'
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
         mockitoJunitJupiterDep = "org.mockito:mockito-junit-jupiter:$mockitoVersion"
-        log4j2CoreDep = 'org.apache.logging.log4j:log4j-core:2.22.0'
-        logbackClassicDep = 'ch.qos.logback:logback-classic:1.4.14'
+        log4j2CoreDep = 'org.apache.logging.log4j:log4j-core:2.24.3'
+        logbackClassicDep = 'ch.qos.logback:logback-classic:1.5.17'
         gsonDep = 'com.google.code.gson:gson:2.10.1'
-        apacheCommonsLangDep = 'org.apache.commons:commons-lang3:3.14.0'
-        apacheCommonsCsvDep = 'org.apache.commons:commons-csv:1.10.0'
-        apacheCommonsIoDep = 'commons-io:commons-io:2.15.1'
+        apacheCommonsLangDep = 'org.apache.commons:commons-lang3:3.17.0'
+        apacheCommonsCsvDep = 'org.apache.commons:commons-csv:1.13.0'
+        apacheCommonsIoDep = 'commons-io:commons-io:2.18.0'
         apacheCommonsFileUploadDep = 'commons-fileupload:commons-fileupload:1.5'
         wireMockDep = 'com.github.tomakehurst:wiremock:2.27.2'
         jaxbApiDep = 'javax.xml.bind:jaxb-api:2.3.1'
         elasticSearch7Version = '7.17.15'
         elasticSearch8Version = '8.11.1'
-        junit5PlatformVersion = '1.10.0'
-        junit5Version = '5.10.2'
+        junit5PlatformVersion = '1.12.0'
+        junit5Version = '5.12.0'
         cucumberVersion = '7.11.1'
         spring5Version = '5.3.34'
         spring4Version = '4.3.30.RELEASE'
@@ -76,7 +76,7 @@ subprojects {
         eclipseLink4Version = '4.0.1'
         jsonAssertDep = 'org.skyscreamer:jsonassert:1.5.1'
         bouncyCastleDep = 'org.bouncycastle:bcpkix-jdk18on:1.78.1'
-        testContainersVersion = '1.19.1'
+        testContainersVersion = '1.20.6'
         testContainersDep = "org.testcontainers:testcontainers:$testContainersVersion"
         testContainersJunitDep = "org.testcontainers:junit-jupiter:$testContainersVersion"
         testContainersPostgresDep = "org.testcontainers:postgresql:$testContainersVersion"
@@ -99,28 +99,28 @@ subprojects {
         retrofitJacksonDep = "com.squareup.retrofit2:converter-jackson:$retrofitVersion"
         retrofitMoshiDep = "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
         liquibaseCoreDep = 'org.liquibase:liquibase-core:4.22.0'
-        lucene8Version = '8.11.1'
-        lucene9Version = '9.9.2'
+        lucene8Version = '8.11.4'
+        lucene9Version = '9.12.1'
         javaFxVersion = '21'
         javaFxPluginVersion = '0.1.0'
-        testFxDep = 'org.testfx:testfx-junit5:4.0.17'
+        testFxDep = 'org.testfx:testfx-junit5:4.0.18'
         flexMarkVersion = '0.64.8'
         extraJavaModuleInfoVersion = '1.8'
-        assertJVersion = '3.25.3'
+        assertJVersion = '3.27.3'
         jimfsDep = 'com.google.jimfs:jimfs:1.3.0'
         javaxInjectDep = 'javax.inject:javax.inject:1'
         guiceVersion = '7.0.0'
         igniteGuiceDep = 'com.gluonhq:ignite-guice:1.2.2'
         systemStubsVersion = '2.1.3'
         annotationApi = 'javax.annotation:javax.annotation-api:1.3.2'
-        parquetVersion = '1.13.1'
+        parquetVersion = '1.15.0'
         googleCloudBomDep = 'com.google.cloud:libraries-bom:26.32.0'
         aws1Version = '1.12.782'
-        aws2Version = '2.25.2'
+        aws2Version = '2.30.38'
         googleTestingCompileDep = 'com.google.testing.compile:compile-testing:0.21.0'
         controlsFxDep = 'org.controlsfx:controlsfx:11.2.1'
         xStreamDep = 'com.thoughtworks.xstream:xstream:1.4.20'
-        pdfTestDep = 'com.codeborne:pdf-test:1.8.1'
+        pdfTestDep = 'com.codeborne:pdf-test:1.9.2'
         kafka2Version = '2.8.2'
         avroDep = 'org.apache.avro:avro:1.12.0'
     }
@@ -136,9 +136,10 @@ subprojects {
  */
 configure(subprojects - project('UnitTest+:JUnit+:JUnit4').subprojects - project('UnitTest+:TestNG+').subprojects) {
     dependencies {
-        testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version", 'org.hamcrest:hamcrest:2.2',
-                'org.awaitility:awaitility:4.2.0', apacheCommonsIoDep, "org.assertj:assertj-core:$assertJVersion"
-        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
+        testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version", 'org.hamcrest:hamcrest:3.0',
+                'org.awaitility:awaitility:4.3.0', apacheCommonsIoDep, "org.assertj:assertj-core:$assertJVersion"
+        testRuntimeOnly "org.junit.platform:junit-platform-launcher:$junit5PlatformVersion",
+                "org.junit.jupiter:junit-jupiter-engine:$junit5Version"
     }
     test {
         testLogging.showStandardStreams = true
