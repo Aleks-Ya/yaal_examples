@@ -101,6 +101,7 @@ subprojects {
         liquibaseCoreDep = 'org.liquibase:liquibase-core:4.22.0'
         lucene8Version = '8.11.4'
         lucene9Version = '9.12.1'
+        lucene10Version = '10.1.0'
         javaFxVersion = '21'
         javaFxPluginVersion = '0.1.0'
         testFxDep = 'org.testfx:testfx-junit5:4.0.18'

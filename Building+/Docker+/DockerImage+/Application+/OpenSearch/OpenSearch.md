@@ -5,8 +5,13 @@ DockerHub: https://hub.docker.com/r/opensearchproject/opensearch
 Default credentials: `admin`/`admin`
 
 ## Run single node (OpenSearch only)
-1. Start: `docker run --rm -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" --name opensearch opensearchproject/opensearch:latest`
-2. Check state: `curl https://localhost:9200 -ku admin:admin`
+1. Start: 
+```shell
+docker run --rm -p 9200:9200 -p 9600:9600 --name opensearch \
+  -e "discovery.type=single-node" \
+  -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=Apas@2xuV" opensearchproject/opensearch:latest
+```
+2. Check state: `curl https://localhost:9200 -ku admin:Apas@2xuV`
 
 ## Run OpenSearch + Dashboard
 1. Start: `docker compose up`
