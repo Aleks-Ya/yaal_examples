@@ -13,6 +13,13 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.opensearch.env.Environment.PATH_HOME_SETTING;
+import static org.opensearch.neuralsearch.processor.chunker.Chunker.CHUNK_STRING_COUNT_FIELD;
+import static org.opensearch.neuralsearch.processor.chunker.Chunker.MAX_CHUNK_LIMIT_FIELD;
+import static org.opensearch.neuralsearch.processor.chunker.FixedTokenLengthChunker.ANALYSIS_REGISTRY_FIELD;
+import static org.opensearch.neuralsearch.processor.chunker.FixedTokenLengthChunker.MAX_TOKEN_COUNT_FIELD;
+import static org.opensearch.neuralsearch.processor.chunker.FixedTokenLengthChunker.OVERLAP_RATE_FIELD;
+import static org.opensearch.neuralsearch.processor.chunker.FixedTokenLengthChunker.TOKENIZER_FIELD;
+import static org.opensearch.neuralsearch.processor.chunker.FixedTokenLengthChunker.TOKEN_LIMIT_FIELD;
 
 class ChunkingTest {
     @Test
@@ -27,15 +34,15 @@ class ChunkingTest {
         var analysisModule = new AnalysisModule(environment, List.of());
         var analysisRegistry = analysisModule.getAnalysisRegistry();
         var chunker = new FixedTokenLengthChunker(Map.of(
-                "analysis_registry", analysisRegistry,
-                "token_limit", 6,
-                "overlap_rate", 0.2,
-                "tokenizer", "standard"
+                ANALYSIS_REGISTRY_FIELD, analysisRegistry,
+                TOKEN_LIMIT_FIELD, 6,
+                OVERLAP_RATE_FIELD, 0.2,
+                TOKENIZER_FIELD, "standard"
         ));
         var runtimeParameters = Map.<String, Object>of(
-                "max_token_count", 1000,
-                "max_chunk_limit", -1,
-                "chunk_string_count", 1
+                MAX_TOKEN_COUNT_FIELD, 1000,
+                MAX_CHUNK_LIMIT_FIELD, 100,
+                CHUNK_STRING_COUNT_FIELD, 1
         );
         var chunks = chunker.chunk(content, runtimeParameters);
         System.out.println(chunks);
