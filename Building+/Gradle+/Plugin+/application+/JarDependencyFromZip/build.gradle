@@ -1,0 +1,24 @@
+plugins {
+    id 'application'
+}
+application {
+    mainClass = 'MyClass'
+}
+sourceSets.main.java.srcDir 'src'
+repositories {
+    mavenCentral()
+}
+configurations {
+    zipArtifact
+}
+dependencies {
+    zipArtifact "org.opensearch.plugin:neural-search:2.17.1.0"
+}
+tasks.register('unzipArtifact', Copy) {
+    from(zipTree(configurations.zipArtifact.singleFile))
+    into("$buildDir/libs/extracted")
+}
+compileJava.dependsOn unzipArtifact
+dependencies {
+    implementation "org.opensearch:opensearch:2.17.1", fileTree(dir: "$buildDir/libs/extracted", include: '*.jar')
+}

@@ -76,3 +76,6 @@ polyglot #500K
 elasticsearch==7.17.12
 tinkoff-investments
 praw
+sentence_transformers
+transformers
+torch
