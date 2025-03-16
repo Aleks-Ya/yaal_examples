@@ -1,20 +1,19 @@
 # DO NOT USE: works slow, GPT responses are unreliable
 import logging
-import re
 from typing import Sequence, List
 
+from PyQt6.QtGui import QAction
 from anki.collection import OpChanges, Collection, OpChangesWithCount
 from anki.notes import NoteId, Note
 from aqt import mw
 from aqt.operations import CollectionOp, ResultWithChanges
 from aqt.qt import QAction, qconnect
 from aqt.utils import showInfo
-from openai.types.chat import ChatCompletion
 
+from .chinese_cleaner import ChineseCleaner
 from common.config import LanguageAiConfig
 from common.fields import english_field, examples1_generated_field, \
     examples2_generated_field, examples3_generated_field
-from openai_client.openai_client import OpenAiClient
 
 log: logging.Logger = logging.getLogger(__name__)
 
@@ -23,9 +22,9 @@ fields: List[str] = [examples1_generated_field, examples2_generated_field, examp
 
 class Chinese:
     def __init__(self, config: LanguageAiConfig):
-        self.openai_client: OpenAiClient = OpenAiClient(config)
+        self.cleaner: ChineseCleaner = ChineseCleaner(config)
 
-    def _background_operation(self, col: Collection) -> ResultWithChanges:
+    def __background_operation(self, col: Collection) -> ResultWithChanges:
         changes: OpChangesWithCount = OpChangesWithCount()
         field_clauses: List[str] = [f'{field}:_*' for field in fields]
         query: str = f'{" or ".join(field_clauses)}'
@@ -33,33 +32,22 @@ class Chinese:
         all_note_ids: Sequence[NoteId] = col.find_notes(query)
         log.info(f"Found all notes: {len(all_note_ids)}")
         all_notes: List[Note] = [col.get_note(note_id) for note_id in all_note_ids]
-        notes: List[Note] = [note for note in all_notes if self._note_contains_chinese(note)]
+        notes: List[Note] = [note for note in all_notes if self.cleaner.note_contains_chinese(note)]
         notes_len: int = len(notes)
         log.info(f"Found chinese notes: {notes_len}")
-        self._show_progress(changes, notes_len)
+        self.__show_progress(changes, notes_len)
         for note in notes:
             for field in fields:
                 if mw.progress.want_cancel():
                     log.info("Cancelling")
                     return changes
-                self._update_note(col, note, field)
+                self.__update_note(col, note, field)
             changes.count += 1
-            self._show_progress(changes, notes_len)
+            self.__show_progress(changes, notes_len)
         return changes
 
-    def _contains_chinese(self, text: str) -> bool:
-        pattern = r'[\u4e00-\u9fff\u3400-\u4dbf\u2e80-\u2eff\u3000-\u303f\uff00-\uffef]'
-        if re.search(pattern, text):
-            return True
-        return False
-
-    def _note_contains_chinese(self, note: Note) -> bool:
-        for field in fields:
-            if self._contains_chinese(note[field]):
-                return True
-        return False
-
-    def _show_progress(self, changes: OpChangesWithCount, notes_len: int):
+    @staticmethod
+    def __show_progress(changes: OpChangesWithCount, notes_len: int):
         mw.taskman.run_on_main(
             lambda: mw.progress.update(
                 label=f"Processed: {changes.count} from {notes_len}",
@@ -68,56 +56,34 @@ class Chinese:
             )
         )
 
-    def _update_note(self, col: Collection, note: Note, field: str):
-        log.info(f'Updating text: nid={note.id}, field={field}')
+    def __update_note(self, col: Collection, note: Note, field: str) -> None:
+        note_id: NoteId = note.id
+        log.info(f'Updating text: nid={note_id}, field={field}')
         old_value: str = note[field]
-        if not self._contains_chinese(old_value):
-            log.info(f"Skip field without Chinese characters: nid={note.id}, field={field}")
-            return
-        prompt: str = (
-            f'I will give you an HTML snippet.\n'
-            f'\n'
-            f'You need to perform these operations on the snippet:\n'
-            f'1. Remove any information related to CSS.\n'
-            f'2. Remove Chinese, Japanese or Korean characters.\n'
-            f'3. Remove tags that became empty.\n'
-            f'4. Convert it to a flat HTML list without `div` tags.\n'
-            f'5. If any list element starts with number duplicating `li` tag, remove the number.\n'
-            f'6. Surround word `{note[english_field]}` with `em` tag if it is not surrounded already.\n'
-            f'\n'
-            f'Your response must contain strictly only resulting snippet without any comments (it is very important).\n'
-            f'The text is:\n'
-            f'```\n'
-            f'{old_value}\n'
-            f'```'
-        )
-        log.debug(f"Prompt:\n{prompt}")
-        chat_completion: ChatCompletion = self.openai_client.get_completion(prompt)
-        message: str = chat_completion.choices[0].message.content
-        log.debug(f"Message:\n{message}")
-        message = message.replace('```\n', '').replace('\n```', '')
-        log.debug(f"Message without MarkDown:\n{message}")
-        if self._contains_chinese(message):
-            raise RuntimeError(f'Cleaned text still contains Chinese characters: nid={note.id}, text="{message}"')
-        note[field] = message
-        log.info(f"Updating note: nid={note.id}, english='{note[english_field]}', field='{field}',\n"
+        english: str = note[english_field]
+        clean_value: str = self.cleaner.clean_field(old_value, english, field, note_id)
+        note[field] = clean_value
+        log.info(f"Updating note: nid={note_id}, english='{english}', field='{field}',\n"
                  f"old='{old_value}',\n"
                  f"new='{note[field]}'")
-        # col.update_note(note)
+        if old_value != clean_value:
+            col.update_note(note)
 
-    def on_success(self, changes: ResultWithChanges) -> None:
+    @staticmethod
+    def on_success(changes: ResultWithChanges) -> None:
         showInfo(f"Finished: updated {changes.count} notes")
 
-    def on_failure(self, e: Exception) -> None:
+    @staticmethod
+    def on_failure(e: Exception) -> None:
         showInfo(f"Failed: {e}")
 
     def _ui_action(self):
-        op: CollectionOp[OpChanges] = CollectionOp(parent=mw, op=lambda col: self._background_operation(col))
+        op: CollectionOp[OpChanges] = CollectionOp(parent=mw, op=lambda col: self.__background_operation(col))
         op.success(self.on_success)
         op.failure(self.on_failure)
         op.run_in_background()
 
     def menu_action(self) -> QAction:
-        action = QAction('Remove Chinese characters from examples', mw)
+        action: QAction = QAction('Remove Chinese characters from examples', mw)
         qconnect(action.triggered, self._ui_action)
         return action
