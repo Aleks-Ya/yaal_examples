@@ -1,0 +1,3 @@
+dependencies {
+    implementation "org.pytorch:pytorch_java_only:2.1.0"
+}

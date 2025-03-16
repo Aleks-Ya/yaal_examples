@@ -1,0 +1,8 @@
+subprojects {
+    ext {
+        djlVersion = '0.32.0'
+    }
+    dependencies {
+        implementation slf4jSimpleDep
+    }
+}

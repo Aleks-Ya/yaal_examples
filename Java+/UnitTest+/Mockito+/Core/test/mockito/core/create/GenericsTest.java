@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
 class GenericsTest {
     @Test
     void string() {
-        List<String> mock = mock(List.class);
+        List<String> mock = mock();
         assertThat(mock.size()).isEqualTo(0);
     }
 }

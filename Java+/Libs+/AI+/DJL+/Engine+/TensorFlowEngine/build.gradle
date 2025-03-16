@@ -1,0 +1,3 @@
+dependencies {
+    implementation "ai.djl.tensorflow:tensorflow-engine:$djlVersion"
+}

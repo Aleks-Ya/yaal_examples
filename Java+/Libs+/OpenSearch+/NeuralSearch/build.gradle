@@ -14,4 +14,5 @@ tasks.register('unzipArtifact', Copy) {
 compileJava.dependsOn unzipArtifact
 dependencies {
     implementation "org.opensearch:opensearch:2.17.1", fileTree(dir: "$buildDir/libs/extracted", include: '*.jar')
+    testImplementation mockitoDep
 }

@@ -34,8 +34,8 @@ subprojects {
         jsonUnitVersion = '4.1.0'
         jsonUnitDep = "net.javacrumbs.json-unit:json-unit:$jsonUnitVersion"
         jsonUnitAssertJDep = "net.javacrumbs.json-unit:json-unit-assertj:$jsonUnitVersion"
-        mockitoVersion = '5.10.0'
-        mockitoInlineVersion = '5.16.0'
+        mockitoVersion = '5.16.1'
+        mockitoInlineVersion = '5.2.0'
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
         mockitoJunitJupiterDep = "org.mockito:mockito-junit-jupiter:$mockitoVersion"
         log4j2CoreDep = 'org.apache.logging.log4j:log4j-core:2.24.3'

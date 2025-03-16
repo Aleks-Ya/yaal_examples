@@ -1,0 +1,3 @@
+dependencies {
+    implementation "ai.djl.pytorch:pytorch-engine:$djlVersion"
+}
