@@ -1,3 +1,3 @@
 dependencies {
-    implementation "ai.djl.pytorch:pytorch-engine:$djlVersion"
+    implementation "ai.djl.pytorch:pytorch-engine:$djlVersion", "ai.djl.pytorch:pytorch-model-zoo:$djlVersion"
 }
