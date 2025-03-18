@@ -1,10 +1,9 @@
-package djl.onnx;
+package djl.onnx.use;
 
 import ai.djl.MalformedModelException;
 import ai.djl.modality.Classifications;
 import ai.djl.modality.cv.Image;
 import ai.djl.modality.cv.ImageFactory;
-import ai.djl.onnxruntime.zoo.OrtHfModelZoo;
 import ai.djl.repository.zoo.Criteria;
 import ai.djl.repository.zoo.ModelNotFoundException;
 import ai.djl.translate.TranslateException;
@@ -13,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-class PredictorTest {
+class ImageClassificationTest {
     @Test
     void predict() throws ModelNotFoundException, MalformedModelException, IOException, TranslateException {
         var criteria = Criteria.builder()

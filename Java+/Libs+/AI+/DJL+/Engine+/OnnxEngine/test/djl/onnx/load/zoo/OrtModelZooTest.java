@@ -1,4 +1,4 @@
-package djl.onnx;
+package djl.onnx.load.zoo;
 
 import ai.djl.onnxruntime.engine.OrtEngine;
 import ai.djl.onnxruntime.zoo.OrtHfModelZoo;

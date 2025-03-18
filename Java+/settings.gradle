@@ -143,8 +143,10 @@ include 'BigData+:Databricks+:DatabricksJavaSdk',
 /**
  * Java Libs
  */
-include 'Libs+:AI+:DJL+:Engine+:OnnxEngine',
+include 'Libs+:AI+:DJL+:DjlApi',
+        'Libs+:AI+:DJL+:Engine+:OnnxEngine',
         'Libs+:AI+:DJL+:Engine+:PyTorchEngine',
+        'Libs+:AI+:DJL+:Engine+:RsEngine',
         'Libs+:AI+:DJL+:Engine+:TensorFlowEngine',
         'Libs+:AI+:DJL+:ModelZoo+:BasicModelZoo',
         'Libs+:AI+:OpenNLP',

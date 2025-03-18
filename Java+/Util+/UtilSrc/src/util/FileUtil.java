@@ -24,19 +24,31 @@ public class FileUtil {
     public static File createAbsentTempFile(String suffix) {
         try {
             var file = File.createTempFile(FileUtil.class.getSimpleName(), suffix);
-            assert file.delete();
+            if (!file.delete()) throw new AssertionError();
             return file;
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
     }
 
-    public static File createTempDirectory(String suffix) {
+    public static Path createTempDirectoryPath(String suffix) {
         try {
-            return Files.createTempDirectory(suffix).toFile();
+            return Files.createTempDirectory(suffix);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Path createTempDirectoryPath() {
+        return createTempDirectoryPath(FileUtil.class.getSimpleName());
+    }
+
+    public static File createTempDirectoryFile(String suffix) {
+        return createTempDirectoryPath(suffix).toFile();
+    }
+
+    public static File createTempDirectoryFile() {
+        return createTempDirectoryPath().toFile();
     }
 
     public static String fileToString(File file) {

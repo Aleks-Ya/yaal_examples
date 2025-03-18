@@ -1,4 +1,4 @@
-package djl.onnx;
+package djl.huggingface.load.zoo;
 
 import ai.djl.repository.zoo.ModelNotFoundException;
 import ai.djl.repository.zoo.ModelZoo;

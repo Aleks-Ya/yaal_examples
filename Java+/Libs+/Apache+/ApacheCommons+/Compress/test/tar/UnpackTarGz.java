@@ -22,7 +22,7 @@ class UnpackTarGz {
 
     @Test
     void unpack() throws IOException {
-        var outDir = FileUtil.createTempDirectory(getClass().getSimpleName());
+        var outDir = FileUtil.createTempDirectoryFile(getClass().getSimpleName());
         System.out.println("outDir: " + outDir.getAbsolutePath());
         var is = ResourceUtil.resourceToInputStream(getClass(), "HDFS_CLIENT-configs.tar.gz");
         try (var gis = new GzipCompressorInputStream(is);
