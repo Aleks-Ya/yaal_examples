@@ -2,6 +2,7 @@ package djl.onnxrs.load.file;
 
 import ai.djl.MalformedModelException;
 import ai.djl.Model;
+import ai.djl.huggingface.translator.TextEmbeddingTranslatorFactory;
 import ai.djl.onnxruntime.engine.OrtEngine;
 import ai.djl.repository.zoo.Criteria;
 import ai.djl.repository.zoo.ModelNotFoundException;
@@ -47,11 +48,15 @@ class OnnxFileTest {
     @Test
     void byCriteria() throws ModelNotFoundException, MalformedModelException, IOException, TranslateException {
 //        var modelPath = Paths.get(MODEL_DIR_PATH);
-        var modelPath = Paths.get(MODEL_FILE_PATH);
+//        var modelPath = Paths.get(MODEL_FILE_PATH);
+        var modelPath = Paths.get("/home/aleks/models/OpenSearch/sentence-transformers_msmarco-distilbert-base-tas-b-1.0.2-onnx.zip");
         assertThat(modelPath).exists();
+        var translatorFactory = new TextEmbeddingTranslatorFactory();
         var criteria = Criteria.builder()
                 .setTypes(String.class, float[].class)
+                .optTranslatorFactory(translatorFactory)
                 .optModelPath(modelPath)
+                .optEngine(OrtEngine.ENGINE_NAME)
                 .optModelName("msmarco-distilbert-base-tas-b")
                 .build();
         try (var model = criteria.loadModel();

@@ -278,6 +278,7 @@ include 'Libs+:AI+:DJL+:DjlApi',
         'Libs+:Guice+:GuiceGrapher',
         'Libs+:OkHttp',
         'Libs+:OpenSearch+:NeuralSearch',
+        'Libs+:OpenSearch+:NeuralSearchCopyPaste',
         'Libs+:AsyncHttpClient'
 
 /**
