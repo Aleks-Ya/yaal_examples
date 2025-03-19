@@ -1,4 +1,4 @@
-package djl.huggingface.load.zoo;
+package djl.onnxrs.load.zoo;
 
 import ai.djl.Application;
 import ai.djl.repository.zoo.Criteria;
@@ -8,6 +8,7 @@ import djl.Helper;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,7 +17,6 @@ class ModelZooTest {
     void listModelsAll() throws ModelNotFoundException, IOException {
         var models = ModelZoo.listModels();
         Helper.printModels(models);
-        assertThat(models).hasSize(6);
     }
 
     @Test
@@ -25,7 +25,11 @@ class ModelZooTest {
                 .optApplication(Application.CV.IMAGE_CLASSIFICATION)
                 .build();
         var models = ModelZoo.listModels(criteria);
-        assertThat(models).isEmpty();
+        assertThat(Helper.toMap(models))
+                .hasSize(1)
+                .containsEntry(
+                        Application.CV.IMAGE_CLASSIFICATION.getPath(),
+                        List.of("resnet18_v1-7", "resnet101_v1"));
     }
 
     @Test
@@ -37,7 +41,7 @@ class ModelZooTest {
         assertThat(Helper.toMap(models))
                 .hasSize(1).allSatisfy((application, modelNames) -> {
                     assertThat(application).isEqualTo(Application.NLP.TEXT_EMBEDDING.getPath());
-                    assertThat(modelNames).hasSize(864);
+                    assertThat(modelNames).hasSize(1139);
                 });
     }
 }

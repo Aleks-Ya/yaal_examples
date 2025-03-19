@@ -8,6 +8,8 @@ import ai.djl.repository.zoo.DefaultModelZoo;
 import org.junit.jupiter.api.Test;
 import util.FileUtil;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,6 +34,26 @@ class SimpleRepositoryTest {
         assertThat(resource.getApplication()).isEqualTo(Application.UNDEFINED);
         assertThat(resource.getGroupId()).isEqualTo(DefaultModelZoo.GROUP_ID);
         assertThat(resource.getArtifactId()).isEqualTo(localPath.getFileName().toString());
+    }
+
+    @Test
+    void newInstanceFromDir() throws IOException {
+        var localPath = FileUtil.createTempDirectoryPath();
+        var dirName = localPath.getFileName().toString();
+        var modelPath = localPath.resolve("model1.onnx");
+        Files.writeString(modelPath, "model content");
+        var repoName = "my_repo";
+        var repository = Repository.newInstance(repoName, localPath);
+        assertThat(repository).isInstanceOf(SimpleRepository.class);
+
+        var mrl = repository.model(Application.NLP.TEXT_EMBEDDING, DefaultModelZoo.GROUP_ID, modelPath.getFileName().toString());
+        assertThat(mrl).isNotNull();
+        var artifact = mrl.getDefaultArtifact();
+        assertThat(artifact).hasToString("ai.djl.localmodelzoo/%s/%s {}", dirName, dirName);
+        var files = artifact.getFiles();
+        assertThat(files).hasSize(1).containsKey("model1.onnx");
+        var item = files.get("model1.onnx");
+        assertThat(item.getArtifact()).isEqualTo(artifact);
     }
 
     @Test

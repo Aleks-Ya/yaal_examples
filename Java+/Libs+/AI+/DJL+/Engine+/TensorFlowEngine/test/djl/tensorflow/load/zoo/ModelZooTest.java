@@ -1,4 +1,4 @@
-package djl.tensorflow;
+package djl.tensorflow.load.zoo;
 
 import ai.djl.Application;
 import ai.djl.repository.zoo.Criteria;
@@ -10,13 +10,14 @@ import djl.Helper;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TfModelZooTest {
+class ModelZooTest {
     @Test
     void listModelsAll() throws ModelNotFoundException, IOException {
-        var models = TfModelZoo.listModels();
+        var models = ModelZoo.listModels();
         Helper.printModels(models);
     }
 
@@ -33,6 +34,19 @@ class TfModelZooTest {
                 .optApplication(Application.CV.IMAGE_CLASSIFICATION)
                 .build();
         var models = ModelZoo.listModels(criteria);
-        Helper.printModels(models);
+        assertThat(Helper.toMap(models))
+                .hasSize(1)
+                .containsEntry(
+                        Application.CV.IMAGE_CLASSIFICATION.getPath(),
+                        List.of("resnet50", "mobilenet"));
+    }
+
+    @Test
+    void getTextEmbeddingModels() throws ModelNotFoundException, IOException {
+        var criteria = Criteria.builder()
+                .optApplication(Application.NLP.TEXT_EMBEDDING)
+                .build();
+        var models = ModelZoo.listModels(criteria);
+        assertThat(models).isEmpty();
     }
 }

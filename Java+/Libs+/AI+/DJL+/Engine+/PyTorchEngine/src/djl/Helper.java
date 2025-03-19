@@ -5,6 +5,7 @@ import ai.djl.repository.Artifact;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Helper {
     public static void printModels(Map<Application, List<Artifact>> models) {
@@ -18,4 +19,13 @@ public class Helper {
         });
     }
 
+    public static Map<String, List<String>> toMap(Map<Application, List<Artifact>> models) {
+        return models.entrySet().stream()
+                .collect(Collectors.toMap(
+                        entry -> entry.getKey().getPath(),
+                        entry -> entry.getValue().stream().map(Artifact::getName).toList())
+                );
+    }
+
 }
+

@@ -1,4 +1,4 @@
-package djl.pytorch;
+package djl.pytorch.load.zoo;
 
 import ai.djl.Application;
 import ai.djl.pytorch.engine.PtEngine;
@@ -10,14 +10,17 @@ import djl.Helper;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class PtModelZooTest {
+class ModelZooTest {
+
     @Test
     void listModelsAll() throws ModelNotFoundException, IOException {
-        var models = PtModelZoo.listModels();
+        var models = ModelZoo.listModels();
         Helper.printModels(models);
+        assertThat(models).hasSize(11);
     }
 
     @Test
@@ -33,6 +36,19 @@ class PtModelZooTest {
                 .optApplication(Application.CV.IMAGE_CLASSIFICATION)
                 .build();
         var models = ModelZoo.listModels(criteria);
-        Helper.printModels(models);
+        assertThat(Helper.toMap(models))
+                .hasSize(1)
+                .containsEntry(
+                        Application.CV.IMAGE_CLASSIFICATION.getPath(),
+                        List.of("resnet18_embedding", "traced_resnet50", "traced_resnet18", "resnet101_v1"));
+    }
+
+    @Test
+    void getTextEmbeddingModels() throws ModelNotFoundException, IOException {
+        var criteria = Criteria.builder()
+                .optApplication(Application.NLP.TEXT_EMBEDDING)
+                .build();
+        var models = ModelZoo.listModels(criteria);
+        assertThat(models).isEmpty();
     }
 }

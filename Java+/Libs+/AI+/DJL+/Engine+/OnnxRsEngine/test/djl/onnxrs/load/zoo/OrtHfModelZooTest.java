@@ -1,4 +1,4 @@
-package djl.onnx.load.zoo;
+package djl.onnxrs.load.zoo;
 
 import ai.djl.Application;
 import ai.djl.onnxruntime.engine.OrtEngine;
@@ -13,6 +13,9 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * HuggingFace models for ONNX.
+ */
 class OrtHfModelZooTest {
     @Test
     void listModelsAll() throws ModelNotFoundException, IOException {

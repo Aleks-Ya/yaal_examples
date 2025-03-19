@@ -1,5 +1,6 @@
 package djl.onnx.use;
 
+import ai.djl.Application;
 import ai.djl.MalformedModelException;
 import ai.djl.modality.Classifications;
 import ai.djl.modality.cv.Image;
@@ -12,16 +13,20 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 class ImageClassificationTest {
     @Test
     void predict() throws ModelNotFoundException, MalformedModelException, IOException, TranslateException {
         var criteria = Criteria.builder()
-//                .optModelZoo(OrtHfModelZoo.getModelZoo())
                 .setTypes(Image.class, Classifications.class)
+                .optApplication(Application.CV.IMAGE_CLASSIFICATION)
                 .build();
         try (var model = criteria.loadModel();
              var predictor = model.newPredictor()) {
-            var image = ImageFactory.getInstance().fromFile(Paths.get("/home/aleks/Downloads/house-1.jpg"));
+            var imagePath = Paths.get("/home/aleks/Downloads/house-1.jpg");
+            assertThat(imagePath).exists();
+            var image = ImageFactory.getInstance().fromFile(imagePath);
             var classifications = predictor.predict(image);
             System.out.println(classifications);
         }

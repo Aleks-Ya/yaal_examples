@@ -1,4 +1,4 @@
-package djl.pytorch;
+package djl.pytorch.use;
 
 import ai.djl.MalformedModelException;
 import ai.djl.repository.zoo.Criteria;

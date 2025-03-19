@@ -10,7 +10,17 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 class ModelZooTest {
+
+    @Test
+    void listModelZoo() {
+        var zoos = ModelZoo.listModelZoo();
+        assertThat(zoos).hasSize(2);
+        zoos.forEach(zoo -> System.out.println(zoo.getClass().getName() + ": " + zoo.getGroupId()));
+    }
+
     @Test
     void listModelsAll() throws ModelNotFoundException, IOException {
         var models = ModelZoo.listModels();

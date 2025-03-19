@@ -1,4 +1,4 @@
-package djl.tensorflow;
+package djl.onnxrs.use;
 
 import ai.djl.MalformedModelException;
 import ai.djl.modality.Classifications;
@@ -12,10 +12,11 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-class PredictorTest {
+class ImageClassificationTest {
     @Test
     void predict() throws ModelNotFoundException, MalformedModelException, IOException, TranslateException {
         var criteria = Criteria.builder()
+//                .optModelZoo(OrtHfModelZoo.getModelZoo())
                 .setTypes(Image.class, Classifications.class)
                 .build();
         try (var model = criteria.loadModel();
