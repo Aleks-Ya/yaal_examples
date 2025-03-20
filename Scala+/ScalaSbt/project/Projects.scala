@@ -36,4 +36,6 @@ object Projects {
   lazy val KafkaScalaCore = project in file("Kafka+/KafkaScalaCore")
   lazy val IoGithubEmbeddedKafka = project in file("Kafka+/EmbeddedKafka+/IoGithubEmbeddedKafka")
   lazy val ManubEmbeddedKafka = project in file("Kafka+/EmbeddedKafka+/ManubEmbeddedKafka")
+
+  lazy val NeuralSearch = project in file("Libs+/OpenSearch+/NeuralSearch")
 }

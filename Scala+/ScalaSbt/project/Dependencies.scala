@@ -49,4 +49,6 @@ object Dependencies {
   val kafkaClientsDep = "org.apache.kafka" % "kafka-clients" % kafkaVersion % Provided
   val kafkaDep = "org.apache.kafka" %% "kafka" % kafkaVersion
   val kafkaManubDep = "net.manub" %% "scalatest-embedded-kafka" % "2.0.0" % Test
+
+  val opensearchDep = "org.opensearch" % "opensearch" % "2.17.1"
 }

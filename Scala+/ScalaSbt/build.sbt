@@ -43,3 +43,5 @@ lazy val Spark3Streaming = Projects.Spark3Streaming
 lazy val KafkaScalaCore = Projects.KafkaScalaCore
 lazy val IoGithubEmbeddedKafka = Projects.IoGithubEmbeddedKafka
 lazy val ManubEmbeddedKafka = Projects.ManubEmbeddedKafka
+
+lazy val NeuralSearch = Projects.NeuralSearch
