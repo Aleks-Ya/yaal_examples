@@ -1,4 +1,4 @@
-package basic_utilites.case_format;
+package base;
 
 import com.google.common.base.CaseFormat;
 import org.junit.jupiter.api.Test;

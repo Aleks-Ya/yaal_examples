@@ -1,10 +1,10 @@
 package spark.streaming.dstream.streaming.source
 
+import factory.Factory
 import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming.StreamingContext
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import spark.streaming.dstream.factory.Factory
 
 import java.util.concurrent.CountDownLatch
 import scala.collection.mutable

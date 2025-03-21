@@ -1,10 +1,10 @@
 package spark.streaming.dstream.streaming.compare
 
+import factory.Factory
 import org.apache.spark.streaming.StreamingContext
 import org.apache.spark.streaming.scheduler.{StreamingListener, StreamingListenerBatchCompleted}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import spark.streaming.dstream.factory.Factory
 
 import scala.collection.mutable
 

@@ -1,4 +1,4 @@
-package basic_utilites.using_avoiding_null;
+package base.using_avoiding_null;
 
 import com.google.common.reflect.ClassPath;
 import org.junit.jupiter.api.Test;

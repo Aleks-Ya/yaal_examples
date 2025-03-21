@@ -1,9 +1,9 @@
 package spark.streaming.dstream.streaming.window
 
+import factory.Factory
 import org.apache.spark.streaming.Seconds
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.flatspec.AnyFlatSpec
-import spark.streaming.dstream.factory.Factory
 
 
 class WindowFunctionTest extends AnyFlatSpec with BeforeAndAfterAll {

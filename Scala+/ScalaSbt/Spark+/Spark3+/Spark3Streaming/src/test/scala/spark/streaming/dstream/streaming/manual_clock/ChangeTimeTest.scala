@@ -1,10 +1,10 @@
 package spark.streaming.dstream.streaming.manual_clock
 
+import factory.Factory
 import org.apache.spark.streaming._
 import org.scalatest.concurrent.Eventually
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import spark.streaming.dstream.factory.Factory
 
 import java.nio.file.Files
 

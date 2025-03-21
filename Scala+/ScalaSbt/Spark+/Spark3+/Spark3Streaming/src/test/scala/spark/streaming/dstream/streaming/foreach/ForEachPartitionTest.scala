@@ -1,8 +1,8 @@
 package spark.streaming.dstream.streaming.foreach
 
+import factory.Factory
 import org.apache.spark.streaming.Seconds
 import org.scalatest.flatspec.AnyFlatSpec
-import spark.streaming.dstream.factory.Factory
 
 class ForEachPartitionTest extends AnyFlatSpec {
   "Process DStream with foreachRDD" should "process lines" in {

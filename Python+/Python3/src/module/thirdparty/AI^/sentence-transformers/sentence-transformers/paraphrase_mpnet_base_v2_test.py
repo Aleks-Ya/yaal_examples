@@ -7,4 +7,4 @@ def test_use_model():
     sentences: list[str] = ["This is an example sentence", "Each sentence is converted"]
     model: SentenceTransformer = SentenceTransformer('sentence-transformers/paraphrase-mpnet-base-v2')
     embeddings: ndarray = model.encode(sentences)
-    print(embeddings)
+    print(embeddings.tolist())

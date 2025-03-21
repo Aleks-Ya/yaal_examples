@@ -1,4 +1,4 @@
-package collections;
+package collect;
 
 import com.google.common.collect.Interner;
 import com.google.common.collect.Interners;

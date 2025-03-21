@@ -30,6 +30,7 @@ object Projects {
   lazy val Http4sJdkHttpClient = project in file("Libs+/Http4s+/Http4sJdkHttpClient")
 
   lazy val Spark3Core = project in file("Spark+/Spark3+/Spark3Core")
+  lazy val Spark3Ml = project in file("Spark+/Spark3+/Spark3Ml")
   lazy val Spark3Sql = project in file("Spark+/Spark3+/Spark3Sql")
   lazy val Spark3Streaming = project in file("Spark+/Spark3+/Spark3Streaming")
 

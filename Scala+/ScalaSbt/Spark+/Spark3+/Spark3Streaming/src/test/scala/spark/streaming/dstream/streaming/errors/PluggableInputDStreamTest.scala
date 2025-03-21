@@ -1,11 +1,11 @@
 package spark.streaming.dstream.streaming.errors
 
+import factory.Factory
 import org.apache.spark.SparkException
 import org.apache.spark.streaming.StreamingContext
 import org.scalatest.BeforeAndAfter
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import spark.streaming.dstream.factory.Factory
 
 import scala.collection.mutable
 

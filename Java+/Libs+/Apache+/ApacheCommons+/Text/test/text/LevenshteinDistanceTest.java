@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class LevenshteinDistanceTest {
     @Test
     void toCamelCase() {
-        var levenshteinDistance = new LevenshteinDistance();
+        var levenshteinDistance = LevenshteinDistance.getDefaultInstance();
         int distance = levenshteinDistance.apply("string1", "string2");
         assertThat(distance).isEqualTo(1);
     }

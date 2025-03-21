@@ -1,4 +1,4 @@
-package basic_utilites.type_token;
+package base.type_token;
 
 import com.google.common.reflect.TypeToken;
 import org.junit.jupiter.api.Test;

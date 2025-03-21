@@ -1,4 +1,4 @@
-package basic_utilites.type_token;
+package base.type_token;
 
 import com.google.common.reflect.TypeToken;
 import org.junit.jupiter.api.Test;
@@ -9,9 +9,9 @@ import java.io.InputStream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Generic extends: <T extends Number>.
+ * Generic ConcreteClass have no generics (they are in ParentClass).
  */
-class GenericExtendsTest {
+class GenericInParentTest {
     @Test
     void test() {
         var obj = new ConcreteClass();
@@ -26,6 +26,9 @@ class GenericExtendsTest {
         };
     }
 
-    private static class ConcreteClass extends GenericClass<Integer, FileInputStream> {
+    private static abstract class ParentClass extends GenericClass<Integer, FileInputStream> {
+    }
+
+    private static class ConcreteClass extends ParentClass {
     }
 }

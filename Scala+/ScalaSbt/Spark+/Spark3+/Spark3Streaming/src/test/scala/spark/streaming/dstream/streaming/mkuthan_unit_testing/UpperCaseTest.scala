@@ -1,12 +1,12 @@
 package spark.streaming.dstream.streaming.mkuthan_unit_testing
 
+import factory.Factory
 import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming._
 import org.scalatest.concurrent.Eventually
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.{Millis, Span}
-import spark.streaming.dstream.factory.Factory
 
 import java.nio.file.Files
 import scala.collection.mutable

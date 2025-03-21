@@ -1,9 +1,9 @@
 package spark.streaming.dstream.streaming.transform
 
+import factory.Factory
 import org.apache.spark.streaming.Seconds
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.flatspec.AnyFlatSpec
-import spark.streaming.dstream.factory.Factory
 
 class TransformTest extends AnyFlatSpec with BeforeAndAfterAll {
   "Perform arbitrary operation under RDD" should "filter lines shorter 3 chars" in {

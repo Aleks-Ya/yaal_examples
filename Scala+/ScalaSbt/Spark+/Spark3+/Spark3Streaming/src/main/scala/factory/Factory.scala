@@ -1,4 +1,4 @@
-package spark.streaming.dstream.factory
+package factory
 
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{Duration, Seconds, StreamingContext}

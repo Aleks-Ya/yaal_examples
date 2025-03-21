@@ -37,6 +37,7 @@ lazy val Http4sDsl = Projects.Http4sDsl
 lazy val Http4sJdkHttpClient = Projects.Http4sJdkHttpClient
 
 lazy val Spark3Core = Projects.Spark3Core
+lazy val Spark3Ml = Projects.Spark3Ml
 lazy val Spark3Sql = Projects.Spark3Sql
 lazy val Spark3Streaming = Projects.Spark3Streaming
 

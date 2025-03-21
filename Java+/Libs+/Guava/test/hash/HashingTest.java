@@ -22,18 +22,19 @@ class HashingTest {
     @Test
     void sha512() {
         var hash = Hashing.sha512().hashString(s, Charset.defaultCharset()).toString();
-        assertThat(hash).isEqualTo("ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f")
-        ;
+        assertThat(hash).isEqualTo("ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f");
     }
 
     @Test
     void sha1() {
+        @SuppressWarnings("deprecation")
         var hash = Hashing.sha1().hashString(s, Charset.defaultCharset()).toString();
         assertThat(hash).isEqualTo("a9993e364706816aba3e25717850c26c9cd0d89d");
     }
 
     @Test
     void md5() {
+        @SuppressWarnings("deprecation")
         var hash = Hashing.md5().hashString(s, Charset.defaultCharset()).toString();
         assertThat(hash).isEqualTo("900150983cd24fb0d6963f7d28e17f72");
     }
@@ -46,7 +47,7 @@ class HashingTest {
 
     @Test
     void murmur3_32() {
-        var hash = Hashing.murmur3_32().hashString(s, Charset.defaultCharset()).toString();
+        var hash = Hashing.murmur3_32_fixed().hashString(s, Charset.defaultCharset()).toString();
         assertThat(hash).isEqualTo("fa93ddb3");
     }
 

@@ -1,12 +1,12 @@
 package spark.streaming.dstream.streaming.foreach
 
+import factory.Factory
 import org.apache.spark.streaming.{ClockWrapperFull, Seconds}
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.concurrent.Eventually
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.{Millis, Span}
-import spark.streaming.dstream.factory.Factory
 
 import scala.collection.mutable
 

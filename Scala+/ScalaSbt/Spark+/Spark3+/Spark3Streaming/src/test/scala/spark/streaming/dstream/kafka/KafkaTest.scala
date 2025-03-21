@@ -1,5 +1,6 @@
 package spark.streaming.dstream.kafka
 
+import factory.Factory
 import io.github.embeddedkafka.EmbeddedKafka
 import org.apache.kafka.common.serialization.{StringDeserializer, StringSerializer}
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
@@ -9,7 +10,6 @@ import org.apache.spark.streaming.scheduler.{StreamingListener, StreamingListene
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import spark.streaming.dstream.factory.Factory
 
 import scala.collection.mutable
 

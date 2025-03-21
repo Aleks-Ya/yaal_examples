@@ -1,5 +1,6 @@
 package spark.streaming.dstream.streaming.mkuthan_unit_testing
 
+import factory.Factory
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming._
@@ -8,7 +9,6 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.time.{Millis, Span}
 import org.scalatest.{BeforeAndAfterAll, GivenWhenThen}
-import spark.streaming.dstream.factory.Factory
 import spark.streaming.dstream.mkuthan_unit_testing.WordCount
 
 import java.nio.file.Files

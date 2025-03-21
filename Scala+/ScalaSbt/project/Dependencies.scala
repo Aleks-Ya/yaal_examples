@@ -35,14 +35,15 @@ object Dependencies {
 
   val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "4.1.0" % Test
 
-  private val spark3Version = "3.5.1"
+  private val spark3Version = "3.5.5"
   val spark3CoreDep = "org.apache.spark" %% "spark-core" % spark3Version
+  val spark3MlDep = "org.apache.spark" %% "spark-mllib" % spark3Version
   val spark3SqlDep = "org.apache.spark" %% "spark-sql" % spark3Version
   val spark3StreamingDep = "org.apache.spark" %% "spark-streaming" % spark3Version
 
   val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "4.12.0" % Test
 
-  private val kafkaVersion = "3.5.1"
+  private val kafkaVersion = "3.9.0"
   val embeddedKafkaDep = "io.github.embeddedkafka" %% "embedded-kafka" % kafkaVersion % Test
   val sparkSqlKafkaDep = "org.apache.spark" %% "spark-sql-kafka-0-10" % spark3Version
   val sparkStreamingKafkaDep = "org.apache.spark" %% "spark-streaming-kafka-0-10-assembly" % spark3Version
