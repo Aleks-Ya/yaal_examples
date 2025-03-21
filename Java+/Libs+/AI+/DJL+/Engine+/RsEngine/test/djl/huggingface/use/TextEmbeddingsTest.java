@@ -45,4 +45,25 @@ class TextEmbeddingsTest {
             System.out.println(Arrays.toString(embeddings));
         }
     }
+
+    /**
+     * <a href="https://huggingface.co/sentence-transformers/paraphrase-mpnet-base-v2">HuggingFace</a>
+     */
+    @Test
+    void paraphraseMpNetBaseV2() throws ModelNotFoundException, MalformedModelException, IOException, TranslateException {
+        var modelName = "sentence-transformers/paraphrase-mpnet-base-v2";
+        var criteria = Criteria.builder()
+                .setTypes(String.class, float[].class)
+                .optApplication(Application.NLP.TEXT_EMBEDDING)
+                .optModelName(modelName)
+                .build();
+        try (var model = criteria.loadModel();
+             var predictor = model.newPredictor()) {
+            assertThat(model.getName()).isEqualTo(modelName);
+            var inputText = "hello world";
+            var embeddings = predictor.predict(inputText);
+            assertThat(embeddings).hasSize(384);
+            System.out.println(Arrays.toString(embeddings));
+        }
+    }
 }

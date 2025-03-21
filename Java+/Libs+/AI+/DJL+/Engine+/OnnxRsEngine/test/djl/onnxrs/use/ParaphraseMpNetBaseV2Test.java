@@ -13,7 +13,8 @@ import static djl.LocalModelLoader.PARAPHRASE_MP_NET_BASE_V_2_DIMENSION;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * <a href="https://huggingface.co/sentence-transformers/paraphrase-mpnet-base-v2">Model</a>
+ * <a href="https://huggingface.co/sentence-transformers/paraphrase-mpnet-base-v2">HuggingFace</a>
+ * <a href="https://opensearch.org/docs/latest/ml-commons-plugin/pretrained-models/">OpenSearch</a>
  */
 class ParaphraseMpNetBaseV2Test {
 

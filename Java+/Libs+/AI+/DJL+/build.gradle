@@ -1,8 +1,8 @@
 subprojects {
     ext {
         djlVersion = '0.32.0'
-        onnxVersion = "ai.djl.onnxruntime:onnxruntime-engine:$djlVersion"
-        rsVersion = "ai.djl.huggingface:tokenizers:$djlVersion"
+        onnxEngineDep = "ai.djl.onnxruntime:onnxruntime-engine:$djlVersion"
+        rsEngineDep = "ai.djl.huggingface:tokenizers:$djlVersion"
     }
     dependencies {
         implementation slf4jSimpleDep
