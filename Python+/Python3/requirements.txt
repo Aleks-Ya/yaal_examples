@@ -83,4 +83,6 @@ lmstudio
 tiktoken
 chromadb
 tensorflow
-
+onnxruntime
+onnxruntime-openvino
+onnx
