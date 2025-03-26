@@ -46,3 +46,5 @@ lazy val IoGithubEmbeddedKafka = Projects.IoGithubEmbeddedKafka
 lazy val ManubEmbeddedKafka = Projects.ManubEmbeddedKafka
 
 lazy val NeuralSearch = Projects.NeuralSearch
+
+lazy val DbUtils = Projects.DbUtils

@@ -12,6 +12,7 @@ pluginManagement {
  * Java
  */
 include 'BigData+:Databricks+:DatabricksJavaSdk',
+        'BigData+:Databricks+:DbUtils',
         'BigData+:Hadoop+:Hadoop2+:Common2',
         'BigData+:Hadoop+:Hadoop2+:MapReduce2',
         'BigData+:Hadoop+:Hadoop3+:Common3',

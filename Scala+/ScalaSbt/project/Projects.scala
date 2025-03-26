@@ -39,4 +39,6 @@ object Projects {
   lazy val ManubEmbeddedKafka = project in file("Kafka+/EmbeddedKafka+/ManubEmbeddedKafka")
 
   lazy val NeuralSearch = project in file("Libs+/OpenSearch+/NeuralSearch")
+
+  lazy val DbUtils = project in file("Libs+/Databricks+/DbUtils")
 }

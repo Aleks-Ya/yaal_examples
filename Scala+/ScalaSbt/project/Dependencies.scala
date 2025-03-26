@@ -52,4 +52,7 @@ object Dependencies {
   val kafkaManubDep = "net.manub" %% "scalatest-embedded-kafka" % "2.0.0" % Test
 
   val opensearchDep = "org.opensearch" % "opensearch" % "2.17.1"
+
+  val dbUtilsApiDep = "com.databricks" %% "dbutils-api" % "0.0.6"
+  val hadoopClientApiDep = "org.apache.hadoop" % "hadoop-client-api" % "3.3.4"
 }

@@ -67,6 +67,7 @@ subprojects {
         hadoop2Version = '2.10.2'
         hadoop3Version = '3.3.6'
         hadoop3CommonDep = "org.apache.hadoop:hadoop-common:$hadoop3Version"
+        hadoop3ClientApiDep = "org.apache.hadoop:hadoop-client-api:$hadoop3Version"
         fabric8ioVersion = '5.6.0'
         feignVersion = '12.1'
         mongoDbDriverDep = 'org.mongodb:mongodb-driver:3.12.12'
