@@ -1,3 +1,0 @@
-dependencies {
-    testImplementation 'com.adobe.testing:s3mock-junit4:2.1.28'
-}

@@ -1,0 +1,3 @@
+dependencies {
+    testImplementation "com.adobe.testing:s3mock-junit5:$adobeTestingVersion"
+}
