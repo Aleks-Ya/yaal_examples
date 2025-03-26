@@ -31,6 +31,16 @@ public class FileUtil {
         return createAbsentTempFile(FileUtil.class.getSimpleName());
     }
 
+    public static File createTempFileWithContent(String content) {
+        try {
+            var file = createAbsentTempFile(FileUtil.class.getSimpleName());
+            Files.writeString(file.toPath(), content);
+            return file;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static Path createTempDirectoryPath(String suffix) {
         try {
             return Files.createTempDirectory(suffix);
