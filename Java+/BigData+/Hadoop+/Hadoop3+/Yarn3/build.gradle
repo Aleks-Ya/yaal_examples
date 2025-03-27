@@ -1,5 +1,4 @@
 dependencies {
     implementation hadoop3CommonDep, "org.apache.hadoop:hadoop-yarn-client:$hadoop3Version", slf4jSimpleDep
-    testImplementation "org.apache.hadoop:hadoop-minicluster:$hadoop3Version",
-            "org.junit.vintage:junit-vintage-engine:$junit5Version"
+    testImplementation hadoop3MiniClusterDep, "org.junit.vintage:junit-vintage-engine:$junit5Version"
 }

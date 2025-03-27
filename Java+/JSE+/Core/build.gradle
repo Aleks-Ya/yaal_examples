@@ -1,3 +1,7 @@
 dependencies {
     testImplementation googleTestingCompileDep, mockitoDep
+
+    //For java.net.http:
+    implementation 'com.github.mizosoft.methanol:methanol:1.8.2' //MultipartBodyPublisher for HttpClient
+    testImplementation mockWebServerDep
 }

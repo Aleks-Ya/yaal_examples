@@ -14,7 +14,7 @@ import static java.lang.System.out;
 class SymbolicLinkTest {
 
     @Test
-    void main() throws IOException {
+    void createSymbolicLink() throws IOException {
         var target = Files.createTempFile("target_", ".sh");
         var link = Paths.get(target.getParent().toString(), "link_to_target");
         Files.deleteIfExists(link);

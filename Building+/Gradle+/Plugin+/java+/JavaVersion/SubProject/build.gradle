@@ -1,6 +1,7 @@
-//Не наследуется:
-apply plugin: 'java'
+//Not inherited
+plugins {
+    id 'java'
+}
 sourceSets.main.java.srcDir 'src'
-//Наследуются:
-//sourceCompatibility = JavaVersion.VERSION_1_7
-//targetCompatibility = JavaVersion.VERSION_1_7
+
+//Java version is inherited

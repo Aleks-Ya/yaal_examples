@@ -1,0 +1,10 @@
+dependencies {
+    implementation 'com.github.mizosoft.methanol:methanol:1.8.2' //MultipartBodyPublisher for HttpClient
+    implementation jacksonDataBindDep //For parsing JSON response body
+    testImplementation mockWebServerDep
+}
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}

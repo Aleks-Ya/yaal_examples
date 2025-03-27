@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class OwnerTest {
 
     @Test
-    void main() throws IOException {
+    void setOwner() throws IOException {
         var target = Files.createTempFile("target_", ".sh");
         target.toFile().deleteOnExit();
 

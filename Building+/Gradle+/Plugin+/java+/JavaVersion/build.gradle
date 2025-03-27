@@ -1,4 +1,5 @@
-apply plugin: 'java'
+plugins {
+    id 'java'
+}
 sourceSets.main.java.srcDir 'src'
-sourceCompatibility = JavaVersion.VERSION_1_7
-targetCompatibility = JavaVersion.VERSION_1_7
+java.toolchain.languageVersion = JavaLanguageVersion.of(11)

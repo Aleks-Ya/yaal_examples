@@ -1,5 +1,0 @@
-dependencies {
-    implementation 'com.github.mizosoft.methanol:methanol:1.7.0' //MultipartBodyPublisher for HttpClient
-    implementation jacksonDataBindDep //For parsing JSON response body
-    testImplementation mockWebServerDep
-}

@@ -1,6 +1,6 @@
 dependencies {
     implementation "org.apache.hadoop:hadoop-client:$hadoop3Version", slf4jSimpleDep
-    testImplementation "org.apache.hadoop:hadoop-minicluster:$hadoop3Version"
+    testImplementation hadoop3MiniClusterDep
     testImplementation 'org.apache.mrunit:mrunit:1.1.0:hadoop2', {
         exclude group: "junit", module: 'junit'
     }

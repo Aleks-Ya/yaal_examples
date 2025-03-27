@@ -4,8 +4,11 @@ subprojects {
     sourceSets.main.resources.srcDir 'resources'
     sourceSets.test.java.srcDir 'test'
     sourceSets.test.resources.srcDir 'resourcesTest'
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
     defaultTasks('test')
     repositories {
         if (project.hasProperty('maven_central_mirror')) {
@@ -68,6 +71,7 @@ subprojects {
         hadoop3Version = '3.4.1'
         hadoop3CommonDep = "org.apache.hadoop:hadoop-common:$hadoop3Version"
         hadoop3ClientApiDep = "org.apache.hadoop:hadoop-client-api:$hadoop3Version"
+        hadoop3MiniClusterDep = "org.apache.hadoop:hadoop-minicluster:$hadoop3Version"
         fabric8ioVersion = '5.6.0'
         feignVersion = '12.1'
         mongoDbDriverDep = 'org.mongodb:mongodb-driver:3.12.12'
