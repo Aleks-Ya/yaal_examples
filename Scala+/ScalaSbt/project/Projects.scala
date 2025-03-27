@@ -40,5 +40,6 @@ object Projects {
 
   lazy val NeuralSearch = project in file("Libs+/OpenSearch+/NeuralSearch")
 
+  lazy val DatabricksJavaSdk = project in file("Libs+/Databricks+/DatabricksJavaSdk")
   lazy val DbUtils = project in file("Libs+/Databricks+/DbUtils")
 }

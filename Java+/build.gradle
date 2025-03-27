@@ -65,7 +65,7 @@ subprojects {
         springBoot3StarterWebDep = "org.springframework.boot:spring-boot-starter-web:$springBoot3Version"
         springBoot3StarterDataJpaDep = "org.springframework.boot:spring-boot-starter-data-jpa:$springBoot3Version"
         hadoop2Version = '2.10.2'
-        hadoop3Version = '3.3.6'
+        hadoop3Version = '3.4.1'
         hadoop3CommonDep = "org.apache.hadoop:hadoop-common:$hadoop3Version"
         hadoop3ClientApiDep = "org.apache.hadoop:hadoop-client-api:$hadoop3Version"
         fabric8ioVersion = '5.6.0'

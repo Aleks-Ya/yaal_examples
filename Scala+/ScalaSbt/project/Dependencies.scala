@@ -53,6 +53,7 @@ object Dependencies {
 
   val opensearchDep = "org.opensearch" % "opensearch" % "2.17.1"
 
+  val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.43.0"
   val dbUtilsApiDep = "com.databricks" %% "dbutils-api" % "0.0.6"
-  val hadoopClientApiDep = "org.apache.hadoop" % "hadoop-client-api" % "3.3.4"
+  val hadoopClientApiDep = "org.apache.hadoop" % "hadoop-client-api" % "3.4.1"
 }

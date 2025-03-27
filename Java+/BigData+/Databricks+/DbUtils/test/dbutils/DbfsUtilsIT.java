@@ -10,8 +10,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Can work only in Databricks.
  */
-class DbUtilsIT {
-    private final String dbfsTmpDir = "dbfs:/tmp/" + DbUtilsIT.class.getSimpleName();
+class DbfsUtilsIT {
+    private final String dbfsTmpDir = "dbfs:/tmp/" + DbfsUtilsIT.class.getSimpleName();
     private final DbfsUtils fs = DBUtilsHolder.dbutils().fs();
 
     @Test

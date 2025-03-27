@@ -14,10 +14,10 @@ import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DbfsTest {
+class DbfsIT {
     private final WorkspaceClient w = new WorkspaceClient();
     private final DbfsExt dbfs = w.dbfs();
-    private final String tmpDir = "dbfs:/tmp/" + DbfsTest.class.getSimpleName();
+    private final String tmpDir = "dbfs:/tmp/" + DbfsIT.class.getSimpleName();
 
     @Test
     void list() {

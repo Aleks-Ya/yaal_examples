@@ -1,37 +1,71 @@
 package dbutils
 
 import com.databricks.dbutils_v1.DBUtilsHolder
-import org.apache.hadoop.fs.Path
+import org.apache.hadoop.fs.{FileSystem, Path}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
+
+import java.nio.file.Files
+import java.util.UUID
 
 /**
  * Needs `org.apache.hadoop:hadoop-client-api`
  * Can work only in Databricks.
  */
-class FileSystemIT extends AnyFlatSpec with Matchers {
+class FileSystemIT extends AnyFlatSpec {
+  private val dbfs: FileSystem = DBUtilsHolder.dbutils.fs.dbfs
   private val dbfsTmpDir = "dbfs:/tmp"
-  private val dbutils = DBUtilsHolder.dbutils
+
+  private def absentDbfsFile = new Path(dbfsTmpDir + "/" + UUID.randomUUID() + ".tmp")
+
+  it should "create an empty DBFS file" in {
+    val created = dbfs.createNewFile(absentDbfsFile)
+    assert(created)
+  }
 
   it should "write a DBFS file" in {
-    val path: Path = new Path(dbfsTmpDir + "/file1.txt")
-    val dos = dbutils.fs.dbfs.create(path)
+    val dos = dbfs.create(absentDbfsFile)
     dos.writeBytes("Hello, World!")
     dos.close()
   }
 
   it should "check if a DBFS file exists (absent)" in {
-    val path: Path = new Path(dbfsTmpDir + "/absent_file.txt")
-    val exists = dbutils.fs.dbfs.exists(path)
-    println(exists)
-    exists shouldBe false
+    val exists = dbfs.exists(absentDbfsFile)
+    assert(!exists)
   }
 
-  it should "check if a DBFS file exists (absent)" in {
-    val path: Path = new Path(dbfsTmpDir)
-    val exists = dbutils.fs.dbfs.exists(path)
-    println(exists)
-    exists shouldBe true
+  it should "check if a DBFS file exists (present)" in {
+    val file = absentDbfsFile
+    dbfs.createNewFile(file)
+    val exists = dbfs.exists(file)
+    assert(exists)
+  }
+
+  it should "copy a local file to DBFS" in {
+    val localFile = Files.createTempFile("local", ".txt")
+    Files.write(localFile, "content 1".getBytes)
+    val srcPath = new Path(localFile.toString)
+
+    val dstPath = absentDbfsFile
+    assert(!dbfs.exists(dstPath))
+
+    dbfs.copyFromLocalFile(srcPath, dstPath)
+    assert(dbfs.exists(dstPath))
+  }
+
+  it should "copy a DBFS file to local file" in {
+    val srcPath = absentDbfsFile
+    val dos = dbfs.create(srcPath)
+    dos.writeBytes("Hello, World!")
+    dos.close()
+    assert(dbfs.exists(srcPath))
+
+    val localFile = Files.createTempFile("local", ".txt")
+    Files.delete(localFile)
+    val dstPath = new Path(localFile.toString)
+    assert(Files.notExists(localFile))
+
+    dbfs.copyToLocalFile(srcPath, dstPath)
+    assert(Files.exists(localFile))
   }
 
 }
