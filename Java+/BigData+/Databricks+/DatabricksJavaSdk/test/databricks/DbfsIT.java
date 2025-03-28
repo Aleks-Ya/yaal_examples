@@ -2,7 +2,6 @@ package databricks;
 
 import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.mixin.DbfsExt;
-import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import util.FileUtil;
@@ -82,7 +81,7 @@ class DbfsIT {
 
         try (var is = dbfs.open(dbfsPath);
              var os = new FileOutputStream(localPath)) {
-            IOUtils.copy(is, os);
+            is.transferTo(os);
         }
         assertThat(localPath).exists().hasContent(content);
     }

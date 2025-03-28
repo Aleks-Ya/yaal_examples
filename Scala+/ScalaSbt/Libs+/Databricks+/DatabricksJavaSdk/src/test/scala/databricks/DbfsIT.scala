@@ -9,11 +9,14 @@ import org.scalatest.matchers.should.Matchers
 import java.io.{File, FileOutputStream}
 import java.net.URI
 import java.nio.file.{Files, Path}
+import java.util.UUID
 
 class DbfsIT extends AnyFlatSpec with Matchers {
   private val w = new WorkspaceClient
   private val dbfs: DbfsExt = w.dbfs
   private val dbfsTmpDir = "dbfs:/tmp/"
+
+  private def absentDbfsFile = s"$dbfsTmpDir/${UUID.randomUUID()}.tmp"
 
   it should "list files in a DBFS dir" in {
     val files = dbfs.list("/")
@@ -26,7 +29,7 @@ class DbfsIT extends AnyFlatSpec with Matchers {
   }
 
   it should "write a DBFS file as an OutputStream" in {
-    val path = "dbfs:/tmp/iabloal1_3.tmp"
+    val path = absentDbfsFile
     val content = "Hello World 1!".getBytes
     val os = dbfs.getOutputStream(path)
     os.write(content)
@@ -34,7 +37,7 @@ class DbfsIT extends AnyFlatSpec with Matchers {
   }
 
   it should "read a DBFS file as an InputStream" in {
-    val is = dbfs.open("dbfs:/tmp/iabloal1_3.tmp")
+    val is = dbfs.open(absentDbfsFile)
     val bytes = is.readAllBytes
     val content = new String(bytes)
     println(content)
@@ -42,12 +45,12 @@ class DbfsIT extends AnyFlatSpec with Matchers {
   }
 
   it should "get status of a DBFS file" in {
-    val status = dbfs.getStatus("dbfs:/tmp/iabloal1_3.tmp")
+    val status = dbfs.getStatus(absentDbfsFile)
     println(status)
   }
 
   it should "delete a DBFS file" in {
-    dbfs.delete("dbfs:/tmp/iabloal1_3.tmp")
+    dbfs.delete(absentDbfsFile)
   }
 
   it should "create a DBFS dir" in {
@@ -59,7 +62,7 @@ class DbfsIT extends AnyFlatSpec with Matchers {
   }
 
   it should "copy a DBFS file to a local file" in {
-    val dbfsPath = dbfsTmpDir + "/copyFileFromDbfsToLocal.tmp"
+    val dbfsPath = absentDbfsFile
     val expContent = "Hello World 1!"
     val osExp = dbfs.getOutputStream(dbfsPath)
     osExp.write(expContent.getBytes)
@@ -76,7 +79,7 @@ class DbfsIT extends AnyFlatSpec with Matchers {
   }
 
   it should "write bytes to a DBFS file" in {
-    val uri = URI.create("dbfs:/tmp/iabloal1_2.tmp")
+    val uri = URI.create(absentDbfsFile)
     val path = Path.of(uri)
     val content = "Hello World 1!".getBytes
     val actPath = dbfs.write(path, content)

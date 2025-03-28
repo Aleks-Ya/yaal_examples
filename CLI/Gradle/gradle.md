@@ -36,3 +36,6 @@ gradle tasks
 gradle tasks --all
 ```
 Specify project dir: `gradle -p /my/project/dir build`
+
+## Toolchain
+List toolchains: `gradle javaToolchains`

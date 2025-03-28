@@ -3,8 +3,8 @@ import sbt.*
 object Dependencies {
   val scalaTestDep = "org.scalatest" %% "scalatest" % "3.2.19" % Test
   val scalaMockDep = "org.scalamock" %% "scalamock" % "6.2.0" % Test
-  val h2Dep = "com.h2database" % "h2" % "2.2.224"
-  val logbackClassicDep = "ch.qos.logback" % "logback-classic" % "1.5.17"
+  val h2Dep = "com.h2database" % "h2" % "2.3.232"
+  val logbackClassicDep = "ch.qos.logback" % "logback-classic" % "1.5.18"
   val scoptDep = "com.github.scopt" %% "scopt" % "4.1.0"
   val json4sNativeDep = "org.json4s" %% "json4s-native" % "4.0.7"
   val sprayJsonDep = "io.spray" %% "spray-json" % "1.3.6"
@@ -19,9 +19,9 @@ object Dependencies {
   val akkaActorTestKitTypedDep = "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test
 
   val typesafeConfigDep = "com.typesafe" % "config" % "1.4.3"
-  val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.5.7"
+  val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.6.0"
   val catsEffectScalaTestDep = "org.typelevel" %% "cats-effect-testing-scalatest" % "1.6.0" % Test
-  val fs2CoreDep = "co.fs2" %% "fs2-core" % "3.11.0"
+  val fs2CoreDep = "co.fs2" %% "fs2-core" % "3.12.0"
   val tomlScalaDep = "tech.sparse" %% "toml-scala" % "0.2.2"
 
   private val jacksonVersion = "2.18.3"

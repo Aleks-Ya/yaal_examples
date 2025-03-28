@@ -68,7 +68,7 @@ class OptionTest extends AnyFlatSpec with Matchers {
     val result = option match {
       case Some(value: String) => s"$value is a string"
       case Some(value: Int) => s"$value is an integer"
-      case None => "no value"
+      case _ => "no value"
     }
     result shouldEqual "123 is an integer"
   }
