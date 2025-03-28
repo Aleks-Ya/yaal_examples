@@ -4,9 +4,8 @@ import com.databricks.sdk.WorkspaceClient
 import com.databricks.sdk.mixin.ClustersExt
 import com.databricks.sdk.service.compute.ListClustersRequest
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
 
-class ClustersIT extends AnyFlatSpec with Matchers {
+class ClustersIT extends AnyFlatSpec {
   private val w = new WorkspaceClient
   private val clusters: ClustersExt = w.clusters
 

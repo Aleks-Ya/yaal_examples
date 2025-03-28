@@ -2,21 +2,24 @@ package databricks
 
 import com.databricks.sdk.WorkspaceClient
 import com.databricks.sdk.mixin.DbfsExt
-import org.apache.commons.io.IOUtils
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
 
-import java.io.{File, FileOutputStream}
 import java.net.URI
-import java.nio.file.{Files, Path}
-import java.util.UUID
+import java.nio.file.Path
 
-class DbfsIT extends AnyFlatSpec with Matchers {
+class DbfsIT extends AnyFlatSpec {
   private val w = new WorkspaceClient
   private val dbfs: DbfsExt = w.dbfs
   private val dbfsTmpDir = "dbfs:/tmp/"
 
-  private def absentDbfsFile = s"$dbfsTmpDir/${UUID.randomUUID()}.tmp"
+  private def absentDbfsFile = s"$dbfsTmpDir/${java.util.UUID.randomUUID()}.tmp"
+
+  private def createFile(path: String, content: String = ""): String = {
+    val os = dbfs.getOutputStream(path)
+    os.write(content.getBytes)
+    os.close()
+    path
+  }
 
   it should "list files in a DBFS dir" in {
     val files = dbfs.list("/")
@@ -49,6 +52,32 @@ class DbfsIT extends AnyFlatSpec with Matchers {
     println(status)
   }
 
+  it should "get size of a DBFS file" in {
+    val expContent = "Hello World 1!"
+    val file = createFile(absentDbfsFile, expContent)
+    val status = dbfs.getStatus(file)
+    val size = status.getFileSize
+    assert(size == expContent.length)
+  }
+
+  it should "chick is a DBFS file exist" in {
+    import com.databricks.sdk.core.error.platform.ResourceDoesNotExist
+    def isExists(path: String): Boolean = {
+      try {
+        dbfs.getStatus(path)
+        true
+      } catch {
+        case _: ResourceDoesNotExist => false
+        case e: Exception => throw e
+      }
+    }
+
+    val existingFile = createFile(absentDbfsFile)
+    assert(isExists(existingFile))
+    val absentFile = absentDbfsFile
+    assert(!isExists(absentFile))
+  }
+
   it should "delete a DBFS file" in {
     dbfs.delete(absentDbfsFile)
   }
@@ -62,20 +91,19 @@ class DbfsIT extends AnyFlatSpec with Matchers {
   }
 
   it should "copy a DBFS file to a local file" in {
-    val dbfsPath = absentDbfsFile
+    import java.io.FileOutputStream
+    import java.nio.file.Files
     val expContent = "Hello World 1!"
-    val osExp = dbfs.getOutputStream(dbfsPath)
-    osExp.write(expContent.getBytes)
-    osExp.close()
-    val localPath = File.createTempFile("dbfs_", ".tmp")
-    localPath.delete()
-    localPath shouldNot exist
+    val dbfsPath = createFile(absentDbfsFile, expContent)
+    val localPath = Files.createTempFile("dbfs_", ".tmp")
+    Files.delete(localPath)
+    assert(Files.notExists(localPath))
     val is = dbfs.open(dbfsPath)
-    val os = new FileOutputStream(localPath)
-    IOUtils.copy(is, os)
+    val os = new FileOutputStream(localPath.toFile)
+    is.transferTo(os)
     is.close()
     os.close()
-    Files.readString(localPath.toPath) shouldEqual expContent
+    assert(Files.readString(localPath) == expContent)
   }
 
   it should "write bytes to a DBFS file" in {
