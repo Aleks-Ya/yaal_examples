@@ -1,5 +1,3 @@
-# Replace substring
-
 def test_replace_all_occurrences():
     s: str = 'abcb'
     u: str = s.replace("b", "x")

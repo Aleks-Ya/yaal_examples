@@ -86,3 +86,4 @@ tensorflow
 onnxruntime
 onnxruntime-openvino
 onnx
+odfpy

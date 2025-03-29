@@ -1,6 +1,3 @@
-# Convert string to number
-
-
 def test_convert_to_int():
     a: int = int('5')
     assert a == 5
