@@ -10,7 +10,7 @@ repositories {
     mavenCentral()
 }
 application {
-    mainClassName = 'javafx.HelloFX'
+    mainClass = 'javafx.HelloFX'
 }
 dependencies {
     implementation project(':Util+:UtilSrc')

@@ -1,5 +1,3 @@
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
 dependencies {
     implementation(springBoot3StarterDataJpaDep) {
         exclude group: 'org.hibernate', module: 'hibernate-entitymanager'
@@ -7,4 +5,9 @@ dependencies {
         exclude group: 'org.hibernate.common', module: 'common-annotations'
     }
     implementation h2Dep, "org.eclipse.persistence:org.eclipse.persistence.jpa:$eclipseLink4Version"
+}
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }

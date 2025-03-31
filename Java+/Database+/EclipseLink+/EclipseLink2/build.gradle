@@ -1,5 +1,8 @@
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
 dependencies {
     implementation "org.eclipse.persistence:eclipselink:$eclipseLink2Version", h2Dep
+}
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
 }

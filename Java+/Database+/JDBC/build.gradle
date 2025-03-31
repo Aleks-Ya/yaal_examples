@@ -1,5 +1,8 @@
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
 dependencies {
     implementation h2Dep, 'com.oracle.database.jdbc:ojdbc11:21.4.0.0.1'
+}
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
 }

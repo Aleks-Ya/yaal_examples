@@ -1,5 +1,3 @@
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
 dependencies {
     implementation(springBoot2StarterDataJpaDep) {
         exclude group: 'org.hibernate', module: 'hibernate-entitymanager'
@@ -8,4 +6,9 @@ dependencies {
     }
     implementation h2Dep, "org.eclipse.persistence:org.eclipse.persistence.jpa:$eclipseLink2Version"
     testImplementation project(':Database+:JDBC')
+}
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
 }

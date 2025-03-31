@@ -9,14 +9,19 @@ public class RandomUtil {
     }
 
     public static int randomIntZeroOrPositive() {
-        return random.nextInt(0, Integer.MAX_VALUE);
+        return random.nextInt(Integer.MAX_VALUE);
     }
 
     public static int randomIntPositive() {
-        return random.nextInt(1, Integer.MAX_VALUE);
+        return 1 + random.nextInt(Integer.MAX_VALUE - 1);
     }
 
     public static long randomLongPositive() {
-        return random.nextLong(1L, Long.MAX_VALUE);
+        long value;
+        do {
+            value = random.nextLong();
+        } while (value <= 0);
+        return value;
+
     }
 }

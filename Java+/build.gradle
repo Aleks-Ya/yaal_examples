@@ -109,9 +109,10 @@ subprojects {
         lucene10Version = '10.1.0'
         javaFxVersion = '21'
         javaFxPluginVersion = '0.1.0'
+        jlinkPluginVersion = '3.1.1'
         testFxDep = 'org.testfx:testfx-junit5:4.0.17'
         flexMarkVersion = '0.64.8'
-        extraJavaModuleInfoVersion = '1.11'
+        extraJavaModuleInfoPluginVersion = '1.11'
         assertJVersion = '3.27.3'
         jimfsDep = 'com.google.jimfs:jimfs:1.3.0'
         javaxInjectDep = 'javax.inject:javax.inject:1'
@@ -131,6 +132,7 @@ subprojects {
         avroDep = 'org.apache.avro:avro:1.12.0'
         nanoHttpdDep = 'org.nanohttpd:nanohttpd:2.3.1'
         adobeTestingVersion = '3.12.0'
+        onnxRuntimeVersion = '1.21.0'
     }
     tasks.withType(JavaCompile).tap {
         configureEach {

@@ -1,7 +1,4 @@
 dependencies {
-    implementation 'net.sf.jasperreports:jasperreports:5.2.0','com.lowagie:itext:2.1.7',
+    implementation 'net.sf.jasperreports:jasperreports:5.2.0', 'com.lowagie:itext:2.1.7',
             'org.codehaus.groovy:groovy-all:2.0.1', postgresDep, hibernate5EntityManagerDep
 }
-//mainClassName = "ru.yaal.examples.java.jasperreports.JasperReportsUse"
-
-

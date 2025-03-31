@@ -1,4 +1,4 @@
-package onnx;
+package onnx.cpu;
 
 import ai.onnxruntime.OnnxTensor;
 import ai.onnxruntime.OrtEnvironment;

@@ -10,7 +10,7 @@ dependencies {
 }
 repositories {
     mavenCentral()
-    maven { url 'https://packages.confluent.io/maven/' }
+    maven { url = uri('https://packages.confluent.io/maven/') }
 }
 sourceSets {
     main {
