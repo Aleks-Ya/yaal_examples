@@ -6,15 +6,24 @@ import java.time.LocalTime;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 class ThreadLocalTest {
 
     @Test
     void test() throws InterruptedException {
-        var se = Executors.newFixedThreadPool(2);
-        se.submit(work);
-        TimeUnit.SECONDS.sleep(2);
-        se.submit(work);
-        se.shutdown();
+        try (var se = Executors.newFixedThreadPool(2)) {
+            se.submit(work);
+            TimeUnit.SECONDS.sleep(2);
+            se.submit(work);
+        }
+    }
+
+    @Test
+    void noInitValue() {
+        var number = new ThreadLocal<Integer>();
+        var notInitializedNumber = number.get();
+        assertThat(notInitializedNumber).isNull();
     }
 
     private static final Runnable work = new Runnable() {

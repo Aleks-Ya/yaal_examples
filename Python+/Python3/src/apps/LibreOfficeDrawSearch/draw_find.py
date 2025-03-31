@@ -126,7 +126,7 @@ def __print_results(ranked_results: list[Result]):
             if result.found_pages():
                 pages_str: str = ", ".join([f"'{page}'" for page in set(result.pages)])
                 print(f"Pages {len(result.pages)}: {pages_str}")
-            if result.found_texts:
+            if result.found_texts():
                 texts_str: str = ", ".join([f"'{text}'" for text in set(result.texts)])
                 print(f"Texts {len(result.texts)}: {texts_str}")
             print(result.file)

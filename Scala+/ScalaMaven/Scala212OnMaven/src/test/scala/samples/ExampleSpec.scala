@@ -9,7 +9,7 @@ class ExampleSpec extends AnyFunSpec {
   describe("An ArrayStack") {
 
     it("should pop values in last-in-first-out order") {
-      val stack = new mutable.Stack[Int]
+      val stack = new mutable.ArrayStack[Int]
       stack.push(1)
       stack.push(2)
       assert(stack.pop() === 2)
@@ -17,7 +17,7 @@ class ExampleSpec extends AnyFunSpec {
     }
 
     it("should throw RuntimeException if an empty array stack is popped") {
-      val emptyStack = new mutable.Stack[Int]
+      val emptyStack = new mutable.ArrayStack[Int]
       intercept[RuntimeException] {
         emptyStack.pop()
       }

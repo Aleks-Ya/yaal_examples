@@ -24,7 +24,6 @@ class OnnxRuntimeTest {
                 var outputData = (float[][][]) result.get(0).getValue();
                 System.out.println("Model output: " + Arrays.toString(outputData));
             }
-
         }
     }
 

@@ -85,5 +85,6 @@ chromadb
 tensorflow
 onnxruntime
 onnxruntime-openvino
+onnxruntime-gpu
 onnx
 odfpy

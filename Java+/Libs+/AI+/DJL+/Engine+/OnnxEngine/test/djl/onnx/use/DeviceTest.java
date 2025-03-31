@@ -32,9 +32,4 @@ class DeviceTest {
         assertThat(Device.fromName("gpu")).isEqualTo(Device.gpu());
     }
 
-    @Test
-    void count() {
-        var count = Engine.getInstance().getGpuCount();
-        assertThat(count).isEqualTo(0);
-    }
 }

@@ -21,10 +21,16 @@ class EngineTest {
     }
 
     @Test
-    void gpuCount() {
+    void gpuCountAllEngines() {
         Engine.getAllEngines().stream()
                 .map(Engine::getEngine)
                 .map(engine -> engine.getEngineName() + " " + engine.getGpuCount())
                 .forEach(System.out::println);
+    }
+
+    @Test
+    void gpuCount() {
+        var count = Engine.getInstance().getGpuCount();
+        assertThat(count).isEqualTo(0);
     }
 }
