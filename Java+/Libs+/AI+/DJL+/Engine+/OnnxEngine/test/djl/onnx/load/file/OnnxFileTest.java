@@ -37,7 +37,7 @@ class OnnxFileTest {
     }
 
     @Test
-    void byNewInstance2() throws MalformedModelException, IOException, TranslateException {
+    void byNewInstance2() throws MalformedModelException, IOException {
         try (Model model = Model.newInstance("sentence-transformer")) {
             model.load(Paths.get("/home/aleks/models/OpenSearch/sentence-transformers_msmarco-distilbert-base-tas-b-1.0.2-onnx"));
             System.out.println("Model loaded successfully!");

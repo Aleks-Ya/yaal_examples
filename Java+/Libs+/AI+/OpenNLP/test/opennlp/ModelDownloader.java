@@ -4,7 +4,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.net.URI;
 
 public class ModelDownloader {
     public static File downloadPosModel() throws IOException {
@@ -16,7 +16,7 @@ public class ModelDownloader {
                     throw new IllegalStateException("Cannot create model dir: " + modelsDir.getAbsolutePath());
                 }
             }
-            var modelUrl = new URL("https://dlcdn.apache.org/opennlp/models/ud-models-1.0/opennlp-en-ud-ewt-pos-1.0-1.9.3.bin");
+            var modelUrl = URI.create("https://dlcdn.apache.org/opennlp/models/ud-models-1.2/opennlp-en-ud-ewt-pos-1.2-2.5.0.bin").toURL();
             FileUtils.copyURLToFile(modelUrl, modelFile);
         }
         return modelFile;

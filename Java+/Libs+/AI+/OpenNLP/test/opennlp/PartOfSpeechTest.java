@@ -16,10 +16,9 @@ class PartOfSpeechTest {
         try (var modelIn = new FileInputStream(modelFile)) {
             var model = new POSModel(modelIn);
             var tagger = new POSTaggerME(model);
-            var sent = new String[]{"Most", "large", "cities", "in", "the", "US", "had",
-                    "morning", "and", "afternoon", "newspapers", "."};
+            var sent = new String[]{"Most", "large", "cities", "in", "the", "US", "had", "morning", "and", "afternoon", "newspapers", "."};
             var tags = tagger.tag(sent);
-            assertThat(tags).contains("ADJ", "ADJ", "NOUN", "ADP", "DET", "PROPN", "VERB", "NOUN", "CCONJ", "NOUN", "NOUN", "PUNCT");
+            assertThat(tags).contains("ADV", "ADJ", "NOUN", "ADP", "DET", "PROPN", "AUX", "NOUN", "CCONJ", "NOUN", "NOUN", "PUNCT");
         }
     }
 

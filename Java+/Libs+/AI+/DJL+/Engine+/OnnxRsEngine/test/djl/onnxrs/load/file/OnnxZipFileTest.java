@@ -3,6 +3,7 @@ package djl.onnxrs.load.file;
 import ai.djl.MalformedModelException;
 import ai.djl.Model;
 import ai.djl.modality.cv.ImageFactory;
+import ai.djl.onnxruntime.engine.OrtEngine;
 import ai.djl.repository.zoo.Criteria;
 import ai.djl.repository.zoo.ModelNotFoundException;
 import ai.djl.translate.TranslateException;
@@ -31,11 +32,13 @@ class OnnxZipFileTest {
 
     @Test
     void byCriteria() throws ModelNotFoundException, MalformedModelException, IOException, TranslateException {
-        var modelPath = Paths.get("/home/aleks/models/OpenSearch/sentence-transformers_msmarco-distilbert-base-tas-b-1.0.2-onnx.zip");
+        var modelPath = Paths.get("/home/aleks/models/OpenSearch/sentence-transformers_paraphrase-mpnet-base-v2-1.0.0-onnx.zip");
         assertThat(modelPath).exists();
         var criteria = Criteria.builder()
                 .setTypes(String.class, float[].class)
                 .optModelPath(modelPath)
+                .optEngine(OrtEngine.ENGINE_NAME)
+                .optModelName("paraphrase-mpnet-base-v2")
                 .build();
         try (var model = criteria.loadModel();
              var predictor = model.newPredictor()) {

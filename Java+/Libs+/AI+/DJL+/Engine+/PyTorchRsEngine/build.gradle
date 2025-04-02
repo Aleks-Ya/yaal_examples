@@ -1,0 +1,5 @@
+dependencies {
+    def pytorchVersion='2.5.1'
+    implementation pyTorchEngineDep, rsEngineDep,
+            "ai.djl.pytorch:pytorch-native-cpu:$pytorchVersion", "ai.djl.pytorch:pytorch-jni:$pytorchVersion-$djlVersion"
+}

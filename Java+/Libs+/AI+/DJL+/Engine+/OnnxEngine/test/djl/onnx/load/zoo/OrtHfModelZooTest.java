@@ -18,6 +18,7 @@ class OrtHfModelZooTest {
     void listModelsAll() throws ModelNotFoundException, IOException {
         var models = OrtHfModelZoo.listModels();
         Helper.printModels(models);
+        assertThat(models).hasSize(12);
     }
 
     @Test
@@ -34,6 +35,7 @@ class OrtHfModelZooTest {
                 .build();
         var models = ModelZoo.listModels(criteria);
         Helper.printModels(models);
+        assertThat(models).containsOnlyKeys(Application.NLP.TEXT_EMBEDDING);
     }
 
     @Test
@@ -43,5 +45,6 @@ class OrtHfModelZooTest {
                 .build();
         var models = ModelZoo.listModels(criteria);
         Helper.printModels(models);
+        assertThat(models).hasSize(12);
     }
 }

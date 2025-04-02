@@ -1,3 +1,3 @@
 dependencies {
-    implementation 'org.apache.opennlp:opennlp-tools:2.3.0', slf4jSimpleDep
+    implementation 'org.apache.opennlp:opennlp-tools:2.5.3', slf4jSimpleDep
 }

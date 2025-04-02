@@ -2,28 +2,19 @@ import os
 import platform
 import subprocess
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass
 from pathlib import Path
-from xml.etree.ElementTree import Element, ElementTree
 import sys
 from itertools import chain
 
-from fodg_parser import Data, FodgParser
+from fodg_parser import FodgFileData, FodgParser
+from data_types import Results, FodgPath, Text, PageName, FileName
 
 
-def __find_draw_files(root_dir: Path) -> list[Path]:
+def __find_draw_files(root_dir: Path) -> list[FodgPath]:
     return list(root_dir.glob('**/*.fodg'))
 
 
-def __extract_texts_from_file(xml_file: Path) -> list[str]:
-    tree: ElementTree = ET.parse(xml_file)
-    root: Element = tree.getroot()
-    namespaces: dict[str, str] = __get_namespaces(xml_file)
-    elements: list[Element] = root.findall('.//text:p', namespaces)
-    return [element.text for element in elements if element.text is not None]
-
-
-def __get_namespaces(xml_file_path: Path) -> dict[str, str]:
+def __get_namespaces(xml_file_path: FodgPath) -> dict[str, str]:
     namespaces: dict[str, str] = {}
     for event, elem in ET.iterparse(xml_file_path, events=['start-ns']):
         prefix, uri = elem
@@ -31,20 +22,16 @@ def __get_namespaces(xml_file_path: Path) -> dict[str, str]:
     return namespaces
 
 
-def __contains_any(string: str, keywords: list[str]) -> bool:
-    return any(substring in string for substring in keywords)
-
-
-def __find_filename(keywords: list[str], file: Path) -> list[str]:
-    matches: list[str] = []
+def __find_filename(keywords: list[str], file: FodgPath) -> list[FileName]:
+    matches: list[FileName] = list[FileName]()
     for keyword in keywords:
         if keyword in file.name.lower():
-            matches.append(file.name)
+            matches.append(FileName(file.name))
     return matches
 
 
-def __find_pages(keywords: list[str], data: Data) -> list[str]:
-    matches: list[str] = []
+def __find_pages(keywords: list[str], data: FodgFileData) -> list[PageName]:
+    matches: list[PageName] = list[PageName]()
     for keyword in keywords:
         for page_name in data.page_names:
             if keyword in page_name.lower():
@@ -52,8 +39,8 @@ def __find_pages(keywords: list[str], data: Data) -> list[str]:
     return matches
 
 
-def __find_texts(keywords: list[str], data: Data) -> list[str]:
-    matches: list[str] = []
+def __find_texts(keywords: list[str], data: FodgFileData) -> list[Text]:
+    matches: list[Text] = list()
     for keyword in keywords:
         for text in data.texts:
             if keyword in text.lower():
@@ -61,42 +48,21 @@ def __find_texts(keywords: list[str], data: Data) -> list[str]:
     return matches
 
 
-@dataclass
-class Result:
-    rank: int
-    file: Path
-    filenames: list[str]
-    pages: list[str]
-    texts: list[str]
-
-    def found_filename(self) -> bool:
-        return len(self.filenames) > 0
-
-    def found_pages(self) -> bool:
-        return len(self.pages) > 0
-
-    def found_texts(self) -> bool:
-        return len(self.texts) > 0
-
-    def found(self) -> bool:
-        return self.found_filename() or self.found_pages() or self.found_texts()
-
-
-def __rank(result: Result) -> int:
-    filename_weight: int = len(result.filenames) * 100
-    pages_weight: int = len(result.pages) * 5
+def __rank(result: Results) -> int:
+    filename_weight: int = len(result.file_names) * 100
+    pages_weight: int = len(result.page_names) * 5
     texts_weight: int = len(result.texts)
     return filename_weight + pages_weight + texts_weight
 
 
-def __rank_results(results: list[Result]) -> list[Result]:
-    sorted_results: list[Result] = sorted(results, key=__rank, reverse=True)
+def __rank_results(results: list[Results]) -> list[Results]:
+    sorted_results: list[Results] = sorted(results, key=__rank, reverse=True)
     for result in sorted_results:
         result.rank = sorted_results.index(result) + 1
     return sorted_results
 
 
-def __open_file_in_default_app(file_path: Path) -> None:
+def __open_file_in_default_app(file_path: FodgPath) -> None:
     if platform.system() == 'Darwin':  # macOS
         subprocess.run(['open', file_path])
     elif platform.system() == 'Windows':  # Windows
@@ -105,31 +71,34 @@ def __open_file_in_default_app(file_path: Path) -> None:
         subprocess.run(['xdg-open', file_path])
 
 
-def __open_result(ranked_results: list[Result]):
-    selected_rank: str = input("Enter the rank of the file to open (or press Enter to skip): ")
-    if selected_rank.isdigit():
-        rank: int = int(selected_rank)
-        matching_result: Result = next((result for result in ranked_results if result.rank == rank), None)
-        if matching_result:
-            print(f"Opening file: {matching_result.file}")
-            __open_file_in_default_app(matching_result.file)
+def __open_result(ranked_results: list[Results]) -> None:
+    while True:
+        selected_rank: str = input("Enter the rank to open (or press Enter to exit): ")
+        if selected_rank.isdigit():
+            rank: int = int(selected_rank)
+            matching_result: Results = next((result for result in ranked_results if result.rank == rank), None)
+            if matching_result:
+                print(f"Opening file: {matching_result.draw_file}")
+                __open_file_in_default_app(matching_result.draw_file)
+            else:
+                print("Invalid rank selected.")
         else:
-            print("Invalid rank selected.")
+            break
 
 
-def __print_results(ranked_results: list[Result]):
+def __print_results(ranked_results: list[Results]) -> None:
     for result in ranked_results:
         if result.found():
-            print(f"{result.rank} {result.file.name}:")
+            print(f"{result.rank} {result.draw_file.name}:")
             if result.found_filename():
-                print(f"Filename: {result.file.name}")
+                print(f"Filename: {result.draw_file.name}")
             if result.found_pages():
-                pages_str: str = ", ".join([f"'{page}'" for page in set(result.pages)])
-                print(f"Pages {len(result.pages)}: {pages_str}")
+                pages_str: str = ", ".join([f"'{page}'" for page in set(result.page_names)])
+                print(f"Pages {len(result.page_names)}: {pages_str}")
             if result.found_texts():
                 texts_str: str = ", ".join([f"'{text}'" for text in set(result.texts)])
                 print(f"Texts {len(result.texts)}: {texts_str}")
-            print(result.file)
+            print(result.draw_file)
             print()
 
 
@@ -143,10 +112,10 @@ if __name__ == "__main__":
         print(f"Directory does not exist: '{root_dir}'")
         exit(1)
 
-    files: list[Path] = __find_draw_files(root_dir)
+    files: list[FodgPath] = __find_draw_files(root_dir)
     print(f"Draw files: {len(files)}")
 
-    datas: dict[Path, Data] = {file: FodgParser.parse(file) for file in files}
+    datas: dict[FodgPath, FodgFileData] = {file: FodgParser.parse(file) for file in files}
     pages_count: int = sum(len(data.page_names) for data in datas.values())
     print(f"Extracted pages: {pages_count}")
     texts_count: int = sum(len(data.texts) for data in datas.values())
@@ -157,16 +126,16 @@ if __name__ == "__main__":
 
     keyword_args_nested: list[list[str]] = [keyword_arg.lower().split() for keyword_arg in keyword_args]
     keywords: list[str] = list(chain.from_iterable(keyword_args_nested))
-    results: list[Result] = []
+    results: list[Results] = []
     for file, data in datas.items():
-        filenames: list[str] = __find_filename(keywords, file)
-        pages: list[str] = __find_pages(keywords, data)
-        texts: list[str] = __find_texts(keywords, data)
-        results.append(Result(0, file, filenames, pages, texts))
+        file_names: list[FileName] = __find_filename(keywords, file)
+        page_names: list[PageName] = __find_pages(keywords, data)
+        texts: list[Text] = __find_texts(keywords, data)
+        results.append(Results(0, file, file_names, page_names, texts))
     matches_count: int = len([result for result in results if result.found()])
     print(f"Matched files: {matches_count}")
     print()
 
-    ranked_results: list[Result] = __rank_results(results)
+    ranked_results: list[Results] = __rank_results(results)
     __print_results(ranked_results)
     __open_result(ranked_results)

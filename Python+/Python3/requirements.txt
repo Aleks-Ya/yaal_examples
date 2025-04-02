@@ -7,16 +7,16 @@ pytest-qt
 pytest-subtests
 pytest-mock
 pytest-asyncio
-pytest_check
+pytest-check
 phoenixdb
 lockfile
 cachecontrol
-mem_top
+mem-top
 lxml
 cryptography
 pympler
 kafka
-confluent_kafka
+confluent-kafka
 matplotlib
 scipy
 numpy
@@ -76,7 +76,7 @@ polyglot #500K
 elasticsearch==7.17.12
 tinkoff-investments
 praw
-sentence_transformers
+sentence-transformers
 transformers
 torch
 lmstudio
@@ -88,3 +88,6 @@ onnxruntime-openvino
 onnxruntime-gpu
 onnx
 odfpy
+pycuda
+directory-tree
+huggingface-hub

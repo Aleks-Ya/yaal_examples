@@ -3,6 +3,9 @@ subprojects {
         djlVersion = '0.32.0'
         onnxEngineDep = "ai.djl.onnxruntime:onnxruntime-engine:$djlVersion"
         rsEngineDep = "ai.djl.huggingface:tokenizers:$djlVersion"
+        pyTorchEngineDep = "ai.djl.pytorch:pytorch-engine:$djlVersion"
+        pyTorchModelZooDep = "ai.djl.pytorch:pytorch-model-zoo:$djlVersion"
+        tensorFlowModelZooDep = "ai.djl.tensorflow:tensorflow-model-zoo:$djlVersion"
     }
     dependencies {
         implementation slf4jSimpleDep
