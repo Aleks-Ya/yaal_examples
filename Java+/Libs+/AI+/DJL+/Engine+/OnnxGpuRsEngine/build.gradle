@@ -1,0 +1,7 @@
+dependencies {
+    implementation rsEngineDep
+    implementation(onnxEngineDep) {
+        exclude group: "com.microsoft.onnxruntime", module: "onnxruntime"
+    }
+    implementation "com.microsoft.onnxruntime:onnxruntime_gpu:1.20.0" //DJL 0.32.0 depends on OnnxRuntime 1.20.0
+}

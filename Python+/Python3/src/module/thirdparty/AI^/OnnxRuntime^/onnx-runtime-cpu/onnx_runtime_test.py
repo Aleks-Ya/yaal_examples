@@ -10,6 +10,7 @@ def test_onnx_runtime(onnx_model_file: Path):
     assert session.get_providers() == ['CPUExecutionProvider']
     input_ids: ndarray = numpy.array([[101, 7592, 999, 102], [101, 7592, 2023, 102]], dtype=numpy.int64)
     attention_mask: ndarray = numpy.array([[1, 1, 1, 1], [1, 1, 1, 1]], dtype=numpy.int64)
-    outputs: object = session.run(None, {"input_ids": input_ids, "attention_mask": attention_mask})
+    input_feed: dict[str, ndarray] = {"input_ids": input_ids, "attention_mask": attention_mask}
+    outputs: list[list[list[list[float]]]] = session.run(None, input_feed)
+    assert len(outputs[0][0][0]) == 768
     print(outputs)
-    assert outputs is not None
