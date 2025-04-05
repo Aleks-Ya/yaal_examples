@@ -3,6 +3,7 @@ import tempfile
 from pathlib import Path
 
 import pytest
+from aqt.theme import Theme, WidgetStyle
 from pytest import raises
 from anki.collection import Collection
 from aqt import ProfileManager
@@ -76,3 +77,19 @@ def test_last_loaded_profile_name():
     assert pm.last_loaded_profile_name() == profile
     pm.save()
     assert pm.last_loaded_profile_name() == profile
+
+
+def test_theme(profile_manager: ProfileManager):
+    theme: Theme = profile_manager.theme()
+    assert theme == Theme.FOLLOW_SYSTEM
+
+
+def test_set_theme(profile_manager: ProfileManager):
+    assert profile_manager.theme() == Theme.FOLLOW_SYSTEM
+    profile_manager.set_theme(Theme.DARK)
+    assert profile_manager.theme() == Theme.DARK
+
+
+def test_get_widget_style(profile_manager: ProfileManager):
+    style: WidgetStyle = profile_manager.get_widget_style()
+    assert style == WidgetStyle.ANKI

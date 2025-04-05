@@ -48,6 +48,7 @@ src_relative_paths=(
   Hook+/GuiHooks+/Sync+/MediaSyncDidStartOrStop
   Hook+/GuiHooks+/Sync+/SyncDidFinish
   Hook+/GuiHooks+/Sync+/SyncWillStart
+  Hook+/GuiHooks+/Theme+/ThemeDidChange
   Hook+/GuiHooks+/WebView+/WebviewDidInjectStyleIntoPage
   Hook+/GuiHooks+/WebView+/WebViewDidReceiveJsMessage
   Hook+/GuiHooks+/WebView+/WebviewWillSetContent

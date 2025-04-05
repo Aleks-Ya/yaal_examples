@@ -1,5 +1,4 @@
 import os.path
-import tempfile
 import textwrap
 import timeit
 from pathlib import Path
@@ -9,14 +8,6 @@ from anki.collection import Collection
 from anki.media_pb2 import CheckMediaResponse
 from anki.models import NotetypeId, NotetypeDict
 from anki.notes import Note, NoteId
-import pytest
-
-
-@pytest.fixture(scope="function")
-def col():
-    collection: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
-    yield collection
-    collection.close()
 
 
 def test_add_file(col: Collection):
