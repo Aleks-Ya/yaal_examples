@@ -1,14 +1,20 @@
 # mount CLI
 
-Connect to EPAM_Images shared folder
-```
-sudo mount -t cifs --verbose //epam.com/sam/SoftArchive/EPAM_Images /home/aleks/tmp/smb/ -o username=Aleksei_Iablokov,uid=1000
+## Commands
+List existing mount points: `mount`
+Unmount a mount point: `sudo umount /media/aleks/ADATA`
+
+Connect to EPAM_Images shared folder:
+```bash
+sudo mount -t cifs \
+--verbose //epam.com/sam/SoftArchive/EPAM_Images /home/aleks/tmp/smb/ \
+-o username=Aleksei_Iablokov,uid=1000
 ```
 
-RAM drive (in-memory disk)
+## RAM drive (in-memory disk)
 
 Mount a RAM drive:
-```
+```bash
 sudo mkdir /tmp/ramdisk
 sudo mount -t tmpfs -o size=5G ramdisk /tmp/ramdisk
 #Check: df -h
@@ -29,3 +35,24 @@ Unable to access "ADATA"
 Error mounting /dev/sda1 at /media/aleks/ADATA: wrong fs type, bad option, bad superblock on /dev/sda1, missing codepage or helper program, or other error
 ```
 Solution: create directory `sudo mkdir -p /media/aleks/ADATA`
+
+### No permissions
+Commands:
+```bash
+sudo mount /dev/sda1 /media/aleks/ADATA
+ls -l /media/aleks/ADATA
+```
+Message: no permissions to read
+Cause: missing NTFS driver
+Solution: `sudo apt install -y ntfs-3g`
+
+### GParted unable to read
+GParted warning:
+```
+Unable to read the contents of this file system!
+Because of this some operations may be unavailable.
+The cause might be a missing software package.
+The following list of software packages is required for ntfs file system support:  ntfs-3g / ntfsprogs.
+```
+Cause: missing NTFS driver
+Solution: `sudo apt install -y ntfs-3g`
