@@ -1,5 +1,4 @@
 import threading
-from threading import Thread
 
 from PyQt6.QtCore import QThread, pyqtSignal
 from PyQt6.QtWidgets import QProgressDialog, QApplication, QPushButton

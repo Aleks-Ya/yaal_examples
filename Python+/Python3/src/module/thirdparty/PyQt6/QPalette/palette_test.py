@@ -1,7 +1,7 @@
 from PyQt6.QtGui import QPalette
+from PyQt6.QtWidgets import QApplication
 
-from src.module.thirdparty.PyQt6 import app
 
-with app() as app:
-    current_palette: QPalette = app.palette()
+def test_get_palette(qapp: QApplication):
+    current_palette: QPalette = qapp.palette()
     assert current_palette is not None
