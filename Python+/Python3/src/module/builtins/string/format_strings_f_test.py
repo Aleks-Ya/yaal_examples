@@ -24,3 +24,8 @@ def test_date_format():
     today: datetime = datetime(year=2017, month=1, day=27)
     s: str = f"{today:%b %d, %Y}"
     assert s == 'Jan 27, 2017'
+
+
+def test_escape():
+    name: str = 'John'
+    assert f"Data: {{Hi {name}!}}" == 'Data: {Hi John!}'

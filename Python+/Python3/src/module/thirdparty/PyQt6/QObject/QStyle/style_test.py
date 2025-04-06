@@ -15,7 +15,7 @@ def test_get_style_by_name(qtbot: QtBot):
     print(style.objectName())
 
 
-def test_get_all_styles(qtbot: QtBot):
+def test_list_all_styles(qtbot: QtBot):
     assert qtbot
     styles: list[str] = QStyleFactory.keys()
     print(styles)
