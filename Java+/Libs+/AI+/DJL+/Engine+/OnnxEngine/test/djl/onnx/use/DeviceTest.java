@@ -1,7 +1,6 @@
 package djl.onnx.use;
 
 import ai.djl.Device;
-import ai.djl.engine.Engine;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,6 +29,15 @@ class DeviceTest {
     void fromName() {
         assertThat(Device.fromName("cpu")).isEqualTo(Device.cpu());
         assertThat(Device.fromName("gpu")).isEqualTo(Device.gpu());
+    }
+
+    @Test
+    void multiDevice() {
+        var device = new Device.MultiDevice(Device.cpu(), Device.gpu());
+        assertThat(device.getDeviceId()).isEqualTo(-1);
+        assertThat(device.getDeviceType()).isEqualTo("cpu-1+gpu0");
+        assertThat(device.getDevices()).containsExactlyInAnyOrder(Device.cpu(), Device.gpu());
+        assertThat(device.isGpu()).isFalse();
     }
 
 }
