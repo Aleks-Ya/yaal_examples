@@ -42,4 +42,38 @@ class TextEmbeddingsTest {
         }
     }
 
+    @Test
+    void byMiniLM() throws ModelNotFoundException, MalformedModelException, IOException, TranslateException {
+        var criteria = Criteria.builder()
+                .setTypes(String.class, float[].class)
+                .optApplication(Application.NLP.TEXT_EMBEDDING)
+                .optModelName("Xenova/all-MiniLM-L6-v2")
+                .build();
+        try (var model = criteria.loadModel();
+             var predictor = model.newPredictor()) {
+            System.out.println("Model: " + model.getName());
+            var input = "hello world";
+            var embeddings = predictor.predict(input);
+            assertThat(embeddings).hasSize(384);
+            System.out.println(Arrays.toString(embeddings));
+        }
+    }
+
+    @Test
+    void bySentenceTransformersMiniLM() throws ModelNotFoundException, MalformedModelException, IOException, TranslateException {
+        var criteria = Criteria.builder()
+                .setTypes(String.class, float[].class)
+                .optApplication(Application.NLP.TEXT_EMBEDDING)
+                .optModelName("sentence-transformers/paraphrase-MiniLM-L3-v2")
+                .build();
+        try (var model = criteria.loadModel();
+             var predictor = model.newPredictor()) {
+            System.out.println("Model: " + model.getName());
+            var input = "hello world";
+            var embeddings = predictor.predict(input);
+            assertThat(embeddings).hasSize(384);
+            System.out.println(Arrays.toString(embeddings));
+        }
+    }
+
 }

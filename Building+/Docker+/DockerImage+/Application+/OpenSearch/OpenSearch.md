@@ -18,6 +18,11 @@ docker run --rm -p 9200:9200 -p 9600:9600 --name opensearch \
 2. Check state: `curl https://localhost:9200 -ku admin:admin`
 3. Open http://localhost:5601
 
+## Connect with Bash:
+User `opesearch`: `docker exec -it opensearch bash`
+user `root`: `docker exec -it -u root opensearch bash`
+
+
 ## REST API examples
 See Postman `OpenSearch Docker` collection in `Personal` workspace
 
@@ -34,3 +39,44 @@ Command: `curl -XPOST https://localhost:9200/logs/_bulk -ku admin:admin --data-b
 Message: `{"error":{"root_cause":[{"type":"rejected_execution_exception","reason":"rejected execution of coordinating operation [coordinating_and_primary_bytes=0, replica_bytes=0, all_bytes=0, coordinating_operation_bytes=54215758, max_coordinating_and_primary_bytes=53687091]"}],"type":"rejected_execution_exception","reason":"rejected execution of coordinating operation [coordinating_and_primary_bytes=0, replica_bytes=0, all_bytes=0, coordinating_operation_bytes=54215758, max_coordinating_and_primary_bytes=53687091]"},"status":429}`
 Cause: not enough memory
 Solution: add more memory in `docker-compose.yml`
+
+### UnsatisfiedLinkError
+Command: use vector search
+Message:
+```
+java.lang.UnsatisfiedLinkError: /usr/share/opensearch/plugins/opensearch-knn/lib/libopensearchknn_faiss_avx512.so: /usr/share/opensearch/data/ml_cache/pytorch/1.13.1-cpu-precxx11-linux-x86_64/libstdc++.so.6: version `GLIBCXX_3.4.20' not found (required by /usr/share/opensearch/plugins/opensearch-knn/lib/libopensearchknn_faiss_avx512.so)
+```
+`yum install binutils`
+`ls -l /usr/share/opensearch/data/ml_cache/pytorch/1.13.1-cpu-precxx11-linux-x86_64`
+`strings /usr/share/opensearch/data/ml_cache/pytorch/1.13.1-cpu-precxx11-linux-x86_64/libstdc++.so.6 | grep GLIBCXX`
+```
+bash-5.2# strings /usr/share/opensearch/data/ml_cache/pytorch/1.13.1-cpu-precxx11-linux-x86_64/libstdc++.so.6 | grep GLIBCXX
+GLIBCXX_3.4
+GLIBCXX_3.4.1
+GLIBCXX_3.4.2
+GLIBCXX_3.4.3
+GLIBCXX_3.4.4
+GLIBCXX_3.4.5
+GLIBCXX_3.4.6
+GLIBCXX_3.4.7
+GLIBCXX_3.4.8
+GLIBCXX_3.4.9
+GLIBCXX_3.4.10
+GLIBCXX_3.4.11
+GLIBCXX_3.4.12
+GLIBCXX_3.4.13
+GLIBCXX_3.4.14
+GLIBCXX_3.4.15
+GLIBCXX_3.4.16
+GLIBCXX_3.4.17
+GLIBCXX_3.4.18
+GLIBCXX_3.4.19
+GLIBCXX_DEBUG_MESSAGE_LENGTH
+```
+```
+bash-5.2# ls -l /usr/share/opensearch/data/ml_cache/pytorch/
+total 12
+drwx------ 2 opensearch opensearch 4096 Apr 10 08:00 1.13.1-cpu-precxx11-linux-x86_64
+-rw-rw-r-- 1 opensearch opensearch 4338 Apr 10 07:57 1.13.1.txt
+bash-5.2# strings /usr/share/opensearch/data/ml_cache/pytorch/1.13.1-cpu-precxx11-linux-x86_64/libstdc++.so.6 | grep GLIBCXX
+```
