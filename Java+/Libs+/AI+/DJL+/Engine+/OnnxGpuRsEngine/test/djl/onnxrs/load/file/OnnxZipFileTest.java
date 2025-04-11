@@ -7,6 +7,7 @@ import ai.djl.onnxruntime.engine.OrtEngine;
 import ai.djl.repository.zoo.Criteria;
 import ai.djl.repository.zoo.ModelNotFoundException;
 import ai.djl.translate.TranslateException;
+import djl.LocalModels;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -32,11 +33,9 @@ class OnnxZipFileTest {
 
     @Test
     void byCriteria() throws ModelNotFoundException, MalformedModelException, IOException, TranslateException {
-        var modelPath = Paths.get("/home/aleks/models/OpenSearch/sentence-transformers_paraphrase-mpnet-base-v2-1.0.0-onnx.zip");
-        assertThat(modelPath).exists();
         var criteria = Criteria.builder()
                 .setTypes(String.class, float[].class)
-                .optModelPath(modelPath)
+                .optModelPath(LocalModels.OpenSearch.PARAPHRASE_MPNET_BASE_V2_ZIP)
                 .optEngine(OrtEngine.ENGINE_NAME)
                 .optModelName("paraphrase-mpnet-base-v2")
                 .build();

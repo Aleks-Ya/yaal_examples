@@ -5,7 +5,7 @@ from src.module.thirdparty.PyQt6 import vbox
 
 
 class StatusLog(QObject):
-    status_signal = pyqtSignal()
+    status_signal: pyqtSignal = pyqtSignal()
 
     def __init__(self, status: str):
         super().__init__()
