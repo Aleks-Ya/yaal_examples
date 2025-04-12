@@ -1,3 +1,6 @@
+from pytest import raises
+
+
 def test_empty_list():
     e: list[any] = []
     assert len(e) == 0
@@ -17,7 +20,15 @@ def test_contains_element():
 def test_get_element_by_index():
     squares: list[int] = [1, 4, 9, 16, 25]
     assert squares[1] == 4
-    assert squares[-2] == 16
+    assert squares[2] == 9
+    assert squares[-2] == 16  # 2nd from the end
+
+
+def test_index_out_of_range():
+    with raises(IndexError, match="list index out of range"):
+        numbers: list[int] = [1, 2, 3]
+        element: int = numbers[3]
+        print(element)
 
 
 def test_copy():

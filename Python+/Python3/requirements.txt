@@ -91,3 +91,4 @@ odfpy
 pycuda
 directory-tree
 huggingface-hub
+gensim

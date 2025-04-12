@@ -40,6 +40,7 @@ lazy val Spark3Core = Projects.Spark3Core
 lazy val Spark3Ml = Projects.Spark3Ml
 lazy val Spark3Sql = Projects.Spark3Sql
 lazy val Spark3Streaming = Projects.Spark3Streaming
+lazy val Spark3DjlPyTorch = Projects.Spark3DjlPyTorch
 
 lazy val KafkaScalaCore = Projects.KafkaScalaCore
 lazy val IoGithubEmbeddedKafka = Projects.IoGithubEmbeddedKafka

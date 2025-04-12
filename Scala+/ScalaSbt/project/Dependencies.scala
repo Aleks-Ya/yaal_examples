@@ -36,10 +36,14 @@ object Dependencies {
   val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "4.1.0" % Test
 
   private val spark3Version = "3.5.5"
+  private val djlVersion = "0.32.0"
   val spark3CoreDep = "org.apache.spark" %% "spark-core" % spark3Version
   val spark3MlDep = "org.apache.spark" %% "spark-mllib" % spark3Version
   val spark3SqlDep = "org.apache.spark" %% "spark-sql" % spark3Version
   val spark3StreamingDep = "org.apache.spark" %% "spark-streaming" % spark3Version
+  val spark3DjlDep = "ai.djl.spark" %% "spark" % djlVersion
+  val djlPyTorchEngineDep = "ai.djl.pytorch" % "pytorch-engine" % djlVersion
+  val djlPyTorchModelZooDep = "ai.djl.pytorch" % "pytorch-model-zoo" % djlVersion
 
   val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "4.12.0" % Test
 

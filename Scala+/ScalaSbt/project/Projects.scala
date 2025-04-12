@@ -33,6 +33,7 @@ object Projects {
   lazy val Spark3Ml = project in file("Spark+/Spark3+/Spark3Ml")
   lazy val Spark3Sql = project in file("Spark+/Spark3+/Spark3Sql")
   lazy val Spark3Streaming = project in file("Spark+/Spark3+/Spark3Streaming")
+  lazy val Spark3DjlPyTorch = project in file("Spark+/Spark3+/Spark3Djl+/Spark3DjlPyTorch")
 
   lazy val KafkaScalaCore = project in file("Kafka+/KafkaScalaCore")
   lazy val IoGithubEmbeddedKafka = project in file("Kafka+/EmbeddedKafka+/IoGithubEmbeddedKafka")
