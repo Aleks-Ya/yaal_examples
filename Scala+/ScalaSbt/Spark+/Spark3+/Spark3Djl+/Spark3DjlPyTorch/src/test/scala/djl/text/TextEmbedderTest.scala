@@ -1,5 +1,6 @@
 package djl.text
 
+import ai.djl.pytorch.engine.PtEngine
 import ai.djl.spark.task.text.TextEmbedder
 import factory.Factory
 import org.apache.spark.ml.feature.Tokenizer
@@ -17,7 +18,7 @@ class TextEmbedderTest extends AnyFlatSpec with Matchers {
     val embedder = new TextEmbedder()
       .setInputCol("text")
       .setOutputCol("embedding")
-      .setEngine("PyTorch")
+      .setEngine(PtEngine.ENGINE_NAME)
       .setModelUrl("djl://ai.djl.huggingface.pytorch/sentence-transformers/all-MiniLM-L6-v2")
     val outputDf = embedder.embed(df)
     outputDf.show()

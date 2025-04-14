@@ -34,6 +34,7 @@ class ModelZooTest {
                 .optApplication(Application.NLP.TEXT_EMBEDDING)
                 .build();
         var models = ModelZoo.listModels(criteria);
+        Helper.printModels(models);
         assertThat(Helper.toMap(models))
                 .hasSize(1).allSatisfy((application, modelNames) -> {
                     assertThat(application).isEqualTo(Application.NLP.TEXT_EMBEDDING.getPath());

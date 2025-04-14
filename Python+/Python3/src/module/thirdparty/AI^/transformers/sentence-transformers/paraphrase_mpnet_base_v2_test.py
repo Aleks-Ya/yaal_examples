@@ -1,20 +1,25 @@
-from numpy import ndarray
-from sentence_transformers import SentenceTransformer
+from torch import Tensor
+from transformers import AutoTokenizer, AutoModel, PreTrainedTokenizerFast, BatchEncoding, PreTrainedModel
+import torch
+from transformers.utils import ModelOutput
+
+
+# Mean Pooling - Take attention mask into account for correct averaging
+def mean_pooling(model_output: ModelOutput, attention_mask: Tensor) -> Tensor:
+    token_embeddings: Tensor = model_output[0]  # First element of model_output contains all token embeddings
+    input_mask_expanded: Tensor = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
+    return torch.sum(token_embeddings * input_mask_expanded, 1) / torch.clamp(input_mask_expanded.sum(1), min=1e-9)
 
 
 # https://huggingface.co/sentence-transformers/paraphrase-mpnet-base-v2
-def test_use_model():
-    sentences: list[str] = ["This is an example sentence", "Each sentence is converted"]
-    model: SentenceTransformer = SentenceTransformer('sentence-transformers/paraphrase-mpnet-base-v2')
-    embeddings: ndarray = model.encode(sentences)
-    embeddings_list: list[list[float]] = embeddings.tolist()
-    print(embeddings_list)
-
-
 def test_hello_embeddings():
-    sentences: list[str] = ["hello"]
-    model: SentenceTransformer = SentenceTransformer('sentence-transformers/paraphrase-mpnet-base-v2')
-    embeddings: ndarray = model.encode(sentences)
+    sentences: list[str] = ['hello']
+    tokenizer: PreTrainedTokenizerFast = AutoTokenizer.from_pretrained('sentence-transformers/paraphrase-mpnet-base-v2')
+    model: PreTrainedModel = AutoModel.from_pretrained('sentence-transformers/paraphrase-mpnet-base-v2')
+    encoded_input: BatchEncoding = tokenizer(sentences, padding=True, truncation=True, return_tensors='pt')
+    with torch.no_grad():
+        model_output: ModelOutput = model(**encoded_input)
+    embeddings: Tensor = mean_pooling(model_output, encoded_input['attention_mask'])
     embeddings_list: list[list[float]] = embeddings.tolist()
     assert len(embeddings_list[0]) == 768
     assert embeddings_list == [

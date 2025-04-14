@@ -44,6 +44,8 @@ object Dependencies {
   val spark3DjlDep = "ai.djl.spark" %% "spark" % djlVersion
   val djlPyTorchEngineDep = "ai.djl.pytorch" % "pytorch-engine" % djlVersion
   val djlPyTorchModelZooDep = "ai.djl.pytorch" % "pytorch-model-zoo" % djlVersion
+  val djlOnnxEngineDep = "ai.djl.onnxruntime" % "onnxruntime-engine" % djlVersion
+  val djlHfTokenizersDep = "ai.djl.huggingface" % "tokenizers" % djlVersion
 
   val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "4.12.0" % Test
 

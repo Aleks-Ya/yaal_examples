@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.Arrays;
 
-import static djl.LocalModelLoader.PARAPHRASE_MP_NET_BASE_V_2_DIMENSION;
+import static djl.LocalModelLoader.DIMENSION_768;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class TextEmbeddingsTest {
@@ -37,7 +37,7 @@ class TextEmbeddingsTest {
             System.out.println("Model: " + model.getName());
             var input = "hello world";
             var embeddings = predictor.predict(input);
-            assertThat(embeddings).hasSize(PARAPHRASE_MP_NET_BASE_V_2_DIMENSION);
+            assertThat(embeddings).hasSize(DIMENSION_768);
             System.out.println(Arrays.toString(embeddings));
         }
     }

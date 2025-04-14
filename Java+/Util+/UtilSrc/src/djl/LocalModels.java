@@ -11,11 +11,12 @@ public class LocalModels {
     public static class OpenSearch {
         public static final Path PARAPHRASE_MPNET_BASE_V2_ZIP = pathExists(PARAPHRASE_MPNET_BASE_V2,
                 "sentence-transformers_paraphrase-mpnet-base-v2-1.0.0-onnx.zip");
-        public static final Path PARAPHRASE_MPNET_BASE_V2_CONFIG = pathExists(PARAPHRASE_MPNET_BASE_V2,
-                "config.json");
         public static final Path PARAPHRASE_MPNET_BASE_V2_ONNX = pathExists(PARAPHRASE_MPNET_BASE_V2,
                 "sentence-transformers_paraphrase-mpnet-base-v2-1.0.0-onnx",
                 "paraphrase-mpnet-base-v2.onnx");
+        public static final Path ALL_MPNET_BASE_V2_ZIP = pathExists(MODELS_PATH,
+                "OpenSearch", "all-mpnet-base-v2-1.0.1-onnx",
+                "sentence-transformers_all-mpnet-base-v2-1.0.1-onnx.zip");
     }
 
     private static Path pathExists(Path parent, String... subfolders) {

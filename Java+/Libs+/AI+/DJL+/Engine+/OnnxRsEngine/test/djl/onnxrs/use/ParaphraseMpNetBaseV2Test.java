@@ -7,9 +7,10 @@ import djl.LocalModelLoader;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 
-import static djl.LocalModelLoader.PARAPHRASE_MP_NET_BASE_V_2_DIMENSION;
+import static djl.LocalModelLoader.DIMENSION_768;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -22,10 +23,11 @@ class ParaphraseMpNetBaseV2Test {
     void generateEmbeddings() throws ModelNotFoundException, MalformedModelException, IOException, TranslateException {
         try (var model = LocalModelLoader.paraphraseMpNetBaseV2();
              var predictor = model.newPredictor()) {
+            assertThat(model.getModelPath()).endsWith(Path.of("sentence-transformers_paraphrase-mpnet-base-v2-1.0.0-onnx"));
             var inputText = "hello world";
             var embeddings = predictor.predict(inputText);
             System.out.println(Arrays.toString(embeddings));
-            assertThat(embeddings).hasSize(PARAPHRASE_MP_NET_BASE_V_2_DIMENSION);
+            assertThat(embeddings).hasSize(DIMENSION_768);
         }
     }
 
@@ -36,7 +38,18 @@ class ParaphraseMpNetBaseV2Test {
         try (var model = LocalModelLoader.paraphraseMpNetBaseV2();
              var predictor = model.newPredictor()) {
             var embeddings = predictor.predict(inputText);
-            assertThat(embeddings).hasSize(PARAPHRASE_MP_NET_BASE_V_2_DIMENSION);
+            assertThat(embeddings).hasSize(DIMENSION_768);
+        }
+    }
+
+    @Test
+    void generateHelloEmbeddings() throws ModelNotFoundException, MalformedModelException, IOException, TranslateException {
+        try (var model = LocalModelLoader.paraphraseMpNetBaseV2();
+             var predictor = model.newPredictor()) {
+            var inputText = "hello";
+            var embeddings = predictor.predict(inputText);
+            System.out.println(Arrays.toString(embeddings));
+            assertThat(embeddings).hasSize(DIMENSION_768);
         }
     }
 
