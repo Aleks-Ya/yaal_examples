@@ -10,3 +10,6 @@ Version: `cargo --version`
 
 Install a package: `cargo install mdbook`
 Analyze current project: `cargo check`
+
+Create a new project: `cargo new my_project`
+Run current project: `cargo run`
