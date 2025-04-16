@@ -6,7 +6,7 @@ import org.apache.spark.sql.functions.{col, udf}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class InNotNullTest extends AnyFlatSpec with Matchers {
+class IsNotNullTest extends AnyFlatSpec with Matchers {
   it should "use isNotNull function" in {
     val df = Factory.createDf("country STRING",
       Row("USA"),

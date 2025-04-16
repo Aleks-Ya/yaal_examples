@@ -1,7 +1,7 @@
 package dataframe.transformation
 
 import factory.Factory
-import org.apache.spark.sql.functions.{max, sum}
+import org.apache.spark.sql.functions.{count, max, sum}
 import org.apache.spark.sql.types.LongType
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -27,5 +27,12 @@ class AggTransformation extends AnyFlatSpec with Matchers {
     val df = Factory.peopleDf
     val updatedDf = df.agg(sum("age"), max("age"))
     updatedDf.toJSON.collect() should contain only """{"sum(age)":80,"max(age)":35}"""
+  }
+
+  it should "calculate count with an agg transformation" in {
+    val df = Factory.peopleDf
+    val updatedDf = df.agg(count("age"))
+    updatedDf.schema.fields(updatedDf.schema.fieldIndex("count(age)")).dataType shouldBe LongType
+    updatedDf.toJSON.collect() should contain only """{"count(age)":3}"""
   }
 }

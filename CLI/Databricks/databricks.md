@@ -39,6 +39,7 @@ Create a folder: `databricks fs mkdirs dbfs:/Users/aleksei.iablokov@sap.com`
 Upload a file into DBFS (skip existing): `databricks fs cp /local/file.txt dbfs:/remote/directory`
 Upload a file into DBFS (overwrite): `databricks fs cp --overwrite /local/file.txt dbfs:/remote/directory`
 Download file from DBFS: `databricks fs cp dbfs:/remote/directory/file.txt /local/`
+Download folder from DBFS: `databricks fs cp -r dbfs:/remote/directory /local/out` (e.g. `directory/a.txt` -> `out/a.txt`)
 Delete a file: `databricks fs rm dbfs:/remote/directory/file.txt`
 Delete a directory: `databricks fs rm -r dbfs:/dir1`
 List files in a directory: `databricks fs ls dbfs:/cluster-logs-anna/driver`
