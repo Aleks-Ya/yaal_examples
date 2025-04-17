@@ -80,4 +80,28 @@ class OptionTest extends AnyFlatSpec with Matchers {
     val result = option1.orElse(option2).get
     result shouldEqual expValue
   }
+
+  it should "use filter" in {
+    val none: Option[String] = None
+    none.filter("abc".equalsIgnoreCase) shouldBe None
+    Some("xyz").filter("abc".equalsIgnoreCase) shouldBe None
+    Some("abc").filter("abc".equalsIgnoreCase) shouldBe Some("abc")
+  }
+
+  it should "use filterNot" in {
+    val none: Option[String] = None
+    none.filterNot("abc".equalsIgnoreCase) shouldBe None
+    Some("xyz").filterNot("abc".equalsIgnoreCase) shouldBe Some("xyz")
+    Some("abc").filterNot("abc".equalsIgnoreCase) shouldBe None
+  }
+
+  it should "map to Int" in {
+    val notAvailable = "Not Available"
+
+    def toInt(s: Option[String]): Option[Int] = s.filterNot(notAvailable.equalsIgnoreCase).map(_.toInt)
+
+    toInt(None) shouldBe None
+    toInt(Some("123")) shouldBe Some(123)
+    toInt(Some(notAvailable)) shouldBe None
+  }
 }

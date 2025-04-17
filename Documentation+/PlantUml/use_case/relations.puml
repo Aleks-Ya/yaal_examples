@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+(Start process) as Start
+(Perform processing) as Process
+(Stop process) as Stop
+
+User --> Start
+Start --> Process
+Process --> Stop
+
+Admin --> (Setup)
+(Setup) --> (Deploy)
+(Deploy) --> (Monitor)
+
+(Phase)
+(Phase) <|-- (Begin)
+(Phase) <|-- (End)
+
+
+@enduml

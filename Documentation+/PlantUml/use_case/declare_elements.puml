@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+usecase UseCase1
+usecase (Use Case 2)
+(Use Case 3)
+(Use Case 4) as UC4
+(Use Case 5) as (UC5)
+usecase MultiLIneUC6 as "Multi-line Use Case 6
+--
+Second Line
+..
+Third Line
+==
+Fourth Line
+"
+
+actor Actor1
+actor :Actor 2:
+actor :Actor 3: as Actor3
+:Actor 4: as Actor4
+
+actor/ BusinessActor1
+actor/ :Business Actor 2:
+
+@enduml
