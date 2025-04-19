@@ -1,5 +1,6 @@
 import sqlite3
 from sqlite3 import Connection, Cursor
+from typing import Any
 
 
 def test_creat_function():
@@ -14,6 +15,6 @@ def test_creat_function():
     cursor.execute("INSERT INTO example (name, age) VALUES ('Alice', 20)")
     connection.commit()
     cursor.execute("SELECT name, double_function(age) FROM example")
-    fetchall: list[any] = cursor.fetchall()
+    fetchall: list[Any] = cursor.fetchall()
     assert fetchall == [('Alice', 40)]
     connection.close()

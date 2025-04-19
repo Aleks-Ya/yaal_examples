@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Any
 
 from aqt import mw, dialogs
 from aqt.addons import AddonManager, ConfigEditor, AddonsDialog
@@ -16,7 +16,7 @@ def __open_current_addon_config_dialog_new():
     am: AddonManager = mw.addonManager
     module: str = __name__
     ad: AddonsDialog = AddonsDialog(am)
-    conf: Optional[dict[str, any]] = am.getConfig(module)
+    conf: Optional[dict[str, Any]] = am.getConfig(module)
     ConfigEditor(ad, module, conf)
 
 
@@ -24,7 +24,7 @@ def __open_current_addon_config_dialog_existing():
     am: AddonManager = mw.addonManager
     module: str = __name__
     addons_dialog: AddonsDialog = dialogs.open("AddonsDialog", am)
-    conf: Optional[dict[str, any]] = am.getConfig(module)
+    conf: Optional[dict[str, Any]] = am.getConfig(module)
     ConfigEditor(addons_dialog, module, conf)
 
 

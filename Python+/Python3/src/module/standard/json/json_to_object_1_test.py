@@ -1,5 +1,6 @@
 # Convert JSON to an object
 import json
+from typing import Any
 
 
 class Foo(object):
@@ -13,6 +14,6 @@ class Foo(object):
 
 def test_json_to_object():
     content: str = '{"x": 5, "y": 10}'
-    f: any = json.loads(content)
+    f: Any = json.loads(content)
     foo: Foo = Foo(**f)
     assert str(foo) == 'Foo-5-10'

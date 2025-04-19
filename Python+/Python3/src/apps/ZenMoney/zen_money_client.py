@@ -3,7 +3,7 @@ from enum import Enum
 from pathlib import Path
 import time
 import json
-from typing import NewType
+from typing import NewType, Any
 
 import requests
 from requests import Response
@@ -59,18 +59,18 @@ class ZenMoneyClient:
         }
 
     def get_instruments(self) -> dict[InstrumentId, Instrument]:
-        response_json: dict[str, any] = self.__request_json(["instrument"])
+        response_json: dict[str, Any] = self.__request_json(["instrument"])
         return self.__parse_instruments(response_json)
 
     def get_companies(self) -> dict[CompanyId, Company]:
-        response_json: dict[str, any] = self.__request_json(["company"])
+        response_json: dict[str, Any] = self.__request_json(["company"])
         return self.__parse_companies(response_json)
 
     def get_accounts(self) -> list[Account]:
-        response_json: dict[str, any] = self.__request_json(["account", "instrument", "company"])
+        response_json: dict[str, Any] = self.__request_json(["account", "instrument", "company"])
         instruments: dict[InstrumentId, Instrument] = self.__parse_instruments(response_json)
         companies: dict[CompanyId, Company] = self.__parse_companies(response_json)
-        accounts_json: list[dict[str, any]] = response_json["account"]
+        accounts_json: list[dict[str, Any]] = response_json["account"]
         accounts: list[Account] = []
         for account_json in accounts_json:
             instrument_id: InstrumentId = InstrumentId(account_json["instrument"])
@@ -89,8 +89,8 @@ class ZenMoneyClient:
         return accounts
 
     @staticmethod
-    def __parse_instruments(response_json: dict[str, any]) -> dict[InstrumentId, Instrument]:
-        instruments_json: list[dict[str, any]] = response_json["instrument"]
+    def __parse_instruments(response_json: dict[str, Any]) -> dict[InstrumentId, Instrument]:
+        instruments_json: list[dict[str, Any]] = response_json["instrument"]
         instruments: dict[InstrumentId, Instrument] = {}
         for instrument_json in instruments_json:
             instrument_id: InstrumentId = InstrumentId(instrument_json["id"])
@@ -103,8 +103,8 @@ class ZenMoneyClient:
         return instruments
 
     @staticmethod
-    def __parse_companies(response_json: dict[str, any]) -> dict[CompanyId, Company]:
-        companies_json: list[dict[str, any]] = response_json["company"]
+    def __parse_companies(response_json: dict[str, Any]) -> dict[CompanyId, Company]:
+        companies_json: list[dict[str, Any]] = response_json["company"]
         companies: dict[CompanyId, Company] = {}
         for company_json in companies_json:
             company_id: CompanyId = CompanyId(company_json["id"])
@@ -114,7 +114,7 @@ class ZenMoneyClient:
             companies[company_id] = company
         return companies
 
-    def __request_json(self, entities: list[str]) -> dict[str, any]:
+    def __request_json(self, entities: list[str]) -> dict[str, Any]:
         current_timestamp: int = int(time.time())
         payload: str = json.dumps({
             "currentClientTimestamp": current_timestamp,

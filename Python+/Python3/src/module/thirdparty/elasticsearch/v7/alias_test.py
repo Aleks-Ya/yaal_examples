@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Any
 
 from elasticsearch import Elasticsearch
 
@@ -6,14 +7,14 @@ from elasticsearch import Elasticsearch
 def test_create_get_delete_alias():
     client: Elasticsearch = Elasticsearch("http://localhost:9200/")
 
-    resp: dict[str, any] = client.indices.get_alias()
+    resp: dict[str, Any] = client.indices.get_alias()
 
     # doc: dict[str, object] = {
     #     "author": "kimchy",
     #     "text": "Elasticsearch: cool. bonsai cool.",
     #     "timestamp": datetime.now(),
     # }
-    # resp: dict[str, any] = client.index(index="test-index", id="1", document=doc)
+    # resp: dict[str, Any] = client.index(index="test-index", id="1", document=doc)
     # print(resp["result"])
     #
     # resp = client.get(index="test-index", id="1")

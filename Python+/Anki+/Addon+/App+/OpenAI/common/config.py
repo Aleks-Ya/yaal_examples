@@ -1,15 +1,15 @@
 import logging
-from typing import Optional
+from typing import Optional, Any
 
 log: logging.Logger = logging.getLogger(__name__)
 
 
 class LanguageAiConfig:
 
-    def __init__(self, config: Optional[dict[str, any]]):
-        self.config: Optional[dict[str, any]] = config
+    def __init__(self, config: Optional[dict[str, Any]]):
+        self.config: Optional[dict[str, Any]] = config
 
-    def get_openai_client_config(self) -> dict[str, any]:
+    def get_openai_client_config(self) -> dict[str, Any]:
         return self.config['openai-client']
 
     def get_synonym_headers(self) -> list[str]:

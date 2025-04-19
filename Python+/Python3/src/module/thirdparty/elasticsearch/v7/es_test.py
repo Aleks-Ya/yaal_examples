@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Any
 
 from elasticsearch import Elasticsearch
 
@@ -11,7 +12,7 @@ def test_elasticsearch():
         "text": "Elasticsearch: cool. bonsai cool.",
         "timestamp": datetime.now(),
     }
-    resp: dict[str, any] = client.index(index="test-index", id="1", document=doc)
+    resp: dict[str, Any] = client.index(index="test-index", id="1", document=doc)
     print(resp["result"])
 
     resp = client.get(index="test-index", id="1")

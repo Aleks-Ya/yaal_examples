@@ -1,4 +1,5 @@
 # Extract value from JSON by path
+from typing import Any
 
 
 class Foo(object):
@@ -9,6 +10,6 @@ class Foo(object):
 
 def test_object_to_json():
     foo: Foo = Foo()
-    json_obj: dict[str, any] = foo.__dict__
+    json_obj: dict[str, Any] = foo.__dict__
     s: dict[str, object] = json_obj.dumps()
     print(s)

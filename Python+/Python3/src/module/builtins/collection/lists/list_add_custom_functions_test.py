@@ -1,8 +1,8 @@
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Any
 
 
 class SmartList(list):
-    def get_first(self) -> any:
+    def get_first(self) -> Any:
         return self[0]
 
 

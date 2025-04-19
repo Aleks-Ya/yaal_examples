@@ -1,4 +1,5 @@
 import json
+from typing import Any
 
 
 def test_parse_list_of_strings():
@@ -9,12 +10,12 @@ def test_parse_list_of_strings():
 
 def test_parse_list_of_maps():
     content: str = '[{"name": "John", "age": 30}, {"name": "Mary", "age": 25}]'
-    str_list: list[dict[str, any]] = json.loads(content)
+    str_list: list[dict[str, Any]] = json.loads(content)
     assert str_list == [{"name": "John", "age": 30}, {"name": "Mary", "age": 25}]
 
 
 def test_parse_list_of_maps_with_list():
     content: str = '[{"name": "John", "cities": ["London", "Berlin"]}, {"name": "Mary", "cities": []}]'
-    obj_list: list[dict[str, any]] = json.loads(content)
+    obj_list: list[dict[str, Any]] = json.loads(content)
     assert obj_list == [{"name": "John", "cities": ["London", "Berlin"]},
                         {"name": "Mary", "cities": []}]

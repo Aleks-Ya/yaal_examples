@@ -1,5 +1,5 @@
 # Docs: https://addon-docs.ankiweb.net/the-anki-module.html?highlight=databa#the-database
-from typing import Sequence
+from typing import Sequence, Any
 
 from anki.collection import Collection
 from anki.decks import DeckId
@@ -16,7 +16,7 @@ def test_scalar(col: Collection, basic_note_type: NoteType):
 def test_list(col: Collection, basic_note_type: NoteType, deck_id: DeckId):
     note: Note = col.new_note(basic_note_type)
     col.addNote(note)
-    id_list: list[any] = col.db.list("select id, flds from notes")
+    id_list: list[Any] = col.db.list("select id, flds from notes")
     assert id_list == [note.id]
 
 
@@ -29,7 +29,7 @@ def test_all(col: Collection, basic_note_type: NoteType, deck_id: DeckId):
     note['Front'] = 'one'
     note['Back'] = 'two'
     col.add_note(note, deck_id)
-    field_length_list: list[any] = col.db.all("select id, length(flds) from notes")
+    field_length_list: list[Any] = col.db.all("select id, length(flds) from notes")
     assert field_length_list == [[note.id, 7]]
 
 
@@ -64,7 +64,7 @@ def test_regexp_sound(col: Collection, basic_note_type: NoteType, deck_id: DeckI
 def test_create_table(col: Collection, basic_note_type: NoteType, deck_id: DeckId):
     col.db.execute("create table my_events(id, event)")
     col.db.execute("insert into my_events(id, event) values(1, 'event1')")
-    rows: list[any] = col.db.all("select id, event from my_events")
+    rows: list[Any] = col.db.all("select id, event from my_events")
     assert rows == [[1, 'event1']]
 
 
@@ -80,5 +80,5 @@ def test_create_trigger_log_events(col: Collection, basic_note_type: NoteType, d
     note2: Note = col.new_note(basic_note_type)
     col.add_note(note1, deck_id)
     col.add_note(note2, deck_id)
-    events: list[any] = col.db.all("select event from note_events")
+    events: list[Any] = col.db.all("select event from note_events")
     assert events == [[note1.id], [note2.id]]

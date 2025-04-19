@@ -1,8 +1,10 @@
+from typing import Any
+
 from common.config import LanguageAiConfig
 
 
 def test_clean_text():
-    config_dict: dict[str, any] = {
+    config_dict: dict[str, Any] = {
         "openai-client": {
             "token-path": "$HOME/.gpt/token.txt",
             "model": "gpt-4o",

@@ -1,8 +1,10 @@
+from typing import Any
+
 from pytest import raises
 
 
 def test_empty_list():
-    e: list[any] = []
+    e: list[Any] = []
     assert len(e) == 0
 
 
@@ -49,7 +51,7 @@ def test_nested_lists():
 
 
 def test_is_empty():
-    lst: list[any] = []
+    lst: list[Any] = []
     assert not lst
 
 
