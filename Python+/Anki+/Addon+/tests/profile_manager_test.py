@@ -9,6 +9,19 @@ from anki.collection import Collection
 from aqt import ProfileManager
 
 
+def test_get_created_base_folder():
+    base_dir: Path = ProfileManager.get_created_base_folder(None)
+    assert base_dir == Path("/home/aleks/.local/share/Anki2")
+
+
+def test_list_profiles():
+    base_dir: Path = ProfileManager.get_created_base_folder(None)
+    pm: ProfileManager = ProfileManager(base=base_dir)
+    pm.setupMeta()
+    profile_list: list[str] = pm.profiles()
+    print(profile_list)
+
+
 def test_create_profile():
     tmp_dir: str = tempfile.mkdtemp()
     os.removedirs(tmp_dir)
@@ -28,6 +41,22 @@ def test_create_profile():
     pm.openProfile(profile)
     assert pm.name == profile
     pm.save()
+
+
+def test_delete_profile():
+    base_dir: Path = ProfileManager.get_created_base_folder(tempfile.mkdtemp())
+    pm: ProfileManager = ProfileManager(base=base_dir)
+    pm.setupMeta()
+    profile: str = "Profile1"
+    pm.create(profile)
+    pm.openProfile(profile)
+    pm.save()
+    profile2: str = "Profile2"
+    pm.create(profile2)
+    pm.openProfile(profile2)
+    pm.save()
+    pm.remove(profile)
+    assert pm.profiles() == [profile2]
 
 
 def test_disable_auto_sync(profile_manager: ProfileManager):

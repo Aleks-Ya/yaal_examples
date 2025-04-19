@@ -1,6 +1,6 @@
 openai~=1.58.1
-anki~=24.6.3
-aqt~=24.6.3
+anki~=25.2.1
+aqt~=25.2.1
 pytest
 pytest-qt
 mock

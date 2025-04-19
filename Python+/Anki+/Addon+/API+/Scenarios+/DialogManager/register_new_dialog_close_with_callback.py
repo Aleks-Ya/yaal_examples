@@ -1,7 +1,6 @@
 from typing import Callable, Any
 
-from PyQt6.QtWidgets import QPushButton
-from aqt import mw, dialogs, QDialog
+from aqt import mw, dialogs, QDialog, QPushButton
 
 from ._common.disable import enabled
 from ._common import menu

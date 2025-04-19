@@ -2,7 +2,6 @@
 import logging
 from typing import Sequence, List
 
-from PyQt6.QtGui import QAction
 from anki.collection import OpChanges, Collection, OpChangesWithCount
 from anki.notes import NoteId, Note
 from aqt import mw

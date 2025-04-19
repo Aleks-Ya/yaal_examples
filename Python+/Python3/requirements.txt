@@ -92,3 +92,4 @@ pycuda
 directory-tree
 huggingface-hub
 gensim
+gherkin-official

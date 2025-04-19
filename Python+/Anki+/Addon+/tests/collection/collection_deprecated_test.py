@@ -12,7 +12,7 @@ from anki.notes import Note, NoteId
 def test_create_empty_collection():
     _, full_name = tempfile.mkstemp()
     print(f"Collection path: {full_name}")
-    col = Collection(full_name)
+    col: Collection = Collection(full_name)
     print(col.sched.deck_due_tree())
     col.close()
     assert col.name() == Path(full_name).name
