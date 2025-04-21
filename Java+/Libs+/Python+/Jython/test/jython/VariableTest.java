@@ -2,7 +2,6 @@ package jython;
 
 import org.junit.jupiter.api.Test;
 import org.python.core.PyInteger;
-import org.python.core.PyObject;
 import org.python.core.PyString;
 import org.python.util.PythonInterpreter;
 
@@ -16,13 +15,13 @@ class VariableTest {
         interp.set("a", new PyInteger(42));
         interp.exec("print a");
         interp.exec("x = 2+2");
-        PyInteger x = (PyInteger) interp.get("x");
+        var x = (PyInteger) interp.get("x");
         assertThat(x.getValue()).isEqualTo(4);
     }
 
     @Test
     void getNotExistVar() {
-        PyObject notExists = interp.get("not_exists");
+        var notExists = interp.get("not_exists");
         assertThat(notExists).isNull();
     }
 
@@ -31,8 +30,8 @@ class VariableTest {
      */
     @Test
     void removeVar() {
-        String varName = "a";
-        PyString varNamePy = new PyString(varName);
+        var varName = "a";
+        var varNamePy = new PyString(varName);
 
         interp.set(varName, new PyInteger(42));
         assertThat(interp.getLocals().__contains__(varNamePy)).isTrue();
