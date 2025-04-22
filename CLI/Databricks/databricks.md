@@ -47,6 +47,7 @@ Show file content: `databricks fs cat dbfs:/cluster-logs-anna/driver/log4j-activ
  
 #### Workspace (`/Workspace` dir is hidden in DBFS)
 List files in `/Workspace` dir: `databricks workspace list /`
+Create a directory: `databricks workspace mkdirs /dir1`
 Upload a Python file as a Notebook into Workspace: `databricks workspace import --file script.py /tmp`
 Upload a directory to Workspace: `databricks workspace import-dir --overwrite /tmp/local-dir /MyWorkspace/destination/`
 Delete object in a Workspace: `databricks workspace delete /initScripts/init.py`
