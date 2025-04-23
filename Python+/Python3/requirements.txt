@@ -94,3 +94,7 @@ huggingface-hub
 gensim
 gherkin-official
 pytimeparse
+pytimeparse2
+parsedatetime
+isodate
+pendulum
