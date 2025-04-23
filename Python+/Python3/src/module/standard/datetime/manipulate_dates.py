@@ -1,12 +1,13 @@
 import datetime
+from datetime import date, timedelta
 
 
 def test_dates():
-    today = datetime.date.today()
+    today: date = datetime.date.today()
     print("Today: ", today)
 
-    one_day = datetime.timedelta(days=1)
+    one_day: timedelta = datetime.timedelta(days=1)
     print("One day: ", one_day)
 
-    yesterday = today - one_day
+    yesterday: date = today - one_day
     print("Yesterday: ", yesterday)
