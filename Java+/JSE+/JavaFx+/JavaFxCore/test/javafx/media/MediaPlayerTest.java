@@ -11,7 +11,7 @@ class MediaPlayerTest extends ApplicationTest {
     @Test
     void play() throws InterruptedException {
         Platform.runLater(() -> {
-            var uri = ResourceUtil.resourceToStrUrl("javafx/media/sound.mp3");
+            var uri = ResourceUtil.resourceToStrUrl("javafx/media/sound.wav");
             var sound = new Media(uri);
             var mediaPlayer = new MediaPlayer(sound);
             mediaPlayer.seek(mediaPlayer.getStartTime());

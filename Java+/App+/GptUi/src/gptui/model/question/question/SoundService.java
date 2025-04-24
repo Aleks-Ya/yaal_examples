@@ -14,9 +14,9 @@ class SoundService {
     private final AudioClip beep3;
 
     public SoundService() {
-        beep1 = new AudioClip(requireNonNull(getClass().getResource("beep-1.mp3")).toString());
-        beep2 = new AudioClip(requireNonNull(getClass().getResource("beep-2.mp3")).toString());
-        beep3 = new AudioClip(requireNonNull(getClass().getResource("beep-3.mp3")).toString());
+        beep1 = new AudioClip(requireNonNull(getClass().getResource("beep-1.wav")).toString());
+        beep2 = new AudioClip(requireNonNull(getClass().getResource("beep-2.wav")).toString());
+        beep3 = new AudioClip(requireNonNull(getClass().getResource("beep-3.wav")).toString());
     }
 
     public synchronized void beenOnAnswer(AnswerType answerType) {

@@ -38,8 +38,6 @@ extraJavaModuleInfo {
     automaticModule("com.vladsch.flexmark:flexmark-util", "flexmark.util")
     automaticModule("com.vladsch.flexmark:flexmark-util-options", "flexmark.util.options")
     automaticModule("org.awaitility:awaitility", "org.awaitility")
-    automaticModule("org.testfx:testfx-core", "testfx.core")
-    automaticModule("org.testfx:testfx-junit5", "testfx.junit5")
     automaticModule("org.osgi:org.osgi.core", "osgi.core")
     automaticModule("com.google.j2objc:j2objc-annotations", "j2objc.annotations")
     automaticModule("com.google.code.findbugs:jsr305", "jsr305")
