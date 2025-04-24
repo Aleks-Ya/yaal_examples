@@ -3,10 +3,11 @@ from datetime import date, time
 from unittest.mock import MagicMock
 
 import pytest
+from pytest_mock import MockerFixture
 
 
 @pytest.fixture
-def datetime_mock(mocker):
+def datetime_mock(mocker: MockerFixture) -> MagicMock:
     return mocker.patch('datetime.datetime')
 
 

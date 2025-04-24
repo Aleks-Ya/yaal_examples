@@ -2,7 +2,7 @@ from typing import Iterator
 
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.compute import ClusterDetails, S3StorageInfo
-from databricks.sdk.service.jobs import Run, JobCluster, RunTask, BaseRun
+from databricks.sdk.service.jobs import Run, JobCluster, RunTask, BaseRun, RunLifecycleStateV2State
 
 w: WorkspaceClient = WorkspaceClient()
 
@@ -35,5 +35,20 @@ def test_list_job_runs():
     job_runs: Iterator[BaseRun] = w.jobs.list_runs(job_id=job_id)
     for job_run in job_runs:
         print(f"\nRun: {job_run}")
+        print(f"Status: {job_run.status}")
         print(f"Run start time: {job_run.start_time}")
         print(f"Run end time: {job_run.end_time}")
+
+
+def test_is_job_active():
+    job_id: int = 895692271961301
+    job_runs: Iterator[BaseRun] = w.jobs.list_runs(job_id=job_id, active_only=True)
+    is_active: bool = len(list(job_runs)) > 0
+    print(f"Is active: {is_active}")
+
+
+def test_is_job_running():
+    job_id: int = 895692271961301
+    job_runs: Iterator[BaseRun] = w.jobs.list_runs(job_id=job_id, active_only=True)
+    is_running: bool = any(job_run.status.state == RunLifecycleStateV2State.RUNNING for job_run in job_runs)
+    print(f"Running: {is_running}")
