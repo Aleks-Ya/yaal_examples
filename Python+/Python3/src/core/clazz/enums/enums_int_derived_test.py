@@ -14,7 +14,7 @@ def test_enum():
     assert Color['RED'] == Color.RED
     assert Color(1) == Color.RED
 
-    member = Color.RED
+    member: Color = Color.RED
     assert member.name == 'RED'
     assert member.value == 1
 
@@ -23,7 +23,8 @@ def test_get_by_name():
     assert Color['RED'] == Color.RED
 
 
-def test_enum_iteration():
-    expected_values = ["Color.RED", "Color.GREEN", "Color.BLUE"]
-    actual_values = [str(color) for color in Color]
-    assert actual_values == expected_values
+def test_iterate():
+    values: list[str] = [str(color) for color in Color]
+    assert values == ["Color.RED", "Color.GREEN", "Color.BLUE"]
+    assert list(Color) == [Color.RED, Color.GREEN, Color.BLUE]
+    assert set(Color) == {Color.RED, Color.GREEN, Color.BLUE}

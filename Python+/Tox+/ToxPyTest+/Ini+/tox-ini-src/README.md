@@ -1,4 +1,4 @@
-# TOX, PyTest, without `src` dir
+# TOX, PyTest, with `src` dir
 
 ## Run unit-tests
 
