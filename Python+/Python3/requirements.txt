@@ -98,3 +98,4 @@ pytimeparse2
 parsedatetime
 isodate
 pendulum
+dateparser

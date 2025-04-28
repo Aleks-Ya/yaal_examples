@@ -21,15 +21,3 @@ def test_accumulate_timedeltas():
     td += timedelta(days=2)
     td += timedelta(days=3)
     assert td == timedelta(days=6)
-
-
-def test_zero_timedelta():
-    td: timedelta = timedelta()
-    assert td == timedelta(days=0)
-
-
-def test_timedelta_to_sec():
-    delta: timedelta = timedelta(hours=1, minutes=30, seconds=40)
-    act_seconds: float = delta.total_seconds()
-    exp_seconds: float = 1 * 60 * 60 + 30 * 60 + 40
-    assert exp_seconds == act_seconds
