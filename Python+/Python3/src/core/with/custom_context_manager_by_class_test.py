@@ -9,5 +9,6 @@ class Greeting:
         pass
 
 
-with Greeting("John") as text:
-    assert text == "Dear, John!"
+def test_context_manager():
+    with Greeting("John") as text:
+        assert text == "Dear, John!"

@@ -10,5 +10,6 @@ def greeting(name: str) -> Generator[str, str, None]:
         pass
 
 
-with greeting("John") as text:
-    assert text == "Dear, John!"
+def test_context_manager():
+    with greeting("John") as text:
+        assert text == "Dear, John!"

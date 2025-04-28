@@ -16,8 +16,7 @@ def initializer(number):
     return number * 2
 
 
-lazy_wrapper = LazyWrapper(lambda: initializer(3))
-
-value = lazy_wrapper()
-
-assert value == 6
+def test_lazy_wrapper():
+    lazy_wrapper = LazyWrapper(lambda: initializer(3))
+    value = lazy_wrapper()
+    assert value == 6

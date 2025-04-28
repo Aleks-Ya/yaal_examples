@@ -20,3 +20,18 @@ def test_extract_substrings():
 
     assert group1 == '\024'
     assert group2 == '\145\170\124\253\200\024\147\171\231\373\034\250\111\214\010\126'
+
+
+def test_extract_single_match():
+    s: str = "aaa bbb ccc aaa xxx ccc"
+    pattern: str = "aaa (\\w*) ccc"
+    match: Match[str] = re.search(pattern, s)
+    group1: str = match.group(1)
+    assert group1 == 'bbb'
+
+
+def test_extract_many_matches():
+    s: str = "aaa bbb ccc aaa xxx ccc"
+    pattern: str = "aaa (\\w*) ccc"
+    matches: list[str] = re.findall(pattern, s)
+    assert matches == ['bbb', 'xxx']

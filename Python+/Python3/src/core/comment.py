@@ -1,8 +1,8 @@
 # Use comments in Python files
 
-# A line commend
+# A line comment
 
-a = 1  # An end of line comment
+a = 1  # An end-of-line comment
 
 """
 A block
