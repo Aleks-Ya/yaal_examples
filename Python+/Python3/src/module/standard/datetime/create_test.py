@@ -22,6 +22,11 @@ def test_date_time_millis():
     assert str(date_time_millis) == '2018-12-25 08:25:30.000500'
 
 
+def test_datetime_from_epoch_milliseconds():
+    date_time: datetime = datetime.fromtimestamp(1682743727)
+    assert str(date_time) == '2023-04-29 11:48:47'
+
+
 def test_today():
     today: date = date.today()
     assert today is not None

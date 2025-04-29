@@ -35,7 +35,7 @@ def test_index_out_of_range():
 
 def test_copy():
     squares: list[int] = [1, 4, 9, 16, 25]
-    copy = squares[:]
+    copy: list[int] = squares[:]
     assert copy == squares
 
 
@@ -68,7 +68,7 @@ def test_find_element_index():
 def test_transform_list_elements():
     lst: list[str] = ['a', 'b', 'c']
     result_map = map(lambda symbol: symbol.upper(), lst)
-    result_list = list(result_map)
+    result_list: list[Any] = list(result_map)
     assert result_list == ['A', 'B', 'C']
 
 
