@@ -22,3 +22,9 @@ def test_iterate_list_by_two_elements():
         element2: str = lst[i + 1]
         result.append(f"{element1} {element2}")
     assert result == ["a b", "c d", "e f"]
+
+
+def test_count_elements_by_condition():
+    lst: list[str] = ['a', 'bb', 'ccc', 'dddd', 'eeeee']
+    long_count: int = len(list(filter(lambda x: len(x) > 3, lst)))
+    assert long_count == 2

@@ -27,3 +27,10 @@ def test_repr():
                            'datetime.timedelta(seconds=54000), datetime.timedelta(seconds=900), '
                            'datetime.timedelta(seconds=3), datetime.timedelta(microseconds=5000), '
                            'datetime.timedelta(microseconds=5), datetime.timedelta(0)]')
+
+
+def test_without_microseconds():
+    td: timedelta = timedelta(weeks=2, days=3, hours=4, minutes=5, seconds=6, milliseconds=7, microseconds=8)
+    assert str(td) == '17 days, 4:05:06.007008'
+    no_ms_td: timedelta = timedelta(seconds=int(td.total_seconds()))
+    assert str(no_ms_td) == '17 days, 4:05:06'
