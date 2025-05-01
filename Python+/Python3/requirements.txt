@@ -99,3 +99,4 @@ parsedatetime
 isodate
 pendulum
 dateparser
+zenmoney-py

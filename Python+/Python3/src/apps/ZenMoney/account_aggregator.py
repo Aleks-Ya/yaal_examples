@@ -12,7 +12,7 @@ class InstrumentAccounts:
     def get_instrument(self) -> Instrument:
         return self.__instrument
 
-    def get_sum_excel(self) -> str:
+    def get_sum_excel_formula(self) -> str:
         balances: list[str] = [str(account.balance) for account in self.__accounts]
         formula: str = '=' + '+'.join(balances)
         return formula
@@ -21,6 +21,13 @@ class InstrumentAccounts:
 class AccountAggregator:
     def __init__(self, accounts: list[Account]):
         self.__accounts = accounts
+
+    def group_by_company_and_instrument(self) -> dict[Company, list[InstrumentAccounts]]:
+        by_company: dict[Company, list[Account]] = self.group_by_company()
+        result: dict[Company, list[InstrumentAccounts]] = {}
+        for company, accounts in by_company.items():
+            result[company] = self.__group_by_instrument(accounts)
+        return dict(sorted(result.items(), key=lambda item: item[0].title if item[0] is not None else ''))
 
     def group_by_company(self) -> dict[Company, list[Account]]:
         result: dict[Company, list[Account]] = {}
@@ -31,7 +38,8 @@ class AccountAggregator:
             result[company].append(account)
         return result
 
-    def group_by_instrument(self, accounts: list[Account]) -> list[InstrumentAccounts]:
+    @staticmethod
+    def __group_by_instrument(accounts: list[Account]) -> list[InstrumentAccounts]:
         instrument_to_accounts: dict[Instrument, list[Account]] = {}
         for account in accounts:
             if account.instrument not in instrument_to_accounts:
@@ -41,10 +49,3 @@ class AccountAggregator:
         for instrument, accounts in instrument_to_accounts.items():
             result.append(InstrumentAccounts(instrument, accounts))
         return result
-
-    def group_by_company_and_instrument(self) -> dict[Company, list[InstrumentAccounts]]:
-        by_company: dict[Company, list[Account]] = self.group_by_company()
-        result: dict[Company, list[InstrumentAccounts]] = {}
-        for company, accounts in by_company.items():
-            result[company] = self.group_by_instrument(accounts)
-        return dict(sorted(result.items(), key=lambda item: item[0].title if item[0] is not None else ''))

@@ -14,4 +14,4 @@ def test_group_by_company_and_instrument():
         title: str = company.title if company is not None else "Unknown"
         print(title)
         for instrument_accounts in instrument_accounts_list:
-            print(f"    {instrument_accounts.get_instrument().shortTitle}: {instrument_accounts.get_sum_excel()}")
+            print(f"    {instrument_accounts.get_instrument().shortTitle}: {instrument_accounts.get_sum_excel_formula()}")

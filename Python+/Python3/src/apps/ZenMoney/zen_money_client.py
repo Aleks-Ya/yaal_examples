@@ -37,6 +37,12 @@ class AccountType(Enum):
     EMONEY = "emoney"
     DEBT = "debt"
 
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.__str__()
+
 
 @dataclass(frozen=True)
 class Account:
@@ -51,6 +57,7 @@ class Account:
 class ZenMoneyClient:
     def __init__(self):
         self.__url: str = "https://api.zenmoney.ru/v8/diff"
+        # Get token: https://zerro.app/token
         token_file: Path = Path.home() / ".zenmoney" / "token.txt"
         token: str = token_file.read_text().strip()
         self.__headers: dict[str, str] = {
