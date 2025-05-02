@@ -44,3 +44,6 @@ Print active profiles: `mvn help:active-profiles`
 ## Archetype
 Docs ("Maven Archetype Plugin"): https://maven.apache.org/archetype/maven-archetype-plugin/index.html
 Help: `mvn archetype:help`
+
+## Exec
+Execute a command: `mvn exec:exec -Dexec.executable="echo" -Dexec.args="Hello World"`

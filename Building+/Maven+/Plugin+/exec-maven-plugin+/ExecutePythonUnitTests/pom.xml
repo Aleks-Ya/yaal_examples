@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <groupId>ru.yaal.examples.maven</groupId>
+    <artifactId>ExecutePythonUnitTests</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <environmentVariables>
+                        <PYTHONPATH>${project.basedir}/src/main/python</PYTHONPATH>
+                    </environmentVariables>
+                    <executable>python</executable>
+                    <arguments>
+                        <argument>-m</argument>
+                        <argument>unittest</argument>
+                        <argument>discover</argument>
+                        <argument>-p</argument>
+                        <argument>*_test.py</argument>
+                        <argument>-s</argument>
+                        <argument>${project.basedir}/src/test/python</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <modelVersion>4.0.0</modelVersion>
+</project>
