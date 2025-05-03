@@ -4,7 +4,7 @@
 t = ()
 assert len(t) == 0
 
-# Create a one value tuple (need comma)
+# Create a single-value tuple (need comma)
 t = (50,)
 assert t[0] == 50
 

@@ -1,6 +1,10 @@
 # duplicity CLI
 Version should be 2.x.x or later.
 
+Install: 
+- `sudo snap install duplicity` (latest)
+- `sudo apt install duplicity` (outdated)
+
 ## Info
 Show version: `duplicity --version`
 Show help: `duplicity -h`

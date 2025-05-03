@@ -20,7 +20,7 @@ class DdlToSchemaTest extends AnyFlatSpec with Matchers {
     multiLinesSchema shouldEqual oneLineSchema
   }
 
-  it should "read Array of Struct" in {
+  it should "read Struct of Array of Struct" in {
     val ddl = "people ARRAY<STRUCT<city: STRING, age: INT>>"
     val schema = StructType.fromDDL(ddl)
     schema shouldEqual StructType(Array(
@@ -30,6 +30,17 @@ class DdlToSchemaTest extends AnyFlatSpec with Matchers {
           StructField("age", IntegerType)
         ))
       ))))
+  }
+
+  it should "read Array of Struct" in {
+    val ddl = "ARRAY<STRUCT<city: STRING, age: INT>>"
+    val schema = DataType.fromDDL(ddl)
+    schema shouldEqual ArrayType(
+      StructType(Array(
+        StructField("city", StringType),
+        StructField("age", IntegerType)
+      ))
+    )
   }
 
 }

@@ -1,5 +1,9 @@
 # appimagelauncher CLI
 
+Obsolete: last update in 2020
+
+GitHub: https://github.com/TheAssassin/AppImageLauncher
+
 Install:
 ```
 sudo apt install software-properties-common
