@@ -1,4 +1,4 @@
-package owl.read;
+package owl.read.owl;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

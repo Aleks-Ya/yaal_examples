@@ -1,4 +1,4 @@
-package owl.read;
+package owl.read.owl;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -8,7 +8,7 @@ import util.ResourceUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ReadOntologyTest {
+class ReadOwlOntologyTest {
     @Test
     void rdfXml() throws OWLOntologyCreationException {
         var file = ResourceUtil.resourceToFile(getClass(), "ReadOntologyTest_act.rdf");

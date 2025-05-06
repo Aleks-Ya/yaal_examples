@@ -1,3 +1,3 @@
 dependencies {
-    implementation 'org.obolibrary.robot:robot-command:1.9.5'
+    implementation 'org.obolibrary.robot:robot-command:1.9.7'
 }

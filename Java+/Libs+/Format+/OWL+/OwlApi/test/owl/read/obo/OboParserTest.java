@@ -1,4 +1,4 @@
-package owl.read;
+package owl.read.obo;
 
 import org.junit.jupiter.api.Test;
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
@@ -7,16 +7,16 @@ import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import owl.OwlFactory;
-import util.ResourceUtil;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static util.ResourceUtil.resourceToFile;
 
 class OboParserTest {
     @Test
     void parseOntology() throws OWLOntologyCreationException, IOException {
-        var file = ResourceUtil.resourceToFile(getClass(), "ReadOntologyTest_act.obo");
+        var file = resourceToFile(getClass(), "ReadOntologyTest_act.obo");
         var manager = OWLManager.createOWLOntologyManager();
         var ontology = manager.createOntology();
         var parser = new OBOFormatParser();
@@ -29,7 +29,7 @@ class OboParserTest {
 
     @Test
     void parseDoc() throws IOException {
-        var file = ResourceUtil.resourceToFile(getClass(), "ReadOntologyTest_act.obo");
+        var file = resourceToFile(getClass(), "ReadOntologyTest_act.obo");
         var parser = new OBOFormatParser();
         var doc = parser.parse(file);
         var headerFrame = doc.getHeaderFrame();
