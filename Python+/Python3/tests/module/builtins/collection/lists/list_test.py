@@ -19,6 +19,16 @@ def test_contains_element():
     assert 'z' not in symbols
 
 
+def test_contains_all_elements_of_another_list():
+    main_list: list[str] = ['a', 'b', 'c', 'd']
+    list1: list[str] = ['d', 'b']
+    list2: list[str] = ['a', 'z']
+    contains_all_of_list1: bool = all(element in main_list for element in list1)
+    assert contains_all_of_list1
+    contains_all_of_list2: bool = all(element in main_list for element in list2)
+    assert not contains_all_of_list2
+
+
 def test_get_element_by_index():
     squares: list[int] = [1, 4, 9, 16, 25]
     assert squares[1] == 4

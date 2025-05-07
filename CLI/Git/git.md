@@ -93,6 +93,7 @@ Apply latest entry: `git stash apply`
 Apply specific entry: `git stash apply stash@{0}`
 Save local changes to an entry: `git stash push` = `git stash` (`git save` is deprecated)
 Delete an entry: `git stash drop stash@{0}`
+Stash one file: `git stash push src/data.txt`
 
 ## Archive
 Pack branch into a ZIP (without `.git`): `git archive --output a.zip master`
