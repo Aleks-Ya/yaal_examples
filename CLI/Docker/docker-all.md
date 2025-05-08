@@ -1,5 +1,10 @@
 Docker CLI: any
 
+## Help
+Help: `docker --help`
+Help for command: `docker build --help`
+
+## Commands
 ps [docs](https://docs.docker.com/engine/reference/commandline/ps/)
 ```
 docker ps              # See a list of all running containers
@@ -7,7 +12,7 @@ docker ps -a           # See a list of all containers, even the ones not running
 ```
 tag [docs](https://docs.docker.com/engine/reference/commandline/tag/)
 ```
-docker tag friendlyhello aleks3490/temp:tag1
+docker tag existing_image aleks3490/new:tag1
 docker tag <image> username/repository:tag  # Tag <image> for upload to registry
 ```
 version
