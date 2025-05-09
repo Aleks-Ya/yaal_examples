@@ -24,7 +24,9 @@ class FodgParser:
 
     @staticmethod
     def __extract_texts(root: Element, namespaces: dict[str, str]) -> list[Text]:
-        text_elements: list[Element] = root.findall('.//text:p', namespaces)
+        p_elements: list[Element] = root.findall('.//text:p', namespaces)
+        snap_elements2: list[Element] = root.findall('.//text:span', namespaces)
+        text_elements: list[Element] = p_elements + snap_elements2
         texts: list[Text] = [Text(element.text) for element in text_elements if element.text is not None]
         return texts
 

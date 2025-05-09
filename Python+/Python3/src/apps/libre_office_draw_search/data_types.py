@@ -9,7 +9,7 @@ Text = NewType("Text", str)
 
 
 @dataclass
-class Results:
+class SearchResult:
     rank: int
     draw_file: FodgPath
     file_names: list[FileName]
@@ -27,3 +27,11 @@ class Results:
 
     def found(self) -> bool:
         return self.found_filename() or self.found_pages() or self.found_texts()
+
+
+@dataclass
+class SearchResults:
+    results: list[SearchResult]
+    pages_count: int
+    texts_count: int
+    matches_count: int
