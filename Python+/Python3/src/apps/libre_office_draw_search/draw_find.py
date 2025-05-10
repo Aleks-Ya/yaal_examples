@@ -21,17 +21,17 @@ if __name__ == "__main__":
         print(f"Directory does not exist: '{root_dir}'")
         exit(1)
 
+    printer: Printer = Printer(root_dir)
+
     keyword_args: list[str] = sys.argv[1:]
-    print(f"Keyword: '{keyword_args}'")
+    print(printer.format_keywords(keyword_args))
 
     draw_files: list[FodgPath] = FileDiscoverer.find_draw_files(root_dir)
-    print(f"Draw files: {len(draw_files)}")
+    print(printer.format_draw_files(draw_files))
 
-    search_results: SearchResults = Searcher.search(draw_files, keyword_args)
-    print(f"Extracted pages: {search_results.pages_count}")
-    print(f"Extracted texts: {search_results.texts_count}")
-    print(f"Matched files: {search_results.matches_count}")
-    print()
+    searcher: Searcher = Searcher(root_dir)
+    search_results: SearchResults = searcher.search(draw_files, keyword_args)
     ranked_search_results: SearchResults = Ranker.rank_results(search_results)
-    Printer.print_results(ranked_search_results)
+    results_str: str = printer.format_results(ranked_search_results)
+    print(results_str)
     Opener.open_result(ranked_search_results)

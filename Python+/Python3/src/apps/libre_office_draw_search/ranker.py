@@ -13,7 +13,8 @@ class Ranker:
 
     @staticmethod
     def __rank(result: SearchResult) -> int:
+        folder_name_weight: int = len(result.folder_names) * 50
         filename_weight: int = len(result.file_names) * 100
         pages_weight: int = len(result.page_names) * 5
         texts_weight: int = len(result.texts)
-        return filename_weight + pages_weight + texts_weight
+        return folder_name_weight + filename_weight + pages_weight + texts_weight

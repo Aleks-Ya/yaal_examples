@@ -9,18 +9,24 @@ class Opener:
 
     @staticmethod
     def open_result(search_results: SearchResults) -> None:
+        if len(search_results.results) == 0:
+            return
         while True:
-            selected_rank: str = input("Enter the rank to open (or press Enter to exit): ")
-            if selected_rank.isdigit():
-                rank: int = int(selected_rank)
-                matching_result: SearchResult = next(
-                    (result for result in search_results.results if result.rank == rank), None)
-                if matching_result:
-                    print(f"Opening file: {matching_result.draw_file}")
-                    Opener.__open_file_in_default_app(matching_result.draw_file)
+            try:
+                selected_rank: str = input("Enter the rank to open (or press Enter to exit): ")
+                if selected_rank.isdigit():
+                    rank: int = int(selected_rank)
+                    matching_result: SearchResult = next(
+                        (result for result in search_results.results if result.rank == rank), None)
+                    if matching_result:
+                        print(f"Opening file: {matching_result.draw_file}")
+                        Opener.__open_file_in_default_app(matching_result.draw_file)
+                    else:
+                        print("Invalid rank selected.")
                 else:
-                    print("Invalid rank selected.")
-            else:
+                    break
+            except KeyboardInterrupt:
+                print()
                 break
 
     @staticmethod
