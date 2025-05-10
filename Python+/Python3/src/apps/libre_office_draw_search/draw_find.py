@@ -16,7 +16,7 @@ if __name__ == "__main__":
         print("Usage: python draw_find.py <keyword>")
         exit(1)
 
-    root_dir: Path = Path('/home/aleks/DocsVault/LibreOfficeDraw')
+    root_dir: Path = Path.home() / "DocsVault" / "LibreOfficeDraw"
     if not root_dir.exists():
         print(f"Directory does not exist: '{root_dir}'")
         exit(1)

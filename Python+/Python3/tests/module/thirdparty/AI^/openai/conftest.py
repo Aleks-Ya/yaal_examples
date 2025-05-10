@@ -6,5 +6,5 @@ from openai import OpenAI
 
 @pytest.fixture
 def client() -> OpenAI:
-    key: str = Path.home().joinpath('.gpt/token.txt').read_text()
+    key: str = Path.home().joinpath(".openai").joinpath("token.txt").read_text()
     return OpenAI(api_key=key)

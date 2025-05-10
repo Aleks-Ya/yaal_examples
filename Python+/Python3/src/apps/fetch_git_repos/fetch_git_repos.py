@@ -1,6 +1,6 @@
-# Execute "git fetch" for all Git repos starting from "root_dir" (1st argument) recursively
+# Executes "git fetch" for all Git repos starting from "root_dir" (1st argument) recursively
 # Run example: "python fetch_git_repos.py /home/aleks/pr/home"
-# Add Linux alias: alias fetch_all='python3 /home/aleks/pr/home/yaal_examples/Python+/Python3/src/apps/fetch_git_repos/fetch_git_repos.py /home/aleks/pr'
+# Add Linux alias: alias fetch_all='python3 ~/pr/home/yaal_examples/Python+/Python3/src/apps/fetch_git_repos/fetch_git_repos.py /home/aleks/pr'
 import os
 import platform
 import sys

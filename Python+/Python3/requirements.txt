@@ -100,3 +100,4 @@ isodate
 pendulum
 dateparser
 zenmoney-py
+google-genai
