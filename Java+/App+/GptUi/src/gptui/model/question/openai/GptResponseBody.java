@@ -2,10 +2,14 @@ package gptui.model.question.openai;
 
 import java.util.List;
 
+
 record GptResponseBody(String model, List<Choice> choices, Error error) {
-    public record Choice(Integer index, GptMessage message, String finish_reason) {
+    record GptMessage(String role, String content) {
     }
 
-    public record Error(String message, String type, String param, String code) {
+    record Choice(Integer index, GptMessage message, String finish_reason) {
+    }
+
+    record Error(String message, String type, String param, String code) {
     }
 }
