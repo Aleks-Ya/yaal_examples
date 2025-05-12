@@ -13,7 +13,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.List;
 
 import static java.math.RoundingMode.HALF_UP;
 
@@ -22,7 +21,7 @@ class GptApiImpl implements GptApi {
     private static final Logger log = LoggerFactory.getLogger(GptApiImpl.class);
     private static final String MODEL = "gpt-4.1";
     private static final Gson gson = new Gson();
-    private static final URI endpoint = URI.create("https://api.openai.com/v1/chat/completions");
+    private static final URI endpoint = URI.create("https://api.openai.com/v1/responses");
     private final String token;
 
     @Inject
@@ -34,7 +33,7 @@ class GptApiImpl implements GptApi {
     public String send(String content, Integer temperature) {
         log.info("Sending question: {}", content);
         var bigDecimalTemperature = convertTemperature(temperature);
-        var body = new GptRequestBody(MODEL, List.of(new GptResponseBody.GptMessage("user", content)), bigDecimalTemperature);
+        var body = new GptRequestBody(MODEL, content, bigDecimalTemperature);
         var json = gson.toJson(body);
         log.trace("Request body: {}", json);
         HttpResponse<String> response;
@@ -53,7 +52,15 @@ class GptApiImpl implements GptApi {
         }
         if (response.statusCode() == 200) {
             var responseBody = gson.fromJson(response.body(), GptResponseBody.class);
-            return responseBody.choices().getFirst().message().content();
+            var outputs = responseBody.output();
+            if (outputs.size() > 1) {
+                throw new RuntimeException("Multiple outputs in response: " + outputs);
+            }
+            var contents = outputs.getFirst().content();
+            if (contents.size() > 1) {
+                throw new RuntimeException("Multiple contents in output: " + contents);
+            }
+            return contents.getFirst().text();
         } else {
             log.error("GPT API error status {}: {}", response.statusCode(), response.body());
             throw new RuntimeException(response.body());
