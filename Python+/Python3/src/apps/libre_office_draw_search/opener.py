@@ -9,7 +9,7 @@ class Opener:
 
     @staticmethod
     def open_result(search_results: SearchResults) -> None:
-        if len(search_results.results) == 0:
+        if search_results.matches_count == 0:
             return
         while True:
             try:

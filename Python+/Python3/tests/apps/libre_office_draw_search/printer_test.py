@@ -1,8 +1,7 @@
 from pathlib import Path
 from textwrap import dedent
 
-from apps.libre_office_draw_search.data_types import FodgPath, SearchResults, SearchResult, FileName, PageName, \
-    FolderName
+from apps.libre_office_draw_search.data_types import FodgPath, SearchResults, SearchResult
 from apps.libre_office_draw_search.printer import Printer
 
 
@@ -21,13 +20,8 @@ def test_format_draw_files(root_dir: Path):
     assert act_str == exp_str
 
 
-def test_format_result(root_dir: Path):
-    search_results: SearchResults = SearchResults([
-        SearchResult(1, FodgPath(root_dir / 'dir1' / 'file1.fodg'), [FolderName('dir1')], [FileName("file1.fodg")],
-                     [PageName("Page 1")], []),
-        SearchResult(2, FodgPath(root_dir / 'dir1' / 'file2.fodg'), [], [FileName("file2.fodg")],
-                     [PageName("Page 1"), PageName("Page 2")], [])
-    ], 3, 0, 2)
+def test_format_result(root_dir: Path, search_result_1: SearchResult, search_result_2: SearchResult):
+    search_results: SearchResults = SearchResults([search_result_1, search_result_2], 3, 0, 2)
     printer: Printer = Printer(root_dir)
     act_formatted_results: str = printer.format_results(search_results)
     exp_formatted_results: str = dedent(
