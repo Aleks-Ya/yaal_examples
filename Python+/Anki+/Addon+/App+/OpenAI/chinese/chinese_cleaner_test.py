@@ -6,7 +6,7 @@ from common.config import LanguageAiConfig
 def test_clean_text():
     config_dict: dict[str, Any] = {
         "openai-client": {
-            "token-path": "$HOME/.gpt/token.txt",
+            "token-path": "$HOME/.openai/token.txt",
             "model": "gpt-4o",
             "timeout_sec": 120
         }}

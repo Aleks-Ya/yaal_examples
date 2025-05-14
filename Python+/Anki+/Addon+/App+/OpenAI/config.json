@@ -1,6 +1,6 @@
 {
   "openai-client": {
-    "token-path": "$HOME/.gpt/token.txt",
+    "token-path": "$HOME/.openai/token.txt",
     "model": "gpt-4o",
     "timeout_sec": 120
   },
