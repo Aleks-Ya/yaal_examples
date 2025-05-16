@@ -101,3 +101,14 @@ pendulum
 dateparser
 zenmoney-py
 google-genai
+japanese-verb-conjugator-v2
+mecab-python3
+unidic-lite #for mecab-python3
+sudachipy
+sudachidict_core #for sudachipy
+ginza
+#ja_ginza_electra #for ginza, fails on installation
+fugashi[unidic-lite]
+janome
+pykakasi
+pykatsuyou
