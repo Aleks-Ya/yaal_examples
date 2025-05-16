@@ -46,7 +46,8 @@ Message:
 ```
 java.lang.UnsatisfiedLinkError: /usr/share/opensearch/plugins/opensearch-knn/lib/libopensearchknn_faiss_avx512.so: /usr/share/opensearch/data/ml_cache/pytorch/1.13.1-cpu-precxx11-linux-x86_64/libstdc++.so.6: version `GLIBCXX_3.4.20' not found (required by /usr/share/opensearch/plugins/opensearch-knn/lib/libopensearchknn_faiss_avx512.so)
 ```
-`yum install binutils`
+Diagnosys:
+Install `strings`: `yum install -y binutils`
 `ls -l /usr/share/opensearch/data/ml_cache/pytorch/1.13.1-cpu-precxx11-linux-x86_64`
 `strings /usr/share/opensearch/data/ml_cache/pytorch/1.13.1-cpu-precxx11-linux-x86_64/libstdc++.so.6 | grep GLIBCXX`
 ```
@@ -73,10 +74,4 @@ GLIBCXX_3.4.18
 GLIBCXX_3.4.19
 GLIBCXX_DEBUG_MESSAGE_LENGTH
 ```
-```
-bash-5.2# ls -l /usr/share/opensearch/data/ml_cache/pytorch/
-total 12
-drwx------ 2 opensearch opensearch 4096 Apr 10 08:00 1.13.1-cpu-precxx11-linux-x86_64
--rw-rw-r-- 1 opensearch opensearch 4338 Apr 10 07:57 1.13.1.txt
-bash-5.2# strings /usr/share/opensearch/data/ml_cache/pytorch/1.13.1-cpu-precxx11-linux-x86_64/libstdc++.so.6 | grep GLIBCXX
-```
+Solution: register model in ONNX format (`"model_format": "ONNX"`)
