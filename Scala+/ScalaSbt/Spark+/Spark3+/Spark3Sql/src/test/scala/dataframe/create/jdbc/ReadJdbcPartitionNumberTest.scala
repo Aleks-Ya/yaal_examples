@@ -9,10 +9,10 @@ import java.util.Properties
 /**
  * Read JDBC source in several partitions.
  */
-class ReadJdbcPartitionNumber extends AnyFlatSpec with Matchers {
+class ReadJdbcPartitionNumberTest extends AnyFlatSpec with Matchers {
 
   private val jdbcUrl = {
-    val initSqlScript = classOf[ReadJdbcPartitionNumber].getResource("JdbcTest.sql").getFile
+    val initSqlScript = classOf[ReadJdbcPartitionNumberTest].getResource("JdbcTest.sql").getFile
     s"jdbc:h2:mem:;INIT=RUNSCRIPT FROM '$initSqlScript'"
   }
   private val tableName = "people"

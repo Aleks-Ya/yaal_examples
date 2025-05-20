@@ -6,7 +6,7 @@ import org.apache.spark.sql.{Encoder, Encoders}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class GroupByTransformation extends AnyFlatSpec with Matchers {
+class GroupByTransformationTest extends AnyFlatSpec with Matchers {
   private val cities = Seq(City("Moscow", 1234), City("Moscow", 7890), City("SPb", 4567))
 
   it should "group by key" in {

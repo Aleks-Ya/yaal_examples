@@ -3,6 +3,7 @@ package dataframe.create.kafka.stream
 import factory.Factory
 import io.github.embeddedkafka.EmbeddedKafka
 import org.apache.kafka.common.serialization.StringSerializer
+import org.apache.spark.sql.streaming.OutputMode
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -26,7 +27,7 @@ class KafkaReadStreamTest extends AnyFlatSpec with EmbeddedKafka with Matchers {
         .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
 
       val query = df.writeStream
-        .outputMode("append")
+        .outputMode(OutputMode.Append)
         .format("console")
         .start()
 

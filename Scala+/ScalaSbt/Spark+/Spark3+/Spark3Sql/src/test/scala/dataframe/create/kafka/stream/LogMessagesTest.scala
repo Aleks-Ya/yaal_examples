@@ -3,6 +3,7 @@ package dataframe.create.kafka.stream
 import factory.Factory
 import io.github.embeddedkafka.EmbeddedKafka
 import org.apache.kafka.common.serialization.StringSerializer
+import org.apache.spark.sql.streaming.OutputMode
 import org.apache.spark.sql.{Dataset, Row}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -31,7 +32,7 @@ class LogMessagesTest extends AnyFlatSpec with EmbeddedKafka with Matchers {
           println(s"Processing batch $batchId")
           batchDF.show()
         }
-        .outputMode("append")
+        .outputMode(OutputMode.Append)
         .format("console")
         .start()
 

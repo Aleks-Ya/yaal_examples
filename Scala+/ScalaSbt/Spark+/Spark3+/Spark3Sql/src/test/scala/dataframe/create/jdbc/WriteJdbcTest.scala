@@ -1,4 +1,4 @@
-package dataframe.write
+package dataframe.create.jdbc
 
 import factory.Factory
 import org.apache.spark.sql.SaveMode
@@ -8,7 +8,7 @@ import org.scalatest.matchers.should.Matchers
 import java.io.File
 import java.util.Properties
 
-class WriteJdbc extends AnyFlatSpec with Matchers {
+class WriteJdbcTest extends AnyFlatSpec with Matchers {
 
   it should "write DataFrame to JDBC database" in {
     val h2TmpDir = File.createTempFile(getClass.getSimpleName, ".tmp")
@@ -30,7 +30,7 @@ class WriteJdbc extends AnyFlatSpec with Matchers {
       .read
       .jdbc(jdbcUrl, tableName, properties)
 
-    actDf.schema shouldEqual expDf.schema
+    actDf.schema.toDDL shouldEqual expDf.schema.toDDL
     actDf.collect() shouldEqual expDf.collect()
   }
 

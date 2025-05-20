@@ -7,11 +7,9 @@ import org.scalatest.matchers.should.Matchers
 
 import scala.collection.mutable
 
-class CollectToHashSetAction extends AnyFlatSpec with Matchers {
+class CollectToHashSetActionTest extends AnyFlatSpec with Matchers {
   it should "collect a String DataFrame to a HashSet" in {
-    val df = Factory.createDf("city STRING",
-      Row("London"), Row("Berlin"), Row("Paris"))
-
+    val df = Factory.createDf("city STRING", Row("London"), Row("Berlin"), Row("Paris"))
     implicit val encoder: Encoder[String] = Encoders.STRING
 
     val citiesArray: Array[String] = df.as[String].collect()

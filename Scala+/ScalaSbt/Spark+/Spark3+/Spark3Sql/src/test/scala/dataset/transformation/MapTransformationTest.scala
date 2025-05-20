@@ -4,7 +4,7 @@ import factory.{City, Factory}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class MapTransformation extends AnyFlatSpec with Matchers {
+class MapTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "modify values" in {
     import Factory.ss.sqlContext.implicits._

@@ -6,7 +6,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import util.FileUtil
 
-class WriteReadParquetZip extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
+class WriteReadParquetZipTest extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
   it should "write to ZIP parquet file" in {
     val compressionAlgorithm = "gzip"
     val originalDf = Factory.peopleDf

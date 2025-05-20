@@ -1,13 +1,16 @@
 package dataframe.create.parquet
 
 import factory.Factory
+import factory.Factory.createDf
 import org.apache.spark.sql.functions.col
+import org.apache.spark.sql.types.StructType
+import org.apache.spark.sql.{Row, SaveMode}
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import util.FileUtil
 
-class WriteReadParquet extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
+class WriteReadParquetTest extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
   it should "write to parquet file" in {
     val originalDf = Factory.peopleDf
 
@@ -44,5 +47,22 @@ class WriteReadParquet extends AnyFlatSpec with Matchers with BeforeAndAfterAll 
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""",
       """{"name":"Mary","age":20,"gender":"F"}""")
+  }
+
+  it should "append a parquet file" in {
+    val sql = Factory.ss.sqlContext
+    val schema = StructType.fromDDL("city string")
+    val file = FileUtil.createAbsentTmpDirStr()
+
+    val df1 = createDf(schema, Row("London"))
+    df1.write.parquet(file)
+    sql.read.parquet(file).toJSON.collect() should contain only """{"city":"London"}"""
+
+    val df2 = createDf(schema, Row("Berlin"))
+    df2.write.mode(SaveMode.Append).parquet(file)
+    sql.read.parquet(file).toJSON.collect() should contain only(
+      """{"city":"Berlin"}""",
+      """{"city":"London"}"""
+    )
   }
 }

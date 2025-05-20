@@ -5,7 +5,7 @@ import org.apache.spark.sql.Dataset
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class RepartitionTransformation extends AnyFlatSpec with Matchers {
+class RepartitionTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "change partition number" in {
     val ds: Dataset[City] = Factory.cityDs

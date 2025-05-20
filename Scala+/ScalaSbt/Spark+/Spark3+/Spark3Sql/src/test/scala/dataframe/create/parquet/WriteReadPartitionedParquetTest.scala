@@ -6,7 +6,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import util.FileUtil
 
-class WriteReadPartitionedParquet extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
+class WriteReadPartitionedParquetTest extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
   it should "write to a partitioned parquet file" in {
     val originalDf = Factory.peopleDf
     val path = FileUtil.createAbsentTmpDirPath()

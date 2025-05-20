@@ -3,6 +3,8 @@ package scala.collection.seq
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
+import scala.collection.mutable
+
 class AddElementsTest extends AnyFlatSpec with Matchers {
 
   it should "join 2 immutable Seq" in {
@@ -36,6 +38,15 @@ class AddElementsTest extends AnyFlatSpec with Matchers {
     val joined = s ++ Seq(element)
     s should contain allOf(1, 2)
     joined should contain inOrderOnly(1, 2, 3)
+  }
+
+  it should "add element to end of a mutable Seq" in {
+    //noinspection ScalaUnusedSymbol
+    val s: mutable.Seq[Int] = mutable.Seq(1, 2, 3)
+    //NOT WORK (use ArrayBuffer instead):
+    //s += 4
+    //s.append(5)
+    //s.insert(0, 0)
   }
 
 }

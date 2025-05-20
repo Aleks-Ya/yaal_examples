@@ -68,19 +68,16 @@ object Factory {
     df
   }
 
-  def createDf(fields: Map[String, DataType], rows: Row*): DataFrame = {
-    val schema = StructType(fields.map { case (name, dataType) => StructField(name, dataType) }.toList)
+  def createDf(schema: StructType, rows: Row*): DataFrame = {
     val df = ss.createDataFrame(ss.sparkContext.parallelize(rows), schema)
     df.show
     df.printSchema
     df
   }
 
-  def createDf(schema: StructType, rows: Row*): DataFrame = {
-    val df = ss.createDataFrame(ss.sparkContext.parallelize(rows), schema)
-    df.show
-    df.printSchema
-    df
+  def createDf(fields: Map[String, DataType], rows: Row*): DataFrame = {
+    val schema = StructType(fields.map { case (name, dataType) => StructField(name, dataType) }.toList)
+    createDf(schema, rows: _*)
   }
 
 }

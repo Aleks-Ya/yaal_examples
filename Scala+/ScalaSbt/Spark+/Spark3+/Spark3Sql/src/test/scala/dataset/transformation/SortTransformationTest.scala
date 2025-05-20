@@ -5,7 +5,7 @@ import org.apache.spark.sql.functions.{asc, desc}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class SortTransformation extends AnyFlatSpec with Matchers {
+class SortTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "sort a Dataset ASC (default)" in {
     val ds = Factory.cityDs.sort("establishYear")

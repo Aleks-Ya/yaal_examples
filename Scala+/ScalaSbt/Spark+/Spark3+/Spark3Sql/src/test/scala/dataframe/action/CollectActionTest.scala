@@ -4,7 +4,7 @@ import factory.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class CollectAction extends AnyFlatSpec with Matchers {
+class CollectActionTest extends AnyFlatSpec with Matchers {
   it should "collect a DataFrame" in {
     val array = Factory.peopleDf.sort("age").collect()
     array.map(_.json) should contain inOrderOnly(

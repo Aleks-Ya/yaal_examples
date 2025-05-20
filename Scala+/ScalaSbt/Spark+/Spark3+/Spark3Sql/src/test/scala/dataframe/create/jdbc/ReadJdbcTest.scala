@@ -7,18 +7,16 @@ import org.scalatest.matchers.should.Matchers
 import java.util.Properties
 
 /**
- * Read JDBC source with login and password.
+ * Read JDBC source in single partition.
  */
-class ReadJdbcCredentials extends AnyFlatSpec with Matchers {
+class ReadJdbcTest extends AnyFlatSpec with Matchers {
 
   private val jdbcUrl = {
-    val initSqlScript = classOf[ReadJdbcPartitionNumber].getResource("JdbcTest.sql").getFile
+    val initSqlScript = classOf[ReadJdbcPartitionNumberTest].getResource("JdbcTest.sql").getFile
     s"jdbc:h2:mem:;INIT=RUNSCRIPT FROM '$initSqlScript'"
   }
   private val tableName = "people"
   private val jdbcDriver = "org.h2.Driver"
-  private val username = "my_user"
-  private val password = "my_password"
 
   it should "Read DF from JDBC by load()" in {
     val df = Factory.ss
@@ -27,23 +25,32 @@ class ReadJdbcCredentials extends AnyFlatSpec with Matchers {
       .option("url", jdbcUrl)
       .option("driver", jdbcDriver)
       .option("dbtable", tableName)
-      .option("user", username)
-      .option("password", password)
       .load()
+
     df.rdd.collect().length shouldEqual 2
+
+    df.createOrReplaceTempView(tableName)
+    df.sqlContext.sql(s"select * from $tableName").collect.foreach(println)
+
+    df.printSchema()
+    df.show()
   }
 
   it should "Read DF from JDBC by jdbc()" in {
     val properties = new Properties()
     properties.setProperty("driver", jdbcDriver)
-    properties.setProperty("user", username)
-    properties.setProperty("password", password)
 
     val df = Factory.ss
       .read
       .jdbc(jdbcUrl, tableName, properties)
 
     df.rdd.collect().length shouldEqual 2
+
+    df.createOrReplaceTempView(tableName)
+    df.sqlContext.sql(s"select * from $tableName").collect.foreach(println)
+
+    df.printSchema()
+    df.show()
   }
 
 }
