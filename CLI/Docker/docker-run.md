@@ -15,6 +15,9 @@ Run an image from Registry: `docker run username/repository:tag`
 Mount a host directory to a container directory: `docker run --rm -it --mount type=bind,src=/host/dir,dst=/container/dir almalinux bash`
 Mount a host file to a container file: `docker run --rm -it --mount type=bind,src=/host/file.txt,dst=/container/file.txt almalinux bash`
 
+### Volume
+Attach a volume: `docker run --rm -it -v tmp_volume:/var/data almalinux bash`
+
 ## Resources
 ### Memory
 Limit container memory: `docker run -it -m 1G --rm almalinux`

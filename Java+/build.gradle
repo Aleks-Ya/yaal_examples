@@ -37,7 +37,7 @@ subprojects {
         jsonUnitVersion = '4.1.0'
         jsonUnitDep = "net.javacrumbs.json-unit:json-unit:$jsonUnitVersion"
         jsonUnitAssertJDep = "net.javacrumbs.json-unit:json-unit-assertj:$jsonUnitVersion"
-        mockitoVersion = '5.17.0'
+        mockitoVersion = '5.18.0'
         mockitoInlineVersion = '5.2.0'
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
         mockitoJunitJupiterDep = "org.mockito:mockito-junit-jupiter:$mockitoVersion"
@@ -46,7 +46,7 @@ subprojects {
         gsonDep = 'com.google.code.gson:gson:2.10.1'
         apacheCommonsLangDep = 'org.apache.commons:commons-lang3:3.17.0'
         apacheCommonsCsvDep = 'org.apache.commons:commons-csv:1.14.0'
-        apacheCommonsIoDep = 'commons-io:commons-io:2.18.0'
+        apacheCommonsIoDep = 'commons-io:commons-io:2.19.0'
         apacheCommonsFileUploadDep = 'commons-fileupload:commons-fileupload:1.5'
         wireMockDep = 'com.github.tomakehurst:wiremock:2.27.2'
         jaxbApiDep = 'javax.xml.bind:jaxb-api:2.3.1'

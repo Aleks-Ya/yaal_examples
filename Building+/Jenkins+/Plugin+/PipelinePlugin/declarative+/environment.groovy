@@ -5,14 +5,17 @@ pipeline {
 		BRANCH = "dev"
 		VERSION = "${env.BRANCH == 'dev' ? env.SNAPSHOT_KEYWORD : 'release'}"
 		TAG = "${BRANCH}-${VERSION}"
-		REVISION = """${env.BRANCH}"""
+		FEATURE_BRANCH = "JIRA-1234_learn-Jenkins"
+		REVISION = """${env.FEATURE_BRANCH.replaceAll('[^a-zA-Z0-9]','_') + '-' + env.BUILD_ID}"""
 	}
 	stages {
 	    stage('Show Vars') {
 	        steps {
+	        	echo "BUILD_ID = ${env.BUILD_ID}"
 	            echo "BRANCH = ${env.BRANCH}"
-	            echo "BRANCH = ${env.VERSION}"
+	            echo "VERSION = ${env.VERSION}"
 	            echo "TAG = ${env.TAG}"
+	            echo "FEATURE_BRANCH = ${env.FEATURE_BRANCH}"
 	            echo "REVISION = ${env.REVISION}"
 	        }
 	    }

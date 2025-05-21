@@ -29,8 +29,11 @@ Download sources: `mvn dependency:sources`
 Download JavaDoc: `mvn dependency:resolve -Dclassifier=javadoc`
 Go offline: `mvn dependency:go-offline`
 Debug, verbose: `mvn -X compile`
+
+## Help plugin
 Generate effective POM: `mvn help:effective-pom`
 Generate effective Settings: `mvn help:effective-settings`
+Print lifecycle which includes given phase: `mvn help:describe -Dcmd=install`
 
 ## Tests
 Compile tests: `mvn test-compile`
