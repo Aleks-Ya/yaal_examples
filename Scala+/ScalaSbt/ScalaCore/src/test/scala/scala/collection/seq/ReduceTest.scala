@@ -17,4 +17,17 @@ class ReduceTest extends AnyFlatSpec with Matchers {
     res.toString shouldEqual "abcd"
     res shouldBe sb
   }
+
+  it should "reduce empty" in {
+    val seq = Seq.empty[Int]
+    intercept[UnsupportedOperationException] {
+      seq.reduce((a, b) => a * 2 + b)
+    }
+  }
+
+  it should "reduceOption empty" in {
+    val seq = Seq.empty[Int]
+    val res = seq.reduceOption((a, b) => a * 2 + b)
+    res shouldBe None
+  }
 }

@@ -34,11 +34,21 @@ object FileUtil {
 
   def read(path: Path): String = read(path.toFile)
 
+  def createExistingTmpDirPath(): Path = {
+    val dir = Files.createTempDirectory(FileUtil.getClass.getSimpleName.replace("$", "") + "_")
+    if (Files.notExists(dir)) throw new IllegalStateException()
+    println(s"Existing temp directory was created: $dir")
+    dir
+  }
+
+  def createExistingTmpDirStr(): String = createExistingTmpDirPath().toString
+
   def createAbsentTmpDirStr(): String = createAbsentTmpDirPath().toString
 
   def createAbsentTmpDirPath(): Path = {
-    val dir = Files.createTempDirectory(FileUtil.getClass.getSimpleName.replace("$", "") + "_")
+    val dir = createExistingTmpDirPath()
     Files.delete(dir)
+    if (Files.exists(dir)) throw new IllegalStateException()
     println(s"Absent temp directory was created: $dir")
     dir
   }
