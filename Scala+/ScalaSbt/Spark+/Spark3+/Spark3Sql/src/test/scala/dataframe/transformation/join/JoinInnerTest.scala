@@ -7,29 +7,20 @@ import org.apache.spark.sql.types.{ArrayType, IntegerType, StringType}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class JoinTest extends AnyFlatSpec with Matchers {
+class JoinInnerTest extends AnyFlatSpec with Matchers {
   private val presidentIdCol = "president_id"
   private val countriesDf = Factory.createDf(Map("country" -> StringType, presidentIdCol -> IntegerType),
     Row("USA", 1),
     Row("France", 2),
     Row("England", null))
   private val presidentsDf = Factory.createDf(Map(presidentIdCol -> IntegerType, "name" -> StringType),
-    Row(1, "Biden"),
+    Row(1, "Trump"),
     Row(2, "Macron"))
 
   it should "do inner join (default)" in {
     val joinedDf = countriesDf.join(presidentsDf, presidentIdCol)
     joinedDf.toJSON.collect() should contain inOrderOnly(
-      """{"president_id":1,"country":"USA","name":"Biden"}""",
-      """{"president_id":2,"country":"France","name":"Macron"}"""
-    )
-  }
-
-  it should "do left join" in {
-    val joinedDf = countriesDf.join(presidentsDf, presidentIdCol, "left")
-    joinedDf.toJSON.collect() should contain inOrderOnly(
-      """{"president_id":null,"country":"England","name":null}""",
-      """{"president_id":1,"country":"USA","name":"Biden"}""",
+      """{"president_id":1,"country":"USA","name":"Trump"}""",
       """{"president_id":2,"country":"France","name":"Macron"}"""
     )
   }
@@ -40,11 +31,11 @@ class JoinTest extends AnyFlatSpec with Matchers {
       Row("France", 2),
       Row("England", null))
     val presidentsDf = Factory.createDf(Map("id" -> IntegerType, "name" -> StringType),
-      Row(1, "Biden"),
+      Row(1, "Trump"),
       Row(2, "Macron"))
     val joinedDf = countriesDf.join(presidentsDf, countriesDf("president_id") === presidentsDf("id"))
     joinedDf.toJSON.collect() should contain inOrderOnly(
-      """{"country":"USA","president_id":1,"id":1,"name":"Biden"}""",
+      """{"country":"USA","president_id":1,"id":1,"name":"Trump"}""",
       """{"country":"France","president_id":2,"id":2,"name":"Macron"}"""
     )
   }
@@ -71,20 +62,6 @@ class JoinTest extends AnyFlatSpec with Matchers {
     )
   }
 
-  it should "join DataFrame to itself" in {
-    val df = Factory.createDf(Map("id" -> IntegerType, "name" -> StringType, "bossId" -> IntegerType),
-      Row(1, "John", null),
-      Row(2, "Mark", 1),
-      Row(3, "Chad", 1))
-    val joinedDf = df.as("a")
-      .join(df.as("b"), col("a.bossId") === col("b.id"), "left")
-      .select(col("a.id"), col("a.name"), col("b.name") as "boss")
-    joinedDf.toJSON.collect() should contain inOrderOnly(
-      """{"id":1,"name":"John","boss":null}""",
-      """{"id":2,"name":"Mark","boss":"John"}""",
-      """{"id":3,"name":"Chad","boss":"John"}"""
-    )
-  }
 
   it should "do inner join on array column" in {
     val countriesDf = Factory.createDf(Map("country" -> StringType, "president_ids" -> ArrayType(IntegerType)),
@@ -92,7 +69,7 @@ class JoinTest extends AnyFlatSpec with Matchers {
       Row("France", Seq(2)),
       Row("England", null))
     val presidentsDf = Factory.createDf(Map("id" -> IntegerType, "name" -> StringType),
-      Row(1, "Biden"),
+      Row(1, "Trump"),
       Row(2, "Macron"),
       Row(3, "Trump")
     )
@@ -107,7 +84,7 @@ class JoinTest extends AnyFlatSpec with Matchers {
       .agg(collect_list(col("president")) as "presidents")
     joinedDf.toJSON.collect() should contain inOrderOnly(
       """{"country":"France","presidents":["Macron"]}""",
-      """{"country":"USA","presidents":["Biden","Trump"]}"""
+      """{"country":"USA","presidents":["Trump","Trump"]}"""
     )
   }
 }
