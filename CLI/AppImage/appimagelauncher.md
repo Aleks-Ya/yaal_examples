@@ -1,4 +1,4 @@
-# appimagelauncher CLI
+# AppImageLauncher CLI
 
 Obsolete: last update in 2020
 

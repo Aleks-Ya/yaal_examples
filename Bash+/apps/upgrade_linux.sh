@@ -17,6 +17,10 @@ echo "Updating BREW..."
 brew upgrade
 echo
 
+echo "Updating FlatPak..."
+flatpak update -y
+echo
+
 echo "Updating PIP..."
 python -m pip install --upgrade pip
 echo

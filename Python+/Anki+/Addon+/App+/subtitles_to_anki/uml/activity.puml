@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+partition Parse subtitles {
+    :Read the subtitles file;
+    :Convert the file content to sentences;
+    repeat :For each sentence;
+        :Tokenize sentence into words and POS;
+        :Convert words in lemmas;
+    repeat while
+   :Prepare dictionary Word-Sentences;
+   :Sort words by number of sentences;
+}
+partition Prepare existing dictionary {
+    :Read all words and POS from Anki;
+}
+partition Find unknown words {
+    
+}
+stop
+
+@enduml

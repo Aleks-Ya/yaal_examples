@@ -112,3 +112,6 @@ fugashi[unidic-lite]
 janome
 pykakasi
 pykatsuyou
+pysrt #136K
+srt #19K
+reportlab

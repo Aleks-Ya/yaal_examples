@@ -7,9 +7,14 @@ def test_path_creation():
     assert str(p) == '/tmp/work/data.txt'
 
 
-def test_file_in_current_dir():
+def test_file_in_current_dir_1():
     current_dir: str = os.path.dirname(__file__)
     p: Path = Path(current_dir, 'create_path.py')
+    assert p.exists()
+
+
+def test_file_in_current_dir_2():
+    p: Path = Path(__file__).parent / 'create_path.py'
     assert p.exists()
 
 
