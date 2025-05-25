@@ -1,6 +1,6 @@
 set -e
 anki_addons_dir=/home/aleks/.local/share/Anki2/addons21
-addons_api_dir=/home/aleks/pr/home/yaal_examples/Python+/Anki+/Addon+/API+
+addons_api_dir=/home/aleks/pr/home/yaal_examples/Python+/Anki+/AnkiAddon/src/api
 src_relative_paths=(
   AddonConfig+/OpenAddonConfigDialog
   AddonConfig+/ReadWriteAddonConfig
