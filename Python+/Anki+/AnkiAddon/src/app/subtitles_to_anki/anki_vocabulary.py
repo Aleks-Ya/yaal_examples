@@ -61,14 +61,15 @@ class Word:
             raise ValueError(f"Can not parse {note.id}")
 
 
-def test_extract_known_vocabulary():
-    col_path: str = "/home/aleks/.local/share/Anki2/User 1/collection.anki2"
-    col: Collection = Collection(col_path)
-    note_ids: Sequence[NoteId] = col.find_notes("note:En-word-or-sentence")
-    print(len(note_ids))
-    notes: list[Note] = [col.get_note(note_id) for note_id in note_ids]
-    words: list[Word] = [Word.parse(note) for note in notes]
-    print(f"Words count: {len(words)}")
-    words_pos: list[Word] = [word for word in words if word.pos is not None]
-    print(f"Words with POS count: {len(words_pos)}")
-    print(words_pos[0])
+class AnkiVocabulary:
+    @staticmethod
+    def extract_known_vocabulary(collection_path: str) -> list[Word]:
+        col: Collection = Collection(collection_path)
+        note_ids: Sequence[NoteId] = col.find_notes("note:En-word-or-sentence")
+        print(len(note_ids))
+        notes: list[Note] = [col.get_note(note_id) for note_id in note_ids]
+        words: list[Word] = [Word.parse(note) for note in notes]
+        print(f"Words count: {len(words)}")
+        words_pos: list[Word] = [word for word in words if word.pos is not None]
+        print(f"Words with POS count: {len(words_pos)}")
+        return words_pos

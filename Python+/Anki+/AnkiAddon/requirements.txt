@@ -1,7 +1,9 @@
-openai~=1.58.1
 anki~=25.2.1
 aqt~=25.2.1
 pytest
 pytest-qt
 mock
 Cython
+pysrt
+openai
+spacy
