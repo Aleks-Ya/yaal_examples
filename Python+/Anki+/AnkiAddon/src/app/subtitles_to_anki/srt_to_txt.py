@@ -10,6 +10,7 @@ class SrtToTxt:
 
     @staticmethod
     def srt_to_text(srt: Path, txt: Path) -> None:
+        print(f"Converting SRT to TXT: {srt}")
         key: str = Path.home().joinpath(".openai").joinpath("token.txt").read_text()
         client: OpenAI = OpenAI(api_key=key)
         content: str = SrtToTxt.__parse_srt(srt)

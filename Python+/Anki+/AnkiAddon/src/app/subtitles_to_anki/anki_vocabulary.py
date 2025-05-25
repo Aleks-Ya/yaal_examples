@@ -100,9 +100,9 @@ class VocabularyWord:
 class AnkiVocabulary:
     @staticmethod
     def extract_known_vocabulary(collection_path: str) -> list[VocabularyWord]:
+        print(f"\nExtracting vocabulary from {collection_path}")
         col: Collection = Collection(collection_path)
         note_ids: Sequence[NoteId] = col.find_notes("note:En-word-or-sentence")
-        print(len(note_ids))
         notes: list[Note] = [col.get_note(note_id) for note_id in note_ids]
         words: list[VocabularyWord] = [VocabularyWord.parse(note) for note in notes]
         print(f"Words count: {len(words)}")
