@@ -7,3 +7,4 @@ Cython
 pysrt
 openai
 spacy
+langdetect
