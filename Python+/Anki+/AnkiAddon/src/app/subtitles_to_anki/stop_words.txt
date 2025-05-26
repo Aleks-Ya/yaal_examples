@@ -85,3 +85,6 @@ ready
 soon
 Gutierrez
 about
+welcome
+week
+sorry

@@ -15,7 +15,8 @@ class SrtToTxt:
         client: OpenAI = OpenAI(api_key=key)
         content: str = SrtToTxt.__parse_srt(srt)
         formatted: str = SrtToTxt.__remove_line_breaks(client, content)
-        txt.write_text(formatted)
+        trimmed: str = SrtToTxt.__trim_lines(formatted)
+        txt.write_text(trimmed)
 
     @staticmethod
     def __parse_srt(srt: Path) -> str:
@@ -35,3 +36,8 @@ class SrtToTxt:
             input=content
         )
         return response.output_text
+
+    @staticmethod
+    def __trim_lines(text: str) -> str:
+        lines: list[str] = [line.strip() for line in text.split('\n')]
+        return '\n'.join(lines)

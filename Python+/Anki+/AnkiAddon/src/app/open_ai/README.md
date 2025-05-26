@@ -1,7 +1,7 @@
 # Get English words synonyms using OpenAI GPT
 
 ### Install to local Anki
-1. `ln -s ~/pr/home/yaal_examples/Python+/Anki+/Addon+/App+/OpenAI ~/.local/share/Anki2/addons21/OpenAI`
+1. `ln -s ~/pr/home/yaal_examples/Python+/Anki+/AnkiAddon/src/app/open_ai ~/.local/share/Anki2/addons21/open_ai`
 
 ### Run
 

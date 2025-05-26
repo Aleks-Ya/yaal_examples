@@ -31,7 +31,7 @@ class SentencesToWords:
 
     @staticmethod
     def sentences_to_words_with_part_of_speech(txt: Path) -> list[SentenceWord]:
-        words_file: Path = txt.parent / f"{txt.stem}_words.txt"
+        words_file: Path = txt.parent / f"{txt.stem}_words.json"
         if not words_file.exists():
             sentences: list[str] = txt.read_text().split('\n')
             print(f"Sentences count: {len(sentences)}")
@@ -59,7 +59,7 @@ class SentencesToWords:
     def __save_to_file(unique_words: list[SentenceWord], json_path: Path) -> None:
         with open(json_path, 'w', newline='') as fp:
             word_dict: list[dict[str, Any]] = [w.as_dict() for w in unique_words]
-            json.dump(word_dict, fp)
+            json.dump(word_dict, fp, indent=2)
 
     @staticmethod
     def __read_from_file(json_path: Path) -> list[SentenceWord]:
