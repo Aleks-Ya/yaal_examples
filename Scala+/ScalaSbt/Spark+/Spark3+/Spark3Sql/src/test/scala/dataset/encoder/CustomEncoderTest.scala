@@ -12,7 +12,7 @@ class CustomEncoderTest extends AnyFlatSpec with Matchers {
 
   it should "Kryo encoder" in {
     val ss = Factory.ss
-    import ss.sqlContext.implicits._
+    import ss.implicits._
     val ds = ss.createDataset(Seq("John", "Mary"))
     ds.show
 

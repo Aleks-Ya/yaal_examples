@@ -17,9 +17,7 @@ class WriteReadParquetTest extends AnyFlatSpec with Matchers with BeforeAndAfter
     val file = FileUtil.createAbsentTmpDirStr()
     originalDf.write.parquet(file)
 
-    val sql = Factory.ss.sqlContext
-    val parquetDf = sql.read.parquet(file)
-
+    val parquetDf = Factory.ss.read.parquet(file)
     parquetDf.toJSON.collect() shouldEqual originalDf.toJSON.collect()
     parquetDf.toJSON.collect() should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M"}""",
@@ -39,9 +37,7 @@ class WriteReadParquetTest extends AnyFlatSpec with Matchers with BeforeAndAfter
     maleDf.write.parquet(maleFile)
     femaleDf.write.parquet(femaleFile)
 
-    val sql = Factory.ss.sqlContext
-    val parquetDf = sql.read.parquet(maleFile, femaleFile)
-
+    val parquetDf = Factory.ss.read.parquet(maleFile, femaleFile)
     parquetDf.toJSON.collect() shouldEqual originalDf.toJSON.collect()
     parquetDf.toJSON.collect() should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M"}""",
@@ -50,17 +46,16 @@ class WriteReadParquetTest extends AnyFlatSpec with Matchers with BeforeAndAfter
   }
 
   it should "append a parquet file" in {
-    val sql = Factory.ss.sqlContext
     val schema = StructType.fromDDL("city string")
     val file = FileUtil.createAbsentTmpDirStr()
 
     val df1 = createDf(schema, Row("London"))
     df1.write.parquet(file)
-    sql.read.parquet(file).toJSON.collect() should contain only """{"city":"London"}"""
+    Factory.ss.read.parquet(file).toJSON.collect() should contain only """{"city":"London"}"""
 
     val df2 = createDf(schema, Row("Berlin"))
     df2.write.mode(SaveMode.Append).parquet(file)
-    sql.read.parquet(file).toJSON.collect() should contain only(
+    Factory.ss.read.parquet(file).toJSON.collect() should contain only(
       """{"city":"Berlin"}""",
       """{"city":"London"}"""
     )

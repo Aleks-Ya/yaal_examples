@@ -8,8 +8,7 @@ import org.scalatest.matchers.should.Matchers
 class RandomSplitTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "split a small dataset" in {
-    val sqlContext = Factory.ss.sqlContext
-    import sqlContext.implicits._
+    import Factory.ss.implicits._
     val ds = Factory.ss.createDataset("abcdefghij".toCharArray.map(char => char.toString))
     ds.show
     val splits = ds.randomSplit(Array(0.5, 0.5), 1L)
@@ -25,8 +24,7 @@ class RandomSplitTransformationTest extends AnyFlatSpec with Matchers {
   }
 
   it should "split a big dataset" in {
-    val sqlContext = Factory.ss.sqlContext
-    import sqlContext.implicits._
+    import Factory.ss.implicits._
     val size = 100000
     val arr = for (i <- 1 to size) yield i
     val ds = Factory.ss.createDataset(arr)
@@ -42,8 +40,7 @@ class RandomSplitTransformationTest extends AnyFlatSpec with Matchers {
   }
 
   it should "split into N DataSets" in {
-    val sqlContext = Factory.ss.sqlContext
-    import sqlContext.implicits._
+    import Factory.ss.implicits._
     val size = 100
     val arr = for (i <- 1 to size) yield i
     val ds = Factory.ss.createDataset(arr)

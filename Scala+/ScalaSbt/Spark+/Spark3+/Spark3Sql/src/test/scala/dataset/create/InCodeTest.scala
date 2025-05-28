@@ -11,14 +11,14 @@ class InCodeTest extends AnyFlatSpec with Matchers {
 
   it should "create Dataset from Seq v1" in {
     val exp = Seq("a", "b")
-    import ss.sqlContext.implicits._
+    import ss.implicits._
     val ds = ss.createDataset(exp)
     val act = ds.collect()
     act should contain allElementsOf exp
   }
 
   it should "init Dataset from Seq v2" in {
-    import ss.sqlContext.implicits._
+    import ss.implicits._
     val exp = Seq("c", "d")
     val ds = exp.toDS()
     val act = ds.collect()

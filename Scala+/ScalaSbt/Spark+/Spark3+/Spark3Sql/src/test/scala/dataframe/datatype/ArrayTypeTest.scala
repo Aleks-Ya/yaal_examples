@@ -49,7 +49,7 @@ class ArrayTypeTest extends AnyFlatSpec with Matchers {
     df.toJSON.collect() should contain inOrderOnly(
       """{"numbers":[10,20]}""",
       """{"numbers":[30,40]}""")
-    import Factory.ss.sqlContext.implicits._
+    import Factory.ss.implicits._
     val sumDf = df.map(row => row.getSeq[Int](row.fieldIndex("numbers")).sum)
     sumDf.schema.simpleString shouldEqual "struct<value:int>"
     sumDf.toJSON.collect() should contain inOrderOnly(
@@ -78,7 +78,7 @@ class ArrayTypeTest extends AnyFlatSpec with Matchers {
     df.toJSON.collect() should contain inOrderOnly(
       """{"numbers":[[1,2],[3,4]]}""",
       """{"numbers":[[10,20],[30],[],[40]]}""")
-    import Factory.ss.sqlContext.implicits._
+    import Factory.ss.implicits._
     val sumDf = df.map(row => {
       val seqOfSeqs = row.getSeq[Seq[Int]](row.fieldIndex("numbers"))
       seqOfSeqs.map(_.sum).sum

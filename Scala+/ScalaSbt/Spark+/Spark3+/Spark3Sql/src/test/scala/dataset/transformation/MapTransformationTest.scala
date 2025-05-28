@@ -7,7 +7,7 @@ import org.scalatest.matchers.should.Matchers
 class MapTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "modify values" in {
-    import Factory.ss.sqlContext.implicits._
+    import Factory.ss.implicits._
     val ds = Factory.cityDs.map(city => City(city.name.toUpperCase, city.establishYear))
     ds.toJSON.collect() should contain inOrderOnly(
       """{"name":"MOSCOW","establishYear":1147}""",

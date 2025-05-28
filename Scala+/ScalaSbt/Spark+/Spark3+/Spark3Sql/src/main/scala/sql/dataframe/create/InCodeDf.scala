@@ -20,16 +20,15 @@ object InCodeDf {
     val ageField = StructField("age", IntegerType, nullable = true)
     val schema = StructType(nameField :: ageField :: Nil)
     val rowRdd = peopleRdd.map(_.split(",")).map(p => Row(p(0), p(1).toInt))
-    val sql = ss.sqlContext
-    val peopleDf = sql.createDataFrame(rowRdd, schema)
+    val peopleDf = ss.createDataFrame(rowRdd, schema)
     peopleDf.createOrReplaceTempView("people")
     println(peopleDf)
     assert("[name: string, age: int]".equals(peopleDf.toString()))
 
-    println("Tables: " + sql.tableNames.toList)
+    println("Tables: " + ss.sqlContext.tableNames.toList)
 
-    val selectDf = sql.sql("SELECT name, age FROM people WHERE age > 30")
-    println(selectDf.collect.map(_.toString))
+    val selectDf = ss.sql("SELECT name, age FROM people WHERE age > 30")
+    println(selectDf.collect.map(_.toString).mkString("Array(", ", ", ")"))
 
     peopleDf.printSchema //-> peopleSchemaRdd.schema.treeString
     peopleDf.show

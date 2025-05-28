@@ -13,7 +13,7 @@ class WriteDsToParquet extends AnyFlatSpec with Matchers with BeforeAndAfterAll 
   "Parquet test" should "write a parquet file" in {
     val ss = Factory.ss
     import org.apache.spark.sql._
-    import ss.sqlContext.implicits._
+    import ss.implicits._
 
     val data = Seq(Person2("John", 30, gender = true, 0.95D), Person2("Mary", 25, gender = false, 0.90D))
     val schema = Encoders.product[Person2].schema

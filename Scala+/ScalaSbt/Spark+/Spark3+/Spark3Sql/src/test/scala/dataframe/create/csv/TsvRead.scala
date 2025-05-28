@@ -11,7 +11,7 @@ class TsvRead extends AnyFlatSpec with Matchers {
   it should "read a TSV-file to a DataFrame" in {
     val file = requireNonNull(getClass.getResource("airports.tsv"))
 
-    val df = Factory.ss.sqlContext.read
+    val df = Factory.ss.read
       .option("header", "true")
       .option("inferSchema", "true")
       .option("delimiter", "\t")
@@ -30,7 +30,7 @@ class TsvRead extends AnyFlatSpec with Matchers {
   it should "read a GZIP-compressed TSV-file to a DataFrame" in {
     val file = requireNonNull(getClass.getResource("airports.tsv.gz"))
 
-    val df = Factory.ss.sqlContext.read
+    val df = Factory.ss.read
       .option("header", "true")
       .option("inferSchema", "true")
       .option("delimiter", "\t")

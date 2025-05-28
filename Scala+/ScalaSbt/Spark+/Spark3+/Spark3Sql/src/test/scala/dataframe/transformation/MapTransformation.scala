@@ -9,7 +9,7 @@ import org.scalatest.matchers.should.Matchers
 class MapTransformation extends AnyFlatSpec with Matchers {
 
   it should "use map transformation" in {
-    import Factory.ss.sqlContext.implicits._
+    import Factory.ss.implicits._
     val df = Factory.peopleDf
       .map(row => {
         val name = row.getString(row.fieldIndex("name"))
@@ -27,7 +27,7 @@ class MapTransformation extends AnyFlatSpec with Matchers {
   }
 
   it should "map to Dataset of primitives" in {
-    import Factory.ss.sqlContext.implicits._
+    import Factory.ss.implicits._
     val avgAge = Factory.peopleDf
       .map(row => row.getInt(row.fieldIndex("age")))
       .agg(avg("value"))
@@ -37,7 +37,7 @@ class MapTransformation extends AnyFlatSpec with Matchers {
   }
 
   it should "map to null" in {
-    import Factory.ss.sqlContext.implicits._
+    import Factory.ss.implicits._
     val df = Factory.peopleDf
       .map(row => {
         val name = row.getString(row.fieldIndex("name"))

@@ -13,7 +13,7 @@ class ReadParquetToDs extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
   "Parquet test" should "read a parquet file to a DataSet" in {
     val ss = Factory.ss
     import org.apache.spark.sql._
-    import ss.sqlContext.implicits._
+    import ss.implicits._
 
     val schema = Encoders.product[Seller].schema
     val parquet = new File(ReadParquetToDs.getClass.getResource("sellers_parquet/part-00000-54f48a9e-d67c-4c29-aed7-1b5f6f117c12-c000.snappy.parquet").getFile).getParent

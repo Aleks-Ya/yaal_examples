@@ -30,7 +30,7 @@ class ReadJdbcTest extends AnyFlatSpec with Matchers {
     df.rdd.collect().length shouldEqual 2
 
     df.createOrReplaceTempView(tableName)
-    df.sqlContext.sql(s"select * from $tableName").collect.foreach(println)
+    df.sparkSession.sql(s"select * from $tableName").collect.foreach(println)
 
     df.printSchema()
     df.show()
@@ -47,7 +47,7 @@ class ReadJdbcTest extends AnyFlatSpec with Matchers {
     df.rdd.collect().length shouldEqual 2
 
     df.createOrReplaceTempView(tableName)
-    df.sqlContext.sql(s"select * from $tableName").collect.foreach(println)
+    df.sparkSession.sql(s"select * from $tableName").collect.foreach(println)
 
     df.printSchema()
     df.show()

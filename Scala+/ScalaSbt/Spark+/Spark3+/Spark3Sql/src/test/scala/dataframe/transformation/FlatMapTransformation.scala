@@ -11,7 +11,7 @@ import org.scalatest.matchers.should.Matchers
 class FlatMapTransformation extends AnyFlatSpec with Matchers {
 
   it should "use flatMap transformation for parsing an array" in {
-    import Factory.ss.sqlContext.implicits._
+    import Factory.ss.implicits._
     val df = Factory.createDf(Map("genre_array" -> StringType),
       Row("Comedy,Drama,Action"), Row("Western,Sci-Fi"), Row("Horror"))
       .flatMap(row => {
@@ -32,7 +32,7 @@ class FlatMapTransformation extends AnyFlatSpec with Matchers {
   }
 
   it should "convert ArrayType(IntegerType) to IntegerType" in {
-    import Factory.ss.sqlContext.implicits._
+    import Factory.ss.implicits._
     val numbersSum = Factory.createDf(Map("numbers" -> ArrayType(IntegerType)), Row(Array(1, 2)), Row(Array(10, 20)))
       .flatMap(row => row.getSeq[Int](row.fieldIndex("numbers")))
       .agg(sum("value")).first().getLong(0)

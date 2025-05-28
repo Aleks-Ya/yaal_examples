@@ -12,7 +12,7 @@ class CsvRead extends AnyFlatSpec with Matchers {
   it should "read a CSV-file in a DataFrame" in {
     val file = requireNonNull(getClass.getResource("airports.csv"))
 
-    val df = Factory.ss.sqlContext.read
+    val df = Factory.ss.read
       .option("header", "true")
       .option("inferSchema", "true")
       .csv(file.getPath)
@@ -30,7 +30,7 @@ class CsvRead extends AnyFlatSpec with Matchers {
   it should "use custom null value in a CSV file" in {
     val file = requireNonNull(getClass.getResource("custom_null.csv"))
 
-    val df = Factory.ss.sqlContext.read
+    val df = Factory.ss.read
       .option("header", "true")
       .option("inferSchema", "true")
       .option("nullValue", "\\N")
@@ -53,7 +53,7 @@ class CsvRead extends AnyFlatSpec with Matchers {
     val effectivenessField = StructField("effectiveness", DoubleType)
     val schema = StructType(idField :: nameField :: ageField :: effectivenessField :: Nil)
 
-    val df = Factory.ss.sqlContext.read
+    val df = Factory.ss.read
       .option("header", "true")
       .option("inferSchema", "false")
       .schema(schema)

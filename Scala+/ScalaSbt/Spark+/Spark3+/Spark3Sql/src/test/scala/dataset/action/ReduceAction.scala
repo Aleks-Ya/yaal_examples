@@ -9,7 +9,7 @@ class ReduceAction extends AnyFlatSpec with Matchers {
 
   private val ss: SparkSession = Factory.ss
 
-  import ss.sqlContext.implicits._
+  import ss.implicits._
 
   it should "reduce Dataset contains >2 elements" in {
     val ds = ss.createDataset(Seq(1, 2, 3))

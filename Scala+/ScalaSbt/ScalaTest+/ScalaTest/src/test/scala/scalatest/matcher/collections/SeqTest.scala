@@ -16,6 +16,7 @@ class SeqTest extends AnyFlatSpec with Matchers {
     list should contain theSameElementsInOrderAs Seq(1, 2, 2, 3, 3, 3)
     list should contain theSameElementsAs Seq(3, 2, 1, 2, 3, 3)
     list shouldEqual Seq(1, 2, 2, 3, 3, 3)
+    all(list) should be > 0
   }
 
   "sequences with strings" should "work" in {
@@ -29,6 +30,7 @@ class SeqTest extends AnyFlatSpec with Matchers {
     list should contain theSameElementsInOrderAs Seq("a", "b", "c", "c")
     list should contain theSameElementsAs Seq("c", "b", "a", "c")
     list shouldEqual Seq("a", "b", "c", "c")
+    all(list) should not be null
   }
 
 }

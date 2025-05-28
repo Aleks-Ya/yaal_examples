@@ -1,6 +1,7 @@
 # yum CLI
 
 Help: `yum -h`
+Debug: `yum -d 5 list`
 List all available packages: `yum list`
 List installed packages: `yum list installed`
 Search for a package: `yum search python`

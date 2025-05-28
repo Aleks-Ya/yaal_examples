@@ -7,7 +7,7 @@ import org.scalatest.matchers.should.Matchers
 
 class UnionTransformation extends AnyFlatSpec with Matchers {
   it should "unite two DataFrames" in {
-    import Factory.ss.sqlContext.implicits._
+    import Factory.ss.implicits._
     val df1 = (1 to 2).toDF("numbers")
     val df2 = (5 to 6).toDF("numbers")
     val unionDf = df1.union(df2)

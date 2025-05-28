@@ -12,7 +12,7 @@ class ParquetSchemaEvolution extends AnyFlatSpec with Matchers with BeforeAndAft
   "Parquet test" should "write a parquet file" in {
     val ss = Factory.ss
     import org.apache.spark.sql._
-    import ss.sqlContext.implicits._
+    import ss.implicits._
 
     val data = Seq(Person("John", 30, gender = true, 0.95D), Person("Mary", 25, gender = false, 0.90D))
     val schema = Encoders.product[Person].schema

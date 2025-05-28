@@ -11,8 +11,8 @@ class TxtRead extends AnyFlatSpec with Matchers {
   it should "read a text file in a DataFrame" in {
     val file = requireNonNull(getClass.getResource("TxtRead.txt"))
 
-    val df1 = Factory.ss.sqlContext.read.textFile(file.getPath)
-    val df2 = Factory.ss.sqlContext.read.text(file.getPath)
+    val df1 = Factory.ss.read.textFile(file.getPath)
+    val df2 = Factory.ss.read.text(file.getPath)
 
     df1.toJSON.collect() shouldEqual df2.toJSON.collect()
     df1.schema.simpleString shouldEqual "struct<value:string>"
@@ -28,8 +28,8 @@ class TxtRead extends AnyFlatSpec with Matchers {
   it should "read a text file with a custom separator" in {
     val file = requireNonNull(getClass.getResource("TxtRead.txt"))
 
-    val df1 = Factory.ss.sqlContext.read.option("lineSep", "\n\n").textFile(file.getPath)
-    val df2 = Factory.ss.sqlContext.read.option("lineSep", "\n\n").text(file.getPath)
+    val df1 = Factory.ss.read.option("lineSep", "\n\n").textFile(file.getPath)
+    val df2 = Factory.ss.read.option("lineSep", "\n\n").text(file.getPath)
 
     df1.toJSON.collect() shouldEqual df2.toJSON.collect()
     df1.schema.simpleString shouldEqual "struct<value:string>"
@@ -43,8 +43,8 @@ class TxtRead extends AnyFlatSpec with Matchers {
   it should "read a text file as a single string" in {
     val file = requireNonNull(getClass.getResource("TxtRead.txt"))
 
-    val df1 = Factory.ss.sqlContext.read.option("wholetext", value = true).textFile(file.getPath)
-    val df2 = Factory.ss.sqlContext.read.option("wholetext", value = true).text(file.getPath)
+    val df1 = Factory.ss.read.option("wholetext", value = true).textFile(file.getPath)
+    val df2 = Factory.ss.read.option("wholetext", value = true).text(file.getPath)
 
     df1.toJSON.collect() shouldEqual df2.toJSON.collect()
     df1.schema.simpleString shouldEqual "struct<value:string>"

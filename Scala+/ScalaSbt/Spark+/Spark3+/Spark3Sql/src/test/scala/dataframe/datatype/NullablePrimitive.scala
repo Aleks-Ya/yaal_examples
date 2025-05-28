@@ -12,7 +12,7 @@ import org.scalatest.matchers.should.Matchers
 class NullablePrimitive extends AnyFlatSpec with Matchers {
 
   it should "use Row#getAs() for replacing nulls in a primitive column" in {
-    import Factory.ss.sqlContext.implicits._
+    import Factory.ss.implicits._
     val df = Factory.createDf("name string, orders integer",
         Row("USA", 10), Row("Canada", 20), Row("England", null))
       .map(row => {
@@ -30,7 +30,7 @@ class NullablePrimitive extends AnyFlatSpec with Matchers {
   }
 
   it should "use Row#get() for replacing nulls in a primitive column" in {
-    import Factory.ss.sqlContext.implicits._
+    import Factory.ss.implicits._
     val df = Factory.createDf("name string, orders integer",
         Row("USA", 10), Row("Canada", 20), Row("England", null))
       .map(row => {
@@ -50,7 +50,7 @@ class NullablePrimitive extends AnyFlatSpec with Matchers {
 
   it should "throw NPE on nulls in a primitive column" in {
     val e = the[SparkException] thrownBy {
-      import Factory.ss.sqlContext.implicits._
+      import Factory.ss.implicits._
       Factory.createDf("name string, orders integer",
           Row("USA", 10), Row("Canada", 20), Row("England", null))
         .map(row => {

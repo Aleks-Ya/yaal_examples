@@ -18,7 +18,7 @@ class TsvWrite extends AnyFlatSpec with Matchers {
       .option("delimiter", "\t")
       .csv(dir.toString)
 
-    val actDf = Factory.ss.sqlContext.read
+    val actDf = Factory.ss.read
       .option("header", "true")
       .option("inferSchema", "true")
       .option("delimiter", "\t")
@@ -43,7 +43,7 @@ class TsvWrite extends AnyFlatSpec with Matchers {
       .option("compression", "gzip")
       .csv(dir.toString)
 
-    val actDf = Factory.ss.sqlContext.read
+    val actDf = Factory.ss.read
       .option("header", "true")
       .option("inferSchema", "true")
       .option("delimiter", "\t")

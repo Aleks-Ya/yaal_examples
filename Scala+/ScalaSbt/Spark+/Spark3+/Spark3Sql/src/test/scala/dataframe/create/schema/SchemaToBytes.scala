@@ -14,7 +14,7 @@ class SchemaToBytes extends AnyFlatSpec with Matchers {
     val airportsFile = getClass.getResource("airports.csv")
     airportsFile should not be null
 
-    val df1 = Factory.ss.sqlContext.read
+    val df1 = Factory.ss.read
       .format("com.databricks.spark.csv")
       .option("header", "true")
       .option("inferSchema", "true")
@@ -30,7 +30,7 @@ class SchemaToBytes extends AnyFlatSpec with Matchers {
     val schema2 = ois.readObject().asInstanceOf[StructType]
     ois.close()
 
-    val df2 = Factory.ss.sqlContext.read
+    val df2 = Factory.ss.read
       .format("com.databricks.spark.csv")
       .option("header", "true")
       .option("inferSchema", "false")

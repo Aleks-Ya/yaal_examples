@@ -15,7 +15,7 @@ class WriteReadPartitionedParquetTest extends AnyFlatSpec with Matchers with Bef
     path.resolve("gender=F").toFile should be a 'directory
     path.resolve("gender=M").toFile should be a 'directory
 
-    val parquetDf = Factory.ss.sqlContext.read.parquet(path.toString)
+    val parquetDf = Factory.ss.read.parquet(path.toString)
     parquetDf.toJSON.collect() shouldEqual originalDf.toJSON.collect()
     parquetDf.toJSON.collect() should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M"}""",
