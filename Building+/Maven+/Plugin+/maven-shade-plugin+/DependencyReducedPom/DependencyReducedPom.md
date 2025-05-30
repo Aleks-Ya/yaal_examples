@@ -1,0 +1,3 @@
+# DependencyReducedPom
+
+Build: `mvn package`

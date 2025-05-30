@@ -37,7 +37,9 @@ class SentencesToWords:
             print(f"Sentences count: {len(sentences)}")
             en_sentences: list[str] = [sentence for sentence in sentences if detect(sentence) == 'en']
             print(f"English sentences count: {len(en_sentences)}")
-            words: list[SentenceWord] = SentencesToWords.__parse_words(en_sentences)
+            unique_sentences: list[str] = list(dict.fromkeys(en_sentences))
+            print(f"Unique English sentences count: {len(unique_sentences)}")
+            words: list[SentenceWord] = SentencesToWords.__parse_words(unique_sentences)
             SentencesToWords.__save_to_file(words, words_file)
         else:
             print(f"Reading words from {words_file}")

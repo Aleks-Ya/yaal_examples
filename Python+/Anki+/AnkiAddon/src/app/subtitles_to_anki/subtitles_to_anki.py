@@ -36,7 +36,7 @@ class SubtitlesToAnki:
         lines: list[str] = []
         for unknown_sentence_word in unknown_sentence_words:
             lines.append("")
-            lines.append(unknown_sentence_word.lemma)
+            lines.append(f'''"{unknown_sentence_word.lemma}"''')
             lines.append(f"{unknown_sentence_word.pos.name}, {len(unknown_sentence_word.sentences)} sentences:")
             for sentence in unknown_sentence_word.sentences:
                 lines.append(sentence)
