@@ -8,3 +8,7 @@ pysrt
 openai
 spacy
 langdetect
+requests
+selenium
+PyGithub
+bs4

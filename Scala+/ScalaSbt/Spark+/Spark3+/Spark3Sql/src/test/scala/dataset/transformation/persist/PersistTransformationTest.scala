@@ -6,7 +6,7 @@ import org.apache.spark.storage.StorageLevel.{DISK_ONLY, MEMORY_AND_DISK, NONE}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class PersistTransformation extends AnyFlatSpec with Matchers {
+class PersistTransformationTest extends AnyFlatSpec with Matchers {
   it should "persist and unpersist a Dataset" in {
     val ds = Factory.cityDs
     ds.storageLevel shouldBe NONE

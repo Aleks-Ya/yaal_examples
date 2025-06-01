@@ -11,4 +11,4 @@ class Foo(object):
 def test_object_to_json():
     foo: Foo = Foo()
     json_obj: dict[str, Any] = foo.__dict__
-    print(json_obj)
+    assert json_obj == {'x': 1, 'y': 2}

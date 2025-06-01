@@ -7,7 +7,7 @@ import org.apache.spark.sql.types.{ArrayType, IntegerType, StringType, StructFie
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class DropColumnTransformation extends AnyFlatSpec with Matchers {
+class DropColumnTest extends AnyFlatSpec with Matchers {
 
   it should "delete a column" in {
     val df = Factory.peopleDf

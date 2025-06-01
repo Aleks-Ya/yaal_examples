@@ -4,7 +4,7 @@ import factory.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class WithColumnRenamedTransformation extends AnyFlatSpec with Matchers {
+class WithColumnRenamedTest extends AnyFlatSpec with Matchers {
   it should "rename a column" in {
     val df = Factory.peopleDf
     df.schema.simpleString shouldEqual "struct<name:string,age:int,gender:string>"

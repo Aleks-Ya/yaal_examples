@@ -20,3 +20,14 @@ def test_group_by_numbers():
     even_numbers: list[int] = grouped.get(0, [])
     assert odd_numbers == [1, 3, 5, 7, 9]
     assert even_numbers == [2, 4, 6, 8, 10]
+
+
+def test_count_number_of_elements_in_list():
+    cities: list[str] = ["Paris", "Berlin", "Paris"]
+    cities.sort()
+    grouped: groupby[str, str] = groupby(cities)
+    result: dict[str, int] = {k: len(list(v)) for k, v in grouped}
+    assert result == {
+        "Berlin": 1,
+        "Paris": 2
+    }

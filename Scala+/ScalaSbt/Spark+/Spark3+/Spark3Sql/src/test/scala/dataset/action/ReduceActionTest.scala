@@ -5,7 +5,7 @@ import org.apache.spark.sql.SparkSession
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class ReduceAction extends AnyFlatSpec with Matchers {
+class ReduceActionTest extends AnyFlatSpec with Matchers {
 
   private val ss: SparkSession = Factory.ss
 

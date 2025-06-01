@@ -116,3 +116,4 @@ pysrt #136K
 srt #19K
 reportlab
 PyGithub
+selenium
