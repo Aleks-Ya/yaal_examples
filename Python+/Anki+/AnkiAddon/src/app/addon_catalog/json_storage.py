@@ -2,7 +2,7 @@ import dataclasses
 import json
 from typing import Any
 
-from app.addon_catalog.types import AddonDetails
+from app.addon_catalog.data_types import AddonDetails
 
 
 class JsonStorage:

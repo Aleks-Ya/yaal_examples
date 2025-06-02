@@ -1,6 +1,7 @@
 from github import Github
 from github.AuthenticatedUser import AuthenticatedUser
 from github.PaginatedList import PaginatedList
+from github.RateLimit import RateLimit
 from github.Repository import Repository
 
 
@@ -23,3 +24,8 @@ def test_list_repo_languages(github_authenticated: Github):
     repo: Repository = user.get_repo("yaal_examples")
     languages: dict[str, int] = repo.get_languages()
     print(languages)
+
+
+def test_rate_limit(github_anonymous: Github):
+    limit: RateLimit = github_anonymous.get_rate_limit()
+    print(limit)

@@ -12,6 +12,10 @@ subprojects {
     repositories {
         mavenCentral()
     }
+
+    ext {
+        spockDep = 'org.spockframework:spock-core:2.3-groovy-4.0'
+    }
 }
 
 configure(subprojects - project('Spock')) {
@@ -19,6 +23,7 @@ configure(subprojects - project('Spock')) {
         def junitVersion = '5.11.3'
         testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
         testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+        testImplementation spockDep
     }
     test {
         useJUnitPlatform()

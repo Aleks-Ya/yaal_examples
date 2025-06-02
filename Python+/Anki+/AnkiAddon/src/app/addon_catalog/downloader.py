@@ -6,7 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.webdriver import WebDriver
 
-from app.addon_catalog.types import AddonId
+from app.addon_catalog.data_types import AddonId
 
 
 class Downloader:
