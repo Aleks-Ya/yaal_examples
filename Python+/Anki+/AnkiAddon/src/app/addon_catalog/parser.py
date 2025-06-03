@@ -5,14 +5,14 @@ from typing import Optional
 
 from bs4 import ResultSet, Tag, BeautifulSoup
 
-from app.addon_catalog.github_service import GithubService
 from app.addon_catalog.data_types import AddonHeader, AddonDetails, AddonId, URL, GitHubLink, GitHubRepo, RepoName, \
     GithubUserName, GitHubUser, LanguageName
+from app.addon_catalog.github_service_rest import GithubServiceRest
 
 
 class Parser:
-    def __init__(self, github_service: GithubService):
-        self.github_service: GithubService = github_service
+    def __init__(self, github_service: GithubServiceRest):
+        self.github_service: GithubServiceRest = github_service
 
     @staticmethod
     def parse_addons_page(html: str) -> list[AddonHeader]:

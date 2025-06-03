@@ -12,7 +12,7 @@ from app.addon_catalog.data_types import GitHubRepo, LanguageName
 
 class GithubService:
     def __init__(self):
-        self.github: Github = Github()
+        self.github: Github = Github(lazy=True)
         self.cache_dir: Path = Path(tempfile.gettempdir()) / "addon_catalog" / "cache" / "github"
 
     def __del__(self):
