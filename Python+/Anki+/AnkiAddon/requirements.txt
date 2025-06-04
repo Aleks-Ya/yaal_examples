@@ -12,3 +12,5 @@ requests
 selenium
 PyGithub
 bs4
+mdutils
+pyyaml

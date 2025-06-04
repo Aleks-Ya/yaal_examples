@@ -5,9 +5,9 @@ from typing import Optional
 
 from bs4 import ResultSet, Tag, BeautifulSoup
 
-from app.addon_catalog.data_types import AddonHeader, AddonDetails, AddonId, URL, GitHubLink, GitHubRepo, RepoName, \
-    GithubUserName, GitHubUser, LanguageName
-from app.addon_catalog.github_service_rest import GithubServiceRest
+from app.addon_catalog.common.data_types import AddonHeader, AddonDetails, AddonId, URL, GitHubLink, GitHubRepo, \
+    RepoName, GithubUserName, GitHubUser, LanguageName
+from app.addon_catalog.collector.github_service_rest import GithubServiceRest
 
 
 class Parser:
@@ -24,7 +24,7 @@ class Parser:
             cells: ResultSet[Tag] = row.find_all("td")
             title: str = cells[0].text
             addon_page: str = f"""https://ankiweb.net{cells[0].find("a")["href"]}"""
-            addon_id: AddonId = AddonId(addon_page.split("/")[-1])
+            addon_id: AddonId = AddonId(int(addon_page.split("/")[-1]))
             rating: str = cells[1].text
             update_date: str = cells[2].text
             versions: str = cells[3].text

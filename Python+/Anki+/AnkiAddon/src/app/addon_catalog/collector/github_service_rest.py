@@ -7,7 +7,7 @@ import json
 from requests import Response
 import requests
 
-from app.addon_catalog.data_types import GitHubRepo, LanguageName
+from app.addon_catalog.common.data_types import GitHubRepo, LanguageName
 
 
 class GithubServiceRest:

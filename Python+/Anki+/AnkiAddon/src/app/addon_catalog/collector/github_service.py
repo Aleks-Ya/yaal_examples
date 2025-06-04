@@ -7,7 +7,7 @@ from typing import Any
 from github import Github
 from github.Repository import Repository
 
-from app.addon_catalog.data_types import GitHubRepo, LanguageName
+from app.addon_catalog.common.data_types import GitHubRepo, LanguageName
 
 
 class GithubService:

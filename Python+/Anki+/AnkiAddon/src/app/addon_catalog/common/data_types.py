@@ -1,7 +1,7 @@
 from typing import NewType, Optional
 from dataclasses import dataclass
 
-AddonId = NewType("AddonId", str)
+AddonId = NewType("AddonId", int)
 URL = NewType("URL", str)
 RepoName = NewType("RepoName", str)
 GithubUserName = NewType("GithubUserName", str)
