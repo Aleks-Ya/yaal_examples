@@ -117,3 +117,4 @@ srt #19K
 reportlab
 PyGithub
 selenium
+kagglehub[pandas-datasets]
