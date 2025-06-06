@@ -4,6 +4,7 @@ import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.error.platform.ResourceDoesNotExist;
 import com.databricks.sdk.mixin.SecretsExt;
 import com.databricks.sdk.service.workspace.PutSecret;
+import com.databricks.sdk.service.workspace.SecretScope;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,6 +15,13 @@ class SecretsIT {
     private final SecretsExt secrets = w.secrets();
     private final SecretsHelper helper = new SecretsHelper(secrets);
     private final String scope = "temp_scope_1";
+
+    @Test
+    void listScopes() {
+        var scopes = secrets.listScopes();
+        scopes.forEach(System.out::println);
+        assertThat(scopes).isNotEmpty();
+    }
 
     @Test
     void createDeleteScope() {
