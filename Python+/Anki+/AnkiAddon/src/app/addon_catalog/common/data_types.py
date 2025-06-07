@@ -51,5 +51,5 @@ class AddonDetails:
     header: AddonHeader
     github_links: list[GitHubLink]
     other_links: list[URL]
-    github_repo_id: Optional[RepoId]
+    github_repo: Optional[GitHubRepo]
     languages: list[LanguageName]

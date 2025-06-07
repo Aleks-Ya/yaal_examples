@@ -6,9 +6,10 @@ import yaml
 from app.addon_catalog.common.data_types import AddonDetails, AddonId
 
 
-class AddonDetailsOverwriter:
+class AddonDetailsOverrider:
     @staticmethod
-    def overwrite(details_list: list[AddonDetails], override_file: Path) -> list[AddonDetails]:
+    def overwrite(details_list: list[AddonDetails]) -> list[AddonDetails]:
+        override_file: Path = Path(__file__).parent / "overrides.yaml"
         print(f"Read override file: {override_file}")
         data: dict[str, dict[AddonId, Any]] = yaml.safe_load(override_file.read_text())
         addons_data: dict[AddonId, Any] = data.get("addons", {})

@@ -1,31 +1,18 @@
-from pathlib import Path
-
-from app.addon_catalog.collector.addon_details_overwriter import AddonDetailsOverwriter
-from app.addon_catalog.common.data_types import AddonHeader, AddonDetails
-from app.addon_catalog.collector.downloader import Downloader
-from app.addon_catalog.collector.github_service_rest import GithubServiceRest
-from app.addon_catalog.collector.parser import Parser
+from app.addon_catalog.collector.enricher.enricher import Enricher
+from app.addon_catalog.collector.overrider.addon_details_overrider import AddonDetailsOverrider
+from app.addon_catalog.common.data_types import AddonDetails
+from app.addon_catalog.collector.ankiweb.ankiweb_service import AnkiWebService
+from app.addon_catalog.collector.github.github_service_rest import GithubServiceRest
 
 
 class AddonCollector:
+    def __init__(self, ankiweb_service: AnkiWebService, github_service: GithubServiceRest, enricher: Enricher):
+        self.__ankiweb_service: AnkiWebService = ankiweb_service
+        self.__github_service: GithubServiceRest = github_service
+        self.__enricher: Enricher = enricher
 
-    @staticmethod
-    def collect_addons() -> list[AddonDetails]:
-        downloader: Downloader = Downloader()
-        html: str = downloader.load_addons_page()
-        addon_headers: list[AddonHeader] = Parser.parse_addons_page(html)
-        print(addon_headers)
-
-        github_service: GithubServiceRest = GithubServiceRest()
-        parser: Parser = Parser(github_service)
-
-        details_list: list[AddonDetails] = []
-        for addon_header in addon_headers:
-            html: str = downloader.load_addon_page(addon_header.id)
-            addon_details: AddonDetails = parser.parse_addon_page(addon_header, html)
-            details_list.append(addon_details)
-
-        override_file: Path = Path(__file__).parent / "override.yaml"
-        overridden_list: list[AddonDetails] = AddonDetailsOverwriter.overwrite(details_list, override_file)
-
+    def collect_addons(self) -> list[AddonDetails]:
+        details_list: list[AddonDetails] = self.__ankiweb_service.load_addons_list()
+        enriched_details_list: list[AddonDetails] = self.__enricher.enrich_list(details_list)
+        overridden_list: list[AddonDetails] = AddonDetailsOverrider.overwrite(enriched_details_list)
         return overridden_list

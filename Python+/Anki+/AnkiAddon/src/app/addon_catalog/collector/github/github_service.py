@@ -1,5 +1,4 @@
 import json
-import tempfile
 from pathlib import Path
 from time import sleep
 from typing import Any
@@ -11,9 +10,9 @@ from app.addon_catalog.common.data_types import GitHubRepo, LanguageName
 
 
 class GithubService:
-    def __init__(self):
+    def __init__(self, cache_dir: Path):
         self.github: Github = Github(lazy=True)
-        self.cache_dir: Path = Path(tempfile.gettempdir()) / "addon_catalog" / "cache" / "github"
+        self.cache_dir: Path = cache_dir / "github"
 
     def __del__(self):
         self.github.close()

@@ -6,13 +6,10 @@ from typing import Optional
 from bs4 import ResultSet, Tag, BeautifulSoup
 
 from app.addon_catalog.common.data_types import AddonHeader, AddonDetails, AddonId, URL, GitHubLink, GitHubRepo, \
-    RepoName, GithubUserName, GitHubUser, LanguageName
-from app.addon_catalog.collector.github_service_rest import GithubServiceRest
+    RepoName, GithubUserName, GitHubUser
 
 
-class Parser:
-    def __init__(self, github_service: GithubServiceRest):
-        self.github_service: GithubServiceRest = github_service
+class AnkiWebParser:
 
     @staticmethod
     def parse_addons_page(html: str) -> list[AddonHeader]:
@@ -32,17 +29,13 @@ class Parser:
             addon_rows.append(addon_header)
         return addon_rows
 
-    def parse_addon_page(self, addon_header: AddonHeader, html: str) -> AddonDetails:
-        all_links: list[URL] = Parser.extract_all_links(html)
-        github_links: list[GitHubLink] = Parser.find_github_links(all_links)
+    @staticmethod
+    def parse_addon_page(addon_header: AddonHeader, html: str) -> AddonDetails:
+        all_links: list[URL] = AnkiWebParser.extract_all_links(html)
+        github_links: list[GitHubLink] = AnkiWebParser.find_github_links(all_links)
         other_links: list[URL] = [link for link in all_links if link not in github_links]
-        github_repo: Optional[GitHubRepo] = Parser.deduct_github_repo_name(github_links)
-        if github_repo:
-            language_dict: dict[LanguageName, int] = self.github_service.get_languages(github_repo)
-            languages: list[LanguageName] = list(language_dict.keys())
-        else:
-            languages: list[LanguageName] = []
-        details: AddonDetails = AddonDetails(addon_header, github_links, other_links, github_repo, languages)
+        github_repo: Optional[GitHubRepo] = AnkiWebParser.deduct_github_repo_name(github_links)
+        details: AddonDetails = AddonDetails(addon_header, github_links, other_links, github_repo, [])
         return details
 
     @staticmethod
@@ -51,7 +44,7 @@ class Parser:
 
     @staticmethod
     def find_github_links(links: list[str]) -> list[GitHubLink]:
-        parsed_links: list[Optional[GitHubLink]] = [Parser.parse_github_url(URL(link)) for link in links]
+        parsed_links: list[Optional[GitHubLink]] = [AnkiWebParser.parse_github_url(URL(link)) for link in links]
         return [link for link in parsed_links if link is not None]
 
     @staticmethod
