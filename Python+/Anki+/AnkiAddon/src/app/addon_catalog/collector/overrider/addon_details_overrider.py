@@ -1,3 +1,4 @@
+import shutil
 from pathlib import Path
 from typing import Any
 
@@ -7,8 +8,10 @@ from app.addon_catalog.common.data_types import AddonDetails, AddonId
 
 
 class AddonDetailsOverrider:
-    @staticmethod
-    def overwrite(details_list: list[AddonDetails]) -> list[AddonDetails]:
+    def __init__(self, dataset_dir: Path):
+        self.__dataset_dir: Path = dataset_dir
+
+    def overwrite(self, details_list: list[AddonDetails]) -> list[AddonDetails]:
         override_file: Path = Path(__file__).parent / "overrides.yaml"
         print(f"Read override file: {override_file}")
         data: dict[str, dict[AddonId, Any]] = yaml.safe_load(override_file.read_text())
@@ -17,4 +20,5 @@ class AddonDetailsOverrider:
             if details.header.id in addons_data:
                 for key, value in addons_data[details.header.id].items():
                     setattr(details.header, key, value)
+        shutil.copy(override_file, self.__dataset_dir / "overrides.yaml")
         return details_list

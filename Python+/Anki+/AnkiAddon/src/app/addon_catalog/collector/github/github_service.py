@@ -7,6 +7,7 @@ from github import Github
 from github.Repository import Repository
 
 from app.addon_catalog.common.data_types import GitHubRepo, LanguageName
+from app.addon_catalog.common.json_helper import JsonHelper
 
 
 class GithubService:
@@ -31,8 +32,7 @@ class GithubService:
                 print(f"Failed to get languages for {repo.get_id()}: {e}")
                 languages: dict[LanguageName, int] = {}
             content: dict[str, Any] = {languages_property: languages}
-            content_json: str = json.dumps(content, indent=2)
-            cache_file.write_text(content_json)
+            JsonHelper.write_dict_to_file(content, cache_file)
         content_json: str = cache_file.read_text()
         content: dict[str, Any] = json.loads(content_json)
         languages: dict[LanguageName, int] = content[languages_property]

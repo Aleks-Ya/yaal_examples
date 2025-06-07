@@ -15,12 +15,15 @@
         - addon
             - {addon-id}.html
     - json
-        - addons.json
         - addon
             - {addon-id}.json
 - github
     - {user}
-        - {repo}.json
+        - {repo}
+            - languages.json
+- enricher
+    - addon
+        - {addon-id}.json
 - overrides.yaml
 - anki-addon-catalog.json
 - anki-addon-catalog.md
