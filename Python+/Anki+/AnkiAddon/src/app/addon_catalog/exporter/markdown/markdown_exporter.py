@@ -11,7 +11,7 @@ class MarkdownExporter:
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
     def export(self, details_list: list[AddonDetails]):
-        output_file: Path = self.output_dir / "addons.md"
+        output_file: Path = self.output_dir / "anki-addon-catalog.md"
         md: MdUtils = MdUtils(file_name=str(output_file), title='Anki Addons Catalog for Programmers')
         md.new_line()
         lines: list[str] = ["ID", "Title", "Rating", "Stars"]

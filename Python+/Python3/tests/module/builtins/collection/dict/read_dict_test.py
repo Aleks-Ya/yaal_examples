@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional
 
 from pytest import raises
 
@@ -31,3 +31,11 @@ def test_size_key():
 def test_nested_dict():
     d: dict[str, dict[str, str]] = dict(address=dict(city="London"))
     assert d['address']['city'] == "London"
+
+
+def test_nested_dict_without_exception():
+    d: dict[str, dict[str, str]] = dict(address=dict(city="London"))
+    value_present: Optional[str] = d.get('address', {}).get('city')
+    assert value_present == "London"
+    value_absent: Optional[str] = d.get('address', {}).get('mayor')
+    assert value_absent is None

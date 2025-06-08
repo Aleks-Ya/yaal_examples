@@ -1,12 +1,10 @@
-import re
 from itertools import groupby
-from re import Match
 from typing import Optional
 
 from bs4 import ResultSet, Tag, BeautifulSoup
 
-from app.addon_catalog.common.data_types import AddonHeader, AddonDetails, AddonId, URL, GitHubLink, GitHubRepo, \
-    RepoName, GithubUserName, GitHubUser
+from app.addon_catalog.collector.ankiweb.url_parser import UrlParser
+from app.addon_catalog.common.data_types import AddonHeader, AddonDetails, AddonId, URL, GitHubLink, GitHubRepo
 
 
 class AnkiWebParser:
@@ -31,39 +29,12 @@ class AnkiWebParser:
 
     @staticmethod
     def parse_addon_page(addon_header: AddonHeader, html: str) -> AddonDetails:
-        all_links: list[URL] = AnkiWebParser.__extract_all_links(html)
-        github_links: list[GitHubLink] = AnkiWebParser.__find_github_links(all_links)
+        all_links: list[URL] = UrlParser.extract_all_links(html)
+        github_links: list[GitHubLink] = UrlParser.find_github_links(all_links)
         other_links: list[URL] = [link for link in all_links if link not in github_links]
         github_repo: Optional[GitHubRepo] = AnkiWebParser.__deduct_github_repo_name(github_links)
-        details: AddonDetails = AddonDetails(addon_header, github_links, other_links, github_repo, [], 0)
+        details: AddonDetails = AddonDetails(addon_header, github_links, other_links, github_repo, [], 0, None)
         return details
-
-    @staticmethod
-    def __extract_all_links(html: str) -> list[URL]:
-        return re.findall(r'https?://[^\s"<>\']+', html)
-
-    @staticmethod
-    def __find_github_links(links: list[str]) -> list[GitHubLink]:
-        parsed_links: list[Optional[GitHubLink]] = [AnkiWebParser.__parse_github_url(URL(link)) for link in links]
-        return [link for link in parsed_links if link is not None]
-
-    @staticmethod
-    def __parse_github_url(url: URL) -> Optional[GitHubLink]:
-        repo_pattern: str = r'https://github\.com[:/](?P<user>[^/]+)/(?P<repo>[^/]+)'
-        repo_match: Optional[Match[str]] = re.search(repo_pattern, url)
-        if repo_match:
-            user_name: GithubUserName = repo_match.group('user')
-            user: GitHubUser = GitHubUser(user_name)
-            repo_name: RepoName = repo_match.group('repo')
-            repo: GitHubRepo = GitHubRepo(user_name, repo_name)
-            return GitHubLink(url, user, repo)
-        user_pattern: str = r'https://github\.com[:/](?P<user>[^/]+)'
-        user_match: Optional[Match[str]] = re.search(user_pattern, url)
-        if user_match:
-            user_name: GithubUserName = user_match.group('user')
-            user: GitHubUser = GitHubUser(user_name)
-            return GitHubLink(url, user, None)
-        return None
 
     @staticmethod
     def __deduct_github_repo_name(github_urls: list[GitHubLink]) -> Optional[GitHubRepo]:

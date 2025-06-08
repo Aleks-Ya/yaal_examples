@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import NewType, Optional
 from dataclasses import dataclass
 
@@ -54,3 +55,4 @@ class AddonDetails:
     github_repo: Optional[GitHubRepo]
     languages: list[LanguageName]
     stars: int
+    last_commit: Optional[datetime]

@@ -10,7 +10,7 @@ class JsonExporter:
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
     def export(self, details_list: list[AddonDetails]) -> None:
-        output_file: Path = self.output_dir / "addons.json"
+        output_file: Path = self.output_dir / "anki-addon-catalog.json"
         json_str: str = JsonHelper.convert_addons_to_json(details_list)
         output_file.write_text(json_str)
         print(f"Write JSON to file: {output_file}")

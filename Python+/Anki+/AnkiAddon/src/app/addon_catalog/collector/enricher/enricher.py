@@ -1,15 +1,17 @@
+from datetime import datetime
 from pathlib import Path
+from typing import Optional
 
 from app.addon_catalog.common.data_types import AddonDetails, LanguageName
-from app.addon_catalog.collector.github.github_service_rest import GithubServiceRest
+from app.addon_catalog.collector.github.github_service import GithubService
 from app.addon_catalog.common.json_helper import JsonHelper
 
 
 class Enricher:
-    def __init__(self, dataset_dir: Path, github_service: GithubServiceRest):
+    def __init__(self, dataset_dir: Path, github_service: GithubService):
         self.__dataset_dir: Path = dataset_dir / "enricher" / "addon"
         self.__dataset_dir.mkdir(parents=True, exist_ok=True)
-        self.__github_service: GithubServiceRest = github_service
+        self.__github_service: GithubService = github_service
 
     def enrich_list(self, addon_details_list: list[AddonDetails]) -> list[AddonDetails]:
         return [self.enrich(addon_details) for addon_details in addon_details_list]
@@ -17,9 +19,10 @@ class Enricher:
     def enrich(self, addon_details: AddonDetails) -> AddonDetails:
         languages: list[LanguageName] = self.__get_languages(addon_details)
         stars: int = self.__github_service.get_stars_count(addon_details.github_repo)
+        last_commit: Optional[datetime] = self.__github_service.get_last_commit(addon_details.github_repo)
         enriched_details: AddonDetails = AddonDetails(addon_details.header, addon_details.github_links,
                                                       addon_details.other_links, addon_details.github_repo,
-                                                      languages, stars)
+                                                      languages, stars, last_commit)
         addon_json_file: Path = self.__dataset_dir / f"{addon_details.header.id}.json"
         JsonHelper.write_addon_details_to_file(addon_details, addon_json_file)
         return enriched_details
