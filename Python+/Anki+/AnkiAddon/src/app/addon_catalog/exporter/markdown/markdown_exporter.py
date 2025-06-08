@@ -14,10 +14,11 @@ class MarkdownExporter:
         output_file: Path = self.output_dir / "addons.md"
         md: MdUtils = MdUtils(file_name=str(output_file), title='Anki Addons Catalog for Programmers')
         md.new_line()
-        lines: list[str] = ["ID", "Title", "Stars"]
+        lines: list[str] = ["ID", "Title", "Rating", "Stars"]
+        column_number: int = len(lines)
         for addon in details_list:
-            line: list[str] = [addon.header.id, addon.header.title, addon.header.rating]
+            line: list[str] = [addon.header.id, addon.header.title, addon.header.rating, addon.stars]
             lines.extend(line)
-        md.new_table(3, len(details_list) + 1, lines)
+        md.new_table(column_number, len(details_list) + 1, lines)
         md.create_md_file()
         print(f"Write JSON to file: {output_file}")

@@ -35,7 +35,7 @@ class AnkiWebParser:
         github_links: list[GitHubLink] = AnkiWebParser.__find_github_links(all_links)
         other_links: list[URL] = [link for link in all_links if link not in github_links]
         github_repo: Optional[GitHubRepo] = AnkiWebParser.__deduct_github_repo_name(github_links)
-        details: AddonDetails = AddonDetails(addon_header, github_links, other_links, github_repo, [])
+        details: AddonDetails = AddonDetails(addon_header, github_links, other_links, github_repo, [], 0)
         return details
 
     @staticmethod

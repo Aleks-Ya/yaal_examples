@@ -4,7 +4,6 @@
 - [ ] Add new fields
     - [ ] Anki Forum page
     - [ ] GitHub
-        - [ ] GitHub repo stars number
         - [ ] Last commit to GitHub repo
         - [ ] Does repo have tests?
 

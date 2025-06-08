@@ -118,3 +118,4 @@ reportlab
 PyGithub
 selenium
 kagglehub[pandas-datasets]
+requests-cache

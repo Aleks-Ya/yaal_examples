@@ -53,3 +53,4 @@ class AddonDetails:
     other_links: list[URL]
     github_repo: Optional[GitHubRepo]
     languages: list[LanguageName]
+    stars: int

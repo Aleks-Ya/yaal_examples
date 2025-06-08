@@ -20,7 +20,6 @@ class AnkiWebService:
         self.__dataset_html_dir: Path = dataset_ankiweb_dir / "html"
         self.__dataset_html_dir.mkdir(parents=True, exist_ok=True)
         self.__dataset_json_dir: Path = dataset_ankiweb_dir / "json" / "addon"
-        self.__dataset_json_dir.mkdir(parents=True, exist_ok=True)
 
     def __del__(self) -> None:
         self.__driver.quit()
@@ -28,6 +27,7 @@ class AnkiWebService:
     def load_addons_list(self) -> list[AddonDetails]:
         addon_headers: list[AddonHeader] = self.__get_headers()
         details_list: list[AddonDetails] = self.__get_details_list(addon_headers)
+        print(f"Addon number: {len(details_list)}")
         return details_list
 
     def __get_headers(self) -> list[AddonHeader]:

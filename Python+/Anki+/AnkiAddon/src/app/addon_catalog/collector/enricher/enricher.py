@@ -16,8 +16,10 @@ class Enricher:
 
     def enrich(self, addon_details: AddonDetails) -> AddonDetails:
         languages: list[LanguageName] = self.__get_languages(addon_details)
+        stars: int = self.__github_service.get_stars_count(addon_details.github_repo)
         enriched_details: AddonDetails = AddonDetails(addon_details.header, addon_details.github_links,
-                                                      addon_details.other_links, addon_details.github_repo, languages)
+                                                      addon_details.other_links, addon_details.github_repo,
+                                                      languages, stars)
         addon_json_file: Path = self.__dataset_dir / f"{addon_details.header.id}.json"
         JsonHelper.write_addon_details_to_file(addon_details, addon_json_file)
         return enriched_details
