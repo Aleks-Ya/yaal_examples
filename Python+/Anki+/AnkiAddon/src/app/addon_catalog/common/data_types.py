@@ -15,7 +15,7 @@ class AddonHeader:
     id: AddonId
     title: str
     addon_page: str
-    rating: str
+    rating: int
     update_date: str
     versions: str
 
@@ -56,3 +56,4 @@ class AddonDetails:
     languages: list[LanguageName]
     stars: int
     last_commit: Optional[datetime]
+    anki_forum_url: Optional[URL]

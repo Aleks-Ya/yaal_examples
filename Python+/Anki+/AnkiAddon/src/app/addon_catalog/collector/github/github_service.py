@@ -20,7 +20,7 @@ class GithubService:
         self.__headers: dict[str, str] = {
             'Authorization': f'Bearer {token}'
         }
-        self.__dataset_dir: Path = dataset_dir / "github"
+        self.__dataset_dir: Path = dataset_dir / "raw" / "2-github"
         self.__cache_dir: Path = cache_dir / "github"
         self.__languages_property: str = "languages"
 

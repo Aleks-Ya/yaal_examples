@@ -9,7 +9,7 @@ from app.addon_catalog.common.json_helper import JsonHelper
 
 class Enricher:
     def __init__(self, dataset_dir: Path, github_service: GithubService):
-        self.__dataset_dir: Path = dataset_dir / "enricher" / "addon"
+        self.__dataset_dir: Path = dataset_dir / "raw" / "3-enricher" / "addon"
         self.__dataset_dir.mkdir(parents=True, exist_ok=True)
         self.__github_service: GithubService = github_service
 
@@ -22,7 +22,7 @@ class Enricher:
         last_commit: Optional[datetime] = self.__github_service.get_last_commit(addon_details.github_repo)
         enriched_details: AddonDetails = AddonDetails(addon_details.header, addon_details.github_links,
                                                       addon_details.other_links, addon_details.github_repo,
-                                                      languages, stars, last_commit)
+                                                      languages, stars, last_commit, addon_details.anki_forum_url)
         addon_json_file: Path = self.__dataset_dir / f"{addon_details.header.id}.json"
         JsonHelper.write_addon_details_to_file(addon_details, addon_json_file)
         return enriched_details

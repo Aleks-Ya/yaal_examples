@@ -17,6 +17,11 @@ class UrlParser:
         return [link for link in parsed_links if link is not None]
 
     @staticmethod
+    def find_anki_forum_links(links: list[URL]) -> list[URL]:
+        parsed_links: list[Optional[URL]] = [UrlParser.__parse_anki_forum_url(URL(link)) for link in links]
+        return [link for link in parsed_links if link is not None]
+
+    @staticmethod
     def __parse_github_url(url: URL) -> Optional[GitHubLink]:
         repo_pattern: str = r'https://github\.com[:/](?P<user>[^/]+)/(?P<repo>[^/?#)(]+)'
         repo_match: Optional[Match[str]] = re.search(repo_pattern, url)
@@ -33,3 +38,9 @@ class UrlParser:
             user: GitHubUser = GitHubUser(user_name)
             return GitHubLink(url, user, None)
         return None
+
+    @staticmethod
+    def __parse_anki_forum_url(url: URL) -> Optional[URL]:
+        pattern: str = r"https://forums\.ankiweb\.net/t/[\w\-]+/\d+"
+        match: Optional[Match[str]] = re.match(pattern, url)
+        return url if match else None

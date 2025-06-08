@@ -20,5 +20,7 @@ class AddonDetailsOverrider:
             if details.header.id in addons_data:
                 for key, value in addons_data[details.header.id].items():
                     setattr(details.header, key, value)
-        shutil.copy(override_file, self.__dataset_dir / "overrides.yaml")
+        dest_file: Path = self.__dataset_dir / "raw" / "4-overrider" / "overrides.yaml"
+        dest_file.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(override_file, dest_file)
         return details_list

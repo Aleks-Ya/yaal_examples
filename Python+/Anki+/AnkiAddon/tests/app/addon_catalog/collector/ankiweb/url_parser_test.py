@@ -29,3 +29,15 @@ def test_find_github_links():
                    GitHubUser(GithubUserName("arthur-milchior")),
                    GitHubRepo(GithubUserName("arthur-milchior"), RepoName("note-organizer")))
     ]
+
+
+def test_find_anki_forum_links():
+    links: list[URL] = [
+        URL("https://github.com/Aleks-Ya/note-size-anki-addon/issues"),
+        URL("https://ankiweb.net/logo.png"),
+        URL("https://forums.ankiweb.net/t/batch-create-filtered-decks-official-thread/545")
+    ]
+    anki_forum_links: list[URL] = UrlParser.find_anki_forum_links(links)
+    assert anki_forum_links == [
+        URL("https://forums.ankiweb.net/t/batch-create-filtered-decks-official-thread/545")
+    ]

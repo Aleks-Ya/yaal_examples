@@ -12,22 +12,25 @@
    `kaggle datasets version -p /home/aleks/anki-addon-catalog/dataset -m "Update" -r zip`
 
 ## Dataset structure
-- anki-web
-    - html
-        - addons.html
-        - addon
-            - {addon-id}.html
-    - json
-        - addon
-            - {addon-id}.json
-- github
-    - {user}
-        - {repo}
-            - languages.json
-- enricher
-    - addon
-        - {addon-id}.json
-- overrides.yaml
+- dataset-metadata.json
 - anki-addon-catalog.json
 - anki-addon-catalog.md
 - anki-addon-catalog.xlsx
+- raw
+    - 1-anki-web
+        - html
+            - addons.html
+            - addon
+                - {addon-id}.html
+        - json
+            - addon
+                - {addon-id}.json
+    - 2-github
+        - {user}
+            - {repo}
+                - languages.json
+    - 3-enricher
+        - addon
+            - {addon-id}.json
+    - 4-overrider
+        - overrides.yaml

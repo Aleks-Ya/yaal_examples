@@ -20,7 +20,7 @@ class AnkiWebParser:
             title: str = cells[0].text
             addon_page: str = f"""https://ankiweb.net{cells[0].find("a")["href"]}"""
             addon_id: AddonId = AddonId(int(addon_page.split("/")[-1]))
-            rating: str = cells[1].text
+            rating: int = int(cells[1].text)
             update_date: str = cells[2].text
             versions: str = cells[3].text
             addon_header: AddonHeader = AddonHeader(addon_id, title, addon_page, rating, update_date, versions)
@@ -33,7 +33,10 @@ class AnkiWebParser:
         github_links: list[GitHubLink] = UrlParser.find_github_links(all_links)
         other_links: list[URL] = [link for link in all_links if link not in github_links]
         github_repo: Optional[GitHubRepo] = AnkiWebParser.__deduct_github_repo_name(github_links)
-        details: AddonDetails = AddonDetails(addon_header, github_links, other_links, github_repo, [], 0, None)
+        anki_forum_links: list[URL] = UrlParser.find_anki_forum_links(all_links)
+        anki_forum_url: Optional[URL] = AnkiWebParser.__deduct_anki_forum_url(anki_forum_links)
+        details: AddonDetails = AddonDetails(addon_header, github_links, other_links, github_repo, [], 0, None,
+                                             anki_forum_url)
         return details
 
     @staticmethod
@@ -45,4 +48,15 @@ class AnkiWebParser:
         if len(counts) == 0:
             return None
         max_tuple: tuple[GitHubRepo, int] = max(counts.items(), key=lambda item: item[1])
+        return max_tuple[0]
+
+    @staticmethod
+    def __deduct_anki_forum_url(anki_forum_urls: list[URL]) -> Optional[URL]:
+        urls_sorted: list[URL] = list(anki_forum_urls)
+        urls_sorted.sort()
+        grouped: groupby[URL, URL] = groupby(urls_sorted)
+        counts: dict[URL, int] = {k: len(list(v)) for k, v in grouped}
+        if len(counts) == 0:
+            return None
+        max_tuple: tuple[URL, int] = max(counts.items(), key=lambda item: item[1])
         return max_tuple[0]

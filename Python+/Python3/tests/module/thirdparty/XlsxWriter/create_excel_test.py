@@ -37,3 +37,11 @@ def test_column_width():
     worksheet.write("A1", "Hello Hello Hello Hello Hello Hello Hello Hello")
     worksheet.write("A2", "World World World")
     workbook.close()
+
+
+def test_url():
+    file: Path = TempPath.temp_path_absent(suffix=".xlsx")
+    workbook: Workbook = Workbook(file)
+    worksheet: Worksheet = workbook.add_worksheet()
+    worksheet.write_url('A1', 'http://www.example.com', string='Example Link')
+    workbook.close()
