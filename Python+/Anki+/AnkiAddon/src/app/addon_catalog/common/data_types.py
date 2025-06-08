@@ -4,9 +4,9 @@ from dataclasses import dataclass
 
 AddonId = NewType("AddonId", int)
 URL = NewType("URL", str)
-RepoName = NewType("RepoName", str)
+GithubRepoName = NewType("GithubRepoName", str)
 GithubUserName = NewType("GithubUserName", str)
-RepoId = NewType("RepoId", str)
+GithubRepoId = NewType("GithubRepoId", str)
 LanguageName = NewType("LanguageName", str)
 
 
@@ -31,10 +31,10 @@ class GitHubUser:
 @dataclass(frozen=True)
 class GitHubRepo:
     user: GithubUserName
-    repo_name: RepoName
+    repo_name: GithubRepoName
 
-    def get_id(self) -> RepoId:
-        return RepoId(f"{self.user}/{self.repo_name}")
+    def get_id(self) -> GithubRepoId:
+        return GithubRepoId(f"{self.user}/{self.repo_name}")
 
     def get_url(self) -> URL:
         return URL(f"https://github.com/{self.user}/{self.repo_name}")

@@ -1,6 +1,5 @@
 import dataclasses
 import json
-from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -8,11 +7,6 @@ from app.addon_catalog.common.data_types import AddonDetails
 
 
 class JsonHelper:
-
-    @staticmethod
-    def convert_addons_to_json(addons: list[AddonDetails]) -> str:
-        dicts: list[dict[str, Any]] = [dataclasses.asdict(addon) for addon in addons]
-        return json.dumps(dicts, indent=2, default=JsonHelper.datetime_serializer)
 
     @staticmethod
     def write_addon_details_to_file(addon_details: AddonDetails, file: Path) -> None:
@@ -29,9 +23,3 @@ class JsonHelper:
     @staticmethod
     def write_content_to_file(content: str, file: Path) -> None:
         JsonHelper.write_dict_to_file(json.loads(content), file)
-
-    @staticmethod
-    def datetime_serializer(obj):
-        if isinstance(obj, datetime):
-            return obj.isoformat()
-        raise TypeError(f"Type {type(obj)} not serializable")

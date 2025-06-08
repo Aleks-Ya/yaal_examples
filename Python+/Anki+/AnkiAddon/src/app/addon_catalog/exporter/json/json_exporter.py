@@ -1,7 +1,40 @@
+import dataclasses
+import json
+from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, Optional
 
 from app.addon_catalog.common.data_types import AddonDetails
-from app.addon_catalog.common.json_helper import JsonHelper
+
+
+@dataclass
+class Link:
+    url: str
+    user: Optional[str]
+    repo: Optional[str]
+
+
+@dataclass
+class GitHub:
+    user: Optional[str]
+    repo: Optional[str]
+    languages: list[str]
+    stars: int
+    last_commit: str
+    links: list[Link]
+
+
+@dataclass
+class Details:
+    id: int
+    title: str
+    addon_page: str
+    rating: int
+    update_date: str
+    versions: str
+    anki_forum_url: Optional[str]
+    github: GitHub
+    links: list[str]
 
 
 class JsonExporter:
@@ -10,7 +43,27 @@ class JsonExporter:
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
     def export(self, details_list: list[AddonDetails]) -> None:
+        json_list: list[Details] = []
+        for addon in details_list:
+            links: list[Link] = [Link(link.url,
+                                      link.user.user_name,
+                                      link.repo.repo_name if link.repo else None)
+                                 for link in addon.github_links]
+            last_commit_str: str = addon.last_commit.isoformat() if addon.last_commit else None
+            user: str = addon.github_repo.user if addon.github_repo else None
+            repo_str: str = addon.github_repo.repo_name if addon.github_repo else None
+            github: GitHub = GitHub(user, repo_str, addon.languages, addon.stars, last_commit_str, links)
+            json_obj: Details = Details(
+                addon.header.id, addon.header.title, addon.header.addon_page,
+                addon.header.rating, addon.header.update_date, addon.header.versions,
+                addon.anki_forum_url, github, addon.other_links)
+            json_list.append(json_obj)
         output_file: Path = self.output_dir / "anki-addon-catalog.json"
-        json_str: str = JsonHelper.convert_addons_to_json(details_list)
+        json_str: str = JsonExporter.__to_json(json_list)
         output_file.write_text(json_str)
         print(f"Write JSON to file: {output_file}")
+
+    @staticmethod
+    def __to_json(addons: list[Details]) -> str:
+        dicts: list[dict[str, Any]] = [dataclasses.asdict(addon) for addon in addons]
+        return json.dumps(dicts, indent=2)

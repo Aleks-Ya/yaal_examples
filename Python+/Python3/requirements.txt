@@ -120,3 +120,5 @@ selenium
 kagglehub[pandas-datasets]
 requests-cache
 XlsxWriter
+glom
+dpath

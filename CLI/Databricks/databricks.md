@@ -44,6 +44,8 @@ Delete a file: `databricks fs rm dbfs:/remote/directory/file.txt`
 Delete a directory: `databricks fs rm -r dbfs:/dir1`
 List files in a directory: `databricks fs ls dbfs:/cluster-logs-anna/driver`
 Show file content: `databricks fs cat dbfs:/cluster-logs-anna/driver/log4j-active.log`
+Copy a directory: `databricks fs cp -r dbfs:/src_dir dbfs:/dest_dir` (`src_dir/*` copied to `dest_dir/*`)
+Move a dirctory: copy + delete
  
 #### Workspace (`/Workspace` dir is hidden in DBFS)
 List files in `/Workspace` dir: `databricks workspace list /`

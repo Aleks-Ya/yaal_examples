@@ -1,5 +1,6 @@
 import textwrap
 from io import StringIO
+from pathlib import Path
 
 import pandas as pd
 from pandas import DataFrame
@@ -17,7 +18,8 @@ def test_read_csv_str(people_df: DataFrame):
 
 
 def test_read_csv_file(people_df: DataFrame):
-    df: DataFrame = pd.read_csv("people.csv")
+    file: Path = Path(__file__).parent / 'people.csv'
+    df: DataFrame = pd.read_csv(file)
     assert_frame_equal(df, people_df)
 
 

@@ -16,6 +16,7 @@ class XlsxExporter:
     __last_commit_col: int = 5
     __github_url_col: int = 6
     __anki_forum_url_col: int = 7
+    __languages_col: int = 8
 
     def __init__(self, output_dir: Path):
         self.output_dir: Path = output_dir
@@ -30,7 +31,7 @@ class XlsxExporter:
         self.__add_rows(details_list, worksheet)
         worksheet.autofilter('A1:H1')
         worksheet.autofilter(first_row=0, first_col=XlsxExporter.__id_col, last_row=0,
-                             last_col=XlsxExporter.__anki_forum_url_col)
+                             last_col=XlsxExporter.__languages_col)
         workbook.close()
         print(f"Write XLSX to file: {output_file}")
 
@@ -44,6 +45,7 @@ class XlsxExporter:
         worksheet.set_column(XlsxExporter.__last_commit_col, XlsxExporter.__last_commit_col, 13)
         worksheet.set_column(XlsxExporter.__github_url_col, XlsxExporter.__github_url_col, 10)
         worksheet.set_column(XlsxExporter.__anki_forum_url_col, XlsxExporter.__anki_forum_url_col, 10)
+        worksheet.set_column(XlsxExporter.__languages_col, XlsxExporter.__languages_col, 50)
 
     @staticmethod
     def __add_header(workbook: Workbook, worksheet: Worksheet) -> None:
@@ -56,6 +58,7 @@ class XlsxExporter:
         worksheet.write(0, XlsxExporter.__last_commit_col, "Last commit", header_format)
         worksheet.write(0, XlsxExporter.__github_url_col, "GitHub", header_format)
         worksheet.write(0, XlsxExporter.__anki_forum_url_col, "Anki Forum", header_format)
+        worksheet.write(0, XlsxExporter.__languages_col, "Languages", header_format)
         worksheet.freeze_panes(1, 0)
 
     @staticmethod
@@ -73,3 +76,5 @@ class XlsxExporter:
                 worksheet.write_url(row, XlsxExporter.__github_url_col, addon.github_repo.get_url(), string='link')
             if addon.anki_forum_url:
                 worksheet.write_url(row, XlsxExporter.__anki_forum_url_col, addon.anki_forum_url, string='link')
+            languages_str: str = ", ".join(addon.languages)
+            worksheet.write(row, XlsxExporter.__languages_col, languages_str)

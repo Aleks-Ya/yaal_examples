@@ -2,7 +2,7 @@ import re
 from re import Match
 from typing import Optional
 
-from app.addon_catalog.common.data_types import URL, GitHubLink, GitHubRepo, RepoName, GithubUserName, GitHubUser
+from app.addon_catalog.common.data_types import URL, GitHubLink, GitHubRepo, GithubRepoName, GithubUserName, GitHubUser
 
 
 class UrlParser:
@@ -28,7 +28,7 @@ class UrlParser:
         if repo_match:
             user_name: GithubUserName = GithubUserName(repo_match.group('user').lower())
             user: GitHubUser = GitHubUser(user_name)
-            repo_name: RepoName = RepoName(repo_match.group('repo').lower())
+            repo_name: GithubRepoName = GithubRepoName(repo_match.group('repo').lower())
             repo: GitHubRepo = GitHubRepo(user_name, repo_name)
             return GitHubLink(url, user, repo)
         user_pattern: str = r'https://github\.com[:/](?P<user>[^/]+)'
