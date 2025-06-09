@@ -8,7 +8,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 
-class FilterTransformation extends AnyFlatSpec with Matchers {
+class FilterTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "filter a DataFrame" in {
     val df = Factory.peopleDf.filter(col("age") > 20)

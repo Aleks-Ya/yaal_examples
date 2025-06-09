@@ -5,7 +5,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 
-class LimitTransformation extends AnyFlatSpec with Matchers {
+class LimitTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "take 2 rows" in {
     val df = Factory.peopleDf

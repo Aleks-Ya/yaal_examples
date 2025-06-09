@@ -8,7 +8,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import util.FileUtil
 
-class MapPartitionsTransformation extends AnyFlatSpec with Matchers {
+class MapPartitionsTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "map a DataFrame by partitions" in {
     val ds: Dataset[Row] = Factory.peopleDf.repartition(2)

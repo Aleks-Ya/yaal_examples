@@ -6,7 +6,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 
-class SortTransformation extends AnyFlatSpec with Matchers {
+class SortTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "sort a DataFrame in default order (ASC)" in {
     val df = Factory.peopleDf.sort("age")

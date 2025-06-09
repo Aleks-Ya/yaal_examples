@@ -7,7 +7,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 
-class AggTransformation extends AnyFlatSpec with Matchers {
+class AggTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "calculate sum with an agg transformation" in {
     val df = Factory.peopleDf

@@ -6,7 +6,7 @@ import org.apache.spark.sql.types.StringType
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class DropDuplicatesTransformation extends AnyFlatSpec with Matchers {
+class DropDuplicatesTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "delete rows having the same value in a single field" in {
     val df = Factory.createDf(Map("name" -> StringType, "department" -> StringType),

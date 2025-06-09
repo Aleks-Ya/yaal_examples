@@ -7,7 +7,7 @@ import org.apache.spark.sql.types.{ArrayType, IntegerType, StringType}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class GroupByTransformation extends AnyFlatSpec with Matchers {
+class GroupByTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "use groupBy transformation" in {
     val df = Factory.peopleDf

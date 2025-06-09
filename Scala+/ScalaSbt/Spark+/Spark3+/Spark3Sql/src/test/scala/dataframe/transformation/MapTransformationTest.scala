@@ -6,7 +6,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 
-class MapTransformation extends AnyFlatSpec with Matchers {
+class MapTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "use map transformation" in {
     import Factory.ss.implicits._

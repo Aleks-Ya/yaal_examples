@@ -8,7 +8,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 
-class FlatMapTransformation extends AnyFlatSpec with Matchers {
+class FlatMapTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "use flatMap transformation for parsing an array" in {
     import Factory.ss.implicits._
