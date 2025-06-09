@@ -22,6 +22,7 @@ class GitHub:
     stars: int
     last_commit: str
     links: list[Link]
+    action_count: int
 
 
 @dataclass
@@ -52,7 +53,8 @@ class JsonExporter:
             last_commit_str: str = addon.last_commit.isoformat() if addon.last_commit else None
             user: str = addon.github_repo.user if addon.github_repo else None
             repo_str: str = addon.github_repo.repo_name if addon.github_repo else None
-            github: GitHub = GitHub(user, repo_str, addon.languages, addon.stars, last_commit_str, links)
+            github: GitHub = GitHub(user, repo_str, addon.languages, addon.stars, last_commit_str, links,
+                                    addon.action_count)
             json_obj: Details = Details(
                 addon.header.id, addon.header.title, addon.header.addon_page,
                 addon.header.rating, addon.header.update_date, addon.header.versions,

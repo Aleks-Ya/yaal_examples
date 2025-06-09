@@ -36,7 +36,7 @@ class AnkiWebParser:
         anki_forum_links: list[URL] = UrlParser.find_anki_forum_links(all_links)
         anki_forum_url: Optional[URL] = AnkiWebParser.__deduct_anki_forum_url(anki_forum_links)
         details: AddonDetails = AddonDetails(addon_header, github_links, other_links, github_repo, [], 0, None,
-                                             anki_forum_url)
+                                             anki_forum_url, 0)
         return details
 
     @staticmethod

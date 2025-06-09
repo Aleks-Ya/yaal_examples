@@ -4,6 +4,7 @@
 - [ ] Add new fields
     - [ ] GitHub
         - [ ] Does repo have tests?
+        - [ ] Does repo have actions?
 - [ ] Extract codebase to a dedicated repo
 - [ ] Use HEAD requests for checking resource updates
 - [ ] Create a support page in Anki Forum

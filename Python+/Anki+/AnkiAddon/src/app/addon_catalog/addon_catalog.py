@@ -15,7 +15,7 @@ if __name__ == "__main__":
     working_dir: Path = Path.home() / "anki-addon-catalog"
     dataset_dir: Path = working_dir / "dataset"
     cache_dir: Path = working_dir / "cache"
-    shutil.rmtree(dataset_dir)
+    shutil.rmtree(dataset_dir, ignore_errors=True)
     ankiweb_service: AnkiWebService = AnkiWebService(dataset_dir, cache_dir)
     github_service: GithubService = GithubService(dataset_dir, cache_dir)
     enricher: Enricher = Enricher(dataset_dir, github_service)

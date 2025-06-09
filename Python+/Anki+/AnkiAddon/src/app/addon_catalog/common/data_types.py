@@ -57,3 +57,4 @@ class AddonDetails:
     stars: int
     last_commit: Optional[datetime]
     anki_forum_url: Optional[URL]
+    action_count: int

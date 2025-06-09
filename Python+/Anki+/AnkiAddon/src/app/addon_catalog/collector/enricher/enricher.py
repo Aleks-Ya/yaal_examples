@@ -20,9 +20,11 @@ class Enricher:
         languages: list[LanguageName] = self.__get_languages(addon_details)
         stars: int = self.__github_service.get_stars_count(addon_details.github_repo)
         last_commit: Optional[datetime] = self.__github_service.get_last_commit(addon_details.github_repo)
+        action_count: int = self.__github_service.get_action_count(addon_details.github_repo)
         enriched_details: AddonDetails = AddonDetails(addon_details.header, addon_details.github_links,
                                                       addon_details.other_links, addon_details.github_repo,
-                                                      languages, stars, last_commit, addon_details.anki_forum_url)
+                                                      languages, stars, last_commit, addon_details.anki_forum_url,
+                                                      action_count)
         addon_json_file: Path = self.__dataset_dir / f"{addon_details.header.id}.json"
         JsonHelper.write_addon_details_to_file(addon_details, addon_json_file)
         return enriched_details

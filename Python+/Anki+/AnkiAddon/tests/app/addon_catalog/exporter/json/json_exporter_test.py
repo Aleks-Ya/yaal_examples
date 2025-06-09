@@ -21,14 +21,16 @@ def test_export():
             languages=[],
             stars=0,
             last_commit=datetime(2023, 3, 15, 12, 0, 0, 0),
-            anki_forum_url=None),
+            anki_forum_url=None,
+            action_count=5),
     ]
     exporter.export(addons_list)
     act_json_file: Path = output_dir / "anki-addon-catalog.json"
     act_json: dict[str, Any] = json.loads(act_json_file.read_text())
     assert act_json == [{'addon_page': 'https://ankiweb.net/shared/info/1188705668',
                          'anki_forum_url': None,
-                         'github': {'languages': [],
+                         'github': {'action_count': 5,
+                                    'languages': [],
                                     'last_commit': '2023-03-15T12:00:00',
                                     'links': [],
                                     'repo': None,
