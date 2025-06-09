@@ -14,7 +14,6 @@ class RepoHandler(ABC):
         self._repo: GitHubRepo = repo
         self.__cache_dir: Path = cache_dir
         self.__dataset_dir: Path = dataset_dir
-        self.__not_found_file: Path = self.__cache_dir / self._repo.user / self._repo.repo_name / "NOT_FOUND_404"
 
     def is_cached(self) -> bool:
         return self.get_cache_file().exists()
@@ -31,7 +30,7 @@ class RepoHandler(ABC):
         url: str = self.get_url()
         print(f"Repo not found: {url}")
         JsonHelper.write_dict_to_file({}, cache_file)
-        self.__not_found_file.write_text("")
+        self.__get_not_found_file().write_text("")
 
     def status_409(self, response: Response) -> None:
         self.status_other(response)
@@ -78,4 +77,7 @@ class RepoHandler(ABC):
         JsonHelper.write_dict_to_file(dataset_dict, dataset_file)
 
     def is_repo_marked_as_not_found(self) -> bool:
-        return self.__not_found_file.exists()
+        return self.__get_not_found_file().exists()
+
+    def __get_not_found_file(self) -> Path:
+        return self.__cache_dir / self._repo.user / self._repo.repo_name / "NOT_FOUND_404"

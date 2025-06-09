@@ -8,6 +8,8 @@
 - [ ] Extract codebase to a dedicated repo
 - [ ] Use HEAD requests for checking resource updates
 - [ ] Create a support page in Anki Forum
+- [ ] Provide schema for JSON
+- [ ] Separate addon page downloading and parsing to JSON
 
 ## Create a new version
 1. Generate the dataset dir: `python addon_catalog.py`

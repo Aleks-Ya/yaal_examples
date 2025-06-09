@@ -1,7 +1,7 @@
 from reportlab.pdfgen import canvas
 from reportlab.pdfgen.canvas import Canvas
 
-from conftest import TempPath
+from temp_helper import TempPath
 
 
 def test_create_pdf():

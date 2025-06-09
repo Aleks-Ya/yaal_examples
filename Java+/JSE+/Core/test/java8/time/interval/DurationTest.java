@@ -47,4 +47,10 @@ class DurationTest {
         var isSmallLess = small.compareTo(big) < 0;
         assertThat(isSmallLess).isTrue();
     }
+
+    @Test
+    void toStr() {
+        var d = Duration.ofSeconds(93784);
+        assertThat(d).hasToString("PT26H3M4S");
+    }
 }

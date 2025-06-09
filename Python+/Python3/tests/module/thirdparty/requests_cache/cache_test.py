@@ -2,7 +2,7 @@ from pathlib import Path
 
 from requests_cache import CachedSession, CachedResponse
 
-from conftest import TempPath
+from temp_helper import TempPath
 
 
 def test_cache():
