@@ -23,6 +23,7 @@ class GitHub:
     last_commit: str
     links: list[Link]
     action_count: int
+    tests_count: int
 
 
 @dataclass
@@ -34,7 +35,7 @@ class Details:
     update_date: str
     versions: str
     anki_forum_url: Optional[str]
-    github: GitHub
+    github: Optional[GitHub]
     links: list[str]
 
 
@@ -51,14 +52,16 @@ class JsonExporter:
                                       link.repo.repo_name if link.repo else None)
                                  for link in addon.github_links]
             last_commit_str: str = addon.last_commit.isoformat() if addon.last_commit else None
-            user: str = addon.github_repo.user if addon.github_repo else None
-            repo_str: str = addon.github_repo.repo_name if addon.github_repo else None
-            github: GitHub = GitHub(user, repo_str, addon.languages, addon.stars, last_commit_str, links,
-                                    addon.action_count)
+            if addon.github_repo:
+                user: str = addon.github_repo.user
+                repo_str: str = addon.github_repo.repo_name
+                github: Optional[GitHub] = GitHub(user, repo_str, addon.languages, addon.stars, last_commit_str, links,
+                                                  addon.action_count, addon.tests_count)
+            else:
+                github: Optional[GitHub] = None
             json_obj: Details = Details(
-                addon.header.id, addon.header.title, addon.header.addon_page,
-                addon.header.rating, addon.header.update_date, addon.header.versions,
-                addon.anki_forum_url, github, addon.other_links)
+                addon.header.id, addon.header.title, addon.header.addon_page, addon.header.rating,
+                addon.header.update_date, addon.header.versions, addon.anki_forum_url, github, addon.other_links)
             json_list.append(json_obj)
         output_file: Path = self.output_dir / "anki-addon-catalog.json"
         json_str: str = JsonExporter.__to_json(json_list)

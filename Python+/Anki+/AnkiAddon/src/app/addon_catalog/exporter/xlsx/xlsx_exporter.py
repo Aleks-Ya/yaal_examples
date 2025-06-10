@@ -21,6 +21,7 @@ class XlsxExporter:
     __github_url_col: int = 8
     __languages_col: int = 9
     __actions_count_col: int = 10
+    __tests_count_col: int = 10
 
     def __init__(self, output_dir: Path):
         self.output_dir: Path = output_dir
@@ -49,6 +50,7 @@ class XlsxExporter:
         worksheet.set_column(XlsxExporter.__github_url_col, XlsxExporter.__github_url_col, 8)
         worksheet.set_column(XlsxExporter.__languages_col, XlsxExporter.__languages_col, 50)
         worksheet.set_column(XlsxExporter.__actions_count_col, XlsxExporter.__actions_count_col, 10)
+        worksheet.set_column(XlsxExporter.__tests_count_col, XlsxExporter.__tests_count_col, 8)
 
     @staticmethod
     def __add_header(workbook: Workbook, worksheet: Worksheet) -> None:
@@ -81,10 +83,12 @@ class XlsxExporter:
                                header_format)
         worksheet.write_string(XlsxExporter.__header_row_bottom, XlsxExporter.__actions_count_col, "Actions",
                                header_format)
+        worksheet.write_string(XlsxExporter.__header_row_bottom, XlsxExporter.__tests_count_col, "Tests",
+                               header_format)
 
         worksheet.freeze_panes(XlsxExporter.__header_row_bottom + 1, XlsxExporter.__id_col)
         worksheet.autofilter(first_row=XlsxExporter.__header_row_bottom, last_row=XlsxExporter.__header_row_bottom,
-                             first_col=XlsxExporter.__id_col, last_col=XlsxExporter.__actions_count_col)
+                             first_col=XlsxExporter.__id_col, last_col=XlsxExporter.__tests_count_col)
 
     @staticmethod
     def __add_rows(details_list: list[AddonDetails], worksheet: Worksheet) -> None:
@@ -107,3 +111,5 @@ class XlsxExporter:
             worksheet.write_string(row, XlsxExporter.__languages_col, languages_str)
             if addon.action_count:
                 worksheet.write_number(row, XlsxExporter.__actions_count_col, addon.action_count)
+            if addon.tests_count:
+                worksheet.write_number(row, XlsxExporter.__tests_count_col, addon.tests_count)

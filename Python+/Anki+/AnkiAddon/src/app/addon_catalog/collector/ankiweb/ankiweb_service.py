@@ -15,7 +15,7 @@ class AnkiWebService:
         options: Options = Options()
         options.add_argument('--headless')
         self.__driver: WebDriver = webdriver.Chrome(options=options)
-        self.__cache_dir: Path = cache_dir / "anki-web"
+        self.__cache_html_dir: Path = cache_dir / "anki-web" / "html"
         dataset_ankiweb_dir: Path = dataset_dir / "raw" / "1-anki-web"
         self.__dataset_html_dir: Path = dataset_ankiweb_dir / "html"
         self.__dataset_html_dir.mkdir(parents=True, exist_ok=True)
@@ -37,7 +37,7 @@ class AnkiWebService:
         addon_headers: list[AddonHeader] = AnkiWebParser.parse_addons_page(html)
         return addon_headers
 
-    def __get_details_list(self, addon_headers) -> list[AddonDetails]:
+    def __get_details_list(self, addon_headers: list[AddonHeader]) -> list[AddonDetails]:
         dataset_addon_dir: Path = self.__dataset_html_dir / "addon"
         dataset_addon_dir.mkdir(parents=True, exist_ok=True)
         details_list: list[AddonDetails] = []
@@ -52,7 +52,7 @@ class AnkiWebService:
         return details_list
 
     def __load_addons_page(self) -> str:
-        cache_file: Path = self.__cache_dir / "addons_page.html"
+        cache_file: Path = self.__cache_html_dir / "addons_page.html"
         if not cache_file.exists():
             print(f"Downloading addons page to {cache_file}")
             cache_file.parent.mkdir(parents=True, exist_ok=True)
@@ -62,7 +62,7 @@ class AnkiWebService:
         return cache_file.read_text()
 
     def __load_addon_page(self, addon_id: AddonId) -> str:
-        cache_file: Path = self.__cache_dir / "addon" / f"{addon_id}.html"
+        cache_file: Path = self.__cache_html_dir / "addon" / f"{addon_id}.html"
         if not cache_file.exists():
             print(f"Downloading addon page to {cache_file}")
             cache_file.parent.mkdir(parents=True, exist_ok=True)

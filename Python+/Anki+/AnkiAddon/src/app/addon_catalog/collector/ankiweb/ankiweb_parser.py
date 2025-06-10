@@ -36,7 +36,7 @@ class AnkiWebParser:
         anki_forum_links: list[URL] = UrlParser.find_anki_forum_links(all_links)
         anki_forum_url: Optional[URL] = AnkiWebParser.__deduct_anki_forum_url(anki_forum_links)
         details: AddonDetails = AddonDetails(addon_header, github_links, other_links, github_repo, [], 0, None,
-                                             anki_forum_url, 0)
+                                             anki_forum_url, 0, 0)
         return details
 
     @staticmethod
@@ -64,9 +64,12 @@ class AnkiWebParser:
 
     @staticmethod
     def __exclude_links(links: list[GitHubLink]) -> list[GitHubLink]:
-        exclude_urls: list[str] = ['https://github.com/ankitects/anki']
+        exclude_urls: list[str] = [
+            'https://github.com/ankitects/anki',
+            'https://github.com/ankidroid/anki-android'
+        ]
         filtered_links: list[GitHubLink] = []
         for link in links:
-            if all([not link.url.startswith(prefix) for prefix in exclude_urls]):
+            if all([not link.url.lower().startswith(prefix.lower()) for prefix in exclude_urls]):
                 filtered_links.append(link)
         return filtered_links

@@ -4,7 +4,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from app.addon_catalog.common.data_types import AddonDetails, AddonHeader, AddonId
+from app.addon_catalog.common.data_types import AddonDetails, AddonHeader, AddonId, GitHubRepo, GithubUserName, \
+    GithubRepoName, LanguageName
 from app.addon_catalog.exporter.json.json_exporter import JsonExporter
 
 
@@ -17,12 +18,13 @@ def test_export():
                                4, "2023-03-15", "1.0.0"),
             github_links=[],
             other_links=[],
-            github_repo=None,
-            languages=[],
-            stars=0,
+            github_repo=GitHubRepo(GithubUserName("John"), GithubRepoName("app")),
+            languages=[LanguageName("Python"), LanguageName("Rust")],
+            stars=3,
             last_commit=datetime(2023, 3, 15, 12, 0, 0, 0),
             anki_forum_url=None,
-            action_count=5),
+            action_count=5,
+            tests_count=7)
     ]
     exporter.export(addons_list)
     act_json_file: Path = output_dir / "anki-addon-catalog.json"
@@ -30,12 +32,13 @@ def test_export():
     assert act_json == [{'addon_page': 'https://ankiweb.net/shared/info/1188705668',
                          'anki_forum_url': None,
                          'github': {'action_count': 5,
-                                    'languages': [],
+                                    'languages': ['Python', 'Rust'],
                                     'last_commit': '2023-03-15T12:00:00',
                                     'links': [],
-                                    'repo': None,
-                                    'stars': 0,
-                                    'user': None},
+                                    'repo': 'app',
+                                    'stars': 3,
+                                    'tests_count': 7,
+                                    'user': 'John'},
                          'id': 1188705668,
                          'links': [],
                          'rating': 4,

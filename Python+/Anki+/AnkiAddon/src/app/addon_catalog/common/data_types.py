@@ -58,3 +58,4 @@ class AddonDetails:
     last_commit: Optional[datetime]
     anki_forum_url: Optional[URL]
     action_count: int
+    tests_count: int

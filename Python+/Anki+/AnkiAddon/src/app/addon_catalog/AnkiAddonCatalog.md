@@ -1,15 +1,13 @@
 # Anki Addon Catalog for Programmers
 
 ## TODO
-- [ ] Add new fields
-    - [ ] GitHub
-        - [ ] Does repo have tests?
-        - [ ] Does repo have actions?
-- [ ] Extract codebase to a dedicated repo
+- [ ] Add more information
+    - [ ] Provide schema for JSON
+    - [ ] Export an aggregation JSON
 - [ ] Use HEAD requests for checking resource updates
-- [ ] Create a support page in Anki Forum
-- [ ] Provide schema for JSON
-- [ ] Separate addon page downloading and parsing to JSON
+- [ ] Publish the dataset
+    - [ ] Extract codebase to a dedicated repo
+    - [ ] Create a support page in Anki Forum
 
 ## Create a new version
 1. Generate the dataset dir: `python addon_catalog.py`

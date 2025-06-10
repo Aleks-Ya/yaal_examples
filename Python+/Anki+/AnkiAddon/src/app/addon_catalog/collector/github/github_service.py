@@ -11,6 +11,7 @@ from app.addon_catalog.collector.github.handler.languages_repo_handler import La
 from app.addon_catalog.collector.github.handler.last_commit_repo_handler import LastCommitRepoHandler
 from app.addon_catalog.collector.github.handler.repo_handler import RepoHandler
 from app.addon_catalog.collector.github.handler.stars_repo_handler import StarsRepoHandler
+from app.addon_catalog.collector.github.handler.tests_repo_handler import TestsRepoHandler
 from app.addon_catalog.common.data_types import GitHubRepo, LanguageName
 
 
@@ -40,6 +41,10 @@ class GithubService:
 
     def get_action_count(self, repo: GitHubRepo) -> Optional[int]:
         handler: RepoHandler = ActionsRepoHandler(repo, self.__cache_dir, self.__dataset_dir)
+        return self.__get_value(handler, repo)
+
+    def get_tests_count(self, repo: GitHubRepo) -> Optional[int]:
+        handler: RepoHandler = TestsRepoHandler(repo, self.__cache_dir, self.__dataset_dir)
         return self.__get_value(handler, repo)
 
     def __get_value(self, handler: RepoHandler, repo: GitHubRepo) -> Optional[Any]:
