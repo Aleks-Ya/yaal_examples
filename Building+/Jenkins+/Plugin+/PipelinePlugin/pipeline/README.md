@@ -1,0 +1,1 @@
+The `pipeline` block == "Declarative Pipeline"
