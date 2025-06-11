@@ -13,7 +13,7 @@ class UrlParser:
 
     @staticmethod
     def find_github_links(links: list[URL]) -> list[GitHubLink]:
-        parsed_links: list[Optional[GitHubLink]] = [UrlParser.__parse_github_url(URL(link)) for link in links]
+        parsed_links: list[Optional[GitHubLink]] = [UrlParser.parse_github_url(URL(link)) for link in links]
         return [link for link in parsed_links if link is not None]
 
     @staticmethod
@@ -22,7 +22,7 @@ class UrlParser:
         return [link for link in parsed_links if link is not None]
 
     @staticmethod
-    def __parse_github_url(url: URL) -> Optional[GitHubLink]:
+    def parse_github_url(url: URL) -> Optional[GitHubLink]:
         repo_pattern: str = r'https://github\.com[:/](?P<user>[^/]+)/(?P<repo>[^/?#)(]+)'
         repo_match: Optional[Match[str]] = re.search(repo_pattern, url)
         if repo_match:

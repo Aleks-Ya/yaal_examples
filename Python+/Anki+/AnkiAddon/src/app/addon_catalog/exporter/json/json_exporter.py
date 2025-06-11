@@ -4,7 +4,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Optional
 
-from app.addon_catalog.common.data_types import AddonDetails
+from app.addon_catalog.common.data_types import AddonInfo, Aggregation
+from app.addon_catalog.exporter.exporter import Exporter
 
 
 @dataclass
@@ -39,14 +40,11 @@ class Details:
     links: list[str]
 
 
-class JsonExporter:
-    def __init__(self, output_dir: Path):
-        self.output_dir: Path = output_dir
-        self.output_dir.mkdir(parents=True, exist_ok=True)
+class JsonExporter(Exporter):
 
-    def export(self, details_list: list[AddonDetails]) -> None:
+    def export_addon_infos(self, addon_infos: list[AddonInfo]) -> None:
         json_list: list[Details] = []
-        for addon in details_list:
+        for addon in addon_infos:
             links: list[Link] = [Link(link.url,
                                       link.user.user_name,
                                       link.repo.repo_name if link.repo else None)
@@ -63,8 +61,15 @@ class JsonExporter:
                 addon.header.id, addon.header.title, addon.header.addon_page, addon.header.rating,
                 addon.header.update_date, addon.header.versions, addon.anki_forum_url, github, addon.other_links)
             json_list.append(json_obj)
-        output_file: Path = self.output_dir / "anki-addon-catalog.json"
+        output_file: Path = self._dataset_dir / "anki-addon-catalog.json"
         json_str: str = JsonExporter.__to_json(json_list)
+        output_file.write_text(json_str)
+        print(f"Write JSON to file: {output_file}")
+
+    def export_aggregation(self, aggregation: Aggregation) -> None:
+        aggregation_dict: dict[str, int] = dataclasses.asdict(aggregation)
+        output_file: Path = self._dataset_dir / "aggregation.json"
+        json_str: str = json.dumps(aggregation_dict, indent=2)
         output_file.write_text(json_str)
         print(f"Write JSON to file: {output_file}")
 

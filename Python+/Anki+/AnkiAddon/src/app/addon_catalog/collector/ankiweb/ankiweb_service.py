@@ -6,12 +6,13 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.webdriver import WebDriver
 
 from app.addon_catalog.collector.ankiweb.ankiweb_parser import AnkiWebParser
-from app.addon_catalog.common.data_types import AddonId, AddonDetails, AddonHeader
+from app.addon_catalog.common.data_types import AddonId, AddonInfo, AddonHeader
 from app.addon_catalog.common.json_helper import JsonHelper
 
 
 class AnkiWebService:
-    def __init__(self, dataset_dir: Path, cache_dir: Path) -> None:
+    def __init__(self, dataset_dir: Path, cache_dir: Path, ankiweb_parser: AnkiWebParser) -> None:
+        self.__ankiweb_parser: AnkiWebParser = ankiweb_parser
         options: Options = Options()
         options.add_argument('--headless')
         self.__driver: WebDriver = webdriver.Chrome(options=options)
@@ -24,32 +25,32 @@ class AnkiWebService:
     def __del__(self) -> None:
         self.__driver.quit()
 
-    def load_addons_list(self) -> list[AddonDetails]:
+    def load_addon_infos(self) -> list[AddonInfo]:
         addon_headers: list[AddonHeader] = self.__get_headers()
-        details_list: list[AddonDetails] = self.__get_details_list(addon_headers)
-        print(f"Addon number: {len(details_list)}")
-        return details_list
+        addon_infos: list[AddonInfo] = self.__get_addon_infos(addon_headers)
+        print(f"Addon number: {len(addon_infos)}")
+        return addon_infos
 
     def __get_headers(self) -> list[AddonHeader]:
         html: str = self.__load_addons_page()
         addons_html_file: Path = self.__dataset_html_dir / "addons.html"
         addons_html_file.write_text(html)
-        addon_headers: list[AddonHeader] = AnkiWebParser.parse_addons_page(html)
+        addon_headers: list[AddonHeader] = self.__ankiweb_parser.parse_addons_page(html)
         return addon_headers
 
-    def __get_details_list(self, addon_headers: list[AddonHeader]) -> list[AddonDetails]:
+    def __get_addon_infos(self, addon_headers: list[AddonHeader]) -> list[AddonInfo]:
         dataset_addon_dir: Path = self.__dataset_html_dir / "addon"
         dataset_addon_dir.mkdir(parents=True, exist_ok=True)
-        details_list: list[AddonDetails] = []
+        addon_infos: list[AddonInfo] = []
         for addon_header in addon_headers:
             html: str = self.__load_addon_page(addon_header.id)
             addon_html_file: Path = dataset_addon_dir / f"{addon_header.id}.html"
             addon_html_file.write_text(html)
-            addon_details: AddonDetails = AnkiWebParser.parse_addon_page(addon_header, html)
+            addon_info: AddonInfo = self.__ankiweb_parser.parse_addon_page(addon_header, html)
             addon_json_file: Path = self.__dataset_json_dir / f"{addon_header.id}.json"
-            JsonHelper.write_addon_details_to_file(addon_details, addon_json_file)
-            details_list.append(addon_details)
-        return details_list
+            JsonHelper.write_addon_info_to_file(addon_info, addon_json_file)
+            addon_infos.append(addon_info)
+        return addon_infos
 
     def __load_addons_page(self) -> str:
         cache_file: Path = self.__cache_html_dir / "addons_page.html"

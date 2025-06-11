@@ -48,7 +48,7 @@ class GitHubLink:
 
 
 @dataclass
-class AddonDetails:
+class AddonInfo:
     header: AddonHeader
     github_links: list[GitHubLink]
     other_links: list[URL]
@@ -59,3 +59,8 @@ class AddonDetails:
     anki_forum_url: Optional[URL]
     action_count: int
     tests_count: int
+
+
+@dataclass
+class Aggregation:
+    addon_number: int

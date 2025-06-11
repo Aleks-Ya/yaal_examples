@@ -3,7 +3,10 @@
 ## TODO
 - [ ] Add more information
     - [ ] Provide schema for JSON
-    - [ ] Export an aggregation JSON
+    - [ ] Aggregation
+        - [ ] Show the number of addons with GitHub repo
+        - [ ] Show the number of addons with Anki Forum page
+        - [ ] Show the number of addons with Unit tests
 - [ ] Use HEAD requests for checking resource updates
 - [ ] Publish the dataset
     - [ ] Extract codebase to a dedicated repo

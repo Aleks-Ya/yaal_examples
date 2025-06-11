@@ -4,13 +4,15 @@ from typing import Optional
 from bs4 import ResultSet, Tag, BeautifulSoup
 
 from app.addon_catalog.collector.ankiweb.url_parser import UrlParser
-from app.addon_catalog.common.data_types import AddonHeader, AddonDetails, AddonId, URL, GitHubLink, GitHubRepo
+from app.addon_catalog.collector.overrider.overrider import Overrider
+from app.addon_catalog.common.data_types import AddonHeader, AddonInfo, AddonId, URL, GitHubLink, GitHubRepo
 
 
 class AnkiWebParser:
+    def __init__(self, overrider: Overrider) -> None:
+        self.overrider: Overrider = overrider
 
-    @staticmethod
-    def parse_addons_page(html: str) -> list[AddonHeader]:
+    def parse_addons_page(self, html: str) -> list[AddonHeader]:
         soup: BeautifulSoup = BeautifulSoup(html, 'html.parser')
         addon_rows: list[AddonHeader] = []
         table_rows: ResultSet[Tag] = soup.find("main").find("table").find_all("tr")
@@ -27,20 +29,21 @@ class AnkiWebParser:
             addon_rows.append(addon_header)
         return addon_rows
 
-    @staticmethod
-    def parse_addon_page(addon_header: AddonHeader, html: str) -> AddonDetails:
+    def parse_addon_page(self, addon_header: AddonHeader, html: str) -> AddonInfo:
         all_links: list[URL] = UrlParser.extract_all_links(html)
         github_links: list[GitHubLink] = UrlParser.find_github_links(all_links)
         other_links: list[URL] = [link for link in all_links if link not in github_links]
-        github_repo: Optional[GitHubRepo] = AnkiWebParser.__deduct_github_repo_name(github_links)
+        github_repo: Optional[GitHubRepo] = self.__deduct_github_repo_name(addon_header.id, github_links)
         anki_forum_links: list[URL] = UrlParser.find_anki_forum_links(all_links)
-        anki_forum_url: Optional[URL] = AnkiWebParser.__deduct_anki_forum_url(anki_forum_links)
-        details: AddonDetails = AddonDetails(addon_header, github_links, other_links, github_repo, [], 0, None,
-                                             anki_forum_url, 0, 0)
-        return details
+        anki_forum_url: Optional[URL] = self.__deduct_anki_forum_url(addon_header.id, anki_forum_links)
+        addon_info: AddonInfo = AddonInfo(addon_header, github_links, other_links, github_repo, [], 0, None,
+                                       anki_forum_url, 0, 0)
+        return addon_info
 
-    @staticmethod
-    def __deduct_github_repo_name(github_urls: list[GitHubLink]) -> Optional[GitHubRepo]:
+    def __deduct_github_repo_name(self, addon_id: AddonId, github_urls: list[GitHubLink]) -> Optional[GitHubRepo]:
+        override_link: Optional[GitHubLink] = self.overrider.override_github_link(addon_id)
+        if override_link:
+            return override_link.repo
         not_null_urls: list[GitHubLink] = [link for link in github_urls if link.repo is not None]
         filtered_urls: list[GitHubLink] = AnkiWebParser.__exclude_links(not_null_urls)
         filtered_urls.sort(key=lambda link: link.repo.get_id())
@@ -49,10 +52,13 @@ class AnkiWebParser:
         if len(counts) == 0:
             return None
         max_tuple: tuple[GitHubRepo, int] = max(counts.items(), key=lambda item: item[1])
-        return max_tuple[0]
+        github_repo: GitHubRepo = max_tuple[0]
+        return github_repo
 
-    @staticmethod
-    def __deduct_anki_forum_url(anki_forum_urls: list[URL]) -> Optional[URL]:
+    def __deduct_anki_forum_url(self, addon_id: AddonId, anki_forum_urls: list[URL]) -> Optional[URL]:
+        override_url: Optional[URL] = self.overrider.override_anki_forum_url(addon_id)
+        if override_url:
+            return override_url
         urls_sorted: list[URL] = list(anki_forum_urls)
         urls_sorted.sort()
         grouped: groupby[URL, URL] = groupby(urls_sorted)

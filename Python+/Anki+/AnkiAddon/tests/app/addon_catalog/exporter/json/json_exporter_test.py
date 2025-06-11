@@ -4,17 +4,17 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from app.addon_catalog.common.data_types import AddonDetails, AddonHeader, AddonId, GitHubRepo, GithubUserName, \
+from app.addon_catalog.common.data_types import AddonInfo, AddonHeader, AddonId, GitHubRepo, GithubUserName, \
     GithubRepoName, LanguageName
 from app.addon_catalog.exporter.json.json_exporter import JsonExporter
 
 
-def test_export():
+def test_export(note_size_addon_id: AddonId):
     output_dir: Path = Path(tempfile.mkdtemp())
     exporter: JsonExporter = JsonExporter(output_dir)
-    addons_list: list[AddonDetails] = [
-        AddonDetails(
-            header=AddonHeader(AddonId(1188705668), "NoteSize", "https://ankiweb.net/shared/info/1188705668",
+    addon_infos: list[AddonInfo] = [
+        AddonInfo(
+            header=AddonHeader(note_size_addon_id, "NoteSize", "https://ankiweb.net/shared/info/1188705668",
                                4, "2023-03-15", "1.0.0"),
             github_links=[],
             other_links=[],
@@ -26,7 +26,7 @@ def test_export():
             action_count=5,
             tests_count=7)
     ]
-    exporter.export(addons_list)
+    exporter.export_addon_infos(addon_infos)
     act_json_file: Path = output_dir / "anki-addon-catalog.json"
     act_json: dict[str, Any] = json.loads(act_json_file.read_text())
     assert act_json == [{'addon_page': 'https://ankiweb.net/shared/info/1188705668',
