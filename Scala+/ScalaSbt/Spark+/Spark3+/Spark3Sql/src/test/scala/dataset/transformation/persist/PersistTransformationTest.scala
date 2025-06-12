@@ -7,6 +7,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 class PersistTransformationTest extends AnyFlatSpec with Matchers {
+
   it should "persist and unpersist a Dataset" in {
     val ds = Factory.cityDs
     ds.storageLevel shouldBe NONE
@@ -64,4 +65,5 @@ class PersistTransformationTest extends AnyFlatSpec with Matchers {
     ds3.storageLevel shouldBe NONE
     ds3Persisted.storageLevel shouldBe NONE
   }
+
 }

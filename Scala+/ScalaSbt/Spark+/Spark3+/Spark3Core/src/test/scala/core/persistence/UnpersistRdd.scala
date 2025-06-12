@@ -18,4 +18,5 @@ class UnpersistRdd extends AnyFlatSpec with Matchers {
     rdd2.unpersist()
     sc.getPersistentRDDs.values should contain only rdd1
   }
+
 }
