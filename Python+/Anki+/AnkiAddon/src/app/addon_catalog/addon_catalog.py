@@ -3,7 +3,7 @@ from pathlib import Path
 
 from app.addon_catalog.aggregator.aggregator import Aggregator
 from app.addon_catalog.collector.addon_collector import AddonCollector
-from app.addon_catalog.collector.ankiweb.ankiweb_parser import AnkiWebParser
+from app.addon_catalog.collector.ankiweb.addon_page_parser import AddonPageParser
 from app.addon_catalog.collector.ankiweb.ankiweb_service import AnkiWebService
 from app.addon_catalog.collector.enricher.enricher import Enricher
 from app.addon_catalog.collector.github.github_service import GithubService
@@ -17,8 +17,8 @@ if __name__ == "__main__":
     cache_dir: Path = working_dir / "cache"
     shutil.rmtree(dataset_dir, ignore_errors=True)
     overrider: Overrider = Overrider(dataset_dir)
-    ankiweb_parser: AnkiWebParser = AnkiWebParser(overrider)
-    ankiweb_service: AnkiWebService = AnkiWebService(dataset_dir, cache_dir, ankiweb_parser)
+    addon_page_parser: AddonPageParser = AddonPageParser(overrider)
+    ankiweb_service: AnkiWebService = AnkiWebService(dataset_dir, cache_dir, addon_page_parser)
     github_service: GithubService = GithubService(dataset_dir, cache_dir)
     enricher: Enricher = Enricher(dataset_dir, github_service)
     collector: AddonCollector = AddonCollector(ankiweb_service, enricher, overrider)

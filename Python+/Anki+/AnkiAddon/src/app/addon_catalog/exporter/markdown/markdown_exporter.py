@@ -15,7 +15,7 @@ class MarkdownExporter(Exporter):
         lines: list[str] = ["ID", "Title", "Rating", "Stars"]
         column_number: int = len(lines)
         for addon in addon_infos:
-            line: list[str] = [addon.header.id, addon.header.title, addon.header.rating, addon.stars]
+            line: list[str] = [addon.header.id, addon.header.title, addon.header.rating, addon.github.stars]
             lines.extend(line)
         md.new_table(column_number, len(addon_infos) + 1, lines)
         md.create_md_file()

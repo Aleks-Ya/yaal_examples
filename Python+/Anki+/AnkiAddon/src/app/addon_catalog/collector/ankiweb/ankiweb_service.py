@@ -5,14 +5,15 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.webdriver import WebDriver
 
-from app.addon_catalog.collector.ankiweb.ankiweb_parser import AnkiWebParser
+from app.addon_catalog.collector.ankiweb.addon_page_parser import AddonPageParser
+from app.addon_catalog.collector.ankiweb.addons_page_parser import AddonsPageParser
 from app.addon_catalog.common.data_types import AddonId, AddonInfo, AddonHeader
 from app.addon_catalog.common.json_helper import JsonHelper
 
 
 class AnkiWebService:
-    def __init__(self, dataset_dir: Path, cache_dir: Path, ankiweb_parser: AnkiWebParser) -> None:
-        self.__ankiweb_parser: AnkiWebParser = ankiweb_parser
+    def __init__(self, dataset_dir: Path, cache_dir: Path, addon_page_parser: AddonPageParser) -> None:
+        self.__addon_page_parser: AddonPageParser = addon_page_parser
         options: Options = Options()
         options.add_argument('--headless')
         self.__driver: WebDriver = webdriver.Chrome(options=options)
@@ -35,7 +36,7 @@ class AnkiWebService:
         html: str = self.__load_addons_page()
         addons_html_file: Path = self.__dataset_html_dir / "addons.html"
         addons_html_file.write_text(html)
-        addon_headers: list[AddonHeader] = self.__ankiweb_parser.parse_addons_page(html)
+        addon_headers: list[AddonHeader] = AddonsPageParser.parse_addons_page(html)
         return addon_headers
 
     def __get_addon_infos(self, addon_headers: list[AddonHeader]) -> list[AddonInfo]:
@@ -46,7 +47,7 @@ class AnkiWebService:
             html: str = self.__load_addon_page(addon_header.id)
             addon_html_file: Path = dataset_addon_dir / f"{addon_header.id}.html"
             addon_html_file.write_text(html)
-            addon_info: AddonInfo = self.__ankiweb_parser.parse_addon_page(addon_header, html)
+            addon_info: AddonInfo = self.__addon_page_parser.parse_addon_page(addon_header, html)
             addon_json_file: Path = self.__dataset_json_dir / f"{addon_header.id}.json"
             JsonHelper.write_addon_info_to_file(addon_info, addon_json_file)
             addon_infos.append(addon_info)

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from typing import NewType, Optional
 from dataclasses import dataclass
 
@@ -48,17 +48,37 @@ class GitHubLink:
 
 
 @dataclass
-class AddonInfo:
-    header: AddonHeader
+class GithubInfo:
     github_links: list[GitHubLink]
-    other_links: list[URL]
     github_repo: Optional[GitHubRepo]
     languages: list[LanguageName]
     stars: int
     last_commit: Optional[datetime]
-    anki_forum_url: Optional[URL]
     action_count: int
     tests_count: int
+
+
+@dataclass
+class Version:
+    min_version: str
+    max_version: str
+    updated: date
+
+
+@dataclass
+class AddonPage:
+    like_number: int
+    dislike_number: int
+    versions: list[Version]
+    other_links: list[URL]
+    anki_forum_url: Optional[URL]
+
+
+@dataclass
+class AddonInfo:
+    header: AddonHeader
+    page: AddonPage
+    github: Optional[GithubInfo]
 
 
 @dataclass

@@ -2,7 +2,6 @@
 
 ## TODO
 - [ ] Add more information
-    - [ ] Provide schema for JSON
     - [ ] Aggregation
         - [ ] Show the number of addons with GitHub repo
         - [ ] Show the number of addons with Anki Forum page
