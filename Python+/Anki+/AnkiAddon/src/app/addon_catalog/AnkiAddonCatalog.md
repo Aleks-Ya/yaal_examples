@@ -1,14 +1,8 @@
 # Anki Addon Catalog for Programmers
 
 ## TODO
-- [ ] Add more information
-    - [ ] Aggregation
-        - [ ] Show the number of addons with GitHub repo
-        - [ ] Show the number of addons with Anki Forum page
-        - [ ] Show the number of addons with Unit tests
 - [ ] Use HEAD requests for checking resource updates
 - [ ] Publish the dataset
-    - [ ] Extract codebase to a dedicated repo
     - [ ] Create a support page in Anki Forum
 
 ## Create a new version

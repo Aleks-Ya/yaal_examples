@@ -19,7 +19,7 @@ class AggregationSheet:
 
     @staticmethod
     def __set_column_width(worksheet: Worksheet) -> None:
-        worksheet.set_column(AggregationSheet.__property_col, AggregationSheet.__property_col, 20)
+        worksheet.set_column(AggregationSheet.__property_col, AggregationSheet.__property_col, 40)
         worksheet.set_column(AggregationSheet.__value_col, AggregationSheet.__value_col, 20)
 
     @staticmethod
@@ -31,6 +31,13 @@ class AggregationSheet:
 
     @staticmethod
     def __add_rows(aggregation: Aggregation, worksheet: Worksheet) -> None:
-        row1: int = AggregationSheet.__header_row + 1
-        worksheet.write_string(row1, AggregationSheet.__property_col, "Addon number")
-        worksheet.write_number(row1, AggregationSheet.__value_col, aggregation.addon_number)
+        values: dict[str, int] = {
+            "Addon number": aggregation.addon_number,
+            "Addon with GitHub number": aggregation.addon_with_github_number,
+            "Addon with Anki forum page number": aggregation.addon_with_anki_forum_page_number,
+            "Addon with unit-tests number": aggregation.addon_with_unit_tests_number
+        }
+        for i, (name, value) in enumerate(values.items()):
+            row: int = AggregationSheet.__header_row + i + 1
+            worksheet.write_string(row, AggregationSheet.__property_col, name)
+            worksheet.write_number(row, AggregationSheet.__value_col, value)

@@ -84,3 +84,6 @@ class AddonInfo:
 @dataclass
 class Aggregation:
     addon_number: int
+    addon_with_github_number: int
+    addon_with_anki_forum_page_number: int
+    addon_with_unit_tests_number: int

@@ -101,7 +101,6 @@ class JsonExporter(Exporter):
 
     @staticmethod
     def __verify_schema(doc_file: Path, schema_file: Path) -> None:
-        print("Verify JSON schema")
         doc_dict: dict[str, Any] = json.loads(doc_file.read_text())
         schema_dict: dict[str, Any] = json.loads(schema_file.read_text())
         validate(instance=doc_dict, schema=schema_dict)
