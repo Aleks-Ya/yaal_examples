@@ -1,6 +1,7 @@
 import dataclasses
 from enum import Enum
 from functools import total_ordering
+from pathlib import Path
 from typing import Sequence, Optional
 
 from anki.collection import Collection
@@ -99,9 +100,9 @@ class VocabularyWord:
 
 class AnkiVocabulary:
     @staticmethod
-    def extract_known_vocabulary(collection_path: str) -> list[VocabularyWord]:
+    def extract_known_vocabulary(collection_path: Path) -> list[VocabularyWord]:
         print(f"\nExtracting vocabulary from {collection_path}")
-        col: Collection = Collection(collection_path)
+        col: Collection = Collection(str(collection_path))
         note_ids: Sequence[NoteId] = col.find_notes("note:En-word-or-sentence")
         notes: list[Note] = [col.get_note(note_id) for note_id in note_ids]
         words: list[VocabularyWord] = [VocabularyWord.parse(note) for note in notes]

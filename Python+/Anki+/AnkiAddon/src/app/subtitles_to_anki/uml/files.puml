@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/deployment-diagram
+
+folder "Anki Profile dir" {
+    file "collection.anki2" as Collection
+}
+
+folder "SRT dir" {
+    file "The.Young.Pope.S01E01.English.Full.srt" as SRT1
+    file "The.Young.Pope.S01E02.English.Full.srt" as SRT2
+}
+
+folder "Output dir" {
+    file "The.Young.Pope.S01E01.English.Full_sentences.txt" as Sentences1
+    file "The.Young.Pope.S01E02.English.Full_sentences.txt" as Sentences2
+
+    file "The.Young.Pope.S01E01.English.Full_sentences_words.json" as Words1
+    file "The.Young.Pope.S01E02.English.Full_sentences_words.json" as Words2
+
+    file "words_all.txt" as WordsAll
+    file "words_unknown.txt" as WordUnknown
+
+    SRT1 --> Sentences1
+    SRT2 --> Sentences2
+
+    Sentences1 --> Words1
+    Sentences2 --> Words2
+
+    Words1 --> WordsAll
+    Words2 --> WordsAll
+
+    Collection -r-> WordUnknown
+    WordsAll --> WordUnknown
+}
+@enduml

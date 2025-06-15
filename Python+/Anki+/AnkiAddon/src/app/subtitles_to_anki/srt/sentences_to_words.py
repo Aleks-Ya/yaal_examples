@@ -10,7 +10,7 @@ from spacy import Language
 from spacy.tokens import Doc
 from spacy.symbols import PUNCT, SPACE, DET, CCONJ, ADP, SCONJ, NUM, PART, PRON, AUX, INTJ, X, SYM
 
-from app.subtitles_to_anki.anki_vocabulary import POS
+from app.subtitles_to_anki.anki.anki_vocabulary import POS
 
 
 @dataclasses.dataclass(order=True)
@@ -31,7 +31,7 @@ class SentencesToWords:
 
     @staticmethod
     def sentences_to_words_with_part_of_speech(txt: Path) -> list[SentenceWord]:
-        words_file: Path = txt.parent / f"{txt.stem}_words.json"
+        words_file: Path = txt.parent / "words.json"
         if not words_file.exists():
             sentences: list[str] = txt.read_text().split('\n')
             print(f"Sentences count: {len(sentences)}")
