@@ -117,6 +117,7 @@ srt #19K
 reportlab
 PyGithub
 selenium
+kaggle
 kagglehub[pandas-datasets]
 requests-cache
 XlsxWriter

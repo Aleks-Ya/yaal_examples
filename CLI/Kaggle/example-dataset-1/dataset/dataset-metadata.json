@@ -1,0 +1,60 @@
+{
+    "id": "alexeyya/example-dataset-1",
+    "title": "Example Dataset #1",
+    "subtitle": "Trying to make Kaggle working",
+    "description": "My description of my example dataset #1",
+    "licenses":
+    [
+        {
+            "name": "CC0-1.0"
+        }
+    ],
+    "keywords":
+    [
+        "software",
+        "education"
+    ],
+    "resources":
+    [
+        {
+            "path": "people.json",
+            "description": "Data about people",
+            "schema":
+            {
+                "fields":
+                [
+                    {
+                        "name": "name",
+                        "description": "Peron's name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "age",
+                        "description": "Person's age",
+                        "type": "number"
+                    }
+                ]
+            }
+        },
+        {
+            "path": "cities.csv",
+            "description": "Data about cities",
+            "schema":
+            {
+                "fields":
+                [
+                    {
+                        "name": "id",
+                        "description": "City ID",
+                        "type": "number"
+                    },
+                    {
+                        "name": "city",
+                        "description": "City Name",
+                        "type": "string"
+                    }
+                ]
+            }
+        }
+    ]
+}

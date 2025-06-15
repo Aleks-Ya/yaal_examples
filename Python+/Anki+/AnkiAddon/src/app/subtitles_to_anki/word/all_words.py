@@ -1,3 +1,4 @@
+import shutil
 from pathlib import Path
 
 from app.subtitles_to_anki.srt.sentences_to_words import SentencesToWords, SentenceWord
@@ -25,7 +26,6 @@ class AllWords:
         print(f"\nFound {len(srt_files)} SRT files:\n{srt_files_str}")
         all_sentence_words: list[SentenceWord] = []
         for srt_file in srt_files:
-            print(f"\nProcessing {srt_file}")
             sentence_words: list[SentenceWord] = self.__extract_words(srt_file)
             all_sentence_words.extend(sentence_words)
         print()
@@ -36,15 +36,16 @@ class AllWords:
     def __extract_words(self, srt_file: Path) -> list[SentenceWord]:
         print(f"\nProcessing {srt_file}")
         srt_subdir: Path = self.__out_dir / srt_file.stem
+        shutil.copy(srt_file, srt_subdir / "1-subtitles.srt")
         srt_subdir.mkdir(parents=True, exist_ok=True)
         txt_path: Path = self.__convert_srt_to_txt(srt_file, srt_subdir)
         sentence_words: list[SentenceWord] = SentencesToWords.sentences_to_words_with_part_of_speech(txt_path)
-        sentence_words_file: Path = srt_subdir / "words_all.txt"
+        sentence_words_file: Path = srt_subdir / "4-words_all.txt"
         unique_words: list[SentenceWord] = SentencesToWords.find_unique_words(sentence_words)
         all_words_text: str = WordFormatter.format_words(unique_words)
         print(f"Writing words to {sentence_words_file}")
         sentence_words_file.write_text(all_words_text)
-        unknown_words_file: Path = srt_subdir / "words_unknown.txt"
+        unknown_words_file: Path = srt_subdir / "5-words_unknown.txt"
         unknown_words: list[SentenceWord] = self.__unknown_words.filter_unknown_words(unique_words)
         unknown_words_text: str = WordFormatter.format_words(unknown_words)
         print(f"Writing words to {unknown_words_file}")
@@ -53,7 +54,7 @@ class AllWords:
 
     @staticmethod
     def __convert_srt_to_txt(srt: Path, srt_subdir: Path) -> Path:
-        txt: Path = srt_subdir / "sentences.txt"
+        txt: Path = srt_subdir / "2-sentences.txt"
         if not txt.exists():
             SrtToTxt.srt_to_text(srt, txt)
         else:

@@ -31,7 +31,7 @@ class SentencesToWords:
 
     @staticmethod
     def sentences_to_words_with_part_of_speech(txt: Path) -> list[SentenceWord]:
-        words_file: Path = txt.parent / "words.json"
+        words_file: Path = txt.parent / "3-words.json"
         if not words_file.exists():
             sentences: list[str] = txt.read_text().split('\n')
             print(f"Sentences count: {len(sentences)}")
