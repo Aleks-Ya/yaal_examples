@@ -9,6 +9,6 @@ class MaxFunction extends AnyFlatSpec with Matchers {
   it should "use max function" in {
     val df = Factory.peopleDf
     val updatedDf = df.agg(max("age") as "max_age")
-    updatedDf.toJSON.collect() should contain only """{"max_age":35}"""
+    updatedDf.toJSON.collect should contain only """{"max_age":35}"""
   }
 }

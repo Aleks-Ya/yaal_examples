@@ -1,4 +1,4 @@
-package fasterxml.xml.treemodel.serialize;
+package fasterxml.xml.databind.treemodel.serialize;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package fasterxml.xml.treemodel.deserialize;
+package fasterxml.xml.databind.treemodel.deserialize;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;

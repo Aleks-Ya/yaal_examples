@@ -16,7 +16,7 @@ class CoalesceFunction extends AnyFlatSpec with Matchers {
       Row(null, null, "Washington5"),
       Row(null, null, null))
     val updatedDf = df.select(coalesce(col("city1"), col("city2"), col("city3")) as "city")
-    updatedDf.toJSON.collect() should contain inOrderOnly (
+    updatedDf.toJSON.collect should contain inOrderOnly (
       """{"city":"London1"}""",
       """{"city":"Berlin2"}""",
       """{"city":"London3"}""",

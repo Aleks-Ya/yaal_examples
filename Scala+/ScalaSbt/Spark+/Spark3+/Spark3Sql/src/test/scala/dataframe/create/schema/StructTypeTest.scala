@@ -54,6 +54,6 @@ class StructTypeTest extends AnyFlatSpec with BeforeAndAfterAll with Matchers {
     df.printSchema()
     df.show()
     df.schema.simpleString shouldEqual "struct<intField:int,longField:bigint,doubleField:double,floatField:float,stringField:string,booleanField:boolean,byteField:tinyint,shortField:smallint,binaryField:binary,timestampField:timestamp,dateField:date,arrayField:array<int>,mapField:map<string,int>,structField:struct<nestedField:string>,decimalField:decimal(10,2)>"
-    df.toJSON.collect() should contain only """{"intField":42,"longField":1234567890123,"doubleField":42.42,"floatField":23.23,"stringField":"Hello, Spark!","booleanField":true,"byteField":8,"shortField":16,"binaryField":"AQIDBA==","timestampField":"1970-01-20T23:02:27.963+08:00","dateField":"1970-01-20","arrayField":[1,2,3,4],"mapField":{"one":1,"two":2,"three":3},"structField":{"nestedField":"Nested value"},"decimalField":123.45}"""
+    df.toJSON.collect should contain only """{"intField":42,"longField":1234567890123,"doubleField":42.42,"floatField":23.23,"stringField":"Hello, Spark!","booleanField":true,"byteField":8,"shortField":16,"binaryField":"AQIDBA==","timestampField":"1970-01-20T23:02:27.963+08:00","dateField":"1970-01-20","arrayField":[1,2,3,4],"mapField":{"one":1,"two":2,"three":3},"structField":{"nestedField":"Nested value"},"decimalField":123.45}"""
   }
 }

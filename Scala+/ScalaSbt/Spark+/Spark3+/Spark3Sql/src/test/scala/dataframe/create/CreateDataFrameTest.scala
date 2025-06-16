@@ -16,7 +16,7 @@ class CreateDataFrameTest extends AnyFlatSpec with Matchers {
     val rdd = Factory.ss.sparkContext.parallelize(Seq(Row("John", 25), Row("Peter", 35)))
     val df = Factory.ss.createDataFrame(rdd, schema)
     df.schema.simpleString shouldEqual "struct<name:string,age:int>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25}""",
       """{"name":"Peter","age":35}"""
     )
@@ -27,7 +27,7 @@ class CreateDataFrameTest extends AnyFlatSpec with Matchers {
     val rows = Seq(Row("John", 25), Row("Peter", 35)).asJava
     val df = Factory.ss.createDataFrame(rows, schema)
     df.schema.simpleString shouldEqual "struct<name:string,age:int>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25}""",
       """{"name":"Peter","age":35}"""
     )
@@ -37,7 +37,7 @@ class CreateDataFrameTest extends AnyFlatSpec with Matchers {
     val data = Seq(People("John", 25), People("Peter", 35)).asJava
     val df = Factory.ss.createDataFrame(data, classOf[People])
     df.schema.simpleString shouldEqual "struct<age:int,name:string>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"age":25,"name":"John"}""",
       """{"age":35,"name":"Peter"}"""
     )

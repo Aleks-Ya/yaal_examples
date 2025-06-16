@@ -18,7 +18,7 @@ class CsvRead extends AnyFlatSpec with Matchers {
       .csv(file.getPath)
 
     df.schema.simpleString shouldEqual "struct<iata:string,airport:string,city:string,state:string,country:string,lat:double,long:double>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"iata":"00M","airport":"Thigpen ","city":"Bay Springs","state":"MS","country":"USA","lat":31.95376472,"long":-89.23450472}""",
       """{"iata":"00R","airport":"Livingston Municipal","city":"Livingston","state":"TX","country":"USA","lat":30.68586111,"long":-95.01792778}""",
       """{"iata":"00V","airport":"Meadow Lake","city":"Colorado Springs","state":"CO","country":"USA","lat":38.94574889,"long":-104.5698933}""",
@@ -37,7 +37,7 @@ class CsvRead extends AnyFlatSpec with Matchers {
       .csv(file.getPath)
 
     df.schema.simpleString shouldEqual "struct<airport:string,city:string>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"airport":"Thigpen ","city":"Bay Springs"}""",
       """{"airport":"Livingston Municipal","city":null}""",
       """{"airport":"Meadow Lake","city":"Colorado Springs"}"""
@@ -60,7 +60,7 @@ class CsvRead extends AnyFlatSpec with Matchers {
       .csv(file.getPath)
 
     df.schema.simpleString shouldEqual "struct<id:bigint,name:string,age:int,effectiveness:double>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"id":1,"name":"John","age":35,"effectiveness":75.5}""",
       """{"id":2,"name":"Mary","age":25,"effectiveness":66.1}"""
     )
@@ -70,7 +70,7 @@ class CsvRead extends AnyFlatSpec with Matchers {
     val csvPath = classOf[CsvRead].getResource("data.csv").getFile
     val textDs = Factory.ss.read.textFile(csvPath)
     val csvDf = Factory.ss.read.option("header", "true").option("inferSchema", "true").csv(textDs)
-    csvDf.toJSON.collect() should contain inOrderOnly(
+    csvDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":35,"married":false}""",
       """{"name":"Mary","age":25,"married":true}"""
     )
@@ -81,7 +81,7 @@ class CsvRead extends AnyFlatSpec with Matchers {
     val textDs = Factory.ss.read.textFile(csvPath)
     val cleanDs = textDs.offset(2)
     val csvDf = Factory.ss.read.option("header", "true").option("inferSchema", "true").csv(cleanDs)
-    csvDf.toJSON.collect() should contain inOrderOnly(
+    csvDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":35,"married":false}""",
       """{"name":"Mary","age":25,"married":true}"""
     )

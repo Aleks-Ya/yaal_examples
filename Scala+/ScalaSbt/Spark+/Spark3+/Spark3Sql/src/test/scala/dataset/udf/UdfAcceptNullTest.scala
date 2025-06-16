@@ -10,14 +10,14 @@ class UdfAcceptNullTest extends AnyFlatSpec with Matchers {
 
   it should "accepts null value" in {
     val df1 = Factory.peopleDf.withColumn("isAdult", IsAdultOptionUdf(col("age")))
-    df1.toJSON.collect() should contain inOrderOnly(
+    df1.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M","isAdult":true}""",
       """{"name":"Peter","age":35,"gender":"M","isAdult":true}""",
       """{"name":"Mary","age":20,"gender":"F","isAdult":true}"""
     )
 
     val df2 = Factory.peopleDf.withColumn("isAdult", IsAdultUdf(col("age")))
-    df2.toJSON.collect() should contain inOrderOnly(
+    df2.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M","isAdult":true}""",
       """{"name":"Peter","age":35,"gender":"M","isAdult":true}""",
       """{"name":"Mary","age":20,"gender":"F","isAdult":true}"""
@@ -36,14 +36,14 @@ class UdfAcceptNullTest extends AnyFlatSpec with Matchers {
 
   it should "accepts null column" in {
     val df1 = Factory.peopleDf.withColumn("isAdult", IsAdultOptionUdf(lit(null)))
-    df1.toJSON.collect() should contain inOrderOnly(
+    df1.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M","isAdult":false}""",
       """{"name":"Peter","age":35,"gender":"M","isAdult":false}""",
       """{"name":"Mary","age":20,"gender":"F","isAdult":false}"""
     )
 
     val df2 = Factory.peopleDf.withColumn("isAdult", IsAdultUdf(lit(null)))
-    df2.toJSON.collect() should contain inOrderOnly(
+    df2.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M","isAdult":null}""",
       """{"name":"Peter","age":35,"gender":"M","isAdult":null}""",
       """{"name":"Mary","age":20,"gender":"F","isAdult":null}"""

@@ -19,7 +19,7 @@ class Percents extends AnyFlatSpec with Matchers {
       .withColumn("percentDouble2", round(col("percentDouble0") * 100, 2))
       .withColumn("percentText", concat(col("percentDouble2"), lit("%")))
     percentDf.schema.toDDL shouldEqual "name STRING,production INT,percentDouble0 DOUBLE,percentDouble2 DOUBLE,percentText STRING"
-    percentDf.toJSON.collect() should contain inOrderOnly(
+    percentDf.toJSON.collect should contain inOrderOnly(
       """{"name":"USA","production":50,"percentDouble0":0.6666666666666666,"percentDouble2":66.67,"percentText":"66.67%"}""",
       """{"name":"Canada","production":25,"percentDouble0":0.3333333333333333,"percentDouble2":33.33,"percentText":"33.33%"}"""
     )

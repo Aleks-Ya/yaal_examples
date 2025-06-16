@@ -15,7 +15,7 @@ class ReferNestedColumnTest extends AnyFlatSpec with Matchers {
       .withColumn("details_oneline", concat_ws("-",
         col("details").getField("gender"),
         col("details").getField("age")))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","details":{"age":30,"gender":"M"},"details_oneline":"M-30"}""",
       """{"name":"Mary","details":{"age":25,"gender":"F"},"details_oneline":"F-25"}""")
   }
@@ -27,7 +27,7 @@ class ReferNestedColumnTest extends AnyFlatSpec with Matchers {
       .withColumn("details_oneline", concat_ws("-",
         col("details")("gender"),
         col("details")("age")))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","details":{"age":30,"gender":"M"},"details_oneline":"M-30"}""",
       """{"name":"Mary","details":{"age":25,"gender":"F"},"details_oneline":"F-25"}""")
   }
@@ -39,7 +39,7 @@ class ReferNestedColumnTest extends AnyFlatSpec with Matchers {
       .withColumn("details_oneline", concat_ws("-",
         col("details.gender"),
         col("details.age")))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","details":{"age":30,"gender":"M"},"details_oneline":"M-30"}""",
       """{"name":"Mary","details":{"age":25,"gender":"F"},"details_oneline":"F-25"}""")
   }

@@ -22,7 +22,7 @@ class MapPartitionsTransformationTest extends AnyFlatSpec with Matchers {
         Row(name.toUpperCase, age - 1, gender)
       })
     )
-    mappedDs.toJSON.collect() should contain inOrderOnly(
+    mappedDs.toJSON.collect should contain inOrderOnly(
       """{"name":"JOHN","age":24,"gender":"M"}""",
       """{"name":"MARY","age":19,"gender":"F"}""",
       """{"name":"PETER","age":34,"gender":"M"}""")
@@ -32,7 +32,7 @@ class MapPartitionsTransformationTest extends AnyFlatSpec with Matchers {
     val df: DataFrame = Factory.peopleDf.repartition(2)
     implicit val encoder: Encoder[Row] = Encoders.row(df.schema)
     val mappedDs = df.mapPartitions(_ => Iterator.empty)
-    mappedDs.toJSON.collect() shouldBe empty
+    mappedDs.toJSON.collect shouldBe empty
   }
 
   //NOT WORK

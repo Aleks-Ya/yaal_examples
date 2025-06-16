@@ -13,7 +13,7 @@ class SeqToDfTest extends AnyFlatSpec with Matchers {
     val data = Seq(("John", 25), ("Peter", 35))
     val df = data.toDF("name", "age")
     df.schema.simpleString shouldEqual "struct<name:string,age:int>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25}""",
       """{"name":"Peter","age":35}"""
     )
@@ -22,7 +22,7 @@ class SeqToDfTest extends AnyFlatSpec with Matchers {
   it should "create DataFrame of numbers" in {
     import Factory.ss.implicits._
     val df = (1 to 3).toDF("id")
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"id":1}""",
       """{"id":2}""",
       """{"id":3}"""
@@ -34,7 +34,7 @@ class SeqToDfTest extends AnyFlatSpec with Matchers {
     val data = Seq(People("John", 25), People("Peter", 35))
     val df = data.toDF("name", "age")
     df.schema.simpleString shouldEqual "struct<name:string,age:int>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25}""",
       """{"name":"Peter","age":35}"""
     )
@@ -45,7 +45,7 @@ class SeqToDfTest extends AnyFlatSpec with Matchers {
     val data = Seq(("London", People("John", 25)), ("Berlin", People("Peter", 35)))
     val df = data.toDF("city", "person")
     df.schema.simpleString shouldEqual "struct<city:string,person:struct<name:string,age:int>>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"city":"London","person":{"name":"John","age":25}}""",
       """{"city":"Berlin","person":{"name":"Peter","age":35}}"""
     )
@@ -59,7 +59,7 @@ class SeqToDfTest extends AnyFlatSpec with Matchers {
     )
     val df = data.toDF("city", "people")
     df.schema.simpleString shouldEqual "struct<city:string,people:array<struct<name:string,age:int>>>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"city":"London","people":[{"name":"John","age":25},{"name":"Peter","age":35}]}""",
       """{"city":"Berlin","people":[{"name":"Mike","age":30},{"name":"Mary","age":20}]}"""
     )
@@ -69,7 +69,7 @@ class SeqToDfTest extends AnyFlatSpec with Matchers {
     import Factory.ss.implicits._
     val df = Seq[String]().toDF("id")
     df.schema.simpleString shouldEqual "struct<id:string>"
-    df.toJSON.collect() shouldBe empty
+    df.toJSON.collect shouldBe empty
   }
 
 }

@@ -1,19 +1,19 @@
-package fasterxml.xml.treemodel.deserialize;
+package fasterxml.xml.databind.treemodel.deserialize;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.Test;
-import util.ResourceUtil;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static util.ResourceUtil.resourceToString;
 
 /**
  * Using Data Bind for parsing specific Nodes in Tree Model.
  */
 class TreeModelAndDataBindTest {
-    private static final String JSON = ResourceUtil.resourceToString(TreeModelAndDataBindTest.class, "TreeModelAndDataBindTest.json");
+    private static final String JSON = resourceToString(TreeModelAndDataBindTest.class, "TreeModelAndDataBindTest.json");
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final String EXP_HEAD_NAME = "John Smith";
     private static final String EXP_HEAD_TITLE = "Executive";

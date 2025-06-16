@@ -17,7 +17,7 @@ class ExplodeOuterFunction extends AnyFlatSpec with Matchers {
       Row("Chad", List())
     )
     val explodedDf = df.select(col("name"), explode_outer(col("cities")).alias("city"))
-    explodedDf.toJSON.collect() should contain inOrderOnly(
+    explodedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","city":"London"}""",
       """{"name":"John","city":"Paris"}""",
       """{"name":"Mary","city":"Berlin"}""",

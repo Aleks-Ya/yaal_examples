@@ -19,7 +19,7 @@ class UdfInStructTest extends AnyFlatSpec with Matchers {
         upperUdf(col("name"), col("age")).as("upper")
       ).as("details")
     )
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","details":{"sex":"M","lifetime":25,"upper":"JOHN-25"}}""",
       """{"name":"Peter","details":{"sex":"M","lifetime":35,"upper":"PETER-35"}}""",
       """{"name":"Mary","details":{"sex":"F","lifetime":20,"upper":"MARY-20"}}"""
@@ -35,7 +35,7 @@ class UdfInStructTest extends AnyFlatSpec with Matchers {
         UpperUdfField(col("name"), col("age")).as("upper")
       ).as("details")
     )
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","details":{"sex":"M","lifetime":25,"upper":"JOHN-25"}}""",
       """{"name":"Peter","details":{"sex":"M","lifetime":35,"upper":"PETER-35"}}""",
       """{"name":"Mary","details":{"sex":"F","lifetime":20,"upper":"MARY-20"}}"""
@@ -57,7 +57,7 @@ class UdfInStructTest extends AnyFlatSpec with Matchers {
         UpperUdfFunction(col("name"), col("age")).as("upper")
       ).as("details")
     )
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","details":{"sex":"M","lifetime":25,"upper":"JOHN-25"}}""",
       """{"name":"Peter","details":{"sex":"M","lifetime":35,"upper":"PETER-35"}}""",
       """{"name":"Mary","details":{"sex":"F","lifetime":20,"upper":"MARY-20"}}"""

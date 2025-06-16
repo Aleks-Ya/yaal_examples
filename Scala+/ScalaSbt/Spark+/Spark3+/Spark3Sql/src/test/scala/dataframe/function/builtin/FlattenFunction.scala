@@ -19,7 +19,7 @@ class FlattenFunction extends AnyFlatSpec with Matchers {
       Row("USA", Seq(Seq(10, 20), Seq(30, 40))),
       Row("Canada", Seq(Seq(100, 200), Seq(300, 400))))
     val updatedDf = df.select(col("country"), flatten(col("orders")) as "country_orders")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"USA","country_orders":[10,20,30,40]}""",
       """{"country":"Canada","country_orders":[100,200,300,400]}""")
   }
@@ -33,7 +33,7 @@ class FlattenFunction extends AnyFlatSpec with Matchers {
         Seq(Seq(101, 201), Seq(301, 401)),
         Seq(Seq(102, 202), Seq(302, 402)))))
     val updatedDf = df.select(col("country"), flatten(flatten(col("orders"))) as "country_orders")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"USA","country_orders":[11,21,31,41,12,22,32,42]}""",
       """{"country":"Canada","country_orders":[101,201,301,401,102,202,302,402]}""")
   }
@@ -45,19 +45,19 @@ class FlattenFunction extends AnyFlatSpec with Matchers {
       Row("Canada", Seq(Seq(Row("Patrick", 100), Row("Buddha", 200)), Seq(Row("Petr", 300), Row("Kant", 400)))
       ))
     val updatedDf = df.select(col("country"), flatten(col("people"))("name") as "country_people")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"USA","country_people":["John","Mary","Mark","Erick"]}""",
       """{"country":"Canada","country_people":["Patrick","Buddha","Petr","Kant"]}""")
   }
 
   it should "use flatten function in select with collect_list" in {
     val updatedDf = df.select(flatten(collect_list("orders")) as "all_orders")
-    updatedDf.toJSON.collect() should contain only """{"all_orders":[10,20,100,200,30,40,300,400]}"""
+    updatedDf.toJSON.collect should contain only """{"all_orders":[10,20,100,200,30,40,300,400]}"""
   }
 
   it should "use flatten function in agg" in {
     val updatedDf = df.agg(flatten(collect_list("orders")) as "all_orders")
-    updatedDf.toJSON.collect() should contain only """{"all_orders":[10,20,100,200,30,40,300,400]}"""
+    updatedDf.toJSON.collect should contain only """{"all_orders":[10,20,100,200,30,40,300,400]}"""
   }
 
   it should "fail if flatten is applied to an one-level array" in {
@@ -73,7 +73,7 @@ class FlattenFunction extends AnyFlatSpec with Matchers {
     import Factory.ss.implicits._
     val df = Seq[String]("a").toDF("id")
     val updatedDf = df.select(flatten(array(array())) as "null_flatten")
-    updatedDf.toJSON.collect() should contain only """{"null_flatten":[]}"""
+    updatedDf.toJSON.collect should contain only """{"null_flatten":[]}"""
   }
 
   it should "flatten array with null" in {
@@ -85,7 +85,7 @@ class FlattenFunction extends AnyFlatSpec with Matchers {
       Row("Belgium", null)
     )
     val updatedDf = df.select(col("country"), flatten(col("orders")) as "country_orders")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"USA","country_orders":[10,null,30,40]}""",
       """{"country":"Canada","country_orders":[100,200,null,null]}""",
       """{"country":"Germany","country_orders":null}""",

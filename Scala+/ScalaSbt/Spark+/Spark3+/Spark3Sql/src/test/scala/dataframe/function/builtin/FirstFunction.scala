@@ -18,7 +18,7 @@ class FirstFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.groupBy("country").agg(
       first("country") as "first_country",
       first("order") as "first_order")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"Canada","first_country":"Canada","first_order":100}""",
       """{"country":"USA","first_country":"USA","first_order":10}"""
     )
@@ -29,7 +29,7 @@ class FirstFunction extends AnyFlatSpec with Matchers {
       first("country") as "first_country",
       first("order") as "first_order"
     )
-    updatedDf.toJSON.collect() should contain only """{"first_country":"USA","first_order":10}"""
+    updatedDf.toJSON.collect should contain only """{"first_country":"USA","first_order":10}"""
   }
 
   it should "use first function in select" in {
@@ -37,6 +37,6 @@ class FirstFunction extends AnyFlatSpec with Matchers {
       first("country") as "first_country",
       first("order") as "first_order"
     )
-    updatedDf.toJSON.collect() should contain only """{"first_country":"USA","first_order":10}"""
+    updatedDf.toJSON.collect should contain only """{"first_country":"USA","first_order":10}"""
   }
 }

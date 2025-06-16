@@ -12,7 +12,7 @@ class BroadcastJoinTest extends AnyFlatSpec with Matchers {
     val bigDf = Factory.cityListDf
     val joinedDf = bigDf.join(broadcast(smallDf))
     joinedDf.schema.simpleString shouldEqual "struct<city:string,name:string,age:int,gender:string>"
-    joinedDf.toJSON.collect() should contain inOrderOnly(
+    joinedDf.toJSON.collect should contain inOrderOnly(
       """{"city":"Moscow","name":"John","age":25,"gender":"M"}""",
       """{"city":"Moscow","name":"Peter","age":35,"gender":"M"}""",
       """{"city":"Moscow","name":"Mary","age":20,"gender":"F"}""",

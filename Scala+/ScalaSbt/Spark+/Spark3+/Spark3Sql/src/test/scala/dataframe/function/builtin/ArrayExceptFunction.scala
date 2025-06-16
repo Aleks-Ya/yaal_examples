@@ -19,7 +19,7 @@ class ArrayExceptFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col(countryCol),
       array_except(col(allCitiesCol), col(bigCitiesCol)) as "small_cities")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"England","small_cities":["Birmingham"]}""",
       """{"country":"USA","small_cities":["Houston","Phoenix"]}"""
     )

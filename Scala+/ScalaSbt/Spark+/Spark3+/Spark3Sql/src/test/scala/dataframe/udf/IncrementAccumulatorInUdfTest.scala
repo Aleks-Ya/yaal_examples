@@ -22,7 +22,7 @@ class IncrementAccumulatorInUdfTest extends AnyFlatSpec with Matchers {
       name
     })
     val updatedDf = df.withColumn("name", upperCaseUdf(col("name")))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John"}""",
       """{"name":"Mary"}""",
       """{"name":null}""")
@@ -36,7 +36,7 @@ class IncrementAccumulatorInUdfTest extends AnyFlatSpec with Matchers {
     val emptyAcc = Factory.sc.longAccumulator("empty")
     val counterUdf = CounterUdf2(totalAcc, emptyAcc)
     val updatedDf = df.withColumn("name", counterUdf(col("name")))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John"}""",
       """{"name":"Mary"}""",
       """{"name":null}""")
@@ -48,7 +48,7 @@ class IncrementAccumulatorInUdfTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf("name STRING", Row("John"), Row("Mary"), Row(null))
     val counterUdf = EmptyCounterUdf3(Factory.sc)
     val updatedDf = df.withColumn("name", counterUdf.count(col("name")))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John"}""",
       """{"name":"Mary"}""",
       """{"name":null}""")
@@ -61,7 +61,7 @@ class IncrementAccumulatorInUdfTest extends AnyFlatSpec with Matchers {
     val totalAcc = Factory.sc.longAccumulator("total")
     val emptyAcc = Factory.sc.longAccumulator("empty")
     val updatedDf = df.countStrings4("name", totalAcc, emptyAcc)
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John"}""",
       """{"name":"Mary"}""",
       """{"name":null}""")
@@ -79,7 +79,7 @@ class IncrementAccumulatorInUdfTest extends AnyFlatSpec with Matchers {
     val selectedColumns = updatedDf.columns.filter(_ != columnToExclude).map(col)
     val resultDf = updatedDf.select(selectedColumns: _*)
     resultDf.explain()
-    resultDf.toJSON.collect() should contain inOrderOnly(
+    resultDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","surname":"Smith"}""",
       """{"name":"Mary","surname":null}""",
       """{"name":null,"surname":"Roger"}""",

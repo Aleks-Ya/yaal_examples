@@ -19,7 +19,7 @@ class ArrayInsertFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col(countryCol),
       array_insert(col(citiesCol), lit(-1), col(capitalCol)) as "all_cities")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"England","all_cities":["Manchester","London","London"]}""",
       """{"country":"USA","all_cities":["Chicago","Washington","Washington"]}"""
     )
@@ -36,7 +36,7 @@ class ArrayInsertFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col(countryCol),
       array_insert(col(citiesCol), lit(1), col(capitalCol)) as "all_cities")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"England","all_cities":["London","Manchester","London"]}""",
       """{"country":"USA","all_cities":["Washington","Chicago","Washington"]}"""
     )

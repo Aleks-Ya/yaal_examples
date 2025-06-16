@@ -15,7 +15,7 @@ class ConcatWsFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("cities"),
       concat_ws(", ", col("cities")).as("joined"))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"cities":["London","Paris"],"joined":"London, Paris"}""",
       """{"cities":["Berlin","Barcelona"],"joined":"Berlin, Barcelona"}"""
     )

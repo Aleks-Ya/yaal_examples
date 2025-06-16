@@ -12,7 +12,7 @@ class LowerFunction extends AnyFlatSpec with Matchers {
       col("city"),
       lower(col("city")) as "lower"
     )
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"city":"Moscow","lower":"moscow"}""",
       """{"city":"SPb","lower":"spb"}"""
     )

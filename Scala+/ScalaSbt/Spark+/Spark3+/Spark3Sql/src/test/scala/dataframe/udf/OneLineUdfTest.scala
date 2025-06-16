@@ -11,7 +11,7 @@ class OneLineUdfTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf("name STRING", Row("John"), Row("Mary"))
     val upperCaseUdf = udf((str: String) => str.toUpperCase)
     val updatedDf = df.withColumn("upper_name", upperCaseUdf(col("name")))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","upper_name":"JOHN"}""",
       """{"name":"Mary","upper_name":"MARY"}"""
     )
@@ -21,7 +21,7 @@ class OneLineUdfTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf("name STRING", Row("John"), Row("Mary"))
     val upperCaseUdf = udf[String, String]((str: String) => str.toUpperCase)
     val updatedDf = df.withColumn("upper_name", upperCaseUdf(col("name")))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","upper_name":"JOHN"}""",
       """{"name":"Mary","upper_name":"MARY"}"""
     )

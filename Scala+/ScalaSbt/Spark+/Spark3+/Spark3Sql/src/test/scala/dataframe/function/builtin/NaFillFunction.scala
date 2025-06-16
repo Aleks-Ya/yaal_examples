@@ -18,7 +18,7 @@ class NaFillFunction extends AnyFlatSpec with Matchers {
       .na.fill(18)
       .na.fill(false)
       .na.fill("London", Seq("city"))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"person":"John","age":35,"married":false,"city":"Berlin"}""",
       """{"person":"Mary","age":18,"married":true,"city":"London"}""",
       """{"person":"Mark","age":18,"married":false,"city":"London"}"""

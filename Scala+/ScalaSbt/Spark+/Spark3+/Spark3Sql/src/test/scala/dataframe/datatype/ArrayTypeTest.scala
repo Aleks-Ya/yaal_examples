@@ -16,7 +16,7 @@ class ArrayTypeTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf(Map("name" -> StringType, "orders" -> ArrayType(IntegerType)),
       Row("USA", Array(10, 20)), Row("Canada", Array(30, 40)))
     df.schema.simpleString shouldEqual "struct<name:string,orders:array<int>>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"USA","orders":[10,20]}""",
       """{"name":"Canada","orders":[30,40]}""")
   }
@@ -25,7 +25,7 @@ class ArrayTypeTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf(Map("name" -> StringType, "orders" -> DataTypes.createArrayType(IntegerType)),
       Row("USA", Array(10, 20)), Row("Canada", Array(30, 40)))
     df.schema.simpleString shouldEqual "struct<name:string,orders:array<int>>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"USA","orders":[10,20]}""",
       """{"name":"Canada","orders":[30,40]}""")
   }
@@ -36,9 +36,9 @@ class ArrayTypeTest extends AnyFlatSpec with Matchers {
     val dfSeq = Factory.createDf(Map("numbers" -> ArrayType(IntegerType)), Row(Seq(10, 20)), Row(Seq(30, 40)))
 
     val expJson = Seq("""{"numbers":[10,20]}""", """{"numbers":[30,40]}""")
-    dfArray.toJSON.collect() should contain theSameElementsInOrderAs expJson
-    dfList.toJSON.collect() should contain theSameElementsInOrderAs expJson
-    dfSeq.toJSON.collect() should contain theSameElementsInOrderAs expJson
+    dfArray.toJSON.collect should contain theSameElementsInOrderAs expJson
+    dfList.toJSON.collect should contain theSameElementsInOrderAs expJson
+    dfSeq.toJSON.collect should contain theSameElementsInOrderAs expJson
     dfArray.schema shouldBe dfList.schema
     dfArray.schema shouldBe dfSeq.schema
   }
@@ -46,13 +46,13 @@ class ArrayTypeTest extends AnyFlatSpec with Matchers {
   it should "get value of ArrayType field" in {
     val df = Factory.createDf(Map("numbers" -> ArrayType(IntegerType)), Row(Array(10, 20)), Row(Array(30, 40)))
     df.schema.simpleString shouldEqual "struct<numbers:array<int>>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"numbers":[10,20]}""",
       """{"numbers":[30,40]}""")
     import Factory.ss.implicits._
     val sumDf = df.map(row => row.getSeq[Int](row.fieldIndex("numbers")).sum)
     sumDf.schema.simpleString shouldEqual "struct<value:int>"
-    sumDf.toJSON.collect() should contain inOrderOnly(
+    sumDf.toJSON.collect should contain inOrderOnly(
       """{"value":30}""",
       """{"value":70}""")
   }
@@ -63,7 +63,7 @@ class ArrayTypeTest extends AnyFlatSpec with Matchers {
     df.schema.simpleString shouldEqual "struct<name:string,orders:array<int>>"
     val df2 = df.withColumn("first_order", col("orders")(0))
     df2.schema.simpleString shouldEqual "struct<name:string,orders:array<int>,first_order:int>"
-    df2.toJSON.collect() should contain inOrderOnly(
+    df2.toJSON.collect should contain inOrderOnly(
       """{"name":"USA","orders":[10,20],"first_order":10}""",
       """{"name":"Canada","orders":[],"first_order":null}""")
   }
@@ -75,7 +75,7 @@ class ArrayTypeTest extends AnyFlatSpec with Matchers {
       Row(Array(Array(10, 20), Array(30), Array(), Array(40)))
     )
     df.schema.simpleString shouldEqual "struct<numbers:array<array<int>>>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"numbers":[[1,2],[3,4]]}""",
       """{"numbers":[[10,20],[30],[],[40]]}""")
     import Factory.ss.implicits._
@@ -84,7 +84,7 @@ class ArrayTypeTest extends AnyFlatSpec with Matchers {
       seqOfSeqs.map(_.sum).sum
     })
     sumDf.schema.simpleString shouldEqual "struct<value:int>"
-    sumDf.toJSON.collect() should contain inOrderOnly(
+    sumDf.toJSON.collect should contain inOrderOnly(
       """{"value":10}""",
       """{"value":100}""")
   }
@@ -97,12 +97,12 @@ class ArrayTypeTest extends AnyFlatSpec with Matchers {
       Row("John", Array(1, 2)),
       Row("Mary", Array(10, 20)))
     df.schema.simpleString shouldEqual "struct<name:string,sales:array<int>>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","sales":[1,2]}""",
       """{"name":"Mary","sales":[10,20]}""")
     val sumDf = df.withColumn("maxSale", array_max(col("sales")))
     sumDf.schema.simpleString shouldEqual "struct<name:string,sales:array<int>,maxSale:int>"
-    sumDf.toJSON.collect() should contain inOrderOnly(
+    sumDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","sales":[1,2],"maxSale":2}""",
       """{"name":"Mary","sales":[10,20],"maxSale":20}""")
   }
@@ -120,12 +120,12 @@ class ArrayTypeTest extends AnyFlatSpec with Matchers {
     ).asJava
     val df = ss.createDataFrame(rows, schema)
     df.schema.simpleString shouldEqual "struct<person:string,products:array<struct<title:string,sales:array<int>>>>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"person":"John","products":[{"title":"car","sales":[1,2]},{"title":"house","sales":[3,4]}]}""",
       """{"person":"Mary","products":[{"title":"butter","sales":[10,20]},{"title":"bread","sales":[30,40]}]}""")
     val sumDf = df.withColumn("maxSale", array_max(flatten(col("products.sales"))))
     sumDf.schema.simpleString shouldEqual "struct<person:string,products:array<struct<title:string,sales:array<int>>>,maxSale:int>"
-    sumDf.toJSON.collect() should contain inOrderOnly(
+    sumDf.toJSON.collect should contain inOrderOnly(
       """{"person":"John","products":[{"title":"car","sales":[1,2]},{"title":"house","sales":[3,4]}],"maxSale":4}""",
       """{"person":"Mary","products":[{"title":"butter","sales":[10,20]},{"title":"bread","sales":[30,40]}],"maxSale":40}""")
   }
@@ -134,12 +134,12 @@ class ArrayTypeTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf("person STRING,products ARRAY<STRUCT<title: STRING, sales: ARRAY<INT>>>",
       Row("John", Array(Row("car", Array(1, 2)), Row("house", Array(3, 4)))),
       Row("Mary", Array(Row("butter", Array(10, 20)), Row("bread", Array(30, 40)))))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"person":"John","products":[{"title":"car","sales":[1,2]},{"title":"house","sales":[3,4]}]}""",
       """{"person":"Mary","products":[{"title":"butter","sales":[10,20]},{"title":"bread","sales":[30,40]}]}""")
     val salesDf = df.select(col("person"), flatten(col("products")("sales")) as "sales")
     salesDf.schema.toDDL shouldEqual "person STRING,sales ARRAY<INT>"
-    salesDf.toJSON.collect() should contain inOrderOnly(
+    salesDf.toJSON.collect should contain inOrderOnly(
       """{"person":"John","sales":[1,2,3,4]}""",
       """{"person":"Mary","sales":[10,20,30,40]}""")
   }

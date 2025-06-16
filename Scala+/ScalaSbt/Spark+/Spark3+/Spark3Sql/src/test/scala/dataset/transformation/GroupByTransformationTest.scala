@@ -17,7 +17,7 @@ class GroupByTransformationTest extends AnyFlatSpec with Matchers {
         val yearSum = cities.map(city => city.establishYear).sum
         s"$cityName - $yearSum"
       })
-    updatedDs.toJSON.collect() should contain inOrderOnly(
+    updatedDs.toJSON.collect should contain inOrderOnly(
       """{"value":"Moscow - 9124"}""",
       """{"value":"SPb - 4567"}""")
   }
@@ -25,7 +25,7 @@ class GroupByTransformationTest extends AnyFlatSpec with Matchers {
   it should "group by and show count" in {
     val ds = Factory.createCityDs(cities)
     val updatedDf = ds.groupBy("name").count()
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"Moscow","count":2}""",
       """{"name":"SPb","count":1}""")
   }
@@ -43,7 +43,7 @@ class GroupByTransformationTest extends AnyFlatSpec with Matchers {
         val yearSum = rows.map(row => row.getInt(1)).sum
         s"$cityName - $yearSum"
       })
-    updatedDs.toJSON.collect() should contain inOrderOnly(
+    updatedDs.toJSON.collect should contain inOrderOnly(
       """{"value":"Moscow - 9124"}""",
       """{"value":"SPb - 4567"}""")
   }

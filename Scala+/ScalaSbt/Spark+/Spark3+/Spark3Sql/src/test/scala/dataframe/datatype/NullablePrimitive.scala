@@ -22,7 +22,7 @@ class NullablePrimitive extends AnyFlatSpec with Matchers {
       }).toDF("name", "orders")
     df.show()
     df.printSchema()
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"USA","orders":10}""",
       """{"name":"Canada","orders":20}""",
       """{"name":"England","orders":0}"""
@@ -41,7 +41,7 @@ class NullablePrimitive extends AnyFlatSpec with Matchers {
       }).toDF("name", "orders")
     df.show()
     df.printSchema()
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"USA","orders":10}""",
       """{"name":"Canada","orders":20}""",
       """{"name":"England","orders":0}"""

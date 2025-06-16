@@ -21,7 +21,7 @@ class UdfVariableTest extends AnyFlatSpec with Matchers {
     val df = Factory.ss
       .createDataset(Seq("a", "b"))
       .withColumn("upper", upperUdf('value))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"value":"a","upper":"A"}""",
       """{"value":"b","upper":"B"}"""
     )
@@ -32,7 +32,7 @@ class UdfVariableTest extends AnyFlatSpec with Matchers {
     val upper: (String, Int) => String = (name: String, age: Int) => s"${name.toUpperCase}-$age"
     val upperUdf = udf(upper: (String, Int) => String)
     val df = Factory.peopleDf.withColumn("upper", upperUdf($"name", $"age"))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M","upper":"JOHN-25"}""",
       """{"name":"Peter","age":35,"gender":"M","upper":"PETER-35"}""",
       """{"name":"Mary","age":20,"gender":"F","upper":"MARY-20"}"""
@@ -59,7 +59,7 @@ class UdfVariableTest extends AnyFlatSpec with Matchers {
     val df = Factory.ss
       .createDataset(Seq("a", "b"))
       .withColumn("upper", upperUdf('value))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"value":"a","upper":"A_SUF"}""",
       """{"value":"b","upper":"B_SUF"}"""
     )
@@ -75,7 +75,7 @@ class UdfVariableTest extends AnyFlatSpec with Matchers {
       .createDataset(Seq("a", "b"))
       .withColumn("suffix", addSuffixUdf('value))
       .withColumn("upper", upperUdf('suffix))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"value":"a","suffix":"a_suf","upper":"A_SUF"}""",
       """{"value":"b","suffix":"b_suf","upper":"B_SUF"}"""
     )

@@ -1,4 +1,4 @@
 /**
- * Utilizing Jackson Streaming API.
+ * Using Jackson Streaming API (jackson-core).
  */
 package fasterxml.xml.streaming;

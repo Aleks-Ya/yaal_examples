@@ -20,7 +20,7 @@ class RegexpReplaceFunction extends AnyFlatSpec with Matchers {
       regexp_replace(col("text"), regex1, "Small").as("re10"),
       regexp_replace(col("text"), regex2, " like").as("re21"),
     )
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"text":"A big dog eats meat","re10":"A Small dog eats meat","re21":"A big dog like"}""",
       """{"text":"Mr. Big doesn't eat raw meat","re10":"Mr. Small doesn't eat raw meat","re21":"Mr. Big doesn't like"}""",
       """{"text":"Mr. BIG eats meat","re10":"Mr. BIG eats meat","re21":"Mr. BIG like"}"""

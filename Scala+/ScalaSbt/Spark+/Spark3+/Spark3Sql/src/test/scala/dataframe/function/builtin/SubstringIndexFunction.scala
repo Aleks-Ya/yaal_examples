@@ -14,7 +14,7 @@ class SubstringIndexFunction extends AnyFlatSpec with Matchers {
       Row("e,f,g"))
     val updatedDf = df.select(
       substring_index(col("text"), ",", 2) as "index")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"index":"a,b"}""",
       """{"index":"e,f"}"""
     )

@@ -19,7 +19,7 @@ class ArrayUnionFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col(countryCol),
       array_union(col(bigCitiesCol), col(smallCitiesCol)) as "all_cities")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"England","all_cities":["London","Manchester","Birmingham"]}""",
       """{"country":"USA","all_cities":["Chicago","Houston","Phoenix"]}"""
     )
@@ -48,7 +48,7 @@ class ArrayUnionFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col(countryCol),
       citiesCols.map(col).reduce(array_union) as "all")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"England","all":["London","Manchester","Birmingham","Winchester","Durham","Canterbury","Bath"]}""",
       """{"country":"USA","all":["Chicago","Houston","Phoenix","Charleston","Asheville","Sedona"]}"""
     )
@@ -65,7 +65,7 @@ class ArrayUnionFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col(countryCol),
       array_union(array(col(capitalCol)), col(citiesCol)) as "all_cities")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"England","all_cities":["London","Manchester"]}""",
       """{"country":"USA","all_cities":["Washington","Chicago"]}"""
     )
@@ -82,7 +82,7 @@ class ArrayUnionFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col(countryCol),
       array_union(col(bigCitiesCol), col(smallCitiesCol)) as "all_cities")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"England","all_cities":null}""",
       """{"country":"USA","all_cities":null}"""
     )
@@ -99,7 +99,7 @@ class ArrayUnionFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col(countryCol),
       array_union(col(bigCitiesCol), col(smallCitiesCol)) as "all_cities")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"England","all_cities":[{"name":"London","population":10},{"name":"Manchester","population":8},{"name":"London","population":2},{"name":"Birmingham","population":7}]}""",
       """{"country":"USA","all_cities":[{"name":"Chicago","population":12},{"name":"Houston","population":5},{"name":"Phoenix","population":3}]}"""
     )

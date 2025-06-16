@@ -14,7 +14,7 @@ class UdfObjectReturnJsonObjectTest extends AnyFlatSpec with Matchers {
 
   it should "UDF returns JSON object" in {
     val df = Factory.peopleDf.withColumn("person", UpperUdfFunction($"name", $"age"))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M","person":{"name":"John","age":25}}""",
       """{"name":"Peter","age":35,"gender":"M","person":{"name":"Peter","age":35}}""",
       """{"name":"Mary","age":20,"gender":"F","person":{"name":"Mary","age":20}}"""

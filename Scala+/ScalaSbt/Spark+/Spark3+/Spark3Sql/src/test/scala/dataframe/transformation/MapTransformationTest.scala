@@ -19,7 +19,7 @@ class MapTransformationTest extends AnyFlatSpec with Matchers {
       })
       .toDF("name", "maturity", "gender")
 
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","maturity":"Adult","gender":"M"}""",
       """{"name":"Peter","maturity":"Adult","gender":"M"}""",
       """{"name":"Mary","maturity":"Adult","gender":"F"}"""
@@ -47,7 +47,7 @@ class MapTransformationTest extends AnyFlatSpec with Matchers {
       })
       .toDF("name", "maturity", "gender")
 
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","maturity":25,"gender":"MALE"}""",
       """{"name":"Peter","maturity":35,"gender":"MALE"}""",
       """{"name":"Mary","maturity":20,"gender":null}"""

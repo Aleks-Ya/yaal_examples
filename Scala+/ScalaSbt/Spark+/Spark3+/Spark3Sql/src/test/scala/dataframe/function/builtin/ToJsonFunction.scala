@@ -16,7 +16,7 @@ class ToJsonFunction extends AnyFlatSpec with Matchers {
       to_json(col("details")) as "json"
     )
     updatedDf.schema.toDDL shouldEqual "name STRING,json STRING"
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","json":"{\"city\":\"London\",\"age\":30}"}""",
       """{"name":"Mary","json":"{\"city\":\"Berlin\",\"age\":15}"}"""
     )

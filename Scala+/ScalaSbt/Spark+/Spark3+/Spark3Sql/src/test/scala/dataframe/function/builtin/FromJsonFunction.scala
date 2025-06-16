@@ -26,7 +26,7 @@ class FromJsonFunction extends AnyFlatSpec with Matchers {
       from_json(col("details"), detailsSchema) as "details"
     )
 
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","details":{"age":30,"male":true}}""",
       """{"name":"Mary","details":{"age":25,"male":false}}""",
       """{"name":"Peter","details":{"age":null,"male":null}}"""

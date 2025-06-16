@@ -9,7 +9,7 @@ class SortTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "sort a Dataset ASC (default)" in {
     val ds = Factory.cityDs.sort("establishYear")
-    ds.toJSON.collect() should contain inOrderOnly(
+    ds.toJSON.collect should contain inOrderOnly(
       """{"name":"Moscow","establishYear":1147}""",
       """{"name":"New York","establishYear":1665}""",
       """{"name":"SPb","establishYear":1703}"""
@@ -18,7 +18,7 @@ class SortTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "sort a Dataset ASC (explicitly)" in {
     val ds = Factory.cityDs.sort(asc("establishYear"))
-    ds.toJSON.collect() should contain inOrderOnly(
+    ds.toJSON.collect should contain inOrderOnly(
       """{"name":"Moscow","establishYear":1147}""",
       """{"name":"New York","establishYear":1665}""",
       """{"name":"SPb","establishYear":1703}"""
@@ -27,7 +27,7 @@ class SortTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "sort a Dataset DESC (default)" in {
     val ds = Factory.cityDs.sort(desc("establishYear"))
-    ds.toJSON.collect() should contain inOrderOnly(
+    ds.toJSON.collect should contain inOrderOnly(
       """{"name":"SPb","establishYear":1703}""",
       """{"name":"New York","establishYear":1665}""",
       """{"name":"Moscow","establishYear":1147}"""

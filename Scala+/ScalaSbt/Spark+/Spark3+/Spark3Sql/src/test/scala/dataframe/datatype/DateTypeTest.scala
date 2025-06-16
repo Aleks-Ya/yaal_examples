@@ -13,7 +13,7 @@ class DateTypeTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf(Map("country" -> StringType, "visit" -> DateType),
       Row("USA", Date.valueOf("2023-10-05")),
       Row("Canada", Date.valueOf("2024-01-30")))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"country":"USA","visit":"2023-10-05"}""",
       """{"country":"Canada","visit":"2024-01-30"}"""
     )

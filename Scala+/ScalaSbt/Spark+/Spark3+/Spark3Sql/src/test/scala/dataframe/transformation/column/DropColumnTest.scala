@@ -28,7 +28,7 @@ class DropColumnTest extends AnyFlatSpec with Matchers {
       col("city"),
       transform(col("people"), peopleCol => peopleCol.dropFields("age")) as "people_dropped"
     )
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"city":"London","people_dropped":[{"name":"John"},{"name":"Mary"}]}""",
       """{"city":"Berlin","people_dropped":[{"name":"Mark"},{"name":"Matt"}]}"""
     )
@@ -46,7 +46,7 @@ class DropColumnTest extends AnyFlatSpec with Matchers {
       col("city"),
       transform(col("people"), peopleCol => struct(peopleCol("name") as "name")) as "people_dropped"
     )
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"city":"London","people_dropped":[{"name":"John"},{"name":"Mary"}]}""",
       """{"city":"Berlin","people_dropped":[{"name":"Mark"},{"name":"Matt"}]}"""
     )

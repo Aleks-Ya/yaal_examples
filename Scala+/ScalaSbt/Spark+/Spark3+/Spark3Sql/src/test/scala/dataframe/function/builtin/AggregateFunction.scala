@@ -12,7 +12,7 @@ class AggregateFunction extends AnyFlatSpec with Matchers {
       Row("John", Seq(10, 20)),
       Row("Mary", Seq(1, 2)))
     val updatedDf = df.withColumn("sum", aggregate(col("sales"), lit(0), (x, y) => x + y))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"person":"John","sales":[10,20],"sum":30}""",
       """{"person":"Mary","sales":[1,2],"sum":3}"""
     )

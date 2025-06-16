@@ -23,7 +23,7 @@ class KafkaReadTest extends AnyFlatSpec with EmbeddedKafka with Matchers {
         .load()
         .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
 
-      df.toJSON.collect() should contain inOrderOnly(
+      df.toJSON.collect should contain inOrderOnly(
         """{"key":"historical key 1","value":"historical message 1"}""",
         """{"key":"historical key 2","value":"historical message 2"}""")
     }

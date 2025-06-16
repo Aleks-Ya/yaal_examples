@@ -14,9 +14,9 @@ class TxtRead extends AnyFlatSpec with Matchers {
     val df1 = Factory.ss.read.textFile(file.getPath)
     val df2 = Factory.ss.read.text(file.getPath)
 
-    df1.toJSON.collect() shouldEqual df2.toJSON.collect()
+    df1.toJSON.collect shouldEqual df2.toJSON.collect
     df1.schema.simpleString shouldEqual "struct<value:string>"
-    df1.toJSON.collect() shouldEqual Array(
+    df1.toJSON.collect shouldEqual Array(
       """{"value":"Line 1"}""",
       """{"value":""}""",
       """{"value":"Line 2"}""",
@@ -31,9 +31,9 @@ class TxtRead extends AnyFlatSpec with Matchers {
     val df1 = Factory.ss.read.option("lineSep", "\n\n").textFile(file.getPath)
     val df2 = Factory.ss.read.option("lineSep", "\n\n").text(file.getPath)
 
-    df1.toJSON.collect() shouldEqual df2.toJSON.collect()
+    df1.toJSON.collect shouldEqual df2.toJSON.collect
     df1.schema.simpleString shouldEqual "struct<value:string>"
-    df1.toJSON.collect() should contain inOrderOnly(
+    df1.toJSON.collect should contain inOrderOnly(
       """{"value":"Line 1"}""",
       """{"value":"Line 2"}""",
       """{"value":"Line 3"}"""
@@ -46,9 +46,9 @@ class TxtRead extends AnyFlatSpec with Matchers {
     val df1 = Factory.ss.read.option("wholetext", value = true).textFile(file.getPath)
     val df2 = Factory.ss.read.option("wholetext", value = true).text(file.getPath)
 
-    df1.toJSON.collect() shouldEqual df2.toJSON.collect()
+    df1.toJSON.collect shouldEqual df2.toJSON.collect
     df1.schema.simpleString shouldEqual "struct<value:string>"
-    df1.toJSON.collect() should contain only """{"value":"Line 1\n\nLine 2\n\nLine 3"}"""
+    df1.toJSON.collect should contain only """{"value":"Line 1\n\nLine 2\n\nLine 3"}"""
   }
 
 }

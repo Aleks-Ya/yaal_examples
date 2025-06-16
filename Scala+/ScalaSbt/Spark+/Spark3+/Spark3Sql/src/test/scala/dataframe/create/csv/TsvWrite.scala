@@ -25,7 +25,7 @@ class TsvWrite extends AnyFlatSpec with Matchers {
       .csv(dir.toString)
 
     expDf.schema shouldEqual actDf.schema
-    actDf.toJSON.collect() should contain inOrderOnly(
+    actDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""",
       """{"name":"Mary","age":20,"gender":"F"}"""
@@ -51,7 +51,7 @@ class TsvWrite extends AnyFlatSpec with Matchers {
       .csv(dir.toString)
 
     expDf.schema shouldEqual actDf.schema
-    actDf.toJSON.collect() should contain inOrderOnly(
+    actDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""",
       """{"name":"Mary","age":20,"gender":"F"}"""

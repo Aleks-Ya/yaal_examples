@@ -15,7 +15,7 @@ class CollectListFunction extends AnyFlatSpec with Matchers {
       Row("London")
     )
     val updatedDf = df.groupBy("city").agg(collect_list("city").as("cities"))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"city":"London","cities":["London","London"]}""",
       """{"city":"Paris","cities":["Paris"]}"""
     )

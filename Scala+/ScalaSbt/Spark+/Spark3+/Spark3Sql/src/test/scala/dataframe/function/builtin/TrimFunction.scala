@@ -12,7 +12,7 @@ class TrimFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("country"),
       trim(col("country")) as "trimmed")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"  England ","trimmed":"England"}""",
       """{"country":"Germany","trimmed":"Germany"}""")
   }

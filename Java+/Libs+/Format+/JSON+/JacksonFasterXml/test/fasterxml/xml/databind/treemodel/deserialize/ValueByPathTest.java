@@ -1,4 +1,4 @@
-package fasterxml.xml.treemodel.deserialize;
+package fasterxml.xml.databind.treemodel.deserialize;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -21,5 +21,17 @@ class ValueByPathTest {
         assertThat(root.at("/b").asText()).isEqualTo("abc");
         assertThat(root.at("/c/d").asBoolean()).isTrue();
         assertThat(root.at("/absent/d").isMissingNode()).isTrue();
+    }
+
+    @Test
+    void findPath() throws IOException {
+        var json = """
+                {"a": 1, "b": "abc", "c": {"d": true}}""";
+        var mapper = new ObjectMapper();
+        var root = mapper.readTree(json);
+        assertThat(root.findPath("a").asInt()).isEqualTo(1);
+        assertThat(root.findPath("b").asText()).isEqualTo("abc");
+        assertThat(root.findPath("c").findPath("d").asBoolean()).isTrue();
+        assertThat(root.findPath("absent").findPath("d").isMissingNode()).isTrue();
     }
 }

@@ -10,7 +10,7 @@ class UdfReturnsListTest extends AnyFlatSpec with Matchers {
 
   it should "return a seq" in {
     val df = Factory.peopleDf.withColumn("seq", ToListUdf(col("name"), col("age")))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M","seq":["JOHN","25"]}""",
       """{"name":"Peter","age":35,"gender":"M","seq":["PETER","35"]}""",
       """{"name":"Mary","age":20,"gender":"F","seq":["MARY","20"]}"""

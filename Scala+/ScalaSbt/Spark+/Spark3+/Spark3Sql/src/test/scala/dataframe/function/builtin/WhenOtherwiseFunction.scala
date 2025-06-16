@@ -11,7 +11,7 @@ class WhenOtherwiseFunction extends AnyFlatSpec with Matchers {
   it should "use when" in {
     val df = Factory.peopleDf
     val updatedDf = df.select(col("name"), when(col("gender") === "M", "Man") as "full_gender")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","full_gender":"Man"}""",
       """{"name":"Peter","full_gender":"Man"}""",
       """{"name":"Mary","full_gender":null}"""
@@ -21,7 +21,7 @@ class WhenOtherwiseFunction extends AnyFlatSpec with Matchers {
   it should "use when-otherwise function" in {
     val df = Factory.peopleDf
     val updatedDf = df.select(col("name"), when(col("gender") === "M", "Man").otherwise("Woman") as "full_gender")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","full_gender":"Man"}""",
       """{"name":"Peter","full_gender":"Man"}""",
       """{"name":"Mary","full_gender":"Woman"}"""
@@ -33,7 +33,7 @@ class WhenOtherwiseFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(col("name"),
       when(col("gender") === "M", "Man")
         .when(col("gender") === "F", "Woman") as "full_gender")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","full_gender":"Man"}""",
       """{"name":"Peter","full_gender":"Man"}""",
       """{"name":"Mary","full_gender":"Woman"}"""
@@ -49,7 +49,7 @@ class WhenOtherwiseFunction extends AnyFlatSpec with Matchers {
       when(col("gender") === "M", "Man")
         .when(col("gender") === "F", "Woman")
         .otherwise("-") as "full_gender")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","full_gender":"Man"}""",
       """{"name":"Mary","full_gender":"Woman"}""",
       """{"name":"Mark","full_gender":"-"}"""

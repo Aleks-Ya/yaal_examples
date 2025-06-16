@@ -16,7 +16,7 @@ class ArrayContainsFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("cities"),
       array_contains(col("cities"), "London") as "has_london")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"cities":["London","Paris"],"has_london":true}""",
       """{"cities":["Berlin","Barcelona"],"has_london":false}""",
       """{"cities":["Berlin","London"],"has_london":true}"""
@@ -34,7 +34,7 @@ class ArrayContainsFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("city"),
       array_contains(col("people")("age"), 30) as "has_thirty")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"city":"London","has_thirty":true}""",
       """{"city":"Berlin","has_thirty":false}"""
     )
@@ -55,7 +55,7 @@ class ArrayContainsFunction extends AnyFlatSpec with Matchers {
         peopleCol.dropFields("age"))
         .otherwise(peopleCol) as "thirty")
     )
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"city":"London","thirty":"has thirty"}""",
       """{"city":"Berlin","thirty":"no thirty"}"""
     )

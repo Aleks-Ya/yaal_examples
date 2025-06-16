@@ -11,6 +11,6 @@ class SumFunction extends AnyFlatSpec with Matchers {
     val df = Factory.peopleDf
     val updatedDf = df.agg(sum("age") as "age_sum")
     updatedDf.schema.fields(updatedDf.schema.fieldIndex("age_sum")).dataType shouldBe LongType
-    updatedDf.toJSON.collect() should contain only """{"age_sum":80}"""
+    updatedDf.toJSON.collect should contain only """{"age_sum":80}"""
   }
 }

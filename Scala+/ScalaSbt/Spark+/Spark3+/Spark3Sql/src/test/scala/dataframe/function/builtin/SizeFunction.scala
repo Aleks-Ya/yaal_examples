@@ -16,7 +16,7 @@ class SizeFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("country"),
       functions.size(col("cities")) as "city_number")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"England","city_number":2}""",
       """{"country":"Germany","city_number":3}""",
       """{"country":"Ethiopia","city_number":0}""",

@@ -12,7 +12,7 @@ class UpperFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("country"),
       upper(col("country")) as "upper")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"England","upper":"ENGLAND"}""",
       """{"country":"Germany","upper":"GERMANY"}""",
       """{"country":null,"upper":null}""")

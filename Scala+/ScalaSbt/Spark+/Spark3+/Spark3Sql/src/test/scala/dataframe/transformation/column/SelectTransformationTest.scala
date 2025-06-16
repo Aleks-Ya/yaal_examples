@@ -12,7 +12,7 @@ class SelectTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "retain only 2 columns" in {
     val df = Factory.peopleDf.select(col("name"), col("gender"))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","gender":"M"}""",
       """{"name":"Peter","gender":"M"}""",
       """{"name":"Mary","gender":"F"}""")
@@ -28,7 +28,7 @@ class SelectTransformationTest extends AnyFlatSpec with Matchers {
     val df = createDf(schema, Row("John", Row(30, "M")), Row("Peter", Row(25, "M")), Row("Mary", Row(20, "F")))
 
     val df2 = df.select(col("name"), col("info").getField("age").as("age"))
-    df2.toJSON.collect() should contain inOrderOnly(
+    df2.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":30}""",
       """{"name":"Peter","age":25}""",
       """{"name":"Mary","age":20}""")
@@ -49,7 +49,7 @@ class SelectTransformationTest extends AnyFlatSpec with Matchers {
       Row("Ann", null))
 
     val df2 = df.select(col("name"), col("departments").getField("city").as("cities"))
-    df2.toJSON.collect() should contain inOrderOnly(
+    df2.toJSON.collect should contain inOrderOnly(
       """{"name":"John","cities":["London","Paris"]}""",
       """{"name":"Peter","cities":["Madrid",null]}""",
       """{"name":"Mary","cities":[]}""",

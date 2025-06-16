@@ -15,7 +15,7 @@ class ReadJsonFileTest extends AnyFlatSpec with Matchers {
     df.printSchema()
     df.show()
     df.schema.simpleString shouldEqual "struct<age:bigint,gender:string,name:string>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"age":30,"gender":"M","name":"John"}""",
       """{"age":25,"gender":"F","name":"Mary"}"""
     )
@@ -27,7 +27,7 @@ class ReadJsonFileTest extends AnyFlatSpec with Matchers {
     df.printSchema()
     df.show()
     df.schema.simpleString shouldEqual "struct<age:bigint,gender:string,name:string>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"age":30,"gender":"M","name":"John"}""",
       """{"age":25,"gender":"F","name":"Mary"}"""
     )
@@ -44,7 +44,7 @@ class ReadJsonFileTest extends AnyFlatSpec with Matchers {
     df.printSchema()
     df.show()
     df.schema.simpleString shouldEqual "struct<name:string,age:int,gender:string>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":30,"gender":"M"}""",
       """{"name":"Mary","age":25,"gender":"F"}"""
     )
@@ -58,7 +58,7 @@ class ReadJsonFileTest extends AnyFlatSpec with Matchers {
     val df = Factory.ss.read
       .option("compression", "gzip")
       .json(file.getPath)
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"age":30,"gender":"M","name":"John"}""",
       """{"age":25,"gender":"F","name":"Mary"}"""
     )
@@ -71,7 +71,7 @@ class ReadJsonFileTest extends AnyFlatSpec with Matchers {
     df.printSchema()
     df.show()
     df.schema.simpleString shouldEqual "struct<age:bigint,gender:string,name:string>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"age":30,"gender":"M","name":"John"}""",
       """{"age":25,"gender":"F","name":"Mary"}""",
       """{"age":20,"gender":"M","name":"Mark"}""",

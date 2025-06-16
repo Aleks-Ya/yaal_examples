@@ -12,7 +12,7 @@ class GroupByTransformationTest extends AnyFlatSpec with Matchers {
   it should "use groupBy transformation" in {
     val df = Factory.peopleDf
     val updatedDf = df.groupBy("gender").count()
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"gender":"F","count":1}""",
       """{"gender":"M","count":2}"""
     )
@@ -25,7 +25,7 @@ class GroupByTransformationTest extends AnyFlatSpec with Matchers {
       max(ageCol) as "max_age",
       avg(ageCol) as "avg_age",
       min(ageCol) as "min_age")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"gender":"F","max_age":20,"avg_age":20.0,"min_age":20}""",
       """{"gender":"M","max_age":35,"avg_age":30.0,"min_age":25}"""
     )
@@ -38,7 +38,7 @@ class GroupByTransformationTest extends AnyFlatSpec with Matchers {
       Row("Mark", 25, "M"),
       Row("Chad", 30, "M"))
     val updatedDf = df.groupBy("gender", "age").agg(collect_list("name") as "names")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"gender":"M","age":25,"names":["Mark"]}""",
       """{"gender":"M","age":30,"names":["John","Chad"]}""",
       """{"gender":"F","age":30,"names":["Mary"]}"""
@@ -56,7 +56,7 @@ class GroupByTransformationTest extends AnyFlatSpec with Matchers {
     val unsortedArrayDf = df.groupBy("countries").agg(
       collect_list("person").as("persons")
     )
-    unsortedArrayDf.toJSON.collect() should contain inOrderOnly(
+    unsortedArrayDf.toJSON.collect should contain inOrderOnly(
       """{"countries":["USA","Germany","UK"],"persons":["John","Mark"]}""",
       """{"countries":["Belgium","Canada","Australia"],"persons":["Mary"]}""",
       """{"countries":["Germany","USA","UK"],"persons":["Chad"]}"""
@@ -65,7 +65,7 @@ class GroupByTransformationTest extends AnyFlatSpec with Matchers {
     val sortedArrayDf = df.groupBy(sort_array(col("countries")).as("countries")).agg(
       collect_list("person").as("persons")
     )
-    sortedArrayDf.toJSON.collect() should contain inOrderOnly(
+    sortedArrayDf.toJSON.collect should contain inOrderOnly(
       """{"countries":["Germany","UK","USA"],"persons":["John","Mark","Chad"]}""",
       """{"countries":["Australia","Belgium","Canada"],"persons":["Mary"]}"""
     )

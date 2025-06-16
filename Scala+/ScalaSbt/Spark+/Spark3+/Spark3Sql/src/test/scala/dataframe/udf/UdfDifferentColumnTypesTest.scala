@@ -13,7 +13,7 @@ class UdfDifferentColumnTypesTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf("name STRING,age INT",
       Row("John", 35), Row("Mary", 20))
     val updatedDf = df.withColumn("upper_name", UpperUdf(col("name")))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":35,"upper_name":"JOHN"}""",
       """{"name":"Mary","age":20,"upper_name":"MARY"}"""
     )
@@ -23,7 +23,7 @@ class UdfDifferentColumnTypesTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf("names ARRAY<STRING>,age INT",
       Row(Seq("John", "Johnny"), 35), Row(Seq("Mary", "Marika"), 20))
     val updatedDf = df.withColumn("upper_names", UpperUdf(col("names")))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"names":["John","Johnny"],"age":35,"upper_names":"JOHN,JOHNNY"}""",
       """{"names":["Mary","Marika"],"age":20,"upper_names":"MARY,MARIKA"}"""
     )

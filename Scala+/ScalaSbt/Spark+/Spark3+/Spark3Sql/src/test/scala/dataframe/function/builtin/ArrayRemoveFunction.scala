@@ -12,7 +12,7 @@ class ArrayRemoveFunction extends AnyFlatSpec with Matchers {
       Row(Seq(10, 15, 20)),
       Row(Seq(11, 16, 15)))
     val updatedDf = df.withColumn("clean", array_remove(col("numbers"), 15))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"numbers":[10,15,20],"clean":[10,20]}""",
       """{"numbers":[11,16,15],"clean":[11,16]}""")
   }
@@ -23,7 +23,7 @@ class ArrayRemoveFunction extends AnyFlatSpec with Matchers {
       Row(Seq(10, null, 20)),
       Row(Seq(null, 16, null)))
     val updatedDf = df.withColumn("clean", array_remove(col("numbers"), null))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"numbers":[10,null,20],"clean":null}""",
       """{"numbers":[null,16,null],"clean":null}""")
   }

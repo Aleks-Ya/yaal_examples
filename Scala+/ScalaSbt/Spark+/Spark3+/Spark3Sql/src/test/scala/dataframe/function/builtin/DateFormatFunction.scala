@@ -18,7 +18,7 @@ class DateFormatFunction extends AnyFlatSpec with Matchers {
       date_format(col("date"), "yyyy-MM-dd HH:mm:ss.SSSS") as "date",
       date_format(col("timestamp"), "yyyy-MM-dd HH:mm:ss.SSSS") as "timestamp"
     )
-    updatedDf.toJSON.collect() should contain only
+    updatedDf.toJSON.collect should contain only
       """{"string":"2023-10-05 14:40:25.0000","date":"2022-09-15 00:00:00.0000","timestamp":"2024-11-25 16:30:12.0000"}"""
   }
 }

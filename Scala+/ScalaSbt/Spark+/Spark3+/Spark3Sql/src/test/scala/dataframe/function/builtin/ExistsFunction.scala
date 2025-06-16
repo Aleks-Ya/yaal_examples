@@ -14,7 +14,7 @@ class ExistsFunction extends AnyFlatSpec with Matchers {
       Row("list 2", Seq(5, 6)),
       Row("list 3", Seq(7, 9)))
     val updatedDf = df.select(col("collection"), exists(col("numbers"), _ % 2 === 0) as "has_even_numbers")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"collection":"list 1","has_even_numbers":true}""",
       """{"collection":"list 2","has_even_numbers":true}""",
       """{"collection":"list 3","has_even_numbers":false}"""
@@ -27,7 +27,7 @@ class ExistsFunction extends AnyFlatSpec with Matchers {
       Row("list 2", Seq(5, 6)),
       Row("list 3", Seq(7, 5)))
     val updatedDf = df.filter(exists(col("numbers"), _ === 5))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"collection":"list 2","numbers":[5,6]}""",
       """{"collection":"list 3","numbers":[7,5]}"""
     )
@@ -43,7 +43,7 @@ class ExistsFunction extends AnyFlatSpec with Matchers {
       Row("list 2", Seq(Row("Mark", 20))),
       Row("list 3", Seq(Row("Rick", null), Row("Jack", null))))
     val updatedDf = df.filter(exists(col("people"), _("age").isNotNull))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"collection":"list 1","people":[{"name":"John","age":30},{"name":"Mary","age":null}]}""",
       """{"collection":"list 2","people":[{"name":"Mark","age":20}]}"""
     )

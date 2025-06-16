@@ -12,7 +12,7 @@ class LitFunction extends AnyFlatSpec with Matchers {
       col("city"),
       lit("Open") as "status"
     )
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"city":"Moscow","status":"Open"}""",
       """{"city":"SPb","status":"Open"}"""
     )
@@ -24,7 +24,7 @@ class LitFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("city"),
       array(statusesSeq.map(lit): _*) as "statuses")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"city":"Moscow","statuses":["Open","Closed"]}""",
       """{"city":"SPb","statuses":["Open","Closed"]}"""
     )

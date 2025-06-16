@@ -19,7 +19,7 @@ class ConcatFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col(countryCol),
       concat(col(bigCitiesCol), col(smallCitiesCol)) as "all_cities")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"England","all_cities":["London","Manchester","London","London","Birmingham"]}""",
       """{"country":"USA","all_cities":["Chicago","Houston","Phoenix"]}"""
     )

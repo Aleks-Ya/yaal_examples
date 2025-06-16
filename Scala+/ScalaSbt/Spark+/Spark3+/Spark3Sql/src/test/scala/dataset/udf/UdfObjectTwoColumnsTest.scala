@@ -16,7 +16,7 @@ class UdfObjectTwoColumnsTest extends AnyFlatSpec with Matchers {
     val upper: (String, Int) => String = (name: String, age: Int) => s"${name.toUpperCase}-$age"
     val upperUdf = udf(upper: (String, Int) => String)
     val df = Factory.peopleDf.withColumn("upper", upperUdf($"name", $"age"))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M","upper":"JOHN-25"}""",
       """{"name":"Peter","age":35,"gender":"M","upper":"PETER-35"}""",
       """{"name":"Mary","age":20,"gender":"F","upper":"MARY-20"}"""
@@ -25,7 +25,7 @@ class UdfObjectTwoColumnsTest extends AnyFlatSpec with Matchers {
 
   it should "extract UDF into separated object (logic in a field)" in {
     val df = Factory.peopleDf.withColumn("upper", UpperUdfField(col("name"), col("age")))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M","upper":"JOHN-25"}""",
       """{"name":"Peter","age":35,"gender":"M","upper":"PETER-35"}""",
       """{"name":"Mary","age":20,"gender":"F","upper":"MARY-20"}"""
@@ -40,7 +40,7 @@ class UdfObjectTwoColumnsTest extends AnyFlatSpec with Matchers {
 
   it should "extract UDF into separated object (logic in a function)" in {
     val df = Factory.peopleDf.withColumn("upper", UpperUdfFunction(col("name"), col("age")))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M","upper":"JOHN-25"}""",
       """{"name":"Peter","age":35,"gender":"M","upper":"PETER-35"}""",
       """{"name":"Mary","age":20,"gender":"F","upper":"MARY-20"}"""
@@ -55,7 +55,7 @@ class UdfObjectTwoColumnsTest extends AnyFlatSpec with Matchers {
 
   it should "extract UDF into separated object (logic in apply method)" in {
     val df = Factory.peopleDf.withColumn("upper", UpperUdfApply(col("name"), col("age")))
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M","upper":"JOHN-25"}""",
       """{"name":"Peter","age":35,"gender":"M","upper":"PETER-35"}""",
       """{"name":"Mary","age":20,"gender":"F","upper":"MARY-20"}"""

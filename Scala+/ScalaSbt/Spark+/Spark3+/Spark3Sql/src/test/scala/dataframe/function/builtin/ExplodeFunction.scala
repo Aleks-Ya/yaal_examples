@@ -19,7 +19,7 @@ class ExplodeFunction extends AnyFlatSpec with Matchers {
     val explodedDf = df.select(
       col("name"),
       explode(col("cities")).alias("city"))
-    explodedDf.toJSON.collect() should contain inOrderOnly(
+    explodedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","city":"London"}""",
       """{"name":"John","city":"Paris"}""",
       """{"name":"Mary","city":"Berlin"}""",
@@ -32,7 +32,7 @@ class ExplodeFunction extends AnyFlatSpec with Matchers {
       Row("John", List("London", "Paris")),
       Row("Mary", List("Berlin", "Paris")))
     val explodedDf = df.withColumn("city", explode(col("cities")))
-    explodedDf.toJSON.collect() should contain inOrderOnly(
+    explodedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","cities":["London","Paris"],"city":"London"}""",
       """{"name":"John","cities":["London","Paris"],"city":"Paris"}""",
       """{"name":"Mary","cities":["Berlin","Paris"],"city":"Berlin"}""",

@@ -14,7 +14,7 @@ class FilterFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("country"),
       filter(col("orders"), _ > 50) as "big_orders")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"USA","big_orders":[100,200]}""",
       """{"country":"Canada","big_orders":[300,400]}"""
     )
@@ -27,7 +27,7 @@ class FilterFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("country"),
       filter(col("orders"), _ => lit(true)) as "big_orders")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"USA","big_orders":[10,20,100,200]}""",
       """{"country":"Canada","big_orders":[30,40,300,400]}"""
     )

@@ -18,7 +18,7 @@ class UdfReturnsStructTest extends AnyFlatSpec with Matchers {
     val schema = StructType.fromDDL("upper STRING,lower STRING")
     val df = Factory.createDf("name STRING", Row("John"), Row("Mary"))
     val updatedDf = df.withColumn("name_cases", stringCasesUdf(col("name")).cast(schema))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","name_cases":{"upper":"JOHN","lower":"john"}}""",
       """{"name":"Mary","name_cases":{"upper":"MARY","lower":"mary"}}"""
     )
@@ -32,7 +32,7 @@ class UdfReturnsStructTest extends AnyFlatSpec with Matchers {
     })
     val df = Factory.createDf("name STRING", Row("John"), Row("Mary"))
     val updatedDf = df.withColumn("name_cases", stringCasesUdf(col("name")))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","name_cases":{"upper":"JOHN","lower":"john"}}""",
       """{"name":"Mary","name_cases":{"upper":"MARY","lower":"mary"}}"""
     )
@@ -56,7 +56,7 @@ class UdfReturnsStructTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf("name STRING", Row("John"), Row("Mary"))
     val updatedDf = df.withColumn("name_cases", stringCasesUdf(col("name")))
 
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","name_cases":{"upper":"JOHN","lower":"john"}}""",
       """{"name":"Mary","name_cases":{"upper":"MARY","lower":"mary"}}"""
     )

@@ -11,7 +11,7 @@ class CrossJoinTest extends AnyFlatSpec with Matchers {
     val citiesDf = Factory.cityListDf
     val joinedDf = peopleDf.crossJoin(citiesDf)
     joinedDf.schema.simpleString shouldEqual "struct<name:string,age:int,gender:string,city:string>"
-    joinedDf.toJSON.collect() should contain inOrderOnly(
+    joinedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M","city":"Moscow"}""",
       """{"name":"John","age":25,"gender":"M","city":"SPb"}""",
       """{"name":"Peter","age":35,"gender":"M","city":"Moscow"}""",

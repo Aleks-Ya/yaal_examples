@@ -11,7 +11,7 @@ import org.scalatest.matchers.should.Matchers
 class DsRowToJsonTest extends AnyFlatSpec with Matchers {
 
   it should "dataframe.convert whole Dataset to JSON" in {
-    val jsonList = Factory.cityDs.toJSON.collect()
+    val jsonList = Factory.cityDs.toJSON.collect
     jsonList should contain inOrderOnly (
       """{"name":"Moscow","establishYear":1147}""",
       """{"name":"SPb","establishYear":1703}""",

@@ -21,7 +21,7 @@ class FlatMapTransformationTest extends AnyFlatSpec with Matchers {
       })
       .toDF("genres")
 
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"genres":"Comedy"}""",
       """{"genres":"Drama"}""",
       """{"genres":"Action"}""",

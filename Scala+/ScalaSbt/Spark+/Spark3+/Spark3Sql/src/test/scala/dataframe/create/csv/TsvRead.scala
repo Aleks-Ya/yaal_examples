@@ -18,7 +18,7 @@ class TsvRead extends AnyFlatSpec with Matchers {
       .csv(file.getPath)
 
     df.schema.simpleString shouldEqual "struct<iata:string,airport:string,city:string,state:string,country:string,lat:double,long:double>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"iata":"00M","airport":"Thigpen ","city":"Bay Springs","state":"MS","country":"USA","lat":31.95376472,"long":-89.23450472}""",
       """{"iata":"00R","airport":"Livingston Municipal","city":"Livingston","state":"TX","country":"USA","lat":30.68586111,"long":-95.01792778}""",
       """{"iata":"00V","airport":"Meadow Lake","city":"Colorado Springs","state":"CO","country":"USA","lat":38.94574889,"long":-104.5698933}""",
@@ -38,7 +38,7 @@ class TsvRead extends AnyFlatSpec with Matchers {
       .csv(file.getPath)
 
     df.schema.simpleString shouldEqual "struct<iata:string,airport:string,city:string,state:string,country:string,lat:double,long:double>"
-    df.toJSON.collect() should contain inOrderOnly(
+    df.toJSON.collect should contain inOrderOnly(
       """{"iata":"00M","airport":"Thigpen ","city":"Bay Springs","state":"MS","country":"USA","lat":31.95376472,"long":-89.23450472}""",
       """{"iata":"00R","airport":"Livingston Municipal","city":"Livingston","state":"TX","country":"USA","lat":30.68586111,"long":-95.01792778}""",
       """{"iata":"00V","airport":"Meadow Lake","city":"Colorado Springs","state":"CO","country":"USA","lat":38.94574889,"long":-104.5698933}""",

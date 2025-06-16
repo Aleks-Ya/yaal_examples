@@ -19,7 +19,7 @@ class JoinLeftTest extends AnyFlatSpec with Matchers {
 
   it should "do left join" in {
     val joinedDf = countriesDf.join(presidentsDf, presidentIdCol, "left")
-    joinedDf.toJSON.collect() should contain inOrderOnly(
+    joinedDf.toJSON.collect should contain inOrderOnly(
       """{"president_id":null,"country":"England","name":null}""",
       """{"president_id":1,"country":"USA","name":"Trump"}""",
       """{"president_id":2,"country":"France","name":"Macron"}"""
@@ -34,7 +34,7 @@ class JoinLeftTest extends AnyFlatSpec with Matchers {
     val joinedDf = df.as("a")
       .join(df.as("b"), col("a.bossId") === col("b.id"), "left")
       .select(col("a.id"), col("a.name"), col("b.name") as "boss")
-    joinedDf.toJSON.collect() should contain inOrderOnly(
+    joinedDf.toJSON.collect should contain inOrderOnly(
       """{"id":1,"name":"John","boss":null}""",
       """{"id":2,"name":"Mark","boss":"John"}""",
       """{"id":3,"name":"Chad","boss":"John"}"""

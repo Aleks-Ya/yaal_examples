@@ -17,7 +17,7 @@ class IsNullTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("country"),
       col("country").isNull as "is_null")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"USA","is_null":false}""",
       """{"country":"Canada","is_null":false}""",
       """{"country":null,"is_null":true}""",
@@ -32,6 +32,6 @@ class IsNullTest extends AnyFlatSpec with Matchers {
       col("country"),
       noneUdf(col("country")) as "country_none",
       noneUdf(col("country")).isNull as "is_null")
-    updatedDf.toJSON.collect() should contain only """{"country":"USA","country_none":null,"is_null":true}"""
+    updatedDf.toJSON.collect should contain only """{"country":"USA","country_none":null,"is_null":true}"""
   }
 }

@@ -15,7 +15,7 @@ class SplitFunction extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("person"),
       split(col("person"), "-") as "split")
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"person":"John-30-M","split":["John","30","M"]}""",
       """{"person":"Mary-25-F","split":["Mary","25","F"]}"""
     )

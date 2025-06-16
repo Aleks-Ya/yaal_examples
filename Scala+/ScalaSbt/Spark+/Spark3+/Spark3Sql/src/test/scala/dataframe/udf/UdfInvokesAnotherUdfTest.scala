@@ -18,7 +18,7 @@ class UdfInvokesAnotherUdfTest extends AnyFlatSpec with Matchers {
     val normalizeUdf = udf((str: String) => removeSpacesUdf(upperCaseUdf(lit(str))))
 
     val updatedDf = df.withColumn("normal", normalizeUdf(col("code")))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":35,"upper_name":"JOHN"}""",
       """{"name":"Mary","age":20,"upper_name":"MARY"}"""
     )

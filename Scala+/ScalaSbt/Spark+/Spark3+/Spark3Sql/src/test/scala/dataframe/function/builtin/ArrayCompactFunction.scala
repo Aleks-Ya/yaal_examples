@@ -14,7 +14,7 @@ class ArrayCompactFunction extends AnyFlatSpec with Matchers {
       Row(Seq()),
       Row(null))
     val updatedDf = df.withColumn("clean", array_compact(col("numbers")))
-    updatedDf.toJSON.collect() should contain inOrderOnly(
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"numbers":[10,null,20],"clean":[10,20]}""",
       """{"numbers":[null,16,null],"clean":[16]}""",
       """{"numbers":[],"clean":[]}""",
