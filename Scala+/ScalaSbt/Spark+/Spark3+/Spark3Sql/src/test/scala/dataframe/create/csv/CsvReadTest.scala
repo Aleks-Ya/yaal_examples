@@ -7,7 +7,7 @@ import org.scalatest.matchers.should.Matchers
 
 import java.util.Objects.requireNonNull
 
-class CsvRead extends AnyFlatSpec with Matchers {
+class CsvReadTest extends AnyFlatSpec with Matchers {
 
   it should "read a CSV-file in a DataFrame" in {
     val file = requireNonNull(getClass.getResource("airports.csv"))
@@ -67,7 +67,7 @@ class CsvRead extends AnyFlatSpec with Matchers {
   }
 
   it should "read CSV from a Dataset" in {
-    val csvPath = classOf[CsvRead].getResource("data.csv").getFile
+    val csvPath = classOf[CsvReadTest].getResource("data.csv").getFile
     val textDs = Factory.ss.read.textFile(csvPath)
     val csvDf = Factory.ss.read.option("header", "true").option("inferSchema", "true").csv(textDs)
     csvDf.toJSON.collect should contain inOrderOnly(
@@ -77,7 +77,7 @@ class CsvRead extends AnyFlatSpec with Matchers {
   }
 
   it should "skip first rows from CSV file" in {
-    val csvPath = classOf[CsvRead].getResource("skip_lines.csv").getFile
+    val csvPath = classOf[CsvReadTest].getResource("skip_lines.csv").getFile
     val textDs = Factory.ss.read.textFile(csvPath)
     val cleanDs = textDs.offset(2)
     val csvDf = Factory.ss.read.option("header", "true").option("inferSchema", "true").csv(cleanDs)

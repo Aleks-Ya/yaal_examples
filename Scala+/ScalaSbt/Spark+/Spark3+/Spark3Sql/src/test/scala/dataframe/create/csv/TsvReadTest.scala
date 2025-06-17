@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 
 import java.util.Objects.requireNonNull
 
-class TsvRead extends AnyFlatSpec with Matchers {
+class TsvReadTest extends AnyFlatSpec with Matchers {
 
   it should "read a TSV-file to a DataFrame" in {
     val file = requireNonNull(getClass.getResource("airports.tsv"))

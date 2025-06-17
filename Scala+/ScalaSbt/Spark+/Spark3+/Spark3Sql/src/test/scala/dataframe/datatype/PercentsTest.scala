@@ -9,7 +9,7 @@ import org.scalatest.matchers.should.Matchers
 /**
  * Handle percents (%).
  */
-class Percents extends AnyFlatSpec with Matchers {
+class PercentsTest extends AnyFlatSpec with Matchers {
 
   it should "calculate percents" in {
     val df = Factory.createDf("name STRING,production INT", Row("USA", 50), Row("Canada", 25))

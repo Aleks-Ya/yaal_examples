@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 
 import java.util.Objects.requireNonNull
 
-class TxtRead extends AnyFlatSpec with Matchers {
+class TxtReadTest extends AnyFlatSpec with Matchers {
 
   it should "read a text file in a DataFrame" in {
     val file = requireNonNull(getClass.getResource("TxtRead.txt"))

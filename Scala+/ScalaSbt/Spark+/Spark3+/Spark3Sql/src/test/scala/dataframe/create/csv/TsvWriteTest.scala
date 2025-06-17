@@ -7,7 +7,7 @@ import util.FileUtil
 
 import java.nio.file.Files
 
-class TsvWrite extends AnyFlatSpec with Matchers {
+class TsvWriteTest extends AnyFlatSpec with Matchers {
 
   it should "write a TSV-file" in {
     val dir = FileUtil.createAbsentTmpDirPath()

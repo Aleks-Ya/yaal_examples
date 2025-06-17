@@ -9,7 +9,7 @@ import org.scalatest.matchers.should.Matchers
 /**
  * Handle nullable column of a primitive type.
  */
-class NullablePrimitive extends AnyFlatSpec with Matchers {
+class NullablePrimitiveTest extends AnyFlatSpec with Matchers {
 
   it should "use Row#getAs() for replacing nulls in a primitive column" in {
     import Factory.ss.implicits._

@@ -7,7 +7,7 @@ import org.scalatest.matchers.should.Matchers
 /**
  * Assert DataFrame content in unit tests.
  */
-class AssertDataFrameEntire extends AnyFlatSpec with Matchers {
+class AssertDataFrameEntireTest extends AnyFlatSpec with Matchers {
   it should "assert a DataFrame content" in {
     val df = Factory.peopleDf
     df.toJSON.collect should contain inOrderOnly(

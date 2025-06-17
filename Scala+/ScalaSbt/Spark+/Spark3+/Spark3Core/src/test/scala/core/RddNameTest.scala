@@ -3,7 +3,7 @@ package core
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class RddName extends AnyFlatSpec with Matchers {
+class RddNameTest extends AnyFlatSpec with Matchers {
 
   it should "set RDD name" in {
     val rddName = "my_rdd"
@@ -11,4 +11,5 @@ class RddName extends AnyFlatSpec with Matchers {
     rdd.toString() should include(s"$rddName ParallelCollectionRDD[0] at parallelize at RddName.scala")
     rdd.name shouldEqual rddName
   }
+
 }

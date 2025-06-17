@@ -8,7 +8,7 @@ import org.scalatest.matchers.should.Matchers
 /**
  * Assert Schema of a DataFrame in unit tests.
  */
-class AssertDataFrameSchema extends AnyFlatSpec with Matchers {
+class AssertDataFrameSchemaTest extends AnyFlatSpec with Matchers {
 
   it should "assert a field data type of a DataFrame" in {
     val df = Factory.peopleDf

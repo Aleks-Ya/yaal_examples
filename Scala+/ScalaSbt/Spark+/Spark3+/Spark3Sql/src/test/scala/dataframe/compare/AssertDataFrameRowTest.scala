@@ -7,7 +7,7 @@ import org.scalatest.matchers.should.Matchers
 /**
  * Assert DataFrame Row in unit tests.
  */
-class AssertDataFrameRow extends AnyFlatSpec with Matchers {
+class AssertDataFrameRowTest extends AnyFlatSpec with Matchers {
 
   it should "assert a Row content" in {
     val row = Factory.peopleDf.first()
