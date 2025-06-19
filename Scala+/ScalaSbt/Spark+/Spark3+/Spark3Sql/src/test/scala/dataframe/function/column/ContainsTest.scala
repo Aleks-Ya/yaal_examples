@@ -6,6 +6,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 class ContainsTest extends AnyFlatSpec with Matchers {
+
   it should "does a string column contain a sub-string" in {
     val df = Factory.peopleDf.filter(col("name").contains("r"))
     df.toJSON.collect should contain inOrderOnly(
@@ -13,4 +14,10 @@ class ContainsTest extends AnyFlatSpec with Matchers {
       """{"name":"Mary","age":20,"gender":"F"}"""
     )
   }
+
+  it should "does NOT a string column contain a sub-string" in {
+    val df = Factory.peopleDf.filter(!col("name").contains("r"))
+    df.toJSON.collect should contain only """{"name":"John","age":25,"gender":"M"}"""
+  }
+
 }

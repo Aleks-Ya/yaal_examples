@@ -44,4 +44,5 @@ object Projects {
 
   lazy val DatabricksJavaSdk = project in file("Libs+/Databricks+/DatabricksJavaSdk")
   lazy val DbUtils = project in file("Libs+/Databricks+/DbUtils")
+  lazy val DatabricksDbUtilsScala = project in file("Libs+/Databricks+/DatabricksDbUtilsScala")
 }

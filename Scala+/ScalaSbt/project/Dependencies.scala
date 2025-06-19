@@ -62,4 +62,5 @@ object Dependencies {
   val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.43.0"
   val dbUtilsApiDep = "com.databricks" %% "dbutils-api" % "0.0.6"
   val hadoopClientApiDep = "org.apache.hadoop" % "hadoop-client-api" % "3.4.1"
+  val databricksDbUtilsScalaDep = "com.databricks" %% "databricks-dbutils-scala" % "0.1.4"
 }
