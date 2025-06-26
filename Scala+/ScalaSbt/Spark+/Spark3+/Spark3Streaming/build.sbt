@@ -1,4 +1,4 @@
-import Dependencies.{embeddedKafkaDep, scalaTestDep, spark3StreamingDep, sparkStreamingKafkaDep}
+import Dependencies.{scalaTestDep, spark3StreamingDep}
 
 lazy val Spark3Streaming = (project in file("."))
-  .settings(libraryDependencies ++= Seq(spark3StreamingDep, scalaTestDep, sparkStreamingKafkaDep, embeddedKafkaDep))
+  .settings(libraryDependencies ++= Seq(spark3StreamingDep, scalaTestDep))

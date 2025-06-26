@@ -35,8 +35,8 @@ object Dependencies {
 
   val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "4.1.0" % Test
 
-  private val spark3Version = "3.5.5"
-  private val djlVersion = "0.32.0"
+  private val spark3Version = "3.5.6"
+  private val djlVersion = "0.33.0"
   val spark3CoreDep = "org.apache.spark" %% "spark-core" % spark3Version
   val spark3MlDep = "org.apache.spark" %% "spark-mllib" % spark3Version
   val spark3SqlDep = "org.apache.spark" %% "spark-sql" % spark3Version
@@ -57,9 +57,9 @@ object Dependencies {
   val kafkaDep = "org.apache.kafka" %% "kafka" % kafkaVersion
   val kafkaManubDep = "net.manub" %% "scalatest-embedded-kafka" % "2.0.0" % Test
 
-  val opensearchDep = "org.opensearch" % "opensearch" % "2.17.1"
+  val opensearchDep = "org.opensearch" % "opensearch" % "2.19.2"
 
-  val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.43.0"
+  val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.54.0"
   val dbUtilsApiDep = "com.databricks" %% "dbutils-api" % "0.0.6"
   val hadoopClientApiDep = "org.apache.hadoop" % "hadoop-client-api" % "3.4.1"
   val databricksDbUtilsScalaDep = "com.databricks" %% "databricks-dbutils-scala" % "0.1.4"

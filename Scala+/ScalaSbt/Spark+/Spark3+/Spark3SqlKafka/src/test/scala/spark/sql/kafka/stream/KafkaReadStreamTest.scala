@@ -1,4 +1,4 @@
-package dataframe.create.kafka.stream
+package spark.sql.kafka.stream
 
 import factory.Factory
 import io.github.embeddedkafka.EmbeddedKafka

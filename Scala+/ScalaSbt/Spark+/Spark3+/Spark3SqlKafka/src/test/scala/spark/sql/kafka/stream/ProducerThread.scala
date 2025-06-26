@@ -1,4 +1,4 @@
-package dataframe.create.kafka.stream
+package spark.sql.kafka.stream
 
 import io.github.embeddedkafka.EmbeddedKafka
 import org.apache.kafka.common.serialization.StringSerializer

@@ -1,4 +1,4 @@
-package dataframe.create.kafka.read
+package spark.sql.kafka.read
 
 import factory.Factory
 import io.github.embeddedkafka.EmbeddedKafka
