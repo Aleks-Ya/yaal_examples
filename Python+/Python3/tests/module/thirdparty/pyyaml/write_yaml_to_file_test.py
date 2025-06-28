@@ -1,7 +1,9 @@
-import tempfile
+from pathlib import Path
 from textwrap import dedent
 
 import yaml
+
+from temp_helper import TempPath
 
 
 def test_write_yaml_to_file():
@@ -11,9 +13,9 @@ def test_write_yaml_to_file():
     - 'mary-kate'
     """))
 
-    _, full_name = tempfile.mkstemp()
-    with open(full_name, 'w') as file:
-        yaml.dump(exp_names, file)
+    file: Path = TempPath.temp_path_absent()
+    with open(file, 'w') as f:
+        yaml.dump(exp_names, f)
 
-    act_names: list[str] = yaml.safe_load(open(full_name).read())
+    act_names: list[str] = yaml.safe_load(open(file).read())
     assert act_names == exp_names
