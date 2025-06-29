@@ -1,11 +1,13 @@
 import csv
-import os
+from pathlib import Path
+
+from current_path import get_file_in_current_dir
 
 
 def test_read_csv():
-    file: str = os.path.join(os.path.dirname(__file__), 'people.csv')
+    file: Path = get_file_in_current_dir('people.csv')
 
-    with open(file, newline='') as csv_file:
+    with open(file) as csv_file:
         reader: csv.reader = csv.reader(csv_file, delimiter=' ', quotechar='|')
         act_content: str = ''
         for row in reader:

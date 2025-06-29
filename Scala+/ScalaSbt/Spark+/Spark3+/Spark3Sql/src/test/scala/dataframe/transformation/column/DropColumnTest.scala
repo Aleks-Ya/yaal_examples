@@ -9,11 +9,18 @@ import org.scalatest.matchers.should.Matchers
 
 class DropColumnTest extends AnyFlatSpec with Matchers {
 
-  it should "delete a column" in {
+  it should "delete an existing column" in {
     val df = Factory.peopleDf
     df.schema.simpleString shouldEqual "struct<name:string,age:int,gender:string>"
     val updatedDf = df.drop("gender")
     updatedDf.schema.simpleString shouldEqual "struct<name:string,age:int>"
+  }
+
+  it should "delete an absent column" in {
+    val df = Factory.peopleDf
+    df.schema.simpleString shouldEqual "struct<name:string,age:int,gender:string>"
+    val updatedDf = df.drop("absent_column")
+    updatedDf.schema.simpleString shouldEqual "struct<name:string,age:int,gender:string>"
   }
 
   it should "delete a column in each element of an array (way 1)" in {

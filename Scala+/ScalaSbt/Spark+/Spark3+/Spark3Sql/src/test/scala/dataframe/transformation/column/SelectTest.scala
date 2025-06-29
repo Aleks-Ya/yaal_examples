@@ -8,7 +8,7 @@ import org.apache.spark.sql.types._
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class SelectTransformationTest extends AnyFlatSpec with Matchers {
+class SelectTest extends AnyFlatSpec with Matchers {
 
   it should "retain only 2 columns" in {
     val df = Factory.peopleDf.select(col("name"), col("gender"))

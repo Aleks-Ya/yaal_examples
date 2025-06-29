@@ -1,6 +1,8 @@
-import os
 from csv import DictReader
+from pathlib import Path
 from typing import List
+
+from current_path import get_file_in_current_dir
 
 
 class Person:
@@ -15,9 +17,9 @@ class Person:
 
 
 def test_read_csv():
-    file: str = os.path.join(os.path.dirname(__file__), 'people.csv')
+    file: Path = get_file_in_current_dir('people.csv')
 
-    with open(file, newline='') as csv_file:
+    with open(file) as csv_file:
         reader: DictReader = DictReader(csv_file)
         persons: List[Person] = []
         for row in reader:

@@ -1,5 +1,7 @@
 import csv
-import tempfile
+from pathlib import Path
+
+from temp_helper import TempPath
 
 
 def test_generate_many_columns_csv():
@@ -10,7 +12,7 @@ def test_generate_many_columns_csv():
     column_digit_capacity: int = len(str(column_number - 1))
     row_digit_capacity: int = len(str(row_number - 1))
 
-    _, file = tempfile.mkstemp(suffix=".csv")
+    file: Path = TempPath.temp_path_absent(suffix=".csv")
     print(file)
 
     with open(file, 'w', newline='') as csv_file:

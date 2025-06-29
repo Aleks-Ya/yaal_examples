@@ -1,12 +1,13 @@
-import os
-import tempfile
+from pathlib import Path
 
 from pandas import DataFrame
 
+from temp_helper import TempPath
+
 
 def test_write_parquet(people_df: DataFrame):
-    _, file = tempfile.mkstemp(suffix='.parquet')
+    file: Path = TempPath.temp_path_absent(suffix='.parquet')
     print(file)
-    assert os.path.getsize(file) == 0
+    assert not file.exists()
     people_df.to_parquet(file)
-    assert os.path.getsize(file) > 0
+    assert file.stat().st_size > 0

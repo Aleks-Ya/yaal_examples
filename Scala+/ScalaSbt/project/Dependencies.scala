@@ -19,7 +19,7 @@ object Dependencies {
   val akkaActorTestKitTypedDep = "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test
 
   val typesafeConfigDep = "com.typesafe" % "config" % "1.4.3"
-  val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.6.0"
+  val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.6.1"
   val catsEffectScalaTestDep = "org.typelevel" %% "cats-effect-testing-scalatest" % "1.6.0" % Test
   val fs2CoreDep = "co.fs2" %% "fs2-core" % "3.12.0"
   val tomlScalaDep = "tech.sparse" %% "toml-scala" % "0.2.2"
