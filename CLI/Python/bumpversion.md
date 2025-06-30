@@ -1,5 +1,9 @@
 # bumpversion CLI
 
+(!) Deprecated in favor of `bump-my-version`
+
+GitHub: https://github.com/peritus/bumpversion
+
 Install: `pip install bumpversion`
 
 Config file: `.bumpversion.cfg`

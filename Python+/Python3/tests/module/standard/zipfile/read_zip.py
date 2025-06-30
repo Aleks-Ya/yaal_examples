@@ -1,33 +1,33 @@
 import tempfile
-import unittest
-import zipfile
+from zipfile import ZipFile
 from pathlib import Path
 
-
-class TestReadZip(unittest.TestCase):
-
-    def test_read_single_file_from_zip(self):
-        with zipfile.ZipFile('data.zip', 'r') as zr:
-            with zr.open('data.txt') as file:
-                content: str = file.read().decode()
-        self.assertEqual("abc", content)
-
-    def test_extract_single_file_from_zip(self):
-        with zipfile.ZipFile('data.zip', 'r') as zr:
-            dest_dir: Path = Path(tempfile.mkdtemp())
-            file_in_zip: str = 'info.txt'
-            zr.extract(file_in_zip, dest_dir)
-        self.assertEqual("xyz", dest_dir.joinpath(file_in_zip).read_text())
-
-    def test_extract_single_file_from_zip_with_custom_name(self):
-        with zipfile.ZipFile('data.zip', 'r') as zr:
-            dest_dir: Path = Path(tempfile.mkdtemp())
-            file_in_zip: str = 'info.txt'
-            dest_file: Path = dest_dir / 'details.txt'
-            with zr.open(file_in_zip) as source, open(dest_file, 'wb') as target:
-                target.write(source.read())
-        self.assertEqual("xyz", dest_dir.joinpath(dest_file).read_text())
+from current_path import get_file_in_current_dir
 
 
-if __name__ == '__main__':
-    unittest.main()
+def test_read_single_file_from_zip():
+    zip_file: Path = get_file_in_current_dir('data.zip')
+    with ZipFile(zip_file, 'r') as zr:
+        with zr.open('data.txt') as file:
+            content: str = file.read().decode()
+    assert "abc" == content
+
+
+def test_extract_single_file_from_zip():
+    zip_file: Path = get_file_in_current_dir('data.zip')
+    with ZipFile(zip_file, 'r') as zr:
+        dest_dir: Path = Path(tempfile.mkdtemp())
+        file_in_zip: str = 'info.txt'
+        zr.extract(file_in_zip, dest_dir)
+    assert "xyz" == dest_dir.joinpath(file_in_zip).read_text()
+
+
+def test_extract_single_file_from_zip_with_custom_name():
+    zip_file: Path = get_file_in_current_dir('data.zip')
+    with ZipFile(zip_file, 'r') as zr:
+        dest_dir: Path = Path(tempfile.mkdtemp())
+        file_in_zip: str = 'info.txt'
+        dest_file: Path = dest_dir / 'details.txt'
+        with zr.open(file_in_zip) as source, open(dest_file, 'wb') as target:
+            target.write(source.read())
+    assert "xyz" == dest_dir.joinpath(dest_file).read_text()

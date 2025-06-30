@@ -1,6 +1,6 @@
 # parquet-tools CLI
  
-Install: `pip3 install parquet-tools`
+Install: `pip3 install -U parquet-tools`
  
 Help: `parquet-tools -h`
 Help about a command: `parquet-tools csv -h`
