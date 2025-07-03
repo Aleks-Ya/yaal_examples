@@ -101,3 +101,9 @@ Pack branch into a ZIP (without `.git`): `git archive --output a.zip master`
 ## Remote
 List remote repos with URLs: `git remote -v`
 Set URL for a remote repo: `git remote set-url origin file://project.git`
+
+## Push
+Delete a tag in a remote repo: `git push -d origin v1.0`
+
+## Tag
+Delete a tag in the local repo: `git tag -d v1.0`
