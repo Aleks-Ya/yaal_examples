@@ -1,5 +1,7 @@
 import pytest
-from pandas import DataFrame
+from pandas import DataFrame, Series
+
+from module.thirdparty.pandas.data import Person
 
 
 @pytest.fixture
@@ -23,3 +25,8 @@ def people_nested_df() -> DataFrame:
             {'Country': 'UK', 'City': 'London'},
             {'Country': 'France', 'City': 'Paris'}
         ]})
+
+
+@pytest.fixture
+def people_nested_series() -> Series:
+    return Series([Person("John", 30), Person("Mary", 25)])
