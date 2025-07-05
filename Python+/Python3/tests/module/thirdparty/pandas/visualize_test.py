@@ -1,9 +1,12 @@
+from textwrap import dedent
+
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
 
 
 def test_print(people_df: DataFrame):
-    print(people_df)
+    s: str = str(people_df)
+    assert s == dedent("""   Name  Age\n0  John   30\n1  Mary   25""")
 
 
 def test_to_string(people_df: DataFrame):

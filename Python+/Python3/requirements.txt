@@ -123,3 +123,4 @@ requests-cache
 XlsxWriter
 glom
 dpath
+datasets
