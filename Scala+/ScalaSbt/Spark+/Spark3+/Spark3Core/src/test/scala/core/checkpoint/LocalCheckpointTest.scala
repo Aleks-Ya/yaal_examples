@@ -16,6 +16,7 @@ class LocalCheckpointTest extends AnyFlatSpec with Matchers {
     print(rdd.toDebugString)
     rdd.localCheckpoint()
     rdd.isCheckpointed shouldBe false
+    rdd.getCheckpointFile shouldBe empty
     print(rdd.toDebugString)
 
     val count = rdd.count()
