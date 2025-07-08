@@ -12,8 +12,16 @@ PIP (outdated version 1): `pip3 install awscli`
 Default config file location: `~/.aws/config`
 
 Version: `aws --version`
-Check credential: `aws sts get-caller-identity`
 Choose output format (`text`, `table`, `json`, etc.): `aws s3api --output table list-buckets`
+
+### Authentication
+Check credential: `aws sts get-caller-identity`
+Via environment variables:
+```shell
+export AWS_ACCESS_KEY_ID=abc
+export AWS_SECRET_ACCESS_KEY=xyz
+aws sts get-caller-identity
+```
 
 ### help
 Help: `aws help`
@@ -24,11 +32,6 @@ Help for a sub-command: `aws configure list-profiles help`
 Help: `aws opensearch help`
 List domains: `aws opensearch list-domain-names`
 List packages: `aws opensearch describe-packages`
-
-### EC2
-List all EC2 instances: `aws ec2 describe-instances`
-List all regions: `aws ec2 describe-regions --all-regions`
-List all region names: `aws ec2 describe-regions --all-regions --query "Regions[].{Name:RegionName}"`
 
 ### ec2-instance-connect
 Help: `aws ec2-instance-connect help`
