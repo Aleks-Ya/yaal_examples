@@ -9,4 +9,6 @@ Version (all components): `npm version`
 Update `npm` to latest version: `sudo npm install -g npm`
 Update all globally installed packages: `npm update -g`
 
+Show info about a package: `npm view aws-cdk`
+
 Search for packages: `npm search testlink`
