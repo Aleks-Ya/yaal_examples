@@ -1,9 +1,12 @@
 import boto3
+from botocore.client import BaseClient
+
 
 def test_list_buckets_client():
-    s3_client = boto3.client("s3")
+    s3_client: BaseClient = boto3.client("s3")
     response: dict[str, object] = s3_client.list_buckets()
     print(response)
+
 
 def test_list_buckets_all():
     s3_resource = boto3.resource("s3")
