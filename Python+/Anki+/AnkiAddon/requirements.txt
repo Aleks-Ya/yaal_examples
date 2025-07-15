@@ -1,5 +1,5 @@
-anki~=25.2.1
-aqt~=25.2.1
+anki==25.08b1
+aqt==25.08b1
 pytest
 pytest-qt
 mock

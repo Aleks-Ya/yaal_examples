@@ -25,11 +25,6 @@ Help: `aws help`
 Help for a command: `aws ec2 help`
 Help for a sub-command: `aws configure list-profiles help`
 
-### OpenSearch
-Help: `aws opensearch help`
-List domains: `aws opensearch list-domain-names`
-List packages: `aws opensearch describe-packages`
-
 ### ec2-instance-connect
 Help: `aws ec2-instance-connect help`
 Connect to an EC2 instance by SSH without using keys: `aws ec2-instance-connect ssh --instance-id i-09a653b87321a3744`

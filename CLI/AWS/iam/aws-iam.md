@@ -12,6 +12,9 @@ List all users: `aws iam list-users`
 Create a user: `aws iam create-user --user-name user1`
 Delete a user: `aws iam delete-user --user-name user1`
 
+## Group
+List groups of a user: `aws iam list-groups-for-user --user-name user1`
+
 ## Access Key
 Create an access key for a user: `aws iam create-access-key --user-name user1`
 List access keys of a user: `aws iam list-access-keys --user-name user1`
