@@ -1,5 +1,6 @@
 # AWS lambda CLI
 
+## Function
 List Lambda Functions: `aws lambda list-functions`
 List versions of a Function: `aws lambda list-versions-by-function --function-name function1`
 Upload ZIP to a Function:`aws lambda update-function-code --function-name function1 --zip-file fileb://function1.zip --publish`

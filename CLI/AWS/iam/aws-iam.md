@@ -6,6 +6,7 @@ Show role details (table): `aws iam get-role --role-name AssumedRole1`
 Show role details (JSON): `aws iam get-role --output json --role-name AssumedRole1`
 Delete a role: `aws iam delete-role --role-name AssumedRole1`
 Create a role: `aws iam create-role --role-name role1 --assume-role-policy-document file://assume-role-policy.json`
+Update the trust policy on a role: `aws iam update-assume-role-policy --role-name role1 --policy-document file://trust-policy.json`
 
 ## User
 List all users: `aws iam list-users`
@@ -28,7 +29,9 @@ Show policy details: `aws iam get-policy --policy-arn arn:aws:iam::aws:policy/Ad
 Show policy version details: `aws iam get-policy-version --policy-arn arn:aws:iam::523633434047:policy/MyPolicy --version-id v2`
 Create a policy from file: `aws iam create-policy --policy-name MyPolicy --policy-document file://policy.json`
 Attach a policy to a user: `aws iam attach-user-policy --user-name user1 --policy-arn arn:aws:iam::aws:policy/S3AccessPolicy`
+Attach a policy to a role: `aws iam attach-role-policy --role-name MyS3ReadOnlyRole --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess`
 Detach a policy from a user: `aws iam detach-user-policy --user-name user1 --policy-arn arn:aws:iam::aws:policy/S3AccessPolicy`
+Attach a policy from a role: `aws iam detach-role-policy --role-name MyS3ReadOnlyRole --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess`
 Delte a policy: `aws iam delete-policy --policy-arn arn:aws:iam::523633434047:policy/MyPolicy`
 List policy versions: `aws iam list-policy-versions --policy-arn arn:aws:iam::523633434047:policy/MyPolicy`
 Create a policy version: `aws iam create-policy-version --policy-arn arn:aws:iam::123456789012:policy/MyPolicy --policy-document file://modified-policy.json --set-as-default`

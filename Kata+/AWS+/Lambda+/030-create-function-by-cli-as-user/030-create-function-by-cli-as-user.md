@@ -16,7 +16,7 @@ Create a hello-world function using AWS CLI as a custom limited user.
 		4. Configure profile: `aws --profile user1 configure`
 		5. Set default region: `aws --profile user1 configure set region us-east-1`
 		6. Test profile: `aws --profile user1 lambda list-functions`
-3. Create an Execution Role: `aws --profile user1 iam create-role --role-name ExecutionRole1 --assume-role-policy-document file://assume-role-policy.json`
+3. Create an Execution Role: `aws --profile user1 iam create-role --role-name ExecutionRole1 --assume-role-policy-document file://trust-policy.json`
 4. Pack the handler: `zip deployment-package.zip handler.py`
 5. Create a function:
 ```

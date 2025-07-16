@@ -1,11 +1,11 @@
-# 020-create-function-by-cli-as-root
+# Create a Lambda Function from AWS CLI as the root user
 
 ## Task
 Create a hello-world function using AWS CLI as the Root User.
 
 ## Setup
 1. Change the current directory
-2. Create an Execution Role: `aws iam create-role --role-name ExecutionRole1 --assume-role-policy-document file://assume-role-policy.json`
+2. Create an Execution Role: `aws iam create-role --role-name ExecutionRole1 --assume-role-policy-document file://trust-policy.json`
 3. Pack the handler: `zip deployment-package.zip handler.py`
 4. Create a function:
 ```
