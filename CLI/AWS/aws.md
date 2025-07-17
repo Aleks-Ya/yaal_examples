@@ -1,7 +1,10 @@
 # aws CLI
 
 ## Install
-Latest version: `sudo snap install aws-cli --classic`
+Latest version: 
+1. CLI: `sudo snap install aws-cli --classic`
+2. Auto-completion: add `complete -C '/snap/aws-cli/current/bin/aws_completer' aws` to `~/.bashrc`
+
 Obsolete version 1: `pip3 install awscli`
 
 ## Commands

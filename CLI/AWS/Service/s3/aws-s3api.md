@@ -11,3 +11,5 @@ Upload a file to S3:
 aws s3api put-object --bucket yaal-test-bucket --key my_texts/bye.txt --body /tmp/bye.txt
 #Link to the object: https://yaal-test-bucket.s3.eu-central-1.amazonaws.com/my_texts/bye.txt
 ```
+
+Update the Bucket Policy: `aws s3api put-bucket-policy --bucket s3-trail-bucket-49123 --policy file://bucket-policy.json`
