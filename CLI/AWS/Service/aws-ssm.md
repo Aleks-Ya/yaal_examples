@@ -1,5 +1,8 @@
 # AWS SSM (Systems Manager) CLI
 
+## Info
+Check status of SSM Agents in EC2 instances: `aws ssm describe-instance-information`
+
 ## Parameter Store
 List all parameters: `aws ssm describe-parameters`
 Show single parameter: `aws ssm get-parameter --name param1 --with-decryption`
