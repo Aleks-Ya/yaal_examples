@@ -12,4 +12,7 @@ aws s3api put-object --bucket yaal-test-bucket --key my_texts/bye.txt --body /tm
 #Link to the object: https://yaal-test-bucket.s3.eu-central-1.amazonaws.com/my_texts/bye.txt
 ```
 
-Update the Bucket Policy: `aws s3api put-bucket-policy --bucket s3-trail-bucket-49123 --policy file://bucket-policy.json`
+## Bucket Policy
+Show Bucket Policy: `aws s3api get-bucket-policy --bucket bucket1`
+Update the Bucket Policy: `aws s3api put-bucket-policy --bucket alex-717183y1471234 --policy file://bucket-policy.json`
+Delete Bucket Policy: `aws s3api delete-bucket-policy --bucket bucket1`
