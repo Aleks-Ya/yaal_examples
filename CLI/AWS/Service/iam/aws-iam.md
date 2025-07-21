@@ -43,7 +43,10 @@ Attach policy to a group: `aws iam attach-group-policy --group-name group1 --pol
 List policies attached to a role: `aws iam list-attached-role-policies --role-name MyS3ReadOnlyRole`
 Attach a policy to a role: `aws iam attach-role-policy --role-name MyS3ReadOnlyRole --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess`
 Attach a policy from a role: `aws iam detach-role-policy --role-name MyS3ReadOnlyRole --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess`
-Create an inline policy for a role: `aws iam put-role-policy --role-name role1 --policy-name S3InlinePolicy --policy-document file://role-inline-policy.json`
+Create an inline policy for a role:
+```shell
+aws iam put-role-policy --role-name role1 --policy-name S3InlinePolicy --policy-document file://role-inline-policy.json
+```
 Show an inline policy on a role: `aws iam get-role-policy --role-name role1 --policy-name S3InlinePolicy`
 
 ### Policy Versions
@@ -60,6 +63,12 @@ aws iam simulate-principal-policy \
     --resource-arns arn:aws:s3:::example-bucket
 ```
 Ignore Organization's SCPs: `--no-context-policy`
+
+## Instance Profile
+List instance profiles: `aws iam list-instance-profiles`
+Show an instance profile: `aws iam get-instance-profile --instance-profile-name MyInstanceProfile2`
+Create an instance profile: `aws iam create-instance-profile --instance-profile-name MyInstanceProfile2`
+Attach a role to an instance profile: `aws iam add-role-to-instance-profile --instance-profile-name MyInstanceProfile2 --role-name BedrockAccessRole`
 
 ## Errors
 ### MalformedPolicyDocument

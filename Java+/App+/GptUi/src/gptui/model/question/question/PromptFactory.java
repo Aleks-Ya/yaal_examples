@@ -18,6 +18,7 @@ class PromptFactory {
                 case SHORT -> Optional.of(format(
                         "I will ask you a question about \"%s\". " +
                                 "You should answer with a short response. " +
+                                "Do not repeat the question in your answer. " +
                                 "Format your answer into Markdown. " +
                                 "The question is:\n" +
                                 "```\n" +
@@ -26,6 +27,7 @@ class PromptFactory {
                         theme, question));
                 case LONG -> Optional.of(format(
                         "I will ask you a question about \"%s\". " +
+                                "Do not repeat the question in your answer. " +
                                 "Format your answer into Markdown. " +
                                 "The question is:\n" +
                                 "```\n" +
@@ -33,7 +35,9 @@ class PromptFactory {
                                 "```",
                         theme, question));
                 case GCP -> Optional.of(format(
-                        "Answer question about `%s`:\n" +
+                        "I will ask you a question about \"%s\". " +
+                                "Do not repeat the question in your answer. " +
+                                "The question is:\n" +
                                 "```\n" +
                                 "%s\n" +
                                 "```", theme, question));

@@ -26,6 +26,7 @@ Remove local changes in a file: `git checkout db.changelog-insert.yaml`
 
 ## Branch
 Rename current branch: `git branch -m new-branch-name`
+Delete branch in a remove repo: `git push origin -d branch1`
 
 ## Log
 Log one line: `git log --pretty=oneline master`

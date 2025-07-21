@@ -23,17 +23,17 @@ class PromptFactoryTest {
                 Question A
                 ```""");
         assertThat(factory.getPrompt(QUESTION, "Theme A", "Question A", SHORT)).contains("""
-                I will ask you a question about "Theme A". You should answer with a short response. Format your answer into Markdown. The question is:
+                I will ask you a question about "Theme A". You should answer with a short response. Do not repeat the question in your answer. Format your answer into Markdown. The question is:
                 ```
                 Question A
                 ```""");
         assertThat(factory.getPrompt(QUESTION, "Theme A", "Question A", LONG)).contains("""
-                I will ask you a question about "Theme A". Format your answer into Markdown. The question is:
+                I will ask you a question about "Theme A". Do not repeat the question in your answer. Format your answer into Markdown. The question is:
                 ```
                 Question A
                 ```""");
         assertThat(factory.getPrompt(QUESTION, "Theme A", "Question A", GCP)).contains("""
-                Answer question about `Theme A`:
+                I will ask you a question about "Theme A". Do not repeat the question in your answer. The question is:
                 ```
                 Question A
                 ```""");
