@@ -1,0 +1,31 @@
+{
+  "settings": {
+    "index": {
+      "analysis": {
+        "analyzer": {
+          "my_analyzer": {
+            "type": "custom",
+            "tokenizer": "standard",
+            "filter": ["my_filter"]
+          }
+        },
+        "filter": {
+          "my_filter": {
+            "type": "synonym",
+            "synonyms_path": "analyzers/${PACKAGE_ID}",
+            "updateable": true
+          }
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "description": {
+        "type": "text",
+        "analyzer": "standard",
+        "search_analyzer": "my_analyzer"
+      }
+    }
+  }
+}

@@ -1,0 +1,3 @@
+dependencies {
+    implementation "software.amazon.awssdk:opensearch:$aws2Version"
+}
