@@ -20,12 +20,12 @@
 	2. Set bucket policy: `aws s3api put-bucket-policy --bucket bucket-tmp-1 --policy file://bucket-policy.json`
 4. Test assume role
 	1. Try to access S3 without assuming: `aws --profile user1 s3 ls s3://bucket-tmp-1`
-	2. Assume: `RESPONSE=$(aws --profile user1 sts assume-role --output json --role-arn arn:aws:iam::523633434047:role/AssumedRole1 --role-session-name Session1)`
+	2. Assume: `CREDS=$(aws --profile user1 sts assume-role --output json --role-arn arn:aws:iam::523633434047:role/AssumedRole1 --role-session-name Session1)`
 	3. Configure profile `assumed-role`:
 	```
-	aws --profile assumed-role configure set aws_access_key_id $(echo $RESPONSE | jq -r '.Credentials.AccessKeyId')
-	aws --profile assumed-role configure set aws_secret_access_key $(echo $RESPONSE | jq -r '.Credentials.SecretAccessKey')
-	aws --profile assumed-role configure set aws_session_token $(echo $RESPONSE | jq -r '.Credentials.SessionToken')
+	aws --profile assumed-role configure set aws_access_key_id $(echo $CREDS | jq -r '.CREDSentials.AccessKeyId')
+	aws --profile assumed-role configure set aws_secret_access_key $(echo $CREDS | jq -r '.CREDSentials.SecretAccessKey')
+	aws --profile assumed-role configure set aws_session_token $(echo $CREDS | jq -r '.CREDSentials.SessionToken')
 	```
 	4. Try to access S3 with assuming: `aws --profile assumed-role s3 ls s3://bucket-tmp-1`
 
@@ -37,4 +37,4 @@
 	2. Delete user: `aws iam delete-user --user-name user1`
 2. Delete role: `aws iam delete-role --role-name AssumedRole1`
 3. Delete S3 bucket: `aws s3 rb s3://bucket-tmp-1`
-4. Remove user profile: open `subl ~/.aws/credentials` and remove sections `[user1]` and `[assumed-role]`
+4. Remove user profile: open `subl ~/.aws/CREDSentials` and remove sections `[user1]` and `[assumed-role]`

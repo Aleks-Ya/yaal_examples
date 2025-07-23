@@ -20,21 +20,21 @@
 4. Test assume role
 	1. Try to access S3 without assuming (denied): `aws --profile AnalystUser s3 ls s3://`
 	2. `AnalystUser` assumes `AnalystRole`: 
-		1. Assume: `RESPONSE=$(aws --profile AnalystUser sts assume-role --output json --role-arn arn:aws:iam::523633434047:role/AnalystRole --role-session-name AnalystSession)`
+		1. Assume: `CREDS=$(aws --profile AnalystUser sts assume-role --output json --role-arn arn:aws:iam::523633434047:role/AnalystRole --role-session-name AnalystSession)`
 		2. Configure profile `AnalystSessionProfile`:
 		```
-		aws --profile AnalystSessionProfile configure set aws_access_key_id $(echo $RESPONSE | jq -r '.Credentials.AccessKeyId')
-		aws --profile AnalystSessionProfile configure set aws_secret_access_key $(echo $RESPONSE | jq -r '.Credentials.SecretAccessKey')
-		aws --profile AnalystSessionProfile configure set aws_session_token $(echo $RESPONSE | jq -r '.Credentials.SessionToken')
+		aws --profile AnalystSessionProfile configure set aws_access_key_id $(echo $CREDS | jq -r '.CREDSentials.AccessKeyId')
+		aws --profile AnalystSessionProfile configure set aws_secret_access_key $(echo $CREDS | jq -r '.CREDSentials.SecretAccessKey')
+		aws --profile AnalystSessionProfile configure set aws_session_token $(echo $CREDS | jq -r '.CREDSentials.SessionToken')
 		```
 		3. Try to access S3 with assuming (denied): `aws --profile AnalystSessionProfile s3 ls s3://`
 	3. `AnalystRole` assumes `S3Role`: 
-		1. Assume: `RESPONSE=$(aws --profile AnalystSessionProfile sts assume-role --output json --role-arn arn:aws:iam::523633434047:role/S3Role --role-session-name S3Session)`
+		1. Assume: `CREDS=$(aws --profile AnalystSessionProfile sts assume-role --output json --role-arn arn:aws:iam::523633434047:role/S3Role --role-session-name S3Session)`
 		2. Configure profile `S3SessionProfile`:
 		```
-		aws --profile S3SessionProfile configure set aws_access_key_id $(echo $RESPONSE | jq -r '.Credentials.AccessKeyId')
-		aws --profile S3SessionProfile configure set aws_secret_access_key $(echo $RESPONSE | jq -r '.Credentials.SecretAccessKey')
-		aws --profile S3SessionProfile configure set aws_session_token $(echo $RESPONSE | jq -r '.Credentials.SessionToken')
+		aws --profile S3SessionProfile configure set aws_access_key_id $(echo $CREDS | jq -r '.CREDSentials.AccessKeyId')
+		aws --profile S3SessionProfile configure set aws_secret_access_key $(echo $CREDS | jq -r '.CREDSentials.SecretAccessKey')
+		aws --profile S3SessionProfile configure set aws_session_token $(echo $CREDS | jq -r '.CREDSentials.SessionToken')
 		```
 		3. Try to access S3 with assuming (allowed): `aws --profile S3SessionProfile s3 ls s3://`
 
@@ -49,5 +49,5 @@
 	1. Detach policy: `aws iam detach-role-policy --role-name S3Role --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess`
 	2. Delete role: `aws iam delete-role --role-name S3Role`
 4. Remove user profile: 
-	1. Open `subl ~/.aws/credentials`
+	1. Open `subl ~/.aws/CREDSentials`
 	2. Remove sections: `[AnalystUser]`, `[AnalystSessionProfile]`, `[S3SessionProfile]`

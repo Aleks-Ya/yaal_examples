@@ -1,0 +1,4 @@
+dependencies {
+    implementation "software.amazon.awssdk:aws-core:$aws2Version"
+    testImplementation systemStubsDep
+}

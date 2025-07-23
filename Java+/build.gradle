@@ -118,12 +118,14 @@ subprojects {
         javaxInjectDep = 'javax.inject:javax.inject:1'
         guiceVersion = '7.0.0'
         igniteGuiceDep = 'com.gluonhq:ignite-guice:1.2.2'
-        systemStubsVersion = '2.1.3'
+        systemStubsVersion = '2.1.8'
+        systemStubsDep = "uk.org.webcompere:system-stubs-jupiter:$systemStubsVersion"
         annotationApi = 'javax.annotation:javax.annotation-api:1.3.2'
         parquetVersion = '1.15.2'
         googleCloudBomDep = 'com.google.cloud:libraries-bom:26.32.0'
         aws1Version = '1.12.788'
-        aws2Version = '2.32.6'
+        aws2Version = '2.32.7'
+        aws2S3Dep = "software.amazon.awssdk:s3:$aws2Version"
         googleTestingCompileDep = 'com.google.testing.compile:compile-testing:0.21.0'
         controlsFxDep = 'org.controlsfx:controlsfx:11.2.2'
         xStreamDep = 'com.thoughtworks.xstream:xstream:1.4.20'

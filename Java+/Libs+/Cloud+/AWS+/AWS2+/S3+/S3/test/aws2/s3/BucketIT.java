@@ -1,6 +1,5 @@
 package aws2.s3;
 
-import aws1.s3.Helper;
 import org.junit.jupiter.api.Test;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
@@ -17,8 +16,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * Create, list, delete S3 buckets.
  * Requires aws.key.access and aws.key.secret Java properties.
  */
-class BucketTest {
-    private static final S3Client s3 = Helper.s3;
+class BucketIT {
+    private static final S3Client s3 = S3Helper.s3;
 
     @Test
     void listBuckets() {
@@ -37,7 +36,7 @@ class BucketTest {
     }
 
     @Test
-    void createBucket() {
+    void createDeleteBucket() {
         var bucketName = UUID.randomUUID().toString();
         assertThatThrownBy(() -> s3.headBucket(b -> b.bucket(bucketName))).isInstanceOf(NoSuchBucketException.class);
 

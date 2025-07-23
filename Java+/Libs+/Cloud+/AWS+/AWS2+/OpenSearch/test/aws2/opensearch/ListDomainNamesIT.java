@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import software.amazon.awssdk.services.opensearch.OpenSearchClient;
 import software.amazon.awssdk.services.opensearch.model.ListDomainNamesRequest;
 
-class ListDomainNamesTest {
+class ListDomainNamesIT {
     @Test
     void test() {
         try (var client = OpenSearchClient.builder().build()) {

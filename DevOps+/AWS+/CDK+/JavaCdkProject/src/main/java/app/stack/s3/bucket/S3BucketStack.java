@@ -1,4 +1,4 @@
-package app.stack.bucket;
+package app.stack.s3.bucket;
 
 import software.amazon.awscdk.Stack;
 import software.amazon.awscdk.services.s3.Bucket;
@@ -6,12 +6,11 @@ import software.constructs.Construct;
 
 import static software.amazon.awscdk.RemovalPolicy.DESTROY;
 
-public class BucketStack extends Stack {
-    public BucketStack(final Construct scope) {
-        super(scope, BucketStack.class.getSimpleName(), null);
-        var bucketName = "my-cdk-bucket-ei9a9l10slx";
+public class S3BucketStack extends Stack {
+    public S3BucketStack(final Construct scope) {
+        super(scope, S3BucketStack.class.getSimpleName(), null);
         Bucket.Builder.create(this, "Bucket resource creation")
-                .bucketName(bucketName)
+                .bucketName("my-cdk-bucket-ei9a9l10slx")
                 .removalPolicy(DESTROY)
                 .build();
     }

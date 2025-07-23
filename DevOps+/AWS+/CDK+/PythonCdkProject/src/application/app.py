@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 
 import aws_cdk as cdk
+from aws_cdk import App
 
 from python_cdk_project.minimal_opensearch_domain_stack import MinimalOpenSearchDomainStack
 from python_cdk_project.python_cdk_project_stack import PythonCdkProjectStack
 
-app = cdk.App()
+app: App = cdk.App()
+environment = cdk.Environment(region="us-east-1")
 PythonCdkProjectStack(app, "PythonCdkProjectStack",
+                      env=environment
                       # If you don't specify 'env', this stack will be environment-agnostic.
                       # Account/Region-dependent features and context lookups will not work,
                       # but a single synthesized template can be deployed anywhere.
@@ -23,6 +26,6 @@ PythonCdkProjectStack(app, "PythonCdkProjectStack",
 
                       # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
                       )
-MinimalOpenSearchDomainStack(app, "MinimalOpenSearchDomainStack")
+MinimalOpenSearchDomainStack(app, "MinimalOpenSearchDomainStack", env=environment)
 
 app.synth()

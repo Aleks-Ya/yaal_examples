@@ -2,6 +2,7 @@
 
 ## Role
 List all roles: `aws iam list-roles`
+List all service-linked roles: `aws iam list-roles --path-prefix /aws-service-role`
 Show role details: `aws iam get-role --role-name AssumedRole1`
 Create a role: `aws iam create-role --role-name role1 --assume-role-policy-document file://assume-role-policy.json`
 Delete a role: `aws iam delete-role --role-name AssumedRole1`
@@ -43,11 +44,14 @@ Attach policy to a group: `aws iam attach-group-policy --group-name group1 --pol
 List policies attached to a role: `aws iam list-attached-role-policies --role-name MyS3ReadOnlyRole`
 Attach a policy to a role: `aws iam attach-role-policy --role-name MyS3ReadOnlyRole --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess`
 Attach a policy from a role: `aws iam detach-role-policy --role-name MyS3ReadOnlyRole --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess`
+
+### Inline role policy
+List inline role policies: `aws iam list-role-policies --role-name role1`
+Show an inline policy on a role: `aws iam get-role-policy --role-name role1 --policy-name S3InlinePolicy`
 Create an inline policy for a role:
 ```shell
 aws iam put-role-policy --role-name role1 --policy-name S3InlinePolicy --policy-document file://role-inline-policy.json
 ```
-Show an inline policy on a role: `aws iam get-role-policy --role-name role1 --policy-name S3InlinePolicy`
 
 ### Policy Versions
 List policy versions: `aws iam list-policy-versions --policy-arn arn:aws:iam::523633434047:policy/MyPolicy`
@@ -62,7 +66,6 @@ aws iam simulate-principal-policy \
     --action-names s3:ListBucket \
     --resource-arns arn:aws:s3:::example-bucket
 ```
-Ignore Organization's SCPs: `--no-context-policy`
 
 ## Instance Profile
 List instance profiles: `aws iam list-instance-profiles`
