@@ -2,29 +2,29 @@ import sbt.*
 
 object Dependencies {
   val scalaTestDep = "org.scalatest" %% "scalatest" % "3.2.19" % Test
-  val scalaMockDep = "org.scalamock" %% "scalamock" % "6.2.0" % Test
+  val scalaMockDep = "org.scalamock" %% "scalamock" % "7.4.0" % Test
   val h2Dep = "com.h2database" % "h2" % "2.3.232"
   val logbackClassicDep = "ch.qos.logback" % "logback-classic" % "1.5.18"
   val scoptDep = "com.github.scopt" %% "scopt" % "4.1.0"
   val json4sNativeDep = "org.json4s" %% "json4s-native" % "4.0.7"
   val sprayJsonDep = "io.spray" %% "spray-json" % "1.3.6"
-  val jettyServletDep = "org.eclipse.jetty" % "jetty-servlet" % "11.0.22" % Test
+  val jettyServletDep = "org.eclipse.jetty" % "jetty-servlet" % "11.0.25" % Test
 
   private val slf4jVersion = "2.0.17"
   val slf4jNopDep = "org.slf4j" % "slf4j-nop" % slf4jVersion
   val slf4jSimpleDep = "org.slf4j" % "slf4j-simple" % slf4jVersion
 
-  private val akkaVersion = "2.8.6"
+  private val akkaVersion = "2.8.8"
   val akkaActorTypedDep = "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion
   val akkaActorTestKitTypedDep = "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test
 
-  val typesafeConfigDep = "com.typesafe" % "config" % "1.4.3"
-  val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.6.1"
+  val typesafeConfigDep = "com.typesafe" % "config" % "1.4.4"
+  val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.6.3"
   val catsEffectScalaTestDep = "org.typelevel" %% "cats-effect-testing-scalatest" % "1.6.0" % Test
   val fs2CoreDep = "co.fs2" %% "fs2-core" % "3.12.0"
   val tomlScalaDep = "tech.sparse" %% "toml-scala" % "0.2.2"
 
-  private val jacksonVersion = "2.18.3"
+  private val jacksonVersion = "2.19.2"
   val jacksonDataformatYamlDep = "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml" % jacksonVersion
   val jacksonModuleScalaDep = "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion
 
@@ -33,7 +33,7 @@ object Dependencies {
   val http4sDslDep = "org.http4s" %% "http4s-dsl" % http4sVersion
   val httpJdkHttpClientDep = "org.http4s" %% "http4s-jdk-http-client" % "0.10.0"
 
-  val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "4.1.0" % Test
+  val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "4.1.1" % Test
 
   private val spark3Version = "3.5.6"
   private val djlVersion = "0.33.0"
@@ -47,9 +47,9 @@ object Dependencies {
   val djlOnnxEngineDep = "ai.djl.onnxruntime" % "onnxruntime-engine" % djlVersion
   val djlHfTokenizersDep = "ai.djl.huggingface" % "tokenizers" % djlVersion
 
-  val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "4.12.0" % Test
+  val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "5.1.0" % Test
 
-  private val kafkaVersion = "3.9.0"
+  private val kafkaVersion = "3.9.1"
   val embeddedKafkaDep = "io.github.embeddedkafka" %% "embedded-kafka" % kafkaVersion % Test
   val sparkSqlKafkaDep = "org.apache.spark" %% "spark-sql-kafka-0-10" % spark3Version
   val sparkStreamingKafkaDep = "org.apache.spark" %% "spark-streaming-kafka-0-10-assembly" % spark3Version
@@ -57,9 +57,9 @@ object Dependencies {
   val kafkaDep = "org.apache.kafka" %% "kafka" % kafkaVersion
   val kafkaManubDep = "net.manub" %% "scalatest-embedded-kafka" % "2.0.0" % Test
 
-  val opensearchDep = "org.opensearch" % "opensearch" % "2.19.2"
+  val opensearchDep = "org.opensearch" % "opensearch" % "2.19.3"
 
-  val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.54.0"
+  val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.56.0"
   val dbUtilsApiDep = "com.databricks" %% "dbutils-api" % "0.0.6"
   val hadoopClientApiDep = "org.apache.hadoop" % "hadoop-client-api" % "3.4.1"
   val databricksDbUtilsScalaDep = "com.databricks" %% "databricks-dbutils-scala" % "0.1.4"

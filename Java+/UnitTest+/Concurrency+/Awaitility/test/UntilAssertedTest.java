@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class UntilAssertedTest {
 
     @Test
-    void untilAsserted() {
+    void untilAssertedAtMost() {
         final var n = new AtomicInteger(0);
 
         new Thread(() -> {
@@ -27,11 +27,11 @@ class UntilAssertedTest {
         await()
                 .atMost(500, MILLISECONDS)
                 .pollInterval(10, MILLISECONDS)
-                .untilAsserted(() -> assertEquals(n.get(), 1));
+                .untilAsserted(() -> assertEquals(1, n.get()));
     }
 
     @Test
-    void untilAssertedAtLest() {
+    void untilAssertedAtLeast() {
         final var n = new AtomicInteger(0);
 
         new Thread(() -> {
@@ -46,7 +46,7 @@ class UntilAssertedTest {
         await()
                 .atLeast(2, SECONDS)
                 .pollInterval(500, MILLISECONDS)
-                .untilAsserted(() -> assertEquals(n.get(), 1));
+                .untilAsserted(() -> assertEquals(1, n.get()));
     }
 
     @Test

@@ -16,7 +16,15 @@ public class S3Helper {
         return new RandomBucket();
     }
 
-    public static void deleteBucket(String bucket) {
+    private static String createRandomBucket() {
+        var bucketName = "aws-unit-test-" + UUID.randomUUID();
+        System.out.println("Creating bucket: " + bucketName);
+        var createResponse = s3.createBucket(b -> b.bucket(bucketName));
+        assert createResponse.sdkHttpResponse().isSuccessful();
+        return bucketName;
+    }
+
+    private static void deleteBucket(String bucket) {
         System.out.println("Deleting bucket: " + bucket);
         var objectIds = s3.listObjectsV2(b1 -> b1.bucket(bucket)).contents().stream()
                 .map(obj -> ObjectIdentifier.builder().key(obj.key()).build())
@@ -24,14 +32,6 @@ public class S3Helper {
         var deleteObjectsRequest = DeleteObjectsRequest.builder().bucket(bucket).delete(b -> b.objects(objectIds)).build();
         assert s3.deleteObjects(deleteObjectsRequest).sdkHttpResponse().isSuccessful();
         assert s3.deleteBucket(b -> b.bucket(bucket)).sdkHttpResponse().isSuccessful();
-    }
-
-    private static String createRandomBucket() {
-        var bucketName = "aws-unit-test-" + UUID.randomUUID();
-        System.out.println("Creating bucket: " + bucketName);
-        var createResponse = s3.createBucket(b -> b.bucket(bucketName));
-        assert createResponse.sdkHttpResponse().isSuccessful();
-        return bucketName;
     }
 
     public static class RandomBucket implements AutoCloseable {

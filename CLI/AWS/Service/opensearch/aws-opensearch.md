@@ -17,6 +17,7 @@ Send request to a cluster: `awscurl --service es https://search-domain-1-umrjsmq
 List packages: `aws opensearch describe-packages`
 List ZIP-PLUGIN packages: `aws opensearch describe-packages --filters Name=PackageType,Value=ZIP-PLUGIN`
 List TXT-DICTIONARY packages: `aws opensearch describe-packages --filters Name=PackageType,Value=TXT-DICTIONARY`
+List packages by ID: `aws opensearch describe-packages --filters Name=PackageID,Value=F178690135`
 List packages by name: `aws opensearch describe-packages --filters Name=PackageName,Value=package1`
 List packages associated with given domain: `aws opensearch list-packages-for-domain --domain-name domain-1`
 List domains associated with given package: `aws opensearch list-domains-for-package --package-id F178690135`

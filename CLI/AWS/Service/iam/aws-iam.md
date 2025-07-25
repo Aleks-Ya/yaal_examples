@@ -52,6 +52,7 @@ Create an inline policy for a role:
 ```shell
 aws iam put-role-policy --role-name role1 --policy-name S3InlinePolicy --policy-document file://role-inline-policy.json
 ```
+Delete an inline policy from a role: `aws iam delete-role-policy --role-name role1 --policy-name S3InlinePolicy`
 
 ### Policy Versions
 List policy versions: `aws iam list-policy-versions --policy-arn arn:aws:iam::523633434047:policy/MyPolicy`

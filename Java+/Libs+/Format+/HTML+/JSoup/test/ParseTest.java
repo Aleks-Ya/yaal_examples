@@ -1,5 +1,4 @@
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.junit.jupiter.api.Test;
 
@@ -48,7 +47,7 @@ class ParseTest {
         var images = doc.select("img");
         assertThat(images).hasSize(2);
 
-        assertThat(images.get(0))
+        assertThat(images.get(0)).element(0)
                 .returns("""
                         <img src=":/681c0cd67b3d44378f47acc06a5e234e" alt="013bb9bbbc51b7d2145153b7640e7fdc.png" width="324" height="243" class="jop-noMdConv">""", Node::outerHtml)
                 .returns(":/681c0cd67b3d44378f47acc06a5e234e", img -> img.attr("src"))
@@ -57,7 +56,7 @@ class ParseTest {
                 .returns("243", img -> img.attr("height"))
                 .returns("jop-noMdConv", img -> img.attr("class"));
 
-        assertThat(images.get(1))
+        assertThat(images.get(1)).element(0)
                 .returns("""
                         <img class="jop-noMdConv2" width="284" height="179" alt="f7316cd7bda69f9f9649ce5c750eee2e.png" src=":/fe3aac71c1e44393a4e54666e697dfc8">""", Node::outerHtml)
                 .returns(":/fe3aac71c1e44393a4e54666e697dfc8", img -> img.attr("src"))
