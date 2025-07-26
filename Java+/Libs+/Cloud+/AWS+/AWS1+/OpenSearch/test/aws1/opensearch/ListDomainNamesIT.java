@@ -6,7 +6,7 @@ import com.amazonaws.services.elasticsearch.AWSElasticsearchClientBuilder;
 import com.amazonaws.services.elasticsearch.model.ListDomainNamesRequest;
 import org.junit.jupiter.api.Test;
 
-class ListDomainNamesTest {
+class ListDomainNamesIT {
     @Test
     void test() {
         var credentialsProvider = new ProfileCredentialsProvider();

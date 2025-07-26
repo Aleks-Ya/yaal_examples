@@ -61,7 +61,7 @@ subprojects {
         springBoot2Version = '2.7.18'
         springBoot2StarterWebDep = "org.springframework.boot:spring-boot-starter-web:$springBoot2Version"
         springBoot2StarterDataJpaDep = "org.springframework.boot:spring-boot-starter-data-jpa:$springBoot2Version"
-        springCloud3Version = '3.1.9'
+        springCloud3Version = '3.1.8'
         springCloud4Version = '4.3.0'
         springSecurity5Version = '5.8.16'
         springBoot3Version = '3.5.4'
@@ -124,7 +124,7 @@ subprojects {
         parquetVersion = '1.15.2'
         googleCloudBomDep = 'com.google.cloud:libraries-bom:26.32.0'
         aws1Version = '1.12.788'
-        aws2Version = '2.32.7'
+        aws2Version = '2.32.9'
         aws2S3Dep = "software.amazon.awssdk:s3:$aws2Version"
         googleTestingCompileDep = 'com.google.testing.compile:compile-testing:0.21.0'
         controlsFxDep = 'org.controlsfx:controlsfx:11.2.2'

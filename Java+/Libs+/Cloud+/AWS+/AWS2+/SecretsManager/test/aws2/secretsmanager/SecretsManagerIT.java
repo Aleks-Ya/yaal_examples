@@ -6,7 +6,7 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueReques
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class SecretsManagerTest {
+class SecretsManagerIT {
     @Test
     void getSecret() {
         try (var client = SecretsManagerClient.create()) {

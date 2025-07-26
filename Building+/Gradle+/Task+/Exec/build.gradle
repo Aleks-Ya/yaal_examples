@@ -1,0 +1,12 @@
+tasks.register('executeEcho', Exec) {
+    commandLine 'echo', 'Hello'
+}
+
+tasks.register('printWorkingDir', Exec) {
+    commandLine 'pwd'
+}
+
+tasks.register('customWorkingDir', Exec) {
+    workingDir '..'
+    commandLine 'pwd'
+}

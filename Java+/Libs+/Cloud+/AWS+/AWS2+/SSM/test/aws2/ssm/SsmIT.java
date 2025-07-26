@@ -6,7 +6,7 @@ import software.amazon.awssdk.services.ssm.model.GetParameterRequest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class SsmTest {
+class SsmIT {
     @Test
     void getParameter() {
         try (var ssm = SsmClient.create()) {

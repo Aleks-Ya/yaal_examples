@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class SsmTest {
+class SsmIT {
     @Test
     void getParameter() {
         var client = AWSSimpleSystemsManagementAsyncClientBuilder.defaultClient();

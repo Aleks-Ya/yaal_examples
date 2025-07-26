@@ -1,0 +1,3 @@
+dependencies {
+    implementation "software.amazon.awssdk:dynamodb:$aws2Version"
+}

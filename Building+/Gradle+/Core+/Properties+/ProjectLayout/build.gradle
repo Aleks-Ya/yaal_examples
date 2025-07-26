@@ -1,0 +1,16 @@
+defaultTasks('print')
+
+println "layout class = ${layout.class.getCanonicalName()}"
+println "PROJECT CONFIGURATION: projectDirectory=${layout.projectDirectory}"
+println "PROJECT CONFIGURATION: buildDirectory=${layout.buildDirectory.get()}"
+println "PROJECT CONFIGURATION: settingsDirectory=${layout.settingsDirectory}"
+tasks.register('print') {
+    println "TASK CONFIGURATION: projectDirectory=${layout.projectDirectory}"
+    println "TASK CONFIGURATION: buildDirectory=${layout.buildDirectory.get()}"
+    println "TASK CONFIGURATION: settingsDirectory=${layout.settingsDirectory}"
+    doLast() {
+        println "TASK EXECUTION: projectDirectory=${layout.projectDirectory}"
+        println "TASK EXECUTION: buildDirectory=${layout.buildDirectory.get()}"
+        println "TASK EXECUTION: settingsDirectory=${layout.settingsDirectory}"
+    }
+}

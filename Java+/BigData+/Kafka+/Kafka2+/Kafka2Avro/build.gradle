@@ -19,3 +19,12 @@ sourceSets {
         }
     }
 }
+
+def generateAvroClassesTask = 'generateAvroClasses'
+tasks.register(generateAvroClassesTask, Exec) {
+    commandLine 'java', '-jar', "${System.properties['user.home']}/installed/avro-tools/avro-tools.jar",
+            'compile', 'schema', 'avro', layout.buildDirectory.dir("generated/avro").get()
+}
+tasks.named('compileJava').configure {
+    dependsOn(tasks.named(generateAvroClassesTask))
+}

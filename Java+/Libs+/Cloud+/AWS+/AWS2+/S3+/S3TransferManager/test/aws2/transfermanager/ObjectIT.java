@@ -10,7 +10,7 @@ import software.amazon.awssdk.transfer.s3.model.UploadRequest;
 /**
  * Upload, download and list objects in a bucket.
  */
-class ObjectTest {
+class ObjectIT {
     private static final S3Client s3 = Helper.s3;
     private static final S3TransferManager tm = Helper.tm;
 
