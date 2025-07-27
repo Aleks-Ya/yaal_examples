@@ -2,6 +2,7 @@
 
 ## Useful commands
 
+Help: `cdk --help`
 List stacks: `cdk ls`
 Build CloudFormation template: `cdk synth`
 Deploy a stack: `cdk deploy MinimalOpenSearchDomainStack`

@@ -31,21 +31,23 @@ Show policy details: `aws iam get-policy --policy-arn arn:aws:iam::aws:policy/Ad
 Create a policy from file: `aws iam create-policy --policy-name MyPolicy --policy-document file://policy.json`
 Delte a policy: `aws iam delete-policy --policy-arn arn:aws:iam::523633434047:policy/MyPolicy`
 
-### User policy
+### Standalone policy
+#### Standalone User policy
 List policies attached to a user: `aws iam list-attached-user-policies --user-name user1`
 Attach a policy to a user: `aws iam attach-user-policy --user-name user1 --policy-arn arn:aws:iam::aws:policy/S3AccessPolicy`
 Detach a policy from a user: `aws iam detach-user-policy --user-name user1 --policy-arn arn:aws:iam::aws:policy/S3AccessPolicy`
 
-### Group policy
+#### Standalone Group policy
 List policies of a group: `aws iam list-attached-group-policies --group-name group1`
 Attach policy to a group: `aws iam attach-group-policy --group-name group1 --policy-arn arn:aws:iam::aws:policy/AmazonEC2FullAccess`
 
-### Role policy
+#### Standalone Role policy
 List policies attached to a role: `aws iam list-attached-role-policies --role-name MyS3ReadOnlyRole`
 Attach a policy to a role: `aws iam attach-role-policy --role-name MyS3ReadOnlyRole --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess`
 Attach a policy from a role: `aws iam detach-role-policy --role-name MyS3ReadOnlyRole --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess`
 
-### Inline role policy
+### Inline policy
+#### Inline role policy
 List inline role policies: `aws iam list-role-policies --role-name role1`
 Show an inline policy on a role: `aws iam get-role-policy --role-name role1 --policy-name S3InlinePolicy`
 Create an inline policy for a role:
@@ -53,6 +55,9 @@ Create an inline policy for a role:
 aws iam put-role-policy --role-name role1 --policy-name S3InlinePolicy --policy-document file://role-inline-policy.json
 ```
 Delete an inline policy from a role: `aws iam delete-role-policy --role-name role1 --policy-name S3InlinePolicy`
+
+#### Inline group policy
+List inline group policies: `aws iam list-group-policies --group-name group1`
 
 ### Policy Versions
 List policy versions: `aws iam list-policy-versions --policy-arn arn:aws:iam::523633434047:policy/MyPolicy`
@@ -66,6 +71,13 @@ aws iam simulate-principal-policy \
     --policy-source-arn arn:aws:iam::123456789012:user/ExampleUser \
     --action-names s3:ListBucket \
     --resource-arns arn:aws:s3:::example-bucket
+```
+
+## Permission boundary
+Show Permission boundary of a user: `aws iam get-user --user-name user1`
+Attach a role as permission boundary for a user:
+```shell
+aws iam put-user-permissions-boundary --user-name user1 --permissions-boundary arn:aws:iam::123456789012:policy/MyPermissionBoundaryPolicy
 ```
 
 ## Instance Profile

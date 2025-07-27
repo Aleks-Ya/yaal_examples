@@ -1,6 +1,7 @@
 from aws_cdk import Stack, RemovalPolicy
+from aws_cdk.aws_logs import LogGroup
 from constructs import Construct
-from aws_cdk.aws_opensearchservice import Domain, EngineVersion, CapacityConfig, EbsOptions
+from aws_cdk.aws_opensearchservice import Domain, EngineVersion, CapacityConfig, EbsOptions, LoggingOptions
 from aws_cdk.aws_iam import PolicyStatement, Effect, User
 from aws_cdk.aws_ec2 import EbsDeviceVolumeType
 
@@ -9,10 +10,15 @@ class MinimalOpenSearchDomainStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
-        domain_name: str = "domain-1"
+
+        domain_name: str = "domain1"
+
+        group_name: str = f"/cdk/{self.__class__.__name__}/{domain_name}"
+        group: LogGroup = LogGroup(self, id=group_name, log_group_name=group_name, removal_policy=RemovalPolicy.DESTROY)
+
         Domain(
             self,
-            "OpenSearchDomain",
+            id=domain_name,
             domain_name=domain_name,
             version=EngineVersion.OPENSEARCH_2_19,
             capacity=CapacityConfig(
@@ -36,5 +42,6 @@ class MinimalOpenSearchDomainStack(Stack):
                     actions=["es:*"],
                     resources=[f"arn:aws:es:{self.region}:{self.account}:domain/{domain_name}/*"]
                 )
-            ]
+            ],
+            logging=LoggingOptions(app_log_enabled=True, app_log_group=group)
         )

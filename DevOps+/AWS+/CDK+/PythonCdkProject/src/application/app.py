@@ -3,6 +3,7 @@
 import aws_cdk as cdk
 from aws_cdk import App
 
+from python_cdk_project.cloud_watch_stack import CloudWatchStack
 from python_cdk_project.minimal_opensearch_domain_stack import MinimalOpenSearchDomainStack
 from python_cdk_project.python_cdk_project_stack import PythonCdkProjectStack
 
@@ -26,6 +27,7 @@ PythonCdkProjectStack(app, "PythonCdkProjectStack",
 
                       # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
                       )
+CloudWatchStack(app, "CloudWatchStack", env=environment)
 MinimalOpenSearchDomainStack(app, "MinimalOpenSearchDomainStack", env=environment)
 
 app.synth()

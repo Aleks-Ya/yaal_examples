@@ -1,6 +1,10 @@
 # awscurl CLI
 
-Install: `pip install -U awscurl`
+GitHub: https://github.com/okigan/awscurl
+
+Install: 
+- Via Brew: `brew install awscurl`
+- Via PIP: `pip install -U awscurl`
 
 Help: `awscurl -h`
 
