@@ -23,3 +23,7 @@ Generate a data key: `aws kms generate-data-key --key-id alias/kms-key-1 --key-s
 Encrypt: `echo -n "My Text" | openssl enc -e -aes256 -pbkdf2 -k MyPlaintextDataKey -base64`
 Decrypt the Data Key: `aws kms decrypt --output text --ciphertext-blob file:///tmp/encrypted_data_key.txt --query Plaintext`
 Decrypt: `echo -n U2FsdGVkX1+LSwke8Gxc87idNjNPm1lv4e9IaKHUeT8= | openssl enc -d -aes256 -pbkdf2 -k MyPlaintextDataKey -base64`
+
+## Policy
+List key policies: `aws kms list-key-policies --key-id 124d75a1-adfe-477c-b2d7-af1df62a77cc`
+Show details of key policies: `aws kms get-key-policy --key-id 124d75a1-adfe-477c-b2d7-af1df62a77cc`
