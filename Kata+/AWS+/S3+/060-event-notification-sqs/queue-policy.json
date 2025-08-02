@@ -1,0 +1,21 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Statement1",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": [
+        "sqs:SendMessage"
+      ],
+      "Resource": "arn:aws:sqs:us-east-1:523633434047:queue1",
+      "Condition": {
+        "ArnLike": {
+          "aws:SourceArn": "arn:aws:s3:::tmp-kata-060-event-notification-sqs"
+        }
+      }
+    }
+  ]
+}

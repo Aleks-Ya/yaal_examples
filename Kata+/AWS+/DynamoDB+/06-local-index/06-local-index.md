@@ -1,4 +1,4 @@
-# 06-use-local-index
+# 06-local-index
 
 ## Task
 Create two Local Secondary Indices with sorting by different attributes.

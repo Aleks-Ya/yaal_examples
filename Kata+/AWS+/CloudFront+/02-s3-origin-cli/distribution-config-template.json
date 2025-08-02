@@ -1,0 +1,56 @@
+{
+    "Comment": "My example distribution",
+    "Enabled": true,
+    "CallerReference": "caller-tmp-kata-s3-origin-cli",
+    "Origins": {
+        "Quantity": 1,
+        "Items": [
+            {
+                "Id": "id-kata-s3-origin",
+                "DomainName": "tmp-kata-s3-origin-cli.s3.us-east-1.amazonaws.com",
+                "OriginAccessControlId": "$OAC_ID",
+                "OriginPath": "",
+                "CustomHeaders": {
+                    "Quantity": 0
+                },
+                "S3OriginConfig": {
+                    "OriginAccessIdentity": ""
+                },
+                "ConnectionAttempts": 3,
+                "ConnectionTimeout": 10,
+                "OriginShield": {
+                    "Enabled": false
+                }
+            }
+        ]
+    },
+    "DefaultCacheBehavior": {
+        "TargetOriginId": "id-kata-s3-origin",
+        "ViewerProtocolPolicy": "allow-all",
+        "TrustedSigners": {
+            "Enabled": false,
+            "Quantity": 0
+        },
+        "ForwardedValues": {
+            "QueryString": false,
+            "Cookies": {
+                "Forward": "none"
+            }
+        },
+        "MinTTL": 0,
+        "AllowedMethods": {
+            "Quantity": 2,
+            "Items": [
+                "GET",
+                "HEAD"
+            ],
+            "CachedMethods": {
+                "Quantity": 2,
+                "Items": [
+                    "GET",
+                    "HEAD"
+                ]
+            }
+        }
+    }
+}

@@ -19,3 +19,18 @@ Invoke a Function with payload:
 3. View the response: `cat response.json`
 
 Invoke a Function asynchronously (no payload): `aws lambda invoke --function-name function1 --invocation-type Event response.json`
+
+## Function URL
+Create (no auth): `aws lambda create-function-url-config --function-name function1 --auth-type NONE`
+
+## Function Policy
+Show function resource-based policy: `aws lambda get-policy --function-name function1`
+Add permission to a function: 
+```shell
+aws lambda add-permission \
+  --function-name function1 \
+  --statement-id Invoke \
+  --action "lambda:InvokeFunction" \
+  --principal "*"
+```
+Remove a permission from a function: `aws lambda remove-permission --function-name function1 --statement-id Invoke`

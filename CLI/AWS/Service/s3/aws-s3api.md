@@ -35,12 +35,35 @@ aws s3api put-object --bucket yaal-test-bucket --key my_texts/bye.txt --body /tm
 
 ## Bucket Policy
 Show Bucket Policy: `aws s3api get-bucket-policy --bucket bucket1`
-Update the Bucket Policy: `aws s3api put-bucket-policy --bucket alex-717183y1471234 --policy file://bucket-policy.json`
+Update the Bucket Policy: `aws s3api put-bucket-policy --bucket bucket1 --policy file://bucket-policy.json`
 Delete Bucket Policy: `aws s3api delete-bucket-policy --bucket bucket1`
+
+## Public access block
+Is block enabled: `aws s3api get-public-access-block --bucket bucket1`
+Enable the public access block: 
+```shell
+aws s3api put-public-access-block --bucket bucket1 \
+  --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true
+```
+Disable the public access block: `aws s3api delete-public-access-block --bucket bucket1`
 
 ## Lifecycle Configuration
 List lifecycle rules on a bucket: `aws s3api get-bucket-lifecycle-configuration --bucket bucket1`
 
 ## Website
 Show website configuration: `aws s3api get-bucket-website --bucket bucket1`
-Test website: `curl http://cmtr-o6t6f8mk-s3-ss-bucket-305134.s3-website.ap-south-1.amazonaws.com`
+Test website: `curl http://bucket1.s3-website.ap-south-1.amazonaws.com`
+
+## ACL
+Show bucket ACL: `aws s3api get-bucket-acl --bucket bucket1`
+Show object ACL: `aws s3api get-object-acl --bucket bucket1 --key info/data.txt`
+
+## Bucket Ownership
+Show: `aws s3api get-bucket-ownership-controls --bucket bucket1`
+
+## Event Notifications
+Show notification config: `aws s3api get-bucket-notification-configuration --bucket bucket1`
+Create an Event Notification with SQS destination: 
+```shell
+aws s3api put-bucket-notification-configuration --bucket bucket1 --notification-configuration file://sqs-event-notifications-config.json 
+```

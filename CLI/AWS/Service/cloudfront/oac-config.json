@@ -1,0 +1,7 @@
+{
+    "Name": "oac-2",
+    "Description": "OAC for my CloudFront distribution",
+    "SigningProtocol": "sigv4",
+    "SigningBehavior": "always",
+    "OriginAccessControlOriginType": "s3"
+}

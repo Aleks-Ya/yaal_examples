@@ -1,0 +1,7 @@
+{
+    "Name": "oac-tmp-s3-origin-cli",
+    "Description": "OAC for kata s3-origin-cli",
+    "SigningProtocol": "sigv4",
+    "SigningBehavior": "always",
+    "OriginAccessControlOriginType": "s3"
+}

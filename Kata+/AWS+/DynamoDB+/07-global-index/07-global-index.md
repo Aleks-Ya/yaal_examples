@@ -1,4 +1,4 @@
-# 07-use-global-index
+# 07-global-index
 
 ## Task
 Use a Global Secondary Index (GSI) for improving requests.

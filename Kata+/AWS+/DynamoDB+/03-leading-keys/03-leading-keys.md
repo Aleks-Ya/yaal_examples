@@ -1,4 +1,4 @@
-# 03-use-leading-keys
+# 03-leading-keys
 
 ## Task
 Use LeadingKeys condition to grant access to items having key equal to the User ID.

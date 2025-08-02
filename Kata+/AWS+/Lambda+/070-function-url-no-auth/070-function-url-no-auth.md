@@ -1,7 +1,7 @@
-# Create a Lambda Function from AWS CLI as the root user
+# 070-function-url-no-auth
 
 ## Task
-Create a hello-world function using AWS CLI as the Root User.
+Invoke a function through its Function URL without authentication.
 
 ## Setup
 1. Change the current directory
@@ -17,6 +17,17 @@ aws lambda create-function \
 --zip-file fileb://deployment-package.zip
 ```
 5. Test function: `aws lambda invoke --function-name function1 /dev/stdout`
+6. Create Function URL: `aws lambda create-function-url-config --function-name function1 --auth-type NONE`
+7. Allow function invocation: 
+```shell
+aws lambda add-permission \
+  --function-name function1 \
+  --statement-id InvokeUrl \
+  --action "lambda:InvokeFunctionUrl" \
+  --principal "*" \
+  --function-url-auth-type NONE
+```
+8. Test: `curl https://u2o2i4zscotzmimkot5q3rwgiq0pxjyc.lambda-url.us-east-1.on.aws/`
 
 ## Cleanup
 1. Delete Lambda Function: `aws lambda delete-function --function-name function1`

@@ -19,18 +19,18 @@ Create a hello-world function using AWS CLI as a custom limited user.
 3. Create an Execution Role: `aws --profile user1 iam create-role --role-name ExecutionRole1 --assume-role-policy-document file://trust-policy.json`
 4. Pack the handler: `zip deployment-package.zip handler.py`
 5. Create a function:
-```
+```shell
 aws --profile user1 lambda create-function \
---function-name hello1 \
---runtime python3.12 \
+--function-name function1 \
+--runtime python3.13 \
 --role arn:aws:iam::523633434047:role/ExecutionRole1 \
 --handler handler.lambda_handler \
 --zip-file fileb://deployment-package.zip
 ```
-6. Test function: `aws lambda invoke --function-name hello1 /dev/stdout`
+6. Test function: `aws lambda invoke --function-name function1 /dev/stdout`
 
 ## Cleanup
-1. Delete Lambda Function: `aws --profile user1 lambda delete-function --function-name hello1`
+1. Delete Lambda Function: `aws --profile user1 lambda delete-function --function-name function1`
 2. Delete execution role: `aws --profile user1 iam delete-role --role-name ExecutionRole1`
 3. Delete access key: `aws iam delete-access-key --user-name user1 --access-key-id $(aws --profile user1 configure get aws_access_key_id)`
 4. Detach policies:

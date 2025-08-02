@@ -1,0 +1,48 @@
+{
+    "Comment": "My example distribution",
+    "Enabled": true,
+    "CallerReference": "caller-1",
+    "Origins": {
+        "Quantity": 1,
+        "Items": [
+            {
+                "Id": "MyS3Origin",
+                "DomainName": "tmp-kata-s3-origin-cli.s3.us-east-1.amazonaws.com",
+                "CustomOriginConfig": {
+                    "HTTPPort": 80,
+                    "HTTPSPort": 443,
+                    "OriginProtocolPolicy": "http-only"
+                }
+            }
+        ]
+    },
+    "DefaultCacheBehavior": {
+        "TargetOriginId": "MyS3Origin",
+        "ViewerProtocolPolicy": "allow-all",
+        "TrustedSigners": {
+            "Enabled": false,
+            "Quantity": 0
+        },
+        "ForwardedValues": {
+            "QueryString": false,
+            "Cookies": {
+                "Forward": "none"
+            }
+        },
+        "MinTTL": 0,
+        "AllowedMethods": {
+            "Quantity": 2,
+            "Items": [
+                "GET",
+                "HEAD"
+            ],
+            "CachedMethods": {
+                "Quantity": 2,
+                "Items": [
+                    "GET",
+                    "HEAD"
+                ]
+            }
+        }
+    }
+}

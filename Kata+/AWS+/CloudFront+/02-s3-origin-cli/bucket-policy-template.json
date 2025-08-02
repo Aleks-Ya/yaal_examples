@@ -1,0 +1,24 @@
+{
+    "Version": "2008-10-17",
+    "Id": "PolicyForCloudFrontPrivateContent",
+    "Statement":
+    [
+        {
+            "Sid": "AllowCloudFrontServicePrincipal",
+            "Effect": "Allow",
+            "Principal":
+            {
+                "Service": "cloudfront.amazonaws.com"
+            },
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::tmp-kata-s3-origin-cli/*",
+            "Condition":
+            {
+                "StringEquals":
+                {
+                    "AWS:SourceArn": "arn:aws:cloudfront::523633434047:distribution/$DISTRIBUTION_ID"
+                }
+            }
+        }
+    ]
+}

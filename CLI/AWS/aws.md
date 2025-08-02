@@ -27,6 +27,7 @@ aws sts get-caller-identity
 Help: `aws help`
 Help for a command: `aws ec2 help`
 Help for a sub-command: `aws configure list-profiles help`
+Debug: `aws s3 ls --debug`
 
 ### ec2-instance-connect
 Help: `aws ec2-instance-connect help`

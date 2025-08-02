@@ -1,0 +1,3 @@
+dependencies {
+    implementation "software.amazon.awssdk:sns:$aws2Version"
+}
