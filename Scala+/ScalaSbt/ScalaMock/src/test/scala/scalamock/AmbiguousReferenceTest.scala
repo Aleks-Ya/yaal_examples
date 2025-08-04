@@ -4,7 +4,7 @@ import org.scalamock.scalatest.MockFactory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class AmbiguousReference extends AnyFlatSpec with Matchers with MockFactory {
+class AmbiguousReferenceTest extends AnyFlatSpec with Matchers with MockFactory {
 
   it should """solve "scala mock ambiguous reference to overloaded definition""" in {
     trait Formatter {

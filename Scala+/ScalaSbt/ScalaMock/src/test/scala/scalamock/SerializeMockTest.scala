@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream, NotSerializableException, ObjectInputStream, ObjectOutputStream}
 
-class SerializeMock extends AnyFlatSpec with Matchers with MockFactory {
+class SerializeMockTest extends AnyFlatSpec with Matchers with MockFactory {
 
   it should "serialize and deserialize a mock" in {
     class Country {

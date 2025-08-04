@@ -4,7 +4,7 @@ import org.scalamock.scalatest.MockFactory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class MockObject extends AnyFlatSpec with Matchers with MockFactory {
+class MockObjectTest extends AnyFlatSpec with Matchers with MockFactory {
   private val countryMock = mock[Country]
   private val expName = "Russia"
   private val expArea = 17000000

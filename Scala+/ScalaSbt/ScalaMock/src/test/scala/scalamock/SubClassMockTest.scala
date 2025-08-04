@@ -4,7 +4,7 @@ import org.scalamock.scalatest.MockFactory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class SubClassMock extends AnyFlatSpec with Matchers with MockFactory {
+class SubClassMockTest extends AnyFlatSpec with Matchers with MockFactory {
 
   it should "mock a sub-class" in {
     abstract class SuperClass(name: String) {

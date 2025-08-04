@@ -9,7 +9,7 @@ import scalamock.Greetings.Formatter
 /**
  * Examples from "Quick Start" (http://scalamock.org/quick-start).
  */
-class QuickStartExample extends AnyFlatSpec with Matchers with Inspectors with MockFactory {
+class QuickStartExampleTest extends AnyFlatSpec with Matchers with Inspectors with MockFactory {
 
   it should "say hello" in {
     val mockFormatter = mock[Formatter]
@@ -52,7 +52,7 @@ class QuickStartExample extends AnyFlatSpec with Matchers with Inspectors with M
     (formatter.format _).expects(argAssert(assertTeamNatsu _)).onCall { s: String => s"Yo $s" }.once()
 
     // 'where' verifies at the end of the test
-    (formatter.format _).expects(where { s: String => teamNatsu contains (s) }).onCall { s: String => s"Yo $s" }.twice()
+    (formatter.format _).expects(where { s: String => teamNatsu contains s }).onCall { s: String => s"Yo $s" }.twice()
 
     Greetings.sayHello("Carla", formatter)
     Greetings.sayHello("Happy", formatter)

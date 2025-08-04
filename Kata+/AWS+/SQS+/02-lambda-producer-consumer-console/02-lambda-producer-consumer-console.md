@@ -1,4 +1,4 @@
-# 02-lambda-producer-consumer
+# 02-lambda-producer-consumer-console
 
 ## Task
 

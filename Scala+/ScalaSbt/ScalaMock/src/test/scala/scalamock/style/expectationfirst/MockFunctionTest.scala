@@ -4,7 +4,7 @@ import org.scalamock.scalatest.MockFactory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class MockFunction extends AnyFlatSpec with Matchers with MockFactory {
+class MockFunctionTest extends AnyFlatSpec with Matchers with MockFactory {
 
   it should "mock a function" in {
     val functionMock = mockFunction[Int, String]
