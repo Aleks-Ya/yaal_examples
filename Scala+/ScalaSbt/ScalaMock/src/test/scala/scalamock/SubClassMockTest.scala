@@ -23,7 +23,6 @@ class SubClassMockTest extends AnyFlatSpec with Matchers with MockFactory {
   }
 
   it should "mock a sub-class with implicit" in {
-    implicit val name: String = "abc"
     abstract class SuperClass(name: String) {
       def takeName(): String = name
     }

@@ -1,4 +1,4 @@
-package scalamock
+package scalamock.style.expectationfirst
 
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.flatspec.AnyFlatSpec

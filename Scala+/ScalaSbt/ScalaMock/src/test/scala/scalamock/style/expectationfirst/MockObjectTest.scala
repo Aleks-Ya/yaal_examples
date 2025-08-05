@@ -81,6 +81,29 @@ class MockObjectTest extends AnyFlatSpec with Matchers with MockFactory {
     countryMock.unitMethodOverloaded("England", 100)
   }
 
+  it should "expects curry Unit method" in {
+    val name = "John"
+    val age = 30
+    (countryMock.curryUnitMethodWithParams(_: String)(_: Int)).expects(name, age).returning().once()
+    countryMock.curryUnitMethodWithParams(name)(age)
+  }
+
+  it should "expects curry method" in {
+    val name = "John"
+    val age = 30
+    (countryMock.curryMethodWithParams(_: String)(_: Int)).expects(name, age).returning(s"$name ($age)").once()
+    countryMock.curryMethodWithParams(name)(age) shouldEqual "John (30)"
+  }
+
+  it should "expects curry method, function argument" in {
+    val name = "John"
+    val format = (name: String) => name.toUpperCase
+    (countryMock.curryMethodWithParamsFunctionArgument(_: String)(_: String => String))
+      .expects(name, format).returning(s"${name.toLowerCase}")
+      .once()
+    countryMock.curryMethodWithParamsFunctionArgument(name)(format) shouldEqual "john"
+  }
+
   class Country {
     def getName = "Philippines"
 
@@ -89,6 +112,12 @@ class MockObjectTest extends AnyFlatSpec with Matchers with MockFactory {
     def unitMethodWithoutParams(): Unit = println("Logging")
 
     def unitMethodWithParams(text: String): Unit = println(s"Info: $text")
+
+    def curryUnitMethodWithParams(name: String)(age: Int): Unit = println(s"$name - $age")
+
+    def curryMethodWithParams(name: String)(age: Int): String = s"$name - $age"
+
+    def curryMethodWithParamsFunctionArgument(name: String)(format: String => String): String = format(name)
 
     def unitMethodOverloaded(): Unit = println("Logging")
 
