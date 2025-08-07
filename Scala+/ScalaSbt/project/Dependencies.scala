@@ -10,6 +10,10 @@ object Dependencies {
   val sprayJsonDep = "io.spray" %% "spray-json" % "1.3.6"
   val jettyServletDep = "org.eclipse.jetty" % "jetty-servlet" % "11.0.25" % Test
 
+  private val testContainersVersion = "0.43.0"
+  val testContainersScalaTestDep = "com.dimafeng" %% "testcontainers-scala-scalatest" % testContainersVersion % Test
+  val testContainersOpenSearchDep = "com.dimafeng" %% "testcontainers-scala-opensearch" % testContainersVersion % Test
+
   private val slf4jVersion = "2.0.17"
   val slf4jNopDep = "org.slf4j" % "slf4j-nop" % slf4jVersion
   val slf4jSimpleDep = "org.slf4j" % "slf4j-simple" % slf4jVersion
@@ -57,7 +61,9 @@ object Dependencies {
   val kafkaDep = "org.apache.kafka" %% "kafka" % kafkaVersion
   val kafkaManubDep = "net.manub" %% "scalatest-embedded-kafka" % "2.0.0" % Test
 
-  val opensearchDep = "org.opensearch" % "opensearch" % "2.19.3"
+  private val opensearchVersion = "2.19.3"
+  val opensearchDep = "org.opensearch" % "opensearch" % opensearchVersion
+  val opensearchRestHighLevelClientDep = "org.opensearch.client" % "opensearch-rest-high-level-client" % opensearchVersion
 
   val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.56.0"
   val dbUtilsApiDep = "com.databricks" %% "dbutils-api" % "0.0.6"

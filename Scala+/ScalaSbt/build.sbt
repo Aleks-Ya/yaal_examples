@@ -17,6 +17,8 @@ lazy val ScalaTestJsonAssert = Projects.ScalaTestJsonAssert
 lazy val ScalaMock = Projects.ScalaMock
 lazy val ScalaRun = Projects.ScalaRun
 lazy val ScalaScopt = Projects.ScalaScopt
+lazy val TestContainersScalaTest = Projects.TestContainersScalaTest
+lazy val TestContainersOpenSearch = Projects.TestContainersOpenSearch
 
 lazy val AkkaActorScalaExamples = Projects.AkkaActorScalaExamples
 lazy val AkkaQuickstartScala = Projects.AkkaQuickstartScala

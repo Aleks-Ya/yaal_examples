@@ -10,6 +10,8 @@ object Projects {
   lazy val ScalaMock = project in file("ScalaMock")
   lazy val ScalaRun = project in file("ScalaRun")
   lazy val ScalaScopt = project in file("ScalaScopt")
+  lazy val TestContainersScalaTest = project in file("TestContainers+/TestContainersScalaTest")
+  lazy val TestContainersOpenSearch = project in file("TestContainers+/TestContainersOpenSearch")
 
   lazy val AkkaActorScalaExamples = project in file("Akka+/AkkaActorScalaExamples")
   lazy val AkkaQuickstartScala = project in file("Akka+/AkkaQuickstartScala")
