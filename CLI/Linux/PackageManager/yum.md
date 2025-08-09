@@ -2,9 +2,14 @@
 
 Help: `yum -h`
 Debug: `yum -d 5 list`
+
+## Package
 List all available packages: `yum list`
 List installed packages: `yum list installed`
 Search for a package: `yum search python`
 Install a package: `sudo yum install java`
 Update: `sudo yum update -y`
 Details about a package: `yum info java-11-openjdk.x86_64`
+
+## Repo
+List repos: `yum repolist`
