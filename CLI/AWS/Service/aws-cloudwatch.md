@@ -1,6 +1,8 @@
 # AWS CloudWatch CLI
 
 ## Commands
+List Log Groups: `aws logs describe-log-groups`
+List Log Streams in a Log Group: `aws logs describe-log-streams --log-group-name group1`
 List metric streams: `aws cloudwatch list-metric-streams`
 
 ## Filters

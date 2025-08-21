@@ -1,0 +1,8 @@
+[
+    {
+        "EventBusName": "bus1",
+        "Source": "me",
+        "DetailType": "type1",
+        "Detail": "{\"key1\":\"value1\"}"
+    }
+]

@@ -12,7 +12,7 @@ object Dependencies {
 
   private val testContainersVersion = "0.43.0"
   val testContainersScalaTestDep = "com.dimafeng" %% "testcontainers-scala-scalatest" % testContainersVersion % Test
-  val testContainersOpenSearchDep = "com.dimafeng" %% "testcontainers-scala-opensearch" % testContainersVersion % Test
+  val testContainersopenSearchDep = "com.dimafeng" %% "testcontainers-scala-opensearch" % testContainersVersion % Test
 
   private val slf4jVersion = "2.0.17"
   val slf4jNopDep = "org.slf4j" % "slf4j-nop" % slf4jVersion
@@ -61,12 +61,15 @@ object Dependencies {
   val kafkaDep = "org.apache.kafka" %% "kafka" % kafkaVersion
   val kafkaManubDep = "net.manub" %% "scalatest-embedded-kafka" % "2.0.0" % Test
 
-  private val opensearchVersion = "2.19.3"
-  val opensearchDep = "org.opensearch" % "opensearch" % opensearchVersion
-  val opensearchRestHighLevelClientDep = "org.opensearch.client" % "opensearch-rest-high-level-client" % opensearchVersion
+  private val openSearchVersion = "2.19.3"
+  val openSearchDep = "org.opensearch" % "opensearch" % openSearchVersion
+  val opensearchRestHighLevelClientDep = "org.opensearch.client" % "opensearch-rest-high-level-client" % openSearchVersion
 
   val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.56.0"
   val dbUtilsApiDep = "com.databricks" %% "dbutils-api" % "0.0.6"
   val hadoopClientApiDep = "org.apache.hadoop" % "hadoop-client-api" % "3.4.1"
   val databricksDbUtilsScalaDep = "com.databricks" %% "databricks-dbutils-scala" % "0.1.4"
+
+  val awaitilityScalaDep = "org.awaitility" % "awaitility-scala" % "4.3.0"
+  val retrySoftwareMillDep = "com.softwaremill.retry" %% "retry" % "0.3.6"
 }

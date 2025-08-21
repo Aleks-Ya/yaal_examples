@@ -10,9 +10,9 @@ import org.scalatest.matchers.should.Matchers
 import org.testcontainers.utility.DockerImageName
 
 class OpenSearchContainerSpec extends AnyFlatSpec with TestContainerForAll with Matchers {
-  private val OpenSearchVersion = "2.19.3"
+  private val openSearchVersion = "2.19.3"
 
-  override val containerDef = OpensearchContainer.Def(DockerImageName.parse(s"$defaultImage:$OpenSearchVersion"))
+  override val containerDef = OpensearchContainer.Def(DockerImageName.parse(s"$defaultImage:$openSearchVersion"))
 
   it should "start OpenSearch" in {
     withContainers { container =>
@@ -20,7 +20,7 @@ class OpenSearchContainerSpec extends AnyFlatSpec with TestContainerForAll with 
       val client = new RestHighLevelClient(builder)
       val info = client.info(RequestOptions.DEFAULT)
       info.getClusterName shouldEqual "docker-cluster"
-      info.getVersion.getNumber shouldEqual OpenSearchVersion
+      info.getVersion.getNumber shouldEqual openSearchVersion
     }
   }
 }

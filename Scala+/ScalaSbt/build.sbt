@@ -56,3 +56,6 @@ lazy val NeuralSearch = Projects.NeuralSearch
 lazy val DatabricksJavaSdk = Projects.DatabricksJavaSdk
 lazy val DbUtils = Projects.DbUtils
 lazy val DatabricksDbUtilsScala = Projects.DatabricksDbUtilsScala
+
+lazy val AwaitilityScala = Projects.AwaitilityScala
+lazy val RetrySoftwareMill = Projects.RetrySoftwareMill
