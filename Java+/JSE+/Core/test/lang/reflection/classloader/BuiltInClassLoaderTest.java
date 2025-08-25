@@ -6,7 +6,7 @@ import java.sql.Connection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class BuiltInClassloaderTest {
+class BuiltInClassLoaderTest {
     /**
      * Boostrap ClassLoader is null.
      */
@@ -35,6 +35,6 @@ class BuiltInClassloaderTest {
         var systemClassLoader = ClassLoader.getSystemClassLoader();
         assertThat(systemClassLoader).isNotNull();
         assertThat(systemClassLoader.getParent()).isEqualTo(ClassLoader.getPlatformClassLoader());
-        assertThat(BuiltInClassloaderTest.class.getClassLoader()).isEqualTo(systemClassLoader);
+        assertThat(BuiltInClassLoaderTest.class.getClassLoader()).isEqualTo(systemClassLoader);
     }
 }
