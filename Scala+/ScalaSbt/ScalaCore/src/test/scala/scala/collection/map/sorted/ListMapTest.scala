@@ -1,11 +1,15 @@
-package scala.collection.map
+package scala.collection.map.sorted
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 import scala.collection.immutable.ListMap
 
-class MapSortTest extends AnyFlatSpec with Matchers {
+/**
+ * [[ListMap]] preserves the insertion order.
+ * Can sort by keys or values.
+ */
+class ListMapTest extends AnyFlatSpec with Matchers {
 
   it should "sort map by key in ascending order" in {
     val map = Map(3 -> "a", 1 -> "b", 2 -> "c")
