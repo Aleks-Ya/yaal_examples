@@ -4,6 +4,7 @@
 List Lambda Functions: `aws lambda list-functions`
 List versions of a Function: `aws lambda list-versions-by-function --function-name function1`
 Upload ZIP to a Function: `aws lambda update-function-code --function-name function1 --zip-file fileb://function1.zip --publish`
+Show Function details: `aws lambda get-function --function-name function1`
 Show Function configuration: `aws lambda get-function-configuration --function-name function1`
 Change Function Handler: `aws lambda update-function-configuration --function-name function1 --handler example.Handler::handleRequest`
 Change Function Timeout in sec (900 sec is max): `aws lambda update-function-configuration --function-name function1 --timeout 900`
@@ -17,6 +18,7 @@ aws lambda create-function \
   --handler handler.lambda_handler \
   --zip-file fileb://function2.zip
 ```
+Download Function code: `wget -O code.zip $(aws lambda get-function --query 'Code.Location' --output text --function-name function1)`
 
 ## Runtime
 List available Runtimes: `aws lambda create-function help` (see `--runtime` section)

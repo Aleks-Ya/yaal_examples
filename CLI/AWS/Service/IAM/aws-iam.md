@@ -44,7 +44,7 @@ Attach policy to a group: `aws iam attach-group-policy --group-name group1 --pol
 #### Standalone Role policy
 List policies attached to a role: `aws iam list-attached-role-policies --role-name MyS3ReadOnlyRole`
 Attach a policy to a role: `aws iam attach-role-policy --role-name MyS3ReadOnlyRole --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess`
-Attach a policy from a role: `aws iam detach-role-policy --role-name MyS3ReadOnlyRole --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess`
+Detach a policy from a role: `aws iam detach-role-policy --role-name MyS3ReadOnlyRole --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess`
 
 ### Inline policy
 #### Inline role policy
