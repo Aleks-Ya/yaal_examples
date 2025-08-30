@@ -1,7 +1,7 @@
 import boto3
 
 
-def test_put_get_item():
+def test_put_get_delete_item():
     table_name: str = 'TmpItemTable'
     __create_table(table_name)
 
@@ -24,6 +24,10 @@ def test_put_get_item():
     act_item = response_get['Item']
     act_city: str = act_item['city']
     assert act_city == exp_city
+
+    # Delete item
+    response_delete = table.delete_item(Key={'id': item_id})
+    print(response_delete)
 
     __delete_table(table_name)
 
