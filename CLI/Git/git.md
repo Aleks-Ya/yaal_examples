@@ -62,6 +62,7 @@ List all refs: `git show-ref`
 Show all configured properties: `git config --list`
 Show value of a config property: `git config --get-all user.email`
 Show properties starting with `credential`: `git config --get-regexp '^credential'`
+Show the config file from where the property was taken: `git config --show-origin --list`
 Set property value: `git config push.default upstream`
 Set username: `git config --global user.name "Aleksey Yablokov"`
 Set email: `git config --global user.email alex_ya@mailbox.org`

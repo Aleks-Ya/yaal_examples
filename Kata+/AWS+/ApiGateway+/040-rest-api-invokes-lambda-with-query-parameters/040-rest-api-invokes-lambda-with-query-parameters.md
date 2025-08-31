@@ -1,37 +1,27 @@
-# 040-rest-api-invokes-lambda-with-parameters
+# 040-rest-api-invokes-lambda-with-query-parameters
 
 ## Task
 
-Create a REST API that invokes a Lambda function which accepts parameters.
+Create a **REST** API that invokes a Lambda function which accepts **query** parameters.
 
 ### Setup
 1. Create a Lambda function
     1. Type: `Author from scratch`
-    2. Function name: `parameterized-rest-api-function`
+    2. Function name: `kata-query-parameters-rest-api-function`
     3. Runtime: `Python`
     4. Define handler:
        ```python
         def lambda_handler(event, context):
-            params = event.get('queryStringParameters', {})
-            name_param = params.get('name')
-            age_param = params.get('age')
-            absent_param = params.get('absent')
-            return {
-                'Event': event,
-                'All Query String Parameters': params, 
-                'Name Parameter': name_param,
-                'Age Parameter': age_param,
-                'Absent Parameter': absent_param
-            }
+            return { 'Event': event }
        ```
     5. Test the function
 2. Creat an API:
     1. Build a REST API:
-        1. API name: `kata-parameterized-lambda-rest-api`
+        1. API name: `kata-query-paramets-lambda-rest-api`
     2. Create a method:
         1. Method type: `ANY`
         2. Integration type: Lambda function
-        3. Lambda function: `parameterized-rest-api-function`
+        3. Lambda function: `kata-query-parameters-rest-api-function`
     3. Configure the method:
         1. Integration request: 
             1. Mapping template:
