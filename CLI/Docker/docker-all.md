@@ -22,7 +22,8 @@ docker version
 image/images
 ```
 docker images
-docker images -a                               # Show all images on this machine
+docker images -a                              	# Show all images on this machine
+docker image inspect hello-world				#Show details about an image
 ```
 login
 ```

@@ -46,7 +46,7 @@ If you are a Windows platform, you would activate the virtualenv like this:
 Once the virtualenv is activated, you can install the required dependencies.
 
 ```
-$ pip install -U -r requirements.txt -r requirements-dev.txt
+$ pip install -U pip -r requirements.txt -r requirements-dev.txt
 ```
 
 At this point you can now synthesize the CloudFormation template for this code.
