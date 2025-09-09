@@ -6,21 +6,21 @@ Version: `kafka-topics.sh --version`
 
 ## Commands
 ### Create a topic
-Simple: `kafka-topics.sh --bootstrap-server localhost:9092 --create --topic fibonacc`
+Simple: `kafka-topics.sh --bootstrap-server localhost:9092 --create --topic topic1`
 With parameters:
-```
+```shell
 kafka-topics.sh --bootstrap-server localhost:9092 \
 	--create \
 	--replication-factor 1 \
 	--partitions 1 \
-	--topic fibonacc
+	--topic topic1
 ```
-### Show topic list
+### List topics
 `kafka-topics.sh --bootstrap-server localhost:9092 --list`
 ### Show replicas of a topic
-`kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic fibonacc`
+`kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic topic1`
 ### Delete a topic
-`kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic fibonacc`
+`kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic topic1`
 ### Describe a topic
 Show: 1) partition number, 2) replication factor, 3) partition leader locations, 4) partition replica locations
 `kafka-topics --bootstrap-server localhost:9092 --describe --topic my-topic`

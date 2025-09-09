@@ -1,3 +1,4 @@
 # unalias CLI
 
-Remove an alias: `unalias my-alias`
+Remove one alias: `unalias alias1`
+Remove several aliases: `unalias alias1 alias2 alias3`

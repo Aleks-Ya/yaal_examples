@@ -8,13 +8,13 @@ Docs: [Command Line Interface](https://kafka.apache.org/documentation/#security_
 
 ## Deprecated (via ZooKeeper)
 ### List ACLs
-```
+```shell
 kafka-acls.sh \
     --authorizer-properties zookeeper.connect=$ZK \
     --list
 ```
 ### Create ACL
-```
+```shell
 kafka-acls.sh \
     --authorizer-properties zookeeper.connect=$ZK \
     --add \
@@ -26,7 +26,7 @@ kafka-acls.sh \
     --topic Test-topic
 ```
 ### Remove ACL
-```
+```shell
 kafka-acls.sh \
     --authorizer-properties zookeeper.connect=$ZK \
     --remove \

@@ -1,10 +1,10 @@
 # kafka-broker-api-versions CLI
 
-Help: `./kafka-broker-api-versions.sh --help`
-Kafka Version (local): `./kafka-broker-api-versions.sh --version`
+Help: `kafka-broker-api-versions.sh --help`
+Kafka Version (local): `kafka-broker-api-versions.sh --version`
 
-Show info: `./kafka-broker-api-versions.sh --bootstrap-server localhost:9092`
-Answer example:
+Show info: `kafka-broker-api-versions.sh --bootstrap-server localhost:9092`
+Output example:
 ```
 localhost:9092 (id: 1 rack: null) -> (
 	Produce(0): 0 to 11 [usable: 11],

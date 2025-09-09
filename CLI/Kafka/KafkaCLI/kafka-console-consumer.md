@@ -6,37 +6,41 @@
 ## Consume messages from the topic
 
 ### Not print keys
-1. Start Console consumer: `kafka-console-consumer --bootstrap-server=localhost:9092 --topic=my-topic --from-beginning`
+1. Start Console consumer: `kafka-console-consumer.sh --bootstrap-server=localhost:9092 --from-beginning --topic=topic1`
 2. Stop Console consumer: Ctrl-C
 
 ### Print keys
 1. Start Console consumer: 
-```
+```shell
 kafka-console-consumer \
 	--bootstrap-server=localhost:9092 \
-	--topic=my-topic \
+	--topic=topic1 \
 	--from-beginning \
 	--property "print.key=true"
 ```
 2. Stop Console consumer: Ctrl-C
 
 ### Consume the latest message only
-```
+```shell
 kafka-console-consumer \
 	--bootstrap-server=localhost:9092 \
-	--topic=my-topic \
+	--topic=topic1 \
 	--from-beginning \
 	--max-messages 1"
 ```
 
 
 ## Set consumer group
-`kafka-console-consumer.sh --bootstrap-server=$(broker-list.sh) --topic=my-topic --from-beginning --group my-group`
+`kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning --group group1 --topic=topic1`
+
+## Set custom client ID
+`kafka-console-consumer.sh --bootstrap-server localhost:9092 --consumer-property client.id=client1 --topic=topic1 `
 
 
+## ???
 See yaal_examples
 
-```
+```shell
 kafka-console-producer.sh --broker-list localhost:9092 --topic topic2
 ```
 

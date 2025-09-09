@@ -5,7 +5,7 @@ Version: `kafka-delete-records.sh --version`
 
 ## Clean a topic
 Content of `offset.json`:
-```
+```json
 {
     "partitions":
     [
@@ -20,7 +20,7 @@ Content of `offset.json`:
 ```
 
 Command:
-```
+```shell
 kafka-delete-records.sh \
 	--bootstrap-server localhost:9092 \
 	--offset-json-file offset.json
