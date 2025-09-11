@@ -15,4 +15,6 @@ alias kafka-topics="kafka-topics.sh --bootstrap-server localhost:9092"
 alias kafka-console-producer="kafka-console-producer.sh --bootstrap-server localhost:9092"
 alias kafka-console-consumer="kafka-console-consumer.sh --bootstrap-server localhost:9092"
 alias kafka-consumer-groups="kafka-consumer-groups.sh --bootstrap-server localhost:9092"
+alias kafka-configs="kafka-configs.sh --bootstrap-server localhost:9092"
+alias kafka-broker-api-versions="kafka-broker-api-versions.sh --bootstrap-server localhost:9092"
 ```
