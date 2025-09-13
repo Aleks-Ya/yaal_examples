@@ -1,11 +1,9 @@
 # 010-user-data
 
 ## Task
-
 Create a EC2 instance with a web-server which should start automatically.
 
 ## Setup
-
 1. Create a EC2 instance
     1. Name: `instance-1`
     2. Key pair name: `Proceed without a keypair`
@@ -22,5 +20,4 @@ Create a EC2 instance with a web-server which should start automatically.
     2. Test: `curl -i http://50.19.33.2`
 
 ## Cleanup
-
 1. Terminate instance: `instance-1`

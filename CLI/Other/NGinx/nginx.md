@@ -22,5 +22,7 @@ Start NGinx with given config file:
 
 ## Daemon
 Show status: `sudo systemctl status nginx`
+Start daemon: `sudo systemctl start nginx`
 Stop daemon: `sudo systemctl stop nginx`
+Enable daemon: `sudo systemctl enable nginx`
 Disable daemon: `sudo systemctl disable nginx`
