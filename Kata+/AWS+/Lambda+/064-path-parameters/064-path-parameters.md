@@ -1,11 +1,9 @@
 # 064-path-parameters
 
 ## Task
-
 Extract path parameters from HTTP request query string within a Lambda Function.
 
 ## Setup
-
 1. Create a function:
     1. Template: `Author from scratch`
     2. Function name: `kata-parth-parameters-function`
@@ -31,5 +29,4 @@ Extract path parameters from HTTP request query string within a Lambda Function.
     2. Send request: `curl -s "https://swawdhqnyns3724nhpr5flhkkm0fwcsz.lambda-url.us-east-1.on.aws/aaa/bbb/ccc" | jq .`
 
 ## Cleanup
-
 1. Delete function `kata-parth-parameters-function`

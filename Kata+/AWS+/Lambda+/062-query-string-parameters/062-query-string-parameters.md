@@ -1,11 +1,9 @@
-# 060-query-string-parameters
+# 062-query-string-parameters
 
 ## Task
-
 Extract parameters from HTTP request query string within a Lambda Function.
 
 ## Setup
-
 1. Create a function:
     1. Template: `Author from scratch`
     2. Function name: `kata-query-string-parameters-function`
@@ -34,5 +32,4 @@ Extract parameters from HTTP request query string within a Lambda Function.
     2. Send request: `curl -s "https://swawdhqnyns3724nhpr5flhkkm0fwcsz.lambda-url.us-east-1.on.aws/?name=John&age=30" | jq .`
 
 ## Cleanup
-
 1. Delete function `kata-query-string-parameters-function`
