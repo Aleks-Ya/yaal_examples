@@ -1,6 +1,6 @@
 package core.files
 
-import core.Factory
+import factory.Factory
 import org.apache.spark.SparkFiles
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers

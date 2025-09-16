@@ -1,6 +1,6 @@
 package core.shared_variables
 
-import core.Factory
+import factory.Factory
 import org.apache.spark.util.LongAccumulator
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers

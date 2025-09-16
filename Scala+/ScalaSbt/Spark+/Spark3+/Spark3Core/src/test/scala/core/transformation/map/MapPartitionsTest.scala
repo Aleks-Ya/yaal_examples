@@ -1,6 +1,6 @@
 package core.transformation.map
 
-import core.Factory
+import factory.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 

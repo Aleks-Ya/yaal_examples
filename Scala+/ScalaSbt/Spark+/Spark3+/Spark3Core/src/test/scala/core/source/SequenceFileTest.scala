@@ -1,8 +1,7 @@
 package core.source
 
+import factory.Factory
 import java.io.File
-
-import core.Factory
 import org.apache.hadoop.io.{IntWritable, Text}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers

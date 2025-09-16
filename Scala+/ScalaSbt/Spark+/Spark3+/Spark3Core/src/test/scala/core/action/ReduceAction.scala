@@ -1,6 +1,6 @@
 package core.action
 
-import core.Factory
+import factory.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 

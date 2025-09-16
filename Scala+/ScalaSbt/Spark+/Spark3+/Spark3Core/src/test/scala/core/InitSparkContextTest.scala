@@ -1,5 +1,6 @@
 package core
 
+import factory.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -10,4 +11,5 @@ class InitSparkContextTest extends AnyFlatSpec with Matchers {
     val sum = rdd.reduce(_ + _)
     sum shouldEqual 45
   }
+
 }

@@ -5,9 +5,10 @@ Help: `openssl help`
 Show the OpenSSL dir: `openssl version -a`
 
 ## Keys
-Save public key to file: `openssl rsa -in fd.key -pubout -out fd-public.key`
-Export private key from P12: `openssl pkcs12 -in keystore.p12 -nodes -nocerts -out private_key.pem`
-Show RSA private key details: `openssl rsa -in private_key.pem -text`
+Export a public key to file: `openssl rsa -in private.key -pubout -out public.key`
+Export a private key from P12: `openssl pkcs12 -in keystore.p12 -nodes -nocerts -out private_key.pem`
+Show details of an RSA private key: `openssl rsa -text -in private.pem`
+Show details of an RSA public key: `openssl rsa -text -pubin -in public.pem`
 Generate new RSA key pair (without password):
 ```
 # Generate private key
@@ -56,9 +57,16 @@ Printing certificate Serial Number: `openssl x509 -serial -noout -in my.crt`
 Verify certificate chain: `openssl verify -CAfile ca.crt bob.crt`
 
 ## Encrypt/Decrypt
-### Encrypt and decrypt in single line
+
+### Using a text key
+Encrypt and decrypt in single line:
 Through Binary: `echo -n "My Text" | openssl enc -e -aes256 -pbkdf2 -k MyKey | openssl enc -d -aes256 -pbkdf2 -k MyKey`
 Through Base64: `echo -n "My Text" | openssl enc -e -aes256 -pbkdf2 -k MyKey -base64 | openssl enc -d -aes256 -pbkdf2 -k MyKey -base64`
-### Encrypt and decrypt in seperately
-Encrypt: `echo -n "My Text" | openssl enc -e -aes256 -pbkdf2 -k MyKey -base64 > /tmp/encrypted.txt`
-Decrypt: `cat /tmp/encrypted.txt | openssl enc -d -aes256 -pbkdf2 -k MyKey -base64`
+
+Encrypt and decrypt in seperately:
+1. Encrypt: `echo -n "My Text" | openssl enc -e -aes256 -pbkdf2 -k MyKey -base64 > /tmp/encrypted.txt`
+2. Decrypt: `cat /tmp/encrypted.txt | openssl enc -d -aes256 -pbkdf2 -k MyKey -base64`
+
+### Using a key pair
+Encrypt: `openssl pkeyutl -encrypt -pubin -inkey public.pem -in original.txt -out encrypted.bin`
+Decrypt: `openssl pkeyutl -decrypt -inkey private.pem -in encrypted.bin -out decrypted.txt`

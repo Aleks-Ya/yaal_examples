@@ -1,6 +1,6 @@
 package core.partitioner
 
-import core.Factory
+import factory.Factory
 import org.apache.spark.HashPartitioner
 import org.apache.spark.rdd.RDD
 import org.scalatest.flatspec.AnyFlatSpec

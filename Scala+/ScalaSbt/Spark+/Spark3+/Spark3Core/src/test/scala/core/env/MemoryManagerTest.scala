@@ -1,6 +1,6 @@
 package core.env
 
-import core.Factory
+import factory.Factory
 import org.apache.spark.SparkEnv
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers

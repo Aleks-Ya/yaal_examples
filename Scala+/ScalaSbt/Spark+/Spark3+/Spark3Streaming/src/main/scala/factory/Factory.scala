@@ -3,7 +3,9 @@ package factory
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{Duration, Seconds, StreamingContext}
 
-
+/**
+ * Structured streaming is part of Spark SQL.
+ */
 object Factory {
   def ssc(): StreamingContext = ssc(Seconds(1))
 

@@ -1,0 +1,26 @@
+# GoLang JWT CLI
+
+GitHub: https://github.com/golang-jwt/jwt
+
+Install: `sudo apt install -y jwt`
+
+Help: `jwt -h`
+
+Decode a JWT file: `jwt -show token.jwt`
+Decode a JWT string: 
+```sh
+echo eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIxNWFTc3gwSmRMY3FtYzdnQm5nNWlFZWMzTW9mR25tQnc1elVXeWtxWjNnIn0.eyJleHAiOjE2ODU5NTI0MzcsImlhdCI6MTY4NTk1MjM3NywiYXV0aF90aW1lIjoxNjg1OTUyMTg5LCJqdGkiOiIxNjhlMDI2Zi0wMTk2LTRmMTctYjA0OS1hNzRhMjdmY2I2OTQiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAvcmVhbG1zL215cmVhbG01IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjE1ZjhlMjRhLTI4NDktNDc1OS05OGE4LTNhMzMyMzExZDhlZCIsInR5cCI6IkJlYXJlciIsImF6cCI6Im15Y2xpZW50NSIsIm5vbmNlIjoiRWpfRFFtenE3dkpLQzkxaFZwSk11anVjY2QyNWRTQ2lwOHBibTJVRjZocyIsInNlc3Npb25fc3RhdGUiOiJiNWZjMzdjNy05NmU1LTRiZjAtYTBiOC1iYTkxZDg4ZTJkNDYiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODA4MSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1teXJlYWxtNSIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBlbWFpbCBwcm9maWxlIiwic2lkIjoiYjVmYzM3YzctOTZlNS00YmYwLWEwYjgtYmE5MWQ4OGUyZDQ2IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiSm9obiBEb3cgSnIuIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibXl1c2VyNSIsImdpdmVuX25hbWUiOiJKb2huIiwiZmFtaWx5X25hbWUiOiJEb3cgSnIuIn0.C0s6Wr9Aj2-R8jfBwHAizs5X_D48n4MIbHFn6AFvtnVn7NlXr6DObgNkEalXCXuvYJVN4iRm7FqQveJjx58v7RoLCEgYZpOPrjJuXZkN7xsHWG9Afu0w5-H1rDgga3ALAfLC_Pc-NE5UTEzS_4bBoiri_fp40OpP3WQL9iDBwpF2H7n5ipTm7Nmgf1C5rUfoPKhpNg33tcvsRY7bE7yuq8TvwnPaUq3QnVWdU6IK6iTnk-ukTtUyk7DKCTV5d09-BNyZgvengW_RvkfwMDonntbdG6ATrZQKMqkcCAROtohHU82U3Cs_TPYVyS3K3jvbo4OJDUm5ju1I-kv3ykY93A | jwt -show -
+```
+
+Create and verify a JWT token (symmetric key):
+1. Create a secret: `echo "my-secret-1" > secret.txt`
+2. Create a JWT token: `jwt -alg HS256 -key secret.txt -sign + -claim sub=123 -claim name=John > token.jwt`
+3. Show the JWT token: `jwt -show token.jwt`
+4. Very the JWT token: `jwt -verify -key secret.txt token.jwt`
+
+
+Create and verify a JWT token (asymmetric key):
+1. Generate a private key: `openssl genrsa -out private.pem`
+2. Create a JWT token: `jwt -alg RS256 -key private.pem -sign + -claim sub=123 -claim name=John > token.jwt`
+3. Show the JWT token: `jwt -show token.jwt`
+4. Very the JWT token: `jwt -debug -verify token.jwt` (not working, use https://www.jwt.io instead)

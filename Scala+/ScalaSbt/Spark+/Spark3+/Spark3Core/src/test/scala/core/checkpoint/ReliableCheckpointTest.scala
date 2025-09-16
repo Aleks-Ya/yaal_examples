@@ -1,8 +1,7 @@
 package core.checkpoint
 
+import factory.Factory
 import java.nio.file.Files
-
-import core.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 

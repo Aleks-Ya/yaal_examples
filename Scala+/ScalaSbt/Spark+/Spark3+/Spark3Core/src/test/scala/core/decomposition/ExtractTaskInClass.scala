@@ -1,6 +1,6 @@
 package core.decomposition
 
-import core.Factory
+import factory.Factory
 import org.apache.spark.rdd.RDD
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
