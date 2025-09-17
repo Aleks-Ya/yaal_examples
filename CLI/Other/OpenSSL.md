@@ -70,3 +70,8 @@ Encrypt and decrypt in seperately:
 ### Using a key pair
 Encrypt: `openssl pkeyutl -encrypt -pubin -inkey public.pem -in original.txt -out encrypted.bin`
 Decrypt: `openssl pkeyutl -decrypt -inkey private.pem -in encrypted.bin -out decrypted.txt`
+
+## HMAC
+Compute an HMAC-SHA256 hash:
+- Text: `echo -n "my data" | openssl dgst -sha256 -hmac "my-secret-key"`
+- Binary: `echo -n "my data" | openssl dgst -sha256 -hmac "my-secret-key" -binary`
