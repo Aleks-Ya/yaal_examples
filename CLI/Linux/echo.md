@@ -21,3 +21,6 @@ xyz"
 
 ## Redirect to echo
 `date | xargs echo`
+
+## Append a file
+`echo xyz >> a.txt`

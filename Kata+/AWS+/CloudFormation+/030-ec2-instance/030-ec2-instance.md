@@ -1,9 +1,9 @@
-# 030-create-ec2-instance
+# 030-ec2-instance
 
 !!! USER DATA DOESN'T START THE PYTHON HTTP SERVER
 
 ## Task
-Create an EC2 instance using CloudFormation.
+Use CloudFormation to create an EC2 instance.
 
 ## Setup
 By AWS Console.
