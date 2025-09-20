@@ -18,6 +18,9 @@ List connections of a snap: `snap connections gnome-boxes`
 List available updates: `snap refresh --list`
 Update versions of all installed snaps: `sudo snap refresh`
 
+## Revert
+Revert a snap to its state before the latest refres: `sudo snap revert sublime-text`
+
 ## Errors
 ### Cannot refresh snap-store
 Command: `sudo snap refresh snap-store`

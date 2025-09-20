@@ -1,4 +1,4 @@
-# 030-ec2-to-ec2-connect-same-subnet
+# 040-ec2-to-ec2-connect-same-subnet
 
 ## Task
 Create a VPC with a subnet. 

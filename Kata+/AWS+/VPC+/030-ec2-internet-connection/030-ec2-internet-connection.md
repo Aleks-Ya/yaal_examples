@@ -1,4 +1,4 @@
-# 020-ec2-internet-connection
+# 030-ec2-internet-connection
 
 ## Task
 
