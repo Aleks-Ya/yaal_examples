@@ -1,4 +1,4 @@
-# 030-nginx
+# 020-nginx
 
 ## Task
 Create a EC2 instance with NGinx server available from the Internet.

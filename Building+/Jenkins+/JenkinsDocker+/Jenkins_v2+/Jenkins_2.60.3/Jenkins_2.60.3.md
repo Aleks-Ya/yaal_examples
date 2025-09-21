@@ -1,9 +1,11 @@
+!!! DEPRECATED
+
 # Jenkins v2
 
 Source: https://hub.docker.com/_/jenkins/
 
 ## Run Docker container
-```
+```shell
 docker build -t aleks3490/jenkins:2.60.3 .
 docker rm jenkins_2.60.3
 docker run -p 8080:8080 -p 50000:50000 --net bridge --name jenkins_2.60.3 aleks3490/jenkins:2.60.3
@@ -21,30 +23,31 @@ http://localhost:8080
 `docker run -p 52022:22 -tid --name a-dev docker-ssh-connection:1`
 
 ## Jenkins CLI
-### Connect via Jenkins CLI:
-```
+### Connect via Jenkins CLI
+#### Create alias
+```shell
 export JENKINS_URL="http://localhost:8080"
-
-wget "$JENKINS_URL/jnlpJars/jenkins-cli.jar"
-
-java -jar jenkins-cli.jar -s $JENKINS_URL help
-java -jar jenkins-cli.jar -s $JENKINS_URL list-jobs
-java -jar jenkins-cli.jar -s $JENKINS_URL safe-restart
-java -jar jenkins-cli.jar -s $JENKINS_URL restart
+wget -O /var/tmp/jenkins-cli.jar "$JENKINS_URL/jnlpJars/jenkins-cli.jar"
+alias jenkins="java -jar /var/tmp/jenkins-cli.jar -s $JENKINS_URL"
 ```
+
+#### Commands
+Help: `jenkins help`
+List jobs: `jenkins list-jobs`
+Restart (safe): `jenkins safe-restart`
+Restart: `jenkins restart`
 
 #### Login and password authorization
-```
+```shell
 # Single command
-java -jar jenkins-cli.jar -s $JENKINS_URL list-jobs --username aleks --password pass
+jenkins list-jobs --username aleks --password pass
 
 # Many commands
-java -jar jenkins-cli.jar -s $JENKINS_URL login --username aleks --password pass
-java -jar jenkins-cli.jar -s $JENKINS_URL who-am-i
-java -jar jenkins-cli.jar -s $JENKINS_URL list-jobs
-java -jar jenkins-cli.jar -s $JENKINS_URL logout
+jenkins login --username aleks --password pass
+jenkins who-am-i
+jenkins list-jobs
+jenkins logout
 ```
 
-### See CLI commands
+### See all CLI commands
 http://localhost:8080/cli
-***

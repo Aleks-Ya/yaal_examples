@@ -1,34 +1,40 @@
 # Jenkins CLI
 
-See CLI commands: http://localhost:8080/cli
+See all CLI commands: http://localhost:8080/cli
 
-## Prepare
+## Setup
+1. Setup alias:
+```shell
+export JENKINS_URL="http://localhost:8080"
+wget -O /var/tmp/jenkins-cli.jar "$JENKINS_URL/jnlpJars/jenkins-cli.jar"
+alias jenkins="java -jar /var/tmp/jenkins-cli.jar -s $JENKINS_URL"
 ```
-export JENKINS_URL=http://localhost:8080
-wget $JENKINS_URL/jnlpJars/jenkins-cli.jar
-export JCLI="java -jar jenkins-cli.jar"
-
-$JCLI help
-```
+2. Test: `jenkins version`
 
 ## Authorization
 Login and password authorization
 
-Single command: `java -jar jenkins-cli.jar -s $JENKINS_URL list-jobs --username aleks --password pass`
+Single command: `jenkins list-jobs --username aleks --password pass`
 Many commands:
-```
-$JCLI login --username aleks --password pass
-$JCLI who-am-i
-$JCLI logout
+```shell
+jenkins login --username aleks --password pass
+jenkins who-am-i
+jenkins logout
 ```
 
 ## Restart Jenkins
-```
-$JCLI safe-restart
-$JCLI restart
+```shell
+jenkins safe-restart
+jenkins restart
 ```
 
+#### Commands
+Help: `jenkins help`
+Version: `jenkins version`
+List jobs: `jenkins list-jobs`
+
 ## Job
-List jobs: `$JCLI list-jobs`
-Create a job: `cat freestyle-job-2.xml | $JCLI create-job freestyle-job-2`
-Get job to file: `$JCLI get-job freestyle-job > freestyle-job.xml`
+List jobs: `jenkins list-jobs`
+Create a job: `cat freestyle-job-2.xml | jenkins create-job freestyle-job-2`
+Get job to file: `jenkins get-job freestyle-job > freestyle-job.xml`
+
