@@ -2,6 +2,7 @@
 
 Sources: https://github.com/jenkinsci/pipeline-plugin
 Docs: https://www.jenkins.io/doc/book/pipeline
+Pipeline Steps Reference: https://www.jenkins.io/doc/pipeline/steps
 
 Run:
 1. Start Jenkins in Docker (e.g. `Building+/Jenkins+/JenkinsDocker+/Jenkins_v2+/Jenkins_2.516.3`)

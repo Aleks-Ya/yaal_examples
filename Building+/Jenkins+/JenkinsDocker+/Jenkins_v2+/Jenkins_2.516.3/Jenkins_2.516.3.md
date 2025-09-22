@@ -3,8 +3,8 @@
 Source: https://hub.docker.com/r/jenkins/jenkins
 
 ## Run Docker container
-1. Build and run: `./build.sh`
-2. Build and run: `./run.sh`
+1. Build: `./build.sh`
+2. Run: `./run.sh`
 3. Open: http://localhost:8080
 
 ## Attach with Bash
