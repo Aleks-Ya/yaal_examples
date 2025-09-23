@@ -34,7 +34,7 @@ Connect an EC2 instance to S3 from a public subnet.
 4. Create a Role for instance profile
     1. Trusted entity type: `AWS service`
     2. Use case: `EC2`
-    3. Permissions policies: `AmazonS3FullAccess`
+    3. Permissions policies: `AmazonS3ReadOnlyAccess`
     4. Role name: `kata-ec2-to-s3-from-public-subnet-role`
 1. Create a EC2 instance
     1. Name: `kata-ec2-to-s3-from-public-subnet-instance`

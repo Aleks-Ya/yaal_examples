@@ -23,3 +23,6 @@ List volumes: `aws ec2 describe-volumes`
 Detach a volume from an instance: `aws ec2 detach-volume --volume-id vol-09cb491c3b9c82558`
 Show volume details: `aws ec2 describe-volumes --volume-ids vol-09cb491c3b9c82558`
 Attach a volume to an instance: `aws ec2 attach-volume --device /dev/xvdb --instance-id i-05931912fe1bff8f2 --volume-id vol-09cb491c3b9c82558`
+
+## Network Interfaces
+List ENIs: `aws ec2 describe-network-interfaces`

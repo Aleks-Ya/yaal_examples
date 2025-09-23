@@ -18,27 +18,27 @@ and connect to it using Instance Connect.
 	3. Availability Zone: `No preference`
 	4. IPv4 VPC CIDR block: `10.0.0.0/28`
 	5. IPv4 subnet CIDR block: `10.0.0.0/28`
-3. Create a VPC Endpoint ("PrivateLink and Lattice" -> "Endpoints")
-	1. Name tag: `kata-ec2-instance-connect-private-endpoint`
-	2. Service category: `EC2 Instance Connect Endpoint`
-	3. VPC: `kata-ec2-instance-connect-private-vpc`
-	4. Security groups: `default`
-	5. Subnet: `kata-ec2-instance-connect-private-subnet`
-4. Create an EC2 instance
+3. Create an EC2 instance
 	1. Name: `kata-ec2-instance-connect-private-instance`
-	1. AMI: `Amazon Linux`
-	2. Instance type: `t2.micro`
-	3. Key pair name: `Proceed without a keypair`
-	4. Network settings
+	2. AMI: `Amazon Linux`
+	3. Instance type: `t2.micro`
+	4. Key pair name: `Proceed without a keypair`
+	5. Network settings
 		1. VPC: `kata-ec2-instance-connect-private-vpc`
 		2. Subnet: `kata-ec2-instance-connect-private-subnet`
 		3. Auto-assign public IP: `Disabled`
 		4. Firewall (security groups): `Create security group`
-			1. Security group name: {generated}
+			1. Security group name: `kata-ec2-instance-connect-private-security-group`
 			2. Description: {generated}
 			3. Inbound Security Group Rules
 				1. Type: `ssh`
 				2. Source type: `Anywhere`
+4. Create a VPC Endpoint ("PrivateLink and Lattice" -> "Endpoints")
+	1. Name tag: `kata-ec2-instance-connect-private-endpoint`
+	2. Service category: `EC2 Instance Connect Endpoint`
+	3. VPC: `kata-ec2-instance-connect-private-vpc`
+	4. Security groups: `kata-ec2-instance-connect-private-security-group`
+	5. Subnet: `kata-ec2-instance-connect-private-subnet`
 5. Connect via Instance Connect
 	1. Connect to instance: `EC2 Instance Connect`
 	2. Connection Type: `Connect using a Private IP`
