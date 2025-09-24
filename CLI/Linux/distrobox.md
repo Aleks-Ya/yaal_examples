@@ -10,6 +10,7 @@ List containers: `distrobox ls`
 Create a container: `distrobox create --name hello-alpine --image alpine`
 Enter a container: `distrobox enter hello-alpine`
 Exit a container: `exit`
+Stop a container: `distrobox stop`
 
 ## Images
 Ubuntu 22.04: `distrobox create --name ubuntu2204 --image ubuntu:22.04`

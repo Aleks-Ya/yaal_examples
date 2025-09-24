@@ -1,11 +1,9 @@
 # 030-ec2-internet-connection
 
 ## Task
-
 Create an EC2 instance with a web-server. Make the server available from the Internet.
 
 ## Setup
-
 1. Create a VPC
     1. Resources to create: `VPC and more`
     2. Auto-generate: true, `project`
@@ -20,7 +18,7 @@ Create an EC2 instance with a web-server. Make the server available from the Int
     11. DNS options
         1. Enable DNS hostnames: true
         2. Enable DNS resolution: true
-2. Create a EC2 instance
+2. Create an EC2 instance
     1. Name: `instance-1`
     2. AMI: `Amazon Linux`
     3. Instance type: `t2.micro`
@@ -47,6 +45,5 @@ Create an EC2 instance with a web-server. Make the server available from the Int
     2. Test: `curl http://3.84.198.182`
 
 ## Cleanup
-
 1. Terminate instance: `instance-1`
 2. Delete VPC: `project-vpc`
