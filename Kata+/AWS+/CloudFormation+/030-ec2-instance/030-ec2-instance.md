@@ -17,7 +17,7 @@ By AWS Console.
 		2. Copy properties from `lambda-template.json`
 	3. Validate the template
 	4. Click `Create stack`
-3. Stack name: `stack-1`
+3. Stack name: `kata-stack-stack`
 4. Click Submit
 5. Execute the Function
 

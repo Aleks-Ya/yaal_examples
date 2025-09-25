@@ -7,6 +7,7 @@ Install: `sudo apt install -y jq`
 Output without double quotes: `echo '{"f1": "abc"}' | jq -r .f1` -> `abc`
 Extract field from JSON object: `echo '{"f1": "abc"}' | jq .f1`
 Extract field from JSON file: `jq .f1 /tmp/my.json`
+Extract two fields from JSON object: `echo '{"f1": "abc", "f2": "xyz"}' | jq '{a: .f1, b: .f2}'`
 Use arg: `echo '{"name": "Linux", "type": "OS"}' | jq --arg key "name" '.[$key]'` -> `Linux`
 Select objects by condition: `echo '[{"name":"John","age":30},{"name":"Mary","age":25}]' | jq '.[] | select(.name=="John")'`
 Minify (compress, compact) JSON: `echo '{"f1": "abc"}' | jq -c .`

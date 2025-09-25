@@ -9,3 +9,9 @@ Help: `flatpak --help`
 Help for command: `flatpak update --help`
 List installed apps: `flatpak list`
 Update all apps: `flatpak update -y`
+Search apps: `flatpak search firefox`
+Install an app: `flatpak install org.mozilla.firefox`
+
+## Applications to install
+Firefox: `org.mozilla.firefox`
+ThunderBird: `org.mozilla.Thunderbird`

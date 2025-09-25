@@ -13,7 +13,7 @@ Create a EC2 instance with NGinx server available from the Internet.
 			1. Type `HTTP`
 			2. Source: `Anywhere-IPv4`
 	5. Outbound rules: (default) `All traffic`
-2. Create a EC2 instance
+2. Create an EC2 instance
     1. Name: `kata-i-nginx`
     2. Key pair name: `Proceed without a keypair`
     3. Network settings

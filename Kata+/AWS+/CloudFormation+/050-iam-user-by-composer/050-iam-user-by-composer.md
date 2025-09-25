@@ -25,10 +25,10 @@ Use CloudFormation to craete an IAM User with the Infrastructure Composer.
 		```
 		3. Create
 			1. Click `Create template`
-			2. Transfer bucket name: `kata-iam-user-by-composer-transfer-bucket`
-3. Stack name: `kata-iam-user-by-composer-stack`
+			2. Transfer bucket name: `kata-bucket-iam-user-by-composer`
+3. Stack name: `kata-stack-iam-user-by-composer`
 4. Click Submit
 
 ## Cleanup
-1. Delete Stack `kata-iam-user-by-composer-stack`
-2. Delete Transfer Bucket `kata-iam-user-by-composer-transfer-bucket`
+1. Delete Stack `kata-stack-iam-user-by-composer`
+2. Delete Transfer Bucket `kata-bucket-iam-user-by-composer`
