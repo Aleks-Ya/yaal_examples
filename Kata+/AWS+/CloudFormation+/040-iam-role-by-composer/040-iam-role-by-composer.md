@@ -10,7 +10,7 @@ Use CloudFormation to craete an IAM Role with the Infrastructure Composer.
 		1. Drag `Resources`-`AWS::IAM::Role`
 		2. Resource configuration:
 		```yaml
-		RoleName: kata-iam-role-by-composer-role
+		RoleName: kata-role-iam-role-by-composer
 		AssumeRolePolicyDocument:
 		  Version: '2012-10-17'
 		  Statement:

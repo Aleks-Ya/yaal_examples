@@ -1,0 +1,86 @@
+Resources:
+  EC2VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/28
+      Tags:
+        - Key: Name
+          Value: kata-vpc-ec2-instance-igw
+  EC2Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref EC2VPC
+      CidrBlock: 10.0.0.0/28
+      Tags:
+        - Key: Name
+          Value: kata-subnet-ec2-instance-igw
+  EC2InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: kata-igw-ec2-instance-igw
+  VPCGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref EC2VPC
+      InternetGatewayId: !Ref EC2InternetGateway
+  EC2RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref EC2VPC
+      Tags:
+        - Key: Name
+          Value: kata-rt-ec2-instance-igw
+  EC2Route:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref EC2RouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref EC2InternetGateway
+  EC2SubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref EC2RouteTable
+      SubnetId: !Ref EC2Subnet
+  EC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: kata-sg-ec2-instance-igw
+      VpcId: !Ref EC2VPC
+      GroupDescription: kata-sg-ec2-instance-igw
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: '-1'
+          FromPort: -1
+          ToPort: -1
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      UserData: !Base64 |
+        #!/bin/bash
+        cd /home/ec2-user
+        echo HelloFromEC2Instance > index.html
+        nohup python3 -m http.server 80 &
+      NetworkInterfaces:
+        - SubnetId: !Ref EC2Subnet
+          GroupSet:
+            - !Ref EC2SecurityGroup
+          AssociatePublicIpAddress: true
+          DeviceIndex: '0'
+      VpcId: !Ref EC2VPC
+      ImageId: ami-08982f1c5bf93d976
+      InstanceType: t2.micro
+      Tags:
+        - Key: Name
+          Value: kata-i-ec2-instance-igw
+          

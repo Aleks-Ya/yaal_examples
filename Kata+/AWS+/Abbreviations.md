@@ -5,3 +5,4 @@ Internete Gateway: `kata-igw-`
 VPC: `kata-vpc-`
 Subnet: `kata-subnet-`
 Security Group: `kata-sg-`
+EBS Volume: `kata-vol-`

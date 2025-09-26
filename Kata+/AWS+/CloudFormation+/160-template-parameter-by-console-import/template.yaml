@@ -1,0 +1,21 @@
+Parameters:
+  TheBucketName:
+    Type: String
+    Default: kata-bucket-default
+  MagicNumber:
+    Type: Number
+    Description: For good luck
+    Default: "7"
+    AllowedValues:
+      - 3
+      - 7
+      - 42
+
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref TheBucketName
+      Tags:
+        - Key: Lucky number
+          Value: !Ref MagicNumber

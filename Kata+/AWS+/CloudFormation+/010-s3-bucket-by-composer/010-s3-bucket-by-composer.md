@@ -7,7 +7,7 @@ Use CloudFormation to create an S3 bucket with the Infrastructure Composer.
 1. "Create stack" -> "With new resources (standard)"
 2. Prepare template: `Build from Infrastructure Composer`
 	1. `Create a template in Infrastructure Composer`
-		1. Drag `Resources`-`S3 Bucket`
+		1. Drag `Resources`-`AWS::S3::Bucket`
 		2. Override default bucket name: enabled
 		3. Bucket name: `kata-bucket-s3-bucket-by-composer`
 		4. Create
