@@ -7,14 +7,14 @@ Authenticate AWS CLI with new IAM user having no permissions.
 Use AWS CLI Docker image from `DevOps+/AWS+/AwsDocker/AwsDocker.md`.
 
 1. Create an IAM user
-	1. Login to AWS Console using the Root User
+	1. Login to AWS Console as the Root User
 	2. Open IAM service
 	3. Create new IAM user:
-		1. `User name`: `cli`
-		2. `Provide user access to the AWS Management Console`: `false`
-		3. `Set permissions`: nothing
+		1. User name: `cli`
+		2. Provide user access to the AWS Management Console: `false`
+		3. Set permissions: nothing
 	4. Create Access Key for user `cli`
-		1. `Use case`: `Command Line Interface (CLI)`
+		1. Use case: `Command Line Interface (CLI)`
 		2. Save `Access key` and `Secret access key`
 2. Setup CLI
 	1. Pull Docker image: `docker pull public.ecr.aws/aws-cli/aws-cli`
@@ -24,10 +24,10 @@ Use AWS CLI Docker image from `DevOps+/AWS+/AwsDocker/AwsDocker.md`.
 	4. Create a folder on the host machine for config files: `mkdir $SHARE_DIR`
 	4. Create an alias: `alias awsd='docker run --rm -ti -v $CONF_DIR:/root/.aws -v $SHARE_DIR:/root public.ecr.aws/aws-cli/aws-cli'`
 	5. Authenticate CLI: `awsd configure`:
-		1. `AWS Access Key ID`: copied
-		2. `AWS Secret Access Key`: copied
-		3. `Default region name`: `us-east-1`
-		4. `Default output format`: `text`
+		1. AWS Access Key ID: copied
+		2. AWS Secret Access Key: copied
+		3. Default region name: `us-east-1`
+		4. Default output format: `text`
 	6. Test access: `awsd sts get-caller-identity`
 
 ## Clean up

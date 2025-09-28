@@ -1,5 +1,8 @@
 # aws CLI
 
+GitHub (v1): https://github.com/aws/aws-cli
+GitHub (v2): https://github.com/aws/aws-cli/tree/v2
+
 ## Install
 Latest version: 
 1. CLI: `sudo snap install aws-cli --classic`

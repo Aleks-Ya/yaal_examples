@@ -1,0 +1,37 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+  <servers>
+    <server>
+      <id>kata-domain-maven-repo-kata-repo-maven-repo</id>
+      <username>aws</username>
+      <password>${env.CODEARTIFACT_AUTH_TOKEN}</password>
+    </server>
+  </servers>
+
+<profiles>
+  <profile>
+    <id>kata-domain-maven-repo-kata-repo-maven-repo</id>
+    <activation>
+      <activeByDefault>true</activeByDefault>
+    </activation>
+    <repositories>
+      <repository>
+        <id>kata-domain-maven-repo-kata-repo-maven-repo</id>
+        <url>https://kata-domain-maven-repo-523633434047.d.codeartifact.us-east-1.amazonaws.com/maven/kata-repo-maven-repo/</url>
+      </repository>
+    </repositories>
+  </profile>
+</profiles>
+
+<!-- Prevent using public repos -->
+<mirrors>
+  <mirror>
+    <id>kata-domain-maven-repo-kata-repo-maven-repo</id>
+    <name>kata-domain-maven-repo-kata-repo-maven-repo</name>
+    <url>https://kata-domain-maven-repo-523633434047.d.codeartifact.us-east-1.amazonaws.com/maven/kata-repo-maven-repo/</url>
+    <mirrorOf>*</mirrorOf>
+  </mirror>
+</mirrors>
+
+</settings>

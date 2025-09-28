@@ -47,12 +47,28 @@ Attach a policy to a role: `aws iam attach-role-policy --role-name MyS3ReadOnlyR
 Detach a policy from a role: `aws iam detach-role-policy --role-name MyS3ReadOnlyRole --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess`
 
 ### Inline policy
+
+#### Inline user policy
+List inline policies: `aws iam list-user-policies --user-name user1`
+Show an inline policy on a user: `aws iam get-user-policy --user-name role1 --policy-name S3InlinePolicy`
+Create an inline policy for a user:
+```shell
+aws iam put-user-policy \
+    --user-name role1 
+    --policy-name S3InlinePolicy 
+    --policy-document file://user-inline-policy.json
+```
+Delete an inline policy from a user: `aws iam delete-user-policy --user-name user1 --policy-name S3InlinePolicy`
+
 #### Inline role policy
 List inline role policies: `aws iam list-role-policies --role-name role1`
 Show an inline policy on a role: `aws iam get-role-policy --role-name role1 --policy-name S3InlinePolicy`
 Create an inline policy for a role:
 ```shell
-aws iam put-role-policy --role-name role1 --policy-name S3InlinePolicy --policy-document file://role-inline-policy.json
+aws iam put-role-policy \
+    --role-name role1 \
+    --policy-name S3InlinePolicy \
+    --policy-document file://role-inline-policy.json
 ```
 Delete an inline policy from a role: `aws iam delete-role-policy --role-name role1 --policy-name S3InlinePolicy`
 
@@ -62,7 +78,13 @@ List inline group policies: `aws iam list-group-policies --group-name group1`
 ### Policy Versions
 List policy versions: `aws iam list-policy-versions --policy-arn arn:aws:iam::523633434047:policy/MyPolicy`
 Show policy version details: `aws iam get-policy-version --policy-arn arn:aws:iam::523633434047:policy/MyPolicy --version-id v2`
-Create a policy version: `aws iam create-policy-version --policy-arn arn:aws:iam::123456789012:policy/MyPolicy --policy-document file://modified-policy.json --set-as-default`
+Create a policy version: 
+```shell
+aws iam create-policy-version \
+    --policy-arn arn:aws:iam::123456789012:policy/MyPolicy \
+    --policy-document file://modified-policy.json \
+    --set-as-default
+```
 Delete a policy version: `aws iam delete-policy-version --policy-arn arn:aws:iam::523633434047:policy/MyPolicy --version-id v1`
 
 ### Simulate policy
@@ -77,14 +99,21 @@ aws iam simulate-principal-policy \
 Show Permission boundary of a user: `aws iam get-user --user-name user1`
 Attach a role as permission boundary for a user:
 ```shell
-aws iam put-user-permissions-boundary --user-name user1 --permissions-boundary arn:aws:iam::123456789012:policy/MyPermissionBoundaryPolicy
+aws iam put-user-permissions-boundary \
+    --user-name user1 \
+    --permissions-boundary arn:aws:iam::123456789012:policy/MyPermissionBoundaryPolicy
 ```
 
 ## Instance Profile
 List instance profiles: `aws iam list-instance-profiles`
 Show an instance profile: `aws iam get-instance-profile --instance-profile-name MyInstanceProfile2`
 Create an instance profile: `aws iam create-instance-profile --instance-profile-name MyInstanceProfile2`
-Attach a role to an instance profile: `aws iam add-role-to-instance-profile --instance-profile-name MyInstanceProfile2 --role-name BedrockAccessRole`
+Attach a role to an instance profile: 
+```shell
+aws iam add-role-to-instance-profile \
+    --instance-profile-name MyInstanceProfile2 \
+    --role-name BedrockAccessRole
+```
 
 ## Errors
 ### MalformedPolicyDocument

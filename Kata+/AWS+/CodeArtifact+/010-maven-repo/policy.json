@@ -1,0 +1,42 @@
+{
+    "Version": "2012-10-17",
+    "Statement":
+    [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "codeartifact:CreateRepository",
+                "codeartifact:DescribeDomain",
+                "codeartifact:GetAuthorizationToken",
+                "codeartifact:GetDomainPermissionsPolicy",
+                "codeartifact:ListRepositoriesInDomain"
+            ],
+            "Resource": "arn:aws:codeartifact:us-east-1:523633434047:domain/kata-domain-maven-repo"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "sts:GetServiceBearerToken"
+            ],
+            "Resource": "arn:aws:iam::523633434047:user/kata-user-maven-repo"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "codeartifact:GetRepositoryEndpoint",
+                "codeartifact:ReadFromRepository",
+                "codeartifact:PublishPackageVersion",
+                "codeartifact:DescribeRepository"
+            ],
+            "Resource": "arn:aws:codeartifact:us-east-1:523633434047:repository/kata-domain-maven-repo/kata-repo-maven-repo"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "codeartifact:PublishPackageVersion",
+                "codeartifact:PutPackageMetadata"
+            ],
+            "Resource": "arn:aws:codeartifact:us-east-1:523633434047:package/kata-domain-maven-repo/kata-repo-maven-repo/*"
+        }
+    ]
+}

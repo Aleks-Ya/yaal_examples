@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ru.yaal</groupId>
+  <artifactId>code-artifact-project</artifactId>
+  <packaging>jar</packaging>
+  <version>2.0</version>
+  <dependencies>
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.19.0</version>
+    </dependency>
+  </dependencies>
+  <distributionManagement>
+    <repository>
+      <id>kata-domain-maven-repo-kata-repo-maven-repo</id>
+      <name>kata-domain-maven-repo-kata-repo-maven-repo</name>
+      <url>https://kata-domain-maven-repo-523633434047.d.codeartifact.us-east-1.amazonaws.com/maven/kata-repo-maven-repo/</url>
+    </repository>
+  </distributionManagement>
+</project>
