@@ -2,6 +2,10 @@
 
 Default home directory: `~/.gnupg`
 
+## Info
+Show version:`gpg --version`
+Help: `gpg --help`
+
 ## Import
 Show fingerprint of `*.asc` file (PGP digital signatures): `gpg --dry-run -q --import --import-options import-show VeraCrypt_PGP_public_key.asc`
 Import keys from `*.asc` file: `gpg --import VeraCrypt_PGP_public_key.asc`
@@ -32,10 +36,11 @@ gpg --output /tmp/private.pgp --armor --batch --pinentry-mode loopback --passphr
 Check password for a private key: `gpg --export-secret-keys -a my-key-id > /dev/null && echo OK`
 
 ## Delete
+Delete a public key: `gpg --delete-key "User ID"`
+Delete a secret key: `gpg --delete-secret-key "john.doe@example.com"`
 Delete public and secret keys:`gpg --delete-secret-and-public-key CryptomatorVaultBackup`
 
-## Other
-Show version:`gpg --version`
+## Home directory
 Specify custom home directory: `gpg --homedir /tmp/gpg_home --list-keys`
 Initialize empty home directory (will be initialized while listing keys): `gpg --homedir /tmp/gpg_home --list-keys`
 
@@ -55,3 +60,15 @@ Specify output file: `gpg -d -o out.txt my.txt.gpg`
 ### Check file integrity
 1. If it doens't ask for passphrase: `echo RELOADAGENT | gpg-connect-agent`
 2 `gpg --decrypt --output /dev/null my.gpg`
+
+## Encrypt/decrypt string
+Encrypt: `echo "abc" | gpg --encrypt --armor -r john@protonmail.com`
+Decrypt: 
+	1. Run `gpg --decrypt`
+	2. Paste the encrypted message (including `-----BEGIN PGP MESSAGE-----` and `-----END PGP MESSAGE-----`)
+	3. Press Ctrl-D
+	4. Enter passphrase
+
+## KeyServer
+Import a public key from a Key Server: `gpg --keyserver keyserver.ubuntu.com --recv-keys 0xDEADBEEF`
+Public a public key to a Key Server: `gpg --keyserver keyserver.ubuntu.com --send-keys CA925CD6C9E8D064FF05B4728190C4130ABA0F98`

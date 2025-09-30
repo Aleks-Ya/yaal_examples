@@ -8,7 +8,7 @@ Version: `mvn -v`
 Print the dependency tree to a file: `mvn dependency:tree -DoutputFile=target/tree.txt`
 Download an artifact from the remote repo to the local repo:
 ```shell
-mvn org.apache.maven.plugins:maven-dependency-plugin:3.8.1:get -Dartifact=org.apache.orc:orc-tools:1.6.2
+mvn dependency:get -Dartifact=org.apache.orc:orc-tools:1.6.2
 ```
 Download an artifact from the remote repo to local and copy it to a directory (path to target dir is created if absent):
 ```shell
@@ -47,6 +47,7 @@ Debug, verbose: `mvn -X compile`
 Generate effective POM: `mvn help:effective-pom`
 Generate effective Settings: `mvn help:effective-settings`
 Print lifecycle which includes given phase: `mvn help:describe -Dcmd=install`
+List goals in a plugin: `mvn help:describe -Dplugin=central-publishing -Dfull`
 
 ## Tests
 Compile tests: `mvn test-compile`
@@ -63,3 +64,8 @@ Help: `mvn archetype:help`
 
 ## Exec
 Execute a command: `mvn exec:exec -Dexec.executable="echo" -Dexec.args="Hello World"`
+
+## Release plugin
+Clean work dir: `mvn release:clean`
+Prepare relese: `mvn release:prepare -DdryRun`
+Perform release: `mvn release:perform -DdryRun`

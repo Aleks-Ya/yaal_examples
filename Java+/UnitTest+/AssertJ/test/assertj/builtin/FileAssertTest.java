@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Docs: https://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html#file-content-string-assertions
+ * <a href="https://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html#file-content-string-assertions">Docs</a>
  */
 class FileAssertTest {
 
