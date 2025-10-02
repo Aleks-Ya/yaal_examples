@@ -1,0 +1,28 @@
+version: 0.2
+
+env:
+  variables:
+    ACCOUNT_ID: "523633434047"
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - docker -D version
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker -D login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - REPOSITORY_URI=$ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/hello-my-world
+      - IMAGE_TAG=v1
+  build:
+    commands:
+      - echo Building the Docker image...
+      - docker build -t hello-my-world .
+      - docker tag hello-my-world:latest $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Pushing the Docker image...
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing image definitions file...
+      - printf '[{"name":"hello-world","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+
+artifacts:
+  files: imagedefinitions.json

@@ -1,0 +1,13 @@
+version: 0.2
+
+env:
+  variables:
+    ENV_VAR1: "Cat"
+    ENV_VAR2: "Dog"
+
+phases:
+  build:
+    commands:
+      - echo ENV_VAR1=$ENV_VAR1 ENV_VAR2=$ENV_VAR2
+      - echo AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+      - echo AWS_REGION=$AWS_REGION

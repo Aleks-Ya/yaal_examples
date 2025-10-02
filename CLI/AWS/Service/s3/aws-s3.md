@@ -6,10 +6,10 @@ Print S3 file content to console: `aws s3 cp s3://03-grant-access-to-folder-for-
 
 ## Create
 Create a bucket: `aws s3 mb s3://iablokov471923643`
-Upload a file to S3: `aws s3 cp my.txt s3://mybucket1/dir1/my.txt`
-Upload a string to S3: `echo abc | aws s3 cp - s3://mybucket1/dir1/my.txt`
 
 ## Copy
+Upload a file to S3: `aws s3 cp my.txt s3://mybucket1/dir1/my.txt`
+Upload a string to S3: `echo abc | aws s3 cp - s3://mybucket1/dir1/my.txt`
 Copy an object with SSE-KMS encryption: 
 ```shell
 aws s3 cp --sse aws:kms --sse-kms-key-id 124d75a1-adfe-477c-b2d7-af1df62a77cc s3://bucket1/data.txt s3://bucket2

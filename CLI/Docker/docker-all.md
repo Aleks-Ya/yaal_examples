@@ -56,6 +56,7 @@ rm/rmi
 ```
 docker rm <hash>               # Remove the specified container from this machine
 docker rm $(docker ps -a -q)   # Remove all containers from this machine
+docker rmi <tag>			   # Remove a tag from an image
 docker rmi <imagename>         # Remove the specified image from this machine
 docker rmi $(docker images -q) # Remove all images from this machine
 ```
