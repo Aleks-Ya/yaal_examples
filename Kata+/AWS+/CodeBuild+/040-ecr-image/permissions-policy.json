@@ -30,8 +30,11 @@
         {
             "Effect": "Allow",
             "Action": [
+                "ecr:InitiateLayerUpload",
+                "ecr:UploadLayerPart",
+                "ecr:CompleteLayerUpload",
                 "ecr:BatchCheckLayerAvailability",
-                "ecr:BatchGetImage"
+                "ecr:PutImage"
             ],
             "Resource": "arn:aws:ecr:us-east-1:523633434047:repository/kata-repo-ecr-image/hello-ecr"
         }

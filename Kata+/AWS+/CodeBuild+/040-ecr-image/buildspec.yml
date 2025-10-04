@@ -10,7 +10,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - docker -D version
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker -D login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
-      - REPOSITORY_URI=$ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/hello-my-world
+      - REPOSITORY_URI=$ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/kata-repo-ecr-image/hello-ecr
       - IMAGE_TAG=v1
   build:
     commands:
