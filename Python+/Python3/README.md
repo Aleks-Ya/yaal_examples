@@ -8,5 +8,5 @@ Create virtual environment:
 3. Install the latest version: `pyenv install 3.12.5`
 4. Create a virtual environment: `pyenv virtualenv 3.12.5 python3-examples`
 5. Activate the virtual environment: `pyenv activate python3-examples`
-6. Install packages: `pip install -r requirements.txt`
+6. Install packages: `pip install -U -r requirements.txt`
 7. Configure Idea project to use the virtual environment

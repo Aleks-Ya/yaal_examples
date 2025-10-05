@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 import aws_cdk as cdk
-from aws_cdk import App
+from aws_cdk import App, Environment
 
 from python_cdk_project.cloud_watch_stack import CloudWatchStack
 from python_cdk_project.minimal_opensearch_domain_stack import MinimalOpenSearchDomainStack
 from python_cdk_project.python_cdk_project_stack import PythonCdkProjectStack
 
 app: App = cdk.App()
-environment = cdk.Environment(region="us-east-1")
+environment: Environment = cdk.Environment(region="us-east-1")
 PythonCdkProjectStack(app, "PythonCdkProjectStack",
                       env=environment
                       # If you don't specify 'env', this stack will be environment-agnostic.
