@@ -1,8 +1,11 @@
 # duplicity CLI
-Version should be 2.x.x or later.
+Version should be 3.x.x or later.
+
+Site:https://duplicity.gitlab.io
+GitLab: https://gitlab.com/duplicity/duplicity
 
 Install: 
-- `sudo snap install duplicity` (latest)
+- `sudo snap install duplicity --classic` (latest)
 - `sudo apt install duplicity` (outdated)
 
 ## Info
