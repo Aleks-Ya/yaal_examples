@@ -6,7 +6,7 @@ Create 2 tasks: the 1st has enough capacity to start, the 2nd doesn't.
 
 ## Setup
 1. Create a Cluster
-	1. Cluster name: `kata-task-exceeds-cluster-capacity-cluster`
+	1. Cluster name: `kata-cluster-task-exceeds-cluster-capacity`
 	2. Infrastructure: only `AWS Fargate` marked
 		1. `AWS Fargate` unmarked
 		2. `Amazon EC2 instances` marked
@@ -16,7 +16,7 @@ Create 2 tasks: the 1st has enough capacity to start, the 2nd doesn't.
 				1. Minimum: `0`
 				2. Maximum: `2`
 2. Create a Task Definition
-	1. Task definition family: `kata-task-exceeds-cluster-capacity-task`
+	1. Task definition family: `kata-task-task-exceeds-cluster-capacity`
 	2. Infrastructure requirements:
 		1. Launch type: 
 			1. `AWS Fargate` unmarked
@@ -39,4 +39,4 @@ Create 2 tasks: the 1st has enough capacity to start, the 2nd doesn't.
 1. Delete the Cluster
 2. Deregister the Task Definition
 3. Delete the Instance Role `ecsTaskExecutionRole`
-4. Delete CloudWatch Log Group `/ecs/kata-task-exceeds-cluster-capacity-task`
+4. Delete CloudWatch Log Group `/ecs/kata-task-task-exceeds-cluster-capacity`

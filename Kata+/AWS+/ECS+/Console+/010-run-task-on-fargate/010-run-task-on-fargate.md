@@ -5,12 +5,12 @@ Run the Hello-World Docker container on Fargate.
 
 ## Setup
 1. Create a Cluster
-	1. Cluster name: `kata-run-task-on-fargate-cluster`
+	1. Cluster name: `kata-cluster-run-task-on-fargate`
 	2. Infrastructure:
 		1. `AWS Fargate` marked
 		2. `Amazon EC2 instances` unmarked
 2. Create a Task Definition
-	1. Task definition family: `kata-run-task-on-fargate-task`
+	1. Task definition family: `kata-task-run-task-on-fargate`
 	2. Infrastructure requirements:
 		1. Launch type: 
 			1. `AWS Fargate` marked
@@ -30,4 +30,4 @@ Run the Hello-World Docker container on Fargate.
 1. Delete the Cluster
 2. Deregister the Task Definition
 3. Delete the Instance Role `ecsTaskExecutionRole`
-4. Delete CloudWatch Log Group `/ecs/kata-run-task-on-fargate-task`
+4. Delete CloudWatch Log Group `/ecs/kata-task-run-task-on-fargate`

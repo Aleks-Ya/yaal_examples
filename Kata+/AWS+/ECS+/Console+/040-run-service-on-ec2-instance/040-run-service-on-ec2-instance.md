@@ -5,7 +5,7 @@ Run a web-server as an ECS Service on an EC2 instance.
 
 ## Setup
 1. Create a Cluster
-	1. Cluster name: `kata-run-service-on-ec2-instance-cluster`
+	1. Cluster name: `kata-cluster-run-service-on-ec2-instance`
 	2. Infrastructure: only `AWS Fargate` marked
 		1. `AWS Fargate` unmarked
 		2. `Amazon EC2 instances` marked
@@ -15,7 +15,7 @@ Run a web-server as an ECS Service on an EC2 instance.
 				1. Minimum: `0`
 				2. Maximum: `2`
 2. Create a Task Definition
-	1. Task definition family: `kata-run-service-on-ec2-instance-task`
+	1. Task definition family: `kata-task-run-service-on-ec2-instance`
 	2. Infrastructure requirements:
 		1. Launch type: 
 			1. `AWS Fargate` unmarked
@@ -29,7 +29,7 @@ Run a web-server as an ECS Service on an EC2 instance.
 		1. Name: `nginx-container`
 		2. Image URI: `nginx`
 3. Create a Service
-	1. Service name: `kata-run-service-on-fargate-task-service`
+	1. Service name: `kata-service-run-service-on-ec2-instance`
 4. Verify: 
 	1. Find public IP in the task in the Service 
 	2. Open in browser: http://3.92.183.12 (expected `Welcome to nginx!`)
@@ -41,4 +41,4 @@ Run a web-server as an ECS Service on an EC2 instance.
 2. Delete the Cluster
 3. Deregister the Task Definition
 4. Delete the Instance Role `ecsTaskExecutionRole`
-5. Delete CloudWatch Log Group `/ecs/kata-run-service-on-ec2-instance-task`
+5. Delete CloudWatch Log Group `/ecs/kata-task-run-service-on-ec2-instance`

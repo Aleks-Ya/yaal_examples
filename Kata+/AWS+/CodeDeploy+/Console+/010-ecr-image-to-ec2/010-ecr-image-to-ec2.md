@@ -4,12 +4,11 @@
 Status: not finished
 Deploy an Docker Image from ECR Repository to an EC2 Instance.
 
-
 ## Setup
 1. 
 1. Create an ECR Repository
 1. Create an EC2 Instance
-3. Create an CodeDeploy Application
+3. Create a CodeDeploy Application
 	1. Create a Service Role
 		1. Trusted entity type: `AWS Service`
 		2. Service or use case: `CodeDeploy`

@@ -9,7 +9,7 @@ Run a web-server as an ECS Service on Fargate.
 	1. Cluster name: `kata-cluster-run-service-on-fargate`
 	2. Infrastructure:
 		1. Select a method of obtaining compute capacity: `Fargate only`
-2. Create an Execution Role
+2. Create a Task Execution Role
 	1. Trusted entity type: `AWS service`
 	2. Service or use case: `Elastic Container Service`
 	3. Use case: `Task Execution Role for Elastic Container Service`

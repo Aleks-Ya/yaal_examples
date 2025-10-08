@@ -8,7 +8,7 @@
 
 # See status
 1. `docker ps`
-1. `docker inspect health-check`
+2. `docker inspect --format='{{json .State.Health}}' health-check | jq`
 
 # Change status
 In bash:
