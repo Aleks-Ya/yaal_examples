@@ -5,7 +5,7 @@ Status: success
 Connect to an SSM Agent withing an EC2 instance in the default VPC.
 
 ## Setup
-1. Create an Execution Role
+1. Create an Instance Profile
 	1. Trusted entity type: `AWS service`
 	2. Service or use case: `EC2`
 	3. Use case: `EC2 Role for AWS Systems Manager`

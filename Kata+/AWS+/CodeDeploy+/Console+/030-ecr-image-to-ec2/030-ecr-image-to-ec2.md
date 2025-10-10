@@ -1,4 +1,4 @@
-# 010-ecr-image-to-ec2
+# 030-ecr-image-to-ec2
 
 ## Task
 Status: not finished
