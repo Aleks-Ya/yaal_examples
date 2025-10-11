@@ -30,6 +30,27 @@ List policies by substring: `aws iam list-policies --query "Policies[?PolicyName
 Show policy details: `aws iam get-policy --policy-arn arn:aws:iam::aws:policy/AdministratorAccess`
 Create a policy from file: `aws iam create-policy --policy-name MyPolicy --policy-document file://policy.json`
 Delte a policy: `aws iam delete-policy --policy-arn arn:aws:iam::523633434047:policy/MyPolicy`
+Update a policy: see "Create a policy version"
+
+### Policy Versions
+List policy versions: `aws iam list-policy-versions --policy-arn arn:aws:iam::523633434047:policy/MyPolicy`
+Show policy version details: `aws iam get-policy-version --policy-arn arn:aws:iam::523633434047:policy/MyPolicy --version-id v2`
+Create a policy version: 
+```shell
+aws iam create-policy-version \
+    --policy-arn arn:aws:iam::123456789012:policy/MyPolicy \
+    --policy-document file://modified-policy.json \
+    --set-as-default
+```
+Delete a policy version: `aws iam delete-policy-version --policy-arn arn:aws:iam::523633434047:policy/MyPolicy --version-id v1`
+
+### Simulate policy
+```shell
+aws iam simulate-principal-policy \
+    --policy-source-arn arn:aws:iam::123456789012:user/ExampleUser \
+    --action-names s3:ListBucket \
+    --resource-arns arn:aws:s3:::example-bucket
+```
 
 ### Standalone policy
 #### Standalone User policy
@@ -74,26 +95,6 @@ Delete an inline policy from a role: `aws iam delete-role-policy --role-name rol
 
 #### Inline group policy
 List inline group policies: `aws iam list-group-policies --group-name group1`
-
-### Policy Versions
-List policy versions: `aws iam list-policy-versions --policy-arn arn:aws:iam::523633434047:policy/MyPolicy`
-Show policy version details: `aws iam get-policy-version --policy-arn arn:aws:iam::523633434047:policy/MyPolicy --version-id v2`
-Create a policy version: 
-```shell
-aws iam create-policy-version \
-    --policy-arn arn:aws:iam::123456789012:policy/MyPolicy \
-    --policy-document file://modified-policy.json \
-    --set-as-default
-```
-Delete a policy version: `aws iam delete-policy-version --policy-arn arn:aws:iam::523633434047:policy/MyPolicy --version-id v1`
-
-### Simulate policy
-```shell
-aws iam simulate-principal-policy \
-    --policy-source-arn arn:aws:iam::123456789012:user/ExampleUser \
-    --action-names s3:ListBucket \
-    --resource-arns arn:aws:s3:::example-bucket
-```
 
 ## Permission boundary
 Show Permission boundary of a user: `aws iam get-user --user-name user1`

@@ -22,7 +22,7 @@
 	2. `AnalystUser` assumes `AnalystRole`: 
 		1. Assume: `CREDS=$(aws --profile AnalystUser sts assume-role --output json --role-arn arn:aws:iam::523633434047:role/AnalystRole --role-session-name AnalystSession)`
 		2. Configure profile `AnalystSessionProfile`:
-		```
+		```shell
 		aws --profile AnalystSessionProfile configure set aws_access_key_id $(echo $CREDS | jq -r '.CREDSentials.AccessKeyId')
 		aws --profile AnalystSessionProfile configure set aws_secret_access_key $(echo $CREDS | jq -r '.CREDSentials.SecretAccessKey')
 		aws --profile AnalystSessionProfile configure set aws_session_token $(echo $CREDS | jq -r '.CREDSentials.SessionToken')
@@ -31,7 +31,7 @@
 	3. `AnalystRole` assumes `S3Role`: 
 		1. Assume: `CREDS=$(aws --profile AnalystSessionProfile sts assume-role --output json --role-arn arn:aws:iam::523633434047:role/S3Role --role-session-name S3Session)`
 		2. Configure profile `S3SessionProfile`:
-		```
+		```shell
 		aws --profile S3SessionProfile configure set aws_access_key_id $(echo $CREDS | jq -r '.CREDSentials.AccessKeyId')
 		aws --profile S3SessionProfile configure set aws_secret_access_key $(echo $CREDS | jq -r '.CREDSentials.SecretAccessKey')
 		aws --profile S3SessionProfile configure set aws_session_token $(echo $CREDS | jq -r '.CREDSentials.SessionToken')

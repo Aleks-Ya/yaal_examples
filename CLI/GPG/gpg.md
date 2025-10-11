@@ -27,11 +27,11 @@ List secret keys with sub-keys: `gpg --list-secret-keys --with-subkey-fingerprin
 
 ## Export
 Show key details: `gpg  --export "John Dow <john@protonmail.com>" | hokey lint`
-Export `CryptomatorVaultBackup` public key to a file: `gpg --output /tmp/public.pgp --armor --export CryptomatorVaultBackup`
-Export a private key (ask passhprase): `gpg --output /tmp/private.pgp --armor --export-secret-key CryptomatorVaultBackup`
+Export `CryptomatorVaultBackup` public key to a file: `gpg --output /tmp/public.pgp -a --export CryptomatorVaultBackup`
+Export a private key (ask passhprase): `gpg --output /tmp/private.pgp -a --export-secret-key CryptomatorVaultBackup`
 Export a private key (passhprase in command line):
-```
-gpg --output /tmp/private.pgp --armor --batch --pinentry-mode loopback --passphrase "my-pass-phrase" --export-secret-key CryptomatorVaultBackup
+```shell
+gpg --output /tmp/private.pgp -a --batch --pinentry-mode loopback --passphrase "my-pass-phrase" --export-secret-key CryptomatorVaultBackup
 ```
 Check password for a private key: `gpg --export-secret-keys -a my-key-id > /dev/null && echo OK`
 
@@ -52,22 +52,23 @@ Without compression: `gpg --compress-algo none -c my.txt`
 Specify output file: `gpg -c -o out.txt.gpg my.txt`
 Specify passpharase as a text: `gpg --batch --passphrase 12345 my.txt`
 #### Decrypt
-Decrypt: `gpg my.txt.gpg` -> `my.txt`
+Decrypt: `gpg -d my.txt.gpg` -> `my.txt`
 Specify output file: `gpg -d -o out.txt my.txt.gpg`
 ### All files in a folder
 `find . -iname "*.txt" -exec gpg --batch --passphrase "12345" -c {} \;`
 
 ### Check file integrity
 1. If it doens't ask for passphrase: `echo RELOADAGENT | gpg-connect-agent`
-2 `gpg --decrypt --output /dev/null my.gpg`
+2. `gpg -d --output /dev/null my.gpg`
 
 ## Encrypt/decrypt string
-Encrypt: `echo "abc" | gpg --encrypt --armor -r john@protonmail.com`
+Encrypt: `echo abc | gpg -e -a -r john@protonmail.com`
 Decrypt: 
-	1. Run `gpg --decrypt`
+	1. Run `gpg -d`
 	2. Paste the encrypted message (including `-----BEGIN PGP MESSAGE-----` and `-----END PGP MESSAGE-----`)
 	3. Press Ctrl-D
 	4. Enter passphrase
+Encrypt and decrypt: `echo abc | gpg -e -a -r john@protonmail.com | gpg -d`
 
 ## KeyServer
 Import a public key from a Key Server: `gpg --keyserver keyserver.ubuntu.com --recv-keys 0xDEADBEEF`

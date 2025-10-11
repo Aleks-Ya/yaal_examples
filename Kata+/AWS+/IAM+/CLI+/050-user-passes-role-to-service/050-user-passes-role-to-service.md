@@ -21,7 +21,7 @@
 3. Create `buckets-function`:
 	1. Pack the handler: `zip deployment-package.zip handler.py`
 	2. Create a function:
-	```
+	```shell
 	aws --profile FunctionUser lambda create-function \
 	--function-name buckets-function \
 	--runtime python3.13 \

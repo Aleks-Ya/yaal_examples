@@ -1,6 +1,7 @@
 # 040-ecr-image
 
 ## Task
+Status: not finished
 Create a Build Project which builds an ECR Docker Image.
 
 ## Setup
@@ -30,7 +31,7 @@ aws codebuild create-project \
 	--environment type=LINUX_CONTAINER,image=aws/codebuild/standard:5.0,computeType=BUILD_GENERAL1_SMALL \
 	--service-role arn:aws:iam::523633434047:role/kata-role-ecr-image
 ```
-5. Start tailing logs: 
+5. Start tailing logs:
 ```shell 
 aws logs start-live-tail \
 	--log-group-identifiers arn:aws:logs:us-east-1:523633434047:log-group:/aws/codebuild/kata-project-ecr-image
@@ -55,3 +56,5 @@ aws logs start-live-tail \
 3. Delete Repository: `aws ecr delete-repository --force --repository-name kata-repo-ecr-image/hello-ecr`
 4. Delete Bucket: `aws s3 rb --force s3://kata-bucket-ecr-image`
 5. Delete Log Group: `aws logs delete-log-group --log-group-name /aws/codebuild/kata-project-ecr-image`
+
+## History

@@ -15,12 +15,12 @@
         {
             "Effect": "Allow",
             "Action": "s3:ListBucket",
-            "Resource": "arn:aws:s3:::kata-role-ecr-image"
+            "Resource": "arn:aws:s3:::kata-bucket-ecr-image"
         },
         {
             "Effect": "Allow",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::kata-role-ecr-image/*"
+            "Resource": "arn:aws:s3:::kata-bucket-ecr-image/*"
         },
         {
             "Effect": "Allow",

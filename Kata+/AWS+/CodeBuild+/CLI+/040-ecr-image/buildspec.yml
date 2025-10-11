@@ -2,7 +2,8 @@ version: 0.2
 
 env:
   variables:
-    ACCOUNT_ID: "523633434047"
+    ACCOUNT_ID: "273354669947"
+    IMAGE_TAG: "v1"
 
 phases:
   pre_build:
@@ -11,7 +12,6 @@ phases:
       - docker -D version
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker -D login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       - REPOSITORY_URI=$ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/kata-repo-ecr-image/hello-ecr
-      - IMAGE_TAG=v1
   build:
     commands:
       - echo Building the Docker image...
@@ -22,7 +22,3 @@ phases:
       - echo Pushing the Docker image...
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"hello-world","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
-
-artifacts:
-  files: imagedefinitions.json

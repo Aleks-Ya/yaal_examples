@@ -36,3 +36,11 @@ Verify that a backup has no differences from the origin dir (without data compar
 
 ## Cleanup
 List files to cleanup (not delete): `duplicity cleanup file:///home/aleks/yandex-disk/backup/CryptomatorVaultBackup`
+
+## Errors
+### Incomplete backup sets
+Command: any, e.g. `duplicity collection-status`
+Message: `Warning, found incomplete backup sets, probably left from aborted session`
+Fix:
+1. List incomplete backups: `duplicity cleanup file:///home/aleks/yandex-disk/backup/CryptomatorVaultBackup`
+2. Delete incomplete backups: `duplicity cleanup file:///home/aleks/yandex-disk/backup/CryptomatorVaultBackup --force`

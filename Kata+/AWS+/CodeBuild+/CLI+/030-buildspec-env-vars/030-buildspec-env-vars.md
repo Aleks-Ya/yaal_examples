@@ -1,6 +1,7 @@
 # 030-buildspec-env-vars
 
 ## Task
+Status: succeed
 Use environment variables in Build Spec.
 
 ## Setup
@@ -41,3 +42,6 @@ aws logs start-live-tail \
 	2. Delete Role: `aws iam delete-role --role-name kata-role-buildspec-env-vars`
 3. Delete Bucket: `aws s3 rb --force s3://kata-bucket-buildspec-env-vars`
 4. Delete Log Group: `aws logs delete-log-group --log-group-name /aws/codebuild/kata-project-buildspec-env-vars`
+
+## History
+- 2025-10-11 succeed
