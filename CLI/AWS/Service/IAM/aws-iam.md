@@ -115,6 +115,12 @@ aws iam add-role-to-instance-profile \
     --instance-profile-name MyInstanceProfile2 \
     --role-name BedrockAccessRole
 ```
+Detach a role from an instance profile:
+```shell
+aws iam remove-role-from-instance-profile \
+    --instance-profile-name MyInstanceProfile2 \
+    --role-name BedrockAccessRole
+```
 
 ## Errors
 ### MalformedPolicyDocument

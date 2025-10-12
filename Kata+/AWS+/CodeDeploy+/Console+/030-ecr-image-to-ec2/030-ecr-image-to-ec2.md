@@ -5,8 +5,8 @@ Status: not finished
 Deploy an Docker Image from ECR Repository to an EC2 Instance.
 
 ## Setup
-1. 
 1. Create an ECR Repository
+	1. Repository name: `kata-ns-ecr-image-to-ec2/kata-repo-ecr-image-to-ec2`
 1. Create an EC2 Instance
 3. Create a CodeDeploy Application
 	1. Create a Service Role
