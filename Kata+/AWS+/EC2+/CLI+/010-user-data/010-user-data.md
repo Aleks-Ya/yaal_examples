@@ -3,7 +3,7 @@
 ## Task
 Status: finished
 Management interface: AWS CLI
-Create a EC2 instance with a web-server which should start automatically.
+Create an EC2 instance with a web-server which should start automatically.
 
 ## Setup
 1. Create a VPC
@@ -77,7 +77,7 @@ Create a EC2 instance with a web-server which should start automatically.
     export INSTANCE=$(aws ec2 describe-instances --query "Reservations[*].Instances[*].InstanceId" --output text \
         --filters "Name=tag:Name,Values=kata-i-user-data" "Name=instance-state-name,Values=pending,running,stopping,stopped")
     ```
-    3. Wait for running status: `aws ec2 wait instance-running --instance-ids $INSTANCE`
+    3. Wait for running status: `aws ec2 wait instance-status-ok --instance-ids $INSTANCE`
     4. Get public IP:
     ```shell
     export IP=$(aws ec2 describe-instances --query "Reservations[*].Instances[*].PublicIpAddress" --output text \
@@ -95,3 +95,5 @@ Create a EC2 instance with a web-server which should start automatically.
     2. Delete: `aws ec2 delete-internet-gateway --internet-gateway-id $IGW`
 4. Delete Subnet: `aws ec2 delete-subnet --subnet-id $SUBNET`
 5. Delete VPC: `aws ec2 delete-vpc --vpc-id $VPC`
+
+## History

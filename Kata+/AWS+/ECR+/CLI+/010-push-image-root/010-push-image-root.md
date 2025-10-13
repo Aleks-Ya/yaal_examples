@@ -26,7 +26,7 @@ export TAG=v1
 ## Cleanup
 1. Delete Repository: `aws ecr delete-repository --force --repository-name $NAMESPACE/$REPOSITORY`
 2. Delete Image locally: `docker rmi $REGISTRY/$NAMESPACE/$REPOSITORY:$TAG`
-3. Delete environment variables: `unset REGISTRY NAMESPACE REPOSITORY TAG`
+3. Unset env vars: `unset REGISTRY NAMESPACE REPOSITORY TAG`
 
 ## History
 - 2025-10-12 success

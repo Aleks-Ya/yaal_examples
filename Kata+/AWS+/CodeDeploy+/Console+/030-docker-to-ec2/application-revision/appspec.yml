@@ -1,0 +1,5 @@
+version: 0.0
+os: linux
+hooks:
+   AfterInstall:
+     - location: scripts/run_container.sh

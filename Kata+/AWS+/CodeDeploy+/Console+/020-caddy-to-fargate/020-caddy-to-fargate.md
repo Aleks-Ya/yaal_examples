@@ -2,7 +2,7 @@
 
 ## Task
 Status: unfinished
-Deploy NGinx server as a ECS Service on Fargate.
+Deploy Caddy server as a ECS Service on Fargate.
 
 ## Setup
 1. Configure ECS

@@ -56,7 +56,7 @@ aws logs start-live-tail --log-group-identifiers arn:aws:logs:us-east-1:52363343
 3. Delete Repository: `aws ecr delete-repository --force --repository-name $NAMESPACE/$REPOSITORY`
 4. Delete Bucket: `aws s3 rb --force s3://$BUCKET`
 5. Delete Log Group: `aws logs delete-log-group --log-group-name /aws/codebuild/$PROJECT`
-6. Delete env variables: `unset BUCKET PROJECT ROLE REGISTRY NAMESPACE REPOSITORY TAG`
+6. Unset env vars: `unset BUCKET PROJECT ROLE REGISTRY NAMESPACE REPOSITORY TAG`
 
 ## History
 - 2025-10-12 success
