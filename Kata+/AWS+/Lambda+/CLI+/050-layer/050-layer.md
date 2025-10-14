@@ -34,6 +34,7 @@ Create a Lambda Function that uses code from a Layer.
 	1. Delete policy: `aws iam delete-role-policy --role-name FunctionLayeredRole --policy-name FunctionLayeredPolicy`
 	2. Delte role: `aws iam delete-role --role-name FunctionLayeredRole`
 
+## History
 
 Update:
 - `aws lambda publish-layer-version --layer-name text-layer --compatible-runtimes python3.13 --zip-file fileb://text-layer.zip`

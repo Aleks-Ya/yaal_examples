@@ -1,10 +1,10 @@
-# 070-http-api-invokes-lambda-with-path-parameters
+# 030-integration-lambda-path-parameters
 
 ## Task
-
+Status: ?
 Create an **HTTP** API that invokes a Lambda function which accepts **path** parameters.
 
-### Setup
+## Setup
 1. Create a Lambda function
     1. Type: `Author from scratch`
     2. Function name: `kata-path-parameters-http-api-function`
@@ -37,6 +37,8 @@ Create an **HTTP** API that invokes a Lambda function which accepts **path** par
     1. New stage: `$default`
     2. Test from CLI: `curl https://7m98b362b9.execute-api.us-east-1.amazonaws.com/users2/1234 | jq .`
     
-### Cleanup
+## Cleanup
 1. Delete the API
 2. Delete the Function
+
+## History

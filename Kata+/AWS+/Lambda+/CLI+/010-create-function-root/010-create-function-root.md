@@ -1,29 +1,33 @@
 # 010-create-function-root
 
 ## Task
-Status: ?
+Status: success
 Create a hello-world function using AWS CLI as the Root User.
 
 ## Setup
 1. Change the current directory
-2. Create an Execution Role: 
+2. Set environment variables
 ```shell
-aws iam create-role \
-	--role-name kata-role-create-function-root \
-	--assume-role-policy-document file://trust-policy.json
+export ROLE=kata-role-create-function-root
+export FUNCTION=kata-function-create-function-root
 ```
-3. Create a Deployment Package: `zip deployment-package.zip handler.py`
-4. Create a function:
+3. Create an Execution Role: `aws iam create-role --role-name $ROLE --assume-role-policy-document file://trust-policy.json`
+4. Create a Deployment Package: `zip deployment-package.zip handler.py`
+5. Create a function:
 ```shell
 aws lambda create-function \
-	--function-name kata-function-create-function-root \
+	--function-name $FUNCTION \
 	--runtime python3.13 \
-	--role arn:aws:iam::523633434047:role/kata-role-create-function-root\
+	--role arn:aws:iam::523633434047:role/$ROLE\
 	--handler handler.lambda_handler \
 	--zip-file fileb://deployment-package.zip
 ```
-5. Test function: `aws lambda invoke --function-name kata-function-create-function-root /dev/stdout`
+6. Test function: `aws lambda invoke --function-name $FUNCTION /dev/stdout`
 
 ## Cleanup
-1. Delete Function: `aws lambda delete-function --function-name kata-function-create-function-root`
-2. Delete execution role: `aws iam delete-role --role-name kata-role-create-function-root`
+1. Delete Function: `aws lambda delete-function --function-name $FUNCTION`
+2. Delete execution role: `aws iam delete-role --role-name $ROLE`
+3. Unset env vars: `unset ROLE FUNCTION`
+
+# History
+- 2025-10-14 success

@@ -33,3 +33,5 @@ aws lambda add-permission \
 ## Cleanup
 1. Delete Lambda Function: `aws lambda delete-function --function-name function1`
 2. Delete execution role: `aws iam delete-role --role-name ExecutionRole1`
+
+## History

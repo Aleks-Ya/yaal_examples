@@ -1,10 +1,10 @@
-# 040-rest-api-invokes-lambda-with-query-parameters
+# 030-integration-lambda-query-parameters
 
 ## Task
-
+Status: ?
 Create a **REST** API that invokes a Lambda function which accepts **query** parameters.
 
-### Setup
+## Setup
 1. Create a Lambda function
     1. Type: `Author from scratch`
     2. Function name: `kata-query-parameters-rest-api-function`
@@ -34,6 +34,8 @@ Create a **REST** API that invokes a Lambda function which accepts **query** par
     1. New stage: `stage1`
     2. Test from CLI: `curl https://j2k8ps4hf1.execute-api.us-east-1.amazonaws.com/stage1?aa=b1`
     
-### Cleanup
+## Cleanup
 1. Delete the API
 2. Delete the Function
+
+## History

@@ -31,3 +31,5 @@ Extract path parameters from HTTP request query string within a Lambda Function.
 
 ## Cleanup
 1. Delete function `kata-parth-parameters-function`
+
+## History

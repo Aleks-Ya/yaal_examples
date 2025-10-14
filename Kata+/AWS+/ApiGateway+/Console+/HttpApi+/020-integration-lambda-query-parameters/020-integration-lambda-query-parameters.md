@@ -1,13 +1,13 @@
-# 060-http-api-invokes-lambda-with-query-parameters
+# 020-integration-lambda-query-parameters
 
 ## Task
-
+Status: ?
 Create an **HTTP** API that invokes a Lambda function which accepts **query** parameters.
 
-### Setup
+## Setup
 1. Create a Lambda function
     1. Type: `Author from scratch`
-    2. Function name: `kata-query-parameters-http-api-function`
+    2. Function name: `kata-function-integration-lambda-query-parameters`
     3. Runtime: `Python`
     4. Define handler:
        ```python
@@ -17,19 +17,21 @@ Create an **HTTP** API that invokes a Lambda function which accepts **query** pa
     5. Test the function
 2. Creat an API:
     1. Create an HTTP API:
-        1. API name: `kata-query-parameters-lambda-http-api`
+        1. API name: `kata-api-integration-lambda-query-parameters`
         2. Add integration: 
             1. Type: `Lambda`
-            2. Lambda function: `kata-query-parameters-http-api-function`
+            2. Lambda function: `kata-function-integration-lambda-query-parameters`
     2. Rotes
         1. Method: `GET`
-        2. Route `/kata-query-parameters-http-api-function`
+        2. Route `/kata-function-integration-lambda-query-parameters`
     3. Stages
         1. Stage name: `$default`
 3. Deploy the API:
     1. New stage: `$default`
-    2. Test from CLI: `curl https://2mh9vqr8v8.execute-api.us-east-1.amazonaws.com/kata-query-parameters-http-api-function?aa=a1 | jq .`
+    2. Test from CLI: `curl https://2mh9vqr8v8.execute-api.us-east-1.amazonaws.com/kata-function-integration-lambda-query-parameters?aa=a1 | jq .`
     
-### Cleanup
+## Cleanup
 1. Delete the API
 2. Delete the Function
+
+## History

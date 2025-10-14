@@ -42,3 +42,5 @@ Extract parameters from HTTP request body within a Lambda Function.
 
 ## Cleanup
 1. Delete function `kata-body-parameters-function`
+
+## History

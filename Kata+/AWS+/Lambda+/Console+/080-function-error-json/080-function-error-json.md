@@ -38,3 +38,5 @@ def lambda_handler(event, context):
 ## Cleanup
 1. Delete function's execution role
 2. Delete function `kata-function-error-json-function`
+
+## History

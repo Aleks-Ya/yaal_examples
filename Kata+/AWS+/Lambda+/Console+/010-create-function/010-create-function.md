@@ -24,3 +24,5 @@ def lambda_handler(event, context):
 ## Cleanup
 1. Delete function `kata-function-create-function`
 2. Delete execution role `kata-function-create-function-role-xxxxxx`
+
+## History

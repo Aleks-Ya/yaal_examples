@@ -34,3 +34,5 @@ Extract parameters from HTTP request query string within a Lambda Function.
 
 ## Cleanup
 1. Delete function `kata-query-string-parameters-function`
+
+## History

@@ -1,10 +1,10 @@
-# 080-http-api-invokes-lambda-with-body-parameters
+# 040-integration-lambda-body-parameters
 
 ## Task
-
+Status: ?
 Create an **HTTP** API that invokes a Lambda function which accepts **body** parameters.
 
-### Setup
+## Setup
 1. Create a Lambda function
     1. Type: `Author from scratch`
     2. Function name: `kata-body-parameters-http-api-function`
@@ -43,7 +43,9 @@ Create an **HTTP** API that invokes a Lambda function which accepts **body** par
     1. New stage: `$default`
     2. Test from CLI: `curl -X POST https://gil2t36oxd.execute-api.us-east-1.amazonaws.com/body -d '{"userId":"123"}' | jq .`
     
-### Cleanup
+## Cleanup
 1. Delete the API
 2. Delete the Function
 3. Delete CloudWatch Log Group `/aws/lambda/kata-body-parameters-http-api-function`
+
+## History
