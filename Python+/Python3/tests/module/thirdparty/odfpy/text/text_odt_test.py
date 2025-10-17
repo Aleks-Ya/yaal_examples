@@ -1,9 +1,13 @@
+from pathlib import Path
+
 from odf.element import Element
 from odf.opendocument import OpenDocumentText, OpenDocument
 from odf.style import Style, TextProperties
 from odf.text import H, P, Span
 from odf.opendocument import load
 from odf import text, draw
+
+from current_path import get_file_in_current_dir
 
 
 # Based on: https://github.com/eea/odfpy/wiki/Introduction#example
@@ -31,13 +35,14 @@ def test_create_text_document():
     p.addText("This is after bold.")
     doc.text.addElement(p)
 
-    doc.save("out_text_doc.odt")
+    out_file: Path = get_file_in_current_dir("out_text_doc.odt")
+    doc.save(out_file)
 
 
 # Based on: https://github.com/eea/odfpy/wiki/Introduction#example-1
 def test_edit_text_document():
-    infile: str = 'edit_in.odt'
-    outfile: str = 'edit_out.odt'
+    infile: Path = get_file_in_current_dir('edit_in.odt')
+    outfile: Path = get_file_in_current_dir('edit_out.odt')
 
     doc: OpenDocument = load(infile)
     for item in doc.getElementsByType(draw.TextBox):

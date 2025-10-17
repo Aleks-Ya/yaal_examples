@@ -1,10 +1,8 @@
 # ant CLI
 
-Help:
-```
-ant -h
-```
-Version:
-```
-ant -version
-```
+Install: `sdk install ant`
+
+Help: `ant -h`
+Version: `ant -version`
+
+Build a project: `ant`
