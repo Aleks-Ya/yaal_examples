@@ -1,0 +1,3 @@
+dependencies {
+    implementation "io.prometheus:prometheus-metrics-core:$prometheusMetricsVersion"
+}
