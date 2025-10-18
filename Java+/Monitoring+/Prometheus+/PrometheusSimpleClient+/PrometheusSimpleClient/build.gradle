@@ -1,0 +1,3 @@
+dependencies {
+    implementation "io.prometheus:simpleclient:$prometheusSimpleClientVersion"
+}

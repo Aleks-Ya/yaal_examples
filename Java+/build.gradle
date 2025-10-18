@@ -96,7 +96,7 @@ subprojects {
         resilience4jVer = '2.0.2'
         aspectJVersion = '1.9.19'
         micrometerVersion = '1.15.2'
-        prometheusVersion = '0.16.0'
+        prometheusSimpleClientVersion = '0.16.0'
         jsoupDep = 'org.jsoup:jsoup:1.21.1'
         retrofitVersion = '2.9.0'
         retrofitDep = "com.squareup.retrofit2:retrofit:$retrofitVersion"
