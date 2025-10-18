@@ -1,5 +1,5 @@
 public class GetNumber {
-    public static int getNubmer() {
+    public static int getNumber() {
         return 1;
     }
 }

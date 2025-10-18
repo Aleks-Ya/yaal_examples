@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.atIndex;
 
 /**
  * <a href="https://github.com/joel-costigliola/assertj-examples/blob/master/assertions-examples/src/test/java/org/assertj/examples/IterableAssertionsExamples.java">See also</a>
@@ -44,6 +45,22 @@ class ListAssertTest {
     @Test
     void allSatisfy() {
         assertThat(list).allSatisfy(element -> assertThat(element.length()).isEqualTo(1));
+    }
+
+    @Test
+    void satisfies() {
+        assertThat(list)
+                .satisfies(symbol -> assertThat(symbol).isEqualTo("a"), atIndex(0))
+                .satisfies(symbol -> assertThat(symbol).isEqualTo("b"), atIndex(1))
+                .satisfies(symbol -> assertThat(symbol).isEqualTo("c"), atIndex(2));
+    }
+
+    @Test
+    void satisfiesExactly() {
+        assertThat(list).satisfiesExactly(
+                symbol -> assertThat(symbol).isEqualTo("a"),
+                symbol -> assertThat(symbol).isEqualTo("b"),
+                symbol -> assertThat(symbol).isEqualTo("c"));
     }
 
     @Test

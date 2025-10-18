@@ -2,10 +2,11 @@ package assertj.custom.assertclass;
 
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.Assertions;
+import org.assertj.core.api.ThrowingConsumer;
 
 public class PersonAssert extends AbstractAssert<PersonAssert, Person> {
 
-    public PersonAssert(Person actual) {
+    private PersonAssert(Person actual) {
         super(actual, PersonAssert.class);
     }
 
@@ -13,15 +14,14 @@ public class PersonAssert extends AbstractAssert<PersonAssert, Person> {
         return new PersonAssert(actual);
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public PersonAssert hasName(String fullName) {
         isNotNull();
-        if (!actual.name().equals(fullName)) {
-            failWithMessage("Expected person to have full name %s but was %s",
-                    fullName, actual.name());
-        }
+        objects.assertEqual(info, actual.name(), fullName);
         return this;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public PersonAssert isAdult() {
         isNotNull();
         if (actual.age() < 18) {
@@ -30,11 +30,19 @@ public class PersonAssert extends AbstractAssert<PersonAssert, Person> {
         return this;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public PersonAssert ageIsPositive() {
         isNotNull();
         Assertions.assertThat(actual.age())
                 .overridingErrorMessage("Age must be positive: actual=%d", actual.age())
                 .isPositive();
+        return this;
+    }
+
+    @SafeVarargs
+    @SuppressWarnings("UnusedReturnValue")
+    public final PersonAssert hasCars(ThrowingConsumer<? super Car>... requirements) {
+        Assertions.assertThat(actual.cars()).satisfiesExactly(requirements);
         return this;
     }
 }
