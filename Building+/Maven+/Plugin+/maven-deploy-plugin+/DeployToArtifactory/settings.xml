@@ -1,0 +1,9 @@
+<settings>
+  <servers>
+    <server>
+      <id>artifactory</id>
+      <username>admin</username>
+      <password>_Password111</password>
+    </server>
+  </servers>
+</settings>

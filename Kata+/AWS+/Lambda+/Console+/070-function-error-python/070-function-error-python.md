@@ -2,7 +2,7 @@
 
 ## Task
 Status: ?
-Create a function that fails and return an error as a Python exception.
+Create a function that fails and return an error as a Python exception (sync invocation).
 
 ## Setup
 1. Create a function:

@@ -1,5 +1,8 @@
 # JFrog CLI
 
+## Install
+`brew install jfrog-cli`
+
 ## Commands
 ### Common 
 Help: `jf -h`
@@ -9,7 +12,8 @@ Version: `jf -v`
 ### Artifactory (`rt`)
 Ping the server: `jf rt ping`
 Curl API requests:
-	- List repositories: `jf rt cl /api/repositories`
+- List repositories: `jf rt cl /api/repositories`
 
 ### Configuration (`config`)
 Show configuration: `jf config show`
+Add configuration: `jf config add`

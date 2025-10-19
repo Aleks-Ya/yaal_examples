@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>maven</groupId>
+        <groupId>ru.yaal.examples.building.maven</groupId>
         <artifactId>JarPlugin</artifactId>
         <version>1</version>
     </parent>
 
     <artifactId>ExecutableJar</artifactId>
-    <description>Сборка jar с зависимостями</description>
+    <description>Build a JAR with dependencies</description>
 
     <build>
         <plugins>
