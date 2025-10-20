@@ -1,0 +1,12 @@
+<ivysettings>
+    <credentials host="localhost"
+                 realm="Artifactory Realm"
+                 username="${artifactory.user}"
+                 passwd="${artifactory.pass}"/>
+    <resolvers>
+        <ibiblio name="artifactory"
+                 root="http://localhost:8082/artifactory/libs-release-local/"
+                 m2compatible="true"/>
+    </resolvers>
+    <settings defaultResolver="artifactory"/>
+</ivysettings>

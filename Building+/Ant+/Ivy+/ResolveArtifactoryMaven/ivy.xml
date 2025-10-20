@@ -1,0 +1,6 @@
+<ivy-module version="2.0">
+    <info organisation="ru.yaal.ant" module="ResolveArtifactoryMaven"/>
+    <dependencies>
+        <dependency org="ru.yaal.ant" name="PublishToArtifactoryMaven" rev="1.0.0"/>
+    </dependencies>
+</ivy-module>

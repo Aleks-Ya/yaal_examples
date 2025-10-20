@@ -1,8 +1,7 @@
 # AWS lambda CLI
 
-## Function
-List Lambda Functions: `aws lambda list-functions`
-List versions of a Function: `aws lambda list-versions-by-function --function-name function1`
+## Function (LATEST version)
+List Functions: `aws lambda list-functions`
 Upload ZIP to a Function: `aws lambda update-function-code --function-name function1 --zip-file fileb://function1.zip --publish`
 Show Function details: `aws lambda get-function --function-name function1`
 Show Function configuration: `aws lambda get-function-configuration --function-name function1`
@@ -19,6 +18,10 @@ aws lambda create-function \
   --zip-file fileb://function2.zip
 ```
 Download Function code: `wget -O code.zip $(aws lambda get-function --query 'Code.Location' --output text --function-name function1)`
+
+## Version
+List versions of a Function: `aws lambda list-versions-by-function --function-name function1`
+Show Function Version details: `aws lambda get-function --function-name function1:3`
 
 ## Runtime
 List available Runtimes: `aws lambda create-function help` (see `--runtime` section)

@@ -1,0 +1,26 @@
+<project name="BuildJar" default="dist" basedir=".">
+
+    <property name="srcDir" location="src"/>
+    <property name="buildDir" location="build"/>
+    <property name="distDir" location="dist"/>
+
+    <target name="clean">
+        <delete dir="${buildDir}"/>
+        <delete dir="${distDir}"/>
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${buildDir}"/>
+        <javac srcdir="${srcDir}"
+               destdir="${buildDir}"
+               includeantruntime="false"
+               release="11"
+               encoding="UTF-8"/>
+    </target>
+
+    <target name="dist" depends="compile">
+        <mkdir dir="${distDir}"/>
+        <jar jarfile="${distDir}/${ant.project.name}.jar" basedir="${buildDir}"/>
+    </target>
+
+</project>

@@ -1,0 +1,11 @@
+<ivysettings>
+    <credentials host="172.17.0.1"
+                 realm="Artifactory Realm"
+                 username="admin"
+                 passwd="_Password111"/>
+    <resolvers>
+        <ibiblio name="artifactory"
+                 root="http://172.17.0.1:8082/artifactory/libs-release-local/"
+                 m2compatible="true"/>
+    </resolvers>
+</ivysettings>

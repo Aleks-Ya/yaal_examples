@@ -13,7 +13,7 @@
 `docker exec -it ssh bash`
 
 ## Remove container
-```
+```shell
 docker stop ssh
 docker rm ssh
 ```
@@ -22,12 +22,12 @@ docker rm ssh
 ### By password
 Command "sshpass -p 'screencast'" sets the root's password.
 Command "-o StrictHostKeyChecking=no" adds the container to known_hosts.
-```
+```shell
 export CONTAINER_IP=$(docker exec ssh hostname -I)
 sshpass -p 'screencast' ssh -o StrictHostKeyChecking=no -p 22 root@$CONTAINER_IP
 ```
 ### By private key
-```
+```shell
 export CONTAINER_IP=$(docker exec ssh hostname -I)
 sshpass -p 'screencast' ssh-copy-id root@$CONTAINER_IP
 ssh root@$CONTAINER_IP

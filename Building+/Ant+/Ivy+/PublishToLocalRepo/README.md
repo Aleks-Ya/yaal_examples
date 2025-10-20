@@ -1,1 +1,3 @@
-Build: `ant publish`
+# PublishToLocalRepo
+
+Build and publish: `ant`
