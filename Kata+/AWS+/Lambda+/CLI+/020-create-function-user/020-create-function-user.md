@@ -11,7 +11,7 @@ Create a hello-world function using AWS CLI as a custom limited user.
 export POLICY=kata-policy-create-function-user
 export ROLE=kata-role-create-function-user
 export USER=kata-user-create-function-user
-export FUNCTION=kata-function-create-function-user
+export FUNCTION=kata-f-create-function-user
 ```
 3. Create a user for managing Lambda functions:
 	1. Create policy for managing Execution Role: `aws iam create-policy --policy-name $POLICY --policy-document file://user-policy.json`

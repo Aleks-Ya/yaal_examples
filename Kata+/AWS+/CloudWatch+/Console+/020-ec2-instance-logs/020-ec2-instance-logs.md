@@ -1,13 +1,12 @@
 # 020-ec2-instance-logs
 
 ## Task
-
+Status: ?
 See logs from EC2 instance in CloudWatch.
 
 ## Setup
-
 1. Launch EC2 instance
-    1. Name: `instance-1`
+    1. Name: `kata-i-ec2-instance-logs`
     2. OS: `Amazon Linux`
     3. Instance type: `t2.micro`
     4. Key pair name: `Proceed without a key pair`
@@ -18,8 +17,8 @@ See logs from EC2 instance in CloudWatch.
             2. Service or use case: `EC2`
             3. Use case: `EC2`
             4. Permissions policies: `CloudWatchAgentServerPolicy`
-            5. Role name: `cloud-watch-agent-role`
-        2. Choose `cloud-watch-agent-role`
+            5. Role name: `kata-role-ec2-instance-logs`
+        2. Choose `kata-role-ec2-instance-logs`
 2. Install CloudWatch Logs Agent
     1. Connect via Instance Connect
     2. Install package: `sudo yum install -y amazon-cloudwatch-agent`
@@ -50,6 +49,7 @@ See logs from EC2 instance in CloudWatch.
     2. Open CloudWatch, log group: `my-ec2`
 
 ## Cleanup
+1. Terminate EC2 instance `kata-i-ec2-instance-logs`
+2. Delete IAM role `kata-role-ec2-instance-logs`
 
-1. Terminate EC2 instance `instance-1`
-2. Delete IAM role `cloud-watch-agent-role`
+## History

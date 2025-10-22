@@ -1,13 +1,12 @@
-# 030-ec2-instance-alert
+# 030-ec2-instance-alarm
 
 ## Task
-
-Create an CloudWatch alert that raises if ≥80% of EC2 instance RAM is busy.
+Status: ?
+Create an CloudWatch alarm that raises if ≥80% of EC2 instance RAM is busy.
 
 ## Setup
-
 1. Launch EC2 instance
-    1. Name: `instance-1`
+    1. Name: `kata-i-ec2-instance-alarm`
     2. OS: `Amazon Linux`
     3. Instance type: `t2.micro`
     4. Key pair name: `Proceed without a key pair`
@@ -56,13 +55,14 @@ Create an CloudWatch alert that raises if ≥80% of EC2 instance RAM is busy.
         1. Create a new topic...: `Default_CloudWatch_Alarms_Topic`
         2. Email endpoints that will receive the notification...: `ya_al@bk.ru`
         3. Confirm subscription
-    3. Alarm name: `ec2-memory-alarm`
+    3. Alarm name: `kata-alarm-ec2-instance-alarm`
     4. Increase memory consumption
         1. Install: `sudo yum install stress-ng`
         2. Consume: `stress-ng --vm-bytes 500M -m 1 --vm-keep`
 
 ## Cleanup
-
 1. Delete Alarm
 2. Delete SNS Topic
 3. Teminate EC2 Instance
+
+## History

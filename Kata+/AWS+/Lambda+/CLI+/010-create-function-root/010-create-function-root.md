@@ -9,7 +9,7 @@ Create a hello-world function using AWS CLI as the Root User.
 2. Set environment variables
 ```shell
 export ROLE=kata-role-create-function-root
-export FUNCTION=kata-function-create-function-root
+export FUNCTION=kata-f-create-function-root
 ```
 3. Create an Execution Role: `aws iam create-role --role-name $ROLE --assume-role-policy-document file://trust-policy.json`
 4. Create a Deployment Package: `zip deployment-package.zip handler.py`

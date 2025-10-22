@@ -1,12 +1,11 @@
 # 030-dead-letter-queue
 
 ## Task
-
+Status: ?
 Create a Queue #1 intended to be a DLQ. Create another Queue #2 which uses Queue #1 as DLQ.
 Simulate error during message consuming to trigger sending the error message to the DLQ.
 
 ## Setup
-
 1. Create the DLQ.
     1. Type: `Standard`
     2. Name: `dlq-1`
@@ -55,7 +54,8 @@ Simulate error during message consuming to trigger sending the error message to 
     4. Check that message was sent to `dlq-1` queue
 
 ## Cleanup
-
 1. Delete queues: `queue-1` and `dlq-1`
 2. Delete Function: `function-1`
 3. Delete Role: `lambda-sqs-poll-role`
+
+# History

@@ -7,7 +7,7 @@ Create a Topic that delivers messages to a Lambda Function.
 ## Setup
 1. Create Function
 	1. Template: `Author from scratch`
-	2. Function name: `kata-function-lambda-protocol`
+	2. Function name: `kata-f-lambda-protocol`
 	2. Runtime: `Python`
 	3. Architecture: `x86_64`
 	4. Permissions:
@@ -21,7 +21,7 @@ Create a Topic that delivers messages to a Lambda Function.
 	2. Name: `kata-topic-lambda-protocol`
 4. Create Subscription
 	1. Protocol: `AWS Lambda`
-	2. Endpoint: function `kata-function-lambda-protocol`
+	2. Endpoint: function `kata-f-lambda-protocol`
 5. Test Topic
 	1. Publish a test message
 	2. See log in the Function log tail
@@ -30,8 +30,8 @@ Create a Topic that delivers messages to a Lambda Function.
 1. Delete Subscription
 2. Delete Topic
 3. Delete Function
-	1. Delete Function `kata-function-lambda-protocol`
-	2. Delete Policy (?) `kata-function-lambda-protocol-0emvw64d`
-	3. Delete LogGroup `/aws/lambda/kata-function-lambda-protocol`
+	1. Delete Function `kata-f-lambda-protocol`
+	2. Delete Policy (?) `kata-f-lambda-protocol-0emvw64d`
+	3. Delete LogGroup `/aws/lambda/kata-f-lambda-protocol`
 
 ## History

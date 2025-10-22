@@ -1,1 +1,0 @@
-Docs about Badges: https://www.jenkins.io/doc/pipeline/steps/badge/

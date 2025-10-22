@@ -7,7 +7,7 @@ Create a hello-world function using AWS Console.
 ## Setup
 1. Create a function:
 	1. Template: `Author from scratch`
-	2. Function name: `kata-function-create-function`
+	2. Function name: `kata-f-create-function`
 	2. Runtime: `Python`
 	3. Architecture: `x86_64`
 	4. Permissions:
@@ -19,10 +19,10 @@ def lambda_handler(event, context):
 ```
 3. Deploy the function
 4. Send a test event
-5. Ivoke from CLI: `aws lambda invoke --function-name kata-function-create-function /dev/stdout`
+5. Ivoke from CLI: `aws lambda invoke --function-name kata-f-create-function /dev/stdout`
 
 ## Cleanup
-1. Delete function `kata-function-create-function`
-2. Delete execution role `kata-function-create-function-role-xxxxxx`
+1. Delete function `kata-f-create-function`
+2. Delete execution role `kata-f-create-function-role-xxxxxx`
 
 ## History

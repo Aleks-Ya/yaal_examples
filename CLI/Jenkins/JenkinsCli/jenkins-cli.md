@@ -37,4 +37,3 @@ List jobs: `jenkins list-jobs`
 List jobs: `jenkins list-jobs`
 Create a job: `cat freestyle-job-2.xml | jenkins create-job freestyle-job-2`
 Get job to file: `jenkins get-job freestyle-job > freestyle-job.xml`
-

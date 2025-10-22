@@ -7,7 +7,7 @@ Create a function with 3 environments: DEV, TST, PRD and deploy different versio
 ## Setup
 1. Create a function
 	1. Author from scratch
-	2. Function name: `kata-function-function-alias`
+	2. Function name: `kata-f-function-alias`
 	3. Runtime: `Python`
 2. Update code:
    1. Code:
@@ -79,7 +79,7 @@ Create a function with 3 environments: DEV, TST, PRD and deploy different versio
 	6. Test: open URL in browser
 
 ## Cleanup
-1. Delete function `kata-function-function-alias`
+1. Delete function `kata-f-function-alias`
 
 ## History
 - 2025-10-14 success
