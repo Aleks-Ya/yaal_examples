@@ -1,11 +1,9 @@
 # 010-deploy-sample-application
 
 ## Task
-
 Deploy the Sample Application into BeansTalk.
 
 ## Setup
-
 1. Create an IAM role
     1. Trusted entity type: `AWS service`
     2. Service or use case: `EC2`
@@ -32,7 +30,6 @@ Deploy the Sample Application into BeansTalk.
         4. EC2 instance profile: `beanstalk-ec2-role-1`
 
 ## Cleanup
-
 1. Delete Application: `application-1`
 2. Terminate Environment: `Application-1-env`
 3. IAM roles: `aws-elasticbeanstalk-service-role-1`, `beanstalk-ec2-role-1`

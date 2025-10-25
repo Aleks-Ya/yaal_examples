@@ -5,7 +5,7 @@ Create a File System with an ext4 Partition.
 
 ## Setup
 1. Create a virtual file system
-	1. Allocate a file: `fallocate -l 100M /tmp/create-partition-ext4.img`
+	1. Allocate a backing file: `fallocate -l 100M /tmp/create-partition-ext4.img`
 	2. Associate the file with a Loop Device: `sudo losetup --find --show /tmp/create-partition-ext4.img`
 	3. Remember the device: e.g. `/dev/loop19`
 	4. Verify new device: `lsblk`
