@@ -40,7 +40,7 @@ error: cannot refresh "snap-store": snap "snap-store" has running apps
        (snap-store), pids: 3156
 ```
 Fix:
-```
+```shell
 snap-store --quit
 sudo snap refresh snap-store
 ```
