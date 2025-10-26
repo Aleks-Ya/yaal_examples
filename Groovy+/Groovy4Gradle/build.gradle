@@ -6,7 +6,7 @@ subprojects {
     sourceSets.test.resources.srcDir 'resourcesTest'
 
     dependencies {
-        implementation 'org.apache.groovy:groovy-all:4.0.24'
+        implementation 'org.apache.groovy:groovy-all:4.0.29'
     }
 
     repositories {
@@ -20,7 +20,7 @@ subprojects {
 
 configure(subprojects - project('Spock')) {
     dependencies {
-        def junitVersion = '5.11.3'
+        def junitVersion = '5.14.0'
         testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
         testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
         testImplementation spockDep

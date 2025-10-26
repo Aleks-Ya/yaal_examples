@@ -1,12 +1,12 @@
-# 010-create-partition-ext4
+# 010-gpt-ext4-gparted
 
 ## Task
 Create a File System with an ext4 Partition.
 
 ## Setup
 1. Create a virtual file system
-	1. Allocate a backing file: `fallocate -l 100M /tmp/create-partition-ext4.img`
-	2. Associate the file with a Loop Device: `sudo losetup --find --show /tmp/create-partition-ext4.img`
+	1. Allocate a backing file: `fallocate -l 100M /tmp/gpt-ext4-gparted.img`
+	2. Associate the file with a Loop Device: `sudo losetup --find --show /tmp/gpt-ext4-gparted.img`
 	3. Remember the device: e.g. `/dev/loop19`
 	4. Verify new device: `lsblk`
 2. Create a partition
@@ -23,17 +23,17 @@ Create a File System with an ext4 Partition.
 	4. Verify partition: `lsblk /dev/loop19`
 3. Use the partition
 	1. Mount the partition
-		1. Create a mount point: `sudo mkdir /mnt/create-partition-ext4`
-		2. Mount partition: `sudo mount /dev/loop19p1 /mnt/create-partition-ext4`
+		1. Create a mount point: `sudo mkdir /mnt/gpt-ext4-gparted`
+		2. Mount partition: `sudo mount /dev/loop19p1 /mnt/gpt-ext4-gparted`
 	2. Use partition
-		1. Create a file: `sudo su -c "echo abc > /mnt/create-partition-ext4/data.txt"`
-		2. Read the file: `cat /mnt/create-partition-ext4/data.txt`
+		1. Create a file: `sudo su -c "echo abc > /mnt/gpt-ext4-gparted/data.txt"`
+		2. Read the file: `cat /mnt/gpt-ext4-gparted/data.txt`
 
 ## Cleanup
-1. Unmount the partition: `sudo umount /mnt/create-partition-ext4`
-2. Delete the mount point: `sudo rm -rf /mnt/create-partition-ext4`
+1. Unmount the partition: `sudo umount /mnt/gpt-ext4-gparted`
+2. Delete the mount point: `sudo rm -rf /mnt/gpt-ext4-gparted`
 3. Detach the loop device: `sudo losetup -d /dev/loop19`
-4. Delete the file: `rm /tmp/create-partition-ext4.img`
+4. Delete the file: `rm /tmp/gpt-ext4-gparted.img`
 
 ## History
 - 2025-10-25 success

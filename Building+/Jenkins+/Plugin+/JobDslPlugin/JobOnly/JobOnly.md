@@ -1,7 +1,6 @@
 # JobDslPlugin (jobs only)
 
 ## Run
-
 1. Copy sources to container: `./copy_to_container.sh`
 2. Create the seed job:
     ```shell

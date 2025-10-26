@@ -1,25 +1,28 @@
-# 060-gpt-ext4
+# 040-gpt-esp
 
 ## Task
-Create a GPT Partition Table with an `ext4` File System.
+Create an EFI System Partition (ESP).
 
 ## Setup
 1. Set environment variables
 ```shell
 set -x
-export DEVICE_FILE=/tmp/gpt-ext4.img
-export MOUNT_POINT=/mnt/gpt-ext4
+export DEVICE_FILE=/tmp/gpt-esp.img
+export MOUNT_POINT=/mnt/gpt-esp
 ```
 2. Create a Loop Device
 	1. Allocate a backing file: `fallocate -l 100M $DEVICE_FILE`
 	2. Associate the file with a Loop Device: `export DEVICE_ID=$(sudo losetup --find --show $DEVICE_FILE)`
-	3. Show new device: `lsblk $DEVICE_ID`
 3. Create a Partition Table
 	1. Create Partition Table: `sudo parted $DEVICE_ID mklabel gpt`
-	2. Create a Partition: `sudo parted --align optimal $DEVICE_ID mkpart primary ext4 1MiB 100%`
-	3. Prepare Partition ID: `export PARTITION_ID=${DEVICE_ID}p1`
-4. Create a FS: `sudo mkfs.ext4 $PARTITION_ID`
-5. Mount the FS:
+	2. Create a ESP: `sudo parted $DEVICE_ID mkpart ESP fat32 1MiB 50MiB`
+	3. Set ESP flag: `sudo parted $DEVICE_ID set 1 esp on`
+4. Create a FS: 
+	1. Refresh partition table: `sudo partprobe $DEVICE_ID`
+	2. Prepare Partition ID: `export PARTITION_ID=${DEVICE_ID}p1`
+	3. Format ESP to FAT32: `sudo mkfs.fat -F32 $PARTITION_ID`
+	4. Show partitions: `sudo parted $DEVICE_ID print`
+5. Mount ESP:
 	1. Create a mount point: `sudo mkdir $MOUNT_POINT`
 	2. Mount: `sudo mount $PARTITION_ID $MOUNT_POINT`
 6. Use the partition
@@ -37,4 +40,4 @@ export MOUNT_POINT=/mnt/gpt-ext4
 3. Unset env vars: `unset DEVICE_FILE MOUNT_POINT DEVICE_ID PARTITION_ID`
 
 ## History
-- 2025-10-26 success
+- 2025-10-27 success

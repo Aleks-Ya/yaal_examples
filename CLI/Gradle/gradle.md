@@ -14,7 +14,7 @@ gradle clean compileJava
 gradle clean compileTestJava
 ```
 Show dependency report (print dependency tree):
-```
+```shell
 #In current project (without sub-projects)
 gradle dependencies
 
@@ -31,7 +31,7 @@ Publish artifact to Maven local repo: `gradle publishToMavenLocal`
 Print properties: `gradle properties`
 Set property: `gradle -Pabc=123 properties`
 List available tasks:
-```
+```shell
 gradle tasks
 gradle tasks --all
 ```
