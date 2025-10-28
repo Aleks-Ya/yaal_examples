@@ -27,4 +27,13 @@ class StringSpec extends Specification {
         !toBoolean3
     }
 
+    def "split"() {
+        given:
+        def str = "A,B,C"
+        def split = str.split(",")
+
+        expect:
+        split == ["A", "B", "C"] as String[]
+    }
+
 }

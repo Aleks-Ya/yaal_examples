@@ -58,6 +58,18 @@ class ListSpec extends Specification {
         doubledNumbers == [2, -4, 0]
     }
 
+    def "each"() {
+        given:
+        def numbers = [1, -2, 0]
+
+        when:
+        def output = []
+        numbers.each { output << it }
+
+        then:
+        output == [1, -2, 0]
+    }
+
     def "forEach"() {
         given:
         def numbers = [1, -2, 0]

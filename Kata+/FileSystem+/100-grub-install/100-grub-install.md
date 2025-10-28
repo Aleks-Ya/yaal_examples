@@ -57,3 +57,4 @@ sudo grub-install \
 3. Unset env vars: `unset DEVICE_FILE MOUNT_POINT ESP_MOUNT_POINT DEVICE_ID ESP_ID SYSTEM_PARTITION_ID`
 
 ## History
+- 2025-10-29 success

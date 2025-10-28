@@ -9,7 +9,7 @@ Log level:
 - `gradle --debug`, `gradle -d`
 
 Compile sources and tests:
-```
+```shell
 gradle clean compileJava
 gradle clean compileTestJava
 ```

@@ -120,3 +120,9 @@ Update job permissions: `databricks jobs update-permissions 122862247468184 --js
 List catalogs: `databricks catalogs list`
 List schemas in a catalog: `databricks schemas list my-catalog` 
 List tables in a schema: `databricks table list my-catalog my-schema`
+
+### Volumes
+List volumes: `databricks volumes list schema1 catalog1`
+Show details: `databricks volumes read shema1.catalog1.volume1`
+Create a volume: `databricks volumes create schema1 catalog1 volume1 MANAGED`
+List files in a volume: `databricks fs ls dbfs:/Volumes/schema1/catalog1/volume1`
