@@ -44,7 +44,7 @@ Go offline: `mvn dependency:go-offline`
 Debug, verbose: `mvn -X compile`
 
 ## Help plugin
-Generate effective POM: `mvn help:effective-pom`
+Generate effective POM: `mvn help:effective-pom -Doutput=target/effective-pom.xml`
 Generate effective Settings: `mvn help:effective-settings`
 Print lifecycle which includes given phase: `mvn help:describe -Dcmd=install`
 List goals in a plugin: `mvn help:describe -Dplugin=central-publishing -Dfull`

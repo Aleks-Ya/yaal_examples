@@ -1,19 +1,19 @@
 # Change log format by adding new handler
 import logging
-from logging import Logger, Formatter
+from logging import Logger, Formatter, StreamHandler
 
 logging.basicConfig()
 
-root_logger: Logger = logging.getLogger()
-root_logger.setLevel(logging.DEBUG)
+log: Logger = logging.getLogger()
+log.setLevel(logging.DEBUG)
 
 formatter: Formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-console_handler = logging.StreamHandler()
+console_handler: StreamHandler = logging.StreamHandler()
 console_handler.setFormatter(formatter)
 
-root_logger.addHandler(console_handler)
-for handler in root_logger.handlers:
-    root_logger.removeHandler(handler)
+log.addHandler(console_handler)
+for handler in log.handlers:
+    log.removeHandler(handler)
 
-root_logger.error("You can't see me")
-root_logger.debug("Debug message")
+log.error("You can't see me")
+log.debug("Debug message")
