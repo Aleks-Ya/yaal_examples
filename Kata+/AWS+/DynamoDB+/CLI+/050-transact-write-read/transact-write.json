@@ -1,0 +1,20 @@
+[
+  {
+    "Put": {
+      "TableName": "kata-table-transact-write-read",
+      "Item": {
+        "id": {"S": "user1"},
+        "amount": {"N": "100"}
+      }
+    }
+  },
+  {
+    "Put": {
+      "TableName": "kata-table-transact-write-read",
+      "Item": {
+        "id": {"S": "user2"},
+        "amount": {"N": "200"}
+      }
+    }
+  }
+]

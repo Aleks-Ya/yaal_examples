@@ -1,5 +1,5 @@
 {
-    "batch-operations-table-1": [
+    "table1": [
         {
             "DeleteRequest": {
                 "Key": {

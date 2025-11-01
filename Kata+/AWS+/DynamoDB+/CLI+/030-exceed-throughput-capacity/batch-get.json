@@ -1,0 +1,11 @@
+{
+    "kata-table-exceed-throughput-capacity": {
+        "Keys": [
+            {"id": { "S": "1" }},
+            {"id": { "S": "2" }},
+            {"id": { "S": "3" }},
+            {"id": { "S": "4" }},
+            {"id": { "S": "5" }}
+        ]
+    }
+}

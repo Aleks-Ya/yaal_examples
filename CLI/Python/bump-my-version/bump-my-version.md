@@ -14,3 +14,7 @@ Show full current configuration: `bump-my-version show`
 Show the next version: `bump-my-version show-bump`
 
 Increment minor version: `bump-my-version bump minor`
+
+## Git tag
+Bump version with creating a Git tag: `bump-my-version bump minor --tag`
+Bump version without creating a Git tag: `bump-my-version bump minor --no-tag`

@@ -53,4 +53,4 @@ Create two Local Secondary Indices with sorting by different attributes.
 1. Delete table `table-1`
 
 ## History
-1. 2024-01-08
+- 2024-01-08 success

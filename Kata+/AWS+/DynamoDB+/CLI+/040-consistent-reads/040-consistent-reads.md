@@ -1,4 +1,4 @@
-# 080-consistent-reads
+# 040-consistent-reads
 
 ## Task
 Demonstrate Eventually and Stringly consistent reads.
@@ -59,4 +59,4 @@ Demonstrate Eventually and Stringly consistent reads.
 1. Delete table: `aws dynamodb delete-table --table-name consistent-reads-table-1`
 
 ## History
-1. 2024-01-10
+- 2024-01-10 success

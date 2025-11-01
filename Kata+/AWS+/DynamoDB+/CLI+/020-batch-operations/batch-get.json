@@ -1,0 +1,14 @@
+{
+    "kata-table-batch-operations-1": {
+        "Keys": [
+            {"id": { "S": "1" }},
+            {"id": { "S": "2" }}
+        ]
+    },
+    "kata-table-batch-operations-2": {
+        "Keys": [
+            {"city": { "S": "London" }},
+            {"city": { "S": "Berlin" }}
+        ]
+    }
+}

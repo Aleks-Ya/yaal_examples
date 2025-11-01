@@ -1,0 +1,60 @@
+{
+    "kata-table-batch-operations-1": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "id": {"S": "1"},
+                    "name": {"S": "Item 1"},
+                    "category": {"S": "Books"},
+                    "price": {"N": "19.99"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "id": {"S": "2"},
+                    "name": {"S": "Item 2"},
+                    "category": {"S": "Electronics"},
+                    "price": {"N": "299.99"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "id": {"S": "3"},
+                    "name": {"S": "Item 3"},
+                    "category": {"S": "Electronics"},
+                    "price": {"N": "599.99"}
+                }
+            }
+        }
+    ],
+    "kata-table-batch-operations-2": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "city": {"S": "London"},
+                    "population": {"N": "1000"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "city": {"S": "Berlin"},
+                    "population": {"N": "2000"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "city": {"S": "Paris"},
+                    "population": {"N": "3000"}
+                }
+            }
+        }
+    ]
+}

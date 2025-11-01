@@ -1,0 +1,18 @@
+[
+  {
+    "Get": {
+      "TableName": "kata-table-transact-write-read",
+      "Key": {
+        "id": { "S": "user1" }
+      }
+    }
+  },
+  {
+    "Get": {
+      "TableName": "kata-table-transact-write-read",
+      "Key": {
+        "id": { "S": "user2" }
+      }
+    }
+  }
+]

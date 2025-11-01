@@ -27,4 +27,4 @@ Use a Global Secondary Index (GSI) for improving requests.
 1. Delete table `global-index-table-1`
 
 ## History
-1. 2024-01-10
+- 2024-01-10 success
