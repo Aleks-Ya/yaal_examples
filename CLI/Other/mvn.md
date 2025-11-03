@@ -2,7 +2,8 @@
 
 ## Info
 Help: `mvn -h`
-Version: `mvn -v`
+Version, home dir, Java version: `mvn -v`
+Debug log level: `mvn -X`
 
 ## Dependencies
 Print the dependency tree to a file: `mvn dependency:tree -DoutputFile=target/tree.txt`
