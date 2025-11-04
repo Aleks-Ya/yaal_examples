@@ -7,7 +7,7 @@ Create an ontology in an OBO file:
 	2. `ComputerScienceCourse` (extends `Course`)
 	3. `BiologyCourse` (extends `Course`)
 
-## Setup
+## Steps
 Use Protege OWL editor
 1. Create new ontology:
 	1. Ontology IRI: `http://www.kata.org/ontologies/courses.obo`

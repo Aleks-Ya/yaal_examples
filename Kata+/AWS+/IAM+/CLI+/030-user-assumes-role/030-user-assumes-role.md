@@ -11,7 +11,7 @@ Description:
 5. Role `kata-role-user-assumes-role` has read access to bucket `kata-bucket-user-assumes-role` (declared in the bucket policy `bucket-policy.json`)
 6. User `kata-user-user-assumes-role` assumes role `kata-role-user-assumes-role` and get access to bucket `kata-bucket-user-assumes-role`
 
-## Setup
+## Steps
 1. Create a user
 	1. Create a user: `aws iam create-user --user-name kata-user-user-assumes-role`
 	2. Create an access key: `aws iam create-access-key --user-name kata-user-user-assumes-role`

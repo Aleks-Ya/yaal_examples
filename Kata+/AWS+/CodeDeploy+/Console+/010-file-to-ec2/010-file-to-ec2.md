@@ -5,7 +5,7 @@
 Status: success
 Deploy a HTML file to an EC2 Instance.
 
-## Setup
+## Steps
 1. Create a EC2 instance
 	1. Create Instance Profile
 		1. Trusted entity type: `AWS service`

@@ -4,7 +4,7 @@
 Status: success
 Run a web-server as an ECS Service on Fargate.
 
-## Setup
+## Steps
 1. Create a Cluster
 	1. Cluster name: `kata-cluster-run-service-on-fargate`
 	2. Infrastructure:

@@ -7,7 +7,7 @@ Use path pattern in a Listener rule of an Application Load Balancer (ALB)
 	2. 202 status on `/accept/request`
 	3. 501 status on other paths
 
-## Setup
+## Steps
 1. Create a Security Group
 	1. Security group name: `kata-sg-alb-path-pattern-rule`
 	2. Description: `Allow all traffic`

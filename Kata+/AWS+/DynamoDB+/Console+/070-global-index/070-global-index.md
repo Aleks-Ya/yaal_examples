@@ -3,7 +3,7 @@
 ## Task
 Use a Global Secondary Index (GSI) for improving requests.
 
-## Setup
+## Steps
 1. Create a table
     1. Table name: `global-index-table-1`
     2. Partition key: `country`, String

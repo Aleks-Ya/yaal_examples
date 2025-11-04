@@ -3,7 +3,7 @@
 ## Task
 Create two Local Secondary Indices with sorting by different attributes.
 
-## Setup
+## Steps
 1. Create a table
     1. Table name: `table-1`
     2. Partition key: `id`, String

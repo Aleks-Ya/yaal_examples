@@ -4,7 +4,7 @@
 Status: ?
 Use CloudFormation to create an EC2 Instance running an httpd server with the Infrastructure Composer.
 
-## Setup
+## Steps
 1. "Create stack" -> "With new resources (standard)"
 2. Prepare template: `Build from Infrastructure Composer`
 	1. `Create a template in Infrastructure Composer`

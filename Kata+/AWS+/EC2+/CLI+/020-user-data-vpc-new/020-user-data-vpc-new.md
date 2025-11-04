@@ -4,7 +4,7 @@
 Management interface: AWS CLI
 Create an EC2 instance (in a new VPC) with a web-server which should start automatically.
 
-## Setup
+## Steps
 1. Create a VPC
     1. Create:
     ```shell 

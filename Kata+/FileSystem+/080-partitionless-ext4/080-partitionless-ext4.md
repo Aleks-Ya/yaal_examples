@@ -3,7 +3,7 @@
 ## Task
 Create an `ext4` File System on a disk without a Partition Table.
 
-## Setup
+## Steps
 1. Set environment variables
 ```shell
 set -x

@@ -5,7 +5,7 @@ Status: ?
 Use CloudFormation to create an S3 Bucket with the Infrastructure Composer.
 Bucket name should be defined as a Template Parameter.
 
-## Setup
+## Steps
 1. Create stack
 	1. Prepare template: `Choose an existing template`
 	2. Template source: `Upload a template file`

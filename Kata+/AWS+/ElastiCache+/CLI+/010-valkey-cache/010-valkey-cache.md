@@ -3,7 +3,7 @@
 ## Task
 Create a serverless Valkey cache. Put and a key from AWS CLI.
 
-## Setup
+## Steps
 1. Set environment variables
    ```shell
    set -x

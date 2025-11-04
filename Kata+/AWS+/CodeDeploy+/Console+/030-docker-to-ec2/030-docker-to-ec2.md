@@ -5,7 +5,7 @@
 Status: success
 Deploy Docker container with Caddy server in an EC2 Instance.
 
-## Setup
+## Steps
 1. Create a EC2 instance
 	1. Create Instance Profile
 		1. Trusted entity type: `AWS service`

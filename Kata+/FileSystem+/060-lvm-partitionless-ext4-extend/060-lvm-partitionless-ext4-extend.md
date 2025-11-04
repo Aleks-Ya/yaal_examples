@@ -3,7 +3,7 @@
 ## Task
 Extend the size of a Logical Volume (LVM).
 
-## Setup
+## Steps
 1. Set environment variables
 ```shell
 set -x

@@ -4,7 +4,7 @@
 Status: success
 Connect to an EC2 instance by SessionManager in the default VPC.
 
-## Setup
+## Steps
 1. Create an Execution Role
 	1. Trusted entity type: `AWS service`
 	2. Service or use case: `EC2`

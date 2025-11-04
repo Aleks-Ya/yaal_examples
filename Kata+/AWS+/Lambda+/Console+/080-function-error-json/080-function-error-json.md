@@ -4,7 +4,7 @@
 Status: ?
 Create a function that fails and return an error as a JSON object (sync invocation).
 
-## Setup
+## Steps
 1. Create a function:
 	1. Template: `Author from scratch`
 	2. Function name: `kata-f-error-json-function`

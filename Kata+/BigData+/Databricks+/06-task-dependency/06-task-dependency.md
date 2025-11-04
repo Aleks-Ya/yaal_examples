@@ -7,7 +7,7 @@ Create a Task dependent on another Task.
 1. A Workspace is created.
 2. Instance pool `pool-1` exists.
 
-## Setup
+## Steps
 1. Test Python script: `python3 task.py 9 3`
 2. Upload Python scripts:
 	1. Create a temp dir: `databricks fs mkdirs dbfs:/tmp/06-task-dependency`

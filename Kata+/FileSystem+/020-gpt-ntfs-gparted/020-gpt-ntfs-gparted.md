@@ -3,7 +3,7 @@
 ## Task
 Create a File System with a NTFS Partition.
 
-## Setup
+## Steps
 1. Create a virtual file system
 	1. Allocate a backing file: `fallocate -l 100M /tmp/gpt-ntfs-gparted.img`
 	2. Associate the file with a Loop Device: `sudo losetup --find --show /tmp/gpt-ntfs-gparted.img`

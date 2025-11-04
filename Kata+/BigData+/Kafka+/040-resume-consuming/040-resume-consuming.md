@@ -3,7 +3,7 @@
 ## Task
 Stop a consumer and resume it from the same offset.
 
-## Setup
+## Steps
 1. Start a cluster: `BigData+/Kafka+/KafkaDocker+/official/OfficialKafkaImage.md`
 2. Configure Kafka CLI: `CLI/Kafka/KafkaCLI/KafkaCLI.md`
 3. Create a topic: `kafka-topics --create --topic topic1`

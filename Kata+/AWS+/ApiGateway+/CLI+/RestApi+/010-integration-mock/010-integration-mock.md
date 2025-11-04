@@ -4,7 +4,7 @@
 Status: success
 Create a REST API with a Mock integration.
 
-## Setup
+## Steps
 1. Set environment variables
 ```shell
 export API_NAME=kata-api-integration-mock

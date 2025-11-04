@@ -3,7 +3,7 @@
 ## Task
 Overload table read and write throughput capacity (write and read operations consume ≥1 WCU/RCU).
 
-## Setup
+## Steps
 1. Change current dir
 2. Set environment variables
     ```shell

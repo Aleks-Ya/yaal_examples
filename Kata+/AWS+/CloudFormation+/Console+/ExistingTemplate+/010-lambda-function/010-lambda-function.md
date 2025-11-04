@@ -4,7 +4,7 @@
 Status: ?
 Use CloudFormation to create a Lambda function by importing a Template in the Management Console.
 
-## Setup
+## Steps
 1. Change the current dir
 2. Create a Deployment Package: `zip deployment-package.zip handler.py`
 2. Create an Execution Role: 

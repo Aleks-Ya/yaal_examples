@@ -6,7 +6,7 @@ Use built-in `display()` function in a Scala Notebook to show a DataFrame in tab
 ## Prerequsites
 1. A Workspace is created.
 
-## Setup
+## Steps
 1. Create a Notebook:
 	2. Command:
 	```scala

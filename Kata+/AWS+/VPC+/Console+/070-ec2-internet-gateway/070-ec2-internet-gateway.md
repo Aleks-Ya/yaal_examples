@@ -6,7 +6,7 @@ NOT FINISHED!!!
 Create an EC2 Instance with a web-server in a private subnet. 
 Make the web-server reachible from the Internet using an Internet Gateway.
 
-## Setup
+## Steps
 1. Create a VPC
     1. Resources to create: `VPC only`
     2. Name: `kata-vpc-ec2-internet-gateway`

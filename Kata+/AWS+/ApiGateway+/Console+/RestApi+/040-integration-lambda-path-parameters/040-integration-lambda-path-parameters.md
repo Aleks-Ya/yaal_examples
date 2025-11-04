@@ -4,7 +4,7 @@
 Status: ?
 Create a **REST** API that invokes a Lambda function which accepts **path** parameters.
 
-## Setup
+## Steps
 1. Create a Lambda function
     1. Type: `Author from scratch`
     2. Function name: `kata-path-parameters-rest-api-function`

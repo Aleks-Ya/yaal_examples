@@ -4,7 +4,7 @@
 Status: ?
 Extract path parameters from HTTP request query string within a Lambda Function.
 
-## Setup
+## Steps
 1. Create a function:
     1. Template: `Author from scratch`
     2. Function name: `kata-parth-parameters-function`

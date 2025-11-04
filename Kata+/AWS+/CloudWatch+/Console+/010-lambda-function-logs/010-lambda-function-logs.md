@@ -4,7 +4,7 @@
 Status: success
 Display logs produced by a Lambda Function.
 
-## Setup
+## Steps
 1. Create a Lambda Function
 	1. Type: `Author from scratch`
 	2. Function name: `kata-f-lambda-function-logs`

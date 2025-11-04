@@ -3,7 +3,7 @@
 ## Task
 Create a GPT Partition Table with an `ext4` File System.
 
-## Setup
+## Steps
 1. Set environment variables
 ```shell
 set -x

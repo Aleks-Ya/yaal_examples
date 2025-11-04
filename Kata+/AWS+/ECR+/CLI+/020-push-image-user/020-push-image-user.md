@@ -4,7 +4,7 @@
 Status: success
 Push an Image to a ECR Repository as an IAM User.
 
-## Setup
+## Steps
 1. Open 2 terminals: for Root User and for IAM User
 2. Set environment variables (both termnals)
 ```shell

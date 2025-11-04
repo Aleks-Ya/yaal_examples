@@ -3,7 +3,7 @@
 ## Task
 Create an EC2 instance with a web-server. Make the server available from the Internet.
 
-## Setup
+## Steps
 1. Create a VPC
     1. Resources to create: `VPC and more`
     2. Auto-generate: true, `project`

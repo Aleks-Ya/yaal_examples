@@ -3,7 +3,7 @@
 ## Task
 Generate a key pair and encrypt/decript a message with it.
 
-## Setup
+## Steps
 1. Create an empty dir: `mkdir /tmp/kata-010-generate-key-pair && cd /tmp/kata-010-generate-key-pair`
 2. Generate a private key: 
 	1. Generate: `openssl genrsa -out private.pem`

@@ -3,7 +3,7 @@
 ## Task
 Generate a public key and publish it to a public Key Server.
 
-## Setup
+## Steps
 1. Generate keys: `gpg --gen-key`
 	1. Real name: `kata-publish-key-to-keyserver`
 	2. Email address: `kata-publish-key-to-keyserver@email.com`

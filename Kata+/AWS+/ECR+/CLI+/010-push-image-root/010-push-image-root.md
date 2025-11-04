@@ -4,7 +4,7 @@
 Status: success
 Push an Image to a ECR $NAMESPACE as the Root User.
 
-## Setup
+## Steps
 1. Set environment variables
 ```shell
 export REGISTRY=523633434047.dkr.ecr.us-east-1.amazonaws.com

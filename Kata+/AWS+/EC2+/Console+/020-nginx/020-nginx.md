@@ -3,7 +3,7 @@
 ## Task
 Create a EC2 instance with NGinx server available from the Internet.
 
-## Setup
+## Steps
 1. Create a Security Group
 	1. Name: `kata-sg-nginx`
 	2. Description: `NGinx`

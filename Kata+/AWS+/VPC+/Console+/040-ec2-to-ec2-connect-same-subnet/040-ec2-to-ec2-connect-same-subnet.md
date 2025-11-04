@@ -6,7 +6,7 @@ Create the 1st EC2 instance with server and the 2nd EC2 instance with client.
 Connect both EC2 instances to the subnet.
 Send an HTTP request from the client to the server.
 
-## Setup
+## Steps
 1. Create a VPC
 	1. Resources to create: `VPC only`
 	2. Name: `vpc-1`

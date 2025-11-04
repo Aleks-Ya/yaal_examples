@@ -4,7 +4,7 @@
 Create a cluster that can accommodate only one task.
 Create 2 tasks: the 1st has enough capacity to start, the 2nd doesn't. 
 
-## Setup
+## Steps
 1. Create a Cluster
 	1. Cluster name: `kata-cluster-task-exceeds-cluster-capacity`
 	2. Infrastructure: only `AWS Fargate` marked

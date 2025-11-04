@@ -3,7 +3,7 @@
 ## Task
 Create a Build Project which builds an ECR Docker Image.
 
-## Setup
+## Steps
 1. Change current dir
 2. Set env vars
 	```shell

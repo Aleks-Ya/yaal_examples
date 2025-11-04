@@ -3,7 +3,7 @@
 ## Task
 Run the Hello-World Docker container on Fargate.
 
-## Setup
+## Steps
 1. Create a Cluster
 	1. Cluster name: `kata-cluster-run-task-on-fargate`
 	2. Infrastructure:

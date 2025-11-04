@@ -6,7 +6,7 @@ Using AWS CLI: upload file `picture.png` to new S3 bucket and download it to fil
 ## Dependencies
 Configure AWS CLI without permissions: `Kata+/AWS+/CLI+/001-configure-aws-cli-without-permissions/001-configure-aws-cli-without-permissions.md`
 
-## Setup
+## Steps
 1. AWS Console
 	1. Add `AmazonS3FullAccess` policy to user `cli`
 2. Terminal

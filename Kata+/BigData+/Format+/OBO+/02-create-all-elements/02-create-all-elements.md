@@ -17,7 +17,7 @@ Create all possible elements in an OBO file:
 4. Datatype
 
 
-## Setup
+## Steps
 Use Protege OWL editor
 1. Create new ontology:
 	1. Ontology IRI: `http://www.kata.org/ontologies/courses.obo`

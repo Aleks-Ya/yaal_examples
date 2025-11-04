@@ -3,7 +3,7 @@
 ## Task
 Create a Databricks Workspace using Databricks UI.
 
-## Setup
+## Steps
 1. Open https://accounts.cloud.databricks.com/workspaces
 2. Create workspace
 	1. How would you like to create your workspace: `Quickstart`

@@ -6,7 +6,7 @@ Use job parameters and task parameters.
 ## Prerequsites
 1. A Workspace is created.
 
-## Setup
+## Steps
 1. Create an All-purpose compute
 	1. Name: `Alex Ya's Cluster`
 	2. Nodes: `Single node`

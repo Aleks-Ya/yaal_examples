@@ -3,7 +3,7 @@
 ## Task
 Create a StateMachine that publishes a message to an SNS topic.
 
-## Setup
+## Steps
 1. Create Queue
 	1. Type: `Standard`
 	2. Name: `kata-sns-publish-activity-queue`

@@ -6,7 +6,7 @@
 3. There is a user `FunctionUser` who can assume `S3Role`
 4. To list buckets, `FunctionUser` assigns `S3Role` to `buckets-function` during creation because `FunctionUser` can pass the role
 
-## Setup
+## Steps
 1. Create `FunctionUser`:
 	1. Create policy for managing the function: `aws iam create-policy --policy-name UserPolicy --policy-document file://user-policy.json`
 	2. Create a user: `aws iam create-user --user-name FunctionUser`

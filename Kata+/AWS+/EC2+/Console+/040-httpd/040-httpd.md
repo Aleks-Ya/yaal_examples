@@ -3,7 +3,7 @@
 ## Task
 Create a EC2 instance with httpd server available from the Internet.
 
-## Setup
+## Steps
 1. Create an EC2 instance
     1. Name: `kata-i-httpd`
     2. Key pair name: `Proceed without a keypair`

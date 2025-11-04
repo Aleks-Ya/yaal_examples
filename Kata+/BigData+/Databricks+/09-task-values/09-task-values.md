@@ -7,7 +7,7 @@ Exchange variables between Tasks using Task Values.
 1. A Workspace is created.
 2. All-purpose Cluster `cluster-1` exists.
 
-## Setup
+## Steps
 1. Test Python script: `python3 divide.py 9 3`
 2. Upload Python scripts:
 	1. Create a temp dir: `databricks fs mkdirs dbfs:/tmp/09-task-values`

@@ -4,7 +4,7 @@
 Status: success
 Create a REST API with two Stages pointing to different versions of a Mock integration.
 
-## Setup
+## Steps
 1. Create a REST API
 	1. Build a REST API
     	1. Type: `New API`

@@ -4,7 +4,7 @@
 Status: success
 Connect to an EC2 instance in a public subnet by SessionManager from the Management Console.
 
-## Setup
+## Steps
 1. Create a VPC
 	1. Resources to create: `VPC only`
 	2. Name: `kata-vpc-session-public`

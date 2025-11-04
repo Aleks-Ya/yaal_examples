@@ -3,7 +3,7 @@
 ## Task
 Use batch write, get, and delete operations against two DynamoDB tables.
 
-## Setup
+## Steps
 1. Change current dir
 2. Set environment variables
     ```shell

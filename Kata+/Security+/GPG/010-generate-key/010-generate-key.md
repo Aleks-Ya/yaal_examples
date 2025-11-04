@@ -3,7 +3,7 @@
 ## Task
 Generate a GPG key and encrypt a text with it.
 
-## Setup
+## Steps
 1. Generate keys: `gpg --gen-key`
 	1. Real name: `John`
 	2. Email address:: `john@email.com`

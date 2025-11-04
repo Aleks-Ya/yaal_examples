@@ -3,7 +3,7 @@
 ## Task
 Run Hello World example in Spark Shell.
 
-## Setup
+## Steps
 1. Download Spark binaries from https://spark.apache.org/downloads.html
 2. Unpack `spark-3.5.0-bin-hadoop3.tgz` to `~/installed` directory.
 3. Change current directory to `~/installed/spark-3.5.0-bin-hadoop3/bin`

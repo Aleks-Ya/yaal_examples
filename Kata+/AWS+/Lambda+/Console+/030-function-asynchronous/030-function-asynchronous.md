@@ -4,7 +4,7 @@
 Status: ?
 Execute a Lambda Function asynchronously.
 
-## Setup
+## Steps
 1. Create a Queue
     1. Type: `Standard`
     2. Name: `queue-1`

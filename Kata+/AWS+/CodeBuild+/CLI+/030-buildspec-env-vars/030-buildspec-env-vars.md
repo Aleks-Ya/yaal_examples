@@ -3,7 +3,7 @@
 ## Task
 Use environment variables in Build Spec.
 
-## Setup
+## Steps
 1. Change current dir
 2. Set env vars
 	```shell

@@ -3,7 +3,7 @@
 ## Task
 Run the Hello-World Docker container on an EC2 instance.
 
-## Setup
+## Steps
 1. Create a Cluster
 	1. Cluster name: `kata-cluster-run-task-on-ec2-instance`
 	2. Infrastructure: only `AWS Fargate` marked

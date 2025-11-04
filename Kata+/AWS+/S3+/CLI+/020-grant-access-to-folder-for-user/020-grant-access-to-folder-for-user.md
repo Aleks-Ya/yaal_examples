@@ -3,7 +3,7 @@
 ## Task
 Grant read-write access to a folder in a bucket for a user.
 
-## Setup
+## Steps
 1. Create user
 	1. Create a user: `aws iam create-user --user-name user1`
 	2. Create an access key for the user: `aws iam create-access-key --user-name user1`

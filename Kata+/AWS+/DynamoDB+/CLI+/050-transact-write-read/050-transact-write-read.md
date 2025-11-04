@@ -3,7 +3,7 @@
 ## Task
 Perform transactional write on a DynamoDB table. 
 
-## Setup
+## Steps
 1. Change current dir
 2. Set environment variables
     ```shell

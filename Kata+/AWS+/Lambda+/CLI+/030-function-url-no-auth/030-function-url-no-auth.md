@@ -4,7 +4,7 @@
 Status: ?
 Invoke a function through its Function URL without authentication.
 
-## Setup
+## Steps
 1. Change the current directory
 2. Create an Execution Role: `aws iam create-role --role-name ExecutionRole1 --assume-role-policy-document file://trust-policy.json`
 3. Pack the handler: `zip deployment-package.zip handler.py`

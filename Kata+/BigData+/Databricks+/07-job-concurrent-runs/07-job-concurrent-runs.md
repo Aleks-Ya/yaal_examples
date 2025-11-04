@@ -7,7 +7,7 @@ Execute Tasks of a Job concurrently.
 1. A Workspace is created.
 2. Instance pool `pool-1` exists.
 
-## Setup
+## Steps
 1. Test Python script: `python3 sleep.py 3`
 2. Upload Python scripts:
 	1. Create a temp dir: `databricks fs mkdirs dbfs:/tmp/07-job-concurrent-runs`

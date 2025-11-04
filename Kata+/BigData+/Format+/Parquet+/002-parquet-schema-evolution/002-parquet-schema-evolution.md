@@ -12,4 +12,4 @@ Mary	25	false	0.90
 3. Convert type `age` column to Double
 4. Add column `City` with default value `London`
 
-## Setup
+## Steps

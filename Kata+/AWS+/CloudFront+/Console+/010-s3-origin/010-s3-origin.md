@@ -4,7 +4,7 @@
 Status: ?
 Setup CloudFront Destination with S3 Bucket Origin (with AWS Management Console).
 
-## Setup
+## Steps
 1. Create an S3 Bucket:
     1. Create bucket:
         1. AWS Region: `us-east-1`

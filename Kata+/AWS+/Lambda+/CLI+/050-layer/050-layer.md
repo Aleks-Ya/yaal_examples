@@ -4,7 +4,7 @@
 Status: ?
 Create a Lambda Function that uses code from a Layer.
 
-## Setup
+## Steps
 1. Change directory
 2. Create a Layer
 	1. Pack ZIP: `cd text-layer; zip -r ../text-layer.zip *; cd ..`

@@ -4,7 +4,7 @@
 Status: ?
 Create a hello-world function using AWS Console.
 
-## Setup
+## Steps
 1. Create a function:
 	1. Template: `Author from scratch`
 	2. Function name: `kata-f-create-function`

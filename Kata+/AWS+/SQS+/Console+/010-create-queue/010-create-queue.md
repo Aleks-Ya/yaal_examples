@@ -4,7 +4,7 @@
 Status: success
 Create a Queue, produce and consume message from it.
 
-## Setup
+## Steps
 1. Create a Queue
 	1. Type: `Standard`
 	2. Name: `kata-q-create-queue`

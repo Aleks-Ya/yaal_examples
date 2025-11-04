@@ -3,7 +3,7 @@
 ## Task
 Publish a static web-site from an S3 bucket and make it available from the Internet.
 
-## Setup
+## Steps
 1. Change the current directory
 2. Create S3 bucket: `aws s3 mb s3://tmp-kata-static-web-site`
 3. Upload `index.html` to the bucket: `aws s3 cp index.html s3://tmp-kata-static-web-site`

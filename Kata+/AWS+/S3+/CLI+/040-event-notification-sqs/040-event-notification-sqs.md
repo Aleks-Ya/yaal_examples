@@ -3,7 +3,7 @@
 ## Task
 Create an Event Notification on an S3 Bucket that sends notifications to an SQS Queue.
 
-## Setup
+## Steps
 1. Change the current dir
 2. Create queue
 	1. Create queue: `aws sqs create-queue --queue-name queue1`

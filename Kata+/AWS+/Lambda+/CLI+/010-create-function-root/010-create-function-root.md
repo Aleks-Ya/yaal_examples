@@ -4,7 +4,7 @@
 Status: success
 Create a hello-world function using AWS CLI as the Root User.
 
-## Setup
+## Steps
 1. Change the current directory
 2. Set environment variables
 ```shell

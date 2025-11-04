@@ -4,7 +4,7 @@
 Status: not finished
 Create an EC2 Instance with installed SSM Agent in a public subnet.
 
-## Setup
+## Steps
 1. Create a VPC
 	1. Resources to create: `VPC only`
 	2. Name: `kata-vpc-connect-ssm-agent-public`

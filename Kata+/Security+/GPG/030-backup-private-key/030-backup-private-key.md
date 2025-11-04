@@ -3,7 +3,7 @@
 ## Task
 Export a private key and restore it back.
 
-## Setup
+## Steps
 1. Generate keys: `gpg --gen-key`
 	1. Real name: `kata-backup-private-key`
 	2. Email address: `kata-backup-private-key@email.com`

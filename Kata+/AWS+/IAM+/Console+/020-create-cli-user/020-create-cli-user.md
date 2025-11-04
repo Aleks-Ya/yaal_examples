@@ -6,7 +6,7 @@ See `Kata+/AWS+/CLI+/01-configure-aws-cli-without-permissions/01-configure-aws-c
 Status: ?
 Create an IAM user and authenticate AWS CLI with it.
 
-## Setup
+## Steps
 1. Create an IAM user
 	1. Login to AWS Console as the Root User
 	2. Create an IAM user:

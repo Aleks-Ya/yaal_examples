@@ -3,7 +3,7 @@
 ## Task
 Create a Build Project which prints "Hello World".
 
-## Setup
+## Steps
 1. Create Service Role
 	1. Create Role: `aws iam create-role --role-name kata-role-echo-hello-world --assume-role-policy-document file://trust-policy.json`
 	2. Create a Policy: 

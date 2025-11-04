@@ -10,7 +10,7 @@ Connect to an EC2 instance in a private subnet by SessionManager from the Manage
       https://repost.aws/knowledge-center/ec2-systems-manager-vpc-endpoints
       https://repost.aws/knowledge-center/systems-manager-ec2-instance-not-appear
 
-## Setup
+## Steps
 1. Create a VPC
 	1. Create:
 		1. Resources to create: `VPC only`

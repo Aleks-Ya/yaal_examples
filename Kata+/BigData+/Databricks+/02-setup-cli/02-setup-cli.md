@@ -6,7 +6,7 @@ Configure Databricks CLI to access to a Workspace.
 ## Prerequsites
 1. A Workspace is created.
 
-## Setup
+## Steps
 1. Create a token
 	1. Choose "User Settings" -> "User" -> "Developer"
 	2. Choose "Access tokens" -> "Manage"

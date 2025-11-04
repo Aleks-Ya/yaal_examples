@@ -4,7 +4,7 @@
 Status: ?
 Create a CloudFront Distribution with a Lambda function origin.
 
-## Setup
+## Steps
 1. Create a Lambda Function
     1. Type: `Author from scratch`
     2. Name: `function-1`

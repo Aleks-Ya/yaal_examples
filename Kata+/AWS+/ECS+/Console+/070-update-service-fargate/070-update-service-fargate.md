@@ -4,7 +4,7 @@
 Status: success
 Update a Service with a new revision of a Task.
 
-## Setup
+## Steps
 1. Cluster name: `kata-cluster-update-service-fargate`
 	2. Infrastructure:
 		1. Select a method of obtaining compute capacity: `Fargate only`

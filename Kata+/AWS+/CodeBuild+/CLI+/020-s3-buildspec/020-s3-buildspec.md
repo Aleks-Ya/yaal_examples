@@ -3,7 +3,7 @@
 ## Task
 Create a Build Project from a BuildSpec located in S3 bucket.
 
-## Setup
+## Steps
 1. Create an S3 Bucket
 	1. Create Bucket: `aws s3 mb s3://kata-bucket-s3-buildspec`
 	2. Upload file: `aws s3 cp buildspec.yml s3://kata-bucket-s3-buildspec/`

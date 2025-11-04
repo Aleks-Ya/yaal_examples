@@ -4,7 +4,7 @@
 Status: unfinished
 Deploy Caddy server as a ECS Service on Fargate.
 
-## Setup
+## Steps
 1. Configure ECS
 	1. Create an ECS Cluster
 		1. Cluster name: `kata-cluster-caddy-to-fargate`

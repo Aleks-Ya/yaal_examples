@@ -4,7 +4,7 @@
 Status: ?
 Setup CloudFront Destination with S3 Bucket Origin (with AWS CLI).
 
-## Setup
+## Steps
 1. Change the current directory
 2. Create an S3 Bucket:
     1. Create bucket: `aws s3 mb s3://tmp-kata-s3-origin`

@@ -4,7 +4,7 @@
 Status: ?
 Create an CloudWatch alarm that raises if ≥80% of EC2 instance RAM is busy.
 
-## Setup
+## Steps
 1. Launch EC2 instance
     1. Name: `kata-i-ec2-instance-alarm`
     2. OS: `Amazon Linux`

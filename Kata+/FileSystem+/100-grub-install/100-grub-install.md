@@ -3,7 +3,7 @@
 ## Task
 Install GRUB on a Disk.
 
-## Setup
+## Steps
 1. Set environment variables
 ```shell
 set -x

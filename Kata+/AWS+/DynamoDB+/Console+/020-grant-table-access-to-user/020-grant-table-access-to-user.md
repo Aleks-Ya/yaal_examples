@@ -3,7 +3,7 @@
 ## Task
 Create a table under the Root User and grant full access to the table for an IAM user.
 
-## Setup
+## Steps
 1. Create Table1 (visible to the user)
     1. Choose `us-east-1` region
     2. Table name: `kata-table-grant-table-access-to-user-visible`

@@ -4,7 +4,7 @@
 Status: ?
 Create an **HTTP** API that invokes a Lambda function which accepts **query** parameters.
 
-## Setup
+## Steps
 1. Create a Lambda function
     1. Type: `Author from scratch`
     2. Function name: `kata-f-integration-lambda-query-parameters`

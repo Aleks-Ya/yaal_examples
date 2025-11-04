@@ -4,7 +4,7 @@
 
 Create a Kinesis Data Stream. Produce a Record to it. Consume the Record.
 
-## Setup
+## Steps
 
 1. Create a Data Stream
     1. Data stream name: `ds1`

@@ -3,7 +3,7 @@
 ## Task
 Encrypt and decrypt data using a Data Key.
 
-## Setup
+## Steps
 1. Create a Key
 	1. Key type: `Symmetric`
 	2. Key usage: `Encrypt and decrypt`

@@ -3,7 +3,7 @@
 ## Task
 Use LeadingKeys condition to grant access to items having key equal to the User ID.
 
-## Setup
+## Steps
 1. Create a table
     1. Table name: `kata-table-leading-keys`
     2. Partition key: `id`, String

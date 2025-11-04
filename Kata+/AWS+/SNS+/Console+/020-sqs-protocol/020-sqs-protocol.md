@@ -4,7 +4,7 @@
 Status: success
 Create a Topic that delivers messages to an SQS queue.
 
-## Setup
+## Steps
 1. Create Queue
 	1. Type: `Standard`
 	2. Name: `kata-q-sqs-protocol`

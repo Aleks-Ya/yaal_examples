@@ -3,7 +3,7 @@
 ## Task
 Get an Access Token by the "Implicit Grant" flow.
 
-## Setup
+## Steps
 1. Prepare Keycloak Admin CLI:
      1. Run Keycloak: `docker run --name=keycloak --rm --network host -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak start-dev`
      2. Get access to `kcadm.sh`: `docker exec -it -e PATH=$PATH:/opt/keycloak/bin/ keycloak bash`

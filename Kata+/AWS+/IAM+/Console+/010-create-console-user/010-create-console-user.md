@@ -3,7 +3,7 @@
 ## Task
 Create an IAM user having read access to S3 and login into Console with it.
 
-## Setup
+## Steps
 1. Create a user
 	1. User name: `kata-user-create-console-user`
 	2. Provide user access to the AWS Management Console: `true`

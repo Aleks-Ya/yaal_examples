@@ -3,7 +3,7 @@
 ## Task
 Create a KMS key. Encrypt and decrypt a data using this key.
 
-## Setup
+## Steps
 1. Create a Key
 	1. Key type: `Symmetric`
 	2. Key usage: `Encrypt and decrypt`

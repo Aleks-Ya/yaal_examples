@@ -3,7 +3,7 @@
 ## Task
 Set a custom domain name in the `/etc/hosts` file.
 
-## Setup
+## Steps
 1. Backup: `sudo cp /etc/hosts /etc/hosts.bak`
 2. Choose an IP address:
 	1. Test original domain name: `curl http://httpbin.io/uuid`

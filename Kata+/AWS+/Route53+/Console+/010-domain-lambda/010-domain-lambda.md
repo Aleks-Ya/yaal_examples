@@ -3,7 +3,7 @@
 ## Task
 Create a Domain Name for a Lambda Function.
 
-## Setup
+## Steps
 1. Create a Lambda Function
 	1. Template: `Author from scratch`
 	2. Function name: `kata-domain-lambda-function`

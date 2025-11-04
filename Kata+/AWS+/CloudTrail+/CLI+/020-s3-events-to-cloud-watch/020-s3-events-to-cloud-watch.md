@@ -3,7 +3,7 @@
 ## Description
 Collect events of a S3 Bucket to CloudTrail and then to CloudWatch.
 
-## Setup
+## Steps
 1. Create a S3 Bucket
 	1. Create Bucket: `aws s3 mb s3://s3-trail-bucket-49123`
 	2. Update Bucket Policy: `aws s3api put-bucket-policy --bucket s3-trail-bucket-49123 --policy file://bucket-policy.json`

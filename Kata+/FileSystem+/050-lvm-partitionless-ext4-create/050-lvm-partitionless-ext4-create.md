@@ -3,7 +3,7 @@
 ## Task
 Create a Partition using LVM.
 
-## Setup
+## Steps
 1. Set environment variables
 ```shell
 set -x

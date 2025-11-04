@@ -4,7 +4,7 @@
 Status: ?
 Extract parameters from HTTP request body within a Lambda Function.
 
-## Setup
+## Steps
 1. Create a function:
     1. Template: `Author from scratch`
     2. Function name: `kata-body-parameters-function`

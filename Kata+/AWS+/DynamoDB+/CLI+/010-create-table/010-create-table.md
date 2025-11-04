@@ -3,7 +3,7 @@
 ## Task
 Create a DynamoDB table, put, get, and delete an item.
 
-## Setup
+## Steps
 1. Set environment variables
    ```shell
    set -x

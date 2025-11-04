@@ -3,7 +3,7 @@
 ## Task
 Create a Pipeline that deploys an S3 Static Website from a GitHub repository.
 
-## Setup
+## Steps
 1. Create a GitHub repository
 	1. Create a Repository
 		1. Name: `kata-repo-github-s3-website`

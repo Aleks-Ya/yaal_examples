@@ -4,7 +4,7 @@
 Status: ?
 Create two Python Lambda Functions: produces a message to a Queue and consumes the message.
 
-## Setup
+## Steps
 1. Create a Queue
     1. Type: `Standard`
     2. Name: `kata-q-lambda-producer-consumer`

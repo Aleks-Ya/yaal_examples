@@ -4,7 +4,7 @@
 
 Create an RDS Postgres database and connect to it from CloudShell.
 
-## Setup
+## Steps
 
 1. Create a database
     1. Choose a database creation method: `Easy create`

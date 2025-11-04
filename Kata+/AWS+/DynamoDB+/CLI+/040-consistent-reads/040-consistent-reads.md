@@ -3,7 +3,7 @@
 ## Task
 Demonstrate Eventually and Stringly consistent reads.
 
-## Setup
+## Steps
 1. Create a table
     ```bash
     aws dynamodb create-table \

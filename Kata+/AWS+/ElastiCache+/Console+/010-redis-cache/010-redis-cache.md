@@ -3,7 +3,7 @@
 ## Task
 Create a serverless Redis cache. Put and a key from CloudShell.
 
-## Setup
+## Steps
 1. Create a cache
 	1. Engine: `Redis OSS`
 	2. Deployment option: `Serverless`

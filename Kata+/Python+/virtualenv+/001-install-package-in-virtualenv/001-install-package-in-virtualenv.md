@@ -1,6 +1,6 @@
 # 001-install-package-in-virtualenv
 
-## Setup
+## Steps
 1. Install `virtualenv` package: `pip install virtualenv`
 2. Create new virtual env: `virtualenv venvA`
 3. Activate virtual env: `source venvA/bin/activate`

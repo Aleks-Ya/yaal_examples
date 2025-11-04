@@ -3,7 +3,7 @@
 ## Task
 Refer to an OBO file from another OBO file.
 
-## Setup
+## Steps
 1. Create 1st OBO file:
 	1. Create new ontology:
 		1. Ontology IRI: `http://www.kata.org/ontologies/animals.obo`

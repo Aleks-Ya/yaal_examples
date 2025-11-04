@@ -4,7 +4,7 @@
 Management interface: AWS CLI
 Run Docker container in an EC2 instance. Use default VPC and Security Group.
 
-## Setup
+## Steps
 1. Change current dir
 2. Set env vars
     ```shell

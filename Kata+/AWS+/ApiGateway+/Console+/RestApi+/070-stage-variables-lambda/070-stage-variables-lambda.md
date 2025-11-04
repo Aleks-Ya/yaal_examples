@@ -3,7 +3,7 @@
 ## Task
 Create a REST API with two Stages pointing to different aliases of a Lambd Function.
 
-## Setup
+## Steps
 1. Create a Function
 	1. Create an Execution Role
 		1. Trusted entity type: `AWS service`

@@ -3,7 +3,7 @@
 ## Task
 Create a File System with an ext4 Partition.
 
-## Setup
+## Steps
 1. Create a virtual file system
 	1. Allocate a backing file: `fallocate -l 100M /tmp/gpt-ext4-gparted.img`
 	2. Associate the file with a Loop Device: `sudo losetup --find --show /tmp/gpt-ext4-gparted.img`

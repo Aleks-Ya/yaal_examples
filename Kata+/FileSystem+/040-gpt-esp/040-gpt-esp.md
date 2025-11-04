@@ -3,7 +3,7 @@
 ## Task
 Create an EFI System Partition (ESP).
 
-## Setup
+## Steps
 1. Set environment variables
 ```shell
 set -x

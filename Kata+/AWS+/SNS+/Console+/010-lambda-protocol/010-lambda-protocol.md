@@ -4,7 +4,7 @@
 Status: ?
 Create a Topic that delivers messages to a Lambda Function.
 
-## Setup
+## Steps
 1. Create Function
 	1. Template: `Author from scratch`
 	2. Function name: `kata-f-lambda-protocol`

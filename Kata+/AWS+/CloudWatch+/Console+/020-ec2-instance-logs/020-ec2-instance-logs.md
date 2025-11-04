@@ -4,7 +4,7 @@
 Status: ?
 See logs from EC2 instance in CloudWatch.
 
-## Setup
+## Steps
 1. Launch EC2 instance
     1. Name: `kata-i-ec2-instance-logs`
     2. OS: `Amazon Linux`

@@ -3,7 +3,7 @@
 ## Task
 Create a StateMachine that triggers a Lambda Function.
 
-## Setup
+## Steps
 1. Create Function
 	1. Template: `Author from scratch`
 	2. Function name: `kata-lambda-invoke-activity-function`

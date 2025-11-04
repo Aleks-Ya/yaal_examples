@@ -6,7 +6,7 @@
 3. There is a user `AnalystUser` who can assume `AnalystRole`
 4. To list buckets, `AnalystUser` assumes role `AnalystRole` and then assumes `S3Role`
 
-## Setup
+## Steps
 1. Create `AnalystUser`:
 	1. Create a user: `aws iam create-user --user-name AnalystUser`
 	2. Create an access key: `aws iam create-access-key --user-name AnalystUser`

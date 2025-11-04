@@ -3,7 +3,7 @@
 ## Task
 Create a DynamoDB table, put and get an item.
 
-## Setup
+## Steps
 1. Create a Table
     1. Table name: `kata-table-create-table`
     2. Partition key: `id`, String

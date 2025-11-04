@@ -4,7 +4,7 @@
 Status: success
 Create a REST API with a Mock integration.
 
-## Setup
+## Steps
 1. Build a REST API
     1. Type: `New API`
     2. Name: `kata-api-integration-mock`

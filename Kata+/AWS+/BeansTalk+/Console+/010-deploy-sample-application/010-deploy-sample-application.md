@@ -3,7 +3,7 @@
 ## Task
 Deploy the Sample Application into BeansTalk.
 
-## Setup
+## Steps
 1. Create an IAM role
     1. Trusted entity type: `AWS service`
     2. Service or use case: `EC2`

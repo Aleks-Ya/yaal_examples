@@ -12,7 +12,7 @@ Variants:
 2. Using Java
 3. Using Scala Spark
 
-## Setup
+## Steps
 Python: see `BigData+/Spark+/PySpark+/PySparkApp/src/dataframe/parquet/write_df_to_parquet.py`
 Scala: see `Scala+/ScalaSbt/Spark+/Spark3+/Spark3Sql/src/test/scala/dataset/create/parquet/WriteDsToParquet.scala`
 

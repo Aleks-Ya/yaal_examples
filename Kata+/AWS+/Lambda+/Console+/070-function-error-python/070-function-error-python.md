@@ -4,7 +4,7 @@
 Status: ?
 Create a function that fails and return an error as a Python exception (sync invocation).
 
-## Setup
+## Steps
 1. Create a function:
 	1. Template: `Author from scratch`
 	2. Function name: `kata-f-error-python-function`

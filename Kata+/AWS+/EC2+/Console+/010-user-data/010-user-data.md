@@ -4,7 +4,7 @@
 Management interface: Management Console
 Create a EC2 instance with a web-server which should start automatically.
 
-## Setup
+## Steps
 1. Create a EC2 instance
     1. Name: `kata-i-user-data`
     2. Key pair name: `Proceed without a keypair`

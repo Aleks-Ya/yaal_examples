@@ -4,7 +4,7 @@
 Status: success
 Run Task with a Caddy web-server on Fargate.
 
-## Setup
+## Steps
 1. Cluster name: `kata-cluster-caddy-task-fargate`
 	2. Infrastructure:
 		1. Select a method of obtaining compute capacity: `Fargate only`

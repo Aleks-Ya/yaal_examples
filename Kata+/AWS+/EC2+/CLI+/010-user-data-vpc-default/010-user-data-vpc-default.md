@@ -4,7 +4,7 @@
 Management interface: AWS CLI
 Create an EC2 instance (in the default VPC) with a web-server which should start automatically.
 
-## Setup
+## Steps
 1. Change current dir
 2. Set environment variables
    ```shell

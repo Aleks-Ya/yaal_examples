@@ -5,7 +5,7 @@ Connect an EC2 instance to S3 from a public subnet.
 
 !!!! NOT FINISHED
 
-## Setup
+## Steps
 1. Create a VPC
     1. Resources to create: `VPC only`
     2. Name: `kata-ec2-to-s3-from-public-subnet-vpc`

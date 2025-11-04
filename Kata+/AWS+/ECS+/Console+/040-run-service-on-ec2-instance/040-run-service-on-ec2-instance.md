@@ -3,7 +3,7 @@
 ## Task
 Run a web-server as an ECS Service on an EC2 instance.
 
-## Setup
+## Steps
 1. Create a Cluster
 	1. Cluster name: `kata-cluster-run-service-on-ec2-instance`
 	2. Infrastructure: only `AWS Fargate` marked

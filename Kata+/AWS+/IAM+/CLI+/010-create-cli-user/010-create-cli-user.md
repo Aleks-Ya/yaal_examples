@@ -4,7 +4,7 @@
 Status: ?
 Create an IAM user and authenticate AWS CLI with it.
 
-## Setup
+## Steps
 1. Create an IAM user
 	1. Create User: `aws iam create-user --user-name kata-user-create-cli-user`
 	2. Create Access Key: `aws iam create-access-key --user-name kata-user-create-cli-user`

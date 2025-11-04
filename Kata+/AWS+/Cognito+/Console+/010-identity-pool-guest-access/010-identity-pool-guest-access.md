@@ -3,7 +3,7 @@
 ## Task
 Create an Identity Pool providing anonymous Guest Access.
 
-## Setup
+## Steps
 1. Create Identity Pool
 	1. Configure identity pool trust
 		1. Authentication

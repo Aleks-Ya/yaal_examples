@@ -4,7 +4,7 @@
 Status: success
 Create a function with 3 environments: DEV, TST, PRD and deploy different versions to them.
 
-## Setup
+## Steps
 1. Create a function
 	1. Author from scratch
 	2. Function name: `kata-f-function-alias`

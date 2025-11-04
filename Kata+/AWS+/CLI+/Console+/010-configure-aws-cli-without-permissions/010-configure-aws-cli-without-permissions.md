@@ -3,7 +3,7 @@
 ## Task
 Authenticate AWS CLI with new IAM user having no permissions.
 
-## Setup
+## Steps
 Use AWS CLI Docker image from `DevOps+/AWS+/AwsDocker/AwsDocker.md`.
 
 1. Create an IAM user

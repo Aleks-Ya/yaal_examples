@@ -3,7 +3,7 @@
 ## Task
 Create an EC2 instance connected to a new VPC (public, `Connect using a Public IP`) and connect to it using Instance Connect.
 
-## Setup
+## Steps
 1. Create a VPC
 	1. Resources to create: `VPC only`
 	2. Name: `kata-ec2-instance-connect-public-vpc`

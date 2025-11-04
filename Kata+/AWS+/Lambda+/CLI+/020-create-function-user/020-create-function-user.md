@@ -4,7 +4,7 @@
 Status: success
 Create a hello-world function using AWS CLI as a custom limited user.
 
-## Setup
+## Steps
 1. Change the current directory
 2. Set environment variables
 ```shell

@@ -3,7 +3,7 @@
 ## Description
 Upload and use an dictionary package.
 
-## Setup
+## Steps
 1. Start an OpenSearch domain: 
 	1. Create the domain: 
 	see `/home/aleks/pr/home/yaal_examples/DevOps+/AWS+/CDK+/PythonCdkProject/src/python_cdk_project/minimal_opensearch_domain_stack.py`

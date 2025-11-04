@@ -3,7 +3,7 @@
 ## Task
 Encrypt a Block Device using LUKS.
 
-## Setup
+## Steps
 1. Set environment variables
 ```shell
 set -x

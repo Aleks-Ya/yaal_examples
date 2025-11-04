@@ -3,7 +3,7 @@
 ## Task
 Create a Domain Name for a public IP address.
 
-## Setup
+## Steps
 1. Choose an IP address:
 	1. Test original domain name: `curl http://httpbin.io/uuid`
 	2. Get IP address: `dig httpbin.io`
