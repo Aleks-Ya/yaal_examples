@@ -1,16 +1,16 @@
-# 020-docker
+# 010-user-data-vpc-default
 
 ## Task
-Status: success
 Management interface: AWS CLI
-Run Docker container in an EC2 instance. Use default VPC and Security Group.
+Create an EC2 instance (in the default VPC) with a web-server which should start automatically.
 
 ## Setup
 1. Change current dir
-2. Set env vars
-```shell
-export I_NAME=kata-i-docker
-```
+2. Set environment variables
+   ```shell
+   set -x
+   export I_NAME=kata-i-user-data-vpc-default
+   ```
 3. Create a EC2 instance:
     1. Create
     ```shell
@@ -18,6 +18,7 @@ export I_NAME=kata-i-docker
         --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$I_NAME}]" \
         --image-id ami-052064a798f08f0d3 \
         --instance-type t2.micro \
+        --associate-public-ip-address \
         --user-data file://user-data.sh
     ```
     2. Get ID (ignore terminated):
@@ -31,13 +32,13 @@ export I_NAME=kata-i-docker
     export I_IP=$(aws ec2 describe-instances --query "Reservations[*].Instances[*].PublicIpAddress" --output text \
         --instance-ids $I_ID)
     ```
-4. Test web-server: `curl $I_IP` (expected `Hello, Caddy`)
+4. Test web-server: `curl -i http://$I_IP`
 
 ## Cleanup
 1. Terminate instance:
     1. Terminate: `aws ec2 terminate-instances --instance-ids $I_ID`
     2. Wait: `aws ec2 wait instance-terminated --instance-ids $I_ID`
-2. Unset env vars: `unset I_NAME I_ID I_IP`
+2. Unset env vars: `set +x; unset I_NAME I_ID I_IP`
 
 ## History
-- 2025-10-13 success
+- 2025-11-04 success

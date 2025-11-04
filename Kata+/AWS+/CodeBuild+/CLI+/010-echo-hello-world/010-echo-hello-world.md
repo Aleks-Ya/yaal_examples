@@ -22,3 +22,5 @@ Create a Build Project which prints "Hello World".
 2. Delete Service Role: 
 	1. Delete Policy: `aws iam delete-role-policy --role-name kata-role-echo-hello-world --policy-name CodeBuild`
 	2. Delete Role: `aws iam delete-role --role-name kata-role-echo-hello-world`
+
+## History
