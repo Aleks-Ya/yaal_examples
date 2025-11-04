@@ -1,0 +1,35 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": [
+                "arn:aws:logs:*:*:log-group:/aws/codebuild/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::kata-bucket-batch-build-list"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::kata-bucket-batch-build-list/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "codebuild:StartBuild"
+            ],
+            "Resource": [
+                "arn:aws:codebuild:us-east-1:523633434047:project/kata-project-batch-build-list"
+            ]
+        }
+    ]
+}

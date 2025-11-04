@@ -29,6 +29,10 @@ echo "Updating PIP3..."
 pip3 install --upgrade pip --break-system-packages
 echo 
 
+echo "Updating Python packages..."
+pip install -U -q -r /home/aleks/pr/home/yaal_examples/Python+/Python3/requirements.txt
+echo 
+
 echo "Updating SdkMan..."
 source "$SDKMAN_DIR/bin/sdkman-init.sh"
 sdk selfupdate

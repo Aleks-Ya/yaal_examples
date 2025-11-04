@@ -1,0 +1,21 @@
+version: 0.2
+
+env:
+  variables:
+    RECIPIENT: Dow
+
+batch:
+  build-list:
+    - identifier: john
+      env:
+        variables:
+          RECIPIENT: John
+    - identifier: mary
+      env:
+        variables:
+          RECIPIENT: Mary
+
+phases:
+  build:
+    commands:
+      - echo "Hello, ${RECIPIENT}!"

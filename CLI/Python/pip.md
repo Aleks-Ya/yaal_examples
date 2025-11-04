@@ -11,6 +11,7 @@ Upgrade all installed packages:
 Help: `pip -h`
 Help about a command: `pip search -h`
 Version: `pip --version`
+Quite (accepts `-q`, `-qq`, `-qqq`): `pip install -q <package>`
 Show version of an installed package: `pip show Fake`
 Show installed packages folder: `pip show pip` 
 Remove a package: `pip uninstall Faker`

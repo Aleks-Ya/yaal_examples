@@ -3,7 +3,7 @@ package scalatest.matcher
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class ExceptionMatchers extends AnyFlatSpec with Matchers {
+class ExceptionTest extends AnyFlatSpec with Matchers {
 
   it should "assert class of an exception" in {
     an[IndexOutOfBoundsException] should be thrownBy "abc".charAt(-1)
