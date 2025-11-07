@@ -67,3 +67,6 @@ Create an Event Notification with SQS destination:
 ```shell
 aws s3api put-bucket-notification-configuration --bucket bucket1 --notification-configuration file://sqs-event-notifications-config.json 
 ```
+
+## Tag
+Show bucket tags: `aws s3api get-bucket-tagging --bucket bucket1`

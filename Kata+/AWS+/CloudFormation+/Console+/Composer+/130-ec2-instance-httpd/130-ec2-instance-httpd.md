@@ -1,7 +1,6 @@
 # 130-ec2-instance-httpd
 
 ## Task
-Status: ?
 Use CloudFormation to create an EC2 Instance running an httpd server with the Infrastructure Composer.
 
 ## Steps
@@ -36,3 +35,5 @@ Use CloudFormation to create an EC2 Instance running an httpd server with the In
 ## Cleanup
 1. Delete Stack `kata-stack-ec2-instance-httpd`
 2. Delete Transfer Bucket `kata-bucket-ec2-instance-httpd`
+
+## History

@@ -1,7 +1,6 @@
 # 100-route-table
 
 ## Task
-Status: ?
 Use CloudFormation to craete a Route Table with the Infrastructure Composer.
 
 ## Steps
@@ -36,3 +35,5 @@ Use CloudFormation to craete a Route Table with the Infrastructure Composer.
 ## Cleanup
 1. Delete Stack `kata-stack-route-table`
 2. Delete Transfer Bucket `kata-bucket-route-table`
+
+## History

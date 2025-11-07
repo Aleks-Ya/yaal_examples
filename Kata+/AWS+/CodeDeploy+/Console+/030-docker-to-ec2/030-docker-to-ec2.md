@@ -1,8 +1,6 @@
 # 030-docker-to-ec2
 
-
 ## Task
-Status: success
 Deploy Docker container with Caddy server in an EC2 Instance.
 
 ## Steps

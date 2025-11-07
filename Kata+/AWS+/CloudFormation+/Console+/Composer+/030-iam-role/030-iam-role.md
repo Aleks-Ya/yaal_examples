@@ -1,7 +1,6 @@
 # 030-iam-role
 
 ## Task
-Status: ?
 Use CloudFormation to craete an IAM Role with the Infrastructure Composer.
 
 ## Steps
@@ -42,3 +41,5 @@ Use CloudFormation to craete an IAM Role with the Infrastructure Composer.
 ## Cleanup
 1. Delete Stack `kata-stack-iam-role`
 2. Delete Transfer Bucket `kata-bucket-iam-role`
+
+## History

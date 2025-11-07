@@ -1,0 +1,20 @@
+Parameters:
+  TheBucketName:
+    Type: String
+  Username:
+    Type: String
+    NoEcho: false
+  Password:
+    Type: String
+    NoEcho: true
+
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref TheBucketName
+      Tags:
+        - Key: User name
+          Value: !Ref Username
+        - Key: User password
+          Value: !Ref Password

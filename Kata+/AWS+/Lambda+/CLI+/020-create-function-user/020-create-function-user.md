@@ -1,18 +1,18 @@
 # 020-create-function-user
 
 ## Task
-Status: success
 Create a hello-world function using AWS CLI as a custom limited user.
 
 ## Steps
 1. Change the current directory
 2. Set environment variables
-```shell
-export POLICY=kata-policy-create-function-user
-export ROLE=kata-role-create-function-user
-export USER=kata-user-create-function-user
-export FUNCTION=kata-f-create-function-user
-```
+	```shell
+	set -x
+	export POLICY=kata-policy-create-function-user
+	export ROLE=kata-role-create-function-user
+	export USER=kata-user-create-function-user
+	export FUNCTION=kata-f-create-function-user
+	```
 3. Create a user for managing Lambda functions:
 	1. Create policy for managing Execution Role: `aws iam create-policy --policy-name $POLICY --policy-document file://user-policy.json`
 	2. Create user
@@ -26,14 +26,14 @@ export FUNCTION=kata-f-create-function-user
 4. Create an Execution Role: `aws --profile $USER iam create-role --role-name $ROLE --assume-role-policy-document file://trust-policy.json`
 5. Pack the handler: `zip deployment-package.zip handler.py`
 6. Create a function:
-```shell
-aws --profile $USER lambda create-function \
-	--function-name $FUNCTION \
-	--runtime python3.13 \
-	--role arn:aws:iam::523633434047:role/$ROLE \
-	--handler handler.lambda_handler \
-	--zip-file fileb://deployment-package.zip
-```
+	```shell
+	aws --profile $USER lambda create-function \
+		--function-name $FUNCTION \
+		--runtime python3.13 \
+		--role arn:aws:iam::523633434047:role/$ROLE \
+		--handler handler.lambda_handler \
+		--zip-file fileb://deployment-package.zip
+	```
 7. Test function: `aws --profile $USER lambda invoke --function-name $FUNCTION /dev/stdout`
 
 ## Cleanup
@@ -46,7 +46,7 @@ aws --profile $USER lambda create-function \
 	3. Delete policy: `aws iam delete-policy --policy-arn arn:aws:iam::523633434047:policy/$POLICY`
 5. Delete user: `aws iam delete-user --user-name $USER`
 6. Delete profile: edit `~/.aws/credentials`
-7. Unset env vars: `unset POLICY ROLE USER FUNCTION`
+7. Unset env vars: `set +x; unset POLICY ROLE USER FUNCTION`
 
 ## History
 - 2025-10-14 success

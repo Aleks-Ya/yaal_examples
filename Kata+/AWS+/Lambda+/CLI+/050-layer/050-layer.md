@@ -1,7 +1,6 @@
 # 050-layer
 
 ## Task
-Status: ?
 Create a Lambda Function that uses code from a Layer.
 
 ## Steps
@@ -18,12 +17,12 @@ Create a Lambda Function that uses code from a Layer.
 		3. Create a Function:
 			```shell
 			aws lambda create-function \
-  			--function-name function-layered \
-  			--runtime python3.13 \
-  			--role arn:aws:iam::523633434047:role/FunctionLayeredRole \
-  			--handler handler.lambda_handler \
-  			--zip-file fileb://function-layered.zip \
-  			--layers arn:aws:lambda:us-east-1:523633434047:layer:text-layer:1
+	  			--function-name function-layered \
+	  			--runtime python3.13 \
+	  			--role arn:aws:iam::523633434047:role/FunctionLayeredRole \
+	  			--handler handler.lambda_handler \
+	  			--zip-file fileb://function-layered.zip \
+	  			--layers arn:aws:lambda:us-east-1:523633434047:layer:text-layer:1
 			```
 		4. Test function: `aws lambda invoke --function-name function-layered /dev/stdout`
 

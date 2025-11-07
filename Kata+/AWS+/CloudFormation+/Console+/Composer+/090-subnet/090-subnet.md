@@ -1,7 +1,6 @@
 # 090-subnet
 
 ## Task
-Status: ?
 Use CloudFormation to craete a Subnet with the Infrastructure Composer.
 
 ## Steps
@@ -37,3 +36,5 @@ Use CloudFormation to craete a Subnet with the Infrastructure Composer.
 ## Cleanup
 1. Delete Stack `kata-stack-subnet`
 2. Delete Transfer Bucket `kata-bucket-subnet`
+
+## History

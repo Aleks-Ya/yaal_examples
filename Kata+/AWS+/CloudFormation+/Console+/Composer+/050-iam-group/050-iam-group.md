@@ -1,7 +1,6 @@
 # 050-iam-group
 
 ## Task
-Status: ?
 Use CloudFormation to craete an IAM Group with the Infrastructure Composer.
 
 ## Steps
@@ -50,3 +49,5 @@ Use CloudFormation to craete an IAM Group with the Infrastructure Composer.
 ## Cleanup
 1. Delete Stack `kata-stack-iam-group`
 2. Delete Transfer Bucket `kata-bucket-iam-group`
+
+## History

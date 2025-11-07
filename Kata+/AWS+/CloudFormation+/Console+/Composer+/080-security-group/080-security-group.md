@@ -1,7 +1,6 @@
 # 080-security-group
 
 ## Task
-Status: ?
 Use CloudFormation to craete a Security Group with the Infrastructure Composer.
 
 ## Steps
@@ -34,3 +33,5 @@ Use CloudFormation to craete a Security Group with the Infrastructure Composer.
 ## Cleanup
 1. Delete Stack `kata-stack-security-group`
 2. Delete Transfer Bucket `kata-bucket-security-group`
+
+## History

@@ -1,7 +1,6 @@
 # 020-ec2-instance
 
 ## Task
-Status: ?
 Use CloudFormation to create an EC2 Instance with the Infrastructure Composer.
 
 ## Steps
@@ -27,3 +26,5 @@ Use CloudFormation to create an EC2 Instance with the Infrastructure Composer.
 ## Cleanup
 1. Delete Stack `kata-stack-ec2-instance`
 2. Delete Transfer Bucket `kata-bucket-ec2-instance`
+
+## History

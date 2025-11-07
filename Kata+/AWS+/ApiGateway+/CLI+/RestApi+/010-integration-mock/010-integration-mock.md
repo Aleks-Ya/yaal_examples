@@ -6,10 +6,11 @@ Create a REST API with a Mock integration.
 
 ## Steps
 1. Set environment variables
-```shell
-export API_NAME=kata-api-integration-mock
-export STAGE_NAME=test
-```
+	```shell
+	set -x
+	export API_NAME=kata-api-integration-mock
+	export STAGE_NAME=test
+	```
 2. Create a REST API: 
 	1. Create API: `aws apigateway create-rest-api --name $API_NAME`
 	2. Get API ID: `export API_ID=$(aws apigateway get-rest-apis --query "items[?name=='$API_NAME'].id" --output text)`
@@ -55,7 +56,7 @@ export STAGE_NAME=test
 
 ## Cleanup
 1. Delete the API: `aws apigateway delete-rest-api --rest-api-id $API_ID`
-2. Unset env vars: `unset API_NAME STAGE_NAME API_ID RESOURCE_ID REGION STAGE_URL`
+2. Unset env vars: `set +x; unset API_NAME STAGE_NAME API_ID RESOURCE_ID REGION STAGE_URL`
 
 ## History
 - 2025-10-20 success

@@ -1,0 +1,5 @@
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: kata-bucket-s3-bucket-empty

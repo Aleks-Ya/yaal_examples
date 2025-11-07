@@ -1,7 +1,6 @@
 # 040-iam-user
 
 ## Task
-Status: ?
 Use CloudFormation to craete an IAM User with the Infrastructure Composer.
 
 ## Steps
@@ -33,3 +32,5 @@ Use CloudFormation to craete an IAM User with the Infrastructure Composer.
 ## Cleanup
 1. Delete Stack `kata-stack-iam-user`
 2. Delete Transfer Bucket `kata-bucket-iam-user`
+
+## History

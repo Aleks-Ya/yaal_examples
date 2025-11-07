@@ -1,7 +1,6 @@
 # 060-internet-gateway
 
 ## Task
-Status: ?
 Use CloudFormation to craete an Internet Gateway with the Infrastructure Composer.
 
 ## Steps
@@ -20,3 +19,5 @@ Use CloudFormation to craete an Internet Gateway with the Infrastructure Compose
 ## Cleanup
 1. Delete Stack `kata-stack-internet-gateway`
 2. Delete Transfer Bucket `kata-bucket-internet-gateway`
+
+## History

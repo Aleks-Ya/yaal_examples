@@ -1,7 +1,6 @@
 # 120-ec2-instance-profile
 
 ## Task
-Status: ?
 Use CloudFormation to create an EC2 instance having an Instance Profile with the Infrastructure Composer.
 
 ## Steps
@@ -58,3 +57,5 @@ Use CloudFormation to create an EC2 instance having an Instance Profile with the
 ## Cleanup
 1. Delete Stack `kata-stack-ec2-instance-profile`
 2. Delete Transfer Bucket `kata-bucket-ec2-instance-profile`
+
+## History

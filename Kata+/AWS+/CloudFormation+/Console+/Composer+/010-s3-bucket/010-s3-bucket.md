@@ -1,7 +1,6 @@
 # 010-s3-bucket
 
 ## Task
-Status: ?
 Use CloudFormation to create an S3 bucket with the Infrastructure Composer.
 
 ## Steps
@@ -20,3 +19,5 @@ Use CloudFormation to create an S3 bucket with the Infrastructure Composer.
 ## Cleanup
 1. Delete Stack `kata-stack-s3-bucket`
 2. Delete Transfer Bucket `kata-bucket-s3-bucket-transfer-bucket`
+
+## History
