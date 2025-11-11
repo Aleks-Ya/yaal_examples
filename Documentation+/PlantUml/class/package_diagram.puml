@@ -1,0 +1,15 @@
+@startuml
+
+package A
+package B
+A +-- B: subpackage
+
+package C
+package D
+D ..> C: depends on
+
+package E {
+    package F
+}
+
+@enduml

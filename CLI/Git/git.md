@@ -23,6 +23,7 @@ Possible values can include:   true, 1 or 2 to write to stderr,  an absolute pat
 
 ## Checkout
 Remove local changes in a file: `git checkout db.changelog-insert.yaml`
+Create a new branch from given branch and switch to it: `git checkout -b new-branch old-branch`
 
 ## Branch
 Rename current branch: `git branch -m new-branch-name`

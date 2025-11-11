@@ -1,10 +1,12 @@
 package fasterxml.xml.databind.treemodel.deserialize;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static util.ResourceUtil.resourceToString;
@@ -32,6 +34,17 @@ class TreeModelAndDataBindTest {
 
         assertThat(head.name).isEqualTo(EXP_HEAD_NAME);
         assertThat(head.title).isEqualTo(EXP_HEAD_TITLE);
+    }
+
+    @Test
+    void treeToValueMap() throws IOException {
+        var rootNode = (ObjectNode) MAPPER.readTree(JSON);
+        var headNode = rootNode.get(HEAD_FIELD);
+        var headMap = MAPPER.treeToValue(headNode, new TypeReference<Map<String, String>>() {
+        });
+        assertThat(headMap).containsExactlyEntriesOf(Map.of(
+                "name", "John Smith",
+                "title", "Executive"));
     }
 
     @Test
