@@ -2,17 +2,17 @@ import sbt.*
 
 object Dependencies {
   val scalaTestDep = "org.scalatest" %% "scalatest" % "3.2.19" % Test
-  val scalaMockDep = "org.scalamock" %% "scalamock" % "7.4.0" % Test
-  val h2Dep = "com.h2database" % "h2" % "2.3.232"
-  val logbackClassicDep = "ch.qos.logback" % "logback-classic" % "1.5.18"
+  val scalaMockDep = "org.scalamock" %% "scalamock" % "7.5.2" % Test
+  val h2Dep = "com.h2database" % "h2" % "2.4.240"
+  val logbackClassicDep = "ch.qos.logback" % "logback-classic" % "1.5.21"
   val scoptDep = "com.github.scopt" %% "scopt" % "4.1.0"
   val json4sNativeDep = "org.json4s" %% "json4s-native" % "4.0.7"
   val sprayJsonDep = "io.spray" %% "spray-json" % "1.3.6"
-  val jettyServletDep = "org.eclipse.jetty" % "jetty-servlet" % "11.0.25" % Test
+  val jettyServletDep = "org.eclipse.jetty" % "jetty-servlet" % "11.0.26" % Test
 
-  private val testContainersVersion = "0.43.0"
+  private val testContainersVersion = "0.43.6"
   val testContainersScalaTestDep = "com.dimafeng" %% "testcontainers-scala-scalatest" % testContainersVersion % Test
-  val testContainersopenSearchDep = "com.dimafeng" %% "testcontainers-scala-opensearch" % testContainersVersion % Test
+  val testContainersOpenSearchDep = "com.dimafeng" %% "testcontainers-scala-opensearch" % testContainersVersion % Test
 
   private val slf4jVersion = "2.0.17"
   val slf4jNopDep = "org.slf4j" % "slf4j-nop" % slf4jVersion
@@ -22,25 +22,25 @@ object Dependencies {
   val akkaActorTypedDep = "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion
   val akkaActorTestKitTypedDep = "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test
 
-  val typesafeConfigDep = "com.typesafe" % "config" % "1.4.4"
+  val typesafeConfigDep = "com.typesafe" % "config" % "1.4.5"
   val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.6.3"
-  val catsEffectScalaTestDep = "org.typelevel" %% "cats-effect-testing-scalatest" % "1.6.0" % Test
-  val fs2CoreDep = "co.fs2" %% "fs2-core" % "3.12.0"
+  val catsEffectScalaTestDep = "org.typelevel" %% "cats-effect-testing-scalatest" % "1.7.0" % Test
+  val fs2CoreDep = "co.fs2" %% "fs2-core" % "3.12.2"
   val tomlScalaDep = "tech.sparse" %% "toml-scala" % "0.2.2"
 
-  private val jacksonVersion = "2.19.2"
+  private val jacksonVersion = "2.20.1"
   val jacksonDataformatYamlDep = "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml" % jacksonVersion
   val jacksonModuleScalaDep = "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion
 
-  private val http4sVersion = "0.23.30"
+  private val http4sVersion = "0.23.33"
   val http4sEmberClientDep = "org.http4s" %% "http4s-ember-client" % http4sVersion
   val http4sDslDep = "org.http4s" %% "http4s-dsl" % http4sVersion
   val httpJdkHttpClientDep = "org.http4s" %% "http4s-jdk-http-client" % "0.10.0"
 
-  val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "4.1.1" % Test
+  val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "5.0.0" % Test
 
-  private val spark3Version = "3.5.6"
-  private val djlVersion = "0.33.0"
+  private val spark3Version = "3.5.7"
+  private val djlVersion = "0.35.0"
   val spark3CoreDep = "org.apache.spark" %% "spark-core" % spark3Version
   val spark3MlDep = "org.apache.spark" %% "spark-mllib" % spark3Version
   val spark3SqlDep = "org.apache.spark" %% "spark-sql" % spark3Version
@@ -51,7 +51,7 @@ object Dependencies {
   val djlOnnxEngineDep = "ai.djl.onnxruntime" % "onnxruntime-engine" % djlVersion
   val djlHfTokenizersDep = "ai.djl.huggingface" % "tokenizers" % djlVersion
 
-  val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "5.1.0" % Test
+  val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "5.3.0" % Test
 
   private val kafkaVersion = "3.9.1"
   val embeddedKafkaDep = "io.github.embeddedkafka" %% "embedded-kafka" % kafkaVersion % Test
@@ -65,10 +65,10 @@ object Dependencies {
   val openSearchDep = "org.opensearch" % "opensearch" % openSearchVersion
   val opensearchRestHighLevelClientDep = "org.opensearch.client" % "opensearch-rest-high-level-client" % openSearchVersion
 
-  val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.56.0"
+  val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.70.0"
   val dbUtilsApiDep = "com.databricks" %% "dbutils-api" % "0.0.6"
-  val hadoopClientApiDep = "org.apache.hadoop" % "hadoop-client-api" % "3.4.1"
-  val databricksDbUtilsScalaDep = "com.databricks" %% "databricks-dbutils-scala" % "0.1.4"
+  val hadoopClientApiDep = "org.apache.hadoop" % "hadoop-client-api" % "3.4.2"
+  val databricksDbUtilsScalaDep = "com.databricks" %% "databricks-dbutils-scala" % "0.1.5"
 
   val awaitilityScalaDep = "org.awaitility" % "awaitility-scala" % "4.3.0"
   val retrySoftwareMillDep = "com.softwaremill.retry" %% "retry" % "0.3.6"
