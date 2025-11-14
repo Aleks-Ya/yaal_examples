@@ -3,8 +3,10 @@ package databricks;
 import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.error.platform.ResourceDoesNotExist;
 import com.databricks.sdk.mixin.SecretsExt;
+import com.databricks.sdk.service.workspace.CreateScope;
+import com.databricks.sdk.service.workspace.DeleteSecret;
 import com.databricks.sdk.service.workspace.PutSecret;
-import com.databricks.sdk.service.workspace.SecretScope;
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,15 +20,17 @@ class SecretsIT {
 
     @Test
     void listScopes() {
-        var scopes = secrets.listScopes();
-        scopes.forEach(System.out::println);
-        assertThat(scopes).isNotEmpty();
+        var scopesIterable = secrets.listScopes();
+        var scopeList = Lists.newArrayList(scopesIterable);
+        scopeList.forEach(System.out::println);
+        assertThat(scopeList).isNotEmpty();
     }
 
     @Test
     void createDeleteScope() {
         assertThat(helper.isScopeExist(scope)).isFalse();
-        secrets.createScope(scope);
+        var createScope = new CreateScope().setScope(scope);
+        secrets.createScope(createScope);
         assertThat(helper.isScopeExist(scope)).isTrue();
         secrets.deleteScope(scope);
         assertThat(helper.isScopeExist(scope)).isFalse();
@@ -34,20 +38,23 @@ class SecretsIT {
 
     @Test
     void createGetDeleteSecret() {
-        secrets.createScope(scope);
+        var createScope = new CreateScope().setScope(scope);
+        secrets.createScope(createScope);
         var key = "test_secret";
         var expValue = "pass1";
         var request = new PutSecret().setScope(scope).setKey(key).setStringValue(expValue);
         secrets.putSecret(request);
         var actValue = secrets.get(scope, key);
-        secrets.deleteSecret(scope, key);
+        var deleteSecret = new DeleteSecret().setScope(scope).setKey(key);
+        secrets.deleteSecret(deleteSecret);
         secrets.deleteScope(scope);
         assertThat(actValue).isEqualTo(expValue);
     }
 
     @Test
     void getAbsentSecret() {
-        secrets.createScope(scope);
+        var createScope = new CreateScope().setScope(scope);
+        secrets.createScope(createScope);
         assertThatThrownBy(() -> secrets.get(scope, "absent_key")).isInstanceOf(ResourceDoesNotExist.class);
         secrets.deleteScope(scope);
     }

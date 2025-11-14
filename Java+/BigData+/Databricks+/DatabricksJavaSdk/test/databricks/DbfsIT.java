@@ -86,7 +86,8 @@ class DbfsIT {
     void deleteFileExist() {
         var path = helper.writeFile("abc");
         assertThat(helper.isExist(path)).isTrue();
-        dbfs.delete(path);
+        var delete = new Delete().setPath(path);
+        dbfs.delete(delete);
         assertThat(helper.isExist(path)).isFalse();
     }
 
@@ -94,7 +95,8 @@ class DbfsIT {
     void deleteFileAbsent() {
         var path = helper.getAbsentTmpFile();
         assertThat(helper.isExist(path)).isFalse();
-        dbfs.delete(path);
+        var delete = new Delete().setPath(path);
+        dbfs.delete(delete);
         assertThat(helper.isExist(path)).isFalse();
     }
 
@@ -113,7 +115,8 @@ class DbfsIT {
         var dir = helper.getExistingTmpDir();
         dbfs.mkdirs(dir);
         assertThat(helper.isExist(dir)).isTrue();
-        dbfs.delete(dir);
+        var delete = new Delete().setPath(dir).setRecursive(true);
+        dbfs.delete(delete);
         assertThat(helper.isExist(dir)).isFalse();
     }
 
