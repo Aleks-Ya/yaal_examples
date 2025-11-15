@@ -7,8 +7,3 @@ dependencies {
     implementation h2Dep, "org.eclipse.persistence:org.eclipse.persistence.jpa:$eclipseLink2Version"
     testImplementation project(':Database+:JDBC')
 }
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
-    }
-}

@@ -22,3 +22,5 @@ Generate a GPG key and encrypt a text with it.
 ## Cleanup
 1. Delete keys: `gpg --delete-secret-and-public-key "John <john@email.com>"`
 
+## History
+- 2025-11-15 success

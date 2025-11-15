@@ -6,8 +6,3 @@ dependencies {
     }
     implementation h2Dep, "org.eclipse.persistence:org.eclipse.persistence.jpa:$eclipseLink4Version"
 }
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}

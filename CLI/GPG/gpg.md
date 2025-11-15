@@ -15,7 +15,8 @@ Import private key from a file: `gpg --import /tmp/CryptomatorVaultBackup-keys/C
 Verify file with its signature: `gpg --verify veracrypt-1.24.deb.sig veracrypt-1.24.deb`
 
 ## Generate
-Generate new key: `gpg --gen-key`
+Generate new key (interactive): `gpg --gen-key`
+Generate new key (silent): `gpg --quick-generate-key "Your Name <your.email@example.com>"`
 
 ## List
 List public keys (all): `gpg --list-keys`

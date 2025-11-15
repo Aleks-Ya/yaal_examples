@@ -19,7 +19,7 @@ subprojects {
         mavenCentral()
     }
     ext {
-        h2Dep = 'com.h2database:h2:2.3.232'
+        h2Dep = 'com.h2database:h2:2.4.240'
         postgresDep = 'org.postgresql:postgresql:42.7.5'
         derbyDep = 'org.apache.derby:derby:10.16.1.1'
         hsqldbDep = 'org.hsqldb:hsqldb:2.7.1'
@@ -54,6 +54,7 @@ subprojects {
         elasticSearch8Version = '8.11.1'
         junit5PlatformVersion = '1.14.1'
         junit5Version = '5.14.1'
+        junit6Version = '6.0.1'
         cucumberVersion = '7.26.0'
         spring5Version = '5.3.39'
         spring4Version = '4.3.30.RELEASE'
@@ -64,7 +65,7 @@ subprojects {
         springCloud3Version = '3.1.8'
         springCloud4Version = '4.3.0'
         springSecurity5Version = '5.8.16'
-        springBoot3Version = '3.5.4'
+        springBoot3Version = '3.5.7'
         springBoot3StarterWebDep = "org.springframework.boot:spring-boot-starter-web:$springBoot3Version"
         springBoot3StarterDataJpaDep = "org.springframework.boot:spring-boot-starter-data-jpa:$springBoot3Version"
         hadoop2Version = '2.10.2'
@@ -77,8 +78,8 @@ subprojects {
         mongoDbDriverDep = 'org.mongodb:mongodb-driver:3.12.12'
         hibernate5Version = '5.6.15.Final'
         hibernate5EntityManagerDep = "org.hibernate:hibernate-entitymanager:$hibernate5Version"
-        eclipseLink2Version = '2.7.15'
-        eclipseLink4Version = '4.0.5'
+        eclipseLink2Version = '2.7.16'
+        eclipseLink4Version = '4.0.8'
         jsonAssertDep = 'org.skyscreamer:jsonassert:1.5.3'
         bouncyCastleDep = 'org.bouncycastle:bcpkix-jdk18on:1.81'
         testContainersVersion = '1.21.3'
@@ -145,10 +146,26 @@ subprojects {
     }
 }
 
-/**
- * Add test dependencies to all projects (exclude JUnit5).
- */
-configure(subprojects - project('UnitTest+:JUnit+:JUnit4').subprojects - project('UnitTest+:TestNG+').subprojects) {
+//JUnit 6
+configure(subprojects
+        - project(junit4Project).subprojects
+        - project(junit5Project).subprojects
+        - project(testNgProject).subprojects
+        - project(java11Project)
+) {
+    dependencies {
+        testImplementation "org.junit.jupiter:junit-jupiter-api:$junit6Version", 'org.hamcrest:hamcrest:3.0',
+                'org.awaitility:awaitility:4.3.0', apacheCommonsIoDep, "org.assertj:assertj-core:$assertJVersion"
+        testRuntimeOnly "org.junit.platform:junit-platform-launcher:$junit6Version",
+                "org.junit.jupiter:junit-jupiter-engine:$junit6Version"
+    }
+    test {
+        testLogging.showStandardStreams = true
+        useJUnitPlatform()
+    }
+}
+//JUnit 5
+configure(project(junit5Project).subprojects + project(java11Project)) {
     dependencies {
         testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5Version", 'org.hamcrest:hamcrest:3.0',
                 'org.awaitility:awaitility:4.3.0', apacheCommonsIoDep, "org.assertj:assertj-core:$assertJVersion"
@@ -160,17 +177,13 @@ configure(subprojects - project('UnitTest+:JUnit+:JUnit4').subprojects - project
         useJUnitPlatform()
     }
 }
-
-/**
- * Add Util projects to all projects.
- */
-configure(subprojects - project(':Util+:UtilSrc')) {
+configure(subprojects - project(utilSrcProject) - project(java11Project) - project(java17Project)) {
     dependencies {
-        implementation project(':Util+:UtilSrc')
+        implementation project(utilSrcProject)
     }
 }
-configure(subprojects - project(':Util+:UtilTest')) {
+configure(subprojects - project(utilTestProject) - project(java11Project) - project(java17Project)) {
     dependencies {
-        testImplementation project(':Util+:UtilTest')
+        testImplementation project(utilTestProject)
     }
 }
