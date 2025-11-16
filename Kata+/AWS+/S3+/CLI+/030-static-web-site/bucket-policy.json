@@ -9,7 +9,7 @@
                 "s3:GetObject"
             ],
             "Resource": [
-                "arn:aws:s3:::tmp-kata-static-web-site/*"
+                "arn:aws:s3:::kata-bucket-static-web-site/*"
             ]
         }
     ]

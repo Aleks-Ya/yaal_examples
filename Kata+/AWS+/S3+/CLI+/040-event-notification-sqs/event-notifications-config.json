@@ -2,7 +2,7 @@
   "QueueConfigurations": [
     {
       "Id": "notification-1",
-      "QueueArn": "arn:aws:sqs:us-east-1:523633434047:queue1",
+      "QueueArn": "arn:aws:sqs:us-east-1:523633434047:kata-q-event-notification-sqs",
       "Events": ["s3:ObjectCreated:*"]
     }
   ]

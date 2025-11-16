@@ -17,3 +17,18 @@ By RequestID:
 fields @timestamp, requestId
  | filter requestId = '702fc24f-9eae-4a64-95d1-120ec99e1a3d'
 ```
+
+## Metrics
+List metrics in a Namespace: `aws cloudwatch list-metrics --namespace namespace1`
+Put a metric: 
+```shell
+aws cloudwatch put-metric-data \
+  --namespace Namespace1 \
+  --metric-data '[
+    {
+      "MetricName": "Metric1",
+      "Value": 123,
+      "Unit": "Count"
+    }
+  ]'
+```

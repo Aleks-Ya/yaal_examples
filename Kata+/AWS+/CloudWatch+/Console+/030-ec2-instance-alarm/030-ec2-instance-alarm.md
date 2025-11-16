@@ -17,8 +17,8 @@ Create an CloudWatch alarm that raises if ≥80% of EC2 instance RAM is busy.
             2. Service or use case: `EC2`
             3. Use case: `EC2`
             4. Permissions policies: `CloudWatchAgentServerPolicy`
-            5. Role name: `cloud-watch-agent-role`
-        2. Choose `cloud-watch-agent-role`
+            5. Role name: `kata-role-ec2-instance-alarm`
+        2. Choose `kata-role-ec2-instance-alarm`
 2. Install CloudWatch Logs Agent
     1. Connect via Instance Connect
     2. Install package: `sudo yum install -y amazon-cloudwatch-agent`
@@ -42,7 +42,7 @@ Create an CloudWatch alarm that raises if ≥80% of EC2 instance RAM is busy.
     4. Start the Agent:
        ```bash
        sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s \
-       -c file:///opt/aws/amazon-cloudwatch-agent/bin/config.json
+        -c file:///opt/aws/amazon-cloudwatch-agent/bin/config.json
        ```
     5. Check Agent status: `sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a status`
 3. See memory in CloudWatch

@@ -10,10 +10,10 @@
       "Action": [
         "sqs:SendMessage"
       ],
-      "Resource": "arn:aws:sqs:us-east-1:523633434047:queue1",
+      "Resource": "arn:aws:sqs:us-east-1:523633434047:kata-q-event-notification-sqs",
       "Condition": {
         "ArnLike": {
-          "aws:SourceArn": "arn:aws:s3:::tmp-kata-060-event-notification-sqs"
+          "aws:SourceArn": "arn:aws:s3:::kata-bucket-event-notification-sqs"
         }
       }
     }
