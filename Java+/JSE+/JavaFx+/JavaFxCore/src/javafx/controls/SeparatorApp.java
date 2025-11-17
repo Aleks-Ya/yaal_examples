@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class SeparatorApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var button1 = new Button("Button 1");
@@ -20,7 +21,4 @@ public class SeparatorApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

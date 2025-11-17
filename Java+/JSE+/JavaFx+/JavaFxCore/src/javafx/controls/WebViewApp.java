@@ -14,6 +14,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class WebViewApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var webView1 = fullHtmlDocument();
@@ -55,7 +56,7 @@ public class WebViewApp extends Application {
         webView.getEngine().loadContent(htmlContent);
         var button = new Button("Copy HTML");
         button.setMinWidth(100);
-        button.setOnAction(e -> {
+        button.setOnAction(_ -> {
             var clipboard = Clipboard.getSystemClipboard();
             var clipboardContent = new ClipboardContent();
             var content = (String) webView.getEngine().executeScript("document.documentElement.outerHTML");
@@ -93,7 +94,4 @@ public class WebViewApp extends Application {
         return webView;
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

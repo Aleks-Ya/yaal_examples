@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class ReusableApp extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
         var location = Objects.requireNonNull(getClass().getResource("Root.fxml"));
@@ -37,7 +38,4 @@ public class ReusableApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

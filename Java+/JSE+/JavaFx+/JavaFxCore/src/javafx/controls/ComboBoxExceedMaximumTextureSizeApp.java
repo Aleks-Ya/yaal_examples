@@ -16,6 +16,7 @@ import java.util.stream.IntStream;
  * when click on a ComboBox having too many long items.
  */
 public class ComboBoxExceedMaximumTextureSizeApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var comboBox = new ComboBox<>();
@@ -27,7 +28,4 @@ public class ComboBoxExceedMaximumTextureSizeApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

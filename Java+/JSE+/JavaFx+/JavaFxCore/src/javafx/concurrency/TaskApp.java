@@ -9,6 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class TaskApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var label = new Label("Not started");
@@ -29,7 +30,4 @@ public class TaskApp extends Application {
         new Thread(task).start();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

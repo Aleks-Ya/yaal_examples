@@ -6,7 +6,7 @@ subprojects {
     sourceSets.test.resources.srcDir 'resourcesTest'
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(21)
+            languageVersion = JavaLanguageVersion.of(25)
         }
     }
     defaultTasks('test')
@@ -109,7 +109,7 @@ subprojects {
         lucene8Version = '8.11.4'
         lucene9Version = '9.12.2'
         lucene10Version = '10.2.2'
-        javaFxVersion = '21'
+        javaFxVersion = '25'
         javaFxPluginVersion = '0.1.0'
         jlinkPluginVersion = '3.1.3'
         testFxDep = 'org.testfx:testfx-junit5:4.0.18'

@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 
 import static java.util.Objects.requireNonNull;
 
-public class MvcMultiFXML extends Application {
+public class MvcMultiFxmlApp extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
         var model = new MvcMultiModel();
@@ -34,7 +35,4 @@ public class MvcMultiFXML extends Application {
         model.modelUpdated();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

@@ -7,6 +7,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class VBoxApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var text1 = new Text("Hello, JavaFX");
@@ -17,7 +18,4 @@ public class VBoxApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

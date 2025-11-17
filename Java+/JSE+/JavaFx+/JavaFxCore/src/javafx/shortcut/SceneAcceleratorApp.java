@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class SceneAcceleratorApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var kc = new KeyCodeCombination(KeyCode.DIGIT1, KeyCombination.CONTROL_DOWN);
@@ -20,7 +21,4 @@ public class SceneAcceleratorApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

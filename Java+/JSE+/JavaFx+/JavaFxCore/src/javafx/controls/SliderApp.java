@@ -8,6 +8,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class SliderApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var wideSlider = wideSlider();
@@ -27,7 +28,8 @@ public class SliderApp extends Application {
         slider.setMajorTickUnit(10);
         slider.setMinorTickCount(9);
         slider.setBlockIncrement(1);
-        slider.valueProperty().addListener((observable, oldValue, newValue) -> text.setText(newValue.toString()));
+        slider.valueProperty().addListener(
+                (_, _, newValue) -> text.setText(newValue.toString()));
         return new VBox(text, slider);
     }
 
@@ -38,7 +40,8 @@ public class SliderApp extends Application {
         slider.setMaxWidth(50);
         slider.setShowTickMarks(true);
         slider.setShowTickLabels(true);
-        slider.valueProperty().addListener((observable, oldValue, newValue) -> text.setText(newValue.toString()));
+        slider.valueProperty().addListener(
+                (_, _, newValue) -> text.setText(newValue.toString()));
         return new VBox(text, slider);
     }
 
@@ -54,11 +57,9 @@ public class SliderApp extends Application {
         slider.setMajorTickUnit(10);
         slider.setSnapToTicks(true);
         slider.setMinorTickCount(0);
-        slider.valueProperty().addListener((observable, oldValue, newValue) -> text.setText(newValue.toString()));
+        slider.valueProperty().addListener(
+                (_, _, newValue) -> text.setText(newValue.toString()));
         return new VBox(text, slider);
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

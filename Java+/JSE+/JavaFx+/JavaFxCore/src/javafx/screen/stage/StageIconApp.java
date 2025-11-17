@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 public class StageIconApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var label = new Label("Hello, JavaFX");
@@ -21,7 +22,4 @@ public class StageIconApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

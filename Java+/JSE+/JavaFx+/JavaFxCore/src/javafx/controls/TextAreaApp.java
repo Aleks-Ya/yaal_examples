@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class TextAreaApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var textArea1 = smallTextArea();
@@ -98,7 +99,4 @@ public class TextAreaApp extends Application {
         return textArea;
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

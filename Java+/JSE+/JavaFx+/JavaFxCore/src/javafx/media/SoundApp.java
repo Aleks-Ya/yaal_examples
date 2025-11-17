@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import util.ResourceUtil;
 
 public class SoundApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var buttonMp3 = createButton("Play MP3", "javafx/media/sound.mp3");
@@ -25,14 +26,11 @@ public class SoundApp extends Application {
         var sound = new Media(uri);
         var mediaPlayer = new MediaPlayer(sound);
         var button = new Button(title);
-        button.setOnAction(evt -> {
+        button.setOnAction(_ -> {
             mediaPlayer.seek(mediaPlayer.getStartTime());
             mediaPlayer.play();
         });
         return button;
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

@@ -11,12 +11,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class StageResizableApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var isResizableCheckBox = new CheckBox("Resizable");
         isResizableCheckBox.setSelected(stage.isResizable());
         isResizableCheckBox.selectedProperty()
-                .addListener((observable, oldValue, newValue) -> stage.setResizable(newValue));
+                .addListener((_, _, newValue) -> stage.setResizable(newValue));
 
         var minHeight = new Spinner<Integer>(0, 2000, 0, 10);
         minHeight.setEditable(true);
@@ -32,10 +33,14 @@ public class StageResizableApp extends Application {
         var widthLabel = new Label();
         var heightLabel = new Label();
 
-        stage.xProperty().addListener((observable, oldValue, newValue) -> xLabel.setText("X: " + stage.getX()));
-        stage.yProperty().addListener((observable, oldValue, newValue) -> yLabel.setText("Y: " + stage.getY()));
-        stage.widthProperty().addListener((observable, oldValue, newValue) -> widthLabel.setText("Width: " + stage.getWidth()));
-        stage.heightProperty().addListener((observable, oldValue, newValue) -> heightLabel.setText("Height: " + stage.getHeight()));
+        stage.xProperty().addListener(
+                (_, _, _) -> xLabel.setText("X: " + stage.getX()));
+        stage.yProperty().addListener(
+                (_, _, _) -> yLabel.setText("Y: " + stage.getY()));
+        stage.widthProperty().addListener(
+                (_, _, _) -> widthLabel.setText("Width: " + stage.getWidth()));
+        stage.heightProperty().addListener(
+                (_, _, _) -> heightLabel.setText("Height: " + stage.getHeight()));
 
         var box = new VBox(
                 xLabel,
@@ -59,29 +64,30 @@ public class StageResizableApp extends Application {
 
     private static HBox minHeightHBox(Stage stage, Spinner<Integer> spinner) {
         var label = new Label("Min Height: ");
-        spinner.valueProperty().addListener((obs, oldValue, newValue) -> stage.setMinHeight(newValue));
+        spinner.valueProperty().addListener(
+                (_, _, newValue) -> stage.setMinHeight(newValue));
         return new HBox(label, spinner);
     }
 
     private static HBox maxHeightHBox(Stage stage, Spinner<Integer> spinner) {
         var label = new Label("Max Height: ");
-        spinner.valueProperty().addListener((obs, oldValue, newValue) -> stage.setMaxHeight(newValue));
+        spinner.valueProperty().addListener(
+                (_, _, newValue) -> stage.setMaxHeight(newValue));
         return new HBox(label, spinner);
     }
 
     private static HBox minWidthHBox(Stage stage, Spinner<Integer> spinner) {
         var label = new Label("Min Width: ");
-        spinner.valueProperty().addListener((obs, oldValue, newValue) -> stage.setMinWidth(newValue));
+        spinner.valueProperty().addListener(
+                (_, _, newValue) -> stage.setMinWidth(newValue));
         return new HBox(label, spinner);
     }
 
     private static HBox maxWidthHBox(Stage stage, Spinner<Integer> spinner) {
         var label = new Label("Max Width: ");
-        spinner.valueProperty().addListener((obs, oldValue, newValue) -> stage.setMaxWidth(newValue));
+        spinner.valueProperty().addListener(
+                (_, _, newValue) -> stage.setMaxWidth(newValue));
         return new HBox(label, spinner);
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

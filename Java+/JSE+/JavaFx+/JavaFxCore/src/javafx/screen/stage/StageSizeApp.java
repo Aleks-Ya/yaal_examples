@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class StageSizeApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var stageX = new Spinner<Integer>(0, 2000, 0, 10);
@@ -32,29 +33,30 @@ public class StageSizeApp extends Application {
 
     private static HBox stageXHBox(Stage stage, Spinner<Integer> spinner) {
         var label = new Label("Stage X: ");
-        spinner.valueProperty().addListener((obs, oldValue, newValue) -> stage.setX(newValue));
+        spinner.valueProperty().addListener(
+                (_, _, newValue) -> stage.setX(newValue));
         return new HBox(label, spinner);
     }
 
     private static HBox stageYHBox(Stage stage, Spinner<Integer> spinner) {
         var label = new Label("Stage Y: ");
-        spinner.valueProperty().addListener((obs, oldValue, newValue) -> stage.setY(newValue));
+        spinner.valueProperty().addListener(
+                (_, _, newValue) -> stage.setY(newValue));
         return new HBox(label, spinner);
     }
 
     private static HBox stageWidthHBox(Stage stage, Spinner<Integer> spinner) {
         var label = new Label("Stage Width: ");
-        spinner.valueProperty().addListener((obs, oldValue, newValue) -> stage.setWidth(newValue));
+        spinner.valueProperty().addListener(
+                (_, _, newValue) -> stage.setWidth(newValue));
         return new HBox(label, spinner);
     }
 
     private static HBox stageHeightHBox(Stage stage, Spinner<Integer> spinner) {
         var label = new Label("Stage Height: ");
-        spinner.valueProperty().addListener((obs, oldValue, newValue) -> stage.setHeight(newValue));
+        spinner.valueProperty().addListener(
+                (_, _, newValue) -> stage.setHeight(newValue));
         return new HBox(label, spinner);
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

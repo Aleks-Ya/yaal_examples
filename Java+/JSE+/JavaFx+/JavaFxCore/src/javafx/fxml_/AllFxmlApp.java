@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
-public class AllFXML extends Application {
+public class AllFxmlApp extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("all.fxml")));
@@ -19,7 +20,4 @@ public class AllFXML extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

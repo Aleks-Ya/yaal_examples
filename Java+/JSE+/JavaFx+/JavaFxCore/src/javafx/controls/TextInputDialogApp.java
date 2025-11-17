@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class TextInputDialogApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var dialog = dialog();
@@ -24,7 +25,7 @@ public class TextInputDialogApp extends Application {
 
     private static Button buttonFocused(TextInputDialog dialog, Label label) {
         var button = new Button("Enter name in a focused dialog");
-        button.setOnAction(event -> {
+        button.setOnAction(_ -> {
             dialog.show();
             dialog.getEditor().requestFocus();
             dialog.hide();
@@ -37,7 +38,7 @@ public class TextInputDialogApp extends Application {
 
     private static Button button(TextInputDialog dialog, Label label) {
         var button = new Button("Enter name");
-        button.setOnAction(evt -> dialog.showAndWait()
+        button.setOnAction(_ -> dialog.showAndWait()
                 .ifPresentOrElse(label::setText, () -> label.setText("<cancelled>")));
         return button;
     }
@@ -56,7 +57,4 @@ public class TextInputDialogApp extends Application {
         return dialog;
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

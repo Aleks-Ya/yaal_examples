@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ButtonMnemonicApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var button1 = onActionButton();
@@ -25,11 +26,8 @@ public class ButtonMnemonicApp extends Application {
 
     private static Button onActionButton() {
         var button = new Button("Print to console (shortcut is Alt-1)");
-        button.setOnAction(evt -> System.out.println("Button was clicked"));
+        button.setOnAction(_ -> System.out.println("Button was clicked"));
         return button;
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

@@ -8,7 +8,8 @@ import javafx.stage.Stage;
  * Example of a Model-View-ViewModel application.<br/>
  * <a href="https://fxdocs.github.io/docs/html5/#_application_structure">Source</a>
  */
-public class MVVMApp extends Application {
+public class MvvmApp extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         var view = new EmploymentRequestView();
@@ -20,7 +21,4 @@ public class MVVMApp extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

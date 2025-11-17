@@ -9,10 +9,11 @@ import static javafx.fxml_.mvc_multi_fxml.Brand.*;
 import static javafx.scene.input.KeyCode.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MvcMultiFXMLTest extends ApplicationTest {
+class MvcMultiFxmlAppTest extends ApplicationTest {
+
     @Override
     public void start(Stage stage) throws Exception {
-        new MvcMultiFXML().start(stage);
+        new MvcMultiFxmlApp().start(stage);
     }
 
     @Test

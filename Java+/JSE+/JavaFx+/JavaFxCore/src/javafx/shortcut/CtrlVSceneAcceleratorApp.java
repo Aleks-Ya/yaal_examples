@@ -20,6 +20,7 @@ import static javafx.scene.input.KeyEvent.KEY_PRESSED;
  * Suppress Ctrl-V on a WebView.
  */
 public class CtrlVSceneAcceleratorApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var button = new Button("Focus on me and press Ctrl-V");
@@ -44,10 +45,6 @@ public class CtrlVSceneAcceleratorApp extends Application {
         scene.getAccelerators().put(kc, task);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 
     static class PropagateCtrlVToParent implements EventHandler<KeyEvent> {

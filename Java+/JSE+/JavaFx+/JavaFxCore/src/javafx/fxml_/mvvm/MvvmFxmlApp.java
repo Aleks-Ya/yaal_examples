@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
-public class MvvmFXML extends Application {
+public class MvvmFxmlApp extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("mvvm.fxml")));
@@ -19,7 +20,4 @@ public class MvvmFXML extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

@@ -14,18 +14,19 @@ import javafx.stage.Stage;
  * Copy and paste to the system clipboard.
  */
 public class ClipboardApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var textArea = new TextArea("Hello, JavaFX");
         var copyButton = new Button("Copy to clipboard");
-        copyButton.setOnAction(e -> {
+        copyButton.setOnAction(_ -> {
             var clipboard = Clipboard.getSystemClipboard();
             var content = new ClipboardContent();
             content.putString(textArea.getText());
             clipboard.setContent(content);
         });
         var pasteButton = new Button("Paste from clipboard");
-        pasteButton.setOnAction(e -> {
+        pasteButton.setOnAction(_ -> {
             var clipboard = Clipboard.getSystemClipboard();
             var content = clipboard.getContent(DataFormat.PLAIN_TEXT);
             textArea.setText(content.toString());
@@ -35,7 +36,4 @@ public class ClipboardApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

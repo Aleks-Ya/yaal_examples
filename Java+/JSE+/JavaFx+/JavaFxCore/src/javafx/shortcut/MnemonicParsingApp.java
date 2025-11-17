@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MnemonicParsingApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var button1 = onActionButton();
@@ -19,11 +20,8 @@ public class MnemonicParsingApp extends Application {
     private static Button onActionButton() {
         var button = new Button("_Print to console (shortcut is Alt-P)");
         button.setMnemonicParsing(true);
-        button.setOnAction(evt -> System.out.println("Button was clicked"));
+        button.setOnAction(_ -> System.out.println("Button was clicked"));
         return button;
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

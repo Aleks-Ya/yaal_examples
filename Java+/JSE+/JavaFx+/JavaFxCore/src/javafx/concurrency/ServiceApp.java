@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class ServiceApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var label = new Label("Not started");
@@ -35,7 +36,4 @@ public class ServiceApp extends Application {
         service.start();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

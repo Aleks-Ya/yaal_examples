@@ -7,6 +7,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class ClickApplication extends Application {
+
     @Override
     public void start(Stage stage) {
         var sceneRoot = new ClickPane();
@@ -18,7 +19,7 @@ public class ClickApplication extends Application {
     public static class ClickPane extends StackPane {
         public ClickPane() {
             var button = new Button("click me!");
-            button.setOnAction(actionEvent -> button.setText("clicked!"));
+            button.setOnAction(_ -> button.setText("clicked!"));
             getChildren().add(button);
         }
     }

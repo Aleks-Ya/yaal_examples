@@ -11,10 +11,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
-class MvcFXMLTest extends ApplicationTest {
+class MvcFxmlAppTest extends ApplicationTest {
     @Override
     public void start(Stage stage) throws Exception {
-        new MvcFXML().start(stage);
+        new MvcFxmlApp().start(stage);
     }
 
     private String getWebViewContent(WebView webView) {

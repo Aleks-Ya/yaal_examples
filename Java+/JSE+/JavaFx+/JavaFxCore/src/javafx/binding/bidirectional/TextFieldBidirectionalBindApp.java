@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class TextFieldBidirectionalBindApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var textField1 = new TextField();
@@ -17,7 +18,4 @@ public class TextFieldBidirectionalBindApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

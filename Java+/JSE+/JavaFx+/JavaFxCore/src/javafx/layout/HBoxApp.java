@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 
 public class HBoxApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var hBox1 = simpleHBox();
@@ -36,7 +37,4 @@ public class HBoxApp extends Application {
         return hBox;
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

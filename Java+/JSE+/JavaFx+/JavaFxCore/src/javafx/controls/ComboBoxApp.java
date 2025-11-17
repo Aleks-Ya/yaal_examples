@@ -15,6 +15,7 @@ import javafx.util.StringConverter;
 import static javafx.geometry.Pos.CENTER_LEFT;
 
 public class ComboBoxApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var cb1 = readOnlyComboBox();
@@ -52,7 +53,7 @@ public class ComboBoxApp extends Application {
         comboBox.getItems().addAll(defaultOption, "Option 2", "Option 3");
         comboBox.setEditable(true);
         comboBox.setValue(defaultOption);
-        comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+        comboBox.valueProperty().addListener((_, _, newValue) -> {
             if (newValue != null && !comboBox.getItems().contains(newValue)) {
                 System.out.println("Custom value entered: " + newValue);
                 comboBox.getItems().add(newValue);
@@ -70,7 +71,7 @@ public class ComboBoxApp extends Application {
         comboBox.setEditable(true);
         comboBox.setValue(defaultOption);
 
-        comboBox.setCellFactory(param -> new ListCell<>() {
+        comboBox.setCellFactory(_ -> new ListCell<>() {
             private final Button btn = new Button("❌");
 
             @Override
@@ -79,7 +80,7 @@ public class ComboBoxApp extends Application {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    btn.setOnAction(event -> System.out.println("Button clicked for " + item));//Doesn't work
+                    btn.setOnAction(_ -> System.out.println("Button clicked for " + item));//Doesn't work
                     setText(item);
                     setGraphic(btn);
                 }
@@ -118,9 +119,5 @@ public class ComboBoxApp extends Application {
     }
 
     private record Person(String name, Integer age) {
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }

@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class AlertApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var okButton = okAlert();
@@ -25,7 +26,7 @@ public class AlertApp extends Application {
         alert.setContentText("The content text");
 
         var button = new Button("Show an OK Alert");
-        button.setOnAction(evt -> alert.showAndWait());
+        button.setOnAction(_ -> alert.showAndWait());
         return button;
     }
 
@@ -40,7 +41,7 @@ public class AlertApp extends Application {
         alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
 
         var button = new Button("Show an YES/NO Alert");
-        button.setOnAction(evt -> {
+        button.setOnAction(_ -> {
             var result = alert.showAndWait();
             if (result.orElseThrow() == buttonTypeYes) {
                 System.out.println("User answered YES");
@@ -51,7 +52,4 @@ public class AlertApp extends Application {
         return button;
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

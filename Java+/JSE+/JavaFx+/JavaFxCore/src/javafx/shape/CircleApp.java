@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.util.Random;
 
 public class CircleApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var circle = simpleCircle();
@@ -33,13 +34,10 @@ public class CircleApp extends Application {
         var button = new Button("Click Me");
         button.setGraphic(circle);
         var random = new Random();
-        button.setOnAction(evt ->
+        button.setOnAction(_ ->
                 circle.setFill(Color.color(random.nextDouble(1), random.nextDouble(1), random.nextDouble(1)))
         );
         return button;
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

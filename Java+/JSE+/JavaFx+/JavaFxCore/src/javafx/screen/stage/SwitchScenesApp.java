@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class SwitchScenesApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var label1 = new Label("It's the Scene 1");
@@ -21,14 +22,11 @@ public class SwitchScenesApp extends Application {
         var pane2 = new HBox(label2, new Separator(), switchToScene1Button);
         var scene2 = new Scene(pane2, 600, 500);
 
-        switchToScene2Button.setOnAction(event -> stage.setScene(scene2));
-        switchToScene1Button.setOnAction(event -> stage.setScene(scene1));
+        switchToScene2Button.setOnAction(_ -> stage.setScene(scene2));
+        switchToScene1Button.setOnAction(_ -> stage.setScene(scene1));
 
         stage.setScene(scene1);
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 
 import static java.util.Objects.requireNonNull;
 
-public class MvcFXML extends Application {
+public class MvcFxmlApp extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
         var model = new MvcModel();
@@ -23,7 +24,4 @@ public class MvcFXML extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

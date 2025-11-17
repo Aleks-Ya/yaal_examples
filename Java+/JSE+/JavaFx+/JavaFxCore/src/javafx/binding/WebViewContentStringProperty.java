@@ -42,11 +42,12 @@ class WebViewContentStringProperty extends StringPropertyBase {
         } else {
             var latch = new CountDownLatch(1);
             Platform.runLater(() -> {
-                webView.getEngine().getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
-                    if (newValue == Worker.State.SUCCEEDED) {
-                        latch.countDown();
-                    }
-                });
+                webView.getEngine().getLoadWorker().stateProperty()
+                        .addListener((_, _, newValue) -> {
+                            if (newValue == Worker.State.SUCCEEDED) {
+                                latch.countDown();
+                            }
+                        });
                 webView.getEngine().loadContent(content);
             });
             try {

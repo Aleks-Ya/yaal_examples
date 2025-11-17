@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class LabelApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var label1 = simpleLabel();
@@ -27,7 +28,4 @@ public class LabelApp extends Application {
         return label;
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

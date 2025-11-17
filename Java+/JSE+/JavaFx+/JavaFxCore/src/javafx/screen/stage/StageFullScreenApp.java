@@ -10,6 +10,7 @@ import javafx.stage.Stage;
  * Start app in full-screen (without window header).
  */
 public class StageFullScreenApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var label = new Label("Hello, JavaFX");
@@ -19,7 +20,4 @@ public class StageFullScreenApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

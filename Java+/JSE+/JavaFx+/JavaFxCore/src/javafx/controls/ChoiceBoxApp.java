@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ChoiceBoxApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var choiceBox1 = fillUsingFxCollection();
@@ -34,9 +35,5 @@ public class ChoiceBoxApp extends Application {
         choiceBox.getItems().add("Green");
         choiceBox.setValue(defaultItem);
         return choiceBox;
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }

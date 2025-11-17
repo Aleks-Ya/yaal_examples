@@ -12,11 +12,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MenuItemAcceleratorApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var menuItem = new MenuItem("Print to console (shortcut is Ctrl-1)");
         menuItem.setAccelerator(new KeyCodeCombination(KeyCode.DIGIT1, KeyCombination.CONTROL_DOWN));
-        menuItem.setOnAction(e -> System.out.println("Shortcut triggered!"));
+        menuItem.setOnAction(_ -> System.out.println("Shortcut triggered!"));
         var menu = new Menu("Settings");
         menu.getItems().add(menuItem);
         var menuBar = new MenuBar();
@@ -28,7 +29,4 @@ public class MenuItemAcceleratorApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

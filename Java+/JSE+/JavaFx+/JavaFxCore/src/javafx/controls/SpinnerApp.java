@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 public class SpinnerApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var spinner1 = spinner();
@@ -54,12 +55,9 @@ public class SpinnerApp extends Application {
     private static HBox spinnerListener() {
         var label = new Label("Spinner with listener (see console): ");
         var spinner = new Spinner<Integer>(0, 100, 50, 5);
-        spinner.valueProperty().addListener((obs, oldValue, newValue) ->
+        spinner.valueProperty().addListener((_, oldValue, newValue) ->
                 System.out.printf("Spinner: oldValue=%d, newValue=%d\n", oldValue, newValue));
         return new HBox(label, spinner);
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

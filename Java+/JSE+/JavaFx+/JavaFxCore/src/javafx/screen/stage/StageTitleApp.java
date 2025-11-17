@@ -7,6 +7,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class StageTitleApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var label = new Label("Hello, JavaFX");
@@ -16,7 +17,4 @@ public class StageTitleApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

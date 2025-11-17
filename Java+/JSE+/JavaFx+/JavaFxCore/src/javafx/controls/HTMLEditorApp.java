@@ -7,6 +7,7 @@ import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
 
 public class HTMLEditorApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var editor = new HTMLEditor();
@@ -15,7 +16,4 @@ public class HTMLEditorApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

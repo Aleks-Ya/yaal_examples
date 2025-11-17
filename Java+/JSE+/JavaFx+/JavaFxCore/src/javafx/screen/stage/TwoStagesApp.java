@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class TwoStagesApp extends Application {
+
     @Override
     public void start(Stage primaryStage) {
         var firstStageLabel = new Label("This is the first stage");
@@ -26,7 +27,4 @@ public class TwoStagesApp extends Application {
         secondStage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import static java.util.Objects.requireNonNull;
 
 public class LabelForApp extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
         var loader = new FXMLLoader();
@@ -21,7 +22,4 @@ public class LabelForApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

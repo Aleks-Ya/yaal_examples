@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class SwitchRootNodesInSceneApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var label1 = new Label("It's the Root Node 1");
@@ -21,14 +22,11 @@ public class SwitchRootNodesInSceneApp extends Application {
 
         var scene = new Scene(pane1, 600, 500);
 
-        switchToRootNode2Button.setOnAction(event -> scene.setRoot(pane2));
-        switchToRootNode1Button.setOnAction(event -> scene.setRoot(pane1));
+        switchToRootNode2Button.setOnAction(_ -> scene.setRoot(pane2));
+        switchToRootNode1Button.setOnAction(_ -> scene.setRoot(pane1));
 
         stage.setScene(scene);
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

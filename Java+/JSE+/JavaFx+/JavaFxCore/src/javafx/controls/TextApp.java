@@ -7,6 +7,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class TextApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var data = """
@@ -20,7 +21,4 @@ public class TextApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

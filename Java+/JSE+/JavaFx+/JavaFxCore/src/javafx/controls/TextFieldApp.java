@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class TextFieldApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var textField = new TextField("Hello, JavaFX!");
@@ -18,7 +19,4 @@ public class TextFieldApp extends Application {
         focusedTextField.requestFocus();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
 }

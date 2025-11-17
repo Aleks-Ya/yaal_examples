@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ButtonApp extends Application {
+
     @Override
     public void start(Stage stage) {
         var button1 = onActionButton();
@@ -25,13 +26,13 @@ public class ButtonApp extends Application {
 
     private static Button onActionButton() {
         var button = new Button("Print to console (onAction)");
-        button.setOnAction(evt -> System.out.println("Button was clicked (onAction)"));
+        button.setOnAction(_ -> System.out.println("Button was clicked (onAction)"));
         return button;
     }
 
     private static Button setOnActionPropertyButton() {
         var button = new Button("Print to console (set onActionProperty)");
-        button.onActionProperty().set(event -> System.out.println("Button was clicked (set onActionProperty)"));
+        button.onActionProperty().set(_ -> System.out.println("Button was clicked (set onActionProperty)"));
         return button;
     }
 
@@ -40,7 +41,7 @@ public class ButtonApp extends Application {
         button.onActionProperty().bind(new ObservableValueBase<>() {
             @Override
             public EventHandler<ActionEvent> getValue() {
-                return event -> System.out.println("Button was clicked (bind onActionProperty)");
+                return _ -> System.out.println("Button was clicked (bind onActionProperty)");
             }
         });
         return button;
@@ -49,13 +50,9 @@ public class ButtonApp extends Application {
     private static Button disabledButton() {
         var button = new Button("Disabled");
         button.setDisable(true);
-        button.setOnAction(event -> {
+        button.setOnAction(_ -> {
             throw new AssertionError("Button is disabled");
         });
         return button;
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }
