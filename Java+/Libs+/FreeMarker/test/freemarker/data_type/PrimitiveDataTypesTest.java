@@ -1,6 +1,6 @@
 package freemarker.data_type;
 
-import freemarker.BaseFreemarkerTest;
+import freemarker.BaseClassTemplateLoaderTest;
 import freemarker.template.TemplateException;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-class PrimitiveDataTypesTest extends BaseFreemarkerTest {
+class PrimitiveDataTypesTest extends BaseClassTemplateLoaderTest {
     @Test
     void allPrimitiveDataTypes() throws IOException, TemplateException {
         var data = Map.of("string_in_map", "String in Map");

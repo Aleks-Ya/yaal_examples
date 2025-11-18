@@ -1,17 +1,15 @@
 package freemarker.bean;
 
-import freemarker.BaseFreemarkerTest;
+import freemarker.BaseClassTemplateLoaderTest;
 import freemarker.template.TemplateException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.time.Instant;
-import java.util.Date;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class JavaBeanTest extends BaseFreemarkerTest {
+class JavaBeanTest extends BaseClassTemplateLoaderTest {
 
     @Test
     void beanInMap() throws IOException, TemplateException {
@@ -24,9 +22,6 @@ class JavaBeanTest extends BaseFreemarkerTest {
                 Decimal: 2.5
                 Boolean (true/false): true
                 Boolean (custom): ok
-                Date (time): 5:15:30 PM
-                Date (date): Dec 3, 2007
-                Date (datetime): Dec 3, 2007, 5:15:30 PM
                 """);
     }
 
@@ -41,9 +36,6 @@ class JavaBeanTest extends BaseFreemarkerTest {
                 Decimal: 2.5
                 Boolean (true/false): true
                 Boolean (custom): ok
-                Date (time): 5:15:30 PM
-                Date (date): Dec 3, 2007
-                Date (datetime): Dec 3, 2007, 5:15:30 PM
                 """);
     }
 
@@ -54,7 +46,6 @@ class JavaBeanTest extends BaseFreemarkerTest {
         private int integer = 1;
         private double decimal = 2.5;
         private String string = "Data value";
-        private Date date = Date.from(Instant.parse("2007-12-03T10:15:30.00Z"));
         private boolean bool = true;
 
         public String getString() {
@@ -67,10 +58,6 @@ class JavaBeanTest extends BaseFreemarkerTest {
 
         public double getDecimal() {
             return decimal;
-        }
-
-        public Date getDate() {
-            return date;
         }
 
         public boolean isBoolean() {

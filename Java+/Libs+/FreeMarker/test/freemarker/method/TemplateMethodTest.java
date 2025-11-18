@@ -1,6 +1,6 @@
 package freemarker.method;
 
-import freemarker.BaseFreemarkerTest;
+import freemarker.BaseClassTemplateLoaderTest;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModelException;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TemplateMethodTest extends BaseFreemarkerTest {
+class TemplateMethodTest extends BaseClassTemplateLoaderTest {
 
     @BeforeAll
     public static void additionalSetUp() {

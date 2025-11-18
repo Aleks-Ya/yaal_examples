@@ -1,6 +1,6 @@
 package freemarker.directive;
 
-import freemarker.BaseFreemarkerTest;
+import freemarker.BaseClassTemplateLoaderTest;
 import freemarker.template.TemplateException;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Use #assign directive.
  */
-class AssignTest extends BaseFreemarkerTest {
+class AssignTest extends BaseClassTemplateLoaderTest {
     @Test
     void test() throws IOException, TemplateException {
         var data = Map.of();

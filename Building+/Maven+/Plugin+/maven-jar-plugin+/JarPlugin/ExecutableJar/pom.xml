@@ -19,7 +19,7 @@
                     <archive>
                         <manifest>
                             <mainClass>myjar.Main</mainClass>
-                            <!-- <addClasspath>true</addClasspath>-->
+                            <!--<addClasspath>true</addClasspath>-->
                         </manifest>
                     </archive>
                 </configuration>

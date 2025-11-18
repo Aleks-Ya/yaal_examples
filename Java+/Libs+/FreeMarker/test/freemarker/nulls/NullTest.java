@@ -1,6 +1,6 @@
 package freemarker.nulls;
 
-import freemarker.BaseFreemarkerTest;
+import freemarker.BaseClassTemplateLoaderTest;
 import freemarker.template.TemplateException;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class NullTest extends BaseFreemarkerTest {
+class NullTest extends BaseClassTemplateLoaderTest {
 
     @Test
     void useDefaultValueIfNull() throws IOException, TemplateException {

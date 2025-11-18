@@ -1,6 +1,6 @@
 package freemarker.template;
 
-import freemarker.BaseFreemarkerTest;
+import freemarker.BaseClassTemplateLoaderTest;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class WriteToStringTest extends BaseFreemarkerTest {
+class WriteToStringTest extends BaseClassTemplateLoaderTest {
     @Test
     void test() throws IOException, TemplateException {
         var data = Map.of("name", "Aleksey");
