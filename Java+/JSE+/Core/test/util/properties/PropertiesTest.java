@@ -46,21 +46,21 @@ class PropertiesTest {
 
     @Test
     void store() throws IOException {
-        var props = new Properties();
-        props.setProperty("a", "host:1234");
+        var properties = new Properties();
+        properties.setProperty("a", "host:1234");
         var writer = new StringWriter();
-        props.store(writer, "Comment 1");
+        properties.store(writer, "Comment 1");
         var actContent = writer.toString();
         assertThat(actContent).contains("a=host\\:1234");
     }
 
     @Test
     void storeNoComment() {
-        var props = new Properties();
-        props.setProperty("a", "host:1234");
-        props.setProperty("b", "http://abc.com");
+        var properties = new Properties();
+        properties.setProperty("a", "host:1234");
+        properties.setProperty("b", "http://abc.com");
         var writer = new StringWriter();
-        props.forEach((k, v) -> writer.write(k + "=" + v + "\n"));
+        properties.forEach((k, v) -> writer.write(k + "=" + v + "\n"));
         var actContent = writer.toString();
         assertThat(actContent).isEqualTo("a=host:1234\nb=http://abc.com\n");
     }
@@ -75,17 +75,32 @@ class PropertiesTest {
 
     @Test
     void spaces() throws IOException {
-        var props = new Properties();
+        var properties = new Properties();
         var key = "a b";
         var value = "123 456";
-        props.setProperty(key, value);
+        properties.setProperty(key, value);
         var writer = new StringWriter();
-        props.store(writer, null);
+        properties.store(writer, null);
         var content = writer.toString();
         assertThat(content).containsSubsequence("a\\ b=123 456");
         var actProps = new Properties();
         actProps.load(new StringReader(content));
         assertThat(actProps).containsEntry(key, value);
+    }
+
+    @Test
+    void quotes() throws IOException {
+        var properties = new Properties();
+        properties.load(resourceToInputStream("util/properties/quotes.properties"));
+        var actUnescaped = properties.getProperty("colors_unescaped");
+        var actEscaped = properties.getProperty("colors_escaped");
+        var actEscapedTwice = properties.getProperty("colors_escaped_twice");
+        assertThat(actUnescaped).isEqualTo("""
+                ["red", "green"]""");
+        assertThat(actEscaped).isEqualTo("""
+                ["red", "green"]""");
+        assertThat(actEscapedTwice).isEqualTo("""
+                [\\"red\\", \\"green\\"]""");
     }
 
 }

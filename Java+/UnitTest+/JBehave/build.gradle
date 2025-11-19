@@ -1,7 +1,3 @@
-/**
- * Использование фреймворка JBehave,
- * поддерживающего BDD (Behavior Driver Development).
- */
 dependencies {
-    testImplementation 'org.jbehave:jbehave-core:3.9.5'
+    testImplementation 'org.jbehave:jbehave-core:5.2.0'
 }

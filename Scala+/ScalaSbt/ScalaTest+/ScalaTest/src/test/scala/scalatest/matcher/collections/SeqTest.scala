@@ -8,6 +8,8 @@ class SeqTest extends AnyFlatSpec with Matchers {
   "sequences with integers" should "work" in {
     val list = List(1, 2, 2, 3, 3, 3)
     list should have size 6
+    list.size should be > 5
+    list.size should be >= 5
     list should contain only(1, 2, 3)
     list should contain inOrderOnly(1, 2, 3)
     list should contain(1)
@@ -22,6 +24,8 @@ class SeqTest extends AnyFlatSpec with Matchers {
   "sequences with strings" should "work" in {
     val list = List("a", "b", "c", "c")
     list should have size 4
+    list.size should be > 3
+    list.size should be >= 3
     list should contain only("a", "b", "c")
     list should contain inOrderOnly("a", "b", "c")
     list should contain("b")
