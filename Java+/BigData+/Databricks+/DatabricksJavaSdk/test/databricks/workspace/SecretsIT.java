@@ -1,4 +1,4 @@
-package databricks;
+package databricks.workspace;
 
 import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.error.platform.ResourceDoesNotExist;
@@ -7,6 +7,7 @@ import com.databricks.sdk.service.workspace.CreateScope;
 import com.databricks.sdk.service.workspace.DeleteSecret;
 import com.databricks.sdk.service.workspace.PutSecret;
 import com.google.common.collect.Lists;
+import databricks.SecretsHelper;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

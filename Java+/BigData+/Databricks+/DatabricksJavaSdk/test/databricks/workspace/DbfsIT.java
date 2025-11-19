@@ -1,9 +1,10 @@
-package databricks;
+package databricks.workspace;
 
 import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.error.platform.ResourceDoesNotExist;
 import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.service.files.Delete;
+import databricks.DbfsHelper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import util.FileUtil;

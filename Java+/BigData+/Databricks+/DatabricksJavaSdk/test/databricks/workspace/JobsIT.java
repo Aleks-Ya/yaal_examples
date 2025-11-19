@@ -1,4 +1,4 @@
-package databricks;
+package databricks.workspace;
 
 import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.service.jobs.JobsAPI;
