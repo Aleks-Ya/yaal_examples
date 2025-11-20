@@ -19,6 +19,7 @@ aws dynamodb create-table \
 Delete a table: `aws dynamodb delete-table --table-name table1`
 Show resoure-based policy: `aws dynamodb get-resource-policy --resource-arn arn:aws:dynamodb:us-east-1:523633434047:table/table1`
 Wait for table creation: `aws dynamodb wait table-exists --table-name table1`
+Wait for table deletion: `aws dynamodb wait table-not-exists --table-name table1`
 
 ## Item
 Create an item: `aws dynamodb put-item --table-name table1 --item '{ "id": {"S": "john"}, "firstName": {"S": "John"}, "age": {"N": "30"} }'`

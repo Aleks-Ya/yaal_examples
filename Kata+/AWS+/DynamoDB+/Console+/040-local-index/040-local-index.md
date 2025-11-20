@@ -1,11 +1,11 @@
-# 060-local-index
+# 040-local-index
 
 ## Task
 Create two Local Secondary Indices with sorting by different attributes.
 
 ## Steps
 1. Create a table
-    1. Table name: `table-1`
+    1. Table name: `kata-table-local-index`
     2. Partition key: `id`, String
     3. Sort key: `name`, String
     4. Table settings: `Customize settings`
@@ -38,7 +38,7 @@ Create two Local Secondary Indices with sorting by different attributes.
 3. Test
 	1. Sort by name (sorting key): 
 		1. Type: `Query`
-		2. Select a table or index: `table-1`
+		2. Select a table or index: `kata-table-local-index`
 		3. id (Partition key): `1`
 	2. Sort by age: 
 		1. Type: `Query`
@@ -50,7 +50,7 @@ Create two Local Secondary Indices with sorting by different attributes.
 		3. id (Partition key): `1`
 
 ## Cleanup
-1. Delete table `table-1`
+1. Delete table `kata-table-local-index`
 
 ## History
 - 2024-01-08 success

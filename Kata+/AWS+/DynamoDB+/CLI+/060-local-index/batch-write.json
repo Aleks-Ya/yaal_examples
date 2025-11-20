@@ -1,0 +1,48 @@
+{
+    "kata-table-local-index": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "customer": {"S": "John"},
+                    "saleId": {"N": "1"},
+                    "product": {"S": "Book"},
+                    "manager": {"S": "Mark"},
+                    "amount": {"N": "3"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "customer": {"S": "John"},
+                    "saleId": {"N": "2"},
+                    "product": {"S": "Book"},
+                    "manager": {"S": "Mary"},
+                    "amount": {"N": "8"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "customer": {"S": "John"},
+                    "saleId": {"N": "3"},
+                    "product": {"S": "Pensil"},
+                    "manager": {"S": "Mark"},
+                    "amount": {"N": "5"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "customer": {"S": "Mary"},
+                    "saleId": {"N": "1"},
+                    "product": {"S": "Book"},
+                    "manager": {"S": "Mark"},
+                    "amount": {"N": "1"}
+                }
+            }
+        }
+    ]
+}
