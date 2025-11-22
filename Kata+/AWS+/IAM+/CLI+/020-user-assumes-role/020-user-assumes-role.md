@@ -1,7 +1,6 @@
-# 030-user-assumes-role
+# 020-user-assumes-role
 
 ## Task
-Status: ?
 A User assumes a Role.
 Description:
 1. There is a S3 bucket `kata-bucket-user-assumes-role`

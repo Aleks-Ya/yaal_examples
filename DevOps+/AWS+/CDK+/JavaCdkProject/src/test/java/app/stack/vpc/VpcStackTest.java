@@ -1,4 +1,4 @@
-package app.stack.vpc;// package com.myorg;
+package app.stack.vpc;
 
 import org.junit.jupiter.api.Test;
 import software.amazon.awscdk.App;

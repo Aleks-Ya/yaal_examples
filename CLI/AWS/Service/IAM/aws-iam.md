@@ -122,6 +122,10 @@ aws iam remove-role-from-instance-profile \
     --role-name BedrockAccessRole
 ```
 
+## Tag
+Add tag to user: `aws iam tag-user --user-name user1 --tags Key=tag1,Value=value1`
+Remove tag from a user: `aws iam untag-user --user-name user1 --tag-keys tag1`
+
 ## Errors
 ### MalformedPolicyDocument
 Command: `aws iam create-role --role-name role1 --assume-role-policy-document assume-role-policy.json`

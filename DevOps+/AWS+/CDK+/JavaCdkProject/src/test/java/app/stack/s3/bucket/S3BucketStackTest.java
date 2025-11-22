@@ -1,4 +1,4 @@
-package app.stack.s3.bucket;// package com.myorg;
+package app.stack.s3.bucket;
 
 import org.junit.jupiter.api.Test;
 import software.amazon.awscdk.App;

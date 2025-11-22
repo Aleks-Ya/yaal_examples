@@ -1,6 +1,7 @@
-# A Role assumes another Role
+# 030-role-assumes-role
 
-## Description
+## Task
+A Role assumes another Role.
 1. There is a role `S3Role` with policy `AmazonS3ReadOnlyAccess` allowing list buckets
 2. There is a role `AnalystRole` that can assume `S3Role`
 3. There is a user `AnalystUser` who can assume `AnalystRole`
@@ -51,3 +52,5 @@
 4. Remove user profile: 
 	1. Open `subl ~/.aws/CREDSentials`
 	2. Remove sections: `[AnalystUser]`, `[AnalystSessionProfile]`, `[S3SessionProfile]`
+
+## History

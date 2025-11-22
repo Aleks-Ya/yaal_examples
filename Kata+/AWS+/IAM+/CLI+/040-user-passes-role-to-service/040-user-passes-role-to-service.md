@@ -1,6 +1,7 @@
-# A User passes a Role to an AWS Service
+# 040-user-passes-role-to-service
 
-## Description
+## Task
+A User passes a Role to an AWS Service.
 1. There is a role `S3Role` with policy `AmazonS3ReadOnlyAccess` allowing list buckets
 2. There is a Lambda function `buckets-function` which lists buckets, but it cannot assume `S3Role`
 3. There is a user `FunctionUser` who can assume `S3Role`
@@ -21,14 +22,14 @@
 3. Create `buckets-function`:
 	1. Pack the handler: `zip deployment-package.zip handler.py`
 	2. Create a function:
-	```shell
-	aws --profile FunctionUser lambda create-function \
-	--function-name buckets-function \
-	--runtime python3.13 \
-	--role arn:aws:iam::523633434047:role/S3Role \
-	--handler handler.lambda_handler \
-	--zip-file fileb://deployment-package.zip
-	```
+		```shell
+		aws --profile FunctionUser lambda create-function \
+			--function-name buckets-function \
+			--runtime python3.13 \
+			--role arn:aws:iam::523633434047:role/S3Role \
+			--handler handler.lambda_handler \
+			--zip-file fileb://deployment-package.zip
+		```
 	3. Test function: `aws lambda invoke --function-name buckets-function /dev/stdout`
 
 ## Cleanup
@@ -47,3 +48,5 @@
 4. Remove user profile: 
 	1. Open `subl ~/.aws/credentials`
 	2. Remove sections: `[FunctionUser]`
+
+## History

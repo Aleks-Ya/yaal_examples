@@ -3,7 +3,6 @@
 See `Kata+/AWS+/CLI+/01-configure-aws-cli-without-permissions/01-configure-aws-cli-without-permissions.md`
 
 ## Task
-Status: ?
 Create an IAM user and authenticate AWS CLI with it.
 
 ## Steps
@@ -31,3 +30,5 @@ Create an IAM user and authenticate AWS CLI with it.
 	2. Delete profile `kata-profile-create-cli-user` from `~/.aws/credentials`
 2. AWS Console
 	1. Delete user `kata-user-create-cli-user`
+
+## History

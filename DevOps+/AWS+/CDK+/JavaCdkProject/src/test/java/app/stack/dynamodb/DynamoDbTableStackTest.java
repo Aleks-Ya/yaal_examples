@@ -1,4 +1,4 @@
-package app.stack.dynamodb;// package com.myorg;
+package app.stack.dynamodb;
 
 import org.junit.jupiter.api.Test;
 import software.amazon.awscdk.App;
