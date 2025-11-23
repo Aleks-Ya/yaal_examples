@@ -1,7 +1,6 @@
 # 010-s3-origin
 
 ## Task
-Status: ?
 Setup CloudFront Destination with S3 Bucket Origin (with AWS CLI).
 
 ## Steps
@@ -46,3 +45,5 @@ Command: `aws cloudfront delete-distribution --id $DIST_ID --if-match $ETAG2`
 Error message: `An error occurred (PreconditionFailed) when calling the DeleteDistribution operation: The request failed because it didn't meet the preconditions in one or more request-header fields.`
 Cause: outdated ETag
 Solution: get the latests Distritution ETag
+
+## History

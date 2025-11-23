@@ -52,7 +52,7 @@ class SearchableComboBoxEventTest extends ApplicationTest {
         comboBox.setOnKeyTyped(onKeyTypedEvents::add);
         comboBox.setOnMouseClicked(onMouseClickedEvents::add);
         comboBox.setOnMouseReleased(onMouseReleasedEvents::add);
-        comboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+        comboBox.getSelectionModel().selectedItemProperty().addListener((_, oldValue, newValue) ->
                 selectedItemChangeListenerEvents.add(oldValue + "->" + newValue));
         var scene = new Scene(new StackPane(comboBox), 300, 300);
         stage.setScene(scene);

@@ -1,7 +1,6 @@
 # 010-s3-origin
 
 ## Task
-Status: ?
 Setup CloudFront Destination with S3 Bucket Origin (with AWS Management Console).
 
 ## Steps
@@ -35,3 +34,5 @@ Setup CloudFront Destination with S3 Bucket Origin (with AWS Management Console)
 1. Delete Distribution
 2. Delete Origin Access
 3. Delete S3 Bucket
+
+## History

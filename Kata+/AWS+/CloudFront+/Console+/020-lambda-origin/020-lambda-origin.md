@@ -1,7 +1,6 @@
 # 020-lambda-origin
 
 ## Task
-Status: ?
 Create a CloudFront Distribution with a Lambda function origin.
 
 ## Steps
@@ -20,3 +19,5 @@ Create a CloudFront Distribution with a Lambda function origin.
 ## Cleanup
 1. Delete Distribution
 2. Delete Function: `function-1`
+
+## History

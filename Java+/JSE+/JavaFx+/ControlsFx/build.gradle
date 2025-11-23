@@ -13,3 +13,8 @@ dependencies {
     implementation controlsFxDep
     testImplementation testFxDep
 }
+test {
+    jvmArgs += [
+            '--add-opens=javafx.graphics/com.sun.javafx.application=ALL-UNNAMED'
+    ]
+}
