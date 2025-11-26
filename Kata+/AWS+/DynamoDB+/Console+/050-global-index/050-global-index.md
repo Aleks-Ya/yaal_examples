@@ -5,7 +5,7 @@ Use a Global Secondary Index (GSI) for improving requests.
 
 ## Steps
 1. Create a table
-    1. Table name: `global-index-table-1`
+    1. Table name: `kata-table-global-index`
     2. Partition key: `country`, String
     3. Sort key: `company`, String
     4. Table settings: `Customize settings`
@@ -17,14 +17,14 @@ Use a Global Secondary Index (GSI) for improving requests.
 2. Write items: `aws dynamodb batch-write-item --request-items file://items.json`
 3. Test
 	1. Query to the table
-		1. Select a table or index: `global-index-table-1`
+		1. Select a table or index: `kata-table-global-index`
 		2. country (Partition key): `France`
 	2. Query to the index
 		1. Select a table or index: `company-director-index`
 		2. company: `Michelin`
 
 ## Cleanup
-1. Delete table `global-index-table-1`
+1. Delete table `kata-table-global-index`
 
 ## History
 - 2024-01-10 success

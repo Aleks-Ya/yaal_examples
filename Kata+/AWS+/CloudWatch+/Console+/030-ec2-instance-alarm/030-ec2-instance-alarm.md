@@ -1,7 +1,6 @@
 # 030-ec2-instance-alarm
 
 ## Task
-Status: ?
 Create an CloudWatch alarm that raises if ≥80% of EC2 instance RAM is busy.
 
 ## Steps
@@ -40,10 +39,10 @@ Create an CloudWatch alarm that raises if ≥80% of EC2 instance RAM is busy.
         9. Do you want the CloudWatch agent to also retrieve X-ray traces? `no`
         10. Do you want to store the config in the SSM parameter store? `no`
     4. Start the Agent:
-       ```bash
-       sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s \
-        -c file:///opt/aws/amazon-cloudwatch-agent/bin/config.json
-       ```
+        ```bash
+        sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s \
+            -c file:///opt/aws/amazon-cloudwatch-agent/bin/config.json
+        ```
     5. Check Agent status: `sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a status`
 3. See memory in CloudWatch
     1. Open CloudWatch -> Metrics -> All metrics

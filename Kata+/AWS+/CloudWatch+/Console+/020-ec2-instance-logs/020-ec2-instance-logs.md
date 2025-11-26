@@ -1,7 +1,6 @@
 # 020-ec2-instance-logs
 
 ## Task
-Status: ?
 See logs from EC2 instance in CloudWatch.
 
 ## Steps

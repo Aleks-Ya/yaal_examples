@@ -50,7 +50,7 @@ Create a Local Secondary Index (LSI) for a DynamoDB table.
    2. Wait for creation: `aws dynamodb wait table-exists --table-name $TABLE`
 4. Write Items: `aws dynamodb batch-write-item --request-items file://batch-write.json`
 5. Read Items:
-   1. Scan all items: `aws dynamodb scan --table-name $TABLE`
+   1. Scan all items: `aws dynamodb scan --table-name $TABLE | compact-json -`
    2. Query items by cusotmer (Base Table): 
       ```shell
       aws dynamodb query --table-name $TABLE \

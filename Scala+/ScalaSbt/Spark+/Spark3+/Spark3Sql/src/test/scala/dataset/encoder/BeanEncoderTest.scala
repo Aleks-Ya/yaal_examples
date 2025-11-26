@@ -1,7 +1,7 @@
 package dataset.encoder
 
 import factory.Factory
-import org.apache.spark.sql.{Encoder, Encoders}
+import org.apache.spark.sql.{Dataset, Encoder, Encoders}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -14,7 +14,7 @@ class BeanEncoderTest extends AnyFlatSpec with Matchers {
     val ss = Factory.ss
     implicit val encoder: Encoder[PersonJava] = Encoders.bean(classOf[PersonJava])
     val persons = Seq(new PersonJava(1, "John"), new PersonJava(2, "Mary"))
-    val ds = ss.createDataset(persons)
+    val ds: Dataset[PersonJava] = ss.createDataset(persons)
     ds.show
   }
 
@@ -22,7 +22,7 @@ class BeanEncoderTest extends AnyFlatSpec with Matchers {
     val ss = Factory.ss
     implicit val encoder: Encoder[PersonScala] = Encoders.bean(classOf[PersonScala])
     val persons = Seq(PersonScala(1, "John"), PersonScala(2, "Mary"))
-    val ds = ss.createDataset(persons)
+    val ds: Dataset[PersonScala] = ss.createDataset(persons)
     ds.show
   }
 

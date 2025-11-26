@@ -32,3 +32,7 @@ aws cloudwatch put-metric-data \
     }
   ]'
 ```
+
+## Alarms
+List alarms: `aws cloudwatch describe-alarms`
+List "in-alarm" alarms: `aws cloudwatch describe-alarms --state-value ALARM`

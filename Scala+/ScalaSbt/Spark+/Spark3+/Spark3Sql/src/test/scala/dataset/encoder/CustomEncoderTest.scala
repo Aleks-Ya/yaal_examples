@@ -1,24 +1,21 @@
 package dataset.encoder
 
 import factory.Factory
-import org.apache.spark.sql.{Encoder, Encoders}
+import org.apache.spark.sql.{Dataset, Encoder, Encoders}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-
-import java.time.LocalDateTime
-import java.util.Date
 
 class CustomEncoderTest extends AnyFlatSpec with Matchers {
 
   it should "Kryo encoder" in {
     val ss = Factory.ss
     import ss.implicits._
-    val ds = ss.createDataset(Seq("John", "Mary"))
+    val ds: Dataset[String] = ss.createDataset(Seq("John", "Mary"))
     ds.show
 
     class People(val name: String) extends Serializable {}
-    implicit val mapEncoder: Encoder[People] = Encoders.kryo[People]
-    val peopleDs = ds.map(name => new People(name))
+    implicit val encoder: Encoder[People] = Encoders.kryo[People]
+    val peopleDs: Dataset[People] = ds.map(name => new People(name))
     peopleDs.show
     peopleDs.foreach(println(_))
   }
