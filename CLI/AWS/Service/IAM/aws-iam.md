@@ -3,9 +3,9 @@
 ## Role
 List all roles: `aws iam list-roles`
 List all service-linked roles: `aws iam list-roles --path-prefix /aws-service-role`
-Show role details: `aws iam get-role --role-name AssumedRole1`
+Show role details: `aws iam get-role --role-name role1`
 Create a role: `aws iam create-role --role-name role1 --assume-role-policy-document file://assume-role-policy.json`
-Delete a role: `aws iam delete-role --role-name AssumedRole1`
+Delete a role: `aws iam delete-role --role-name role1`
 Update the trust policy on a role: `aws iam update-assume-role-policy --role-name role1 --policy-document file://trust-policy.json`
 
 ## User
