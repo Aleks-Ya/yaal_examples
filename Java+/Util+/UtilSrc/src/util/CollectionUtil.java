@@ -13,8 +13,12 @@ import java.util.stream.StreamSupport;
 import static java.util.Map.entry;
 
 public class CollectionUtil {
+    public static <T> Stream<T> iterableToStream(Iterable<T> iterable) {
+        return StreamSupport.stream(iterable.spliterator(), false);
+    }
+
     public static <T> List<T> iterableToList(Iterable<T> iterable) {
-        return StreamSupport.stream(iterable.spliterator(), false).collect(Collectors.toList());
+        return iterableToStream(iterable).collect(Collectors.toList());
     }
 
     public static <T> Stream<T> enumerationToStream(Enumeration<T> enumeration) {

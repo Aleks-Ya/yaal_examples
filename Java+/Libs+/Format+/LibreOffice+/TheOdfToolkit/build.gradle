@@ -1,0 +1,3 @@
+dependencies {
+    implementation 'org.odftoolkit:odfdom-java:0.12.0'
+}

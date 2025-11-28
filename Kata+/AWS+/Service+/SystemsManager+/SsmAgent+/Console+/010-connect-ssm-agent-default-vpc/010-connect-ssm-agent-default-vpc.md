@@ -1,7 +1,6 @@
 # 010-connect-ssm-agent-default-vpc
 
 ## Task
-Status: success
 Connect to an SSM Agent withing an EC2 instance in the default VPC.
 
 ## Steps

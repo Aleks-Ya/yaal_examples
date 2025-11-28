@@ -1,0 +1,677 @@
+PUT-PARAMETER()                                                PUT-PARAMETER()
+
+
+
+[1mNAME[0m
+       put-parameter -
+
+[1mDESCRIPTION[0m
+       Create or update a parameter in Parameter Store.
+
+       See also: AWS API Documentation
+
+[1mSYNOPSIS[0m
+            put-parameter
+          --name <value>
+          [--description <value>]
+          --value <value>
+          [--type <value>]
+          [--key-id <value>]
+          [--overwrite | --no-overwrite]
+          [--allowed-pattern <value>]
+          [--tags <value>]
+          [--tier <value>]
+          [--policies <value>]
+          [--data-type <value>]
+          [--cli-input-json | --cli-input-yaml]
+          [--generate-cli-skeleton <value>]
+          [--debug]
+          [--endpoint-url <value>]
+          [--no-verify-ssl]
+          [--no-paginate]
+          [--output <value>]
+          [--query <value>]
+          [--profile <value>]
+          [--region <value>]
+          [--version <value>]
+          [--color <value>]
+          [--no-sign-request]
+          [--ca-bundle <value>]
+          [--cli-read-timeout <value>]
+          [--cli-connect-timeout <value>]
+          [--cli-binary-format <value>]
+          [--no-cli-pager]
+          [--cli-auto-prompt]
+          [--no-cli-auto-prompt]
+
+[1mOPTIONS[0m
+       [1m--name [22m(string) [required]
+          The fully qualified name of the parameter that you want to create or
+          update.
+
+          [1mNOTE:[0m
+              You  can't enter the Amazon Resource Name (ARN) for a parameter,
+              only the parameter name itself.
+
+          The fully qualified name includes the complete hierarchy of the  pa-
+          rameter  path  and name. For parameters in a hierarchy, you must in-
+          clude a leading forward slash character (/) when you create or  ref-
+          erence a parameter. For example: [1m/Dev/DBServer/MySQL/db-string13[0m
+
+          Naming Constraints:
+
+          +o Parameter names are case sensitive.
+
+          +o A  parameter name must be unique within an Amazon Web Services Re-
+            gion
+
+          +o A parameter name can't be prefixed with "[1maws [22m" or "[1mssm [22m" (case-in-
+            sensitive).
+
+          +o Parameter names can include only the following  symbols  and  let-
+            ters:  [1ma-zA-Z0-9_.-    [22mIn  addition,  the slash character ( / ) is
+            used to delineate hierarchies in  parameter  names.  For  example:
+            [1m/Dev/Production/East/Project-ABC/MyParameter[0m
+
+          +o Parameter names can't contain spaces. The service removes any spa-
+            ces specified for the beginning or end of a parameter name. If the
+            specified name for a parameter contains spaces between characters,
+            the request fails with a [1mValidationException [22merror.
+
+          +o Parameter  hierarchies  are  limited to a maximum depth of fifteen
+            levels.
+
+          For additional information about valid values for  parameter  names,
+          see  [4mCreating[24m  [4mSystems[24m [4mManager[24m [4mparameters[24m in the [4mAmazon[24m [4mWeb[24m [4mServices[0m
+          [4mSystems[24m [4mManager[24m [4mUser[24m [4mGuide[24m .
+
+          [1mNOTE:[0m
+              The reported maximum length of 2048 characters for  a  parameter
+              name includes 1037 characters that are reserved for internal use
+              by Systems Manager. The maximum length for a parameter name that
+              you specify is 1011 characters.
+
+              This count of 1011 characters includes the characters in the ARN
+              that precede the name you specify. This ARN length will vary de-
+              pending on your partition and Region. For example, the following
+              45  characters count toward the 1011 character maximum for a pa-
+              rameter   created   in    the    US    East    (Ohio)    Region:
+              [1marn:aws:ssm:us-east-2:111122223333:parameter/ [22m.
+
+          Constraints:
+
+          +o min: [1m1[0m
+
+          +o max: [1m2048[0m
+
+       [1m--description [22m(string)
+          Information  about the parameter that you want to add to the system.
+          Optional but recommended.
+
+          [1mWARNING:[0m
+              Don't enter personally identifiable information in this field.
+
+          Constraints:
+
+          +o min: [1m0[0m
+
+          +o max: [1m1024[0m
+
+       [1m--value [22m(string) [required]
+          The parameter value that you want to add to the system. Standard pa-
+          rameters have a value limit of 4  KB.  Advanced  parameters  have  a
+          value limit of 8 KB.
+
+          [1mNOTE:[0m
+              Parameters  can't be referenced or nested in the values of other
+              parameters. You can't include values wrapped in double  brackets
+              [1m{{}} [22mor [1m{{ssm:*parameter-name* }} [22min a parameter value.
+
+       [1m--type [22m(string)
+          The type of parameter that you want to create.
+
+          [1mNOTE:[0m
+              [1mSecureString  [22misn't  currently supported for CloudFormation tem-
+              plates.
+
+          Items in a [1mStringList [22mmust be separated by a comma  (,).  You  can't
+          use  other  punctuation  or special character to escape items in the
+          list. If you have a parameter value that requires a comma, then  use
+          the [1mString [22mdata type.
+
+          [1mWARNING:[0m
+              Specifying  a  parameter type isn't required when updating a pa-
+              rameter. You must specify a parameter type when creating  a  pa-
+              rameter.
+
+          Possible values:
+
+          +o [1mString[0m
+
+          +o [1mStringList[0m
+
+          +o [1mSecureString[0m
+
+       [1m--key-id [22m(string)
+          The  Key Management Service (KMS) ID that you want to use to encrypt
+          a parameter. Use a custom key for better security. Required for  pa-
+          rameters that use the [1mSecureString [22mdata type.
+
+          If you don't specify a key ID, the system uses the default key asso-
+          ciated with your Amazon Web Services account, which is not as secure
+          as using a custom key.
+
+          +o To  use  a  custom KMS key, choose the [1mSecureString [22mdata type with
+            the [1mKey ID [22mparameter.
+
+          Constraints:
+
+          +o min: [1m1[0m
+
+          +o max: [1m256[0m
+
+          +o pattern: [1m^([a-zA-Z0-9:/_-]+)$[0m
+
+       [1m--overwrite [22m| [1m--no-overwrite [22m(boolean)
+          Overwrite an existing parameter. The default value is [1mfalse [22m.
+
+       [1m--allowed-pattern [22m(string)
+          A regular expression used to validate the parameter value. For exam-
+          ple, for String types with values restricted  to  numbers,  you  can
+          specify the following: AllowedPattern=^d+$
+
+          Constraints:
+
+          +o min: [1m0[0m
+
+          +o max: [1m1024[0m
+
+       [1m--tags [22m(list)
+          Optional  metadata that you assign to a resource. Tags enable you to
+          categorize a resource in different ways, such as by purpose,  owner,
+          or environment. For example, you might want to tag a Systems Manager
+          parameter  to identify the type of resource to which it applies, the
+          environment, or the type of configuration data referenced by the pa-
+          rameter. In this case, you could  specify  the  following  key-value
+          pairs:
+
+          +o [1mKey=Resource,Value=S3bucket[0m
+
+          +o [1mKey=OS,Value=Windows[0m
+
+          +o [1mKey=ParameterType,Value=LicenseKey[0m
+
+          [1mNOTE:[0m
+              To  add  tags  to an existing Systems Manager parameter, use the
+              AddTagsToResource operation.
+
+          Constraints:
+
+          +o max: [1m1000[0m
+
+          (structure)
+              Metadata that you assign to your Amazon Web Services  resources.
+              Tags  enable you to categorize your resources in different ways,
+              for example, by purpose, owner, or environment.  In  Amazon  Web
+              Services  Systems Manager, you can apply tags to Systems Manager
+              documents (SSM documents), managed nodes,  maintenance  windows,
+              parameters, patch baselines, OpsItems, and OpsMetadata.
+
+              Key -> (string) [required]
+                 The name of the tag.
+
+                 Constraints:
+
+                 +o min: [1m1[0m
+
+                 +o max: [1m128[0m
+
+                 +o pattern: [1m^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$[0m
+
+              Value -> (string) [required]
+                 The value of the tag.
+
+                 Constraints:
+
+                 +o min: [1m0[0m
+
+                 +o max: [1m256[0m
+
+                 +o pattern: [1m^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$[0m
+
+       Shorthand Syntax:
+
+          Key=string,Value=string ...
+
+       JSON Syntax:
+
+          [
+            {
+              "Key": "string",
+              "Value": "string"
+            }
+            ...
+          ]
+
+       [1m--tier [22m(string)
+          The parameter tier to assign to a parameter.
+
+          Parameter  Store offers a standard tier and an advanced tier for pa-
+          rameters. Standard parameters have a content size limit of 4 KB  and
+          can't be configured to use parameter policies. You can create a max-
+          imum  of 10,000 standard parameters for each Region in an Amazon Web
+          Services account. Standard parameters are offered at  no  additional
+          cost.
+
+          Advanced  parameters  have  a  content size limit of 8 KB and can be
+          configured to use parameter policies. You can create  a  maximum  of
+          100,000  advanced  parameters  for each Region in an Amazon Web Ser-
+          vices account. Advanced parameters incur a charge. For more informa-
+          tion, see [4mManaging[24m [4mparameter[24m [4mtiers[24m in the [4mAmazon[24m [4mWeb[24m  [4mServices[24m  [4mSys-[0m
+          [4mtems[24m [4mManager[24m [4mUser[24m [4mGuide[24m .
+
+          You  can  change  a  standard parameter to an advanced parameter any
+          time. But you can't revert an advanced parameter to a  standard  pa-
+          rameter.  Reverting  an  advanced  parameter to a standard parameter
+          would result in data loss because the system would truncate the size
+          of the parameter from 8 KB to 4 KB. Reverting would also remove  any
+          policies  attached to the parameter. Lastly, advanced parameters use
+          a different form of encryption than standard parameters.
+
+          If you no longer need an advanced parameter, or  if  you  no  longer
+          want  to incur charges for an advanced parameter, you must delete it
+          and recreate it as a new standard parameter.
+              [1mUsing the Default Tier Configuration[0m
+
+          In [1mPutParameter [22mrequests, you can specify the tier to create the pa-
+          rameter in. Whenever you specify a tier in  the  request,  Parameter
+          Store  creates  or  updates the parameter according to that request.
+          However, if you don't specify a tier in a request,  Parameter  Store
+          assigns  the  tier based on the current Parameter Store default tier
+          configuration.
+
+          The default tier when you begin using Parameter Store is  the  stan-
+          dard-parameter tier. If you use the advanced-parameter tier, you can
+          specify one of the following as the default:
+
+          +o [1mAdvanced  [22m:  With  this  option, Parameter Store evaluates all re-
+            quests as advanced parameters.
+
+          +o [1mIntelligent-Tiering [22m: With this option, Parameter Store  evaluates
+            each  request  to  determine  if  the parameter is standard or ad-
+            vanced.  If the request doesn't include any options  that  require
+            an  advanced  parameter,  the  parameter  is  created in the stan-
+            dard-parameter tier. If one or more options requiring an  advanced
+            parameter  are  included  in the request, Parameter Store create a
+            parameter in the advanced-parameter tier. This approach helps con-
+            trol your parameter-related costs by always creating standard  pa-
+            rameters unless an advanced parameter is necessary.
+
+          Options that require an advanced parameter include the following:
+
+          +o The content size of the parameter is more than 4 KB.
+
+          +o The parameter uses a parameter policy.
+
+          +o More  than 10,000 parameters already exist in your Amazon Web Ser-
+            vices account in the current Amazon Web Services Region.
+
+          For more information about configuring the default tier option,  see
+          [4mSpecifying[24m  [4ma[24m [4mdefault[24m [4mparameter[24m [4mtier[24m in the [4mAmazon[24m [4mWeb[24m [4mServices[24m [4mSys-[0m
+          [4mtems[24m [4mManager[24m [4mUser[24m [4mGuide[24m .
+
+          Possible values:
+
+          +o [1mStandard[0m
+
+          +o [1mAdvanced[0m
+
+          +o [1mIntelligent-Tiering[0m
+
+       [1m--policies [22m(string)
+          One or more policies to apply to a parameter. This operation takes a
+          JSON array. Parameter Store, a tool in Amazon Web  Services  Systems
+          Manager supports the following policy types:
+
+          Expiration: This policy deletes the parameter after it expires. When
+          you  create the policy, you specify the expiration date. You can up-
+          date the expiration date and time by updating the  policy.  Updating
+          the  [4mparameter[24m doesn't affect the expiration date and time. When the
+          expiration time is reached, Parameter Store deletes the parameter.
+
+          ExpirationNotification: This policy initiates  an  event  in  Amazon
+          CloudWatch  Events  that notifies you about the expiration. By using
+          this policy, you can receive notification before or after the  expi-
+          ration time is reached, in units of days or hours.
+
+          NoChangeNotification:  This  policy  initiates  a  CloudWatch Events
+          event if a parameter hasn't been modified for a specified period  of
+          time.  This  policy type is useful when, for example, a secret needs
+          to be changed within a period of time, but it hasn't been changed.
+
+          All existing policies are preserved until you send new  policies  or
+          an  empty policy. For more information about parameter policies, see
+          [4mAssigning[24m [4mparameter[24m [4mpolicies[24m .
+
+          Constraints:
+
+          +o min: [1m1[0m
+
+          +o max: [1m4096[0m
+
+       [1m--data-type [22m(string)
+          The data type for a [1mString [22mparameter. Supported data  types  include
+          plain text and Amazon Machine Image (AMI) IDs.
+              [1mThe following data type values are supported.[0m
+
+          +o [1mtext[0m
+
+          +o [1maws:ec2:image[0m
+
+          +o [1maws:ssm:integration[0m
+
+          When  you create a [1mString [22mparameter and specify [1maws:ec2:image [22m, Ama-
+          zon Web Services Systems Manager validates the parameter value is in
+          the required format, such as [1mami-12345abcdeEXAMPLE [22m,  and  that  the
+          specified AMI is available in your Amazon Web Services account.
+
+          [1mNOTE:[0m
+              If  the action is successful, the service sends back an HTTP 200
+              response which indicates a successful [1mPutParameter [22mcall for  all
+              cases except for data type [1maws:ec2:image [22m. If you call [1mPutParam-[0m
+              [1meter  [22mwith  [1maws:ec2:image  [22mdata  type, a successful HTTP 200 re-
+              sponse does not guarantee that your parameter  was  successfully
+              created  or  updated. The [1maws:ec2:image [22mvalue is validated asyn-
+              chronously, and the [1mPutParameter [22mcall returns before the valida-
+              tion is complete. If you submit an invalid AMI value, the PutPa-
+              rameter operation will return success, but the asynchronous val-
+              idation will fail and the parameter will not be created  or  up-
+              dated. To monitor whether your [1maws:ec2:image [22mparameters are cre-
+              ated  successfully,  see [4mSetting[24m [4mup[24m [4mnotifications[24m [4mor[24m [4mtrigger[24m [4mac-[0m
+              [4mtions[24m [4mbased[24m [4mon[24m [4mParameter[24m [4mStore[24m [4mevents[24m  .  For  more  information
+              about  AMI  format validation , see [4mNative[24m [4mparameter[24m [4msupport[24m [4mfor[0m
+              [4mAmazon[24m [4mMachine[24m [4mImage[24m [4mIDs[24m .
+
+          Constraints:
+
+          +o min: [1m0[0m
+
+          +o max: [1m128[0m
+
+       [1m--cli-input-json [22m| [1m--cli-input-yaml [22m(string) Reads arguments  from  the
+       JSON  string  provided.  The JSON string follows the format provided by
+       [1m--generate-cli-skeleton[22m. If other arguments are provided on the command
+       line, those values will override the JSON-provided values.  It  is  not
+       possible to pass arbitrary binary values using a JSON-provided value as
+       the  string  will  be  taken literally. This may not be specified along
+       with [1m--cli-input-yaml[22m.
+
+       [1m--generate-cli-skeleton [22m(string) Prints a  JSON  skeleton  to  standard
+       output without sending an API request. If provided with no value or the
+       value [1minput[22m, prints a sample input JSON that can be used as an argument
+       for [1m--cli-input-json[22m. Similarly, if provided [1myaml-input [22mit will print a
+       sample  input  YAML that can be used with [1m--cli-input-yaml[22m. If provided
+       with the value [1moutput[22m, it validates the command inputs  and  returns  a
+       sample output JSON for that command. The generated JSON skeleton is not
+       stable  between versions of the AWS CLI and there are no backwards com-
+       patibility guarantees in the JSON skeleton generated.
+
+[1mGLOBAL OPTIONS[0m
+       [1m--debug [22m(boolean)
+
+       Turn on debug logging.
+
+       [1m--endpoint-url [22m(string)
+
+       Override command's default URL with the given URL.
+
+       [1m--no-verify-ssl [22m(boolean)
+
+       By default, the AWS CLI uses SSL when communicating with AWS  services.
+       For each SSL connection, the AWS CLI will verify SSL certificates. This
+       option overrides the default behavior of verifying SSL certificates.
+
+       [1m--no-paginate [22m(boolean)
+
+       Disable  automatic pagination. If automatic pagination is disabled, the
+       AWS CLI will only make one call, for the first page of results.
+
+       [1m--output [22m(string)
+
+       The formatting style for command output.
+
+       +o json
+
+       +o text
+
+       +o table
+
+       +o yaml
+
+       +o yaml-stream
+
+       [1m--query [22m(string)
+
+       A JMESPath query to use in filtering the response data.
+
+       [1m--profile [22m(string)
+
+       Use a specific profile from your credential file.
+
+       [1m--region [22m(string)
+
+       The region to use. Overrides config/env settings.
+
+       [1m--version [22m(string)
+
+       Display the version of this tool.
+
+       [1m--color [22m(string)
+
+       Turn on/off color output.
+
+       +o on
+
+       +o off
+
+       +o auto
+
+       [1m--no-sign-request [22m(boolean)
+
+       Do not sign requests. Credentials will not be loaded if  this  argument
+       is provided.
+
+       [1m--ca-bundle [22m(string)
+
+       The CA certificate bundle to use when verifying SSL certificates. Over-
+       rides config/env settings.
+
+       [1m--cli-read-timeout [22m(int)
+
+       The  maximum socket read time in seconds. If the value is set to 0, the
+       socket read will be blocking and not timeout. The default value  is  60
+       seconds.
+
+       [1m--cli-connect-timeout [22m(int)
+
+       The  maximum  socket connect time in seconds. If the value is set to 0,
+       the socket connect will be blocking and not timeout. The default  value
+       is 60 seconds.
+
+       [1m--cli-binary-format [22m(string)
+
+       The formatting style to be used for binary blobs. The default format is
+       base64.  The  base64  format  expects  binary blobs to be provided as a
+       base64 encoded string. The raw-in-base64-out format preserves  compati-
+       bility with AWS CLI V1 behavior and binary values must be passed liter-
+       ally.  When  providing  contents  from a file that map to a binary blob
+       [1mfileb:// [22mwill always be treated as binary and use the file contents di-
+       rectly regardless of the [1mcli-binary-format [22msetting. When using  [1mfile://[0m
+       the  file  contents  will need to properly formatted for the configured
+       [1mcli-binary-format[22m.
+
+       +o base64
+
+       +o raw-in-base64-out
+
+       [1m--no-cli-pager [22m(boolean)
+
+       Disable cli pager for output.
+
+       [1m--cli-auto-prompt [22m(boolean)
+
+       Automatically prompt for CLI input parameters.
+
+       [1m--no-cli-auto-prompt [22m(boolean)
+
+       Disable automatically prompt for CLI input parameters.
+
+[1mEXAMPLES[0m
+       [1mNOTE:[0m
+          To use the following examples, you must have the AWS  CLI  installed
+          and  configured.  See  the [4mGetting[24m [4mstarted[24m [4mguide[24m in the [4mAWS[24m [4mCLI[24m [4mUser[0m
+          [4mGuide[24m for more information.
+
+          Unless otherwise  stated,  all  examples  have  unix-like  quotation
+          rules.  These  examples  will  need to be adapted to your terminal's
+          quoting rules. See [4mUsing[24m [4mquotation[24m [4mmarks[24m [4mwith[24m [4mstrings[24m in the [4mAWS[24m [4mCLI[0m
+          [4mUser[24m [4mGuide[24m .
+
+       [1mExample 1: To change a parameter value[0m
+
+       The following [1mput-parameter [22mexample changes the value of the  specified
+       parameter.
+
+          aws ssm put-parameter \
+              --name "MyStringParameter" \
+              --type "String" \
+              --value "Vici" \
+              --overwrite
+
+       Output:
+
+          {
+              "Version": 2,
+              "Tier": "Standard"
+          }
+
+       For more information, see [4mCreate[24m [4ma[24m [4mSystems[24m [4mManager[24m [4mparameter[24m [4m(AWS[24m [4mCLI)[24m,
+       [4mManaging[24m  [4mparameter[24m  [4mtiers[24m,  and [4mWorking[24m [4mwith[24m [4mparameter[24m [4mpolicies[24m in the
+       [4mAWS[24m [4mSystems[24m [4mManager[24m [4mUser[24m [4mGuide[24m.
+
+       [1mExample 2: To create an advanced parameter[0m
+
+       The following [1mput-parameter [22mexample creates an advanced parameter.
+
+          aws ssm put-parameter \
+              --name "MyAdvancedParameter" \
+              --description "This is an advanced parameter" \
+              --value "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat [truncated]" \
+              --type "String" \
+              --tier Advanced
+
+       Output:
+
+          {
+              "Version": 1,
+              "Tier": "Advanced"
+          }
+
+       For more information, see [4mCreate[24m [4ma[24m [4mSystems[24m [4mManager[24m [4mparameter[24m [4m(AWS[24m [4mCLI)[24m,
+       [4mManaging[24m [4mparameter[24m [4mtiers[24m, and [4mWorking[24m [4mwith[24m [4mparameter[24m  [4mpolicies[24m  in  the
+       [4mAWS[24m [4mSystems[24m [4mManager[24m [4mUser[24m [4mGuide[24m.
+
+       [1mExample 3: To convert a standard parameter to an advanced parameter[0m
+
+       The  following  [1mput-parameter [22mexample converts an existing standard pa-
+       rameter into an advanced parameter.
+
+          aws ssm put-parameter \
+              --name "MyConvertedParameter" \
+              --value "abc123" \
+              --type "String" \
+              --tier Advanced \
+              --overwrite
+
+       Output:
+
+          {
+              "Version": 2,
+              "Tier": "Advanced"
+          }
+
+       For more information, see [4mCreate[24m [4ma[24m [4mSystems[24m [4mManager[24m [4mparameter[24m [4m(AWS[24m [4mCLI)[24m,
+       [4mManaging[24m [4mparameter[24m [4mtiers[24m, and [4mWorking[24m [4mwith[24m [4mparameter[24m  [4mpolicies[24m  in  the
+       [4mAWS[24m [4mSystems[24m [4mManager[24m [4mUser[24m [4mGuide[24m.
+
+       [1mExample 4: To create a parameter with a policy attached[0m
+
+       The  following [1mput-parameter [22mexample creates an advanced parameter with
+       a parameter policy attached.
+
+          aws ssm put-parameter \
+              --name "/Finance/Payroll/q2accesskey" \
+              --value "P@sSwW)rd" \
+              --type "SecureString" \
+              --tier Advanced \
+              --policies "[{\"Type\":\"Expiration\",\"Version\":\"1.0\",\"Attributes\":{\"Timestamp\":\"2020-06-30T00:00:00.000Z\"}},{\"Type\":\"ExpirationNotification\",\"Version\":\"1.0\",\"Attributes\":{\"Before\":\"5\",\"Unit\":\"Days\"}},{\"Type\":\"NoChangeNotification\",\"Version\":\"1.0\",\"Attributes\":{\"After\":\"60\",\"Unit\":\"Days\"}}]"
+
+       Output:
+
+          {
+              "Version": 1,
+              "Tier": "Advanced"
+          }
+
+       For more information, see [4mCreate[24m [4ma[24m [4mSystems[24m [4mManager[24m [4mparameter[24m [4m(AWS[24m [4mCLI)[24m,
+       [4mManaging[24m [4mparameter[24m [4mtiers[24m, and [4mWorking[24m [4mwith[24m [4mparameter[24m  [4mpolicies[24m  in  the
+       [4mAWS[24m [4mSystems[24m [4mManager[24m [4mUser[24m [4mGuide[24m.
+
+       [1mExample 5: To add a policy to an existing parameter[0m
+
+       The  following  [1mput-parameter  [22mexample attaches a policy to an existing
+       advanced parameter.
+
+          aws ssm put-parameter \
+              --name "/Finance/Payroll/q2accesskey" \
+              --value "N3wP@sSwW)rd" \
+              --type "SecureString" \
+              --tier Advanced \
+              --policies "[{\"Type\":\"Expiration\",\"Version\":\"1.0\",\"Attributes\":{\"Timestamp\":\"2020-06-30T00:00:00.000Z\"}},{\"Type\":\"ExpirationNotification\",\"Version\":\"1.0\",\"Attributes\":{\"Before\":\"5\",\"Unit\":\"Days\"}},{\"Type\":\"NoChangeNotification\",\"Version\":\"1.0\",\"Attributes\":{\"After\":\"60\",\"Unit\":\"Days\"}}]"
+              --overwrite
+
+       Output:
+
+          {
+              "Version": 2,
+              "Tier": "Advanced"
+          }
+
+       For more information, see [4mCreate[24m [4ma[24m [4mSystems[24m [4mManager[24m [4mparameter[24m [4m(AWS[24m [4mCLI)[24m,
+       [4mManaging[24m [4mparameter[24m [4mtiers[24m, and [4mWorking[24m [4mwith[24m [4mparameter[24m  [4mpolicies[24m  in  the
+       [4mAWS[24m [4mSystems[24m [4mManager[24m [4mUser[24m [4mGuide[24m.
+
+[1mOUTPUT[0m
+       Version -> (long)
+          The  new  version  number  of  a  parameter. If you edit a parameter
+          value, Parameter Store automatically creates a new version  and  as-
+          signs  this  new  version a unique ID. You can reference a parameter
+          version ID in API operations or in Systems  Manager  documents  (SSM
+          documents). By default, if you don't specify a specific version, the
+          system  returns  the  latest  parameter  value  when  a parameter is
+          called.
+
+       Tier -> (string)
+          The tier assigned to the parameter.
+
+          Possible values:
+
+          +o [1mStandard[0m
+
+          +o [1mAdvanced[0m
+
+          +o [1mIntelligent-Tiering[0m
+
+
+
+                                                               PUT-PARAMETER()

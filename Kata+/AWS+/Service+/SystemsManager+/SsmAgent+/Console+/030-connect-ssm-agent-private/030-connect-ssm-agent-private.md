@@ -1,7 +1,6 @@
 # 030-connect-ssm-agent-private
 
 ## Task
-Status: not finished
 Create an EC2 Instance with installed SSM Agent in a private subnet.
 
 ## Steps
@@ -89,4 +88,4 @@ Create an EC2 Instance with installed SSM Agent in a private subnet.
 	2. Delete VPC (includes Subnet, Security Group, Internet Gateway): `kata-vpc-connect-ssm-agent-private`
 
 ## History
-
+not finished

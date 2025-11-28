@@ -9,3 +9,8 @@ Version: `sam --version`
 
 Invoke a Function locally: `sam local invoke ...`
 Start an API locally: `sam local start-api`
+Validate an application: `sam validate`
+Buiild an application: `sam build`
+
+Configure parameters on 1st deploy: `sam deploy --guided`
+Deploy an application: `sam deploy`

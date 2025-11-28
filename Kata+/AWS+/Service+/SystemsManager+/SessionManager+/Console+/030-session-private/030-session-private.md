@@ -1,7 +1,6 @@
 # 030-session-private
 
 ## Task
-Status: success
 Connect to an EC2 instance in a private subnet by SessionManager from the Management Console.
 
 ## TODO

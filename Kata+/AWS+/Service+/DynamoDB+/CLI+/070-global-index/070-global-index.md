@@ -1,6 +1,5 @@
 # 070-global-index
 
-
 ## Task
 Create a Global Secondary Index (GSI) for a DynamoDB table.
 

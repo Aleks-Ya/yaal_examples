@@ -1,7 +1,6 @@
 # 010-session-default-vpc
 
 ## Task
-Status: success
 Connect to an EC2 instance by SessionManager in the default VPC.
 
 ## Steps

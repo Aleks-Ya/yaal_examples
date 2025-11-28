@@ -1,7 +1,6 @@
 # 020-connect-ssm-agent-public
 
 ## Task
-Status: not finished
 Create an EC2 Instance with installed SSM Agent in a public subnet.
 
 ## Steps
@@ -47,3 +46,4 @@ Create an EC2 Instance with installed SSM Agent in a public subnet.
 	3. User name: `ec2-user`
 
 ## Cleanup
+not finished

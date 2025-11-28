@@ -1,7 +1,6 @@
 # 020-session-public
 
 ## Task
-Status: success
 Connect to an EC2 instance in a public subnet by SessionManager from the Management Console.
 
 ## Steps
