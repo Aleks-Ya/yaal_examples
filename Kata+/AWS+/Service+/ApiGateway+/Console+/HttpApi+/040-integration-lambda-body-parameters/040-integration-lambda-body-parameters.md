@@ -1,7 +1,6 @@
 # 040-integration-lambda-body-parameters
 
 ## Task
-Status: ?
 Create an **HTTP** API that invokes a Lambda function which accepts **body** parameters.
 
 ## Steps

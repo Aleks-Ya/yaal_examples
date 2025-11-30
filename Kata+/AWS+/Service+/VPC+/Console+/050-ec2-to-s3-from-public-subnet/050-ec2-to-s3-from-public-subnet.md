@@ -59,3 +59,5 @@ Connect an EC2 instance to S3 from a public subnet.
 
 ## Cleanup
 1. Terminate instance: `kata-ec2-to-s3-from-public-subnet-instance`
+
+## History

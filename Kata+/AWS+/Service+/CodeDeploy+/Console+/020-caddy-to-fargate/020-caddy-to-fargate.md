@@ -1,7 +1,6 @@
 # 020-caddy-to-fargate
 
 ## Task
-Status: unfinished
 Deploy Caddy server as a ECS Service on Fargate.
 
 ## Steps
@@ -98,3 +97,4 @@ Deploy Caddy server as a ECS Service on Fargate.
 6. Delete Target Group `kata-tg-caddy-to-fargate`
 
 ## History
+unfinished

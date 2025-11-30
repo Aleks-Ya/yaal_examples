@@ -1,21 +1,20 @@
 # 020-push-image-user
 
 ## Task
-Status: success
 Push an Image to a ECR Repository as an IAM User.
 
 ## Steps
 1. Open 2 terminals: for Root User and for IAM User
 2. Set environment variables (both termnals)
-```shell
-export USER=kata-user-push-image-user
-export POLICY_NAME=kata-policy-push-image-user
-export POLICY_ARN=arn:aws:iam::523633434047:policy/$POLICY_NAME
-export REGISTRY=523633434047.dkr.ecr.us-east-1.amazonaws.com
-export NAMESPACE=kata-ns-push-image-root
-export REPOSITORY=kata-repo-push-image-root
-export TAG=v1
-```
+	```shell
+	export USER=kata-user-push-image-user
+	export POLICY_NAME=kata-policy-push-image-user
+	export POLICY_ARN=arn:aws:iam::523633434047:policy/$POLICY_NAME
+	export REGISTRY=523633434047.dkr.ecr.us-east-1.amazonaws.com
+	export NAMESPACE=kata-ns-push-image-root
+	export REPOSITORY=kata-repo-push-image-root
+	export TAG=v1
+	```
 3. Create a user (as root)
 	1. Create a User
 		1. Create a user: `aws iam create-user --user-name $USER`

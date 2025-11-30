@@ -1,7 +1,6 @@
 # 010-integration-mock
 
 ## Task
-Status: success
 Create a REST API with a Mock integration.
 
 ## Steps

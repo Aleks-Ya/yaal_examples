@@ -1,7 +1,6 @@
 # 010-user-data
 
 ## Task
-Management interface: Management Console
 Create a EC2 instance with a web-server which should start automatically.
 
 ## Steps
@@ -24,3 +23,5 @@ Create a EC2 instance with a web-server which should start automatically.
 
 ## Cleanup
 1. Terminate instance: `kata-i-user-data`
+
+## History

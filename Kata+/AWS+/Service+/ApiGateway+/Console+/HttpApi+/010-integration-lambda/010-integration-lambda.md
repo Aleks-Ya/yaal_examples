@@ -1,7 +1,6 @@
 # 010-integration-lambda
 
 ## Task
-Status: ?
 Create an HTTP API that invokes a Lambda function.
 
 ## Steps

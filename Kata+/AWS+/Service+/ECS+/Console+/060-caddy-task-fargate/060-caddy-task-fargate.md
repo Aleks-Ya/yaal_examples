@@ -1,7 +1,6 @@
 # 060-caddy-task-fargate
 
 ## Task
-Status: success
 Run Task with a Caddy web-server on Fargate.
 
 ## Steps

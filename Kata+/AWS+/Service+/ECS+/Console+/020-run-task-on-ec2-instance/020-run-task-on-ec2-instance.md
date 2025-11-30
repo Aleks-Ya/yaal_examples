@@ -35,3 +35,5 @@ Run the Hello-World Docker container on an EC2 instance.
 2. Deregister the Task Definition
 3. Delete the Instance Role `ecsTaskExecutionRole`
 4. Delete CloudWatch Log Group `/ecs/kata-task-run-task-on-ec2-instance`
+
+## History

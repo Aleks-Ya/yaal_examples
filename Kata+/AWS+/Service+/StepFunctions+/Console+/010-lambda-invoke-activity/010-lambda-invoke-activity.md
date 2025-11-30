@@ -27,3 +27,5 @@ Create a StateMachine that triggers a Lambda Function.
 2. Delete StateMachine
 	1. Delete StateMachine `kata-lambda-invoke-activity-sm`
 	2. Delete Execution Role `	StepFunctions-kata-lambda-invoke-activity-sm-role-49qdc5oq0`
+
+## History

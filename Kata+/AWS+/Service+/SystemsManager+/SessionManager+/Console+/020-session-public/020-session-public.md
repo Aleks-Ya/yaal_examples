@@ -51,7 +51,6 @@ Connect to an EC2 instance in a public subnet by SessionManager from the Managem
 	2. Connection Type: `Connect using a Public IP`
 	3. User name: `ec2-user`
 
-
 ## Clean
 1. Terminate Instance `kata-i-session-public`
 2. Delete Role `kata-role-session-public`

@@ -6,11 +6,11 @@ Connect to an SSM Agent withing an EC2 instance in the default VPC.
 ## Steps
 1. Change current dir
 2. Set env vars
-```shell
-export ROLE=kata-role-connect-ssm-agent-default-vpc
-export I_PROFILE=kata-profile-connect-ssm-agent-default-vpc
-export I_NAME=kata-i-connect-ssm-agent-default-vpc
-```
+	```shell
+	export ROLE=kata-role-connect-ssm-agent-default-vpc
+	export I_PROFILE=kata-profile-connect-ssm-agent-default-vpc
+	export I_NAME=kata-i-connect-ssm-agent-default-vpc
+	```
 3. Create an Instance Profile
 	1. Create Role: `aws iam create-role --role-name $ROLE --assume-role-policy-document file://trust-policy.json`
 	2. Attach Policy: `aws iam attach-role-policy --role-name $ROLE --policy-arn arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore`

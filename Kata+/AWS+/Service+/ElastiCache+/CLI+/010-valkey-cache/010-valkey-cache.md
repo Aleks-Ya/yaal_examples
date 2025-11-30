@@ -24,9 +24,9 @@ Create a serverless Valkey cache. Put and a key from AWS CLI.
 3. Test
 	1. Connect to Redis: `redis-cli -h kata-cache-valkey-cache-7d1iqx.serverless.use1.cache.amazonaws.com -p 6379`
 
-NOT FINISHED!!!!!!!!!!!!!!
-
-
 ## Cleanup
 1. Delete cache
 2. Unset env vars: `set +x; unset CACHE`
+
+## History
+unfinished

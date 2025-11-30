@@ -1,7 +1,6 @@
 # 020-user-data-vpc-new-vpc-new
 
 ## Task
-Management interface: AWS CLI
 Create an EC2 instance (in a new VPC) with a web-server which should start automatically.
 
 ## Steps

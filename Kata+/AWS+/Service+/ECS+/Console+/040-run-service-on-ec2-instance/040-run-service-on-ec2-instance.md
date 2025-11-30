@@ -42,3 +42,5 @@ Run a web-server as an ECS Service on an EC2 instance.
 3. Deregister the Task Definition
 4. Delete the Instance Role `ecsTaskExecutionRole`
 5. Delete CloudWatch Log Group `/ecs/kata-task-run-service-on-ec2-instance`
+
+## History

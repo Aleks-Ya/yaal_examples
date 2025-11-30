@@ -1,0 +1,22 @@
+@startuml
+
+folder ~ {
+    folder anki-addons-dataset {
+        folder dataset {
+            folder ".cache"
+            folder history as datasetHistory
+            folder latest
+            file README.md
+        }
+        folder history {
+            folder "2025-06-22" {
+                folder "1-raw"
+                folder "2-stage"
+                folder "3-final"
+                file metadata.json
+            }
+        }
+    }
+}
+
+@enduml

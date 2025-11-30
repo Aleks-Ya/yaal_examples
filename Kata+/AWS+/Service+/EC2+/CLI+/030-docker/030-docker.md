@@ -1,7 +1,6 @@
 # 030-docker
 
 ## Task
-Management interface: AWS CLI
 Run Docker container in an EC2 instance. Use default VPC and Security Group.
 
 ## Steps

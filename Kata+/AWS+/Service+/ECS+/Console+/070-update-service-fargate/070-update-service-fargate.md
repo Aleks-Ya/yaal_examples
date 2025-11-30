@@ -1,7 +1,6 @@
 # 070-update-service-fargate
 
 ## Task
-Status: success
 Update a Service with a new revision of a Task.
 
 ## Steps

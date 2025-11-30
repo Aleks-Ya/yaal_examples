@@ -31,3 +31,5 @@ Create a Domain Name for a Lambda Function.
 1. Delete the Function
 2. Delete the Execution Role
 3. Delete the Hosted Zone
+
+## History

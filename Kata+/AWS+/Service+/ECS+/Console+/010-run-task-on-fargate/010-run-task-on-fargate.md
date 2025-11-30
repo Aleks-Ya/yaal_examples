@@ -31,3 +31,5 @@ Run the Hello-World Docker container on Fargate.
 2. Deregister the Task Definition
 3. Delete the Instance Role `ecsTaskExecutionRole`
 4. Delete CloudWatch Log Group `/ecs/kata-task-run-task-on-fargate`
+
+## History

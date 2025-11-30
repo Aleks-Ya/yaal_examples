@@ -1,0 +1,19 @@
+@startmindmap
+
+title My super title
+
+* ~
+** anki-addons-dataset
+*** dataset
+**** .cache
+**** history
+**** latest
+**** README.md
+*** history
+**** 2025-06-22
+***** 1-raw
+***** 2-stage
+***** 3-final
+***** metadata.json
+
+@endmindmap

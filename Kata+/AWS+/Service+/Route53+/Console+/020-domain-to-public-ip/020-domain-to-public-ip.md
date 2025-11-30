@@ -22,3 +22,5 @@ Create a Domain Name for a public IP address.
 
 ## Cleanup
 1. Delete the Hosted Zone
+
+## History

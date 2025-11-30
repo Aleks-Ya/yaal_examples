@@ -57,3 +57,5 @@ Make the web-server reachible from the Internet using an Internet Gateway.
 1. Terminate instance
 2. Delete endpoint
 3. Delete VPC
+
+## History

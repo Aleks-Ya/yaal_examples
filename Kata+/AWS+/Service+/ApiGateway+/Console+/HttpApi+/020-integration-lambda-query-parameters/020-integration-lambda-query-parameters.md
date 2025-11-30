@@ -1,7 +1,6 @@
 # 020-integration-lambda-query-parameters
 
 ## Task
-Status: ?
 Create an **HTTP** API that invokes a Lambda function which accepts **query** parameters.
 
 ## Steps

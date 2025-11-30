@@ -27,3 +27,5 @@ Create a Kinesis Data Stream. Produce a Record to it. Consume the Record.
 
 ## Cleanup
 1. Delete Data Steam `kata-stream-produce-consume-data-stream`
+
+## History

@@ -19,3 +19,5 @@ Create a KMS key. Encrypt and decrypt a data using this key.
 
 ## Cleanup
 1. Delete the Key (waiting ≥7 days)
+
+## History

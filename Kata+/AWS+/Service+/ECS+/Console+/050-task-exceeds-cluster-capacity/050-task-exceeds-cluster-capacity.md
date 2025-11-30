@@ -40,3 +40,5 @@ Create 2 tasks: the 1st has enough capacity to start, the 2nd doesn't.
 2. Deregister the Task Definition
 3. Delete the Instance Role `ecsTaskExecutionRole`
 4. Delete CloudWatch Log Group `/ecs/kata-task-task-exceeds-cluster-capacity`
+
+## History

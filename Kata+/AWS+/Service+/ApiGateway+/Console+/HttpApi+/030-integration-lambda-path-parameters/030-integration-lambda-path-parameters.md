@@ -1,7 +1,6 @@
 # 030-integration-lambda-path-parameters
 
 ## Task
-Status: ?
 Create an **HTTP** API that invokes a Lambda function which accepts **path** parameters.
 
 ## Steps

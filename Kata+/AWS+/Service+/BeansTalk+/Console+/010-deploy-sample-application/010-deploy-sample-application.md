@@ -8,8 +8,10 @@ Deploy the Sample Application into BeansTalk.
     1. Trusted entity type: `AWS service`
     2. Service or use case: `EC2`
     3. Use case: `EC2`
-    4. Permissions
-       policies: `AWSElasticBeanstalkMulticontainerDocker`, `AWSElasticBeanstalkWorkerTier`, `AWSElasticBeanstalkWebTier`
+    4. Permissions policies: 
+        1. `AWSElasticBeanstalkMulticontainerDocker`
+        2. `AWSElasticBeanstalkWorkerTier`
+        3. `AWSElasticBeanstalkWebTier`
     5. Role name: `beanstalk-ec2-role-1`
 2. Create an Environment
     1. Environment tier: `Web server environment`
@@ -33,3 +35,5 @@ Deploy the Sample Application into BeansTalk.
 1. Delete Application: `application-1`
 2. Terminate Environment: `Application-1-env`
 3. IAM roles: `aws-elasticbeanstalk-service-role-1`, `beanstalk-ec2-role-1`
+
+## History

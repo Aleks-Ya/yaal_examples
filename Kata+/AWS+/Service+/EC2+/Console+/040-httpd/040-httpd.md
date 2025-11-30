@@ -23,3 +23,5 @@ Create a EC2 instance with httpd server available from the Internet.
 
 ## Cleanup
 1. Terminate instance: `kata-i-httpd`
+
+## History

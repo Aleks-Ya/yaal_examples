@@ -71,3 +71,5 @@ Create a Pipeline that deploys an S3 Static Website from a GitHub repository.
 2. Delete GitHub repository: `kata-repo-github-s3-website`
 2. Delete IAM Role: `kata-role-github-s3-website`
 3. Delete S3 Bucket: `kata-bucket-github-s3-website`
+
+## History

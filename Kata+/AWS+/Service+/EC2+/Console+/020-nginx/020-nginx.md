@@ -32,3 +32,5 @@ Create a EC2 instance with NGinx server available from the Internet.
 ## Cleanup
 1. Terminate instance: `kata-i-nginx`
 2. Delete Security Group: `kata-sg-nginx`
+
+## History

@@ -25,3 +25,5 @@ Encrypt and decrypt data using a Data Key.
 
 ## Cleanup
 1. Delete the Key (waiting ≥7 days)
+
+## History

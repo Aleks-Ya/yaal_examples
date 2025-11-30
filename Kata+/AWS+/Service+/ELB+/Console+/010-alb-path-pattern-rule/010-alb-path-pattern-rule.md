@@ -67,8 +67,9 @@ Use path pattern in a Listener rule of an Application Load Balancer (ALB)
 4. Default response (root): `curl -i http://lb-2-1629303854.eu-west-1.elb.amazonaws.com` (response 501 `Nothing here!`)
 5. Default response (path): `curl -i http://lb-2-1629303854.eu-west-1.elb.amazonaws.com/abc` (response 501 `Nothing here!`)
 
-
 ## Cleanup
 1. Delete ALB
 2. Delete Target Group
 3. Delete Secuit Group
+
+## History

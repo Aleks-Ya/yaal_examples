@@ -33,3 +33,5 @@ Grant read-write access to a folder in a bucket for a user.
 	1. Delete access key: `aws iam delete-access-key --user-name user1 --access-key-id AKIAIOSFODNN7EXAMPLE`
 	2. Delete user: `aws iam delete-user --user-name user1`
 4. Unlogin AWS CLI: remove section `[user1]` from `~/.aws/credentials`
+
+## History

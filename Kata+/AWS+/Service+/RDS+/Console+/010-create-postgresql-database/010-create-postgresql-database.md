@@ -1,11 +1,9 @@
 # 010-create-postgresql-database
 
 ## Task
-
 Create an RDS Postgres database and connect to it from CloudShell.
 
 ## Steps
-
 1. Create a database
     1. Choose a database creation method: `Easy create`
     2. Engine type: `PostgreSQL`
@@ -13,9 +11,10 @@ Create an RDS Postgres database and connect to it from CloudShell.
     4. DB instance identifier: `database-1`
     5. Master username: `postgres`
     6. Master password: `postgres1`
-
-NOT FINISHED!!!
-
+    
 ## Cleanup
-
 1. Delete the Database
+
+
+## History
+unfinished

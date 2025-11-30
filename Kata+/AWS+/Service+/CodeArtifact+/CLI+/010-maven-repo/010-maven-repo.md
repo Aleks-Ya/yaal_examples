@@ -49,3 +49,5 @@ Create a Maven repo in CodeArtifact. Push and pull a package from it.
 	1. Delete repository: `aws codeartifact delete-repository --domain kata-domain-maven-repo --repository kata-repo-maven-repo`
 	2. Delete Maven repo: `aws codeartifact delete-repository --domain kata-domain-maven-repo --repository maven-central-store`
 	3. Delete domain: `aws codeartifact delete-domain --domain kata-domain-maven-repo`
+
+## History

@@ -1,17 +1,16 @@
 # 010-push-image-root
 
 ## Task
-Status: success
 Push an Image to a ECR $NAMESPACE as the Root User.
 
 ## Steps
 1. Set environment variables
-```shell
-export REGISTRY=523633434047.dkr.ecr.us-east-1.amazonaws.com
-export NAMESPACE=kata-ns-push-image-root
-export REPOSITORY=kata-repo-push-image-root
-export TAG=v1
-```
+	```shell
+	export REGISTRY=523633434047.dkr.ecr.us-east-1.amazonaws.com
+	export NAMESPACE=kata-ns-push-image-root
+	export REPOSITORY=kata-repo-push-image-root
+	export TAG=v1
+	```
 2. Create a Repository: `aws ecr create-repository --repository-name $NAMESPACE/$REPOSITORY`
 3. Push an Image
 	1. Authenticate Docker client: `aws ecr get-login-password | docker login --username AWS --password-stdin $REGISTRY`

@@ -1,8 +1,6 @@
 # 010-file-to-ec2
 
-
 ## Task
-Status: success
 Deploy a HTML file to an EC2 Instance.
 
 ## Steps

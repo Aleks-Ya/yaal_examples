@@ -30,3 +30,5 @@ Collect events of a S3 Bucket to CloudTrail and then to CloudWatch.
 4. Delete Role: 
 	1. Detach Policy: `aws iam detach-role-policy --role-name S3CloudTrailRole --policy-arn arn:aws:iam::aws:policy/CloudWatchFullAccessV2`
 	2. Delete Role: `aws iam delete-role --role-name S3CloudTrailRole`
+
+## History

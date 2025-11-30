@@ -49,3 +49,5 @@ and connect to it using Instance Connect.
 1. Terminate EC2 instance: `kata-ec2-instance-connect-private-instance`
 2. Delete VPC Endpoint: `kata-ec2-instance-connect-private-endpoint`
 3. Delete VPC: `kata-ec2-instance-connect-private-vpc` (includes: Subnet and Security Group)
+
+## History

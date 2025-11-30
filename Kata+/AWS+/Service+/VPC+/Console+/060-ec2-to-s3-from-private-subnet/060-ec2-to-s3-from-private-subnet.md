@@ -65,3 +65,5 @@ Connect an EC2 instance to S3 from a private subnet.
     1. Delete VPC endpoint `kata-ec2-to-s3-from-private-subnet-s3-endpoint`
     2. Delete VPC endpoint `kata-ec2-to-s3-from-private-subnet-instance-connect-endpoint`
     2. Delete VPC `kata-ec2-to-s3-from-private-subnet-vpc`
+
+## History

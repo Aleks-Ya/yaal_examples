@@ -47,3 +47,5 @@ Create an EC2 instance with a web-server. Make the server available from the Int
 ## Cleanup
 1. Terminate instance: `instance-1`
 2. Delete VPC: `project-vpc`
+
+## History

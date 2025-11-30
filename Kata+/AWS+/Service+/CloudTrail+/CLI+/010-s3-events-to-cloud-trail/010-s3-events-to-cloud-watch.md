@@ -16,3 +16,5 @@ Collect events of a S3 Bucket to CloudTrail.
 ## Cleanup
 1. Delete Trail: `aws cloudtrail delete-trail --name s3-trail`
 2. Delete S3 Bucket: `aws s3 rb --force s3://s3-trail-bucket-49123`
+
+## History

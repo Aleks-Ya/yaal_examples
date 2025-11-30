@@ -13,11 +13,11 @@ Upload and use an dictionary package.
 2. Create S3 bucket: `aws s3 mb s3://kata-182723`
 3. Upload bundle to S3: `aws s3 cp dictionary-package.txt s3://kata-182723/opensearch/`
 4. Create package and extract ID:
-```shell
-aws opensearch create-package --package-name package1 --package-type TXT-DICTIONARY \
-	--package-source S3BucketName=kata-182723,S3Key=opensearch/dictionary-package.txt
-export PACKAGE_ID=$(aws opensearch describe-packages --filters Name=PackageName,Value=package1 --query 'PackageDetailsList[0].PackageID' --output text)
-```
+	```shell
+	aws opensearch create-package --package-name package1 --package-type TXT-DICTIONARY \
+		--package-source S3BucketName=kata-182723,S3Key=opensearch/dictionary-package.txt
+	export PACKAGE_ID=$(aws opensearch describe-packages --filters Name=PackageName,Value=package1 --query 'PackageDetailsList[0].PackageID' --output text)
+	```
 5. Assiciate package with domain: `aws opensearch associate-package --package-id $PACKAGE_ID --domain-name domain-1`
 6. Test package:
 	1. Substitute package ID: `envsubst < create-index-template.json > create-index.json`
@@ -34,3 +34,5 @@ export PACKAGE_ID=$(aws opensearch describe-packages --filters Name=PackageName,
 	2. Dissociate the package from domain: `aws opensearch dissociate-package --package-id $PACKAGE_ID --domain-name domain-1`
 	2. Delete package: `aws opensearch delete-package --package-id $PACKAGE_ID`
 3. Shutdown the OpenSearch domain
+
+## History

@@ -48,3 +48,5 @@ Create an EC2 instance connected to a new VPC (public, `Connect using a Public I
 ## Cleanup
 1. Terminate EC2 instance: `kata-ec2-instance-connect-public-instance`
 2. Delete VPC: `kata-ec2-instance-connect-public-vpc` (includes: Internet Gateway, Subnet, Security Group, Route Table)
+
+## History

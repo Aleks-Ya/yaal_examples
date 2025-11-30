@@ -36,3 +36,5 @@ Create a StateMachine that publishes a message to an SNS topic.
 	2. Delete Service Role `SNSSuccessFeedback`
 	3. Delete Service Role `SNSFailureFeedback`
 3. Delete Queue `kata-sns-publish-activity-queue`
+
+## History

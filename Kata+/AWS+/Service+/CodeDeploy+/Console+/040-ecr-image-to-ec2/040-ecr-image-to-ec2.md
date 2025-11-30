@@ -1,7 +1,6 @@
 # 040-ecr-image-to-ec2
 
 ## Task
-Status: not finished
 Deploy an Docker Image from ECR Repository to an EC2 Instance.
 
 ## Steps
@@ -40,4 +39,4 @@ Deploy an Docker Image from ECR Repository to an EC2 Instance.
 ## Cleanup
 
 ## History
-
+unfinished

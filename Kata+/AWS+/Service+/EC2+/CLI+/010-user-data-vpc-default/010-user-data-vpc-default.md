@@ -1,7 +1,6 @@
 # 010-user-data-vpc-default
 
 ## Task
-Management interface: AWS CLI
 Create an EC2 instance (in the default VPC) with a web-server which should start automatically.
 
 ## Steps

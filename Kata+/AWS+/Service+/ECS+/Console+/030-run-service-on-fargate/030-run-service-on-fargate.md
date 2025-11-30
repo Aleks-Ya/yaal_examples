@@ -1,7 +1,6 @@
 # 030-run-service-on-fargate
 
 ## Task
-Status: success
 Run a web-server as an ECS Service on Fargate.
 
 ## Steps
