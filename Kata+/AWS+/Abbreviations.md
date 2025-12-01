@@ -14,3 +14,4 @@ Namespace: `kata-ns-`
 Repository: `kata-repo-`
 Lambda Function: `kata-f-`
 SQS Queue: `kata-q-`
+State Machine: `kata-sm-`
