@@ -8,10 +8,13 @@
 Help: `flatpak --help`
 Help for command: `flatpak update --help`
 List installed apps: `flatpak list`
+List running apps: `flatpak ps`
 Update all apps: `flatpak update -y`
 Search apps: `flatpak search firefox`
 Install an app: `flatpak install org.mozilla.firefox`
+Connect a running app by Bash: `flatpak enter com.getpostman.Postman bash`
 
 ## Applications to install
 Firefox: `org.mozilla.firefox`
 ThunderBird: `org.mozilla.Thunderbird`
+Postman: `com.getpostman.Postman`
