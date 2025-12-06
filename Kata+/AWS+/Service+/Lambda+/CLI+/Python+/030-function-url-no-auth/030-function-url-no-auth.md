@@ -11,7 +11,7 @@ Invoke a function through its Function URL without authentication.
   ```shell
   aws lambda create-function \
     --function-name function1 \
-    --runtime python3.13 \
+    --runtime python3.14 \
     --role arn:aws:iam::523633434047:role/ExecutionRole1 \
     --handler handler.lambda_handler \
     --zip-file fileb://deployment-package.zip

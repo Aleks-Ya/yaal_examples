@@ -17,7 +17,7 @@ Create a hello-world function using AWS CLI as the Root User.
 	```shell
 	aws lambda create-function \
 		--function-name $FUNCTION \
-		--runtime python3.13 \
+		--runtime python3.14 \
 		--role arn:aws:iam::523633434047:role/$ROLE\
 		--handler handler.lambda_handler \
 		--zip-file fileb://deployment-package.zip
@@ -27,7 +27,8 @@ Create a hello-world function using AWS CLI as the Root User.
 ## Cleanup
 1. Delete Function: `aws lambda delete-function --function-name $FUNCTION`
 2. Delete execution role: `aws iam delete-role --role-name $ROLE`
-3. Unset env vars: `set +x; unset ROLE FUNCTION`
+3. Delete deployment package: `rm deployment-package.zip`
+4. Unset env vars: `set +x; unset ROLE FUNCTION`
 
 # History
 - 2025-10-14 success

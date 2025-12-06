@@ -1,13 +1,9 @@
 from typing import Any
 
-from jsonata import Jsonata
+from module.thirdparty.jsonata.conftest import evaluate
 
 
 def test_string():
     data: dict[str, Any] = {"name": "John"}
     expression: str = "$.name"
-    assert __extract(data, expression) == 'John'
-
-
-def __extract(data: dict[str, Any], expression: str) -> Any:
-    return Jsonata(expression).evaluate(data)
+    assert evaluate(data, expression) == 'John'

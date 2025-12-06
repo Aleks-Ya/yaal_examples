@@ -25,7 +25,7 @@ A User passes a Role to an AWS Service.
 		```shell
 		aws --profile FunctionUser lambda create-function \
 			--function-name buckets-function \
-			--runtime python3.13 \
+			--runtime python3.14 \
 			--role arn:aws:iam::523633434047:role/S3Role \
 			--handler handler.lambda_handler \
 			--zip-file fileb://deployment-package.zip

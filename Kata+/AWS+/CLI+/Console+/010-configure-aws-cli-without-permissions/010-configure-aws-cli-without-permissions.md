@@ -39,4 +39,4 @@ Use AWS CLI Docker image from `DevOps+/AWS+/AwsDocker/AwsDocker.md`.
 	1. Delete user `cli`
 
 ## History
-1. 2023-12-03 21:30
+1. 2023-12-03

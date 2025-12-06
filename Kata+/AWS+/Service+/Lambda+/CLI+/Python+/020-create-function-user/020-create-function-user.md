@@ -29,7 +29,7 @@ Create a hello-world function using AWS CLI as a custom limited user.
 	```shell
 	aws --profile $USER lambda create-function \
 		--function-name $FUNCTION \
-		--runtime python3.13 \
+		--runtime python3.14 \
 		--role arn:aws:iam::523633434047:role/$ROLE \
 		--handler handler.lambda_handler \
 		--zip-file fileb://deployment-package.zip

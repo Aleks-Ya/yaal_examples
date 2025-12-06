@@ -12,7 +12,7 @@ Use SAM to create a new Lambda Function and invoke it locally.
    ```
 2. Initialize an Application:
 	```shell
-	sam init --runtime python3.13 --app-template hello-world -o $DIR --name $APP \
+	sam init --runtime python3.14 --app-template hello-world -o $DIR --name $APP \
 		--no-tracing --no-application-insights --no-structured-logging
 	```
 3. Change dir: `cd $DIR/$APP`

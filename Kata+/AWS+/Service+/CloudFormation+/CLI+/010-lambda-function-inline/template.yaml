@@ -16,7 +16,7 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       FunctionName: kata-f-lambda-function-inline
-      Runtime: python3.13
+      Runtime: python3.14
       Role: !GetAtt ExecutionRole.Arn
       Handler: index.handler
       Code:

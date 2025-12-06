@@ -1,0 +1,14 @@
+{
+    "StartAt": "SQS SendMessage", 
+    "States": {
+        "SQS SendMessage": {
+          "Type": "Task",
+          "Resource": "arn:aws:states:::sqs:sendMessage",
+          "Parameters": {
+            "MessageBody.$": "$",
+            "QueueUrl": "https://sqs.us-east-1.amazonaws.com/523633434047/kata-q-sqs-send-message-action"
+          },
+          "End": true
+        }
+    }
+}

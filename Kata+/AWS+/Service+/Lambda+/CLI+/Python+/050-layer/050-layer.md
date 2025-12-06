@@ -7,7 +7,7 @@ Create a Lambda Function that uses code from a Layer.
 1. Change directory
 2. Create a Layer
 	1. Pack ZIP: `cd text-layer; zip -r ../text-layer.zip *; cd ..`
-	2. Create a layer version: `aws lambda publish-layer-version --layer-name text-layer --compatible-runtimes python3.13 --zip-file fileb://text-layer.zip`
+	2. Create a layer version: `aws lambda publish-layer-version --layer-name text-layer --compatible-runtimes python3.14 --zip-file fileb://text-layer.zip`
 3. Create functions
 	1. Create a Function
 		1. Create an Execution Role
@@ -18,7 +18,7 @@ Create a Lambda Function that uses code from a Layer.
 			```shell
 			aws lambda create-function \
 	  			--function-name function-layered \
-	  			--runtime python3.13 \
+	  			--runtime python3.14 \
 	  			--role arn:aws:iam::523633434047:role/FunctionLayeredRole \
 	  			--handler handler.lambda_handler \
 	  			--zip-file fileb://function-layered.zip \
@@ -36,6 +36,6 @@ Create a Lambda Function that uses code from a Layer.
 ## History
 
 Update:
-- `aws lambda publish-layer-version --layer-name text-layer --compatible-runtimes python3.13 --zip-file fileb://text-layer.zip`
+- `aws lambda publish-layer-version --layer-name text-layer --compatible-runtimes python3.14 --zip-file fileb://text-layer.zip`
 - `aws lambda update-function-configuration --function-name function-layered --layers arn:aws:lambda:us-east-1:523633434047:layer:text-layer:3`
 - `aws lambda update-function-code --function-name function-layered --zip-file fileb://function-layered.zip --publish`
