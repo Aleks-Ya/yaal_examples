@@ -31,7 +31,7 @@ subprojects {
         jettyServlet10Dep = 'org.eclipse.jetty:jetty-servlet:10.0.15'
         jettyServlet11Dep = 'org.eclipse.jetty:jetty-servlet:11.0.15'
         servlet4Dep = 'javax.servlet:javax.servlet-api:4.0.1'
-        jacksonVersion = '2.19.2'
+        jacksonVersion = '2.20.1'
         jacksonDataBindDep = "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         jacksonDatatypeJsr310Dep = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
         jsonUnitVersion = '4.1.0'

@@ -42,7 +42,7 @@ class TreeModelAndDataBindTest {
         var headNode = rootNode.get(HEAD_FIELD);
         var headMap = MAPPER.treeToValue(headNode, new TypeReference<Map<String, String>>() {
         });
-        assertThat(headMap).containsExactlyEntriesOf(Map.of(
+        assertThat(headMap).containsExactlyInAnyOrderEntriesOf(Map.of(
                 "name", "John Smith",
                 "title", "Executive"));
     }

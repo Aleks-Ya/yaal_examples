@@ -14,17 +14,18 @@ class DeserializeArrayTest {
 
     @Test
     void parse() throws IOException {
-        var json = "[" +
-                "{\"name\":\"Tom\"}," +
-                "{\"name\":\"John\"}" +
-                "]";
+        var json = """
+                [
+                    {"name":"Tom"},
+                    {"name":"John"}
+                ]""";
 
         var sb = new StringBuilder();
 
         var mapper = new ObjectMapper();
         var arrayNode = (ArrayNode) mapper.readTree(json);
-        for (var anArrayNode : arrayNode) {
-            var objectNode = (ObjectNode) anArrayNode;
+        for (var elementNode : arrayNode) {
+            var objectNode = (ObjectNode) elementNode;
             var textNode = (TextNode) objectNode.get("name");
             var name = textNode.textValue();
             sb.append(name);
