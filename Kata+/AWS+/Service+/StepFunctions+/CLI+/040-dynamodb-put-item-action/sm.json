@@ -1,0 +1,36 @@
+{
+  "Comment": "A description of my state machine",
+  "StartAt": "DynamoDB PutItem",
+  "States": {
+    "DynamoDB PutItem": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::dynamodb:putItem",
+      "Arguments": {
+        "TableName": "kata-table-dynamodb-put-item-action",
+        "Item": {
+          "id": {
+            "S": "id1"
+          },
+          "person": {
+            "S": "John"
+          }
+        }
+      },
+      "Next": "DynamoDB GetItem"
+    },
+    "DynamoDB GetItem": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::dynamodb:getItem",
+      "Arguments": {
+        "TableName": "kata-table-dynamodb-put-item-action",
+        "Key": {
+          "id": {
+            "S": "id1"
+          }
+        }
+      },
+      "End": true
+    }
+  },
+  "QueryLanguage": "JSONata"
+}

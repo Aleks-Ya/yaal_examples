@@ -1,7 +1,7 @@
 # 010-valkey-cache
 
 ## Task
-Create a serverless Valkey cache. Put and a key from AWS CLI.
+Create a serverless Valkey cache. Set and get a key from AWS CLI.
 
 ## Steps
 1. Set environment variables
@@ -23,6 +23,8 @@ Create a serverless Valkey cache. Put and a key from AWS CLI.
 	2. Install Redis CLI: `sudo apt update && sudo apt install -y redis`
 3. Test
 	1. Connect to Redis: `redis-cli -h kata-cache-valkey-cache-7d1iqx.serverless.use1.cache.amazonaws.com -p 6379`
+	2. !!! CANNOT CONNECT FROM OUTSIDE THE VPC
+
 
 ## Cleanup
 1. Delete cache

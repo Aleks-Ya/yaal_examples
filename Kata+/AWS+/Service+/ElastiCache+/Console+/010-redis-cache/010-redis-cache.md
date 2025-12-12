@@ -1,7 +1,7 @@
 # 010-redis-cache
 
 ## Task
-Create a serverless Redis cache. Put and a key from CloudShell.
+Create a serverless Redis cache. Set and get a key from CloudShell.
 
 ## Steps
 1. Create a cache
