@@ -1,9 +1,9 @@
-# Jenkins v2
+# Jenkins v2 (latest)
 
 Source: https://hub.docker.com/r/jenkins/jenkins
 
 ## Run Docker container
-1. Set version in `version.txt` (list version at https://www.jenkins.io/download)
+1. Set version in `version.txt` (list versions at https://www.jenkins.io/download)
 2. Build: `./build.sh`
 3. Run: `./run.sh`
 4. Open: http://localhost:8080

@@ -22,7 +22,7 @@ configurations {
 
 // Exclude buggy Xalan dependency this way the JRE default TransformerFactory is used
 // The xalan pulled in by htmlunit does not properly deal with spaces folder / job names
-configurations.all*.exclude group: 'xalan'
+//configurations.all*.exclude group: 'xalan'
 
 dependencies {
     def jobDslVersion = '1.77'
