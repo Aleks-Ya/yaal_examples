@@ -2,7 +2,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem, QLabel
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 with app():
     pixmap: QPixmap = QPixmap("info.png").scaled(15, 15, Qt.AspectRatioMode.KeepAspectRatio,

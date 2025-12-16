@@ -3,7 +3,7 @@ import threading
 from PyQt6.QtCore import QThread, pyqtSignal
 from PyQt6.QtWidgets import QProgressDialog, QApplication, QPushButton
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 
 class CountDownWorker(QThread):

@@ -1,0 +1,11 @@
+@startwbs
+
+title Multi line texts
+
+*:Line 1
+Line 2
+Line 3;
+**:Text 1
+Text2;
+
+@endwbs

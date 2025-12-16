@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QProgressDialog, QApplication, QPushButton
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 from src.module.thirdparty.PyQt6.QObject.QWidget.QProgressDialog.count_down_worker import CountDownWorker
 
 

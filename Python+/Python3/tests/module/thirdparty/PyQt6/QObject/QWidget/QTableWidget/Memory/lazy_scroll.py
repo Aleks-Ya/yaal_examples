@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem, QVBoxLayout
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 
 class LazyLoadingTable(QTableWidget):

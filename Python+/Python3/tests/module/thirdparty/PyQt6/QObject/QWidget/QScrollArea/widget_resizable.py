@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QLabel, QScrollArea, QAbstractScrollArea
 
-from src.module.thirdparty.PyQt6 import app, assert_scroll_area_size
+from tests.module.thirdparty.PyQt6 import app, assert_scroll_area_size
 
 with app():
     label: QLabel = QLabel('abc ' * 40)

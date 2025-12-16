@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QLabel
 from PyQt6.QtGui import QFont
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 with app():
     font: QFont = QFont('Arial', 40)

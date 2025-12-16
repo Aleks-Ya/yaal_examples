@@ -2,7 +2,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QTableWidget, QHBoxLayout
 
 from src.module.thirdparty.PyQt6.QObject.QWidget.QTableWidget.data import create_table_with_headers
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 with window() as window:
     table: QTableWidget = create_table_with_headers()

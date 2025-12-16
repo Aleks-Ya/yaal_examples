@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QTableWidget, QPushButton
 
-from src.module.thirdparty.PyQt6 import vbox
+from tests.module.thirdparty.PyQt6 import vbox
 
 
 def __add_row() -> None:

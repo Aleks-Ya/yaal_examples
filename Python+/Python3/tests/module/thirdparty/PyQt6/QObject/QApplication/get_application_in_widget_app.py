@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QCoreApplication
 from PyQt6.QtWidgets import QApplication, QWidget
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 
 class GetAppWindow(QWidget):

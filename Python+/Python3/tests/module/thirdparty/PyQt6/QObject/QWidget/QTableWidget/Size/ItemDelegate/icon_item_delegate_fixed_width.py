@@ -2,7 +2,7 @@ from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem, QStyledItemDelegate, QHeaderView
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 
 class CustomItemDelegate(QStyledItemDelegate):

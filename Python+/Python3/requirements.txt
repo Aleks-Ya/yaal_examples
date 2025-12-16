@@ -17,6 +17,7 @@ cryptography
 pympler
 kafka
 confluent-kafka
+kafka-python
 matplotlib
 scipy
 numpy

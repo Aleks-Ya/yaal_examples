@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QCheckBox, QFrame
 
-from src.module.thirdparty.PyQt6 import vbox
+from tests.module.thirdparty.PyQt6 import vbox
 
 with vbox() as layout:
     horizontal_rule: QFrame = QFrame()

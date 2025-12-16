@@ -2,7 +2,7 @@ from typing import Callable
 
 from PyQt6.QtWidgets import QComboBox
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 
 def __on_current_index_changed(index: int) -> None:

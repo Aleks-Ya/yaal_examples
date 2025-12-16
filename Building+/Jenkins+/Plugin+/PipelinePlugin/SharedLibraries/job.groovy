@@ -8,4 +8,7 @@ node {
 
     def stepsAwareText = additionalStringsUtil.getStepsAwareString()
     echo "The steps aware string: $stepsAwareText"
+
+    def personName = jsonFile.readPersonNameFromJsonFile()
+    echo "Person name from JSON file: $personName"
 }

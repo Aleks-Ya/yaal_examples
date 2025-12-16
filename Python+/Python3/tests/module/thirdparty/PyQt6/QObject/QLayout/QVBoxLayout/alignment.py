@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QVBoxLayout, QPushButton
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 with window() as window:
     button1: QPushButton = QPushButton('Button 1 long long long')

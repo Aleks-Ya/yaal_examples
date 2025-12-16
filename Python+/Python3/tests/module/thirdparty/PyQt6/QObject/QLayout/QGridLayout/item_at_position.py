@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QPushButton, QGridLayout, QLayoutItem
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 with app():
     button1: QPushButton = QPushButton('Button 1')

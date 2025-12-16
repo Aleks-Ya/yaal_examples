@@ -1,7 +1,7 @@
 from PyQt6.QtGui import QKeySequence, QShortcut
 from PyQt6.QtWidgets import QPushButton, QApplication, QWidget
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 
 def __get_all_shortcuts(application: QApplication) -> list[QShortcut]:

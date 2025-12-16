@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QSize, QSizeF, QRect
 from PyQt6.QtWidgets import QTextEdit, QSizePolicy, QWIDGETSIZE_MAX, QAbstractScrollArea
 
-from src.module.thirdparty.PyQt6 import app, assert_widget_size, assert_text_document_size, assert_scroll_area_size
+from tests.module.thirdparty.PyQt6 import app, assert_widget_size, assert_text_document_size, assert_scroll_area_size
 
 with app():
     text_edit: QTextEdit = QTextEdit()

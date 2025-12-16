@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QObject
 from PyQt6.QtWidgets import QApplication, QPushButton
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 with app():
     button: QPushButton = QPushButton('Quit application')

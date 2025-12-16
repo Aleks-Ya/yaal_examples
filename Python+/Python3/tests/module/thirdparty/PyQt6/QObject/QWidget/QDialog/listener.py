@@ -2,7 +2,7 @@ from abc import abstractmethod
 
 from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QApplication
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 
 class Event:

@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QApplication
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 with app():
     dialog: QDialog = QDialog()
@@ -19,5 +19,17 @@ with app():
     dialog.setLayout(layout)
     # noinspection PyUnresolvedReferences
     dialog.finished.connect(QApplication.quit)
+
+    assert dialog.parent() is None
+    assert dialog.parentWidget() is None
+    assert dialog.nativeParentWidget() is None
+    assert layout.parent() == dialog
+    assert layout.parentWidget() == dialog
+    assert label.parent() == dialog
+    assert label.parentWidget() == dialog
+    assert label.nativeParentWidget() is None
+    assert button.parent() == dialog
+    assert button.parentWidget() == dialog
+    assert button.nativeParentWidget() is None
 
     dialog.show()

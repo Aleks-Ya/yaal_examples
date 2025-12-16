@@ -1,4 +1,4 @@
-package specification
+package specification.mock
 
 class PersonMary implements Person {
     String name() {

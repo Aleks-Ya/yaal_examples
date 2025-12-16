@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QDialogButtonBox
 
-from src.module.thirdparty.PyQt6 import vbox
+from tests.module.thirdparty.PyQt6 import vbox
 
 with vbox() as vbox:
     button_box: QDialogButtonBox = QDialogButtonBox(

@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QGridLayout, QTextEdit
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 with window() as window:
     text00: QTextEdit = QTextEdit('Text 00 (column span)')

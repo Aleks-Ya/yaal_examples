@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QRect, QPoint
 from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QApplication
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 # DOES NOT WORK
 

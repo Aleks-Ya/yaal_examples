@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QTableWidget, QPushButton, QVBoxLayout
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 
 def __hide_row() -> None:

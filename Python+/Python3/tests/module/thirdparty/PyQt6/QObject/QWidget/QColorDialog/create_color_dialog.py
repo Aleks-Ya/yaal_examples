@@ -3,7 +3,7 @@ from typing import Optional
 from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QPushButton, QColorDialog, QVBoxLayout
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 
 def show_color_dialog():

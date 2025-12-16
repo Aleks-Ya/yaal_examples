@@ -1,4 +1,4 @@
-package specification
+package specification.mock
 
 interface Person {
     String name()

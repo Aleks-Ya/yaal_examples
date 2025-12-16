@@ -1,4 +1,4 @@
-package specification
+package specification.mock
 
 
 import spock.lang.Specification

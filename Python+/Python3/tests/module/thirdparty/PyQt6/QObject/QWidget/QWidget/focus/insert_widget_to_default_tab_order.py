@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QPushButton, QWidget, QLineEdit
 
-from src.module.thirdparty.PyQt6 import vbox
+from tests.module.thirdparty.PyQt6 import vbox
 
 with vbox() as layout:
     layout.parent().setStyleSheet("*:focus { border: 2px solid blue; }")

@@ -45,6 +45,7 @@ pipeline-rest-api:latest
 pipeline-stage-step:latest
 pipeline-stage-tags-metadata:latest
 pipeline-stage-view:latest
+pipeline-utility-steps:latest
 publish-over-ssh:latest
 publish-over:latest
 resource-disposer:latest

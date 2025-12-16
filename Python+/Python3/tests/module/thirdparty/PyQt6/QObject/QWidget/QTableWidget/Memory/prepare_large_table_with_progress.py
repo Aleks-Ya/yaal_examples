@@ -5,7 +5,7 @@ from PyQt6.QtCore import QThread, pyqtSignal
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem, QHBoxLayout, QProgressDialog, QApplication
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 
 class PrepareTableWorker(QThread):

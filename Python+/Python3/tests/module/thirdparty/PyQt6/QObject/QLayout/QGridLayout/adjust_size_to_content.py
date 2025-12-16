@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QGridLayout, QPushButton, QCheckBox
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 
 def __create_widget(name: str) -> QCheckBox:

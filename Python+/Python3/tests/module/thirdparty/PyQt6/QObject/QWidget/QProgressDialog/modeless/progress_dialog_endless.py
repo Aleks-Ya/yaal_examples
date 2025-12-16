@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QProgressDialog, QApplication
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 with app():
     progress_dialog: QProgressDialog = QProgressDialog("Working...", "Cancel", 0, 0)

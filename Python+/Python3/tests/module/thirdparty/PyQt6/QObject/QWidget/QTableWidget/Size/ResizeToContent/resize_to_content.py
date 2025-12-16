@@ -2,7 +2,7 @@ from PyQt6.QtCore import QSize, QRect
 from PyQt6.QtWidgets import QTableWidget, QHeaderView, QWIDGETSIZE_MAX, QSizePolicy
 
 from src.module.thirdparty.PyQt6.QObject.QWidget.QTableWidget.data import create_table_with_headers
-from src.module.thirdparty.PyQt6 import app, assert_widget_size
+from tests.module.thirdparty.PyQt6 import app, assert_widget_size
 
 with app():
     table: QTableWidget = create_table_with_headers()

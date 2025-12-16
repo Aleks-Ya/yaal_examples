@@ -1,6 +1,6 @@
 from PyQt6.QtGui import QKeySequence, QShortcut
 
-from src.module.thirdparty.PyQt6 import main_window
+from tests.module.thirdparty.PyQt6 import main_window
 
 
 def on_hotkey():

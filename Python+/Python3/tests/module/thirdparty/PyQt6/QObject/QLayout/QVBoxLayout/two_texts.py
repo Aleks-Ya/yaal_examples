@@ -1,7 +1,7 @@
 # Window contains two text editors: one can resize only vertically
 from PyQt6.QtWidgets import QVBoxLayout, QTextEdit, QSizePolicy
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 with window() as window:
     text_edit_small: QTextEdit = QTextEdit()

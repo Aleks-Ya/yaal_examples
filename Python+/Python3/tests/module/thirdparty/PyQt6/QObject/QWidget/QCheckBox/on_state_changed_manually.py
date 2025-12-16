@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QCheckBox
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 
 def on_state_changed(state: int):

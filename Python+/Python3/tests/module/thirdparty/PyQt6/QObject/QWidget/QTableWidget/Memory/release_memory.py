@@ -3,7 +3,7 @@ import os
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem, QHBoxLayout
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 with window() as window:
     print(f"PID: {os.getpid()}")

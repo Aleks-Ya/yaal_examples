@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QSize
 from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem, QStyledItemDelegate
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 
 class CustomItemDelegate(QStyledItemDelegate):

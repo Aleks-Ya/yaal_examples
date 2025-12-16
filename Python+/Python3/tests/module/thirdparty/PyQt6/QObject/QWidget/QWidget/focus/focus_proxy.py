@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QLineEdit
 
-from src.module.thirdparty.PyQt6 import vbox
+from tests.module.thirdparty.PyQt6 import vbox
 
 with vbox() as layout:
     line_edit_1: QLineEdit = QLineEdit('Line Edit 1')

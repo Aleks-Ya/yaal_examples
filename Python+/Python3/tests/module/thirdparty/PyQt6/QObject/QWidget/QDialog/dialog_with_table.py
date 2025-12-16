@@ -2,8 +2,8 @@ from PyQt6.QtCore import QSize, QRect
 from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton, QApplication, QTableWidget, QWIDGETSIZE_MAX, \
     QSizePolicy, QAbstractScrollArea, QHeaderView
 
-from src.module.thirdparty.PyQt6 import app, assert_widget_size, assert_scroll_area_size
-from src.module.thirdparty.PyQt6.QObject.QWidget.QTableWidget.data import create_table_with_headers
+from tests.module.thirdparty.PyQt6 import app, assert_widget_size, assert_scroll_area_size
+from tests.module.thirdparty.PyQt6.QObject.QWidget.QTableWidget.data import create_table_with_headers
 
 with app():
     table: QTableWidget = create_table_with_headers()

@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QButtonGroup, QCheckBox
 
-from src.module.thirdparty.PyQt6 import vbox
+from tests.module.thirdparty.PyQt6 import vbox
 
 with vbox() as layout:
     check_box_1: QCheckBox = QCheckBox('Option 1')

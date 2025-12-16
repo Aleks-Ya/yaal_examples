@@ -1,7 +1,7 @@
 from PyQt6.QtGui import QKeySequence
 from PyQt6.QtWidgets import QPushButton
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 
 def on_clicked():

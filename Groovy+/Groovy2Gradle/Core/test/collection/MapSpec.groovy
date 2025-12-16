@@ -14,11 +14,13 @@ class MapSpec extends Specification {
         map["name"] == "Gromit"
         map['id'] == 1234
         map instanceof Map
+    }
 
-        when:
+    def "empty map"() {
+        given:
         def emptyMap = [:]
 
-        then:
+        expect:
         emptyMap.size() == 0
 
         when:

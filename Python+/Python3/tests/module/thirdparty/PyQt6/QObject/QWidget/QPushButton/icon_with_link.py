@@ -2,7 +2,7 @@ from PyQt6.QtCore import QSize, QMargins
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QPushButton, QVBoxLayout
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 with window() as window:
     icon: QIcon = QIcon('info.png')

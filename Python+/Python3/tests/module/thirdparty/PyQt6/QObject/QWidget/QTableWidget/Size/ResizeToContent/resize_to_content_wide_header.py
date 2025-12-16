@@ -2,7 +2,7 @@
 from PyQt6.QtCore import QSize, QRect
 from PyQt6.QtWidgets import QTableWidget, QHeaderView, QWIDGETSIZE_MAX, QSizePolicy, QTableWidgetItem
 
-from src.module.thirdparty.PyQt6 import app, assert_widget_size
+from tests.module.thirdparty.PyQt6 import app, assert_widget_size
 
 with app():
     table: QTableWidget = QTableWidget(3, 3)

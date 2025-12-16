@@ -1,6 +1,7 @@
 apply plugin: 'groovy'
 
 sourceSets.main.groovy.srcDirs 'vars', 'src'
+sourceSets.main.resources.srcDirs 'resources'
 sourceSets.test.groovy.srcDirs 'test'
 
 repositories {

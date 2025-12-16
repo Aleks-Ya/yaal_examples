@@ -1,12 +1,10 @@
 # Doesn't work
 import os
-import sys
 import tempfile
 from argparse import Namespace
 from pathlib import Path
 
-from anki.collection import Collection
-from aqt import AnkiQt, AnkiApp, ProfileManager
+from aqt import AnkiQt, AnkiApp, ProfileManager, setupLangAndBackend
 from aqt.browser import Browser
 
 tmp_dir: str = tempfile.mkdtemp()
@@ -21,7 +19,7 @@ pm.openProfile(profile)
 
 args: list[str] = [f"base={base_dir}", f"profile={profile}"]
 app: AnkiApp = AnkiApp(args)
-col: Collection = Collection(tempfile.mkstemp(suffix=".anki2")[1])
+app.startingUp()
 namespace: Namespace = Namespace(
     safemode=False,
     profile=profile,
@@ -32,9 +30,11 @@ namespace: Namespace = Namespace(
     # version=False,
     no_update_check=True
 )
-app.startingUp()
-mw: AnkiQt = AnkiQt(app, pm, col.backend, namespace, sys.argv)
+back = setupLangAndBackend(pm, app, None, False)
+mw: AnkiQt = AnkiQt(app, pm, back, namespace, args)
+mw.setupProfile()
 browser: Browser = Browser(mw=mw)
-browser.form.tableView.showColumn()
-browser.close()
-mw.close()
+# browser.show()
+# browser.form.tableView.showColumn()
+# browser.close()
+# mw.close()

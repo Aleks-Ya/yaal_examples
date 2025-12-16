@@ -1,0 +1,15 @@
+@startwbs
+
+title UI components hierarchy
+
+* Application
+** Main Window
+*** Deck Browser
+**** Deck Tree
+**** Statistics
+*** Deck Details
+** Note Browser
+*** Tag Tree
+*** Notes Table
+
+@endwbs

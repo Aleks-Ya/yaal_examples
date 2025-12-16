@@ -24,9 +24,21 @@ class MainWindow(QMainWindow):
         file_menu.addAction(new_action)
         file_menu.addAction(open_action)
 
+        assert label.parent() == self
+        assert label.parentWidget() == self
+        assert label.nativeParentWidget() is None
+        assert file_menu.parent() == self.menuBar()
+        assert file_menu.parentWidget() == self.menuBar()
+        assert file_menu.nativeParentWidget() is None
+        assert new_action.parent() == self
+        assert open_action.parent() == self
+
 
 if __name__ == "__main__":
     app: QApplication = QApplication(sys.argv)
     main_window: MainWindow = MainWindow()
+    assert main_window.parent() is None
+    assert main_window.parentWidget() is None
+    assert main_window.nativeParentWidget() is None
     main_window.show()
     sys.exit(app.exec())

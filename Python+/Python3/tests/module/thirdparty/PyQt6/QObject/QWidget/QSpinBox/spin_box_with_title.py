@@ -3,7 +3,7 @@ from typing import Optional
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QSpinBox, QHBoxLayout, QLabel
 
-from src.module.thirdparty.PyQt6 import vbox
+from tests.module.thirdparty.PyQt6 import vbox
 
 
 class TitledSpinBoxLayout(QHBoxLayout):

@@ -4,7 +4,7 @@ from time import sleep
 from PyQt6.QtCore import QMetaObject, Qt
 from PyQt6.QtWidgets import QProgressDialog, QApplication
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 # NOT WORKING
 

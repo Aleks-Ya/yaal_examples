@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QModelIndex, QPoint
 from PyQt6.QtWidgets import QTableWidget, QStyledItemDelegate
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 with app():
     table: QTableWidget = QTableWidget(2, 3)

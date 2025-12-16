@@ -2,7 +2,7 @@ from PyQt6 import QtCore
 from PyQt6.QtGui import QAction, QKeySequence
 from PyQt6.QtWidgets import QLabel, QMenu, QMessageBox, QMenuBar
 
-from src.module.thirdparty.PyQt6 import main_window
+from tests.module.thirdparty.PyQt6 import main_window
 
 with main_window() as main_window:
     def __show_message():

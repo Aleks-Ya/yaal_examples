@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QLabel
 
-from src.module.thirdparty.PyQt6 import vbox
+from tests.module.thirdparty.PyQt6 import vbox
 
 with vbox() as layout:
     label_wrap_on: QLabel = QLabel()

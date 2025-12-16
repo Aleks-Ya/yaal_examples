@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QLineEdit, QPushButton
 
-from src.module.thirdparty.PyQt6 import vbox
+from tests.module.thirdparty.PyQt6 import vbox
 
 
 # Emit only on manual or programmatic changing

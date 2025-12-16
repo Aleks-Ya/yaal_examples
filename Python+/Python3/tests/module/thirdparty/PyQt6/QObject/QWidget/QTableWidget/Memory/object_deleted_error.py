@@ -1,7 +1,7 @@
 from pytest import raises
 from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 # Reproduce "RuntimeError: wrapped C/C++ object of type QTableWidgetItem has been deleted"
 with app():

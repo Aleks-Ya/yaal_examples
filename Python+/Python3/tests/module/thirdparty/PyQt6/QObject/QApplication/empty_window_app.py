@@ -12,7 +12,7 @@ class EmptyWindow(QWidget):
         self.show()
 
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 with app():
     window: EmptyWindow = EmptyWindow()

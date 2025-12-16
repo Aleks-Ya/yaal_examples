@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QVBoxLayout, QTextEdit
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 with window() as window:
     text_edit_1: QTextEdit = QTextEdit('Text 1')

@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QTableWidget, QPushButton, QVBoxLayout, QMessageBox
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 
 def __add_column() -> None:

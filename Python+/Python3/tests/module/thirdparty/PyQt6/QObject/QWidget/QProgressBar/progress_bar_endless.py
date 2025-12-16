@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QProgressBar
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 with app():
     progress_bar: QProgressBar = QProgressBar()

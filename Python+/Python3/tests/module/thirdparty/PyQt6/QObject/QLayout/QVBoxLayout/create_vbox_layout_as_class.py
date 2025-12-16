@@ -10,7 +10,7 @@ class LayoutWithButtons(QVBoxLayout):
         self.addWidget(button2)
 
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 with window() as window:
     layout: LayoutWithButtons = LayoutWithButtons()

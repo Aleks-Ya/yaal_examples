@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QSize, QSizeF, QRect
 from PyQt6.QtWidgets import QTextEdit, QSizePolicy, QWIDGETSIZE_MAX, QAbstractScrollArea, QVBoxLayout, QLayout
 
-from src.module.thirdparty.PyQt6 import assert_widget_size, window, assert_layout_size, assert_text_document_size, \
+from tests.module.thirdparty.PyQt6 import assert_widget_size, window, assert_layout_size, assert_text_document_size, \
     assert_scroll_area_size
 
 with window() as window:

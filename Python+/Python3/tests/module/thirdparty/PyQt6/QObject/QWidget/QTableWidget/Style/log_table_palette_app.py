@@ -2,7 +2,7 @@ from PyQt6.QtGui import QPalette
 from PyQt6.QtWidgets import QTableWidget, QAbstractButton
 
 from src.module.thirdparty.PyQt6.QObject.QWidget.QTableWidget.data import create_table_with_headers
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 with app() as app:
     table: QTableWidget = create_table_with_headers()

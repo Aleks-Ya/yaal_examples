@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QFormLayout, QLabel, QLineEdit, QSpinBox, QPushButton, QHBoxLayout
 
-from src.module.thirdparty.PyQt6 import window
+from tests.module.thirdparty.PyQt6 import window
 
 with window() as window:
     label: QLabel = QLabel('Label 1')

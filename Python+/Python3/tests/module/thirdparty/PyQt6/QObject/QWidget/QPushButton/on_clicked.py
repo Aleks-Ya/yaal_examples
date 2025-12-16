@@ -5,7 +5,7 @@ def on_button_click():
     print("Button clicked!")
 
 
-from src.module.thirdparty.PyQt6 import app
+from tests.module.thirdparty.PyQt6 import app
 
 with app():
     button: QPushButton = QPushButton('Click Me')
