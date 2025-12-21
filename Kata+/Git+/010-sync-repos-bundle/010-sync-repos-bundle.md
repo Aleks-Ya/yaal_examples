@@ -1,14 +1,14 @@
-# 010-sync-repos-offline
+# 010-sync-repos-bundle
 
 ## Task
-Transfer commits from a local repo to a remote repo without network connection.
+Transfer commits from a local repo to a remote repo without network connection via a bundle.
 
 ## Steps
 1. Set environment variables
 	```shell
 	set -x
-	export LOCAL_NAME=kata-repo-sync-repos-offline-local
-	export REMOTE_NAME=kata-repo-sync-repos-offline-remote
+	export LOCAL_NAME=kata-repo-sync-repos-bundle-local
+	export REMOTE_NAME=kata-repo-sync-repos-bundle-remote
 	export LOCAL_PATH=/tmp/$LOCAL_NAME
 	export REMOTE_PATH=/tmp/$REMOTE_NAME
 	```
@@ -25,14 +25,14 @@ Transfer commits from a local repo to a remote repo without network connection.
 	4. Change current dir: `cd $LOCAL_PATH`
 	5. Init repo: `git init`
 	6. Add a remote repo: `git remote add origin file://$REMOTE_PATH`
-3. Make changes in the local repo
+4. Make changes in the local repo
 	1. Create a file: `echo aaa > data.txt`
 	2. Stage the file: `git add data.txt`
 	3. Commit the file: `git commit -m CommitA`
-4. Push branch from local repo to remote repo:
+5. Push branch from local repo to remote repo:
 	1. Create a branch: `git checkout -b feature1`
 	2. Push the branch: `git push --set-upstream origin feature1`
-5. Send local changes to the remote repo by a bundle:
+6. Send local changes to the remote repo by a bundle:
 	1. In the local repo:
 		1. Create another commit: 
 			1. Update file: `echo bbb > data.txt`
