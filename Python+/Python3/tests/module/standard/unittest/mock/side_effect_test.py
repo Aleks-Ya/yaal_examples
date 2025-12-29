@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import Mock
 
 
 class FunctionClass:
@@ -17,7 +17,7 @@ class TestSideEffect(unittest.TestCase):
         thing: FunctionClass = FunctionClass()
         self.assertEqual(thing.my_without_args(), "abc")
         # Mocked behavior
-        thing.my_without_args = MagicMock(side_effect=["xyz", "prs"])
+        thing.my_without_args = Mock(side_effect=["xyz", "prs"])
         result1: str = thing.my_without_args()
         result2: str = thing.my_without_args()
         with self.assertRaises(StopIteration):
@@ -31,7 +31,7 @@ class TestSideEffect(unittest.TestCase):
         thing: FunctionClass = FunctionClass()
         self.assertEqual(thing.my_with_args("abc"), "ABC")
         # Mocked behavior
-        thing.my_with_args = MagicMock(side_effect=["xyz", "prs"])
+        thing.my_with_args = Mock(side_effect=["xyz", "prs"])
         result1: str = thing.my_with_args("call1")
         result2: str = thing.my_with_args("call2")
         with self.assertRaises(StopIteration):
@@ -45,7 +45,7 @@ class TestSideEffect(unittest.TestCase):
         thing: FunctionClass = FunctionClass()
         self.assertEqual(thing.my_without_args(), "abc")
         # Mocked behavior
-        thing.my_without_args = MagicMock(side_effect=ConnectionError("Network failed"))
+        thing.my_without_args = Mock(side_effect=ConnectionError("Network failed"))
         with self.assertRaises(ConnectionError) as ex:
             thing.my_without_args()
         self.assertEqual(str(ex.exception), "Network failed")

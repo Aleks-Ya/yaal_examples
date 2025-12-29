@@ -1,5 +1,5 @@
 import requests
-from pytest_check import raises
+from pytest import raises
 from requests import Response, HTTPError
 
 

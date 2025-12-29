@@ -1,7 +1,6 @@
 # 070-function-error-python
 
 ## Task
-Status: ?
 Create a function that fails and return an error as a Python exception (sync invocation).
 
 ## Steps
@@ -17,10 +16,10 @@ Create a function that fails and return an error as a Python exception (sync inv
 			1. Enabled: true
 			2. Auth type: `NONE`
 2. Define handler:
-```python
-def lambda_handler(event, context):
-    raise ValueError("Parameter is invalid") 
-```
+	```python
+	def lambda_handler(event, context):
+    	raise ValueError("Parameter is invalid") 
+	```
 3. Deploy the function
 4. Test
 	1. Invoke by a test event
@@ -30,7 +29,7 @@ def lambda_handler(event, context):
 	3. Invoke via function URL: `curl -i https://sps2jnfy43eirrjnsu26wvg5oe0ynrjo.lambda-url.us-east-1.on.aws`
 
 ## Cleanup
-1. Delete function's execution role
-2. Delete function `kata-f-error-python-function`
+1. Delete Function `kata-f-error-python-function`
+2. Delete Role `kata-f-error-python-function-role-`
 
 ## History

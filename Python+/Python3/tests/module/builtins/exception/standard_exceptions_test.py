@@ -1,4 +1,4 @@
-from pytest_check import raises
+from pytest import raises
 
 
 def test_invalid_parameter():

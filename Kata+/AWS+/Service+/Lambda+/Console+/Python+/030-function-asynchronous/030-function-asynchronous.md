@@ -1,20 +1,21 @@
 # 030-function-asynchronous
 
 ## Task
-Status: ?
 Execute a Lambda Function asynchronously.
 
 ## Steps
 1. Create a Queue
     1. Type: `Standard`
-    2. Name: `queue-1`
+    2. Name: `kata-q-function-asynchronous`
 2. Create a Function
     1. Type: `Author from scratch`
-    2. Name: `function-1`
+    2. Name: `kata-f-function-asynchronous`
     3. Runtime: `Python`
+    4. Architecture: `x86_64`
+    5. Permissions:
+        1. Execution role: `Create a new role with basic Lambda permissions`
 3. Configure the Function
-    1. Timeout: 15 sec
-    2. Code:
+    1. Code:
        ```python
        import time
 
@@ -24,21 +25,32 @@ Execute a Lambda Function asynchronously.
            print(f"Finish: {time.strftime('%H:%M:%S')}")
            return f"Hello from Lambda at {time.strftime('%H:%M:%S')}"
        ```
+    2. Timeout: 15 sec 
     3. Deploy the Function
-    4. Test the Function
+    4. Test the Function synchronously
+       1. Create a synchronous test event
+           1. Name: `te-sync`
+           2. Invocation type: `Synchronous`
+           3. Event JSON: `{}`
+       2. Execute the test event 
     5. Add Destination
         1. Source: `Asynchronous invocation`
         2. Condition: `On success`
         3. Destination type: `SQS queue`
-        4. Destination: `queue-1`
+        4. Destination: `kata-q-function-asynchronous`
         5. Permissions: `Add required permissions`
-4. Test
-    1. Invoke the Function: `aws lambda invoke --function-name function-1 --invocation-type Event /tmp/response.json`
-    2. Check message in the Queue using AWS Console
+    6. Test the Function asynchronously
+       1. Create an asynchronous test event
+           1. Name: `te-async`
+           2. Invocation type: `Asynchronous`
+           3. Event JSON: `{}`
+       2. Execute the test event
+       3. Verify the Queue
 
 ## Cleanup
-1. Delete Function
-2. Delete Role `function-1-role-`
-3. Delete Queue
+1. Delete Function `kata-f-function-asynchronous`
+2. Delete Role `kata-f-function-asynchronous-role-`
+3. Delete Queue `kata-q-function-asynchronous`
 
 ## History
+- 2025-12-29 success

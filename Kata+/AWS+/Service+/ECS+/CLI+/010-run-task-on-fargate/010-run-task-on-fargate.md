@@ -25,13 +25,13 @@ Run the Hello-World Docker container on Fargate.
 		--container-definitions file://container-definitions.json
 	```
 4. Run the Task: 
-```shell
-aws ecs run-task --cluster $CLUSTER --launch-type FARGATE --task-definition $FAMILY:1 \
-	--network-configuration "awsvpcConfiguration={
-		subnets=[subnet-abc12345],
-		securityGroups=[sg-abc12345],
-		assignPublicIp=ENABLED
-	}"
+	```shell
+	aws ecs run-task --cluster $CLUSTER --launch-type FARGATE --task-definition $FAMILY:1 \
+		--network-configuration "awsvpcConfiguration={
+			subnets=[subnet-abc12345],
+			securityGroups=[sg-abc12345],
+			assignPublicIp=ENABLED
+		}"
 	```
 
 ## Cleanup

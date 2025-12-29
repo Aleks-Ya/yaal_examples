@@ -55,7 +55,9 @@ def load_wise_rates(code: CurrencyCode, day: date) -> dict[CurrencyCode, Currenc
     return {code: Currency(code, rate, 1)}
 
 
-last_day_prev_month: date = date.today().replace(day=1) - timedelta(days=1)
+today: date = date.today()
+# today: date = date(2025, 12, 1)
+last_day_prev_month: date = today.replace(day=1) - timedelta(days=1)
 currency_rates: dict[CurrencyCode, Currency] = load_cbr_rates(last_day_prev_month)
 php_rate: dict[CurrencyCode, Currency] = load_wise_rates(CurrencyCode("PHP"), last_day_prev_month)
 khr_rate: dict[CurrencyCode, Currency] = load_wise_rates(CurrencyCode("KHR"), last_day_prev_month)

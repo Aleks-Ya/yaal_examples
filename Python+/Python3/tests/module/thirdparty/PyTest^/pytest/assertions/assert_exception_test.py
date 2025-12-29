@@ -14,8 +14,8 @@ def test_assert_message():
 
 
 def test_exception_info():
-    with raises(ZeroDivisionError) as exc_info:
+    with raises(ZeroDivisionError) as ex_info:
         # noinspection PyStatementEffect
         1 / 0
-    e: ZeroDivisionError = exc_info.value
+    e: ZeroDivisionError = ex_info.value
     assert "division by zero" in e.args

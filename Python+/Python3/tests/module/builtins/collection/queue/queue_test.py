@@ -1,6 +1,6 @@
 from queue import Queue, Empty
 
-from pytest_check import raises
+from pytest import raises
 
 
 def test_put():

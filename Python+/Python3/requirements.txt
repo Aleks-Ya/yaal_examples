@@ -126,6 +126,7 @@ glom
 dpath
 datasets
 aws-cdk-lib
+aws-lambda-typing
 constructs
 joppy
 authlib

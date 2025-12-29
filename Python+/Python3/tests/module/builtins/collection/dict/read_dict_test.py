@@ -13,6 +13,7 @@ def test_get_absent_key():
     d: dict[Any, Any] = dict()
     assert d.get('absent') is None
     with raises(KeyError) as ex:
+        # noinspection PyUnusedLocal
         v = d['absent']
     assert ex.value.args[0] == "absent"
 

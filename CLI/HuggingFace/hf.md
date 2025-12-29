@@ -4,10 +4,12 @@
 Docs: https://huggingface.co/docs/huggingface_hub/main/en/guides/cli
 
 ## Install
-PIP: `pip install -U "huggingface_hub[cli]"`
+PIP: `pip install -U huggingface-hub`
 Brew: `brew install huggingface-cli`
 
 ## Commands
+Version: `hf version`
+Help: `hf --help`
 Help about a command: `hf upload-large-folder --help`
 
 Login: `hf auth login`
