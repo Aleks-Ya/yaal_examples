@@ -1,7 +1,6 @@
 # 040-integration-lambda-path-parameters
 
 ## Task
-Status: ?
 Create a **REST** API that invokes a Lambda function which accepts **path** parameters.
 
 ## Steps

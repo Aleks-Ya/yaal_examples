@@ -1,7 +1,6 @@
 # 060-stage-variables-mock
 
 ## Task
-Status: success
 Create a REST API with two Stages utilizing Stage Variables to configure a Mock Integration.
 
 ## Steps

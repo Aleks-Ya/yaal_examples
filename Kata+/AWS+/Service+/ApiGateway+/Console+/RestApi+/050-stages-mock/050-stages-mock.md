@@ -1,7 +1,6 @@
 # 050-stages-mock
 
 ## Task
-Status: success
 Create a REST API with two Stages pointing to different versions of a Mock integration.
 
 ## Steps

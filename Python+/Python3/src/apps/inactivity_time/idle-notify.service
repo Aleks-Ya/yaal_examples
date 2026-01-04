@@ -1,0 +1,19 @@
+[Unit]
+Description=Notify after N minutes of inactivity
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+
+# Ensure the service has the right session environment for GUI apps
+Environment=XDG_RUNTIME_DIR=/run/user/%U
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
+
+# Prefer Wayland (GNOME default). This is what GUI tools like yad/GTK need.
+Environment=WAYLAND_DISPLAY=wayland-0
+
+ExecStart=/home/aleks/pr/home/yaal_examples/Python+/Python3/src/apps/inactivity_time/idle_notify.py
+
+[Install]
+WantedBy=graphical-session.target

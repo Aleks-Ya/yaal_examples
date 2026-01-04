@@ -1,7 +1,7 @@
 # 070-stage-variables-lambda
 
 ## Task
-Create a REST API with two Stages pointing to different aliases of a Lambd Function.
+Create a REST API with two Stages pointing to different aliases of a Lambda Function.
 
 ## Steps
 1. Create a Function

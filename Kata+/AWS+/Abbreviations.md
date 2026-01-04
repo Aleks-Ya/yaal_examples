@@ -15,3 +15,4 @@ Repository: `kata-repo-`
 Lambda Function: `kata-f-`
 SQS Queue: `kata-q-`
 State Machine: `kata-sm-`
+Usage Plan: `kata-up-`

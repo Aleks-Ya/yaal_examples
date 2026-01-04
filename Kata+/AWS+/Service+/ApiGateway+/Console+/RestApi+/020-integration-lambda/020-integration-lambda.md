@@ -1,7 +1,6 @@
 # 020-integration-lambda
 
 ## Task
-Status: ?
 Create a REST API that invokes a Lambda function.
 
 ## Steps
