@@ -1,7 +1,7 @@
 # 010-s3-origin
 
 ## Task
-Setup CloudFront Destination with S3 Bucket Origin (with AWS CLI).
+Setup CloudFront Destination with S3 Bucket Origin.
 
 ## Steps
 1. Change the current directory

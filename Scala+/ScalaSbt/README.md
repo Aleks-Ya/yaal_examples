@@ -2,8 +2,8 @@
 
 ## Build
 Choose Java 11 version: `sdk use java 11.0.29-zulu`
-Choose Scala 2.12 version: `sdk use scala 2.12.20`
-Choose SBT latest version: `sdk use sbt 1.11.7`
+Choose Scala 2.12 version: `sdk use scala 2.12.21`
+Choose SBT latest version: `sdk use sbt 1.12.0`
 Compile sources: `sbt Compile/clean Compile/compile`  
 Compile tests: `sbt Test/clean Test/compile`
 

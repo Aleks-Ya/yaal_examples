@@ -2,7 +2,7 @@ import sbt.Project
 
 ThisBuild / organization := "ru.yaal.examples.scala"
 ThisBuild / version := "1"
-ThisBuild / scalaVersion := "2.12.20"
+ThisBuild / scalaVersion := "2.12.21"
 
 lazy val root: Project = (project in file(".")).settings(name := "ScalaSbt")
   .aggregate(ScalaCore, ScalaTest, ScalaMock, ScalaScopt, Json4s, JsonUnit, AkkaActorScalaExamples, AkkaQuickstartScala,
