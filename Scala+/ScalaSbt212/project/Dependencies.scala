@@ -2,6 +2,7 @@ import sbt.*
 
 object Dependencies {
   val scalaTestDep = "org.scalatest" %% "scalatest" % "3.2.19" % Test
+  val scalaTestJsonAssertDep = "com.stephenn" %% "scalatest-json-jsonassert" % "0.2.5" % Test
   val scalaMockDep = "org.scalamock" %% "scalamock" % "7.5.2" % Test
   val h2Dep = "com.h2database" % "h2" % "2.4.240"
   val logbackClassicDep = "ch.qos.logback" % "logback-classic" % "1.5.21"

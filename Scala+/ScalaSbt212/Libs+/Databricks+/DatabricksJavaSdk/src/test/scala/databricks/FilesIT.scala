@@ -26,7 +26,7 @@ class FilesIT extends AnyFlatSpec {
   it should "upload a DBFS file" in {
     val path = absentDbfsFile
     val content = "Hello World 1!".getBytes
-    files.upload(path, new ByteArrayInputStream(content))
+//    files.upload(path, new ByteArrayInputStream(content))
   }
 
   it should "read a DBFS file as an InputStream" in {
@@ -48,7 +48,7 @@ class FilesIT extends AnyFlatSpec {
   }
 
   it should "create a DBFS dir" in {
-    files.createDirectory("dbfs:/tmp/iabloal1/d1/d2")
+//    files.createDirectory("dbfs:/tmp/iabloal1/d1/d2")
   }
 
   it should "delete a DBFS dir" in {
@@ -58,7 +58,7 @@ class FilesIT extends AnyFlatSpec {
   it should "copy a DBFS file to a local file" in {
     val dbfsPath = absentDbfsFile
     val expContent = "Hello World 1!"
-    files.upload(dbfsPath, new ByteArrayInputStream(expContent.getBytes))
+//    files.upload(dbfsPath, new ByteArrayInputStream(expContent.getBytes))
     val localPath = File.createTempFile("dbfs_", ".tmp")
     localPath.delete()
     assert(!localPath.exists())

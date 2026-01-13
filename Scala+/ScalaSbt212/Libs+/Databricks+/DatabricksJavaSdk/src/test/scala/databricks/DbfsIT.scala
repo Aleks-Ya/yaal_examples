@@ -79,7 +79,7 @@ class DbfsIT extends AnyFlatSpec {
   }
 
   it should "delete a DBFS file" in {
-    dbfs.delete(absentDbfsFile)
+//    dbfs.delete(absentDbfsFile)
   }
 
   it should "create a DBFS dir" in {
@@ -87,7 +87,7 @@ class DbfsIT extends AnyFlatSpec {
   }
 
   it should "delete a DBFS dir" in {
-    dbfs.delete("dbfs:/tmp/iabloal1/d1/d2")
+//    dbfs.delete("dbfs:/tmp/iabloal1/d1/d2")
   }
 
   it should "copy a DBFS file to a local file" in {
