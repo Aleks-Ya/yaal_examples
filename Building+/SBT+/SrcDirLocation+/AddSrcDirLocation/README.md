@@ -1,6 +1,6 @@
 # ReplaceSrcDirLocation
 
-Replace default path to directories `src/main/scala` and `src/test/scala` with a custom one.
+Add directories `src/main/scala` and `src/test/scala` to default paths.
 
 Test: `sbt test`
 Run: `sbt run`

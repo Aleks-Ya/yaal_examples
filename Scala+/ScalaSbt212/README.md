@@ -1,4 +1,4 @@
-# ScalaSbt
+# Scala 2.12 on SBT
 
 ## Build
 Choose Java 11 version: `sdk use java 11.0.29-zulu`
@@ -16,9 +16,9 @@ An exception or error caused a run to abort: class org.apache.spark.storage.Stor
 (in unnamed module @0x51e5fc98) cannot access class sun.nio.ch.DirectBuffer (in module java.base) 
 because module java.base does not export sun.nio.ch to unnamed module @0x51e5fc98
 ```
-Solution: set Java 8 as the Project JDK 
+Solution: set Java 8 as the Project JDK
 
-###  invalid source release: 21
+### invalid source release: 21
 Command: run test `dataframe.create.json.ReadJsonFileTest`
 Message:
 ```

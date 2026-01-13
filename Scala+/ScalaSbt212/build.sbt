@@ -4,7 +4,7 @@ ThisBuild / organization := "ru.yaal.examples.scala"
 ThisBuild / version := "1"
 ThisBuild / scalaVersion := "2.12.21"
 
-lazy val root: Project = (project in file(".")).settings(name := "ScalaSbt")
+lazy val root: Project = (project in file(".")).settings(name := "ScalaSbt212")
   .aggregate(ScalaCore, ScalaTest, ScalaMock, ScalaScopt, Json4s, JsonUnit, AkkaActorScalaExamples, AkkaQuickstartScala,
     Http4s, Http4sJdkHttpClient, UtilSrc)
 

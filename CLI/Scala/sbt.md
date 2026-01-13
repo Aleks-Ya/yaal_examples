@@ -8,31 +8,27 @@ Version: `sbt --version`
 List projects: `sbt projects`
 
 ## Run
-
 Run app: `sbt run`
 Run sub-project:
-```
+```shell
 sbt "project ScalaRun" run
 sbt> ;project ScalaRun; run
 ```
 
 ## Compile
-
 Compile project: `sbt compile`
 Compile tests: `sbt test:compile`
 
 ## Test
-
 Enter Continuous Build/Test: `sbt ~testQuick`
 Run all tests: `sbt test`
 Run test with name "my.Test": 
-```
+```shell
 sbt "testOnly my.Test"
 sbt> testOnly my.Test
 ```
 
 ## dependencyTree
-
 Show artifact dependency tree (to a file):
 ```
 # For "compile" configuration:
@@ -43,8 +39,11 @@ sbt compile:dependencyTree > target/tree.txt
 sbt test:dependencyTree > target/tree.txt
 ```
 
-## Other
+## Show
+List main classes: `sbt "show discoveredMainClasses"`
+Show sources dirs: `sbt "show subProjectA / Compile / scalaSource"`
 
+## Other
 Download sources and javadocs: `sbt update-classifiers`
 Read Build Definition from file: `sbt reload`
 Runs Scala Interpretator:  `sbt console`
@@ -56,5 +55,4 @@ Package current project: `sbt package`
 Create fat jar: `sbt assembly`
 Show task dependency tree: `sbt "inspect tree clean"`
 Set DEBUG log level: `sbt --debug sbtVersion`
-List main classes: `sbt "show discoveredMainClasses"`
 Create new project: `sbt new sbt/scala-seed.g8`
