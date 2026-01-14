@@ -1,23 +1,30 @@
-import Dependencies._
+import Dependencies.*
 import sbt.Project
 
 ThisBuild / organization := "ru.yaal.examples.scala"
 ThisBuild / version := "1"
 ThisBuild / scalaVersion := "2.12.21"
 
-lazy val root: Project = (project in file(".")).settings(name := "ScalaSbt212")
+lazy val flatDirs = Seq(
+  Compile / scalaSource := baseDirectory.value / "src",
+  Compile / resourceDirectory := baseDirectory.value / "resources",
+  Test / scalaSource := baseDirectory.value / "test",
+  Test / resourceDirectory := baseDirectory.value / "resourcesTest"
+)
+
+lazy val root: Project = (project in file(".")).settings(name := "ScalaSbt212").settings(flatDirs)
   .aggregate(
-    UtilSrc, 
-    ScalaCore, 
+    UtilSrc,
+    ScalaCore,
     ScalaTest,
     ScalaTestJsonAssert,
-    ScalaMock, 
+    ScalaMock,
     ScalaScopt,
     TestContainersOpenSearch,
     TestContainersScalaTest,
     AkkaActorScalaExamples,
     AkkaQuickstartScala,
-    Json4s, 
+    Json4s,
     JsonUnit,
     SprayJson,
     TypesafeConfig,
@@ -49,7 +56,7 @@ lazy val root: Project = (project in file(".")).settings(name := "ScalaSbt212")
 
 def mkp(path: String, deps: ModuleID*): Project = {
   val projectId = path.split("[/+]").last
-  var p = Project(projectId, file(path))
+  var p = Project(projectId, file(path)).settings(flatDirs)
   p = if (!path.equalsIgnoreCase("Util+/UtilSrc")) p.dependsOn(ClasspathDependency(UtilSrc, None)) else p
   if (deps.nonEmpty) p.settings(libraryDependencies ++= deps) else p
 }
