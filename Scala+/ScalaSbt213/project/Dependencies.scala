@@ -46,11 +46,6 @@ object Dependencies {
   val spark3MlDep = "org.apache.spark" %% "spark-mllib" % spark3Version
   val spark3SqlDep = "org.apache.spark" %% "spark-sql" % spark3Version
   val spark3StreamingDep = "org.apache.spark" %% "spark-streaming" % spark3Version
-  val spark3DjlDep = "ai.djl.spark" %% "spark" % djlVersion
-  val djlPyTorchEngineDep = "ai.djl.pytorch" % "pytorch-engine" % djlVersion
-  val djlPyTorchModelZooDep = "ai.djl.pytorch" % "pytorch-model-zoo" % djlVersion
-  val djlOnnxEngineDep = "ai.djl.onnxruntime" % "onnxruntime-engine" % djlVersion
-  val djlHfTokenizersDep = "ai.djl.huggingface" % "tokenizers" % djlVersion
 
   val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "5.3.0" % Test
 
@@ -60,14 +55,12 @@ object Dependencies {
   val sparkStreamingKafkaDep = "org.apache.spark" %% "spark-streaming-kafka-0-10-assembly" % spark3Version
   val kafkaClientsDep = "org.apache.kafka" % "kafka-clients" % kafkaVersion % Provided
   val kafkaDep = "org.apache.kafka" %% "kafka" % kafkaVersion
-  val kafkaManubDep = "net.manub" %% "scalatest-embedded-kafka" % "2.0.0" % Test
 
   private val openSearchVersion = "2.19.3"
   val openSearchDep = "org.opensearch" % "opensearch" % openSearchVersion
   val opensearchRestHighLevelClientDep = "org.opensearch.client" % "opensearch-rest-high-level-client" % openSearchVersion
 
   val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.70.0"
-  val dbUtilsApiDep = "com.databricks" %% "dbutils-api" % "0.0.6"
   val hadoopClientApiDep = "org.apache.hadoop" % "hadoop-client-api" % "3.4.2"
   val databricksDbUtilsScalaDep = "com.databricks" %% "databricks-dbutils-scala" % "0.1.5"
 
