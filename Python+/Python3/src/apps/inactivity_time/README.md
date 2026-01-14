@@ -15,7 +15,8 @@ Custom parameters: `~/pr/home/yaal_examples/Python+/Python3/src/apps/inactivity_
 ### Restart
 After modifying `idle-notify.service`:
 1. Reload daemon: `systemctl --user daemon-reload`
-2. Verify status: `systemctl --user status idle-notify.service`
+2. Enable and start service: `systemctl --user enable --now idle-notify.service`
+3. Verify status: `systemctl --user status idle-notify.service`
 
 ### Logs
 `journalctl --user -u idle-notify.service -f`
