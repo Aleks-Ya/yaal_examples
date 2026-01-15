@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers
 
 import scala.collection.mutable.ListBuffer
 
-class SetManipulation extends AnyFlatSpec with Matchers {
+class SetManipulationTest extends AnyFlatSpec with Matchers {
 
   it should "iterate a set" in {
     val set = Set(1, 2, 3)
