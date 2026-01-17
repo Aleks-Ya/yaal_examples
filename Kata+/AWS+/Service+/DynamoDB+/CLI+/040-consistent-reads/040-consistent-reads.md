@@ -1,7 +1,7 @@
 # 040-consistent-reads
 
 ## Task
-Demonstrate Eventually and Stringly consistent reads.
+Demonstrate Eventually and Strongly consistent reads.
 
 ## Steps
 1. Create a table
@@ -32,7 +32,7 @@ Demonstrate Eventually and Stringly consistent reads.
 			--table-name kata-table-consistent-reads \
 			--item '{ "id": {"S": "1"}, "name": {"S": "Ann"} }'
 		```
-	2. Read item (consume 0.5 WCU):
+	2. Read item (consume 0.5 RCU):
 		```bash
 		aws dynamodb get-item \
 			--table-name kata-table-consistent-reads \
@@ -46,7 +46,7 @@ Demonstrate Eventually and Stringly consistent reads.
 			--table-name kata-table-consistent-reads \
 			--item '{ "id": {"S": "1"}, "name": {"S": "Mary"} }'
 		```
-	2. Read item (consume 1 WCU):
+	2. Read item (consume 1 RCU):
 		```bash
 		aws dynamodb get-item \
 			--table-name kata-table-consistent-reads \

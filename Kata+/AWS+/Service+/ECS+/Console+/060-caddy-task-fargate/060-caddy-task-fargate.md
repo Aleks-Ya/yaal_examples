@@ -1,7 +1,7 @@
 # 060-caddy-task-fargate
 
 ## Task
-Run Task with a Caddy web-server on Fargate.
+Run Task with a Caddy web-server on Fargate and connect to it by HTTP.
 
 ## Steps
 1. Cluster name: `kata-cluster-caddy-task-fargate`

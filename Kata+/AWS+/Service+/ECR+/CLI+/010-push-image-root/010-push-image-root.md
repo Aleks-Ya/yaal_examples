@@ -1,7 +1,7 @@
 # 010-push-image-root
 
 ## Task
-Push an Image to a ECR $NAMESPACE as the Root User.
+Push an Image to an ECR Repository as the Root User.
 
 ## Steps
 1. Set environment variables

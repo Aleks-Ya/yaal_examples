@@ -1,7 +1,7 @@
 # 020-push-image-user
 
 ## Task
-Push an Image to a ECR Repository as an IAM User.
+Push an Image to an ECR Repository as an IAM User.
 
 ## Steps
 1. Open 2 terminals: for Root User and for IAM User

@@ -1,7 +1,7 @@
 # 050-transact-write-read
 
 ## Task
-Perform transactional write on a DynamoDB table. 
+Perform transactional write and read from a DynamoDB table. 
 
 ## Steps
 1. Change current dir
@@ -12,7 +12,7 @@ Perform transactional write on a DynamoDB table.
     ```
 3. Create table
    1. Create a Table
-      ```bash
+      ```shell
       aws dynamodb create-table \
           --table-name $TABLE \
           --attribute-definitions AttributeName=id,AttributeType=S \

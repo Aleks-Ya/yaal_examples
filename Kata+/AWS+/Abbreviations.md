@@ -16,3 +16,4 @@ Lambda Function: `kata-f-`
 SQS Queue: `kata-q-`
 State Machine: `kata-sm-`
 Usage Plan: `kata-up-`
+CloudWatch Log Group: `kata-lg-`

@@ -22,9 +22,12 @@ Create a DynamoDB table having both a Partition Key and a Sort Key.
 3. Use the table
    1. Write Items:
       ```shell
-      aws dynamodb put-item --table-name $TABLE --item '{ "customer": {"S": "John"}, "order": {"N": "1"}, "product": {"S": "car"} }'
-      aws dynamodb put-item --table-name $TABLE --item '{ "customer": {"S": "John"}, "order": {"N": "2"}, "product": {"S": "motorcycle"} }'
-      aws dynamodb put-item --table-name $TABLE --item '{ "customer": {"S": "Mary"}, "order": {"N": "1"}, "product": {"S": "dress"} }'
+      aws dynamodb put-item --table-name $TABLE \
+         --item '{ "customer": {"S": "John"}, "order": {"N": "1"}, "product": {"S": "car"} }'
+      aws dynamodb put-item --table-name $TABLE \
+         --item '{ "customer": {"S": "John"}, "order": {"N": "2"}, "product": {"S": "motorcycle"} }'
+      aws dynamodb put-item --table-name $TABLE \
+         --item '{ "customer": {"S": "Mary"}, "order": {"N": "1"}, "product": {"S": "dress"} }'
       ```
    2. Scan all items: `aws dynamodb scan --table-name $TABLE`
    3. Get the item by primary key: `aws dynamodb get-item --table-name $TABLE --key '{"customer": {"S": "John"}, "order": {"N": "2"} }'`
