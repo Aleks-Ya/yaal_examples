@@ -1,4 +1,4 @@
-/home/aleks/pr/home/yaal_examples/Building+/Docker+/DockerImage+/Application+/OpenSearch# OpenSearch
+# OpenSearch
 
 DockerHub: https://hub.docker.com/r/opensearchproject/opensearch
 
@@ -6,11 +6,11 @@ Default credentials: `admin`/`admin`
 
 ## Run single node (OpenSearch only)
 1. Start: 
-```shell
-docker run --rm -p 9200:9200 -p 9600:9600 --name opensearch \
-  -e "discovery.type=single-node" \
-  -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=Apas@2xuV" opensearchproject/opensearch:latest
-```
+  ```shell
+  docker run --rm -p 9200:9200 -p 9600:9600 --name opensearch \
+    -e "discovery.type=single-node" \
+    -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=Apas@2xuV" opensearchproject/opensearch:latest
+  ```
 2. Check state: `curl https://localhost:9200 -ku admin:Apas@2xuV`
 
 ## Run OpenSearch + Dashboard
@@ -21,7 +21,6 @@ docker run --rm -p 9200:9200 -p 9600:9600 --name opensearch \
 ## Connect with Bash:
 User `opesearch`: `docker exec -it opensearch bash`
 user `root`: `docker exec -it -u root opensearch bash`
-
 
 ## REST API examples
 See Postman `OpenSearch Docker` collection in `Personal` workspace
@@ -43,14 +42,14 @@ Solution: add more memory in `docker-compose.yml`
 ### UnsatisfiedLinkError
 Command: use vector search
 Message:
-```
-java.lang.UnsatisfiedLinkError: /usr/share/opensearch/plugins/opensearch-knn/lib/libopensearchknn_faiss_avx512.so: /usr/share/opensearch/data/ml_cache/pytorch/1.13.1-cpu-precxx11-linux-x86_64/libstdc++.so.6: version `GLIBCXX_3.4.20' not found (required by /usr/share/opensearch/plugins/opensearch-knn/lib/libopensearchknn_faiss_avx512.so)
-```
+  ```shell
+  java.lang.UnsatisfiedLinkError: /usr/share/opensearch/plugins/opensearch-knn/lib/libopensearchknn_faiss_avx512.so: /usr/share/opensearch/data/ml_cache/pytorch/1.13.1-cpu-precxx11-linux-x86_64/libstdc++.so.6: version `GLIBCXX_3.4.20' not found (required by /usr/share/opensearch/plugins/opensearch-knn/lib/libopensearchknn_faiss_avx512.so)
+  ```
 Diagnosys:
 Install `strings`: `yum install -y binutils`
 `ls -l /usr/share/opensearch/data/ml_cache/pytorch/1.13.1-cpu-precxx11-linux-x86_64`
 `strings /usr/share/opensearch/data/ml_cache/pytorch/1.13.1-cpu-precxx11-linux-x86_64/libstdc++.so.6 | grep GLIBCXX`
-```
+```shell
 bash-5.2# strings /usr/share/opensearch/data/ml_cache/pytorch/1.13.1-cpu-precxx11-linux-x86_64/libstdc++.so.6 | grep GLIBCXX
 GLIBCXX_3.4
 GLIBCXX_3.4.1

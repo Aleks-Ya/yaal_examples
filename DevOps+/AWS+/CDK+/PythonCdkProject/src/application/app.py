@@ -3,9 +3,11 @@
 import aws_cdk as cdk
 from aws_cdk import App, Environment
 
+from python_cdk_project.cfn_parameter_stack import CfnParameterStack
 from python_cdk_project.cloud_watch_stack import CloudWatchStack
 from python_cdk_project.minimal_opensearch_domain_stack import MinimalOpenSearchDomainStack
 from python_cdk_project.python_cdk_project_stack import PythonCdkProjectStack
+from python_cdk_project.s3_bucket_stack import S3BucketStack
 
 app: App = cdk.App()
 environment: Environment = cdk.Environment(region="us-east-1")
@@ -29,5 +31,7 @@ PythonCdkProjectStack(app, "PythonCdkProjectStack",
                       )
 CloudWatchStack(app, "CloudWatchStack", env=environment)
 MinimalOpenSearchDomainStack(app, "MinimalOpenSearchDomainStack", env=environment)
+S3BucketStack(app, "S3BucketStack", env=environment)
+CfnParameterStack(app, "CfnParameterStack", env=environment)
 
 app.synth()

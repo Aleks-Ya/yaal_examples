@@ -27,6 +27,7 @@ object Dependencies {
   val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.6.3"
   val catsEffectScalaTestDep = "org.typelevel" %% "cats-effect-testing-scalatest" % "1.7.0" % Test
   val fs2CoreDep = "co.fs2" %% "fs2-core" % "3.12.2"
+  val tomlDep = "com.indoorvivants" %%  "toml" % "0.3.0"
   val tomlScalaDep = "tech.sparse" %% "toml-scala" % "0.2.2"
 
   private val jacksonVersion = "2.20.1"

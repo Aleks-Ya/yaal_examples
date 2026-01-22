@@ -1,24 +1,30 @@
-from aws_cdk import Stack, RemovalPolicy
+from aws_cdk import Stack, RemovalPolicy, CfnParameter
 from aws_cdk.aws_logs import LogGroup
 from constructs import Construct
-from aws_cdk.aws_opensearchservice import Domain, EngineVersion, CapacityConfig, EbsOptions, LoggingOptions
+from aws_cdk.aws_opensearchservice import Domain, CapacityConfig, EbsOptions, LoggingOptions, EngineVersion
 from aws_cdk.aws_iam import PolicyStatement, Effect, User
 from aws_cdk.aws_ec2 import EbsDeviceVolumeType
 
 
+# Deploy: `cdk deploy MinimalOpenSearchDomainStack --parameters domainName=domain1`
+# Destroy: `cdk destroy MinimalOpenSearchDomainStack`
 class MinimalOpenSearchDomainStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        domain_name: str = "domain1"
+        domain_name_param: CfnParameter = CfnParameter(self, "domainName", type="String")
+        domain_name: str = domain_name_param.value_as_string
 
         group_name: str = f"/cdk/{self.__class__.__name__}/{domain_name}"
-        group: LogGroup = LogGroup(self, id=group_name, log_group_name=group_name, removal_policy=RemovalPolicy.DESTROY)
+        group: LogGroup = LogGroup(self,
+                                   id="cdk-group-id-1",
+                                   log_group_name=group_name,
+                                   removal_policy=RemovalPolicy.DESTROY)
 
         Domain(
             self,
-            id=domain_name,
+            id="cdk-domain-id-1",
             domain_name=domain_name,
             version=EngineVersion.OPENSEARCH_2_19,
             capacity=CapacityConfig(
@@ -38,7 +44,7 @@ class MinimalOpenSearchDomainStack(Stack):
             access_policies=[
                 PolicyStatement(
                     effect=Effect.ALLOW,
-                    principals=[User.from_user_arn(self, "Postman", "arn:aws:iam::523633434047:user/Postman")],
+                    principals=[User.from_user_arn(self, "Postman", f"arn:aws:iam::{self.account}:user/Postman")],
                     actions=["es:*"],
                     resources=[f"arn:aws:es:{self.region}:{self.account}:domain/{domain_name}/*"]
                 )

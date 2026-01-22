@@ -30,6 +30,7 @@ lazy val root: Project = (project in file(".")).settings(name := "ScalaSbt213").
     OkHttpMockWebServer,
     CatsEffect,
     Fs2Core,
+    Toml,
     TomlScala,
     JacksonDataformatYaml,
     Http4s,
@@ -80,6 +81,7 @@ lazy val TypesafeConfig = mkp("Libs+/TypesafeConfig", typesafeConfigDep, scalaTe
 lazy val OkHttpMockWebServer = mkp("Libs+/OkHttpMockWebServer", scalaTestDep, mockWebServerDep)
 lazy val CatsEffect = mkp("Libs+/CatsEffect", catsEffectDep, scalaTestDep, catsEffectScalaTestDep)
 lazy val Fs2Core = mkp("Libs+/Fs2+/Fs2Core", fs2CoreDep, scalaTestDep, catsEffectScalaTestDep)
+lazy val Toml = mkp("Libs+/TOML+/Toml", tomlDep, scalaTestDep)
 lazy val TomlScala = mkp("Libs+/TOML+/TomlScala", tomlScalaDep, scalaTestDep)
 
 lazy val JacksonDataformatYaml = mkp("Libs+/YAML+/JacksonDataformatYaml", jacksonModuleScalaDep, jacksonDataformatYamlDep, scalaTestDep)

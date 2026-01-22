@@ -25,16 +25,16 @@ Redirect client request with a CloudFront Edge Fuction (JavaScript).
 		3. Publish The Function
 2. Create a Distribution
 	1. Create Distribution
-	    1. Choose a plan: `Free`
+	    1. Choose a plan: `Pay as you go`
 	    2. Distribution name: `kata-distribution-edge-f-js-redirect`
 	    3. Origin type: `Other`
 	    4. Custom origin: `https://cat-bounce.com`
 	2. Configure redirect
 		1. Edit the default Behavior
-		2. Function associations:
-			1. Viewer request: 
-				1. Function type: `CloudFront Functions`
-				2. Function ARN / Name: `kata-f-edge-f-js-redirect`
+			1. Function associations:
+				1. Viewer request: 
+					1. Function type: `CloudFront Functions`
+					2. Function ARN / Name: `kata-f-edge-f-js-redirect`
 3. Test
     1. Copy "Distribution domain name"
     2. Open the "Distribution domain name" in browser

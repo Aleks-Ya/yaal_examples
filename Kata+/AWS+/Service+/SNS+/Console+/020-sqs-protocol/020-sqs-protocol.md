@@ -1,7 +1,6 @@
 # 020-sqs-protocol
 
 ## Task
-Status: success
 Create a Topic that delivers messages to an SQS queue.
 
 ## Steps

@@ -31,6 +31,7 @@ jinja2
 pyyaml
 psycopg2-binary
 openai
+openai-agents
 typing-extensions
 fastparquet
 pyarrow

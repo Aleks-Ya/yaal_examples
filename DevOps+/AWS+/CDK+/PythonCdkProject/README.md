@@ -6,6 +6,7 @@ Help: `cdk --help`
 List stacks: `cdk ls`
 Build CloudFormation template: `cdk synth`
 Deploy a stack: `cdk deploy MinimalOpenSearchDomainStack`
+Deploy a stack (with CloudFormation parameter): `cdk deploy CfnParameterStack --parameters bucketName=cdk-bucket-8392038`
 Destroy a stack: `cdk destroy MinimalOpenSearchDomainStack`
 Show diff: `cdk diff BucketStack`
 Open CDK documentation in browser: `cdk docs`
@@ -24,36 +25,21 @@ directory. To create the virtualenv it assumes that there is a `python3`
 package. If for any reason the automatic creation of the virtualenv fails,
 you can create the virtualenv manually.
 
-To manually create a virtualenv on MacOS and Linux:
+To manually create a virtualenv on MacOS and Linux: `python3 -m venv .venv`
 
-```
-$ python3 -m venv .venv
-```
-
-After the init process completes and the virtualenv is created, you can use the following
-step to activate your virtualenv.
-
+After the init process completes and the virtualenv is created, you can use the following step to activate your virtualenv.
 ```
 $ source .venv/bin/activate
 ```
 
-If you are a Windows platform, you would activate the virtualenv like this:
-
-```
-% .venv\Scripts\activate.bat
-```
+If you are a Windows platform, you would activate the virtualenv like this: `.venv\Scripts\activate.bat`
 
 Once the virtualenv is activated, you can install the required dependencies.
-
 ```
 $ pip install -U pip -r requirements.txt -r requirements-dev.txt
 ```
 
-At this point you can now synthesize the CloudFormation template for this code.
-
-```
-$ cdk synth
-```
+At this point you can now synthesize the CloudFormation template for this code: `cdk synth`
 
 To add additional dependencies, for example other CDK libraries, just add
 them to your `setup.py` file and rerun the `pip install -r requirements.txt`

@@ -13,7 +13,7 @@ Setup CloudFront Destination with S3 Bucket Origin.
         1. Download a picture https://wallpaperaccess.com/full/670929.jpg
         2. Upload the picture in the Bucket as `670929.jpg`
 2. Create a Destination:
-    1. Plan: `Free`
+    1. Plan: `Pay as you go`
     2. Name: `kata-distribution-s3-origin`
     2. Origin:
         1. Origin type: `Amazon S3`

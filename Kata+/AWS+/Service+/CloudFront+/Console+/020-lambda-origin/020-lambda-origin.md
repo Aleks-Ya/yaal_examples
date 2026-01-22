@@ -13,7 +13,7 @@ Create a CloudFront Distribution with a Lambda function origin.
         1. Enable: true
         2. Auth type: `NONE`
 2. Create a Distribution
-    1. Choose a plan: `Free`
+    1. Choose a plan: `Pay as you go`
     2. Distribution name: `kata-distribution-lambda-origin`
     3. Origin type: `Other`
     4. Custom origin: domain only from Function URL `igg6r5lwfsibmd2oivupc3tsfy0xkuxl.lambda-url.us-east-1.on.aws`

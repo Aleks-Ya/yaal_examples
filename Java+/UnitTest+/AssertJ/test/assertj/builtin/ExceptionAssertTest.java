@@ -17,14 +17,15 @@ class ExceptionAssertTest {
             throw new Exception("boom!");
         })
                 .isInstanceOf(Exception.class)
-                .hasMessageContaining("boom");
+                .hasMessageContaining("boom")
+                .hasStackTraceContaining("boom");
     }
 
     @Test
     void syntax2() {
         assertThatExceptionOfType(IOException.class).isThrownBy(() -> {
-            throw new IOException("boom!");
-        })
+                    throw new IOException("boom!");
+                })
                 .withMessage("%s!", "boom")
                 .withMessageContaining("boom")
                 .withNoCause();

@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * Случаи бросания ExceptionInInitializerError.
  */
-class ExceptionIninitializerErrorTest {
+class ExceptionInInitializerErrorTest {
 
     /**
      * Initialization of a static variable

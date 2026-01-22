@@ -17,3 +17,8 @@ SQS Queue: `kata-q-`
 State Machine: `kata-sm-`
 Usage Plan: `kata-up-`
 CloudWatch Log Group: `kata-lg-`
+Database: `kata-db-`
+
+## Unchanged
+S3 Bucket: `kata-bucket-`
+OpenSearch Domain: `kata-domain-`

@@ -1,7 +1,6 @@
 # 010-lambda-protocol
 
 ## Task
-Status: ?
 Create a Topic that delivers messages to a Lambda Function.
 
 ## Steps
