@@ -1,25 +1,17 @@
 {
-    "Version": "2012-10-17",
-    "Statement":
-    [
+    "Version": "2012-10-17", 
+    "Statement": [
         {
-            "Effect": "Allow",
-            "Action":
-            [
-                "lambda:CreateFunction"
-            ],
+            "Effect": "Allow", 
+            "Action": ["lambda:CreateFunction"], 
             "Resource": "*"
-        },
+        }, 
         {
-            "Effect": "Allow",
-            "Action": "iam:PassRole",
-            "Resource": "*",
-            "Condition":
-            {
-                "StringEquals":
-                {
-                    "iam:PassedToService": "lambda.amazonaws.com"
-                }
+            "Effect": "Allow", 
+            "Action": "iam:PassRole", 
+            "Resource": "*", 
+            "Condition": {
+                "StringEquals": {"iam:PassedToService": "lambda.amazonaws.com"}
             }
         }
     ]

@@ -16,6 +16,7 @@ def test_select_two_columns(people_extended_df: DataFrame):
 
 
 def test_select_nested_column(people_nested_df: DataFrame):
-    people_nested_df['City'] = people_nested_df['Location'].apply(lambda loc: loc['City'])
+    people_nested_df['City'] = people_nested_df['Location'].apply(
+        lambda loc: loc.get("City") if isinstance(loc, dict) else None)
     name_df: DataFrame = people_nested_df[['Name', 'City']]
-    assert name_df.to_string() == """   Name    City\n0  John  London\n1  Mary   Paris"""
+    assert name_df.to_string() == """   Name    City\n0  John  London\n1  Mary   Paris\n2  Mark     NaN"""

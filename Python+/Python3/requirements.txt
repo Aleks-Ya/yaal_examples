@@ -1,4 +1,5 @@
 # Show package size: du -sh /home/aleks/.pyenv/versions/3.12.5/envs/python3-examples/lib/python3.12/site-packages/inflect
+pip
 requests
 psutil
 PyQt6
@@ -75,8 +76,7 @@ langcodes
 iso639-lang #1.9M
 python-iso639
 polyglot #500K
-elasticsearch==7.17.12
-tinkoff-investments
+elasticsearch==7.17.13
 praw
 sentence-transformers
 transformers
@@ -88,7 +88,7 @@ tensorflow
 onnxruntime
 onnxruntime-openvino
 onnxruntime-gpu
-onnx
+onnx>=1.20.0
 odfpy
 pycuda
 directory-tree
@@ -134,3 +134,7 @@ authlib
 flask
 jsonata-python
 gremlinpython
+gradio
+
+--extra-index-url https://opensource.tbank.ru/api/v4/projects/238/packages/pypi/simple
+t-tech-investments

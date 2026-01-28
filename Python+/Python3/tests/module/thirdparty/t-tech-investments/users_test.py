@@ -1,4 +1,4 @@
-from tinkoff.invest.services import Services
+from t_tech.invest.services import Services
 
 
 def test_get_accounts(client: Services):

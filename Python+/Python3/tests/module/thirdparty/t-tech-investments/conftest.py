@@ -2,8 +2,8 @@ from pathlib import Path
 from typing import Generator
 
 import pytest
-from tinkoff.invest import Client
-from tinkoff.invest.services import Services
+from t_tech.invest import Client
+from t_tech.invest.services import Services
 
 
 @pytest.fixture

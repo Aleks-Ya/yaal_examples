@@ -1,6 +1,6 @@
-from tinkoff.invest import InstrumentIdType, \
+from t_tech.invest import InstrumentIdType, \
     InstrumentResponse, CurrenciesResponse, Currency, CurrencyResponse, GetAccountsResponse, PortfolioResponse
-from tinkoff.invest.services import Services
+from t_tech.invest.services import Services
 
 
 def test_get_instrument_by_uid(client: Services):

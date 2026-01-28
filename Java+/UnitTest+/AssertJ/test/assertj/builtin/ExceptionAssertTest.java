@@ -18,7 +18,8 @@ class ExceptionAssertTest {
         })
                 .isInstanceOf(Exception.class)
                 .hasMessageContaining("boom")
-                .hasStackTraceContaining("boom");
+                .hasStackTraceContaining("boom")
+                .hasNoSuppressedExceptions();
     }
 
     @Test
@@ -30,7 +31,6 @@ class ExceptionAssertTest {
                 .withMessageContaining("boom")
                 .withNoCause();
     }
-
 
     /**
      * By BDD.

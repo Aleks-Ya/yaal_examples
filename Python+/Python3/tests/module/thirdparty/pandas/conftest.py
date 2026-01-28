@@ -15,15 +15,22 @@ def people_extended_df() -> DataFrame:
 
 
 @pytest.fixture
+def people_null_df() -> DataFrame:
+    return DataFrame({'Name': ['John', 'Mary', 'Mark'], 'Age': [30, 25, None], 'Male': [True, False, None]})
+
+
+@pytest.fixture
 def people_nested_df() -> DataFrame:
     return DataFrame({
         'Name': [
             'John',
-            'Mary'
+            'Mary',
+            'Mark'
         ],
         'Location': [
             {'Country': 'UK', 'City': 'London'},
-            {'Country': 'France', 'City': 'Paris'}
+            {'Country': 'France', 'City': 'Paris'},
+            None
         ]})
 
 

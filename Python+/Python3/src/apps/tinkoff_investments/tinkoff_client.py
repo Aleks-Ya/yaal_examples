@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from tinkoff.invest import Client, GetAccountsResponse, PortfolioResponse, PortfolioPosition, InstrumentResponse, \
+from t_tech.invest import Client, GetAccountsResponse, PortfolioResponse, PortfolioPosition, InstrumentResponse, \
     InstrumentIdType, MoneyValue, Quotation, Instrument
-from tinkoff.invest.services import Services
+from t_tech.invest.services import Services
 
 
 @dataclass

@@ -29,8 +29,10 @@ echo "Updating PIP3..."
 pip3 install --upgrade pip --break-system-packages
 echo 
 
-echo "Updating Python packages..."
+echo "Updating Python3 packages..."
+pyenv activate python3-examples-3.12.12
 pip install -U -q -r /home/aleks/pr/home/yaal_examples/Python+/Python3/requirements.txt
+pyenv deactivate
 echo 
 
 echo "Updating SdkMan..."

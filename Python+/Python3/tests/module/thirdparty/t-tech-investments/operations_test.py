@@ -1,6 +1,6 @@
-from tinkoff.invest import PortfolioResponse, PortfolioPosition, MoneyValue, Quotation, InstrumentIdType, \
+from t_tech.invest import PortfolioResponse, PortfolioPosition, MoneyValue, Quotation, InstrumentIdType, \
     InstrumentResponse
-from tinkoff.invest.services import Services
+from t_tech.invest.services import Services
 
 
 def test_get_portfolio_positions(client: Services):
