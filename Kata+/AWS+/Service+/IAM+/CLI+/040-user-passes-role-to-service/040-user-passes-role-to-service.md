@@ -2,6 +2,8 @@
 
 ## Task
 A User passes a Role to an AWS Service.
+
+Scenario:
 1. There is a Role with policy `AmazonS3ReadOnlyAccess` allowing list buckets
 2. There is a Lambda Function which lists buckets, but it cannot assume the Role
 3. There is a User who can assume the Role

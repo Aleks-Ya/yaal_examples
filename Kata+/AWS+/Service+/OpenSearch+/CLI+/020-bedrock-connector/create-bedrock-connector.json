@@ -1,0 +1,32 @@
+{
+    "name": "Amazon Bedrock Connector: embedding",
+    "description": "The connector to bedrock Titan embedding model",
+    "version": 1,
+    "protocol": "aws_sigv4",
+    "parameters": {
+        "region": "us-east-1",
+        "service_name": "bedrock",
+        "model": "amazon.titan-embed-text-v2:0",
+        "dimensions": 1024,
+        "normalize": true,
+        "embeddingTypes": [
+            "float"
+        ],
+        "content": "My interesting text"
+    },
+    "credential": {
+        "roleArn": "arn:aws:iam::121846058060:role/kata-role-bedrock-connector"
+    },
+    "actions": [
+        {
+            "action_type": "predict",
+            "method": "POST",
+            "url": "https://bedrock-runtime.${parameters.region}.amazonaws.com/model/${parameters.model}/invoke",
+            "headers": {
+                "content-type": "application/json",
+                "x-amz-content-sha256": "required"
+            },
+            "request_body": "{ \"inputText\": \"${parameters.content}\", \"dimensions\": ${parameters.dimensions}, \"normalize\": ${parameters.normalize}, \"embeddingTypes\": ${parameters.embeddingTypes} }"
+        }
+    ]
+}

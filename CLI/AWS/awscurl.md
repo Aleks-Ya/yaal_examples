@@ -7,6 +7,7 @@ Install:
 - Via PIP: `pip install -U awscurl`
 
 Help: `awscurl -h`
+Version: `pip show awscurl`
 
 ## S3
 List all buckets: `awscurl --service s3 https://s3.amazonaws.com`

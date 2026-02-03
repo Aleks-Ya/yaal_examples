@@ -1,7 +1,7 @@
 # Shared Variables in Pipeline Plugin
 
 ## Test
-Run unit-tests: `./gradlew test`
+Run unit-tests: `./gradlew clean test`
 
 ## Run
 1. Start container:

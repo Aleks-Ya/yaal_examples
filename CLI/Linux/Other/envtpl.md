@@ -1,6 +1,7 @@
 # envtpl CLI
+"jinja2 template rendering with shell environment variables"
 
-Install: `pip install envtpl`
+Install: `pip install -U envtpl`
 
 Help: `envtpl -h`
 

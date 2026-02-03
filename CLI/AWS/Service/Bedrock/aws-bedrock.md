@@ -4,6 +4,16 @@ List models: `aws bedrock list-foundation-models`
 List models for embeddings: `aws bedrock list-foundation-models --by-output-modality EMBEDDING`
 Show model details by ID: `aws bedrock get-foundation-model --model-identifier 'amazon.titan-embed-text-v2:0'`
 
+Invoke a model:
+```shell
+aws bedrock-runtime invoke-model \
+	--profile acc3 \
+	--model-id amazon.nova-lite-v1:0 \
+	--body file://invoke-model-body.json \
+	--cli-binary-format raw-in-base64-out \
+	/tmp/response.json
+```
+
 Infer embeddings:
 ```shell
 BODY='{"inputText":"My interesting text","dimensions":256,"normalize":true,"embeddingTypes":["float"]}'

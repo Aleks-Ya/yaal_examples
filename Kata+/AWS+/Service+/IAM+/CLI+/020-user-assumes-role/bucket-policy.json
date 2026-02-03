@@ -4,12 +4,12 @@
         {
             "Effect": "Allow", 
             "Principal": {
-                "AWS": "arn:aws:iam::523633434047:role/AssumedRole1"
+                "AWS": "arn:aws:iam::523633434047:role/kata-role-user-assumes-role"
             }, 
             "Action": ["s3:GetObject", "s3:ListBucket"], 
             "Resource": [
-                "arn:aws:s3:::bucket-tmp-1", 
-                "arn:aws:s3:::bucket-tmp-1/*"
+                "arn:aws:s3:::kata-bucket-user-assumes-role", 
+                "arn:aws:s3:::kata-bucket-user-assumes-role/*"
             ]
         }
     ]

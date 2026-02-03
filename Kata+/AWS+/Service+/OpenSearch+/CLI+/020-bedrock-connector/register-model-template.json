@@ -1,0 +1,6 @@
+{
+    "name": "bedrock-titan-embeddings",
+    "function_name": "remote",
+    "description": "test model",
+    "connector_id": "$CONNECTOR_ID"
+}

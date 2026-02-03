@@ -1,0 +1,4 @@
+{ "index": { "_index": "$INDEX", "_id": "10" } }
+{"parameters":{"region":"us-east-1","service_name":"bedrock","model":"amazon.titan-embed-text-v2:0","dimensions":1024,"normalize":true,"embeddingTypes":["float"],"content":"Apple sells new iPhones at the store."}}
+{ "index": { "_index": "$INDEX", "_id": "11" } }
+{"parameters":{"region":"us-east-1","service_name":"bedrock","model":"amazon.titan-embed-text-v2:0","dimensions":1024,"normalize":true,"embeddingTypes":["float"],"content":"A farmer sold an apple at the market."}}

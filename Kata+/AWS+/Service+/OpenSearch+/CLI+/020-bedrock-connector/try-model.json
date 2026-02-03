@@ -1,0 +1,5 @@
+{
+  "text_docs":[ "alex20250718 today is sunny"],
+  "return_number": true,
+  "target_response": ["sentence_embedding"]
+}

@@ -22,6 +22,7 @@ Show group details: `aws iam get-group --group-name group1`
 ## Access Key
 Create an access key for a user: `aws iam create-access-key --user-name user1`
 List access keys of a user: `aws iam list-access-keys --user-name user1`
+Show details: `aws iam get-access-key-last-used --access-key-id AKIARYXUXJRGAKBDRDE6`
 Delete an access key of a user: `aws iam delete-access-key --user-name user1 --access-key-id AKIAIOSFODNN7EXAMPLE`
 
 ## Policy

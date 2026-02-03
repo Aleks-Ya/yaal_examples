@@ -3,7 +3,8 @@
 Show current configuration data: `aws configure list`
 Get JSON with credentials: `aws configure export-credentials`
 Delete profile: open `~/.aws/credentials` in text editor and remove profile
-Get current key id: `aws configure get aws_access_key_id`
+Get current Access Key ID: `aws configure get aws_access_key_id`
+Get current Secret Key: `aws configure get aws_secret_access_key`
 
 ## Profile
 List all profiles: `aws configure list-profiles`

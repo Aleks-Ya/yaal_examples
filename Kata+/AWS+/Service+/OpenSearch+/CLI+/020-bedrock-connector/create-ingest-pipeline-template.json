@@ -1,0 +1,13 @@
+{
+    "description": "AI search ingest pipeline that automatically converts text to embeddings",
+    "processors": [
+        {
+            "text_embedding": {
+                "model_id": "$MODEL_ID",
+                "field_map": {
+                    "content": "embedding"
+                }
+            }
+        }
+    ]
+}

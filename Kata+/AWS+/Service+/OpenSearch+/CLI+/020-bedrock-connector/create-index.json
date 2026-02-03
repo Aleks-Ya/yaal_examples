@@ -1,0 +1,15 @@
+{
+    "settings": {
+        "index": {
+            "knn": true, 
+            "default_pipeline": "bedrock-auto-embed-pipeline"
+        }
+    }, 
+    "mappings": {
+        "dynamic": "true", 
+        "properties": {
+            "content"   : { "type": "text"                          }, 
+            "embeddings": { "type": "knn_vector", "dimension": 1024 }
+        }
+    }
+}

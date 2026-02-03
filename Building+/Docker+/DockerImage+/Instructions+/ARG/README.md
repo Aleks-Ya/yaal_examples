@@ -1,7 +1,7 @@
 # Dockerfile ARG instruction
 
 ## ARG before FROM
-```
+```shell
 docker build \
     --build-arg ALPINE_VERSION=3.12.7 \
     --build-arg PERSON=John \
@@ -13,7 +13,7 @@ docker run -it --rm arg-before-from
 
 ## Inherit ARG variable from parent image
 ARG variable from a parent image can be used in the child image if they are declared with ENV.
-```
+```shell
 #Build
 docker build \
     --build-arg BEFORE_FROM=111 \

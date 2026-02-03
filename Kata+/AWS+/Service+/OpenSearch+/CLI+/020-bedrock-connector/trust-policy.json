@@ -1,0 +1,17 @@
+{
+    "Version": "2012-10-17", 
+    "Statement": [
+        {
+            "Sid": "Statement1", 
+            "Effect": "Allow", 
+            "Principal": {
+                "AWS": "arn:aws:iam::121846058060:user/Postman", 
+                "Service": [
+                    "opensearchservice.amazonaws.com", 
+                    "ml.opensearchservice.amazonaws.com"
+                ]
+            }, 
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}

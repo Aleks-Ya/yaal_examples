@@ -1,0 +1,8 @@
+{
+    "messages": [
+        {
+            "role": "user", 
+            "content": [ {"text": "What is the latest Java version?"} ]
+        }
+    ]
+}
