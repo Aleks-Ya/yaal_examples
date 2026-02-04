@@ -48,6 +48,12 @@ object Dependencies {
   val spark3SqlDep = "org.apache.spark" %% "spark-sql" % spark3Version
   val spark3StreamingDep = "org.apache.spark" %% "spark-streaming" % spark3Version
 
+  private val spark4Version = "4.1.1"
+  val spark4CoreDep = "org.apache.spark" %% "spark-core" % spark4Version
+  val spark4MlDep = "org.apache.spark" %% "spark-mllib" % spark4Version
+  val spark4SqlDep = "org.apache.spark" %% "spark-sql" % spark4Version
+  val spark4StreamingDep = "org.apache.spark" %% "spark-streaming" % spark4Version
+
   val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "5.3.0" % Test
 
   private val kafkaVersion = "3.9.1"

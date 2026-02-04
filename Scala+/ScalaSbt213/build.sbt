@@ -36,12 +36,8 @@ lazy val root: Project = (project in file(".")).settings(name := "ScalaSbt213").
     Http4s,
     Http4sDsl,
     Http4sJdkHttpClient,
-    Spark3Core,
-    Spark3Ml,
-    Spark3Sql,
-    Spark3SqlKafka,
-    Spark3Streaming,
-    Spark3StreamingKafka,
+    Spark3Core, Spark3Ml, Spark3Sql, Spark3SqlKafka, Spark3Streaming, Spark3StreamingKafka,
+    Spark4Core, Spark4Ml, Spark4Sql, Spark4SqlKafka, Spark4Streaming, Spark4StreamingKafka,
     KafkaScalaCore,
     IoGithubEmbeddedKafka,
     NeuralSearch,
@@ -98,6 +94,15 @@ lazy val Spark3Streaming = mkp("Spark+/Spark3+/Spark3Streaming",
   spark3StreamingDep, scalaTestDep) //Structured Streaming is a part of Spark SQL
 lazy val Spark3StreamingKafka = mkp("Spark+/Spark3+/Spark3StreamingKafka",
   spark3StreamingDep, scalaTestDep, sparkStreamingKafkaDep, embeddedKafkaDep)
+
+lazy val Spark4Core = mkp("Spark+/Spark4+/Spark4Core", spark4CoreDep, scalaTestDep)
+lazy val Spark4Ml = mkp("Spark+/Spark4+/Spark4Ml", scalaTestDep, spark4MlDep)
+lazy val Spark4Sql = mkp("Spark+/Spark4+/Spark4Sql", spark4SqlDep, scalaTestDep, h2Dep)
+lazy val Spark4SqlKafka = mkp("Spark+/Spark4+/Spark4SqlKafka", spark4SqlDep, scalaTestDep, sparkSqlKafkaDep, embeddedKafkaDep)
+lazy val Spark4Streaming = mkp("Spark+/Spark4+/Spark4Streaming",
+  spark4StreamingDep, scalaTestDep) //Structured Streaming is a part of Spark SQL
+lazy val Spark4StreamingKafka = mkp("Spark+/Spark4+/Spark4StreamingKafka",
+  spark4StreamingDep, scalaTestDep, sparkStreamingKafkaDep, embeddedKafkaDep)
 
 lazy val KafkaScalaCore = mkp("Kafka+/KafkaScalaCore", scalaTestDep, kafkaClientsDep)
 lazy val IoGithubEmbeddedKafka = mkp("Kafka+/EmbeddedKafka+/IoGithubEmbeddedKafka", scalaTestDep, kafkaClientsDep, kafkaDep, embeddedKafkaDep)
