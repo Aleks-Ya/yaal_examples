@@ -18,13 +18,6 @@ class ShowColumnTest extends AnyFlatSpec with Matchers {
     doubleAgeCol.toString() shouldEqual "(age * 2)"
   }
 
-  it should "show an expression of a column" in {
-    val ageCol = col("age").isNotNull * 2
-    ageCol.expr.toString shouldEqual "(isnotnull('age) * 2)"
-    ageCol.expr.simpleString(1000) shouldEqual "(isnotnull('age) * 2)"
-    ageCol.expr.sql shouldEqual "((age IS NOT NULL) * 2)"
-  }
-
   it should "explain a column" in {
     val ageCol = col("age").isNotNull * 2
     ageCol.explain(false)

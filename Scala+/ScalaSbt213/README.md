@@ -1,11 +1,11 @@
-# Scala 2.12 on SBT
+# Scala 2.13 on SBT
 
 ## Build
-Choose Java 11 version: `sdk use java 11.0.29-zulu`
-Choose Scala 2.12 version: `sdk use scala 2.12.21`
-Choose SBT latest version: `sdk use sbt 1.12.0`
-Compile sources: `sbt Compile/clean Compile/compile`  
-Compile tests: `sbt Test/clean Test/compile`
+1. Choose Java 11 version: `sdk use java 11.0.30-zulu`
+2. Choose Scala 2.13 version: `sdk use scala 2.13.18`
+3. Choose the latest SBT version: `sdk use sbt 1.12.2`
+4. Compile sources: `sbt Compile/clean Compile/compile`  
+5. Compile tests: `sbt Test/clean Test/compile`
 
 ## Errors
 ### StorageUtils cannot access class DirectBuffer

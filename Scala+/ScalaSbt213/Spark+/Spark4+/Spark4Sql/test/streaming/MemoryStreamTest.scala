@@ -1,8 +1,8 @@
 package streaming
 
 import factory.Factory
-import org.apache.spark.sql.SQLContext
-import org.apache.spark.sql.execution.streaming.MemoryStream
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.execution.streaming.runtime.MemoryStream
 import org.apache.spark.sql.streaming.OutputMode
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -11,7 +11,7 @@ class MemoryStreamTest extends AnyFlatSpec with Matchers {
 
   it should "use MemoryStream" in {
     import Factory.ss.implicits._
-    implicit val sqlCtx: SQLContext = Factory.ss.sqlContext
+    implicit val ss: SparkSession = Factory.ss
     val memStream = MemoryStream[Int]
     val inputDF = memStream.toDF()
     val resultDF = inputDF.withColumn("doubled", $"value" * 2)
