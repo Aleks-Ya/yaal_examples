@@ -1,5 +1,5 @@
 {
-    "description": "AI search ingest pipeline that automatically converts text to embeddings",
+    "description": "Converts text to embeddings",
     "processors": [
         {
             "text_embedding": {

@@ -11,7 +11,8 @@ export ES=http://$(aws opensearch describe-domain --query 'DomainStatus.Endpoint
 ```
 
 ## Query
-Send request to a cluster: `awscurl --service es https://search-domain-1-umrjsmqxw5xpwuqeuarcb2yno4.aos.us-east-1.on.aws`
+Send request to a cluster: 
+	`awscurl --service es https://search-domain-1-umrjsmqxw5xpwuqeuarcb2yno4.aos.us-east-1.on.aws`
 
 ## Package
 List packages: `aws opensearch describe-packages`

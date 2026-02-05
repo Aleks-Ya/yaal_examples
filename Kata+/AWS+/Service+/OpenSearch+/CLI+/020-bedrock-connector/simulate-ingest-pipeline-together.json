@@ -1,0 +1,25 @@
+{
+    "pipeline" :
+  {
+    "description": "Splits text on white space characters",
+    "processors": [
+        {
+            "text_embedding": {
+                "model_id": "5GwqLZwB3ChmP-p_ZPew",
+                "field_map": {
+                    "content": "embedding"
+                }
+            }
+        }
+    ]
+  },
+    "docs": [
+        {
+            "_source": {
+                "parameters": {
+                     "content": "alex20250718 Simiulate ingest pipeline 1"
+                 }
+            }
+        }
+    ]
+}

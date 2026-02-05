@@ -2,7 +2,7 @@
     "settings": {
         "index": {
             "knn": true, 
-            "default_pipeline": "bedrock-auto-embed-pipeline"
+            "default_pipeline": "kata-pipeline-bedrock-connector"
         }
     }, 
     "mappings": {

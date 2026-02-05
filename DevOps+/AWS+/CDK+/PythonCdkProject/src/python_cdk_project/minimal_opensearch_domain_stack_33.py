@@ -6,27 +6,27 @@ from aws_cdk.aws_iam import PolicyStatement, Effect, User
 from aws_cdk.aws_ec2 import EbsDeviceVolumeType
 
 
-# Deploy: `cdk deploy MinimalOpenSearchDomainStack --parameters domainName=domain1`
-# Destroy: `cdk destroy MinimalOpenSearchDomainStack`
-class MinimalOpenSearchDomainStack(Stack):
+# Deploy: `cdk deploy MinimalOpenSearchDomainStack33 --profile acc3`
+# Destroy: `cdk destroy MinimalOpenSearchDomainStack33 --profile acc3`
+class MinimalOpenSearchDomainStack33(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        domain_name_param: CfnParameter = CfnParameter(self, "domainName", type="String")
+        domain_name_param: CfnParameter = CfnParameter(self, "domainName", type="String", default="domain33")
         domain_name: str = domain_name_param.value_as_string
 
         group_name: str = f"/cdk/{self.__class__.__name__}/{domain_name}"
         group: LogGroup = LogGroup(self,
-                                   id="cdk-group-id-1",
+                                   id="cdk-group-id-33",
                                    log_group_name=group_name,
                                    removal_policy=RemovalPolicy.DESTROY)
 
         Domain(
             self,
-            id="cdk-domain-id-1",
+            id="cdk-domain-id-33",
             domain_name=domain_name,
-            version=EngineVersion.OPENSEARCH_2_19,
+            version=EngineVersion.OPENSEARCH_3_3,
             capacity=CapacityConfig(
                 data_node_instance_type="r7g.medium.search",
                 multi_az_with_standby_enabled=False,

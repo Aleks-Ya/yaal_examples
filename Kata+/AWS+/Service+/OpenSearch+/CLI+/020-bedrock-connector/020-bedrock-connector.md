@@ -11,10 +11,10 @@ Use Bedrock connector to generate embeddings.
 	set -x
 	alias es='awscurl --service es'
 	export AWS_PROFILE=acc3
-	export DOMAIN=domain1
+	export DOMAIN=domain33
 	export ROLE=kata-role-bedrock-connector
 	export INDEX=kata-index-bedrock-connector
-	export PIPELINE=bedrock-auto-embed-pipeline
+	export PIPELINE=kata-pipeline-bedrock-connector
 	```
 4. Start an OpenSearch domain: 
 	1. Create a domain: 
@@ -31,32 +31,40 @@ Use Bedrock connector to generate embeddings.
 	2. Attach Policy:
 		`aws iam attach-role-policy --role-name $ROLE --policy-arn arn:aws:iam::aws:policy/AmazonBedrockLimitedAccess`
 6. Create a Bedrock Connector:
-	1. (?) Enable Connector URL: `es -X PUT $ES/_cluster/settings -d @cluster-settings.json`
+	1. (?) Enable Connector URL: `es -X PUT $ES/_cluster/settings -d @cluster-settings.json | jq`
 	2. Create Connector:
 		```shell
 		export CONNECTOR_ID=$(es -X POST $ES/_plugins/_ml/connectors/_create \
-			-d @create-bedrock-connector.json | jq -r .connector_id)
+			-d @create-connector.json | jq -r .connector_id)
 		```
 	3. Verify Connector: `es $ES/_plugins/_ml/connectors/$CONNECTOR_ID | jq`
 7. Register Model
-	1. Register Model:
+	1. Register a Model Group:
+		```shell
+		export MODEL_GROUP_ID=$(es -X POST $ES/_plugins/_ml/model_groups/_register \
+			-d @register-model-group.json | jq -r .model_group_id)
+		```
+	2. Register Model:
 		```shell
 		cat register-model-template.json | envsubst > register-model.json
 		export REGISTER_MODEL_RESPONSE=$(es -X POST $ES/_plugins/_ml/models/_register -d @register-model.json)
 		export REGISTER_MODEL_TASK_ID=$(echo $REGISTER_MODEL_RESPONSE | jq -r .task_id)
 		export MODEL_ID=$(echo $REGISTER_MODEL_RESPONSE | jq -r .model_id)
 		```
-	2. Get Task status (need `COMPLETED`): `es $ES/_plugins/_ml/tasks/$REGISTER_MODEL_TASK_ID`
-8. Deploy Model: `es -X POST $ES/_plugins/_ml/models/$MODEL_ID/_deploy`
-9. Test Model: `es -X POST $ES/_plugins/_ml/_predict/TEXT_EMBEDDING/$MODEL_ID -d @try-model.json | jq`
-10. Create an Ingest Pipeline: 
+	3. Get Task status (need `COMPLETED`): `es $ES/_plugins/_ml/tasks/$REGISTER_MODEL_TASK_ID | jq`
+	4. Deploy Model: `es -X POST $ES/_plugins/_ml/models/$MODEL_ID/_deploy | jq`
+	5. Test Model: `es -X POST $ES/_plugins/_ml/_predict/TEXT_EMBEDDING/$MODEL_ID -d @try-model.json | jq`
+	6. Test Model: `es -X POST $ES/_plugins/_ml/models/$MODEL_ID/_predict -d @predict-model.json | jq`
+10. Create an Ingest Pipeline:
 	1. Create Ingest Pipeline:
 		```shell
 		cat create-ingest-pipeline-template.json | envsubst > create-ingest-pipeline.json
 		es -X PUT $ES/_ingest/pipeline/$PIPELINE -d @create-ingest-pipeline.json
 		```
 	2. Simulate Ingest Pipeline:
-		`es -X POST $ES/_ingest/pipeline/$PIPELINE/_simulate -d @simulate-ingest-pipeline.json | jq`
+		`es -X POST $ES/_ingest/pipeline/$PIPELINE/_simulate?verbose -d @simulate-ingest-pipeline.json | jq`
+	3. Simulate Ingest Pipeline including Pipeline:
+		`es -X POST $ES/_ingest/pipeline/_simulate?verbose -d @simulate-ingest-pipeline-together.json | jq`
 11. Create an Index
 	1. Delete Index: `es -X DELETE $ES/${INDEX}?ignore_unavailable=true`
 	2. Create Index: `es -X PUT $ES/${INDEX} -d @create-index.json`
@@ -74,6 +82,9 @@ Use Bedrock connector to generate embeddings.
 13. Create a search pipeline: `es -X PUT $ES/_search/pipeline/nlp-search-pipeline -d @create-search-pipeline.json | jq`
 
 ## Cleanup
-1. Shutdown the OpenSearch domain
+1. Undeploy model: `es -X POST $ES/_plugins/_ml/models/$MODEL_ID/_undeploy | jq`
+2. Delete model: `es -X DELETE $ES/_plugins/_ml/models/$MODEL_ID | jq`
+2. Delete connector: `es -X DELETE $ES/_plugins/_ml/connectors/$CONNECTOR_ID | jq`
+2. Shutdown the OpenSearch domain
 
 ## History
