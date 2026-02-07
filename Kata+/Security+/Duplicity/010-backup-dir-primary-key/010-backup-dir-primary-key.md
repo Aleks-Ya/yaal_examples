@@ -1,5 +1,7 @@
-# Duplicity Test Scenario 1
-Duplicity backups a directory with the primary key.
+# 010-backup-dir-primary-key
+
+## Task
+Duplicity backups a directory with the primary key to a Local File Storage Backend.
 
 
 1. Cleanup

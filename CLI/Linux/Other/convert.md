@@ -16,3 +16,6 @@ Resize all files in a folder: `find . -maxdepth 1 -iname "*.jpg" | xargs -I{} ba
 
 ## Aliases
 `alias picture_for_screen='convert -resize 500000@ '`
+
+## Colors
+Convert White background to transparent: `convert in.png -fuzz 10% -transparent white out.png`

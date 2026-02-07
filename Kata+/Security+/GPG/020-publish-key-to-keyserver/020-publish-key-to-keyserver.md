@@ -4,24 +4,25 @@
 Generate a public key and publish it to a public Key Server.
 
 ## Steps
-1. Set environment variables
+1. Open a new terminal
+2. Set environment variables
 	```shell
 	set -x
 	export NAME=kata-publish-key-to-keyserver
 	export EMAIL=kata-email@tutanota.com
 	```
-2. Generate key:
+3. Generate key:
 	1. Generate key: `gpg --quick-generate-key "${NAME} <${EMAIL}>"`
 	2. Passphrase: `pass1`
 	3. Get key ID: `export ID=$(gpg --list-keys --with-colons $NAME | awk -F: '/^pub/ {print $5}')`
-3. Publish the public key to the Key Server
+4. Publish the public key to the Key Server
 	1. Public key: `gpg --keyserver keys.openpgp.org --send-keys $ID`
 	2. Verify email: 
 		1. Click the link sent to `kata-email@tutanota.com`
 		2. Click button "Send Verification Email"
 		3. Click another link sent to `kata-email@tutanota.com`
 		4. Show the key: https://keys.openpgp.org/search?q=kata-email@tutanota.com
-4. Retrieve the key:
+5. Retrieve the key:
 	1. Delete local key: `gpg --delete-secret-and-public-keys $NAME`
 	2. Show no key: `gpg --list-keys $NAME`
 	2. Retrive the key: `gpg --keyserver keys.openpgp.org --recv-keys $ID`
@@ -35,7 +36,7 @@ Generate a public key and publish it to a public Key Server.
 	3. Open the link sent to email
 	4. Click "Delete" button
 	5. Verify: https://keys.openpgp.org/search?q=kata-email@tutanota.com
-3. Delete env variables: `set +x; unset NAME EMAIL ID`
+3. Close the terminal
 
 ## History
 - 2025-11-15 success
