@@ -1,0 +1,4 @@
+dependencies {
+    implementation aws2DynamoDbDep, "software.amazon.cryptography:aws-database-encryption-sdk-dynamodb:3.9.0",
+            "software.amazon.cryptography:aws-cryptographic-material-providers:1.11.0"
+}

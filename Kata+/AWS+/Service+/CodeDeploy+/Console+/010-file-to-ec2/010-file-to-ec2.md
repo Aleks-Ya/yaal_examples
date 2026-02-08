@@ -4,7 +4,7 @@
 Deploy a HTML file to an EC2 Instance.
 
 ## Steps
-1. Create a EC2 instance
+1. Create an EC2 instance
 	1. Create Instance Profile
 		1. Trusted entity type: `AWS service`
 		2. Service or use case: `EC2`
@@ -31,7 +31,7 @@ Deploy a HTML file to an EC2 Instance.
         	3. Security group: `default`
     	4. Instance Profile: `kata-role-file-to-ec2-service-instance`
     	5. User data:
-        	```bash
+        	```shell
 			#!/bin/bash
 			echo "Hello from EC2 instance!" > index.html
 			python3 -m http.server 80 &
