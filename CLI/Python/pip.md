@@ -33,6 +33,9 @@ Download binary distribution of a package:
 Download source distribution of a package: 
 - Given package: `pip download --no-binary :all: numpy`
 
+### Cache
+Clean cache: `pip cache purge`
+
 ## Error
 ### Externally managed environment
 Coomand: `pip install --update pip`

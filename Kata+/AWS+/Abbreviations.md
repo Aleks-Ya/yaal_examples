@@ -8,6 +8,7 @@ VPC Endpoint: `kata-vpce-`
 Subnet: `kata-subnet-`
 Security Group: `kata-sg-`
 EBS Volume: `kata-vol-`
+Launch Template: `kata-lt-`
 
 ## My
 Namespace: `kata-ns-`

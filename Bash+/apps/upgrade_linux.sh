@@ -21,25 +21,24 @@ echo "Updating FlatPak..."
 flatpak update -y
 echo
 
-echo "Updating PIP..."
-python -m pip install --upgrade pip
-echo
-
-echo "Updating PIP3..."
-pip3 install --upgrade pip --break-system-packages
-echo 
-
-echo "Updating Python3 packages..."
-pyenv activate python3-examples-3.12.12
-pip install -U -q -r /home/aleks/pr/home/yaal_examples/Python+/Python3/requirements.txt
-pyenv deactivate
-echo 
-
 echo "Updating SdkMan..."
 source "$SDKMAN_DIR/bin/sdkman-init.sh"
 sdk selfupdate
 sdk update
 echo
+
+echo "Updating PIP..."
+python -m pip install --upgrade pip
+echo
+
+# Skip because of "The package was installed by brew. You should check if it can uninstall the package."
+#echo "Updating PIP3..."
+#python3 -m pip install --upgrade pip --break-system-packages
+#echo 
+
+/home/aleks/pr/home/yaal_examples/Bash+/apps/upgrade_python_virtual_env.sh python3-examples-3.12.12
+# Skip because "No matching distribution found for tensorflow"
+#/home/aleks/pr/home/yaal_examples/Bash+/apps/upgrade_python_virtual_env.sh python3-examples-3.14.2 
 
 echo "Updating Coursier..."
 cs update

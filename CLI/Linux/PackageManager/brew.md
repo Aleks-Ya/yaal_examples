@@ -9,6 +9,7 @@ Help about a command: `brew help install`
 ## Commands
 Install an application: `brew install argocd`
 Install several applications: `brew install pyenv pyenv-virtualenv`
+Re-install an application: `brew reinstall python`
 List installed applications: `brew list`
 Find for an application: `brew search swagger`
 Show details about an app: `brew info swagger-codegen`

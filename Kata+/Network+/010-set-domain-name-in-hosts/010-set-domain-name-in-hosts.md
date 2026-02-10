@@ -14,3 +14,5 @@ Set a custom domain name in the `/etc/hosts` file.
 
 ## Cleanup
 1. Restore from backup: `sudo mv /etc/hosts.bak /etc/hosts`
+
+## History

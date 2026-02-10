@@ -1,0 +1,24 @@
+@startuml
+
+title Dots are namespace separators by default
+package A.B.C {
+}
+package X.Y.Z {
+}
+
+newpage
+title Disable namespace separators
+set namespaceSeparator none
+package A.B.C {
+}
+set namespaceSeparator .
+package X.Y.Z {
+}
+
+newpage
+title Change namespace separators
+set namespaceSeparator /
+package A.B/C {
+}
+
+@enduml

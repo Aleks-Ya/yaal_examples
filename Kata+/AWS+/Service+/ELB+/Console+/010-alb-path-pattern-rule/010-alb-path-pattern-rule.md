@@ -1,11 +1,10 @@
 # 010-alb-path-pattern-rule
 
 ## Task
-Use path pattern in a Listener rule of an Application Load Balancer (ALB)
-1. Create an ALB which returns:
-	1. 518 status on `/teapot`
-	2. 202 status on `/accept/request`
-	3. 501 status on other paths
+Use a path pattern in a Listener Rule of an ALB to create an ALB which returns:
+1. 518 status on `/teapot`
+2. 202 status on `/accept/request`
+3. 501 status on other paths
 
 ## Steps
 1. Create a Security Group
@@ -59,13 +58,20 @@ Use path pattern in a Listener rule of an Application Load Balancer (ALB)
 						1. Routing action: `Return fixed response`
 						2. Response code: `501`
 						3. Response body: `Nothing here!`
-
-## Test
-1. Copy `DNS name` in the ABL
-2. Teapot path: `curl -i http://lb-2-1629303854.eu-west-1.elb.amazonaws.com/teapot` (response 418 `Tea is ready!`)
-3. Accept path: `curl -i http://lb-2-1629303854.eu-west-1.elb.amazonaws.com/accept/request` (response 202 `Request was accepted!`)
-4. Default response (root): `curl -i http://lb-2-1629303854.eu-west-1.elb.amazonaws.com` (response 501 `Nothing here!`)
-5. Default response (path): `curl -i http://lb-2-1629303854.eu-west-1.elb.amazonaws.com/abc` (response 501 `Nothing here!`)
+5. Test
+	1. Copy `DNS name` in the ABL
+	2. Teapot path: 
+		`curl -i http://lb-2-1629303854.eu-west-1.elb.amazonaws.com/teapot`
+		(response 418 `Tea is ready!`)
+	3. Accept path: 
+		`curl -i http://lb-2-1629303854.eu-west-1.elb.amazonaws.com/accept/request`
+		(response 202 `Request was accepted!`)
+	4. Default response (root): 
+		`curl -i http://lb-2-1629303854.eu-west-1.elb.amazonaws.com`
+		(response 501 `Nothing here!`)
+	5. Default response (path): 
+		`curl -i http://lb-2-1629303854.eu-west-1.elb.amazonaws.com/abc`
+		(response 501 `Nothing here!`)
 
 ## Cleanup
 1. Delete ALB

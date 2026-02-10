@@ -39,4 +39,28 @@ List all region names: `aws ec2 describe-regions --all-regions --query "Regions[
 List volumes: `aws ec2 describe-volumes`
 Detach a volume from an instance: `aws ec2 detach-volume --volume-id vol-09cb491c3b9c82558`
 Show volume details: `aws ec2 describe-volumes --volume-ids vol-09cb491c3b9c82558`
-Attach a volume to an instance: `aws ec2 attach-volume --device /dev/xvdb --instance-id i-05931912fe1bff8f2 --volume-id vol-09cb491c3b9c82558`
+Attach a volume to an instance:
+  `aws ec2 attach-volume --device /dev/xvdb --instance-id i-05931912fe1bff8f2 --volume-id vol-09cb491c3b9c82558`
+
+## Launch Template
+List Launch Templates: `aws ec2 describe-launch-templates`
+Show details of a version of a Launch Template: 
+  `aws ec2 describe-launch-template-versions --versions $Latest --launch-template-id lt-0123456789abcdef0`
+Create a Launch Template: 
+  `aws ec2 create-launch-template --launch-template-name lt-1 --launch-template-data file://lt-data.json`
+Run EC2 Instances from a Launch Template:
+  `aws ec2 run-instances --count 1 --launch-template LaunchTemplateId=lt-07da994823eccbec4,Version='$Default'`
+Get Launch Template ID by its name:
+```shell
+export LT_ID=$(aws ec2 describe-launch-templates --query 'LaunchTemplates[0].LaunchTemplateId' \
+  --output text --launch-template-names lt-1)
+```
+List EC2 Instances started from a Launch Template:
+```shell
+aws ec2 describe-instances --output text \
+  --filters "Name=tag:aws:ec2launchtemplate:id,Values=lt-07da994823eccbec4" \
+  --query "Reservations[].Instances[].InstanceId"
+```
+Delete a Launch Template:
+- By name: `aws ec2 delete-launch-template --launch-template-name my-template`
+- By ID: `aws ec2 delete-launch-template --launch-template-id lt-0123456789abcdef0`
