@@ -1,17 +1,13 @@
-/**
-  * Connecting to a Standalone Spark Master.
-  */
-
 import Dependencies.*
 
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
       organization := "ru.yaal.examples.bigdata.spark3",
-      scalaVersion := "2.12.20",
+      scalaVersion := "2.12.19",
       version := "1"
     )),
-    name := "Spark3CoreStandalone",
+    name := "Spark3ConnectScala212",
     libraryDependencies ++= allDeps,
     javaOptions ++= Seq("-Xms512M", "-Xmx2048M", "-XX:MaxPermSize=2048M", "-XX:+CMSClassUnloadingEnabled"),
     Test / parallelExecution := false,
