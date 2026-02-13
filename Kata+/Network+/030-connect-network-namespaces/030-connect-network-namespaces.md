@@ -47,7 +47,7 @@ Connect from the client to the server.
 	sudo ip netns del $NS1
 	sudo ip netns del $NS2
 	```
-3. Close the 2 terminals
+3. Close 2 terminals
 
 ## History
 - 2026-02-11 success

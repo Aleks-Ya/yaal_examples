@@ -35,6 +35,16 @@ Get Subnet ID by name:
 export SUBNET=$(aws ec2 describe-subnets --query "Subnets[*].SubnetId" --output text \
 	  --filters "Name=tag:Name,Values=<subnet-name>")
 ```
+Get the 1st subnet ID of a VPC:
+```shell
+export SUBNET=$(aws ec2 describe-subnets --filters "Name=vpc-id,Values=vpc-0bb219aad05d59494" \
+	--query "Subnets[0].SubnetId" --output text)
+```
+Get all subnets IDs of a VPC:
+```shell
+export SUBNETS=$(aws ec2 describe-subnets --filters "Name=vpc-id,Values=$VPC" \
+  --query "Subnets[*].SubnetId" --output text | tr '\t' ',')
+```
 Delete Subnet: `aws ec2 delete-subnet --subnet-id subnet-02875e4552340f24c`
 
 ## Network Interface
@@ -85,3 +95,6 @@ export SG=$(aws ec2 describe-security-groups --query "SecurityGroups[*].GroupId"
 ```
 Delete Security Group by name (in default VPC): `aws ec2 delete-security-group --group-name group1`
 Delete Security Group by ID (in any VPC): `aws ec2 delete-security-id --group-id sg-0f4cedcb0796f3b83`
+
+## Availability Zone
+List AZs: `aws ec2 describe-availability-zones`

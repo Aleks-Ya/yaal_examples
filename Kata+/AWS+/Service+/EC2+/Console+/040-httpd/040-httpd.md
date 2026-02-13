@@ -1,7 +1,7 @@
 # 040-httpd
 
 ## Task
-Create a EC2 instance with httpd server available from the Internet.
+Create an EC2 instance with httpd server available from the Internet.
 
 ## Steps
 1. Create an EC2 instance
