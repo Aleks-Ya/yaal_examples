@@ -14,4 +14,4 @@ spark-submit \
      --conf "spark.sql.autoBroadcastJoinThreshold=-1" \
      --conf "spark.eventLog.enabled=true" \
      --conf "spark.eventLog.dir=file:/shared/spark-events" \
-     file:///datasets/spark3corestandalone_2.12-1.jar
+     file:///datasets/spark3standalonescala212_2.12-1.jar

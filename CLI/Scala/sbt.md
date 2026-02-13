@@ -14,6 +14,7 @@ Run sub-project:
 sbt "project ScalaRun" run
 sbt> ;project ScalaRun; run
 ```
+Run given main class: `sbt "runMain com.example.Main"`
 
 ## Compile
 Compile project: `sbt compile`
@@ -30,7 +31,7 @@ sbt> testOnly my.Test
 
 ## dependencyTree
 Show artifact dependency tree (to a file):
-```
+```shell
 # For "compile" configuration:
 sbt dependencyTree > target/tree.txt
 sbt compile:dependencyTree > target/tree.txt

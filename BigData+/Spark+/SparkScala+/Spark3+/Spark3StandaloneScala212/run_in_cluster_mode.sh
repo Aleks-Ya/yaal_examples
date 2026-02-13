@@ -10,7 +10,7 @@ MAIN_CLASS="$1"
 PARAMS="${@:2}"
 
 source "$HOME/.sdkman/bin/sdkman-init.sh"
-sdk use java 11.0.28-zulu
+sdk use java 11.0.30-zulu
 
 unset JAVA_HOME
 

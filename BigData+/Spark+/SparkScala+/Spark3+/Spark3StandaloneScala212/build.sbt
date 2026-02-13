@@ -1,14 +1,10 @@
-/**
-  * Connecting to a Standalone Spark Master.
-  */
-
 import Dependencies.*
 
 lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
       organization := "ru.yaal.examples.bigdata.spark3",
-      scalaVersion := "2.12.20",
+      scalaVersion := "2.12.21",
       version := "1"
     )),
     name := "Spark3StandaloneScala212",

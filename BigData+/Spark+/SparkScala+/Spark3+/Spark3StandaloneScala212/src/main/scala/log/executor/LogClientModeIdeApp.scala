@@ -14,7 +14,7 @@ object LogClientModeIdeApp {
     log4j1.error(s"[Log4J1][${getRuntimeMXBean.getName}][${currentThread().getName}] Start")
     log4j2.error(s"[Log4J2][${getRuntimeMXBean.getName}][${currentThread().getName}] Start")
 
-    val jars = Seq("target/scala-2.12/spark3corestandalone_2.12-1.jar")
+    val jars = Seq("target/scala-2.12/spark3standalonescala212_2.12-1.jar")
     val conf = new SparkConf()
       .setAppName(getClass.getSimpleName)
       .setMaster("spark://spark-standalone-cluster-master:7077")

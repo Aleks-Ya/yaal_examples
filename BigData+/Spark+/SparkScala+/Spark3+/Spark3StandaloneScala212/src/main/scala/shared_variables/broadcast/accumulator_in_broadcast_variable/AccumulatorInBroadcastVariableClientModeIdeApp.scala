@@ -9,7 +9,7 @@ object AccumulatorInBroadcastVariableClientModeIdeApp {
   def main(args: Array[String]): Unit = {
     printf("[%s][%s] Start\n", getRuntimeMXBean.getName, currentThread().getName)
 
-    val jars = Seq("target/scala-2.12/spark3corestandalone_2.12-1.jar")
+    val jars = Seq("target/scala-2.12/spark3standalonescala212_2.12-1.jar")
     val conf = new SparkConf()
       .setAppName(getClass.getSimpleName)
       .setMaster("spark://spark-standalone-cluster-master:7077")

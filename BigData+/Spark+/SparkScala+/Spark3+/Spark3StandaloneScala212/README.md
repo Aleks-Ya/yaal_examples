@@ -3,12 +3,14 @@
 Submit:
 
 1. Run Spark Standalone cluster from `BigData+/Spark+/SparkDocker+/Spark3StandaloneDocker`
-2. Choose Java 11 for SBT: `sdk use java 11.0.28-zulu`
+2. Choose Java 11 for SBT: `sdk use java 11.0.30-zulu`
 3. Choose Java 11 in the IntelliJ IDEA project
 4. Prevent an error: `unset JAVA_HOME`
-5. Run the application in Local mode
-    1. Run main class `mode.localmode.LocalModeApp`
-6. Run the application in Client mode
+5. Verify build: `sbt clean package`
+6. Run the application in Local mode
+    1. By SBT: `sbt "runMain mode.localmode.LocalModeApp"`
+    2. From IDE: run main class `mode.localmode.LocalModeApp`
+7. Run the application in Client mode
     1. Disable firewall until reboot: `sudo systemctl stop ufw`
     2. Build JAR: `sbt clean package`
     3. Client mode (from IDE): run class `mode.clientmode.ClientModeIdeApp`
@@ -20,9 +22,9 @@ Submit:
        --deploy-mode client \
        --conf "spark.eventLog.enabled=true" \
        --conf "spark.eventLog.dir=file:/tmp/spark-standalone-cluster-shared/spark-events" \
-       target/scala-2.12/spark3corestandalone_2.12-1.jar
+       target/scala-2.12/spark3standalonescala212_2.12-1.jar
        ```
-7. Run the application in Cluster mode (with `spark-submit`)
+8. Run the application in Cluster mode (with `spark-submit`)
     1. Build: `./build_jar.sh`
     2. Run: `./run_in_cluster_mode.sh mode.clustermode.ClusterModeApp`
     3. Download dependencies by `spark-submit --packages`
@@ -41,9 +43,9 @@ Submit:
                  --conf "spark.jars.repositories=http://172.17.0.1:8082/artifactory/libs-release-local/" \
                  --conf "spark.jars.ivySettings=/shared/ivysettings.xml"
                  ```
-8. Application in the Spark UI: http://spark-standalone-cluster-master:8080
-9. Spark History Server: http://spark-standalone-cluster-master:18080
-10. Run in "Hadoop3Cluster"
+9. Application in the Spark UI: http://spark-standalone-cluster-master:8080
+10. Spark History Server: http://spark-standalone-cluster-master:18080
+11. Run in "Hadoop3Cluster"
     1. Run Hadoop cluster `BigData+/Hadoop+/HadoopDocker+/Hadoop3+/Hadoop3Cluster`
     2. Copy Hadoop configs to host: see `BigData+/Hadoop+/HadoopDocker+/Hadoop3+/Hadoop3Cluster/README.md`
     3. Set env variable `HADOOP_CONF_DIR`=`/tmp/hadoop3-cluster-configs`
@@ -63,9 +65,9 @@ Submit:
                     --executor-memory 512M \
                     --conf "spark.eventLog.enabled=true" \
                     --conf "spark.eventLog.dir=file:/tmp/spark-standalone-cluster-shared/spark-events" \
-                    target/scala-2.12/spark3corestandalone_2.12-1.jar
+                    target/scala-2.12/spark3standalonescala212_2.12-1.jar
                ```
-11. Stop the application
+12. Stop the application
     1. Enable firewall: `sudo ufw enable`
 
 ## Errors
@@ -78,3 +80,9 @@ java.io.IOException: Cannot run program "/home/aleks/.sdkman/candidates/java/8.0
 (in directory "/opt/spark/work/driver-20220421045358-0000"): error=2, No such file or directory
 ```
 Solution: `unset JAVA_HOME`
+
+### SparkConf ClassNotFoundException
+Command: `sbt "runMain mode.localmode.LocalModeApp"`
+Message: `ClassNotFoundException: org.apache.spark.SparkConf`
+Cause: Spark in `Dependencies.allDeps` has `provided` scope
+Solution: remove `provided` scope from Spark
