@@ -1,4 +1,4 @@
-# spark3corestandalone
+# Spark 3 Core Standalone
 
 Submit:
 
@@ -51,20 +51,20 @@ Submit:
             1. Build JAR: `sbt clean package`
             2. Client mode (from IDE): run class `mode.clientmode.ClientModeIdeApp`
             3. Client mode (with `spark-submit`):
-           ```shell
-           sudo su
-           export HADOOP_CONF_DIR=/tmp/hadoop3-cluster-configs
-           spark-submit \
-                --class mode.clientmode.ClientModeSubmitApp \
-                --master yarn \
-                --deploy-mode client \
-                --total-executor-cores 2 \
-                --executor-cores 1 \
-                --executor-memory 512M \
-                --conf "spark.eventLog.enabled=true" \
-                --conf "spark.eventLog.dir=file:/tmp/spark-standalone-cluster-shared/spark-events" \
-                target/scala-2.12/spark3corestandalone_2.12-1.jar
-           ```
+               ```shell
+               sudo su
+               export HADOOP_CONF_DIR=/tmp/hadoop3-cluster-configs
+               spark-submit \
+                    --class mode.clientmode.ClientModeSubmitApp \
+                    --master yarn \
+                    --deploy-mode client \
+                    --total-executor-cores 2 \
+                    --executor-cores 1 \
+                    --executor-memory 512M \
+                    --conf "spark.eventLog.enabled=true" \
+                    --conf "spark.eventLog.dir=file:/tmp/spark-standalone-cluster-shared/spark-events" \
+                    target/scala-2.12/spark3corestandalone_2.12-1.jar
+               ```
 11. Stop the application
     1. Enable firewall: `sudo ufw enable`
 

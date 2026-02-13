@@ -32,3 +32,5 @@ Create a Databricks Workspace using Databricks UI.
 1. Delete Workspace in Databricks UI
 2. Emtpy the Workspace S3 Bucket
 3. Delete Workspace CloudFormation Stack
+
+## History

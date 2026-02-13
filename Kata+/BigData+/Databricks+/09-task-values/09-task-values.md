@@ -19,3 +19,5 @@ Exchange variables between Tasks using Task Values.
 ## Cleanup
 1. Delete the job
 2. Delte DBFS files: `databricks fs rm -r dbfs:/tmp/09-task-values`
+
+## History

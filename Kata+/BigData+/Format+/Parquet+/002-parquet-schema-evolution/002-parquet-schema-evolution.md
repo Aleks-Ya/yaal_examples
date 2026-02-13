@@ -13,3 +13,7 @@ Mary	25	false	0.90
 4. Add column `City` with default value `London`
 
 ## Steps
+
+## Cleanup
+
+## History

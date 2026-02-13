@@ -19,3 +19,5 @@ Use Protege OWL editor
 
 ## Cleanup
 1. Delete `courses.obo`
+
+## History

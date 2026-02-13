@@ -5,10 +5,19 @@
 Install: `pip install pyspark`
 Upgrade to latest version: `pip install pyspark -U`
 ### From ZIP
-1. Download Spark distributive: https://spark.apache.org/downloads.html
-2. Unzip
-3. Choose Java 8, e.g.: `sdk use java 8.0.302-open`
-4. Run `./bin/spark-shell`
+1. Download Spark binaries from https://spark.apache.org/downloads.html
+2. Unpack `spark-3.5.0-bin-hadoop3.tgz` to `~/installed/spark/` directory
+3. User-wide: 
+	1. Set in `~/.bashrc`:
+		```shell
+		export SPARK_HOME=/home/aleks/installed/spark/spark-3.5.8-bin-hadoop3
+		export PATH=$PATH:$SPARK_HOME/bin
+		```
+	2. Verify: `spark-shell --version`
+4. Shell-wide:
+	1. Change current directory to `~/installed/spark/spark-3.5.8-bin-hadoop3-scala2.13`
+	2. Choose Java 8, e.g.: `sdk use java 8.0.302-open`
+	3. Verify `./bin/spark-shell --version`
 
 ## Commands
 Help: `spark-shell -h`
@@ -54,7 +63,7 @@ All commands can be abbreviated, e.g., :he instead of :help.
 ## Test calculations in Shell
 1. Test Spark Core: `sc.parallelize(Seq(1, 2, 3)).collect()`
 2. Test Spark SQL:
-```Scala
+```scala
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 val schema = StructType(StructField("name", StringType) :: StructField("age", IntegerType) :: Nil)

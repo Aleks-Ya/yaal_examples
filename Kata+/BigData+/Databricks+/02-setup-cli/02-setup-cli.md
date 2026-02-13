@@ -19,3 +19,5 @@ Configure Databricks CLI to access to a Workspace.
 
 ## Cleanup
 1. Delete the token
+
+## History

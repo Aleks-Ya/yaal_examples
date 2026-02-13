@@ -20,3 +20,5 @@ Use Task setting "Run if dependencies".
 ## Cleanup
 1. Delete the jobs
 2. Delte DBFS files: `databricks fs rm -r dbfs:/tmp/10-task-run-if-dependencies`
+
+## History

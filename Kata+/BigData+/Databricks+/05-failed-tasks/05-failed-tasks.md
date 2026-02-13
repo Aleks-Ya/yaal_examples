@@ -20,3 +20,5 @@ Handle failed Tasks in a Job.
 ## Cleanup
 1. Delete the job
 2. Delte DBFS files: `databricks fs rm -r dbfs:/tmp/05-failed-tasks`
+
+## History

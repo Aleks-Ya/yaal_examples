@@ -20,4 +20,8 @@ Refer to an OBO file from another OBO file.
 		3. `EuropeanCode`, SubClass of `Code`
 		4. `AmericanCode`, SubClass of `Code`
 
+## Cleanup
+
+## History
+
 NOT FINISHED!!!!

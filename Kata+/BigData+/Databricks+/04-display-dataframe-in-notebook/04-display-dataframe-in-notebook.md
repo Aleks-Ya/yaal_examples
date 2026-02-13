@@ -17,3 +17,5 @@ Use built-in `display()` function in a Scala Notebook to show a DataFrame in tab
 
 ## Cleanup
 1. Delete the Notebook
+
+## History

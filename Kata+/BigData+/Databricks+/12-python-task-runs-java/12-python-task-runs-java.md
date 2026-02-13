@@ -31,3 +31,5 @@ Execute `java` from a Python Script Task.
 ## Cleanup
 1. Delete the jobs
 2. Delte DBFS files: `databricks fs rm -r dbfs:/tmp/11-task-uses-dbfs`
+
+## History

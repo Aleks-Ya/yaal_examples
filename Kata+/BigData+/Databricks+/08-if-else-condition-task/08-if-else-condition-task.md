@@ -22,3 +22,5 @@ Use Task of type "if/else condition".
 ## Cleanup
 1. Delete the jobs
 2. Delte DBFS files: `databricks fs rm -r dbfs:/tmp/08-if-else-condition-task`
+
+## History
