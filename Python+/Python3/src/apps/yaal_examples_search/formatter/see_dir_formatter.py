@@ -8,18 +8,12 @@ class SeeDirFormatter:
         self.__base_dir = base_dir
         self.__paths = paths
 
-    def is_contained(self, path: Path) -> bool:
-        for p in self.__paths:
-            if path == p or path in p.parents:
-                return True
-        return False
+    def format(self) -> str:
+        tree: str = seedir(self.__base_dir, mask=self.__mask, printout=False)
+        return tree
 
     def __mask(self, path: Path) -> bool:
         for p in self.__paths:
             if path == p or path in p.parents:
                 return True
         return False
-
-    def format(self) -> str:
-        tree: str = seedir(self.__base_dir, mask=self.__mask, printout=False)
-        return tree

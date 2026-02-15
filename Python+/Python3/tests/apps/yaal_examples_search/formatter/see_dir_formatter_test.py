@@ -2,7 +2,7 @@ import tempfile
 from pathlib import Path
 from textwrap import dedent
 
-from apps.yaal_examples_search.see_dir_formatter import SeeDirFormatter
+from apps.yaal_examples_search.formatter.see_dir_formatter import SeeDirFormatter
 
 
 def test_format():

@@ -11,9 +11,10 @@ Run:
 2. Run: `pytest`
 
 ## TODO
-- [ ] Print results as a tree
-- [ ] Case-insensitive search
-- [ ] Add unit-tests
+- [X] Print results as a tree
+- [X] Case-insensitive search
+- [X] Add unit-tests
 - [ ] Ranking results
 - [X] Add Bash alias
-- [ ] Multiple keywords support
+- [X] Multiple keywords support
+- [X] Copy path to results by number

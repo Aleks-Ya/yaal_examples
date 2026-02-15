@@ -1,7 +1,8 @@
 from pathlib import Path
 from textwrap import dedent
 
-from apps.yaal_examples_search.list_formatter import ListFormatter
+from apps.yaal_examples_search.data_types import Keyword
+from apps.yaal_examples_search.formatter.list_formatter import ListFormatter
 
 
 def test_format():
@@ -11,7 +12,7 @@ def test_format():
         base_dir / "nested/streaming.fodg"
     ]
     formatter: ListFormatter = ListFormatter(base_dir, paths)
-    keyword: str = "streaming"
+    keyword: Keyword = Keyword("streaming")
     out: str = formatter.format(keyword)
     assert out == dedent("""\
                     nested/buildings.fodg
