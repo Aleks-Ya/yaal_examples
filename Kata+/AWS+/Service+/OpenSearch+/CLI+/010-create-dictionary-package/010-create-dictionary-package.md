@@ -16,7 +16,7 @@ Create a Text Dictionary package in OpenSearch domain. Upload and use an diction
 	```
 4. Start an OpenSearch domain: 
 	1. Create a domain: 
-		`~/yaal_examples/DevOps+/AWS+/CDK+/PythonCdkProject/src/python_cdk_project/minimal_opensearch_domain_stack.py`
+		`DevOps+/AWS+/CDK+/PythonCdkProject/src/python_cdk_project/minimal_opensearch_domain_stack_33.py`
 	2. Get cluster URL: 
 		```shell
 		export ES=http://$(aws opensearch describe-domain --query 'DomainStatus.Endpoint' \

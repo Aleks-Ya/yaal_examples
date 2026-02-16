@@ -24,16 +24,17 @@ Infer a model as the root user.
 		```
 	2. Result: `compact-json /tmp/kata-infer-as-root.json`
 5. Invoke the model by cURL with a Bedrock API Key
-	1. Save Bedrock API key to file `/tmp/bedrock-api-key.txt`
-	2. Send a request:
+	1. Generate a Short-term API key
+	2. Set env: `export API_KEY=bedrock-api-key-YmVkcm9jay...`
+	3. Send a request:
 		```shell
 		curl -s https://bedrock-runtime.us-east-1.amazonaws.com/model/$MODEL/invoke \
 			-H 'Content-Type: application/json' \
-			-H "Authorization: Bearer $(cat /tmp/bedrock-api-key.txt)" \
+			-H "Authorization: Bearer $API_KEY" \
 			--data @invoke-model-body.json \
 		| compact-json -
 		```
-6. Invoke the model by AWS cURL with an AWS Access Key
+6. Invoke the model by AWS cURL with an AWS Access Key:
 	```shell
 	awscurl https://bedrock-runtime.us-east-1.amazonaws.com/model/$MODEL/invoke \
 		--profile $PROFILE_ROOT \
@@ -45,6 +46,7 @@ Infer a model as the root user.
 	```
 
 ## Cleanup
+1. Close the terminal
 
 ## History
-
+- 2026-02-16 success

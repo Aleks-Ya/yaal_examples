@@ -1,7 +1,7 @@
 # 080-usage-plan-quota
 
 ## Task
-Limit number of requests to a REST API using quota in a Usage Plan.
+Limit number of requests to a **REST** API using quota in a Usage Plan.
 
 ## Steps
 1. Create an API

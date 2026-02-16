@@ -1,7 +1,7 @@
 # 010-integration-mock
 
 ## Task
-Create a REST API with a Mock integration.
+Create a **REST** API with a Mock integration.
 
 ## Steps
 1. Build a REST API

@@ -1,7 +1,7 @@
 # 060-stage-variables-mock
 
 ## Task
-Create a REST API with two Stages utilizing Stage Variables to configure a Mock Integration.
+Create a **REST** API with two Stages utilizing Stage Variables to configure a Mock Integration.
 
 ## Steps
 1. Create a REST API

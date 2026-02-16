@@ -15,9 +15,15 @@ Create a REST API with a Mock integration.
 	2. Get API ID: `export API_ID=$(aws apigateway get-rest-apis --query "items[?name=='$API_NAME'].id" --output text)`
 3. Create a Method
 	1. Get the Resource ID: 
-		`export RESOURCE_ID=$(aws apigateway get-resources --rest-api-id $API_ID --query "items[?path=='/'].id" --output text)`
+		```shell
+		export RESOURCE_ID=$(aws apigateway get-resources --rest-api-id $API_ID \
+			--query "items[?path=='/'].id" --output text)
+		```
     2. Create Method: 
-    	`aws apigateway put-method --rest-api-id $API_ID --resource-id $RESOURCE_ID --http-method GET --authorization-type NONE`
+    	```shell
+    	aws apigateway put-method --rest-api-id $API_ID --resource-id $RESOURCE_ID \
+    		--http-method GET --authorization-type NONE
+    	```
     3. Create a Method Response:
 		```shell
 		aws apigateway put-method-response \

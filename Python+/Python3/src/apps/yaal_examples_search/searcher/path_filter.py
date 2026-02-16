@@ -8,5 +8,6 @@ class PathFilter:
     @staticmethod
     def filter(all_files: list[Path]) -> list[Path]:
         temp_dir_patterns: set[str] = {'.git', '.idea', '.venv', 'venv', '.gradle', 'build', 'out', 'target',
-                                       '__pycache__', 'node_modules', 'cdk.out', '.tox'}
+                                       '__pycache__', 'node_modules', 'cdk.out', '.tox', 'bundled_dependencies',
+                                       '.pytest_cache', '.metadata', '.recommenders'}
         return [d for d in all_files if not any(part in temp_dir_patterns for part in d.parts)]

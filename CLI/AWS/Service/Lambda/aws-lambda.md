@@ -2,22 +2,26 @@
 
 ## Function (LATEST version)
 List Functions: `aws lambda list-functions`
-Upload ZIP to a Function: `aws lambda update-function-code --function-name function1 --zip-file fileb://function1.zip --publish`
+Upload ZIP to a Function:
+  `aws lambda update-function-code --function-name function1 --zip-file fileb://function1.zip --publish`
 Show Function details: `aws lambda get-function --function-name function1`
 Show Function configuration: `aws lambda get-function-configuration --function-name function1`
-Change Function Handler: `aws lambda update-function-configuration --function-name function1 --handler example.Handler::handleRequest`
-Change Function Timeout in sec (900 sec is max): `aws lambda update-function-configuration --function-name function1 --timeout 900`
+Change Function Handler:
+  `aws lambda update-function-configuration --function-name function1 --handler example.Handler::handleRequest`
+Change Function Timeout in sec (900 sec is max):
+  `aws lambda update-function-configuration --function-name function1 --timeout 900`
 Delete Function: `aws lambda delete-function --function-name function1`
 Create a Function:
 ```shell
 aws lambda create-function \
   --function-name function2 \
-  --runtime python3.13 \
+  --runtime python3.14 \
   --role arn:aws:iam::123456789012:role/lambda-ex \
   --handler handler.lambda_handler \
   --zip-file fileb://function2.zip
 ```
-Download Function code: `wget -O code.zip $(aws lambda get-function --query 'Code.Location' --output text --function-name function1)`
+Download Function code:
+  `wget -O code.zip $(aws lambda get-function --query 'Code.Location' --output text --function-name function1)`
 
 ## Version
 List versions of a Function: `aws lambda list-versions-by-function --function-name function1`
@@ -35,7 +39,8 @@ Invoke a Function with payload:
 2. Invoke the function: `aws lambda invoke --function-name function1 --payload $PAYLOAD response.json`
 3. View the response: `cat response.json`
 
-Invoke a Function asynchronously (no payload): `aws lambda invoke --function-name function1 --invocation-type Event response.json`
+Invoke a Function asynchronously (no payload):
+  `aws lambda invoke --function-name function1 --invocation-type Event response.json`
 
 ## Function URL
 Create (no auth): `aws lambda create-function-url-config --function-name function1 --auth-type NONE`
@@ -54,7 +59,8 @@ Remove a permission from a function: `aws lambda remove-permission --function-na
 
 ## Layer
 List layers: `aws lambda list-layers`
-Create a layer: `aws lambda publish-layer-version --layer-name my-layer --compatible-runtimes python3.13 --zip-file fileb://layer.zip`
+Create a layer:
+  `aws lambda publish-layer-version --layer-name my-layer --compatible-runtimes python3.13 --zip-file fileb://layer.zip`
 Update layers in a function:
 ```shell
 aws lambda update-function-configuration \

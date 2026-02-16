@@ -1,7 +1,7 @@
 # 050-stages-mock
 
 ## Task
-Create a REST API with two Stages pointing to different versions of a Mock integration.
+Create a **REST** API with two Stages pointing to different versions of a Mock integration.
 
 ## Steps
 1. Create a REST API

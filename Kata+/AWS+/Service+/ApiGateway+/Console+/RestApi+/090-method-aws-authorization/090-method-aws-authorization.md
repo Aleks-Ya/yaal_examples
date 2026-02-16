@@ -1,7 +1,7 @@
 # 090-method-aws-authorization
 
 ## Task
-Require AWS IAM authorization to invoke a method in a REST API.
+Require AWS IAM authorization to invoke a method in a **REST** API.
 
 ## Steps
 1. Create an API
