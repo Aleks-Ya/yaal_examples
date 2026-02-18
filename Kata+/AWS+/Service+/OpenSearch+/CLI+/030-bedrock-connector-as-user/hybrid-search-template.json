@@ -1,0 +1,20 @@
+{
+    "query": {
+        "hybrid": {
+            "queries": [
+                {
+                    "match": { "content": {"query": "store"} }
+                }, 
+                {
+                    "neural": {
+                        "embeddings": {
+                            "query_text": "planet", 
+                            "model_id": "$MODEL_ID"
+                        }
+                    }
+                }
+            ]
+        }
+    }, 
+    "_source": ["content"]
+}

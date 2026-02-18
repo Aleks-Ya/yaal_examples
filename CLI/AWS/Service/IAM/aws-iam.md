@@ -7,7 +7,8 @@ Show role details: `aws iam get-role --role-name role1`
 Get role ARN by name: `aws iam get-role --query 'Role.Arn' --output text --role-name AWSServiceRoleForBackup`
 Create a role: `aws iam create-role --role-name role1 --assume-role-policy-document file://assume-role-policy.json`
 Delete a role: `aws iam delete-role --role-name role1`
-Update the trust policy on a role: `aws iam update-assume-role-policy --role-name role1 --policy-document file://trust-policy.json`
+Update the trust policy on a role:
+    `aws iam update-assume-role-policy --role-name role1 --policy-document file://trust-policy.json`
 
 ## User
 List all users: `aws iam list-users`
@@ -36,7 +37,8 @@ Update a policy: see "Create a policy version"
 
 ### Policy Versions
 List policy versions: `aws iam list-policy-versions --policy-arn arn:aws:iam::523633434047:policy/MyPolicy`
-Show policy version details: `aws iam get-policy-version --policy-arn arn:aws:iam::523633434047:policy/MyPolicy --version-id v2`
+Show policy version details:
+    `aws iam get-policy-version --policy-arn arn:aws:iam::523633434047:policy/MyPolicy --version-id v2`
 Create a policy version: 
 ```shell
 aws iam create-policy-version \
@@ -44,7 +46,8 @@ aws iam create-policy-version \
     --policy-document file://modified-policy.json \
     --set-as-default
 ```
-Delete a policy version: `aws iam delete-policy-version --policy-arn arn:aws:iam::523633434047:policy/MyPolicy --version-id v1`
+Delete a policy version:
+    `aws iam delete-policy-version --policy-arn arn:aws:iam::523633434047:policy/MyPolicy --version-id v1`
 
 ### Simulate policy
 ```shell
@@ -57,17 +60,28 @@ aws iam simulate-principal-policy \
 ### Standalone policy
 #### Standalone User policy
 List policies attached to a user: `aws iam list-attached-user-policies --user-name user1`
-Attach a policy to a user: `aws iam attach-user-policy --user-name user1 --policy-arn arn:aws:iam::aws:policy/S3AccessPolicy`
-Detach a policy from a user: `aws iam detach-user-policy --user-name user1 --policy-arn arn:aws:iam::aws:policy/S3AccessPolicy`
+Attach a policy to a user:
+    `aws iam attach-user-policy --user-name user1 --policy-arn arn:aws:iam::aws:policy/S3AccessPolicy`
+Detach a policy from a user:
+    `aws iam detach-user-policy --user-name user1 --policy-arn arn:aws:iam::aws:policy/S3AccessPolicy`
 
 #### Standalone Group policy
 List policies of a group: `aws iam list-attached-group-policies --group-name group1`
-Attach policy to a group: `aws iam attach-group-policy --group-name group1 --policy-arn arn:aws:iam::aws:policy/AmazonEC2FullAccess`
+Attach policy to a group:
+    `aws iam attach-group-policy --group-name group1 --policy-arn arn:aws:iam::aws:policy/AmazonEC2FullAccess`
 
 #### Standalone Role policy
 List policies attached to a role: `aws iam list-attached-role-policies --role-name MyS3ReadOnlyRole`
-Attach a policy to a role: `aws iam attach-role-policy --role-name MyS3ReadOnlyRole --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess`
-Detach a policy from a role: `aws iam detach-role-policy --role-name MyS3ReadOnlyRole --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess`
+Attach a policy to a role:
+```shell
+aws iam attach-role-policy --role-name MyS3ReadOnlyRole \
+    --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+```
+Detach a policy from a role:
+```shell
+aws iam detach-role-policy --role-name MyS3ReadOnlyRole \
+    --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+```
 
 ### Inline policy
 

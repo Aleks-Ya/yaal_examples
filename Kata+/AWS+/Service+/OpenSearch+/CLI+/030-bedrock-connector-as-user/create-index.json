@@ -1,0 +1,15 @@
+{
+    "settings": {
+        "index": {
+            "knn": true, 
+            "default_pipeline": "kata-pipeline-bedrock-connector-as-root-ingest"
+        }
+    }, 
+    "mappings": {
+        "dynamic": "true", 
+        "properties": {
+            "content"   : { "type": "text"                          }, 
+            "embeddings": { "type": "knn_vector", "dimension": 1024 }
+        }
+    }
+}

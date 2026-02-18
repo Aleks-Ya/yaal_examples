@@ -2,3 +2,4 @@ register-model.json
 create-ingest-pipeline.json
 index-bulk.json
 vector-search.json
+hybrid-search.json

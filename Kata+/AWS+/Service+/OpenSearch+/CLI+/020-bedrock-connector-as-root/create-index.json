@@ -2,7 +2,7 @@
     "settings": {
         "index": {
             "knn": true, 
-            "default_pipeline": "kata-pipeline-bedrock-connector"
+            "default_pipeline": "kata-pipeline-bedrock-connector-as-root-ingest"
         }
     }, 
     "mappings": {

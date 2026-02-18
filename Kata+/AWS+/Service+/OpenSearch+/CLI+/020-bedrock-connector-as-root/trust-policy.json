@@ -5,7 +5,6 @@
             "Sid": "Statement1", 
             "Effect": "Allow", 
             "Principal": {
-                "AWS": "arn:aws:iam::121846058060:user/Postman", 
                 "Service": [
                     "opensearchservice.amazonaws.com", 
                     "ml.opensearchservice.amazonaws.com"

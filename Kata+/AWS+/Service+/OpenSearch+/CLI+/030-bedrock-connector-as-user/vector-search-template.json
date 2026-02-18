@@ -1,0 +1,8 @@
+{
+    "query": {
+        "neural": {
+            "embeddings": {"query_text": "fruit", "model_id": "$MODEL_ID"}
+        }
+    }, 
+    "_source": ["content"]
+}

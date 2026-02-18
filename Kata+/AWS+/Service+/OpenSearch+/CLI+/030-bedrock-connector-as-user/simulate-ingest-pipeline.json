@@ -1,0 +1,11 @@
+{
+    "docs": [
+        {
+            "_id": "1",
+            "_index": "testindex1",
+            "_source": {
+                "content": "Simiulate ingest pipeline 1"
+            }
+        }
+    ]
+}
