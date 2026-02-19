@@ -18,5 +18,9 @@ After modifying `idle-notify.service`:
 2. Enable and start service: `systemctl --user enable --now idle-notify.service`
 3. Verify status: `systemctl --user status idle-notify.service`
 
+### Stop
+Stop: `systemctl --user stop idle-notify.service`
+Disable: `systemctl --user disable idle-notify.service`
+
 ### Logs
 `journalctl --user -u idle-notify.service -f`

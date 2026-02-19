@@ -7,12 +7,24 @@ Create a Lambda Function that uses code from a Layer.
 1. Change directory
 2. Create a Layer
 	1. Pack ZIP: `cd text-layer; zip -r ../text-layer.zip *; cd ..`
-	2. Create a layer version: `aws lambda publish-layer-version --layer-name text-layer --compatible-runtimes python3.14 --zip-file fileb://text-layer.zip`
+	2. Create a layer version:
+		```shell
+		aws lambda publish-layer-version --layer-name text-layer \
+			--compatible-runtimes python3.14 --zip-file fileb://text-layer.zip
+		```
 3. Create functions
 	1. Create a Function
 		1. Create an Execution Role
-			1. Create a Role: `aws iam create-role --role-name FunctionLayeredRole --assume-role-policy-document file://trust-policy.json`
-			2. Attach a Policy: `aws iam put-role-policy --role-name FunctionLayeredRole --policy-name FunctionLayeredPolicy --policy-document file://inline-policy.json`
+			1. Create a Role:
+				```shell
+				aws iam create-role --role-name FunctionLayeredRole \
+					--assume-role-policy-document file://trust-policy.json
+				```
+			2. Attach a Policy:
+				```shell
+				aws iam put-role-policy --role-name FunctionLayeredRole --policy-name FunctionLayeredPolicy \
+					--policy-document file://inline-policy.json
+				```
 		2. Create a Deployment Package: `cd function-layered; zip -r ../function-layered.zip *; cd ..`
 		3. Create a Function:
 			```shell
@@ -24,7 +36,8 @@ Create a Lambda Function that uses code from a Layer.
 	  			--zip-file fileb://function-layered.zip \
 	  			--layers arn:aws:lambda:us-east-1:523633434047:layer:text-layer:1
 			```
-		4. Test function: `aws lambda invoke --function-name function-layered /dev/stdout`
+		4. Wait: `aws lambda wait function-active --function-name function-layered`
+		5. Test function: `aws lambda invoke --function-name function-layered /dev/stdout`
 
 ## Cleanup
 1. Delete Function: `aws lambda delete-function --function-name function-layered`

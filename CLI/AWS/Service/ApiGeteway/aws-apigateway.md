@@ -8,6 +8,8 @@ Get API ID by name: `aws apigateway get-rest-apis --query "items[?name=='api1'].
 
 ## Stage
 List Stages: `aws apigateway get-stages --rest-api-id ab12cd34ef`
+Show Stage details: `aws apigateway get-stage --rest-api-id ab12cd34ef --stage-name prd`
+Flush a Stage cache: `aws apigateway flush-stage-cache --rest-api-id ab12cd34ef --stage-name prd`
 
 ## API Key
 List API Keys: `aws apigateway get-api-keys`

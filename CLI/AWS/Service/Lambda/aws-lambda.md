@@ -20,6 +20,7 @@ aws lambda create-function \
   --handler handler.lambda_handler \
   --zip-file fileb://function2.zip
 ```
+Wait until Function is created: `aws lambda wait function-active --function-name function1`
 Download Function code:
   `wget -O code.zip $(aws lambda get-function --query 'Code.Location' --output text --function-name function1)`
 

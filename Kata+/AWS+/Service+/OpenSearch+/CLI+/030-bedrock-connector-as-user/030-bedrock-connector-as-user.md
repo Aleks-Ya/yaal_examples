@@ -1,6 +1,5 @@
 # 030-bedrock-connector-as-user
 
-
 ## Task
 Use Bedrock connector to generate embeddings (as an IAM User).
 
@@ -18,8 +17,9 @@ Use Bedrock connector to generate embeddings (as an IAM User).
 			export USER=kata-user-bedrock-connector-as-user
 			export PROFILE_USER=kata-prifile-bedrock-connector-as-user
 			export REGION=us-east-1
-			export POLICY_NAME_USER=kata-policy-bedrock-connector-as-root-user
+			export POLICY_NAME_USER=kata-policy-bedrock-connector-as-user-user
 			export POLICY_ARN_USER=arn:aws:iam::121846058060:policy/$POLICY_NAME_USER
+			export POLICY_ARN_OPENSEARCH=arn:aws:iam::aws:policy/AmazonOpenSearchServiceReadOnlyAccess
 			```
 		4. Test: `aws sts get-caller-identity`
 	2. Create an IAM user:
@@ -35,16 +35,13 @@ Use Bedrock connector to generate embeddings (as an IAM User).
 			```
 	3. Test: `aws --profile $PROFILE_USER sts get-caller-identity`
 	4. Grant permissions to the IAM User:
-		1. Create a Policy:
-			`aws iam create-policy --policy-name $POLICY_NAME_USER --policy-document file://user-policy.json` 
-		2. Attach policies to the IAM User:
-			```shell
-			# es:DescribeDomain
-			aws iam attach-user-policy --user-name $USER \
-				--policy-arn arn:aws:iam::aws:policy/AmazonOpenSearchServiceReadOnlyAccess
-			# es:ESHttpGet, iam:CreateRole, iam:AttachRolePolicy, iam:PassRole, iam:DetachRolePolicy, iam:DeleteRole
-			aws iam attach-user-policy --user-name $USER --policy-arn $POLICY_ARN_USER
-			```
+		```shell
+		# es:DescribeDomain
+		aws iam create-policy --policy-name $POLICY_NAME_USER --policy-document file://user-policy.json
+		aws iam attach-user-policy --user-name $USER --policy-arn $POLICY_ARN_OPENSEARCH
+		# es:ESHttpGet, iam:CreateRole, iam:AttachRolePolicy, iam:PassRole, iam:DetachRolePolicy, iam:DeleteRole
+		aws iam attach-user-policy --user-name $USER --policy-arn $POLICY_ARN_USER
+		```
 2. As the IAM User
 	1. Create the IAM User terminal
 		1. Open a new terminal
@@ -57,10 +54,10 @@ Use Bedrock connector to generate embeddings (as an IAM User).
 			export PROFILE_USER=kata-prifile-bedrock-connector-as-user
 			export DOMAIN=domain33
 			export POLICY_BEDROCK=arn:aws:iam::aws:policy/AmazonBedrockLimitedAccess
-			export ROLE_BEDROCK=kata-role-bedrock-connector-as-root
-			export PIPELINE_INGEST=kata-pipeline-bedrock-connector-as-root-ingest
-			export PIPELINE_SEARCH=kata-pipeline-bedrock-connector-as-root-search
-			export INDEX=kata-index-bedrock-connector-as-root
+			export ROLE_BEDROCK=kata-role-bedrock-connector-as-user
+			export PIPELINE_INGEST=kata-pipeline-bedrock-connector-as-user-ingest
+			export PIPELINE_SEARCH=kata-pipeline-bedrock-connector-as-user-search
+			export INDEX=kata-index-bedrock-connector-as-user
 			export AWS_PROFILE=$PROFILE_USER
 			```
 		4. Test: `aws sts get-caller-identity`
@@ -154,6 +151,7 @@ Use Bedrock connector to generate embeddings (as an IAM User).
 2. As the Root User
 	1. Delete User Policy:
 		```shell
+		aws iam detach-user-policy --user-name $USER --policy-arn $POLICY_ARN_OPENSEARCH
 		aws iam detach-user-policy --user-name $USER --policy-arn $POLICY_ARN_USER
 		aws iam delete-policy --policy-arn $POLICY_ARN_USER
 		```
@@ -166,3 +164,4 @@ Use Bedrock connector to generate embeddings (as an IAM User).
 
 ## History
 - 2026-02-18 success
+- 2026-02-19 success
