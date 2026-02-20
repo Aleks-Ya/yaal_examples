@@ -6,6 +6,7 @@ from textwrap import dedent
 import pytest
 
 from apps.yaal_examples_search.data_types import Keyword
+from apps.yaal_examples_search.formatter.color import Color
 from apps.yaal_examples_search.formatter.rich_tree_formatter import RichTreeFormatter, FormatResults
 
 
@@ -41,12 +42,10 @@ def test_format_highlights_keywords_case_insensitive(tmp_path: Path) -> None:
     p: Path = __touch(base_dir / "src" / "MyFile.PY")
     formatter: RichTreeFormatter = RichTreeFormatter(base_dir, [p])
     format_results: FormatResults = formatter.format([Keyword("myfile")])
-    red_start: str = "\033[91m"
-    red_end: str = "\033[0m"
     out: str = format_results.content
     assert out == dedent(f"""\
                         {base_dir.resolve()}/ [0]
-                        └── src/{red_start}MyFile{red_end}.PY [1]
+                        └── src/{Color.RED}MyFile{Color.RESET}.PY [1]
                         """)
 
 
@@ -101,12 +100,10 @@ def test_format_multiple_keywords_highlighted(tmp_path: Path) -> None:
     p: Path = __touch(base_dir / "src" / "parser_tokenizer.py")
     formatter: RichTreeFormatter = RichTreeFormatter(base_dir, [p])
     format_results: FormatResults = formatter.format([Keyword("parser"), Keyword("token")])
-    red_start: str = "\033[91m"
-    red_end: str = "\033[0m"
     out: str = format_results.content
     assert out == dedent(f"""\
                         {base_dir.resolve()}/ [0]
-                        └── src/{red_start}parser{red_end}_{red_start}token{red_end}izer.py [1]
+                        └── src/{Color.RED}parser{Color.RESET}_{Color.RED}token{Color.RESET}izer.py [1]
                         """)
 
 
@@ -114,15 +111,30 @@ def test_format_multiple_keywords_highlighted(tmp_path: Path) -> None:
     "keywords,text,expected",
     [
         ([], "abc", "abc"),
-        ([Keyword("a")], "abc", "\033[91ma\033[0mbc"),
-        ([Keyword("ABC")], "abc", "\033[91mabc\033[0m"),
-        ([Keyword("a"), Keyword("b")], "abc", "\033[91ma\033[0m\033[91mb\033[0mc"),
+        ([Keyword("a")], "abc", "\033[31ma\033[0mbc"),
+        ([Keyword("ABC")], "abc", "\033[31mabc\033[0m"),
+        ([Keyword("a"), Keyword("b")], "abc", "\033[31ma\033[0m\033[31mb\033[0mc"),
     ],
 )
 def test_highlight_word_direct(tmp_path: Path, keywords: list[Keyword], text: str, expected: str) -> None:
     # Access the static method via name-mangling (private by convention).
     got = RichTreeFormatter._RichTreeFormatter__highlight_word(text, keywords)  # type: ignore[attr-defined]
     assert got == expected
+
+
+def test_format_deeply_nested_path(tmp_path: Path) -> None:
+    base_dir: Path = tmp_path / "repo"
+    base_dir.mkdir()
+    p: Path = __touch(base_dir / "BigData+" / "Spark+" / "SparkScala+" / "Spark3+" / "LongLongLongLongLong" /
+                      "Spark3StandaloneScala212" / "src" / "main" / "scala" / "log" / "executor" / "UpperCaseLambda.scala")
+    formatter: RichTreeFormatter = RichTreeFormatter(base_dir, [p])
+    format_results: FormatResults = formatter.format([Keyword("lambda"), Keyword("log")])
+    out: str = format_results.content
+    assert out == dedent(f"""\
+                        {base_dir.resolve()}/ [0]
+                        └── BigData+/Spark+/SparkScala+/Spark3+/LongLongLongLongLong/Spark3StandaloneSca
+                            la212/src/main/scala/{Color.RED}log{Color.RESET}/executor/UpperCase{Color.RED}Lambda{Color.RESET}.scala [1]
+                        """)
 
 
 def __touch(p: Path) -> Path:

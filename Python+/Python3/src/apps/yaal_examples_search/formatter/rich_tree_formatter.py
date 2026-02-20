@@ -10,6 +10,7 @@ from rich.console import Console
 from rich.tree import Tree
 
 from apps.yaal_examples_search.data_types import Keyword
+from apps.yaal_examples_search.formatter.color import Color
 
 FormatResultId = NewType("FormatResultId", int)
 
@@ -83,7 +84,7 @@ class RichTreeFormatter:
                 nodes[path] = nodes[parent].add(label(path))
                 processed.add(path)
 
-        console: Console = Console(record=True, width=120)
+        console: Console = Console(record=True)
         with console.capture() as capture:
             console.print(root)
 
@@ -101,12 +102,10 @@ class RichTreeFormatter:
         if not keywords:
             return text
         # ANSI color codes for red text
-        red_start: str = "\033[91m"
-        red_end: str = "\033[0m"
         result: str = text
         for keyword in keywords:
             pattern: Pattern[str] = re.compile(re.escape(keyword), re.IGNORECASE)
-            result = pattern.sub(lambda m: f"{red_start}{m.group()}{red_end}", result)
+            result = pattern.sub(lambda m: f"{Color.RED}{m.group()}{Color.RESET}", result)
         return result
 
     @staticmethod

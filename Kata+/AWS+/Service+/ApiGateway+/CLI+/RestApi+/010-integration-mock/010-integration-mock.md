@@ -27,31 +27,21 @@ Create a REST API with a Mock integration.
     	```
     3. Create a Method Response:
 		```shell
-		aws apigateway put-method-response \
-	  		--rest-api-id $API_ID \
-	  		--resource-id $RESOURCE_ID \
-	  		--http-method GET \
-	  		--status-code 200 \
+		aws apigateway put-method-response --rest-api-id $API_ID --resource-id $RESOURCE_ID \
+	  		--http-method GET --status-code 200 \
 	  		--response-models '{"application/json":"Empty"}'
 		```
 	4. Create a Mock Integration:
 		1. Create Integration:
 			```shell
-			aws apigateway put-integration \
-				--rest-api-id $API_ID \
-				--resource-id $RESOURCE_ID \
-				--http-method GET \
-				--type MOCK \
+			aws apigateway put-integration --rest-api-id $API_ID --resource-id $RESOURCE_ID \
+				--http-method GET --type MOCK \
 				--request-templates '{"application/json":"{\"statusCode\": 200}"}'
 			```
 		2. Create an Integration Response:
 			```shell
-			aws apigateway put-integration-response \
-				--rest-api-id $API_ID \
-				--resource-id $RESOURCE_ID \
-				--http-method GET \
-				--status-code 200 \
-				--selection-pattern "" \
+			aws apigateway put-integration-response --rest-api-id $API_ID --resource-id $RESOURCE_ID \
+				--http-method GET --status-code 200 \
 				--response-templates '{"application/json":"{\"message\": \"This is a mock response\"}"}'
 			```
 5. Deploy API: `aws apigateway create-deployment --rest-api-id $API_ID --stage-name $STAGE_NAME`
@@ -66,3 +56,4 @@ Create a REST API with a Mock integration.
 
 ## History
 - 2025-10-20 success
+- 2026-02-22 success

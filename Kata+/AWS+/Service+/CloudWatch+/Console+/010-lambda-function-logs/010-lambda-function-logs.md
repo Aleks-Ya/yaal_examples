@@ -12,16 +12,17 @@ Display logs produced by a Lambda Function.
 	5. Code:
 		```python
 		import logging
-	
+		from logging import Logger
+
 		def lambda_handler(event, context):
-	    	logger = logging.getLogger()
-	    	logger.setLevel(logging.DEBUG)
-	    	logger.critical('Critical logging message')
-	    	logger.error('Error logging message')
-	    	logger.warning('Warning logging message')
-	    	logger.info('Info logging message')
-	    	logger.debug('Debug logging message')
-	    	return "Finished"
+			logger: Logger = logging.getLogger()
+			logger.setLevel(logging.DEBUG)
+			logger.critical('Critical logging message')
+			logger.error('Error logging message')
+			logger.warning('Warning logging message')
+			logger.info('Info logging message')
+			logger.debug('Debug logging message')
+			return "Finished"
 		```
 	6. Deploy the function
 	7. Test the function

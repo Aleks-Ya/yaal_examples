@@ -1,4 +1,4 @@
-# 020-integration-lambda
+# 030-integration-lambda
 
 ## Task
 Create a REST API with a Lambda Function integration.
@@ -16,10 +16,14 @@ Create a REST API with a Lambda Function integration.
 	export F_ARN=arn:aws:lambda:$REGION:$ACCOUNT:function:$F_NAME
 	export API_NAME=kata-api-integration-lambda
 	export STAGE_NAME=test
+	export POLICY=arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
 	```
 4. Create a Lambda Function
 	1. Create an Execution Role:
-		`aws iam create-role --role-name $ROLE --assume-role-policy-document file://trust-policy.json`
+		```shell
+		aws iam create-role --role-name $ROLE --assume-role-policy-document file://trust-policy.json
+		aws iam attach-role-policy --role-name $ROLE --policy-arn $POLICY
+		```
 	2. Create a Deployment Package: `zip deployment-package.zip handler.py`
 	3. Create a function:
 		```shell
@@ -57,16 +61,14 @@ Create a REST API with a Lambda Function integration.
 				--integration-http-method POST \
 				--uri "arn:aws:apigateway:$REGION:lambda:path/2015-03-31/functions/$F_ARN/invocations"
 			```
-		2. (?) Grant permissions:
+		2. Grant permissions:
 			```shell
 			aws lambda add-permission \
-			  --function-name "$F_NAME" \
-			  --statement-id "apigw-${API_ID}-get-3" \
-			  --action lambda:InvokeFunction \
-			  --principal apigateway.amazonaws.com \
-			  --source-arn "$F_ARN/*"
-
-			  --source-arn "arn:aws:execute-api:$REGION:$ACCOUNT_ID:$API_ID/*/GET/*"
+				--function-name "$F_NAME" \
+				--statement-id "apigw-${API_ID}-get-7" \
+				--action lambda:InvokeFunction \
+				--principal apigateway.amazonaws.com \
+				--source-arn "arn:aws:execute-api:$REGION:$ACCOUNT:$API_ID/*"
 			```
 5. Deploy API: `aws apigateway create-deployment --rest-api-id $API_ID --stage-name $STAGE_NAME`
 6. Test API
@@ -75,7 +77,13 @@ Create a REST API with a Lambda Function integration.
 
 ## Cleanup
 1. Delete the API: `aws apigateway delete-rest-api --rest-api-id $API_ID`
-2. Delete the Function
-2. Close the terminal
+2. Delete the Function: `aws lambda delete-function --function-name $F_NAME`
+3. Delete Execution Role: 
+	```shell
+	aws iam detach-role-policy --role-name $ROLE --policy $POLICY
+	aws iam delete-role --role-name $ROLE
+	```
+4. Close the terminal
 
 ## History
+- 2026-02-22 success

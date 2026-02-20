@@ -9,18 +9,20 @@ Create a hello-world function using AWS CLI as the Root User.
 3. Set environment variables
 	```shell
 	set -x
-	export ROLE=kata-role-create-function-root
+	export ACCOUNT=523633434047
+	export ROLE_NAME=kata-role-create-function-root
+	export ROLE_ARN=arn:aws:iam::$ACCOUNT:role/$ROLE_NAME
 	export FUNCTION=kata-f-create-function-root
 	```
 4. Create an Execution Role:
-	`aws iam create-role --role-name $ROLE --assume-role-policy-document file://trust-policy.json`
+	`aws iam create-role --role-name $ROLE_NAME --assume-role-policy-document file://trust-policy.json`
 5. Create a Deployment Package: `zip deployment-package.zip handler.py`
 6. Create a function:
 	```shell
 	aws lambda create-function \
 		--function-name $FUNCTION \
 		--runtime python3.14 \
-		--role arn:aws:iam::523633434047:role/$ROLE\
+		--role $ROLE_ARN \
 		--handler handler.lambda_handler \
 		--zip-file fileb://deployment-package.zip
 	```
@@ -29,7 +31,7 @@ Create a hello-world function using AWS CLI as the Root User.
 
 ## Cleanup
 1. Delete Function: `aws lambda delete-function --function-name $FUNCTION`
-2. Delete execution role: `aws iam delete-role --role-name $ROLE`
+2. Delete execution role: `aws iam delete-role --role-name $ROLE_NAME`
 3. Delete deployment package: `rm deployment-package.zip`
 4. Close the terminal
 
