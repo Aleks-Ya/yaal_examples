@@ -1,15 +1,16 @@
-# 010-integration-mock
+# 050-integration-http
 
 ## Task
-Create a **REST** API with a Mock integration.
+Create a **REST** API with an HTTP integration.
 
 ## Steps
 1. Open a new terminal
 2. Set environment variables
 	```shell
 	set -x
-	export API_NAME=kata-api-integration-mock
+	export API_NAME=kata-api-integration-http
 	export STAGE_NAME=test
+	export BACKEND=https://httpbin.io/uuid
 	```
 3. Create a REST API: 
 	1. Create API: `aws apigateway create-rest-api --name $API_NAME`
@@ -28,21 +29,20 @@ Create a **REST** API with a Mock integration.
     3. Create a Method Response:
 		```shell
 		aws apigateway put-method-response --rest-api-id $API_ID --resource-id $RESOURCE_ID \
-	  		--http-method GET --status-code 200 \
-	  		--response-models '{"application/json":"Empty"}'
+	  		--http-method GET --status-code 200
 		```
-	4. Create a Mock Integration:
+	4. Create an HTTP Integration:
 		1. Create Integration:
 			```shell
 			aws apigateway put-integration --rest-api-id $API_ID --resource-id $RESOURCE_ID \
-				--http-method GET --type MOCK \
-				--request-templates '{"application/json":"{\"statusCode\": 200}"}'
+				--http-method GET --type HTTP_PROXY \
+				--integration-http-method GET \
+				--uri $BACKEND
 			```
 		2. Create an Integration Response:
 			```shell
 			aws apigateway put-integration-response --rest-api-id $API_ID --resource-id $RESOURCE_ID \
-				--http-method GET --status-code 200 \
-				--response-templates '{"application/json":"{\"message\": \"This is a mock response\"}"}'
+				--http-method GET --status-code 200
 			```
 5. Deploy API: `aws apigateway create-deployment --rest-api-id $API_ID --stage-name $STAGE_NAME`
 6. Test API
@@ -55,5 +55,4 @@ Create a **REST** API with a Mock integration.
 2. Close the terminal
 
 ## History
-- 2025-10-20 success
 - 2026-02-22 success

@@ -14,7 +14,11 @@ Minify (compress, compact) JSON: `echo '{"f1": "abc"}' | jq -c .`
 
 ## Update
 Replace field value: `echo '{"name": "John","age":30,"working":true}' | jq '.name = "Mary" | .age = 25'`
-Replace value in array: `echo '{"people":[{"name": "John","age":30,"working":true}]}' | jq '.people[0].name = "Mary" | .people[0].age = 25'`
+Replace value in array: 
+	`echo '{"people":[{"name": "John","age":30,"working":true}]}' | jq '.people[0].name = "Mary" | .people[0].age = 25'`
+Substitute JSON file into another JSON file: 
+- as is: `jq --rawfile inner inner.json '.person = $inner' outer.json`
+- minified: `jq --arg inner "$(jq -c . inner.json)" '.person = $inner' outer.json`
 
 ## Array
 Extract fiels from an array: `echo '{"ids":[{"id":"11"},{"id":"22"}]}' | jq .ids[].id`

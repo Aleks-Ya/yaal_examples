@@ -1,15 +1,16 @@
-# 010-integration-mock
+# 060-cache
 
 ## Task
-Create a **REST** API with a Mock integration.
+Use caching of a **REST** API.
 
 ## Steps
 1. Open a new terminal
 2. Set environment variables
 	```shell
 	set -x
-	export API_NAME=kata-api-integration-mock
+	export API_NAME=kata-api-cache
 	export STAGE_NAME=test
+	export BACKEND=https://httpbin.io/uuid
 	```
 3. Create a REST API: 
 	1. Create API: `aws apigateway create-rest-api --name $API_NAME`
@@ -28,32 +29,43 @@ Create a **REST** API with a Mock integration.
     3. Create a Method Response:
 		```shell
 		aws apigateway put-method-response --rest-api-id $API_ID --resource-id $RESOURCE_ID \
-	  		--http-method GET --status-code 200 \
-	  		--response-models '{"application/json":"Empty"}'
+	  		--http-method GET --status-code 200
 		```
-	4. Create a Mock Integration:
+	4. Create an HTTP Integration:
 		1. Create Integration:
 			```shell
 			aws apigateway put-integration --rest-api-id $API_ID --resource-id $RESOURCE_ID \
-				--http-method GET --type MOCK \
-				--request-templates '{"application/json":"{\"statusCode\": 200}"}'
+				--http-method GET --type HTTP_PROXY \
+				--integration-http-method GET \
+				--uri $BACKEND
 			```
 		2. Create an Integration Response:
 			```shell
 			aws apigateway put-integration-response --rest-api-id $API_ID --resource-id $RESOURCE_ID \
-				--http-method GET --status-code 200 \
-				--response-templates '{"application/json":"{\"message\": \"This is a mock response\"}"}'
+				--http-method GET --status-code 200
 			```
 5. Deploy API: `aws apigateway create-deployment --rest-api-id $API_ID --stage-name $STAGE_NAME`
-6. Test API
+6. Test API withou caching:
 	1. Get Region: `export REGION=$(aws configure get region)`
 	2. Constract Invoke URL: `export STAGE_URL="https://$API_ID.execute-api.$REGION.amazonaws.com/$STAGE_NAME"`
 	3. Invoke Stage: `curl -i $STAGE_URL`
+7. Enable caching:
+	1. Enable caching for Stage:
+		```shell
+		aws apigateway update-stage --rest-api-id $API_ID --stage-name $STAGE_NAME \
+			--patch-operations \
+				op=replace,path=/cacheClusterEnabled,value=true \
+				op=replace,path=/cacheClusterSize,value=0.5 \
+				op=replace,path=/*/*/caching/enabled,value=true \
+				op=replace,path=/*/*/caching/ttlInSeconds,value=5
+		```	
+	2. Test twice: `curl -i $STAGE_URL`
+	3. Wait cache invalidation: `sleep 5`
+	4. Test twice new value: `curl -i $STAGE_URL`
 
 ## Cleanup
 1. Delete the API: `aws apigateway delete-rest-api --rest-api-id $API_ID`
 2. Close the terminal
 
 ## History
-- 2025-10-20 success
 - 2026-02-22 success

@@ -1,0 +1,1 @@
+{"application/json":"{\"message\":\"This is a mock response\",\"requestTime\":\"$context.requestTime\"}"}
