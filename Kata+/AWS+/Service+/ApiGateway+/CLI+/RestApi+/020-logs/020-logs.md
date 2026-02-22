@@ -30,30 +30,23 @@ See logs of a REST API.
 			export RESOURCE_ID=$(aws apigateway get-resources --rest-api-id $API_ID \
 				--query "items[?path=='/'].id" --output text)
 			```
-    	2. Create Method: 
+    	2. Create a Method: 
     		```shell
     		aws apigateway put-method --rest-api-id $API_ID --resource-id $RESOURCE_ID \
     			--http-method GET --authorization-type NONE
-    		```
-    	3. Create a Method Response:
-			```shell
 			aws apigateway put-method-response --rest-api-id $API_ID --resource-id $RESOURCE_ID \
 	  			--http-method GET --status-code 200 \
 	  			--response-models '{"application/json":"Empty"}'
+    		```
+		3. Create a Mock Integration:
+			```shell
+			aws apigateway put-integration --rest-api-id $API_ID --resource-id $RESOURCE_ID \
+				--http-method GET --type MOCK \
+				--request-templates '{"application/json":"{\"statusCode\": 200}"}'
+			aws apigateway put-integration-response --rest-api-id $API_ID --resource-id $RESOURCE_ID \
+				--http-method GET --status-code 200 \
+				--response-templates '{"application/json":"{\"message\": \"This is a mock response\"}"}'
 			```
-		4. Create a Mock Integration:
-			1. Create Integration:
-				```shell
-				aws apigateway put-integration --rest-api-id $API_ID --resource-id $RESOURCE_ID \
-					--http-method GET --type MOCK \
-					--request-templates '{"application/json":"{\"statusCode\": 200}"}'
-				```
-			2. Create an Integration Response:
-				```shell
-				aws apigateway put-integration-response --rest-api-id $API_ID --resource-id $RESOURCE_ID \
-					--http-method GET --status-code 200 \
-					--response-templates '{"application/json":"{\"message\": \"This is a mock response\"}"}'
-				```
 	4. Deploy API: `aws apigateway create-deployment --rest-api-id $API_ID --stage-name $STAGE_NAME`
 6. Enable logging for Stage:
 	```shell

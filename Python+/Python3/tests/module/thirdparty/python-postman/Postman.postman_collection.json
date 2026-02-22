@@ -1,0 +1,231 @@
+{
+  "info": {
+    "_postman_id": "740e9ba3-5518-4767-98db-197ead726681",
+    "name": "Postman",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "1194930",
+    "_collection_link": "https://go.postman.co/collection/1194930-740e9ba3-5518-4767-98db-197ead726681?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Scripts",
+      "item": [
+        {
+          "name": "Set collection variable in script",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "const host = jsonData.headers.Host",
+                  "const expValue = \"httpbin.org\"",
+                  "const var_name = \"variable_set_from_test\"",
+                  "pm.collectionVariables.set(var_name, host);",
+                  "const actValue = pm.collectionVariables.get(var_name)",
+                  "pm.expect(actValue).to.eql(expValue)"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://httpbin.org/get",
+              "protocol": "https",
+              "host": [
+                "httpbin",
+                "org"
+              ],
+              "path": [
+                "get"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Log",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// First, open the Postman control (\"View -> Show Postman console\"s)",
+                  "console.log(\"This is a log message\");",
+                  "const n = 42;",
+                  "console.log(`The \"magic\" number is '${n}'`)"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://httpbin.io/get",
+              "protocol": "https",
+              "host": [
+                "httpbin",
+                "io"
+              ],
+              "path": [
+                "get"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Print env vars",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Env varialbes are from Postman environment, not from OS environment",
+                  "console.log(pm.environment.toObject());"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://httpbin.org/get",
+              "protocol": "https",
+              "host": [
+                "httpbin",
+                "org"
+              ],
+              "path": [
+                "get"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify HTTP status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Status code is <300\", function () {",
+                  "    pm.expect(pm.response.code).to.be.below(300);",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://httpbin.org/get",
+              "protocol": "https",
+              "host": [
+                "httpbin",
+                "org"
+              ],
+              "path": [
+                "get"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify response JSON body",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Extract a Text Field from JSON body\", function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.slideshow.title).to.eql(\"Sample Slide Show\")",
+                  "});",
+                  "",
+                  "pm.test(\"Extract an Array Element from JSON body\", function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.slideshow.slides[0].title).to.eql(\"Wake up to WonderWidgets!\")",
+                  "});",
+                  "",
+                  "pm.test(\"Check Array size in JSON body\", function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.slideshow.slides.length).to.eql(2)",
+                  "});",
+                  "",
+                  "pm.test(\"Error field is null\", function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.error).to.be.null",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://httpbin.org/json",
+              "protocol": "https",
+              "host": [
+                "httpbin",
+                "org"
+              ],
+              "path": [
+                "json"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Get request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://httpbin.io/get",
+          "protocol": "https",
+          "host": [
+            "httpbin",
+            "io"
+          ],
+          "path": [
+            "get"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "variable_set_from_test",
+      "value": ""
+    }
+  ]
+}

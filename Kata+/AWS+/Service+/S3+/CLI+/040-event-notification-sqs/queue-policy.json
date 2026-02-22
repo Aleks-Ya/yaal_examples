@@ -1,21 +1,17 @@
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "Statement1",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "s3.amazonaws.com"
-      },
-      "Action": [
-        "sqs:SendMessage"
-      ],
-      "Resource": "arn:aws:sqs:us-east-1:523633434047:kata-q-event-notification-sqs",
-      "Condition": {
-        "ArnLike": {
-          "aws:SourceArn": "arn:aws:s3:::kata-bucket-event-notification-sqs"
+    "Version": "2012-10-17", 
+    "Statement": [
+        {
+            "Sid": "Statement1", 
+            "Effect": "Allow", 
+            "Principal": {"Service": "s3.amazonaws.com"}, 
+            "Action": ["sqs:SendMessage"], 
+            "Resource": "arn:aws:sqs:us-east-1:523633434047:kata-q-event-notification-sqs", 
+            "Condition": {
+                "ArnLike": {
+                    "aws:SourceArn": "arn:aws:s3:::kata-bucket-event-notification-sqs"
+                }
+            }
         }
-      }
-    }
-  ]
+    ]
 }

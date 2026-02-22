@@ -21,31 +21,22 @@ Use caching of a **REST** API.
 		export RESOURCE_ID=$(aws apigateway get-resources --rest-api-id $API_ID \
 			--query "items[?path=='/'].id" --output text)
 		```
-    2. Create Method: 
+    2. Create a Method: 
     	```shell
     	aws apigateway put-method --rest-api-id $API_ID --resource-id $RESOURCE_ID \
     		--http-method GET --authorization-type NONE
-    	```
-    3. Create a Method Response:
-		```shell
 		aws apigateway put-method-response --rest-api-id $API_ID --resource-id $RESOURCE_ID \
 	  		--http-method GET --status-code 200
+    	```
+	3. Create an Integration:
+		```shell
+		aws apigateway put-integration --rest-api-id $API_ID --resource-id $RESOURCE_ID \
+			--http-method GET --type HTTP_PROXY --integration-http-method GET --uri $BACKEND
+		aws apigateway put-integration-response --rest-api-id $API_ID --resource-id $RESOURCE_ID \
+			--http-method GET --status-code 200
 		```
-	4. Create an HTTP Integration:
-		1. Create Integration:
-			```shell
-			aws apigateway put-integration --rest-api-id $API_ID --resource-id $RESOURCE_ID \
-				--http-method GET --type HTTP_PROXY \
-				--integration-http-method GET \
-				--uri $BACKEND
-			```
-		2. Create an Integration Response:
-			```shell
-			aws apigateway put-integration-response --rest-api-id $API_ID --resource-id $RESOURCE_ID \
-				--http-method GET --status-code 200
-			```
 5. Deploy API: `aws apigateway create-deployment --rest-api-id $API_ID --stage-name $STAGE_NAME`
-6. Test API withou caching:
+6. Test API without caching:
 	1. Get Region: `export REGION=$(aws configure get region)`
 	2. Constract Invoke URL: `export STAGE_URL="https://$API_ID.execute-api.$REGION.amazonaws.com/$STAGE_NAME"`
 	3. Invoke Stage: `curl -i $STAGE_URL`
@@ -59,9 +50,10 @@ Use caching of a **REST** API.
 				op=replace,path=/*/*/caching/enabled,value=true \
 				op=replace,path=/*/*/caching/ttlInSeconds,value=5
 		```	
-	2. Test twice: `curl -i $STAGE_URL`
-	3. Wait cache invalidation: `sleep 5`
-	4. Test twice new value: `curl -i $STAGE_URL`
+	2. Wait for `AVAILABLE` cache status: `aws apigateway get-stage --rest-api-id $API_ID --stage-name $STAGE_NAME`
+	3. Test twice: `curl -i $STAGE_URL`
+	4. Wait cache invalidation: `sleep 5`
+	5. Test twice new value: `curl -i $STAGE_URL`
 
 ## Cleanup
 1. Delete the API: `aws apigateway delete-rest-api --rest-api-id $API_ID`

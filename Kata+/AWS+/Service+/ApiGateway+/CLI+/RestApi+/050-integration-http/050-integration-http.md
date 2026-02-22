@@ -35,9 +35,7 @@ Create a **REST** API with an HTTP integration.
 		1. Create Integration:
 			```shell
 			aws apigateway put-integration --rest-api-id $API_ID --resource-id $RESOURCE_ID \
-				--http-method GET --type HTTP_PROXY \
-				--integration-http-method GET \
-				--uri $BACKEND
+				--http-method GET --type HTTP_PROXY --integration-http-method GET --uri $BACKEND
 			```
 		2. Create an Integration Response:
 			```shell
@@ -45,7 +43,7 @@ Create a **REST** API with an HTTP integration.
 				--http-method GET --status-code 200
 			```
 5. Deploy API: `aws apigateway create-deployment --rest-api-id $API_ID --stage-name $STAGE_NAME`
-6. Test API
+6. Test API:
 	1. Get Region: `export REGION=$(aws configure get region)`
 	2. Constract Invoke URL: `export STAGE_URL="https://$API_ID.execute-api.$REGION.amazonaws.com/$STAGE_NAME"`
 	3. Invoke Stage: `curl -i $STAGE_URL`

@@ -1,7 +1,6 @@
 # 030-dead-letter-queue
 
 ## Task
-Status: ?
 Create a Queue #1 intended to be a DLQ. Create another Queue #2 which uses Queue #1 as DLQ.
 Simulate error during message consuming to trigger sending the error message to the DLQ.
 

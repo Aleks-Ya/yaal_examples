@@ -1,7 +1,6 @@
 # 020-lambda-producer-consumer
 
 ## Task
-Status: ?
 Create two Python Lambda Functions: produces a message to a Queue and consumes the message.
 
 ## Steps
@@ -97,8 +96,12 @@ Create two Python Lambda Functions: produces a message to a Queue and consumes t
     3. Test the Function
 
 ## Cleanup
-1. Delete Lambda Functions: `kata-f-lambda-producer-consumer-consumer` and `kata-f-lambda-producer-consumer-producer`
-2. Delete Execution Roles: `kata-f-lambda-producer-consumer-producer-role-` and `kata-f-lambda-producer-consumer-consumer-role-`
+1. Delete Lambda Functions: 
+    1. `kata-f-lambda-producer-consumer-consumer` 
+    2. `kata-f-lambda-producer-consumer-producer`
+2. Delete Execution Roles:
+    1. `kata-f-lambda-producer-consumer-producer-role-` 
+    2. `kata-f-lambda-producer-consumer-consumer-role-`
 3. Delete Queue: `kata-q-lambda-producer-consumer`
 
 # History

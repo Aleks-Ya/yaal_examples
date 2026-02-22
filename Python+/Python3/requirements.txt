@@ -139,6 +139,7 @@ openpyxl
 rich
 pyperclip
 pydiscourse
+python_postman
 
 --extra-index-url https://opensource.tbank.ru/api/v4/projects/238/packages/pypi/simple
 t-tech-investments

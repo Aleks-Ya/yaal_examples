@@ -28,7 +28,7 @@ aws s3api put-bucket-encryption \
 Download file from S3: `aws s3api get-object --bucket qwasceitnsuryw7 --key my1/bye.txt /tmp/bye.txt`
 Delete S3 object: `aws s3api delete-object --bucket qwasceitnsuryw7 --key my1/`
 Upload a file to S3:
-```
+```shell
 aws s3api put-object --bucket yaal-test-bucket --key my_texts/bye.txt --body /tmp/bye.txt
 #Link to the object: https://yaal-test-bucket.s3.eu-central-1.amazonaws.com/my_texts/bye.txt
 ```

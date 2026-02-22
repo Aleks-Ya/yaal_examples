@@ -34,7 +34,6 @@ Create a **REST** API with two Stages pointing to different versions of a Mock i
     	2. Test stage 2: `curl https://041f3eslx5.execute-api.us-east-1.amazonaws.com/stage2/`
     	3. Test stage 1: `curl https://041f3eslx5.execute-api.us-east-1.amazonaws.com/stage1/`
 
-
 ## Cleanup
 1. Delete API: `kata-api-stages-mock`
 

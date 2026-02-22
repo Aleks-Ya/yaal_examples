@@ -1,0 +1,13 @@
+{
+    "Version":"2012-10-17",              
+    "Statement" : [
+    {
+        "Effect": "Allow",
+        "Principal" : { "AWS": "*" },
+        "Action" : "*",
+        "Resource" : [ "arn:aws:s3:::kata-bucket-access-point", "arn:aws:s3:::kata-bucket-access-point/*"],
+        "Condition": {
+            "StringEquals" : { "s3:DataAccessPointAccount" : "523633434047" }
+        }
+    }]
+}

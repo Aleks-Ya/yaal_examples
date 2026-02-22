@@ -3,7 +3,11 @@
 ## Info
 GitHub: https://github.com/masaccio/compact-json
 
+## Install
 Install: `pip3 install -U compact-json`
+Shortcut:
+1. Install: in `~/.bashrc`: `cj() { compact-json "$1" > "$1.tmp" && mv "$1.tmp" "$1"; }`
+2. Usage: `cj my.json`
 
 ## Commands
 Help: `compact-json --help`

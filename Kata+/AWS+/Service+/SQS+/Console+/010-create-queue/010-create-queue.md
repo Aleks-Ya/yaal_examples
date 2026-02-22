@@ -1,7 +1,6 @@
 # 010-create-queue
 
 ## Task
-Status: success
 Create a Queue, produce and consume message from it.
 
 ## Steps
@@ -12,10 +11,10 @@ Create a Queue, produce and consume message from it.
 	1. Click `Send and receive messages`
 	2. Send message
 	3. Poll for messages
-	4. Delete received messages (as sign of successul processing)
+	4. Delete received messages (as a sign of successul processing)
 
 ## Cleanup
 1. Delete Queue `kata-q-create-queue`
 
 # History
-- 2025-10-23
+- 2025-10-23 success
