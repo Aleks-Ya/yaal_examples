@@ -22,3 +22,12 @@ def test_topic_by_id(anonymous_anki_forum_client: DiscourseClient):
     topic: dict = anonymous_anki_forum_client.topic(slug, topic_id)
     assert topic is not None
     print(f"- {topic['title']} (ID: {topic['id']}, Last post: {topic['last_posted_at']})")
+
+
+def test_number_of_posts_in_topic(anonymous_anki_forum_client: DiscourseClient):
+    slug: str = "note-size-addon-support"
+    topic_id: int = 46001
+    topic: dict = anonymous_anki_forum_client.topic(slug, topic_id)
+    num_posts: int = topic["posts_count"]
+    print(f"Number of posts in topic {topic_id}: {num_posts}")
+    assert num_posts > 0

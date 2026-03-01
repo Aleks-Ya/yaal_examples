@@ -28,3 +28,25 @@ export AWS_ACCESS_KEY_ID=$(echo $CREDS | jq -r '.Credentials.AccessKeyId')
 export AWS_SECRET_ACCESS_KEY=$(echo $CREDS | jq -r '.Credentials.SecretAccessKey')
 export AWS_SESSION_TOKEN=$(echo $CREDS | jq -r '.Credentials.SessionToken')
 ```
+
+## Model Invocation Job
+List all jobs: `aws bedrock list-model-invocation-jobs`
+List in-progress jobs: `aws bedrock list-model-invocation-jobs --status InProgress`
+Get job ID by job name:
+```shell
+aws bedrock list-model-invocation-jobs \
+  --query "modelInvocationJobSummaries[?jobName=='MY_JOB_NAME'].[jobArn]" \
+  --output text
+```
+Get job: `aws bedrock get-model-invocation-job --job-identifier <job-id>`
+Create a model invocation job:
+```shell
+aws bedrock create-model-invocation-job \
+  --job-name my-batch-job \
+  --role-arn arn:aws:iam::<account-id>:role/<bedrock-batch-role> \
+  --model-id <foundation-model-id> \
+  --input-data-config s3Uri=s3://<bucket>/<input-prefix>/,s3InputFormat=JSONL \
+  --output-data-config s3Uri=s3://<bucket>/<output-prefix>/
+```
+Cancel a job: `aws bedrock cancel-model-invocation-job --job-identifier <JOB_ID>`
+	

@@ -1,9 +1,14 @@
+import tempfile
 from tempfile import mkstemp
 from pathlib import Path
 from typing import Optional
 
 
 class TempPath:
+    @staticmethod
+    def dir_exists() -> Path:
+        return Path(tempfile.mkdtemp())
+
     @staticmethod
     def temp_path_absent(suffix: Optional[str] = ".tmp") -> Path:
         return TempPath.__temp_path_absent(suffix=suffix)

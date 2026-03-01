@@ -1,0 +1,31 @@
+id: org.kata.RunGitFromHost
+runtime: org.freedesktop.Platform
+runtime-version: '25.08'
+sdk: org.freedesktop.Sdk
+command: hello
+finish-args:
+  - --talk-name=org.freedesktop.Flatpak
+modules:
+  - name: host-git-wrapper
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 git-host-wrapper.sh /app/bin/git
+    sources:
+      - type: script
+        dest-filename: git-host-wrapper.sh
+        commands:
+          - '#!/bin/sh'
+          - 'exec flatpak-spawn --host git "$@"'
+  - name: hello
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 hello.sh /app/bin/hello
+    sources:
+      - type: script
+        dest-filename: hello.sh
+        commands:
+          - set -x
+          - echo "Hello from Kata RunGitFromHost"
+          - git --version
+          - whereis git
+          - ls -l /app/bin

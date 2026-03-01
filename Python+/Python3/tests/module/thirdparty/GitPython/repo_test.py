@@ -1,37 +1,16 @@
-from datetime import datetime
+from pathlib import Path
 
-import pytest
-from git import Repo, TagReference, Commit
+from git import Repo
 
-
-@pytest.fixture
-def repo():
-    return Repo(".", search_parent_directories=True)
+from temp_helper import TempPath
 
 
-def test_get_repo(repo):
-    assert not repo.bare
+def test_get_repo(yaal_examples_repo: Repo):
+    assert not yaal_examples_repo.bare
 
 
-def test_get_tag(repo):
-    tag: TagReference = repo.tag("tmp_tag_1")
-    assert "Tmp_Tag_1" == tag.name.title()
-
-
-def test_is_tag_exists(repo):
-    tag: TagReference = repo.tag("absent_tag")
-    exists = tag in repo.tags
-    assert not exists
-
-
-def test_get_tag_commit_time(repo):
-    tag: TagReference = repo.tag("tmp_tag_1")
-    tag_time: datetime = tag.commit.committed_datetime
-    tag_time_epoch_sec: int = int(tag_time.timestamp())
-    assert "2024-06-16 09:09:53+07:00" == str(tag_time)
-    assert 1718503793 == tag_time_epoch_sec
-
-
-def test_get_latest_commit_in_current_branch(repo):
-    head: Commit = repo.head.commit
-    print(f"Latest commit: {head}")
+def test_create_repo():
+    repo_dir: Path = TempPath.dir_exists()
+    print(f"repo_dir: {repo_dir}")
+    repo: Repo = Repo.init(repo_dir)
+    assert repo.working_dir == str(repo_dir)
