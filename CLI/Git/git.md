@@ -106,6 +106,9 @@ List remote repos with URLs: `git remote -v`
 Set URL for a remote repo: `git remote set-url origin file://project.git`
 Add a remote repo: `git remote add origin file://project.git`
 
+## Fetch
+Fetch given remote repo: `git fetch cloned`
+
 ## Push
 Delete a tag in a remote repo: `git push -d origin v1.0`
 Auto assign tracking branches: `git config push.autoSetupRemote true`

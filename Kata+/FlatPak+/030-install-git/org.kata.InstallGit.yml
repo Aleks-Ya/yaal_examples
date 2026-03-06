@@ -1,21 +1,21 @@
-id: org.kata.RunGitFromHost
+id: org.kata.InstallGit
 runtime: org.freedesktop.Platform
 runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 command: print-git-details
+build-options:
+  no-debuginfo: true  #Prevents "Read-only file system" warning
 finish-args:
   - --talk-name=org.freedesktop.Flatpak
 modules:
-  - name: host-git-wrapper
-    buildsystem: simple
-    build-commands:
-      - install -Dm755 git-host-wrapper.sh /app/bin/git
+  - name: git
+    buildsystem: autotools
+    config-opts:
+      - --prefix=/app
     sources:
-      - type: script
-        dest-filename: git-host-wrapper.sh
-        commands:
-          - '#!/bin/sh'
-          - 'exec flatpak-spawn --host git "$@"'
+      - type: archive
+        url: https://www.kernel.org/pub/software/scm/git/git-2.53.0.tar.xz
+        sha256: 5818bd7d80b061bbbdfec8a433d609dc8818a05991f731ffc4a561e2ca18c653
   - name: create-print-git-details-script
     buildsystem: simple
     build-commands:
