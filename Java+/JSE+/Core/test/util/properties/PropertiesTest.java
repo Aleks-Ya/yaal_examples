@@ -33,6 +33,7 @@ class PropertiesTest {
         actual.load(resourceToInputStream("util/properties/multiline.properties"));
         assertThat(actual).containsEntry("single.line.value", "Hello, Properties!");
         assertThat(actual).containsEntry("multi.line.value", "Hello, Properties!");
+        assertThat(actual).containsEntry("multi.line.value.empty.first.line", "Hello, Line!");
     }
 
     @Test

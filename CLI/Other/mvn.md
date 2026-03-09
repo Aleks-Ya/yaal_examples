@@ -7,9 +7,9 @@ Debug log level: `mvn -X`
 
 ## Dependencies
 Print the dependency tree to a file: `mvn dependency:tree -DoutputFile=target/tree.txt`
-Download an artifact from the remote repo to the local repo:
+Download an artifact from the remote repo (`https://repo.maven.apache.org/maven2`) to the local repo:
 ```shell
-mvn dependency:get -Dartifact=org.apache.orc:orc-tools:1.6.2
+mvn dependency:get -Dartifact=org.apache.orc:orc-tools:2.3.0
 ```
 Download an artifact from the remote repo to local and copy it to a directory (path to target dir is created if absent):
 ```shell
@@ -50,13 +50,13 @@ Generate effective Settings: `mvn help:effective-settings`
 Print lifecycle which includes given phase: `mvn help:describe -Dcmd=install`
 List goals in a plugin: `mvn help:describe -Dplugin=central-publishing -Dfull`
 
-## Tests
+## Test
 Compile tests: `mvn test-compile`
 Skip tests: `mvn -DskipTests package`
 Run single test class: `mvn -Dtest="my.code.MyTest" test`
 Run several test classes: `mvn -Dtest="my.code.FirstTest,my.code.SecondTest" test`
 
-## Prifles
+## Profile
 Print active profiles: `mvn help:active-profiles`
 
 ## Archetype

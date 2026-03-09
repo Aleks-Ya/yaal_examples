@@ -1,4 +1,4 @@
-id: org.kata.Hello
+id: org.kata.BuildApp
 runtime: org.freedesktop.Platform
 runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
@@ -12,4 +12,4 @@ modules:
       - type: script
         dest-filename: hello.sh
         commands:
-          - echo "Hello from Kata Hello"
+          - echo "Hello from Kata BuildApp"
