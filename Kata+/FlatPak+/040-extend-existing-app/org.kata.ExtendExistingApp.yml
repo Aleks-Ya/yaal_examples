@@ -1,0 +1,4 @@
+include:
+  - ./shared-modules.yaml
+modules:
+  - bye-module.yml

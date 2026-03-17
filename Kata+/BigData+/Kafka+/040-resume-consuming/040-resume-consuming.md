@@ -26,8 +26,10 @@ Stop a consumer and resume it from the same offset.
 	2. Verify consumer lag (is `0`): `kafka-consumer-groups --describe --group $GROUP`
 
 ## Cleanup
-1. Close 3 terminals
-2. Stop the cluster
+1. Delete the topic: `kafka-topics --delete --topic $TOPIC`
+2. Close 3 terminals
+3. Stop the cluster
 
 ## History
 - 2026-02-13 success
+- 2026-03-23 success

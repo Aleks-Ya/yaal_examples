@@ -25,4 +25,10 @@ class StringUtilsTest {
         var marker = String.format("...(%d)", s.length());
         assertThat(StringUtils.abbreviate(s, marker, 22)).isEqualTo("An intentionall...(35)");
     }
+
+    @Test
+    void difference() {
+        var diff = StringUtils.difference("John drives a car", "John see a car");
+        assertThat(diff).isEqualTo("see a car");
+    }
 }

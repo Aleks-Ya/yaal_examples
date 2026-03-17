@@ -37,7 +37,7 @@ def notify() -> None:
     subprocess.run(["paplay", "/usr/share/sounds/freedesktop/stereo/bell.oga"], check=False)
     subprocess.run(
         ["yad", "--picture", "--fullscreen", "--undecorated", "--size=orig",
-         "--filename=/home/aleks/Pictures/Focus2.png"],
+         "--filename=/home/aleks/pr/home/yaal_examples/Python+/Python3/src/apps/inactivity_time/Focus2.png"],
         check=False
     )
 

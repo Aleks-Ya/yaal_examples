@@ -24,3 +24,4 @@ Create and delete a Kafka topic using Kafka CLI.
 
 ## History
 - 2026-02-13 success
+- 2026-03-23 success

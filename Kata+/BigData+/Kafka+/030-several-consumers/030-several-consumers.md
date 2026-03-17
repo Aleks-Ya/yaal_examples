@@ -28,10 +28,16 @@ Consume messages from a topic by two consumers (in the same and different consum
 	1. Start producer: `kafka-console-producer --topic $TOPIC`
 	2. Type: `abc`
 	3. Stop the producer: Ctrl-D
+8. Verify consumed messages:
+	1. Consumer 1: `abc`
+	2. Consumer 2: `abc`
+	3. Consumer 3: `abc`
+	4. Consumer 4: nothing
 
 ## Cleanup
-1. Close 5 terminals
-2. Stop the cluster
+1. Delete the topic: `kafka-topics --delete --topic $TOPIC`
+2. Close 5 terminals
+3. Stop the cluster
 
 ## History
 - 2026-02-13 success
