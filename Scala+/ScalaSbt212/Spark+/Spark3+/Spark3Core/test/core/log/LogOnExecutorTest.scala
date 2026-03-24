@@ -4,7 +4,7 @@ import factory.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class LogOnExecutor extends AnyFlatSpec with Matchers {
+class LogOnExecutorTest extends AnyFlatSpec with Matchers {
 
   it should "log from mapper" in {
     class Mapper extends Serializable {

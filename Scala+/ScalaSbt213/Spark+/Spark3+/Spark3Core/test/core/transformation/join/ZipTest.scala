@@ -10,7 +10,7 @@ class ZipTest extends AnyFlatSpec with Matchers {
     val numbers = Factory.sc.range(1, 4)
     val chars = Factory.sc.makeRDD("abc".toCharArray)
     val zipped = chars.zip(numbers)
-    zipped.collect() should contain inOrderOnly(('a', 1), ('b', 2), ('c', 3))
+    zipped.collect should contain inOrderOnly(('a', 1), ('b', 2), ('c', 3))
   }
 
 }

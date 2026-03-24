@@ -5,7 +5,7 @@ import org.apache.spark.rdd.RDD
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class ExtractTaskInClass extends AnyFlatSpec with Matchers {
+class ExtractTaskInClassTest extends AnyFlatSpec with Matchers {
 
   it should "put processing RDD into a local class" in {
     class PipelineLocal {

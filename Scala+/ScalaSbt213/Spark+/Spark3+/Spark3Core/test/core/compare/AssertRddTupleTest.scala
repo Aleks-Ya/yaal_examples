@@ -4,10 +4,10 @@ import factory.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class AssertRddTuple extends AnyFlatSpec with Matchers {
+class AssertRddTupleTest extends AnyFlatSpec with Matchers {
 
   it should "use collect()" in {
-    val array = Factory.sc.parallelize(Seq((1, "a"), (2, "b"))).collect()
+    val array = Factory.sc.parallelize(Seq((1, "a"), (2, "b"))).collect
     array should contain inOrderOnly((1, "a"), (2, "b"))
   }
 

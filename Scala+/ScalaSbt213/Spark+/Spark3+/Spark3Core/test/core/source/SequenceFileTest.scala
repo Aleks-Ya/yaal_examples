@@ -19,7 +19,7 @@ class SequenceFileTest extends AnyFlatSpec with Matchers {
     val rdd = Factory.sc.sequenceFile(path, classOf[Text], classOf[IntWritable])
     val list = rdd
       .map { case (x, y) => (x.toString, y.get()) }
-      .collect()
+      .collect
     list should contain inOrderOnly(("key1", 1), ("Kay2", 2))
   }
 }

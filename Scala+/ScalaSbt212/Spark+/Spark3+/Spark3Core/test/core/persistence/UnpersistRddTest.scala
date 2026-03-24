@@ -4,7 +4,7 @@ import factory.Factory
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-class UnpersistRdd extends AnyFlatSpec with Matchers {
+class UnpersistRddTest extends AnyFlatSpec with Matchers {
 
   it should "check is unpersist() recursive" in {
     val sc = Factory.sc

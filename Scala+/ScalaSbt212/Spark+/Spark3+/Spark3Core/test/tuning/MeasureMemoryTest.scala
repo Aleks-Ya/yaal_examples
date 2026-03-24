@@ -17,7 +17,7 @@ class MeasureMemoryTest extends AnyFlatSpec with Matchers {
     SizeEstimator.estimate(data) shouldEqual 32
     SizeEstimator.estimate(rdd) shouldBe >(3000000L)
     SizeEstimator.estimate(rdd) shouldBe <(4000000L)
-    SizeEstimator.estimate(rdd.collect()) shouldEqual 32
+    SizeEstimator.estimate(rdd.collect) shouldEqual 32
     //      .foreach(element => {
     //        println(element)
     //      })

@@ -10,7 +10,8 @@ class NotSerializableTest extends AnyFlatSpec with Matchers {
     class Wrapper(data: Data) extends Serializable
     class Data(text: String)
     val data = Seq(new Wrapper(new Data("a")), new Wrapper(new Data("b")))
-    val list = Factory.sc.parallelize(data).collect()
+    val list = Factory.sc.parallelize(data).collect
     println(list.length)
   }
+
 }

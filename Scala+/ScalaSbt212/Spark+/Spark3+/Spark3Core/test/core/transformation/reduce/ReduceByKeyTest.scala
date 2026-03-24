@@ -1,4 +1,4 @@
-package core.transformation
+package core.transformation.reduce
 
 import factory.Factory
 import org.scalatest.flatspec.AnyFlatSpec
