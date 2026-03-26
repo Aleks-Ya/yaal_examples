@@ -4,7 +4,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark4.core.Factory
 
-class AssertRddNotTuple extends AnyFlatSpec with Matchers {
+class AssertRddNotTupleTest extends AnyFlatSpec with Matchers {
 
   it should "use collect()" in {
     val array = Factory.sc.parallelize(Seq("a", "b", "c")).collect()

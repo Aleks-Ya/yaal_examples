@@ -4,7 +4,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark4.core.Factory
 
-class ListAllPersistedRdd extends AnyFlatSpec with Matchers {
+class ListAllPersistedRddTest extends AnyFlatSpec with Matchers {
 
   it should "enumerate all persisted RDD" in {
     val sc = Factory.sc

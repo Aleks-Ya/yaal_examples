@@ -4,7 +4,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark4.core.Factory
 
-class ReduceAction extends AnyFlatSpec with Matchers {
+class ReduceActionTest extends AnyFlatSpec with Matchers {
 
   it should "convert RDD to a string" in {
     val str = Factory.sc.parallelize(Seq((1, "a"), (2, "b")))

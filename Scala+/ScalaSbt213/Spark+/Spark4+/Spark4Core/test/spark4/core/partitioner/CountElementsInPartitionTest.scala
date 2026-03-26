@@ -1,6 +1,5 @@
 package spark4.core.partitioner
 
-import org.apache.spark.rdd.RDD
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark4.core.Factory
@@ -11,11 +10,8 @@ class CountElementsInPartitionTest extends AnyFlatSpec with Matchers {
   it should "count elements number in each partition" in {
     val rdd = Factory.sc.parallelize(data, numSlices = 2)
     rdd.getNumPartitions shouldBe 2
-    val sizes = partitionSizes(rdd)
+    val sizes = PartitionSize.partitionSizes(rdd)
     sizes should contain only(0 -> 2, 1 -> 3)
   }
-
-  private def partitionSizes(rdd: RDD[(Int, String)]): Map[Int, Int] =
-    rdd.mapPartitionsWithIndex((index, iter) => Iterator(index -> iter.size)).collect().toMap
 
 }

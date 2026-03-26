@@ -4,7 +4,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark4.core.Factory
 
-class PersistRdd extends AnyFlatSpec with Matchers {
+class PersistRddTest extends AnyFlatSpec with Matchers {
 
   it should "persist a RDD" in {
     val sc = Factory.sc

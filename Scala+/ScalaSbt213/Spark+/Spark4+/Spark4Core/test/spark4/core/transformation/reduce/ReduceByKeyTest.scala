@@ -1,4 +1,4 @@
-package spark4.core.transformation
+package spark4.core.transformation.reduce
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
