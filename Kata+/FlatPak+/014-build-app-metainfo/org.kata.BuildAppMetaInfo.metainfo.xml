@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+    <id>org.kata.BuildAppMetaInfo</id>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>MIT</project_license>
+
+    <name>BuildAppMetaInfo</name>
+    <summary>A simple example Flatpak app</summary>
+
+    <description>
+        <p>A minimal example application that prints a greeting from a Flatpak build.</p>
+    </description>
+
+    <launchable type="desktop-id">org.kata.BuildAppMetaInfo.desktop</launchable>
+
+    <url type="homepage">https://example.org</url>
+    <developer_name>Kata</developer_name>
+
+    <releases>
+        <release version="1.0.0" date="2026-03-28"/>
+    </releases>
+
+    <content_rating type="oars-1.1">
+        <content_attribute id="violence-cartoon">none</content_attribute>
+        <content_attribute id="violence-fantasy">none</content_attribute>
+        <content_attribute id="drugs-alcohol">none</content_attribute>
+        <content_attribute id="social-chat">none</content_attribute>
+        <content_attribute id="money-purchasing">none</content_attribute>
+    </content_rating>
+</component>

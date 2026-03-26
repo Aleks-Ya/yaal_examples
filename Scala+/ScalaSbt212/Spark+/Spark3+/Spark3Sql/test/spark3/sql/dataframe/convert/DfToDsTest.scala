@@ -1,9 +1,9 @@
-package spark4.sql.dataset.convert
+package spark3.sql.dataframe.convert
 
-import org.apache.spark.sql.{DataFrame, Dataset, Encoder, Encoders, Row}
+import org.apache.spark.sql._
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark3.sql.Factory
 
 class DfToDsTest extends AnyFlatSpec with Matchers {
 

@@ -9,15 +9,14 @@ Build a Flatpak app with Git installed.
 3. Set environment variables
    ```shell
    set -x
+   flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
    export ID=org.kata.InstallGit
    export MANIFEST=$ID.yml
    export BUILD_DIR=build
    export REPO_DIR=repo
    ```
-4. Add the FlatHub repository to User scope:
-	`flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo`
-5. Build and install the package: `flatpak-builder --user --force-clean --install --repo=$REPO_DIR $BUILD_DIR $MANIFEST`
-6. Run the application: `flatpak run $ID`
+4. Build and install the package: `flatpak-builder --user --force-clean --install --repo=$REPO_DIR $BUILD_DIR $MANIFEST`
+5. Run the application: `flatpak run $ID`
 
 ## Cleanup
 1. Uninstall the app: `flatpak remove -y $ID`

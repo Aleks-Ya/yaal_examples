@@ -3,8 +3,9 @@ package spark4.sql
 import org.apache.spark.SparkContext
 import org.apache.spark.sql._
 import org.apache.spark.sql.types._
+import java.util
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters.SeqHasAsJava
 
 object Factory {
 
@@ -27,31 +28,30 @@ object Factory {
   lazy val sc: SparkContext = ss.sparkContext
 
   lazy val peopleDf: DataFrame = {
-    val df = createPeopleDf()
+    val df: DataFrame = createPeopleDf()
     df.show
     df.printSchema
     df
   }
   lazy val cityListDf: DataFrame = {
-    val schema = StructType.fromDDL("city string")
+    val schema = StructType.fromDDL("city STRING")
     val rowRdd = ss.sparkContext.parallelize(Seq(Row("Moscow"), Row("SPb")))
-    val df = ss.createDataFrame(rowRdd, schema)
+    val df: DataFrame = ss.createDataFrame(rowRdd, schema)
     df.show
     df.printSchema
     df
   }
   lazy val cityObjectDf: DataFrame = {
-    val list = Seq(City("Moscow", 1147), City("SPb", 1703)).asJava
-    val df = ss.createDataFrame(list, classOf[City])
-    df.show()
+    val list: util.List[Row] = Seq(Row("Moscow", 1147), Row("SPb", 1703)).asJava
+    val schema: StructType = StructType.fromDDL("name STRING, establishYear INT")
+    val df: DataFrame = ss.createDataFrame(list, schema)
+    df.show
     df
   }
-  lazy val cityDs: Dataset[City] = {
-    createCityDs(Seq(City("Moscow", 1147), City("SPb", 1703), City("New York", 1665)))
-  }
+  lazy val cityDs: Dataset[City] = createCityDs(Seq(City("Moscow", 1147), City("SPb", 1703), City("New York", 1665)))
 
   def createPeopleDf(): DataFrame = {
-    val schema = StructType.fromDDL("name string, age int, gender string")
+    val schema: StructType = StructType.fromDDL("name string, age int, gender string")
     createDf(schema, Row("John", 25, "M"), Row("Peter", 35, "M"), Row("Mary", 20, "F"))
   }
 
@@ -61,22 +61,22 @@ object Factory {
   }
 
   def createDf(ddl: String, rows: Row*): DataFrame = {
-    val schema = StructType.fromDDL(ddl)
-    val df = ss.createDataFrame(ss.sparkContext.parallelize(rows), schema)
+    val schema: StructType = StructType.fromDDL(ddl)
+    val df: DataFrame = ss.createDataFrame(ss.sparkContext.parallelize(rows), schema)
     df.show
     df.printSchema
     df
   }
 
   def createDf(schema: StructType, rows: Row*): DataFrame = {
-    val df = ss.createDataFrame(ss.sparkContext.parallelize(rows), schema)
+    val df: DataFrame = ss.createDataFrame(ss.sparkContext.parallelize(rows), schema)
     df.show
     df.printSchema
     df
   }
 
   def createDf(fields: Map[String, DataType], rows: Row*): DataFrame = {
-    val schema = StructType(fields.map { case (name, dataType) => StructField(name, dataType) }.toList)
+    val schema: StructType = StructType(fields.map { case (name, dataType) => StructField(name, dataType) }.toList)
     createDf(schema, rows: _*)
   }
 
