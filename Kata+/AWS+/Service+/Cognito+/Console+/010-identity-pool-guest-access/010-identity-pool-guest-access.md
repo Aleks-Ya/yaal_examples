@@ -10,8 +10,8 @@ Create an Identity Pool providing anonymous Guest Access.
 			1. Guest access: enabled
 	2. Guest role
 		1. Create a new IAM role
-		2. IAM role name: `kata-identity-pool-guest-access-guest-role`
-	3. Identity pool name: `kata-identity-pool-guest-access-identity-pool`
+		2. IAM role name: `kata-role-identity-pool-guest-access-guest`
+	3. Identity pool name: `kata-pool-identity-pool-guest-access`
 2. Create an Identity
 	```shell
 	curl -X POST \
@@ -38,7 +38,7 @@ Create an Identity Pool providing anonymous Guest Access.
 	```
 
 ## Cleanup
-1. Delete Identity Pool `kata-identity-pool-guest-access-identity-pool`
-2. Delete IAM role `kata-identity-pool-guest-access-guest-role`
+1. Delete Identity Pool `kata-pool-identity-pool-guest-access`
+2. Delete IAM role `kata-role-identity-pool-guest-access-guest`
 
 ## History

@@ -1,13 +1,13 @@
 package spark3.sql.dataframe.transformation.union
 
-import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.col
+import org.apache.spark.sql.{AnalysisException, Row}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark3.sql.Factory
 
-
 class UnionTransformationTest extends AnyFlatSpec with Matchers {
+
   it should "unite two DataFrames" in {
     import Factory.ss.implicits._
     val df1 = (1 to 2).toDF("numbers")
@@ -23,8 +23,13 @@ class UnionTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "unite different data types DataFrames" in {
     val df1 = Factory.createDf("id STRING", Row("1"), Row("2"))
-    val df2 = Factory.createDf("id INTEGER", Row(3), Row(4))
+    df1.schema.toDDL shouldEqual "id STRING"
+
+    val df2 = Factory.createDf("id INT", Row(3), Row(4))
+    df2.schema.toDDL shouldEqual "id INT"
+
     val unionDf = df1.union(df2)
+    unionDf.schema.toDDL shouldEqual "id STRING"
     unionDf.toJSON.collect should contain inOrderOnly(
       """{"id":"1"}""",
       """{"id":"2"}""",
@@ -57,4 +62,28 @@ class UnionTransformationTest extends AnyFlatSpec with Matchers {
       """{"id":"4","name":"Mike"}"""
     )
   }
+
+  it should "fail with different column number" in {
+    val df1 = Factory.createDf("id STRING, name STRING", Row("1", "John"))
+    val df2 = Factory.createDf("id STRING", Row("2"))
+    val e = intercept[AnalysisException] {
+      df1.union(df2)
+    }
+    e.getMessage should include("[NUM_COLUMNS_MISMATCH] " +
+      "UNION can only be performed on inputs with the same number of columns, " +
+      "but the first input has 2 columns and the second input has 1 columns.")
+  }
+
+  it should "unite a struct column" in {
+    val tdd = "id STRING, details STRUCT<name:STRING, age:INT>"
+    val df1 = Factory.createDf(tdd, Row("1", Row("John", 30)), Row("2", Row("Mary", 25)))
+    val df2 = Factory.createDf(tdd, Row("3", Row("Mark", 20)))
+    val unionDf = df1.union(df2)
+    unionDf.toJSON.collect should contain inOrderOnly(
+      """{"id":"1","details":{"name":"John","age":30}}""",
+      """{"id":"2","details":{"name":"Mary","age":25}}""",
+      """{"id":"3","details":{"name":"Mark","age":20}}"""
+    )
+  }
+
 }

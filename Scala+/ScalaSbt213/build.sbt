@@ -71,7 +71,7 @@ lazy val AkkaActorScalaExamples = mkp("Akka+/AkkaActorScalaExamples", akkaActorT
 lazy val AkkaQuickstartScala = mkp("Akka+/AkkaQuickstartScala", akkaActorTypedDep, akkaActorTestKitTypedDep, logbackClassicDep, scalaTestDep)
 
 lazy val Json4s = mkp("Libs+/JSON+/Json4s", json4sNativeDep, scalaTestDep)
-lazy val JsonUnit = mkp("Libs+/JSON+/JsonUnit", jsonUnitDep, scalaTestDep)
+lazy val JsonUnit = mkp("Libs+/JSON+/JsonUnit", jsonUnitDep, jacksonModuleScalaDep, scalaTestDep)
 lazy val SprayJson = mkp("Libs+/JSON+/SprayJson", sprayJsonDep, scalaTestDep)
 lazy val TypesafeConfig = mkp("Libs+/TypesafeConfig", typesafeConfigDep, scalaTestDep).settings(cancelable in Global := true)
 lazy val OkHttpMockWebServer = mkp("Libs+/OkHttpMockWebServer", scalaTestDep, mockWebServerDep)

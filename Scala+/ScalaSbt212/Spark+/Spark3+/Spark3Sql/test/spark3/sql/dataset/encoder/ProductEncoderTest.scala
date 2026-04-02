@@ -5,6 +5,8 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark3.sql.Factory
 
+import java.time.ZonedDateTime
+
 class ProductEncoderTest extends AnyFlatSpec with Matchers {
 
   it should "use Product encoder" in {
@@ -14,7 +16,7 @@ class ProductEncoderTest extends AnyFlatSpec with Matchers {
       time = 1000L,
       male = true,
       metadata = Map("country" -> "USA"),
-      contacts = PersonContacts("NYC", "123-456-7890"))
+      contacts = ContactsProduct("NYC", "123-456-7890"))
 
     val personMary = PersonProduct(
       name = "Mary",
@@ -22,7 +24,7 @@ class ProductEncoderTest extends AnyFlatSpec with Matchers {
       time = 500L,
       male = false,
       metadata = Map("country" -> "UK"),
-      contacts = PersonContacts("London", "234-567-8901"))
+      contacts = ContactsProduct("London", "234-567-8901"))
 
     val ss = Factory.ss
     implicit val encoder: Encoder[PersonProduct] = Encoders.product[PersonProduct]
@@ -30,15 +32,12 @@ class ProductEncoderTest extends AnyFlatSpec with Matchers {
     ds.collect should contain allOf(personJohn, personMary)
   }
 
+  ignore should "use Product encoder with unsupported classes" in {
+    implicit val zonedDateTimeEncoder: Encoder[ZonedDateTime] = Encoders.kryo[ZonedDateTime]
+    implicit val encoder: Encoder[UnsupportedProduct] = Encoders.product[UnsupportedProduct]
+    val person = UnsupportedProduct(ZonedDateTime.now())
+    val ds: Dataset[UnsupportedProduct] = Factory.ss.createDataset(Seq(person))
+    ds.collect should contain only person
+  }
+
 }
-
-case class PersonProduct(
-                          name: String,
-                          age: Int,
-                          time: Long,
-                          male: Boolean,
-                          metadata: Map[String, String],
-                          contacts: PersonContacts
-                        )
-
-case class PersonContacts(city: String, phone: String)

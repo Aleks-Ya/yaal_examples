@@ -1,17 +1,17 @@
 import sbt.*
 
 object Dependencies {
-  val scalaTestDep = "org.scalatest" %% "scalatest" % "3.2.19" % Test
+  val scalaTestDep = "org.scalatest" %% "scalatest" % "3.2.20" % Test
   val scalaTestJsonAssertDep = "com.stephenn" %% "scalatest-json-jsonassert" % "0.2.5" % Test
-  val scalaMockDep = "org.scalamock" %% "scalamock" % "7.5.2" % Test
+  val scalaMockDep = "org.scalamock" %% "scalamock" % "7.5.5" % Test
   val h2Dep = "com.h2database" % "h2" % "2.4.240"
-  val logbackClassicDep = "ch.qos.logback" % "logback-classic" % "1.5.21"
+  val logbackClassicDep = "ch.qos.logback" % "logback-classic" % "1.5.32"
   val scoptDep = "com.github.scopt" %% "scopt" % "4.1.0"
   val json4sNativeDep = "org.json4s" %% "json4s-native" % "4.0.7"
   val sprayJsonDep = "io.spray" %% "spray-json" % "1.3.6"
   val jettyServletDep = "org.eclipse.jetty" % "jetty-servlet" % "11.0.26" % Test
 
-  private val testContainersVersion = "0.43.6"
+  private val testContainersVersion = "0.44.1"
   val testContainersScalaTestDep = "com.dimafeng" %% "testcontainers-scala-scalatest" % testContainersVersion % Test
   val testContainersOpenSearchDep = "com.dimafeng" %% "testcontainers-scala-opensearch" % testContainersVersion % Test
 
@@ -29,7 +29,7 @@ object Dependencies {
   val fs2CoreDep = "co.fs2" %% "fs2-core" % "3.12.2"
   val tomlScalaDep = "tech.sparse" %% "toml-scala" % "0.2.2"
 
-  private val jacksonVersion = "2.20.1"
+  private val jacksonVersion = "2.21.2"
   val jacksonDataformatYamlDep = "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml" % jacksonVersion
   val jacksonModuleScalaDep = "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion
 
@@ -38,7 +38,7 @@ object Dependencies {
   val http4sDslDep = "org.http4s" %% "http4s-dsl" % http4sVersion
   val httpJdkHttpClientDep = "org.http4s" %% "http4s-jdk-http-client" % "0.10.0"
 
-  val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "5.0.0" % Test
+  val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "5.1.1" % Test
 
   private val spark3Version = "3.5.7"
   private val djlVersion = "0.36.0"

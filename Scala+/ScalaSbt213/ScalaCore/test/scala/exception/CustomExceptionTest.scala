@@ -5,12 +5,16 @@ import org.scalatest.matchers.should.Matchers
 
 class CustomExceptionTest extends AnyFlatSpec with Matchers {
 
-  it should "throw custom exception" in {
+  it should "throw custom exception in braces" in {
     class MyException extends RuntimeException
-
     assertThrows[MyException] {
       throw new MyException
     }
+  }
+
+  it should "throw custom exception in parentheses" in {
+    class MyException extends RuntimeException
+    assertThrows[MyException](throw new MyException)
   }
 
   it should "throw custom exception with message" in {

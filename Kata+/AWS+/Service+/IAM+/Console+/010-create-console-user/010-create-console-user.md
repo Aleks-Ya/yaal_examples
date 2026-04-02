@@ -22,3 +22,4 @@ Create an IAM user having read access to S3 and login into Console with it.
 1. Delete user `kata-user-create-console-user`
 
 ## History
+- 2026-04-05 success
