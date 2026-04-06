@@ -87,6 +87,7 @@ lazy val Http4sDsl = mkp("Libs+/Http4s+/Http4sDsl", http4sDslDep, http4sEmberCli
 lazy val Http4sJdkHttpClient = mkp("Libs+/Http4s+/Http4sJdkHttpClient", httpJdkHttpClientDep, scalaTestDep, catsEffectScalaTestDep)
 
 lazy val Spark3Core = mkp("Spark+/Spark3+/Spark3Core", spark3CoreDep, scalaTestDep)
+lazy val Spark3Encoders = mkp("Spark+/Spark3+/Spark3Encoders", spark3SqlDep, spark3Encoders, scalaTestDep)
 lazy val Spark3Ml = mkp("Spark+/Spark3+/Spark3Ml", scalaTestDep, spark3MlDep)
 lazy val Spark3Sql = mkp("Spark+/Spark3+/Spark3Sql", spark3SqlDep, scalaTestDep, h2Dep)
 lazy val Spark3SqlKafka = mkp("Spark+/Spark3+/Spark3SqlKafka", spark3SqlDep, scalaTestDep, sparkSqlKafkaDep, embeddedKafkaDep)
@@ -96,6 +97,7 @@ lazy val Spark3StreamingKafka = mkp("Spark+/Spark3+/Spark3StreamingKafka",
   spark3StreamingDep, scalaTestDep, sparkStreamingKafkaDep, embeddedKafkaDep)
 
 lazy val Spark4Core = mkp("Spark+/Spark4+/Spark4Core", spark4CoreDep, scalaTestDep)
+lazy val Spark4Encoders = mkp("Spark+/Spark4+/Spark4Encoders", spark4SqlDep, spark4Encoders, scalaTestDep)
 lazy val Spark4Ml = mkp("Spark+/Spark4+/Spark4Ml", scalaTestDep, spark4MlDep)
 lazy val Spark4Sql = mkp("Spark+/Spark4+/Spark4Sql", spark4SqlDep, scalaTestDep, h2Dep)
 lazy val Spark4SqlKafka = mkp("Spark+/Spark4+/Spark4SqlKafka", spark4SqlDep, scalaTestDep, sparkSqlKafkaDep, embeddedKafkaDep)

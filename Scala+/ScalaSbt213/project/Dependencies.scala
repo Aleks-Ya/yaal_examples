@@ -41,18 +41,21 @@ object Dependencies {
 
   val jsonUnitDep = "net.javacrumbs.json-unit" % "json-unit" % "5.1.1" % Test
 
-  private val spark3Version = "3.5.7"
+  private val spark3Version = "3.5.8"
+  private val sparkEncodersVersion = "0.2.3"
   private val djlVersion = "0.36.0"
   val spark3CoreDep = "org.apache.spark" %% "spark-core" % spark3Version
   val spark3MlDep = "org.apache.spark" %% "spark-mllib" % spark3Version
   val spark3SqlDep = "org.apache.spark" %% "spark-sql" % spark3Version
   val spark3StreamingDep = "org.apache.spark" %% "spark-streaming" % spark3Version
+  val spark3Encoders = "io.github.pashashiz" %% "spark3-encoders" % sparkEncodersVersion
 
   private val spark4Version = "4.1.1"
   val spark4CoreDep = "org.apache.spark" %% "spark-core" % spark4Version
   val spark4MlDep = "org.apache.spark" %% "spark-mllib" % spark4Version
   val spark4SqlDep = "org.apache.spark" %% "spark-sql" % spark4Version
   val spark4StreamingDep = "org.apache.spark" %% "spark-streaming" % spark4Version
+  val spark4Encoders = "io.github.pashashiz" %% "spark4-encoders" % sparkEncodersVersion
 
   val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "5.3.0" % Test
 
