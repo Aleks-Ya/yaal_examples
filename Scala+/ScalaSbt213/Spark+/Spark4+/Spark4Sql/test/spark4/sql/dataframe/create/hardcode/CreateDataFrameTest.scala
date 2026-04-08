@@ -7,7 +7,7 @@ import org.scalatest.matchers.should.Matchers
 import spark4.sql.Factory
 
 import scala.beans.BeanProperty
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 class CreateDataFrameTest extends AnyFlatSpec with Matchers {
 
@@ -40,6 +40,18 @@ class CreateDataFrameTest extends AnyFlatSpec with Matchers {
     df.toJSON.collect should contain inOrderOnly(
       """{"age":25,"name":"John"}""",
       """{"age":35,"name":"Peter"}"""
+    )
+  }
+
+  it should "create an DataFrame without columns" in {
+    val schema = StructType(Nil)
+    val rdd = Factory.ss.sparkContext.parallelize(Seq(Row(), Row()))
+    val df = Factory.ss.createDataFrame(rdd, schema)
+    df.schema.simpleString shouldEqual "struct<>"
+    df.schema.toDDL shouldBe empty
+    df.toJSON.collect shouldEqual Seq(
+      """{}""",
+      """{}"""
     )
   }
 

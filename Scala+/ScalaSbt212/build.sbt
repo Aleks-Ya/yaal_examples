@@ -4,6 +4,8 @@ import sbt.Project
 ThisBuild / organization := "ru.yaal.examples.scala"
 ThisBuild / version := "1"
 ThisBuild / scalaVersion := "2.12.21"
+ThisBuild / javacOptions ++= Seq("-source", "11", "-target", "11")
+ThisBuild / scalacOptions += "-target:jvm-11"
 
 lazy val flatDirs = Seq(
   Compile / scalaSource := baseDirectory.value / "src",

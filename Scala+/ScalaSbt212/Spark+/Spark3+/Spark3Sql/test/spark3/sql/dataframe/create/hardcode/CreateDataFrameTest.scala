@@ -43,5 +43,17 @@ class CreateDataFrameTest extends AnyFlatSpec with Matchers {
     )
   }
 
+  it should "create an DataFrame without columns" in {
+    val schema = StructType(Nil)
+    val rdd = Factory.ss.sparkContext.parallelize(Seq(Row(), Row()))
+    val df = Factory.ss.createDataFrame(rdd, schema)
+    df.schema.simpleString shouldEqual "struct<>"
+    df.schema.toDDL shouldBe empty
+    df.toJSON.collect shouldEqual Seq(
+      """{}""",
+      """{}"""
+    )
+  }
+
   case class People(@BeanProperty var name: String, @BeanProperty var age: Int)
 }

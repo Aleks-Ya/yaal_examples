@@ -53,4 +53,25 @@ class FromJsonTest extends AnyFlatSpec with Matchers {
     )
   }
 
+  it should "parse only selected fields" in {
+    val df = Factory.createDf("name STRING,details STRING",
+      Row("John", """{ "age": 30, "male": true, "job": { "title": "Engineer", "salary": 100000 } }"""),
+      Row("Peter", """{ invalid JSON }"""),
+      Row("Mark", null)
+    )
+
+    val detailsSchema = fromDDL("age INT,male BOOLEAN,job STRUCT<title: STRING>")
+    val updatedDf = df.select(
+      col("name"),
+      from_json(col("details"), detailsSchema) as "details"
+    )
+
+    updatedDf.schema.toDDL shouldEqual "name STRING,details STRUCT<age: INT, male: BOOLEAN, job: STRUCT<title: STRING>>"
+    updatedDf.toJSON.collect should contain inOrderOnly(
+      """{"name":"John","details":{"age":30,"male":true,"job":{"title":"Engineer"}}}""",
+      """{"name":"Peter","details":{"age":null,"male":null,"job":null}}""",
+      """{"name":"Mark","details":null}"""
+    )
+  }
+
 }
