@@ -6,8 +6,8 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark3.sql.Factory
 
-import scala.collection.JavaConverters._
 import scala.collection.mutable
+import scala.jdk.CollectionConverters._
 
 /**
  * UDF as a variable.
@@ -20,7 +20,7 @@ class UdfVariableTest extends AnyFlatSpec with Matchers {
     val upperUdf = udf(upper)
     val df = Factory.ss
       .createDataset(Seq("a", "b"))
-      .withColumn("upper", upperUdf('value))
+      .withColumn("upper", upperUdf($"value"))
     df.toJSON.collect should contain inOrderOnly(
       """{"value":"a","upper":"A"}""",
       """{"value":"b","upper":"B"}"""
@@ -45,7 +45,7 @@ class UdfVariableTest extends AnyFlatSpec with Matchers {
     val sum: Seq[Int] => Int = _.sum
     sum(Array(1, 2, 3)) shouldEqual 6
     val sumUdf = udf(sum)
-    val newDs = ds.withColumn("sum", sumUdf('value))
+    val newDs = ds.withColumn("sum", sumUdf($"value"))
     newDs.show
     val dsSum: Dataset[Int] = newDs.select(col("sum").as[Int])
     val list: mutable.Buffer[Int] = dsSum.collectAsList().asScala
@@ -58,7 +58,7 @@ class UdfVariableTest extends AnyFlatSpec with Matchers {
     val upperUdf = udf(upperSuffix("_suf"))
     val df = Factory.ss
       .createDataset(Seq("a", "b"))
-      .withColumn("upper", upperUdf('value))
+      .withColumn("upper", upperUdf($"value"))
     df.toJSON.collect should contain inOrderOnly(
       """{"value":"a","upper":"A_SUF"}""",
       """{"value":"b","upper":"B_SUF"}"""
@@ -73,8 +73,8 @@ class UdfVariableTest extends AnyFlatSpec with Matchers {
     val upperUdf = udf(upper)
     val df = Factory.ss
       .createDataset(Seq("a", "b"))
-      .withColumn("suffix", addSuffixUdf('value))
-      .withColumn("upper", upperUdf('suffix))
+      .withColumn("suffix", addSuffixUdf($"value"))
+      .withColumn("upper", upperUdf($"suffix"))
     df.toJSON.collect should contain inOrderOnly(
       """{"value":"a","suffix":"a_suf","upper":"A_SUF"}""",
       """{"value":"b","suffix":"b_suf","upper":"B_SUF"}"""

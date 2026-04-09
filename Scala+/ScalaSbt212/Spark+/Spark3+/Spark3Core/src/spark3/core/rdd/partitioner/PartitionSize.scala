@@ -1,4 +1,4 @@
-package spark3.core.partitioner
+package spark3.core.rdd.partitioner
 
 import org.apache.spark.rdd.RDD
 

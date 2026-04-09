@@ -4,7 +4,6 @@ import org.apache.spark.HashPartitioner
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark4.core.Factory
-import spark4.core.partitioner.PartitionSize
 
 class SkewedPartitionsTest extends AnyFlatSpec with Matchers {
 

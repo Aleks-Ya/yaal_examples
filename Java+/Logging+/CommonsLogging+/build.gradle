@@ -1,5 +1,5 @@
 subprojects {
     dependencies {
-        implementation 'commons-logging:commons-logging:1.2'
+        implementation 'commons-logging:commons-logging:1.3.6'
     }
 }

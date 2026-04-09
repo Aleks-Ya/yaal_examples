@@ -1,6 +1,6 @@
 #noinspection CucumberUndefinedStep
 Feature:
-  Description
+  Description of this feature
 
   Scenario: Greeting
     Given Hello World
