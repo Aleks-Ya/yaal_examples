@@ -13,15 +13,14 @@ class NullablePrimitiveTest extends AnyFlatSpec with Matchers {
 
   it should "use Row#getAs() for replacing nulls in a primitive column" in {
     import Factory.ss.implicits._
-    val df = Factory.createDf("name string, orders integer",
+    val df = Factory.createDf("name STRING,orders INTEGER",
         Row("USA", 10), Row("Canada", 20), Row("England", null))
       .map(row => {
         val name = row.getString(row.fieldIndex("name"))
         val orders = row.getAs[Int](row.fieldIndex("orders"))
         (name, orders)
       }).toDF("name", "orders")
-    df.show()
-    df.printSchema()
+    df.schema.toDDL shouldEqual "name STRING,orders INT NOT NULL"
     df.toJSON.collect should contain inOrderOnly(
       """{"name":"USA","orders":10}""",
       """{"name":"Canada","orders":20}""",
@@ -31,7 +30,7 @@ class NullablePrimitiveTest extends AnyFlatSpec with Matchers {
 
   it should "use Row#get() for replacing nulls in a primitive column" in {
     import Factory.ss.implicits._
-    val df = Factory.createDf("name string, orders integer",
+    val df = Factory.createDf("name STRING,orders INTEGER",
         Row("USA", 10), Row("Canada", 20), Row("England", null))
       .map(row => {
         val name = row.getString(row.fieldIndex("name"))
@@ -39,8 +38,7 @@ class NullablePrimitiveTest extends AnyFlatSpec with Matchers {
         val newOrders = if (orders == null) 0 else orders.toString.toInt
         (name, newOrders)
       }).toDF("name", "orders")
-    df.show()
-    df.printSchema()
+    df.schema.toDDL shouldEqual "name STRING,orders INT NOT NULL"
     df.toJSON.collect should contain inOrderOnly(
       """{"name":"USA","orders":10}""",
       """{"name":"Canada","orders":20}""",
@@ -51,14 +49,15 @@ class NullablePrimitiveTest extends AnyFlatSpec with Matchers {
   it should "throw NPE on nulls in a primitive column" in {
     val e = the[SparkException] thrownBy {
       import Factory.ss.implicits._
-      Factory.createDf("name string, orders integer",
+      val df = Factory.createDf("name STRING,orders INTEGER",
           Row("USA", 10), Row("Canada", 20), Row("England", null))
         .map(row => {
           val name = row.getString(row.fieldIndex("name"))
           val orders = row.getInt(row.fieldIndex("orders"))
           (name, orders)
         })
-        .show()
+      df.schema.toDDL shouldEqual "_1 STRING,_2 INT NOT NULL"
+      df.show()
     }
     e.getMessage should include("Job aborted due to stage failure")
     e.getCause shouldBe a[SparkException]
