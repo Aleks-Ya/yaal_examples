@@ -15,6 +15,8 @@ Get a property value: `sudo snap get system refresh.retain`
 Set a property value: `sudo snap set system refresh.retain=2`
 Show info about a snap: `snap info opera`
 Show info about a snap (detailed): `snap info --verbose opera`
+Install a snap: `sudo snap install singularityapp`
+Install a snap (classic mode): `sudo snap install singularityapp --classic`
 
 ## Run
 Run a snap from CLI and watch logs: `snap run opera`
@@ -30,6 +32,7 @@ Revert a snap to its state before the latest refres: `sudo snap revert sublime-t
 
 ## Interfaces (Connections)
 List connections of a snap: `snap connections gnome-boxes`
+Test network connection: `snap debug connectivity`
 
 ## Errors
 ### Cannot refresh snap-store

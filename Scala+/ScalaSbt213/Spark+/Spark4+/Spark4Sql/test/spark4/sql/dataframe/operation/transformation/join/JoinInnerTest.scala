@@ -1,24 +1,23 @@
 package spark4.sql.dataframe.operation.transformation.join
 
-import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{col, collect_list, explode}
-import org.apache.spark.sql.types.{ArrayType, IntegerType, StringType}
+import org.apache.spark.sql.{DataFrame, Row}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.Factory.createDf
 
 class JoinInnerTest extends AnyFlatSpec with Matchers {
   private val presidentIdCol = "president_id"
-  private val countriesDf = Factory.createDf(Map("country" -> StringType, presidentIdCol -> IntegerType),
+  private val countriesDf: DataFrame = createDf(s"country STRING, $presidentIdCol INT",
     Row("USA", 1),
     Row("France", 2),
     Row("England", null))
-  private val presidentsDf = Factory.createDf(Map(presidentIdCol -> IntegerType, "name" -> StringType),
+  private val presidentsDf: DataFrame = createDf(s"$presidentIdCol INT, name STRING",
     Row(1, "Trump"),
     Row(2, "Macron"))
 
   it should "do inner join (default)" in {
-    val joinedDf = countriesDf.join(presidentsDf, presidentIdCol)
+    val joinedDf: DataFrame = countriesDf.join(presidentsDf, presidentIdCol)
     joinedDf.toJSON.collect should contain inOrderOnly(
       """{"president_id":1,"country":"USA","name":"Trump"}""",
       """{"president_id":2,"country":"France","name":"Macron"}"""
@@ -26,14 +25,14 @@ class JoinInnerTest extends AnyFlatSpec with Matchers {
   }
 
   it should "do inner join on columns having different names" in {
-    val countriesDf = Factory.createDf(Map("country" -> StringType, "president_id" -> IntegerType),
+    val countriesDf: DataFrame = createDf("country STRING, president_id INT",
       Row("USA", 1),
       Row("France", 2),
       Row("England", null))
-    val presidentsDf = Factory.createDf(Map("id" -> IntegerType, "name" -> StringType),
+    val presidentsDf: DataFrame = createDf("id INT,name STRING",
       Row(1, "Trump"),
       Row(2, "Macron"))
-    val joinedDf = countriesDf.join(presidentsDf, countriesDf("president_id") === presidentsDf("id"))
+    val joinedDf: DataFrame = countriesDf.join(presidentsDf, countriesDf("president_id") === presidentsDf("id"))
     joinedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"USA","president_id":1,"id":1,"name":"Trump"}""",
       """{"country":"France","president_id":2,"id":2,"name":"Macron"}"""
@@ -43,17 +42,17 @@ class JoinInnerTest extends AnyFlatSpec with Matchers {
   it should "do inner join by several columns" in {
     val countryCol = "country"
     val cityCol = "city"
-    val countriesDf = Factory.createDf(Map(countryCol -> StringType, cityCol -> StringType, "population" -> IntegerType),
+    val countriesDf: DataFrame = createDf(s"$countryCol STRING, $cityCol STRING, population INT",
       Row("France", "Paris", 10),
       Row("France", "Marseille", 20),
       Row("England", "London", 30),
       Row("England", "Manchester", 40))
-    val mayorsDf = Factory.createDf(Map(countryCol -> StringType, cityCol -> StringType, "mayor" -> StringType),
+    val mayorsDf: DataFrame = createDf(s"$countryCol STRING, $cityCol STRING, mayor STRING",
       Row("France", "Paris", "Anne Hidalgo"),
       Row("France", "Marseille", "Benoit Payan"),
       Row("England", "London", "Anne Hidalgo"),
       Row("England", "Manchester", "Andy Burnham"))
-    val joinedDf = countriesDf.join(mayorsDf, Seq(countryCol, cityCol))
+    val joinedDf: DataFrame = countriesDf.join(mayorsDf, Seq(countryCol, cityCol))
     joinedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"England","city":"London","population":30,"mayor":"Anne Hidalgo"}""",
       """{"country":"England","city":"Manchester","population":40,"mayor":"Andy Burnham"}""",
@@ -62,22 +61,21 @@ class JoinInnerTest extends AnyFlatSpec with Matchers {
     )
   }
 
-
   it should "do inner join on array column" in {
-    val countriesDf = Factory.createDf(Map("country" -> StringType, "president_ids" -> ArrayType(IntegerType)),
+    val countriesDf: DataFrame = createDf("country STRING, president_ids ARRAY<INT>",
       Row("USA", Seq(1, 3)),
       Row("France", Seq(2)),
       Row("England", null))
-    val presidentsDf = Factory.createDf(Map("id" -> IntegerType, "name" -> StringType),
+    val presidentsDf: DataFrame = createDf("id INT, name STRING",
       Row(1, "Trump"),
       Row(2, "Macron"),
       Row(3, "Trump")
     )
 
-    val presidentsRenamedDf = presidentsDf
+    val presidentsRenamedDf: DataFrame = presidentsDf
       .withColumnRenamed("id", "president_id")
       .withColumnRenamed("name", "president")
-    val joinedDf = countriesDf
+    val joinedDf: DataFrame = countriesDf
       .withColumn("president_id", explode(col("president_ids")))
       .join(presidentsRenamedDf, "president_id")
       .groupBy("country")
@@ -87,4 +85,5 @@ class JoinInnerTest extends AnyFlatSpec with Matchers {
       """{"country":"USA","presidents":["Trump","Trump"]}"""
     )
   }
+
 }

@@ -1,7 +1,7 @@
 package spark4.sql.dataframe.function.builtin.aggregation
 
-import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{aggregate, array_compact, col, lit}
+import org.apache.spark.sql.{DataFrame, Row}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark4.sql.Factory
@@ -15,7 +15,8 @@ class AggregateTest extends AnyFlatSpec with Matchers {
       Row("Mark", Seq(3, null)),
       Row("Matt", null)
     )
-    val updatedDf = df.withColumn("sum", aggregate(col("sales"), lit(0), (x, y) => x + y))
+    val updatedDf: DataFrame = df.withColumn("sum", aggregate(col("sales"), lit(0), (x, y) => x + y))
+    updatedDf.schema.toDDL shouldEqual "person STRING,sales ARRAY<INT>,sum INT"
     updatedDf.toJSON.collect should contain inOrderOnly(
       """{"person":"John","sales":[10,20],"sum":30}""",
       """{"person":"Mary","sales":[1,2],"sum":3}""",
@@ -31,7 +32,8 @@ class AggregateTest extends AnyFlatSpec with Matchers {
       Row("Mark", Seq(3, null)),
       Row("Matt", null)
     )
-    val updatedDf = df.withColumn("sum", aggregate(array_compact(col("sales")), lit(0), (x, y) => x + y))
+    val updatedDf: DataFrame = df.withColumn("sum", aggregate(array_compact(col("sales")), lit(0), (x, y) => x + y))
+    updatedDf.schema.toDDL shouldEqual "person STRING,sales ARRAY<INT>,sum INT"
     updatedDf.toJSON.collect should contain inOrderOnly(
       """{"person":"John","sales":[10,20],"sum":30}""",
       """{"person":"Mary","sales":[1,2],"sum":3}""",

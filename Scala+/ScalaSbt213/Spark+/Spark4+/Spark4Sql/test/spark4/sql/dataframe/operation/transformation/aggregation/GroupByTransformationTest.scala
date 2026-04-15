@@ -1,11 +1,10 @@
-package spark3.sql.dataframe.operation.transformation
+package spark4.sql.dataframe.operation.transformation.aggregation
 
 import org.apache.spark.sql.Row
-import org.apache.spark.sql.functions.{avg, col, collect_list, max, min, sort_array}
-import org.apache.spark.sql.types.{ArrayType, IntegerType, StringType}
+import org.apache.spark.sql.functions._
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark4.sql.Factory
 
 class GroupByTransformationTest extends AnyFlatSpec with Matchers {
 
@@ -32,7 +31,7 @@ class GroupByTransformationTest extends AnyFlatSpec with Matchers {
   }
 
   it should "groupBy by several columns" in {
-    val df = Factory.createDf(Map("name" -> StringType, "age" -> IntegerType, "gender" -> StringType),
+    val df = Factory.createDf("name STRING, age INT, gender STRING",
       Row("John", 30, "M"),
       Row("Mary", 30, "F"),
       Row("Mark", 25, "M"),
@@ -46,7 +45,7 @@ class GroupByTransformationTest extends AnyFlatSpec with Matchers {
   }
 
   it should "group by an array column" in {
-    val df = Factory.createDf(Map("person" -> StringType, "countries" -> ArrayType(StringType)),
+    val df = Factory.createDf("person STRING, countries ARRAY<STRING>",
       Row("John", Seq("USA", "Germany", "UK")),
       Row("Mary", Seq("Belgium", "Canada", "Australia")),
       Row("Mark", Seq("USA", "Germany", "UK")),
@@ -70,4 +69,5 @@ class GroupByTransformationTest extends AnyFlatSpec with Matchers {
       """{"countries":["Australia","Belgium","Canada"],"persons":["Mary"]}"""
     )
   }
+  
 }

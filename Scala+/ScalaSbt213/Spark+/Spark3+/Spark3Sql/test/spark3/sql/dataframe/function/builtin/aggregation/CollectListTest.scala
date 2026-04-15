@@ -1,6 +1,6 @@
 package spark3.sql.dataframe.function.builtin.aggregation
 
-import org.apache.spark.sql.Row
+import org.apache.spark.sql.{DataFrame, Row}
 import org.apache.spark.sql.functions.collect_list
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -13,7 +13,8 @@ class CollectListTest extends AnyFlatSpec with Matchers {
       Row("Paris"),
       Row("London")
     )
-    val updatedDf = df.groupBy("city").agg(collect_list("city").as("cities"))
+    val updatedDf: DataFrame = df.groupBy("city").agg(collect_list("city").as("cities"))
+    updatedDf.schema.toDDL shouldEqual "city STRING,cities ARRAY<STRING> NOT NULL"
     updatedDf.toJSON.collect should contain inOrderOnly(
       """{"city":"London","cities":["London","London"]}""",
       """{"city":"Paris","cities":["Paris"]}"""

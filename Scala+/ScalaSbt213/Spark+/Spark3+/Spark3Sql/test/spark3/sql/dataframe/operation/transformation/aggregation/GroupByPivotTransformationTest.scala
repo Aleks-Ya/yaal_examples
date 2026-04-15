@@ -1,0 +1,35 @@
+package spark3.sql.dataframe.operation.transformation.aggregation
+
+import org.apache.spark.sql.Row
+import org.apache.spark.sql.functions._
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
+import spark3.sql.Factory
+
+class GroupByPivotTransformationTest extends AnyFlatSpec with Matchers {
+
+  it should "use groupBy with pivot" in {
+    val df = Factory.createDf("month STRING, product STRING, amount INT",
+      Row("Jan", "Apples", 100),
+      Row("Jan", "Bananas", 150),
+      Row("Feb", "Apples", 200),
+      Row("Feb", "Bananas", 50),
+      Row("Jan", "Apples", 50))
+
+    val noPivotDf = df.groupBy("month").agg(sum("amount") as "sum_amount")
+    noPivotDf.schema.toDDL shouldEqual "month STRING,sum_amount BIGINT"
+    noPivotDf.toJSON.collect should contain inOrderOnly(
+      """{"month":"Feb","sum_amount":250}""",
+      """{"month":"Jan","sum_amount":300}""")
+
+    val pivotDf = df
+      .groupBy("month")
+      .pivot("product")
+      .agg(sum("amount"))
+    pivotDf.schema.toDDL shouldEqual "month STRING,Apples BIGINT,Bananas BIGINT"
+    pivotDf.toJSON.collect should contain inOrderOnly(
+      """{"month":"Feb","Apples":200,"Bananas":50}""",
+      """{"month":"Jan","Apples":150,"Bananas":150}""")
+  }
+
+}
