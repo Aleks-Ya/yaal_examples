@@ -1,7 +1,7 @@
 package spark3.sql.dataframe.operation.transformation
 
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.types.{ArrayType, IntegerType, StringType}
+import org.apache.spark.sql.types.{ArrayType, StringType}
 import org.apache.spark.sql.{Row, functions}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -19,7 +19,7 @@ class FilterTransformationTest extends AnyFlatSpec with Matchers {
   }
 
   it should "filter non null" in {
-    val df = Factory.createDf(Map("name" -> StringType, "age" -> IntegerType),
+    val df = Factory.createDf("name STRING, age INT",
       Row("John", 35), Row("Peter", null), Row("Mary", 20))
     val filteredDf = df.filter(col("age").isNotNull)
     filteredDf.toJSON.collect should contain inOrderOnly(
@@ -67,7 +67,7 @@ class FilterTransformationTest extends AnyFlatSpec with Matchers {
   }
 
   it should "filter by array contains" in {
-    val df = Factory.createDf(Map("name" -> StringType, "orders" -> ArrayType(IntegerType)),
+    val df = Factory.createDf("name STRING, orders ARRAY<INT>",
       Row("USA", Array(10, 20)), Row("Canada", Array(30, 40)))
     val df2 = df.filter(array_contains(col("orders"), 30))
     df2.toJSON.collect should contain only """{"name":"Canada","orders":[30,40]}"""
@@ -85,7 +85,7 @@ class FilterTransformationTest extends AnyFlatSpec with Matchers {
   }
 
   it should "filter by array of nulls" in {
-    val df = Factory.createDf(Map("name" -> StringType, "orders" -> ArrayType(IntegerType)),
+    val df = Factory.createDf("name STRING, orders ARRAY<INT>",
       Row("USA", Array(10, null)), Row("Canada", Array(null, null)))
     val df2 = df.filter(functions.size(array_except(col("orders"), array(lit(null)))) === 0)
     df2.toJSON.collect should contain only """{"name":"Canada","orders":[null,null]}"""
@@ -122,4 +122,5 @@ class FilterTransformationTest extends AnyFlatSpec with Matchers {
       """{"name":"Mary","age":20,"gender":"F"}"""
     )
   }
+
 }

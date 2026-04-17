@@ -38,11 +38,15 @@ Infer a model in batch mode.
 	4. Get job ID:
 		```shell
 		export JOB_ARN=$(aws bedrock list-model-invocation-jobs \
-	  		--query "modelInvocationJobSummaries[?jobName=='$JOB_NAME'].[jobArn]" \
+	  		--query "invocationJobSummaries[?jobName=='$JOB_NAME'].[jobArn]" \
 	  		--output text)
 		```
 	5. Verify job: `aws bedrock get-model-invocation-job --job-identifier $JOB_ARN`
 6. 
+
+!!! Error: 
+`Batch job contains less records (1) than the required minimum of: 100`
+
 
 ## Cleanup
 1. Delete the S3 bucket: `aws s3 rb --force s3://$BUCKET`

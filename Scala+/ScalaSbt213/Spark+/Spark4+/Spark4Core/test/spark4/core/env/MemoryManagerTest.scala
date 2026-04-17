@@ -7,8 +7,8 @@ import spark4.core.Factory
 
 class MemoryManagerTest extends AnyFlatSpec with Matchers {
 
-  it should "used memory" in {
-    Factory.sc.range(1, 10).count()
+  it should "get used memory" in {
+    Factory.sc.range(1, 10).count
     val manager = SparkEnv.get.memoryManager
     manager.executionMemoryUsed shouldEqual 0L
     manager.storageMemoryUsed should be > 0L

@@ -2,7 +2,6 @@ package spark4.sql.dataframe.operation.transformation
 
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.sum
-import org.apache.spark.sql.types.{ArrayType, IntegerType, StringType}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark4.sql.Factory
@@ -12,8 +11,10 @@ class FlatMapTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "use flatMap transformation for parsing an array" in {
     import Factory.ss.implicits._
-    val df = Factory.createDf(Map("genre_array" -> StringType),
-      Row("Comedy,Drama,Action"), Row("Western,Sci-Fi"), Row("Horror"))
+    val df = Factory.createDf("genre_array STRING",
+        Row("Comedy,Drama,Action"),
+        Row("Western,Sci-Fi"),
+        Row("Horror"))
       .flatMap(row => {
         val genresStr = row.getString(row.fieldIndex("genre_array"))
         val genresArr = genresStr.split(",")
@@ -33,7 +34,9 @@ class FlatMapTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "convert ArrayType(IntegerType) to IntegerType" in {
     import Factory.ss.implicits._
-    val numbersSum = Factory.createDf(Map("numbers" -> ArrayType(IntegerType)), Row(Array(1, 2)), Row(Array(10, 20)))
+    val numbersSum = Factory.createDf("numbers ARRAY<INT>",
+        Row(Array(1, 2)),
+        Row(Array(10, 20)))
       .flatMap(row => row.getSeq[Int](row.fieldIndex("numbers")))
       .agg(sum("value")).first().getLong(0)
     numbersSum shouldBe 33

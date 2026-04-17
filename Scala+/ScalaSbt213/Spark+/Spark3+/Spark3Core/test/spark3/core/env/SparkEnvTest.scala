@@ -13,4 +13,18 @@ class SparkEnvTest extends AnyFlatSpec with Matchers {
     manager.executionMemoryUsed shouldEqual 0L
   }
 
+  it should "get block manager" in {
+    Factory.sc.range(1, 10)
+    val executorBlockManager = SparkEnv.get.blockManager
+    val masterBlockManager = executorBlockManager.master
+    executorBlockManager should not be null
+    masterBlockManager should not be null
+  }
+
+  it should "get shuffle manager" in {
+    Factory.sc.range(1, 10)
+    val manager = SparkEnv.get.shuffleManager
+    manager should not be null
+  }
+
 }
