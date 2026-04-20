@@ -1,6 +1,7 @@
 package spark4.sql.dataframe.operation.transformation.column
 
-import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.functions.{col, lit}
+import org.apache.spark.sql.{AnalysisException, DataFrame}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark4.sql.Factory
@@ -12,6 +13,22 @@ class WithColumnRenamedTest extends AnyFlatSpec with Matchers {
     df.schema.toDDL shouldEqual "name STRING,age INT,gender STRING"
     val updatedDf: DataFrame = df.withColumnRenamed("name", "fio")
     updatedDf.schema.toDDL shouldEqual "fio STRING,age INT,gender STRING"
+  }
+
+  it should "rename an ambiguous column" in {
+    val df = Factory.peopleDf
+    df.schema.toDDL shouldEqual "name STRING,age INT,gender STRING"
+    val df2 = df.select(col("name"), col("age"), col("gender"), lit("abc").as("name"))
+    df2.schema.toDDL shouldEqual "name STRING,age INT,gender STRING,name STRING NOT NULL"
+    df2.toJSON.collect should contain inOrderOnly(
+      """{"name":"John","age":25,"gender":"M","name":"abc"}""",
+      """{"name":"Peter","age":35,"gender":"M","name":"abc"}""",
+      """{"name":"Mary","age":20,"gender":"F","name":"abc"}""")
+
+    val e = the[AnalysisException] thrownBy {
+      df2.select("name")
+    }
+    e.getMessage() shouldEqual "[AMBIGUOUS_REFERENCE] Reference `name` is ambiguous, could be: [`name`, `name`]."
   }
 
   ignore should "rename a nested column" in {

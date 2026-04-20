@@ -1,7 +1,8 @@
 package spark4.sql.dataframe.create.hardcode
 
-import org.apache.spark.sql.Row
+import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
+import org.apache.spark.sql.{DataFrame, Row}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark4.sql.Factory
@@ -45,14 +46,25 @@ class CreateDataFrameTest extends AnyFlatSpec with Matchers {
 
   it should "create an DataFrame without columns" in {
     val schema = StructType(Nil)
-    val rdd = Factory.ss.sparkContext.parallelize(Seq(Row(), Row()))
+    val rows = Seq(Row(), Row(), null)
+    val rdd = Factory.ss.sparkContext.parallelize(rows)
     val df = Factory.ss.createDataFrame(rdd, schema)
     df.schema.simpleString shouldEqual "struct<>"
     df.schema.toDDL shouldBe empty
     df.toJSON.collect shouldEqual Seq(
       """{}""",
+      """{}""",
       """{}"""
     )
+  }
+
+  it should "create an DataFrame without columns and rows" in {
+    val schema: StructType = StructType(Nil)
+    val rdd: RDD[Row] = Factory.ss.sparkContext.emptyRDD[Row]
+    val df: DataFrame = Factory.ss.createDataFrame(rdd, schema)
+    df.schema.simpleString shouldEqual "struct<>"
+    df.schema.toDDL shouldBe empty
+    df.toJSON.collect shouldBe empty
   }
 
   case class People(@BeanProperty var name: String, @BeanProperty var age: Int)

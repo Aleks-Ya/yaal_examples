@@ -14,15 +14,16 @@ class CoalesceTest extends AnyFlatSpec with Matchers {
       Row("London3", null, "Washington3"),
       Row("London4", "Berlin4", null),
       Row(null, null, "Washington5"),
+      Row(null, "", "Washington5"), //empty string
       Row(null, null, null))
     val updatedDf = df.select(coalesce(col("city1"), col("city2"), col("city3")) as "city")
-    updatedDf.toJSON.collect should contain inOrderOnly (
+    updatedDf.toJSON.collect should contain inOrderOnly(
       """{"city":"London1"}""",
       """{"city":"Berlin2"}""",
       """{"city":"London3"}""",
       """{"city":"London4"}""",
       """{"city":"Washington5"}""",
-      """{"city":null}""",
-    )
+      """{"city":""}""",
+      """{"city":null}""")
   }
 }

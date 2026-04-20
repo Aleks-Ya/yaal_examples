@@ -32,4 +32,29 @@ class GroupByPivotTransformationTest extends AnyFlatSpec with Matchers {
       """{"month":"Jan","Apples":150,"Bananas":150}""")
   }
 
+  it should "group by same-case columns" in {
+    val df = Factory.createDf("month STRING, product STRING, amount INT",
+      Row("Jan", "Apples", 100),
+      Row("Jan", "Bananas", 150),
+      Row("Feb", "Apples", 200),
+      Row("Feb", "BANANAS", 50),
+      Row("Jan", "APPLES", 50))
+
+    val noPivotDf = df.groupBy("month").agg(sum("amount") as "sum_amount")
+    noPivotDf.schema.toDDL shouldEqual "month STRING,sum_amount BIGINT"
+    noPivotDf.toJSON.collect should contain inOrderOnly(
+      """{"month":"Feb","sum_amount":250}""",
+      """{"month":"Jan","sum_amount":300}""")
+
+    val pivotDf = df
+      .groupBy("month")
+      .pivot("product")
+      .agg(sum("amount"))
+    pivotDf.schema.toDDL shouldEqual "month STRING,APPLES BIGINT,Apples BIGINT,BANANAS BIGINT,Bananas BIGINT"
+    pivotDf.toJSON.collect should contain inOrderOnly(
+      """{"month":"Feb","APPLES":null,"Apples":200,"BANANAS":50,"Bananas":null}""",
+      """{"month":"Jan","APPLES":50,"Apples":100,"BANANAS":null,"Bananas":150}""")
+  }
+
+
 }

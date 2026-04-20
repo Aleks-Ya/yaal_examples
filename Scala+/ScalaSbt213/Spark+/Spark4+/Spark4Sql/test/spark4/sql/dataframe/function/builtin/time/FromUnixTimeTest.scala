@@ -4,6 +4,7 @@ import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{col, from_unixtime}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import spark4.sql.Factory
 
 class FromUnixTimeTest extends AnyFlatSpec with Matchers {
 
