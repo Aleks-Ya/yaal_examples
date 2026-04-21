@@ -20,7 +20,7 @@ object FileUtil {
   def write(path: Path, content: String): Unit = write(path.toFile, content)
 
   def writeNewTmpFile(content: String): Path = {
-    val file = createTmpFile()
+    val file = createExistingTmpFile()
     write(file, content)
     file
   }
@@ -53,5 +53,14 @@ object FileUtil {
     dir
   }
 
-  def createTmpFile(): Path = Files.createTempFile(FileUtil.getClass.getSimpleName.replace("$", ""), ".tmp")
+  def createExistingTmpFile(suffix: String = ".tmp"): Path =
+    Files.createTempFile(FileUtil.getClass.getSimpleName.replace("$", ""), suffix)
+
+  def createAbsentTmpFile(suffix: String = ".tmp"): Path = {
+    val file = createExistingTmpFile(suffix)
+    Files.delete(file)
+    println(s"Absent temp file was created: $file")
+    file
+  }
+
 }

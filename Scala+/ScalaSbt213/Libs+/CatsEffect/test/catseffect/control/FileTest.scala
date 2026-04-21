@@ -17,7 +17,7 @@ class FileTest extends AsyncFreeSpec with AsyncIOSpec with Matchers {
     }
 
     "write a text file" in {
-      val file = FileUtil.createTmpFile().toFile
+      val file = FileUtil.createExistingTmpFile().toFile
       val expContent = "Hello, World!"
       val io = IO.pure(FileUtil.write(file, expContent))
       io.unsafeRunSync()

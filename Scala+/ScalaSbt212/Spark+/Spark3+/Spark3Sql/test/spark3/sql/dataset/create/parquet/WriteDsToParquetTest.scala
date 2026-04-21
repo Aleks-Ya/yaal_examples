@@ -1,41 +1,69 @@
 package spark3.sql.dataset.create.parquet
 
-import org.apache.spark.sql.functions.{col, lit}
-import org.scalatest.BeforeAndAfterAll
+import org.apache.spark.sql.types.StructType
+import org.apache.spark.sql.{Dataset, Encoders}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark3.sql.Factory
+import util.FileUtil
 
 import java.nio.file.Files
+import scala.collection.JavaConverters._
 
-class WriteDsToParquet extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
+class WriteDsToParquetTest extends AnyFlatSpec with Matchers {
+  private val ss = Factory.ss
 
-  "Parquet test" should "write a parquet file" in {
-    val ss = Factory.ss
-    import org.apache.spark.sql._
-    import ss.implicits._
+  import ss.implicits._
 
-    val data = Seq(Person2("John", 30, gender = true, 0.95D), Person2("Mary", 25, gender = false, 0.90D))
-    val schema = Encoders.product[Person2].schema
-    val expDs = ss.createDataset(data)
-    val file = Files.createTempFile(classOf[WriteDsToParquet].getSimpleName, ".parquet")
-    Files.delete(file)
-    expDs.write.parquet(file.toString)
+  it should "write a parquet file (1 partition)" in {
+    val expSeq: Seq[Person2] = Seq(Person2("John", 30, gender = true, 0.95D), Person2("Mary", 25, gender = false, 0.90D))
+    val expDs: Dataset[Person2] = ss.createDataset(expSeq)
+    val parquetFile = FileUtil.createAbsentTmpFile(".parquet")
+    expDs.write.parquet(parquetFile.toString)
 
-    val ds = ss.read.schema(schema).parquet(file.toString).as[Person2]
-    expDs.show(false)
-    ds.show(false)
-    val actDs = ds
-      .withColumnsRenamed(Map("name" -> "identity"))
-      .drop(col("rating"))
-      .withColumn("age", col("age").cast("double"))
-      .withColumn("city", lit("London"))
-      .as[Person]
+    val schema: StructType = Encoders.product[Person2].schema
+    val actDs: Dataset[Person2] = ss.read.schema(schema).parquet(parquetFile.toString).as[Person2]
+    val actSeq = actDs.collect
+    actSeq should contain allElementsOf expSeq
 
-    val expStrings = actDs.collect.map(person => person.name + "-" + person.age.toString + "-" + person.gender + "-" + person.rating)
-    expStrings should contain allOf("John-30-true-0.95", "Mary-25-false-0.9")
+    Files.list(parquetFile).filter(_.getFileName.toString.endsWith(".parquet")).count shouldEqual 1
+  }
+
+  it should "write a parquet file (2 partitions)" in {
+    val expSeq: Seq[Person2] = Seq(Person2("John", 30, gender = true, 0.95D), Person2("Mary", 25, gender = false, 0.90D))
+
+    val partitionsNum = 2
+    val expDs: Dataset[Person2] = ss.createDataset(expSeq).repartition(partitionsNum)
+    val parquetFile = FileUtil.createAbsentTmpFile(".parquet")
+    expDs.write.parquet(parquetFile.toString)
+
+    val schema: StructType = Encoders.product[Person2].schema
+    val actDs: Dataset[Person2] = ss.read.schema(schema).parquet(parquetFile.toString).as[Person2]
+    val actSeq = actDs.collect
+    actSeq should contain allElementsOf expSeq
+
+    Files.list(parquetFile).filter(_.getFileName.toString.endsWith(".parquet")).count shouldEqual partitionsNum
+  }
+
+  it should "write a parquet file (Hive partitioning)" in {
+    val expSeq: Seq[Person2] = Seq(Person2("John", 30, gender = true, 0.95D), Person2("Mary", 25, gender = false, 0.90D))
+
+    val expDs: Dataset[Person2] = ss.createDataset(expSeq)
+    val parquetFile = FileUtil.createAbsentTmpFile(".parquet")
+    expDs.write.partitionBy("gender").parquet(parquetFile.toString)
+
+    val schema: StructType = Encoders.product[Person2].schema
+    val actDs: Dataset[Person2] = ss.read.schema(schema).parquet(parquetFile.toString).as[Person2]
+    val actSeq = actDs.collect
+    actSeq should contain allElementsOf expSeq
+
+    Files.list(parquetFile).iterator().asScala.map(_.getFileName.toString).toSeq should contain allOf(
+      "gender=true",
+      "gender=false",
+      "_SUCCESS",
+      "._SUCCESS.crc"
+    )
   }
 
 }
 
-case class Person2(name: String, age: Integer, gender: Boolean, rating: Double)

@@ -2,7 +2,6 @@ package spark4.sql.dataframe.function.builtin.array
 
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{col, explode}
-import org.apache.spark.sql.types.{ArrayType, StringType, StructField, StructType}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark4.sql.Factory
@@ -11,11 +10,11 @@ import spark4.sql.Factory
 class ExplodeTest extends AnyFlatSpec with Matchers {
 
   it should "use explode function in select" in {
-    val df = Factory.createDf(Map("name" -> StringType, "cities" -> ArrayType(StringType)),
-      Row("John", List("London", "Paris")),
-      Row("Mary", List("Berlin", "Paris")),
-      Row("Mark", null),
-      Row("Chad", List()))
+    val df = Factory.createDf("name STRING, cities ARRAY<STRING>",
+      Row("John", Seq("London", "Paris")),
+      Row("Mary", Seq("Berlin", "Paris")),
+      Row("Chad", Seq()),
+      Row("Mark", null))
     val explodedDf = df.select(
       col("name"),
       explode(col("cities")).alias("city"))
@@ -28,9 +27,9 @@ class ExplodeTest extends AnyFlatSpec with Matchers {
   }
 
   it should "use explode function in withColumn" in {
-    val df = Factory.createDf(Map("name" -> StringType, "cities" -> ArrayType(StringType)),
-      Row("John", List("London", "Paris")),
-      Row("Mary", List("Berlin", "Paris")))
+    val df = Factory.createDf("name STRING, cities ARRAY<STRING>",
+      Row("John", Seq("London", "Paris")),
+      Row("Mary", Seq("Berlin", "Paris")))
     val explodedDf = df.withColumn("city", explode(col("cities")))
     explodedDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","cities":["London","Paris"],"city":"London"}""",
@@ -41,14 +40,11 @@ class ExplodeTest extends AnyFlatSpec with Matchers {
   }
 
   it should "explode nested column (by dot)" in {
-    val df = Factory.createDf(Map("name" -> StringType, "address" -> ArrayType(StructType(Array(
-      StructField("country", StringType),
-      StructField("city", StringType)
-    )))),
-      Row("John", List(Row("England", "London"), Row("France", "Paris"))),
-      Row("Mary", List(Row("Germany", "Berlin"), Row("Spain", "Barcelona"))),
-      Row("Mark", null),
-      Row("Chad", List()))
+    val df = Factory.createDf("name STRING, address ARRAY<STRUCT<country STRING, city STRING>>",
+      Row("John", Seq(Row("England", "London"), Row("France", "Paris"))),
+      Row("Mary", Seq(Row("Germany", "Berlin"), Row("Spain", "Barcelona"))),
+      Row("Chad", Seq()),
+      Row("Mark", null))
     val explodedDf = df.select(
       col("name"),
       explode(col("address.city")).alias("city"))
@@ -61,14 +57,11 @@ class ExplodeTest extends AnyFlatSpec with Matchers {
   }
 
   it should "explode nested column (by field)" in {
-    val df = Factory.createDf(Map("name" -> StringType, "address" -> ArrayType(StructType(Array(
-      StructField("country", StringType),
-      StructField("city", StringType)
-    )))),
-      Row("John", List(Row("England", "London"), Row("France", "Paris"))),
-      Row("Mary", List(Row("Germany", "Berlin"), Row("Spain", "Barcelona"))),
-      Row("Mark", null),
-      Row("Chad", List()))
+    val df = Factory.createDf("name STRING, address ARRAY<STRUCT<country STRING, city STRING>>",
+      Row("John", Seq(Row("England", "London"), Row("France", "Paris"))),
+      Row("Mary", Seq(Row("Germany", "Berlin"), Row("Spain", "Barcelona"))),
+      Row("Chad", Seq()),
+      Row("Mark", null))
     val explodedDf = df.select(
       col("name"),
       explode(col("address").getField("city")).alias("city"))

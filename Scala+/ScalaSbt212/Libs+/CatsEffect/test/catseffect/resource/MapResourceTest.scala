@@ -14,7 +14,7 @@ class MapResourceTest extends AsyncFreeSpec with AsyncIOSpec with Matchers {
     "map a resource" in {
       val file1 = FileUtil.writeNewTmpFile("content1")
       val file2 = FileUtil.writeNewTmpFile("content2")
-      val file3 = FileUtil.createTmpFile()
+      val file3 = FileUtil.createExistingTmpFile()
 
       def fileResource(name: Path): Resource[IO, Path] = Resource.eval(openFile(name))
 

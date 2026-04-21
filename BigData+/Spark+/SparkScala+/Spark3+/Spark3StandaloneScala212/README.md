@@ -67,7 +67,8 @@ Submit:
                     --conf "spark.eventLog.dir=file:/tmp/spark-standalone-cluster-shared/spark-events" \
                     target/scala-2.12/spark3standalonescala212_2.12-1.jar
                ```
-12. Stop the application
+12. Run the Job Metadata app: `./JobMetadataApp_build_and_submit.sh`
+13. Stop the application
     1. Enable firewall: `sudo ufw enable`
 
 ## Errors

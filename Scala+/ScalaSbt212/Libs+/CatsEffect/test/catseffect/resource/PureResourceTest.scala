@@ -16,7 +16,7 @@ class PureResourceTest extends AsyncFreeSpec with AsyncIOSpec with Matchers {
     "a resource" in {
       val file1 = Resource.pure[IO, Path](FileUtil.writeNewTmpFile("content1"))
       val file2 = Resource.pure[IO, Path](FileUtil.writeNewTmpFile("content2"))
-      val file3 = Resource.pure[IO, Path](FileUtil.createTmpFile())
+      val file3 = Resource.pure[IO, Path](FileUtil.createExistingTmpFile())
 
       val concat: IO[Path] = (
         for {

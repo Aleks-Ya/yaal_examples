@@ -1,1 +1,4 @@
-Compile tests: `gradle clean compileTestJava`
+# Java examples
+
+## Build
+Compile tests: `./gradlew clean compileTestJava`
