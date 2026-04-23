@@ -10,7 +10,7 @@ import util.FileUtil
 import java.nio.file.Files
 import scala.jdk.StreamConverters.StreamHasToScala
 
-class WriteDsToParquetTest extends AnyFlatSpec with Matchers {
+class WriteReadDsToParquetTest extends AnyFlatSpec with Matchers {
   private val ss = Factory.ss
 
   import ss.implicits._
@@ -45,7 +45,7 @@ class WriteDsToParquetTest extends AnyFlatSpec with Matchers {
     Files.list(parquetFile).filter(_.getFileName.toString.endsWith(".parquet")).count shouldEqual partitionsNum
   }
 
-  it should "write a parquet file (Hive partitioning)" in {
+  it should "write a partitioned parquet file" in {
     val expSeq: Seq[Person2] = Seq(Person2("John", 30, gender = true, 0.95D), Person2("Mary", 25, gender = false, 0.90D))
 
     val expDs: Dataset[Person2] = ss.createDataset(expSeq)

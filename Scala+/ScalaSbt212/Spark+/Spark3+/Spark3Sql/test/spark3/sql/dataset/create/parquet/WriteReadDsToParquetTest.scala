@@ -1,16 +1,16 @@
-package spark4.sql.dataset.create.parquet
+package spark3.sql.dataset.create.parquet
 
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.{Dataset, Encoders}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark3.sql.Factory
 import util.FileUtil
 
 import java.nio.file.Files
-import scala.jdk.StreamConverters.StreamHasToScala
+import scala.collection.JavaConverters._
 
-class WriteDsToParquetTest extends AnyFlatSpec with Matchers {
+class WriteReadDsToParquetTest extends AnyFlatSpec with Matchers {
   private val ss = Factory.ss
 
   import ss.implicits._
@@ -45,7 +45,7 @@ class WriteDsToParquetTest extends AnyFlatSpec with Matchers {
     Files.list(parquetFile).filter(_.getFileName.toString.endsWith(".parquet")).count shouldEqual partitionsNum
   }
 
-  it should "write a parquet file (Hive partitioning)" in {
+  it should "write a partitioned parquet file" in {
     val expSeq: Seq[Person2] = Seq(Person2("John", 30, gender = true, 0.95D), Person2("Mary", 25, gender = false, 0.90D))
 
     val expDs: Dataset[Person2] = ss.createDataset(expSeq)
@@ -57,7 +57,7 @@ class WriteDsToParquetTest extends AnyFlatSpec with Matchers {
     val actSeq = actDs.collect
     actSeq should contain allElementsOf expSeq
 
-    Files.list(parquetFile).map(_.getFileName.toString).toScala(Seq) should contain allOf(
+    Files.list(parquetFile).iterator().asScala.map(_.getFileName.toString).toSeq should contain allOf(
       "gender=true",
       "gender=false",
       "_SUCCESS",

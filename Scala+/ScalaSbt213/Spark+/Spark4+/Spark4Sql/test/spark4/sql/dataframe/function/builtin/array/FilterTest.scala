@@ -7,6 +7,7 @@ import org.scalatest.matchers.should.Matchers
 import spark4.sql.Factory
 
 class FilterTest extends AnyFlatSpec with Matchers {
+
   it should "use filter function" in {
     val df = Factory.createDf("country STRING, orders ARRAY<INT>",
       Row("USA", Seq(10, 20, 100, 200)),
@@ -14,6 +15,7 @@ class FilterTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("country"),
       filter(col("orders"), _ > 50) as "big_orders")
+    updatedDf.schema.toDDL shouldEqual "country STRING,big_orders ARRAY<INT>"
     updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"USA","big_orders":[100,200]}""",
       """{"country":"Canada","big_orders":[300,400]}"""
@@ -27,9 +29,11 @@ class FilterTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("country"),
       filter(col("orders"), _ => lit(true)) as "big_orders")
+    updatedDf.schema.toDDL shouldEqual "country STRING,big_orders ARRAY<INT>"
     updatedDf.toJSON.collect should contain inOrderOnly(
       """{"country":"USA","big_orders":[10,20,100,200]}""",
       """{"country":"Canada","big_orders":[30,40,300,400]}"""
     )
   }
+
 }

@@ -13,7 +13,7 @@ import util.FileUtil
 import java.io.File
 
 /**
- * Write/read Parqet in batches.
+ * Write/read Parquet in batches.
  */
 class BatchesTest extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
   private val IdField = "id"

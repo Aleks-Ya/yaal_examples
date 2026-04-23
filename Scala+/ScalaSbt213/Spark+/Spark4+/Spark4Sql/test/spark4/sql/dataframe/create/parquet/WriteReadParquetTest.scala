@@ -1,16 +1,18 @@
 package spark4.sql.dataframe.create.parquet
 
-import spark4.sql.Factory.createDf
+import org.apache.spark.SparkException
 import org.apache.spark.sql.functions.col
-import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.{Row, SaveMode}
-import org.scalatest.BeforeAndAfterAll
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark4.sql.Factory
+import spark4.sql.Factory.createDf
 import util.FileUtil
 
-class WriteReadParquetTest extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
+import java.nio.file.Files
+
+class WriteReadParquetTest extends AnyFlatSpec with Matchers {
+
   it should "write to parquet file" in {
     val originalDf = Factory.peopleDf
 
@@ -18,6 +20,7 @@ class WriteReadParquetTest extends AnyFlatSpec with Matchers with BeforeAndAfter
     originalDf.write.parquet(file)
 
     val parquetDf = Factory.ss.read.parquet(file)
+    parquetDf.schema.toDDL shouldEqual "name STRING,age INT,gender STRING"
     parquetDf.toJSON.collect shouldEqual originalDf.toJSON.collect
     parquetDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M"}""",
@@ -38,6 +41,7 @@ class WriteReadParquetTest extends AnyFlatSpec with Matchers with BeforeAndAfter
     femaleDf.write.parquet(femaleFile)
 
     val parquetDf = Factory.ss.read.parquet(maleFile, femaleFile)
+    parquetDf.schema.toDDL shouldEqual "name STRING,age INT,gender STRING"
     parquetDf.toJSON.collect shouldEqual originalDf.toJSON.collect
     parquetDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M"}""",
@@ -46,18 +50,32 @@ class WriteReadParquetTest extends AnyFlatSpec with Matchers with BeforeAndAfter
   }
 
   it should "append a parquet file" in {
-    val schema = StructType.fromDDL("city string")
+    val ddl = "city STRING"
     val file = FileUtil.createAbsentTmpDirStr()
 
-    val df1 = createDf(schema, Row("London"))
+    val df1 = createDf(ddl, Row("London"))
     df1.write.parquet(file)
     Factory.ss.read.parquet(file).toJSON.collect should contain only """{"city":"London"}"""
 
-    val df2 = createDf(schema, Row("Berlin"))
+    val df2 = createDf(ddl, Row("Berlin"))
     df2.write.mode(SaveMode.Append).parquet(file)
     Factory.ss.read.parquet(file).toJSON.collect should contain only(
       """{"city":"Berlin"}""",
       """{"city":"London"}"""
     )
   }
+
+  it should "read a corrupted Parquet file" in {
+    val path = FileUtil.createAbsentTmpDirPath()
+    Factory.peopleDf.write.parquet(path.toString)
+    Files
+      .list(path)
+      .filter(_.getFileName.toString.endsWith(".parquet"))
+      .forEach(p => Files.write(p, "corrupted".getBytes))
+    a[SparkException] should be thrownBy {
+      Factory.ss.read.parquet(path.toString)
+    }
+    a[SparkException] should be thrownBy Factory.ss.read.parquet(path.toString) // one-liner
+  }
+
 }

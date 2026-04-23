@@ -15,21 +15,28 @@ Help about a command: `hf upload-large-folder --help`
 
 ### Repo
 Clone repo: `git clone https://huggingface.co/datasets/Ya-Alex/anki-addons`
-Delete a branch in repo: `hf repo branch delete --repo-type=dataset Ya-Alex/anki-addons parquet-versions-2`
+Delete a branch in repo: `hf repo branch delete --type=dataset Ya-Alex/anki-addons parquet-versions-2`
 
 ### Auth
 Login: `hf auth login`
 Who am I: `hf auth whoami`
 
 ### Repo files
-Delete all files before upload: `hf repo-files delete --repo-type=dataset Ya-Alex/anki-addons '*'`
+Delete all files before upload: `hf repos delete-files --type=dataset Ya-Alex/anki-addons '*'`
+
+### Download
+Download entire dataset:
+- to the cache dir: `hf download --type dataset Ya-Alex/anki-addons`
+- to given dir: `hf download --type dataset Ya-Alex/anki-addons --local-dir /tmp/anki1`
+Download a folder from a dataset:
+- to given dir: `hf download --type dataset Ya-Alex/anki-addons --local-dir /tmp/anki1 --include history/*`
 
 ### Upload
-Upload a folder: `hf upload --repo-type=dataset Ya-Alex/anki-addons .`
-Upload to a Git branch: `hf upload --repo-type=dataset Ya-Alex/anki-addons . --revision=bug/fix1`
+Upload a folder: `hf upload --type=dataset Ya-Alex/anki-addons .`
+Upload to a Git branch: `hf upload --type=dataset Ya-Alex/anki-addons . --revision=bug/fix1`
 
 ### Upload large folder
-Upload a folder: `hf upload-large-folder --repo-type=dataset Ya-Alex/anki-addons . --num-workers=16`
+Upload a folder: `hf upload-large-folder --type=dataset Ya-Alex/anki-addons . --num-workers=16`
 
 ### Spaces
 List Spaces: `hf spaces ls`
