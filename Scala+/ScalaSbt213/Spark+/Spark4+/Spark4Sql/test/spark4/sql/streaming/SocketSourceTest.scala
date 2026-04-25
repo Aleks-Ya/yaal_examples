@@ -1,13 +1,12 @@
 package spark4.sql.streaming
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 /**
  * Example from https://spark.apache.org/docs/4.0.0/streaming/getting-started.html
  */
-class SocketSourceTest extends AnyFlatSpec with Matchers {
+class SocketSourceTest extends AnyFlatSpec with SparkMatchers {
   it should "use Structured Streaming" in {
     // Create DataFrame representing the stream of input lines from connection to localhost:9999
     val lines = Factory.ss.readStream

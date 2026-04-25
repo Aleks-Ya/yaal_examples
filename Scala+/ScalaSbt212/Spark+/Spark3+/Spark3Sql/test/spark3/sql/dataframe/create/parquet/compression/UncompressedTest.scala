@@ -2,14 +2,13 @@ package spark3.sql.dataframe.create.parquet.compression
 
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 import util.FileUtil
 
 import java.nio.file.{Files, Path}
 import scala.collection.JavaConverters._
 
-class UncompressedTest extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
+class UncompressedTest extends AnyFlatSpec with SparkMatchers with BeforeAndAfterAll {
   it should "write to uncompressed parquet file" in {
     val parquetDir = FileUtil.createAbsentTmpDirStr()
     val expDf = Factory.peopleDf

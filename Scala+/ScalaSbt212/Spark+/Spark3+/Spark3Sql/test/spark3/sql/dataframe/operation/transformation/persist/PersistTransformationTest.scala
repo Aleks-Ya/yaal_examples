@@ -2,11 +2,10 @@ package spark3.sql.dataframe.operation.transformation.persist
 
 import org.apache.spark.storage.StorageLevel.{MEMORY_AND_DISK, MEMORY_ONLY, NONE}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
 
-class PersistTransformationTest extends AnyFlatSpec with Matchers {
+class PersistTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "persist and unpersist a DataFrame" in {
     Factory.sc.getPersistentRDDs shouldBe empty

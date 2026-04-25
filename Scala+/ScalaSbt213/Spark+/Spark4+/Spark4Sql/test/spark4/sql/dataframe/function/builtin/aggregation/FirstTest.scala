@@ -3,10 +3,9 @@ package spark4.sql.dataframe.function.builtin.aggregation
 import org.apache.spark.sql.functions.first
 import org.apache.spark.sql.{DataFrame, Row}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class FirstTest extends AnyFlatSpec with Matchers {
+class FirstTest extends AnyFlatSpec with SparkMatchers {
   private val df = Factory.createDf("country STRING, order INT",
     Row("USA", 10),
     Row("Canada", 100),
@@ -17,8 +16,8 @@ class FirstTest extends AnyFlatSpec with Matchers {
     val updatedDf: DataFrame = df.groupBy("country").agg(
       first("country") as "first_country",
       first("order") as "first_order")
-    updatedDf.schema.toDDL shouldEqual "country STRING,first_country STRING,first_order INT"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "country STRING,first_country STRING,first_order INT"
+    updatedDf shouldContain(
       """{"country":"Canada","first_country":"Canada","first_order":100}""",
       """{"country":"USA","first_country":"USA","first_order":10}"""
     )
@@ -29,8 +28,8 @@ class FirstTest extends AnyFlatSpec with Matchers {
       first("country") as "first_country",
       first("order") as "first_order"
     )
-    updatedDf.schema.toDDL shouldEqual "first_country STRING,first_order INT"
-    updatedDf.toJSON.collect should contain only """{"first_country":"USA","first_order":10}"""
+    updatedDf shouldHaveDDL "first_country STRING,first_order INT"
+    updatedDf shouldContain """{"first_country":"USA","first_order":10}"""
   }
 
   it should "use first function in select" in {
@@ -38,7 +37,7 @@ class FirstTest extends AnyFlatSpec with Matchers {
       first("country") as "first_country",
       first("order") as "first_order"
     )
-    updatedDf.schema.toDDL shouldEqual "first_country STRING,first_order INT"
-    updatedDf.toJSON.collect should contain only """{"first_country":"USA","first_order":10}"""
+    updatedDf shouldHaveDDL "first_country STRING,first_order INT"
+    updatedDf shouldContain """{"first_country":"USA","first_order":10}"""
   }
 }

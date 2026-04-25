@@ -2,10 +2,9 @@ package spark4.sql.dataframe.operation
 
 import org.apache.spark.sql.functions.col
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class StackOverflowErrorTest extends AnyFlatSpec with Matchers {
+class StackOverflowErrorTest extends AnyFlatSpec with SparkMatchers {
 
   it should "throw a StackOverflowError 1" in {
     val df = Factory.createDf("x INT")

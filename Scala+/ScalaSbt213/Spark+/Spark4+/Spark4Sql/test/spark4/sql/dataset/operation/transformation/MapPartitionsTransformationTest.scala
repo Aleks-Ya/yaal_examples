@@ -2,10 +2,9 @@ package spark4.sql.dataset.operation.transformation
 
 import org.apache.spark.sql.{Dataset, Encoder, Encoders}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.{City, Factory}
+import spark4.sql.{City, Factory, SparkMatchers}
 
-class MapPartitionsTransformationTest extends AnyFlatSpec with Matchers {
+class MapPartitionsTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "map a Dataset by partitions" in {
     val ds: Dataset[City] = Factory.cityDs.repartition(2)

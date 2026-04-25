@@ -3,14 +3,13 @@ package spark4.sql.dataset.udf
 import org.apache.spark.sql.Column
 import org.apache.spark.sql.functions._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class UdfReturnsListTest extends AnyFlatSpec with Matchers {
+class UdfReturnsListTest extends AnyFlatSpec with SparkMatchers {
 
   it should "return a seq" in {
     val df = Factory.peopleDf.withColumn("seq", ToListUdf(col("name"), col("age")))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","age":25,"gender":"M","seq":["JOHN","25"]}""",
       """{"name":"Peter","age":35,"gender":"M","seq":["PETER","35"]}""",
       """{"name":"Mary","age":20,"gender":"F","seq":["MARY","20"]}"""

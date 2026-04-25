@@ -2,9 +2,9 @@ package spark3.sql.dataframe.create.schema
 
 import org.apache.spark.sql.types._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
+import spark3.sql.SparkMatchers
 
-class SchemaToDdlTest extends AnyFlatSpec with Matchers {
+class SchemaToDdlTest extends AnyFlatSpec with SparkMatchers {
 
   it should "convert a schema to DDL and back" in {
     val schemaExp = StructType(Seq(

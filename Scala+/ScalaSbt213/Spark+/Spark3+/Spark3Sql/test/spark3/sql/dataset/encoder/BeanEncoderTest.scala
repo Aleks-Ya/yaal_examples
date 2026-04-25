@@ -2,13 +2,12 @@ package spark3.sql.dataset.encoder
 
 import org.apache.spark.sql.{Dataset, Encoder, Encoders}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
 /**
  * Bean Encoder can handle only Java classes (not Scala classes).
  */
-class BeanEncoderTest extends AnyFlatSpec with Matchers {
+class BeanEncoderTest extends AnyFlatSpec with SparkMatchers {
 
   it should "encode a Java class" in {
     val ss = Factory.ss

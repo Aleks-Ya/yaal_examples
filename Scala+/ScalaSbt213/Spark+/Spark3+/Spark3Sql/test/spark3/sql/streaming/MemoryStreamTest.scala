@@ -4,10 +4,9 @@ import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.execution.streaming.MemoryStream
 import org.apache.spark.sql.streaming.OutputMode
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class MemoryStreamTest extends AnyFlatSpec with Matchers {
+class MemoryStreamTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use MemoryStream" in {
     import Factory.ss.implicits._

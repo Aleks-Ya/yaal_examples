@@ -3,11 +3,10 @@ package spark4.sql.dataset.create.parquet
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.{Dataset, Encoders}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 import util.FileUtil
 
-class ParquetSchemaEvolutionTest extends AnyFlatSpec with Matchers {
+class ParquetSchemaEvolutionTest extends AnyFlatSpec with SparkMatchers {
 
   it should "write a parquet file" in {
     val ss = Factory.ss

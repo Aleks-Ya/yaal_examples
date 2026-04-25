@@ -3,10 +3,9 @@ package spark3.sql.dataset.operation.transformation.persist
 import org.apache.spark.sql.{Encoder, Encoders}
 import org.apache.spark.storage.StorageLevel.{DISK_ONLY, MEMORY_AND_DISK, NONE}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.{City, Factory}
+import spark3.sql.{City, Factory, SparkMatchers}
 
-class PersistTransformationTest extends AnyFlatSpec with Matchers {
+class PersistTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "persist and unpersist a Dataset" in {
     val ds = Factory.cityDs

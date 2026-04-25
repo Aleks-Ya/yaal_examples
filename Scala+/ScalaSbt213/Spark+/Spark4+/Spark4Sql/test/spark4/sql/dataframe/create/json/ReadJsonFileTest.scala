@@ -2,12 +2,11 @@ package spark4.sql.dataframe.create.json
 
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 import java.util.Objects.requireNonNull
 
-class ReadJsonFileTest extends AnyFlatSpec with Matchers {
+class ReadJsonFileTest extends AnyFlatSpec with SparkMatchers {
 
   it should "read several JSONs from NDJSON-file (infer schema)" in {
     val file = requireNonNull(getClass.getResource("ReadJsonFileTest.ndjson"))
@@ -15,7 +14,7 @@ class ReadJsonFileTest extends AnyFlatSpec with Matchers {
     df.printSchema()
     df.show()
     df.schema.simpleString shouldEqual "struct<age:bigint,gender:string,name:string>"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"age":30,"gender":"M","name":"John"}""",
       """{"age":25,"gender":"F","name":"Mary"}"""
     )
@@ -27,7 +26,7 @@ class ReadJsonFileTest extends AnyFlatSpec with Matchers {
     df.printSchema()
     df.show()
     df.schema.simpleString shouldEqual "struct<age:bigint,gender:string,name:string>"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"age":30,"gender":"M","name":"John"}""",
       """{"age":25,"gender":"F","name":"Mary"}"""
     )
@@ -44,7 +43,7 @@ class ReadJsonFileTest extends AnyFlatSpec with Matchers {
     df.printSchema()
     df.show()
     df.schema.simpleString shouldEqual "struct<name:string,age:int,gender:string>"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","age":30,"gender":"M"}""",
       """{"name":"Mary","age":25,"gender":"F"}"""
     )
@@ -58,7 +57,7 @@ class ReadJsonFileTest extends AnyFlatSpec with Matchers {
     val df = Factory.ss.read
       .option("compression", "gzip")
       .json(file.getPath)
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"age":30,"gender":"M","name":"John"}""",
       """{"age":25,"gender":"F","name":"Mary"}"""
     )
@@ -71,7 +70,7 @@ class ReadJsonFileTest extends AnyFlatSpec with Matchers {
     df.printSchema()
     df.show()
     df.schema.simpleString shouldEqual "struct<age:bigint,gender:string,name:string>"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"age":30,"gender":"M","name":"John"}""",
       """{"age":25,"gender":"F","name":"Mary"}""",
       """{"age":20,"gender":"M","name":"Mark"}""",

@@ -3,16 +3,15 @@ package spark4.sql.dataframe.operation.transformation.join
 import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.{DataFrame, Row}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory.createDf
+import spark4.sql.{Factory, SparkMatchers}
 
-class JoinLeftTest extends AnyFlatSpec with Matchers {
+class JoinLeftTest extends AnyFlatSpec with SparkMatchers {
   private val presidentIdCol = "president_id"
-  private val countriesDf: DataFrame = createDf(s"country STRING, $presidentIdCol INT",
+  private val countriesDf: DataFrame = Factory.createDf(s"country STRING, $presidentIdCol INT",
     Row("USA", 1),
     Row("France", 2),
     Row("England", null))
-  private val presidentsDf: DataFrame = createDf(s"$presidentIdCol INT, name STRING",
+  private val presidentsDf: DataFrame = Factory.createDf(s"$presidentIdCol INT, name STRING",
     Row(1, "Trump"),
     Row(2, "Macron"))
 
@@ -26,7 +25,7 @@ class JoinLeftTest extends AnyFlatSpec with Matchers {
   }
 
   it should "join DataFrame to itself" in {
-    val df: DataFrame = createDf("id INT, name STRING, bossId INT",
+    val df: DataFrame = Factory.createDf("id INT, name STRING, bossId INT",
       Row(1, "John", null),
       Row(2, "Mark", 1),
       Row(3, "Chad", 1))

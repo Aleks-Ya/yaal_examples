@@ -1,10 +1,9 @@
 package spark3.sql.dataframe.operation.action
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class CollectActionTest extends AnyFlatSpec with Matchers {
+class CollectActionTest extends AnyFlatSpec with SparkMatchers {
   it should "collect a DataFrame" in {
     val array = Factory.peopleDf.sort("age").collect()
     array.map(_.json) should contain inOrderOnly(

@@ -3,10 +3,9 @@ package spark3.sql.dataframe.function.builtin.array
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{array_compact, col}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class ArrayCompactTest extends AnyFlatSpec with Matchers {
+class ArrayCompactTest extends AnyFlatSpec with SparkMatchers {
   it should "remove nulls from an array" in {
     val df = Factory.createDf("numbers ARRAY<INT>",
       Row(Seq(10, null, 20)),
@@ -14,7 +13,7 @@ class ArrayCompactTest extends AnyFlatSpec with Matchers {
       Row(Seq()),
       Row(null))
     val updatedDf = df.withColumn("clean", array_compact(col("numbers")))
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"numbers":[10,null,20],"clean":[10,20]}""",
       """{"numbers":[null,16,null],"clean":[16]}""",
       """{"numbers":[],"clean":[]}""",

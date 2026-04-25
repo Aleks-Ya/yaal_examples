@@ -2,9 +2,9 @@ package spark4.sql.dataframe.create.schema
 
 import org.apache.spark.sql.types._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
+import spark4.sql.SparkMatchers
 
-class DdlToSchemaTest extends AnyFlatSpec with Matchers {
+class DdlToSchemaTest extends AnyFlatSpec with SparkMatchers {
 
   it should "read DDL with line breaks" in {
     val multiLinesDdl =

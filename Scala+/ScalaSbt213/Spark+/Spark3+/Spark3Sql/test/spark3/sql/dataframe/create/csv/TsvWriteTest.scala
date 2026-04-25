@@ -1,13 +1,10 @@
 package spark3.sql.dataframe.create.csv
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 import util.FileUtil
 
-import java.nio.file.Files
-
-class TsvWriteTest extends AnyFlatSpec with Matchers {
+class TsvWriteTest extends AnyFlatSpec with SparkMatchers {
 
   it should "write a TSV-file" in {
     val dir = FileUtil.createAbsentTmpDirPath()
@@ -25,7 +22,7 @@ class TsvWriteTest extends AnyFlatSpec with Matchers {
       .csv(dir.toString)
 
     expDf.schema shouldEqual actDf.schema
-    actDf.toJSON.collect should contain inOrderOnly(
+    actDf shouldContain(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""",
       """{"name":"Mary","age":20,"gender":"F"}"""
@@ -51,7 +48,7 @@ class TsvWriteTest extends AnyFlatSpec with Matchers {
       .csv(dir.toString)
 
     expDf.schema shouldEqual actDf.schema
-    actDf.toJSON.collect should contain inOrderOnly(
+    actDf shouldContain(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""",
       """{"name":"Mary","age":20,"gender":"F"}"""

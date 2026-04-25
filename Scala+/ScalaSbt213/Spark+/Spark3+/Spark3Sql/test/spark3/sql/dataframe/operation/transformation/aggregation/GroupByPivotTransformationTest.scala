@@ -3,10 +3,9 @@ package spark3.sql.dataframe.operation.transformation.aggregation
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class GroupByPivotTransformationTest extends AnyFlatSpec with Matchers {
+class GroupByPivotTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use groupBy with pivot" in {
     val df = Factory.createDf("month STRING, product STRING, amount INT",
@@ -17,8 +16,8 @@ class GroupByPivotTransformationTest extends AnyFlatSpec with Matchers {
       Row("Jan", "Apples", 50))
 
     val noPivotDf = df.groupBy("month").agg(sum("amount") as "sum_amount")
-    noPivotDf.schema.toDDL shouldEqual "month STRING,sum_amount BIGINT"
-    noPivotDf.toJSON.collect should contain inOrderOnly(
+    noPivotDf shouldHaveDDL "month STRING,sum_amount BIGINT"
+    noPivotDf shouldContain(
       """{"month":"Feb","sum_amount":250}""",
       """{"month":"Jan","sum_amount":300}""")
 
@@ -26,8 +25,8 @@ class GroupByPivotTransformationTest extends AnyFlatSpec with Matchers {
       .groupBy("month")
       .pivot("product")
       .agg(sum("amount"))
-    pivotDf.schema.toDDL shouldEqual "month STRING,Apples BIGINT,Bananas BIGINT"
-    pivotDf.toJSON.collect should contain inOrderOnly(
+    pivotDf shouldHaveDDL "month STRING,Apples BIGINT,Bananas BIGINT"
+    pivotDf shouldContain(
       """{"month":"Feb","Apples":200,"Bananas":50}""",
       """{"month":"Jan","Apples":150,"Bananas":150}""")
   }
@@ -41,8 +40,8 @@ class GroupByPivotTransformationTest extends AnyFlatSpec with Matchers {
       Row("Jan", "APPLES", 50))
 
     val noPivotDf = df.groupBy("month").agg(sum("amount") as "sum_amount")
-    noPivotDf.schema.toDDL shouldEqual "month STRING,sum_amount BIGINT"
-    noPivotDf.toJSON.collect should contain inOrderOnly(
+    noPivotDf shouldHaveDDL "month STRING,sum_amount BIGINT"
+    noPivotDf shouldContain(
       """{"month":"Feb","sum_amount":250}""",
       """{"month":"Jan","sum_amount":300}""")
 
@@ -50,8 +49,8 @@ class GroupByPivotTransformationTest extends AnyFlatSpec with Matchers {
       .groupBy("month")
       .pivot("product")
       .agg(sum("amount"))
-    pivotDf.schema.toDDL shouldEqual "month STRING,APPLES BIGINT,Apples BIGINT,BANANAS BIGINT,Bananas BIGINT"
-    pivotDf.toJSON.collect should contain inOrderOnly(
+    pivotDf shouldHaveDDL "month STRING,APPLES BIGINT,Apples BIGINT,BANANAS BIGINT,Bananas BIGINT"
+    pivotDf shouldContain(
       """{"month":"Feb","APPLES":null,"Apples":200,"BANANAS":50,"Bananas":null}""",
       """{"month":"Jan","APPLES":50,"Apples":100,"BANANAS":null,"Bananas":150}""")
   }

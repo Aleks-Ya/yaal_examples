@@ -1,4 +1,4 @@
-from huggingface_hub import list_repo_files, list_repo_tree
+from huggingface_hub import list_repo_files
 
 repo_id: str = "Ya-Alex/anki-addons"
 

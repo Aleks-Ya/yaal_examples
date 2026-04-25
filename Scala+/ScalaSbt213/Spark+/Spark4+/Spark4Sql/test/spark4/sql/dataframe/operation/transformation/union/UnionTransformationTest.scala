@@ -3,10 +3,9 @@ package spark4.sql.dataframe.operation.transformation.union
 import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.{AnalysisException, Row}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class UnionTransformationTest extends AnyFlatSpec with Matchers {
+class UnionTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "unite two DataFrames" in {
     import Factory.ss.implicits._
@@ -23,13 +22,13 @@ class UnionTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "unite different data types DataFrames" in {
     val df1 = Factory.createDf("id STRING", Row("1"), Row("2"))
-    df1.schema.toDDL shouldEqual "id STRING"
+    df1 shouldHaveDDL "id STRING"
 
     val df2 = Factory.createDf("id INT", Row(3), Row(4))
-    df2.schema.toDDL shouldEqual "id INT"
+    df2 shouldHaveDDL "id INT"
 
     val unionDf = df1.union(df2)
-    unionDf.schema.toDDL shouldEqual "id STRING"
+    unionDf shouldHaveDDL "id STRING"
     unionDf.toJSON.collect should contain inOrderOnly(
       """{"id":"1"}""",
       """{"id":"2"}""",

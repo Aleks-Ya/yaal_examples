@@ -1,16 +1,15 @@
 package spark4.sql.dataframe.operation.transformation
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 
-class LimitTransformationTest extends AnyFlatSpec with Matchers {
+class LimitTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "take 2 rows" in {
     val df = Factory.peopleDf
     val updatedDf = df.limit(2)
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}"""
     )

@@ -4,14 +4,13 @@ import org.apache.spark.sql.catalyst.encoders.{AgnosticEncoder, RowEncoder}
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.{DataFrame, Row}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class UpdateColumnTest extends AnyFlatSpec with Matchers {
+class UpdateColumnTest extends AnyFlatSpec with SparkMatchers {
 
   it should "update a column using withColumn transformation" in {
     val df: DataFrame = Factory.peopleDf.withColumn("age", col("age").multiply(2))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","age":50,"gender":"M"}""",
       """{"name":"Peter","age":70,"gender":"M"}""",
       """{"name":"Mary","age":40,"gender":"F"}""")
@@ -27,7 +26,7 @@ class UpdateColumnTest extends AnyFlatSpec with Matchers {
       rowSeq(nameIndex) = newValue
       Row.fromSeq(rowSeq)
     }
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"Mr. John","age":25,"gender":"M"}""",
       """{"name":"Mr. Peter","age":35,"gender":"M"}""",
       """{"name":"Mr. Mary","age":20,"gender":"F"}""")
@@ -38,7 +37,7 @@ class UpdateColumnTest extends AnyFlatSpec with Matchers {
       Row("John", Row(35, "M")), Row("Mary", Row(30, "F")))
     val updatedDf = df.withColumn("details", col("details").withField("sex", col("details.gender")).dropFields("gender"))
     updatedDf.schema.simpleString shouldEqual "struct<name:string,details:struct<age:int,sex:string>>"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","details":{"age":35,"sex":"M"}}""",
       """{"name":"Mary","details":{"age":30,"sex":"F"}}"""
     )

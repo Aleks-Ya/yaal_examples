@@ -3,11 +3,10 @@ package spark4.sql.dataframe.function.builtin.array
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{col, explode}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 
-class ExplodeTest extends AnyFlatSpec with Matchers {
+class ExplodeTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use explode function in select" in {
     val df = Factory.createDf("name STRING, cities ARRAY<STRING>",

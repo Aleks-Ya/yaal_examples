@@ -2,10 +2,9 @@ package spark4.sql.dataframe.operation.transformation
 
 import org.apache.spark.sql.Row
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class DistinctTransformationTest extends AnyFlatSpec with Matchers {
+class DistinctTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "distinct primitive columns" in {
     val df = Factory.createDf("name STRING, age INT",
@@ -18,7 +17,7 @@ class DistinctTransformationTest extends AnyFlatSpec with Matchers {
       Row(null, null),
       Row(null, null))
     val updatedDf = df.distinct
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","age":35}""",
       """{"name":"John","age":25}""",
       """{"name":"Mary","age":20}""",
@@ -40,7 +39,7 @@ class DistinctTransformationTest extends AnyFlatSpec with Matchers {
       Row(null, Row(null, null)),
       Row(null, Row(null, null)))
     val updatedDf = df.distinct
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"Mary","details":{"age":20,"gender":"F"}}""",
       """{"name":null,"details":null}""",
       """{"name":null,"details":{"age":null,"gender":null}}""",

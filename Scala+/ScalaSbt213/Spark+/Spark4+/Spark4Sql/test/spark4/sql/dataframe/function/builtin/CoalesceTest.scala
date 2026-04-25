@@ -3,10 +3,9 @@ package spark4.sql.dataframe.function.builtin
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{coalesce, col}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class CoalesceTest extends AnyFlatSpec with Matchers {
+class CoalesceTest extends AnyFlatSpec with SparkMatchers {
   it should "use coalesce function" in {
     val df = Factory.createDf("city1 STRING,city2 STRING,city3 STRING",
       Row("London1", "Berlin1", "Washington1"),
@@ -17,7 +16,7 @@ class CoalesceTest extends AnyFlatSpec with Matchers {
       Row(null, "", "Washington5"), //empty string
       Row(null, null, null))
     val updatedDf = df.select(coalesce(col("city1"), col("city2"), col("city3")) as "city")
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"city":"London1"}""",
       """{"city":"Berlin2"}""",
       """{"city":"London3"}""",

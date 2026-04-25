@@ -3,24 +3,23 @@ package spark3.sql.dataframe.operation.transformation.column
 import org.apache.spark.sql.functions.{col, lit}
 import org.apache.spark.sql.{AnalysisException, DataFrame}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class WithColumnRenamedTest extends AnyFlatSpec with Matchers {
+class WithColumnRenamedTest extends AnyFlatSpec with SparkMatchers {
 
   it should "rename a column" in {
     val df: DataFrame = Factory.peopleDf
-    df.schema.toDDL shouldEqual "name STRING,age INT,gender STRING"
+    df shouldHaveDDL "name STRING,age INT,gender STRING"
     val updatedDf: DataFrame = df.withColumnRenamed("name", "fio")
-    updatedDf.schema.toDDL shouldEqual "fio STRING,age INT,gender STRING"
+    updatedDf shouldHaveDDL "fio STRING,age INT,gender STRING"
   }
 
   it should "rename an ambiguous column" in {
     val df = Factory.peopleDf
-    df.schema.toDDL shouldEqual "name STRING,age INT,gender STRING"
+    df shouldHaveDDL "name STRING,age INT,gender STRING"
     val df2 = df.select(col("name"), col("age"), col("gender"), lit("abc").as("name"))
-    df2.schema.toDDL shouldEqual "name STRING,age INT,gender STRING,name STRING NOT NULL"
-    df2.toJSON.collect should contain inOrderOnly(
+    df2 shouldHaveDDL "name STRING,age INT,gender STRING,name STRING NOT NULL"
+    df2 shouldContain(
       """{"name":"John","age":25,"gender":"M","name":"abc"}""",
       """{"name":"Peter","age":35,"gender":"M","name":"abc"}""",
       """{"name":"Mary","age":20,"gender":"F","name":"abc"}""")

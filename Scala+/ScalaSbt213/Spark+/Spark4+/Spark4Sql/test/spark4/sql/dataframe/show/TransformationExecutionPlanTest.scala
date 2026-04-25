@@ -2,11 +2,10 @@ package spark4.sql.dataframe.show
 
 import org.apache.spark.sql.functions.{col, collect_set}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 
-class TransformationExecutionPlanTest extends AnyFlatSpec with Matchers {
+class TransformationExecutionPlanTest extends AnyFlatSpec with SparkMatchers {
 
   it should "show drop transformation" in {
     Factory.peopleDf.drop("age").queryExecution.simpleString shouldEqual

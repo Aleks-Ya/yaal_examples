@@ -3,16 +3,15 @@ package spark3.sql.dataframe.datatype
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.StringType
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class StringTypeTest extends AnyFlatSpec with Matchers {
+class StringTypeTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use STRING column type" in {
     val df = Factory.createDf("name STRING, city STRING",
       Row("John", "London"),
       Row("Mary", "Paris"))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","city":"London"}""",
       """{"name":"Mary","city":"Paris"}""")
   }
@@ -21,8 +20,8 @@ class StringTypeTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf(Map("name" -> StringType, "city" -> StringType),
       Row("John", "London"),
       Row("Mary", "Paris"))
-    df.schema.toDDL shouldEqual "name STRING,city STRING"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldHaveDDL "name STRING,city STRING"
+    df shouldContain(
       """{"name":"John","city":"London"}""",
       """{"name":"Mary","city":"Paris"}""")
   }

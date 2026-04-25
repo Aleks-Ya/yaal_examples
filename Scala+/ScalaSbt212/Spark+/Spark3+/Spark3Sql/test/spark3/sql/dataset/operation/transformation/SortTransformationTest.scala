@@ -2,35 +2,34 @@ package spark3.sql.dataset.operation.transformation
 
 import org.apache.spark.sql.functions.{asc, desc}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{City, Factory, SparkMatchers}
 
-class SortTransformationTest extends AnyFlatSpec with Matchers {
+class SortTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "sort a Dataset ASC (default)" in {
     val ds = Factory.cityDs.sort("establishYear")
-    ds.toJSON.collect should contain inOrderOnly(
-      """{"name":"Moscow","establishYear":1147}""",
-      """{"name":"New York","establishYear":1665}""",
-      """{"name":"SPb","establishYear":1703}"""
+    ds shouldContain(
+      City("Moscow", 1147),
+      City("New York", 1665),
+      City("SPb", 1703)
     )
   }
 
   it should "sort a Dataset ASC (explicitly)" in {
     val ds = Factory.cityDs.sort(asc("establishYear"))
-    ds.toJSON.collect should contain inOrderOnly(
-      """{"name":"Moscow","establishYear":1147}""",
-      """{"name":"New York","establishYear":1665}""",
-      """{"name":"SPb","establishYear":1703}"""
+    ds shouldContain(
+      City("Moscow", 1147),
+      City("New York", 1665),
+      City("SPb", 1703)
     )
   }
 
   it should "sort a Dataset DESC (default)" in {
     val ds = Factory.cityDs.sort(desc("establishYear"))
-    ds.toJSON.collect should contain inOrderOnly(
-      """{"name":"SPb","establishYear":1703}""",
-      """{"name":"New York","establishYear":1665}""",
-      """{"name":"Moscow","establishYear":1147}"""
+    ds shouldContain(
+      City("SPb", 1703),
+      City("New York", 1665),
+      City("Moscow", 1147)
     )
   }
 

@@ -2,10 +2,9 @@ package spark4.sql.dataframe.datatype
 
 import org.apache.spark.sql.types.IntegerType
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class GetColumnDataTypeTest extends AnyFlatSpec with Matchers {
+class GetColumnDataTypeTest extends AnyFlatSpec with SparkMatchers {
 
   it should "get data type of a column by name" in {
     val df = Factory.peopleDf

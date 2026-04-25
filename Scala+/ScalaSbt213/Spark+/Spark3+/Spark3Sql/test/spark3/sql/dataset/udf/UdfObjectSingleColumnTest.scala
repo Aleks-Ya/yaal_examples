@@ -1,20 +1,18 @@
 package spark3.sql.dataset.udf
 
-import spark3.sql.Factory.ss.implicits._
 import org.apache.spark.sql.Column
 import org.apache.spark.sql.functions._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
 /**
  * UDF as a separated object (single column).
  */
-class UdfObjectSingleColumnTest extends AnyFlatSpec with Matchers {
+class UdfObjectSingleColumnTest extends AnyFlatSpec with SparkMatchers {
 
   it should "extract UDF into separated object (logic is inlined)" in {
-    val df = Factory.peopleDf.withColumn("upper", UpperUdfInline($"name", $"age"))
-    df.toJSON.collect should contain inOrderOnly(
+    val df = Factory.peopleDf.withColumn("upper", UpperUdfInline(col("name"), col("age")))
+    df shouldContain(
       """{"name":"John","age":25,"gender":"M","upper":"JOHN-25"}""",
       """{"name":"Peter","age":35,"gender":"M","upper":"PETER-35"}""",
       """{"name":"Mary","age":20,"gender":"F","upper":"MARY-20"}"""
@@ -28,8 +26,8 @@ class UdfObjectSingleColumnTest extends AnyFlatSpec with Matchers {
   }
 
   it should "extract UDF into separated object (logic in a field)" in {
-    val df = Factory.peopleDf.withColumn("upper", UpperUdfField($"name", $"age"))
-    df.toJSON.collect should contain inOrderOnly(
+    val df = Factory.peopleDf.withColumn("upper", UpperUdfField(col("name"), col("age")))
+    df shouldContain(
       """{"name":"John","age":25,"gender":"M","upper":"JOHN-25"}""",
       """{"name":"Peter","age":35,"gender":"M","upper":"PETER-35"}""",
       """{"name":"Mary","age":20,"gender":"F","upper":"MARY-20"}"""
@@ -43,8 +41,8 @@ class UdfObjectSingleColumnTest extends AnyFlatSpec with Matchers {
   }
 
   it should "extract UDF into separated object (logic in a function)" in {
-    val df = Factory.peopleDf.withColumn("upper", UpperUdfFunction($"name", $"age"))
-    df.toJSON.collect should contain inOrderOnly(
+    val df = Factory.peopleDf.withColumn("upper", UpperUdfFunction(col("name"), col("age")))
+    df shouldContain(
       """{"name":"John","age":25,"gender":"M","upper":"JOHN-25"}""",
       """{"name":"Peter","age":35,"gender":"M","upper":"PETER-35"}""",
       """{"name":"Mary","age":20,"gender":"F","upper":"MARY-20"}"""

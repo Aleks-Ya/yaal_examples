@@ -4,10 +4,9 @@ import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{array_except, col}
 import org.apache.spark.sql.types.{ArrayType, StringType}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class ArrayExceptTest extends AnyFlatSpec with Matchers {
+class ArrayExceptTest extends AnyFlatSpec with SparkMatchers {
   it should "exclude one array from another array" in {
     val countryCol = "country"
     val bigCitiesCol = "big_cities"
@@ -19,7 +18,7 @@ class ArrayExceptTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col(countryCol),
       array_except(col(allCitiesCol), col(bigCitiesCol)) as "small_cities")
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"country":"England","small_cities":["Birmingham"]}""",
       """{"country":"USA","small_cities":["Houston","Phoenix"]}"""
     )

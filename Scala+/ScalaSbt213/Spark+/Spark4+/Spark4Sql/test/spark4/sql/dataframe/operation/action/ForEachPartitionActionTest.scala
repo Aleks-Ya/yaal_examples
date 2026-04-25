@@ -1,19 +1,17 @@
 package spark4.sql.dataframe.operation.action
 
-import spark4.sql.Factory.ss
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.StructType
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class ForEachPartitionActionTest extends AnyFlatSpec with Matchers {
+class ForEachPartitionActionTest extends AnyFlatSpec with SparkMatchers {
 
   it should "perform action for each partition" in {
     val schema = StructType.fromDDL("name string, age int, gender string")
     val rows = Seq(Row("John", 25, "M"), Row("Peter", 35, "M"), Row("Mary", 20, "F"))
     val partitionNumber = 2
-    val df = Factory.ss.createDataFrame(ss.sparkContext.parallelize(rows, partitionNumber), schema)
+    val df = Factory.ss.createDataFrame(Factory.ss.sparkContext.parallelize(rows, partitionNumber), schema)
     val partitionsAcc = Factory.ss.sparkContext.collectionAccumulator[String]
     df.foreachPartition((rows: Iterator[Row]) => partitionsAcc.add(rows.toList.toString()))
     partitionsAcc.value should contain inOrderOnly(

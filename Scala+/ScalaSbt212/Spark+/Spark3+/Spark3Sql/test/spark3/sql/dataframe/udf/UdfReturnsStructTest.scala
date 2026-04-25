@@ -4,10 +4,9 @@ import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types.{StringType, StructField, StructType}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class UdfReturnsStructTest extends AnyFlatSpec with Matchers {
+class UdfReturnsStructTest extends AnyFlatSpec with SparkMatchers {
 
   it should "UDF returns a struct (cast to schema)" in {
     val stringCasesUdf = udf((str: String) => {
@@ -18,7 +17,7 @@ class UdfReturnsStructTest extends AnyFlatSpec with Matchers {
     val schema = StructType.fromDDL("upper STRING,lower STRING")
     val df = Factory.createDf("name STRING", Row("John"), Row("Mary"))
     val updatedDf = df.withColumn("name_cases", stringCasesUdf(col("name")).cast(schema))
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","name_cases":{"upper":"JOHN","lower":"john"}}""",
       """{"name":"Mary","name_cases":{"upper":"MARY","lower":"mary"}}"""
     )
@@ -32,7 +31,7 @@ class UdfReturnsStructTest extends AnyFlatSpec with Matchers {
     })
     val df = Factory.createDf("name STRING", Row("John"), Row("Mary"))
     val updatedDf = df.withColumn("name_cases", stringCasesUdf(col("name")))
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","name_cases":{"upper":"JOHN","lower":"john"}}""",
       """{"name":"Mary","name_cases":{"upper":"MARY","lower":"mary"}}"""
     )
@@ -56,7 +55,7 @@ class UdfReturnsStructTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf("name STRING", Row("John"), Row("Mary"))
     val updatedDf = df.withColumn("name_cases", stringCasesUdf(col("name")))
 
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","name_cases":{"upper":"JOHN","lower":"john"}}""",
       """{"name":"Mary","name_cases":{"upper":"MARY","lower":"mary"}}"""
     )

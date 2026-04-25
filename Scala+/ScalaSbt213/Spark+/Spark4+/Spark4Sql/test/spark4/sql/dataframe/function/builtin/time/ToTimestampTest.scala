@@ -3,10 +3,9 @@ package spark4.sql.dataframe.function.builtin.time
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{col, to_timestamp}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class ToTimestampTest extends AnyFlatSpec with Matchers {
+class ToTimestampTest extends AnyFlatSpec with SparkMatchers {
 
   it should "convert string to timestamp (default format)" in {
     val df = Factory.createDf("created STRING",
@@ -19,8 +18,8 @@ class ToTimestampTest extends AnyFlatSpec with Matchers {
       col("created"),
       to_timestamp(col("created")) as "created_timestamp"
     )
-    updatedDf.schema.toDDL shouldEqual "created STRING,created_timestamp TIMESTAMP"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "created STRING,created_timestamp TIMESTAMP"
+    updatedDf shouldContain(
       """{"created":"2023-01-25 21:45:50","created_timestamp":"2023-01-25T21:45:50.000+07:00"}""",
       """{"created":"2022-04-19T23:41:55.123456","created_timestamp":"2022-04-19T23:41:55.123+07:00"}""",
       """{"created":"invalid date","created_timestamp":null}""",
@@ -39,8 +38,8 @@ class ToTimestampTest extends AnyFlatSpec with Matchers {
       col("created"),
       to_timestamp(col("created"), "yyyy MMM dd HH:mm:ss") as "created_timestamp"
     )
-    updatedDf.schema.toDDL shouldEqual "created STRING,created_timestamp TIMESTAMP"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "created STRING,created_timestamp TIMESTAMP"
+    updatedDf shouldContain(
       """{"created":"2023 Jan 25 21:45:50","created_timestamp":"2023-01-25T21:45:50.000+07:00"}""",
       """{"created":"2022 Apr 19 23:41:55","created_timestamp":"2022-04-19T23:41:55.000+07:00"}""",
       """{"created":"invalid date","created_timestamp":null}""",

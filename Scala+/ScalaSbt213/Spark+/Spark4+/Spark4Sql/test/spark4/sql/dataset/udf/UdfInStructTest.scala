@@ -3,10 +3,9 @@ package spark4.sql.dataset.udf
 import org.apache.spark.sql.Column
 import org.apache.spark.sql.functions._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class UdfInStructTest extends AnyFlatSpec with Matchers {
+class UdfInStructTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use UDF variable in a struct" in {
     val upper: (String, Int) => String = (name: String, age: Int) => s"${name.toUpperCase}-$age"
@@ -19,7 +18,7 @@ class UdfInStructTest extends AnyFlatSpec with Matchers {
         upperUdf(col("name"), col("age")).as("upper")
       ).as("details")
     )
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","details":{"sex":"M","lifetime":25,"upper":"JOHN-25"}}""",
       """{"name":"Peter","details":{"sex":"M","lifetime":35,"upper":"PETER-35"}}""",
       """{"name":"Mary","details":{"sex":"F","lifetime":20,"upper":"MARY-20"}}"""
@@ -35,7 +34,7 @@ class UdfInStructTest extends AnyFlatSpec with Matchers {
         UpperUdfField(col("name"), col("age")).as("upper")
       ).as("details")
     )
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","details":{"sex":"M","lifetime":25,"upper":"JOHN-25"}}""",
       """{"name":"Peter","details":{"sex":"M","lifetime":35,"upper":"PETER-35"}}""",
       """{"name":"Mary","details":{"sex":"F","lifetime":20,"upper":"MARY-20"}}"""
@@ -57,7 +56,7 @@ class UdfInStructTest extends AnyFlatSpec with Matchers {
         UpperUdfFunction(col("name"), col("age")).as("upper")
       ).as("details")
     )
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","details":{"sex":"M","lifetime":25,"upper":"JOHN-25"}}""",
       """{"name":"Peter","details":{"sex":"M","lifetime":35,"upper":"PETER-35"}}""",
       """{"name":"Mary","details":{"sex":"F","lifetime":20,"upper":"MARY-20"}}"""

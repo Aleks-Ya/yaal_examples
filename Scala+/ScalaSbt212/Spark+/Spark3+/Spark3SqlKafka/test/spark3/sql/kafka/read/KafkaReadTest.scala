@@ -25,12 +25,12 @@ class KafkaReadTest extends AnyFlatSpec with EmbeddedKafka with Matchers {
         .option("startingOffsets", "earliest")
         .option("endingOffsets", "latest")
         .load()
-      messageDf.schema.toDDL shouldEqual "key BINARY,value BINARY,topic STRING,partition INT,offset BIGINT,timestamp TIMESTAMP,timestampType INT"
+      messageDf shouldHaveDDL "key BINARY,value BINARY,topic STRING,partition INT,offset BIGINT,timestamp TIMESTAMP,timestampType INT"
 
       val df: DataFrame = messageDf.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
-      df.schema.toDDL shouldEqual "key STRING,value STRING"
+      df shouldHaveDDL "key STRING,value STRING"
 
-      df.toJSON.collect should contain inOrderOnly(
+      df shouldContain(
         """{"key":"historical key 1","value":"historical message 1"}""",
         """{"key":"historical key 2","value":"historical message 2"}""")
     }
@@ -49,15 +49,15 @@ class KafkaReadTest extends AnyFlatSpec with EmbeddedKafka with Matchers {
         .option("startingOffsets", "earliest")
         .option("endingOffsets", "latest")
         .load()
-      messageDf.schema.toDDL shouldEqual "key BINARY,value BINARY,topic STRING,partition INT,offset BIGINT,timestamp TIMESTAMP,timestampType INT"
+      messageDf shouldHaveDDL "key BINARY,value BINARY,topic STRING,partition INT,offset BIGINT,timestamp TIMESTAMP,timestampType INT"
 
       val schema = StructType.fromDDL("name STRING, age INT")
       val df: DataFrame = messageDf
         .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
         .withColumn("parsed", from_json(col("value"), schema))
-      df.schema.toDDL shouldEqual "key STRING,value STRING,parsed STRUCT<name: STRING, age: INT>"
+      df shouldHaveDDL "key STRING,value STRING,parsed STRUCT<name: STRING, age: INT>"
 
-      df.toJSON.collect should contain inOrderOnly(
+      df shouldContain(
         """{"key":"key 1","value":"{\"name\":\"John\",\"age\":30}","parsed":{"name":"John","age":30}}""",
         """{"key":"key 2","value":"{\"name\":\"Mary\",\"age\":25}","parsed":{"name":"Mary","age":25}}""")
     }
@@ -76,13 +76,13 @@ class KafkaReadTest extends AnyFlatSpec with EmbeddedKafka with Matchers {
         .option("startingOffsets", "earliest")
         .option("endingOffsets", "latest")
         .load()
-      messageDf.schema.toDDL shouldEqual "key BINARY,value BINARY,topic STRING,partition INT,offset BIGINT,timestamp TIMESTAMP,timestampType INT"
+      messageDf shouldHaveDDL "key BINARY,value BINARY,topic STRING,partition INT,offset BIGINT,timestamp TIMESTAMP,timestampType INT"
 
       val schema = Encoders.product[Person].schema
       val df: DataFrame = messageDf
         .select(col("key").cast(StringType), col("value").cast(StringType))
         .withColumn("parsed", from_json(col("value"), schema))
-      df.schema.toDDL shouldEqual "key STRING,value STRING,parsed STRUCT<name: STRING, age: INT>"
+      df shouldHaveDDL "key STRING,value STRING,parsed STRUCT<name: STRING, age: INT>"
 
       implicit val encoder: Encoder[DataRow] = Encoders.product[DataRow]
       val ds: Dataset[DataRow] = df.as[DataRow]

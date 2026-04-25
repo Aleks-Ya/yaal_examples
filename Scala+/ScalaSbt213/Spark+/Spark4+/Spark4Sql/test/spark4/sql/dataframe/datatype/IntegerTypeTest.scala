@@ -3,16 +3,15 @@ package spark4.sql.dataframe.datatype
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{IntegerType, StringType}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class IntegerTypeTest extends AnyFlatSpec with Matchers {
+class IntegerTypeTest extends AnyFlatSpec with SparkMatchers {
 
   it should "INT column type" in {
     val df = Factory.createDf("name STRING, age INT",
       Row("John", 30),
       Row("Mary", 25))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","age":30}""",
       """{"name":"Mary","age":25}""")
   }
@@ -21,8 +20,8 @@ class IntegerTypeTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf(Map("name" -> StringType, "age" -> IntegerType),
       Row("John", 30),
       Row("Mary", 25))
-    df.schema.toDDL shouldEqual "name STRING,age INT"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldHaveDDL "name STRING,age INT"
+    df shouldContain(
       """{"name":"John","age":30}""",
       """{"name":"Mary","age":25}""")
   }

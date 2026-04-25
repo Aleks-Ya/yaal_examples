@@ -2,10 +2,9 @@ package spark3.sql.dataset.operation.transformation
 
 import org.apache.spark.sql.Dataset
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.{City, Factory}
+import spark3.sql.{City, Factory, SparkMatchers}
 
-class RepartitionTransformationTest extends AnyFlatSpec with Matchers {
+class RepartitionTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "change partition number" in {
     val ds: Dataset[City] = Factory.cityDs

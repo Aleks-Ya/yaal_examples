@@ -4,10 +4,9 @@ import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{col, regexp_replace}
 import org.apache.spark.sql.types.StringType
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class RegexpReplaceTest extends AnyFlatSpec with Matchers {
+class RegexpReplaceTest extends AnyFlatSpec with SparkMatchers {
   it should "use regexp_replace function" in {
     val df = Factory.createDf(Map("text" -> StringType),
       Row("A big dog eats meat"),
@@ -20,7 +19,7 @@ class RegexpReplaceTest extends AnyFlatSpec with Matchers {
       regexp_replace(col("text"), regex1, "Small").as("re10"),
       regexp_replace(col("text"), regex2, " like").as("re21"),
     )
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"text":"A big dog eats meat","re10":"A Small dog eats meat","re21":"A big dog like"}""",
       """{"text":"Mr. Big doesn't eat raw meat","re10":"Mr. Small doesn't eat raw meat","re21":"Mr. Big doesn't like"}""",
       """{"text":"Mr. BIG eats meat","re10":"Mr. BIG eats meat","re21":"Mr. BIG like"}"""

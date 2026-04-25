@@ -3,10 +3,9 @@ package spark3.sql.dataframe.udf
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class NullTest extends AnyFlatSpec with Matchers {
+class NullTest extends AnyFlatSpec with SparkMatchers {
 
   it should "handle null in primitive columns" in {
     val df = Factory.createDf("name STRING, age INTEGER, male BOOLEAN, year INTEGER",
@@ -24,7 +23,7 @@ class NullTest extends AnyFlatSpec with Matchers {
       s"$nameStr-$ageStr-$genderStr-$yearStr"
     })
     val updatedDf = df.withColumn("text", textUdf(col("name"), col("age"), col("male"), col("year")))
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","age":30,"male":true,"year":2019,"text":"John-30-male-2019"}""",
       """{"name":null,"age":29,"male":true,"year":2020,"text":"NO_NAME-29-male-2020"}""",
       """{"name":"Mary","age":null,"male":false,"year":2021,"text":"Mary-NO_AGE-female-2021"}""",
@@ -48,7 +47,7 @@ class NullTest extends AnyFlatSpec with Matchers {
       s"$nameStr-$citiesStr-$citiesOptStr"
     })
     val updatedDf = df.withColumn("text", textUdf(col("name"), col("cities"), col("cities")))
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","cities":["London","Berlin"],"text":"John-London/Berlin-London/Berlin"}""",
       """{"name":"Mark","cities":[],"text":"Mark--"}""",
       """{"name":"Jack","cities":null,"text":"Jack-null-null"}""",

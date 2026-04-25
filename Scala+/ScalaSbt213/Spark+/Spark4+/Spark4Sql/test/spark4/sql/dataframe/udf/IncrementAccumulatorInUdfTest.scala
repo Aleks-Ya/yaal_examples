@@ -1,16 +1,15 @@
 package spark4.sql.dataframe.udf
 
-import CounterUdf4.CounterUdfOps4
-import CounterUdf5.CounterUdfOps5
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.{Column, DataFrame, Row}
 import org.apache.spark.util.LongAccumulator
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.dataframe.udf.CounterUdf4.CounterUdfOps4
+import spark4.sql.dataframe.udf.CounterUdf5.CounterUdfOps5
+import spark4.sql.{Factory, SparkMatchers}
 
-class IncrementAccumulatorInUdfTest extends AnyFlatSpec with Matchers {
+class IncrementAccumulatorInUdfTest extends AnyFlatSpec with SparkMatchers {
 
   it should "#1 increment accumulator (one-line UDF)" in {
     val df = Factory.createDf("name STRING", Row("John"), Row("Mary"), Row(null))
@@ -22,7 +21,7 @@ class IncrementAccumulatorInUdfTest extends AnyFlatSpec with Matchers {
       name
     })
     val updatedDf = df.withColumn("name", upperCaseUdf(col("name")))
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John"}""",
       """{"name":"Mary"}""",
       """{"name":null}""")
@@ -36,7 +35,7 @@ class IncrementAccumulatorInUdfTest extends AnyFlatSpec with Matchers {
     val emptyAcc = Factory.sc.longAccumulator("empty")
     val counterUdf = CounterUdf2(totalAcc, emptyAcc)
     val updatedDf = df.withColumn("name", counterUdf(col("name")))
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John"}""",
       """{"name":"Mary"}""",
       """{"name":null}""")
@@ -48,7 +47,7 @@ class IncrementAccumulatorInUdfTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf("name STRING", Row("John"), Row("Mary"), Row(null))
     val counterUdf = EmptyCounterUdf3(Factory.sc)
     val updatedDf = df.withColumn("name", counterUdf.count(col("name")))
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John"}""",
       """{"name":"Mary"}""",
       """{"name":null}""")
@@ -61,7 +60,7 @@ class IncrementAccumulatorInUdfTest extends AnyFlatSpec with Matchers {
     val totalAcc = Factory.sc.longAccumulator("total")
     val emptyAcc = Factory.sc.longAccumulator("empty")
     val updatedDf = df.countStrings4("name", totalAcc, emptyAcc)
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John"}""",
       """{"name":"Mary"}""",
       """{"name":null}""")
@@ -151,8 +150,8 @@ object CounterUdf5 {
     def countStrings5(totalAcc: LongAccumulator, emptyAcc: LongAccumulator, columns: String*): DataFrame = {
       val counterUdf5 = CounterUdf5(totalAcc, emptyAcc)
       df.withColumn("processed_columns", counterUdf5(columns))
-//        .persist //prevents excluding `withColumn` and `drop` from the execution plan
-//        .drop("processed_columns")
+      //        .persist //prevents excluding `withColumn` and `drop` from the execution plan
+      //        .drop("processed_columns")
     }
   }
 }

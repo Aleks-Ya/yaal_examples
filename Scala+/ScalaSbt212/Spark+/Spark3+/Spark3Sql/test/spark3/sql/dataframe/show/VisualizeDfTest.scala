@@ -3,11 +3,10 @@ package spark3.sql.dataframe.show
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.StringType
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
 
-class VisualizeDfTest extends AnyFlatSpec with Matchers {
+class VisualizeDfTest extends AnyFlatSpec with SparkMatchers {
 
   it should "print some info" in {
     val df = Factory.peopleDf

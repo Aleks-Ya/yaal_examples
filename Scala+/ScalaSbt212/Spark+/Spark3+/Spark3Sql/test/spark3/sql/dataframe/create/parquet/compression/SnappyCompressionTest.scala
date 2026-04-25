@@ -1,14 +1,13 @@
 package spark3.sql.dataframe.create.parquet.compression
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 import util.FileUtil
 
 import java.nio.file.{Files, Path}
 import scala.collection.JavaConverters._
 
-class SnappyCompressionTest extends AnyFlatSpec with Matchers {
+class SnappyCompressionTest extends AnyFlatSpec with SparkMatchers {
 
   it should "write to Snappy parquet file (implicitly)" in {
     val parquetDir = FileUtil.createAbsentTmpDirStr()

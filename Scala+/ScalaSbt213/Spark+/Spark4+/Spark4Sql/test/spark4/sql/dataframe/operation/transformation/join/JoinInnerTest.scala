@@ -3,16 +3,15 @@ package spark4.sql.dataframe.operation.transformation.join
 import org.apache.spark.sql.functions.{col, collect_list, explode}
 import org.apache.spark.sql.{DataFrame, Row}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory.createDf
+import spark4.sql.{Factory, SparkMatchers}
 
-class JoinInnerTest extends AnyFlatSpec with Matchers {
+class JoinInnerTest extends AnyFlatSpec with SparkMatchers {
   private val presidentIdCol = "president_id"
-  private val countriesDf: DataFrame = createDf(s"country STRING, $presidentIdCol INT",
+  private val countriesDf: DataFrame = Factory.createDf(s"country STRING, $presidentIdCol INT",
     Row("USA", 1),
     Row("France", 2),
     Row("England", null))
-  private val presidentsDf: DataFrame = createDf(s"$presidentIdCol INT, name STRING",
+  private val presidentsDf: DataFrame = Factory.createDf(s"$presidentIdCol INT, name STRING",
     Row(1, "Trump"),
     Row(2, "Macron"))
 
@@ -25,11 +24,11 @@ class JoinInnerTest extends AnyFlatSpec with Matchers {
   }
 
   it should "do inner join on columns having different names" in {
-    val countriesDf: DataFrame = createDf("country STRING, president_id INT",
+    val countriesDf: DataFrame = Factory.createDf("country STRING, president_id INT",
       Row("USA", 1),
       Row("France", 2),
       Row("England", null))
-    val presidentsDf: DataFrame = createDf("id INT,name STRING",
+    val presidentsDf: DataFrame = Factory.createDf("id INT,name STRING",
       Row(1, "Trump"),
       Row(2, "Macron"))
     val joinedDf: DataFrame = countriesDf.join(presidentsDf, countriesDf("president_id") === presidentsDf("id"))
@@ -42,12 +41,12 @@ class JoinInnerTest extends AnyFlatSpec with Matchers {
   it should "do inner join by several columns" in {
     val countryCol = "country"
     val cityCol = "city"
-    val countriesDf: DataFrame = createDf(s"$countryCol STRING, $cityCol STRING, population INT",
+    val countriesDf: DataFrame = Factory.createDf(s"$countryCol STRING, $cityCol STRING, population INT",
       Row("France", "Paris", 10),
       Row("France", "Marseille", 20),
       Row("England", "London", 30),
       Row("England", "Manchester", 40))
-    val mayorsDf: DataFrame = createDf(s"$countryCol STRING, $cityCol STRING, mayor STRING",
+    val mayorsDf: DataFrame = Factory.createDf(s"$countryCol STRING, $cityCol STRING, mayor STRING",
       Row("France", "Paris", "Anne Hidalgo"),
       Row("France", "Marseille", "Benoit Payan"),
       Row("England", "London", "Anne Hidalgo"),
@@ -62,11 +61,11 @@ class JoinInnerTest extends AnyFlatSpec with Matchers {
   }
 
   it should "do inner join on array column" in {
-    val countriesDf: DataFrame = createDf("country STRING, president_ids ARRAY<INT>",
+    val countriesDf: DataFrame = Factory.createDf("country STRING, president_ids ARRAY<INT>",
       Row("USA", Seq(1, 3)),
       Row("France", Seq(2)),
       Row("England", null))
-    val presidentsDf: DataFrame = createDf("id INT, name STRING",
+    val presidentsDf: DataFrame = Factory.createDf("id INT, name STRING",
       Row(1, "Trump"),
       Row(2, "Macron"),
       Row(3, "Trump")

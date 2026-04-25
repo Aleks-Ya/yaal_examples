@@ -2,17 +2,16 @@ package spark3.sql.dataframe.function.builtin
 
 import org.apache.spark.sql.functions.{array, col, lit}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class LitTest extends AnyFlatSpec with Matchers {
+class LitTest extends AnyFlatSpec with SparkMatchers {
   it should "create a string literal" in {
     val df = Factory.cityListDf
     val updatedDf = df.select(
       col("city"),
       lit("Open") as "status"
     )
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"city":"Moscow","status":"Open"}""",
       """{"city":"SPb","status":"Open"}"""
     )
@@ -24,7 +23,7 @@ class LitTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("city"),
       array(statusesSeq.map(lit): _*) as "statuses")
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"city":"Moscow","statuses":["Open","Closed"]}""",
       """{"city":"SPb","statuses":["Open","Closed"]}"""
     )

@@ -1,14 +1,12 @@
 package spark3.sql.dataframe.operation.transformation
 
-import spark3.sql.Factory.ss
+import _root_.util.FileUtil
+import org.apache.spark.sql._
 import org.apache.spark.sql.types.StructType
-import org.apache.spark.sql.{DataFrame, Dataset, Encoder, Encoders, Row, SaveMode, SparkSession}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
-import util.FileUtil
+import spark3.sql.{Factory, SparkMatchers}
 
-class MapPartitionsTransformationTest extends AnyFlatSpec with Matchers {
+class MapPartitionsTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "map a DataFrame by partitions" in {
     val ds: Dataset[Row] = Factory.peopleDf.repartition(2)
@@ -22,7 +20,7 @@ class MapPartitionsTransformationTest extends AnyFlatSpec with Matchers {
         Row(name.toUpperCase, age - 1, gender)
       })
     )
-    mappedDs.toJSON.collect should contain inOrderOnly(
+    mappedDs shouldContain(
       """{"name":"JOHN","age":24,"gender":"M"}""",
       """{"name":"MARY","age":19,"gender":"F"}""",
       """{"name":"PETER","age":34,"gender":"M"}""")
@@ -40,7 +38,7 @@ class MapPartitionsTransformationTest extends AnyFlatSpec with Matchers {
     val schema = StructType.fromDDL("city string")
     val rows = Seq(Row("London"), Row("Berlin"), Row("Paris"))
     val partitionNumber = 2
-    val df = Factory.ss.createDataFrame(ss.sparkContext.parallelize(rows, partitionNumber), schema)
+    val df = Factory.ss.createDataFrame(Factory.ss.sparkContext.parallelize(rows, partitionNumber), schema)
     val file = FileUtil.createAbsentTmpDirStr()
     implicit val encoder: Encoder[Row] = Encoders.row(df.schema)
     val updatedDf = df.mapPartitions(partition => {

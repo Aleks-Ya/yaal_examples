@@ -1,10 +1,9 @@
 package spark4.sql.dataframe.operation.action
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class TakeActionTest extends AnyFlatSpec with Matchers {
+class TakeActionTest extends AnyFlatSpec with SparkMatchers {
   it should "take 2nd element of a DataFrame" in {
     val array = Factory.peopleDf.sort("age").take(2)
     array.map(_.json) should contain inOrderOnly(

@@ -2,10 +2,9 @@ package spark4.sql.dataset.encoder
 
 import org.apache.spark.sql.{Dataset, Encoder, Encoders}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class KryoEncoderTest extends AnyFlatSpec with Matchers {
+class KryoEncoderTest extends AnyFlatSpec with SparkMatchers {
 
   it should "Kryo encoder" in {
     val john = PersonKryo("John")

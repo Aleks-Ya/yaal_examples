@@ -4,10 +4,9 @@ import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{col, regexp_extract}
 import org.apache.spark.sql.types.StringType
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class RegexpExtractTest extends AnyFlatSpec with Matchers {
+class RegexpExtractTest extends AnyFlatSpec with SparkMatchers {
   it should "use regexp_extract function" in {
     val df = Factory.createDf(Map("text" -> StringType),
       Row("A big dog eats meat"),
@@ -22,7 +21,7 @@ class RegexpExtractTest extends AnyFlatSpec with Matchers {
       regexp_extract(col("text"), regex2, 1).as("re21"),
       regexp_extract(col("text"), regex2, 2).as("re22")
     )
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"text":"A big dog eats meat","re10":"big","re20":" eats meat","re21":"eats","re22":""}""",
       """{"text":"Mr. Big doesn't eat raw meat","re10":"Big","re20":" eat raw meat","re21":"eat","re22":"raw "}""",
       """{"text":"Mr. BIG eats meat","re10":"","re20":" eats meat","re21":"eats","re22":""}"""

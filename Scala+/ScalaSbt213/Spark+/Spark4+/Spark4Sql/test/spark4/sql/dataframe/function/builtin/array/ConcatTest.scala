@@ -4,10 +4,9 @@ import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{col, concat}
 import org.apache.spark.sql.types.{ArrayType, StringType}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class ConcatTest extends AnyFlatSpec with Matchers {
+class ConcatTest extends AnyFlatSpec with SparkMatchers {
   it should "join arrays" in {
     val countryCol = "country"
     val bigCitiesCol = "big_cities"
@@ -19,7 +18,7 @@ class ConcatTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col(countryCol),
       concat(col(bigCitiesCol), col(smallCitiesCol)) as "all_cities")
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"country":"England","all_cities":["London","Manchester","London","London","Birmingham"]}""",
       """{"country":"USA","all_cities":["Chicago","Houston","Phoenix"]}"""
     )

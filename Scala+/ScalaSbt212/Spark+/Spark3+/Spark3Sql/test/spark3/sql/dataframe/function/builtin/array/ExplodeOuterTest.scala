@@ -4,11 +4,10 @@ import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{col, explode_outer}
 import org.apache.spark.sql.types.{ArrayType, StringType}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
 
-class ExplodeOuterTest extends AnyFlatSpec with Matchers {
+class ExplodeOuterTest extends AnyFlatSpec with SparkMatchers {
   it should "use explode_outer function" in {
     val df = Factory.createDf(Map("name" -> StringType, "cities" -> ArrayType(StringType)),
       Row("John", List("London", "Paris")),
@@ -17,7 +16,7 @@ class ExplodeOuterTest extends AnyFlatSpec with Matchers {
       Row("Chad", List())
     )
     val explodedDf = df.select(col("name"), explode_outer(col("cities")).alias("city"))
-    explodedDf.toJSON.collect should contain inOrderOnly(
+    explodedDf shouldContain(
       """{"name":"John","city":"London"}""",
       """{"name":"John","city":"Paris"}""",
       """{"name":"Mary","city":"Berlin"}""",

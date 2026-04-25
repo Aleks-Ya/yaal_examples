@@ -3,10 +3,9 @@ package spark3.sql.dataframe.function.column
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{col, udf}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class IsNullTest extends AnyFlatSpec with Matchers {
+class IsNullTest extends AnyFlatSpec with SparkMatchers {
   it should "use isNull function" in {
     val df = Factory.createDf("country STRING",
       Row("USA"),
@@ -17,7 +16,7 @@ class IsNullTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("country"),
       col("country").isNull as "is_null")
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"country":"USA","is_null":false}""",
       """{"country":"Canada","is_null":false}""",
       """{"country":null,"is_null":true}""",
@@ -32,6 +31,6 @@ class IsNullTest extends AnyFlatSpec with Matchers {
       col("country"),
       noneUdf(col("country")) as "country_none",
       noneUdf(col("country")).isNull as "is_null")
-    updatedDf.toJSON.collect should contain only """{"country":"USA","country_none":null,"is_null":true}"""
+    updatedDf shouldContain """{"country":"USA","country_none":null,"is_null":true}"""
   }
 }

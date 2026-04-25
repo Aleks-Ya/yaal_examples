@@ -3,10 +3,9 @@ package dataframe.udf.named.`trait`
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class TraitUdfWithNameTest extends AnyFlatSpec with Matchers {
+class TraitUdfWithNameTest extends AnyFlatSpec with SparkMatchers {
 
   it should "give a meaningful name to a UDF" in {
     val df = Factory.createDf("name STRING", Row("John"), Row("Mary"))

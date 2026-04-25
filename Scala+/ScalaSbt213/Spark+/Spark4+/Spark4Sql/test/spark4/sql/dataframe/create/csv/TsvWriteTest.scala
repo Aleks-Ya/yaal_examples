@@ -1,13 +1,10 @@
 package spark4.sql.dataframe.create.csv
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 import util.FileUtil
 
-import java.nio.file.Files
-
-class TsvWriteTest extends AnyFlatSpec with Matchers {
+class TsvWriteTest extends AnyFlatSpec with SparkMatchers {
 
   it should "write a TSV-file" in {
     val dir = FileUtil.createAbsentTmpDirPath()

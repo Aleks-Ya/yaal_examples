@@ -3,10 +3,9 @@ package spark4.sql.dataset.udf
 import org.apache.spark.sql.Column
 import org.apache.spark.sql.functions._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class UdfAcceptNullTest extends AnyFlatSpec with Matchers {
+class UdfAcceptNullTest extends AnyFlatSpec with SparkMatchers {
 
   it should "accepts null value" in {
     val df1 = Factory.peopleDf.withColumn("isAdult", IsAdultOptionUdf(col("age")))

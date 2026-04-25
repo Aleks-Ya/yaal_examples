@@ -2,10 +2,9 @@ package spark4.sql.dataset.operation.action
 
 import org.apache.spark.sql.SparkSession
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class ReduceActionTest extends AnyFlatSpec with Matchers {
+class ReduceActionTest extends AnyFlatSpec with SparkMatchers {
 
   private val ss: SparkSession = Factory.ss
 

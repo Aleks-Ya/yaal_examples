@@ -2,17 +2,16 @@ package spark3.sql.dataframe.convert
 
 import org.apache.spark.sql._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class DfToDsTest extends AnyFlatSpec with Matchers {
+class DfToDsTest extends AnyFlatSpec with SparkMatchers {
 
   it should "convert DataFrame to Dataset" in {
     val df: DataFrame = Factory.cityListDf
     implicit val encoder: Encoder[City1] = Encoders.product[City1]
     val ds: Dataset[City1] = df.as[City1]
-    ds.schema.toDDL shouldEqual "city STRING"
-    ds.collect should contain allOf(City1("Moscow"), City1("SPb"))
+    ds shouldHaveDDL "city STRING"
+    ds shouldContain(City1("Moscow"), City1("SPb"))
   }
 
   it should "convert all data types" in {
@@ -22,8 +21,8 @@ class DfToDsTest extends AnyFlatSpec with Matchers {
       Row("s2", 20))
     implicit val encoder: Encoder[AllDataTypes] = Encoders.product[AllDataTypes]
     val ds: Dataset[AllDataTypes] = df.as[AllDataTypes]
-    ds.schema.toDDL shouldEqual ddl
-    ds.collect should contain allOf(AllDataTypes("s1", 10), AllDataTypes("s2", 20))
+    ds shouldHaveDDL ddl
+    ds shouldContain(AllDataTypes("s1", 10), AllDataTypes("s2", 20))
   }
 
   it should "convert DataFrame to Dataset having custom classes" in {
@@ -36,7 +35,7 @@ class DfToDsTest extends AnyFlatSpec with Matchers {
       val text = r.getString(1)
       OuterType(name, NestedType(text))
     }
-    ds.collect should contain allOf(
+    ds shouldContain(
       OuterType("name1", NestedType("prefix1", "suffix1")),
       OuterType("name2", NestedType("prefix2", "suffix2"))
     )

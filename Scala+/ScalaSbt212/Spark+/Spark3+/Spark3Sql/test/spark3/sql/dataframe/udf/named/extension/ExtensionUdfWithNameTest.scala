@@ -3,10 +3,9 @@ package spark3.sql.dataframe.udf.named.extension
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class ExtensionUdfWithNameTest extends AnyFlatSpec with Matchers {
+class ExtensionUdfWithNameTest extends AnyFlatSpec with SparkMatchers {
 
   it should "give a meaningful name to a UDF (by class)" in {
     val df = Factory.createDf("name STRING", Row("John"), Row("Mary"))

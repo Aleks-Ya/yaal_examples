@@ -2,10 +2,10 @@ package spark4.sql.dataframe.show
 
 import org.apache.spark.sql.functions.col
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
+import spark4.sql.SparkMatchers
 
 
-class ShowColumnTest extends AnyFlatSpec with Matchers {
+class ShowColumnTest extends AnyFlatSpec with SparkMatchers {
 
   it should "show a column" in {
     val ageCol = col("age")

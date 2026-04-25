@@ -2,13 +2,12 @@ package spark3.sql.dataframe.create.schema
 
 import org.apache.spark.sql.types._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
 import java.io.{FileInputStream, FileOutputStream, ObjectInputStream, ObjectOutputStream}
 import java.nio.file.Files
 
-class SchemaToBytesTest extends AnyFlatSpec with Matchers {
+class SchemaToBytesTest extends AnyFlatSpec with SparkMatchers {
 
   it should "infer CSV schema, save it to file, and reuse it for the next reading" in {
     val airportsFile = getClass.getResource("airports.csv")

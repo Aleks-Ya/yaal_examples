@@ -4,20 +4,19 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
 import org.apache.spark.sql.{DataFrame, Row}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 import scala.beans.BeanProperty
 import scala.jdk.CollectionConverters._
 
-class CreateDataFrameTest extends AnyFlatSpec with Matchers {
+class CreateDataFrameTest extends AnyFlatSpec with SparkMatchers {
 
   it should "apply schema to RDD" in {
     val schema = StructType(StructField("name", StringType) :: StructField("age", IntegerType) :: Nil)
     val rdd = Factory.ss.sparkContext.parallelize(Seq(Row("John", 25), Row("Peter", 35)))
     val df = Factory.ss.createDataFrame(rdd, schema)
     df.schema.simpleString shouldEqual "struct<name:string,age:int>"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","age":25}""",
       """{"name":"Peter","age":35}"""
     )
@@ -28,7 +27,7 @@ class CreateDataFrameTest extends AnyFlatSpec with Matchers {
     val rows = Seq(Row("John", 25), Row("Peter", 35)).asJava
     val df = Factory.ss.createDataFrame(rows, schema)
     df.schema.simpleString shouldEqual "struct<name:string,age:int>"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","age":25}""",
       """{"name":"Peter","age":35}"""
     )
@@ -38,7 +37,7 @@ class CreateDataFrameTest extends AnyFlatSpec with Matchers {
     val data = Seq(People("John", 25), People("Peter", 35)).asJava
     val df = Factory.ss.createDataFrame(data, classOf[People])
     df.schema.simpleString shouldEqual "struct<age:int,name:string>"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"age":25,"name":"John"}""",
       """{"age":35,"name":"Peter"}"""
     )
@@ -51,7 +50,7 @@ class CreateDataFrameTest extends AnyFlatSpec with Matchers {
     val df = Factory.ss.createDataFrame(rdd, schema)
     df.schema.simpleString shouldEqual "struct<>"
     df.schema.toDDL shouldBe empty
-    df.toJSON.collect shouldEqual Seq(
+    dfdf shouldContain(
       """{}""",
       """{}""",
       """{}"""

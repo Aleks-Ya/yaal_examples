@@ -3,13 +3,12 @@ package spark4.sql.dataframe.datatype
 import org.apache.spark.SparkException
 import org.apache.spark.sql.Row
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 /**
  * Handle nullable column of a primitive type.
  */
-class NullablePrimitiveTest extends AnyFlatSpec with Matchers {
+class NullablePrimitiveTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use Row#getAs() for replacing nulls in a primitive column" in {
     import Factory.ss.implicits._
@@ -20,8 +19,8 @@ class NullablePrimitiveTest extends AnyFlatSpec with Matchers {
         val orders = row.getAs[Int](row.fieldIndex("orders"))
         (name, orders)
       }).toDF("name", "orders")
-    df.schema.toDDL shouldEqual "name STRING,orders INT NOT NULL"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldHaveDDL "name STRING,orders INT NOT NULL"
+    df shouldContain(
       """{"name":"USA","orders":10}""",
       """{"name":"Canada","orders":20}""",
       """{"name":"England","orders":0}"""
@@ -38,8 +37,8 @@ class NullablePrimitiveTest extends AnyFlatSpec with Matchers {
         val newOrders = if (orders == null) 0 else orders.toString.toInt
         (name, newOrders)
       }).toDF("name", "orders")
-    df.schema.toDDL shouldEqual "name STRING,orders INT NOT NULL"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldHaveDDL "name STRING,orders INT NOT NULL"
+    df shouldContain(
       """{"name":"USA","orders":10}""",
       """{"name":"Canada","orders":20}""",
       """{"name":"England","orders":0}"""
@@ -56,7 +55,7 @@ class NullablePrimitiveTest extends AnyFlatSpec with Matchers {
           val orders = row.getInt(row.fieldIndex("orders"))
           (name, orders)
         })
-      df.schema.toDDL shouldEqual "_1 STRING,_2 INT NOT NULL"
+      df shouldHaveDDL "_1 STRING,_2 INT NOT NULL"
       df.show()
     }
     e.getMessage should include("Job aborted due to stage failure")

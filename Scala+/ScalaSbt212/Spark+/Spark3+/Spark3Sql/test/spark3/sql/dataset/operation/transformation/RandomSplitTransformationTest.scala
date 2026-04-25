@@ -1,11 +1,10 @@
 package spark3.sql.dataset.operation.transformation
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
 
-class RandomSplitTransformationTest extends AnyFlatSpec with Matchers {
+class RandomSplitTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "split a small dataset" in {
     import Factory.ss.implicits._

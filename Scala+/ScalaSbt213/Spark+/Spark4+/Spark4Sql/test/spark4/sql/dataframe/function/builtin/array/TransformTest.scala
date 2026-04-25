@@ -3,10 +3,9 @@ package spark4.sql.dataframe.function.builtin.array
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.{Column, Row}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class TransformTest extends AnyFlatSpec with Matchers {
+class TransformTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use transform function" in {
     val df = Factory.createDf("cities ARRAY<STRING>",
@@ -15,8 +14,8 @@ class TransformTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("cities"),
       transform(col("cities"), city => UpperCaseUdf(city)) as "upper_city")
-    updatedDf.schema.toDDL shouldEqual "cities ARRAY<STRING>,upper_city ARRAY<STRING>"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "cities ARRAY<STRING>,upper_city ARRAY<STRING>"
+    updatedDf shouldContain(
       """{"cities":["London","Paris","London"],"upper_city":["LONDON","PARIS","LONDON"]}""",
       """{"cities":["Berlin","Barcelona","Barcelona"],"upper_city":["BERLIN","BARCELONA","BARCELONA"]}""")
   }
@@ -25,12 +24,12 @@ class TransformTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf("cities ARRAY<STRING>",
       Row(Seq("London", "Berlin")),
       Row(Seq("Barcelona", "Rome")))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"cities":["London","Berlin"]}""",
       """{"cities":["Barcelona","Rome"]}""")
     val updatedDf = df.withColumn("cities", transform(col("cities"), city => upper(city)))
-    updatedDf.schema.toDDL shouldEqual "cities ARRAY<STRING>"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "cities ARRAY<STRING>"
+    updatedDf shouldContain(
       """{"cities":["LONDON","BERLIN"]}""",
       """{"cities":["BARCELONA","ROME"]}""")
   }
@@ -39,7 +38,7 @@ class TransformTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf("cities ARRAY<STRUCT<name: STRING, population: INT>>",
       Row(Seq(Row("London", 2000))),
       Row(Seq(Row("Barcelona", 1000))))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"cities":[{"name":"London","population":2000}]}""",
       """{"cities":[{"name":"Barcelona","population":1000}]}""")
     val updatedDf = df.withColumn("cities", transform(col("cities"), city =>
@@ -49,8 +48,8 @@ class TransformTest extends AnyFlatSpec with Matchers {
         lit("my_comment").as("comment")
       )
     ))
-    updatedDf.schema.toDDL shouldEqual "cities ARRAY<STRUCT<name: STRING, population: INT, comment: STRING>>"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "cities ARRAY<STRUCT<name: STRING, population: INT, comment: STRING>>"
+    updatedDf shouldContain(
       """{"cities":[{"name":"London","population":2000,"comment":"my_comment"}]}""",
       """{"cities":[{"name":"Barcelona","population":1000,"comment":"my_comment"}]}""")
   }
@@ -60,8 +59,8 @@ class TransformTest extends AnyFlatSpec with Matchers {
       Row(List("London", "Paris", "London")),
       Row(List("Berlin", "Barcelona", "Barcelona")))
     val updatedDf = df.select(transform(col("cities"), city => UpperCaseUdf(city)) as "cities")
-    updatedDf.schema.toDDL shouldEqual "cities ARRAY<STRING>"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "cities ARRAY<STRING>"
+    updatedDf shouldContain(
       """{"cities":["LONDON","PARIS","LONDON"]}""",
       """{"cities":["BERLIN","BARCELONA","BARCELONA"]}""")
   }
@@ -71,8 +70,8 @@ class TransformTest extends AnyFlatSpec with Matchers {
       Row(Seq(10, 15, 20)),
       Row(Seq(11, 16, 21)))
     val updatedDf = df.withColumn("big_numbers", transform(col("numbers"), number => when(number > 15, number)))
-    updatedDf.schema.toDDL shouldEqual "numbers ARRAY<INT>,big_numbers ARRAY<INT>"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "numbers ARRAY<INT>,big_numbers ARRAY<INT>"
+    updatedDf shouldContain(
       """{"numbers":[10,15,20],"big_numbers":[null,null,20]}""",
       """{"numbers":[11,16,21],"big_numbers":[null,16,21]}""")
   }
@@ -84,8 +83,8 @@ class TransformTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("cities"),
       transform(col("cities"), city => UpperCaseUdf(city)) as "upper_city")
-    updatedDf.schema.toDDL shouldEqual "cities ARRAY<STRING>,upper_city ARRAY<STRING>"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "cities ARRAY<STRING>,upper_city ARRAY<STRING>"
+    updatedDf shouldContain(
       """{"cities":["London","Paris","London"],"upper_city":["LONDON","PARIS","LONDON"]}""",
       """{"cities":null,"upper_city":null}""")
   }

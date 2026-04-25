@@ -2,10 +2,9 @@ package spark4.sql.dataset
 
 import org.apache.spark.sql.{Encoder, Encoders, SparkSession}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class ConcurrentModificationExceptionTest extends AnyFlatSpec with Matchers {
+class ConcurrentModificationExceptionTest extends AnyFlatSpec with SparkMatchers {
 
   it should "work without exception (because 'ss' inside the method" in {
     val ss: SparkSession = Factory.ss

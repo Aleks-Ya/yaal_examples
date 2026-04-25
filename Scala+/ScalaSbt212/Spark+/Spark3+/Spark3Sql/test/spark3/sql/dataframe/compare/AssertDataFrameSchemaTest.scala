@@ -3,11 +3,9 @@ package spark3.sql.dataframe.compare
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.IntegerType
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
-import spark3.sql.Factory.createDf
+import spark3.sql.{Factory, SparkMatchers}
 
-class AssertDataFrameSchemaTest extends AnyFlatSpec with Matchers {
+class AssertDataFrameSchemaTest extends AnyFlatSpec with SparkMatchers {
 
   it should "assert a field data type of a DataFrame" in {
     val df = Factory.peopleDf
@@ -16,7 +14,7 @@ class AssertDataFrameSchemaTest extends AnyFlatSpec with Matchers {
   }
 
   it should "assert a whole schema (DDL)" in {
-    Factory.peopleDf.schema.toDDL shouldEqual "name STRING,age INT,gender STRING"
+    Factory.peopleDf shouldHaveDDL "name STRING,age INT,gender STRING"
   }
 
   it should "assert a whole schema (simpleString)" in {
@@ -43,9 +41,9 @@ class AssertDataFrameSchemaTest extends AnyFlatSpec with Matchers {
   }
 
   it should "assert schema ignoring column order (top-level only)" in {
-    val df1 = createDf("id INT, name STRING", Row(1, "John"))
-    val df2 = createDf("name STRING, id INT", Row("Mary", 2))
-    val df3 = createDf("id INT, person STRING", Row(3, "Mark"))
+    val df1 = Factory.createDf("id INT, name STRING", Row(1, "John"))
+    val df2 = Factory.createDf("name STRING, id INT", Row("Mary", 2))
+    val df3 = Factory.createDf("id INT, person STRING", Row(3, "Mark"))
 
     val equal12 = df1.schema.toSet == df2.schema.toSet
     equal12 shouldBe true

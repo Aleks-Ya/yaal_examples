@@ -2,15 +2,14 @@ package spark4.sql.dataframe.operation.transformation
 
 import org.apache.spark.sql.functions.{asc, desc}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 
-class SortTransformationTest extends AnyFlatSpec with Matchers {
+class SortTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "sort a DataFrame in default order (ASC)" in {
     val df = Factory.peopleDf.sort("age")
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"Mary","age":20,"gender":"F"}""",
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}"""
@@ -19,7 +18,7 @@ class SortTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "sort a DataFrame in DESC order" in {
     val df = Factory.peopleDf.sort(desc("age"))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"Peter","age":35,"gender":"M"}""",
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Mary","age":20,"gender":"F"}"""
@@ -28,7 +27,7 @@ class SortTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "sort a DataFrame in ASC order (default)" in {
     val df = Factory.peopleDf.sort(asc("age"))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"Mary","age":20,"gender":"F"}""",
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}"""
@@ -37,7 +36,7 @@ class SortTransformationTest extends AnyFlatSpec with Matchers {
 
   it should "sort a DataFrame by several columns" in {
     val df = Factory.peopleDf.sort(asc("gender"), asc("name"))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"Mary","age":20,"gender":"F"}""",
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}"""

@@ -3,11 +3,10 @@ package spark4.sql.dataframe.operation.transformation
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.sum
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 
-class FlatMapTransformationTest extends AnyFlatSpec with Matchers {
+class FlatMapTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use flatMap transformation for parsing an array" in {
     import Factory.ss.implicits._
@@ -22,7 +21,7 @@ class FlatMapTransformationTest extends AnyFlatSpec with Matchers {
       })
       .toDF("genres")
 
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"genres":"Comedy"}""",
       """{"genres":"Drama"}""",
       """{"genres":"Action"}""",

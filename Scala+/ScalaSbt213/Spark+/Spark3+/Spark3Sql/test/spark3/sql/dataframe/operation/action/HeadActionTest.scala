@@ -1,10 +1,9 @@
 package spark3.sql.dataframe.operation.action
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class HeadActionTest extends AnyFlatSpec with Matchers {
+class HeadActionTest extends AnyFlatSpec with SparkMatchers {
   it should "get the first 2 elements of a DataFrame" in {
     val array = Factory.peopleDf.sort("age").head(2)
     array.map(_.json) should contain inOrderOnly(

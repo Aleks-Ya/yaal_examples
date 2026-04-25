@@ -3,10 +3,9 @@ package spark3.sql.dataframe.function.builtin.array
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{array, array_union, col}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class ArrayUnionTest extends AnyFlatSpec with Matchers {
+class ArrayUnionTest extends AnyFlatSpec with SparkMatchers {
 
   it should "join two arrays of strings" in {
     val df = Factory.createDf("country STRING, big_cities ARRAY<STRING>, small_cities ARRAY<STRING>",
@@ -15,8 +14,8 @@ class ArrayUnionTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("country"),
       array_union(col("big_cities"), col("small_cities")) as "all_cities")
-    updatedDf.schema.toDDL shouldEqual "country STRING,all_cities ARRAY<STRING>"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "country STRING,all_cities ARRAY<STRING>"
+    updatedDf shouldContain(
       """{"country":"England","all_cities":["London","Manchester","Birmingham"]}""",
       """{"country":"USA","all_cities":["Chicago","Houston","Phoenix"]}""")
   }
@@ -37,8 +36,8 @@ class ArrayUnionTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("country"),
       citiesCols.map(col).reduce(array_union) as "all")
-    updatedDf.schema.toDDL shouldEqual "country STRING,all ARRAY<STRING>"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "country STRING,all ARRAY<STRING>"
+    updatedDf shouldContain(
       """{"country":"England","all":["London","Manchester","Birmingham","Winchester","Durham","Canterbury","Bath"]}""",
       """{"country":"USA","all":["Chicago","Houston","Phoenix","Charleston","Asheville","Sedona"]}""")
   }
@@ -50,8 +49,8 @@ class ArrayUnionTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("country"),
       array_union(array(col("capital")), col("cities")) as "all_cities")
-    updatedDf.schema.toDDL shouldEqual "country STRING,all_cities ARRAY<STRING>"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "country STRING,all_cities ARRAY<STRING>"
+    updatedDf shouldContain(
       """{"country":"England","all_cities":["London","Manchester"]}""",
       """{"country":"USA","all_cities":["Washington","Chicago"]}""")
   }
@@ -63,8 +62,8 @@ class ArrayUnionTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("country"),
       array_union(col("big_cities"), col("small_cities")) as "all_cities")
-    updatedDf.schema.toDDL shouldEqual "country STRING,all_cities ARRAY<STRING>"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "country STRING,all_cities ARRAY<STRING>"
+    updatedDf shouldContain(
       """{"country":"England","all_cities":null}""",
       """{"country":"USA","all_cities":null}""")
   }
@@ -77,8 +76,8 @@ class ArrayUnionTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("country"),
       array_union(col("big_cities"), col("small_cities")) as "all_cities")
-    updatedDf.schema.toDDL shouldEqual "country STRING,all_cities ARRAY<STRUCT<name: STRING, population: INT>>"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "country STRING,all_cities ARRAY<STRUCT<name: STRING, population: INT>>"
+    updatedDf shouldContain(
       """{"country":"England","all_cities":[{"name":"London","population":10},{"name":"Manchester","population":8},{"name":"London","population":2},{"name":"Birmingham","population":7}]}""",
       """{"country":"USA","all_cities":[{"name":"Chicago","population":12},{"name":"Houston","population":5},{"name":"Phoenix","population":3}]}""")
   }

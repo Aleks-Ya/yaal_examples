@@ -3,15 +3,14 @@ package spark3.sql.dataframe.function.builtin
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{col, when}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class WhenOtherwiseTest extends AnyFlatSpec with Matchers {
+class WhenOtherwiseTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use when" in {
     val df = Factory.peopleDf
     val updatedDf = df.select(col("name"), when(col("gender") === "M", "Man") as "full_gender")
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","full_gender":"Man"}""",
       """{"name":"Peter","full_gender":"Man"}""",
       """{"name":"Mary","full_gender":null}"""
@@ -21,7 +20,7 @@ class WhenOtherwiseTest extends AnyFlatSpec with Matchers {
   it should "use when-otherwise function" in {
     val df = Factory.peopleDf
     val updatedDf = df.select(col("name"), when(col("gender") === "M", "Man").otherwise("Woman") as "full_gender")
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","full_gender":"Man"}""",
       """{"name":"Peter","full_gender":"Man"}""",
       """{"name":"Mary","full_gender":"Woman"}"""
@@ -33,7 +32,7 @@ class WhenOtherwiseTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(col("name"),
       when(col("gender") === "M", "Man")
         .when(col("gender") === "F", "Woman") as "full_gender")
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","full_gender":"Man"}""",
       """{"name":"Peter","full_gender":"Man"}""",
       """{"name":"Mary","full_gender":"Woman"}"""
@@ -49,7 +48,7 @@ class WhenOtherwiseTest extends AnyFlatSpec with Matchers {
       when(col("gender") === "M", "Man")
         .when(col("gender") === "F", "Woman")
         .otherwise("-") as "full_gender")
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","full_gender":"Man"}""",
       """{"name":"Mary","full_gender":"Woman"}""",
       """{"name":"Mark","full_gender":"-"}"""

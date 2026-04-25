@@ -2,12 +2,11 @@ package spark4.sql.dataframe.create.csv
 
 import org.apache.spark.sql.types._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 import java.util.Objects.requireNonNull
 
-class CsvReadTest extends AnyFlatSpec with Matchers {
+class CsvReadTest extends AnyFlatSpec with SparkMatchers {
 
   it should "read a CSV-file in a DataFrame" in {
     val file = requireNonNull(getClass.getResource("airports.csv"))
@@ -18,7 +17,7 @@ class CsvReadTest extends AnyFlatSpec with Matchers {
       .csv(file.getPath)
 
     df.schema.simpleString shouldEqual "struct<iata:string,airport:string,city:string,state:string,country:string,lat:double,long:double>"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"iata":"00M","airport":"Thigpen ","city":"Bay Springs","state":"MS","country":"USA","lat":31.95376472,"long":-89.23450472}""",
       """{"iata":"00R","airport":"Livingston Municipal","city":"Livingston","state":"TX","country":"USA","lat":30.68586111,"long":-95.01792778}""",
       """{"iata":"00V","airport":"Meadow Lake","city":"Colorado Springs","state":"CO","country":"USA","lat":38.94574889,"long":-104.5698933}""",
@@ -37,7 +36,7 @@ class CsvReadTest extends AnyFlatSpec with Matchers {
       .csv(file.getPath)
 
     df.schema.simpleString shouldEqual "struct<airport:string,city:string>"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"airport":"Thigpen ","city":"Bay Springs"}""",
       """{"airport":"Livingston Municipal","city":null}""",
       """{"airport":"Meadow Lake","city":"Colorado Springs"}"""
@@ -60,7 +59,7 @@ class CsvReadTest extends AnyFlatSpec with Matchers {
       .csv(file.getPath)
 
     df.schema.simpleString shouldEqual "struct<id:bigint,name:string,age:int,effectiveness:double>"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"id":1,"name":"John","age":35,"effectiveness":75.5}""",
       """{"id":2,"name":"Mary","age":25,"effectiveness":66.1}"""
     )

@@ -2,17 +2,16 @@ package spark3.sql.dataframe.function.builtin.string
 
 import org.apache.spark.sql.functions.{col, lower}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class LowerTest extends AnyFlatSpec with Matchers {
+class LowerTest extends AnyFlatSpec with SparkMatchers {
   it should "use lower function" in {
     val df = Factory.cityListDf
     val updatedDf = df.select(
       col("city"),
       lower(col("city")) as "lower"
     )
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"city":"Moscow","lower":"moscow"}""",
       """{"city":"SPb","lower":"spb"}"""
     )

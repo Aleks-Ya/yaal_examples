@@ -2,19 +2,18 @@ package spark3.sql.dataframe.operation.transformation.join
 
 import org.apache.spark.sql.DataFrame
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class CrossJoinTest extends AnyFlatSpec with Matchers {
+class CrossJoinTest extends AnyFlatSpec with SparkMatchers {
   it should "do a cross-join" in {
     val peopleDf = Factory.peopleDf
-    peopleDf.schema.toDDL shouldEqual "name STRING,age INT,gender STRING"
+    peopleDf shouldHaveDDL "name STRING,age INT,gender STRING"
     val citiesDf = Factory.cityListDf
-    citiesDf.schema.toDDL shouldEqual "city STRING"
+    citiesDf shouldHaveDDL "city STRING"
 
     val joinedDf: DataFrame = peopleDf.crossJoin(citiesDf)
-    joinedDf.schema.toDDL shouldEqual "name STRING,age INT,gender STRING,city STRING"
-    joinedDf.toJSON.collect should contain inOrderOnly(
+    joinedDf shouldHaveDDL "name STRING,age INT,gender STRING,city STRING"
+    joinedDf shouldContain(
       """{"name":"John","age":25,"gender":"M","city":"Moscow"}""",
       """{"name":"John","age":25,"gender":"M","city":"SPb"}""",
       """{"name":"Peter","age":35,"gender":"M","city":"Moscow"}""",

@@ -3,13 +3,12 @@ package spark3.sql.dataframe.create.parquet
 import org.apache.spark.SparkException
 import org.apache.spark.sql.functions.col
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 import util.FileUtil
 
 import java.nio.file.Files
 
-class WriteReadPartitionedParquetTest extends AnyFlatSpec with Matchers {
+class WriteReadPartitionedParquetTest extends AnyFlatSpec with SparkMatchers {
 
   it should "write to a partitioned parquet file" in {
     val originalDf = Factory.peopleDf
@@ -21,7 +20,7 @@ class WriteReadPartitionedParquetTest extends AnyFlatSpec with Matchers {
 
     val parquetDf = Factory.ss.read.parquet(path.toString)
     parquetDf.toJSON.collect shouldEqual originalDf.toJSON.collect
-    parquetDf.toJSON.collect should contain inOrderOnly(
+    parquetDf shouldContain(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""",
       """{"name":"Mary","age":20,"gender":"F"}""")
@@ -46,9 +45,9 @@ class WriteReadPartitionedParquetTest extends AnyFlatSpec with Matchers {
     val parquetDf = Factory.ss.read
       .option("basePath", path.toString)
       .parquet(malePartitionPath.toString)
-    parquetDf.schema.toDDL shouldEqual "name STRING,age INT,gender STRING"
+    parquetDf shouldHaveDDL "name STRING,age INT,gender STRING"
     val maleDf = parquetDf.filter(col("gender") === "M")
-    maleDf.toJSON.collect should contain inOrderOnly(
+    maleDf shouldContain(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""")
   }

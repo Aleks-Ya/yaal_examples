@@ -1,13 +1,12 @@
 package spark3.sql.dataframe.compare
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
 /**
  * Assert DataFrame Row in unit tests.
  */
-class AssertDataFrameRowTest extends AnyFlatSpec with Matchers {
+class AssertDataFrameRowTest extends AnyFlatSpec with SparkMatchers {
 
   it should "assert a Row content" in {
     val row = Factory.peopleDf.first()

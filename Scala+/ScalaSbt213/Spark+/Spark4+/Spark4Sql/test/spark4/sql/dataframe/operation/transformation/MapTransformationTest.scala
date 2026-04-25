@@ -2,11 +2,10 @@ package spark4.sql.dataframe.operation.transformation
 
 import org.apache.spark.sql.functions.avg
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 
-class MapTransformationTest extends AnyFlatSpec with Matchers {
+class MapTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use map transformation" in {
     import Factory.ss.implicits._
@@ -19,7 +18,7 @@ class MapTransformationTest extends AnyFlatSpec with Matchers {
       })
       .toDF("name", "maturity", "gender")
 
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","maturity":"Adult","gender":"M"}""",
       """{"name":"Peter","maturity":"Adult","gender":"M"}""",
       """{"name":"Mary","maturity":"Adult","gender":"F"}"""
@@ -47,7 +46,7 @@ class MapTransformationTest extends AnyFlatSpec with Matchers {
       })
       .toDF("name", "maturity", "gender")
 
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","maturity":25,"gender":"MALE"}""",
       """{"name":"Peter","maturity":35,"gender":"MALE"}""",
       """{"name":"Mary","maturity":20,"gender":null}"""

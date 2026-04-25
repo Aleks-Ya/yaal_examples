@@ -1,13 +1,11 @@
 package spark3.sql.dataframe.create.parquet
 
-import spark3.sql.Factory.createDf
 import org.apache.spark.sql.functions.{col, concat, lit}
 import org.apache.spark.sql.types.StructType.fromDDL
 import org.apache.spark.sql.{DataFrame, Row, SparkSession}
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 import util.FileUtil
 
 import java.io.File
@@ -15,7 +13,7 @@ import java.io.File
 /**
  * Write/read Parquet in batches.
  */
-class BatchesTest extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
+class BatchesTest extends AnyFlatSpec with SparkMatchers with BeforeAndAfterAll {
   private val IdField = "id"
   private val DataField = "data"
   private val schemaDdl = s"$IdField integer, $DataField string"
@@ -67,7 +65,7 @@ class BatchesTest extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
 
   private def createOriginDf(size: Int): DataFrame = {
     val rows = for (id <- 1 to size) yield Row(id, null)
-    createDf(schemaDdl, rows: _*)
+    Factory.createDf(schemaDdl, rows: _*)
   }
 
   private def calculateBatchNumber(originCount: Long, maxBatchNumber: Int): BatchNumber = {

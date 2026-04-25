@@ -3,10 +3,9 @@ package spark3.sql.dataframe.function.builtin.array
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{array, col}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class ArrayTest extends AnyFlatSpec with Matchers {
+class ArrayTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use array function" in {
     val df = Factory.createDf("country1 STRING, country2 STRING",
@@ -16,8 +15,8 @@ class ArrayTest extends AnyFlatSpec with Matchers {
       col("country1"),
       array("country1", "country2") as "countries"
     )
-    updatedDf.schema.toDDL shouldEqual "country1 STRING,countries ARRAY<STRING> NOT NULL"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "country1 STRING,countries ARRAY<STRING> NOT NULL"
+    updatedDf shouldContain(
       """{"country1":"USA","countries":["USA","UK"]}""",
       """{"country1":"Canada","countries":["Canada","Australia"]}""")
   }
@@ -27,8 +26,8 @@ class ArrayTest extends AnyFlatSpec with Matchers {
       Row(Seq("USA", "UK")),
       Row(Seq("Canada", "Australia")))
     val updatedDf = df.select(array("countries") as "countries2")
-    updatedDf.schema.toDDL shouldEqual "countries2 ARRAY<ARRAY<STRING>> NOT NULL"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "countries2 ARRAY<ARRAY<STRING>> NOT NULL"
+    updatedDf shouldContain(
       """{"countries2":[["USA","UK"]]}""",
       """{"countries2":[["Canada","Australia"]]}""")
   }
@@ -38,8 +37,8 @@ class ArrayTest extends AnyFlatSpec with Matchers {
       Row(Row(1, "USA"), Row(2, "UK")),
       Row(Row(3, "Canada"), Row(4, "Australia")))
     val updatedDf = df.select(array("country1", "country2") as "countries")
-    updatedDf.schema.toDDL shouldEqual "countries ARRAY<STRUCT<id: INT, name: STRING>> NOT NULL"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "countries ARRAY<STRUCT<id: INT, name: STRING>> NOT NULL"
+    updatedDf shouldContain(
       """{"countries":[{"id":1,"name":"USA"},{"id":2,"name":"UK"}]}""",
       """{"countries":[{"id":3,"name":"Canada"},{"id":4,"name":"Australia"}]}""")
   }
@@ -49,8 +48,8 @@ class ArrayTest extends AnyFlatSpec with Matchers {
       Row(Row(1, "USA"), Row("2abc", "UK")),
       Row(Row(3, "Canada"), Row("4zyx", "Australia")))
     val updatedDf = df.select(array(col("country1")("name"), col("country2")("name")) as "countries")
-    updatedDf.schema.toDDL shouldEqual "countries ARRAY<STRING> NOT NULL"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "countries ARRAY<STRING> NOT NULL"
+    updatedDf shouldContain(
       """{"countries":["USA","UK"]}""",
       """{"countries":["Canada","Australia"]}""")
   }
@@ -62,8 +61,8 @@ class ArrayTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       array("country1", "country2")(0) as "first"
     )
-    updatedDf.schema.toDDL shouldEqual "first STRING"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "first STRING"
+    updatedDf shouldContain(
       """{"first":"USA"}""",
       """{"first":"Canada"}""")
   }

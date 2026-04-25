@@ -2,10 +2,9 @@ package spark4.sql.dataframe.operation.action
 
 import org.apache.spark.sql.Row
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class CollectToMapActionTest extends AnyFlatSpec with Matchers {
+class CollectToMapActionTest extends AnyFlatSpec with SparkMatchers {
   it should "collect a DataFrame to a Map" in {
     val df = Factory.createDf("title STRING,amount INT",
       Row("Book", 10), Row("Car", 20), Row("House", 30), Row("Book", 40))

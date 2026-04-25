@@ -1,15 +1,14 @@
 package spark4.sql.dataframe.create.jdbc
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 import java.util.Properties
 
 /**
  * Read JDBC source with login and password.
  */
-class ReadJdbcCredentialsTest extends AnyFlatSpec with Matchers {
+class ReadJdbcCredentialsTest extends AnyFlatSpec with SparkMatchers {
 
   private val jdbcUrl = {
     val initSqlScript = classOf[ReadJdbcPartitionNumberTest].getResource("JdbcTest.sql").getFile

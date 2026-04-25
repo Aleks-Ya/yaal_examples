@@ -4,16 +4,15 @@ import org.apache.spark.SparkException
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.{Column, Row}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class UdfDifferentColumnTypesTest extends AnyFlatSpec with Matchers {
+class UdfDifferentColumnTypesTest extends AnyFlatSpec with SparkMatchers {
 
   it should "UDF can accept String column" in {
     val df = Factory.createDf("name STRING,age INT",
       Row("John", 35), Row("Mary", 20))
     val updatedDf = df.withColumn("upper_name", UpperUdf(col("name")))
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","age":35,"upper_name":"JOHN"}""",
       """{"name":"Mary","age":20,"upper_name":"MARY"}"""
     )
@@ -23,7 +22,7 @@ class UdfDifferentColumnTypesTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf("names ARRAY<STRING>,age INT",
       Row(Seq("John", "Johnny"), 35), Row(Seq("Mary", "Marika"), 20))
     val updatedDf = df.withColumn("upper_names", UpperUdf(col("names")))
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"names":["John","Johnny"],"age":35,"upper_names":"JOHN,JOHNNY"}""",
       """{"names":["Mary","Marika"],"age":20,"upper_names":"MARY,MARIKA"}"""
     )

@@ -2,10 +2,9 @@ package spark4.sql.dataset.create
 
 import org.apache.spark.sql.{Encoder, Encoders, SparkSession}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class InCodeTest extends AnyFlatSpec with Matchers {
+class InCodeTest extends AnyFlatSpec with SparkMatchers {
 
   private val ss: SparkSession = Factory.ss
 

@@ -4,15 +4,13 @@ import org.apache.spark.sql.functions.{col, lit}
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.{AnalysisException, Row}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
-import spark3.sql.Factory.createDf
+import spark3.sql.{Factory, SparkMatchers}
 
-class SelectTest extends AnyFlatSpec with Matchers {
+class SelectTest extends AnyFlatSpec with SparkMatchers {
 
   it should "retain only 2 columns" in {
     val df = Factory.peopleDf.select(col("name"), col("gender"))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","gender":"M"}""",
       """{"name":"Peter","gender":"M"}""",
       """{"name":"Mary","gender":"F"}""")
@@ -25,10 +23,10 @@ class SelectTest extends AnyFlatSpec with Matchers {
     val schema = StructType(
       StructField("name", StringType) ::
         StructField("info", info) :: Nil)
-    val df = createDf(schema, Row("John", Row(30, "M")), Row("Peter", Row(25, "M")), Row("Mary", Row(20, "F")))
+    val df = Factory.createDf(schema, Row("John", Row(30, "M")), Row("Peter", Row(25, "M")), Row("Mary", Row(20, "F")))
 
     val df2 = df.select(col("name"), col("info").getField("age").as("age"))
-    df2.toJSON.collect should contain inOrderOnly(
+    df2 shouldContain(
       """{"name":"John","age":30}""",
       """{"name":"Peter","age":25}""",
       """{"name":"Mary","age":20}""")
@@ -41,7 +39,7 @@ class SelectTest extends AnyFlatSpec with Matchers {
     val schema = StructType(
       StructField("name", StringType) ::
         StructField("departments", ArrayType(department)) :: Nil)
-    val df = createDf(schema,
+    val df = Factory.createDf(schema,
       Row("John", Seq(Row("London", 2010), Row("Paris", 2011))),
       Row("Peter", Seq(Row("Madrid", null), null)),
       Row("Mary", Seq()),
@@ -49,7 +47,7 @@ class SelectTest extends AnyFlatSpec with Matchers {
       Row("Ann", null))
 
     val df2 = df.select(col("name"), col("departments").getField("city").as("cities"))
-    df2.toJSON.collect should contain inOrderOnly(
+    df2 shouldContain(
       """{"name":"John","cities":["London","Paris"]}""",
       """{"name":"Peter","cities":["Madrid",null]}""",
       """{"name":"Mary","cities":[]}""",
@@ -59,10 +57,10 @@ class SelectTest extends AnyFlatSpec with Matchers {
 
   it should "create ambiguous columns by select" in {
     val df = Factory.peopleDf
-    df.schema.toDDL shouldEqual "name STRING,age INT,gender STRING"
+    df shouldHaveDDL "name STRING,age INT,gender STRING"
     val df2 = df.select(col("name"), col("age"), col("gender"), lit("abc").as("name"))
-    df2.schema.toDDL shouldEqual "name STRING,age INT,gender STRING,name STRING NOT NULL"
-    df2.toJSON.collect should contain inOrderOnly(
+    df2 shouldHaveDDL "name STRING,age INT,gender STRING,name STRING NOT NULL"
+    df2 shouldContain(
       """{"name":"John","age":25,"gender":"M","name":"abc"}""",
       """{"name":"Peter","age":35,"gender":"M","name":"abc"}""",
       """{"name":"Mary","age":20,"gender":"F","name":"abc"}""")
@@ -80,7 +78,7 @@ class SelectTest extends AnyFlatSpec with Matchers {
     )
     df.schema.simpleString shouldEqual "struct<product:string,amount:int,AMOUNT:int>"
     df.schema.toDDL shouldBe "product STRING,amount INT,AMOUNT INT"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"product":"Apple","amount":100,"AMOUNT":1000}""",
       """{"product":"Orange","amount":null,"AMOUNT":null}""",
     )

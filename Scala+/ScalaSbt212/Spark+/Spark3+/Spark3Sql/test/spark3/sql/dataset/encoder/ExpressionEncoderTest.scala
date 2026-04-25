@@ -3,10 +3,9 @@ package spark3.sql.dataset.encoder
 import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder
 import org.apache.spark.sql.{Dataset, Encoder}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class ExpressionEncoderTest extends AnyFlatSpec with Matchers {
+class ExpressionEncoderTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use Expression encoder" in {
     implicit val encoder: Encoder[PersonProduct2] = ExpressionEncoder[PersonProduct2]
@@ -28,18 +27,18 @@ class ExpressionEncoderTest extends AnyFlatSpec with Matchers {
 
     val ss = Factory.ss
     val ds: Dataset[PersonProduct2] = ss.createDataset(Seq(personJohn, personMary))
-    ds.collect should contain allOf(personJohn, personMary)
+    ds shouldContain(personJohn, personMary)
   }
 
 }
 
 case class PersonProduct2(
-                          name: String,
-                          age: Int,
-                          time: Long,
-                          male: Boolean,
-                          metadata: Map[String, String],
-                          contacts: PersonContacts2
-                        )
+                           name: String,
+                           age: Int,
+                           time: Long,
+                           male: Boolean,
+                           metadata: Map[String, String],
+                           contacts: PersonContacts2
+                         )
 
 case class PersonContacts2(city: String, phone: String)

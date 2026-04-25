@@ -2,10 +2,9 @@ package spark4.sql.dataset.checkpoint
 
 import org.apache.spark.sql.Dataset
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.{City, Factory}
+import spark4.sql.{City, Factory, SparkMatchers}
 
-class LocalCheckpointTest extends AnyFlatSpec with Matchers {
+class LocalCheckpointTest extends AnyFlatSpec with SparkMatchers {
 
   it should "create a local checkpoint" in {
     val ds: Dataset[City] = Factory.cityDs

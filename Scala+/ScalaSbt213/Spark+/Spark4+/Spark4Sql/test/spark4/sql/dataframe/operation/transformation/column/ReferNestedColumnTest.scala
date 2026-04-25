@@ -3,10 +3,9 @@ package spark4.sql.dataframe.operation.transformation.column
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class ReferNestedColumnTest extends AnyFlatSpec with Matchers {
+class ReferNestedColumnTest extends AnyFlatSpec with SparkMatchers {
 
   it should "get field from a column using getField" in {
     val df = Factory.createDf("name STRING,details STRUCT<age: INT, gender: STRING>",
@@ -15,7 +14,7 @@ class ReferNestedColumnTest extends AnyFlatSpec with Matchers {
       .withColumn("details_oneline", concat_ws("-",
         col("details").getField("gender"),
         col("details").getField("age")))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","details":{"age":30,"gender":"M"},"details_oneline":"M-30"}""",
       """{"name":"Mary","details":{"age":25,"gender":"F"},"details_oneline":"F-25"}""")
   }
@@ -27,7 +26,7 @@ class ReferNestedColumnTest extends AnyFlatSpec with Matchers {
       .withColumn("details_oneline", concat_ws("-",
         col("details")("gender"),
         col("details")("age")))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","details":{"age":30,"gender":"M"},"details_oneline":"M-30"}""",
       """{"name":"Mary","details":{"age":25,"gender":"F"},"details_oneline":"F-25"}""")
   }
@@ -39,7 +38,7 @@ class ReferNestedColumnTest extends AnyFlatSpec with Matchers {
       .withColumn("details_oneline", concat_ws("-",
         col("details.gender"),
         col("details.age")))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","details":{"age":30,"gender":"M"},"details_oneline":"M-30"}""",
       """{"name":"Mary","details":{"age":25,"gender":"F"},"details_oneline":"F-25"}""")
   }

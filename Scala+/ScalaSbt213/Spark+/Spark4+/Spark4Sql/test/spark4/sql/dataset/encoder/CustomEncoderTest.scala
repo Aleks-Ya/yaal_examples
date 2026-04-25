@@ -8,28 +8,27 @@ import org.apache.spark.sql.catalyst.expressions.{BoundReference, CreateNamedStr
 import org.apache.spark.sql.types.{ObjectType, StringType}
 import org.apache.spark.unsafe.types.UTF8String
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class CustomEncoderTest extends AnyFlatSpec with Matchers {
+class CustomEncoderTest extends AnyFlatSpec with SparkMatchers {
 
-  ignore should "use a custom encoder" in {
+  it should "use a custom encoder" in {
     import CustomEncoders._
     val data: Seq[HelloWorld] = Seq(new HelloWorld("Hello"), new HelloWorld("World"))
     val ds: Dataset[HelloWorld] = Factory.ss.createDataset(data)
 
-    ds.schema.toDDL shouldEqual "message STRING NOT NULL"
-    ds.toJSON.collect should contain inOrderOnly(
-      """{"message":"Hello"}""",
-      """{"message":"World"}"""
+    ds shouldHaveDDL "message STRING NOT NULL"
+    ds shouldContain(
+      new HelloWorld("Hello"),
+      new HelloWorld("World")
     )
 
     // Deserialization works perfectly
     val ds2: Dataset[HelloWorld] = ds.map(hw => new HelloWorld(hw.message + " from Spark!"))
-    ds2.schema.toDDL shouldEqual "message STRING NOT NULL"
-    ds2.toJSON.collect should contain inOrderOnly(
-      """{"message":"Hello from Spark!"}""",
-      """{"message":"World from Spark!"}"""
+    ds2 shouldHaveDDL "message STRING NOT NULL"
+    ds2 shouldContain(
+      new HelloWorld("Hello from Spark!"),
+      new HelloWorld("World from Spark!")
     )
   }
 

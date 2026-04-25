@@ -1,13 +1,11 @@
 package spark3.sql.dataset.util
 
-import spark3.sql.Factory.createCityDs
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.util.SizeEstimator
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.{City, Factory}
+import spark3.sql.{City, Factory, SparkMatchers}
 
-class MeasureDatasetMemoryTest extends AnyFlatSpec with Matchers {
+class MeasureDatasetMemoryTest extends AnyFlatSpec with SparkMatchers {
 
   it should "measure size of an Dataset" in {
     val ds = Factory.cityDs
@@ -20,7 +18,7 @@ class MeasureDatasetMemoryTest extends AnyFlatSpec with Matchers {
     val cityNumber = 10000
     val cities = for (i <- 1 to cityNumber) yield City(s"City $i", 1000 + i)
 
-    val ds = createCityDs(cities)
+    val ds = Factory.createCityDs(cities)
     val sizeKb = SizeEstimator.estimate(ds) / 1024
     println(s"Size: $sizeKb")
     sizeKb should be(5500L +- 500L)

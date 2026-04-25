@@ -1,20 +1,18 @@
 package spark4.sql.dataset.udf
 
-import spark4.sql.Factory.ss.implicits._
 import org.apache.spark.sql.Column
 import org.apache.spark.sql.functions._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 /**
  * UDF returns a JSON object.
  */
-class UdfObjectReturnJsonObjectTest extends AnyFlatSpec with Matchers {
+class UdfObjectReturnJsonObjectTest extends AnyFlatSpec with SparkMatchers {
 
   it should "UDF returns JSON object" in {
-    val df = Factory.peopleDf.withColumn("person", UpperUdfFunction($"name", $"age"))
-    df.toJSON.collect should contain inOrderOnly(
+    val df = Factory.peopleDf.withColumn("person", UpperUdfFunction(col("name"), col("age")))
+    df shouldContain(
       """{"name":"John","age":25,"gender":"M","person":{"name":"John","age":25}}""",
       """{"name":"Peter","age":35,"gender":"M","person":{"name":"Peter","age":35}}""",
       """{"name":"Mary","age":20,"gender":"F","person":{"name":"Mary","age":20}}"""

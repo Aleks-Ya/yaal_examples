@@ -3,10 +3,9 @@ package spark4.sql.dataframe.function.builtin
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.expr
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class ExprTest extends AnyFlatSpec with Matchers {
+class ExprTest extends AnyFlatSpec with SparkMatchers {
 
   /**
    * @see AggregateTest
@@ -19,7 +18,7 @@ class ExprTest extends AnyFlatSpec with Matchers {
       Row("Matt", null)
     )
     val updatedDf = df.withColumn("sum", expr("aggregate(sales, 0, (acc, x) -> acc + x)"))
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"person":"John","sales":[10,20],"sum":30}""",
       """{"person":"Mary","sales":[1,2],"sum":3}""",
       """{"person":"Mark","sales":[3,null],"sum":null}""",

@@ -3,17 +3,16 @@ package spark4.sql.dataframe.datatype
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{DoubleType, StringType}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class DoubleTypeTest extends AnyFlatSpec with Matchers {
+class DoubleTypeTest extends AnyFlatSpec with SparkMatchers {
 
   it should "DOUBLE column type" in {
     val df = Factory.createDf("name STRING, weight DOUBLE",
       Row("John", 90.5D),
       Row("Mary", 45.6D),
       Row("Mary", null))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","weight":90.5}""",
       """{"name":"Mary","weight":45.6}""",
       """{"name":"Mary","weight":null}""")
@@ -24,8 +23,8 @@ class DoubleTypeTest extends AnyFlatSpec with Matchers {
       Row("John", 90.5D),
       Row("Mary", 45.6D),
       Row("Mary", null))
-    df.schema.toDDL shouldEqual "name STRING,weight DOUBLE"
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldHaveDDL "name STRING,weight DOUBLE"
+    df shouldContain(
       """{"name":"John","weight":90.5}""",
       """{"name":"Mary","weight":45.6}""",
       """{"name":"Mary","weight":null}""")

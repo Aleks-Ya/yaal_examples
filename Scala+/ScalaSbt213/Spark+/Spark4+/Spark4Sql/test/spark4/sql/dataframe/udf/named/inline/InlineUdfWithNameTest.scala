@@ -3,10 +3,9 @@ package spark4.sql.dataframe.udf.named.inline
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class InlineUdfWithNameTest extends AnyFlatSpec with Matchers {
+class InlineUdfWithNameTest extends AnyFlatSpec with SparkMatchers {
 
   it should "give a meaningful name to a UDF" in {
     val df = Factory.createDf("name STRING", Row("John"), Row("Mary"))

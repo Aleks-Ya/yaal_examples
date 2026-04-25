@@ -3,14 +3,13 @@ package spark3.sql.dataframe.function.builtin.aggregation
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.functions.max
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class MaxTest extends AnyFlatSpec with Matchers {
+class MaxTest extends AnyFlatSpec with SparkMatchers {
   it should "use max function" in {
     val df = Factory.peopleDf
     val updatedDf: DataFrame = df.agg(max("age") as "max_age")
-    updatedDf.schema.toDDL shouldEqual "max_age INT"
-    updatedDf.toJSON.collect should contain only """{"max_age":35}"""
+    updatedDf shouldHaveDDL "max_age INT"
+    updatedDf shouldContain """{"max_age":35}"""
   }
 }

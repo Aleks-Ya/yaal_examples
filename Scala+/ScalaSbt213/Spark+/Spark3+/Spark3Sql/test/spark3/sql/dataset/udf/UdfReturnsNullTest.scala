@@ -3,14 +3,13 @@ package spark3.sql.dataset.udf
 import org.apache.spark.sql.Column
 import org.apache.spark.sql.functions._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class UdfReturnsNullTest extends AnyFlatSpec with Matchers {
+class UdfReturnsNullTest extends AnyFlatSpec with SparkMatchers {
 
   it should "return null" in {
     val df = Factory.peopleDf.withColumn("seq", ToNullUdf(col("name"), col("age")))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"name":"John","age":25,"gender":"M","seq":["JOHN","25"]}""",
       """{"name":"Peter","age":35,"gender":"M","seq":null}""",
       """{"name":"Mary","age":20,"gender":"F","seq":["MARY","20"]}"""

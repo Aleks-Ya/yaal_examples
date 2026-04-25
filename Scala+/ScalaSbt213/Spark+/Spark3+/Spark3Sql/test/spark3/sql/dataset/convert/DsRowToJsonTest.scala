@@ -5,10 +5,9 @@ import org.json4s.jackson.Serialization
 import org.json4s.jackson.Serialization.write
 import org.json4s.{Formats, NoTypeHints}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.{City, Factory}
+import spark3.sql.{City, Factory, SparkMatchers}
 
-class DsRowToJsonTest extends AnyFlatSpec with Matchers {
+class DsRowToJsonTest extends AnyFlatSpec with SparkMatchers {
 
   it should "dataframe.convert whole Dataset to JSON" in {
     val cityDs: Dataset[City] = Factory.cityDs

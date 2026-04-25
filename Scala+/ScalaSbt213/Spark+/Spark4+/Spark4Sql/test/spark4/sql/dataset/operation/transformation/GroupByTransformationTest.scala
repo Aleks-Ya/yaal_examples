@@ -3,10 +3,9 @@ package spark4.sql.dataset.operation.transformation
 import org.apache.spark.sql.catalyst.expressions.GenericRowWithSchema
 import org.apache.spark.sql.{Encoder, Encoders}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.{City, Factory}
+import spark4.sql.{City, Factory, SparkMatchers}
 
-class GroupByTransformationTest extends AnyFlatSpec with Matchers {
+class GroupByTransformationTest extends AnyFlatSpec with SparkMatchers {
   private val cities = Seq(City("Moscow", 1234), City("Moscow", 7890), City("SPb", 4567))
 
   it should "group by key" in {
@@ -25,7 +24,7 @@ class GroupByTransformationTest extends AnyFlatSpec with Matchers {
   it should "group by and show count" in {
     val ds = Factory.createCityDs(cities)
     val updatedDf = ds.groupBy("name").count()
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"Moscow","count":2}""",
       """{"name":"SPb","count":1}""")
   }

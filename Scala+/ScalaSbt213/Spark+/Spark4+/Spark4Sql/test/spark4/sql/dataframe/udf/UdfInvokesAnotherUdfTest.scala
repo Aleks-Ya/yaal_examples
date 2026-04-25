@@ -3,11 +3,10 @@ package spark4.sql.dataframe.udf
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 //DOES NOT WORK
-class UdfInvokesAnotherUdfTest extends AnyFlatSpec with Matchers {
+class UdfInvokesAnotherUdfTest extends AnyFlatSpec with SparkMatchers {
 
   it should "UDF invokes other UDFs" in {
     val df = Factory.createDf("code STRING",
@@ -18,7 +17,7 @@ class UdfInvokesAnotherUdfTest extends AnyFlatSpec with Matchers {
     val normalizeUdf = udf((str: String) => removeSpacesUdf(upperCaseUdf(lit(str))))
 
     val updatedDf = df.withColumn("normal", normalizeUdf(col("code")))
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","age":35,"upper_name":"JOHN"}""",
       """{"name":"Mary","age":20,"upper_name":"MARY"}"""
     )

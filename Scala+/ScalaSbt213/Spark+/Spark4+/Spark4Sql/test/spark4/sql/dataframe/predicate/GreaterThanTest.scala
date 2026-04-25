@@ -2,15 +2,14 @@ package spark4.sql.dataframe.predicate
 
 import org.apache.spark.sql.functions.col
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class GreaterThanTest extends AnyFlatSpec with Matchers {
+class GreaterThanTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use greater than symbol" in {
     val df = Factory.peopleDf
     val updatedDf = df.filter(col("age") > 20)
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""")
   }
@@ -18,7 +17,7 @@ class GreaterThanTest extends AnyFlatSpec with Matchers {
   it should "use greater than method" in {
     val df = Factory.peopleDf
     val updatedDf = df.filter(col("age").gt(20))
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""")
   }

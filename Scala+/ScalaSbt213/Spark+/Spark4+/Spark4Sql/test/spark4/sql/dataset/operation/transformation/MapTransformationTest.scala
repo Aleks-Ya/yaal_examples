@@ -1,18 +1,17 @@
 package spark4.sql.dataset.operation.transformation
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.{City, Factory}
+import spark4.sql.{City, Factory, SparkMatchers}
 
-class MapTransformationTest extends AnyFlatSpec with Matchers {
+class MapTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "modify values" in {
     import Factory.ss.implicits._
     val ds = Factory.cityDs.map(city => City(city.name.toUpperCase, city.establishYear))
-    ds.toJSON.collect should contain inOrderOnly(
-      """{"name":"MOSCOW","establishYear":1147}""",
-      """{"name":"SPB","establishYear":1703}""",
-      """{"name":"NEW YORK","establishYear":1665}"""
+    ds shouldContain(
+      City("MOSCOW", 1147),
+      City("SPB", 1703),
+      City("NEW YORK", 1665)
     )
   }
 

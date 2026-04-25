@@ -2,12 +2,11 @@ package spark3.sql.dataset.encoder
 
 import org.apache.spark.sql.{Dataset, Encoder, Encoders}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
 import java.time.ZonedDateTime
 
-class ProductEncoderTest extends AnyFlatSpec with Matchers {
+class ProductEncoderTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use Product encoder" in {
     val personJohn = PersonProduct(
@@ -29,7 +28,7 @@ class ProductEncoderTest extends AnyFlatSpec with Matchers {
     val ss = Factory.ss
     implicit val encoder: Encoder[PersonProduct] = Encoders.product[PersonProduct]
     val ds: Dataset[PersonProduct] = ss.createDataset(Seq(personJohn, personMary))
-    ds.collect should contain allOf(personJohn, personMary)
+    ds shouldContain(personJohn, personMary)
   }
 
   ignore should "use Product encoder with unsupported classes" in {

@@ -2,11 +2,10 @@ package spark3.sql.dataframe.show
 
 import org.apache.spark.sql.execution.{ExtendedMode, SimpleMode}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
 
-class QueryExecutionTest extends AnyFlatSpec with Matchers {
+class QueryExecutionTest extends AnyFlatSpec with SparkMatchers {
 
   it should "get execution plan as a string" in {
     val df = Factory.peopleDf.drop("age")

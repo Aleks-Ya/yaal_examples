@@ -4,10 +4,9 @@ import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{array_contains, col, transform, when}
 import org.apache.spark.sql.types._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class ArrayContainsTest extends AnyFlatSpec with Matchers {
+class ArrayContainsTest extends AnyFlatSpec with SparkMatchers {
   it should "use array_contains function" in {
     val df = Factory.createDf(Map("cities" -> ArrayType(StringType)),
       Row(List("London", "Paris")),
@@ -16,7 +15,7 @@ class ArrayContainsTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("cities"),
       array_contains(col("cities"), "London") as "has_london")
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"cities":["London","Paris"],"has_london":true}""",
       """{"cities":["Berlin","Barcelona"],"has_london":false}""",
       """{"cities":["Berlin","London"],"has_london":true}"""
@@ -34,7 +33,7 @@ class ArrayContainsTest extends AnyFlatSpec with Matchers {
     val updatedDf = df.select(
       col("city"),
       array_contains(col("people")("age"), 30) as "has_thirty")
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"city":"London","has_thirty":true}""",
       """{"city":"Berlin","has_thirty":false}"""
     )
@@ -55,7 +54,7 @@ class ArrayContainsTest extends AnyFlatSpec with Matchers {
         peopleCol.dropFields("age"))
         .otherwise(peopleCol) as "thirty")
     )
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"city":"London","thirty":"has thirty"}""",
       """{"city":"Berlin","thirty":"no thirty"}"""
     )

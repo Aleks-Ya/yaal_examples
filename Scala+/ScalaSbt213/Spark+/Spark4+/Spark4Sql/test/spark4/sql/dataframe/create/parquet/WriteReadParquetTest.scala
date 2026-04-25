@@ -4,14 +4,12 @@ import org.apache.spark.SparkException
 import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.{Row, SaveMode}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
-import spark4.sql.Factory.createDf
+import spark4.sql.{Factory, SparkMatchers}
 import util.FileUtil
 
 import java.nio.file.Files
 
-class WriteReadParquetTest extends AnyFlatSpec with Matchers {
+class WriteReadParquetTest extends AnyFlatSpec with SparkMatchers {
 
   it should "write to parquet file" in {
     val originalDf = Factory.peopleDf
@@ -20,7 +18,7 @@ class WriteReadParquetTest extends AnyFlatSpec with Matchers {
     originalDf.write.parquet(file)
 
     val parquetDf = Factory.ss.read.parquet(file)
-    parquetDf.schema.toDDL shouldEqual "name STRING,age INT,gender STRING"
+    parquetDf shouldHaveDDL "name STRING,age INT,gender STRING"
     parquetDf.toJSON.collect shouldEqual originalDf.toJSON.collect
     parquetDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M"}""",
@@ -41,7 +39,7 @@ class WriteReadParquetTest extends AnyFlatSpec with Matchers {
     femaleDf.write.parquet(femaleFile)
 
     val parquetDf = Factory.ss.read.parquet(maleFile, femaleFile)
-    parquetDf.schema.toDDL shouldEqual "name STRING,age INT,gender STRING"
+    parquetDf shouldHaveDDL "name STRING,age INT,gender STRING"
     parquetDf.toJSON.collect shouldEqual originalDf.toJSON.collect
     parquetDf.toJSON.collect should contain inOrderOnly(
       """{"name":"John","age":25,"gender":"M"}""",
@@ -53,13 +51,13 @@ class WriteReadParquetTest extends AnyFlatSpec with Matchers {
     val ddl = "city STRING"
     val file = FileUtil.createAbsentTmpDirStr()
 
-    val df1 = createDf(ddl, Row("London"))
+    val df1 = Factory.createDf(ddl, Row("London"))
     df1.write.parquet(file)
-    Factory.ss.read.parquet(file).toJSON.collect should contain only """{"city":"London"}"""
+    Factory.ss.read.parquet(file) shouldContain """{"city":"London"}"""
 
-    val df2 = createDf(ddl, Row("Berlin"))
+    val df2 = Factory.createDf(ddl, Row("Berlin"))
     df2.write.mode(SaveMode.Append).parquet(file)
-    Factory.ss.read.parquet(file).toJSON.collect should contain only(
+    Factory.ss.read.parquet(file) shouldContain(
       """{"city":"Berlin"}""",
       """{"city":"London"}"""
     )

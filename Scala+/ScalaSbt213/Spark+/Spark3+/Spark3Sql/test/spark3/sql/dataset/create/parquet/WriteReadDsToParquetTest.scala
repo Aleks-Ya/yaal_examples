@@ -3,14 +3,13 @@ package spark3.sql.dataset.create.parquet
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.{Dataset, Encoders}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 import util.FileUtil
 
 import java.nio.file.Files
 import scala.jdk.StreamConverters.StreamHasToScala
 
-class WriteReadDsToParquetTest extends AnyFlatSpec with Matchers {
+class WriteReadDsToParquetTest extends AnyFlatSpec with SparkMatchers {
   private val ss = Factory.ss
 
   import ss.implicits._

@@ -4,15 +4,14 @@ import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{col, sort_array}
 import org.apache.spark.sql.types.{ArrayType, StringType}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
-class SortArrayTest extends AnyFlatSpec with Matchers {
+class SortArrayTest extends AnyFlatSpec with SparkMatchers {
   it should "sort an array column" in {
     val df = Factory.createDf(Map("person" -> StringType, "countries" -> ArrayType(StringType)),
       Row("John", Seq("USA", "Germany", "UK")),
       Row("Mary", Seq("Belgium", "Canada", "Australia")))
-    df.toJSON.collect should contain inOrderOnly(
+    df shouldContain(
       """{"person":"John","countries":["USA","Germany","UK"]}""",
       """{"person":"Mary","countries":["Belgium","Canada","Australia"]}"""
     )
@@ -22,7 +21,7 @@ class SortArrayTest extends AnyFlatSpec with Matchers {
       sort_array(col("countries")).as("countries_asc"),
       sort_array(col("countries"), asc = false).as("countries_desc")
     )
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldContain(
       """{"person":"John","countries_asc":["Germany","UK","USA"],"countries_desc":["USA","UK","Germany"]}""",
       """{"person":"Mary","countries_asc":["Australia","Belgium","Canada"],"countries_desc":["Canada","Belgium","Australia"]}"""
     )

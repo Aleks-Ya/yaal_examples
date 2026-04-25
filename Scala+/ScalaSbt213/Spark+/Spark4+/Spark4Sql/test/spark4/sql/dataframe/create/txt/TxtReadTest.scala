@@ -1,12 +1,11 @@
 package spark4.sql.dataframe.create.txt
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 import java.util.Objects.requireNonNull
 
-class TxtReadTest extends AnyFlatSpec with Matchers {
+class TxtReadTest extends AnyFlatSpec with SparkMatchers {
 
   it should "read a text file in a DataFrame" in {
     val file = requireNonNull(getClass.getResource("TxtRead.txt"))
@@ -48,7 +47,7 @@ class TxtReadTest extends AnyFlatSpec with Matchers {
 
     df1.toJSON.collect shouldEqual df2.toJSON.collect
     df1.schema.simpleString shouldEqual "struct<value:string>"
-    df1.toJSON.collect should contain only """{"value":"Line 1\n\nLine 2\n\nLine 3"}"""
+    df1 shouldContain """{"value":"Line 1\n\nLine 2\n\nLine 3"}"""
   }
 
 }

@@ -3,11 +3,10 @@ package spark3.sql.dataframe.function.builtin.array
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{col, explode}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark3.sql.Factory
+import spark3.sql.{Factory, SparkMatchers}
 
 
-class ExplodeTest extends AnyFlatSpec with Matchers {
+class ExplodeTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use explode function in select" in {
     val df = Factory.createDf("name STRING, cities ARRAY<STRING>",
@@ -18,7 +17,7 @@ class ExplodeTest extends AnyFlatSpec with Matchers {
     val explodedDf = df.select(
       col("name"),
       explode(col("cities")).alias("city"))
-    explodedDf.toJSON.collect should contain inOrderOnly(
+    explodedDf shouldContain(
       """{"name":"John","city":"London"}""",
       """{"name":"John","city":"Paris"}""",
       """{"name":"Mary","city":"Berlin"}""",
@@ -31,7 +30,7 @@ class ExplodeTest extends AnyFlatSpec with Matchers {
       Row("John", Seq("London", "Paris")),
       Row("Mary", Seq("Berlin", "Paris")))
     val explodedDf = df.withColumn("city", explode(col("cities")))
-    explodedDf.toJSON.collect should contain inOrderOnly(
+    explodedDf shouldContain(
       """{"name":"John","cities":["London","Paris"],"city":"London"}""",
       """{"name":"John","cities":["London","Paris"],"city":"Paris"}""",
       """{"name":"Mary","cities":["Berlin","Paris"],"city":"Berlin"}""",
@@ -48,7 +47,7 @@ class ExplodeTest extends AnyFlatSpec with Matchers {
     val explodedDf = df.select(
       col("name"),
       explode(col("address.city")).alias("city"))
-    explodedDf.toJSON.collect should contain inOrderOnly(
+    explodedDf shouldContain(
       """{"name":"John","city":"London"}""",
       """{"name":"John","city":"Paris"}""",
       """{"name":"Mary","city":"Berlin"}""",
@@ -65,7 +64,7 @@ class ExplodeTest extends AnyFlatSpec with Matchers {
     val explodedDf = df.select(
       col("name"),
       explode(col("address").getField("city")).alias("city"))
-    explodedDf.toJSON.collect should contain inOrderOnly(
+    explodedDf shouldContain(
       """{"name":"John","city":"London"}""",
       """{"name":"John","city":"Paris"}""",
       """{"name":"Mary","city":"Berlin"}""",

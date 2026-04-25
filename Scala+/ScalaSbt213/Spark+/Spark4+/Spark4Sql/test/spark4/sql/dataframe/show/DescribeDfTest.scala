@@ -1,11 +1,10 @@
 package spark4.sql.dataframe.show
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
 
-class DescribeDfTest extends AnyFlatSpec with Matchers {
+class DescribeDfTest extends AnyFlatSpec with SparkMatchers {
   it should "describe columns" in {
     val df = Factory.peopleDf
     val describeDf = df.describe("name", "age", "gender")

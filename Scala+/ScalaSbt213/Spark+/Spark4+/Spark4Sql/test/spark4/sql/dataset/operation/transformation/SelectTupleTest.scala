@@ -2,10 +2,9 @@ package spark4.sql.dataset.operation.transformation
 
 import org.apache.spark.sql.Dataset
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.{City, Factory}
+import spark4.sql.{City, Factory, SparkMatchers}
 
-class SelectTupleTest extends AnyFlatSpec with Matchers {
+class SelectTupleTest extends AnyFlatSpec with SparkMatchers {
 
   it should "select tuples" in {
     import Factory.ss.implicits._

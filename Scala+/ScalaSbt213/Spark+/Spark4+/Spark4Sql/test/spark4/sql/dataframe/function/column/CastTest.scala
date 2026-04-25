@@ -4,17 +4,16 @@ import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
-import spark4.sql.Factory
+import spark4.sql.{Factory, SparkMatchers}
 
-class CastTest extends AnyFlatSpec with Matchers {
+class CastTest extends AnyFlatSpec with SparkMatchers {
 
   it should "cast to related type" in {
     val df = Factory.peopleDf
-    df.schema.toDDL shouldEqual "name STRING,age INT,gender STRING"
+    df shouldHaveDDL "name STRING,age INT,gender STRING"
     val updatedDf = df.withColumn("age", col("age").cast(ByteType))
-    updatedDf.schema.toDDL shouldEqual "name STRING,age TINYINT,gender STRING"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "name STRING,age TINYINT,gender STRING"
+    updatedDf shouldContain(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""",
       """{"name":"Mary","age":20,"gender":"F"}"""
@@ -23,10 +22,10 @@ class CastTest extends AnyFlatSpec with Matchers {
 
   it should "cast Number to String" in {
     val df = Factory.peopleDf
-    df.schema.toDDL shouldEqual "name STRING,age INT,gender STRING"
+    df shouldHaveDDL "name STRING,age INT,gender STRING"
     val updatedDf = df.withColumn("age", col("age").cast(StringType))
-    updatedDf.schema.toDDL shouldEqual "name STRING,age STRING,gender STRING"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "name STRING,age STRING,gender STRING"
+    updatedDf shouldContain(
       """{"name":"John","age":"25","gender":"M"}""",
       """{"name":"Peter","age":"35","gender":"M"}""",
       """{"name":"Mary","age":"20","gender":"F"}"""
@@ -37,8 +36,8 @@ class CastTest extends AnyFlatSpec with Matchers {
     val df = Factory.createDf("name STRING, age STRING",
       Row("John", "25"), Row("Peter", "35"), Row("Mary", "20"))
     val updatedDf = df.withColumn("age", col("age").cast(IntegerType))
-    updatedDf.schema.toDDL shouldEqual "name STRING,age INT"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "name STRING,age INT"
+    updatedDf shouldContain(
       """{"name":"John","age":25}""",
       """{"name":"Peter","age":35}""",
       """{"name":"Mary","age":20}"""
@@ -54,8 +53,8 @@ class CastTest extends AnyFlatSpec with Matchers {
     )
     val targetDdl = "STRUCT<age: STRING, gender: STRING>"
     val updatedDf = df.withColumn("details", col("details").cast(targetDdl))
-    updatedDf.schema.toDDL shouldEqual "name STRING,details STRUCT<age: STRING, gender: STRING>"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "name STRING,details STRUCT<age: STRING, gender: STRING>"
+    updatedDf shouldContain(
       """{"name":"John","details":{"age":"25","gender":"M"}}""",
       """{"name":"Mary","details":{"age":"20","gender":"F"}}""",
       """{"name":"Mark","details":{"age":null,"gender":null}}""",
@@ -75,8 +74,8 @@ class CastTest extends AnyFlatSpec with Matchers {
       StructField("gender", StringType, nullable = true)
     ))
     val updatedDf = df.withColumn("details", col("details").cast(targetSchema))
-    updatedDf.schema.toDDL shouldEqual "name STRING,details STRUCT<age: STRING, gender: STRING>"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "name STRING,details STRUCT<age: STRING, gender: STRING>"
+    updatedDf shouldContain(
       """{"name":"John","details":{"age":"25","gender":"M"}}""",
       """{"name":"Mary","details":{"age":"20","gender":"F"}}""",
       """{"name":"Mark","details":{"age":null,"gender":null}}""",
@@ -93,8 +92,8 @@ class CastTest extends AnyFlatSpec with Matchers {
     )
     val detailsCol = col("details").withField("age", col("details").getField("age").cast(StringType))
     val updatedDf = df.withColumn("details", detailsCol)
-    updatedDf.schema.toDDL shouldEqual "name STRING,details STRUCT<age: STRING, gender: STRING>"
-    updatedDf.toJSON.collect should contain inOrderOnly(
+    updatedDf shouldHaveDDL "name STRING,details STRUCT<age: STRING, gender: STRING>"
+    updatedDf shouldContain(
       """{"name":"John","details":{"age":"25","gender":"M"}}""",
       """{"name":"Mary","details":{"age":"20","gender":"F"}}""",
       """{"name":"Mark","details":{"age":null,"gender":null}}""",
