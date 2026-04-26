@@ -105,7 +105,7 @@ class StructTypeTest extends AnyFlatSpec with SparkMatchers {
       col("name"),
       col("details").withField("maturity", when(col("details.adult"), lit("Adult")).otherwise(lit("Infant"))) as "details"
     )
-    updatedDf2.toJSON.collect should contain inOrderOnly(
+    updatedDf2 shouldContain(
       """{"name":"John","details":{"city":"London","age":30,"adult":true,"maturity":"Adult"}}""",
       """{"name":"Mary","details":{"city":"Berlin","age":15,"adult":false,"maturity":"Infant"}}"""
     )

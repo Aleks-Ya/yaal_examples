@@ -17,7 +17,7 @@ class ExplodeTest extends AnyFlatSpec with SparkMatchers {
     val explodedDf = df.select(
       col("name"),
       explode(col("cities")).alias("city"))
-    explodedDf.toJSON.collect should contain inOrderOnly(
+    explodedDf shouldContain(
       """{"name":"John","city":"London"}""",
       """{"name":"John","city":"Paris"}""",
       """{"name":"Mary","city":"Berlin"}""",
@@ -30,7 +30,7 @@ class ExplodeTest extends AnyFlatSpec with SparkMatchers {
       Row("John", Seq("London", "Paris")),
       Row("Mary", Seq("Berlin", "Paris")))
     val explodedDf = df.withColumn("city", explode(col("cities")))
-    explodedDf.toJSON.collect should contain inOrderOnly(
+    explodedDf shouldContain(
       """{"name":"John","cities":["London","Paris"],"city":"London"}""",
       """{"name":"John","cities":["London","Paris"],"city":"Paris"}""",
       """{"name":"Mary","cities":["Berlin","Paris"],"city":"Berlin"}""",
@@ -47,7 +47,7 @@ class ExplodeTest extends AnyFlatSpec with SparkMatchers {
     val explodedDf = df.select(
       col("name"),
       explode(col("address.city")).alias("city"))
-    explodedDf.toJSON.collect should contain inOrderOnly(
+    explodedDf shouldContain(
       """{"name":"John","city":"London"}""",
       """{"name":"John","city":"Paris"}""",
       """{"name":"Mary","city":"Berlin"}""",
@@ -64,7 +64,7 @@ class ExplodeTest extends AnyFlatSpec with SparkMatchers {
     val explodedDf = df.select(
       col("name"),
       explode(col("address").getField("city")).alias("city"))
-    explodedDf.toJSON.collect should contain inOrderOnly(
+    explodedDf shouldContain(
       """{"name":"John","city":"London"}""",
       """{"name":"John","city":"Paris"}""",
       """{"name":"Mary","city":"Berlin"}""",

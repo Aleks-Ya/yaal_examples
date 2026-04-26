@@ -1,23 +1,23 @@
 package spark4.sql.dataframe.operation.transformation.persist
 
+import org.apache.spark.sql.DataFrame
 import org.apache.spark.storage.StorageLevel.{MEMORY_AND_DISK, MEMORY_ONLY, NONE}
 import org.scalatest.flatspec.AnyFlatSpec
 import spark4.sql.{Factory, SparkMatchers}
-
 
 class PersistTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "persist and unpersist a DataFrame" in {
     Factory.sc.getPersistentRDDs shouldBe empty
-    val df1 = Factory.peopleDf
+    val df1: DataFrame = Factory.peopleDf
     df1.storageLevel shouldEqual NONE
 
-    val df2 = df1.persist(MEMORY_ONLY)
+    val df2: DataFrame = df1.persist(MEMORY_ONLY)
     df1.storageLevel shouldEqual MEMORY_ONLY
     df2.storageLevel shouldEqual MEMORY_ONLY
     Factory.sc.getPersistentRDDs shouldBe empty
 
-    val df3 = df2.unpersist()
+    val df3: DataFrame = df2.unpersist()
     df1.storageLevel shouldEqual NONE
     df2.storageLevel shouldEqual NONE
     df3.storageLevel shouldEqual NONE
@@ -26,9 +26,9 @@ class PersistTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "unpersist by clearing a cache" in {
     Factory.sc.getPersistentRDDs shouldBe empty
-    val df1 = Factory.peopleDf.persist(MEMORY_ONLY)
-    val df2 = df1.persist(MEMORY_AND_DISK)
-    val df3 = Factory.cityListDf.persist(MEMORY_ONLY)
+    val df1: DataFrame = Factory.peopleDf.persist(MEMORY_ONLY)
+    val df2: DataFrame = df1.persist(MEMORY_AND_DISK)
+    val df3: DataFrame = Factory.cityListDf.persist(MEMORY_ONLY)
     df1.storageLevel shouldEqual MEMORY_ONLY
     df2.storageLevel shouldEqual MEMORY_ONLY
     df3.storageLevel shouldEqual MEMORY_ONLY

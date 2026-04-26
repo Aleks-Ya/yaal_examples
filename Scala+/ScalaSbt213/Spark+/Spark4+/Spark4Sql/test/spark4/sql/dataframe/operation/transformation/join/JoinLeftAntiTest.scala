@@ -12,7 +12,7 @@ class JoinLeftAntiTest extends AnyFlatSpec with SparkMatchers {
     val processedCitiesDf: DataFrame = Factory.createDf(ddl, Row(2, "Berlin"))
     val unprocessedCitiesDf: DataFrame = allCitiesDf.join(processedCitiesDf, "id", "left_anti")
     unprocessedCitiesDf shouldHaveDDL ddl
-    unprocessedCitiesDf.toJSON.collect should contain inOrderOnly(
+    unprocessedCitiesDf shouldContain(
       """{"id":1,"city":"London"}""",
       """{"id":3,"city":"Paris"}"""
     )

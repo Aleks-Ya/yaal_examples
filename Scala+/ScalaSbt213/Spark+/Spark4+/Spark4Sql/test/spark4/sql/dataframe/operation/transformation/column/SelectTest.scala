@@ -26,7 +26,7 @@ class SelectTest extends AnyFlatSpec with SparkMatchers {
     val df = Factory.createDf(schema, Row("John", Row(30, "M")), Row("Peter", Row(25, "M")), Row("Mary", Row(20, "F")))
 
     val df2 = df.select(col("name"), col("info").getField("age").as("age"))
-    df2.toJSON.collect should contain inOrderOnly(
+    df2 shouldContain(
       """{"name":"John","age":30}""",
       """{"name":"Peter","age":25}""",
       """{"name":"Mary","age":20}""")
@@ -47,7 +47,7 @@ class SelectTest extends AnyFlatSpec with SparkMatchers {
       Row("Ann", null))
 
     val df2 = df.select(col("name"), col("departments").getField("city").as("cities"))
-    df2.toJSON.collect should contain inOrderOnly(
+    df2 shouldContain(
       """{"name":"John","cities":["London","Paris"]}""",
       """{"name":"Peter","cities":["Madrid",null]}""",
       """{"name":"Mary","cities":[]}""",
@@ -60,7 +60,7 @@ class SelectTest extends AnyFlatSpec with SparkMatchers {
     df shouldHaveDDL "name STRING,age INT,gender STRING"
     val df2 = df.select(col("name"), col("age"), col("gender"), lit("abc").as("name"))
     df2 shouldHaveDDL "name STRING,age INT,gender STRING,name STRING NOT NULL"
-    df2.toJSON.collect should contain inOrderOnly(
+    df2 shouldContain(
       """{"name":"John","age":25,"gender":"M","name":"abc"}""",
       """{"name":"Peter","age":35,"gender":"M","name":"abc"}""",
       """{"name":"Mary","age":20,"gender":"F","name":"abc"}""")

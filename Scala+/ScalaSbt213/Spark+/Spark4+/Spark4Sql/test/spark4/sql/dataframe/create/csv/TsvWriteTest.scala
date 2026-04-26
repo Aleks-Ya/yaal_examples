@@ -22,7 +22,7 @@ class TsvWriteTest extends AnyFlatSpec with SparkMatchers {
       .csv(dir.toString)
 
     expDf.schema shouldEqual actDf.schema
-    actDf.toJSON.collect should contain inOrderOnly(
+    actDf shouldContain(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""",
       """{"name":"Mary","age":20,"gender":"F"}"""
@@ -48,7 +48,7 @@ class TsvWriteTest extends AnyFlatSpec with SparkMatchers {
       .csv(dir.toString)
 
     expDf.schema shouldEqual actDf.schema
-    actDf.toJSON.collect should contain inOrderOnly(
+    actDf shouldContain(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""",
       """{"name":"Mary","age":20,"gender":"F"}"""

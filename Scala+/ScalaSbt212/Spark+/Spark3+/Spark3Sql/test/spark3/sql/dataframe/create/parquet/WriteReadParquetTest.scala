@@ -19,7 +19,7 @@ class WriteReadParquetTest extends AnyFlatSpec with SparkMatchers {
 
     val parquetDf = Factory.ss.read.parquet(file)
     parquetDf shouldHaveDDL "name STRING,age INT,gender STRING"
-    parquetDf.toJSON.collect shouldEqual originalDf.toJSON.collect
+    parquetDf shouldContain originalDf
     parquetDf shouldContain(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""",
@@ -40,7 +40,7 @@ class WriteReadParquetTest extends AnyFlatSpec with SparkMatchers {
 
     val parquetDf = Factory.ss.read.parquet(maleFile, femaleFile)
     parquetDf shouldHaveDDL "name STRING,age INT,gender STRING"
-    parquetDf.toJSON.collect shouldEqual originalDf.toJSON.collect
+    parquetDf shouldContain originalDf
     parquetDf shouldContain(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""",

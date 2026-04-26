@@ -17,7 +17,7 @@ class GroupByPivotTransformationTest extends AnyFlatSpec with SparkMatchers {
 
     val noPivotDf = df.groupBy("month").agg(sum("amount") as "sum_amount")
     noPivotDf shouldHaveDDL "month STRING,sum_amount BIGINT"
-    noPivotDf.toJSON.collect should contain inOrderOnly(
+    noPivotDf shouldContain(
       """{"month":"Feb","sum_amount":250}""",
       """{"month":"Jan","sum_amount":300}""")
 
@@ -26,7 +26,7 @@ class GroupByPivotTransformationTest extends AnyFlatSpec with SparkMatchers {
       .pivot("product")
       .agg(sum("amount"))
     pivotDf shouldHaveDDL "month STRING,Apples BIGINT,Bananas BIGINT"
-    pivotDf.toJSON.collect should contain inOrderOnly(
+    pivotDf shouldContain(
       """{"month":"Feb","Apples":200,"Bananas":50}""",
       """{"month":"Jan","Apples":150,"Bananas":150}""")
   }
@@ -41,7 +41,7 @@ class GroupByPivotTransformationTest extends AnyFlatSpec with SparkMatchers {
 
     val noPivotDf = df.groupBy("month").agg(sum("amount") as "sum_amount")
     noPivotDf shouldHaveDDL "month STRING,sum_amount BIGINT"
-    noPivotDf.toJSON.collect should contain inOrderOnly(
+    noPivotDf shouldContain(
       """{"month":"Feb","sum_amount":250}""",
       """{"month":"Jan","sum_amount":300}""")
 
@@ -50,7 +50,7 @@ class GroupByPivotTransformationTest extends AnyFlatSpec with SparkMatchers {
       .pivot("product")
       .agg(sum("amount"))
     pivotDf shouldHaveDDL "month STRING,APPLES BIGINT,Apples BIGINT,BANANAS BIGINT,Bananas BIGINT"
-    pivotDf.toJSON.collect should contain inOrderOnly(
+    pivotDf shouldContain(
       """{"month":"Feb","APPLES":null,"Apples":200,"BANANAS":50,"Bananas":null}""",
       """{"month":"Jan","APPLES":50,"Apples":100,"BANANAS":null,"Bananas":150}""")
   }

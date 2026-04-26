@@ -58,7 +58,7 @@ class GroupByTransformationTest extends AnyFlatSpec with SparkMatchers {
       collect_list("person").as("persons")
     )
     unsortedArrayDf shouldHaveDDL "countries ARRAY<STRING>,persons ARRAY<STRING> NOT NULL"
-    unsortedArrayDf.toJSON.collect should contain inOrderOnly(
+    unsortedArrayDf shouldContain(
       """{"countries":["USA","Germany","UK"],"persons":["John","Mark"]}""",
       """{"countries":["Belgium","Canada","Australia"],"persons":["Mary"]}""",
       """{"countries":["Germany","USA","UK"],"persons":["Chad"]}"""
@@ -68,7 +68,7 @@ class GroupByTransformationTest extends AnyFlatSpec with SparkMatchers {
       collect_list("person").as("persons")
     )
     sortedArrayDf shouldHaveDDL "countries ARRAY<STRING>,persons ARRAY<STRING> NOT NULL"
-    sortedArrayDf.toJSON.collect should contain inOrderOnly(
+    sortedArrayDf shouldContain(
       """{"countries":["Germany","UK","USA"],"persons":["John","Mark","Chad"]}""",
       """{"countries":["Australia","Belgium","Canada"],"persons":["Mary"]}"""
     )

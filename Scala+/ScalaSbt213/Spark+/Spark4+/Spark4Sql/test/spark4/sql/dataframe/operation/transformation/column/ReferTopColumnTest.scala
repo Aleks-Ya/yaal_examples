@@ -43,7 +43,7 @@ class ReferTopColumnTest extends AnyFlatSpec with SparkMatchers {
   it should "use DataFrame" in {
     val df1 = Factory.peopleDf
     val df2 = df1.withColumn("name_upper", upper(df1("name")))
-    df2.toJSON.collect should contain inOrderOnly(
+    df2 shouldContain(
       """{"name":"John","age":25,"gender":"M","name_upper":"JOHN"}""",
       """{"name":"Peter","age":35,"gender":"M","name_upper":"PETER"}""",
       """{"name":"Mary","age":20,"gender":"F","name_upper":"MARY"}""")

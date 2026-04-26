@@ -14,7 +14,7 @@ class SnappyCompressionTest extends AnyFlatSpec with SparkMatchers {
     val expDf = Factory.peopleDf
     expDf.write.parquet(parquetDir)
     val actDf = Factory.ss.read.parquet(parquetDir)
-    actDf.toJSON.collect shouldEqual expDf.toJSON.collect
+    actDf shouldContain expDf
     all(
       Files.list(Path.of(parquetDir)).iterator().asScala
         .map(_.getFileName.toString)
@@ -28,7 +28,7 @@ class SnappyCompressionTest extends AnyFlatSpec with SparkMatchers {
     val expDf = Factory.peopleDf
     expDf.write.option("compression", "snappy").parquet(parquetDir)
     val actDf = Factory.ss.read.parquet(parquetDir)
-    actDf.toJSON.collect shouldEqual expDf.toJSON.collect
+    actDf shouldContain expDf
     all(
       Files.list(Path.of(parquetDir)).iterator().asScala
         .map(_.getFileName.toString)

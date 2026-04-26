@@ -6,7 +6,7 @@ import spark4.sql.{Factory, SparkMatchers}
 import util.FileUtil
 
 import java.nio.file.{Files, Path}
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 class UncompressedTest extends AnyFlatSpec with SparkMatchers with BeforeAndAfterAll {
   it should "write to uncompressed parquet file" in {
@@ -14,7 +14,7 @@ class UncompressedTest extends AnyFlatSpec with SparkMatchers with BeforeAndAfte
     val expDf = Factory.peopleDf
     expDf.write.option("compression", "uncompressed").parquet(parquetDir)
     val actDf = Factory.ss.read.parquet(parquetDir)
-    actDf.toJSON.collect shouldEqual expDf.toJSON.collect
+    actDf shouldContain expDf
 
     all(
       Files.list(Path.of(parquetDir)).iterator().asScala

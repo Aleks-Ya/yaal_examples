@@ -13,6 +13,10 @@ trait SparkMatchers extends Matchers {
     def shouldContain(rows: String*): Unit = {
       df.toJSON.collect should contain inOrderElementsOf rows
     }
+
+    def shouldContain(otherDf: DataFrame): Unit = {
+      df.toJSON.collect shouldEqual otherDf.toJSON.collect
+    }
   }
 
   implicit class DatasetShouldWrapper[T](ds: Dataset[T]) {
@@ -22,6 +26,10 @@ trait SparkMatchers extends Matchers {
 
     def shouldContain(rows: T*): Unit = {
       ds.collect should contain inOrderElementsOf rows
+    }
+
+    def shouldContain(otherDs: Dataset[_]): Unit = {
+      ds.collect should contain inOrderElementsOf otherDs.collect
     }
   }
 

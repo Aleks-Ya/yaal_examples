@@ -15,7 +15,7 @@ class TokenizerTest extends AnyFlatSpec with Matchers {
       Row("Apache Spark is great"))
     val tokenizer = new Tokenizer().setInputCol("text").setOutputCol("words")
     val tokenizedDf = tokenizer.transform(textDf)
-    tokenizedDf.toJSON.collect should contain inOrderOnly(
+    tokenizedDf shouldContain(
       """{"text":"Hello world","words":["hello","world"]}""",
       """{"text":"Apache Spark is great","words":["apache","spark","is","great"]}"""
     )

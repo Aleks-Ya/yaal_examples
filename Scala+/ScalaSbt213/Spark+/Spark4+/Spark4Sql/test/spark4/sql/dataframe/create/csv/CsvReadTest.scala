@@ -69,7 +69,7 @@ class CsvReadTest extends AnyFlatSpec with SparkMatchers {
     val csvPath = classOf[CsvReadTest].getResource("data.csv").getFile
     val textDs = Factory.ss.read.textFile(csvPath)
     val csvDf = Factory.ss.read.option("header", "true").option("inferSchema", "true").csv(textDs)
-    csvDf.toJSON.collect should contain inOrderOnly(
+    csvDf shouldContain(
       """{"name":"John","age":35,"married":false}""",
       """{"name":"Mary","age":25,"married":true}"""
     )
@@ -80,7 +80,7 @@ class CsvReadTest extends AnyFlatSpec with SparkMatchers {
     val textDs = Factory.ss.read.textFile(csvPath)
     val cleanDs = textDs.offset(2)
     val csvDf = Factory.ss.read.option("header", "true").option("inferSchema", "true").csv(cleanDs)
-    csvDf.toJSON.collect should contain inOrderOnly(
+    csvDf shouldContain(
       """{"name":"John","age":35,"married":false}""",
       """{"name":"Mary","age":25,"married":true}"""
     )

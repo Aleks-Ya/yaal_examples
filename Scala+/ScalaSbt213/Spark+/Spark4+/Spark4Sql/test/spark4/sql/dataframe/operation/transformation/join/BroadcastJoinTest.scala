@@ -15,7 +15,7 @@ class BroadcastJoinTest extends AnyFlatSpec with SparkMatchers {
 
     val joinedDf: DataFrame = bigDf.join(broadcast(smallDf))
     joinedDf shouldHaveDDL "city STRING,name STRING,age INT,gender STRING"
-    joinedDf.toJSON.collect should contain inOrderOnly(
+    joinedDf shouldContain(
       """{"city":"Moscow","name":"John","age":25,"gender":"M"}""",
       """{"city":"Moscow","name":"Peter","age":35,"gender":"M"}""",
       """{"city":"Moscow","name":"Mary","age":20,"gender":"F"}""",

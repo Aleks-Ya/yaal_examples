@@ -16,13 +16,11 @@ class FromJsonTest extends AnyFlatSpec with SparkMatchers {
       Row("Peter", """{ invalid JSON }"""),
       Row("Mark", null)
     )
-
     val detailsSchema = fromDDL("age INT,male BOOLEAN,job STRUCT<title: STRING, salary: INT>")
     val updatedDf = df.select(
       col("name"),
       from_json(col("details"), detailsSchema) as "details"
     )
-
     updatedDf shouldHaveDDL "name STRING,details STRUCT<age: INT, male: BOOLEAN, job: STRUCT<title: STRING, salary: INT>>"
     updatedDf shouldContain(
       """{"name":"John","details":{"age":30,"male":true,"job":{"title":"Engineer","salary":100000}}}""",
@@ -38,12 +36,10 @@ class FromJsonTest extends AnyFlatSpec with SparkMatchers {
       Row("Peter", """{ invalid JSON }"""),
       Row("Mark", null)
     )
-
     val updatedDf = df.select(
       col("name"),
       from_json(col("cities"), ArrayType(StringType)) as "cities"
     )
-
     updatedDf shouldHaveDDL "name STRING,cities ARRAY<STRING>"
     updatedDf shouldContain(
       """{"name":"John","cities":["London","Paris"]}""",
@@ -58,13 +54,11 @@ class FromJsonTest extends AnyFlatSpec with SparkMatchers {
       Row("Peter", """{ invalid JSON }"""),
       Row("Mark", null)
     )
-
     val detailsSchema = fromDDL("age INT,male BOOLEAN,job STRUCT<title: STRING>")
     val updatedDf = df.select(
       col("name"),
       from_json(col("details"), detailsSchema) as "details"
     )
-
     updatedDf shouldHaveDDL "name STRING,details STRUCT<age: INT, male: BOOLEAN, job: STRUCT<title: STRING>>"
     updatedDf shouldContain(
       """{"name":"John","details":{"age":30,"male":true,"job":{"title":"Engineer"}}}""",

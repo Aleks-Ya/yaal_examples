@@ -9,7 +9,7 @@ class ColumnNameTest extends AnyFlatSpec with SparkMatchers {
     val df = Factory.peopleDf
     df shouldHaveDDL "name STRING,age INT,gender STRING"
     val df2 = df.select("GENDER", "NAME", "Age")
-    df2.toJSON.collect should contain inOrderOnly(
+    df2 shouldContain(
       """{"GENDER":"M","NAME":"John","Age":25}""",
       """{"GENDER":"M","NAME":"Peter","Age":35}""",
       """{"GENDER":"F","NAME":"Mary","Age":20}"""

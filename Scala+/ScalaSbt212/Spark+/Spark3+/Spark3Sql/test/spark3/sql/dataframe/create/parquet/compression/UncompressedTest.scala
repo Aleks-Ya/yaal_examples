@@ -14,7 +14,7 @@ class UncompressedTest extends AnyFlatSpec with SparkMatchers with BeforeAndAfte
     val expDf = Factory.peopleDf
     expDf.write.option("compression", "uncompressed").parquet(parquetDir)
     val actDf = Factory.ss.read.parquet(parquetDir)
-    actDf.toJSON.collect shouldEqual expDf.toJSON.collect
+    actDf shouldContain expDf
 
     all(
       Files.list(Path.of(parquetDir)).iterator().asScala

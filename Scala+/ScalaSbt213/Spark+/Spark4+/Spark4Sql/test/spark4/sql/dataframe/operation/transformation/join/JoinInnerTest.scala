@@ -17,7 +17,7 @@ class JoinInnerTest extends AnyFlatSpec with SparkMatchers {
 
   it should "do inner join (default)" in {
     val joinedDf: DataFrame = countriesDf.join(presidentsDf, presidentIdCol)
-    joinedDf.toJSON.collect should contain inOrderOnly(
+    joinedDf shouldContain(
       """{"president_id":1,"country":"USA","name":"Trump"}""",
       """{"president_id":2,"country":"France","name":"Macron"}"""
     )
@@ -32,7 +32,7 @@ class JoinInnerTest extends AnyFlatSpec with SparkMatchers {
       Row(1, "Trump"),
       Row(2, "Macron"))
     val joinedDf: DataFrame = countriesDf.join(presidentsDf, countriesDf("president_id") === presidentsDf("id"))
-    joinedDf.toJSON.collect should contain inOrderOnly(
+    joinedDf shouldContain(
       """{"country":"USA","president_id":1,"id":1,"name":"Trump"}""",
       """{"country":"France","president_id":2,"id":2,"name":"Macron"}"""
     )
@@ -52,7 +52,7 @@ class JoinInnerTest extends AnyFlatSpec with SparkMatchers {
       Row("England", "London", "Anne Hidalgo"),
       Row("England", "Manchester", "Andy Burnham"))
     val joinedDf: DataFrame = countriesDf.join(mayorsDf, Seq(countryCol, cityCol))
-    joinedDf.toJSON.collect should contain inOrderOnly(
+    joinedDf shouldContain(
       """{"country":"England","city":"London","population":30,"mayor":"Anne Hidalgo"}""",
       """{"country":"England","city":"Manchester","population":40,"mayor":"Andy Burnham"}""",
       """{"country":"France","city":"Marseille","population":20,"mayor":"Benoit Payan"}""",
@@ -79,7 +79,7 @@ class JoinInnerTest extends AnyFlatSpec with SparkMatchers {
       .join(presidentsRenamedDf, "president_id")
       .groupBy("country")
       .agg(collect_list(col("president")) as "presidents")
-    joinedDf.toJSON.collect should contain inOrderOnly(
+    joinedDf shouldContain(
       """{"country":"France","presidents":["Macron"]}""",
       """{"country":"USA","presidents":["Trump","Trump"]}"""
     )

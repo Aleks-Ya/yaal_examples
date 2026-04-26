@@ -7,13 +7,19 @@ import spark4.sql.{Factory, SparkMatchers}
 
 class TrimTest extends AnyFlatSpec with SparkMatchers {
   it should "use trim function" in {
-    val df = Factory.createDf("country STRING", Row("  England "), Row("Germany"), Row(null))
+    val df = Factory.createDf("country STRING",
+      Row("  England "),
+      Row("Germany"),
+      Row("  "),
+      Row(null))
     val updatedDf = df.select(
       col("country"),
       trim(col("country")) as "trimmed")
+    updatedDf shouldHaveDDL "country STRING,trimmed STRING"
     updatedDf shouldContain(
       """{"country":"  England ","trimmed":"England"}""",
       """{"country":"Germany","trimmed":"Germany"}""",
+      """{"country":"  ","trimmed":""}""",
       """{"country":null,"trimmed":null}"""
     )
   }

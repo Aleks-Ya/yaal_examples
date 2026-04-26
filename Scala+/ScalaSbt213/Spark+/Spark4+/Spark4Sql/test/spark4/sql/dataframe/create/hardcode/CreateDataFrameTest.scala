@@ -50,7 +50,7 @@ class CreateDataFrameTest extends AnyFlatSpec with SparkMatchers {
     val df = Factory.ss.createDataFrame(rdd, schema)
     df.schema.simpleString shouldEqual "struct<>"
     df.schema.toDDL shouldBe empty
-    dfdf shouldContain(
+    df shouldContain(
       """{}""",
       """{}""",
       """{}"""

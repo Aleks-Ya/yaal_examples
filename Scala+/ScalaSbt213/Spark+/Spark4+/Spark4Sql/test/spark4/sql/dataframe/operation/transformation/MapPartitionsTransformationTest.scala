@@ -20,7 +20,7 @@ class MapPartitionsTransformationTest extends AnyFlatSpec with SparkMatchers {
         Row(name.toUpperCase, age - 1, gender)
       })
     )
-    mappedDs.toJSON.collect should contain inOrderOnly(
+    mappedDs shouldContain(
       """{"name":"JOHN","age":24,"gender":"M"}""",
       """{"name":"MARY","age":19,"gender":"F"}""",
       """{"name":"PETER","age":34,"gender":"M"}""")

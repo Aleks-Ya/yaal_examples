@@ -1,49 +1,59 @@
 package spark3.sql.dataframe.datatype
 
 import org.apache.spark.sql.functions.{array_max, col, flatten}
-import org.apache.spark.sql.types._
-import org.apache.spark.sql.{Dataset, Row}
+import org.apache.spark.sql.{DataFrame, Dataset, Row}
 import org.scalatest.flatspec.AnyFlatSpec
 import spark3.sql.{Factory, SparkMatchers}
-
-import scala.jdk.CollectionConverters._
 
 class ArrayTypeTest extends AnyFlatSpec with SparkMatchers {
 
   it should "create an ArrayType field (with ArrayType constructor)" in {
-    val df = Factory.createDf(Map("name" -> StringType, "orders" -> ArrayType(IntegerType)),
-      Row("USA", Array(10, 20)), Row("Canada", Array(30, 40)))
-    df.schema.simpleString shouldEqual "struct<name:string,orders:array<int>>"
+    val df = Factory.createDf("name STRING, orders ARRAY<INT>",
+      Row("USA", Array(10, 20)),
+      Row("Canada", Array(30, 40)))
     df shouldContain(
       """{"name":"USA","orders":[10,20]}""",
       """{"name":"Canada","orders":[30,40]}""")
   }
 
   it should "create an ArrayType field (with DataTypes class)" in {
-    val df = Factory.createDf(Map("name" -> StringType, "orders" -> DataTypes.createArrayType(IntegerType)),
-      Row("USA", Array(10, 20)), Row("Canada", Array(30, 40)))
-    df.schema.simpleString shouldEqual "struct<name:string,orders:array<int>>"
+    val df = Factory.createDf("name STRING, orders ARRAY<INT>",
+      Row("USA", Array(10, 20)),
+      Row("Canada", Array(30, 40)))
     df shouldContain(
       """{"name":"USA","orders":[10,20]}""",
       """{"name":"Canada","orders":[30,40]}""")
   }
 
   it should "use Array, List, Seq for rows" in {
-    val dfArray = Factory.createDf(Map("numbers" -> ArrayType(IntegerType)), Row(Array(10, 20)), Row(Array(30, 40)))
-    val dfList = Factory.createDf(Map("numbers" -> ArrayType(IntegerType)), Row(List(10, 20)), Row(List(30, 40)))
-    val dfSeq = Factory.createDf(Map("numbers" -> ArrayType(IntegerType)), Row(Seq(10, 20)), Row(Seq(30, 40)))
+    val dfArray = Factory.createDf("numbers ARRAY<INT>",
+      Row(Array(10, 20)),
+      Row(Array(30, 40)))
+    val dfList = Factory.createDf("numbers ARRAY<INT>",
+      Row(List(10, 20)),
+      Row(List(30, 40)))
+    val dfSeq: DataFrame = Factory.createDf("numbers ARRAY<INT>",
+      Row(Seq(10, 20)),
+      Row(Seq(30, 40)))
 
-    val expJson = Seq("""{"numbers":[10,20]}""", """{"numbers":[30,40]}""")
-    dfArray.toJSON.collect should contain theSameElementsInOrderAs expJson
-    dfList.toJSON.collect should contain theSameElementsInOrderAs expJson
-    dfSeq.toJSON.collect should contain theSameElementsInOrderAs expJson
-    dfArray.schema shouldBe dfList.schema
-    dfArray.schema shouldBe dfSeq.schema
+    val expDdl = "numbers ARRAY<INT>"
+    dfArray shouldHaveDDL expDdl
+    dfList shouldHaveDDL expDdl
+    dfSeq shouldHaveDDL expDdl
+
+    val expJson = Seq(
+      """{"numbers":[10,20]}""",
+      """{"numbers":[30,40]}""")
+    dfArray shouldContain (expJson: _*)
+    dfList shouldContain (expJson: _*)
+    dfSeq shouldContain (expJson: _*)
   }
 
   it should "get value of ArrayType field" in {
-    val df = Factory.createDf(Map("numbers" -> ArrayType(IntegerType)), Row(Array(10, 20)), Row(Array(30, 40)))
-    df.schema.simpleString shouldEqual "struct<numbers:array<int>>"
+    val df = Factory.createDf("numbers ARRAY<INT>",
+      Row(Array(10, 20)),
+      Row(Array(30, 40)))
+    df shouldHaveDDL "numbers ARRAY<INT>"
     df shouldContain(
       """{"numbers":[10,20]}""",
       """{"numbers":[30,40]}""")
@@ -54,29 +64,26 @@ class ArrayTypeTest extends AnyFlatSpec with SparkMatchers {
   }
 
   it should "get 1st element of array" in {
-    val df = Factory.createDf(Map("name" -> StringType, "orders" -> ArrayType(IntegerType)),
-      Row("USA", Array(10, 20)), Row("Canada", Array()))
-    df.schema.simpleString shouldEqual "struct<name:string,orders:array<int>>"
-    val df2 = df.withColumn("first_order", col("orders")(0))
-    df2.schema.simpleString shouldEqual "struct<name:string,orders:array<int>,first_order:int>"
-    df2 shouldContain(
+    val df = Factory.createDf("name STRING, orders ARRAY<INT>",
+      Row("USA", Array(10, 20)),
+      Row("Canada", Array()))
+    val updatedDf = df.withColumn("first_order", col("orders")(0))
+    updatedDf shouldHaveDDL "name STRING,orders ARRAY<INT>,first_order INT"
+    updatedDf shouldContain(
       """{"name":"USA","orders":[10,20],"first_order":10}""",
       """{"name":"Canada","orders":[],"first_order":null}""")
   }
 
   it should "create array of arrays (Int)" in {
-    val fields = Map("numbers" -> ArrayType(ArrayType(IntegerType)))
-    val df = Factory.createDf(fields,
+    val df = Factory.createDf("numbers ARRAY<ARRAY<INT>>",
       Row(Array(Array(1, 2), Array(3, 4))),
-      Row(Array(Array(10, 20), Array(30), Array(), Array(40)))
-    )
-    df.schema.simpleString shouldEqual "struct<numbers:array<array<int>>>"
+      Row(Array(Array(10, 20), Array(30), Array(), Array(40))))
     df shouldContain(
       """{"numbers":[[1,2],[3,4]]}""",
       """{"numbers":[[10,20],[30],[],[40]]}""")
     import Factory.ss.implicits._
     val sumDs: Dataset[Int] = df.map(row => {
-      val seqOfSeqs = row.getSeq[Seq[Int]](row.fieldIndex("numbers"))
+      val seqOfSeqs = row.getSeq[scala.collection.Seq[Int]](row.fieldIndex("numbers"))
       seqOfSeqs.map(_.sum).sum
     })
     sumDs shouldHaveDDL "value INT NOT NULL"
@@ -84,42 +91,29 @@ class ArrayTypeTest extends AnyFlatSpec with SparkMatchers {
   }
 
   it should "create Array in Struct" in {
-    val schema = StructType(Seq(
-      StructField("name", StringType),
-      StructField("sales", ArrayType(IntegerType))))
-    val df = Factory.createDf(schema,
+    val df = Factory.createDf("name STRING, sales ARRAY<INT>",
       Row("John", Array(1, 2)),
       Row("Mary", Array(10, 20)))
-    df.schema.simpleString shouldEqual "struct<name:string,sales:array<int>>"
     df shouldContain(
       """{"name":"John","sales":[1,2]}""",
       """{"name":"Mary","sales":[10,20]}""")
-    val sumDf = df.withColumn("maxSale", array_max(col("sales")))
-    sumDf.schema.simpleString shouldEqual "struct<name:string,sales:array<int>,maxSale:int>"
-    sumDf shouldContain(
+    val maxDf = df.withColumn("maxSale", array_max(col("sales")))
+    maxDf shouldHaveDDL "name STRING,sales ARRAY<INT>,maxSale INT"
+    maxDf shouldContain(
       """{"name":"John","sales":[1,2],"maxSale":2}""",
       """{"name":"Mary","sales":[10,20],"maxSale":20}""")
   }
 
   it should "create Struct(Array) nested into another Struct(Array)" in {
-    val schema = StructType(Seq(
-      StructField("person", StringType),
-      StructField("products", ArrayType(StructType(Seq(
-        StructField("title", StringType),
-        StructField("sales", ArrayType(IntegerType))
-      ))))))
-    val rows = Seq(
+    val df = Factory.createDf("person STRING,products ARRAY<STRUCT<title: STRING, sales: ARRAY<INT>>>",
       Row("John", Array(Row("car", Array(1, 2)), Row("house", Array(3, 4)))),
-      Row("Mary", Array(Row("butter", Array(10, 20)), Row("bread", Array(30, 40))))
-    ).asJava
-    val df = Factory.ss.createDataFrame(rows, schema)
-    df.schema.simpleString shouldEqual "struct<person:string,products:array<struct<title:string,sales:array<int>>>>"
+      Row("Mary", Array(Row("butter", Array(10, 20)), Row("bread", Array(30, 40)))))
     df shouldContain(
       """{"person":"John","products":[{"title":"car","sales":[1,2]},{"title":"house","sales":[3,4]}]}""",
       """{"person":"Mary","products":[{"title":"butter","sales":[10,20]},{"title":"bread","sales":[30,40]}]}""")
-    val sumDf = df.withColumn("maxSale", array_max(flatten(col("products.sales"))))
-    sumDf.schema.simpleString shouldEqual "struct<person:string,products:array<struct<title:string,sales:array<int>>>,maxSale:int>"
-    sumDf shouldContain(
+    val salesDf = df.withColumn("maxSale", array_max(flatten(col("products.sales"))))
+    salesDf shouldHaveDDL "person STRING,products ARRAY<STRUCT<title: STRING, sales: ARRAY<INT>>>,maxSale INT"
+    salesDf shouldContain(
       """{"person":"John","products":[{"title":"car","sales":[1,2]},{"title":"house","sales":[3,4]}],"maxSale":4}""",
       """{"person":"Mary","products":[{"title":"butter","sales":[10,20]},{"title":"bread","sales":[30,40]}],"maxSale":40}""")
   }
@@ -137,4 +131,5 @@ class ArrayTypeTest extends AnyFlatSpec with SparkMatchers {
       """{"person":"John","sales":[1,2,3,4]}""",
       """{"person":"Mary","sales":[10,20,30,40]}""")
   }
+  
 }

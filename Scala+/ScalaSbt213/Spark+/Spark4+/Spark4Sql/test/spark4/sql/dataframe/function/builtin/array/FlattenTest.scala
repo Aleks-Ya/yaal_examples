@@ -2,7 +2,6 @@ package spark4.sql.dataframe.function.builtin.array
 
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.{array, col, collect_list, flatten}
-import org.apache.spark.sql.types._
 import org.scalatest.flatspec.AnyFlatSpec
 import spark4.sql.{Factory, SparkMatchers}
 
@@ -18,6 +17,7 @@ class FlattenTest extends AnyFlatSpec with SparkMatchers {
       Row("USA", Seq(Seq(10, 20), Seq(30, 40))),
       Row("Canada", Seq(Seq(100, 200), Seq(300, 400))))
     val updatedDf = df.select(col("country"), flatten(col("orders")) as "country_orders")
+    updatedDf shouldHaveDDL "country STRING,country_orders ARRAY<INT>"
     updatedDf shouldContain(
       """{"country":"USA","country_orders":[10,20,30,40]}""",
       """{"country":"Canada","country_orders":[100,200,300,400]}""")
@@ -32,18 +32,19 @@ class FlattenTest extends AnyFlatSpec with SparkMatchers {
         Seq(Seq(101, 201), Seq(301, 401)),
         Seq(Seq(102, 202), Seq(302, 402)))))
     val updatedDf = df.select(col("country"), flatten(flatten(col("orders"))) as "country_orders")
+    updatedDf shouldHaveDDL "country STRING,country_orders ARRAY<INT>"
     updatedDf shouldContain(
       """{"country":"USA","country_orders":[11,21,31,41,12,22,32,42]}""",
       """{"country":"Canada","country_orders":[101,201,301,401,102,202,302,402]}""")
   }
 
   it should "use flatten and extract a nested field" in {
-    val personStruct = StructType.fromDDL("name STRING, age INT")
-    val df = Factory.createDf(Map("country" -> StringType, "people" -> ArrayType(ArrayType(personStruct))),
+    val df = Factory.createDf("country STRING, people ARRAY<ARRAY<STRUCT<name STRING, age INT>>>",
       Row("USA", Seq(Seq(Row("John", 10), Row("Mary", 20)), Seq(Row("Mark", 30), Row("Erick", 40)))),
       Row("Canada", Seq(Seq(Row("Patrick", 100), Row("Buddha", 200)), Seq(Row("Petr", 300), Row("Kant", 400)))
       ))
     val updatedDf = df.select(col("country"), flatten(col("people"))("name") as "country_people")
+    updatedDf shouldHaveDDL "country STRING,country_people ARRAY<STRING>"
     updatedDf shouldContain(
       """{"country":"USA","country_people":["John","Mary","Mark","Erick"]}""",
       """{"country":"Canada","country_people":["Patrick","Buddha","Petr","Kant"]}""")
@@ -51,11 +52,13 @@ class FlattenTest extends AnyFlatSpec with SparkMatchers {
 
   it should "use flatten function in select with collect_list" in {
     val updatedDf = df.select(flatten(collect_list("orders")) as "all_orders")
+    updatedDf shouldHaveDDL "all_orders ARRAY<INT> NOT NULL"
     updatedDf shouldContain """{"all_orders":[10,20,100,200,30,40,300,400]}"""
   }
 
   it should "use flatten function in agg" in {
     val updatedDf = df.agg(flatten(collect_list("orders")) as "all_orders")
+    updatedDf shouldHaveDDL "all_orders ARRAY<INT> NOT NULL"
     updatedDf shouldContain """{"all_orders":[10,20,100,200,30,40,300,400]}"""
   }
 
@@ -72,6 +75,7 @@ class FlattenTest extends AnyFlatSpec with SparkMatchers {
     import Factory.ss.implicits._
     val df = Seq[String]("a").toDF("id")
     val updatedDf = df.select(flatten(array(array())) as "null_flatten")
+    updatedDf shouldHaveDDL "null_flatten ARRAY<VOID> NOT NULL"
     updatedDf shouldContain """{"null_flatten":[]}"""
   }
 
@@ -84,6 +88,7 @@ class FlattenTest extends AnyFlatSpec with SparkMatchers {
       Row("Belgium", null)
     )
     val updatedDf = df.select(col("country"), flatten(col("orders")) as "country_orders")
+    updatedDf shouldHaveDDL "country STRING,country_orders ARRAY<INT>"
     updatedDf shouldContain(
       """{"country":"USA","country_orders":[10,null,30,40]}""",
       """{"country":"Canada","country_orders":[100,200,null,null]}""",

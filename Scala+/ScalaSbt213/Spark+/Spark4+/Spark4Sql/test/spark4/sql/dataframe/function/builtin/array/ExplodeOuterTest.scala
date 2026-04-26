@@ -16,7 +16,7 @@ class ExplodeOuterTest extends AnyFlatSpec with SparkMatchers {
       Row("Chad", List())
     )
     val explodedDf = df.select(col("name"), explode_outer(col("cities")).alias("city"))
-    explodedDf.toJSON.collect should contain inOrderOnly(
+    explodedDf shouldContain(
       """{"name":"John","city":"London"}""",
       """{"name":"John","city":"Paris"}""",
       """{"name":"Mary","city":"Berlin"}""",

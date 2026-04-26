@@ -16,7 +16,7 @@ class GroupByTransformationTest extends AnyFlatSpec with SparkMatchers {
         val yearSum = cities.map(city => city.establishYear).sum
         s"$cityName - $yearSum"
       })
-    updatedDs.toJSON.collect should contain inOrderOnly(
+    updatedDs shouldContain(
       """{"value":"Moscow - 9124"}""",
       """{"value":"SPb - 4567"}""")
   }
@@ -42,7 +42,7 @@ class GroupByTransformationTest extends AnyFlatSpec with SparkMatchers {
         val yearSum = rows.map(row => row.getInt(1)).sum
         s"$cityName - $yearSum"
       })
-    updatedDs.toJSON.collect should contain inOrderOnly(
+    updatedDs shouldContain(
       """{"value":"Moscow - 9124"}""",
       """{"value":"SPb - 4567"}""")
   }

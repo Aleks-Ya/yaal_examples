@@ -78,7 +78,7 @@ class IncrementAccumulatorInUdfTest extends AnyFlatSpec with SparkMatchers {
     val selectedColumns = updatedDf.columns.filter(_ != columnToExclude).map(col)
     val resultDf = updatedDf.select(selectedColumns: _*)
     resultDf.explain()
-    resultDf.toJSON.collect should contain inOrderOnly(
+    resultDf shouldContain(
       """{"name":"John","surname":"Smith"}""",
       """{"name":"Mary","surname":null}""",
       """{"name":null,"surname":"Roger"}""",

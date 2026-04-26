@@ -5,7 +5,7 @@ import spark3.sql.{Factory, SparkMatchers}
 import util.FileUtil
 
 import java.nio.file.{Files, Path}
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 class GZipCompressionTest extends AnyFlatSpec with SparkMatchers {
   it should "write to ZIP parquet file" in {
@@ -13,7 +13,7 @@ class GZipCompressionTest extends AnyFlatSpec with SparkMatchers {
     val expDf = Factory.peopleDf
     expDf.write.option("compression", "gzip").parquet(parquetDir)
     val actDf = Factory.ss.read.parquet(parquetDir)
-    actDf.toJSON.collect shouldEqual expDf.toJSON.collect
+    actDf shouldContain expDf
     all(
       Files.list(Path.of(parquetDir)).iterator().asScala
         .map(_.getFileName.toString)

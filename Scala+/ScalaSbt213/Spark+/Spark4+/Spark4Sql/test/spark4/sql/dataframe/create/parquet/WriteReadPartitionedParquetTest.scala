@@ -19,8 +19,8 @@ class WriteReadPartitionedParquetTest extends AnyFlatSpec with SparkMatchers {
     path.resolve("gender=M").toFile.isDirectory shouldBe true
 
     val parquetDf = Factory.ss.read.parquet(path.toString)
-    parquetDf.toJSON.collect shouldEqual originalDf.toJSON.collect
-    parquetDf.toJSON.collect should contain inOrderOnly(
+    parquetDf shouldContain originalDf
+    parquetDf shouldContain(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""",
       """{"name":"Mary","age":20,"gender":"F"}""")
@@ -47,7 +47,7 @@ class WriteReadPartitionedParquetTest extends AnyFlatSpec with SparkMatchers {
       .parquet(malePartitionPath.toString)
     parquetDf shouldHaveDDL "name STRING,age INT,gender STRING"
     val maleDf = parquetDf.filter(col("gender") === "M")
-    maleDf.toJSON.collect should contain inOrderOnly(
+    maleDf shouldContain(
       """{"name":"John","age":25,"gender":"M"}""",
       """{"name":"Peter","age":35,"gender":"M"}""")
   }

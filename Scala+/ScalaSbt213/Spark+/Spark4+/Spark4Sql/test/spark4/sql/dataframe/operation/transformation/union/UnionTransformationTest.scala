@@ -12,7 +12,7 @@ class UnionTransformationTest extends AnyFlatSpec with SparkMatchers {
     val df1 = (1 to 2).toDF("numbers")
     val df2 = (5 to 6).toDF("numbers")
     val unionDf = df1.union(df2)
-    unionDf.toJSON.collect should contain inOrderOnly(
+    unionDf shouldContain(
       """{"numbers":1}""",
       """{"numbers":2}""",
       """{"numbers":5}""",
@@ -29,7 +29,7 @@ class UnionTransformationTest extends AnyFlatSpec with SparkMatchers {
 
     val unionDf = df1.union(df2)
     unionDf shouldHaveDDL "id STRING"
-    unionDf.toJSON.collect should contain inOrderOnly(
+    unionDf shouldContain(
       """{"id":"1"}""",
       """{"id":"2"}""",
       """{"id":"3"}""",
@@ -41,7 +41,7 @@ class UnionTransformationTest extends AnyFlatSpec with SparkMatchers {
     val df1 = Factory.createDf("id STRING, name STRING", Row("1", "John"), Row("2", "Mary"))
     val df2 = Factory.createDf("name STRING, id STRING", Row("Mark", "3"), Row("Mike", "4"))
     val unionDf = df1.union(df2)
-    unionDf.toJSON.collect should contain inOrderOnly(
+    unionDf shouldContain(
       """{"id":"1","name":"John"}""",
       """{"id":"2","name":"Mary"}""",
       """{"id":"Mark","name":"3"}""",
@@ -54,7 +54,7 @@ class UnionTransformationTest extends AnyFlatSpec with SparkMatchers {
     val df2 = Factory.createDf("name STRING, id STRING", Row("Mark", "3"), Row("Mike", "4"))
     val df2Reordered = df2.select(df1.columns.map(col): _*)
     val unionDf = df1.union(df2Reordered)
-    unionDf.toJSON.collect should contain inOrderOnly(
+    unionDf shouldContain(
       """{"id":"1","name":"John"}""",
       """{"id":"2","name":"Mary"}""",
       """{"id":"3","name":"Mark"}""",
@@ -78,7 +78,7 @@ class UnionTransformationTest extends AnyFlatSpec with SparkMatchers {
     val df1 = Factory.createDf(tdd, Row("1", Row("John", 30)), Row("2", Row("Mary", 25)))
     val df2 = Factory.createDf(tdd, Row("3", Row("Mark", 20)))
     val unionDf = df1.union(df2)
-    unionDf.toJSON.collect should contain inOrderOnly(
+    unionDf shouldContain(
       """{"id":"1","details":{"name":"John","age":30}}""",
       """{"id":"2","details":{"name":"Mary","age":25}}""",
       """{"id":"3","details":{"name":"Mark","age":20}}"""

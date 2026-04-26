@@ -1,6 +1,6 @@
 package spark4.sql.dataset.operation.transformation.persist
 
-import org.apache.spark.sql.{Encoder, Encoders}
+import org.apache.spark.sql.{Dataset, Encoder, Encoders}
 import org.apache.spark.storage.StorageLevel.{DISK_ONLY, MEMORY_AND_DISK, NONE}
 import org.scalatest.flatspec.AnyFlatSpec
 import spark4.sql.{City, Factory, SparkMatchers}
@@ -8,10 +8,10 @@ import spark4.sql.{City, Factory, SparkMatchers}
 class PersistTransformationTest extends AnyFlatSpec with SparkMatchers {
 
   it should "persist and unpersist a Dataset" in {
-    val ds = Factory.cityDs
+    val ds: Dataset[City] = Factory.cityDs
     ds.storageLevel shouldBe NONE
 
-    val persistedDs = ds.persist()
+    val persistedDs: Dataset[City] = ds.persist()
     ds.storageLevel shouldBe MEMORY_AND_DISK
     persistedDs.storageLevel shouldBe MEMORY_AND_DISK
 
@@ -23,32 +23,32 @@ class PersistTransformationTest extends AnyFlatSpec with SparkMatchers {
   it should "unpersist ancestors" in {
     implicit val encoder: Encoder[City] = Encoders.product[City]
 
-    val ds1 = Factory.cityDs
+    val ds1: Dataset[City] = Factory.cityDs
     ds1.storageLevel shouldBe NONE
 
-    val ds1Persisted = ds1.persist()
+    val ds1Persisted: Dataset[City] = ds1.persist()
     ds1.storageLevel shouldBe MEMORY_AND_DISK
     ds1Persisted.storageLevel shouldBe MEMORY_AND_DISK
 
-    val ds2 = ds1Persisted.map(city => City(city.name.toUpperCase(), city.establishYear * 2))
+    val ds2: Dataset[City] = ds1Persisted.map(city => City(city.name.toUpperCase(), city.establishYear * 2))
     ds1.storageLevel shouldBe MEMORY_AND_DISK
     ds1Persisted.storageLevel shouldBe MEMORY_AND_DISK
     ds2.storageLevel shouldBe NONE
 
-    val ds2Persisted = ds2.persist()
+    val ds2Persisted: Dataset[City] = ds2.persist()
     ds1.storageLevel shouldBe MEMORY_AND_DISK
     ds1Persisted.storageLevel shouldBe MEMORY_AND_DISK
     ds2.storageLevel shouldBe MEMORY_AND_DISK
     ds2Persisted.storageLevel shouldBe MEMORY_AND_DISK
 
-    val ds3 = ds1Persisted.map(city => City(city.name.toLowerCase(), city.establishYear * 3))
+    val ds3: Dataset[City] = ds1Persisted.map(city => City(city.name.toLowerCase(), city.establishYear * 3))
     ds1.storageLevel shouldBe MEMORY_AND_DISK
     ds1Persisted.storageLevel shouldBe MEMORY_AND_DISK
     ds2.storageLevel shouldBe MEMORY_AND_DISK
     ds2Persisted.storageLevel shouldBe MEMORY_AND_DISK
     ds3.storageLevel shouldBe NONE
 
-    val ds3Persisted = ds3.persist(DISK_ONLY)
+    val ds3Persisted: Dataset[City] = ds3.persist(DISK_ONLY)
     ds1.storageLevel shouldBe MEMORY_AND_DISK
     ds1Persisted.storageLevel shouldBe MEMORY_AND_DISK
     ds2.storageLevel shouldBe MEMORY_AND_DISK
