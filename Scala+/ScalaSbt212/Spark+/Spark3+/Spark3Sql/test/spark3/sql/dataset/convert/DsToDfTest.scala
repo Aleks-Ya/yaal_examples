@@ -10,28 +10,22 @@ class DsToDfTest extends AnyFlatSpec with SparkMatchers {
     import Factory.ss.implicits._
     val ds: Dataset[String] = Factory.ss.createDataset(Seq("a", "b"))
     ds shouldHaveDDL "value STRING"
-    ds.show
-
     val df: DataFrame = ds.toDF
     df shouldHaveDDL "value STRING"
     df shouldContain(
       """{"value":"a"}""",
-      """{"value":"b"}"""
-    )
+      """{"value":"b"}""")
   }
 
   it should "convert an Object Dataset to a DataFrame" in {
     val ds: Dataset[City] = Factory.cityDs
     ds shouldHaveDDL "name STRING,establishYear INT NOT NULL"
-    ds.show
-
     val df: DataFrame = ds.toDF
     df shouldHaveDDL "name STRING,establishYear INT NOT NULL"
     df shouldContain(
       """{"name":"Moscow","establishYear":1147}""",
       """{"name":"SPb","establishYear":1703}""",
-      """{"name":"New York","establishYear":1665}"""
-    )
+      """{"name":"New York","establishYear":1665}""")
   }
 
 }

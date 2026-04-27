@@ -40,4 +40,31 @@ class FirstTest extends AnyFlatSpec with SparkMatchers {
     updatedDf shouldHaveDDL "first_country STRING,first_order INT"
     updatedDf shouldContain """{"first_country":"USA","first_order":10}"""
   }
+
+  it should "process all null values" in {
+    val df = Factory.createDf("country STRING, order INT",
+      Row("USA", null),
+      Row("Canada", null),
+      Row("USA", null),
+      Row("Canada", null))
+    val updatedDf: DataFrame = df.agg(
+      first("country") as "first_country",
+      first("order") as "first_order"
+    )
+    updatedDf shouldHaveDDL "first_country STRING,first_order INT"
+    updatedDf shouldContain """{"first_country":"USA","first_order":null}"""
+  }
+
+  it should "process some null values" in {
+    val df = Factory.createDf("country STRING, order INT",
+      Row(null, null),
+      Row("Canada", 10))
+    val updatedDf: DataFrame = df.agg(
+      first("country") as "first_country",
+      first("order") as "first_order"
+    )
+    updatedDf shouldHaveDDL "first_country STRING,first_order INT"
+    updatedDf shouldContain """{"first_country":null,"first_order":null}"""
+  }
+
 }

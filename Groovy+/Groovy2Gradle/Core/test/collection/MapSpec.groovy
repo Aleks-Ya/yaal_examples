@@ -9,11 +9,13 @@ class MapSpec extends Specification {
         def map = [name: "Gromit", likes: "cheese", id: 1234]
 
         expect:
+        map instanceof Map
         map.get("name") == "Gromit"
         map.get("id") == 1234
         map["name"] == "Gromit"
         map['id'] == 1234
-        map instanceof Map
+        map.name == "Gromit"
+        map.id == 1234
     }
 
     def "empty map"() {

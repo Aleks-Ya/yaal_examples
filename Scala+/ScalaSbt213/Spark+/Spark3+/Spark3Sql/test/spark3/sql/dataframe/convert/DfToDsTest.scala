@@ -35,6 +35,7 @@ class DfToDsTest extends AnyFlatSpec with SparkMatchers {
       val text = r.getString(1)
       OuterType(name, NestedType(text))
     }
+    ds shouldHaveDDL "name STRING,nested STRUCT<prefix: STRING, suffix: STRING>"
     ds shouldContain(
       OuterType("name1", NestedType("prefix1", "suffix1")),
       OuterType("name2", NestedType("prefix2", "suffix2"))

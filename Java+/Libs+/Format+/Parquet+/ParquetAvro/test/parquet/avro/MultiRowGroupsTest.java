@@ -33,7 +33,7 @@ class MultiRowGroupsTest {
 
     @Test
     void write() throws IOException {
-        var groupSize = 1024 * 1024;
+        long groupSize = 1024 * 1024;
 
         var conf = new Configuration();
 

@@ -1,7 +1,6 @@
 package spark3.sql.dataframe.operation.transformation.column
 
 import org.apache.spark.sql.functions.{col, lit}
-import org.apache.spark.sql.types._
 import org.apache.spark.sql.{AnalysisException, Row}
 import org.scalatest.flatspec.AnyFlatSpec
 import spark3.sql.{Factory, SparkMatchers}
@@ -10,6 +9,7 @@ class SelectTest extends AnyFlatSpec with SparkMatchers {
 
   it should "retain only 2 columns" in {
     val df = Factory.peopleDf.select(col("name"), col("gender"))
+    df shouldHaveDDL "name STRING,gender STRING"
     df shouldContain(
       """{"name":"John","gender":"M"}""",
       """{"name":"Peter","gender":"M"}""",
@@ -17,15 +17,13 @@ class SelectTest extends AnyFlatSpec with SparkMatchers {
   }
 
   it should "select a sub-field" in {
-    val info = StructType(
-      StructField("age", IntegerType) ::
-        StructField("gender", StringType) :: Nil)
-    val schema = StructType(
-      StructField("name", StringType) ::
-        StructField("info", info) :: Nil)
-    val df = Factory.createDf(schema, Row("John", Row(30, "M")), Row("Peter", Row(25, "M")), Row("Mary", Row(20, "F")))
+    val df = Factory.createDf("name STRING,info STRUCT<age: INT,gender: STRING>",
+      Row("John", Row(30, "M")),
+      Row("Peter", Row(25, "M")),
+      Row("Mary", Row(20, "F")))
 
     val df2 = df.select(col("name"), col("info").getField("age").as("age"))
+    df2 shouldHaveDDL "name STRING,age INT"
     df2 shouldContain(
       """{"name":"John","age":30}""",
       """{"name":"Peter","age":25}""",
@@ -33,13 +31,7 @@ class SelectTest extends AnyFlatSpec with SparkMatchers {
   }
 
   it should "select a sub-field of an array type" in {
-    val department = StructType(
-      StructField("city", StringType) ::
-        StructField("year", IntegerType) :: Nil)
-    val schema = StructType(
-      StructField("name", StringType) ::
-        StructField("departments", ArrayType(department)) :: Nil)
-    val df = Factory.createDf(schema,
+    val df = Factory.createDf("name STRING,departments ARRAY<STRUCT<city: STRING,year: INT>>",
       Row("John", Seq(Row("London", 2010), Row("Paris", 2011))),
       Row("Peter", Seq(Row("Madrid", null), null)),
       Row("Mary", Seq()),
@@ -47,6 +39,7 @@ class SelectTest extends AnyFlatSpec with SparkMatchers {
       Row("Ann", null))
 
     val df2 = df.select(col("name"), col("departments").getField("city").as("cities"))
+    df2 shouldHaveDDL "name STRING,cities ARRAY<STRING>"
     df2 shouldContain(
       """{"name":"John","cities":["London","Paris"]}""",
       """{"name":"Peter","cities":["Madrid",null]}""",
@@ -76,8 +69,7 @@ class SelectTest extends AnyFlatSpec with SparkMatchers {
       Row("Apple", 100, 1000),
       Row("Orange", null, null)
     )
-    df.schema.simpleString shouldEqual "struct<product:string,amount:int,AMOUNT:int>"
-    df.schema.toDDL shouldBe "product STRING,amount INT,AMOUNT INT"
+    df shouldHaveDDL "product STRING,amount INT,AMOUNT INT"
     df shouldContain(
       """{"product":"Apple","amount":100,"AMOUNT":1000}""",
       """{"product":"Orange","amount":null,"AMOUNT":null}""",
@@ -88,6 +80,5 @@ class SelectTest extends AnyFlatSpec with SparkMatchers {
     }
     e.getMessage() shouldEqual "[AMBIGUOUS_REFERENCE] Reference `amount` is ambiguous, could be: [`amount`, `amount`]."
   }
-
 
 }

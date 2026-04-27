@@ -6,16 +6,18 @@ import spark4.sql.{Factory, SparkMatchers}
 
 class ContainsTest extends AnyFlatSpec with SparkMatchers {
 
-  it should "does a string column contain a sub-string" in {
+  it should "filter a string column that contains given sub-string" in {
     val df = Factory.peopleDf.filter(col("name").contains("r"))
+    df shouldHaveDDL "name STRING,age INT,gender STRING"
     df shouldContain(
       """{"name":"Peter","age":35,"gender":"M"}""",
       """{"name":"Mary","age":20,"gender":"F"}"""
     )
   }
 
-  it should "does NOT a string column contain a sub-string" in {
+  it should "filter a string column that does NOT contain given sub-string" in {
     val df = Factory.peopleDf.filter(!col("name").contains("r"))
+    df shouldHaveDDL "name STRING,age INT,gender STRING"
     df shouldContain """{"name":"John","age":25,"gender":"M"}"""
   }
 

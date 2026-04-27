@@ -15,6 +15,16 @@ class FilterTransformationTest extends AnyFlatSpec with SparkMatchers {
       """{"name":"Peter","age":35,"gender":"M"}""")
   }
 
+  it should "filter is null" in {
+    val df = Factory.createDf("name STRING, age INT",
+      Row("John", 35),
+      Row("Peter", null),
+      Row("Mary", 20))
+    val updatedDf = df.filter(col("age").isNull)
+    updatedDf shouldHaveDDL "name STRING,age INT"
+    updatedDf shouldContain """{"name":"Peter","age":null}"""
+  }
+
   it should "filter non null" in {
     val df = Factory.createDf("name STRING, age INT",
       Row("John", 35),

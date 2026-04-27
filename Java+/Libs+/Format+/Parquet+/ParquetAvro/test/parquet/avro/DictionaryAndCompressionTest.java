@@ -38,7 +38,7 @@ class DictionaryAndCompressionTest {
     }
 
     private long writeParquetFile(boolean dictionaryEnabled, CompressionCodecName compressionCodecName) throws IOException {
-        var groupSize = 1024 * 1024;
+        long groupSize = 1024 * 1024;
         var conf = new Configuration();
         var idField = "id";
         var numberField = "number";

@@ -170,4 +170,33 @@ class ListSpec extends Specification {
         then:
         assert result == [1, 3, 5]
     }
+
+    def "sort a list"() {
+        given:
+        List<Integer> numbers = [3, 1, 5, 4, 2]
+        List<Integer> sortedNumbers = numbers.sort()
+
+        expect:
+        sortedNumbers == [1, 2, 3, 4, 5]
+    }
+
+    def "sort a list by comparator"() {
+        given:
+        List<String> texts = ["abc", "a", "ab", "abcd"]
+        Comparator<String> byLength = { a, b -> a.length() <=> b.length() }
+        List<String> sortedTexts = texts.sort(false, byLength)
+
+        expect:
+        sortedTexts == ["a", "ab", "abc", "abcd"]
+    }
+
+    def "sort a list by closure"() {
+        given:
+        List<String> texts = ["abc", "a", "ab", "abcd"]
+        List<String> sortedTexts = texts.sort { it.length() }
+
+        expect:
+        sortedTexts == ["a", "ab", "abc", "abcd"]
+    }
+
 }
