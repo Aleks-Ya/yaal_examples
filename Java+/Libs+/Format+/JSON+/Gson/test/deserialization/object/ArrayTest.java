@@ -20,10 +20,11 @@ class ArrayTest {
 
     @Test
     void arrayObject() {
-        var json = "[" +
-                "{\"number\":4,\"text\":\"abc\",\"inner\":{\"now\":\"Jul 8, 2015 6:37:19 AM\",\"sum\":18}}," +
-                "{\"number\":1,\"text\":\"xyz\",\"inner\":{\"now\":\"Jul 15, 2014 9:37:19 AM\",\"sum\":200}}" +
-                "]";
+        var json = """
+                [
+                {"number":4,"text":"abc","inner":{"now":"Jul 8, 2015 6:37:19 AM","sum":18}},
+                {"number":1,"text":"xyz","inner":{"now":"Jul 15, 2014 9:37:19 AM","sum":200}}
+                ]""";
         var objects = gson.fromJson(json, MyObject[].class);
         assertThat(objects).hasSize(2);
         var act1 = objects[0];

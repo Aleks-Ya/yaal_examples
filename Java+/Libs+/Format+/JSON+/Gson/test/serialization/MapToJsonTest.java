@@ -24,6 +24,7 @@ class MapToJsonTest {
         }.getType();
 
         var jsonStr = gson.toJson(map, typeOfMap);
-        assertThat(jsonStr).isEqualTo("{\"abc\":123,\"Jonh\":30}");
+        assertThat(jsonStr).isEqualTo("""
+                {"abc":123,"Jonh":30}""");
     }
 }

@@ -9,6 +9,7 @@ pipeline {
 	        steps {
 	            echo "BRANCH = ${env.BRANCH}"
 	            echo "TAG = ${env.TAG}"
+	            echo env.PWD
 	        }
 	    }
 	}

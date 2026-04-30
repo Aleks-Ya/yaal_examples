@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
- * Представление Java-объекта в виде JSON.
+ * Serializing Java objects to JSON.
  */
 @SuppressWarnings("unused")
 class ObjectToJsonTest {
@@ -27,7 +27,8 @@ class ObjectToJsonTest {
 
         var jsonStr = gson.toJson(obj);
         assertThat(jsonStr).isEqualTo(
-                "{\"number\":4,\"text\":\"abc\",\"inner\":{\"now\":\"Jul 8, 2015, 6:37:19 AM\",\"sum\":18}}");
+                """
+                        {"number":4,"text":"abc","inner":{"now":"Jul 8, 2015, 6:37:19 AM","sum":18},"gender":"MALE"}""");
         System.out.println(jsonStr);
     }
 
@@ -47,7 +48,8 @@ class ObjectToJsonTest {
                           "inner": {
                             "now": "Jul 8, 2015, 6:37:19 AM",
                             "sum": 18
-                          }
+                          },
+                          "gender": "MALE"
                         }"""
         );
         System.out.println(jsonStr);
@@ -63,5 +65,10 @@ class ObjectToJsonTest {
         String text = "abc";
         transient boolean excluded = true;
         Inner inner = new Inner();
+        Gender gender = Gender.MALE;
+    }
+
+    enum Gender {
+        MALE, FEMALE
     }
 }

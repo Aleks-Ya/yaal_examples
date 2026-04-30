@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CustomDeserializerTest {
-    private final JsonDeserializer<Person> deserializer = (json, typeOfT, context) -> {
+    private final JsonDeserializer<Person> deserializer = (json, _, _) -> {
         var str = json.getAsString();
         var split = str.split("-");
         var name = split[0];

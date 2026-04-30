@@ -5,14 +5,17 @@ from freezegun import freeze_time
 
 
 # Freeze time for a pytest style test:
-
 @freeze_time("2012-01-14")
-def test():
+def test_freeze_date():
     assert datetime.datetime.now() == datetime.datetime(2012, 1, 14)
 
 
-# Or a unittest TestCase - freezes for every test, from the start of setUpClass to the end of tearDownClass
+@freeze_time("2012-01-14 12:25:45")
+def test_freeze_datetime():
+    assert datetime.datetime.now() == datetime.datetime(2012, 1, 14, 12, 25, 45)
 
+
+# Or a unittest TestCase - freezes for every test, from the start of setUpClass to the end of tearDownClass
 @freeze_time("1955-11-12")
 class TestMy(unittest.TestCase):
     def test_the_class(self):
@@ -20,7 +23,6 @@ class TestMy(unittest.TestCase):
 
 
 # Or any other class - freezes around each callable (may not work in every case)
-
 @freeze_time("2012-01-14")
 class Tester(object):
     def test_the_class(self):
@@ -28,7 +30,6 @@ class Tester(object):
 
 
 # Or method decorator, might also pass frozen time object as kwarg
-
 class TestUnitTestMethodDecorator(unittest.TestCase):
     @freeze_time('2013-04-09')
     def test_method_decorator_works_on_unittest(self):

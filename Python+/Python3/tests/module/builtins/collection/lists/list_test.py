@@ -86,3 +86,15 @@ def test_flat_map():
     list_of_lists: list[list[str]] = [['a', 'b'], ['c', 'd'], ['e']]
     flattened_list: list[str] = [item for sublist in list_of_lists for item in sublist]
     assert flattened_list == ['a', 'b', 'c', 'd', 'e']
+
+
+def test_get_first_element():
+    numbers: list[int] = [9, 16, 25]
+    last: int = numbers[0]
+    assert last == 9
+
+
+def test_get_last_element():
+    numbers: list[int] = [9, 16, 25]
+    last: int = numbers[-1]
+    assert last == 25

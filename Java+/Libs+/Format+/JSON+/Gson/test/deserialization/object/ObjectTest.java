@@ -19,7 +19,8 @@ class ObjectTest {
 
     @Test
     void object() {
-        var json = "{\"number\":4,\"text\":\"abc\",\"inner\":{\"now\":\"Jul 8, 2015 6:37:19 AM\",\"sum\":18}}";
+        var json = """
+                {"number":4,"text":"abc","inner":{"now":"Jul 8, 2015 6:37:19 AM","sum":18}}""";
         var obj = gson.fromJson(json, MyObject.class);
         assertThat(obj.number).isEqualTo(4);
         assertThat(obj.text).isEqualTo("abc");

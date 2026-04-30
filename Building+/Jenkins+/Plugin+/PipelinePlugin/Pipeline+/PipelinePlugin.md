@@ -5,7 +5,7 @@ Docs: https://www.jenkins.io/doc/book/pipeline
 Pipeline Steps Reference: https://www.jenkins.io/doc/pipeline/steps
 
 Run:
-1. Start Jenkins in Docker (e.g. `Building+/Jenkins+/JenkinsDocker+/Jenkins_v2+/Jenkins_2.516.3`)
+1. Start Jenkins in Docker (e.g. `Building+/Jenkins+/JenkinsDocker+/Jenkins_v2+/Jenkins_2.x`)
 2. Create a job of type `Pipeline`
 3. Open Configuration of the job
 4. Insert script from file `environment.groovy` into `Script` field

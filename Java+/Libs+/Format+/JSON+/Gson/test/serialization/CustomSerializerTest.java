@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CustomSerializerTest {
-    private final JsonSerializer<Person> serializer = (person, typeOfSrc, context) ->
+    private final JsonSerializer<Person> serializer = (person, _, _) ->
             new JsonPrimitive(person.name() + "-" + person.age());
     private final Gson gson = new GsonBuilder().registerTypeAdapter(Person.class, serializer).create();
 

@@ -1,5 +1,5 @@
 import tempfile
-from zipfile import ZipFile
+from zipfile import ZipFile, ZIP_STORED
 from pathlib import Path
 
 from current_path import get_file_in_current_dir
@@ -31,3 +31,15 @@ def test_extract_single_file_from_zip_with_custom_name():
         with zr.open(file_in_zip) as source, open(dest_file, 'wb') as target:
             target.write(source.read())
     assert "xyz" == dest_dir.joinpath(dest_file).read_text()
+
+
+def test_get_info():
+    zip_file: Path = get_file_in_current_dir('data.zip')
+    with ZipFile(zip_file, 'r') as zr:
+        assert zr.getinfo('data.txt').compress_type == ZIP_STORED
+
+
+def test_testzip():
+    zip_file: Path = get_file_in_current_dir('data.zip')
+    with ZipFile(zip_file, 'r') as zr:
+        assert zr.testzip() is None
