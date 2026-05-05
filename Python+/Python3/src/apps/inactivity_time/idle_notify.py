@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 from argparse import ArgumentParser, Namespace
 import time
 import subprocess
@@ -35,10 +36,16 @@ def get_idle_ms() -> int:
 
 def notify() -> None:
     subprocess.run(["paplay", "/usr/share/sounds/freedesktop/stereo/bell.oga"], check=False)
+
+    yad_env: dict[str, str] = os.environ.copy()
+    yad_env["GDK_BACKEND"] = "x11"
     subprocess.run(
         ["yad", "--picture", "--fullscreen", "--undecorated", "--size=orig",
+         "--class=idle-notify",
+         "--window-icon=/home/aleks/pr/home/yaal_examples/Python+/Python3/src/apps/inactivity_time/focus-points.png",
          "--filename=/home/aleks/pr/home/yaal_examples/Python+/Python3/src/apps/inactivity_time/Focus2.png"],
-        check=False
+        check=False,
+        env=yad_env
     )
 
 

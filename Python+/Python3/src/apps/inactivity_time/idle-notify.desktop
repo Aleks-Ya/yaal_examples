@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Idle Notify
+Exec=/home/aleks/pr/home/yaal_examples/Python+/Python3/src/apps/inactivity_time/idle_notify.py
+Icon=/home/aleks/pr/home/yaal_examples/Python+/Python3/src/apps/inactivity_time/focus-points.png
+Terminal=false
+Categories=Utility;
+StartupWMClass=idle-notify

@@ -23,10 +23,10 @@ object Dependencies {
   val akkaActorTypedDep = "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion
   val akkaActorTestKitTypedDep = "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test
 
-  val typesafeConfigDep = "com.typesafe" % "config" % "1.4.5"
-  val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.6.3"
-  val catsEffectScalaTestDep = "org.typelevel" %% "cats-effect-testing-scalatest" % "1.7.0" % Test
-  val fs2CoreDep = "co.fs2" %% "fs2-core" % "3.12.2"
+  val typesafeConfigDep = "com.typesafe" % "config" % "1.4.8"
+  val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.7.0"
+  val catsEffectScalaTestDep = "org.typelevel" %% "cats-effect-testing-scalatest" % "1.8.0" % Test
+  val fs2CoreDep = "co.fs2" %% "fs2-core" % "3.13.0"
   val tomlDep = "com.indoorvivants" %%  "toml" % "0.3.0"
   val tomlScalaDep = "tech.sparse" %% "toml-scala" % "0.2.2"
 
@@ -57,7 +57,7 @@ object Dependencies {
   val spark4StreamingDep = "org.apache.spark" %% "spark-streaming" % spark4Version
   val spark4Encoders = "io.github.pashashiz" %% "spark4-encoders" % sparkEncodersVersion
 
-  val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "5.3.0" % Test
+  val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "5.3.2" % Test
 
   private val kafkaVersion = "3.9.1"
   val embeddedKafkaDep = "io.github.embeddedkafka" %% "embedded-kafka" % kafkaVersion % Test
@@ -70,8 +70,8 @@ object Dependencies {
   val openSearchDep = "org.opensearch" % "opensearch" % openSearchVersion
   val opensearchRestHighLevelClientDep = "org.opensearch.client" % "opensearch-rest-high-level-client" % openSearchVersion
 
-  val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.70.0"
-  val hadoopClientApiDep = "org.apache.hadoop" % "hadoop-client-api" % "3.4.2"
+  val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.106.0"
+  val hadoopClientApiDep = "org.apache.hadoop" % "hadoop-client-api" % "3.5.0"
   val databricksDbUtilsScalaDep = "com.databricks" %% "databricks-dbutils-scala" % "0.1.5"
 
   val awaitilityScalaDep = "org.awaitility" % "awaitility-scala" % "4.3.0"

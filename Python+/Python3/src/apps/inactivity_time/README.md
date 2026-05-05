@@ -1,6 +1,9 @@
 # Idle Notification
 Show a notification when the user is idle.
 
+## Create an Ubuntu Desktop entry
+`ln -sf ~/pr/home/yaal_examples/Python+/Python3/src/apps/inactivity_time/idle-notify.desktop ~/.local/share/applications/idle-notify.desktop`
+
 ## Run manually
 Default parameters: `~/pr/home/yaal_examples/Python+/Python3/src/apps/inactivity_time/idle_notify.py`
 Custom parameters: `~/pr/home/yaal_examples/Python+/Python3/src/apps/inactivity_time/idle_notify.py --idle-seconds 30`
