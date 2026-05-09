@@ -1,4 +1,4 @@
 dependencies {
-    implementation "org.opensearch.client:opensearch-rest-high-level-client:2.19.3"
-    testImplementation 'org.opensearch:opensearch-testcontainers:3.0.2'
+    implementation "org.opensearch.client:opensearch-rest-high-level-client:2.19.5"
+    testImplementation 'org.opensearch:opensearch-testcontainers:4.1.0'
 }

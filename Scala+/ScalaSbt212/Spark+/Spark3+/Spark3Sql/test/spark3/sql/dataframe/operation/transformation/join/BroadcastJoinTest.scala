@@ -13,7 +13,8 @@ class BroadcastJoinTest extends AnyFlatSpec with SparkMatchers {
     val bigDf: DataFrame = Factory.cityListDf
     bigDf shouldHaveDDL "city STRING"
 
-    val joinedDf: DataFrame = bigDf.join(broadcast(smallDf))
+    val broadcastSmallDf: DataFrame = broadcast(smallDf)
+    val joinedDf: DataFrame = bigDf.join(broadcastSmallDf)
     joinedDf shouldHaveDDL "city STRING,name STRING,age INT,gender STRING"
     joinedDf shouldContain(
       """{"city":"Moscow","name":"John","age":25,"gender":"M"}""",

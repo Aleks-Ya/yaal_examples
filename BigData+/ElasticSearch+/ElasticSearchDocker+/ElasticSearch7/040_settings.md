@@ -1,6 +1,6 @@
 # Settings
 
-```
+```shell
 # Show settings for all indexes
 curl -XGET $ES_URL/_all/_settings?pretty
 

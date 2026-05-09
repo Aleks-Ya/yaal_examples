@@ -2,7 +2,7 @@
 
 ## Single index and type search
 ### Match query
-```
+```shell
 # A match query
 curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
   "query": {
@@ -37,7 +37,7 @@ curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
 ```
 
 ### Term query
-```
+```shell
 # Single condition
 curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
   "query": {
@@ -89,7 +89,7 @@ curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
 ```
 
 ## Join search (single index, two types)
-```
+```shell
 curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty -d '{
   "query": {
       "term": {

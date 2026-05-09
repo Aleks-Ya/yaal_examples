@@ -37,9 +37,10 @@ public class InternalClusterTest {
         Function<Client, Client> clientWrapper = client -> client;
 
         System.setProperty("tests.security.manager", "false");
+        InternalTestCluster.EntitledNodePathsProvider entitledNodePathsProvider = null; //TODO init
         var cluster = new InternalTestCluster(clusterSeed, baseDir, randomlyAddDedicatedMasters,
                 autoManageMasterNodes, minNumDataNodes, maxNumDataNodes, clusterName, nodeConfigurationSource,
-                numClientNodes, nodePrefix, mockPlugins, clientWrapper);
+                numClientNodes, nodePrefix, mockPlugins, clientWrapper, entitledNodePathsProvider);
 
         cluster.beforeTest(new Random());
         Client client = cluster.client();

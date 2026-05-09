@@ -16,8 +16,13 @@ import static org.apache.parquet.schema.LogicalTypeAnnotation.stringType;
 import static org.apache.parquet.schema.PrimitiveType.PrimitiveTypeName.BINARY;
 
 public class Helper {
+
+    public static Path createAbsentTempParquetPath() {
+        return new Path(FileUtil.createAbsentTempFileDeleteOnExit(".parquet").getPath());
+    }
+
     public static Path writeParquetFile(Configuration conf, String myStringField, String expString) {
-        var path = new Path(FileUtil.createAbsentTempFileDeleteOnExit(".parquet").getPath());
+        var path = createAbsentTempParquetPath();
         var schema = Types.buildMessage()
                 .required(BINARY).as(stringType()).named(myStringField)
                 .named("myrecord");

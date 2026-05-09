@@ -18,7 +18,7 @@ Default credentials: `admin`/`admin`
 2. Check state: `curl https://localhost:9200 -ku admin:admin`
 3. Open http://localhost:5601
 
-## Connect with Bash:
+## Connect with Bash
 User `opesearch`: `docker exec -it opensearch bash`
 user `root`: `docker exec -it -u root opensearch bash`
 

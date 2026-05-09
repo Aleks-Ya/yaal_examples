@@ -1,3 +1,4 @@
+# LEGACY - DELETE IT
 # run this file from .~/bashrc
 
 alias yd-sync='~/pr/home/yaal_examples/Bash+/apps/yd-sync.sh'

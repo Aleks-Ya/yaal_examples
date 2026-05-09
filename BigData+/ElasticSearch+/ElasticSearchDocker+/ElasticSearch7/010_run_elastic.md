@@ -8,7 +8,7 @@
 
 ### Run the original build
 
-```
+```shell
 docker run --rm --name es7 \
   -p 9200:9200 -p 9300:9300 \
   -e "discovery.type=single-node" \
@@ -16,7 +16,7 @@ docker run --rm --name es7 \
 ```
 
 ### Run customized build
-```
+```shell
 docker build --tag=elasticsearch-custom .
 
 docker run -p 9200:9200 \
@@ -29,7 +29,7 @@ docker run -p 9200:9200 \
 ## Run cluster
 Error `max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]`.
 Fix: `sudo sysctl -w vm.max_map_count=262144`
-```
+```shell
 #Run
 docker-compose -f docker-compose-6.2.1.yml up
 

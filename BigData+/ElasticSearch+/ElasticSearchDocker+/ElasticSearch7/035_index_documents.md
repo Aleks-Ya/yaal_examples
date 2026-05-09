@@ -2,7 +2,7 @@
 
 ##  Index single document
 ### Without ID
-```
+```shell
 curl -XPOST $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME?pretty \
     -H 'Content-Type: application/json' \
     -d '{ 
@@ -12,7 +12,7 @@ curl -XPOST $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME?pretty \
         }'
 ```
 ### With ID
-```
+```shell
 curl -XPOST $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/1?pretty \
     -H 'Content-Type: application/json' \
     -d '{
@@ -26,7 +26,7 @@ curl -XPOST $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/1?pretty \
 - (!) The body should end with \n
 - "\_id" can be skipped
 
-```
+```shell
 curl -XPUT $ES_URL/_bulk?pretty -d '
 { "index": { "_index": "'"$PEOPLE_INDEX_NAME"'", "_type": "'"$COMPANIES_TYPE_NAME"'", "_id": "1" } }
 { "title": "Oracle"}

@@ -7,7 +7,7 @@
 `curl -XPUT $ES_URL/$JOIN_INDEX_NAME`
 
 ## Create types
-```
+```shell
 curl -XPUT $ES_URL/$JOIN_INDEX_NAME?pretty -d '
 {
   "mappings": {
@@ -46,7 +46,7 @@ curl -XPUT $ES_URL/$JOIN_INDEX_NAME?pretty -d '
 ```
 
 ## Index documents
-```
+```shell
 curl -XPUT $ES_URL/_bulk?pretty -d '
 { "index" : { "_index" : "'"$JOIN_INDEX_NAME"'", "_type" : "dataset-a", "_id" : "1" } }
 { "label-a":"a1", "dose-a": 1.5}

@@ -1,8 +1,8 @@
 
-#  Mapping (types)
+# Mapping (types)
 
 ## Get mapping
-```
+```shell
 # For index
 curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/_mapping?pretty
 
@@ -17,7 +17,7 @@ curl -XGET $ES_URL/_mapping?pretty
 ```
 
 ## Add mapping (type) to exists index
-```
+```shell
 # Single mapping
 curl -XPUT $ES_URL/$PEOPLE_INDEX_NAME/_mapping/my_new_mapping?pretty -d '
 {

@@ -3,6 +3,7 @@ Udemy: https://www.udemy.com/elasticsearch-and-elastic-stack-in-depth-and-hands-
 
 ## Setup environment
 Description: http://sundog-education.com/elasticsearch/
+```shell
 curl -XPUT $ES_URL/shakespeare --data-binary @shakes-mapping.json
 curl -XPOST "$ES_URL/shakespeare/_bulk" --data-binary @shakespeare.json    
 curl -XGET "$ES_URL/shakespeare/_search?pretty" -d '{
@@ -12,3 +13,4 @@ curl -XGET "$ES_URL/shakespeare/_search?pretty" -d '{
     }
   }
 }'
+```

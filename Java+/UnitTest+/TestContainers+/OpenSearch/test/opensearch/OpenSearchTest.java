@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers
 class OpenSearchTest {
-    private static final DockerImageName OPENSEARCH_IMAGE = DockerImageName.parse("opensearchproject/opensearch:2.19.3");
+    private static final DockerImageName OPENSEARCH_IMAGE = DockerImageName.parse("opensearchproject/opensearch:2.19.5");
 
     @Test
     void getClusterHealth() throws IOException {

@@ -10,7 +10,7 @@ Use `explain` option.
 
 ## Custom analyzer
 ### To lower case Analyzer
-```
+```shell
 # Create index and "lower_case_analyzer"
 export INDEX_NAME=computers
 export TYPE_NAME=notebook

@@ -1,7 +1,7 @@
 # Count API
 
 # Match query
-```
+```shell
 curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_count?pretty -d '{
   "query": {
       "match" : {
@@ -12,7 +12,7 @@ curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_count?pretty -d '{
 ```
 
 # Term query
-```
+```shell
 # Single condition
 curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_count?pretty -d '{
   "query": {

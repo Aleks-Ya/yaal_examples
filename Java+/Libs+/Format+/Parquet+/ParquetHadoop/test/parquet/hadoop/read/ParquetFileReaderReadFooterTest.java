@@ -28,7 +28,7 @@ class ParquetFileReaderReadFooterTest {
         assertThat(schema).hasToString("message myrecord {\n  required binary mystring (STRING);\n}\n");
     }
 
-    private MessageType readSchema(Configuration conf, Path path) throws IOException {
+    private static MessageType readSchema(Configuration conf, Path path) throws IOException {
         var inputFile = HadoopInputFile.fromPath(path, conf);
         var seekableInputStream = inputFile.newStream();
         var readOptions = ParquetReadOptions.builder().build();

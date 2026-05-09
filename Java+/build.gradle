@@ -20,10 +20,10 @@ subprojects {
     }
     ext {
         h2Dep = 'com.h2database:h2:2.4.240'
-        postgresDep = 'org.postgresql:postgresql:42.7.5'
+        postgresDep = 'org.postgresql:postgresql:42.7.11'
         derbyDep = 'org.apache.derby:derby:10.16.1.1'
         hsqldbDep = 'org.hsqldb:hsqldb:2.7.1'
-        slf4jVersion = '2.0.17'
+        slf4jVersion = '2.0.18'
         slf4jSimpleDep = "org.slf4j:slf4j-simple:$slf4jVersion"
         def okHttpVersion = '4.12.0'
         okHttpDep = "com.squareup.okhttp3:okhttp:$okHttpVersion"
@@ -37,10 +37,10 @@ subprojects {
         jsonUnit4Version = '4.1.1'
         jsonUnitDep = "net.javacrumbs.json-unit:json-unit:$jsonUnit4Version"
         jsonUnitAssertJDep = "net.javacrumbs.json-unit:json-unit-assertj:$jsonUnit4Version"
-        junit5PlatformVersion = '1.14.2'
-        junit5Version = '5.14.2'
-        junit6Version = '6.0.2'
-        mockitoVersion = '5.21.0'
+        junit5PlatformVersion = '1.14.4'
+        junit5Version = '5.14.4'
+        junit6Version = '6.0.3'
+        mockitoVersion = '5.23.0'
         mockitoInlineVersion = '5.2.0'
         mockitoDep = "org.mockito:mockito-core:$mockitoVersion"
         mockitoJunitJupiterDep = "org.mockito:mockito-junit-jupiter:$mockitoVersion"
@@ -55,7 +55,7 @@ subprojects {
         wireMockDep = 'com.github.tomakehurst:wiremock:2.27.2'
         jaxbApiDep = 'javax.xml.bind:jaxb-api:2.3.1'
         elasticSearch7Version = '7.17.15'
-        elasticSearch8Version = '8.11.1'
+        elasticSearch8Version = '8.19.15'
         cucumberVersion = '7.26.0'
         spring5Version = '5.3.39'
         spring4Version = '4.3.30.RELEASE'
@@ -83,7 +83,7 @@ subprojects {
         eclipseLink4Version = '4.0.8'
         jsonAssertDep = 'org.skyscreamer:jsonassert:1.5.3'
         bouncyCastleDep = 'org.bouncycastle:bcpkix-jdk18on:1.81'
-        testContainersVersion = '1.21.3'
+        testContainersVersion = '1.21.4'
         testContainersDep = "org.testcontainers:testcontainers:$testContainersVersion"
         testContainersJunitDep = "org.testcontainers:junit-jupiter:$testContainersVersion"
         testContainersPostgresDep = "org.testcontainers:postgresql:$testContainersVersion"

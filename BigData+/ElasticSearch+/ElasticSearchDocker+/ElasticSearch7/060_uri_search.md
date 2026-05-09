@@ -1,7 +1,7 @@
 # Search documents by URI Search
 
 ## Single index and type search
-```
+```shell
 # Get all documents from the type
 curl -XGET $ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_search?pretty
 
@@ -10,7 +10,7 @@ curl -XGET "$ES_URL/$PEOPLE_INDEX_NAME/$PERSONS_TYPE_NAME/_search?q=name:Max&pre
 ```
 
 ## Multi-type search
-```
+```shell
 # Throughout all types
 curl -XGET "$ES_URL/$PEOPLE_INDEX_NAME/_search?q=name:Max&pretty"
 
@@ -19,7 +19,7 @@ curl -XGET "$ES_URL/$PEOPLE_INDEX_NAME/ages,shakespeare/_search?q=name:Max&prett
 ```
 
 ## Multi-index search
-```
+```shell
 # Throughout all indexes and all types
 curl -XGET "$ES_URL/_all/_search?q=name:Max&pretty"
 

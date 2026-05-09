@@ -1,5 +1,5 @@
 # Setup environment
-```
+```shell
 export ES_LOGIN=elastic
 export ES_PASS=changeme
 export ES_HOST=localhost
