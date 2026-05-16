@@ -1,14 +1,15 @@
 package spark4.core.rdd.create
 
-import java.io.File
 import org.apache.hadoop.io.{IntWritable, Text}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import spark4.core.Factory
 
+import java.io.File
+
 class SequenceFileTest extends AnyFlatSpec with Matchers {
 
-  it should "init RDD from a sequence file" in {
+  it should "read a sequence file to RDD" in {
     val data = Factory.sc.parallelize(List(("key1", 1), ("Kay2", 2)))
     val sequenceFile = File.createTempFile(getClass.getSimpleName, "seq")
     sequenceFile.deleteOnExit()
@@ -19,7 +20,8 @@ class SequenceFileTest extends AnyFlatSpec with Matchers {
     val rdd = Factory.sc.sequenceFile(path, classOf[Text], classOf[IntWritable])
     val list = rdd
       .map { case (x, y) => (x.toString, y.get()) }
-      .collect()
+      .collect
     list should contain inOrderOnly(("key1", 1), ("Kay2", 2))
   }
+  
 }

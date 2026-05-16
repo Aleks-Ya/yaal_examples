@@ -9,7 +9,7 @@ import java.io.File
 
 class SequenceFileTest extends AnyFlatSpec with Matchers {
 
-  it should "init RDD from a sequence file" in {
+  it should "read a sequence file to RDD" in {
     val data = Factory.sc.parallelize(List(("key1", 1), ("Kay2", 2)))
     val sequenceFile = File.createTempFile(getClass.getSimpleName, "seq")
     sequenceFile.deleteOnExit()
@@ -23,4 +23,5 @@ class SequenceFileTest extends AnyFlatSpec with Matchers {
       .collect
     list should contain inOrderOnly(("key1", 1), ("Kay2", 2))
   }
+
 }

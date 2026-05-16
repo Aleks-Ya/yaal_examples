@@ -87,6 +87,7 @@ subprojects {
         testContainersDep = "org.testcontainers:testcontainers:$testContainersVersion"
         testContainersJunitDep = "org.testcontainers:junit-jupiter:$testContainersVersion"
         testContainersPostgresDep = "org.testcontainers:postgresql:$testContainersVersion"
+        testContainersOpenSearchDep = 'org.opensearch:opensearch-testcontainers:4.1.0'
         redissonDep = 'org.redisson:redisson:3.50.0'
         lettuceDep = 'io.lettuce:lettuce-core:6.2.2.RELEASE'
         jedisDep = 'redis.clients:jedis:4.4.8'

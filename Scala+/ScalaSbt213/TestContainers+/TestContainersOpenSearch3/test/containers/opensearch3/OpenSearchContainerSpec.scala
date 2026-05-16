@@ -1,0 +1,27 @@
+package containers.opensearch3
+
+import com.dimafeng.testcontainers.OpensearchContainer
+import com.dimafeng.testcontainers.OpensearchContainer.defaultImage
+import com.dimafeng.testcontainers.scalatest.TestContainerForAll
+import org.apache.hc.core5.http.HttpHost
+import org.opensearch.client.{RequestOptions, RestClient, RestHighLevelClient}
+import org.scalatest.flatspec._
+import org.scalatest.matchers.should.Matchers
+import org.testcontainers.utility.DockerImageName
+
+class OpenSearchContainerSpec extends AnyFlatSpec with TestContainerForAll with Matchers {
+  private val openSearchVersion = "3.6.0"
+
+  override val containerDef = OpensearchContainer.Def(DockerImageName.parse(s"$defaultImage:$openSearchVersion"))
+
+  it should "start OpenSearch" in {
+    withContainers { container =>
+      val builder = RestClient.builder(new HttpHost("http", container.host, container.firstMappedPort))
+      val client = new RestHighLevelClient(builder)
+      val info = client.info(RequestOptions.DEFAULT)
+      info.getClusterName shouldEqual "docker-cluster"
+      info.getVersion.getNumber shouldEqual openSearchVersion
+    }
+  }
+
+}

@@ -15,7 +15,7 @@ object Dependencies {
   val testContainersScalaTestDep = "com.dimafeng" %% "testcontainers-scala-scalatest" % testContainersVersion % Test
   val testContainersOpenSearchDep = "com.dimafeng" %% "testcontainers-scala-opensearch" % testContainersVersion % Test
 
-  private val slf4jVersion = "2.0.17"
+  private val slf4jVersion = "2.0.18"
   val slf4jNopDep = "org.slf4j" % "slf4j-nop" % slf4jVersion
   val slf4jSimpleDep = "org.slf4j" % "slf4j-simple" % slf4jVersion
 
@@ -23,17 +23,17 @@ object Dependencies {
   val akkaActorTypedDep = "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion
   val akkaActorTestKitTypedDep = "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test
 
-  val typesafeConfigDep = "com.typesafe" % "config" % "1.4.5"
-  val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.6.3"
-  val catsEffectScalaTestDep = "org.typelevel" %% "cats-effect-testing-scalatest" % "1.7.0" % Test
-  val fs2CoreDep = "co.fs2" %% "fs2-core" % "3.12.2"
+  val typesafeConfigDep = "com.typesafe" % "config" % "1.4.8"
+  val catsEffectDep = "org.typelevel" %% "cats-effect" % "3.7.0"
+  val catsEffectScalaTestDep = "org.typelevel" %% "cats-effect-testing-scalatest" % "1.8.0" % Test
+  val fs2CoreDep = "co.fs2" %% "fs2-core" % "3.13.0"
   val tomlScalaDep = "tech.sparse" %% "toml-scala" % "0.2.2"
 
-  private val jacksonVersion = "2.21.2"
+  private val jacksonVersion = "2.21.3"
   val jacksonDataformatYamlDep = "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml" % jacksonVersion
   val jacksonModuleScalaDep = "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion
 
-  private val http4sVersion = "0.23.33"
+  private val http4sVersion = "0.23.34"
   val http4sEmberClientDep = "org.http4s" %% "http4s-ember-client" % http4sVersion
   val http4sDslDep = "org.http4s" %% "http4s-dsl" % http4sVersion
   val httpJdkHttpClientDep = "org.http4s" %% "http4s-jdk-http-client" % "0.10.0"
@@ -63,9 +63,9 @@ object Dependencies {
   val kafkaDep = "org.apache.kafka" %% "kafka" % kafkaVersion
   val kafkaManubDep = "net.manub" %% "scalatest-embedded-kafka" % "2.0.0" % Test
 
-  private val openSearchVersion = "2.19.3"
-  val openSearchDep = "org.opensearch" % "opensearch" % openSearchVersion
-  val opensearchRestHighLevelClientDep = "org.opensearch.client" % "opensearch-rest-high-level-client" % openSearchVersion
+  private val openSearch2Version = "2.19.3"
+  val openSearch2Dep = "org.opensearch" % "opensearch" % openSearch2Version
+  val opensearchRestHighLevelClient2Dep = "org.opensearch.client" % "opensearch-rest-high-level-client" % openSearch2Version
 
   val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.70.0"
   val dbUtilsApiDep = "com.databricks" %% "dbutils-api" % "0.0.6"

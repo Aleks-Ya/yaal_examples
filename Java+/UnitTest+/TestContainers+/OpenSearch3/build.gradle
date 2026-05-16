@@ -1,0 +1,4 @@
+dependencies {
+    implementation "org.opensearch.client:opensearch-rest-high-level-client:3.6.0"
+    testImplementation testContainersOpenSearchDep
+}

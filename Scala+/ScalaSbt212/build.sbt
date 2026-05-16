@@ -1,9 +1,12 @@
 import Dependencies.*
 import sbt.Project
 
+val jdk11Home = file("/home/aleks/.sdkman/candidates/java/11.0.31-zulu")
+
 ThisBuild / organization := "ru.yaal.examples.scala"
 ThisBuild / version := "1"
 ThisBuild / scalaVersion := "2.12.21"
+ThisBuild / javaHome := Some(jdk11Home)
 ThisBuild / javacOptions ++= Seq("-source", "11", "-target", "11")
 ThisBuild / scalacOptions += "-target:jvm-11"
 
@@ -22,7 +25,7 @@ lazy val root: Project = (project in file(".")).settings(name := "ScalaSbt212").
     ScalaTestJsonAssert,
     ScalaMock,
     ScalaScopt,
-    TestContainersOpenSearch,
+    TestContainersOpenSearch2,
     TestContainersScalaTest,
     AkkaActorScalaExamples,
     AkkaQuickstartScala,
@@ -71,9 +74,9 @@ lazy val ScalaTest = mkp("ScalaTest+/ScalaTest", scalaTestDep)
 lazy val ScalaTestJsonAssert = mkp("ScalaTest+/ScalaTestJsonAssert", scalaTestJsonAssertDep)
 lazy val ScalaMock = mkp("ScalaMock", scalaTestDep, scalaMockDep)
 lazy val ScalaScopt = mkp("ScalaScopt", scoptDep, scalaTestDep)
-lazy val TestContainersOpenSearch = mkp("TestContainers+/TestContainersOpenSearch",
+lazy val TestContainersOpenSearch2 = mkp("TestContainers+/TestContainersOpenSearch2",
   scalaTestDep, testContainersScalaTestDep, testContainersOpenSearchDep,
-  opensearchRestHighLevelClientDep, logbackClassicDep)
+  opensearchRestHighLevelClient2Dep, logbackClassicDep)
 lazy val TestContainersScalaTest = mkp("TestContainers+/TestContainersScalaTest",
   scalaTestDep, testContainersScalaTestDep)
 
@@ -113,7 +116,7 @@ lazy val KafkaScalaCore = mkp("Kafka+/KafkaScalaCore", scalaTestDep, kafkaClient
 lazy val IoGithubEmbeddedKafka = mkp("Kafka+/EmbeddedKafka+/IoGithubEmbeddedKafka", scalaTestDep, kafkaClientsDep, kafkaDep, embeddedKafkaDep)
 lazy val ManubEmbeddedKafka = mkp("Kafka+/EmbeddedKafka+/ManubEmbeddedKafka", scalaTestDep, kafkaClientsDep, kafkaDep, kafkaManubDep)
 
-lazy val NeuralSearch = mkp("Libs+/OpenSearch+/NeuralSearch", scalaTestDep, openSearchDep)
+lazy val NeuralSearch = mkp("Libs+/OpenSearch+/NeuralSearch", scalaTestDep, openSearch2Dep)
 
 lazy val DatabricksDbUtilsScala = mkp("Libs+/Databricks+/DatabricksDbUtilsScala",
   scalaTestDep, databricksDbUtilsScalaDep,

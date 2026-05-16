@@ -35,3 +35,5 @@ alias draw="python ~/pr/home/yaal_examples/Python+/Python3/src/apps/libre_office
 alias examples='python ~/pr/home/yaal_examples/Python+/Python3/src/apps/yaal_examples_search/examples_search.py'
 
 alias mtree='mvn dependency:tree -DoutputFile=target/tree.txt'
+
+alias update_postman_git='~/pr/home/yaal_examples/CLI/Other/Postman/deploy_postman_git_locally.sh'

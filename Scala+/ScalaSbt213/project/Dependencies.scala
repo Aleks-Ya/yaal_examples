@@ -15,7 +15,7 @@ object Dependencies {
   val testContainersScalaTestDep = "com.dimafeng" %% "testcontainers-scala-scalatest" % testContainersVersion % Test
   val testContainersOpenSearchDep = "com.dimafeng" %% "testcontainers-scala-opensearch" % testContainersVersion % Test
 
-  private val slf4jVersion = "2.0.17"
+  private val slf4jVersion = "2.0.18"
   val slf4jNopDep = "org.slf4j" % "slf4j-nop" % slf4jVersion
   val slf4jSimpleDep = "org.slf4j" % "slf4j-simple" % slf4jVersion
 
@@ -30,11 +30,11 @@ object Dependencies {
   val tomlDep = "com.indoorvivants" %%  "toml" % "0.3.0"
   val tomlScalaDep = "tech.sparse" %% "toml-scala" % "0.2.2"
 
-  private val jacksonVersion = "2.21.2"
+  private val jacksonVersion = "2.21.3"
   val jacksonDataformatYamlDep = "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml" % jacksonVersion
   val jacksonModuleScalaDep = "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion
 
-  private val http4sVersion = "0.23.33"
+  private val http4sVersion = "0.23.34"
   val http4sEmberClientDep = "org.http4s" %% "http4s-ember-client" % http4sVersion
   val http4sDslDep = "org.http4s" %% "http4s-dsl" % http4sVersion
   val httpJdkHttpClientDep = "org.http4s" %% "http4s-jdk-http-client" % "0.10.0"
@@ -59,18 +59,20 @@ object Dependencies {
 
   val mockWebServerDep = "com.squareup.okhttp3" % "mockwebserver" % "5.3.2" % Test
 
-  private val kafkaVersion = "3.9.1"
+  private val kafkaVersion = "3.9.2"
   val embeddedKafkaDep = "io.github.embeddedkafka" %% "embedded-kafka" % kafkaVersion % Test
   val sparkSqlKafkaDep = "org.apache.spark" %% "spark-sql-kafka-0-10" % spark3Version
   val sparkStreamingKafkaDep = "org.apache.spark" %% "spark-streaming-kafka-0-10-assembly" % spark3Version
   val kafkaClientsDep = "org.apache.kafka" % "kafka-clients" % kafkaVersion % Provided
   val kafkaDep = "org.apache.kafka" %% "kafka" % kafkaVersion
 
-  private val openSearchVersion = "2.19.3"
-  val openSearchDep = "org.opensearch" % "opensearch" % openSearchVersion
-  val opensearchRestHighLevelClientDep = "org.opensearch.client" % "opensearch-rest-high-level-client" % openSearchVersion
+  private val openSearch2Version = "2.19.5"
+  val openSearch2Dep = "org.opensearch" % "opensearch" % openSearch2Version
+  val opensearchRestHighLevelClient2Dep = "org.opensearch.client" % "opensearch-rest-high-level-client" % openSearch2Version
+  private val openSearch3Version = "3.6.0"
+  val opensearchRestHighLevelClient3Dep = "org.opensearch.client" % "opensearch-rest-high-level-client" % openSearch3Version
 
-  val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.106.0"
+  val databricksSdkJavaDep = "com.databricks" % "databricks-sdk-java" % "0.109.0"
   val hadoopClientApiDep = "org.apache.hadoop" % "hadoop-client-api" % "3.5.0"
   val databricksDbUtilsScalaDep = "com.databricks" %% "databricks-dbutils-scala" % "0.1.5"
 

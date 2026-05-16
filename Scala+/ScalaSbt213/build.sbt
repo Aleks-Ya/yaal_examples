@@ -1,8 +1,14 @@
 import Dependencies.*
 
+val jdk11Home = file("/home/aleks/.sdkman/candidates/java/11.0.31-zulu")
+val jdk25Home = file("/home/aleks/.sdkman/candidates/java/25.0.3-zulu")
+
 ThisBuild / organization := "ru.yaal.examples.scala"
 ThisBuild / version := "1"
 ThisBuild / scalaVersion := "2.13.18"
+ThisBuild / javaHome := Some(jdk11Home)
+ThisBuild / javacOptions ++= Seq("--release", "11")
+ThisBuild / scalacOptions ++= Seq("-release", "11")
 
 lazy val flatDirs = Seq(
   Compile / scalaSource := baseDirectory.value / "src",
@@ -19,7 +25,8 @@ lazy val root: Project = (project in file(".")).settings(name := "ScalaSbt213").
     ScalaTestJsonAssert,
     ScalaMock,
     ScalaScopt,
-    TestContainersOpenSearch,
+    TestContainersOpenSearch2,
+    TestContainersOpenSearch3,
     TestContainersScalaTest,
     AkkaActorScalaExamples,
     AkkaQuickstartScala,
@@ -53,6 +60,12 @@ def mkp(path: String, deps: ModuleID*): Project = {
   if (deps.nonEmpty) p.settings(libraryDependencies ++= deps) else p
 }
 
+def mkp25(path: String, deps: ModuleID*): Project =
+  mkp(path, deps: _*).settings(Seq(
+    javaHome := Some(jdk25Home),
+    javacOptions ++= Seq("--release", "25")
+  ))
+
 lazy val UtilSrc = mkp("Util+/UtilSrc", scalaTestDep)
 
 lazy val ScalaCore = mkp("ScalaCore", scalaTestDep)
@@ -61,14 +74,17 @@ lazy val ScalaTest = mkp("ScalaTest+/ScalaTest", scalaTestDep)
 lazy val ScalaTestJsonAssert = mkp("ScalaTest+/ScalaTestJsonAssert", scalaTestJsonAssertDep)
 lazy val ScalaMock = mkp("ScalaMock", scalaTestDep, scalaMockDep)
 lazy val ScalaScopt = mkp("ScalaScopt", scoptDep, scalaTestDep)
-lazy val TestContainersOpenSearch = mkp("TestContainers+/TestContainersOpenSearch",
-  scalaTestDep, testContainersScalaTestDep, testContainersOpenSearchDep,
-  opensearchRestHighLevelClientDep, logbackClassicDep)
+lazy val TestContainersOpenSearch2 = mkp("TestContainers+/TestContainersOpenSearch2",
+  scalaTestDep, testContainersScalaTestDep, testContainersOpenSearchDep, opensearchRestHighLevelClient2Dep, logbackClassicDep)
+lazy val TestContainersOpenSearch3 = mkp25("TestContainers+/TestContainersOpenSearch3",
+  scalaTestDep, testContainersScalaTestDep, testContainersOpenSearchDep, opensearchRestHighLevelClient3Dep, logbackClassicDep)
 lazy val TestContainersScalaTest = mkp("TestContainers+/TestContainersScalaTest",
   scalaTestDep, testContainersScalaTestDep)
 
-lazy val AkkaActorScalaExamples = mkp("Akka+/AkkaActorScalaExamples", akkaActorTypedDep, akkaActorTestKitTypedDep, logbackClassicDep, scalaTestDep)
-lazy val AkkaQuickstartScala = mkp("Akka+/AkkaQuickstartScala", akkaActorTypedDep, akkaActorTestKitTypedDep, logbackClassicDep, scalaTestDep)
+lazy val AkkaActorScalaExamples = mkp("Akka+/AkkaActorScalaExamples",
+  akkaActorTypedDep, akkaActorTestKitTypedDep, logbackClassicDep, scalaTestDep)
+lazy val AkkaQuickstartScala = mkp("Akka+/AkkaQuickstartScala",
+  akkaActorTypedDep, akkaActorTestKitTypedDep, logbackClassicDep, scalaTestDep)
 
 lazy val Json4s = mkp("Libs+/JSON+/Json4s", json4sNativeDep, scalaTestDep)
 lazy val JsonUnit = mkp("Libs+/JSON+/JsonUnit", jsonUnitDep, jacksonModuleScalaDep, scalaTestDep)
@@ -96,20 +112,20 @@ lazy val Spark3Streaming = mkp("Spark+/Spark3+/Spark3Streaming",
 lazy val Spark3StreamingKafka = mkp("Spark+/Spark3+/Spark3StreamingKafka",
   spark3StreamingDep, scalaTestDep, sparkStreamingKafkaDep, embeddedKafkaDep)
 
-lazy val Spark4Core = mkp("Spark+/Spark4+/Spark4Core", spark4CoreDep, scalaTestDep)
-lazy val Spark4Encoders = mkp("Spark+/Spark4+/Spark4Encoders", spark4SqlDep, spark4Encoders, scalaTestDep)
-lazy val Spark4Ml = mkp("Spark+/Spark4+/Spark4Ml", scalaTestDep, spark4MlDep)
-lazy val Spark4Sql = mkp("Spark+/Spark4+/Spark4Sql", spark4SqlDep, scalaTestDep, h2Dep)
-lazy val Spark4SqlKafka = mkp("Spark+/Spark4+/Spark4SqlKafka", spark4SqlDep, scalaTestDep, sparkSqlKafkaDep, embeddedKafkaDep)
-lazy val Spark4Streaming = mkp("Spark+/Spark4+/Spark4Streaming",
+lazy val Spark4Core = mkp25("Spark+/Spark4+/Spark4Core", spark4CoreDep, scalaTestDep)
+lazy val Spark4Encoders = mkp25("Spark+/Spark4+/Spark4Encoders", spark4SqlDep, spark4Encoders, scalaTestDep)
+lazy val Spark4Ml = mkp25("Spark+/Spark4+/Spark4Ml", scalaTestDep, spark4MlDep)
+lazy val Spark4Sql = mkp25("Spark+/Spark4+/Spark4Sql", spark4SqlDep, scalaTestDep, h2Dep)
+lazy val Spark4SqlKafka = mkp25("Spark+/Spark4+/Spark4SqlKafka", spark4SqlDep, scalaTestDep, sparkSqlKafkaDep, embeddedKafkaDep)
+lazy val Spark4Streaming = mkp25("Spark+/Spark4+/Spark4Streaming",
   spark4StreamingDep, scalaTestDep) //Structured Streaming is a part of Spark SQL
-lazy val Spark4StreamingKafka = mkp("Spark+/Spark4+/Spark4StreamingKafka",
+lazy val Spark4StreamingKafka = mkp25("Spark+/Spark4+/Spark4StreamingKafka",
   spark4StreamingDep, scalaTestDep, sparkStreamingKafkaDep, embeddedKafkaDep)
 
 lazy val KafkaScalaCore = mkp("Kafka+/KafkaScalaCore", scalaTestDep, kafkaClientsDep)
 lazy val IoGithubEmbeddedKafka = mkp("Kafka+/EmbeddedKafka+/IoGithubEmbeddedKafka", scalaTestDep, kafkaClientsDep, kafkaDep, embeddedKafkaDep)
 
-lazy val NeuralSearch = mkp("Libs+/OpenSearch+/NeuralSearch", scalaTestDep, openSearchDep)
+lazy val NeuralSearch = mkp("Libs+/OpenSearch+/NeuralSearch", scalaTestDep, openSearch2Dep)
 
 lazy val DatabricksDbUtilsScala = mkp("Libs+/Databricks+/DatabricksDbUtilsScala",
   scalaTestDep, databricksDbUtilsScalaDep,
