@@ -1,5 +1,11 @@
 # parquet-tools CLI
  
+(!) Last release in 2024
+Replacement: https://github.com/hangxie/parquet-tools
+
+GitHub: https://github.com/ktrueda/parquet-tools
+PyPi: https://pypi.org/project/parquet-tools/
+
 Install: `pip3 install -U parquet-tools`
  
 Help: `parquet-tools -h`

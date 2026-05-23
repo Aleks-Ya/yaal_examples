@@ -1,4 +1,4 @@
-package parquet.avro;
+package parquet.avro.datatype;
 
 import org.apache.avro.SchemaBuilder;
 import org.apache.avro.generic.GenericRecord;
@@ -18,7 +18,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-class DataTypesTest {
+class PrimitiveDataTypesTest {
 
     @Test
     void primitiveDataTypes() throws IOException {
@@ -74,41 +74,6 @@ class DataTypesTest {
         assertThat(actRecord.get(floatFieldName)).isEqualTo(expFloatValue);
         assertThat(actRecord.get(doubleFieldName)).isEqualTo(expDoubleValue);
         assertThat(actRecord.get(byteArrayFieldName)).isEqualTo(expByteArrayValue);
-        assertThat(actRecord).isEqualTo(expRecord);
-    }
-
-    @Test
-    void logicalDataTypes() throws IOException {
-        var conf = new Configuration();
-
-        var stringFieldName = "string_field";
-        var schema = SchemaBuilder.record("all_data_types")
-                .fields()
-                .name(stringFieldName).type().stringType().noDefault()
-                .endRecord();
-        var path = new Path(FileUtil.createAbsentTempFileDeleteOnExit(".parquet").getPath());
-
-        var expStringValue = "abc";
-        var expRecord = new GenericRecordBuilder(schema)
-                .set(stringFieldName, expStringValue)
-                .build();
-
-        // Write Parquet file
-        var outputFile = HadoopOutputFile.fromPath(path, conf);
-        var writer = AvroParquetWriter
-                .<GenericRecord>builder(outputFile)
-                .withSchema(schema)
-                .withConf(conf)
-                .build();
-        writer.write(expRecord);
-        writer.close();
-
-        // Read Parquet file
-        var inputFile = HadoopInputFile.fromPath(path, conf);
-        var reader = AvroParquetReader.<GenericRecord>builder(inputFile).build();
-        var actRecord = reader.read();
-
-        assertThat(actRecord.get(stringFieldName).toString()).isEqualTo(expStringValue);
         assertThat(actRecord).isEqualTo(expRecord);
     }
 

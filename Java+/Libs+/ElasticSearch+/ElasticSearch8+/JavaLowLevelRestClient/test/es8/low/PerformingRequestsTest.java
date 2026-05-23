@@ -1,6 +1,5 @@
 package es8.low;
 
-import es8.low.SecurityHelper;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.nio.entity.NStringEntity;
@@ -66,13 +65,14 @@ class PerformingRequestsTest {
     void countSearch() throws IOException {
         var endpoint = format("%s/%s/_count", PEOPLE_INDEX, PERSONS_TYPE);
         Map<String, String> params = Collections.emptyMap();
-        var body = "{\n" +
-                "  \"query\": {\n" +
-                "      \"term\": {\n" +
-                "          \"email\": \"john@mail.ru\"\n" +
-                "      }\n" +
-                "  }\n" +
-                "}";
+        var body = """
+                {
+                  "query": {
+                      "term": {
+                          "email": "john@mail.ru"
+                      }
+                  }
+                }""";
         HttpEntity requestEntity = new NStringEntity(body, ContentType.APPLICATION_JSON);
         var request = new Request("GET", endpoint);
         request.addParameters(params);

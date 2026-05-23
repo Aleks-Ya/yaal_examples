@@ -303,8 +303,8 @@ include 'Libs+:AI+:DJL+:DjlApi',
         'Libs+:Guice+:Guice',
         'Libs+:Guice+:GuiceGrapher',
         'Libs+:OkHttp',
-        'Libs+:OpenSearch+:NeuralSearch',
-        'Libs+:OpenSearch+:NeuralSearchCopyPaste',
+        'Libs+:OpenSearch+:OpenSearch2+:NeuralSearch',
+        'Libs+:OpenSearch+:OpenSearch2+:NeuralSearchCopyPaste',
         'Libs+:AsyncHttpClient'
 
 /**

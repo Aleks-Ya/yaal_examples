@@ -1,6 +1,5 @@
 package es8.low;
 
-import es8.low.SecurityHelper;
 import org.elasticsearch.client.Request;
 import org.junit.jupiter.api.Test;
 

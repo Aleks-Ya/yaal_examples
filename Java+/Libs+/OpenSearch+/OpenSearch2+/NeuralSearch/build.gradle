@@ -1,0 +1,19 @@
+repositories {
+    mavenCentral()
+}
+configurations {
+    zipArtifact
+}
+dependencies {
+    zipArtifact "org.opensearch.plugin:neural-search:2.19.5.0"
+}
+tasks.register('unzipArtifact', Copy) {
+    from(zipTree(configurations.zipArtifact.singleFile))
+    into("${layout.buildDirectory.get().asFile}/libs/extracted")
+}
+compileJava.dependsOn unzipArtifact
+dependencies {
+    implementation "org.opensearch:opensearch:$openSearch2Version",
+            fileTree(dir: "${layout.buildDirectory.get().asFile}/libs/extracted", include: '*.jar')
+    testImplementation mockitoDep
+}

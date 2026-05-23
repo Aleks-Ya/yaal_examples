@@ -1,4 +1,4 @@
-package parquet.avro;
+package parquet.avro.datatype;
 
 import org.apache.avro.Schema.Parser;
 import org.apache.avro.generic.GenericData;

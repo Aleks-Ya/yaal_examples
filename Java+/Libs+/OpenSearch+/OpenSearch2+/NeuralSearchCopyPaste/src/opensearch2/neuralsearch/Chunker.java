@@ -1,4 +1,4 @@
-package neuralsearch;
+package opensearch2.neuralsearch;
 
 import java.util.List;
 import java.util.Map;

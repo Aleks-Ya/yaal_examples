@@ -30,7 +30,7 @@ def load_cbr_rates(day: date) -> dict[CurrencyCode, Currency]:
     if response.status_code != 200:
         raise Exception(f"Invalid response code: {response}")
     soup: BeautifulSoup = BeautifulSoup(response.text, 'html.parser')
-    data_table: Tag = soup.find("table", {"class": "data"})
+    data_table: Optional[Tag] = soup.find("table", {"class": "data"})
     table_rows: list[Tag] = data_table.find_all("tr")
     table_rows_no_header: list[Tag] = table_rows[1:]
     table_rows_cells: list[list[Tag]] = [row.find_all("td") for row in table_rows_no_header]
@@ -49,7 +49,7 @@ def load_wise_rates(code: CurrencyCode, day: date) -> dict[CurrencyCode, Currenc
     if response.status_code != 200:
         raise Exception(f"Invalid response code: {response}")
     soup: BeautifulSoup = BeautifulSoup(response.text, 'html.parser')
-    rate_tag: Tag = soup.find("input", {"id": "target-input"})
+    rate_tag: Optional[Tag] = soup.find("input", {"id": "target-input"})
     rate_str: str = rate_tag.get("value").replace(',', '')
     rate: Decimal = Decimal(rate_str) / 1000
     return {code: Currency(code, rate, 1)}

@@ -1,6 +1,7 @@
 package fasterxml.xml.databind.treemodel.deserialize;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.MissingNode;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -16,7 +17,9 @@ class MissingNodeTest {
                 {"a": 1}""";
         var root = mapper.readTree(json);
         var missingNode = root.findPath("absent");
+        assertThat(missingNode).isInstanceOf(MissingNode.class);
         assertThat(missingNode.isMissingNode()).isTrue();
+        assertThat(missingNode.isNull()).isFalse();
         assertThat(missingNode.asText()).isEqualTo("");
     }
 
@@ -26,7 +29,9 @@ class MissingNodeTest {
                 {"a": 1}""";
         var root = mapper.readTree(json);
         var missingNode = root.findPath("absent1").findPath("absent2");
+        assertThat(missingNode).isInstanceOf(MissingNode.class);
         assertThat(missingNode.isMissingNode()).isTrue();
+        assertThat(missingNode.isNull()).isFalse();
         assertThat(missingNode.asText()).isEqualTo("");
     }
 
@@ -36,6 +41,11 @@ class MissingNodeTest {
                 {"a": 1}""";
         var root = mapper.readTree(json);
         var missingNode = root.findPath("absent");
+
+        assertThat(missingNode).isInstanceOf(MissingNode.class);
+        assertThat(missingNode.isMissingNode()).isTrue();
+        assertThat(missingNode.isNull()).isFalse();
+
         assertThat(missingNode.asBoolean()).isFalse();
         assertThat(missingNode.asText()).isEqualTo("");
         assertThat(missingNode.asInt()).isEqualTo(0);

@@ -1,0 +1,4 @@
+dependencies {
+    implementation "org.opensearch:opensearch:$openSearch2Version", apacheCommonsLangDep
+    testImplementation mockitoDep
+}

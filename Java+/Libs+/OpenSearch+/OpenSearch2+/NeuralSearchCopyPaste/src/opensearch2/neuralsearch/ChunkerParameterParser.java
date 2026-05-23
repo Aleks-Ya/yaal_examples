@@ -1,4 +1,4 @@
-package neuralsearch;
+package opensearch2.neuralsearch;
 
 
 import org.apache.commons.lang3.StringUtils;

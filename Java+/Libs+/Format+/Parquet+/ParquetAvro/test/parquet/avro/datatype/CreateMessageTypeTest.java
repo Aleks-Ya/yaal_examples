@@ -1,4 +1,4 @@
-package parquet.avro;
+package parquet.avro.datatype;
 
 import org.apache.parquet.schema.LogicalTypeAnnotation;
 import org.apache.parquet.schema.MessageType;
@@ -56,8 +56,10 @@ class CreateMessageTypeTest {
         var messageTypeName = "EmbeddedMessage";
         var repetition = Type.Repetition.REQUIRED;
         var fields = new ArrayList<Type>();
-        fields.add(new PrimitiveType(repetition, PrimitiveType.PrimitiveTypeName.BINARY, "json", LogicalTypeAnnotation.jsonType().toOriginalType()));
-        fields.add(new PrimitiveType(repetition, PrimitiveType.PrimitiveTypeName.BINARY, "bson", LogicalTypeAnnotation.bsonType().toOriginalType()));
+        fields.add(new PrimitiveType(repetition, PrimitiveType.PrimitiveTypeName.BINARY, "json",
+                LogicalTypeAnnotation.jsonType().toOriginalType()));
+        fields.add(new PrimitiveType(repetition, PrimitiveType.PrimitiveTypeName.BINARY, "bson",
+                LogicalTypeAnnotation.bsonType().toOriginalType()));
         var actMessageType = new MessageType(messageTypeName, fields);
 
         var expMessageType = Types.buildMessage()

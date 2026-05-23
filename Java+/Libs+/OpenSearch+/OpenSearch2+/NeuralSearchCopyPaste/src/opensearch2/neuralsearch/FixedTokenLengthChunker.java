@@ -1,4 +1,4 @@
-package neuralsearch;
+package opensearch2.neuralsearch;
 
 
 import org.opensearch.action.admin.indices.analyze.AnalyzeAction;

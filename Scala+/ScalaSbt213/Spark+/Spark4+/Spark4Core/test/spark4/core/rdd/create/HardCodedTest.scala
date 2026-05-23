@@ -19,4 +19,13 @@ class HardCodedTest extends AnyFlatSpec with Matchers {
       .collect
     list should contain inOrderOnly("1-a", "2-b", "3-c")
   }
+
+  it should "duplicating keys" in {
+    val data = Seq((1, "a"), (2, "b"), (1, "c"))
+    val list = Factory.sc.parallelize(data)
+      .map(pair => s"${pair._1}-${pair._2}")
+      .collect
+    list should contain inOrderOnly("1-a", "2-b", "1-c")
+  }
+
 }

@@ -1,6 +1,5 @@
 package es8.low;
 
-import es8.low.SecurityHelper;
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
 import org.junit.jupiter.api.Test;

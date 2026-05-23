@@ -1,7 +1,9 @@
 # parquet-cli CLI
 
 GitHub: https://github.com/chhantyal/parquet-cli
-Install: `pip install parquet-cli`
+PyPi: https://pypi.org/project/parquet-cli/
+
+Install: `pip install -U parquet-cli`
 
 Help: `parq -h`
 Show metadata: `parq my.parquet`

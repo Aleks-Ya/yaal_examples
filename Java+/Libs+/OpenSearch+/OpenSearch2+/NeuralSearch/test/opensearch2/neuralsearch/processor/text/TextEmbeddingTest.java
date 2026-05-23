@@ -1,4 +1,4 @@
-package neuralsearch.processor.text;
+package opensearch2.neuralsearch.processor.text;
 
 import org.junit.jupiter.api.Test;
 import org.opensearch.client.Client;

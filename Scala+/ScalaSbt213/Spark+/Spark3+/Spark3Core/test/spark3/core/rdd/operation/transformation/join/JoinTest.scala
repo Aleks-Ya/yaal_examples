@@ -28,4 +28,15 @@ class JoinTest extends AnyFlatSpec with Matchers {
     )
   }
 
+  it should "join RDDs having duplicate keys" in {
+    val names = Factory.sc.parallelize(Seq((1L, "John"), (2L, "Mary"), (1L, "Nick")))
+    val ages = Factory.sc.parallelize(Seq((2L, 25), (1L, 35), (4L, 40)))
+    val joined = names.join(ages)
+    joined.collect should contain inOrderOnly(
+      (1, ("John", 35)),
+      (1, ("Nick", 35)),
+      (2, ("Mary", 25))
+    )
+  }
+
 }

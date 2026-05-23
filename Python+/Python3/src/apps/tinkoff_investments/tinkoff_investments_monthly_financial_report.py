@@ -7,6 +7,8 @@ for currency, positions in positions_by_currency.items():
     print(f"{currency}")
     for position in positions:
         print(position)
+    position_sum: float = sum(position.position_sum for position in positions)
+    print(f"Total position sum: {position_sum}")
     position_sums: list[str] = [str(position.position_sum) for position in positions]
     excel_sum: str = "=" + "+".join(position_sums)
     print(f"Excel formula: {excel_sum}")

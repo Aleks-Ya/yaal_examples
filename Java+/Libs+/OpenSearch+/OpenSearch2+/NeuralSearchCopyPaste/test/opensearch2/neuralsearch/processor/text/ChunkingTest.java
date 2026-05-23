@@ -1,25 +1,25 @@
-package neuralsearch.processor.text;
+package opensearch2.neuralsearch.processor.text;
 
 import org.junit.jupiter.api.Test;
-import org.opensearch.common.settings.Settings;
-import org.opensearch.env.Environment;
 import org.opensearch.indices.analysis.AnalysisModule;
-import org.opensearch.neuralsearch.processor.chunker.FixedTokenLengthChunker;
 
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
+import static opensearch2.neuralsearch.Chunker.CHUNK_STRING_COUNT_FIELD;
+import static opensearch2.neuralsearch.Chunker.MAX_CHUNK_LIMIT_FIELD;
+import static opensearch2.neuralsearch.FixedTokenLengthChunker.ANALYSIS_REGISTRY_FIELD;
+import static opensearch2.neuralsearch.FixedTokenLengthChunker.MAX_TOKEN_COUNT_FIELD;
+import static opensearch2.neuralsearch.FixedTokenLengthChunker.OVERLAP_RATE_FIELD;
+import static opensearch2.neuralsearch.FixedTokenLengthChunker.TOKENIZER_FIELD;
+import static opensearch2.neuralsearch.FixedTokenLengthChunker.TOKEN_LIMIT_FIELD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.opensearch.env.Environment.PATH_HOME_SETTING;
-import static org.opensearch.neuralsearch.processor.chunker.Chunker.CHUNK_STRING_COUNT_FIELD;
-import static org.opensearch.neuralsearch.processor.chunker.Chunker.MAX_CHUNK_LIMIT_FIELD;
-import static org.opensearch.neuralsearch.processor.chunker.FixedTokenLengthChunker.ANALYSIS_REGISTRY_FIELD;
-import static org.opensearch.neuralsearch.processor.chunker.FixedTokenLengthChunker.MAX_TOKEN_COUNT_FIELD;
-import static org.opensearch.neuralsearch.processor.chunker.FixedTokenLengthChunker.OVERLAP_RATE_FIELD;
-import static org.opensearch.neuralsearch.processor.chunker.FixedTokenLengthChunker.TOKENIZER_FIELD;
-import static org.opensearch.neuralsearch.processor.chunker.FixedTokenLengthChunker.TOKEN_LIMIT_FIELD;
+import opensearch2.neuralsearch.FixedTokenLengthChunker;
+import org.opensearch.env.Environment;
+import org.opensearch.common.settings.Settings;
 
 class ChunkingTest {
     @Test
