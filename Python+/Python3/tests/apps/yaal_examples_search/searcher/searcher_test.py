@@ -67,3 +67,31 @@ def test_search_deduplicates_results_when_multiple_files_map_to_same_found_path(
 def test_search_various_single_keyword_cases(path: Path, keywords: Keywords, expected: set[Path]) -> None:
     searcher: Searcher = Searcher([path])
     assert searcher.search(keywords) == expected
+
+def test_search_is_case_insensitive_and_returns_deepest_match_part() -> None:
+    searcher: Searcher = Searcher([
+        Path("/repo/Src/Java/com/acme/App.java"),
+    ])
+    # "java" matches the "Java" path segment; the result should be the path up to that segment.
+    result: set[Path] = searcher.search(Keywords([Keyword("jAvA")]))
+    assert result == {Path("/repo/Src/Java")}
+
+
+def test_search_can_be_case_sensitive() -> None:
+    searcher: Searcher = Searcher([
+        Path("/repo/Src/Java/com/acme/App.java"),
+    ], case_sensitive=True)
+
+    assert searcher.search(Keywords([Keyword("Java")])) == {Path("/repo/Src/Java")}
+    assert searcher.search(Keywords([Keyword("java")])) == set()
+
+
+def test_search_requires_all_keywords_to_be_present_somewhere_in_the_full_path() -> None:
+    searcher: Searcher = Searcher([
+        Path("/repo/src/java/com/acme/App.java"),
+        Path("/repo/src/java/com/other/Tool.java"),
+        Path("/repo/src/python/com/acme/app.py"),
+    ])
+    result: set[Path] = searcher.search(Keywords([Keyword("java"), Keyword("acme")]))
+    # Both keywords present -> included; deepest match is the first segment that matches any keyword ("java").
+    assert result == {Path("/repo/src/java/com/acme")}

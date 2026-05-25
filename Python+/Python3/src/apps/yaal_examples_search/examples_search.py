@@ -1,3 +1,4 @@
+import argparse
 import sys
 import time
 from pathlib import Path
@@ -13,17 +14,19 @@ from apps.yaal_examples_search.searcher.dir_reader import DirReader
 from apps.yaal_examples_search.searcher.searcher import Searcher
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python examples_search.py <keyword>")
-        exit(1)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-c", "--case-sensitive", action="store_true", help="turn on case-sensitive search")
+    parser.add_argument("keywords", nargs="+")
+    args = parser.parse_args()
 
     base_dir: Path = Path.home() / "pr" / "home" / "yaal_examples"
     if not base_dir.exists():
         print(f"Directory does not exist: '{base_dir}'")
         exit(1)
 
-    keyword_args: list[str] = sys.argv[1:]
+    keyword_args: list[str] = args.keywords
     print(f"Keywords: {keyword_args}")
+    print(f"Case-sensitive: {args.case_sensitive}")
     keywords: Keywords = Keywords([Keyword(keyword) for keyword in keyword_args])
 
     all_files_start: float = time.perf_counter()
@@ -39,7 +42,7 @@ if __name__ == "__main__":
     print(f'Filtered files: {len(filtered_files)} ({filter_elapsed:.3f}s)')
 
     search_start: float = time.perf_counter()
-    searcher: Searcher = Searcher(filtered_files)
+    searcher: Searcher = Searcher(filtered_files, case_sensitive=args.case_sensitive)
     found_paths: set[Path] = searcher.search(keywords)
     sorted_paths: list[Path] = sorted(found_paths)
     search_elapsed: float = time.perf_counter() - search_start

@@ -3,7 +3,8 @@ CLI search in `/home/aleks/pr/home/yaal_examples`
 
 ## Usage
 Linux alias: `alias examples='python ~/pr/home/yaal_examples/Python+/Python3/src/apps/yaal_examples_search/examples_search.py'`
-Run: `examples Java`
+Case-insensitive search: `examples Java`
+Case-sensitive search: `examples -c Java`
 
 ## Unit-tests
 Run:
