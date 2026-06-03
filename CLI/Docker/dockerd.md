@@ -4,6 +4,7 @@ Docs: https://docs.docker.com/engine/reference/commandline/dockerd/
 
 ## Commands
 Help: `dockerd -h`
+Version: `dockerd -v`
 Show Docker service status: `sudo systemctl status docker`
 Restart Docker service: `sudo systemctl restart docker`
 Limit concurrent downloads on pull: `dockerd --max-concurrent-downloads 1`
