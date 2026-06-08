@@ -1,0 +1,3 @@
+dependencies {
+    implementation 'com.openai:openai-java:4.39.1'
+}

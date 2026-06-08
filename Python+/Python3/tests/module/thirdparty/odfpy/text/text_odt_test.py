@@ -12,7 +12,7 @@ from current_path import get_file_in_current_dir
 
 # Based on: https://github.com/eea/odfpy/wiki/Introduction#example
 def test_create_text_document():
-    doc: OpenDocumentText = OpenDocumentText()
+    doc: OpenDocument = OpenDocumentText()
 
     # Styles
     s: Element = doc.styles

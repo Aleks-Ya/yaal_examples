@@ -36,3 +36,6 @@ Python+/Anki+/Addon+/**/meta.json
 .bsp
 
 *.so
+
+#LibreOffice
+*.fodg#

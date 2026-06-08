@@ -1,0 +1,3 @@
+dependencies {
+    implementation 'com.anthropic:anthropic-java:2.38.0'
+}

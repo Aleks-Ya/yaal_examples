@@ -16,7 +16,7 @@ class FodgParser:
     def parse(xml_file: Path) -> Data:
         namespaces: dict[str, str] = FodgParser.__get_namespaces(xml_file)
         tree: ElementTree = ET.parse(xml_file)
-        root: Element = tree.getroot()
+        root: Element[str] = tree.getroot()
         texts: list[str] = FodgParser.__extract_texts(root, namespaces)
         page_names: list[str] = FodgParser.__extract_page_names(root, namespaces)
         return Data(page_names, texts)
@@ -28,7 +28,7 @@ class FodgParser:
         return texts
 
     @staticmethod
-    def __extract_page_names(root, namespaces) -> list[str]:
+    def __extract_page_names(root: Element, namespaces: dict[str, str]) -> list[str]:
         pages: list[Element] = root.findall('.//draw:page', namespaces)
         namespace: str = namespaces['draw']
         attribute_name: str = f'{{{namespace}}}name'
