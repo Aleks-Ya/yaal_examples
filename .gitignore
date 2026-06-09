@@ -39,3 +39,4 @@ Python+/Anki+/Addon+/**/meta.json
 
 #LibreOffice
 *.fodg#
+*.odg#

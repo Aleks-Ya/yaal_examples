@@ -89,6 +89,7 @@ onnxruntime
 onnxruntime-openvino
 onnxruntime-gpu
 onnx>=1.20.0
+odfdo
 odfpy
 pycuda
 directory-tree
