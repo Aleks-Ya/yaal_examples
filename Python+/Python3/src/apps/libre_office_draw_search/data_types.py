@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import NewType
 
-FodgPath = NewType("FodgPath", Path)
+OdgPath = NewType("OdgPath", Path)
 FolderName = NewType("FolderName", str)
 FileName = NewType("FileName", str)
 PageName = NewType("PageName", str)
@@ -12,7 +12,7 @@ Text = NewType("Text", str)
 @dataclass
 class SearchResult:
     rank: int
-    draw_file: FodgPath
+    draw_file: OdgPath
     folder_names: list[FolderName]
     file_names: list[FileName]
     page_names: list[PageName]

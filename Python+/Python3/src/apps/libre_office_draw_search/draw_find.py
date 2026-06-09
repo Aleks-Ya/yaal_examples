@@ -6,7 +6,7 @@ sys.path.append(str(path_dir))
 
 from apps.libre_office_draw_search.file_discoverer import FileDiscoverer
 from apps.libre_office_draw_search.ranker import Ranker
-from apps.libre_office_draw_search.data_types import FodgPath, SearchResults
+from apps.libre_office_draw_search.data_types import OdgPath, SearchResults
 from apps.libre_office_draw_search.opener import Opener
 from apps.libre_office_draw_search.printer import Printer
 from apps.libre_office_draw_search.searcher import Searcher
@@ -26,7 +26,7 @@ if __name__ == "__main__":
     keyword_args: list[str] = sys.argv[1:]
     print(printer.format_keywords(keyword_args))
 
-    draw_files: list[FodgPath] = FileDiscoverer.find_draw_files(root_dir)
+    draw_files: list[OdgPath] = FileDiscoverer.find_draw_files(root_dir)
     print(printer.format_draw_files(draw_files))
 
     searcher: Searcher = Searcher(root_dir)

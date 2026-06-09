@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from apps.libre_office_draw_search.data_types import SearchResults, Text, FodgPath
+from apps.libre_office_draw_search.data_types import SearchResults, Text, OdgPath
 
 
 class Printer:
@@ -12,7 +12,7 @@ class Printer:
         return f"Keywords: {keywords}"
 
     @staticmethod
-    def format_draw_files(draw_files: list[FodgPath]) -> str:
+    def format_draw_files(draw_files: list[OdgPath]) -> str:
         return f"Draw files: {len(draw_files)}"
 
     def format_results(self, search_results: SearchResults) -> str:

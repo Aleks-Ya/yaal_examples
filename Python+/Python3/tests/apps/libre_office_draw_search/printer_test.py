@@ -1,7 +1,7 @@
 from pathlib import Path
 from textwrap import dedent
 
-from apps.libre_office_draw_search.data_types import FodgPath, SearchResults, SearchResult
+from apps.libre_office_draw_search.data_types import OdgPath, SearchResults, SearchResult
 from apps.libre_office_draw_search.printer import Printer
 
 
@@ -13,8 +13,8 @@ def test_format_keywords():
 
 def test_format_draw_files(root_dir: Path):
     act_str: str = Printer.format_draw_files([
-        FodgPath(root_dir / 'dir1' / 'file1.fodg'),
-        FodgPath(root_dir / 'dir1' / 'file2.fodg')
+        OdgPath(root_dir / 'dir1' / 'file1.odg'),
+        OdgPath(root_dir / 'dir1' / 'file2.odg')
     ])
     exp_str: str = "Draw files: 2"
     assert act_str == exp_str
@@ -29,14 +29,14 @@ def test_format_result(root_dir: Path, search_result_1: SearchResult, search_res
         Extracted pages: 3
         Extracted texts: 0
         Matched files: 2
-        
-        1 'file1.fodg' in 'dir1':
+
+        1 'file1.odg' in 'dir1':
         Folder: 'dir1'
-        Filename: 'file1.fodg'
+        Filename: 'file1.odg'
         Pages 1: 'Page 1'
-        
-        2 'file2.fodg' in 'dir1':
-        Filename: 'file2.fodg'
+
+        2 'file2.odg' in 'dir1':
+        Filename: 'file2.odg'
         Pages 2: 'Page 1', 'Page 2'
         """)
     assert act_formatted_results == exp_formatted_results

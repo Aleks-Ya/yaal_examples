@@ -1,26 +1,31 @@
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
+from zipfile import ZipFile
 from xml.etree.ElementTree import Element, ElementTree
 
-from apps.libre_office_draw_search.data_types import FodgPath, Text, PageName
+from apps.libre_office_draw_search.data_types import OdgPath, Text, PageName
 
 
 @dataclass
-class FodgFileData:
+class OdgFileData:
     page_names: list[str]
     texts: list[Text]
 
 
-class FodgParser:
+class OdgParser:
 
     @staticmethod
-    def parse(xml_file: FodgPath) -> FodgFileData:
-        namespaces: dict[str, str] = FodgParser.__get_namespaces(xml_file)
-        tree: ElementTree = ET.parse(xml_file)
+    def parse(odg_file: OdgPath) -> OdgFileData:
+        with ZipFile(odg_file) as odg_zip:
+            with odg_zip.open('content.xml') as content_xml:
+                namespaces: dict[str, str] = OdgParser.__get_namespaces(content_xml)
+            with odg_zip.open('content.xml') as content_xml:
+                tree: ElementTree = ET.parse(content_xml)
+
         root: Element = tree.getroot()
-        texts: list[Text] = FodgParser.__extract_texts(root, namespaces)
-        page_names: list[str] = FodgParser.__extract_page_names(root, namespaces)
-        return FodgFileData(page_names, texts)
+        texts: list[Text] = OdgParser.__extract_texts(root, namespaces)
+        page_names: list[str] = OdgParser.__extract_page_names(root, namespaces)
+        return OdgFileData(page_names, texts)
 
     @staticmethod
     def __extract_texts(root: Element, namespaces: dict[str, str]) -> list[Text]:
@@ -39,9 +44,9 @@ class FodgParser:
         return page_names
 
     @staticmethod
-    def __get_namespaces(xml_file_path: FodgPath) -> dict[str, str]:
+    def __get_namespaces(content_xml) -> dict[str, str]:
         namespaces: dict[str, str] = {}
-        for event, elem in ET.iterparse(xml_file_path, events=['start-ns']):
+        for event, elem in ET.iterparse(content_xml, events=['start-ns']):
             prefix, uri = elem
             namespaces[prefix] = uri
         return namespaces

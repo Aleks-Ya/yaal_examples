@@ -2,17 +2,17 @@ import xml.etree.ElementTree as ET
 from itertools import chain
 from pathlib import Path
 
-from apps.libre_office_draw_search.data_types import FodgPath, FileName, PageName, Text, SearchResult, SearchResults, \
+from apps.libre_office_draw_search.data_types import OdgPath, FileName, PageName, Text, SearchResult, SearchResults, \
     FolderName
-from apps.libre_office_draw_search.fodg_parser import FodgFileData, FodgParser
+from apps.libre_office_draw_search.odg_parser import OdgFileData, OdgParser
 
 
 class Searcher:
     def __init__(self, root_dir: Path):
         self.__root_dir: Path = root_dir
 
-    def search(self, files: list[FodgPath], keywords: list[str]) -> SearchResults:
-        datas: dict[FodgPath, FodgFileData] = {file: FodgParser.parse(file) for file in files}
+    def search(self, files: list[OdgPath], keywords: list[str]) -> SearchResults:
+        datas: dict[OdgPath, OdgFileData] = {file: OdgParser.parse(file) for file in files}
         pages_count: int = sum(len(data.page_names) for data in datas.values())
         texts_count: int = sum(len(data.texts) for data in datas.values())
 
@@ -30,14 +30,14 @@ class Searcher:
         return SearchResults(results, pages_count, texts_count, matches_count)
 
     @staticmethod
-    def __get_namespaces(xml_file_path: FodgPath) -> dict[str, str]:
+    def __get_namespaces(xml_file_path: OdgPath) -> dict[str, str]:
         namespaces: dict[str, str] = {}
         for event, elem in ET.iterparse(xml_file_path, events=['start-ns']):
             prefix, uri = elem
             namespaces[prefix] = uri
         return namespaces
 
-    def __find_folder_names(self, keywords: list[str], file: FodgPath) -> list[FolderName]:
+    def __find_folder_names(self, keywords: list[str], file: OdgPath) -> list[FolderName]:
         matches: list[FolderName] = list[FolderName]()
         for keyword in keywords:
             for parent_folder in file.relative_to(self.__root_dir).parents:
@@ -46,7 +46,7 @@ class Searcher:
         return matches
 
     @staticmethod
-    def __find_filenames(keywords: list[str], file: FodgPath) -> list[FileName]:
+    def __find_filenames(keywords: list[str], file: OdgPath) -> list[FileName]:
         matches: list[FileName] = list[FileName]()
         for keyword in keywords:
             if keyword in file.name.lower():
@@ -54,7 +54,7 @@ class Searcher:
         return matches
 
     @staticmethod
-    def __find_pages(keywords: list[str], data: FodgFileData) -> list[PageName]:
+    def __find_pages(keywords: list[str], data: OdgFileData) -> list[PageName]:
         matches: list[PageName] = list[PageName]()
         for keyword in keywords:
             for page_name in data.page_names:
@@ -63,7 +63,7 @@ class Searcher:
         return matches
 
     @staticmethod
-    def __find_texts(keywords: list[str], data: FodgFileData) -> list[Text]:
+    def __find_texts(keywords: list[str], data: OdgFileData) -> list[Text]:
         matches: list[Text] = list()
         for keyword in keywords:
             for text in data.texts:

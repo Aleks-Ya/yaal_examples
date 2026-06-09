@@ -2,7 +2,7 @@ import os
 import platform
 import subprocess
 
-from apps.libre_office_draw_search.data_types import FodgPath, SearchResult, SearchResults
+from apps.libre_office_draw_search.data_types import OdgPath, SearchResult, SearchResults
 
 
 class Opener:
@@ -30,7 +30,7 @@ class Opener:
                 break
 
     @staticmethod
-    def __open_file_in_default_app(file_path: FodgPath) -> None:
+    def __open_file_in_default_app(file_path: OdgPath) -> None:
         if platform.system() == 'Darwin':  # macOS
             subprocess.run(['open', file_path])
         elif platform.system() == 'Windows':  # Windows
