@@ -1,7 +1,6 @@
-import xml.etree.ElementTree as ET
 from dataclasses import dataclass
-from zipfile import ZipFile
-from xml.etree.ElementTree import Element, ElementTree
+
+from odfdo import Document, Body, Paragraph, Span, DrawPage
 
 from apps.libre_office_draw_search.data_types import OdgPath, Text, PageName
 
@@ -16,37 +15,32 @@ class OdgParser:
 
     @staticmethod
     def parse(odg_file: OdgPath) -> OdgFileData:
-        with ZipFile(odg_file) as odg_zip:
-            with odg_zip.open('content.xml') as content_xml:
-                namespaces: dict[str, str] = OdgParser.__get_namespaces(content_xml)
-            with odg_zip.open('content.xml') as content_xml:
-                tree: ElementTree = ET.parse(content_xml)
-
-        root: Element = tree.getroot()
-        texts: list[Text] = OdgParser.__extract_texts(root, namespaces)
-        page_names: list[str] = OdgParser.__extract_page_names(root, namespaces)
+        document: Document = Document(str(odg_file))
+        texts: list[Text] = OdgParser.__extract_texts(document)
+        page_names: list[str] = OdgParser.__extract_page_names(document)
         return OdgFileData(page_names, texts)
 
     @staticmethod
-    def __extract_texts(root: Element, namespaces: dict[str, str]) -> list[Text]:
-        p_elements: list[Element] = root.findall('.//text:p', namespaces)
-        snap_elements2: list[Element] = root.findall('.//text:span', namespaces)
-        text_elements: list[Element] = p_elements + snap_elements2
-        texts: list[Text] = [Text(element.text) for element in text_elements if element.text is not None]
+    def __extract_texts(document: Document) -> list[Text]:
+        body: Body = document.body
+        paragraphs: list[Paragraph] = body.get_paragraphs()
+        texts: list[Text] = []
+        for paragraph in paragraphs:
+            text_content: str = paragraph.text
+            if text_content:
+                texts.append(Text(text_content))
+
+        spans: list[Span] = body.get_spans()
+        for span in spans:
+            text_content = span.text
+            if text_content:
+                texts.append(Text(text_content))
+
         return texts
 
     @staticmethod
-    def __extract_page_names(root, namespaces) -> list[PageName]:
-        pages: list[Element] = root.findall('.//draw:page', namespaces)
-        namespace: str = namespaces['draw']
-        attribute_name: str = f'{{{namespace}}}name'
-        page_names: list[PageName] = [PageName(page.get(attribute_name)) for page in pages]
+    def __extract_page_names(document: Document) -> list[PageName]:
+        body: Body = document.body
+        pages: list[DrawPage] = body.get_draw_pages()
+        page_names: list[PageName] = [PageName(page.name) for page in pages if page.name is not None]
         return page_names
-
-    @staticmethod
-    def __get_namespaces(content_xml) -> dict[str, str]:
-        namespaces: dict[str, str] = {}
-        for event, elem in ET.iterparse(content_xml, events=['start-ns']):
-            prefix, uri = elem
-            namespaces[prefix] = uri
-        return namespaces
