@@ -1,0 +1,12 @@
+<!-- On Android: vibrate every 60 sec to distract from stuck with thoughts -->
+<!-- Usage: copy-paste on the front template of a card type -->
+<!-- Test: click on timer text to test vibration -->
+
+<div id="t" style="font-size:0.5em;text-align:right;margin:15px 0;color:grey;cursor:pointer">Time: 60s</div>
+<script>
+const S=60; let t=S; const d = document.getElementById('t');
+function u(){d.textContent=`Time: ${t}s`;}
+function vibrate() {if ("vibrate" in navigator) navigator.vibrate([800]);}
+setInterval(()=>{t--; u(); if(t<=0){vibrate(); t=S; u();}},1000);
+d.addEventListener('click', vibrate); u();
+</script>

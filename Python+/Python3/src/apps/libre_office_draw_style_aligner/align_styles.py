@@ -1,8 +1,8 @@
 from pathlib import Path
 
-from apps.libre_office_draw_style_aligner.data_types import OdgPath, StylesHierarchyStr, OdgStyles
-from apps.libre_office_draw_style_aligner.style_collector import StyleCollector
-from apps.libre_office_draw_style_aligner.styles_printer import StylesPrinter
+from common.data_types import OdgPath, StylesHierarchyStr, OdgStyles
+from common.style_collector import StyleCollector
+from common.styles_printer import StylesPrinter
 
 style_collector: StyleCollector = StyleCollector()
 odg: OdgPath = OdgPath(Path("/home/aleks/tmp/GraphML.odg"))

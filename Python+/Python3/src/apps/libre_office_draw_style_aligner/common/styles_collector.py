@@ -4,8 +4,8 @@ from pathlib import Path
 from typing import Dict
 import logging
 
-from apps.libre_office_draw_style_aligner.data_types import OdgPath, OdgStyles
-from apps.libre_office_draw_style_aligner.style_collector import StyleCollector
+from common.data_types import OdgPath, OdgStyles
+from common.style_collector import StyleCollector
 
 logger = logging.getLogger(__name__)
 

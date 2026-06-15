@@ -3,8 +3,7 @@ from __future__ import annotations
 from odfdo import Document, DrawFillImage, DrawMarker, StyleMasterPage, StylePageLayout
 from odfdo.style_base import StyleBase
 
-from apps.libre_office_draw_style_aligner.data_types import StyleInfo, FamilyName, OdgPath, OdgStyles, StyleName, \
-    StyleDisplayName
+from common.data_types import StyleInfo, FamilyName, OdgPath, OdgStyles, StyleName, StyleDisplayName
 
 
 class StyleCollector:

@@ -14,7 +14,7 @@ sudo snap refresh
 echo
 
 echo "Updating BREW..."
-brew upgrade
+yes | brew upgrade
 echo
 
 echo "Updating FlatPak..."

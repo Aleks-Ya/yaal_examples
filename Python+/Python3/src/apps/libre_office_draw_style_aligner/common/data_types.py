@@ -16,7 +16,8 @@ class StyleInfo:
     name: StyleName | None
     display_name: StyleDisplayName | None
     family: FamilyName | None
-    parent: StyleInfo | None = None
+    parent: StyleInfo | None
+    custom: bool
 
 
 OdgStyles = NewType("OdgStyles", Dict[FamilyName, List[StyleInfo]])
