@@ -11,13 +11,19 @@ class Doc:
     def __init__(self, doc: Document) -> None:
         self.doc = doc
 
+    def get_styles(self, family: FamilyName | None) -> list[Stl]:
+        styles: list[StyleBase | DrawFillImage | DrawMarker] = self.doc.get_styles(family=family) \
+            if family else self.doc.get_styles()
+        base_styles: list[StyleBase] = [s for s in styles if isinstance(s, StyleBase)]
+        return [Stl(style) for style in base_styles]
+
     def get_style(self, family: FamilyName, name_or_display_name: StyleName | StyleDisplayName) -> Stl:
         if self.is_style_exist_by_name(family, name_or_display_name):
             return self.get_style_by_name(family, name_or_display_name)
         elif self.is_style_exist_by_display_name(family, name_or_display_name):
             return self.get_style_by_display_name(family, name_or_display_name)
         else:
-            raise ValueError(f"Style not found: {family}/{name_or_display_name}")
+            raise ValueError(f"Style not found: '{family}/{name_or_display_name}' in '{self.doc.path}'")
 
     def get_style_by_display_name(self, family: FamilyName, display_name: StyleDisplayName) -> Stl:
         style: StyleBase | DrawFillImage | DrawMarker | None = self.doc.get_style(

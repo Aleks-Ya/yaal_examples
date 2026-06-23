@@ -67,4 +67,21 @@ class FromJsonTest extends AnyFlatSpec with SparkMatchers {
     )
   }
 
+  it should "ignore fields order" in {
+    val df = Factory.createDf("name STRING,details STRING",
+      Row("John", """{ "age": 30, "male": true, "job": { "title": "Engineer", "salary": 100000 } }"""),
+      Row("Mary", """{ "job": { "salary": 50000, "title": "Manager" }, "male": false, "age": 25 }"""),
+    )
+    val detailsSchema = fromDDL("age INT,male BOOLEAN,job STRUCT<title: STRING>")
+    val updatedDf = df.select(
+      col("name"),
+      from_json(col("details"), detailsSchema) as "details"
+    )
+    updatedDf shouldHaveDDL "name STRING,details STRUCT<age: INT, male: BOOLEAN, job: STRUCT<title: STRING>>"
+    updatedDf shouldContain(
+      """{"name":"John","details":{"age":30,"male":true,"job":{"title":"Engineer"}}}""",
+      """{"name":"Mary","details":{"age":25,"male":false,"job":{"title":"Manager"}}}""",
+    )
+  }
+
 }

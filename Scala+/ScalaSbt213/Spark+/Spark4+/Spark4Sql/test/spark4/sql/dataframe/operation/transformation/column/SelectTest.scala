@@ -16,7 +16,7 @@ class SelectTest extends AnyFlatSpec with SparkMatchers {
       """{"name":"Mary","gender":"F"}""")
   }
 
-  it should "select a sub-field" in {
+  it should "select a sub-field (getField)" in {
     val df = Factory.createDf("name STRING,info STRUCT<age: INT,gender: STRING>",
       Row("John", Row(30, "M")),
       Row("Peter", Row(25, "M")),
@@ -30,6 +30,42 @@ class SelectTest extends AnyFlatSpec with SparkMatchers {
       """{"name":"Mary","age":20}""")
   }
 
+  it should "select a sub-field (dot)" in {
+    val df = Factory.createDf("name STRING,info STRUCT<age: INT,gender: STRING>",
+      Row("John", Row(30, "M")),
+      Row("Peter", Row(25, "M")),
+      Row("Mary", Row(20, "F")))
+
+    val df2 = df.select(col("name"), col("info.age"))
+    df2 shouldHaveDDL "name STRING,age INT"
+    df2 shouldContain(
+      """{"name":"John","age":30}""",
+      """{"name":"Peter","age":25}""",
+      """{"name":"Mary","age":20}""")
+  }
+
+  it should "select a all nested sub-fields (dot)" in {
+    val df = Factory.createDf(
+      """name STRING,
+        |info STRUCT<
+        |   personal STRUCT<
+        |     age: INT,
+        |     gender: STRING>,
+        |   work STRING>
+        |""".stripMargin,
+      Row("John", Row(Row(30, "M"), "IT")),
+      Row("Peter", Row(Row(25, "M"), "Sales")),
+      Row("Mary", Row(Row(20, "F"), "Marketing"))
+    )
+
+    val df2 = df.select(col("name"), col("info.personal.*"))
+    df2 shouldHaveDDL "name STRING,age INT,gender STRING"
+    df2 shouldContain(
+      """{"name":"John","age":30,"gender":"M"}""",
+      """{"name":"Peter","age":25,"gender":"M"}""",
+      """{"name":"Mary","age":20,"gender":"F"}""")
+  }
+
   it should "select a sub-field of an array type" in {
     val df = Factory.createDf("name STRING,departments ARRAY<STRUCT<city: STRING,year: INT>>",
       Row("John", Seq(Row("London", 2010), Row("Paris", 2011))),
@@ -38,7 +74,7 @@ class SelectTest extends AnyFlatSpec with SparkMatchers {
       Row("Sara", Seq(null)),
       Row("Ann", null))
 
-    val df2 = df.select(col("name"), col("departments").getField("city").as("cities"))
+    val df2 = df.select(col("name"), col("departments.city").as("cities"))
     df2 shouldHaveDDL "name STRING,cities ARRAY<STRING>"
     df2 shouldContain(
       """{"name":"John","cities":["London","Paris"]}""",

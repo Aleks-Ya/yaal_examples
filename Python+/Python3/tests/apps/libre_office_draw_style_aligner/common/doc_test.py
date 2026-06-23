@@ -1,3 +1,6 @@
+import re
+from pathlib import Path
+
 from odfdo import Document
 import pytest
 
@@ -7,7 +10,15 @@ from common.stl import Stl
 from current_path import get_file_in_current_dir
 
 family: FamilyName = FamilyName('graphic')
-doc: Doc = Doc(Document(get_file_in_current_dir('doc_test.odg')))
+path: Path = get_file_in_current_dir('doc_test.odg')
+doc: Doc = Doc(Document(path))
+
+
+def test_get_styles():
+    all_styles: list[Stl] = doc.get_styles(None)
+    assert len(all_styles) == 61
+    graphic_styles: list[Stl] = doc.get_styles(family)
+    assert len(graphic_styles) == 40
 
 
 def test_get_style():
@@ -30,7 +41,7 @@ def test_get_style():
     assert style_by_display_name_without_spaces.get_family() == 'graphic'
     assert style_by_display_name_without_spaces.is_custom() == True
 
-    with pytest.raises(ValueError, match="Style not found: graphic/NotExists"):
+    with pytest.raises(ValueError, match=re.escape(f"Style not found: 'graphic/NotExists' in '{path}'")):
         doc.get_style(family, StyleDisplayName('NotExists'))
 
 

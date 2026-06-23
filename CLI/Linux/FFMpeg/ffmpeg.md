@@ -2,12 +2,7 @@
 
 ## Info
 Help: `ffmpeg -h`
-Show info about video:
-```
-ffprobe -hide_banner video.mp4
-ffmpeg -hide_banner -i video.mp4
-```
-Show chapters: `ffprobe -hide_banner -show_chapters video.mp4`
+Show info about video: `ffmpeg -hide_banner -i video.mp4`
 List all filters: `ffmpeg -hide_banner -filters`
 
 ## Modify video

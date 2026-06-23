@@ -13,7 +13,7 @@ class Stl:
         return self.style
 
     def get_family(self) -> FamilyName:
-        family: str | None = self.style.get_attribute_string('style:family')
+        family: str | None = self.style.family
         if family is None:
             raise ValueError("Style family not found")
         return FamilyName(family)
@@ -36,15 +36,26 @@ class Stl:
             raise ValueError("Style properties not found")
         return properties
 
+    def has_family(self) -> bool:
+        return self.style.family is not None
+
+    def has_name(self) -> bool:
+        return self.style.get_attribute_string('style:name') is not None
+
     def has_display_name(self) -> bool:
         return self.style.get_attribute_string('style:display-name') is not None
 
     def is_custom(self) -> bool:
+        if not self.has_name():
+            return False
         is_standard: bool = self.get_name() == 'standard'
         return not is_standard
 
     def __str__(self) -> str:
-        return self.__repr__()
+        family: str = self.get_family() if self.has_family() else '<>'
+        display_name: str = self.get_display_name() if self.has_display_name() else '<>'
+        name: str = self.get_name() if self.has_name() else '<>'
+        return f"Stl({family}-{name}-{display_name})"
 
     def __repr__(self) -> str:
-        return f"Stl({self.get_family()}-{self.get_display_name()})"
+        return str(self)

@@ -14,10 +14,11 @@ class ExplodeTest extends AnyFlatSpec with SparkMatchers {
       Row("Mary", Seq("Berlin", "Paris")),
       Row("Chad", Seq()),
       Row("Mark", null))
-    val explodedDf = df.select(
+    val updatedDf = df.select(
       col("name"),
       explode(col("cities")).alias("city"))
-    explodedDf shouldContain(
+    updatedDf shouldHaveDDL "name STRING,city STRING"
+    updatedDf shouldContain(
       """{"name":"John","city":"London"}""",
       """{"name":"John","city":"Paris"}""",
       """{"name":"Mary","city":"Berlin"}""",
@@ -29,8 +30,9 @@ class ExplodeTest extends AnyFlatSpec with SparkMatchers {
     val df = Factory.createDf("name STRING, cities ARRAY<STRING>",
       Row("John", Seq("London", "Paris")),
       Row("Mary", Seq("Berlin", "Paris")))
-    val explodedDf = df.withColumn("city", explode(col("cities")))
-    explodedDf shouldContain(
+    val updatedDf = df.withColumn("city", explode(col("cities")))
+    updatedDf shouldHaveDDL "name STRING,cities ARRAY<STRING>,city STRING"
+    updatedDf shouldContain(
       """{"name":"John","cities":["London","Paris"],"city":"London"}""",
       """{"name":"John","cities":["London","Paris"],"city":"Paris"}""",
       """{"name":"Mary","cities":["Berlin","Paris"],"city":"Berlin"}""",
@@ -44,14 +46,31 @@ class ExplodeTest extends AnyFlatSpec with SparkMatchers {
       Row("Mary", Seq(Row("Germany", "Berlin"), Row("Spain", "Barcelona"))),
       Row("Chad", Seq()),
       Row("Mark", null))
-    val explodedDf = df.select(
+    val updatedDf = df.select(
       col("name"),
       explode(col("address.city")).alias("city"))
-    explodedDf shouldContain(
+    updatedDf shouldHaveDDL "name STRING,city STRING"
+    updatedDf shouldContain(
       """{"name":"John","city":"London"}""",
       """{"name":"John","city":"Paris"}""",
       """{"name":"Mary","city":"Berlin"}""",
       """{"name":"Mary","city":"Barcelona"}"""
+    )
+  }
+
+  it should "explode nested column with default name (by dot)" in {
+    val df = Factory.createDf("name STRING, address ARRAY<STRUCT<country STRING, city STRING>>",
+      Row("John", Seq(Row("England", "London"), Row("France", "Paris"))),
+      Row("Mary", Seq(Row("Germany", "Berlin"), Row("Spain", "Barcelona"))))
+    val updatedDf = df.select(
+      col("name"),
+      explode(col("address.city")))
+    updatedDf shouldHaveDDL "name STRING,col STRING"
+    updatedDf shouldContain(
+      """{"name":"John","col":"London"}""",
+      """{"name":"John","col":"Paris"}""",
+      """{"name":"Mary","col":"Berlin"}""",
+      """{"name":"Mary","col":"Barcelona"}"""
     )
   }
 
@@ -61,10 +80,11 @@ class ExplodeTest extends AnyFlatSpec with SparkMatchers {
       Row("Mary", Seq(Row("Germany", "Berlin"), Row("Spain", "Barcelona"))),
       Row("Chad", Seq()),
       Row("Mark", null))
-    val explodedDf = df.select(
+    val updatedDf = df.select(
       col("name"),
       explode(col("address").getField("city")).alias("city"))
-    explodedDf shouldContain(
+    updatedDf shouldHaveDDL "name STRING,city STRING"
+    updatedDf shouldContain(
       """{"name":"John","city":"London"}""",
       """{"name":"John","city":"Paris"}""",
       """{"name":"Mary","city":"Berlin"}""",
