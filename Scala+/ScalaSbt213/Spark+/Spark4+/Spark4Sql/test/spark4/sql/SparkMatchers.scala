@@ -3,6 +3,8 @@ package spark4.sql
 import org.apache.spark.sql.{DataFrame, Dataset}
 import org.scalatest.matchers.should.Matchers
 
+import scala.util.matching.Regex
+
 trait SparkMatchers extends Matchers {
 
   implicit class DataFrameShouldWrapper(df: DataFrame) {
@@ -12,6 +14,15 @@ trait SparkMatchers extends Matchers {
 
     def shouldContain(rows: String*): Unit = {
       df.toJSON.collect should contain inOrderElementsOf rows
+    }
+
+    def shouldMatchPatterns(rowPatterns: String*): Unit = {
+      val rows: Array[String] = df.toJSON.collect
+      val patterns: Seq[Regex] = rowPatterns.map(_.r)
+      rows.length shouldEqual patterns.length
+      rows.zip(patterns).foreach { case (row, pattern) =>
+        row should fullyMatch regex pattern
+      }
     }
 
     def shouldContain(otherDf: DataFrame): Unit = {

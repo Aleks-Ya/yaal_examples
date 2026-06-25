@@ -6,6 +6,7 @@ Docs: https://huggingface.co/docs/huggingface_hub/main/en/guides/cli
 ## Install
 PIP: `pip install -U huggingface-hub`
 Brew: `brew install huggingface-cli`
+Update: `hf update`
 
 ## Commands
 ### Help
@@ -46,3 +47,6 @@ Show Space details: `hf spaces info Ya-Alex/anki-addons`
 ### Cache
 List caches: `hf cache ls`
 Clear cache for a repo: `hf cache rm dataset/Ya-Alex/anki-addons`
+
+### Skill
+Update skills: `hf skills update`

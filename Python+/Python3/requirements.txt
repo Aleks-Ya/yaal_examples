@@ -149,4 +149,4 @@ tabulate
 anytree
 
 --extra-index-url https://opensource.tbank.ru/api/v4/projects/238/packages/pypi/simple
-t-tech-investments
+t-tech-investments==1.49.0 # SSL error in later versions

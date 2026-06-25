@@ -22,15 +22,15 @@ def test_get_styles():
 
 
 def test_get_style():
-    style_by_name: Stl = doc.get_style(family, StyleName('My_20_Style_20_1'))
-    assert style_by_name.get_name() == 'My_20_Style_20_1'
-    assert style_by_name.get_display_name() == 'My Style 1'
+    style_by_name: Stl = doc.get_style(family, StyleName('My_20_Style_3a__20_1'))
+    assert style_by_name.get_name() == 'My_20_Style_3a__20_1'
+    assert style_by_name.get_display_name() == 'My Style: 1'
     assert style_by_name.get_family() == 'graphic'
     assert style_by_name.is_custom() == True
 
-    style_by_display_name_without_spaces: Stl = doc.get_style(family, StyleDisplayName('My Style 1'))
-    assert style_by_display_name_without_spaces.get_name() == 'My_20_Style_20_1'
-    assert style_by_display_name_without_spaces.get_display_name() == 'My Style 1'
+    style_by_display_name_without_spaces: Stl = doc.get_style(family, StyleDisplayName('My Style: 1'))
+    assert style_by_display_name_without_spaces.get_name() == 'My_20_Style_3a__20_1'
+    assert style_by_display_name_without_spaces.get_display_name() == 'My Style: 1'
     assert style_by_display_name_without_spaces.get_family() == 'graphic'
     assert style_by_display_name_without_spaces.is_custom() == True
 
@@ -46,19 +46,19 @@ def test_get_style():
 
 
 def test_get_style_by_name():
-    name: StyleName = StyleName('My_20_Style_20_1')
+    name: StyleName = StyleName('My_20_Style_3a__20_1')
     style: Stl = doc.get_style_by_name(family, name)
-    assert style.get_name() == 'My_20_Style_20_1'
-    assert style.get_display_name() == 'My Style 1'
+    assert style.get_name() == 'My_20_Style_3a__20_1'
+    assert style.get_display_name() == 'My Style: 1'
     assert style.get_family() == 'graphic'
     assert style.is_custom() == True
 
 
 def test_get_style_by_display_name_with_spaces():
-    display_name: StyleDisplayName = StyleDisplayName('My Style 1')
+    display_name: StyleDisplayName = StyleDisplayName('My Style: 1')
     style: Stl = doc.get_style_by_display_name(family, display_name)
-    assert style.get_name() == 'My_20_Style_20_1'
-    assert style.get_display_name() == 'My Style 1'
+    assert style.get_name() == 'My_20_Style_3a__20_1'
+    assert style.get_display_name() == 'My Style: 1'
     assert style.get_family() == 'graphic'
     assert style.is_custom() == True
 
@@ -71,14 +71,14 @@ def test_get_style_by_display_name_without_spaces():
 
 
 def test_is_style_exist_by_name():
-    exists: StyleName = StyleName('My_20_Style_20_1')
+    exists: StyleName = StyleName('My_20_Style_3a__20_1')
     not_exists: StyleName = StyleName('NotExists')
     assert doc.is_style_exist_by_name(family, exists) == True
     assert doc.is_style_exist_by_name(family, not_exists) == False
 
 
 def test_is_style_exist_by_display_name():
-    exists: StyleDisplayName = StyleDisplayName('My Style 1')
+    exists: StyleDisplayName = StyleDisplayName('My Style: 1')
     not_exists: StyleDisplayName = StyleDisplayName('Not Exists')
     not_exists_without_spaces: StyleDisplayName = StyleDisplayName('MyStyleNoSpaces')
     assert doc.is_style_exist_by_display_name(family, exists) == True
@@ -87,7 +87,17 @@ def test_is_style_exist_by_display_name():
 
 
 def test_has_parent_style():
-    has_parent: Stl = doc.get_style_by_name(family, StyleName('My_20_Style_20_1'))
+    has_parent: Stl = doc.get_style_by_name(family, StyleName('My_20_Style_3a__20_1'))
     no_parent: Stl = doc.get_style_by_name(family, StyleName('standard'))
     assert doc.has_parent_style(has_parent) == True
     assert doc.has_parent_style(no_parent) == False
+
+
+def test_tmp():
+    doc: Doc = Doc(Document("/home/aleks/DocsVault/LibreOfficeDraw/templates/SchematizationTemplate.otg"))
+    stl1: Stl = doc.get_style_by_display_name(family, StyleDisplayName('Image: Base'))
+    assert stl1 is not None
+    stl2: Stl = doc.get_style(family, StyleDisplayName('Image: Base'))
+    assert stl2 is not None
+    exists1: bool = doc.is_style_exist_by_display_name(family, StyleDisplayName('Image: Base'))
+    assert exists1 == True

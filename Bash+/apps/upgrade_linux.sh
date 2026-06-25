@@ -48,4 +48,9 @@ echo "Updating Coursier..."
 cs update
 echo
 
+echo "Updating HuggingFace..."
+hf update
+hf skills update
+echo
+
 echo "DONE"
