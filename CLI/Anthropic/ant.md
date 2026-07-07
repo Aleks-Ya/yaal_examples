@@ -11,6 +11,7 @@ sudo cp /tmp/ant /etc/bash_completion.d/ant
 
 Version: `ant --version`
 Login: `ant auth login`
+Logout: `ant auth logout`
 
 Send a message:
 ```shell

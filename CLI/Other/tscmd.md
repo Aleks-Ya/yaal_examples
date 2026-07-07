@@ -2,9 +2,12 @@
 
 Docs: https://docs.tagspaces.org/dev/command-line-tools/
 
-Install: 
+## Install
 1. TagSpaces: `npm install -global @tagspaces/shell`
 2. Thumbnails generation: `npm i sharp -g`
+
+## Commands
+Help: `tscmd --help`
 
 Index a folder: `tscmd -m indexer /home/aleks/tmp/documents_recognition`
 

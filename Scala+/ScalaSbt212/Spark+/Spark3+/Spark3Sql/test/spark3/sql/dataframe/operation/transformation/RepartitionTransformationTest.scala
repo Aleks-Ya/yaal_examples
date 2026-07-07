@@ -6,11 +6,11 @@ import spark3.sql.{Factory, SparkMatchers}
 
 class RepartitionTransformationTest extends AnyFlatSpec with SparkMatchers {
 
-  it should "change partition number" in {
+  it should "change partitions number" in {
     val df: DataFrame = Factory.peopleDf
     df.rdd.getNumPartitions shouldEqual 1
-    val ds2: Dataset[Row] = df.repartition(2)
-    ds2.rdd.getNumPartitions shouldEqual 2
+    val ds: Dataset[Row] = df.repartition(2)
+    ds.rdd.getNumPartitions shouldEqual 2
   }
 
 }
