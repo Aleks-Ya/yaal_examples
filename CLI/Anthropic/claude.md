@@ -11,3 +11,4 @@ Version: `claude --version`
 Login: `/login`
 Exit: `/exit`
 Generate `CLAUDE.md`: `/init`
+Resume interrupted session: `claude --resume`
