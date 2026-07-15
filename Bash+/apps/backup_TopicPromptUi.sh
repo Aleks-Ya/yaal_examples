@@ -1,0 +1,1 @@
+cd ~/.topic-prompt-ui && zip -r ~/BackupVault/Backup/TopicPromptUi/TopicPromptUi_$(date +%F).zip . -x *.log token.txt

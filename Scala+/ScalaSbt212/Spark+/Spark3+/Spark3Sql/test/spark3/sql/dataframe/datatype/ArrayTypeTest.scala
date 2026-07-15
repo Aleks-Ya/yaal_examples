@@ -74,6 +74,17 @@ class ArrayTypeTest extends AnyFlatSpec with SparkMatchers {
       """{"name":"Canada","orders":[],"first_order":null}""")
   }
 
+  it should "get an absent element of array" in {
+    val df = Factory.createDf("name STRING, orders ARRAY<INT>",
+      Row("USA", Array(10, 20)),
+      Row("Canada", Array(100, 200, 300)))
+    val updatedDf = df.withColumn("third_order", col("orders")(2))
+    updatedDf shouldHaveDDL "name STRING,orders ARRAY<INT>,third_order INT"
+    updatedDf shouldContain(
+      """{"name":"USA","orders":[10,20],"third_order":null}""",
+      """{"name":"Canada","orders":[100,200,300],"third_order":300}""")
+  }
+
   it should "create array of arrays (Int)" in {
     val df = Factory.createDf("numbers ARRAY<ARRAY<INT>>",
       Row(Array(Array(1, 2), Array(3, 4))),
