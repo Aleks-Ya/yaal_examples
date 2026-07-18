@@ -28,7 +28,7 @@ sdk update
 echo
 
 echo "Updating Postman"
-~/pr/home/yaal_examples/CLI/Other/Postman/deploy_postman_git_locally.sh
+~/pr/home/yaal_examples/CLI/Postman/deploy_postman_git_locally.sh
 echo
 
 echo "Updating PIP..."

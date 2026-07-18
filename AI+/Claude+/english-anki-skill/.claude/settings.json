@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__anki-mcp-server__findNotes",
+      "mcp__anki-mcp-server__listDecks",
+      "mcp__anki-mcp-server__notesInfo",
+      "mcp__anki-mcp-server__modelFieldNames",
+      "mcp__anki-mcp-server__getTags"
+    ]
+  }
+}
