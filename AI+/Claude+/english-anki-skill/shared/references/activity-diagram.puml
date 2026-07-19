@@ -1,0 +1,77 @@
+@startuml add-english-word-to-anki
+title Add English word to Anki — activity diagram
+legend right
+  |= color |= meaning |
+  |<#LightBlue>| deterministic script call (scripts/*.py) |
+  |<#LightYellow>| Anki MCP call |
+  |<#LightGreen>| external web lookup (WebSearch/WebFetch) |
+endlegend
+
+start
+:Parse arguments: input file path, optional --dry-run flag;
+:Derive source from file name (strip extension);
+:Run scripts/parse_input.py on the file; <<#LightBlue>>
+if (exit code != 0?) then (yes)
+  :Show reported line errors to user;
+  stop
+endif
+:Read {line, word, sentence} entries\nfrom parse_input.py output;
+
+while (more word/sentence pairs?) is (yes)
+  :Determine POS of the word as used in its sentence;
+  :Pick POS tag from assets/en-pos-anki-tags.md;
+  :Pick source tag from assets/word-sources-anki-tags.md\n(loose match, ignoring a trailing year);
+  :Determine base form + a/an/to prefix\nfor the English field;
+  if (multi-word entry?) then (yes)
+    :Pick unit tag (idiom / phrase / collocation);
+  endif
+
+  :findNotes + notesInfo\n(broad wildcard search on the word); <<#LightYellow>>
+  :Run scripts/find_duplicate.py\n(word, POS tag, candidates); <<#LightBlue>>
+
+  if (duplicate count > 1?) then (yes)
+    :Record report-table row\n(Outcome: ambiguous match, skipped);
+  elseif (duplicate count == 1?) then (yes)
+    :Run scripts/build_example_html.py\n(existing field, word, sentence, source); <<#LightBlue>>
+    if (changed?) then (yes)
+      :updateNoteFields: Example-real-life; <<#LightYellow>>
+    else (no)
+      :Leave field untouched\n(sentence already present);
+    endif
+    :Backfill empty Claude-owned fields\n(skip ones already tagged absent);
+    if (Picture empty and not tagged absent?) then (yes)
+      :Search web for a representative image\n(WebSearch, optionally WebFetch for a direct URL); <<#LightGreen>>
+      if (suitable image found?) then (yes)
+        :Run scripts/fetch_and_resize_image.py\n(url, temp path, 600px cap); <<#LightBlue>>
+        :storeMediaFile: store resized image from temp path\n(filename = word-POS slug); <<#LightYellow>>
+        :Delete temp file;
+      endif
+    endif
+    if (backfilled field still empty?) then (yes)
+      :Add matching ~api::absent::* tag;
+    endif
+    :updateNoteFields: backfilled fields (if any); <<#LightYellow>>
+    :Record report-table row\n(NID, Word, Base form, POS, Outcome);
+  else (no duplicates)
+    :Generate all field values\nper references/field-plan.md;
+    :Run scripts/build_example_html.py\n(existing: null) for Example-real-life; <<#LightBlue>>
+    :Search web for a representative image\n(WebSearch, optionally WebFetch for a direct URL); <<#LightGreen>>
+    if (suitable image found?) then (yes)
+      :Run scripts/fetch_and_resize_image.py\n(url, temp path, 600px cap); <<#LightBlue>>
+      :storeMediaFile: store resized image from temp path\n(filename = word-POS slug); <<#LightYellow>>
+      :Delete temp file;
+      :Set Picture field to <img src="filename">;
+    else (no)
+      :Leave Picture empty;
+    endif
+    :Add ~api::absent::* tags for any empty\nSynonym1/Synonyms/Antonym1/Antonyms/Picture;
+    :addNote to deck En::English; <<#LightYellow>>
+    note right: updateNoteFields / addNote calls, and the fetch_and_resize_image.py /\nstoreMediaFile download+store steps, are all skipped (report-only) in --dry-run mode;\nthe image search itself still runs
+    :Record report-table row\n(NID, Word, Base form, POS, Outcome);
+  endif
+endwhile (no)
+
+:Print report table (one row per word);
+:Print summary line\n(N new notes, M duplicates updated, K skipped);
+stop
+@enduml
