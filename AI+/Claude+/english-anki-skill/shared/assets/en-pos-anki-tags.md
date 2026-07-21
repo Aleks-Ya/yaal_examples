@@ -44,3 +44,25 @@ it.
   e.g. "good/better/best"); a plain adjective keeps the bare `en::parts::adjective`.
 - The remaining families (adverb, conjunction, determiner, exclamation, number, predeterminer,
   preposition, pronoun) have no sub-tags — their bare tag is always the final tag.
+
+## Reconciling an existing note's tag
+
+When a note already exists (e.g. the `populate-existing-english-anki-notes` skill, or the
+`add-english-word-to-anki` duplicate path), first determine the word's most-specific applicable
+`en::parts::*` tag(s) per the rules above, then bring the note's tags into line — four cases:
+
+- **No `en::parts::*` tag at all** → `addTags` the most specific applicable tag(s).
+- **A bare parent tag (e.g. `en::parts::noun`) while a specific sub-tag applies** (e.g. the word is a
+  countable, irregular-plural noun) → **first** `removeTags` the now-redundant bare parent, **then**
+  `addTags` every applicable sub-tag (e.g. `en::parts::noun::countable`, `en::parts::noun::irregular`)
+  — the sub-tag replaces it. The order matters: Anki's `removeTags` is hierarchical — removing
+  `en::parts::noun` also strips every `en::parts::noun::*` sub-tag the note carries — so removing
+  the parent *after* adding the sub-tag silently deletes the sub-tag too. For the same reason, if
+  the note already carried sub-tags of that parent that should be kept, include them in the
+  `addTags` call — the parent removal wipes them as well.
+- **A bare parent tag while no sub-tag applies** (e.g. a plain regular verb keeps `en::parts::verb`, a
+  plain adjective keeps `en::parts::adjective`, an adverb, etc.) → leave it as-is; the bare tag is
+  already the correct final classification.
+- **Already carrying the correct specific tag(s)** → leave as-is.
+
+(In dry-run mode, skip these tag mutations but report the intended change.)

@@ -71,3 +71,56 @@ def test_cli_end_to_end(tmp_path):
     with Image.open(output_path) as image:
         assert image.size == (600, 450)
         assert image.format == "JPEG"
+
+
+def test_cli_batch_resizes_multiple(tmp_path):
+    sources = []
+    items = []
+    for i, size in enumerate([(1200, 900), (800, 800)]):
+        source = tmp_path / f"source{i}.png"
+        source.write_bytes(make_image_bytes(size))
+        output = tmp_path / f"resized{i}.jpg"
+        sources.append((source, output))
+        items.append({"url": source.as_uri(), "path": str(output)})
+
+    result = subprocess.run(
+        [sys.executable, str(SCRIPT), "--batch"],
+        input=json.dumps(items),
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0, result.stderr
+    parsed = json.loads(result.stdout)
+    assert parsed == [
+        {"path": str(sources[0][1]), "width": 600, "height": 450},
+        {"path": str(sources[1][1]), "width": 600, "height": 600},
+    ]
+    for _, output in sources:
+        assert output.exists()
+
+
+def test_cli_batch_reports_per_item_error_without_aborting(tmp_path):
+    source = tmp_path / "source.png"
+    source.write_bytes(make_image_bytes((1200, 900)))
+    good_output = tmp_path / "good.jpg"
+    bad_output = tmp_path / "bad.jpg"
+    items = [
+        {"url": source.as_uri(), "path": str(good_output)},
+        {"url": (tmp_path / "does-not-exist.png").as_uri(), "path": str(bad_output)},
+    ]
+
+    result = subprocess.run(
+        [sys.executable, str(SCRIPT), "--batch"],
+        input=json.dumps(items),
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0, result.stderr
+    parsed = json.loads(result.stdout)
+    assert parsed[0] == {"path": str(good_output), "width": 600, "height": 450}
+    assert parsed[1]["path"] == str(bad_output)
+    assert "error" in parsed[1]
+    assert good_output.exists()
+    assert not bad_output.exists()

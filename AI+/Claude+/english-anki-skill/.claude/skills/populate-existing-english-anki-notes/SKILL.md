@@ -16,18 +16,12 @@ flashcard = note
 NID = Note ID
 
 ## Shared logic
-This skill reuses the same field-derivation rules, helper scripts, and tag vocabularies as the
-sibling `add-english-word-to-anki` skill, all kept once under `shared/`:
-- Per-field value rules: @shared/references/field-plan.md (the "Created by" column marks which
-  fields are Claude-owned and therefore backfillable).
-- Picture download/resize: @shared/scripts/fetch_and_resize_image.py.
-- Example-sentence HTML list builder (used for Examples1-generated): @shared/scripts/build_example_html.py.
-- Audio (mp3) synthesis for the English/Definition/Synonym1/Antonym1 audio fields:
-  @shared/scripts/generate_tts.py (Google Cloud TTS) — see field-plan.md's Audio procedure.
-- Tag vocabularies: @shared/assets/en-pos-anki-tags.md (POS tags).
-
-This skill does **not** parse input files (no @shared/scripts/parse_input.py) and does **not** run
-a duplicate search (no @shared/scripts/find_duplicate.py) — the note is already in hand.
+The core of this skill is the shared **backfill routine**: `shared/references/backfill-routine.md`
+(read it, plus `shared/references/field-plan.md`, before processing the first note). It names every
+helper script involved — **run the scripts under `shared/scripts/`; never read their source**.
+Read `shared/assets/en-pos-anki-tags.md` at step 2.1 (POS tags, incl. "Reconciling an existing
+note's tag"). This skill does not parse input files and does not run a duplicate search — the
+notes are already in hand.
 
 ## Mode
 If the arguments include `--dry-run`, run in **dry-run mode**; otherwise run in **live mode**
@@ -35,7 +29,8 @@ If the arguments include `--dry-run`, run in **dry-run mode**; otherwise run in 
 `/populate-existing-english-anki-notes`.
 
 In dry-run mode, still perform all read-only lookups (`findNotes`, `notesInfo`, `modelFieldNames`,
-`listDecks`) and the `WebSearch`/`WebFetch` image lookup for Picture, needed to report accurate
+`listDecks`) and the `search_images.py` lookup plus candidate download/visual check for Picture
+(unless `--no-pictures` is also given), needed to report accurate
 results, but skip every note-mutating call (`updateNoteFields`, `addTags`, `removeTags`,
 `storeMediaFile`). Instead of mutating, report for each note which fields *would* be backfilled
 (with their planned values), which absence tags *would* be added, and whether `en::to-refine`
@@ -44,6 +39,16 @@ results, but skip every note-mutating call (`updateNoteFields`, `addTags`, `remo
 Optionally the arguments may include `--limit N` (any positive integer) to process at most `N`
 notes in this run — image search is per-note and expensive, so this is useful for a first pass.
 If omitted, process every matching note.
+
+Optionally the arguments may include `--no-pictures`: skip the Picture work entirely — the most
+expensive part of a run — per backfill-routine.md's "No-pictures mode" (no image search, thumbnail
+downloads, visual checks, or full-res fetch, even in dry-run mode) and backfill only the other
+fields. Picture is left empty **without** `~api::absent::picture` (absence was never verified),
+and it does not block completion: the routine's `note_status.py` calls — including the step 2.3
+verdict — take the same `--no-pictures` flag, so an otherwise-complete note still has
+`en::to-refine` removed even though its Picture stays empty. Note the skip in the row's Outcome,
+e.g. "Backfilled Definition; Picture skipped". Combinable with `--dry-run` and `--limit` in any
+order.
 
 ## Output report
 Don't narrate results per note while processing. Instead, accumulate one row per processed note
@@ -75,7 +80,8 @@ Example:
    For each returned id, call `notesInfo` to get its field values and tags. (Use `modelFieldNames`
    / `listDecks` as needed — all read-only.) If `--limit N` was given, keep only the first `N` ids.
    If no notes match, report that and stop.
-2. For each note:
+2. For each note (collect **all** field changes from steps 2.1–2.2 into **one** `updateNoteFields`
+   call per note — the backfill routine's single-write rule; skip it in dry-run mode):
     1. Identify the word and its POS from the note itself (there is no input sentence):
         - The word/base form is the note's `English` field value. If `English` is empty, the note
           is broken — record a report row with Outcome "Skipped: empty English field", do not
@@ -83,66 +89,33 @@ Example:
         - Determine the word's POS from its current `en::parts::*` tag(s) (the note may also carry
           an `en::unit::*` tag) and, where the tag is missing or too coarse, from the
           `Definition`/`English`. Derive the plain POS word from it for the report.
-        - Reconcile the note's POS tag(s) with the *most specific* applicable tag(s) per
-          @shared/assets/en-pos-anki-tags.md's "Choosing the right tag" guidance, then fix the note
-          to match (all tag mutations skipped in dry-run mode, but reported):
-            - No `en::parts::*` tag at all → `addTags` the most specific applicable tag(s).
-            - A bare parent tag (e.g. `en::parts::noun`) while a specific sub-tag applies (e.g. the
-              word is a countable, irregular-plural noun) → `addTags` every applicable sub-tag
-              (e.g. `en::parts::noun::countable`, `en::parts::noun::irregular`) and `removeTags` the
-              now-redundant bare parent — the sub-tag replaces it.
-            - A bare parent tag while **no** sub-tag applies (e.g. a plain regular verb keeps
-              `en::parts::verb`, a plain adjective keeps `en::parts::adjective`, an adverb, etc.) →
-              leave it as-is; the bare tag is already the correct final classification.
-            - Already carrying the correct specific tag(s) → leave as-is.
-          Mention any POS-tag change in the row's Outcome (e.g. "refined POS tag to noun::countable").
-    2. Backfill missing fields: for every field marked "Claude" in @shared/references/field-plan.md's
-       Created-by column (Transcription, Definition, Picture, Russian, Synonym1, Synonyms, Antonym1,
-       Antonyms, Examples1-generated) that is **empty** on the note, generate its value per
-       @shared/references/field-plan.md and write it with `updateNoteFields` (skip the call and just
-       report the planned fill in dry-run mode). Specifics:
-        - Skip Synonym1/Synonyms/Antonym1/Antonyms/Picture if the note already carries the matching
-          absence tag (`~api::absent::synonym1` / `~api::absent::synonyms` / `~api::absent::antonym1`
-          / `~api::absent::antonyms` / `~api::absent::picture`) — that's a confirmed "none exist",
-          not missing data.
-        - **Picture:** search for an image of the word in the sense/POS given by the note's
-          `Definition` (and `Example-real-life`, if present), per field-plan.md's Picture row —
-          `WebSearch` for a direct image URL (`WebFetch` a promising page if needed), then
-          `python3 "shared/scripts/fetch_and_resize_image.py" <url> <temp_output_path> 600`, then
-          `storeMediaFile` with `filename` a slug of word+POS (e.g. `beggar-noun.jpg`), delete the
-          temp file, and set the field to `<img src="filename">`.
-        - **Examples1-generated:** generate up to 10 example sentences using the word and build the
-          `<ul><li>…</li></ul>` list with @shared/scripts/build_example_html.py (one call per
-          sentence, threading its `html` output back in as the next `existing`, starting from
-          `existing: null`, with `source: null`) — exactly as the add skill builds this field. Do
-          not touch `Example-real-life` (that is user-owned real-life-sentence data and there is no
-          new sentence to add).
-        - Transcription / Definition / Russian / Synonym1 / Synonyms / Antonym1 / Antonyms:
-          generate directly per field-plan.md.
-        - **Audio (English-audio-generated, Definition-audio-generated, Synonym1-audio-generated,
-          Antonym1-audio-generated):** for each whose audio field is empty and whose source text
-          field (English / Definition / Synonym1 / Antonym1 respectively) is non-empty — including a
-          source field just backfilled this run — synthesize the mp3 per field-plan.md's Audio
-          procedure: `python3 "shared/scripts/generate_tts.py" "<text>" <temp.mp3>`, `storeMediaFile`
-          under a word+POS+field slug (e.g. `beggar-noun-english.mp3`), delete the temp file, and set
-          the field to `[sound:<filename>]`. Synonym1/Antonym1 audio is skipped when that text field
-          is empty (or absence-tagged).
-        - If a backfilled Synonym1/Synonyms/Antonym1/Antonyms/Picture turns out to have no value
-          after all, add its corresponding absence tag (see the list above) with `addTags` instead
-          of leaving it silently empty (skip the call in dry-run mode).
-        - Leave `Example-real-life` and every non-Claude field (Tense, Comment, the obsolete
-          `*-generated` fields, `Synonyms-audio-generated`/`Antonyms-audio-generated`, etc.) untouched.
-    3. Decide the `en::to-refine` tag: the note is **fully complete** when every Claude field is
-       either non-empty **or** (only for Synonym1/Synonyms/Antonym1/Antonyms/Picture) empty with its
-       matching absence tag present. Transcription, Definition, Russian, and Examples1-generated have
-       no absence tag, so they must be non-empty to count as complete. The four audio fields **also**
-       count: English-audio-generated and Definition-audio-generated must be non-empty; Synonym1- and
-       Antonym1-audio-generated must be non-empty **unless** their source text field is empty/absent
-       (in which case no audio is expected). `Example-real-life` and the empty-by-design
-       `Synonyms-audio-generated`/`Antonyms-audio-generated` do **not** affect completeness. If the
-       note is fully complete, remove the `en::to-refine` tag with `removeTags` (skip the call in
-       dry-run mode and report it as "kept (dry-run)"). Otherwise keep the tag so the note stays in
-       the queue.
+        - Reconcile the note's POS tag(s) with the *most specific* applicable tag(s) following
+          `shared/assets/en-pos-anki-tags.md`'s "Choosing the right tag" and "Reconciling an
+          existing note's tag" guidance (read that file now, if not already loaded; the four cases
+          there: no tag → add; bare parent + sub-tag applies → remove the bare parent **first**, then
+          add the sub-tag(s) — `removeTags` on a parent also strips its `::` sub-tags, so the
+          reverse order deletes the just-added sub-tag; bare parent + no sub-tag → keep; already
+          correct → keep; tag mutations skipped in dry-run mode but reported). Mention any POS-tag change in the row's Outcome (e.g.
+          "refined POS tag to noun::countable").
+        - Normalize the English article per backfill-routine.md step E (prefix rules:
+          field-plan.md's English row). Mention the article edit and any resulting audio
+          regeneration in the row's Outcome — neither counts as a "Filled" field, since that
+          column is reserved for fields backfilled from empty in step 2.2.
+    2. Backfill the empty Claude-owned fields by running the shared **backfill routine**
+       (`shared/references/backfill-routine.md`), using the note's own fields+tags, its `English`
+       value as the word, and the POS from step 2.1. That routine (via `note_status.py`) decides
+       which fields are empty vs. absence-tagged, fills the text fields (Picture, Examples1,
+       Definition, Russian, synonyms/antonyms, Transcription), synthesizes the needed audio in one
+       batch, and tags genuine absences. `Example-real-life` and non-Claude fields are left
+       untouched (there is no new sentence to add). The fields it fills this run are the "Filled"
+       column of the report row.
+    3. Decide the `en::to-refine` tag per the routine's step B5: run `note_status.py` once on the
+       note's **final** state (fields as written this run + tags; add `--no-pictures` when that
+       flag is active); if `remove_refine_tag` is true
+       (i.e. `complete` and the note still carries `en::to-refine`), remove the tag with
+       `removeTags` (skip the call in dry-run mode and report it as "kept (dry-run)"); otherwise
+       keep the tag so the note stays in the queue. Use `incomplete_reasons` to explain a "kept
+       (still incomplete)" row.
     4. Record a report-table row for this note (see `## Output report`).
 3. Once every note has been processed, print the report table (one row per note) followed by the
    aggregate summary line.

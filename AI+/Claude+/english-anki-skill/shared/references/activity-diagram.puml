@@ -4,11 +4,11 @@ legend right
   |= color |= meaning |
   |<#LightBlue>| deterministic script call (scripts/*.py) |
   |<#LightYellow>| Anki MCP call |
-  |<#LightGreen>| external web lookup (WebSearch/WebFetch) |
+  |<#LightGreen>| image search + Read-tool visual check |
 endlegend
 
 start
-:Parse arguments: input file path, optional --dry-run flag;
+:Parse arguments: input file path,\noptional --dry-run / --no-pictures flags;
 :Derive source from file name (strip extension);
 :Run scripts/parse_input.py on the file; <<#LightBlue>>
 if (exit code != 0?) then (yes)
@@ -38,13 +38,14 @@ while (more word/sentence pairs?) is (yes)
     else (no)
       :Leave field untouched\n(sentence already present);
     endif
-    :Backfill empty Claude-owned fields\n(skip ones already tagged absent);
+    :Run scripts/note_status.py\n(which fields empty vs. absence-tagged); <<#LightBlue>>
+    :Backfill empty Claude-owned fields\nper references/backfill-routine.md;
     if (Picture empty and not tagged absent?) then (yes)
-      :Search web for a representative image\n(WebSearch, optionally WebFetch for a direct URL); <<#LightGreen>>
+      :Run scripts/search_images.py\n(depictable query, ranked candidates); <<#LightBlue>>
+      :For top candidates: fetch_and_resize_image.py + view\nwith Read tool, pick best clear fit; <<#LightGreen>>
       if (suitable image found?) then (yes)
-        :Run scripts/fetch_and_resize_image.py\n(url, temp path, 600px cap); <<#LightBlue>>
-        :storeMediaFile: store resized image from temp path\n(filename = word-POS slug); <<#LightYellow>>
-        :Delete temp file;
+        :storeMediaFile: store chosen resized image\n(filename from slugify.py); <<#LightYellow>>
+        :Delete temp files;
       endif
     endif
     if (backfilled field still empty?) then (yes)
@@ -55,18 +56,18 @@ while (more word/sentence pairs?) is (yes)
   else (no duplicates)
     :Generate all field values\nper references/field-plan.md;
     :Run scripts/build_example_html.py\n(existing: null) for Example-real-life; <<#LightBlue>>
-    :Search web for a representative image\n(WebSearch, optionally WebFetch for a direct URL); <<#LightGreen>>
+    :Run scripts/search_images.py\n(depictable query, ranked candidates); <<#LightBlue>>
+    :For top candidates: fetch_and_resize_image.py + view\nwith Read tool, pick best clear fit; <<#LightGreen>>
     if (suitable image found?) then (yes)
-      :Run scripts/fetch_and_resize_image.py\n(url, temp path, 600px cap); <<#LightBlue>>
-      :storeMediaFile: store resized image from temp path\n(filename = word-POS slug); <<#LightYellow>>
-      :Delete temp file;
+      :storeMediaFile: store chosen resized image\n(filename from slugify.py); <<#LightYellow>>
+      :Delete temp files;
       :Set Picture field to <img src="filename">;
     else (no)
       :Leave Picture empty;
     endif
     :Add ~api::absent::* tags for any empty\nSynonym1/Synonyms/Antonym1/Antonyms/Picture;
     :addNote to deck En::English; <<#LightYellow>>
-    note right: updateNoteFields / addNote calls, and the fetch_and_resize_image.py /\nstoreMediaFile download+store steps, are all skipped (report-only) in --dry-run mode;\nthe image search itself still runs
+    note right: updateNoteFields / addNote calls, and the storeMediaFile store step,\nare skipped (report-only) in --dry-run mode; the image search, candidate\ndownload, and Read-tool visual check still run.\nIn --no-pictures mode the whole Picture flow (search, download, visual\ncheck, store) is skipped even under --dry-run; Picture stays empty with no\n~api::absent::picture tag and does not block completion\n(note_status.py is called with --no-pictures)
     :Record report-table row\n(NID, Word, Base form, POS, Outcome);
   endif
 endwhile (no)

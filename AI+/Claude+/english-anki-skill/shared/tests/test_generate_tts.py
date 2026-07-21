@@ -129,3 +129,58 @@ def test_cli_end_to_end(tmp_path, monkeypatch):
     assert output_path.read_bytes() == _StubHandler.audio_bytes
     parsed = json.loads(result.stdout)
     assert parsed == {"path": str(output_path), "bytes": len(_StubHandler.audio_bytes)}
+
+
+def test_cli_batch_mixes_successes_and_per_item_errors(tmp_path):
+    server = HTTPServer(("127.0.0.1", 0), _StubHandler)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        key_file = tmp_path / "api_key.txt"
+        key_file.write_text("test-key\n")
+        english_path = tmp_path / "english.mp3"
+        definition_path = tmp_path / "definition.mp3"
+
+        items = [
+            {"text": "a <b>record</b>", "path": str(english_path)},
+            {"text": "a short definition", "path": str(definition_path)},
+            {"path": str(tmp_path / "broken.mp3")},  # no "text" -> per-item error
+        ]
+        env = {
+            **__import__("os").environ,
+            "GOOGLE_TTS_ENDPOINT": f"http://127.0.0.1:{server.server_port}/text:synthesize",
+            "GOOGLE_TTS_API_KEY_FILE": str(key_file),
+        }
+        result = subprocess.run(
+            [sys.executable, str(SCRIPT), "--batch"],
+            input=json.dumps(items),
+            capture_output=True,
+            text=True,
+            env=env,
+        )
+    finally:
+        server.shutdown()
+
+    assert result.returncode == 0, result.stderr
+    parsed = json.loads(result.stdout)
+    assert parsed[0] == {"path": str(english_path), "bytes": len(_StubHandler.audio_bytes)}
+    assert parsed[1] == {"path": str(definition_path), "bytes": len(_StubHandler.audio_bytes)}
+    assert parsed[2]["error"]
+    assert english_path.read_bytes() == _StubHandler.audio_bytes
+    assert definition_path.read_bytes() == _StubHandler.audio_bytes
+
+
+def test_cli_batch_exits_1_without_api_key_file(tmp_path):
+    env = {
+        **__import__("os").environ,
+        "GOOGLE_TTS_API_KEY_FILE": str(tmp_path / "missing_key.txt"),
+    }
+    result = subprocess.run(
+        [sys.executable, str(SCRIPT), "--batch"],
+        input="[]",
+        capture_output=True,
+        text=True,
+        env=env,
+    )
+    assert result.returncode == 1
+    assert "error" in result.stderr
