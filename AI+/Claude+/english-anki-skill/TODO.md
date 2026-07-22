@@ -8,3 +8,4 @@
 - [X] Specify the report format
 - [X] Pick pictures better
 - [X] Add an article on review
+- [X] Empty files after importing words

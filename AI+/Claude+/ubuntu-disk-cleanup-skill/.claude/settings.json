@@ -1,0 +1,5 @@
+{
+  "env": {
+    "SUDO_ASKPASS": "/usr/bin/ssh-askpass"
+  }
+}

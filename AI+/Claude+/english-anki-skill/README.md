@@ -35,6 +35,11 @@ They're eating you alive, the _beggars_.
 
 See `shared/assets/The Guard.md` for a full example.
 
+The input file(s) act as an inbox: after a **live** run, each fully-imported file is emptied
+(truncated to zero bytes, but not deleted). A file is left untouched if any of its words couldn't be
+cleanly imported (e.g. an ambiguous duplicate), so nothing is lost. `--dry-run` never touches the
+input files.
+
 ## Usage
 
 Run from this directory. `--permission-mode auto` lets the skill run without pausing for a
@@ -56,9 +61,9 @@ claude --permission-mode auto --model sonnet --output-format stream-json --verbo
 
 ```bash
 claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki '/path/to/The Guard 2011.md'"
-claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki '/home/aleks/tmp/!new_anki_words'"
-claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki --dry-run '/home/aleks/tmp/!new_anki_words'"
-claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki --no-pictures '/home/aleks/tmp/!new_anki_words'"
+claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki '/home/aleks/tmp/new_anki_words'"
+claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki --dry-run '/home/aleks/tmp/new_anki_words'"
+claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki --no-pictures '/home/aleks/tmp/new_anki_words'"
 ```
 
 **Fill in existing notes flagged for completion** (tag `en::to-refine`, no input file). `--limit N`

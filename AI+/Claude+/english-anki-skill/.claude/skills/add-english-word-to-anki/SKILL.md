@@ -6,17 +6,17 @@ description: Quickly add a new English word to Anki as a flashcard.
 # Claude skill: Add English word to Anki
 This skill creates a new English word note in Anki, including filling all fields for the new note.
 
-Target note type for new notes is `En-word-or-sentence`. Target deck is `En::English`.
-
-## Abbreviations and synonyms
-POS = Part Of Speech
-flashcard = note
-NID = Note ID
+## Conventions
+Read `shared/references/skill-conventions.md` first — it holds the conventions shared with the
+`populate-existing-english-anki-notes` skill: abbreviations (POS/flashcard/NID), the target note
+type (`En-word-or-sentence`) and deck (`En::English`), the `--dry-run` and `--no-pictures`
+semantics, the single-write rule, and the output-report style. Only the parts specific to *this*
+skill are spelled out below.
 
 ## Helper scripts and reference docs
-All deterministic work is delegated to the scripts under `shared/scripts/` — **run them; never read
-their source** (their CLI contracts are documented at the step that uses each, and in the reference
-docs). Load each reference doc lazily, only when its step is reached:
+Per skill-conventions.md, all deterministic work is delegated to the scripts under
+`shared/scripts/` — **run them; never read their source**. Load each reference doc lazily, only when
+its step is reached:
 
 - `shared/references/field-plan.md` — how each field's value is derived; read it once when the
   first note's fields are being prepared (step 2.1).
@@ -34,14 +34,32 @@ Input data is provided as a path to **either** a single plain-text/Markdown file
 2. Each non-empty line is one real-life sentence. The new word (or phrase) within it is marked by wrapping it in single underscores, e.g. `Just _pin_ a medal to me body.` -> word "pin".
 
 ## Mode
-If the arguments include `--dry-run` (in addition to the file/folder path, in either order), run in **dry-run mode**. Otherwise run in **live mode** (default): e.g. `/add-english-word-to-anki --dry-run '/home/aleks/tmp/!new_anki_words'` vs. `/add-english-word-to-anki '/path/to/file.md'`.
+If the arguments include `--dry-run` (in addition to the file/folder path, in either order), run in **dry-run mode**. Otherwise run in **live mode** (default): e.g. `/add-english-word-to-anki --dry-run '/home/aleks/tmp/new_anki_words'` vs. `/add-english-word-to-anki '/path/to/file.md'`.
 
-Independently of the mode, the arguments may include `--no-pictures` (any position): skip the Picture work entirely — the most expensive part of a run — per backfill-routine.md's "No-pictures mode" (no image search, thumbnail downloads, visual checks, or full-res fetch, even in dry-run mode). Picture is left empty **without** `~api::absent::picture` (absence was never verified), and it does not block a note's completeness: the routine's `note_status.py` calls take the same `--no-pictures` flag, so a note is finished — and any `en::to-refine` it carries is removed — on the strength of the other fields. Note the skip in the row's Outcome, e.g. "Created new note (Picture skipped)".
-
-In dry-run mode, still perform all read-only work (the `find_duplicate.py` duplicate check, the `search_images.py` lookup plus candidate download/visual check for Picture — unless `--no-pictures` is also given) needed to report accurate results, but skip every note-mutating call (`addNote`/`addNotes`, `updateNoteFields`, `addTags`, `storeMediaFile`). Instead of mutating, report what would happen for each word: for a new note, the full planned field values (per field-plan.md), tags, and target deck; for a duplicate, the existing note id and the planned Example-real-life update (or "sentence already present, no change" if it's already there) plus any fields that would be backfilled.
+`--dry-run` and `--no-pictures` follow the shared semantics in skill-conventions.md. Skill-specific
+details:
+- The input file(s) act as an inbox of new words to import. In **live mode**, as a final step
+  (step 3), the skill **empties each fully-processed input file** — truncating it to zero bytes so
+  the inbox is cleared once its words are in Anki (see step 3 for the exact "fully-processed" rule).
+  Emptying a file is a mutation, so in **dry-run mode** input files are left completely untouched
+  (the report instead notes which files *would* be emptied). `--no-pictures` has no effect on this:
+  a Picture skip is a normal successful outcome, so a `--no-pictures` note still counts as fully
+  processed. Note a Picture skip in the row's Outcome, e.g. "Created new note (Picture skipped)".
+- In dry-run mode the read-only work still performed is the `find_duplicate.py` duplicate check and
+  the `search_images.py` lookup plus candidate download/visual check for Picture (unless
+  `--no-pictures` is also given); the note-mutating calls skipped are `addNote`/`addNotes`,
+  `updateNoteFields`, `addTags`, `storeMediaFile`. What to report per word: for a new note, the full
+  planned field values (per field-plan.md), tags, and target deck; for a duplicate, the existing
+  note id and the planned Example-real-life update (or "sentence already present, no change" if it's
+  already there) plus any fields that would be backfilled.
 
 ## Output report
-Don't narrate results per word while processing. Instead, accumulate one row per word/sentence pair (in input order) and print them all as a single Markdown table once every pair has been processed, immediately followed by an aggregate summary line, e.g. "N new notes, M duplicates updated, K skipped". If any input files were skipped as empty (the `skipped` list from step 1), append them to that summary, e.g. "; P empty files skipped: Novartis".
+Follow the output-report style in skill-conventions.md (one accumulated Markdown table, no per-word
+narration, one row per word/sentence pair in input order, then an aggregate summary line). This
+skill's aggregate line reads e.g. "N new notes, M duplicates updated, K skipped". If any input files
+were skipped as empty (the `skipped` list from step 1), append them, e.g. "; P empty files skipped:
+Novartis". Also append an emptied-files note (step 3): in live mode "; emptied 2 input file(s)", or
+in dry-run mode "; would empty 2 input file(s)" (omit if zero).
 
 Columns:
 - **NID** — the Anki note id: the existing note's id for a duplicate (whether or not it was backfilled); the newly created note's id (`addNote`'s return value) for a new note in live mode; the literal `(new)` for a new note in dry-run mode (no id exists yet since `addNote` is skipped).
@@ -85,3 +103,7 @@ Example:
     4. Absence tags (the routine in step 3 applies these; the duplicate backfill in step 2.2.3 reuses the same list): for each of Synonym1, Synonyms, Antonym1, Antonyms left empty because no such synonym/antonym exists, add `~api::absent::synonym1`, `~api::absent::synonyms`, `~api::absent::antonym1`, `~api::absent::antonyms` respectively; if no suitable image was found for Picture (see field-plan.md), leave it empty and add `~api::absent::picture`.
     5. Add the new flashcard to deck `En::English` (skip this call if running in dry-run mode), then record a report-table row for this word (see `## Output report`).
 3. Once every word/sentence pair has been processed, print the report table (one row per word, in input order) followed by the aggregate summary line.
+4. Empty each fully-processed input file (the inbox-clearing step — see `## Mode`). Group the processed entries by their `file` field (from `parse_input.py`'s output). A file is **fully processed** iff every one of its entries was handled cleanly — a new note created, or a duplicate created/updated/"nothing to update" — with **no** ambiguous-match skip ("Ambiguous match (N candidates) — skipped"; the only per-word skip). For each fully-processed file, reconstruct its path from the original argument — if the argument was a single file, that path *is* the file; if it was a folder, the path is `<folder>/<file>` — and:
+    - In **live mode**, truncate it to zero bytes (e.g. `: > "<path>"`). Leave every other file untouched: files with any skipped entry (so nothing is lost) and files already reported as empty in step 1's `skipped` (already empty).
+    - In **dry-run mode**, do **not** touch any file; only count how many *would* be emptied.
+   Report the count in the summary line per `## Output report`.

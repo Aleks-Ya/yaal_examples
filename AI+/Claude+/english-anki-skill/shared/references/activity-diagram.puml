@@ -74,5 +74,7 @@ endwhile (no)
 
 :Print report table (one row per word);
 :Print summary line\n(N new notes, M duplicates updated, K skipped);
+:Empty each fully-processed input file\n(truncate to 0 bytes; files with a skipped word left intact); <<#LightYellow>>
+note right: Live mode only. Skipped in --dry-run (files left untouched;\nthe report just counts which files would be emptied).
 stop
 @enduml

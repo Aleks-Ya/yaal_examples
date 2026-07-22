@@ -10,7 +10,9 @@ full step-by-step process:
 
 - `.claude/skills/add-english-word-to-anki/` — turns real-life sentences (from an input file) into
   new, fully-filled-in flashcards; on a duplicate it appends the sentence and backfills empty
-  Claude-owned fields instead of creating a new note.
+  Claude-owned fields instead of creating a new note. After a live run it empties (truncates to zero
+  bytes) each input file all of whose words were cleanly imported, treating the file as an inbox;
+  dry-run leaves input files untouched.
 - `.claude/skills/populate-existing-english-anki-notes/` — takes **no input file**; it finds
   existing notes flagged for completion (tag `en::to-refine`) and backfills their empty
   Claude-owned fields (essentially the add skill's backfill routine, promoted to a standalone,
@@ -32,6 +34,12 @@ Each skill directory holds only its own `SKILL.md`. Everything shared lives unde
 - `shared/references/backfill-routine.md` — the shared step-by-step for filling every empty
   Claude-owned field of a note in hand (drives `note_status.py` + `slugify.py`); referenced by both
   skills so the backfill/completeness logic lives in one place instead of being repeated in prose.
+- `shared/references/skill-conventions.md` — the conventions shared by both skills (abbreviations,
+  target note type/deck, `--dry-run`/`--no-pictures` semantics, single-write rule, output-report
+  style); each `SKILL.md` links to it and keeps only its skill-specific deltas inline.
+- `shared/references/picture-procedure.md` — the single home for the Picture field: the
+  find/verify/store-the-image procedure and the full `--no-pictures` behavior. `field-plan.md`,
+  `backfill-routine.md`, and `skill-conventions.md` link here instead of restating it.
 - `shared/references/activity-diagram.puml` — PlantUML activity diagram of the add-skill flow.
 - `shared/assets/en-pos-anki-tags.md` / `shared/assets/word-sources-anki-tags.md` — the fixed tag
   vocabularies the skills pick from for part-of-speech and source tags.

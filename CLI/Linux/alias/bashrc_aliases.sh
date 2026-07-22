@@ -37,3 +37,6 @@ alias examples='python ~/pr/home/yaal_examples/Python+/Python3/src/apps/yaal_exa
 alias mtree='mvn dependency:tree -DoutputFile=target/tree.txt'
 
 alias update_postman_git='~/pr/home/yaal_examples/CLI/Other/Postman/deploy_postman_git_locally.sh'
+
+alias adata_mount='sudo mount /dev/sda1 /media/aleks/ADATA'
+alias adata_unmount='sudo umount /media/aleks/ADATA'

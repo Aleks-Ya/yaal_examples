@@ -31,24 +31,12 @@ Inputs you need before running it: the note's current fields and tags, the word'
 
 ## No-pictures mode
 
-Either skill may be invoked with `--no-pictures`. The Picture flow — image search, thumbnail batch
-download, visual check, full-res fetch — is by far the most expensive part of a run, and this mode
-skips it entirely:
-
-- Pass `--no-pictures` to every `note_status.py` call (the B1 worklist and the B5 verdict): an
-  empty, un-absence-tagged Picture then lands in `skipped_fields` instead of
-  `empty_claude_fields`, so it is neither backfill work nor an obstacle to
-  `complete`/`remove_refine_tag` — the note finishes (and drops `en::to-refine`) on the strength
-  of the other fields, with the Picture deliberately left unfilled. (The add skill's duplicate
-  path reuses `find_duplicate.py`'s embedded `status`, which is computed *without* the flag —
-  ignore a `Picture` entry in its `empty_claude_fields`, but do run `note_status.py --no-pictures`
-  for the B5 verdict.)
-- Run none of the Picture procedure in B2 (no `search_images.py`, no `fetch_and_resize_image.py`,
-  no `storeMediaFile` for the picture). This holds in dry-run mode too, where the picture lookups
-  would otherwise still run.
-- Do **not** add `~api::absent::picture` in B4 for the skipped field — absence was never
-  verified; the field simply stays empty and untagged.
-- Everything else — text fields, audio, the other absence tags — proceeds unchanged.
+Either skill may be invoked with `--no-pictures`, which skips the Picture flow (the most expensive
+part of a run) entirely — full behavior in `shared/references/picture-procedure.md`'s "No-pictures
+mode". Routine-local reminder: pass `--no-pictures` to **both** the B1 and B5 `note_status.py`
+calls so the empty Picture lands in `skipped_fields` (not backfill work, not an obstacle to
+`complete`/`remove_refine_tag`); B2 runs none of the Picture procedure (even in dry-run) and B4 adds
+no `~api::absent::picture`. Everything else proceeds unchanged.
 
 ## Step E — English normalization (run first; shared by both skills)
 
@@ -100,11 +88,9 @@ output *is* this call — reuse it instead of calling again.)
 For each field in `empty_claude_fields`, generate its value per `shared/references/field-plan.md`
 (don't write yet — values go into the single final write). Field-specific notes:
 
-- **Picture** — follow field-plan.md's Picture procedure: build a concrete depictable query, run
-  `shared/scripts/search_images.py`, download the top thumbnails in one
-  `shared/scripts/fetch_and_resize_image.py --batch` call, **view them together with the Read
-  tool**, then fetch the winner's full-res image, `storeMediaFile` it under the `picture` slug
-  (step B0) and set the field value to `<img src="filename">`.
+- **Picture** — follow `shared/references/picture-procedure.md`: on success `storeMediaFile` under
+  the `picture` slug (step B0) and set the field value to `<img src="filename">`; on no fitting
+  image, leave empty and tag `~api::absent::picture` (step B4).
 - **Examples1-generated** — generate up to 10 sentences and build the `<ul><li>…</li></ul>` list
   with `shared/scripts/build_example_html.py`, threading each call's `html` output back in as the
   next `existing` (start from `existing: null`, `source: null`).

@@ -60,6 +60,17 @@ When a note already exists (e.g. the `populate-existing-english-anki-notes` skil
   the parent *after* adding the sub-tag silently deletes the sub-tag too. For the same reason, if
   the note already carried sub-tags of that parent that should be kept, include them in the
   `addTags` call — the parent removal wipes them as well.
+
+  > ⚠️ **These two calls are an inseparable pair — never batch tag ops across notes.** The remove
+  > and its paired add belong to the *same note* and must run back-to-back for that note:
+  > `removeTags(note, parent)` immediately followed by `addTags(note, sub-tags)`. Do **not** optimize
+  > a multi-note run into two passes — one pass that `addTags`es sub-tags to every note, then a later
+  > pass that `removeTags`es the bare parents. That later remove pass strips the sub-tags you added
+  > in the first pass (a bulk `removeTags` of `en::parts::noun` wipes `en::parts::noun::countable` on
+  > every note at once). This is the real-world failure that has happened: 53 just-added sub-tags
+  > silently deleted across a batch. There is **no valid ordering** in which a parent `removeTags`
+  > runs after any `addTags` of its children. Whenever you have a parent to remove and children to
+  > add, do them together, per note, remove-before-add, before touching the next note's tags.
 - **A bare parent tag while no sub-tag applies** (e.g. a plain regular verb keeps `en::parts::verb`, a
   plain adjective keeps `en::parts::adjective`, an adverb, etc.) → leave it as-is; the bare tag is
   already the correct final classification.
