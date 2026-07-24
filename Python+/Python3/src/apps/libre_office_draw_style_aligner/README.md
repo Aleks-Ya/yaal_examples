@@ -1,0 +1,1 @@
+# Copy LibreOffice Draw styles from the template to other diagrams

@@ -7,7 +7,7 @@ from apps.libre_office_draw_search.data_types import OdgPath, Text, PageName
 
 @dataclass
 class OdgFileData:
-    page_names: list[str]
+    page_names: list[PageName]
     texts: list[Text]
 
 
@@ -17,7 +17,7 @@ class OdgParser:
     def parse(odg_file: OdgPath) -> OdgFileData:
         document: Document = Document(str(odg_file))
         texts: list[Text] = OdgParser.__extract_texts(document)
-        page_names: list[str] = OdgParser.__extract_page_names(document)
+        page_names: list[PageName] = OdgParser.__extract_page_names(document)
         return OdgFileData(page_names, texts)
 
     @staticmethod

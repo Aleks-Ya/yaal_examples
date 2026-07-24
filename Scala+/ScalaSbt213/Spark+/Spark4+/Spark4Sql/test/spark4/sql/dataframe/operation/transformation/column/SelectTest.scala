@@ -44,7 +44,24 @@ class SelectTest extends AnyFlatSpec with SparkMatchers {
       """{"name":"Mary","age":20}""")
   }
 
-  it should "select a all nested sub-fields (dot)" in {
+  it should "struct expansion" in {
+    val df = Factory.createDf(
+      """person STRUCT<
+        |  name: STRING,
+        |  age: INT
+        |>""".stripMargin,
+      Row(Row("John", 30)),
+      Row(Row("Mary", 25)),
+    )
+
+    val df2 = df.select("person.*")
+    df2 shouldHaveDDL "name STRING,age INT"
+    df2 shouldContain(
+      """{"name":"John","age":30}""",
+      """{"name":"Mary","age":25}""")
+  }
+
+  it should "struct expansion (nested field)" in {
     val df = Factory.createDf(
       """name STRING,
         |info STRUCT<

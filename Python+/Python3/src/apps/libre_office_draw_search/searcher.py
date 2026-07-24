@@ -4,15 +4,18 @@ from pathlib import Path
 
 from apps.libre_office_draw_search.data_types import OdgPath, FileName, PageName, Text, SearchResult, SearchResults, \
     FolderName
-from apps.libre_office_draw_search.odg_parser import OdgFileData, OdgParser
+from apps.libre_office_draw_search.odg_parser import OdgFileData
+from apps.libre_office_draw_search.parse_cache import ParseCache
 
 
 class Searcher:
-    def __init__(self, root_dir: Path):
+    def __init__(self, root_dir: Path, parse_cache: ParseCache | None = None):
         self.__root_dir: Path = root_dir
+        self.__cache: ParseCache = parse_cache if parse_cache is not None else ParseCache()
 
     def search(self, files: list[OdgPath], keywords: list[str]) -> SearchResults:
-        datas: dict[OdgPath, OdgFileData] = {file: OdgParser.parse(file) for file in files}
+        datas: dict[OdgPath, OdgFileData] = {file: self.__cache.get_or_parse(file) for file in files}
+        self.__cache.save()
         pages_count: int = sum(len(data.page_names) for data in datas.values())
         texts_count: int = sum(len(data.texts) for data in datas.values())
 

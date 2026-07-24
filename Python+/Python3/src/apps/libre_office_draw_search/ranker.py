@@ -6,8 +6,8 @@ class Ranker:
     @staticmethod
     def rank_results(search_results: SearchResults) -> SearchResults:
         sorted_search_results: list[SearchResult] = sorted(search_results.results, key=Ranker.__rank, reverse=True)
-        for result in sorted_search_results:
-            result.rank = sorted_search_results.index(result) + 1
+        for index, result in enumerate(sorted_search_results):
+            result.rank = index + 1
         return SearchResults(sorted_search_results, search_results.pages_count, search_results.texts_count,
                              search_results.matches_count)
 
