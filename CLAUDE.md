@@ -44,6 +44,8 @@ infra — check the module's source/resources before assuming a failure is a rea
 **Scala (`Scala+/`)** — `ScalaSbt212/` and `ScalaSbt213/` are sbt multi-project builds (own `build.sbt`
 at their root, subprojects nested inside e.g. `Libs+`, `Kafka+`, `Akka+`); use `sbt` from that root.
 `ScalaMaven/` instead holds standalone Maven projects, one per directory, each with its own `pom.xml`.
+`PlayFramework/` is a separate sbt multi-project build (own `build.sbt`) covering Play Framework and
+Slick examples.
 
 **Kotlin (`Kotlin+/`)** — independent projects, either Gradle (`build.gradle.kts` + `./gradlew`) or
 Maven (`pom.xml`), one per directory (e.g. `kotlin-gradle`, `kotlin-maven`).
@@ -67,6 +69,9 @@ with `rustc`.
 
 **Web (`Web+/`)** — `Angular+/quickstart` and `Svelte+/playground` are standalone npm projects with
 their own `package.json`; run `npm install` then the scripts defined there from that directory.
+`JavaScript+` is also its own npm project (own `package.json`), grouping plain-JS/jQuery examples and
+unit tests. `CSS/`, `HTML/`, and `CodeHighlight/` hold small standalone markup/snippet examples with no
+build step.
 
 **Bash (`Bash+/`)** — examples are `.bats` files (Bats testing framework), organized by topic
 (`conditions/`, `data_structures/`, `files/`, ...). Run a file with `bats <file>.bats`.
