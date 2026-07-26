@@ -28,7 +28,7 @@ Works:
 ```
 alias liquibase_postgres='
 liquibase \
-    --classpath=/home/aleks/pr/home/yaal_examples/Database+/LiquiBase/postgresql-42.2.18.jar \
+    --classpath=/home/aleks/pr/home/yaal_examples/Database+/LiquiBase+/postgresql-42.2.18.jar \
     --driver=org.postgresql.Driver \
     --url="jdbc:postgresql://${IP}:5432/commands" \
     --username=pguser \
