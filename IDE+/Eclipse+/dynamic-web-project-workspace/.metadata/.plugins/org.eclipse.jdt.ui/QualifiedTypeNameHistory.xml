@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.time.LocalDate"/>
-<fullyQualifiedTypeName name="com.google.common.base.Strings"/>
-<fullyQualifiedTypeName name="com.google.common.html.HtmlEscapers"/>
-<fullyQualifiedTypeName name="com.google.common.reflect.Reflection"/>
-<fullyQualifiedTypeName name="java.time.LocalDateTime"/>
-</qualifiedTypeNameHistroy>

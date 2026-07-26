@@ -1,2 +1,0 @@
-INDEX VERSION 1.129+D:\yaal\examples\IDE+\Eclipse+\dynamic-web-project-workspace\.metadata\.plugins\org.eclipse.jdt.core
-360632445.index
