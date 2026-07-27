@@ -9,13 +9,12 @@ endlegend
 
 start
 :Parse arguments: input file path,\noptional --dry-run / --no-pictures flags;
-:Derive source from file name (strip extension);
 :Run scripts/parse_input.py on the file; <<#LightBlue>>
 if (exit code != 0?) then (yes)
   :Show reported line errors to user;
   stop
 endif
-:Read {line, word, sentence} entries\nfrom parse_input.py output;
+:Read {source, line, word, sentence} entries\nfrom parse_input.py output\n(source = each section's # header, null for # NO_SOURCE);
 
 while (more word/sentence pairs?) is (yes)
   :Determine POS of the word as used in its sentence;
@@ -74,7 +73,7 @@ endwhile (no)
 
 :Print report table (one row per word);
 :Print summary line\n(N new notes, M duplicates updated, K skipped);
-:Empty each fully-processed input file\n(truncate to 0 bytes; files with a skipped word left intact); <<#LightYellow>>
-note right: Live mode only. Skipped in --dry-run (files left untouched;\nthe report just counts which files would be emptied).
+:Remove cleanly-imported sentence lines from the input file\nvia parse_input.py --clear (remove_lines); all headers kept,\neven emptied ones; skipped sentences stay; <<#LightBlue>>
+note right: Live mode only. Skipped in --dry-run (file left untouched;\nthe report just counts sentences that would be cleared).
 stop
 @enduml

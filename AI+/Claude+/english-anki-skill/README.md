@@ -20,25 +20,35 @@ session.
 
 ## Input format (add-english-word-to-anki)
 
-Input is **either** a single plain-text/Markdown file **or** a folder of them (only `.md`/`.txt`,
-non-recursive; empty files skipped):
-- Each file's name (without extension) is the **source** for its words, e.g. `The Guard 2011.md`
-  -> source "The Guard 2011".
-- Each non-empty line is one real-life sentence, with the new word or phrase marked by wrapping it
-  in single underscores:
+Input is a **single** plain-text/Markdown file. H1 headers (`# Source`) delimit sources — every
+sentence under a header belongs to that source until the next header:
+- The header text is the **source** for its sentences, e.g. `# The Guard 2011` -> source
+  "The Guard 2011".
+- The special header `# NO_SOURCE` marks a source-less section: its sentences are still imported,
+  but no source is mentioned (no source tag, no source shown in the example field).
+- Empty sections (a header with no sentences, e.g. `# Python`) are allowed.
+- Each non-blank sentence line marks the new word or phrase by wrapping it in single underscores.
+  A sentence before the first header is an error.
 
-```
-Just _pin_ a medal to me body, like those lads coming home from Iraq.
-Look, I know that you've had a lot of fun _batting_ around the American.
+```markdown
+# NO_SOURCE
+Her ability to find a _decent_ job is going to be extremely hard.
+
+# Anthropic Academy
+_Elicitation_: Allows servers to request additional information from users.
+
+# Python
+
+# The Guard 2011
 They're eating you alive, the _beggars_.
 ```
 
-See `shared/assets/The Guard.md` for a full example.
+See `shared/assets/new_words.md` for a full example.
 
-The input file(s) act as an inbox: after a **live** run, each fully-imported file is emptied
-(truncated to zero bytes, but not deleted). A file is left untouched if any of its words couldn't be
-cleanly imported (e.g. an ambiguous duplicate), so nothing is lost. `--dry-run` never touches the
-input files.
+The file acts as an inbox: after a **live** run, the sentences that were cleanly imported are removed
+from it, while **every header is kept** (even ones left empty). A sentence that couldn't be cleanly
+imported (e.g. an ambiguous duplicate) stays under its header, so nothing is lost. `--dry-run` never
+touches the input file.
 
 ## Usage
 
@@ -57,13 +67,12 @@ messages, tool calls, final result):
 claude --permission-mode auto --model sonnet --output-format stream-json --verbose -p "/populate-existing-english-anki-notes"
 ```
 
-**Add new words from a file or a folder of files:**
+**Add new words from a file:**
 
 ```bash
-claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki '/path/to/The Guard 2011.md'"
-claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki '/home/aleks/tmp/new_anki_words'"
-claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki --dry-run '/home/aleks/tmp/new_anki_words'"
-claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki --no-pictures '/home/aleks/tmp/new_anki_words'"
+claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki '/home/aleks/tmp/new_anki_words.md'"
+claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki --dry-run '/home/aleks/tmp/new_anki_words.md'"
+claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki --no-pictures '/home/aleks/tmp/new_anki_words.md'"
 ```
 
 **Fill in existing notes flagged for completion** (tag `en::to-refine`, no input file). `--limit N`

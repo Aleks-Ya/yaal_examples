@@ -8,11 +8,12 @@ Two related Claude Skills that manage English vocabulary flashcards (`En-word-or
 in the `En::English` deck) in Anki. See `README.md` for usage and each skill's `SKILL.md` for its
 full step-by-step process:
 
-- `.claude/skills/add-english-word-to-anki/` — turns real-life sentences (from an input file) into
-  new, fully-filled-in flashcards; on a duplicate it appends the sentence and backfills empty
-  Claude-owned fields instead of creating a new note. After a live run it empties (truncates to zero
-  bytes) each input file all of whose words were cleanly imported, treating the file as an inbox;
-  dry-run leaves input files untouched.
+- `.claude/skills/add-english-word-to-anki/` — turns real-life sentences (from a single input file,
+  with `# Source` H1 headers delimiting sources) into new, fully-filled-in flashcards; on a
+  duplicate it appends the sentence and backfills empty Claude-owned fields instead of creating a new
+  note. Treating the file as an inbox, after a live run it removes the sentence lines that were
+  cleanly imported while keeping every header (even ones left empty); dry-run leaves the input file
+  untouched.
 - `.claude/skills/populate-existing-english-anki-notes/` — takes **no input file**; it finds
   existing notes flagged for completion (tag `en::to-refine`) and backfills their empty
   Claude-owned fields (essentially the add skill's backfill routine, promoted to a standalone,
@@ -45,15 +46,17 @@ Each skill directory holds only its own `SKILL.md`. Everything shared lives unde
   vocabularies the skills pick from for part-of-speech and source tags.
 - `shared/assets/all-anki-tags.md` — a full dump of every tag currently in the collection, kept only
   as reference; the skills do not apply tags from it beyond the two lists above.
-- `shared/assets/The Guard.md` — example input file for the add skill (filename-as-source,
-  `_word_`-marked sentences).
+- `shared/assets/new_words.md` — example input file for the add skill (`# Source` H1 headers
+  delimiting sources, incl. `# NO_SOURCE` and an empty section, over `_word_`-marked sentences).
 - `shared/assets/Example of field Example-real-life.html` — reference for that field's expected HTML
   format.
-- `shared/scripts/parse_input.py` — validates/parses the add skill's `_word_`-marked lines; accepts a
-  single file **or a folder** of `.md`/`.txt` files (non-recursive; empty files skipped, each file's
-  name is the per-entry `source`). Run with `python3 shared/scripts/parse_input.py <file-or-folder>`
-  (prints a JSON `{entries, skipped}` object on success, per-file line errors + exit 1 on failure).
-  Used only by the add skill.
+- `shared/scripts/parse_input.py` — validates/parses the add skill's single input file, whose `# Source`
+  H1 headers delimit sources (`# NO_SOURCE` -> `null` source; empty sections allowed; a sentence before
+  the first header is an error). Run with `python3 shared/scripts/parse_input.py <file>` (prints a JSON
+  `{entries}` object of `{source, line, word, sentence}` on success, per-line errors + exit 1 on
+  failure). A second `--clear` mode (`parse_input.py --clear <file>`, reading `{"remove_lines": [...]}`
+  on stdin) deletes exactly those 1-indexed lines from the file — keeping every other line, headers
+  included — to clear the imported sentences after a live run. Used only by the add skill.
 - `shared/scripts/find_duplicate.py` — decides whether an existing note is a genuine duplicate (a/an/to
   normalization + `en::parts::*` tag-family matching). Preferred **direct mode** (`"<word>" "<pos_tag>"`
   as CLI args) queries AnkiConnect itself (default `http://localhost:8765`, override via

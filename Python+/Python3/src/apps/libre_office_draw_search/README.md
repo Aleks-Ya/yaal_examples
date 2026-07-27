@@ -6,5 +6,5 @@ Usage: `draw FileSystem`
 
 ## Unit-tests
 Run:
-1. Open terminal in `~/yaal_examples/Python+/Python3/tests/apps/libre_office_draw_search`
+1. Open terminal in `~/pr/home/yaal_examples/Python+/Python3/tests/apps/libre_office_draw_search`
 2. Run: `pytest`

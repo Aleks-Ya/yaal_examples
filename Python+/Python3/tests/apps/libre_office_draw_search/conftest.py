@@ -35,3 +35,8 @@ def search_result_1(root_dir: Path) -> SearchResult:
 def search_result_2(root_dir: Path) -> SearchResult:
     return SearchResult(2, OdgPath(root_dir / 'dir1' / 'file2.odg'), [], [FileName("file2.odg")],
                         [PageName("Page 1"), PageName("Page 2")], [])
+
+
+@pytest.fixture
+def unmatched_search_result(root_dir: Path) -> SearchResult:
+    return SearchResult(2, OdgPath(root_dir / 'dir1' / 'unmatched.odg'), [], [], [], [])

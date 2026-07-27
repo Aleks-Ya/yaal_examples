@@ -16,6 +16,8 @@ Aliased on Linux as `draw` → `python .../draw_find.py <keyword...>`.
 convention):
 
 1. **`file_discoverer.py`** (`FileDiscoverer.find_draw_files`) — globs `**/*.odg` under the root dir.
+   `FileDiscoverer.is_root_available` guards this: `draw_find.py` calls it first and prints
+   `Printer.format_missing_root` + exits if the vault is unavailable (see the mount convention below).
 2. **`odg_parser.py`** (`OdgParser.parse`) — opens each `.odg` via the `odfdo` library and extracts
    page names + text (paragraphs and spans) into an `OdgFileData`.
 3. **`searcher.py`** (`Searcher.search`) — matches keywords (lowercased, whitespace-split, flattened)
@@ -43,6 +45,15 @@ printing. `SearchResults` aggregates the list with `pages_count`, `texts_count`,
   alias works when run directly. Don't import from it; put shared logic in the stage modules.
 - **Root dir is hardcoded** to `~/DocsVault/LibreOfficeDraw` in `draw_find.py`. Tests inject their own
   root via fixtures, so keep `Searcher`/`Printer` taking `root_dir` as a constructor arg.
+- **The vault is a mount that may be absent.** `~/DocsVault/LibreOfficeDraw` is normally a
+  Cryptomator mount. When it's unmounted, a `.exists()` check is **not** enough: an open LibreOffice
+  instance leaves behind a skeleton of nested empty dirs and lock files (`.~lock.*.odg#`) but no real
+  `.odg` files, so the path still exists and looks non-empty. `FileDiscoverer.is_root_available`
+  therefore keys off the **presence of at least one `**/*.odg` file** (short-circuit
+  `next(root_dir.glob('**/*.odg'), None)`), and also returns `False` on a missing/non-dir path or an
+  `OSError` from a stale/broken mount — so the app prints a clear "not available (is it mounted?)"
+  message instead of silently reporting 0 files or crashing. Trade-off: a genuinely `.odg`-free but
+  mounted vault also reads as unavailable, which is acceptable since the app only searches `.odg`.
 - **Parsing is cached** by `ParseCache` (`parse_cache.py`): a JSON index keyed by file path + mtime at
   `$XDG_CACHE_HOME/libre_office_draw_search/index.json` (default `~/.cache/...`). Only new/changed
   `.odg` files are re-parsed, so repeat searches over a static vault are near-instant. Files not

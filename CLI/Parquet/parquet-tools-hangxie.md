@@ -24,4 +24,3 @@ Show content of a Parquet file as CSV (N records): `parquet-tools csv -n 5 my.pa
 ### Inspect
 Show row count: `parquet-tools row-count my.parquet`
 Show common info about a Parquet file: `parquet-tools inspect my.parquet`
-Show detailed info about a Parquet file: `parquet-tools inspect --detail /my.parquet`

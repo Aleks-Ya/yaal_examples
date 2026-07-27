@@ -1,4 +1,4 @@
-# parquet-tools CLI
+# (obsolete!) parquet-tools CLI
  
 (!) Last release in 2024
 Replacement: https://github.com/hangxie/parquet-tools

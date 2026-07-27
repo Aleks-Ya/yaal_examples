@@ -9,3 +9,4 @@
 - [X] Pick pictures better
 - [X] Add an article on review
 - [X] Empty files after importing words
+- [X] Single input file with `# Source` headers (replaced the folder-of-files input)

@@ -14,17 +14,19 @@ class Opener:
         while True:
             try:
                 selected_rank: str = input("Enter the rank to open (or press Enter to exit): ")
+                if selected_rank == "":
+                    break
+                matching_result: SearchResult | None = None
                 if selected_rank.isdigit():
                     rank: int = int(selected_rank)
-                    matching_result: SearchResult = next(
-                        (result for result in search_results.results if result.rank == rank), None)
-                    if matching_result:
-                        print(f"Opening file: {matching_result.draw_file}")
-                        Opener.__open_file_in_default_app(matching_result.draw_file)
-                    else:
-                        print("Invalid rank selected.")
+                    matching_result = next(
+                        (result for result in search_results.results
+                         if result.rank == rank and result.is_found()), None)
+                if matching_result:
+                    print(f"Opening file: {matching_result.draw_file}")
+                    Opener.__open_file_in_default_app(matching_result.draw_file)
                 else:
-                    break
+                    print("Invalid rank selected.")
             except KeyboardInterrupt:
                 print()
                 break

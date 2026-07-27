@@ -5,6 +5,12 @@ from apps.libre_office_draw_search.data_types import OdgPath, SearchResults, Sea
 from apps.libre_office_draw_search.printer import Printer
 
 
+def test_format_missing_root(root_dir: Path):
+    act_str: str = Printer.format_missing_root(root_dir)
+    assert str(root_dir) in act_str
+    assert "not available" in act_str
+
+
 def test_format_keywords():
     act_str: str = Printer.format_keywords(["keyword1", "keyword2"])
     exp_str: str = "Keywords: ['keyword1', 'keyword2']"

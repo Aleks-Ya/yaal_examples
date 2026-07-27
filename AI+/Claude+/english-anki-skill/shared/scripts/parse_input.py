@@ -1,20 +1,28 @@
 #!/usr/bin/env python3
-"""Validate and parse add-english-word-to-anki input.
+"""Validate and parse add-english-word-to-anki input, and clear imported lines.
 
-The argument is either a single input file, or a folder of input files. In a
-folder, only regular ``.md``/``.txt`` files (non-recursive, dotfiles ignored)
-are read, sorted by name; files with no non-blank lines are skipped as empty.
+The argument is a single Markdown/plain-text file. H1 headers (``# Source``)
+delimit sources: every sentence under a header belongs to that source until the
+next header. The special header ``# NO_SOURCE`` marks a source-less section — its
+sentences are still processed, but the source is reported as ``null`` (not
+mentioned in fields or tags). Empty sections (a header with no sentences, e.g.
+``# Python``) are allowed. A non-blank sentence before the first header is an
+error.
 
-Each file's name (without extension) is the *source* for every word in it.
-Each non-empty line must contain exactly one word/phrase marked with
+Each non-blank sentence line must contain exactly one word/phrase marked with
 underscores, e.g.: Just _pin_ a medal to me body.
 
-On success, prints a JSON object
-``{"entries": [...], "skipped": [{"file": ..., "reason": "empty"}]}`` to stdout
-and exits 0. Each entry is ``{"source", "file", "line", "word", "sentence"}``
-(sentence has the underscores stripped).
-On failure, prints one error per invalid line (prefixed with the file name) to
-stderr and exits 1. A bad path exits 2.
+Parse mode (``parse_input.py <file>``): on success, prints a JSON object
+``{"entries": [...]}`` to stdout and exits 0. Each entry is
+``{"source", "line", "word", "sentence"}`` (``source`` is ``null`` for a
+``# NO_SOURCE`` section; ``sentence`` has the underscores stripped). On failure,
+prints one error per invalid line to stderr and exits 1. A bad path exits 2.
+
+Clear mode (``parse_input.py --clear <file>``): reads ``{"remove_lines": [...]}``
+(1-indexed line numbers) from stdin, deletes exactly those lines from the file
+(every other line, headers included, is kept verbatim), writes it back, and
+prints ``{"removed": <n>}``. Line-number based, so headers are never touched (the
+caller only ever passes sentence-line numbers).
 """
 import json
 import os
@@ -22,31 +30,48 @@ import re
 import sys
 
 MARKER_RE = re.compile(r"_(.+?)_")
-INPUT_EXTENSIONS = (".md", ".txt")
+HEADER_RE = re.compile(r"^#[ \t]+(.*\S)\s*$")
+NO_SOURCE = "NO_SOURCE"
 
 
 def parse(path):
-    """Parse a single input file. Returns (entries, errors).
+    """Parse the input file. Returns (entries, errors).
 
-    Each entry carries its source (file name without extension) and file
-    (base name), so callers can group results by originating file.
+    Each entry carries the source of its section (the H1 header text, or ``None``
+    for a ``# NO_SOURCE`` section).
     """
     entries = []
     errors = []
-    file_name = os.path.basename(path)
-    source = os.path.splitext(file_name)[0]
+    source = None
+    have_header = False
     with open(path, encoding="utf-8") as f:
         for line_no, raw_line in enumerate(f, start=1):
             line = raw_line.strip()
             if not line:
                 continue
+            if line.startswith("#"):
+                match = HEADER_RE.match(line)
+                if not match:
+                    errors.append(
+                        f"line {line_no}: malformed source header (use '# Source'): {line}"
+                    )
+                    continue
+                title = match.group(1).strip()
+                source = None if title == NO_SOURCE else title
+                have_header = True
+                continue
+            if not have_header:
+                errors.append(
+                    f"line {line_no}: sentence before any '# source' header: {line}"
+                )
+                continue
             matches = MARKER_RE.findall(line)
             if len(matches) == 0:
-                errors.append(f"{file_name} line {line_no}: no word marked with _..._: {line}")
+                errors.append(f"line {line_no}: no word marked with _..._: {line}")
                 continue
             if len(matches) > 1:
                 errors.append(
-                    f"{file_name} line {line_no}: multiple words marked with _..._ "
+                    f"line {line_no}: multiple words marked with _..._ "
                     f"({', '.join(matches)}): {line}"
                 )
                 continue
@@ -55,7 +80,6 @@ def parse(path):
             entries.append(
                 {
                     "source": source,
-                    "file": file_name,
                     "line": line_no,
                     "word": word,
                     "sentence": sentence,
@@ -64,65 +88,49 @@ def parse(path):
     return entries, errors
 
 
-def _is_empty(path):
-    """True if the file has no non-blank lines."""
+def clear(path, remove_lines):
+    """Delete the given 1-indexed lines from the file. Returns the count removed."""
+    remove = set(remove_lines)
     with open(path, encoding="utf-8") as f:
-        return not any(line.strip() for line in f)
-
-
-def input_files(path):
-    """List the input files for a path (a single file, or a folder's contents).
-
-    A folder yields its regular ``.md``/``.txt`` files (non-recursive, dotfiles
-    excluded), sorted by name.
-    """
-    if os.path.isfile(path):
-        return [path]
-    return sorted(
-        os.path.join(path, name)
-        for name in os.listdir(path)
-        if not name.startswith(".")
-        and name.lower().endswith(INPUT_EXTENSIONS)
-        and os.path.isfile(os.path.join(path, name))
-    )
-
-
-def collect(path):
-    """Parse a file or folder. Returns (entries, skipped, errors).
-
-    ``skipped`` lists empty files as ``{"file", "reason": "empty"}``.
-    """
-    entries = []
-    skipped = []
-    errors = []
-    for file_path in input_files(path):
-        if _is_empty(file_path):
-            skipped.append({"file": os.path.basename(file_path), "reason": "empty"})
-            continue
-        file_entries, file_errors = parse(file_path)
-        entries.extend(file_entries)
-        errors.extend(file_errors)
-    return entries, skipped, errors
+        lines = f.readlines()
+    kept = [line for line_no, line in enumerate(lines, start=1) if line_no not in remove]
+    with open(path, "w", encoding="utf-8") as f:
+        f.writelines(kept)
+    return len(remove_lines)
 
 
 def main():
-    if len(sys.argv) != 2:
-        print("usage: parse_input.py <path/to/input-file-or-folder>", file=sys.stderr)
+    args = sys.argv[1:]
+    if args and args[0] == "--clear":
+        if len(args) != 2:
+            print("usage: parse_input.py --clear <path/to/input-file>", file=sys.stderr)
+            sys.exit(2)
+        path = args[1]
+        if not os.path.isfile(path):
+            print(f"not a file: {path}", file=sys.stderr)
+            sys.exit(2)
+        data = json.load(sys.stdin)
+        removed = clear(path, data.get("remove_lines", []))
+        print(json.dumps({"removed": removed}))
+        return
+
+    if len(args) != 1:
+        print("usage: parse_input.py <path/to/input-file>", file=sys.stderr)
         sys.exit(2)
 
-    path = sys.argv[1]
-    if not os.path.isfile(path) and not os.path.isdir(path):
-        print(f"not a file or folder: {path}", file=sys.stderr)
+    path = args[0]
+    if not os.path.isfile(path):
+        print(f"not a file: {path}", file=sys.stderr)
         sys.exit(2)
 
-    entries, skipped, errors = collect(path)
+    entries, errors = parse(path)
 
     if errors:
         for error in errors:
             print(error, file=sys.stderr)
         sys.exit(1)
 
-    print(json.dumps({"entries": entries, "skipped": skipped}, ensure_ascii=False, indent=2))
+    print(json.dumps({"entries": entries}, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":

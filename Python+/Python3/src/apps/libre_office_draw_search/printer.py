@@ -8,6 +8,10 @@ class Printer:
         self.__root_dir: Path = root_dir
 
     @staticmethod
+    def format_missing_root(root_dir: Path) -> str:
+        return f"LibreOffice Draw directory is not available (is it mounted?): '{root_dir}'"
+
+    @staticmethod
     def format_keywords(keywords: list[str]) -> str:
         return f"Keywords: {keywords}"
 

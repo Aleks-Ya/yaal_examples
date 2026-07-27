@@ -3,6 +3,9 @@
 
 set -e
 
+# Ask password upfront
+sudo -v
+
 echo "Delete large logs..."
 sudo truncate -s 0 /var/log/syslog /var/log/kern.log
 echo
@@ -16,10 +19,6 @@ echo
 
 echo "Updating SNAP..."
 sudo snap refresh
-echo
-
-echo "Updating BREW..."
-yes | brew upgrade
 echo
 
 echo "Updating FlatPak..."
@@ -61,6 +60,10 @@ echo
 echo "Updating HuggingFace..."
 hf update
 hf skills update
+echo
+
+echo "Updating BREW..."
+yes | brew upgrade
 echo
 
 echo "DONE"
