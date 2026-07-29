@@ -11,3 +11,4 @@ Claude uses semantic matching, so your request needs to _overlap_ with the descr
 Just _pin_ a medal to me body, like those lads coming home from Iraq.
 Look, I know that you've had a lot of fun _batting_ around the American.
 They're eating you alive, the _beggars_.
+This line has no marked word yet and is ignored, left in place for later.

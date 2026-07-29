@@ -28,7 +28,8 @@ sentence under a header belongs to that source until the next header:
   but no source is mentioned (no source tag, no source shown in the example field).
 - Empty sections (a header with no sentences, e.g. `# Python`) are allowed.
 - Each non-blank sentence line marks the new word or phrase by wrapping it in single underscores.
-  A sentence before the first header is an error.
+  A line with no marker at all is ignored (kept in the file, untouched). A sentence before the
+  first header is an error.
 
 ```markdown
 # NO_SOURCE

@@ -106,13 +106,11 @@ def test_multiple_valid_lines_numbered_correctly(tmp_path):
     assert [e["word"] for e in entries] == ["pin", "batting", "beggars"]
 
 
-def test_reports_line_with_no_marker(tmp_path):
+def test_line_with_no_marker_is_silently_skipped(tmp_path):
     path = write(tmp_path, "# The Guard\nThis line has no marker.\n")
     entries, errors = parse_input.parse(path)
     assert entries == []
-    assert len(errors) == 1
-    assert "line 2" in errors[0]
-    assert "no word marked" in errors[0]
+    assert errors == []
 
 
 def test_reports_line_with_multiple_markers(tmp_path):
@@ -134,9 +132,8 @@ def test_valid_and_invalid_lines_mixed(tmp_path):
     )
     entries, errors = parse_input.parse(path)
     assert [e["word"] for e in entries] == ["pin"]
-    assert len(errors) == 2
-    assert "line 3" in errors[0]
-    assert "line 4" in errors[1]
+    assert len(errors) == 1
+    assert "line 4" in errors[0]
 
 
 def test_sentence_before_any_header_is_error(tmp_path):
@@ -211,13 +208,28 @@ def test_cli_success_prints_json_object_and_exits_zero(tmp_path):
 
 
 def test_cli_failure_prints_errors_and_exits_nonzero(tmp_path):
-    path = write(tmp_path, "# The Guard\nThis line has no marker.\n")
+    path = write(tmp_path, "# The Guard\nThis has _two_ _markers_.\n")
     result = subprocess.run(
         [sys.executable, str(SCRIPT), str(path)], capture_output=True, text=True
     )
     assert result.returncode == 1
     assert result.stdout == ""
-    assert "no word marked" in result.stderr
+    assert "multiple words marked" in result.stderr
+
+
+def test_cli_line_with_no_marker_is_skipped_not_a_failure(tmp_path):
+    write(
+        tmp_path,
+        "# The Guard\nThis line has no marker.\n",
+        name="words.md",
+    )
+    result = subprocess.run(
+        [sys.executable, str(SCRIPT), str(tmp_path / "words.md")],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0
+    assert json.loads(result.stdout) == {"entries": []}
 
 
 def test_cli_bad_path_exits_two(tmp_path):

@@ -9,8 +9,11 @@ mentioned in fields or tags). Empty sections (a header with no sentences, e.g.
 ``# Python``) are allowed. A non-blank sentence before the first header is an
 error.
 
-Each non-blank sentence line must contain exactly one word/phrase marked with
-underscores, e.g.: Just _pin_ a medal to me body.
+A sentence line marks the new word/phrase with underscores, e.g.: Just _pin_ a
+medal to me body. A non-blank line under a header with **no** ``_..._`` marker
+is not a sentence to import — it is silently skipped (no entry, no error) and
+stays in the file untouched. A line with **more than one** marker is still an
+error (which word is the new one is genuinely ambiguous).
 
 Parse mode (``parse_input.py <file>``): on success, prints a JSON object
 ``{"entries": [...]}`` to stdout and exits 0. Each entry is
@@ -67,7 +70,6 @@ def parse(path):
                 continue
             matches = MARKER_RE.findall(line)
             if len(matches) == 0:
-                errors.append(f"line {line_no}: no word marked with _..._: {line}")
                 continue
             if len(matches) > 1:
                 errors.append(

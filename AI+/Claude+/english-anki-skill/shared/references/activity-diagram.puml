@@ -19,7 +19,7 @@ endif
 while (more word/sentence pairs?) is (yes)
   :Determine POS of the word as used in its sentence;
   :Pick POS tag from assets/en-pos-anki-tags.md;
-  :Pick source tag from assets/word-sources-anki-tags.md\n(loose match, ignoring a trailing year);
+  :Pick source tag from Anki (live getTags, source:: prefix\nvia list_source_tags.py)\n(loose match, ignoring a trailing year);
   :Determine base form + a/an/to prefix\nfor the English field;
   if (multi-word entry?) then (yes)
     :Pick unit tag (idiom / phrase / collocation);

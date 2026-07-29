@@ -24,14 +24,15 @@ its step is reached:
   Claude-owned fields (single-write rule, media slugs, batch TTS, absence tags); read together
   with field-plan.md.
 - `shared/assets/en-pos-anki-tags.md` — POS tag vocabulary; read at step 2.1.2.
-- `shared/assets/word-sources-anki-tags.md` — source tag vocabulary; read at step 2.1.3.
+- `shared/scripts/list_source_tags.py` — fetches the current `source::*` tag vocabulary live from
+  Anki (so newly-added source tags are picked up without editing any file); run at step 2.1.3.
 - `shared/assets/new_words.md` — example input file, for humans; don't load it.
 
 ## Input provided per card
 Input data is provided as a path to a **single** plain-text/Markdown file. H1 headers (`# Source`)
 delimit sources — every sentence under a header belongs to that source until the next header:
 1. The header text is the source where the sentences under it were found, e.g. `# The Guard 2011` -> source "The Guard 2011". The special header `# NO_SOURCE` marks a source-less section: its sentences are still processed, but the source is `null` (not mentioned in any field or tag). Empty sections (a header with no sentences, e.g. `# Python`) are allowed. `shared/scripts/parse_input.py` emits this `source` per entry (`null` for a `# NO_SOURCE` section) — don't hand-derive it.
-2. Each non-blank sentence line is one real-life sentence. The new word (or phrase) within it is marked by wrapping it in single underscores, e.g. `Just _pin_ a medal to me body.` -> word "pin". A sentence before the first header is a validation error (parse_input.py exits non-zero).
+2. Each non-blank sentence line is one real-life sentence. The new word (or phrase) within it is marked by wrapping it in single underscores, e.g. `Just _pin_ a medal to me body.` -> word "pin". A non-blank line under a header with no `_..._` marker at all is not a sentence to import — `parse_input.py` silently skips it (no entry, no error) and it stays in the file untouched by step 4's clearing. A line with more than one marker, or a sentence before the first header, is a validation error (parse_input.py exits non-zero).
 
 ## Mode
 If the arguments include `--dry-run` (in addition to the file path, in either order), run in **dry-run mode**. Otherwise run in **live mode** (default): e.g. `/add-english-word-to-anki --dry-run '/home/aleks/tmp/new_anki_words.md'` vs. `/add-english-word-to-anki '/path/to/file.md'`.
@@ -79,7 +80,7 @@ Example:
 ```
 
 ## Steps
-1. Read the input: run `python3 "shared/scripts/parse_input.py" <input file>` to validate and parse the lines. If it exits non-zero, stop and show the user the reported line errors (e.g. `line 3: no word marked with _..._`, or a sentence before the first `# source` header) rather than guessing at a fix. On success it prints a JSON object `{entries}`: `entries` is a JSON array of `{source, line, word, sentence}` objects (underscores already stripped from `sentence`, `source` = the section's `# header` text, or `null` for a `# NO_SOURCE` section) — use that as the list of word/sentence pairs. Keep each entry's `line` — step 4 needs it to clear the imported sentences from the file.
+1. Read the input: run `python3 "shared/scripts/parse_input.py" <input file>` to validate and parse the lines. Lines with no `_..._` marker at all are not errors — the script silently skips them (no entry) and leaves them in the file. If it exits non-zero, stop and show the user the reported line errors (e.g. `line 3: multiple words marked with _..._`, or a sentence before the first `# source` header) rather than guessing at a fix. On success it prints a JSON object `{entries}`: `entries` is a JSON array of `{source, line, word, sentence}` objects (underscores already stripped from `sentence`, `source` = the section's `# header` text, or `null` for a `# NO_SOURCE` section) — use that as the list of word/sentence pairs. Keep each entry's `line` — step 4 needs it to clear the imported sentences from the file.
 2. For each word/sentence pair:
     1. Prepare the necessary information for the new flashcard (read `shared/references/field-plan.md` and `shared/references/backfill-routine.md` now, if not already loaded).
         1. Determine the POS of the word as used in the given sentence.
@@ -88,7 +89,7 @@ Example:
            specific* applicable sub-tag(s) (e.g. `en::parts::noun::countable`, not a bare
            `en::parts::noun`), applying every sub-tag that fits and omitting the bare parent when a
            sub-tag applies.
-        3. Pick the appropriate Anki tag by source of the word (the entry's `source` from step 1) from `shared/assets/word-sources-anki-tags.md` (read it now, if not already loaded; keep empty if not found). If the entry's `source` is `null` (a `# NO_SOURCE` section), apply no source tag at all. Otherwise match loosely (e.g. ignoring a trailing year in the source, such as "The Guard 2011" matching `source::movie::the-guard`) — this tag lookup is independent of the literal source text shown in fields, which always keeps the full header-derived source (year included).
+        3. Pick the appropriate Anki tag by source of the word (the entry's `source` from step 1). Get the current source-tag vocabulary by running `python3 "shared/scripts/list_source_tags.py"` **once per run** — it queries Anki live (`getTags`, filtered to the `source::` prefix) and prints `{"source_tags": [...]}`; cache that list and reuse it for the remaining words rather than re-running it per word. Match the entry's `source` against that live list, keeping empty if not found. If the entry's `source` is `null` (a `# NO_SOURCE` section), apply no source tag at all. Otherwise match loosely (e.g. ignoring a trailing year in the source, such as "The Guard 2011" matching `source::movie::the-guard`) — this tag lookup is independent of the literal source text shown in fields, which always keeps the full header-derived source (year included).
         4. Determine the base form of the word (e.g. singular/infinitive/dictionary form). This becomes the value used for the English field, prefixed per the collection's convention of avoiding Anki's exact-duplicate warning: `a`/`an` for singular countable nouns (e.g. "a bucket", "an idea"), `to` for verbs (e.g. "to conquer"). Other POS get no prefix.
         5. If the word/entry is multi-word, additionally pick one unit tag:
             - `en::unit::idiom` — figurative meaning, can't be inferred from the individual words (e.g. "kick the bucket" = die)

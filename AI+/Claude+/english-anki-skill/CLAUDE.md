@@ -42,12 +42,14 @@ Each skill directory holds only its own `SKILL.md`. Everything shared lives unde
   find/verify/store-the-image procedure and the full `--no-pictures` behavior. `field-plan.md`,
   `backfill-routine.md`, and `skill-conventions.md` link here instead of restating it.
 - `shared/references/activity-diagram.puml` — PlantUML activity diagram of the add-skill flow.
-- `shared/assets/en-pos-anki-tags.md` / `shared/assets/word-sources-anki-tags.md` — the fixed tag
-  vocabularies the skills pick from for part-of-speech and source tags.
+- `shared/assets/en-pos-anki-tags.md` — the fixed part-of-speech tag vocabulary the skills pick from.
+  Source tags are **not** kept in a file: the add skill fetches them live from Anki each run via
+  `shared/scripts/list_source_tags.py` (so newly-added source tags are picked up automatically).
 - `shared/assets/all-anki-tags.md` — a full dump of every tag currently in the collection, kept only
-  as reference; the skills do not apply tags from it beyond the two lists above.
+  as reference; the skills do not apply tags from it beyond the POS list and the live source-tag fetch.
 - `shared/assets/new_words.md` — example input file for the add skill (`# Source` H1 headers
-  delimiting sources, incl. `# NO_SOURCE` and an empty section, over `_word_`-marked sentences).
+  delimiting sources, incl. `# NO_SOURCE` and an empty section, over `_word_`-marked sentences, plus
+  an unmarked line showing the ignored-and-kept case).
 - `shared/assets/Example of field Example-real-life.html` — reference for that field's expected HTML
   format.
 - `shared/scripts/parse_input.py` — validates/parses the add skill's single input file, whose `# Source`
@@ -63,6 +65,11 @@ Each skill directory holds only its own `SKILL.md`. Everything shared lives unde
   `ANKICONNECT_URL`) and, for a unique match, also returns a trimmed note payload (small text fields +
   a ready `note_status.py` result) so the skill needs no follow-up `notesInfo`; legacy stdin mode takes
   `{word, pos_tag, candidates}` JSON. Used only by the add skill.
+- `shared/scripts/list_source_tags.py` — fetches the current `source::*` tag vocabulary live from Anki
+  (`getTags` filtered to the `source::` prefix; default `http://localhost:8765`, override via
+  `ANKICONNECT_URL`), sorted, as `{"source_tags": [...]}` JSON out — so a source tag added in Anki is
+  used without editing any file (replaces the old static `word-sources-anki-tags.md`). No-arg CLI;
+  stdlib-only. Used only by the add skill.
 - `shared/scripts/build_example_html.py` — builds/appends a note's `<ul><li>...</li></ul>`
   example-sentence field (handles legacy plain-text wrapping, sentence dedupe, `<b>` bolding); JSON in
   on stdin, JSON out on stdout. Used by both skills (Example-real-life / Examples1-generated).
@@ -94,13 +101,13 @@ Each skill directory holds only its own `SKILL.md`. Everything shared lives unde
   `storeMediaFile` overwrites rather than accumulates; CLI args in
   (`<word> <pos> [--field …] [--ext jpg|mp3]`, or `--all-media` for every filename a note can need —
   Picture jpg + the four audio mp3s — in one call), JSON out. Used by both skills; stdlib-only.
-- `shared/tests/` — pytest suite for the eight scripts above (unit tests against their pure functions
+- `shared/tests/` — pytest suite for the nine scripts above (unit tests against their pure functions
   plus one CLI/subprocess end-to-end test per script).
 - `pytest.ini` (project root) — `pythonpath = shared/scripts` (so test modules can `import` the
   scripts directly) and `testpaths = shared/tests`, same convention as `Python+/Python3/pytest.ini`.
 - `requirements.txt` (project root) — Python dependencies for the scripts above (currently just Pillow).
 
-These are otherwise pure instruction-based skills, with these eight shared scripts (and their tests)
+These are otherwise pure instruction-based skills, with these nine shared scripts (and their tests)
 plus the `shared/references/` docs as their only deterministic helper code.
 
 ## Running tests
