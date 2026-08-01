@@ -1,11 +1,15 @@
 # Claude Skills for English vocabulary flashcards in Anki
 
-Two Claude Code skills that manage `En-word-or-sentence` flashcards in the `En::English` Anki deck:
+Claude Code skills for an English-learning workflow. Two manage `En-word-or-sentence` flashcards in
+the `En::English` Anki deck; the third is a standalone subtitle-cleanup helper that feeds them:
 
 - **`add-english-word-to-anki`** — turns a list of real-life sentences into fully-filled-in new
   flashcards.
 - **`populate-existing-english-anki-notes`** — takes no input file; finds existing notes tagged
   `en::to-refine` and backfills their empty fields.
+- **`clean-movie-subtitles`** — standalone (no Anki). Cleans a movie-subtitle file (SRT or plain
+  text) into readable prose saved beside it with a ` clean` suffix. A handy source of real-life
+  sentences to then feed into `add-english-word-to-anki`.
 
 ## Requirements
 
@@ -83,6 +87,19 @@ processes at most `N` notes in one run:
 claude --permission-mode auto --model sonnet -p "/populate-existing-english-anki-notes"
 claude --permission-mode auto --model sonnet -p "/populate-existing-english-anki-notes --dry-run --limit 3"
 claude --permission-mode auto --model sonnet -p "/populate-existing-english-anki-notes --no-pictures --limit 10"
+```
+
+**Clean a movie-subtitle file** (`clean-movie-subtitles`) — no Anki needed. Pass a path to an `.srt`
+or plain-text subtitle file. It removes timestamps/cue numbers/formatting tags, puts one sentence per
+line, corrects punctuation, restores censored coarse words (`f*ck` -> `fuck`), strips leading dialogue
+dashes (`- You okay?` -> `You okay?`), removes speaker labels (keeping sound cues like `[music]`) and
+empty lines, and writes the result to a ` clean` file next to
+the input (`/tmp/Backrooms 2026.txt` -> `/tmp/Backrooms 2026 clean.txt`). `--dry-run` reports the
+planned output path without writing:
+
+```bash
+claude --permission-mode auto --model sonnet -p "/clean-movie-subtitles '/tmp/Backrooms 2026.txt'"
+claude --permission-mode auto --model sonnet -p "/clean-movie-subtitles --dry-run '/tmp/Backrooms 2026.txt'"
 ```
 
 See each skill's `SKILL.md` for the full step-by-step process.

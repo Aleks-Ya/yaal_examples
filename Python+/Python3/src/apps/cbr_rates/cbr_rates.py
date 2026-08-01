@@ -4,6 +4,7 @@ from decimal import Decimal
 from typing import Optional, NewType
 
 import requests
+from requests import get, Session
 from bs4 import BeautifulSoup, Tag
 from requests import Response
 
@@ -25,8 +26,10 @@ class Currency:
 def load_cbr_rates(day: date) -> dict[CurrencyCode, Currency]:
     date_str: str = day.strftime("%d.%m.%Y")
     print(f"Date: {date_str}\n")
+    session: Session = Session()
+    session.get("https://cbr.ru/currency_base")
     url: str = f"https://cbr.ru/currency_base/daily?UniDbQuery.Posted=True&UniDbQuery.To={date_str}"
-    response: Response = requests.get(url)
+    response: Response = session.get(url)
     if response.status_code != 200:
         raise Exception(f"Invalid response code: {response}")
     soup: BeautifulSoup = BeautifulSoup(response.text, 'html.parser')
@@ -45,7 +48,7 @@ def load_cbr_rates(day: date) -> dict[CurrencyCode, Currency]:
 def load_wise_rates(code: CurrencyCode, day: date) -> dict[CurrencyCode, Currency]:
     date_str: str = day.strftime("%d-%m-%Y")
     url: str = f"https://wise.com/us/currency-converter/{code.lower()}-to-rub-rate/history/{date_str}"
-    response: Response = requests.get(url)
+    response: Response = get(url)
     if response.status_code != 200:
         raise Exception(f"Invalid response code: {response}")
     soup: BeautifulSoup = BeautifulSoup(response.text, 'html.parser')

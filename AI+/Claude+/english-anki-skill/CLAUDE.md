@@ -4,9 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Two related Claude Skills that manage English vocabulary flashcards (`En-word-or-sentence` notes
-in the `En::English` deck) in Anki. See `README.md` for usage and each skill's `SKILL.md` for its
-full step-by-step process:
+Claude Skills for the user's English-learning workflow. Two of them manage English vocabulary
+flashcards (`En-word-or-sentence` notes in the `En::English` deck) in Anki; a third is a standalone
+subtitle-cleanup helper whose output feeds the flashcard skills. See `README.md` for usage and each
+skill's `SKILL.md` for its full step-by-step process:
 
 - `.claude/skills/add-english-word-to-anki/` — turns real-life sentences (from a single input file,
   with `# Source` H1 headers delimiting sources) into new, fully-filled-in flashcards; on a
@@ -18,14 +19,28 @@ full step-by-step process:
   existing notes flagged for completion (tag `en::to-refine`) and backfills their empty
   Claude-owned fields (essentially the add skill's backfill routine, promoted to a standalone,
   tag-driven flow). Removes `en::to-refine` from a note once it is fully complete.
+- `.claude/skills/clean-movie-subtitles/` — **standalone** (no Anki, no MCP). Takes a path to a
+  subtitle file (SRT or plain text) and writes a cleaned copy with a ` clean` suffix
+  (`/tmp/Backrooms 2026.txt` -> `/tmp/Backrooms 2026 clean.txt`): strips timestamps/cue
+  numbers/formatting tags, puts one sentence per line, fixes punctuation, restores censored coarse
+  words, strips leading dialogue dashes (`- You okay?` -> `You okay?`), removes speaker labels
+  (keeping sound cues) and empty lines. Its `--dry-run` reports the
+  planned output path without writing. Lives here only because its cleaned sentences are a natural
+  input to `add-english-word-to-anki`; it shares no code with the Anki skills, so — unlike them — it
+  keeps its own `scripts/`, `tests/`, and `assets/` inside its skill directory (the
+  `ubuntu-disk-cleanup-skill` pattern) rather than under `shared/`.
 
-Both skills share one copy of the deterministic helper scripts, the field-derivation reference,
-and the tag vocabularies under the project-level `shared/` directory (outside `.claude/skills/` so
-the skill loader never treats it as a skill).
+The two Anki skills share one copy of the deterministic helper scripts, the field-derivation
+reference, and the tag vocabularies under the project-level `shared/` directory (outside
+`.claude/skills/` so the skill loader never treats it as a skill). `shared/` is the **Anki pair's**
+library; the standalone subtitle skill owns its files under its own directory.
 
 ## Layout
 
-Each skill directory holds only its own `SKILL.md`. Everything shared lives under `shared/`:
+The two Anki skill directories hold only their own `SKILL.md`; everything they share lives under
+`shared/`. (The standalone `clean-movie-subtitles/` skill instead nests its own
+`scripts/strip_subtitles.py`, `tests/test_strip_subtitles.py`, and `assets/example.srt` — it shares
+nothing with `shared/`.)
 
 - `.claude/skills/<skill>/SKILL.md` — the skill definition: flags (`--dry-run`, `--no-pictures`,
   the populate skill's `--limit`) and the step-by-step process. Both reference the `shared/…` files
@@ -103,12 +118,25 @@ Each skill directory holds only its own `SKILL.md`. Everything shared lives unde
   Picture jpg + the four audio mp3s — in one call), JSON out. Used by both skills; stdlib-only.
 - `shared/tests/` — pytest suite for the nine scripts above (unit tests against their pure functions
   plus one CLI/subprocess end-to-end test per script).
-- `pytest.ini` (project root) — `pythonpath = shared/scripts` (so test modules can `import` the
-  scripts directly) and `testpaths = shared/tests`, same convention as `Python+/Python3/pytest.ini`.
+- `pytest.ini` (project root) — `pythonpath` / `testpaths` list both `shared/scripts`+`shared/tests`
+  (the Anki toolkit) and the subtitle skill's own `…/clean-movie-subtitles/scripts`+`…/tests`, so a
+  bare `pytest` from the project root runs every skill's suite; same convention as
+  `Python+/Python3/pytest.ini`.
 - `requirements.txt` (project root) — Python dependencies for the scripts above (currently just Pillow).
 
-These are otherwise pure instruction-based skills, with these nine shared scripts (and their tests)
-plus the `shared/references/` docs as their only deterministic helper code.
+The two Anki skills are otherwise pure instruction-based skills, with these nine shared scripts (and
+their tests) plus the `shared/references/` docs as their only deterministic helper code.
+
+### The standalone `clean-movie-subtitles` skill's own files
+Nested under its skill directory, not `shared/` (it shares nothing with the Anki toolkit):
+- `.claude/skills/clean-movie-subtitles/scripts/strip_subtitles.py` — the skill's only helper:
+  mechanically strips a subtitle file (`<input path>` CLI arg, JSON out `{output_path, format, text,
+  input_lines, output_lines}`) — SRT cue indices + `-->` timestamp lines, standalone/leading
+  plain-text timestamps, inline formatting tags (`<i>`/`{…}`), and empty lines; keeps sound cues and
+  speaker labels (the skill removes labels in its linguistic pass). Writes no file; exits 2 with a
+  JSON error on a bad path; stdlib-only.
+- `.claude/skills/clean-movie-subtitles/tests/test_strip_subtitles.py` — its pytest suite.
+- `.claude/skills/clean-movie-subtitles/assets/example.srt` — a small sample SRT for manual runs.
 
 ## Running tests
 ```

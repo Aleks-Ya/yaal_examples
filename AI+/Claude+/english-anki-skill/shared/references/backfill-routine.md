@@ -100,10 +100,13 @@ For each field in `empty_claude_fields`, generate its value per `shared/referenc
 ## Step B3 — Synthesize the audio in one batch
 
 The definitive audio worklist is, deterministically (no extra `note_status.py` call):
-`audio_to_generate` from step B1, **plus** the paired audio field of each text field just filled in
+`audio_to_generate` from step B1, **plus** the paired audio field of every text field just filled in
 B2 or normalized in E (English / Definition / Synonym1 / Antonym1 → their `-audio-generated`
-fields), skipping any whose audio field already holds a `[sound:…]` (except a stale English audio
-from step E, which is regenerated).
+fields). The paired audio of a B2/E field is **always (re)generated, even when that audio field
+already holds a `[sound:…]`**: its source text was just (re)written, so any existing audio is stale
+(e.g. a note whose `Definition` was empty but still carried an old `Definition-audio-generated`). The
+deterministic slug means `storeMediaFile` overwrites the old mp3 in place and the `[sound:<filename>]`
+value is unchanged.
 
 Synthesize all of them in **one** call following field-plan.md's Audio procedure —
 `shared/scripts/generate_tts.py --batch` with a JSON array of `{"text": "<HTML-stripped source
