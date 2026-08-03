@@ -11,27 +11,31 @@ import static net.javacrumbs.jsonunit.core.Option.TREATING_NULL_AS_ABSENT;
 class HelloWorldTest {
 
     @Test
-    void test() {
-        // compares two JSON documents
+    void testJsonEquals() {
         assertJsonEquals("{\"test\":1}", "{\n\"test\": 1\n}");
+    }
 
-        // objects are automatically serialized before comparison
-//        assertJsonEquals(jsonObject, "{\n\"test\": 1\n}");
-
-        // compares only part
+    @Test
+    void testJsonPartEquals() {
         assertJsonPartEquals("2", "{\"test\":[{\"value\":1},{\"value\":2}]}",
                 "test[1].value");
+    }
 
-        // extra options can be specified
+    @Test
+    void testJsonEqualsWithOptions() {
         assertJsonEquals("{\"test\":{\"a\":1}}",
                 "{\"test\":{\"a\":1, \"b\": null}}",
                 when(TREATING_NULL_AS_ABSENT));
+    }
 
-        // compares only the structure, not the values
+    @Test
+    void testJsonEqualsIgnoringValues() {
         assertJsonEquals("[{\"test\":1}, {\"test\":2}]",
                 "[{\n\"test\": 1\n}, {\"test\": 4}]", when(IGNORING_VALUES));
+    }
 
-        // Lenient parsing of expected value
+    @Test
+    void testLenientParsingOfJson() {
         assertJsonEquals("{//Look ma, no quotation marks\n test:'value'}",
                 "{\n\"test\": \"value\"\n}");
     }

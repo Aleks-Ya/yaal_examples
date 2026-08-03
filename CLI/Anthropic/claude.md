@@ -8,6 +8,11 @@ Help: `claude --help`
 Help for command: `claude mcp --help`
 Version: `claude --version`
 
+## Start Claude
+Start Claude in the auto permission mode: `claude --permission-mode auto`
+Start Claude with given default model: `claude --model sonnet`
+Execute given prompt and show response: `claude -p "Print current date and time"`
+
 ## Commands
 Login: `/login`
 Exit: `/exit`

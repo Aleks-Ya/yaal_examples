@@ -18,8 +18,11 @@ Per skill-conventions.md, all deterministic work is delegated to the scripts und
 `shared/scripts/` — **run them; never read their source**. Load each reference doc lazily, only when
 its step is reached:
 
-- `shared/references/field-plan.md` — how each field's value is derived; read it once when the
-  first note's fields are being prepared (step 2.1).
+- `shared/references/field-plan.md` — the **index** of how each field's value is derived; read it
+  once when the first note's fields are being prepared (step 2.1). Rows whose rule needs more than a
+  line link to a per-field reference file (`english-article-prefix.md`, `definition-rules.md`,
+  `example-real-life-format.md`, `audio-procedure.md`, `picture-procedure.md`) — open one lazily,
+  when that field is actually being generated.
 - `shared/references/backfill-routine.md` — the shared routine for filling a note's empty
   Claude-owned fields (single-write rule, media slugs, batch TTS, absence tags); read together
   with field-plan.md.
@@ -29,13 +32,14 @@ its step is reached:
 - `shared/assets/new_words.md` — example input file, for humans; don't load it.
 
 ## Input provided per card
-Input data is provided as a path to a **single** plain-text/Markdown file. H1 headers (`# Source`)
+Input data is provided as a path to a **single** plain-text/Markdown file; if no path is given,
+default to `new_anki_words.md` in the project root. H1 headers (`# Source`)
 delimit sources — every sentence under a header belongs to that source until the next header:
 1. The header text is the source where the sentences under it were found, e.g. `# The Guard 2011` -> source "The Guard 2011". The special header `# NO_SOURCE` marks a source-less section: its sentences are still processed, but the source is `null` (not mentioned in any field or tag). Empty sections (a header with no sentences, e.g. `# Python`) are allowed. `shared/scripts/parse_input.py` emits this `source` per entry (`null` for a `# NO_SOURCE` section) — don't hand-derive it.
 2. Each non-blank sentence line is one real-life sentence. The new word (or phrase) within it is marked by wrapping it in single underscores, e.g. `Just _pin_ a medal to me body.` -> word "pin". A non-blank line under a header with no `_..._` marker at all is not a sentence to import — `parse_input.py` silently skips it (no entry, no error) and it stays in the file untouched by step 4's clearing. A line with more than one marker, or a sentence before the first header, is a validation error (parse_input.py exits non-zero).
 
 ## Mode
-If the arguments include `--dry-run` (in addition to the file path, in either order), run in **dry-run mode**. Otherwise run in **live mode** (default): e.g. `/add-english-word-to-anki --dry-run '/home/aleks/tmp/new_anki_words.md'` vs. `/add-english-word-to-anki '/path/to/file.md'`.
+If the arguments include `--dry-run` (in addition to the file path, in either order), run in **dry-run mode**. Otherwise run in **live mode** (default): e.g. `/add-english-word-to-anki --dry-run '/home/aleks/tmp/new_anki_words.md'` vs. `/add-english-word-to-anki '/path/to/file.md'`. If no file path is given at all (only `--dry-run`/`--no-pictures`, or no arguments), use the default input file `new_anki_words.md` in the project root — e.g. `/add-english-word-to-anki --dry-run` runs a dry-run over that default file.
 
 `--dry-run` and `--no-pictures` follow the shared semantics in skill-conventions.md. Skill-specific
 details:

@@ -17,7 +17,9 @@ out below.
 
 ## Shared logic
 The core of this skill is the shared **backfill routine**: `shared/references/backfill-routine.md`
-(read it, plus `shared/references/field-plan.md`, before processing the first note). It names every
+(read it, plus `shared/references/field-plan.md`, before processing the first note). field-plan.md
+is an **index**: its rows link to per-field reference files (article prefix, definition rules, audio,
+picture) — open one when that field is actually being generated. It names every
 helper script involved — per skill-conventions.md, **run the scripts under `shared/scripts/`; never
 read their source**. Read `shared/assets/en-pos-anki-tags.md` at step 2.1 (POS tags, incl.
 "Reconciling an existing note's tag"). This skill does not parse input files and does not run a
@@ -98,7 +100,7 @@ Example:
           happened: 53 just-added sub-tags silently wiped.) Mention any POS-tag change in the row's
           Outcome (e.g. "refined POS tag to noun::countable").
         - Normalize the English article per backfill-routine.md step E (prefix rules:
-          field-plan.md's English row). Mention the article edit and any resulting audio
+          `shared/references/english-article-prefix.md`). Mention the article edit and any resulting audio
           regeneration in the row's Outcome — neither counts as a "Filled" field, since that
           column is reserved for fields backfilled from empty in step 2.2.
     2. Backfill the empty Claude-owned fields by running the shared **backfill routine**

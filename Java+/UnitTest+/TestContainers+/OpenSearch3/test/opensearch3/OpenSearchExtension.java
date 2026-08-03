@@ -14,15 +14,24 @@ import org.opensearch.testcontainers.OpenSearchContainer;
 import org.testcontainers.utility.DockerImageName;
 
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OpenSearchExtension implements BeforeEachCallback, AfterEachCallback, ParameterResolver {
-    public static final DockerImageName OPENSEARCH3 = DockerImageName.parse("opensearchproject/opensearch:3.6.0");
+    public static final DockerImageName OPENSEARCH3 = DockerImageName.parse("opensearchproject/opensearch:3.8.0");
+    private final Map<String, String> environment = new HashMap<>();
     private OpenSearchContainer<?> container;
     private RestHighLevelClient client;
+
+    public OpenSearchExtension withEnv(String key, String value) {
+        environment.put(key, value);
+        return this;
+    }
 
     @Override
     public void beforeEach(@NonNull ExtensionContext context) throws URISyntaxException {
         container = new OpenSearchContainer<>(OPENSEARCH3);
+        container.withEnv(environment);
         container.start();
         var builder = RestClient.builder(HttpHost.create(container.getHttpHostAddress()));
         client = new RestHighLevelClient(builder);

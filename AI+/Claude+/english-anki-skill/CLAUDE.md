@@ -10,7 +10,8 @@ subtitle-cleanup helper whose output feeds the flashcard skills. See `README.md`
 skill's `SKILL.md` for its full step-by-step process:
 
 - `.claude/skills/add-english-word-to-anki/` — turns real-life sentences (from a single input file,
-  with `# Source` H1 headers delimiting sources) into new, fully-filled-in flashcards; on a
+  with `# Source` H1 headers delimiting sources, defaulting to `new_anki_words.md` in the project
+  root if no path is given) into new, fully-filled-in flashcards; on a
   duplicate it appends the sentence and backfills empty Claude-owned fields instead of creating a new
   note. Treating the file as an inbox, after a live run it removes the sentence lines that were
   cleanly imported while keeping every header (even ones left empty); dry-run leaves the input file
@@ -45,8 +46,10 @@ nothing with `shared/`.)
 - `.claude/skills/<skill>/SKILL.md` — the skill definition: flags (`--dry-run`, `--no-pictures`,
   the populate skill's `--limit`) and the step-by-step process. Both reference the `shared/…` files
   by project-root-relative path.
-- `shared/references/field-plan.md` — how each Anki note field's value is derived; its "Created by"
-  column marks the Claude-owned (backfillable) fields both skills rely on.
+- `shared/references/field-plan.md` — the **index** table of how each Anki note field's value is
+  derived; its "Created by" column marks the Claude-owned (backfillable) fields both skills rely on.
+  Rows needing more than a one-line rule link to the per-field reference file that is that field's
+  single home (the four below plus `picture-procedure.md`), so the table stays scannable.
 - `shared/references/backfill-routine.md` — the shared step-by-step for filling every empty
   Claude-owned field of a note in hand (drives `note_status.py` + `slugify.py`); referenced by both
   skills so the backfill/completeness logic lives in one place instead of being repeated in prose.
@@ -56,6 +59,17 @@ nothing with `shared/`.)
 - `shared/references/picture-procedure.md` — the single home for the Picture field: the
   find/verify/store-the-image procedure and the full `--no-pictures` behavior. `field-plan.md`,
   `backfill-routine.md`, and `skill-conventions.md` link here instead of restating it.
+- `shared/references/audio-procedure.md` — the single home for the four audio fields: which one is
+  (re)generated when (incl. the stale-audio case), the `generate_tts.py` voice preset, the one
+  batched TTS call per note, and the `storeMediaFile`/`[sound:…]` steps. `field-plan.md`'s audio
+  rows and `backfill-routine.md` step B3 link here.
+- `shared/references/english-article-prefix.md` — the single home for the `English` field's
+  `a`/`an`/`to` prefix: when it applies, the exceptions, and that it is ignored when matching
+  duplicates. Linked from `field-plan.md` and `backfill-routine.md` step E.
+- `shared/references/definition-rules.md` — the single home for how the `Definition` field is
+  worded (simplest words, then as concise as possible, never the headword or a same-root word).
+- `shared/references/example-real-life-format.md` — the single home for the `Example-real-life`
+  field's HTML format and its append-a-new-`<li>`-on-duplicate behavior.
 - `shared/references/activity-diagram.puml` — PlantUML activity diagram of the add-skill flow.
 - `shared/assets/en-pos-anki-tags.md` — the fixed part-of-speech tag vocabulary the skills pick from.
   Source tags are **not** kept in a file: the add skill fetches them live from Anki each run via

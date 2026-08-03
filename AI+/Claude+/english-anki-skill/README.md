@@ -24,7 +24,8 @@ session.
 
 ## Input format (add-english-word-to-anki)
 
-Input is a **single** plain-text/Markdown file. H1 headers (`# Source`) delimit sources — every
+Input is a **single** plain-text/Markdown file, defaulting to `new_anki_words.md` in this directory
+if no path is given. H1 headers (`# Source`) delimit sources — every
 sentence under a header belongs to that source until the next header:
 - The header text is the **source** for its sentences, e.g. `# The Guard 2011` -> source
   "The Guard 2011".
@@ -57,36 +58,44 @@ touches the input file.
 
 ## Usage
 
-Run from this directory. `--permission-mode auto` lets the skill run without pausing for a
-permission prompt each time — needed for these unattended `-p` runs. Add `--dry-run` to preview
-without writing anything to Anki. Add `--no-pictures` (either skill) to skip the image
-search/verification for the Picture field — by far the most expensive step; the Picture field
-just stays empty (and untagged) and does not block a note's completion or `en::to-refine`
-removal.
+Each skill has a shortcut script at the project root (`english-add-english-word-to-anki.sh`,
+`english-populate-existing-english-anki-notes.sh`, `english-clean-movie-subtitles.sh`) that wraps the
+underlying `claude --permission-mode auto --model sonnet -p "/<skill> ..."` call — `cd`s into this
+directory and forwards whatever arguments/flags you pass it. They can be run from anywhere (this
+directory is on `PATH`). There's also `english-anki.sh`, which instead opens a normal interactive
+`claude` session (no `-p`) with the same `--permission-mode auto --model sonnet` and cwd, for
+freeform work on this project. Add
+`--dry-run` to preview without writing anything to Anki. Add `--no-pictures` (either Anki skill) to
+skip the image search/verification for the Picture field — by far the most expensive step; the
+Picture field just stays empty (and untagged) and does not block a note's completion or
+`en::to-refine` removal.
 
-Plain `-p` prints only the final report, and only once the whole run finishes. To watch progress
-live, add `--output-format stream-json --verbose` — it emits one JSON line per step (assistant
-messages, tool calls, final result):
+The scripts print only the final report, and only once the whole run finishes. To watch progress
+live instead, call `claude` directly with `--output-format stream-json --verbose` — it emits one
+JSON line per step (assistant messages, tool calls, final result):
 
 ```bash
 claude --permission-mode auto --model sonnet --output-format stream-json --verbose -p "/populate-existing-english-anki-notes"
 ```
 
-**Add new words from a file:**
+**Add new words from a file** (omit the path to use the default `new_anki_words.md` in this
+directory):
 
 ```bash
-claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki '/home/aleks/tmp/new_anki_words.md'"
-claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki --dry-run '/home/aleks/tmp/new_anki_words.md'"
-claude --permission-mode auto --model sonnet -p "/add-english-word-to-anki --no-pictures '/home/aleks/tmp/new_anki_words.md'"
+english-add-english-word-to-anki.sh
+english-add-english-word-to-anki.sh --dry-run
+english-add-english-word-to-anki.sh '/home/aleks/tmp/new_anki_words.md'
+english-add-english-word-to-anki.sh --dry-run '/home/aleks/tmp/new_anki_words.md'
+english-add-english-word-to-anki.sh --no-pictures '/home/aleks/tmp/new_anki_words.md'
 ```
 
 **Fill in existing notes flagged for completion** (tag `en::to-refine`, no input file). `--limit N`
 processes at most `N` notes in one run:
 
 ```bash
-claude --permission-mode auto --model sonnet -p "/populate-existing-english-anki-notes"
-claude --permission-mode auto --model sonnet -p "/populate-existing-english-anki-notes --dry-run --limit 3"
-claude --permission-mode auto --model sonnet -p "/populate-existing-english-anki-notes --no-pictures --limit 10"
+english-populate-existing-english-anki-notes.sh
+english-populate-existing-english-anki-notes.sh --dry-run --limit 3
+english-populate-existing-english-anki-notes.sh --no-pictures --limit 10
 ```
 
 **Clean a movie-subtitle file** (`clean-movie-subtitles`) — no Anki needed. Pass a path to an `.srt`
@@ -98,8 +107,8 @@ the input (`/tmp/Backrooms 2026.txt` -> `/tmp/Backrooms 2026 clean.txt`). `--dry
 planned output path without writing:
 
 ```bash
-claude --permission-mode auto --model sonnet -p "/clean-movie-subtitles '/tmp/Backrooms 2026.txt'"
-claude --permission-mode auto --model sonnet -p "/clean-movie-subtitles --dry-run '/tmp/Backrooms 2026.txt'"
+english-clean-movie-subtitles.sh '/tmp/Backrooms 2026.txt'
+english-clean-movie-subtitles.sh --dry-run '/tmp/Backrooms 2026.txt'
 ```
 
 See each skill's `SKILL.md` for the full step-by-step process.

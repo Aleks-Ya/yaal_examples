@@ -13,14 +13,24 @@ import org.opensearch.client.RestHighLevelClient;
 import org.opensearch.testcontainers.OpenSearchContainer;
 import org.testcontainers.utility.DockerImageName;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class OpenSearchExtension implements BeforeEachCallback, AfterEachCallback, ParameterResolver {
     public static final DockerImageName OPENSEARCH2 = DockerImageName.parse("opensearchproject/opensearch:2.19.5");
+    private final Map<String, String> environment = new HashMap<>();
     private OpenSearchContainer<?> container;
     private RestHighLevelClient client;
+
+    public OpenSearchExtension withEnv(String key, String value) {
+        environment.put(key, value);
+        return this;
+    }
 
     @Override
     public void beforeEach(@NonNull ExtensionContext context) {
         container = new OpenSearchContainer<>(OPENSEARCH2);
+        container.withEnv(environment);
         container.start();
         var builder = RestClient.builder(HttpHost.create(container.getHttpHostAddress()));
         client = new RestHighLevelClient(builder);

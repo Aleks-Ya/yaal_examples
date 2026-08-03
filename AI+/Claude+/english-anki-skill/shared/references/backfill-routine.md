@@ -40,8 +40,8 @@ no `~api::absent::picture`. Everything else proceeds unchanged.
 
 ## Step E — English normalization (run first; shared by both skills)
 
-If the note's `English` lacks the applicable `a`/`an`/`to` prefix for its POS (per field-plan.md's
-English row) and a prefix applies, prepend it — the new value goes into the same single write as
+If the note's `English` lacks the applicable `a`/`an`/`to` prefix for its POS (per
+`shared/references/english-article-prefix.md`) and a prefix applies, prepend it — the new value goes into the same single write as
 everything else. Consequences:
 
 - If `English-audio-generated` is already **non-empty**, the old mp3 is now stale: regenerate it
@@ -95,7 +95,8 @@ For each field in `empty_claude_fields`, generate its value per `shared/referenc
   with `shared/scripts/build_example_html.py`, threading each call's `html` output back in as the
   next `existing` (start from `existing: null`, `source: null`).
 - **Transcription / Definition / Russian / Synonym1 / Synonyms / Antonym1 / Antonyms** — generate
-  directly per field-plan.md.
+  directly per field-plan.md (for `Definition`, follow its wording rules in
+  `shared/references/definition-rules.md`).
 
 ## Step B3 — Synthesize the audio in one batch
 
@@ -108,7 +109,7 @@ already holds a `[sound:…]`**: its source text was just (re)written, so any ex
 deterministic slug means `storeMediaFile` overwrites the old mp3 in place and the `[sound:<filename>]`
 value is unchanged.
 
-Synthesize all of them in **one** call following field-plan.md's Audio procedure —
+Synthesize all of them in **one** call following `shared/references/audio-procedure.md` —
 `shared/scripts/generate_tts.py --batch` with a JSON array of `{"text": "<HTML-stripped source
 text>", "path": "<temp.mp3>"}` on stdin — then `storeMediaFile` each result under its slug from
 step B0 and set each field value to `[sound:<filename>]` (in the single final write; delete the
