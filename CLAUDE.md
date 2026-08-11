@@ -17,6 +17,9 @@ almost every task here is scoped to one leaf directory, not the whole repo.
 
 - Top-level and nested directories suffixed with `+` (e.g. `Java+`, `BigData+`, `JSE+`) are **category
   folders** used purely for grouping; they usually don't contain a runnable project themselves.
+- `+` is the **only** category-folder marker — don't introduce other symbols for this. Note that `+`
+  is a regex quantifier, so paths need escaping in `grep -E` / `find -regex` (globs and git
+  pathspecs are unaffected).
 - Directories *without* a trailing `+` that contain a build file (`build.gradle`, `pom.xml`,
   `build.sbt`, `Cargo.toml`, `package.json`, etc.) are the actual **leaf example projects**.
 - `CLI/` is not code — it's a library of one-markdown-file-per-tool cheat sheets (commands, flags,
