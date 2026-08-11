@@ -4,21 +4,19 @@ import org.apache.commons.net.ftp.FTPHTTPClient;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/*NOT WORKING*/
+/* NOT WORKING: need to run a local proxy server */
 class FTPHTTPClientIT {
     @Test
     void listNames() throws IOException {
         var ftp = new FTPHTTPClient("localhost", 2121);
-        ftp.connect("test.rebex.net");
-        ftp.login("demo", "password");
+        ftp.connect(Rebex.HOST);
+        ftp.login(Rebex.USER, Rebex.PASS);
         var names = ftp.listNames();
-        System.out.println(Arrays.toString(names));
         ftp.logout();
         ftp.disconnect();
-        assertThat(names).isNotEmpty();
+        assertThat(names).containsExactlyInAnyOrderElementsOf(Rebex.NAMES);
     }
 }

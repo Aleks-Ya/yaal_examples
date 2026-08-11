@@ -59,9 +59,9 @@ deterministic so `storeMediaFile` overwrites old media on reprocessing instead o
 
 ```
 python3 "shared/scripts/slugify.py" "<English value>" <pos> --all-media
--> {"picture": "beggar-noun.jpg", "english": "beggar-noun-english.mp3",
-    "definition": "beggar-noun-definition.mp3", "synonym1": "beggar-noun-synonym1.mp3",
-    "antonym1": "beggar-noun-antonym1.mp3"}
+-> {"picture": "beggar-noun.jpg", "icon": "beggar-noun-icon.svg",
+    "english": "beggar-noun-english.mp3", "definition": "beggar-noun-definition.mp3",
+    "synonym1": "beggar-noun-synonym1.mp3", "antonym1": "beggar-noun-antonym1.mp3"}
 ```
 
 ## Step B1 — Ask `note_status.py` what is missing (one call)
@@ -88,9 +88,10 @@ output *is* this call — reuse it instead of calling again.)
 For each field in `empty_claude_fields`, generate its value per `shared/references/field-plan.md`
 (don't write yet — values go into the single final write). Field-specific notes:
 
-- **Picture** — follow `shared/references/picture-procedure.md`: on success `storeMediaFile` under
-  the `picture` slug (step B0) and set the field value to `<img src="filename">`; on no fitting
-  image, leave empty and tag `~api::absent::picture` (step B4).
+- **Picture** — follow `shared/references/picture-procedure.md`: it fills the field with up to two
+  images, an Openverse photo and an Iconify icon, each `storeMediaFile`d under its own slug from
+  step B0 (`picture` / `icon`) and appended to the field value as `<img src="filename">`. Only when
+  neither is found does the field stay empty and get `~api::absent::picture` (step B4).
 - **Examples1-generated** — generate up to 10 sentences and build the `<ul><li>…</li></ul>` list
   with `shared/scripts/build_example_html.py`, threading each call's `html` output back in as the
   next `existing` (start from `existing: null`, `source: null`).
@@ -118,7 +119,7 @@ temp files afterwards). In dry-run mode skip the `storeMediaFile` and the write.
 ## Step B4 — Tag genuine absences
 
 If a backfilled **Synonym1 / Synonyms / Antonym1 / Antonyms / Picture** turns out to have no value
-after all (no synonym exists, no clearly-fitting image, etc.), add its absence tag with one
+after all (no synonym exists, neither a fitting photo nor an icon, etc.), add its absence tag with one
 `addTags` call instead of leaving it silently empty (skip the call in dry-run mode):
 
 | Field    | Absence tag                |
@@ -128,6 +129,9 @@ after all (no synonym exists, no clearly-fitting image, etc.), add its absence t
 | Antonym1 | `~api::absent::antonym1`   |
 | Antonyms | `~api::absent::antonyms`   |
 | Picture  | `~api::absent::picture`    |
+
+Picture is the one exception worth restating: it is absent only when **neither** a photo nor an icon
+was found (`shared/references/picture-procedure.md`); a field holding just one of the two is filled.
 
 ## Step B5 — Final write + verdict
 

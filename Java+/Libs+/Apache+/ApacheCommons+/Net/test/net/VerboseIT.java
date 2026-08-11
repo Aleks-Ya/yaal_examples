@@ -1,5 +1,6 @@
 package net;
 
+import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPClient;
 import org.junit.jupiter.api.Test;
 
@@ -7,25 +8,14 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class FTPClientIT {
+class VerboseIT {
 
     @Test
-    void listNamesActiveMode() throws IOException {
+    void printFtpCommands() throws IOException {
         var ftp = new FTPClient();
+        ftp.addProtocolCommandListener(new PrintCommandListener(System.out));
         ftp.connect(Rebex.HOST);
         ftp.login(Rebex.USER, Rebex.PASS);
-        var names = ftp.listNames();
-        ftp.logout();
-        ftp.disconnect();
-        assertThat(names).containsExactlyInAnyOrderElementsOf(Rebex.NAMES);
-    }
-
-    @Test
-    void listNamesPassiveMode() throws IOException {
-        var ftp = new FTPClient();
-        ftp.connect(Rebex.HOST);
-        ftp.login(Rebex.USER, Rebex.PASS);
-        ftp.enterLocalPassiveMode();
         var names = ftp.listNames();
         ftp.logout();
         ftp.disconnect();

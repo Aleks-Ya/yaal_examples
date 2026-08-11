@@ -38,5 +38,6 @@ def assert_blocks() -> Callable[..., None]:
     def assert_blocks_no_thinking(blocks: list[ContentBlock], *types: type[ContentBlock]) -> None:
         act_types: list[type[ContentBlock]] = [type(block) for block in blocks]
         assert act_types == list(types)
+        assert len(blocks) == len(types)
 
     return assert_blocks_no_thinking

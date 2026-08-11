@@ -56,8 +56,9 @@ nothing with `shared/`.)
 - `shared/references/skill-conventions.md` — the conventions shared by both skills (abbreviations,
   target note type/deck, `--dry-run`/`--no-pictures` semantics, single-write rule, output-report
   style); each `SKILL.md` links to it and keeps only its skill-specific deltas inline.
-- `shared/references/picture-procedure.md` — the single home for the Picture field: the
-  find/verify/store-the-image procedure and the full `--no-pictures` behavior. `field-plan.md`,
+- `shared/references/picture-procedure.md` — the single home for the Picture field, which holds up to
+  two images: an Openverse **photo** (found, visually verified, stored) and an Iconify **icon** (picked
+  by name, no visual check) — plus the full `--no-pictures` behavior. `field-plan.md`,
   `backfill-routine.md`, and `skill-conventions.md` link here instead of restating it.
 - `shared/references/audio-procedure.md` — the single home for the four audio fields: which one is
   (re)generated when (incl. the stale-audio case), the `generate_tts.py` voice preset, the one
@@ -107,6 +108,13 @@ nothing with `shared/`.)
   skill can rank by title/tags and then visually verify each before storing; CLI args in
   (`<query> [--limit N]`), JSON out on stdout. Endpoint overridable via `OPENVERSE_API_BASE` (for tests).
   Used by both skills; stdlib-only, no `requirements.txt` entry.
+- `shared/scripts/search_icons.py` — the icon half of the Picture field: searches the keyless Iconify
+  API and keeps only candidates whose icon *name* is the query (or a style variant of it), so the pick
+  is safe without a visual check. Search mode (`<query> [--limit N]`) returns a ranked JSON array of
+  `{id, prefix, name, collection}` (`[]` when nothing matches); `--fetch <prefix:name> <out.svg>`
+  downloads the winner recoloured to slate and wrapped in a white rounded card (legible in Anki night
+  mode) at a 256px display size. Endpoint overridable via `ICONIFY_API_BASE` (for tests). Used by both
+  skills; stdlib-only, no `requirements.txt` entry.
 - `shared/scripts/fetch_and_resize_image.py` — downloads a Picture candidate's image and shrinks
   it to fit within 600px on its longest side (never upscales). Single-URL mode
   (`<url> <output_path> [max_dimension]`, JSON out) fetches the chosen winner's full-res image for
@@ -128,9 +136,10 @@ nothing with `shared/`.)
   the worklist and the completeness verdict (for the skills' `--no-pictures` mode). Used by both skills (drives `backfill-routine.md`); stdlib-only.
 - `shared/scripts/slugify.py` — builds the deterministic word+POS(+field) media-filename slug so
   `storeMediaFile` overwrites rather than accumulates; CLI args in
-  (`<word> <pos> [--field …] [--ext jpg|mp3]`, or `--all-media` for every filename a note can need —
-  Picture jpg + the four audio mp3s — in one call), JSON out. Used by both skills; stdlib-only.
-- `shared/tests/` — pytest suite for the nine scripts above (unit tests against their pure functions
+  (`<word> <pos> [--field …] [--ext jpg|mp3|svg]`, or `--all-media` for every filename a note can need —
+  the Picture field's photo jpg and icon svg + the four audio mp3s — in one call), JSON out. Used by
+  both skills; stdlib-only.
+- `shared/tests/` — pytest suite for the ten scripts above (unit tests against their pure functions
   plus one CLI/subprocess end-to-end test per script).
 - `pytest.ini` (project root) — `pythonpath` / `testpaths` list both `shared/scripts`+`shared/tests`
   (the Anki toolkit) and the subtitle skill's own `…/clean-movie-subtitles/scripts`+`…/tests`, so a
@@ -138,7 +147,7 @@ nothing with `shared/`.)
   `Python+/Python3/pytest.ini`.
 - `requirements.txt` (project root) — Python dependencies for the scripts above (currently just Pillow).
 
-The two Anki skills are otherwise pure instruction-based skills, with these nine shared scripts (and
+The two Anki skills are otherwise pure instruction-based skills, with these ten shared scripts (and
 their tests) plus the `shared/references/` docs as their only deterministic helper code.
 
 ### The standalone `clean-movie-subtitles` skill's own files

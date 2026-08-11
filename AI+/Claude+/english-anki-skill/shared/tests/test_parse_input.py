@@ -106,6 +106,44 @@ def test_multiple_valid_lines_numbered_correctly(tmp_path):
     assert [e["word"] for e in entries] == ["pin", "batting", "beggars"]
 
 
+def test_intra_word_underscore_is_not_a_marker(tmp_path):
+    path = write(
+        tmp_path,
+        "# Anthropic Academy\n"
+        "The token counts shown in the usage field of the message_delta event "
+        "are _cumulative_.\n",
+    )
+    entries, errors = parse_input.parse(path)
+    assert errors == []
+    assert entries[0]["word"] == "cumulative"
+    assert entries[0]["sentence"] == (
+        "The token counts shown in the usage field of the message_delta event "
+        "are cumulative."
+    )
+
+
+def test_snake_case_word_can_itself_be_marked(tmp_path):
+    path = write(tmp_path, "# Anthropic Academy\nThe _message_delta_ event is streamed.\n")
+    entries, errors = parse_input.parse(path)
+    assert errors == []
+    assert entries[0]["word"] == "message_delta"
+    assert entries[0]["sentence"] == "The message_delta event is streamed."
+
+
+def test_line_with_only_snake_case_word_is_skipped(tmp_path):
+    path = write(tmp_path, "# Anthropic Academy\nPlain message_delta with no marker.\n")
+    entries, errors = parse_input.parse(path)
+    assert entries == []
+    assert errors == []
+
+
+def test_dunder_is_not_a_marker(tmp_path):
+    path = write(tmp_path, "# Python\nHe used __init__ in Python.\n")
+    entries, errors = parse_input.parse(path)
+    assert entries == []
+    assert errors == []
+
+
 def test_line_with_no_marker_is_silently_skipped(tmp_path):
     path = write(tmp_path, "# The Guard\nThis line has no marker.\n")
     entries, errors = parse_input.parse(path)

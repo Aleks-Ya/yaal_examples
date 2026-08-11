@@ -3,7 +3,7 @@ from anthropic.types import Message, TextBlockParam, MessageParam, WebSearchTool
     WebSearchToolResultBlock, TextBlock, ContentBlock
 
 
-def test_web_search(client: Anthropic, model: str, max_tokens: int, remove_thinking_blocks):
+def test_web_search(client: Anthropic, model: str, max_tokens: int, remove_thinking_blocks, assert_blocks):
     web_search_tool_param: WebSearchTool20250305Param = WebSearchTool20250305Param(
         type="web_search_20250305",
         name="web_search"
@@ -24,8 +24,4 @@ def test_web_search(client: Anthropic, model: str, max_tokens: int, remove_think
     )
     print(message.content)
     blocks: list[ContentBlock] = remove_thinking_blocks(message.content)
-    assert len(blocks) == 3
-
-    assert type(blocks[0]) == ServerToolUseBlock
-    assert type(blocks[1]) == WebSearchToolResultBlock
-    assert type(blocks[2]) == TextBlock
+    assert_blocks(blocks, ServerToolUseBlock, WebSearchToolResultBlock, TextBlock)

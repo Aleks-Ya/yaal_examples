@@ -46,6 +46,11 @@ while (more word/sentence pairs?) is (yes)
         :storeMediaFile: store chosen resized image\n(filename from slugify.py); <<#LightYellow>>
         :Delete temp files;
       endif
+      :Run scripts/search_icons.py <word>\n(name-matching Iconify candidates); <<#LightBlue>>
+      if (icon found?) then (yes)
+        :search_icons.py --fetch: card-ready SVG,\nstoreMediaFile under the icon slug; <<#LightYellow>>
+      endif
+      :Set Picture to the photo's and/or icon's <img>\n(empty only if neither was found);
     endif
     if (backfilled field still empty?) then (yes)
       :Add matching ~api::absent::* tag;
@@ -60,13 +65,15 @@ while (more word/sentence pairs?) is (yes)
     if (suitable image found?) then (yes)
       :storeMediaFile: store chosen resized image\n(filename from slugify.py); <<#LightYellow>>
       :Delete temp files;
-      :Set Picture field to <img src="filename">;
-    else (no)
-      :Leave Picture empty;
     endif
+    :Run scripts/search_icons.py <word>\n(name-matching Iconify candidates); <<#LightBlue>>
+    if (icon found?) then (yes)
+      :search_icons.py --fetch: card-ready SVG,\nstoreMediaFile under the icon slug; <<#LightYellow>>
+    endif
+    :Set Picture to the photo's and/or icon's <img>\n(empty only if neither was found);
     :Add ~api::absent::* tags for any empty\nSynonym1/Synonyms/Antonym1/Antonyms/Picture;
     :addNote to deck En::English; <<#LightYellow>>
-    note right: updateNoteFields / addNote calls, and the storeMediaFile store step,\nare skipped (report-only) in --dry-run mode; the image search, candidate\ndownload, and Read-tool visual check still run.\nIn --no-pictures mode the whole Picture flow (search, download, visual\ncheck, store) is skipped even under --dry-run; Picture stays empty with no\n~api::absent::picture tag and does not block completion\n(note_status.py is called with --no-pictures)
+    note right: updateNoteFields / addNote calls, and the storeMediaFile store step,\nare skipped (report-only) in --dry-run mode; the image search, candidate\ndownload, Read-tool visual check, and icon search still run.\nIn --no-pictures mode the whole Picture flow (photo search, download,\nvisual check, icon search, store) is skipped even under --dry-run; Picture\nstays empty with no ~api::absent::picture tag and does not block completion\n(note_status.py is called with --no-pictures)
     :Record report-table row\n(NID, Word, Base form, POS, Outcome);
   endif
 endwhile (no)

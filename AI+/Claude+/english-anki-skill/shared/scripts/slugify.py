@@ -23,11 +23,11 @@ Examples:
 Prints a JSON object to stdout: {"slug": ..., "filename": ...} (`filename` == `slug` when no --ext).
 
 `--all-media` (exclusive with --field/--ext) prints every media filename a note can need in one
-call — the Picture jpg plus the four audio mp3s, keyed by field suffix:
+call — the Picture field's photo jpg and icon svg plus the four audio mp3s, keyed by field suffix:
     slugify.py "a beggar" noun --all-media
-    -> {"picture": "beggar-noun.jpg", "english": "beggar-noun-english.mp3",
-        "definition": "beggar-noun-definition.mp3", "synonym1": "beggar-noun-synonym1.mp3",
-        "antonym1": "beggar-noun-antonym1.mp3"}
+    -> {"picture": "beggar-noun.jpg", "icon": "beggar-noun-icon.svg",
+        "english": "beggar-noun-english.mp3", "definition": "beggar-noun-definition.mp3",
+        "synonym1": "beggar-noun-synonym1.mp3", "antonym1": "beggar-noun-antonym1.mp3"}
 """
 import argparse
 import json
@@ -60,8 +60,11 @@ def build_slug(word, pos, field=None, ext=None):
 
 
 def build_all_media(word, pos):
-    """Every media filename a note can need: the Picture jpg + the four audio mp3s."""
-    filenames = {"picture": build_slug(word, pos, ext="jpg")["filename"]}
+    """Every media filename a note can need: the Picture jpg + icon svg + the four audio mp3s."""
+    filenames = {
+        "picture": build_slug(word, pos, ext="jpg")["filename"],
+        "icon": build_slug(word, pos, field="icon", ext="svg")["filename"],
+    }
     for field in AUDIO_FIELDS:
         filenames[field] = build_slug(word, pos, field=field, ext="mp3")["filename"]
     return filenames

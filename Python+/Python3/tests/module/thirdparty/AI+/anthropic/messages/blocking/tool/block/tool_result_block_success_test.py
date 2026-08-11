@@ -3,7 +3,7 @@ from anthropic.types import Message, ToolParam, ContentBlock, TextBlock, Message
     ToolUseBlockParam, ToolResultBlockParam, ModelParam
 
 
-def test_tool_result_block(client: Anthropic, model: ModelParam, max_tokens: int):
+def test_tool_result_block(client: Anthropic, model: ModelParam, max_tokens: int, assert_blocks):
     tool_param: ToolParam = ToolParam(
         name="get_magic_number",
         description="Get the magic number.",
@@ -41,9 +41,9 @@ def test_tool_result_block(client: Anthropic, model: ModelParam, max_tokens: int
         tools=[tool_param]
     )
     print(message)
-    assert len(message.content) == 1
+    blocks: list[ContentBlock] = message.content
+    assert_blocks(blocks, TextBlock)
 
-    block0: ContentBlock = message.content[0]
-    assert type(block0) == TextBlock
-    assert block0.type == "text"
-    assert block0.text == "777"
+    assert type(blocks[0]) == TextBlock
+    assert blocks[0].type == "text"
+    assert blocks[0].text == "777"

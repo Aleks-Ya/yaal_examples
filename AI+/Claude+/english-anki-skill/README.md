@@ -33,6 +33,8 @@ sentence under a header belongs to that source until the next header:
   but no source is mentioned (no source tag, no source shown in the example field).
 - Empty sections (a header with no sentences, e.g. `# Python`) are allowed.
 - Each non-blank sentence line marks the new word or phrase by wrapping it in single underscores.
+  Only underscores at a word boundary delimit the marker, so an identifier like `message_delta`
+  inside a sentence is left alone (and `_message_delta_` marks the whole word).
   A line with no marker at all is ignored (kept in the file, untouched). A sentence before the
   first header is an error.
 
@@ -66,9 +68,9 @@ directory is on `PATH`). There's also `english-anki.sh`, which instead opens a n
 `claude` session (no `-p`) with the same `--permission-mode auto --model sonnet` and cwd, for
 freeform work on this project. Add
 `--dry-run` to preview without writing anything to Anki. Add `--no-pictures` (either Anki skill) to
-skip the image search/verification for the Picture field — by far the most expensive step; the
-Picture field just stays empty (and untagged) and does not block a note's completion or
-`en::to-refine` removal.
+skip the whole Picture field flow — the photo search/verification *and* the icon lookup, by far the
+most expensive step; the Picture field just stays empty (and untagged) and does not block a note's
+completion or `en::to-refine` removal.
 
 The scripts print only the final report, and only once the whole run finishes. To watch progress
 live instead, call `claude` directly with `--output-format stream-json --verbose` — it emits one

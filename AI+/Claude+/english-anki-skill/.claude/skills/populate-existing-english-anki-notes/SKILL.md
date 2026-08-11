@@ -34,7 +34,8 @@ If the arguments include `--dry-run`, run in **dry-run mode**; otherwise run in 
 details:
 - In dry-run mode the read-only lookups still performed are `findNotes`, `notesInfo`,
   `modelFieldNames`, `listDecks` and the `search_images.py` lookup plus candidate download/visual
-  check for Picture (unless `--no-pictures` is also given); the note-mutating calls skipped are
+  check and the `search_icons.py` lookup for Picture (unless `--no-pictures` is also given); the
+  note-mutating calls skipped are
   `updateNoteFields`, `addTags`, `removeTags`, `storeMediaFile`. What to report per note: which
   fields *would* be backfilled (with their planned values), which absence tags *would* be added, and
   whether `en::to-refine` *would* be removed.

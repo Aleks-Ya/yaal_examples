@@ -4,6 +4,7 @@ Her ability to find a _decent_ job is going to be extremely hard.
 # Anthropic Academy
 _Elicitation_: Allows servers to request additional information from users.
 Claude uses semantic matching, so your request needs to _overlap_ with the description's meaning.
+The token counts shown in the usage field of the message_delta event are _cumulative_.
 
 # Python
 

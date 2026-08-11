@@ -5,8 +5,11 @@ Version 7: `sudo apt install curl`
 Version 8: `sudo snap install curl`
 
 ## Commands
+### Info
 Help: `curl -h`
 Version: `curl --version`
+
+### HTTP
 Download to specific file: `curl -o output.zip http://data.com/file.zip`
 Send POST request with JSON body:
 ```shell
@@ -25,3 +28,8 @@ Connection timeout (sec): `curl --connect-timeout 60 http://localhost:80/interna
 Follow redirection: `curl -L http://ya.ru`
 Send a HEAD request (content size): `curl -I https://httpbin.io/bytes/500`
 Read body from a file: `curl http://httpbin.io/post -d @body.txt`
+
+### FTP
+List names (passive mode by default): `curl -v -u demo:password ftp://test.rebex.net/`
+List names (active mode): `curl -vP - -u demo:password ftp://test.rebex.net/`
+Download a file: `curl -vL -o Homo_sapiens.gene_info.gz https://ftp.ncbi.nlm.nih.gov/gene/DATA/GENE_INFO/Mammalia/Homo_sapiens.gene_info.gz`

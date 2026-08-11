@@ -46,9 +46,10 @@ def test_build_slug_without_ext_filename_equals_slug():
     }
 
 
-def test_build_all_media_lists_picture_and_all_audio():
+def test_build_all_media_lists_picture_icon_and_all_audio():
     assert slugify.build_all_media("a beggar", "noun") == {
         "picture": "beggar-noun.jpg",
+        "icon": "beggar-noun-icon.svg",
         "english": "beggar-noun-english.mp3",
         "definition": "beggar-noun-definition.mp3",
         "synonym1": "beggar-noun-synonym1.mp3",
@@ -78,8 +79,9 @@ def test_cli_all_media():
     assert result.returncode == 0
     parsed = json.loads(result.stdout)
     assert parsed["picture"] == "bat-around-verb.jpg"
+    assert parsed["icon"] == "bat-around-verb-icon.svg"
     assert parsed["english"] == "bat-around-verb-english.mp3"
-    assert set(parsed) == {"picture", "english", "definition", "synonym1", "antonym1"}
+    assert set(parsed) == {"picture", "icon", "english", "definition", "synonym1", "antonym1"}
 
 
 def test_cli_all_media_rejects_field_and_ext():

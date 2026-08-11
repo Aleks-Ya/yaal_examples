@@ -10,10 +10,13 @@ mentioned in fields or tags). Empty sections (a header with no sentences, e.g.
 error.
 
 A sentence line marks the new word/phrase with underscores, e.g.: Just _pin_ a
-medal to me body. A non-blank line under a header with **no** ``_..._`` marker
-is not a sentence to import — it is silently skipped (no entry, no error) and
-stays in the file untouched. A line with **more than one** marker is still an
-error (which word is the new one is genuinely ambiguous).
+medal to me body. Only underscores at a word boundary delimit the marker, so an
+underscore *inside* a word is literal text (``the message_delta event are
+_cumulative_`` marks "cumulative"); a whole snake_case word can still be marked
+as a unit (``_message_delta_``). A non-blank line under a header with **no**
+``_..._`` marker is not a sentence to import — it is silently skipped (no entry,
+no error) and stays in the file untouched. A line with **more than one** marker
+is still an error (which word is the new one is genuinely ambiguous).
 
 Parse mode (``parse_input.py <file>``): on success, prints a JSON object
 ``{"entries": [...]}`` to stdout and exits 0. Each entry is
@@ -32,7 +35,10 @@ import os
 import re
 import sys
 
-MARKER_RE = re.compile(r"_(.+?)_")
+# Marker underscores must sit at a word boundary (no \w before the opening one,
+# none after the closing one), and the marked text can neither start nor end with
+# an underscore — so `message_delta` and `__init__` are left alone.
+MARKER_RE = re.compile(r"(?<!\w)_([^_](?:.*?[^_])?)_(?!\w)")
 HEADER_RE = re.compile(r"^#[ \t]+(.*\S)\s*$")
 NO_SOURCE = "NO_SOURCE"
 
