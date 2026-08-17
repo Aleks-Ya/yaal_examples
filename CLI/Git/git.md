@@ -118,3 +118,8 @@ Delete a tag in the local repo: `git tag -d v1.0`
 
 ## Init
 Init a bare repo: `git init --bare`
+
+## Work Tree
+List work trees in a repo: `git worktree list`
+Create a work tree from a branch: `git worktree add presets feature/dialog-presets`
+Delete a work tree: `git worktree remove presets`
