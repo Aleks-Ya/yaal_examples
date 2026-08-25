@@ -1,6 +1,6 @@
 # flatpak-builder CLI
 
-Install: `sudo apt install flatpak-builder`
+Install: `sudo apt install -y flatpak-builder`
 
 Help: `flatpak-builder --help`
 

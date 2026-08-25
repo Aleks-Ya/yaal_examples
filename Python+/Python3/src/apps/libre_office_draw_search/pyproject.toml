@@ -1,0 +1,15 @@
+[project]
+name = "libre-office-draw-search"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "odfdo",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+]
+
+[tool.uv]
+package = false

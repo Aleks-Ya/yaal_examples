@@ -48,6 +48,26 @@ python -m apps.bytes_to_human_str.bytes_to_human_str   # run an app module direc
 `pytest.ini` sets `pythonpath = src` and `testpaths = tests`, so tests import modules as
 `apps.<name>...` and pytest must be run from this directory (`Python+/Python3`), not the repo root.
 
+**Per-app dependency isolation:** some apps have their own uv project (`pyproject.toml` + `uv.lock` in
+the app directory, `package = false`) instead of relying on the shared `requirements.txt`:
+
+| App | Entry point | Deps |
+|---|---|---|
+| `src/apps/yaal_examples_search` | `examples_search.py` | `rich`, `pyperclip` (+ `pytest`, `seedir` dev) |
+| `src/apps/libre_office_draw_search` | `draw_find.py` | `odfdo` (+ `pytest` dev) |
+
+Run and test those through their own env — don't add their packages to `requirements.txt`:
+```
+uv run --directory src/apps/<app> <entry_point>.py <keyword>      # cwd moves; use for running
+uv run --project   src/apps/<app> pytest tests/apps/<app>         # cwd stays; pytest.ini still applies
+```
+`package = false` means the code is never installed — it stays importable as `apps.<name>...` via the
+`sys.path` append in the entry point and `pythonpath = src` here. See each app's `README.md`.
+
+`odfdo` is deliberately still in `requirements.txt` too: `libre_office_draw_style_aligner` and
+`tests/module/thirdparty/odfdo/` use it. Everything else in `src/apps/` uses the shared
+`requirements.txt`.
+
 ## Conventions
 
 - **Imports**: everything under `src/` is imported via package root `apps.<name>...` (not relative

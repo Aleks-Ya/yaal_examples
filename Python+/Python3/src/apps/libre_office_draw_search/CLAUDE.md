@@ -8,7 +8,7 @@ Python 3.12+, `pythonpath = src`, running `pytest` from `Python+/Python3`).
 
 A CLI utility that searches LibreOffice Draw (`.odg`) files under `~/DocsVault/LibreOfficeDraw` for
 keywords, ranks the matches, prints them, and lets you interactively open one in the default app.
-Aliased on Linux as `draw` → `python .../draw_find.py <keyword...>`.
+Aliased on Linux as `draw` → `uv run --directory <this dir> draw_find.py <keyword...>` (see `README.md`).
 
 ## Pipeline (entry point: `draw_find.py`)
 
@@ -61,10 +61,17 @@ printing. `SearchResults` aggregates the list with `pages_count`, `texts_count`,
   tests inject one with a `tmp_path` index so they never touch the real `~/.cache`.
 - `Searcher.__get_namespaces` is a currently-unused XML-namespace helper — leave it unless the task is
   about namespaces.
+- **Dependencies live in this directory's `pyproject.toml`**, not the shared `requirements.txt`: the app
+  is its own uv project (`package = false`, locked in `uv.lock`). Runtime dep is `odfdo` only; `pytest`
+  is in the `dev` group. Add deps here and run `uv sync` — don't add them to `requirements.txt`. `odfdo`
+  does stay in `requirements.txt` as well, since `libre_office_draw_style_aligner` and
+  `tests/module/thirdparty/odfdo/` also use it.
 
 ## Tests (`tests/apps/libre_office_draw_search/`)
 
-- Run: `cd Python+/Python3 && pytest -k libre_office_draw_search`.
+- Run from `Python+/Python3`:
+  `uv run --project src/apps/libre_office_draw_search pytest tests/apps/libre_office_draw_search`
+  (`--project`, not `--directory`, so cwd stays put and pytest still finds `pytest.ini` / `pythonpath = src`).
 - Tests use **real `.odg` fixtures** under `tests/apps/libre_office_draw_search/files/`
   (`odg_parser_test.odg`, `nested/buildings.odg`) — `conftest.py` exposes them via `real_root_dir`,
   `real_buildings_file`, `real_odg_parser_file`. `odg_parser_test` and `searcher_test` actually parse

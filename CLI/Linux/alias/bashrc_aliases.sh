@@ -31,8 +31,8 @@ alias anki-user2-qt6-25.02="~/installed/Anki/anki-25.02-linux-qt6/anki -b ~/anki
 alias anki-user2-qt6-25.05="~/installed/Anki/anki-25.05-linux-qt6/anki -b ~/anki-home-dirs/user2/anki-25.05-linux-qt6"
 
 alias avro-tools='java -jar ~/installed/avro-tools/avro-tools.jar'
-alias draw="python ~/pr/home/yaal_examples/Python+/Python3/src/apps/libre_office_draw_search/draw_find.py"
-alias examples='python ~/pr/home/yaal_examples/Python+/Python3/src/apps/yaal_examples_search/examples_search.py'
+alias draw='env -u VIRTUAL_ENV uv run --directory ~/pr/home/yaal_examples/Python+/Python3/src/apps/libre_office_draw_search draw_find.py'
+alias examples='env -u VIRTUAL_ENV uv run --directory ~/pr/home/yaal_examples/Python+/Python3/src/apps/yaal_examples_search examples_search.py'
 
 alias mtree='mvn dependency:tree -DoutputFile=target/tree.txt'
 
@@ -40,3 +40,6 @@ alias update_postman_git='~/pr/home/yaal_examples/CLI/Other/Postman/deploy_postm
 
 alias adata_mount='sudo mount /dev/sda1 /media/aleks/ADATA'
 alias adata_unmount='sudo umount /media/aleks/ADATA'
+
+alias citrix_distrobox='distrobox enter ubuntu2204'
+alias citrix_workspace='/opt/Citrix/ICAClient/selfservice --icaroot /opt/Citrix/ICAClient'

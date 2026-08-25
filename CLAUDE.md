@@ -79,9 +79,9 @@ build step.
 **Bash (`Bash+/`)** — examples are `.bats` files (Bats testing framework), organized by topic
 (`conditions/`, `data_structures/`, `files/`, ...). Run a file with `bats <file>.bats`.
 
-**Android (`Android/AndroidExamples/`)** — a Gradle Android project; use its `./gradlew`.
+**Android (`Android+/AndroidExamples/`)** — a Gradle Android project; use its `./gradlew`.
 
 Everything else (`Database+`, `DevOps+`, `Documentation+`, `Building+`, `BigData+`, `CPP+`, `Groovy+`,
-`IDE+`, `Bat+`, `Lua`) follows the same pattern: look for a build/config file in the specific leaf
+`IDE+`, `Bat+`, `Lua+`) follows the same pattern: look for a build/config file in the specific leaf
 directory you're touching and use that ecosystem's native tool — there's no shared convention to lean
 on beyond what's described above.

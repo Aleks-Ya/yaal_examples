@@ -38,18 +38,19 @@ echo "Updating Postman"
 ~/pr/home/yaal_examples/CLI/Postman/deploy_postman_git_locally.sh
 echo
 
-echo "Updating PIP..."
-python -m pip install --upgrade pip
-python -m pip cache purge
-echo
+# Absents on Ubuntu 26.04
+# echo "Updating PIP..."
+# python -m pip install --upgrade pip
+# python -m pip cache purge
+# echo
 
 # Skip because of "The package was installed by brew. You should check if it can uninstall the package."
 #echo "Updating PIP3..."
-#python3 -m pip install --upgrade pip --break-system-packages
+#python3 -m pip install --upgrade pip
 python3 -m pip cache purge
 #echo 
 
-/home/aleks/pr/home/yaal_examples/Bash+/apps/upgrade_python_virtual_env.sh python3-examples-3.12.12
+#/home/aleks/pr/home/yaal_examples/Bash+/apps/upgrade_python_virtual_env.sh python3-examples-3.12.12
 # Skip because "No matching distribution found for tensorflow"
 #/home/aleks/pr/home/yaal_examples/Bash+/apps/upgrade_python_virtual_env.sh python3-examples-3.14.2 
 

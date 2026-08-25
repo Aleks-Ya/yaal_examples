@@ -9,7 +9,6 @@ sys.path.append(str(path_dir))
 from apps.yaal_examples_search.clipboard import Clipboard
 from apps.yaal_examples_search.data_types import Keyword, Keywords
 from apps.yaal_examples_search.formatter.rich_tree_formatter import RichTreeFormatter, FormatResults
-from apps.yaal_examples_search.searcher.path_filter import PathFilter
 from apps.yaal_examples_search.searcher.dir_reader import DirReader
 from apps.yaal_examples_search.searcher.searcher import Searcher
 
@@ -35,14 +34,8 @@ if __name__ == "__main__":
     all_files_elapsed: float = time.perf_counter() - all_files_start
     print(f'All files: {len(all_files)} ({all_files_elapsed:.3f}s)')
 
-    filter_start: float = time.perf_counter()
-    path_filter: PathFilter = PathFilter(base_dir)
-    filtered_files: list[Path] = path_filter.filter(all_files)
-    filter_elapsed: float = time.perf_counter() - filter_start
-    print(f'Filtered files: {len(filtered_files)} ({filter_elapsed:.3f}s)')
-
     search_start: float = time.perf_counter()
-    searcher: Searcher = Searcher(filtered_files, case_sensitive=args.case_sensitive)
+    searcher: Searcher = Searcher(all_files, case_sensitive=args.case_sensitive)
     found_paths: set[Path] = searcher.search(keywords)
     sorted_paths: list[Path] = sorted(found_paths)
     search_elapsed: float = time.perf_counter() - search_start

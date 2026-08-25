@@ -66,6 +66,28 @@ def test_copy_path_to_clipboard_empty_results_returns_without_touching_clipboard
         assert after == before
 
 
+def test_copy_path_to_clipboard_survives_missing_clipboard_backend(monkeypatch, capsys):
+    """A machine with no xclip/wl-clipboard must not crash the app after results are printed."""
+    p: Path = Path("/tmp/yaal_examples_search_test_path.txt")
+    format_results: FormatResults = FormatResults(
+        results={FormatResultId(1): p},
+        content="does-not-matter",
+    )
+
+    def _no_backend(_text: str) -> None:
+        raise pyperclip.PyperclipException("could not find a copy/paste mechanism")
+
+    monkeypatch.setattr(pyperclip, "copy", _no_backend)
+    inputs: Iterator[str] = iter(["1", ""])
+    monkeypatch.setattr("builtins.input", lambda _prompt: next(inputs))
+
+    Clipboard.copy_path_to_clipboard(format_results)
+
+    out: str = capsys.readouterr().out
+    assert "Could not access the clipboard" in out
+    assert "wl-clipboard" in out
+
+
 @contextlib.contextmanager
 def __preserve_real_clipboard():
     """

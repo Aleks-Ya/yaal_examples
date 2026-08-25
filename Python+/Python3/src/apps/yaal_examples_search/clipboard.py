@@ -1,9 +1,7 @@
+import pyperclip
+from apps.yaal_examples_search.formatter.rich_tree_formatter import FormatResults, FormatResultId
 from pathlib import Path
 from typing import Optional
-
-import pyperclip
-
-from apps.yaal_examples_search.formatter.rich_tree_formatter import FormatResults, FormatResultId
 
 
 class Clipboard:
@@ -21,7 +19,7 @@ class Clipboard:
                     if path:
                         copy_path: str = str(path.absolute())
                         print(f"Copying path: {copy_path}")
-                        pyperclip.copy(copy_path)
+                        Clipboard.__copy(copy_path)
                     else:
                         print("Invalid ID selected.")
                 else:
@@ -29,3 +27,12 @@ class Clipboard:
             except KeyboardInterrupt:
                 print()
                 break
+
+    @staticmethod
+    def __copy(text: str) -> None:
+        try:
+            pyperclip.copy(text)
+        except pyperclip.PyperclipException:
+            print("Could not access the clipboard. Install a backend for your session type "
+                  "(check it with `echo $XDG_SESSION_TYPE`): "
+                  "wayland -> 'sudo apt install wl-clipboard', x11 -> 'sudo apt install xclip'.")

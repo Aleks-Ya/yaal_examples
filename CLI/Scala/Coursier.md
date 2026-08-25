@@ -1,6 +1,6 @@
 # Coursier CLI
 
-Install: https://get-coursier.io/docs/cli-installation#linux
+Install: `brew install coursier/formulas/coursier`
 
 Help: `cs help`
 Help about a command: `cs update --help`

@@ -9,7 +9,7 @@ pytest-subtests
 pytest-mock
 pytest-asyncio
 pytest-check
-phoenixdb
+#phoenixdb
 lockfile
 cachecontrol
 mem-top
@@ -25,7 +25,7 @@ numpy
 pandas
 scikit-learn
 joblib
-hdfs[avro,dataframe,kerberos]
+#hdfs[avro,dataframe,kerberos]
 Faker
 freezegun
 jinja2
@@ -84,10 +84,10 @@ torch
 lmstudio
 tiktoken
 chromadb
-tensorflow
+#tensorflow
 onnxruntime
-onnxruntime-openvino
-onnxruntime-gpu
+#onnxruntime-openvino
+#onnxruntime-gpu
 onnx>=1.20.0
 odfdo
 odfpy
