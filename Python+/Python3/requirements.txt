@@ -1,157 +1,82 @@
-# Show package size: du -sh /home/aleks/.pyenv/versions/3.12.5/envs/python3-examples/lib/python3.12/site-packages/inflect
+# Shared dependencies for everything that is NOT dependency-isolated.
+#
+# Heavy or conflicting example directories under tests/module/thirdparty/ now carry their own uv
+# project (pyproject.toml) and are NOT listed here -- see CLAUDE.md. A package still
+# appears below when non-isolated code also imports it (e.g. src/apps/ uses transformers, numpy,
+# pandas, PyQt6, confluent-kafka, t-tech-investments), the same exception odfdo already had.
+#
+# Show package size: du -sh $VIRTUAL_ENV/lib/python3.12/site-packages/inflect
 pip
 requests
 psutil
 PyQt6
 pytest
-pytest-qt
-pytest-subtests
-pytest-mock
-pytest-asyncio
-pytest-check
-#phoenixdb
 lockfile
 cachecontrol
 mem-top
 lxml
 cryptography
 pympler
-kafka
 confluent-kafka
-kafka-python
-matplotlib
-scipy
 numpy
 pandas
-scikit-learn
 joblib
-#hdfs[avro,dataframe,kerberos]
 Faker
 freezegun
 jinja2
 pyyaml
 psycopg2-binary
-openai
-openai-agents
 typing-extensions
 fastparquet
-pyarrow
-boto
-boto3
 humanize
 bs4
 GitPython
 humanfriendly
 pint
 bitmath
-pytz
-python-dateutil
 databricks-sdk
 jsonschema
 genson
 timerit
-nltk
-textblob
-spacy
 tenacity
-inflect #300KB
-pattern3
-mistune
-markdown2
-mdutils
-langdetect
-langid
 pycountry
 trio
 cython
 sentry-sdk
-fasttext
 pyzotero
 build
 seedir
-lingua-language-detector
-chardet
-googletrans
-langcodes
-iso639-lang #1.9M
-python-iso639
-polyglot #500K
 elasticsearch==7.17.13
 praw
-sentence-transformers
 transformers
-torch
-lmstudio
-tiktoken
-chromadb
-#tensorflow
-onnxruntime
-#onnxruntime-openvino
-#onnxruntime-gpu
-onnx>=1.20.0
 odfdo
 odfpy
-pycuda
 directory-tree
-huggingface-hub
-gensim
 gherkin-official
-pytimeparse
-pytimeparse2
-parsedatetime
-isodate
-pendulum
-dateparser
 zenmoney-py
-google-genai
-japanese-verb-conjugator-v2
-mecab-python3
-unidic-lite #for mecab-python3
-sudachipy
-sudachidict_core #for sudachipy
-ginza
-#ja_ginza_electra #for ginza, fails on installation
-fugashi[unidic-lite]
-janome
-pykakasi
-pykatsuyou
-pysrt #136K
-srt #19K
 reportlab
 PyGithub
 selenium
 kaggle
-kagglehub[pandas-datasets]
 requests-cache
 XlsxWriter
 glom
 dpath
 datasets
-aws-cdk-lib
-aws-lambda-typing
-constructs
 joppy
 authlib
 flask
 jsonata-python
 gremlinpython
-gradio
-openpyxl
 rich
 pyperclip
 pydiscourse
 python_postman
-anthropic
 oooenv
 ooo-dev-tools
-ultralytics
 tabulate
 anytree
-mdformat
-claude-agent-sdk
-mcp
 pydantic
-voyageai
 
 --extra-index-url https://opensource.tbank.ru/api/v4/projects/238/packages/pypi/simple
 t-tech-investments==1.49.0 # SSL error in later versions

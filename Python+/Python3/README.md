@@ -11,3 +11,18 @@ Create virtual environment:
 5. Activate the virtual environment: `pyenv activate python3-examples-3.12.12`
 6. Install packages: `pip install -U pip -r requirements.txt`
 7. Configure the Idea project to use the virtual environment
+
+## Dependency-isolated example directories
+
+`requirements.txt` no longer covers everything. The heavy and mutually conflicting example
+directories under `tests/module/thirdparty/` each carry their own [uv](https://docs.astral.sh/uv/)
+project (`pyproject.toml` + `uv.lock`) and are installed separately, on demand:
+
+```bash
+uv sync --project tests/module/thirdparty/<Topic>                                  # install
+uv run  --project tests/module/thirdparty/<Topic> pytest tests/module/thirdparty/<Topic>   # test
+```
+
+Nothing above needs the pyenv environment activated — `uv run` creates and updates each `.venv`
+from its `uv.lock` on demand. A bare `pytest` skips these directories; see `CLAUDE.md` for the list
+and for how the skip works.

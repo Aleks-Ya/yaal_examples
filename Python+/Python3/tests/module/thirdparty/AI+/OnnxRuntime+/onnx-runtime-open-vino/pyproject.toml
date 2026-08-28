@@ -1,0 +1,18 @@
+[project]
+name = "thirdparty-onnxruntime-openvino"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+# onnxruntime, onnxruntime-gpu and onnxruntime-openvino all provide the "onnxruntime" module,
+# so the three build variants get one project each.
+dependencies = [
+    "onnxruntime-openvino",
+    "onnx>=1.20.0", # needs cmake to build: sudo apt install -y cmake
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+]
+
+[tool.uv]
+package = false

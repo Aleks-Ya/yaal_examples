@@ -1,0 +1,17 @@
+[project]
+name = "thirdparty-pyqt6"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "PyQt6",
+    "PyQtPath",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-qt",
+]
+
+[tool.uv]
+package = false

@@ -31,7 +31,9 @@ Testing / debugging notes
 
 Integration & environment notes
 - Some apps interact with system services (e.g., `src/apps/inactivity_time/` has systemd `.service`/`.desktop` examples) — these expect a Linux desktop environment.
-- `requirements.txt` contains an extra index URL (line near end) and private packages — set up credentials if CI installs dependencies.
+- `requirements.txt` contains an extra index URL (line near end) for the private `t-tech-investments`
+  package. `tests/module/thirdparty/t-tech-investments/pyproject.toml` scopes that same index to just
+  that one package via `[[tool.uv.index]]` + `[tool.uv.sources]`.
 
 Where to look first (high-value files)
 - `pytest.ini` — test import/runtime config and markers
@@ -46,7 +48,7 @@ What not to assume
 
 Example actionable tasks for an agent
 - Add a unit test: put under `tests/` and import modules as `from apps.<name> import ...`.
-- Run tests locally with `pytest` from project root; CI likely mirrors this setup.
+- Run tests locally with `pytest` from project root. There is no CI in this repository.
 
 References
 - README.md (project setup)

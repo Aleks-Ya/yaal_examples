@@ -1,0 +1,25 @@
+[project]
+name = "thirdparty-t-tech-investments"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "t-tech-investments==1.49.0", # SSL error in later versions
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+]
+
+[tool.uv]
+package = false
+
+# Served from T-Bank's GitLab package registry rather than PyPI. Declaring it as a named index
+# and pinning the package to it (rather than the "--extra-index-url" line requirements.txt used
+# to carry) keeps every other package resolving from PyPI only.
+[[tool.uv.index]]
+name = "tbank"
+url = "https://opensource.tbank.ru/api/v4/projects/238/packages/pypi/simple"
+
+[tool.uv.sources]
+t-tech-investments = { index = "tbank" }

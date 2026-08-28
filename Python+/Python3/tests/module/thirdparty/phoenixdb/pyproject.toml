@@ -1,0 +1,11 @@
+[project]
+name = "thirdparty-phoenixdb"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+# Needs the Kerberos headers to build: sudo apt install -y libkrb5-dev
+dependencies = [
+    "phoenixdb",
+]
+
+[tool.uv]
+package = false

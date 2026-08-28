@@ -68,6 +68,70 @@ uv run --project   src/apps/<app> pytest tests/apps/<app>         # cwd stays; p
 `tests/module/thirdparty/odfdo/` use it. Everything else in `src/apps/` uses the shared
 `requirements.txt`.
 
+**Dependency-isolated example directories:** the same uv-project pattern is applied to the heavy and
+mutually conflicting example directories under `tests/module/thirdparty/`. Each owns a
+`pyproject.toml` and its own `.venv`, and is **not** listed in `requirements.txt`:
+
+| Directory | Holds |
+|---|---|
+| `AI+` | torch, tensorflow, transformers, gradio, ultralytics, LLM clients (multi-GB) |
+| `AI+/NLP+` | NLP + the Japanese tokenizer stack (spacy, MeCab, SudachiPy, GiNZA, ...) |
+| `AI+/OnnxRuntime+/onnx-runtime-cpu`, `.../onnxruntime-gpu`, `.../onnx-runtime-open-vino` | `onnxruntime`, `onnxruntime-gpu` and `onnxruntime-openvino` all provide the `onnxruntime` module |
+| `Database+` | chromadb |
+| `Math+` | numpy, scipy, matplotlib |
+| `pandas` | pandas + parquet/Excel engines |
+| `AWS+` | boto, boto3, aws-cdk-lib |
+| `PyQt5`, `PyQt6` | the two Qt bindings, kept apart so pytest-qt binds to one |
+| `PyTest+` | pytest and its plugins |
+| `Kafka+/kafka`, `Kafka+/kafka-python`, `Kafka+/confluent_kafka` | `kafka` and `kafka-python` both own the top-level `kafka` module and cannot coexist |
+| `DateTime+` | pendulum, dateparser, isodate, pytimeparse(2), pytz, ... |
+| `MarkDown+` | mistune, markdown2, mdutils, mdformat |
+| `Subtitles+` | pysrt, srt |
+| `phoenixdb` | Apache Phoenix client; needs `libkrb5-dev` |
+| `hdfs` | `hdfs[avro,dataframe,kerberos]`; the kerberos extra needs `libkrb5-dev` |
+| `t-tech-investments` | the private T-Bank index, scoped to that one package |
+
+```bash
+uv sync --project tests/module/thirdparty/<Topic>
+uv run  --project tests/module/thirdparty/<Topic> pytest tests/module/thirdparty/<Topic>
+```
+
+Two of these carry packages that need something beyond pip. `phoenixdb` and `hdfs[kerberos]` both
+pull `gssapi`, which builds only with the Kerberos headers present (`sudo apt install -y libkrb5-dev`,
+already in `README.md`); without them `uv sync` fails on `krb5-config`. `AI+/NLP+` declares
+`ja-ginza-electra` in a **non-default `electra` group** (`uv sync --group electra`) rather than in its
+main dependencies: it forces `transformers` back to 4.25.1 and `tokenizers` to 0.13.3, and 0.13.3 has
+no cp312 wheel so it builds from source and needs Rust. That is why it was commented out in
+`requirements.txt`; the group keeps it declared and reproducible without breaking the default install.
+
+`Kafka+/*` and `PyQt5` hold only plain reference scripts, so they declare no `pytest` and
+`uv run ... pytest` fails there — run those with `uv run --project <dir> python <script>.py`.
+`Kafka+/kafka` additionally cannot import on 3.12 at all (the distribution is from 2017; the script
+already says "works only on Python <=3.6"), and is isolated purely to stop it colliding with
+`kafka-python`, which provides the same `kafka` module.
+
+**A directory is isolated exactly when its `pyproject.toml` declares `[tool.uv]`.**
+`tests/module/thirdparty/conftest.py` turns that into a `collect_ignore`: such a directory is
+collected only while pytest runs under that directory's own `.venv`, so a bare `pytest` skips them
+all instead of erroring out on missing imports. Adding a new isolated directory therefore needs no
+config change — just create the project. (Testing for `[tool.uv]` rather than for the mere presence
+of a `pyproject.toml` is deliberate: `setuptools/`, `build_frontend/` and `cython/` ship
+`pyproject.toml`/`setup.py` files as *subject matter*, and none of those is a uv project.)
+
+**These projects do not commit `uv.lock`** — `.gitignore` excludes `tests/module/thirdparty/**/uv.lock`.
+They are cheat sheets whose job is to show how a library is used *today*, so every `uv sync` should
+resolve fresh rather than pin the examples to whatever was current when they were written; this also
+matches `requirements.txt`, which is essentially unpinned. uv still writes a lock locally on each
+`uv run`/`uv sync` — it is just untracked. (The two projects under `src/apps/` are tools rather than
+examples, and do commit theirs.) The trade-off is that a library release can break an example; when
+that happens, pin the offending package in that project's `pyproject.toml` with a comment saying why,
+the way `t-tech-investments==1.49.0` does.
+
+The `requirements.txt` exception rule that keeps `odfdo` also keeps ~12 carved-out packages listed
+there, because non-isolated code still imports them — e.g. `src/apps/detect_document_images` uses
+`transformers`, `src/apps/kafka_current_application_sensor` uses `confluent-kafka`, and
+`src/apps/tinkoff_investments` uses `t-tech-investments`.
+
 ## Conventions
 
 - **Imports**: everything under `src/` is imported via package root `apps.<name>...` (not relative
@@ -88,3 +152,11 @@ uv run --project   src/apps/<app> pytest tests/apps/<app>         # cwd stays; p
 - **Test markers**: `slow`, `fast`, `integration` are registered in `pytest.ini`; `integration` is
   excluded by default via `addopts`, so tests that talk to real external services must be marked
   `@pytest.mark.integration`.
+- **Import mode**: `pytest.ini` sets `--import-mode=importlib` and `pythonpath = src tests`. The
+  examples deliberately reuse one filename across sibling package directories (7x
+  `detect_language_test.py`, 2x `current_timezone_test.py`, ...); the default `prepend` mode names
+  modules after the basename alone and aborts collection with "import file mismatch" on those.
+  importlib mode does not touch `sys.path`, so `tests/conftest.py` re-adds each test module's own
+  directory via `pytest_collectstart` — a handful of examples import a plain sibling file
+  (`from hello_app import ...`), which cannot be written as an absolute import because directory
+  names like `PyTest+` contain `+` and are not valid Python identifiers.

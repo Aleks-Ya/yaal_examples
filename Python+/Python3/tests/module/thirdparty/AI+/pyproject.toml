@@ -1,0 +1,40 @@
+[project]
+name = "thirdparty-ai"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "torch",
+    "tensorflow",
+    "transformers",
+    "sentence-transformers",
+    "datasets",
+    "huggingface-hub",
+    "openai",
+    "openai-agents",
+    "anthropic",
+    "claude-agent-sdk",
+    "mcp",
+    "google-genai",
+    "voyageai",
+    "tiktoken",
+    "lmstudio",
+    "gradio",
+    "ultralytics",
+    "scikit-learn",
+    "kagglehub[pandas-datasets]",
+    "numpy",
+    "pandas",
+    "pydantic",
+    "tabulate",
+    "directory-tree",
+    "pycuda",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+]
+
+[tool.uv]
+package = false

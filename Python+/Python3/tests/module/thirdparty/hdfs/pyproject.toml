@@ -1,0 +1,11 @@
+[project]
+name = "thirdparty-hdfs"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+# The "kerberos" extra needs the Kerberos headers: sudo apt install -y libkrb5-dev
+dependencies = [
+    "hdfs[avro,dataframe,kerberos]",
+]
+
+[tool.uv]
+package = false

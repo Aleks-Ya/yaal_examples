@@ -1,0 +1,50 @@
+[project]
+name = "thirdparty-nlp"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "nltk",
+    "spacy",
+    "textblob",
+    "pattern3",
+    "polyglot",
+    "gensim",
+    "fasttext",
+    "googletrans",
+    "langdetect",
+    "langid",
+    "lingua-language-detector",
+    "langcodes",
+    "iso639-lang",
+    "python-iso639",
+    "inflect",
+    "chardet",
+    "mecab-python3",
+    "unidic-lite",
+    "sudachipy",
+    "sudachidict_core",
+    "ginza",
+    "fugashi[unidic-lite]",
+    "janome",
+    "pykakasi",
+    "pykatsuyou",
+    "japanese-verb-conjugator-v2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+]
+# Opt-in, NOT installed by default: "uv sync --group electra".
+# Japanese+/ginza/ginza_test.py calls spacy.load("ja_ginza_electra"), which needs this model.
+# It is kept out of the default set for two reasons:
+#   1. it drags transformers down to 4.25.1 / tokenizers to 0.13.3 (via spacy-transformers 1.1.9),
+#      which would pin every other NLP example here to a three-year-old transformers;
+#   2. tokenizers 0.13.3 ships no cp312 wheel, so installing it builds from source and needs a
+#      Rust toolchain -- this is why the package was commented out in requirements.txt.
+electra = [
+    "ja-ginza-electra",
+]
+
+[tool.uv]
+package = false

@@ -1,0 +1,21 @@
+[project]
+name = "thirdparty-pytest"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "PyQt6",
+    "PyQtPath",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-qt",
+    "pytest-mock",
+    "pytest-check",
+    "pytest-subtests",
+    "pytest-asyncio",
+]
+
+[tool.uv]
+package = false

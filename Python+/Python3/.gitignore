@@ -4,3 +4,8 @@ __pycache__
 .web_cache
 .gradio
 .venv/
+
+# Example projects under tests/module/thirdparty/ deliberately do NOT commit their lock file:
+# these are cheat sheets meant to demonstrate current library APIs, so each "uv sync" resolves
+# fresh. (The two apps under src/apps/ are tools rather than examples and DO commit theirs.)
+tests/module/thirdparty/**/uv.lock
