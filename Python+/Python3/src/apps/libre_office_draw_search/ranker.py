@@ -5,9 +5,11 @@ class Ranker:
 
     @staticmethod
     def rank_results(search_results: SearchResults) -> SearchResults:
-        sorted_search_results: list[SearchResult] = sorted(search_results.results, key=Ranker.__rank, reverse=True)
+        # Ascending order: the best result ends up last, so it stays right above the terminal prompt.
+        sorted_search_results: list[SearchResult] = sorted(search_results.results, key=Ranker.__rank)
+        results_count: int = len(sorted_search_results)
         for index, result in enumerate(sorted_search_results):
-            result.rank = index + 1
+            result.rank = results_count - index
         return SearchResults(sorted_search_results, search_results.pages_count, search_results.texts_count,
                              search_results.matches_count)
 

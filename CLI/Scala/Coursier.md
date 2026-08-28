@@ -1,6 +1,8 @@
 # Coursier CLI
 
-Install: `brew install coursier/formulas/coursier`
+## Install
+Brew does NOT work: `brew install coursier/formulas/coursier`
+Use: https://get-coursier.io/docs/cli-installation
 
 Help: `cs help`
 Help about a command: `cs update --help`

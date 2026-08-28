@@ -11,7 +11,7 @@ if [ "$BEFORE" != "$AFTER" ]; then
   echo "NEW POSTMAN VERSION FOUND"
   echo
   git push -f
-  flatpak-builder --force-clean --user --repo=repo --install build io.github.yaal.PostmanGit.yaml
+  flatpak-builder --force-clean --user --install-deps-from=flathub --repo=repo --install build io.github.yaal.PostmanGit.yaml
 else
   echo "NO POSTMAN UPDATES FOUND"
 fi

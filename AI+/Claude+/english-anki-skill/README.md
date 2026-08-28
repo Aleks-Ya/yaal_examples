@@ -13,6 +13,7 @@ the `En::English` Anki deck; the third is a standalone subtitle-cleanup helper t
 
 ## Requirements
 
+- NPM: `sudo apt install -y npm`
 - Anki running locally with the [AnkiConnect](https://ankiweb.net/shared/info/2055492159) add-on
   (listening on `http://localhost:8765`).
 - Python deps for the helper scripts: `pip install -r requirements.txt` (from this directory).

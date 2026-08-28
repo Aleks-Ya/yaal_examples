@@ -320,8 +320,6 @@ include 'JEE+:Jetty',
         'JEE+:Validation+:Validation62',
         'JEE+:Validation+:Validation7'
 
-include 'JRebel'
-
 /**
  * Spring+
  */

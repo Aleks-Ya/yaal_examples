@@ -19,8 +19,8 @@ def test_rank_above_match_count_is_rejected(
     search_results: SearchResults = SearchResults([search_result_1, unmatched_search_result], 5, 10, 1)
     inputs = iter(["2", ""])
     monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    opened: list = []
-    monkeypatch.setattr(subprocess, "run", lambda args, **kwargs: opened.append(args))
+    opened: list[tuple[list[str], dict]] = []
+    monkeypatch.setattr(subprocess, "Popen", lambda args, **kwargs: opened.append((args, kwargs)))
 
     Opener.open_result(search_results)
 
@@ -34,8 +34,8 @@ def test_non_numeric_input_is_rejected(
     search_results: SearchResults = SearchResults([search_result_1, unmatched_search_result], 5, 10, 1)
     inputs = iter(["abcd", ""])
     monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    opened: list = []
-    monkeypatch.setattr(subprocess, "run", lambda args, **kwargs: opened.append(args))
+    opened: list[tuple[list[str], dict]] = []
+    monkeypatch.setattr(subprocess, "Popen", lambda args, **kwargs: opened.append((args, kwargs)))
 
     Opener.open_result(search_results)
 
@@ -49,10 +49,17 @@ def test_matched_rank_is_opened(
     search_results: SearchResults = SearchResults([search_result_1, unmatched_search_result], 5, 10, 1)
     inputs = iter(["1", ""])
     monkeypatch.setattr("builtins.input", lambda _: next(inputs))
-    opened: list = []
-    monkeypatch.setattr(subprocess, "run", lambda args, **kwargs: opened.append(args))
+    opened: list[tuple[list[str], dict]] = []
+    monkeypatch.setattr(subprocess, "Popen", lambda args, **kwargs: opened.append((args, kwargs)))
 
     Opener.open_result(search_results)
 
     assert len(opened) == 1
-    assert search_result_1.draw_file in opened[0]
+    command, kwargs = opened[0]
+    assert search_result_1.draw_file in command
+    # The viewer must not write into this terminal: its streams are discarded and it is detached,
+    # otherwise its warnings land on top of the next input() prompt.
+    assert kwargs["stdin"] == subprocess.DEVNULL
+    assert kwargs["stdout"] == subprocess.DEVNULL
+    assert kwargs["stderr"] == subprocess.DEVNULL
+    assert kwargs["start_new_session"] is True

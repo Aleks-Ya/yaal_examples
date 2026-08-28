@@ -24,8 +24,9 @@ convention):
    against four fields: folder names, filenames, page names, and texts. Produces `SearchResults`.
    Parsing goes through **`parse_cache.py`** (`ParseCache`, injected into `Searcher`), not
    `OdgParser.parse` directly.
-4. **`ranker.py`** (`Ranker.rank_results`) — sorts by weighted score and assigns 1-based `rank`.
-   Weights: **filename 100, folder 50, page 5, text 1** (in `Ranker.__rank`).
+4. **`ranker.py`** (`Ranker.rank_results`) — sorts by weighted score **ascending** so the best match
+   is printed last, right above the prompt; `rank` still counts from 1 = best, so the printed ranks
+   descend down the screen. Weights: **filename 100, folder 50, page 5, text 1** (in `Ranker.__rank`).
 5. **`printer.py`** (`Printer`) — formats keywords, file count, and per-result output.
 6. **`opener.py`** (`Opener.open_result`) — interactive `input()` loop; opens the chosen rank with
    `xdg-open`/`open`/`os.startfile` per platform.
@@ -59,6 +60,18 @@ printing. `SearchResults` aggregates the list with `pages_count`, `texts_count`,
   `.odg` files are re-parsed, so repeat searches over a static vault are near-instant. Files not
   queried in a run are pruned from the index on `save()`. `Searcher` takes an optional `ParseCache`;
   tests inject one with a `tmp_path` index so they never touch the real `~/.cache`.
+- **The opened viewer must stay off this terminal.** `Opener` launches `xdg-open`/`open` via
+  `subprocess.Popen` with `stdin`/`stdout`/`stderr` set to `DEVNULL` and `start_new_session=True`,
+  never `subprocess.run`. `xdg-open` returns immediately but LibreOffice lives on as a detached
+  grandchild; if it inherits this terminal it keeps printing into it (`WARNING: Glycin running
+  without sandbox.`) long after launch, landing on top of the next "Enter the rank to open" prompt.
+  The new session also keeps a Ctrl+C at that prompt from reaching the viewer.
+  Caveat when debugging this: LibreOffice is a **resident single instance** — later `xdg-open` calls
+  are handed to the already-running `soffice.bin` over its IPC socket and print through *its* fds, so
+  an instance started before this fix (or started by hand from a terminal) keeps polluting that
+  terminal no matter what the launcher does. Check with
+  `ls -l /proc/$(pgrep soffice.bin)/fd/2`; it only becomes `/dev/null` once every LibreOffice window
+  is closed and the next open starts a fresh instance from here.
 - `Searcher.__get_namespaces` is a currently-unused XML-namespace helper — leave it unless the task is
   about namespaces.
 - **Dependencies live in this directory's `pyproject.toml`**, not the shared `requirements.txt`: the app

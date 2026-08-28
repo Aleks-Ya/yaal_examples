@@ -33,9 +33,16 @@ class Opener:
 
     @staticmethod
     def __open_file_in_default_app(file_path: OdgPath) -> None:
-        if platform.system() == 'Darwin':  # macOS
-            subprocess.run(['open', file_path])
-        elif platform.system() == 'Windows':  # Windows
+        if platform.system() == 'Windows':
             os.startfile(file_path)
-        else:  # Linux and other Unix-like systems
-            subprocess.run(['xdg-open', file_path])
+            return
+        command: list[str] = ['open' if platform.system() == 'Darwin' else 'xdg-open', file_path]
+        # The launched viewer keeps the terminal and writes its own diagnostics to it (e.g.
+        # "WARNING: Glycin running without sandbox." from LibreOffice), which lands on top of the
+        # next input() prompt. Detach it into its own session with its streams discarded, so nothing
+        # it prints - now or minutes later - reaches this terminal.
+        subprocess.Popen(command,
+                         stdin=subprocess.DEVNULL,
+                         stdout=subprocess.DEVNULL,
+                         stderr=subprocess.DEVNULL,
+                         start_new_session=True)

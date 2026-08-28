@@ -13,11 +13,12 @@ def test_rank():
                      [PageName("Page 1"), PageName("Page 2")], [])
     ], 3, 0, 2)
     ranked_search_results: SearchResults = Ranker.rank_results(search_results)
+    # The best match is last, so it is printed closest to the prompt; it still keeps rank 1.
     assert ranked_search_results == SearchResults([
-        SearchResult(1, OdgPath(Path('file1.odg')), [FolderName('dir1')], [FileName("file1.odg")],
-                     [PageName("Page 1")], []),
         SearchResult(2, OdgPath(Path('file2.odg')), [], [FileName("file2.odg")],
                      [PageName("Page 1"), PageName("Page 2")], []),
+        SearchResult(1, OdgPath(Path('file1.odg')), [FolderName('dir1')], [FileName("file1.odg")],
+                     [PageName("Page 1")], []),
     ], 3, 0, 2)
 
 
