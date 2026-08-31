@@ -32,14 +32,14 @@ def test_create_message_array(client: Anthropic, model: ModelParam, max_tokens: 
 
 
 def test_create_message_text_block_param(client: Anthropic, model: ModelParam, max_tokens: int):
-    text_block_params: TextBlockParam = TextBlockParam(type="text", text="Return just number 42")
+    text_block_param: TextBlockParam = TextBlockParam(type="text", text="Return just number 42")
     message: Message = client.messages.create(
         model=model,
         max_tokens=max_tokens,
         messages=[
             {
                 "role": "user",
-                "content": [text_block_params]
+                "content": [text_block_param]
             }
         ]
     )

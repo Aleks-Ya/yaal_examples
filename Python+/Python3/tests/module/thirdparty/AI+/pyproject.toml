@@ -27,7 +27,7 @@ dependencies = [
     "pydantic",
     "tabulate",
     "directory-tree",
-    "pycuda",
+#    "pycuda",
 ]
 
 [dependency-groups]
