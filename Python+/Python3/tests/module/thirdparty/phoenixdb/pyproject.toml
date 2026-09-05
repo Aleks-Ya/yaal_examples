@@ -4,8 +4,14 @@ version = "0.1.0"
 requires-python = ">=3.12,<3.13"
 # Needs the Kerberos headers to build: sudo apt install -y libkrb5-dev
 dependencies = [
+    "yaal-helpers",
     "phoenixdb",
 ]
 
 [tool.uv]
 package = false
+
+# The project's own shared helpers (yaal_helpers.*), installed editable from this
+# repository rather than from PyPI -- see src/yaal_helpers/README.md.
+[tool.uv.sources]
+yaal-helpers = { path = "../../../..", editable = true }

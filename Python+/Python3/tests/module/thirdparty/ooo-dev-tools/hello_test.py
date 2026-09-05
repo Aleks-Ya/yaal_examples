@@ -2,7 +2,7 @@ from pathlib import Path
 
 from ooodev.write import WriteDoc, WriteTextCursor
 
-from temp_helper import TempPath
+from yaal_helpers.temp_helper import TempPath
 
 
 def test_create_text_document():

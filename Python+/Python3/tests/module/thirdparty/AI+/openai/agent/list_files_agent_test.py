@@ -4,7 +4,7 @@ import pytest
 from agents import Agent, Runner, set_default_openai_client, RunResult, function_tool
 from openai import AsyncOpenAI
 
-from current_path import get_current_dir
+from yaal_helpers.current_path import get_current_dir
 
 
 @pytest.mark.asyncio

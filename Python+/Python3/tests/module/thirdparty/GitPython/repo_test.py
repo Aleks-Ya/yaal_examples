@@ -2,7 +2,7 @@ from pathlib import Path
 
 from git import Repo
 
-from temp_helper import TempPath
+from yaal_helpers.temp_helper import TempPath
 
 
 def test_get_repo(yaal_examples_repo: Repo):

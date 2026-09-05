@@ -2,7 +2,7 @@ from pathlib import Path
 
 from odfdo import Document, DrawPage, Paragraph
 
-from current_path import get_file_in_current_dir
+from yaal_helpers.current_path import get_file_in_current_dir
 
 file: Path = get_file_in_current_dir('draw.odg')
 doc: Document = Document(file)

@@ -6,8 +6,8 @@ import pandas
 from pandas import DataFrame
 from pandas.io.json import build_table_schema
 
-from current_path import get_file_in_current_dir
-from temp_helper import TempPath
+from yaal_helpers.current_path import get_file_in_current_dir
+from yaal_helpers.temp_helper import TempPath
 
 
 def test_read_json_file():

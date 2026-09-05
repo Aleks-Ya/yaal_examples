@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 from xlsxwriter import Workbook
 
-from temp_helper import TempPath
+from yaal_helpers.temp_helper import TempPath
 
 
 @pytest.fixture

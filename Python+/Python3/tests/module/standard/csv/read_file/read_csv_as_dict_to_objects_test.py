@@ -2,7 +2,7 @@ from csv import DictReader
 from pathlib import Path
 from typing import List
 
-from current_path import get_file_in_current_dir
+from yaal_helpers.current_path import get_file_in_current_dir
 
 
 class Person:

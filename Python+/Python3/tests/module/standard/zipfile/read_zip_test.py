@@ -2,7 +2,7 @@ import tempfile
 from zipfile import ZipFile, ZIP_STORED
 from pathlib import Path
 
-from current_path import get_file_in_current_dir
+from yaal_helpers.current_path import get_file_in_current_dir
 
 
 def test_read_single_file_from_zip():

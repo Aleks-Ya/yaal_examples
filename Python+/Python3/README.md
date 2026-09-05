@@ -12,6 +12,26 @@ Create virtual environment:
 6. Install packages: `pip install -U pip -r requirements.txt`
 7. Configure the Idea project to use the virtual environment
 
+Step 6 also installs the `yaal-helpers` package (see below) in editable mode via the `-e .` line in
+`requirements.txt`.
+
+## Shared helpers
+
+`src/yaal_helpers/` holds the modules shared by everything here — `yaal_helpers.current_path` (paths relative
+to the calling file) and `yaal_helpers.temp_helper` (temp paths for tests):
+
+```python
+from yaal_helpers.current_path import get_file_in_current_dir
+from yaal_helpers.temp_helper import TempPath
+```
+
+`pytest.ini`'s `pythonpath = src` covers it, and so does the IDE's `src` source root. On top of that it
+is packaged by the root `pyproject.toml` and installed editable into every environment in this
+directory — the pyenv one above, and each uv project below, which declares it as a
+`[tool.uv.sources]` path dependency. So the import works under `pytest`, under
+`python some_script.py` from any directory, and inside the isolated venvs alike. See
+`src/yaal_helpers/README.md`.
+
 ## Dependency-isolated example directories
 
 `requirements.txt` no longer covers everything. The heavy and mutually conflicting example

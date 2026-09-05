@@ -1,7 +1,7 @@
 import csv
 from pathlib import Path
 
-from temp_helper import TempPath
+from yaal_helpers.temp_helper import TempPath
 
 
 def test_generate_many_columns_csv():

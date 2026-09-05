@@ -4,7 +4,7 @@ import pytest
 from odfdo import Document, DrawFillImage, DrawMarker
 from odfdo.style_base import StyleBase
 
-from temp_helper import TempPath
+from yaal_helpers.temp_helper import TempPath
 
 
 def test_get_style_properties(draw_doc: Document):

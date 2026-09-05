@@ -3,7 +3,7 @@ from textwrap import dedent
 
 import yaml
 
-from temp_helper import TempPath
+from yaal_helpers.temp_helper import TempPath
 
 
 def test_write_yaml_to_file():

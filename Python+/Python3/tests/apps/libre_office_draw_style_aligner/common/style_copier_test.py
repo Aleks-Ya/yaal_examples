@@ -6,8 +6,8 @@ from odfdo.style_base import PropDict
 from common.data_types import FamilyName, StyleDisplayName, OdgPath
 from common.doc import Doc
 from common.style_copier import StyleCopier
-from current_path import get_file_in_current_dir
-from temp_helper import TempPath
+from yaal_helpers.current_path import get_file_in_current_dir
+from yaal_helpers.temp_helper import TempPath
 
 family: FamilyName = FamilyName('graphic')
 display_name_1: StyleDisplayName = StyleDisplayName('My Style 1')

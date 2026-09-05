@@ -4,7 +4,7 @@ from typing import Any
 from odf.opendocument import load, OpenDocument
 from odf import draw, text
 
-from current_path import get_file_in_current_dir
+from yaal_helpers.current_path import get_file_in_current_dir
 
 
 def test_find_all_texts():

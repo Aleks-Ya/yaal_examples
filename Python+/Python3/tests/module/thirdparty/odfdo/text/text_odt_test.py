@@ -2,7 +2,7 @@ from pathlib import Path
 
 from odfdo import Document, Header, Paragraph, Span, Style
 
-from current_path import get_file_in_current_dir
+from yaal_helpers.current_path import get_file_in_current_dir
 
 
 def test_create_text_document():

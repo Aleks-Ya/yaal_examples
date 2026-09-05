@@ -4,7 +4,7 @@ import pandas.testing as pdt
 import pandas
 from pandas import DataFrame
 
-from temp_helper import TempPath
+from yaal_helpers.temp_helper import TempPath
 
 
 def test_write_parquet(people_df: DataFrame):

@@ -6,7 +6,7 @@ import pandas as pd
 from gradio import Dataframe
 from pandas import DataFrame
 
-from temp_helper import TempPath
+from yaal_helpers.temp_helper import TempPath
 
 file: Path = TempPath.temp_path_absent(suffix='.parquet')
 DataFrame({'Name': ['John', 'Mary'], 'Age': [30, 25]}).to_parquet(file)

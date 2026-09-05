@@ -7,7 +7,7 @@ from odf.text import H, P, Span
 from odf.opendocument import load
 from odf import text, draw
 
-from current_path import get_file_in_current_dir
+from yaal_helpers.current_path import get_file_in_current_dir
 
 
 # Based on: https://github.com/eea/odfpy/wiki/Introduction#example

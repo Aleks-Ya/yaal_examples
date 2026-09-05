@@ -2,7 +2,7 @@ import json
 import textwrap
 from pathlib import Path
 
-from temp_helper import TempPath
+from yaal_helpers.temp_helper import TempPath
 
 
 def test_save_json_to_file():

@@ -1,7 +1,7 @@
 from zipfile import ZipFile
 from pathlib import Path
 
-from temp_helper import TempPath
+from yaal_helpers.temp_helper import TempPath
 
 
 def test_create_empty_zip():

@@ -3,7 +3,7 @@ from odfdo import Document
 from common.data_types import FamilyName, StyleName
 from common.doc import Doc
 from common.stl import Stl
-from current_path import get_file_in_current_dir
+from yaal_helpers.current_path import get_file_in_current_dir
 
 family: FamilyName = FamilyName('graphic')
 doc: Doc = Doc(Document(get_file_in_current_dir('stl_test.odg')))

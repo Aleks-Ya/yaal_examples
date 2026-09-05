@@ -5,8 +5,8 @@ from odfdo.style_base import StyleBase
 
 from common.data_types import FamilyName, StyleName, StyleDisplayName
 from common.style_renamer import StyleRenamer
-from current_path import get_file_in_current_dir
-from temp_helper import TempPath
+from yaal_helpers.current_path import get_file_in_current_dir
+from yaal_helpers.temp_helper import TempPath
 
 
 def test_rename_style():

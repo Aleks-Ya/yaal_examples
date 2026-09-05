@@ -1,4 +1,4 @@
-from current_path import get_file_in_current_dir
+from yaal_helpers.current_path import get_file_in_current_dir
 from module.thirdparty.odfpy.draw.fodg.fodg_parser import Data, FodgParser
 
 

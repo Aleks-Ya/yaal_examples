@@ -7,7 +7,7 @@ import pytest
 from common.data_types import FamilyName, StyleDisplayName, StyleName
 from common.doc import Doc
 from common.stl import Stl
-from current_path import get_file_in_current_dir
+from yaal_helpers.current_path import get_file_in_current_dir
 
 family: FamilyName = FamilyName('graphic')
 path: Path = get_file_in_current_dir('doc_test.odg')

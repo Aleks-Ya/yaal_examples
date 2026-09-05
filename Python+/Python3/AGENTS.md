@@ -3,7 +3,8 @@
 This file is a compact, actionable guide for AI coding agents to get productive quickly.
 
 Key points
-- Project layout: top-level `src/` contains importable code. Tests use `pythonpath = src` (see `pytest.ini`).
+- Project layout: top-level `src/` contains importable code — the apps (`apps.<name>...`) and the
+  shared helpers (`yaal_helpers.*`). Tests use `pythonpath = src tests` (see `pytest.ini`).
 - Python runtime: targets Python 3.12 (project README shows pyenv -> 3.12.12). Use the same to support modern typing syntax.
 - Large native / ML deps: `requirements.txt` is large and includes packages requiring OS deps (e.g. `libkrb5-dev` for phoenixdb, `cmake` for onnx). See project README lines 5-11.
 
@@ -19,13 +20,14 @@ python -m apps.bytes_to_human_str.bytes_to_human_str  # example runnable module
 
 Important conventions and patterns
 - Imports: modules under `src/` are imported using package roots like `apps.<name>...`. Tests rely on this (see `pytest.ini`).
-- File-relative helpers: use `src/current_path.py::get_current_dir()` and `get_file_in_current_dir()` when code needs the caller's file directory rather than `__file__`.
+- File-relative helpers: use `yaal_helpers.current_path::get_current_dir()` and `get_file_in_current_dir()` when code needs the caller's file directory rather than `__file__`.
   - Example: many small utilities in `src/apps/*` use Path-based operations and rely on these helpers for tests.
-- Temp helpers: `src/temp_helper.py::TempPath` provides `temp_path_absent()` and `dir_exists()` used by tests (see `tests/conftest.py` fixture `temp_path_absent`). Prefer using these fixtures over creating temp files manually.
+- Temp helpers: `yaal_helpers.temp_helper::TempPath` provides `temp_path_absent()` and `dir_exists()` used by tests (see `tests/conftest.py` fixture `temp_path_absent`). Prefer using these fixtures over creating temp files manually.
+- Both live in `src/yaal_helpers/` and are also installed editable into every environment here (root `pyproject.toml`, `-e .` in `requirements.txt`, a `[tool.uv.sources]` path entry in each uv project), so they import outside pytest too. See `src/yaal_helpers/README.md`.
 - Typing / style: code uses modern Python typing (PEP 585 builtin generics like `list[str]`, `dict[...]`) and private-name patterns (`__` double-underscore methods). Target Python 3.12+ when editing.
 
 Testing / debugging notes
-- Tests are configured in `pytest.ini`: pythonpath=src and default addopts excludes `integration` tests.
+- Tests are configured in `pytest.ini`: pythonpath=`src tests` and default addopts excludes `integration` tests.
 - To debug a failing unit test, run the single test with `pytest -k <expr> -q` from repository root so `src` is on path via pytest.ini.
 - Many modules are small, pure-Python utilities; you can run simple modules directly with `python -m apps.<module>.<script>` if they include a `__main__` or simple test harness.
 
@@ -38,7 +40,7 @@ Integration & environment notes
 Where to look first (high-value files)
 - `pytest.ini` — test import/runtime config and markers
 - `requirements.txt` — full dependency list and extra index URL
-- `src/current_path.py`, `src/temp_helper.py` — project-local helpers used by tests and scripts
+- `src/yaal_helpers/` — the `yaal-helpers` package (`current_path`, `temp_helper`), used by tests and scripts
 - `src/apps/` — the collection of small applications. Pick one (e.g. `libre_office_draw_search/`) to learn patterns: typed data classes, parser + searcher separation (`odg_parser.py` + `searcher.py`).
 - `tests/` — examples of how modules are exercised; mirrors project conventions.
 
@@ -54,6 +56,6 @@ References
 - README.md (project setup)
 - pytest.ini (tests)
 - requirements.txt (dependencies)
-- src/current_path.py, src/temp_helper.py (helpers)
+- src/yaal_helpers/ (the yaal-helpers package: current_path, temp_helper)
 - src/apps/libre_office_draw_search/ (representative app)
 

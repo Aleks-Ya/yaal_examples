@@ -2,7 +2,7 @@ from pathlib import Path
 
 from python_postman import PythonPostman, Collection
 
-from current_path import get_file_in_current_dir
+from yaal_helpers.current_path import get_file_in_current_dir
 
 
 def test_create_collection():

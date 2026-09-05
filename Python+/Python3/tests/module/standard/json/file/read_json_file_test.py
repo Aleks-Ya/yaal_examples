@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from temp_helper import TempPath
+from yaal_helpers.temp_helper import TempPath
 
 
 def test_read_json_file():

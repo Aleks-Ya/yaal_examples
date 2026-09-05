@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 from odfdo import Document
 
-from current_path import get_file_in_current_dir
+from yaal_helpers.current_path import get_file_in_current_dir
 
 
 @pytest.fixture

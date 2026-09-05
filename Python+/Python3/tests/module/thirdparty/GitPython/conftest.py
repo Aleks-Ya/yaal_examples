@@ -1,7 +1,7 @@
 import pytest
 from git import Repo
 
-from temp_helper import TempPath
+from yaal_helpers.temp_helper import TempPath
 
 
 @pytest.fixture

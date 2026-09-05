@@ -7,6 +7,12 @@
 #
 # Show package size: du -sh $VIRTUAL_ENV/lib/python3.12/site-packages/inflect
 pip
+
+# The project's own shared helpers (yaal_helpers.current_path, yaal_helpers.temp_helper), packaged
+# by ./pyproject.toml. Editable, so edits under src/yaal_helpers/ are picked up without
+# re-installing. Every uv project in this tree declares the same path dependency -- see
+# src/yaal_helpers/README.md.
+-e .
 requests
 psutil
 PyQt6

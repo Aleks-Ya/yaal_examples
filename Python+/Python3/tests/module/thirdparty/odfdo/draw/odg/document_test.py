@@ -2,7 +2,7 @@ from pathlib import Path
 
 from odfdo import Document
 
-from temp_helper import TempPath
+from yaal_helpers.temp_helper import TempPath
 
 
 def test_create_empty_document():

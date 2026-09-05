@@ -2,8 +2,8 @@ from pathlib import Path
 
 from odfdo import Document
 
-from current_path import get_file_in_current_dir
-from temp_helper import TempPath
+from yaal_helpers.current_path import get_file_in_current_dir
+from yaal_helpers.temp_helper import TempPath
 
 
 def test_merge_styles_from(draw_doc: Document):

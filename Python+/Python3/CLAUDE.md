@@ -45,8 +45,21 @@ pytest -m integration               # run integration tests (hit real 3rd-party 
 python -m apps.bytes_to_human_str.bytes_to_human_str   # run an app module directly
 ```
 
-`pytest.ini` sets `pythonpath = src` and `testpaths = tests`, so tests import modules as
+`pytest.ini` sets `pythonpath = src tests` and `testpaths = tests`, so tests import modules as
 `apps.<name>...` and pytest must be run from this directory (`Python+/Python3`), not the repo root.
+
+**Shared helpers (`src/yaal_helpers/`):** the cross-cutting helper modules, imported as
+`from yaal_helpers.temp_helper import TempPath` / `from yaal_helpers.current_path import ...`. They sit
+under `src/` deliberately: that is the one directory both `pythonpath = src` and the IDE's source root
+already cover, so the import resolves in pytest and in the IDE with no extra configuration. For
+everything outside pytest they are also a real, dependency-free distribution — `yaal-helpers`, declared
+by the root `pyproject.toml` (the only thing that file packages; the examples themselves are never
+installed) — installed **editable into every environment in this tree**: `-e .` in `requirements.txt`,
+and a `yaal-helpers` dependency plus a `[tool.uv.sources]` editable path entry pointing at this
+directory in each of the 23 uv projects below. That is what makes the helpers importable from
+`python some_script.py` in any cwd, or from `uv run` inside an isolated example venv. A new shared
+helper is just a new module in `src/yaal_helpers/`; no project needs editing. See
+`src/yaal_helpers/README.md`.
 
 **Per-app dependency isolation:** some apps have their own uv project (`pyproject.toml` + `uv.lock` in
 the app directory, `package = false`) instead of relying on the shared `requirements.txt`:
@@ -138,11 +151,11 @@ there, because non-isolated code still imports them — e.g. `src/apps/detect_do
   paths), matching the `pythonpath = src` pytest config.
 - **Typing/target version**: Python 3.12+; use modern PEP 585 builtin generics (`list[str]`,
   `dict[str, int]`) rather than `typing.List`/`typing.Dict`.
-- **File-relative paths**: use `src/current_path.py`'s `get_current_dir()` /
+- **File-relative paths**: use `src/yaal_helpers/current_path.py`'s `get_current_dir()` /
   `get_file_in_current_dir(filename)` (inspects the caller's stack frame) instead of `__file__` when code
   needs a path relative to the calling file — this is what lets the same app code work correctly whether
   invoked as a script or imported in tests.
-- **Temp paths in tests**: use `src/temp_helper.py`'s `TempPath.dir_exists()` /
+- **Temp paths in tests**: use `src/yaal_helpers/temp_helper.py`'s `TempPath.dir_exists()` /
   `TempPath.temp_path_absent()` rather than hand-rolling `tempfile` calls; the `temp_path_absent` pytest
   fixture in `tests/conftest.py` wraps the latter.
 - **App structure pattern**: nontrivial apps split parsing from logic, e.g.
