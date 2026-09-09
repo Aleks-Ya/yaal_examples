@@ -1,11 +1,11 @@
 # Run: mcp dev docs_mcp_server.py
+from mcp.server.mcpserver import MCPServer, Context
+from mcp.server.mcpserver.prompts import base
+from pydantic import Field
+from time import sleep
 from typing import Any
 
-from mcp.server.fastmcp import FastMCP
-from pydantic import Field
-from mcp.server.fastmcp.prompts import base
-
-mcp: FastMCP[Any] = FastMCP("DocumentMCP", log_level="ERROR")
+mcp: MCPServer[Any] = MCPServer("DocumentMCP", log_level="ERROR")
 
 docs = {
     "deposition.md": "This deposition covers the testimony of Angela Smith, P.E.",
@@ -22,12 +22,20 @@ docs = {
     description="Read the contents of a document and return it as a string."
 )
 def read_document(
+        ctx: Context,
         doc_id: str = Field(description="Id of the document to read")
 ):
+    ctx.report_progress(progress=0, total=100, message=f"Start reading document {doc_id}")
+    sleep(3)
     if doc_id not in docs:
         raise ValueError(f"Doc with id {doc_id} not found")
-
-    return docs[doc_id]
+    ctx.report_progress(progress=30, total=100, message=f"Document found by ID {doc_id}")
+    sleep(3)
+    content = docs[doc_id]
+    ctx.report_progress(progress=95, total=100, message=f"Finished reading document {doc_id}")
+    sleep(3)
+    ctx.report_progress(progress=100, total=100, message=f"Document returned {doc_id}")
+    return content
 
 
 @mcp.tool(

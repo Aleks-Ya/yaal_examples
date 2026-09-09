@@ -12,10 +12,10 @@ alias tagspaces_rename_files='python3 ~/pr/home/yaal_examples/Python+/Python3/sr
 
 alias upgrade='~/pr/home/yaal_examples/Bash+/apps/upgrade_linux.sh'
 
-alias backup_zotero='cd ~ && duplicity incremental --progress --encrypt-key CE0CE6B2 /home/aleks/Zotero s3://yaal-backup/duplicity-backup-zotero'
-alias backup_docs_vault='cd ~ && duplicity incremental --progress --encrypt-key CE0CE6B2 /home/aleks/DocsVault s3://yaal-backup/duplicity-backup-docs-vault'
-alias backup_joplin='cd ~ && duplicity incremental --progress --encrypt-key CE0CE6B2 /home/aleks/.config/joplin-desktop s3://yaal-backup/duplicity-backup-joplin-desktop'
-alias backup_thunderbird='cd ~ && duplicity incremental --progress --encrypt-key CE0CE6B2 ~/.thunderbird s3://yaal-backup/duplicity-backup-thunderbird'
+alias backup_zotero='cd ~ && AWS_PROFILE=duplicity duplicity incremental --progress --encrypt-key CE0CE6B2 /home/aleks/Zotero s3://yaal-backup/duplicity-backup-zotero'
+alias backup_docs_vault='cd ~ && AWS_PROFILE=duplicity duplicity incremental --progress --encrypt-key CE0CE6B2 /home/aleks/DocsVault s3://yaal-backup/duplicity-backup-docs-vault'
+alias backup_joplin='cd ~ && AWS_PROFILE=duplicity duplicity incremental --progress --encrypt-key CE0CE6B2 /home/aleks/.config/joplin-desktop s3://yaal-backup/duplicity-backup-joplin-desktop'
+alias backup_thunderbird='cd ~ && AWS_PROFILE=duplicity duplicity incremental --progress --encrypt-key CE0CE6B2 ~/.thunderbird s3://yaal-backup/duplicity-backup-thunderbird'
 
 #Qt5
 alias anki-user2-qt5-24.04.1="~/installed/Anki/anki-24.04.1-linux-qt5/anki -b ~/anki-home-dirs/user2/anki-24.04.1-linux-qt5"
@@ -42,4 +42,4 @@ alias adata_mount='sudo mount /dev/sda1 /media/aleks/ADATA'
 alias adata_unmount='sudo umount /media/aleks/ADATA'
 
 alias citrix_distrobox='distrobox enter ubuntu2204'
-alias citrix_workspace='/opt/Citrix/ICAClient/selfservice --icaroot /opt/Citrix/ICAClient'
+alias citrix_workspace='LIBGL_ALWAYS_SOFTWARE=1 /opt/Citrix/ICAClient/selfservice --icaroot /opt/Citrix/ICAClient'

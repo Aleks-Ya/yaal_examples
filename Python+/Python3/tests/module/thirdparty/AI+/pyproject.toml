@@ -14,7 +14,7 @@ dependencies = [
     "openai-agents",
     "anthropic",
     "claude-agent-sdk",
-    "mcp",
+    "mcp[cli]",
     "google-genai",
     "voyageai",
     "tiktoken",

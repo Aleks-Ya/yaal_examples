@@ -4,9 +4,19 @@ Version should be 3.x.x or later.
 Site:https://duplicity.gitlab.io
 GitLab: https://gitlab.com/duplicity/duplicity
 
-Install: 
-- `sudo snap install duplicity --classic` (latest)
-- `sudo apt install duplicity` (outdated)
+## Install
+With S3 support:
+1. Remove old pre-installed version: `sudo apt remove -y duplicity`
+2. `pipx install duplicity`
+3. Open a new terminal
+4. `pipx inject duplicity boto3 "botocore[crt]" --force`
+5. Check version (should be 3.x.x): `duplicity --version`
+
+Latest (no S3 support): 
+`sudo snap install duplicity --classic` 
+
+Outdated:
+`sudo apt install duplicity`
 
 ## Info
 Show version: `duplicity --version`

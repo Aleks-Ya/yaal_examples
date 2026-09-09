@@ -9,3 +9,4 @@ Version: `pipx --version`
 List installed packages: `pipx list`
 Install a package: `pipx install tox`
 Upgrade all packages: `pipx upgrade-all`
+Uninstall a package: `pipx uninstall visidata`
