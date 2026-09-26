@@ -22,36 +22,26 @@ The helper scripts below are **run, never read** — their CLI contracts are doc
 
 ## Finding and storing the photo
 
-The image must clearly depict the word *in this sentence's sense/POS*. Procedure:
+The photo search and visual check are delegated to the **`picture-picker` subagent**
+(`.claude/agents/picture-picker.md`), so the candidate thumbnails it views never enter the main
+context. Procedure:
 
-1. **Build a concrete, depictable query** for the word in its intended sense — use the `Definition`
-   and the example sentence to disambiguate, and for abstract verbs/adjectives/nouns describe a
-   concrete scene that represents the sense rather than the bare headword (e.g. for "reluctant" →
-   "person hesitating with worried face", not "reluctant").
-2. **Search candidates:** run `python3 "shared/scripts/search_images.py" "<query>" --limit 8` to get
-   ranked candidates (each with `url`, `thumbnail`, `title`, `tags`); **pre-rank by `title`/`tags`**
-   and take the **top ~3** matching the sense.
-3. **Verify on thumbnails, in one batch:** download all ~3 candidates' **`thumbnail`** URLs (not
-   `url`) in a **single** `shared/scripts/fetch_and_resize_image.py --batch` call — pipe a JSON
-   array of `{"url": "<thumbnail>", "path": "<temp_output_path>", "max_dimension": 320}` on stdin
-   (each shrunk to fit within **320px** — plenty to judge relevance, and far cheaper to view than a
-   larger image; a thumbnail already within 320px is fine to judge on), then **view all the temp
-   files with the Read tool in a single message** (parallel Read calls) and judge them together:
-   pick whichever clearly and unambiguously depicts the word in the intended sense — reject
-   off-sense, text/diagram-heavy, watermarked/logo, or confusing images. If none of the ~3 fit,
-   refine the query **once** and retry the batch.
-4. **Store the winner:** for the **chosen winner only**, download+shrink its full-resolution `url`
-   to 600px with the single-URL form `shared/scripts/fetch_and_resize_image.py <url>
-   <temp_output_path> 600` (the thumbnail was only for judging; the full-res fetch is for stored
-   quality), then store that resized file into Anki's media collection with `storeMediaFile`
-   (`path` = the resized full-res temp file, `filename` = the `picture` entry from the one
-   `python3 "shared/scripts/slugify.py" "<English value>" <pos> --all-media` call — see
-   backfill-routine.md step B0 — e.g. `beggar-noun.jpg`; deterministic word+POS slug, so
-   re-processing overwrites rather than accumulates). Delete the temp files afterwards. The field
-   value starts with this `<img src="filename">`.
+1. **Spawn `picture-picker`** (Agent tool, `subagent_type: "picture-picker"`) as soon as the note's
+   `Definition` is known, passing `word` (the `English` value), `pos` (plain POS word),
+   `definition`, `sentence` (the input sentence, or one example sentence of the note if there is
+   none) and `output_path` (a temp `.jpg` path). It runs in the background: carry on with the icon
+   and the other fields meanwhile, and wait for its result before the note's single write.
+2. **Read its JSON reply:** `{"path": ...}` with a non-null `path` is the chosen photo, already
+   downloaded and shrunk to 600px; `"path": null` means no candidate clearly fit (don't search again
+   yourself).
+3. **Store it** (skip in dry-run mode — report the chosen `url` instead): `storeMediaFile` with
+   `path` = the returned `path` and `filename` = the `picture` entry from the one
+   `python3 "shared/scripts/slugify.py" "<English value>" <pos> --all-media` call (see
+   backfill-routine.md step B0), e.g. `beggar-noun.jpg` — deterministic word+POS slug, so
+   re-processing overwrites rather than accumulates. Delete the temp file afterwards. The field value
+   starts with this `<img src="filename">`.
 
-If no viewed candidate clearly fits (after the one query refinement), store no photo — don't store a
-poor match just to fill the field — and go on to the icon, which may still succeed.
+If no photo was found, store none and go on to the icon, which may still succeed.
 
 ## Finding and storing the icon
 
@@ -88,8 +78,8 @@ note, clear its Picture field in Anki and re-run the populate skill.
 ## No-pictures mode
 
 Either skill may be invoked with `--no-pictures` (any position, combinable with `--dry-run`). The
-Picture flow above — image search, thumbnail batch download, visual check, full-res fetch, and the
-icon lookup — is by far the most expensive part of a run, and this mode skips it entirely (icon
+Picture flow above — the `picture-picker` subagent (image search, visual check, full-res fetch) and
+the icon lookup — is by far the most expensive part of a run, and this mode skips it entirely (icon
 included: it fills the same field):
 
 - Pass `--no-pictures` to every `note_status.py` call (the backfill routine's B1 worklist and B5
@@ -100,8 +90,8 @@ included: it fills the same field):
   reuses `find_duplicate.py`'s embedded `status`, which is computed *without* the flag — ignore a
   `Picture` entry in its `empty_claude_fields`, but do run `note_status.py --no-pictures` for the B5
   verdict.)
-- Run none of the Picture procedure in B2 (no `search_images.py`, no `fetch_and_resize_image.py`, no
-  `search_icons.py`, no `storeMediaFile` for the picture or icon). This holds in dry-run mode too,
+- Run none of the Picture procedure in B2 (no `picture-picker` subagent, no `search_icons.py`, no
+  `storeMediaFile` for the picture or icon). This holds in dry-run mode too,
   where the picture lookups would otherwise still run.
 - Do **not** add `~api::absent::picture` in B4 for the skipped field — absence was never verified;
   the field simply stays empty and untagged.

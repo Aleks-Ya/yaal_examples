@@ -38,8 +38,19 @@ alias mtree='mvn dependency:tree -DoutputFile=target/tree.txt'
 
 alias update_postman_git='~/pr/home/yaal_examples/CLI/Other/Postman/deploy_postman_git_locally.sh'
 
-alias adata_mount='sudo mount /dev/sda1 /media/aleks/ADATA'
+alias adata_mount='sudo mount -o uid=$(id -u),gid=$(id -g),umask=022 /dev/sda1 /media/aleks/ADATA'
 alias adata_unmount='sudo umount /media/aleks/ADATA'
 
 alias citrix_distrobox='distrobox enter ubuntu2204'
 alias citrix_workspace='LIBGL_ALWAYS_SOFTWARE=1 /opt/Citrix/ICAClient/selfservice --icaroot /opt/Citrix/ICAClient'
+
+# GlobalProtect Georgia
+alias gpc='globalprotect connect -u aleksei_iablokov@epam.com --portal vpn.epam.com'
+alias gpd='globalprotect disconnect'
+alias gps='globalprotect show --status'
+
+# GlobalProtect Philippines
+alias gps='globalprotect show --status'
+alias gpc='globalprotect connect --portal vpn.epam.com --gateway vpn-in.epam.com -u aleksei_iablokov@epam.com'
+alias gpd='globalprotect disconnect'
+alias gpdns='sed -e \"1i\nameserver 10.68.21.50\" /etc/resolv.conf | sudo tee /etc/resolv.conf'

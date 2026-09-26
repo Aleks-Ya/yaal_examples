@@ -1,0 +1,15 @@
+[project]
+name = "gradio-examples"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "gradio[mcp]",
+    "pandas",
+    "yaal-helpers",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+yaal-helpers = { path = "../../../../..", editable = true }

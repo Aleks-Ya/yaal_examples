@@ -3,10 +3,9 @@ from datetime import timedelta, date
 from decimal import Decimal
 from typing import Optional, NewType
 
-import requests
-from requests import get, Session
 from bs4 import BeautifulSoup, Tag
 from requests import Response
+from requests import get, Session
 
 CurrencyCode = NewType("CurrencyCode", str)
 

@@ -11,6 +11,10 @@ the `En::English` Anki deck; the third is a standalone subtitle-cleanup helper t
   text) into readable prose saved beside it with a ` clean` suffix. A handy source of real-life
   sentences to then feed into `add-english-word-to-anki`.
 
+Both Anki skills tag every note they add or modify with `en::to-learn`. They delegate the Picture
+field's photo search and visual check to the `picture-picker` subagent
+(`.claude/agents/picture-picker.md`), which keeps the viewed thumbnails out of the main context.
+
 ## Requirements
 
 - NPM: `sudo apt install -y npm`

@@ -12,5 +12,6 @@ Help: `clamscan -h`
 Version: `clamscan --version`
 Refresh signatures: see `freshclam.md`
 Scan current folder: `clamscan --suppress-ok-results --recursive .`
+Scan a folder: `clamscan -r --infected ~/Downloads`
 Scan single file: `clamscan eicar.com.txt`
 See signature update date: `clamscan --version`

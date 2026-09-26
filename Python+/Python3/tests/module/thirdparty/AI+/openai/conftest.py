@@ -6,7 +6,7 @@ from openai import OpenAI, AsyncOpenAI
 
 @pytest.fixture
 def api_key() -> str:
-    return Path.home().joinpath(".openai").joinpath("token.txt").read_text()
+    return Path.home().joinpath(".config").joinpath("openai-api-key").joinpath("api-key.txt").read_text()
 
 
 @pytest.fixture

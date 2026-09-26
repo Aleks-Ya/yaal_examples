@@ -6,6 +6,8 @@ Refresh signatures: `sudo freshclam`
 ## Service
 Status: `sudo systemctl status clamav-freshclam`
 Stop: `sudo systemctl stop clamav-freshclam`
+Start: `sudo systemctl start clamav-freshclam`
+Enable auto-start: `sudo systemctl enable clamav-freshclam`
 Disable auto-start: `sudo systemctl disable clamav-freshclam`
 
 ## Errors

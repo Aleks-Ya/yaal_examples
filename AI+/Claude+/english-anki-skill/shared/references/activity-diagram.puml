@@ -2,85 +2,96 @@
 title Add English word to Anki — activity diagram
 legend right
   |= color |= meaning |
-  |<#LightBlue>| deterministic script call (scripts/*.py) |
-  |<#LightYellow>| Anki MCP call |
-  |<#LightGreen>| image search + Read-tool visual check |
+  |<#LightBlue>| deterministic script call (shared/scripts/*.py) |
+  |<#LightYellow>| Anki MCP call (skipped in --dry-run) |
+  |<#LightGreen>| picture-picker subagent (photo search + visual check) |
+  |<#Plum>| Google Cloud TTS (generate_tts.py) |
 endlegend
 
 start
-:Parse arguments: input file path,\noptional --dry-run / --no-pictures flags;
-:Run scripts/parse_input.py on the file; <<#LightBlue>>
+:Parse arguments: input file path (default new_anki_words.md),\noptional --dry-run / --no-pictures flags;
+:parse_input.py <file>; <<#LightBlue>>
 if (exit code != 0?) then (yes)
   :Show reported line errors to user;
   stop
 endif
-:Read {source, line, word, sentence} entries\nfrom parse_input.py output\n(source = each section's # header, null for # NO_SOURCE);
+:Read {source, line, word, sentence} entries\n(source = section's # header, null for # NO_SOURCE;\nunmarked lines silently skipped);
+:list_source_tags.py — once per run, cached\n(live getTags, source:: prefix); <<#LightBlue>>
 
-while (more word/sentence pairs?) is (yes)
-  :Determine POS of the word as used in its sentence;
-  :Pick POS tag from assets/en-pos-anki-tags.md;
-  :Pick source tag from Anki (live getTags, source:: prefix\nvia list_source_tags.py)\n(loose match, ignoring a trailing year);
-  :Determine base form + a/an/to prefix\nfor the English field;
-  if (multi-word entry?) then (yes)
-    :Pick unit tag (idiom / phrase / collocation);
-  endif
-
-  :findNotes + notesInfo\n(broad wildcard search on the word); <<#LightYellow>>
-  :Run scripts/find_duplicate.py\n(word, POS tag, candidates); <<#LightBlue>>
-
-  if (duplicate count > 1?) then (yes)
-    :Record report-table row\n(Outcome: ambiguous match, skipped);
-  elseif (duplicate count == 1?) then (yes)
-    :Run scripts/build_example_html.py\n(existing field, word, sentence, source); <<#LightBlue>>
-    if (changed?) then (yes)
-      :updateNoteFields: Example-real-life; <<#LightYellow>>
-    else (no)
-      :Leave field untouched\n(sentence already present);
+while (more entries?) is (yes)
+  partition "2.1 Prepare" {
+    :Determine POS of the word as used in its sentence;
+    :Pick most specific POS tag(s)\nfrom shared/assets/en-pos-anki-tags.md;
+    :Pick source tag from cached list\n(loose match ignoring a trailing year;\nnone if source is null);
+    :Determine base form + a/an/to prefix\nfor the English field;
+    if (multi-word entry?) then (yes)
+      :Pick unit tag (idiom / phrase / collocation);
     endif
-    :Run scripts/note_status.py\n(which fields empty vs. absence-tagged); <<#LightBlue>>
-    :Backfill empty Claude-owned fields\nper references/backfill-routine.md;
-    if (Picture empty and not tagged absent?) then (yes)
-      :Run scripts/search_images.py\n(depictable query, ranked candidates); <<#LightBlue>>
-      :For top candidates: fetch_and_resize_image.py + view\nwith Read tool, pick best clear fit; <<#LightGreen>>
-      if (suitable image found?) then (yes)
-        :storeMediaFile: store chosen resized image\n(filename from slugify.py); <<#LightYellow>>
-        :Delete temp files;
+  }
+
+  :find_duplicate.py "<base form>" "<POS tag>"\n(direct mode: findNotes + notesInfo inside,\na/an/to + en::parts::* matching); <<#LightBlue>>
+
+  if (duplicates > 1?) then (yes)
+    :Record row: "Ambiguous match (N candidates) — skipped"\n(sentence stays in the input file);
+  else (0 or 1)
+    if (exactly 1 duplicate?) then (yes — 2.2 duplicate path)
+      :Step E: add missing a/an/to to English\n(mark English audio stale if non-empty);
+      :build_example_html.py\n(existing Example-real-life, surface word, sentence, source); <<#LightBlue>>
+      :Keep html only if changed\n(already_present -> leave field untouched);
+      :Reuse find_duplicate.py's note.status\nas the B1 worklist (no extra note_status.py);
+    else (no — 2.3 new note path)
+      :English = base form with prefix;
+      :build_example_html.py (existing: null)\nfor Example-real-life; <<#LightBlue>>
+      :note_status.py on the empty note\n(B1: every Claude field is empty); <<#LightBlue>>
+    endif
+
+    partition "Backfill routine (backfill-routine.md)" {
+      :B0: slugify.py <English> <pos> --all-media\n(photo/icon/mp3 filenames); <<#LightBlue>>
+      :B2: generate empty text fields per field-plan.md\n(Transcription, Definition, Russian, Synonym1/Synonyms,\nAntonym1/Antonyms; Examples1 via build_example_html.py);
+      if (Picture empty and not --no-pictures?) then (yes)
+        fork
+          :Spawn picture-picker in background\nonce Definition is known\n(search_images.py + thumbnails + Read check,\nreturns {path} or {path: null}); <<#LightGreen>>
+        fork again
+          :search_icons.py <bare headword>\n(retry once with a synonym if []); <<#LightBlue>>
+          if (icon found?) then (yes)
+            :search_icons.py --fetch <id> <tmp.svg>; <<#LightBlue>>
+          endif
+        end fork
+        :Picture = photo <img> and/or icon <img>;
       endif
-      :Run scripts/search_icons.py <word>\n(name-matching Iconify candidates); <<#LightBlue>>
-      if (icon found?) then (yes)
-        :search_icons.py --fetch: card-ready SVG,\nstoreMediaFile under the icon slug; <<#LightYellow>>
+      :B3: generate_tts.py --batch for all needed audio\n(audio_to_generate + paired audio of fields\nfilled in B2 or normalized in E); <<#Plum>>
+      :storeMediaFile for photo, icon and mp3s\nunder their slugs; delete temp files; <<#LightYellow>>
+      :B4: ~api::absent::* tags for empty Synonym1/Synonyms/\nAntonym1/Antonyms, and Picture if neither image found\n(no picture tag under --no-pictures);
+    }
+
+    if (duplicate path?) then (yes)
+      :Single updateNoteFields with every changed field\n(English, Example-real-life, backfilled fields); <<#LightYellow>>
+      if (note changed?) then (yes)
+        :addTags en::to-learn (+ absence tags); <<#LightYellow>>
       endif
-      :Set Picture to the photo's and/or icon's <img>\n(empty only if neither was found);
+      :Record row: "Duplicate — appended new sentence;\nbackfilled …" / "Duplicate — nothing to update";
+    else (new note)
+      :addNote to deck En::English, note type En-word-or-sentence\n(tags: POS, source, unit, absence, en::to-learn); <<#LightYellow>>
+      :Record row: "Created new note" (NID, or "(new)" in dry-run);
     endif
-    if (backfilled field still empty?) then (yes)
-      :Add matching ~api::absent::* tag;
-    endif
-    :updateNoteFields: backfilled fields (if any); <<#LightYellow>>
-    :Record report-table row\n(NID, Word, Base form, POS, Outcome);
-  else (no duplicates)
-    :Generate all field values\nper references/field-plan.md;
-    :Run scripts/build_example_html.py\n(existing: null) for Example-real-life; <<#LightBlue>>
-    :Run scripts/search_images.py\n(depictable query, ranked candidates); <<#LightBlue>>
-    :For top candidates: fetch_and_resize_image.py + view\nwith Read tool, pick best clear fit; <<#LightGreen>>
-    if (suitable image found?) then (yes)
-      :storeMediaFile: store chosen resized image\n(filename from slugify.py); <<#LightYellow>>
-      :Delete temp files;
-    endif
-    :Run scripts/search_icons.py <word>\n(name-matching Iconify candidates); <<#LightBlue>>
-    if (icon found?) then (yes)
-      :search_icons.py --fetch: card-ready SVG,\nstoreMediaFile under the icon slug; <<#LightYellow>>
-    endif
-    :Set Picture to the photo's and/or icon's <img>\n(empty only if neither was found);
-    :Add ~api::absent::* tags for any empty\nSynonym1/Synonyms/Antonym1/Antonyms/Picture;
-    :addNote to deck En::English; <<#LightYellow>>
-    note right: updateNoteFields / addNote calls, and the storeMediaFile store step,\nare skipped (report-only) in --dry-run mode; the image search, candidate\ndownload, Read-tool visual check, and icon search still run.\nIn --no-pictures mode the whole Picture flow (photo search, download,\nvisual check, icon search, store) is skipped even under --dry-run; Picture\nstays empty with no ~api::absent::picture tag and does not block completion\n(note_status.py is called with --no-pictures)
-    :Record report-table row\n(NID, Word, Base form, POS, Outcome);
   endif
 endwhile (no)
 
-:Print report table (one row per word);
-:Print summary line\n(N new notes, M duplicates updated, K skipped);
-:Remove cleanly-imported sentence lines from the input file\nvia parse_input.py --clear (remove_lines); all headers kept,\neven emptied ones; skipped sentences stay; <<#LightBlue>>
-note right: Live mode only. Skipped in --dry-run (file left untouched;\nthe report just counts sentences that would be cleared).
+:Print report table (one row per entry, input order);
+:Print summary line\n("N new notes, M duplicates updated, K skipped;\ncleared / would clear X imported sentence(s)");
+if (live mode?) then (yes)
+  :parse_input.py --clear <file>\nwith {"remove_lines": [...]} on stdin\n(all but ambiguous skips; every header kept); <<#LightBlue>>
+else (--dry-run)
+  :Leave the input file untouched\n(only count lines that would be cleared);
+endif
 stop
+
+note right
+  --dry-run: every Anki mutation (addNote, updateNoteFields,
+  addTags, storeMediaFile) and the input-file clearing are skipped
+  and reported instead; find_duplicate.py and the picture lookups
+  still run.
+  --no-pictures: the whole Picture flow (picker + icon) is skipped,
+  even in dry-run; note_status.py gets --no-pictures.
+end note
 @enduml

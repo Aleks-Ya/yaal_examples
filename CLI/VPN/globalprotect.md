@@ -2,7 +2,7 @@
 
 ## Commands
 Help: `man globalprotect`
-Connect: `globalprotect connect --portal vpn-eu-nix.epam.com`
+Connect: `globalprotect connect --portal vpn.epam.com`
 Disconnect: `globalprotect disconnect`
 Reconnect: `globalprotect rediscover-network`
 Status: `globalprotect show --status`
@@ -14,3 +14,4 @@ List gateways: `globalprotect show --gateway`
 Status: `systemctl status gpd`
 Stop: `sudo systemctl stop gpd`
 Disable: `sudo systemctl disable gpd`
+Show logs: `journalctl -u gpd`

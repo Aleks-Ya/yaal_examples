@@ -23,7 +23,7 @@ docs). Each skill lists which reference docs to load lazily and at which step.
 In dry-run mode, still perform all read-only work needed to report accurate results, but skip every
 note-mutating call. Instead of mutating, report for each item what *would* happen: the planned field
 values (per `field-plan.md`), tags, absence tags, target deck, and — where relevant — whether
-`en::to-refine` would be removed. Each skill names its own read-only lookups and the exact mutating
+`en::to-refine` would be removed and whether `en::to-learn` would be added. Each skill names its own read-only lookups and the exact mutating
 calls it skips.
 
 ## No-pictures mode (`--no-pictures`)
@@ -39,6 +39,17 @@ Note the skip in the row's Outcome (each skill gives its own example wording).
 Collect **all** field changes for a note into **one** `updateNoteFields` call (or the single
 `addNote` for a new note) — the backfill routine's single-write rule; run `storeMediaFile` per media
 file beforehand. Skip the write (and the `storeMediaFile`/other mutating calls) in dry-run mode.
+
+## To-learn tag (`en::to-learn`)
+Every note a run **adds or modifies** must end up carrying `en::to-learn`, so it lands in the
+user's learning queue:
+- **New note** — include `en::to-learn` in the `addNote` tags.
+- **Modified existing note** — any change this run (a field write via `updateNoteFields`, an
+  English article edit, a POS-tag change, or added absence tags) → one `addTags` call with
+  `en::to-learn` after the note's write (harmless if the tag is already there).
+- **Unchanged note** (nothing to update / nothing to fill / skipped / ambiguous match) — don't add it.
+
+Skip the call in dry-run mode, but report that the tag would be added.
 
 ## Output report
 Don't narrate results per item while processing. Instead, accumulate one row per processed item (in

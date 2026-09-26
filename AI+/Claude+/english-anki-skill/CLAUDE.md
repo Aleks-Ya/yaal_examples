@@ -20,6 +20,8 @@ skill's `SKILL.md` for its full step-by-step process:
   existing notes flagged for completion (tag `en::to-refine`) and backfills their empty
   Claude-owned fields (essentially the add skill's backfill routine, promoted to a standalone,
   tag-driven flow). Removes `en::to-refine` from a note once it is fully complete.
+- Both Anki skills tag every note they add or modify with `en::to-learn` (rule lives in
+  `shared/references/skill-conventions.md` "To-learn tag"); unchanged notes are left alone.
 - `.claude/skills/clean-movie-subtitles/` — **standalone** (no Anki, no MCP). Takes a path to a
   subtitle file (SRT or plain text) and writes a cleaned copy with a ` clean` suffix
   (`/tmp/Backrooms 2026.txt` -> `/tmp/Backrooms 2026 clean.txt`): strips timestamps/cue
@@ -39,9 +41,9 @@ library; the standalone subtitle skill owns its files under its own directory.
 ## Layout
 
 The two Anki skill directories hold only their own `SKILL.md`; everything they share lives under
-`shared/`. (The standalone `clean-movie-subtitles/` skill instead nests its own
-`scripts/strip_subtitles.py`, `tests/test_strip_subtitles.py`, and `assets/example.srt` — it shares
-nothing with `shared/`.)
+`shared/`, plus one subagent definition under `.claude/agents/`. (The standalone
+`clean-movie-subtitles/` skill instead nests its own `scripts/strip_subtitles.py`,
+`tests/test_strip_subtitles.py`, and `assets/example.srt` — it shares nothing with `shared/`.)
 
 - `.claude/skills/<skill>/SKILL.md` — the skill definition: flags (`--dry-run`, `--no-pictures`,
   the populate skill's `--limit`) and the step-by-step process. Both reference the `shared/…` files
@@ -57,9 +59,15 @@ nothing with `shared/`.)
   target note type/deck, `--dry-run`/`--no-pictures` semantics, single-write rule, output-report
   style); each `SKILL.md` links to it and keeps only its skill-specific deltas inline.
 - `shared/references/picture-procedure.md` — the single home for the Picture field, which holds up to
-  two images: an Openverse **photo** (found, visually verified, stored) and an Iconify **icon** (picked
-  by name, no visual check) — plus the full `--no-pictures` behavior. `field-plan.md`,
-  `backfill-routine.md`, and `skill-conventions.md` link here instead of restating it.
+  two images: an Openverse **photo** (found and visually verified by the `picture-picker` subagent,
+  stored by the skill) and an Iconify **icon** (picked by name, no visual check) — plus the full
+  `--no-pictures` behavior. `field-plan.md`, `backfill-routine.md`, and `skill-conventions.md` link here instead of restating it.
+- `.claude/agents/picture-picker.md` — the `picture-picker` subagent (Sonnet, `Bash`+`Read` only, no
+  Anki access): given word/POS/Definition/sentence/output path it runs `search_images.py` + the
+  `fetch_and_resize_image.py` thumbnail batch, views the thumbnails, and downloads the winner to
+  600px, replying with one JSON line (`{path, url, query}` or `{path: null, reason}`). Spawned in the
+  background by both Anki skills per `picture-procedure.md`, so the viewed thumbnails stay out of the
+  main context; the skill itself does the `storeMediaFile`.
 - `shared/references/audio-procedure.md` — the single home for the four audio fields: which one is
   (re)generated when (incl. the stale-audio case), the `generate_tts.py` voice preset, the one
   batched TTS call per note, and the `storeMediaFile`/`[sound:…]` steps. `field-plan.md`'s audio
@@ -105,9 +113,9 @@ nothing with `shared/`.)
   on stdin, JSON out on stdout. Used by both skills (Example-real-life / Examples1-generated).
 - `shared/scripts/search_images.py` — searches the keyless Openverse image API for Picture-field
   candidates, returning a ranked JSON array of `{url, thumbnail, title, tags, source, license}` so the
-  skill can rank by title/tags and then visually verify each before storing; CLI args in
+  `picture-picker` subagent can rank by title/tags and then visually verify each; CLI args in
   (`<query> [--limit N]`), JSON out on stdout. Endpoint overridable via `OPENVERSE_API_BASE` (for tests).
-  Used by both skills; stdlib-only, no `requirements.txt` entry.
+  Used by the `picture-picker` subagent; stdlib-only, no `requirements.txt` entry.
 - `shared/scripts/search_icons.py` — the icon half of the Picture field: searches the keyless Iconify
   API and keeps only candidates whose icon *name* is the query (or a style variant of it), so the pick
   is safe without a visual check. Search mode (`<query> [--limit N]`) returns a ranked JSON array of
@@ -118,10 +126,11 @@ nothing with `shared/`.)
 - `shared/scripts/fetch_and_resize_image.py` — downloads a Picture candidate's image and shrinks
   it to fit within 600px on its longest side (never upscales). Single-URL mode
   (`<url> <output_path> [max_dimension]`, JSON out) fetches the chosen winner's full-res image for
-  `storeMediaFile`; `--batch` mode reads a JSON array of `{url, path, max_dimension?}` on stdin and
-  downloads them **concurrently** (used to pull the top candidates' thumbnails in one call for the
-  Read-tool visual check), returning a JSON array with a per-item `error` on failure. Used by both
-  skills. The only script with an external dependency (Pillow — see `requirements.txt`).
+  the skill's `storeMediaFile`; `--batch` mode reads a JSON array of `{url, path, max_dimension?}` on
+  stdin and downloads them **concurrently** (used to pull the top candidates' thumbnails in one call for the
+  Read-tool visual check), returning a JSON array with a per-item `error` on failure. Used by the
+  `picture-picker` subagent. The only script with an external dependency (Pillow — see
+  `requirements.txt`).
 - `shared/scripts/generate_tts.py` — synthesizes the mp3 for the audio fields (English / Definition /
   Synonym1 / Antonym1) via Google Cloud Text-to-Speech, used before `storeMediaFile`. Single-text mode
   takes CLI args (`<text> <output_path.mp3>` + optional voice/rate/pitch flags); `--batch` mode reads a

@@ -33,12 +33,12 @@ If the arguments include `--dry-run`, run in **dry-run mode**; otherwise run in 
 `--dry-run` and `--no-pictures` follow the shared semantics in skill-conventions.md. Skill-specific
 details:
 - In dry-run mode the read-only lookups still performed are `findNotes`, `notesInfo`,
-  `modelFieldNames`, `listDecks` and the `search_images.py` lookup plus candidate download/visual
-  check and the `search_icons.py` lookup for Picture (unless `--no-pictures` is also given); the
+  `modelFieldNames`, `listDecks` and the `picture-picker` subagent (photo search + visual check)
+  and the `search_icons.py` lookup for Picture (unless `--no-pictures` is also given); the
   note-mutating calls skipped are
   `updateNoteFields`, `addTags`, `removeTags`, `storeMediaFile`. What to report per note: which
-  fields *would* be backfilled (with their planned values), which absence tags *would* be added, and
-  whether `en::to-refine` *would* be removed.
+  fields *would* be backfilled (with their planned values), which absence tags *would* be added,
+  whether `en::to-refine` *would* be removed, and whether `en::to-learn` *would* be added.
 - Under `--no-pictures`, the step 2.3 completeness verdict's `note_status.py` call also takes the
   flag, so an otherwise-complete note still has `en::to-refine` removed even though its Picture stays
   empty. Note the skip in the row's Outcome, e.g. "Backfilled Definition; Picture skipped".
@@ -119,6 +119,9 @@ Example:
        `removeTags` (skip the call in dry-run mode and report it as "kept (dry-run)"); otherwise
        keep the tag so the note stays in the queue. Use `incomplete_reasons` to explain a "kept
        (still incomplete)" row.
-    4. Record a report-table row for this note (see `## Output report`).
+    4. If the note changed in any way this run (fields filled, English article edit, POS-tag
+       change, or absence tags added), add the `en::to-learn` tag with one `addTags` call (see
+       skill-conventions.md "To-learn tag"; skip in dry-run mode). Don't add it to an unchanged note.
+    5. Record a report-table row for this note (see `## Output report`).
 3. Once every note has been processed, print the report table (one row per note) followed by the
    aggregate summary line.

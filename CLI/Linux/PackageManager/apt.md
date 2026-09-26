@@ -14,6 +14,7 @@ Delete a key: `sudo apt-key del EE2C95AB58DC2B0138D16B4FEFC4571D7C90E5AF`
 Install downloaded DEB: `sudo apt install -y ./docker-desktop.deb`
 Re-install a package: `sudo apt reinstall copyq`
 Delete an installed package with all its files: `sudo apt purge copyq`
+Install phasing packages: `sudo apt -o APT::Get::Always-Include-Phased-Updates=true upgrade`
 
 ## Errors
 ### Install packages kept back

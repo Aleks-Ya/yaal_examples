@@ -6,8 +6,6 @@ dependencies = [
     "yaal-helpers",
     "torch",
     "tensorflow",
-    "transformers",
-    "sentence-transformers",
     "datasets",
     "huggingface-hub",
     "openai",
@@ -15,11 +13,10 @@ dependencies = [
     "anthropic",
     "claude-agent-sdk",
     "mcp[cli]",
+    "fastmcp",
     "google-genai",
-    "voyageai",
     "tiktoken",
     "lmstudio",
-    "gradio",
     "ultralytics",
     "scikit-learn",
     "kagglehub[pandas-datasets]",
@@ -28,7 +25,6 @@ dependencies = [
     "pydantic",
     "tabulate",
     "directory-tree",
-#    "pycuda",
 ]
 
 [dependency-groups]

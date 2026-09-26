@@ -12,7 +12,7 @@ echo
 
 echo "Updating APT..."
 sudo apt update
-sudo apt upgrade -y
+sudo apt -o APT::Get::Always-Include-Phased-Updates=true upgrade -y
 sudo apt autoremove -y --purge
 sudo apt clean
 echo

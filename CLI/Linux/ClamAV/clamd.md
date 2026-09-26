@@ -33,7 +33,7 @@ Thu May 30 06:07:16 2024 -> !LOCAL: Could not create socket directory: /var/run/
 Thu May 30 06:07:16 2024 -> !LOCAL: Socket file /var/run/clamav/clamd.ctl could not be bound: No such file or directory
 ```
 Fix:
-```
+```shell
 sudo mkdir -p /var/run/clamav
 sudo chown clamav:clamav /var/run/clamav
 ```

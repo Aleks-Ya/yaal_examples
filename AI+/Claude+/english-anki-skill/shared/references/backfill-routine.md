@@ -89,7 +89,8 @@ For each field in `empty_claude_fields`, generate its value per `shared/referenc
 (don't write yet — values go into the single final write). Field-specific notes:
 
 - **Picture** — follow `shared/references/picture-procedure.md`: it fills the field with up to two
-  images, an Openverse photo and an Iconify icon, each `storeMediaFile`d under its own slug from
+  images, an Openverse photo (picked by the background `picture-picker` subagent — spawn it as soon
+  as `Definition` is known, so it runs while you fill the other fields) and an Iconify icon, each `storeMediaFile`d under its own slug from
   step B0 (`picture` / `icon`) and appended to the field value as `<img src="filename">`. Only when
   neither is found does the field stay empty and get `~api::absent::picture` (step B4).
 - **Examples1-generated** — generate up to 10 sentences and build the `<ul><li>…</li></ul>` list

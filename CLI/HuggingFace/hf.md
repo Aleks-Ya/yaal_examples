@@ -21,6 +21,7 @@ Delete a branch in repo: `hf repo branch delete --type=dataset Ya-Alex/anki-addo
 ### Auth
 Login: `hf auth login`
 Who am I: `hf auth whoami`
+Logout: `hf auth logout`
 
 ### Repo files
 Delete all files before upload: `hf repos delete-files --type=dataset Ya-Alex/anki-addons '*'`
