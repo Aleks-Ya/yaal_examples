@@ -42,10 +42,33 @@ class DfToDsTest extends AnyFlatSpec with SparkMatchers {
     )
   }
 
+  it should "ignore extra columns in source DataFrame" in {
+    val df: DataFrame = Factory.createDf("name STRING,age INT,company STRING",
+      Row("John", 30, "company1"),
+      Row("Mary", 25, "company2"))
+    implicit val encoder: Encoder[Person] = Encoders.product[Person]
+    val ds: Dataset[Person] = df.as[Person]
+    ds shouldHaveDDL "name STRING,age INT,company STRING"
+    ds shouldContain(Person("John", 30), Person("Mary", 25))
+  }
+
+  it should "fail on missing columns in source DataFrame" in {
+    val df: DataFrame = Factory.createDf("name STRING",
+      Row("John"),
+      Row("Mary"))
+    implicit val encoder: Encoder[Person] = Encoders.product[Person]
+    val thrown = the[AnalysisException] thrownBy df.as[Person]
+    thrown.getMessage should include("[UNRESOLVED_COLUMN.WITH_SUGGESTION]")
+    thrown.getMessage should include("A column or function parameter with name `age` cannot be resolved.")
+    thrown.getMessage should include("Did you mean one of the following? [`name`].")
+  }
+
 }
 
 /* Can't be an inner class*/
 private case class City1(city: String)
+
+private case class Person(name: String, age: Int)
 
 private case class AllDataTypes(string: String, integer: Int)
 
