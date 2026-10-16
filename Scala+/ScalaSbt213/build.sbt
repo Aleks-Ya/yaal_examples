@@ -1,7 +1,7 @@
 import Dependencies.*
 
-val jdk11Home = file("/home/aleks/.sdkman/candidates/java/11.0.31-zulu")
-val jdk25Home = file("/home/aleks/.sdkman/candidates/java/25.0.3-zulu")
+val jdk11Home = file("/home/aleks/.sdkman/candidates/java/11.0.32+1.1-zulu")
+val jdk25Home = file("/home/aleks/.sdkman/candidates/java/25.0.4+1.1-zulu")
 
 ThisBuild / organization := "ru.yaal.examples.scala"
 ThisBuild / version := "1"

@@ -19,7 +19,7 @@ class ParquetSchemaEvolutionTest extends AnyFlatSpec with SparkMatchers {
 
     val schema: StructType = Encoders.product[Person].schema
     val actDs: Dataset[Person] = ss.read.schema(schema).parquet(parquetFile.toString).as[Person]
-    val actSeq: Array[Person] = actDs.collect
+    val actSeq: Array[Person] = actDs.collect()
     actSeq should contain allElementsOf expSeq
   }
 

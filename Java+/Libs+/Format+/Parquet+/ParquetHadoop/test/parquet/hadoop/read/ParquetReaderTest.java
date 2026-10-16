@@ -15,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Read a Parquet file with {@link ParquetReader}.
  */
 class ParquetReaderTest {
+
     @Test
     void read() throws IOException {
         var conf = new Configuration();
@@ -27,4 +28,5 @@ class ParquetReaderTest {
             assertThat(group.getString(field, 0)).isEqualTo(value);
         }
     }
+
 }

@@ -1,0 +1,19 @@
+[project]
+name = "phone-sync"
+version = "0.1.0"
+description = "Sync the movie library from the drive to the phone over MTP"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+sync-phone = "phone_sync.cli:run_cli"
+
+[build-system]
+requires = ["uv_build>=0.8,<0.14"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

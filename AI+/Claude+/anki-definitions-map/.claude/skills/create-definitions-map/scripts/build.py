@@ -2,9 +2,9 @@
 
 Usage (paths are relative to the project root, wherever the script is run from):
     python3 build.py plan  "<user query>"
-        Prints the two Anki queries to search with (definitions and synonyms; abbreviations) and the slug.
+        Prints the three Anki queries to search with (definitions and synonyms; abbreviations; other notes) and the slug.
     python3 build.py build "<user query>" NOTES_JSON [NOTES_JSON ...]
-        NOTES_JSON files are anki-mcp `notesInfo` results ({"notes": [...]}) for both queries, one per batch of up to 100 IDs.
+        NOTES_JSON files are anki-mcp `notesInfo` results ({"notes": [...]}) for all queries, one per batch of up to 100 IDs.
         Writes out/<slug>/definitions.md, diagram.mmd and map.html.
 
 out/<slug>/relations.json holds the judgement calls made per query and is kept between runs:
@@ -21,6 +21,8 @@ Notes tagged `synonym` (cloze answers are the names, e.g. {{c1::A}} is a synonym
 relations.json: their names become aliases of the defined term, and two defined synonyms get a `synonym` link.
 Notes tagged `abbreviation` ("Decipher <abbr>CA</abbr>" → "Certification Authority", found by the separate abbreviation
 query) work like a synonym pair, but are shown as "abbreviated CA" / "stands for …".
+Other notes (found by the other query) only add terms: each <dfn> in their Question, Answer or Text field joins the defined
+term of that name, or becomes a term without a note; the note's question is listed as a mention of the term.
 
 Exit codes: 0 built; 2 relations file incomplete (prints what to add; on the first run creates out/<slug>/ with a starter
 relations.json, otherwise writes nothing);
@@ -49,6 +51,19 @@ def full_query(query):
 
 def abbreviation_query(query):
     return f'({query}) tag:abbreviation'
+
+
+def other_query(query):
+    return f'({query}) -((tag:definition OR tag:synonym) note:*cloze*) dfn'
+
+
+def has_tag(n, *names):
+    return any(t.lower() == x or t.lower().startswith(x + '::') for t in n.get('tags', []) for x in names)
+
+
+def strip_cloze(s):
+    """"{{c1::answer::hint}}" → "answer"."""
+    return re.sub(r'\{\{c\d+::(.*?)(?:::[^}]*)?\}\}', r'\1', s)
 
 
 def slug(query):
@@ -94,7 +109,8 @@ def main():
     out_dir = os.path.join(ROOT, 'out', name)
     rel_path = os.path.join(out_dir, 'relations.json')
     if mode == 'plan':
-        print(json.dumps({'full_query': full_query(query), 'abbreviation_query': abbreviation_query(query), 'slug': name,
+        print(json.dumps({'full_query': full_query(query), 'abbreviation_query': abbreviation_query(query),
+                          'other_query': other_query(query), 'slug': name,
                           'relations_file': os.path.relpath(rel_path, ROOT), 'out_dir': os.path.relpath(out_dir, ROOT)}, indent=2))
         return 0
 
@@ -115,8 +131,9 @@ def main():
     for path in sys.argv[3:]:
         for n in json.load(open(path))['notes']:
             notes[n['noteId']] = n
-    entries, skipped, groups, abbr_notes = [], [], [], []
+    entries, skipped, groups, abbr_notes, mentions = [], [], [], [], []
     for nid_, n in notes.items():
+        is_def = 'cloze' in n.get('modelName', '').lower() and has_tag(n, 'definition', 'synonym')
         if 'abbreviation' in n.get('tags', []) and n.get('modelName') != NOTE_TYPE:
             # "Decipher <abbr>SAN</abbr> (2)" → "Subject Alternative Name", or a list of meanings / "DDL = Data ..." items
             f = n.get('fields', {})
@@ -145,6 +162,16 @@ def main():
                 abbr_notes += found
             else:
                 skipped.append({'noteId': nid_, 'reason': 'abbreviation note without an expansion'})
+            continue
+        if not is_def:
+            # Other notes only add terms: "What's the default <dfn>file format</dfn> of a Java <dfn>keystore</dfn>?"
+            f = {k: strip_cloze(v.get('value', '')) for k, v in n.get('fields', {}).items()}
+            found = [plain(x) for k in ('Question', 'Answer', 'Text') for x in re.findall(r'<dfn>(.*?)</dfn>', f.get(k, ''), re.S)]
+            context = plain(f.get('Question') or f.get('Text') or '')
+            if any(found):
+                mentions += [(x, context) for x in dedupe(found)]
+            else:
+                skipped.append({'noteId': nid_, 'reason': 'other note without <dfn> in Question, Answer or Text'})
             continue
         if n.get('modelName') != NOTE_TYPE:
             skipped.append({'noteId': nid_, 'reason': f"note type {n.get('modelName')}"})
@@ -242,22 +269,35 @@ def main():
         syn_edges += [(a, b) for i, a in enumerate(defined) for b in defined[i + 1:]]
 
     missing, edges, missing_aliases = {}, [], {}
+
+    def resolve(link):
+        """The defined term a name refers to, or the term without a note it creates."""
+        k = link.lower()
+        target = index.get(k) or index.get(singular(k))
+        if not target:
+            gi = loose_index.get(k, loose_index.get(singular(k)))
+            label = sentence_case(singular(link))
+            if gi is not None:  # a term without a note that has synonyms: one node, the rest are aliases
+                label = missing_aliases.setdefault(gi, label)
+            target = missing.setdefault(label.lower(), label)
+        return target
+
     for e in entries:
         for tag, link in e['links']:
-            k = link.lower()
-            target = index.get(k) or index.get(singular(k))
+            target = index.get(link.lower()) or index.get(singular(link.lower()))
             if tag == 'abbr':
                 target = target or initials.get(link)
                 if not target:
                     continue  # an <abbr> without a note of its own is not a link
-            if not target:
-                gi = loose_index.get(k, loose_index.get(singular(k)))
-                label = sentence_case(singular(link))
-                if gi is not None:  # a term without a note that has synonyms: one node, the rest are aliases
-                    label = missing_aliases.setdefault(gi, label)
-                target = missing.setdefault(label.lower(), label)
+            target = target or resolve(link)
             if target != e['term'] and (e['term'], target) not in edges:
                 edges.append((e['term'], target))
+    linked_missing = set(missing)
+    mentioned_in = {}
+    for link, context in mentions:
+        mentioned_in.setdefault(resolve(link), [])
+        if context and context not in mentioned_in[resolve(link)]:
+            mentioned_in[resolve(link)].append(context)
     for gi, label in missing_aliases.items():
         missing_aliases[gi] = (label, [x for x in loose[gi] if x.lower() != label.lower()])
     aliases_of = {e['term']: e['aliases'] for e in entries} | {label: al for label, al in missing_aliases.values()}
@@ -312,8 +352,9 @@ def main():
     def mlabel(s):
         return s.replace('#', '#35;').replace('"', '#quot;')
 
-    fq, aq = full_query(query), abbreviation_query(query)
-    lines = ['---', 'config:', '  class:', '    hideEmptyMembersBox: true', '---', 'classDiagram', f'    %% {fq}', f'    %% {aq}']
+    fq, aq, oq = full_query(query), abbreviation_query(query), other_query(query)
+    lines = ['---', 'config:', '  class:', '    hideEmptyMembersBox: true', '---', 'classDiagram',
+             f'    %% {fq}', f'    %% {aq}', f'    %% {oq}']
     lines += [f'    class {nid(t)}["{mlabel(t)}"]' for t in [e['term'] for e in entries] + missing_names]
     lines += ['    ' + arrows[k](a, b) + (f' : {lbl}' if lbl else '') for a, k, b, lbl in relations]
     lines += [f'    {nid(a)} -- {nid(b)} : synonym' for a, b in syn_edges]
@@ -338,20 +379,23 @@ def main():
         short = [x for x in g if x.lower() in expands] or g[:1]
         return f"{' / '.join(short)}: {'; '.join(x for x in g if x not in short)}"
 
-    md = [fq, aq, '', f"# {rels['title']}", '']
+    md = [fq, aq, oq, '', f"# {rels['title']}", '']
     md += [f"- **{e['term']}**{' (' + e['qual'] + ')' if e['qual'] else ''}{also(e['term'])} is {e['body']}." for e in entries]
     md += ['', '## Terms without a note', ''] + [f'- {t}{also(t)}' for t in missing_names]
     if unattached:
         md += ['', '## Synonyms without a definition', ''] + [f"- {' = '.join(g)}" for g in unattached]
     if unattached_abbrs:
         md += ['', '## Abbreviations without a definition', ''] + [f'- {abbr_line(g)}' for g in unattached_abbrs]
+    if mentioned_in:
+        md += ['', '## Mentioned in other notes', ''] + [f"- **{t}**: {'; '.join(c)}" for t, c in
+                                                         sorted(mentioned_in.items(), key=lambda x: x[0].lower())]
     md += ['']
 
     # map.html
     esc = html.escape
     def names(t):
         stands, abbr, other = name_parts(t)
-        return dict(stands=stands, abbr=abbr, aliases=other)
+        return dict(stands=stands, abbr=abbr, aliases=other, mentions=mentioned_in.get(t, []))
     data = dict(
         query=fq,
         cats=[c['name'] for c in rels['categories']],
@@ -382,6 +426,7 @@ def main():
         open(os.path.join(out_dir, fname), 'w').write(content)
     print(json.dumps({
         'definitions': len(entries), 'links': len(relations), 'missing': missing_names,
+        'mentioned_only': [t for t in missing_names if t.lower() not in linked_missing],
         'synonyms_attached': {t: al for t, al in aliases_of.items() if al}, 'synonym_links': [list(x) for x in syn_edges],
         'unattached_synonyms': unattached,
         'abbreviations_attached': {t: name_parts(t)[0] + name_parts(t)[1] for t in aliases_of if name_parts(t)[0] + name_parts(t)[1]},

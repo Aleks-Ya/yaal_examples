@@ -41,8 +41,9 @@ alias update_postman_git='~/pr/home/yaal_examples/CLI/Other/Postman/deploy_postm
 alias adata_mount='sudo mount -o uid=$(id -u),gid=$(id -g),umask=022 /dev/sda1 /media/aleks/ADATA'
 alias adata_unmount='sudo umount /media/aleks/ADATA'
 
-alias citrix_distrobox='distrobox enter ubuntu2204'
+alias citrix_start_distrobox='distrobox enter ubuntu2204'
 alias citrix_workspace='LIBGL_ALWAYS_SOFTWARE=1 /opt/Citrix/ICAClient/selfservice --icaroot /opt/Citrix/ICAClient'
+alias citrix_stop_distrobox='distrobox stop -Y ubuntu2204; distrobox ls'
 
 # GlobalProtect Georgia
 alias gpc='globalprotect connect -u aleksei_iablokov@epam.com --portal vpn.epam.com'

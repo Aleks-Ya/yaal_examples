@@ -304,14 +304,14 @@ function renderPanel() {
     const top = [...nodes].sort((a, b) => indeg.get(b.id) - indeg.get(a.id)).slice(0, 5);
     const p = el('p', null, 'Most referenced: ');
     top.forEach((n, i) => p.append(termButton(n.id), ` (${indeg.get(n.id)})`, i < top.length - 1 ? ', ' : '.'));
-    panel.append(p, el('p', 'rel', 'Dashed terms appear inside definitions but have no note of their own yet.'));
+    panel.append(p, el('p', 'rel', 'Dashed terms appear inside definitions or other notes but have no definition note of their own yet.'));
     return;
   }
   const n = byId.get(selected);
   const chip = el('span', 'chip', DATA.cats[n.cat]);
   chip.style.setProperty('--c', `var(--c-${n.cat})`);
   panel.append(el('div', 'eyebrow', n.missing ? 'No note yet' : 'Definition'), el('h3', null, n.id), chip);
-  if (n.missing) panel.append(el('p', 'rel', 'This term is used in definitions but has no note of its own.'));
+  if (n.missing) panel.append(el('p', 'rel', 'This term is used in definitions or other notes but has no definition note of its own.'));
   else panel.append(el('p', null, `${n.id}${n.qual ? ` (${n.qual})` : ''} is ${n.body}.`));
   if (n.stands && n.stands.length) panel.append(el('p', 'rel', 'Stands for: ' + n.stands.join('; ')));
   if (n.abbr && n.abbr.length) panel.append(el('p', 'rel', 'Abbreviation: ' + n.abbr.join(', ')));
@@ -328,6 +328,11 @@ function renderPanel() {
     panel.append(el('div', 'eyebrow', 'Used by'), ul);
   }
   if (!outs.length && !ins.length) panel.append(el('p', 'rel', 'No links to other terms.'));
+  if (n.mentions && n.mentions.length) {
+    const ul = el('ul');
+    n.mentions.forEach(m => ul.append(el('li', 'rel', m)));
+    panel.append(el('div', 'eyebrow', 'Mentioned in'), ul);
+  }
 }
 
 find.addEventListener('input', () => { query = find.value; selected = null; update(); });

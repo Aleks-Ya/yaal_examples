@@ -14,3 +14,12 @@ case class PersonProduct(
 case class ContactsProduct(city: String, phone: String)
 
 case class UnsupportedProduct(zonedDateTime: ZonedDateTime)
+
+case class EncoderToSchema(name: String,
+                           title: Option[String],
+                           age: Int,
+                           year: Integer,
+                           time: Long,
+                           duration: java.lang.Long,
+                           male: Boolean,
+                           female: java.lang.Boolean)

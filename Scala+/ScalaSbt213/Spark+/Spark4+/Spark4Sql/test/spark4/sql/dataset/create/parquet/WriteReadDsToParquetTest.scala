@@ -22,7 +22,7 @@ class WriteReadDsToParquetTest extends AnyFlatSpec with SparkMatchers {
 
     val schema: StructType = Encoders.product[Person2].schema
     val actDs: Dataset[Person2] = ss.read.schema(schema).parquet(parquetFile.toString).as[Person2]
-    val actSeq = actDs.collect
+    val actSeq = actDs.collect()
     actSeq should contain allElementsOf expSeq
 
     Files.list(parquetFile).filter(_.getFileName.toString.endsWith(".parquet")).count shouldEqual 1
@@ -38,7 +38,7 @@ class WriteReadDsToParquetTest extends AnyFlatSpec with SparkMatchers {
 
     val schema: StructType = Encoders.product[Person2].schema
     val actDs: Dataset[Person2] = ss.read.schema(schema).parquet(parquetFile.toString).as[Person2]
-    val actSeq = actDs.collect
+    val actSeq = actDs.collect()
     actSeq should contain allElementsOf expSeq
 
     Files.list(parquetFile).filter(_.getFileName.toString.endsWith(".parquet")).count shouldEqual partitionsNum
@@ -53,7 +53,7 @@ class WriteReadDsToParquetTest extends AnyFlatSpec with SparkMatchers {
 
     val schema: StructType = Encoders.product[Person2].schema
     val actDs: Dataset[Person2] = ss.read.schema(schema).parquet(parquetFile.toString).as[Person2]
-    val actSeq = actDs.collect
+    val actSeq = actDs.collect()
     actSeq should contain allElementsOf expSeq
 
     Files.list(parquetFile).map(_.getFileName.toString).toScala(Seq) should contain allOf(
@@ -65,4 +65,3 @@ class WriteReadDsToParquetTest extends AnyFlatSpec with SparkMatchers {
   }
 
 }
-

@@ -1,0 +1,12 @@
+/.claude/settings.local.json
+# safety net: never track media, even if placed elsewhere
+*.mp4
+*.mkv
+*.avi
+*.srt
+*.torrent
+.ts/
+# Python
+.venv/
+__pycache__/
+.pytest_cache/

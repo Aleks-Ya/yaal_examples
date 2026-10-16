@@ -1,5 +1,6 @@
 package spark4.sql.dataset.encoder
 
+import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.{Dataset, Encoder, Encoders}
 import org.scalatest.flatspec.AnyFlatSpec
 import spark4.sql.{Factory, SparkMatchers}
@@ -29,6 +30,13 @@ class ProductEncoderTest extends AnyFlatSpec with SparkMatchers {
     implicit val encoder: Encoder[PersonProduct] = Encoders.product[PersonProduct]
     val ds: Dataset[PersonProduct] = ss.createDataset(Seq(personJohn, personMary))
     ds shouldContain(personJohn, personMary)
+  }
+
+  it should "get schema from Product encoder" in {
+    val encoder: Encoder[EncoderToSchema] = Encoders.product[EncoderToSchema]
+    val schema: StructType = encoder.schema
+    schema.toDDL shouldEqual "name STRING,title STRING,age INT NOT NULL,year INT," +
+      "time BIGINT NOT NULL,duration BIGINT,male BOOLEAN NOT NULL,female BOOLEAN"
   }
 
   ignore should "use Product encoder with unsupported classes" in {

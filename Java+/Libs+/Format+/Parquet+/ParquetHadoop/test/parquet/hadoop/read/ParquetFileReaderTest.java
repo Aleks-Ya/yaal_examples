@@ -2,6 +2,7 @@ package parquet.hadoop.read;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.parquet.ParquetReadOptions;
 import org.apache.parquet.column.ColumnReadStore;
 import org.apache.parquet.column.ColumnReader;
 import org.apache.parquet.column.impl.ColumnReadStoreImpl;
@@ -9,6 +10,7 @@ import org.apache.parquet.column.page.PageReadStore;
 import org.apache.parquet.example.data.simple.convert.GroupRecordConverter;
 import org.apache.parquet.hadoop.ParquetFileReader;
 import org.apache.parquet.hadoop.util.HadoopInputFile;
+import org.apache.parquet.schema.MessageType;
 import org.apache.parquet.schema.PrimitiveType;
 import org.junit.jupiter.api.Test;
 import parquet.hadoop.Helper;
@@ -20,17 +22,33 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
- * Read a Parquet file with method {@link ParquetFileReader#open}.
+ * Read a Parquet file with {@link ParquetFileReader}.
  */
-class ParquetFileReaderOpenTest {
+class ParquetFileReaderTest {
 
     @Test
-    void read() throws IOException {
+    void open() throws IOException {
         var conf = new Configuration();
         var field = "mystring";
         var value = "the string";
         var path = Helper.writeParquetFile(conf, field, value);
         readParquetFile(conf, path, field, value);
+    }
+
+    @Test
+    void schema() throws IOException {
+        var conf = new Configuration();
+        var path = Helper.writeParquetFile(conf, "mystring", "the string");
+        var schema = readSchema(conf, path);
+        assertThat(schema).hasToString("message myrecord {\n  required binary mystring (STRING);\n}\n");
+    }
+
+    private static MessageType readSchema(Configuration conf, Path path) throws IOException {
+        var inputFile = HadoopInputFile.fromPath(path, conf);
+        var seekableInputStream = inputFile.newStream();
+        var readOptions = ParquetReadOptions.builder().build();
+        var parquetMetadata = ParquetFileReader.readFooter(inputFile, readOptions, seekableInputStream);
+        return parquetMetadata.getFileMetaData().getSchema();
     }
 
     private static void readParquetFile(Configuration conf, Path path, String myStringField, String expString) throws IOException {
